@@ -269,7 +269,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 			}
 			}
 			const Symbol *pSymbol = (pTagInfo == nullptr)?
-					Gura_Symbol(Str_Empty) : Symbol::Add(pTagInfo->name);
+								Symbol::Empty : Symbol::Add(pTagInfo->name);
 			pObjIFD->GetTagOwner().push_back(new Object_tag(tagId, type, pSymbol, value, valueCooked));
 		}
 	}

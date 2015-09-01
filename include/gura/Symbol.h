@@ -55,6 +55,7 @@ public:
 		}
 	};
 public:
+	typedef std::set<const Symbol *, KeyCompare_UniqNumber> Set;
 	typedef std::map<ULong, const Symbol *> MapFromFlag;
 	typedef std::map<const Symbol *, ULong, KeyCompare_UniqNumber> MapToFlag;
 	typedef std::map<OccurPattern, const Symbol *> MapFromOccurPattern;
@@ -64,7 +65,10 @@ public:
 private:
 	UniqNumber _uniqNum;
 	char *_name;
+public:
+	static const Symbol *Empty;
 private:
+	static Set _setOfFlowControlSymbol;
 	static MapFromFlag _mapFromFlag;
 	static MapToFlag _mapToFlag;
 	static MapFromOccurPattern _mapFromOccurPattern;
@@ -99,6 +103,9 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE SymbolList : public std::vector<const Symbol *> {
 public:
+	static const SymbolList Empty;
+public:
+	inline SymbolList() {}
 	String Join(const char *sep) const;
 	String Join(const char sepChar) const;
 	static String Join(SymbolList::const_iterator ppSymbol,
@@ -165,7 +172,6 @@ public:
 	Gura_DeclareSymbol(Char_Sub);
 	Gura_DeclareSymbol(Char_Inv);
 	Gura_DeclareSymbol(Char_Not);
-	Gura_DeclareSymbol(Str_Empty);
 	Gura_DeclareSymbol(__arg__);
 	Gura_DeclareSymbol(__del__);
 	Gura_DeclareSymbol(__doc__);

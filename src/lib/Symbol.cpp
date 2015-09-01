@@ -6,15 +6,10 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// static variables
-//-----------------------------------------------------------------------------
-SymbolPool *SymbolPool::_pInst = nullptr;
-
-const SymbolSet SymbolSet::Empty;
-
-//-----------------------------------------------------------------------------
 // Symbol
 //-----------------------------------------------------------------------------
+const Symbol *Symbol::Empty = nullptr;
+Symbol::Set Symbol::_setOfFlowControlSymbol;
 Symbol::MapFromFlag Symbol::_mapFromFlag;
 Symbol::MapToFlag Symbol::_mapToFlag;
 Symbol::MapFromOccurPattern Symbol::_mapFromOccurPattern;
@@ -40,6 +35,9 @@ const Symbol *Symbol::Add(const char *name)
 
 bool Symbol::IsFlowControlSymbol() const
 {
+	Set::const_iterator iter = _setOfFlowControlSymbol.find(this);
+	return iter != _setOfFlowControlSymbol.end();
+#if 0
 	return 
 		IsIdentical(Gura_Symbol(if_)) ||
 		IsIdentical(Gura_Symbol(elsif)) ||
@@ -47,11 +45,28 @@ bool Symbol::IsFlowControlSymbol() const
 		IsIdentical(Gura_Symbol(while_)) ||
 		IsIdentical(Gura_Symbol(for_)) ||
 		IsIdentical(Gura_Symbol(cross));
+#endif
 }
 
 void Symbol::Initialize()
 {
 	SymbolPool::Initialize();
+	Empty = Add("");
+	do {
+		struct {
+			const Symbol *pSymbol;
+		} tbl[] = {
+			{ Gura_Symbol(if_)		},
+			{ Gura_Symbol(elsif)	},
+			{ Gura_Symbol(repeat)	},
+			{ Gura_Symbol(while_)	},
+			{ Gura_Symbol(for_)		},
+			{ Gura_Symbol(cross)	},
+		};
+		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
+			_setOfFlowControlSymbol.insert(tbl[i].pSymbol);
+		}
+	} while (0);
 	do {
 		struct {
 			const Symbol *pSymbol;
@@ -122,45 +137,61 @@ void Symbol::Initialize()
 
 const Symbol *Symbol::FromFlag(ULong flag)
 {
-	return Gura_Symbol(Str_Empty);
+	MapFromFlag::const_iterator iter = _mapFromFlag.find(flag);
+	return (iter == _mapFromFlag.end())? Empty : iter->second;
 }
 
 ULong Symbol::ToFlag(const Symbol *pSymbol)
 {
-	return FLAG_None;
+	MapToFlag::const_iterator iter = _mapToFlag.find(pSymbol);
+	return (iter == _mapToFlag.end())? FLAG_None : iter->second;
 }
 
 const Symbol *Symbol::FromOccurPattern(OccurPattern occurPattern)
 {
+	MapFromOccurPattern::const_iterator iter = _mapFromOccurPattern.find(occurPattern);
+	return (iter == _mapFromOccurPattern.end())? Empty : iter->second;
+#if 0
 	return
 		(occurPattern == OCCUR_ZeroOrOnce)? Gura_Symbol(Char_Question) :
 		(occurPattern == OCCUR_ZeroOrMore)? Gura_Symbol(Char_Mul) :
 		(occurPattern == OCCUR_OnceOrMore)? Gura_Symbol(Char_Add) :
-		Gura_Symbol(Str_Empty);
+		Empty;
+#endif
 }
 
 OccurPattern Symbol::ToOccurPattern(const Symbol *pSymbol)
 {
+	MapToOccurPattern::const_iterator iter = _mapToOccurPattern.find(pSymbol);
+	return (iter == _mapToOccurPattern.end())? OCCUR_Invalid : iter->second;
+#if 0
 	return
 		(pSymbol->IsIdentical(Gura_Symbol(Char_Mul)))?		OCCUR_ZeroOrMore :
 		(pSymbol->IsIdentical(Gura_Symbol(Char_Add)))?		OCCUR_OnceOrMore :
 		(pSymbol->IsIdentical(Gura_Symbol(Char_Question)))?	OCCUR_ZeroOrOnce :
 		OCCUR_Invalid;
+#endif
 }
 
 const Symbol *Symbol::FromResultMode(ResultMode resultMode)
 {
-	return Gura_Symbol(Str_Empty);
+	MapFromResultMode::const_iterator iter = _mapFromResultMode.find(resultMode);
+	return (iter == _mapFromResultMode.end())? Empty : iter->second;
+
+	return Empty;
 }
 
 ResultMode Symbol::ToResultMode(const Symbol *pSymbol)
 {
-	return RSLTMODE_Normal;
+	MapToResultMode::const_iterator iter = _mapToResultMode.find(pSymbol);
+	return (iter == _mapToResultMode.end())? RSLTMODE_Normal : iter->second;
 }
 
 //-----------------------------------------------------------------------------
 // SymbolList
 //-----------------------------------------------------------------------------
+const SymbolList SymbolList::Empty;
+
 String SymbolList::Join(const char *sep) const
 {
 	return Join(begin(), end(), sep);
@@ -205,6 +236,8 @@ void SymbolList::SortByName()
 //-----------------------------------------------------------------------------
 // SymbolSet
 //-----------------------------------------------------------------------------
+const SymbolSet SymbolSet::Empty;
+
 SymbolSet::SymbolSet(const SymbolSet &symbolSet)
 {
 	foreach_const (SymbolSet, ppSymbol, symbolSet) Insert(*ppSymbol);
@@ -227,6 +260,8 @@ void SymbolSet::Insert(const SymbolSet &symbolSet)
 //-----------------------------------------------------------------------------
 // SymbolPool
 //-----------------------------------------------------------------------------
+SymbolPool *SymbolPool::_pInst = nullptr;
+
 SymbolPool::~SymbolPool()
 {
 	foreach (Content, ppSymbol, _content) {
@@ -254,7 +289,6 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbolAlias(Char_Sub,		"-");
 	Gura_RealizeSymbolAlias(Char_Inv,		"~");
 	Gura_RealizeSymbolAlias(Char_Not,		"!");
-	Gura_RealizeSymbolAlias(Str_Empty,		"");
 	Gura_RealizeSymbol(__arg__);
 	Gura_RealizeSymbol(__del__);
 	Gura_RealizeSymbol(__doc__);

@@ -865,7 +865,7 @@ bool Expr_Identifier::GenerateScriptHead(Signal &sig, SimpleStream &stream,
 bool Expr_Identifier::GenerateScriptTail(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
-	const Symbol *pSymbolFront = Gura_Symbol(Str_Empty);
+	const Symbol *pSymbolFront = Symbol::Empty;
 	if (!_attrFront.empty()) {
 		stream.PutChar(sig, ':');
 		if (sig.IsSignalled()) return false;
@@ -2129,7 +2129,7 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 		stream.PutChar(sig, ')');
 		if (sig.IsSignalled()) return false;
 	}
-	const Symbol *pSymbolFront = Gura_Symbol(Str_Empty);
+	const Symbol *pSymbolFront = Symbol::Empty;
 	if (!_attrFront.empty()) {
 		stream.PutChar(sig, ':');
 		if (sig.IsSignalled()) return false;
