@@ -94,7 +94,7 @@ bool Function::CustomDeclare(Environment &env,
 			const Expr_UnaryOp *pExprUnaryOp =
 									dynamic_cast<const Expr_UnaryOp *>(pExpr);
 			const Symbol *pSymbol = pExprUnaryOp->GetOperator()->GetSymbol();
-			if (pSymbol->IsIdentical(Gura_Symbol(Char_Mod))) {
+			if (pSymbol->IsIdentical(Symbol::Percnt)) {
 				const Expr *pExprChild = pExprUnaryOp->GetChild();
 				if (!pExprChild->IsIdentifier()) {
 					sig.SetError(ERR_SyntaxError,
@@ -327,7 +327,7 @@ Value Function::Call(
 					"l-value of dictionary assignment must be an identifier or a constant value");
 				return Value::Nil;
 			}
-		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
+		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Percnt)) {
 			// func(..., value%, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
@@ -358,7 +358,7 @@ Value Function::Call(
 	foreach_const (ExprList, ppExprArg, callerInfo.GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
 		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
-			Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) continue;
+			Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Percnt)) continue;
 		if (ppDecl == _pDeclOwner->end()) {
 			if (GetFlag(FLAG_CutExtraArgs)) break;
 			Declaration::SetError_TooManyArguments(sig);
@@ -372,7 +372,7 @@ Value Function::Call(
 			// func(..., `var, ...)
 			if (!pArg->AddValue(env, *ppDecl,
 					Value(new Object_expr(env, Expr::Reference(pExprArg))))) return Value::Nil;
-		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mul))) {
+		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Ast)) {
 			// func(..., value*, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
@@ -717,7 +717,7 @@ String Function::ToString() const
 	if (_pSymbolDict != nullptr) {
 		if (!_pDeclOwner->empty()) str += ", ";
 		str += _pSymbolDict->GetName();
-		str += Gura_Symbol(Char_Mod)->GetName();
+		str += (Symbol::Percnt)->GetName();
 	}
 	str += ")";
 	if (_funcType == FUNCTYPE_Class) {

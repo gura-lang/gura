@@ -67,6 +67,16 @@ private:
 	char *_name;
 public:
 	static const Symbol *Empty;
+	static const Symbol *Excl;
+	static const Symbol *Dollar;
+	static const Symbol *Percnt;
+	static const Symbol *PercntPercnt;
+	static const Symbol *Amp;
+	static const Symbol *Ast;
+	static const Symbol *Plus;
+	static const Symbol *Quest;
+	static const Symbol *Tilde;
+	static const Symbol *Hyphen;
 private:
 	static Set _setOfFlowControlSymbol;
 	static MapFromFlag _mapFromFlag;
@@ -162,16 +172,6 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE SymbolPool {
 public:
-	Gura_DeclareSymbol(Char_Add);
-	Gura_DeclareSymbol(Char_And);
-	Gura_DeclareSymbol(Char_Dollar);
-	Gura_DeclareSymbol(Char_Mod);
-	Gura_DeclareSymbol(Char_ModMod);
-	Gura_DeclareSymbol(Char_Mul);
-	Gura_DeclareSymbol(Char_Question);
-	Gura_DeclareSymbol(Char_Sub);
-	Gura_DeclareSymbol(Char_Inv);
-	Gura_DeclareSymbol(Char_Not);
 	Gura_DeclareSymbol(__arg__);
 	Gura_DeclareSymbol(__del__);
 	Gura_DeclareSymbol(__doc__);

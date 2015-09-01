@@ -369,7 +369,7 @@ bool Expr::ExprVisitor_GatherSimpleLambdaArgs::Visit(Expr *pExpr)
 		if (pExprCar->IsIdentifier()) {
 			const Symbol *pSymbol =
 					dynamic_cast<const Expr_Identifier *>(pExprCar)->GetSymbol();
-			if (pSymbol->IsIdentical(Gura_Symbol(Char_And))) return false;
+			if (pSymbol->IsIdentical(Symbol::Amp)) return false;
 		}
 	} else if (pExpr->IsIdentifier()) {
 		const Symbol *pSymbol =

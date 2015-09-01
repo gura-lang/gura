@@ -9,6 +9,17 @@ namespace Gura {
 // Symbol
 //-----------------------------------------------------------------------------
 const Symbol *Symbol::Empty = nullptr;
+const Symbol *Symbol::Excl = nullptr;
+const Symbol *Symbol::Dollar = nullptr;
+const Symbol *Symbol::Percnt = nullptr;
+const Symbol *Symbol::PercntPercnt = nullptr;
+const Symbol *Symbol::Amp = nullptr;
+const Symbol *Symbol::Ast = nullptr;
+const Symbol *Symbol::Plus = nullptr;
+const Symbol *Symbol::Quest = nullptr;
+const Symbol *Symbol::Tilde = nullptr;
+const Symbol *Symbol::Hyphen= nullptr;
+
 Symbol::Set Symbol::_setOfFlowControlSymbol;
 Symbol::MapFromFlag Symbol::_mapFromFlag;
 Symbol::MapToFlag Symbol::_mapToFlag;
@@ -51,7 +62,17 @@ bool Symbol::IsFlowControlSymbol() const
 void Symbol::Initialize()
 {
 	SymbolPool::Initialize();
-	Empty = Add("");
+	Empty			= Add("");
+	Excl			= Add("!");
+	Dollar			= Add("$");
+	Percnt			= Add("%");
+	PercntPercnt	= Add("%%");
+	Amp				= Add("&");
+	Ast				= Add("*");
+	Plus			= Add("+");
+	Quest			= Add("?");
+	Tilde			= Add("~");
+	Hyphen			= Add("-");
 	do {
 		struct {
 			const Symbol *pSymbol;
@@ -103,9 +124,9 @@ void Symbol::Initialize()
 			const Symbol *pSymbol;
 			OccurPattern occurPattern;
 		} tbl[] = {
-			{ Gura_Symbol(Char_Mul),		OCCUR_ZeroOrMore	},
-			{ Gura_Symbol(Char_Add),		OCCUR_OnceOrMore	},
-			{ Gura_Symbol(Char_Question),	OCCUR_ZeroOrOnce	},
+			{ Symbol::Ast,		OCCUR_ZeroOrMore	},
+			{ Symbol::Plus,		OCCUR_OnceOrMore	},
+			{ Symbol::Quest,	OCCUR_ZeroOrOnce	},
 		};
 		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 			_mapFromOccurPattern[tbl[i].occurPattern] = tbl[i].pSymbol;
@@ -151,26 +172,12 @@ const Symbol *Symbol::FromOccurPattern(OccurPattern occurPattern)
 {
 	MapFromOccurPattern::const_iterator iter = _mapFromOccurPattern.find(occurPattern);
 	return (iter == _mapFromOccurPattern.end())? Empty : iter->second;
-#if 0
-	return
-		(occurPattern == OCCUR_ZeroOrOnce)? Gura_Symbol(Char_Question) :
-		(occurPattern == OCCUR_ZeroOrMore)? Gura_Symbol(Char_Mul) :
-		(occurPattern == OCCUR_OnceOrMore)? Gura_Symbol(Char_Add) :
-		Empty;
-#endif
 }
 
 OccurPattern Symbol::ToOccurPattern(const Symbol *pSymbol)
 {
 	MapToOccurPattern::const_iterator iter = _mapToOccurPattern.find(pSymbol);
 	return (iter == _mapToOccurPattern.end())? OCCUR_Invalid : iter->second;
-#if 0
-	return
-		(pSymbol->IsIdentical(Gura_Symbol(Char_Mul)))?		OCCUR_ZeroOrMore :
-		(pSymbol->IsIdentical(Gura_Symbol(Char_Add)))?		OCCUR_OnceOrMore :
-		(pSymbol->IsIdentical(Gura_Symbol(Char_Question)))?	OCCUR_ZeroOrOnce :
-		OCCUR_Invalid;
-#endif
 }
 
 const Symbol *Symbol::FromResultMode(ResultMode resultMode)
@@ -279,16 +286,6 @@ void SymbolPool::Initialize()
 
 void SymbolPool::_Initialize()
 {
-	Gura_RealizeSymbolAlias(Char_Add,		"+");
-	Gura_RealizeSymbolAlias(Char_And,		"&");
-	Gura_RealizeSymbolAlias(Char_Dollar,	"$");
-	Gura_RealizeSymbolAlias(Char_Mod,		"%");
-	Gura_RealizeSymbolAlias(Char_ModMod,	"%%");
-	Gura_RealizeSymbolAlias(Char_Mul,		"*");
-	Gura_RealizeSymbolAlias(Char_Question,	"?");
-	Gura_RealizeSymbolAlias(Char_Sub,		"-");
-	Gura_RealizeSymbolAlias(Char_Inv,		"~");
-	Gura_RealizeSymbolAlias(Char_Not,		"!");
 	Gura_RealizeSymbol(__arg__);
 	Gura_RealizeSymbol(__del__);
 	Gura_RealizeSymbol(__doc__);

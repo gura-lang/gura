@@ -556,11 +556,11 @@ Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 	if (pExpr->IsUnaryOp()) {
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
 		const Symbol *pSymbol = pExprEx->GetOperator()->GetSymbol();
-		if (pSymbol->IsIdentical(Gura_Symbol(Char_Sub))) {
+		if (pSymbol->IsIdentical(Symbol::Hyphen)) {
 			// import(-foo)
 			successFlag = Parser::ParseDottedIdentifier(pExprEx->GetChild(), symbolList);
 			assignModuleNameFlag = false;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(Char_And))) {
+		} else if (pSymbol->IsIdentical(Symbol::Amp)) {
 			// import(&foo)
 			SeqPostHandler *pSeqPostHandler = nullptr;
 			Value rtn = pExprEx->GetChild()->Exec2(*this, pSeqPostHandler);
@@ -664,7 +664,7 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 				return nullptr;
 			}
 		}
-	} else if (pSymbolsToMixIn->IsSet(Gura_Symbol(Char_Mul))) {
+	} else if (pSymbolsToMixIn->IsSet(Symbol::Ast)) {
 		// import(hoge) {*}
 		//GetFrameOwner().DbgPrint();
 		foreach_const (ValueMap, iter, pModule->GetTopFrame()->GetValueMap()) {

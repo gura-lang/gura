@@ -1329,16 +1329,16 @@ bool Parser::ReduceOneElem(Environment &env)
 		pExpr = new Expr_Suffixed(elem1.GetStringSTL(), false, Symbol::Add(elem1.GetSuffix()));
 	} else if (elem1.IsType(ETYPE_Add)) {
 		DBGPARSER(::printf("Reduce: Expr -> '+'\n"));
-		pExpr = new Expr_Identifier(Gura_Symbol(Char_Add));
+		pExpr = new Expr_Identifier(Symbol::Plus);
 	} else if (elem1.IsType(ETYPE_Mul)) {
 		DBGPARSER(::printf("Reduce: Expr -> '*'\n"));
-		pExpr = new Expr_Identifier(Gura_Symbol(Char_Mul));
+		pExpr = new Expr_Identifier(Symbol::Ast);
 	} else if (elem1.IsType(ETYPE_Question)) {
 		DBGPARSER(::printf("Reduce: Expr -> '?'\n"));
-		pExpr = new Expr_Identifier(Gura_Symbol(Char_Question));
+		pExpr = new Expr_Identifier(Symbol::Quest);
 	} else if (elem1.IsType(ETYPE_Sub)) {
 		DBGPARSER(::printf("Reduce: Expr -> '-'\n"));
-		pExpr = new Expr_Identifier(Gura_Symbol(Char_Sub));
+		pExpr = new Expr_Identifier(Symbol::Hyphen);
 	} else {
 		SetError_InvalidElement(sig, __LINE__);
 		return false;
@@ -1476,7 +1476,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> '%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
 				// %{..}
-				Expr *pExprCar = new Expr_Identifier(Gura_Symbol(Char_Mod));
+				Expr *pExprCar = new Expr_Identifier(Symbol::Percnt);
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				pExpr = new Expr_Caller(pExprCar, nullptr, pExprBlock);
 			} else {
@@ -1486,7 +1486,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> '%%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
 				// %%{..}
-				Expr *pExprCar = new Expr_Identifier(Gura_Symbol(Char_ModMod));
+				Expr *pExprCar = new Expr_Identifier(Symbol::PercntPercnt);
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				pExpr = new Expr_Caller(pExprCar, nullptr, pExprBlock);
 			} else {
@@ -1497,7 +1497,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> '&' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
 				// &{..}
-				Expr *pExprCar = new Expr_Identifier(Gura_Symbol(Char_And));
+				Expr *pExprCar = new Expr_Identifier(Symbol::Amp);
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				pExpr = new Expr_Caller(pExprCar, nullptr, pExprBlock);
 			} else {

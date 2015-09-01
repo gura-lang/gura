@@ -869,7 +869,7 @@ Gura_ImplementClassMethod(string, translator)
 	SuffixMgr &suffixMgr = env.GetGlobal()->GetSuffixMgrForString();
 	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
-	const Symbol *pSymbol = Gura_Symbol(Char_Dollar);
+	const Symbol *pSymbol = Symbol::Dollar;
 	SuffixMgrEntryCustom *pSuffixMgrEntry =
 					new SuffixMgrEntryCustom(Function::Reference(pFuncBlock));
 	suffixMgr.Assign(pSymbol, pSuffixMgrEntry);
