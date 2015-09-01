@@ -195,7 +195,8 @@ String Declaration::ToString() const
 	}
 	str += _pSymbol->GetName();
 	if (GetFlag(FLAG_ListVar)) str += "[]";
-	str += Symbol::FromOccurPattern(_occurPattern)->GetName();
+	const Symbol *pSymbol = Symbol::FromOccurPattern(_occurPattern);
+	if (pSymbol != nullptr) str += pSymbol->GetName();
 	if (_valType != VTYPE_nil && _valType != VTYPE_undefined &&
 					_valType != VTYPE_any && _valType != VTYPE_quote) {
 		str += ":";

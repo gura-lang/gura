@@ -46,9 +46,10 @@ const Symbol *Symbol::Add(const char *name)
 
 bool Symbol::IsFlowControlSymbol() const
 {
+#if 1
 	Set::const_iterator iter = _setOfFlowControlSymbol.find(this);
 	return iter != _setOfFlowControlSymbol.end();
-#if 0
+#else
 	return 
 		IsIdentical(Gura_Symbol(if_)) ||
 		IsIdentical(Gura_Symbol(elsif)) ||
@@ -153,13 +154,12 @@ void Symbol::Initialize()
 			_mapToResultMode[tbl[i].pSymbol] = tbl[i].resultMode;
 		}
 	} while(0);
-
 }
 
 const Symbol *Symbol::FromFlag(ULong flag)
 {
 	MapFromFlag::const_iterator iter = _mapFromFlag.find(flag);
-	return (iter == _mapFromFlag.end())? Empty : iter->second;
+	return (iter == _mapFromFlag.end())? nullptr : iter->second;
 }
 
 ULong Symbol::ToFlag(const Symbol *pSymbol)
@@ -168,10 +168,21 @@ ULong Symbol::ToFlag(const Symbol *pSymbol)
 	return (iter == _mapToFlag.end())? FLAG_None : iter->second;
 }
 
+#if 0
+ULong Symbol::ToFlags(const SymbolSet &symbolSet)
+{
+	ULong 
+	foreach_const (SymbolSet, ppSymbol, pExprIdentifier->GetAttrs()) {
+		MapToFlag::const_iterator iter = _mapToFlag.find(pSymbol);
+		return (iter == _mapToFlag.end())? FLAG_None : iter->second;
+	}
+}
+#endif
+
 const Symbol *Symbol::FromOccurPattern(OccurPattern occurPattern)
 {
 	MapFromOccurPattern::const_iterator iter = _mapFromOccurPattern.find(occurPattern);
-	return (iter == _mapFromOccurPattern.end())? Empty : iter->second;
+	return (iter == _mapFromOccurPattern.end())? nullptr : iter->second;
 }
 
 OccurPattern Symbol::ToOccurPattern(const Symbol *pSymbol)
@@ -183,9 +194,7 @@ OccurPattern Symbol::ToOccurPattern(const Symbol *pSymbol)
 const Symbol *Symbol::FromResultMode(ResultMode resultMode)
 {
 	MapFromResultMode::const_iterator iter = _mapFromResultMode.find(resultMode);
-	return (iter == _mapFromResultMode.end())? Empty : iter->second;
-
-	return Empty;
+	return (iter == _mapFromResultMode.end())? nullptr : iter->second;
 }
 
 ResultMode Symbol::ToResultMode(const Symbol *pSymbol)

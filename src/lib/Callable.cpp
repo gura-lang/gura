@@ -12,6 +12,47 @@ const CallerInfo CallerInfo::Empty(ExprList::Empty, nullptr, nullptr, nullptr);
 
 bool CallerInfo::UpdateByAttrSymbol(const Symbol *pSymbol)
 {
+#if 0
+	/*
+	const ULong flagsAcceptable =
+		FLAG_CutExtraArgs |
+		FLAG_DynamicScope |
+		FLAG_EndMarker |
+		FLAG_Finalizer |
+		FLAG_Flat |
+		FLAG_Leader |
+		FLAG_Map |
+		FLAG_NoMap |
+		FLAG_NoNamed |
+		FLAG_Private |
+		FLAG_Public |
+		FLAG_SymbolFunc |
+		FLAG_Trailer;
+	*/
+	ULong flag = Symbol::ToFlag(pSymbol);
+	if (flag != 0) {
+		_flagsToSet |= flag;
+		if (flag == FLAG_Map) {
+			_flagsToSet &= ~FLAG_NoMap;
+			_flagsToClear = (_flagsToClear | FLAG_NoMap) & ~FLAG_Map;
+		} else if (flag == FLAG_NoMap) {
+			_flagsToSet &= ~FLAG_Map;
+			_flagsToClear = (_flagsToClear | FLAG_Map) & ~FLAG_NoMap;
+		}
+		return true;
+	}
+	if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
+		_flagsToSet &= ~FLAG_Flat;
+		_flagsToClear |= FLAG_Flat;
+		return true;
+	}
+	ResultMode resultMode = Symbol::ToResultMode(pSymbol);
+	if (resultMode != RSLTMODE_Normal) {
+		_resultMode = resultMode;
+		return true;
+	}
+	return false;
+#else
 	if (pSymbol->IsIdentical(Gura_Symbol(cut_extra_args))) {
 		_flagsToSet |= FLAG_CutExtraArgs;
 		return true;
@@ -72,7 +113,6 @@ bool CallerInfo::UpdateByAttrSymbol(const Symbol *pSymbol)
 		_flagsToClear |= FLAG_Flat;
 		return true;
 	}
-
 	if (pSymbol->IsIdentical(Gura_Symbol(iter))) {
 		_resultMode = RSLTMODE_Iterator;
 		return true;
@@ -110,10 +150,25 @@ bool CallerInfo::UpdateByAttrSymbol(const Symbol *pSymbol)
 		return true;
 	}
 	return false;
+#endif
 }
 
 String CallerInfo::MakeAttrForFlags(ULong flagsToSet, ULong flagsToClear)
 {
+#if 0
+	String str;
+	ULong flag = 1;
+	for (ULong flags = flagsToSet; flags != 0; flags >>= 1, flag <<= 1) {
+		const Symbol *pSymbol = Symbol::FromFlag(flag);
+		if (pSymbol != nullptr) {
+			str += ":";
+			str += pSymbol->GetName();
+		}
+	}
+	if (flagsToClear & FLAG_Flat) {
+		str += ":noflat";
+	}
+#else
 	struct Item {
 		ULong flag;
 		const char *attrName;
@@ -149,11 +204,19 @@ String CallerInfo::MakeAttrForFlags(ULong flagsToSet, ULong flagsToClear)
 			str += item.attrName;
 		}
 	}
+#endif
 	return str;
 }
 
 String CallerInfo::MakeAttrForResultMode(ResultMode resultMode)
 {
+#if 0
+	const Symbol *pSymbol = Symbol::FromResultMode(resultMode);
+	if (pSymbol == nullptr) return String("");
+	String str = ":";
+	str += pSymbol->GetName();
+	return str;
+#else
 	struct Item {
 		ResultMode resultMode;
 		const char *attrName;
@@ -174,6 +237,7 @@ String CallerInfo::MakeAttrForResultMode(ResultMode resultMode)
 		if (resultMode == item.resultMode) return String(item.attrName);
 	}
 	return String("");
+#endif
 }
 
 //-----------------------------------------------------------------------------

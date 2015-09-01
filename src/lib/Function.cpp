@@ -742,7 +742,8 @@ String Function::ToString() const
 		str += " {";
 		if (_blockInfo.quoteFlag) str += "`";
 		str += _blockInfo.pSymbol->GetName();
-		str += Symbol::FromOccurPattern(_blockInfo.occurPattern)->GetName();
+		const Symbol *pSymbol = Symbol::FromOccurPattern(_blockInfo.occurPattern);
+		if (pSymbol != nullptr) str += pSymbol->GetName();
 		if (_blockInfo.blockScope == BLKSCOPE_Inside) {
 			str += ":inside_scope";
 		} else if (_blockInfo.blockScope == BLKSCOPE_SameAsFunc) {
