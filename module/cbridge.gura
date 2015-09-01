@@ -301,7 +301,7 @@ typeConvDict = %{
 	'any' => TypeConv(
 			'any', 'Once', [],
 			R'''
-			Value ${arg.name} = args.GetValue(${idx});
+			Value ${arg.name} = arg.GetValue(${idx});
 			''',
 			nil,
 			nil)
@@ -315,308 +315,308 @@ typeConvDict = %{
 			''', true)
 	'bool' => TypeConv(
 			'boolean', 'Once', [],
-			'bool ${arg.name} = args.GetBoolean(${idx});',
+			'bool ${arg.name} = arg.GetBoolean(${idx});',
 			nil,
 			R'''
 			bool _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'char' => TypeConv(
 			'number', 'Once', [],
-			'char ${arg.name} = args.GetChar(${idx});',
+			'char ${arg.name} = arg.GetChar(${idx});',
 			nil,
 			R'''
 			bool _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'short' => TypeConv(
 			'number', 'Once', [],
-			'short ${arg.name} = args.GetShort(${idx});',
+			'short ${arg.name} = arg.GetShort(${idx});',
 			nil,
 			R'''
 			short _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'int' => TypeConv(
 			'number', 'Once', [],
-			'int ${arg.name} = args.GetInt(${idx});',
+			'int ${arg.name} = arg.GetInt(${idx});',
 			nil,
 			R'''
 			int _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'long' => TypeConv(
 			'number', 'Once', [],
-			'long ${arg.name} = args.GetLong(${idx});',
+			'long ${arg.name} = arg.GetLong(${idx});',
 			nil,
 			R'''
 			long _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'unsigned_char' => TypeConv(
 			'number', 'Once', [],
-			'unsigned char ${arg.name} = args.GetUChar(${idx});',
+			'unsigned char ${arg.name} = arg.GetUChar(${idx});',
 			nil,
 			R'''
 			unsigned char _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'unsigned_short' => TypeConv(
 			'number', 'Once', [],
-			'unsigned short ${arg.name} = args.GetUShort(${idx});',
+			'unsigned short ${arg.name} = arg.GetUShort(${idx});',
 			nil,
 			R'''
 			unsigned short _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'unsigned_int' => TypeConv(
 			'number', 'Once', [],
-			'unsigned int ${arg.name} = args.GetUInt(${idx});',
+			'unsigned int ${arg.name} = arg.GetUInt(${idx});',
 			nil,
 			R'''
 			unsigned int _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'unsigned_long' => TypeConv(
 			'number', 'Once', [],
-			'unsigned long ${arg.name} = args.GetULong(${idx});',
+			'unsigned long ${arg.name} = arg.GetULong(${idx});',
 			nil,
 			R'''
 			unsigned long _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'UChar' => TypeConv(
 			'number', 'Once', [],
-			'UChar ${arg.name} = args.GetUChar(${idx});',
+			'UChar ${arg.name} = arg.GetUChar(${idx});',
 			nil,
 			R'''
 			UChar _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'UShort' => TypeConv(
 			'number', 'Once', [],
-			'UShort ${arg.name} = args.GetUShort(${idx});',
+			'UShort ${arg.name} = arg.GetUShort(${idx});',
 			nil,
 			R'''
 			UShort _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'UInt' => TypeConv(
 			'number', 'Once', [],
-			'UInt ${arg.name} = args.GetUInt(${idx});',
+			'UInt ${arg.name} = arg.GetUInt(${idx});',
 			nil,
 			R'''
 			UInt _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'ULong' => TypeConv(
 			'number', 'Once', [],
-			'ULong ${arg.name} = args.GetULong(${idx});',
+			'ULong ${arg.name} = arg.GetULong(${idx});',
 			nil,
 			R'''
 			ULong _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'Int64' => TypeConv(
 			'number', 'Once', [],
-			'Int64 ${arg.name} = static_cast<Int64>(args.GetDouble(${idx}));',
+			'Int64 ${arg.name} = static_cast<Int64>(arg.GetDouble(${idx}));',
 			nil,
 			R'''
 			Int64 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'UInt64' => TypeConv(
 			'number', 'Once', [],
-			'UInt64 ${arg.name} = static_cast<UInt64>(args.GetDouble(${idx}));',
+			'UInt64 ${arg.name} = static_cast<UInt64>(arg.GetDouble(${idx}));',
 			nil,
 			R'''
 			UInt64 _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'float' => TypeConv(
 			'number', 'Once', [],
-			'float ${arg.name} = args.GetFloat(${idx});',
+			'float ${arg.name} = arg.GetFloat(${idx});',
 			nil,
 			R'''
 			float _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'double' => TypeConv(
 			'number', 'Once', [],
-			'double ${arg.name} = args.GetDouble(${idx});',
+			'double ${arg.name} = arg.GetDouble(${idx});',
 			nil,
 			R'''
 			double _rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'char[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<char> ${arg.name} = args.GetList(${idx});',
+			'CArray<char> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'short[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<short> ${arg.name} = args.GetList(${idx});',
+			'CArray<short> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'int[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<int> ${arg.name} = args.GetList(${idx});',
+			'CArray<int> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'long[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<long> ${arg.name} = args.GetList(${idx});',
+			'CArray<long> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'unsigned_char[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<unsigned char> ${arg.name} = args.GetList(${idx});',
+			'CArray<unsigned char> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'unsigned_short[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<unsigned short> ${arg.name} = args.GetList(${idx});',
+			'CArray<unsigned short> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'unsigned_int[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<unsigned int> ${arg.name} = args.GetList(${idx});',
+			'CArray<unsigned int> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'unsigned_long[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'CArray<unsigned long> ${arg.name} = args.GetList(${idx});',
+			'CArray<unsigned long> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'number[]' => TypeConv(
 			'number', 'Once', ['List'],
-			'const ValueList & ${arg.name} = args.GetList(${idx});',
+			'const ValueList & ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'char@' => TypeConv(
 			'string', 'Once', [],
-			'char *${arg.name} = args.GetString(${idx});',
+			'char *${arg.name} = arg.GetString(${idx});',
 			nil,
 			R'''
 			char *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'char@:const' => TypeConv(
 			'string', 'Once', [],
-			'const char *${arg.name} = args.GetString(${idx});',
+			'const char *${arg.name} = arg.GetString(${idx});',
 			nil,
 			R'''
 			const char *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'boolean' => TypeConv(
 			'boolean', 'Once', [],
-			'bool ${arg.name} = args.GetBoolean(${idx});',
-			'bool ${arg.name} = args.IsValid(${idx})? args.GetBoolean(${idx}) : false;',
+			'bool ${arg.name} = arg.GetBoolean(${idx});',
+			'bool ${arg.name} = arg.IsValid(${idx})? arg.GetBoolean(${idx}) : false;',
 			nil)
 	'complex' => TypeConv(
 			'complex', 'Once', [],
-			'Complex ${arg.name} = args.GetComplex(${idx});',
-			'Complex ${arg.name} = args.IsValid(${idx})? args.GetComplex(${idx}) : Complex::Zero;',
+			'Complex ${arg.name} = arg.GetComplex(${idx});',
+			'Complex ${arg.name} = arg.IsValid(${idx})? arg.GetComplex(${idx}) : Complex::Zero;',
 			nil)
 	'rational' => TypeConv(
 			'rational', 'Once', [],
-			'Rational ${arg.name} = args.GetRational(${idx});',
-			'Rational ${arg.name} = args.IsValid(${idx})? args.GetRational(${idx}) : Rational::Zero;',
+			'Rational ${arg.name} = arg.GetRational(${idx});',
+			'Rational ${arg.name} = arg.IsValid(${idx})? arg.GetRational(${idx}) : Rational::Zero;',
 			nil)
 	'string' => TypeConv(
 			'string', 'Once', [],
-			'const char *${arg.name} = args.GetString(${idx});',
-			'const char *${arg.name} = args.IsValid(${idx})? args.GetString(${idx}) : nullptr;',
+			'const char *${arg.name} = arg.GetString(${idx});',
+			'const char *${arg.name} = arg.IsValid(${idx})? arg.GetString(${idx}) : nullptr;',
 			nil)
 	'symbol' => TypeConv(
 			'symbol', 'Once', [],
-			'const Symbol *${arg.name} = args.GetSymbol(${idx});',
-			'const Symbol *${arg.name} = args.IsValid(${idx})? args.GetSymbol(${idx}) : nullptr;',
+			'const Symbol *${arg.name} = arg.GetSymbol(${idx});',
+			'const Symbol *${arg.name} = arg.IsValid(${idx})? arg.GetSymbol(${idx}) : nullptr;',
 			R'''
 			const Symbol *_rtn = ${fi.MakeCaller()};
-			return ReturnValue(env, args, Value(_rtn));
+			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'binary' => TypeConv(
 			'binary', 'Once', [],
-			'const Binary *${arg.name} = &Object_binary::GetObject(args, ${idx})->GetBinary();',
-			'const Binary *${arg.name} = args.IsValid(${idx})? &Object_binary::GetObject(args, ${idx})->GetBinary() : nullptr;',
+			'const Binary *${arg.name} = &Object_binary::GetObject(arg, ${idx})->GetBinary();',
+			'const Binary *${arg.name} = arg.IsValid(${idx})? &Object_binary::GetObject(arg, ${idx})->GetBinary() : nullptr;',
 			nil)
 	'color' => TypeConv(
 			'color', 'Once', [],
-			'const Color *${arg.name} = &Object_color::GetObject(args, ${idx})->GetColor();',
-			'const Color *${arg.name} = args.IsValid(${idx})? &Object_color::GetObject(args, ${idx})->GetColor() : nullptr;',
+			'const Color *${arg.name} = &Object_color::GetObject(arg, ${idx})->GetColor();',
+			'const Color *${arg.name} = arg.IsValid(${idx})? &Object_color::GetObject(arg, ${idx})->GetColor() : nullptr;',
 			nil)
 	'datetime' => TypeConv(
 			'datetime', 'Once', [],
-			'const DateTime *${arg.name} = &Object_datetime::GetObject(args, ${idx})->GetDateTime();',
-			'const DateTime *${arg.name} = args.IsValid(${idx})? &Object_datetime::GetObject(args, ${idx})->GetDateTime() : nullptr;',
+			'const DateTime *${arg.name} = &Object_datetime::GetObject(arg, ${idx})->GetDateTime();',
+			'const DateTime *${arg.name} = arg.IsValid(${idx})? &Object_datetime::GetObject(arg, ${idx})->GetDateTime() : nullptr;',
 			nil)
 	'stream' => TypeConv(
 			'stream', 'Once', [],
-			'Stream *${arg.name} = &Object_stream::GetObject(args, ${idx})->GetStream();',
-			'Stream *${arg.name} = args.IsValid(${idx})? &Object_stream::GetObject(args, ${idx})->GetStream() : nullptr;',
+			'Stream *${arg.name} = &Object_stream::GetObject(arg, ${idx})->GetStream();',
+			'Stream *${arg.name} = arg.IsValid(${idx})? &Object_stream::GetObject(arg, ${idx})->GetStream() : nullptr;',
 			nil)
 	'image' => TypeConv(
 			'image', 'Once', [],
-			'Image *${arg.name} = Object_image::GetObject(args, ${idx})->GetImage();',
-			'Image *${arg.name} = args.IsValid(${idx})? Object_image::GetObject(args, ${idx})->GetImage() : nullptr;',
+			'Image *${arg.name} = Object_image::GetObject(arg, ${idx})->GetImage();',
+			'Image *${arg.name} = arg.IsValid(${idx})? Object_image::GetObject(arg, ${idx})->GetImage() : nullptr;',
 			nil)
 	'function' => TypeConv(
 			'function', 'Once', [],
-			'const Function *${arg.name} = Object_function::GetObject(args, ${idx})->GetFunction();',
-			'const Function *${arg.name} = args.IsValid(${idx})? Object_function::GetObject(args, ${idx})->GetFunction() : nullptr;',
+			'const Function *${arg.name} = Object_function::GetObject(arg, ${idx})->GetFunction();',
+			'const Function *${arg.name} = arg.IsValid(${idx})? Object_function::GetObject(arg, ${idx})->GetFunction() : nullptr;',
 			nil)
 	'array@char' => TypeConv(
 			'array_char', 'Once', ['NoMap'],
-			'Array<char> *${arg.name} = Object_array<char>::GetObject(args, ${idx})->GetArray();',
-			'Array<char> *${arg.name} = args.IsValid(${idx})? Object_array<char>::GetObject(args, ${idx})->GetArray() : nullptr;',
+			'Array<char> *${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();',
+			'Array<char> *${arg.name} = arg.IsValid(${idx})? Object_array<char>::GetObject(arg, ${idx})->GetArray() : nullptr;',
 			nil)
 	'array@uchar' => TypeConv(
 			'array_uchar', 'Once', ['NoMap'],
-			'Array<UChar> *${arg.name} = Object_array<UChar>::GetObject(args, ${idx})->GetArray();',
-			'Array<UChar> *${arg.name} = args.IsValid(${idx})? Object_array<UChar>::GetObject(args, ${idx})->GetArray() : nullptr;',
+			'Array<UChar> *${arg.name} = Object_array<UChar>::GetObject(arg, ${idx})->GetArray();',
+			'Array<UChar> *${arg.name} = arg.IsValid(${idx})? Object_array<UChar>::GetObject(arg, ${idx})->GetArray() : nullptr;',
 			nil)
 	'array@short' => TypeConv(
 			'array_short', 'Once', ['NoMap'],
-			'Array<short> *${arg.name} = Object_array<short>::GetObject(args, ${idx})->GetArray();',
-			'Array<short> *${arg.name} = args.IsValid(${idx})? Object_array<short>::GetObject(args, ${idx})->GetArray() : nullptr;',
+			'Array<short> *${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();',
+			'Array<short> *${arg.name} = arg.IsValid(${idx})? Object_array<short>::GetObject(arg, ${idx})->GetArray() : nullptr;',
 			nil)
 	'array@ushort' => TypeConv(
 			'array_ushort', 'Once', ['NoMap'],
-			'Array<UShort> *${arg.name} = Object_array<UShort>::GetObject(args, ${idx})->GetArray();',
-			'Array<UShort> *${arg.name} = args.IsValid(${idx})? Object_array<UShort>::GetObject(args, ${idx})->GetArray() : nullptr;',
+			'Array<UShort> *${arg.name} = Object_array<UShort>::GetObject(arg, ${idx})->GetArray();',
+			'Array<UShort> *${arg.name} = arg.IsValid(${idx})? Object_array<UShort>::GetObject(arg, ${idx})->GetArray() : nullptr;',
 			nil)
 	'array@long' => TypeConv(
 			'array_long', 'Once', ['NoMap'],
-			'Array<long> *${arg.name} = Object_array<long>::GetObject(args, ${idx})->GetArray();',
-			'Array<long> *${arg.name} = args.IsValid(${idx})? Object_array<long>::GetObject(args, ${idx})->GetArray() : nullptr;',
+			'Array<long> *${arg.name} = Object_array<long>::GetObject(arg, ${idx})->GetArray();',
+			'Array<long> *${arg.name} = arg.IsValid(${idx})? Object_array<long>::GetObject(arg, ${idx})->GetArray() : nullptr;',
 			nil)
 	'array@ulong' => TypeConv(
 			'array_ulong', 'Once', ['NoMap'],
-			'Array<ULong> *${arg.name} = Object_array<ULong>::GetObject(args, ${idx})->GetArray();',
-			'Array<ULong> *${arg.name} = args.IsValid(${idx})? Object_array<ULong>::GetObject(args, ${idx})->GetArray() : nullptr;',
+			'Array<ULong> *${arg.name} = Object_array<ULong>::GetObject(arg, ${idx})->GetArray();',
+			'Array<ULong> *${arg.name} = arg.IsValid(${idx})? Object_array<ULong>::GetObject(arg, ${idx})->GetArray() : nullptr;',
 			nil)
 	'array@int' => TypeConv(
 			'array_int', 'Once', ['NoMap'],
-			'Array<int> *${arg.name} = Object_array<int>::GetObject(args, ${idx})->GetArray();',
-			'Array<int> *${arg.name} = args.IsValid(${idx})? Object_array<int>::GetObject(args, ${idx})->GetArray() : nullptr;',
+			'Array<int> *${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();',
+			'Array<int> *${arg.name} = arg.IsValid(${idx})? Object_array<int>::GetObject(arg, ${idx})->GetArray() : nullptr;',
 			nil)
 	'array@uint' => TypeConv(
 			'array_uint', 'Once', ['NoMap'],
-			'Array<UInt> *${arg.name} = Object_array<UInt>::GetObject(args, ${idx})->GetArray();',
-			'Array<UInt> *${arg.name} = args.IsValid(${idx})? Object_array<UInt>::GetObject(args, ${idx})->GetArray() : nullptr;',
+			'Array<UInt> *${arg.name} = Object_array<UInt>::GetObject(arg, ${idx})->GetArray();',
+			'Array<UInt> *${arg.name} = arg.IsValid(${idx})? Object_array<UInt>::GetObject(arg, ${idx})->GetArray() : nullptr;',
 			nil)
 	'array@float' => TypeConv(
 			'array_float', 'Once', ['NoMap'],
-			'Array<float> *${arg.name} = Object_array<float>::GetObject(args, ${idx})->GetArray();',
-			'Array<float> *${arg.name} = args.IsValid(${idx})? Object_array<float>::GetObject(args, ${idx})->GetArray() : nullptr;',
+			'Array<float> *${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();',
+			'Array<float> *${arg.name} = arg.IsValid(${idx})? Object_array<float>::GetObject(arg, ${idx})->GetArray() : nullptr;',
 			nil)
 	'array@double' => TypeConv(
 			'array_double', 'Once', ['NoMap'],
-			'Array<double> *${arg.name} = Object_array<double>::GetObject(args, ${idx})->GetArray();',
-			'Array<double> *${arg.name} = args.IsValid(${idx})? Object_array<double>::GetObject(args, ${idx})->GetArray() : nullptr;',
+			'Array<double> *${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();',
+			'Array<double> *${arg.name} = arg.IsValid(${idx})? Object_array<double>::GetObject(arg, ${idx})->GetArray() : nullptr;',
 			nil)
 }
 
