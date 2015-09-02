@@ -1384,7 +1384,7 @@ void PrepareParamInfoDict()
 	}
 }
 
-GLenum GetImageFormat(Signal &sig, const Image *pImage)
+GLenum GetImageFormat(Environment &env, const Image *pImage)
 {
 	GLenum format = 0;
 	Image::Format fmt = pImage->GetFormat();
@@ -1392,14 +1392,14 @@ GLenum GetImageFormat(Signal &sig, const Image *pImage)
 		(fmt == Image::FORMAT_RGB)? GL_BGR_EXT :
 		(fmt == Image::FORMAT_RGBA)? GL_BGRA_EXT : 0;
 	if (format == 0) {
-		sig.SetError(ERR_ValueError, "unsupported image type");
+		env.SetError(ERR_ValueError, "unsupported image type");
 	}
 	return format;
 }
 
-void SetError_NotImpFunction(Signal &sig, const char *funcName)
+void SetError_NotImpFunction(Environment &env, const char *funcName)
 {
-	sig.SetError(ERR_RuntimeError, "not implemented function %s", funcName);
+	env.SetError(ERR_RuntimeError, "not implemented function %s", funcName);
 }
 
 //-----------------------------------------------------------------------------
@@ -1509,7 +1509,7 @@ bool DoGLSection(Environment &env, Signal &sig, Argument &arg, Image *pImage)
 		}
 	}
 	do {
-		GLenum format = GetImageFormat(sig, pImage);
+		GLenum format = GetImageFormat(env, pImage);
 		if (sig.IsSignalled()) return false;
 		glBindTexture(GL_TEXTURE_2D, texOut);
 		glGetTexImage(GL_TEXTURE_2D, 0, format, GL_UNSIGNED_BYTE, pImage->GetBuffer());

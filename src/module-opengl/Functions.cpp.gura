@@ -44,7 +44,7 @@ glBegin(mode:GLenum):void:map {block?} = R'''
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEnd();
 	}
@@ -64,7 +64,7 @@ glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfl
 	if (_bitmap != nullptr) {
 		size_t bytesReq = ((width + 7) / 8) * height;
 		if (_bitmap->GetSize() < bytesReq) {
-			sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
+			env.SetError(ERR_ValueError, "array doesn\'t contain enough data");
 			return Value::Nil;
 		}
 	}
@@ -166,7 +166,7 @@ glCallLists(type:GLenum, lists[]:number):void:map = R'''
 			*p++ = static_cast<GLubyte>(num);
 		}
 	} else {
-		sig.SetError(ERR_ValueError, "invalid type specification");
+		env.SetError(ERR_ValueError, "invalid type specification");
 		return Value::Nil;
 	}
 	// GLsizei n, GLenum type, const GLvoid *lists
@@ -554,7 +554,7 @@ glDrawBuffer(mode:GLenum):void:map = `auto % {`en, 'markdown',
 //glDrawElements(mode:GLenum, count:GLsizei, type:GLenum, indices:GLvoid@:const):void:map = `unsupport
 
 glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''	
-	const void *p = GetArrayPointer(sig, type, pixels);
+	const void *p = GetArrayPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glDrawPixels(width, height, format, type, p);
 	return Value::Nil;
@@ -566,8 +566,8 @@ glDrawPixels(width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:a
 glDrawPixelsFromImage(image:image):void:map = R'''	
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
-	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, image);
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = image->GetBuffer();
 	// GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels
@@ -998,7 +998,7 @@ glGetPolygonStipple(mask:GLubyte@):void:map = `unsupport % {`en, 'markdown',
 glGetString(name:GLenum):map {block?} = R'''
 	const GLubyte *_rtn = glGetString(name);
 	if (_rtn == nullptr) {
-		sig.SetError(ERR_ValueError, "invalid name");
+		env.SetError(ERR_ValueError, "invalid name");
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(reinterpret_cast<const char *>(_rtn)));
@@ -1378,7 +1378,7 @@ glNewList(list:GLuint, mode:GLenum):void:map {block?} = R'''
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEndList();
 	}
@@ -1507,7 +1507,7 @@ glPolygonOffset(factor:GLfloat, units:GLfloat):void:map = `auto % {`en, 'markdow
 
 glPolygonStipple(mask:GLubyte@:const):void:map = R'''
 	if (_mask->GetSize() != 32 * 4) {
-		sig.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
+		env.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
 		return Value::Nil;
 	}
 	glPolygonStipple(mask);
@@ -1540,7 +1540,7 @@ glPopName():void = `auto % {`en, 'markdown',
 glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void:map = R'''
 	GLsizei n = _textures->GetSize();
 	if (n != _priorities->GetSize()) {
-		sig.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
+		env.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
 		return Value::Nil;
 	}
 	glPrioritizeTextures(n, textures, priorities);
@@ -1555,7 +1555,7 @@ glPushAttrib(mask:GLbitfield):void:map {block?} = R'''
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopAttrib();
 	}
@@ -1570,7 +1570,7 @@ glPushClientAttrib(mask:GLbitfield):void:map {block?} = R'''
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopClientAttrib();
 	}
@@ -1585,7 +1585,7 @@ glPushMatrix():void {block?} = R'''
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopMatrix();
 	}
@@ -1600,7 +1600,7 @@ glPushName(name:GLuint):void:map {block?} = R'''
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopName();
 	}
@@ -1736,11 +1736,12 @@ glReadBuffer(mode:GLenum):void:map = `auto % {`en, 'markdown',
 }
 
 glReadPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, format:symbol):map {block?} = R'''
+	Signal &sig = env.GetSignal();
 	Image::Format fmt = Image::SymbolToFormat(sig, format);
-	if (sig.IsSignalled()) return Value::Nil;
+	if (env.IsSignalled()) return Value::Nil;
 	AutoPtr<Image> pImage(new Image(fmt));
-	GLenum _format = GetImageFormat(sig, pImage.get());
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum _format = GetImageFormat(env, pImage.get());
+	if (env.IsSignalled()) return Value::Nil;
 	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	glReadPixels(x, y, width, height, _format, type, pImage->GetBuffer());
@@ -2083,7 +2084,7 @@ glTexGeniv(coord:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `aut
 glTexImage1D(target:GLenum, level:GLint, internalformat:GLint,
 			width:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
-	const void *p = GetArrayPointer(sig, type, pixels);
+	const void *p = GetArrayPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glTexImage1D(target, level, internalformat, width, border, format, type, p);
 	return Value::Nil;
@@ -2095,8 +2096,8 @@ glTexImage1D(target:GLenum, level:GLint, internalformat:GLint,
 glTexImage1DFromImage(target:GLenum, level:GLint,
 			 internalformat:GLint, border:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
-	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, image);
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
@@ -2109,7 +2110,7 @@ glTexImage1DFromImage(target:GLenum, level:GLint,
 glTexImage2D(target:GLenum, level:GLint, internalformat:GLint,
 		width:GLsizei, height:GLsizei, border:GLint, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
-	const void *p = GetArrayPointer(sig, type, pixels);
+	const void *p = GetArrayPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glTexImage2D(target, level, internalformat, width, height, border, format, type, p);
 	return Value::Nil;
@@ -2122,8 +2123,8 @@ glTexImage2DFromImage(target:GLenum, level:GLint,
 			 internalformat:GLint, border:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
 	GLsizei height = static_cast<GLsizei>(image->GetHeight()) + border * 2;
-	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, image);
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
@@ -2158,7 +2159,7 @@ glTexParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map
 glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint,
 			 width:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
-	const void *p = GetArrayPointer(sig, type, pixels);
+	const void *p = GetArrayPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glTexSubImage1D(target, level, xoffset, width, format, type, p);
 	return Value::Nil;
@@ -2169,8 +2170,8 @@ glTexSubImage1D(target:GLenum, level:GLint, xoffset:GLint,
 
 glTexSubImage1DFromImage(target:GLenum, level:GLint, xoffset:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
-	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, image);
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
@@ -2183,7 +2184,7 @@ glTexSubImage1DFromImage(target:GLenum, level:GLint, xoffset:GLint, image:image)
 glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint,
 		width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, pixels:any):void:map = R'''
 	// check pixels->size()
-	const void *p = GetArrayPointer(sig, type, pixels);
+	const void *p = GetArrayPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, p);
 	return Value::Nil;
@@ -2195,8 +2196,8 @@ glTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint,
 glTexSubImage2DFromImage(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, image:image):void:map = R'''
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
-	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, image);
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
@@ -2779,7 +2780,7 @@ glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLen
 glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void:map = R'''
 	GLsizei primcount = first.GetSize();
 	if (primcount != count.GetSize()) {
-		sig.SetError(ERR_ValueError, "first and count must have the same number of elements");
+		env.SetError(ERR_ValueError, "first and count must have the same number of elements");
 		return Value::Nil;
 	}
 	glMultiDrawArrays(mode, first, count, primcount);
@@ -2904,7 +2905,7 @@ glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEndQuery(target);
 	}

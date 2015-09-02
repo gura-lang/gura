@@ -103,13 +103,12 @@ Gura_DeclareFunctionAlias(__glBegin, "glBegin")
 
 Gura_ImplementFunction(__glBegin)
 {
-	Signal &sig = env.GetSignal();
 	GLenum mode = static_cast<GLenum>(arg.GetInt(0));
 	glBegin(mode);
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEnd();
 	}
@@ -153,7 +152,6 @@ Gura_DeclareFunctionAlias(__glBitmap, "glBitmap")
 
 Gura_ImplementFunction(__glBitmap)
 {
-	Signal &sig = env.GetSignal();
 	GLsizei width = arg.GetInt(0);
 	GLsizei height = arg.GetInt(1);
 	GLfloat xorig = arg.GetFloat(2);
@@ -165,7 +163,7 @@ Gura_ImplementFunction(__glBitmap)
 	if (_bitmap != nullptr) {
 		size_t bytesReq = ((width + 7) / 8) * height;
 		if (_bitmap->GetSize() < bytesReq) {
-			sig.SetError(ERR_ValueError, "array doesn\'t contain enough data");
+			env.SetError(ERR_ValueError, "array doesn\'t contain enough data");
 			return Value::Nil;
 		}
 	}
@@ -222,7 +220,6 @@ Gura_DeclareFunctionAlias(__glCallLists, "glCallLists")
 
 Gura_ImplementFunction(__glCallLists)
 {
-	Signal &sig = env.GetSignal();
 	GLenum type = static_cast<GLenum>(arg.GetInt(0));
 	const ValueList & lists = arg.GetList(1);
 	const ValueList &lists_in = arg.GetList(1);
@@ -284,7 +281,7 @@ Gura_ImplementFunction(__glCallLists)
 			*p++ = static_cast<GLubyte>(num);
 		}
 	} else {
-		sig.SetError(ERR_ValueError, "invalid type specification");
+		env.SetError(ERR_ValueError, "invalid type specification");
 		return Value::Nil;
 	}
 	// GLsizei n, GLenum type, const GLvoid *lists
@@ -409,7 +406,7 @@ Gura_ImplementFunction(__glClearStencil)
 // opengl.glClipPlane
 Gura_DeclareFunctionAlias(__glClipPlane, "glClipPlane")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "plane", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "equation", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
@@ -420,12 +417,11 @@ Gura_DeclareFunctionAlias(__glClipPlane, "glClipPlane")
 
 Gura_ImplementFunction(__glClipPlane)
 {
-	Signal &sig = env.GetSignal();
 	GLenum plane = static_cast<GLenum>(arg.GetInt(0));
 	Array<double> *_equation = Object_array<double>::GetObject(arg, 1)->GetArray();
 	GLdouble *equation = reinterpret_cast<GLdouble *>(_equation->GetPointer());
 	if (_equation->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have four elements");
+		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
 	glClipPlane(plane, equation);
@@ -465,11 +461,10 @@ Gura_DeclareFunctionAlias(__glColor3bv, "glColor3bv")
 
 Gura_ImplementFunction(__glColor3bv)
 {
-	Signal &sig = env.GetSignal();
 	Array<char> *_v = Object_array<char>::GetObject(arg, 0)->GetArray();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor3bv(v);
@@ -509,11 +504,10 @@ Gura_DeclareFunctionAlias(__glColor3dv, "glColor3dv")
 
 Gura_ImplementFunction(__glColor3dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor3dv(v);
@@ -553,11 +547,10 @@ Gura_DeclareFunctionAlias(__glColor3fv, "glColor3fv")
 
 Gura_ImplementFunction(__glColor3fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor3fv(v);
@@ -597,11 +590,10 @@ Gura_DeclareFunctionAlias(__glColor3iv, "glColor3iv")
 
 Gura_ImplementFunction(__glColor3iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor3iv(v);
@@ -641,11 +633,10 @@ Gura_DeclareFunctionAlias(__glColor3sv, "glColor3sv")
 
 Gura_ImplementFunction(__glColor3sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor3sv(v);
@@ -685,11 +676,10 @@ Gura_DeclareFunctionAlias(__glColor3ubv, "glColor3ubv")
 
 Gura_ImplementFunction(__glColor3ubv)
 {
-	Signal &sig = env.GetSignal();
 	Array<UChar> *_v = Object_array<UChar>::GetObject(arg, 0)->GetArray();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor3ubv(v);
@@ -729,11 +719,10 @@ Gura_DeclareFunctionAlias(__glColor3uiv, "glColor3uiv")
 
 Gura_ImplementFunction(__glColor3uiv)
 {
-	Signal &sig = env.GetSignal();
 	Array<UInt> *_v = Object_array<UInt>::GetObject(arg, 0)->GetArray();
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor3uiv(v);
@@ -773,11 +762,10 @@ Gura_DeclareFunctionAlias(__glColor3usv, "glColor3usv")
 
 Gura_ImplementFunction(__glColor3usv)
 {
-	Signal &sig = env.GetSignal();
 	Array<UShort> *_v = Object_array<UShort>::GetObject(arg, 0)->GetArray();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor3usv(v);
@@ -819,11 +807,10 @@ Gura_DeclareFunctionAlias(__glColor4bv, "glColor4bv")
 
 Gura_ImplementFunction(__glColor4bv)
 {
-	Signal &sig = env.GetSignal();
 	Array<char> *_v = Object_array<char>::GetObject(arg, 0)->GetArray();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor4bv(v);
@@ -865,11 +852,10 @@ Gura_DeclareFunctionAlias(__glColor4dv, "glColor4dv")
 
 Gura_ImplementFunction(__glColor4dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have four elements");
+		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
 	glColor4dv(v);
@@ -911,11 +897,10 @@ Gura_DeclareFunctionAlias(__glColor4fv, "glColor4fv")
 
 Gura_ImplementFunction(__glColor4fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have four elements");
+		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
 	glColor4fv(v);
@@ -957,11 +942,10 @@ Gura_DeclareFunctionAlias(__glColor4iv, "glColor4iv")
 
 Gura_ImplementFunction(__glColor4iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor4iv(v);
@@ -1003,11 +987,10 @@ Gura_DeclareFunctionAlias(__glColor4sv, "glColor4sv")
 
 Gura_ImplementFunction(__glColor4sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor4sv(v);
@@ -1049,11 +1032,10 @@ Gura_DeclareFunctionAlias(__glColor4ubv, "glColor4ubv")
 
 Gura_ImplementFunction(__glColor4ubv)
 {
-	Signal &sig = env.GetSignal();
 	Array<UChar> *_v = Object_array<UChar>::GetObject(arg, 0)->GetArray();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor4ubv(v);
@@ -1095,11 +1077,10 @@ Gura_DeclareFunctionAlias(__glColor4uiv, "glColor4uiv")
 
 Gura_ImplementFunction(__glColor4uiv)
 {
-	Signal &sig = env.GetSignal();
 	Array<UInt> *_v = Object_array<UInt>::GetObject(arg, 0)->GetArray();
 	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor4uiv(v);
@@ -1141,11 +1122,10 @@ Gura_DeclareFunctionAlias(__glColor4usv, "glColor4usv")
 
 Gura_ImplementFunction(__glColor4usv)
 {
-	Signal &sig = env.GetSignal();
 	Array<UShort> *_v = Object_array<UShort>::GetObject(arg, 0)->GetArray();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glColor4usv(v);
@@ -1533,14 +1513,13 @@ Gura_DeclareFunctionAlias(__glDrawPixels, "glDrawPixels")
 
 Gura_ImplementFunction(__glDrawPixels)
 {
-	Signal &sig = env.GetSignal();
 	GLsizei width = arg.GetInt(0);
 	GLsizei height = arg.GetInt(1);
 	GLenum format = static_cast<GLenum>(arg.GetInt(2));
 	GLenum type = static_cast<GLenum>(arg.GetInt(3));
 	Value pixels = arg.GetValue(4);
 	
-	const void *p = GetArrayPointer(sig, type, pixels);
+	const void *p = GetArrayPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glDrawPixels(width, height, format, type, p);
 	return Value::Nil;
@@ -1558,13 +1537,12 @@ Gura_DeclareFunctionAlias(__glDrawPixelsFromImage, "glDrawPixelsFromImage")
 
 Gura_ImplementFunction(__glDrawPixelsFromImage)
 {
-	Signal &sig = env.GetSignal();
 	Image *image = Object_image::GetObject(arg, 0)->GetImage();
 	
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
-	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, image);
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = image->GetBuffer();
 	// GLsizei width, GLsizei height, GLenum format, GLenum type, const GLvoid *pixels
@@ -1601,11 +1579,10 @@ Gura_DeclareFunctionAlias(__glEdgeFlagv, "glEdgeFlagv")
 
 Gura_ImplementFunction(__glEdgeFlagv)
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<Array<GLboolean> > _flag(CreateArrayFromList<GLboolean>(arg.GetList(0)));
 	GLboolean *flag = _flag->GetPointer();
 	if (_flag->GetSize() != 1) {
-		sig.SetError(ERR_ValueError, "the list must have one element");
+		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
 	glEdgeFlagv(flag);
@@ -1705,11 +1682,10 @@ Gura_DeclareFunctionAlias(__glEvalCoord1dv, "glEvalCoord1dv")
 
 Gura_ImplementFunction(__glEvalCoord1dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_u = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *u = reinterpret_cast<GLdouble *>(_u->GetPointer());
 	if (_u->GetSize() != 1) {
-		sig.SetError(ERR_ValueError, "the list must have one element");
+		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
 	glEvalCoord1dv(u);
@@ -1745,11 +1721,10 @@ Gura_DeclareFunctionAlias(__glEvalCoord1fv, "glEvalCoord1fv")
 
 Gura_ImplementFunction(__glEvalCoord1fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_u = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *u = reinterpret_cast<GLfloat *>(_u->GetPointer());
 	if (_u->GetSize() != 1) {
-		sig.SetError(ERR_ValueError, "the list must have one element");
+		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
 	glEvalCoord1fv(u);
@@ -1787,11 +1762,10 @@ Gura_DeclareFunctionAlias(__glEvalCoord2dv, "glEvalCoord2dv")
 
 Gura_ImplementFunction(__glEvalCoord2dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_u = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *u = reinterpret_cast<GLdouble *>(_u->GetPointer());
 	if (_u->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glEvalCoord2dv(u);
@@ -1829,11 +1803,10 @@ Gura_DeclareFunctionAlias(__glEvalCoord2fv, "glEvalCoord2fv")
 
 Gura_ImplementFunction(__glEvalCoord2fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_u = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *u = reinterpret_cast<GLfloat *>(_u->GetPointer());
 	if (_u->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glEvalCoord2fv(u);
@@ -2007,12 +1980,11 @@ Gura_DeclareFunctionAlias(__glFogfv, "glFogfv")
 
 Gura_ImplementFunction(__glFogfv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
 	Array<float> *_params = Object_array<float>::GetObject(arg, 1)->GetArray();
 	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -2052,12 +2024,11 @@ Gura_DeclareFunctionAlias(__glFogiv, "glFogiv")
 
 Gura_ImplementFunction(__glFogiv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
 	Array<int> *_params = Object_array<int>::GetObject(arg, 1)->GetArray();
 	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -2330,7 +2301,6 @@ Gura_DeclareFunctionAlias(__glGetMapdv, "glGetMapdv")
 
 Gura_ImplementFunction(__glGetMapdv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum query = static_cast<GLenum>(arg.GetInt(1));
@@ -2339,7 +2309,7 @@ Gura_ImplementFunction(__glGetMapdv)
 	glGetMapdv(target, query, v);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetMapdv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetMapdv");
 	return Value::Nil;
 }
 
@@ -2357,7 +2327,6 @@ Gura_DeclareFunctionAlias(__glGetMapfv, "glGetMapfv")
 
 Gura_ImplementFunction(__glGetMapfv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum query = static_cast<GLenum>(arg.GetInt(1));
@@ -2366,7 +2335,7 @@ Gura_ImplementFunction(__glGetMapfv)
 	glGetMapfv(target, query, v);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetMapfv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetMapfv");
 	return Value::Nil;
 }
 
@@ -2384,7 +2353,6 @@ Gura_DeclareFunctionAlias(__glGetMapiv, "glGetMapiv")
 
 Gura_ImplementFunction(__glGetMapiv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum query = static_cast<GLenum>(arg.GetInt(1));
@@ -2393,7 +2361,7 @@ Gura_ImplementFunction(__glGetMapiv)
 	glGetMapiv(target, query, v);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetMapiv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetMapiv");
 	return Value::Nil;
 }
 
@@ -2456,7 +2424,6 @@ Gura_DeclareFunctionAlias(__glGetPixelMapfv, "glGetPixelMapfv")
 
 Gura_ImplementFunction(__glGetPixelMapfv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLenum map = static_cast<GLenum>(arg.GetInt(0));
 	Array<float> *_values = Object_array<float>::GetObject(arg, 1)->GetArray();
@@ -2464,7 +2431,7 @@ Gura_ImplementFunction(__glGetPixelMapfv)
 	glGetPixelMapfv(map, values);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetPixelMapfv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetPixelMapfv");
 	return Value::Nil;
 }
 
@@ -2481,7 +2448,6 @@ Gura_DeclareFunctionAlias(__glGetPixelMapuiv, "glGetPixelMapuiv")
 
 Gura_ImplementFunction(__glGetPixelMapuiv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLenum map = static_cast<GLenum>(arg.GetInt(0));
 	Array<UInt> *_values = Object_array<UInt>::GetObject(arg, 1)->GetArray();
@@ -2489,7 +2455,7 @@ Gura_ImplementFunction(__glGetPixelMapuiv)
 	glGetPixelMapuiv(map, values);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetPixelMapuiv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetPixelMapuiv");
 	return Value::Nil;
 }
 
@@ -2506,7 +2472,6 @@ Gura_DeclareFunctionAlias(__glGetPixelMapusv, "glGetPixelMapusv")
 
 Gura_ImplementFunction(__glGetPixelMapusv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLenum map = static_cast<GLenum>(arg.GetInt(0));
 	Array<UShort> *_values = Object_array<UShort>::GetObject(arg, 1)->GetArray();
@@ -2514,7 +2479,7 @@ Gura_ImplementFunction(__glGetPixelMapusv)
 	glGetPixelMapusv(map, values);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetPixelMapusv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetPixelMapusv");
 	return Value::Nil;
 }
 
@@ -2530,14 +2495,13 @@ Gura_DeclareFunctionAlias(__glGetPolygonStipple, "glGetPolygonStipple")
 
 Gura_ImplementFunction(__glGetPolygonStipple)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	Array<UChar> *_mask = Object_array<UChar>::GetObject(arg, 0)->GetArray();
 	GLubyte *mask = reinterpret_cast<GLubyte *>(_mask->GetPointer());
 	glGetPolygonStipple(mask);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetPolygonStipple");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetPolygonStipple");
 	return Value::Nil;
 }
 
@@ -2554,11 +2518,10 @@ Gura_DeclareFunctionAlias(__glGetString, "glGetString")
 
 Gura_ImplementFunction(__glGetString)
 {
-	Signal &sig = env.GetSignal();
 	GLenum name = static_cast<GLenum>(arg.GetInt(0));
 	const GLubyte *_rtn = glGetString(name);
 	if (_rtn == nullptr) {
-		sig.SetError(ERR_ValueError, "invalid name");
+		env.SetError(ERR_ValueError, "invalid name");
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(reinterpret_cast<const char *>(_rtn)));
@@ -3087,12 +3050,11 @@ Gura_DeclareFunctionAlias(__glLightModelfv, "glLightModelfv")
 
 Gura_ImplementFunction(__glLightModelfv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
 	Array<float> *_params = Object_array<float>::GetObject(arg, 1)->GetArray();
 	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -3132,12 +3094,11 @@ Gura_DeclareFunctionAlias(__glLightModeliv, "glLightModeliv")
 
 Gura_ImplementFunction(__glLightModeliv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
 	Array<int> *_params = Object_array<int>::GetObject(arg, 1)->GetArray();
 	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -3180,13 +3141,12 @@ Gura_DeclareFunctionAlias(__glLightfv, "glLightfv")
 
 Gura_ImplementFunction(__glLightfv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum light = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -3229,13 +3189,12 @@ Gura_DeclareFunctionAlias(__glLightiv, "glLightiv")
 
 Gura_ImplementFunction(__glLightiv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum light = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(arg, 2)->GetArray();
 	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -3323,9 +3282,8 @@ Gura_DeclareFunctionAlias(__glLoadMatrixd, "glLoadMatrixd")
 
 Gura_ImplementFunction(__glLoadMatrixd)
 {
-	Signal &sig = env.GetSignal();
-	AutoPtr<Array<GLdouble> > _m(MakeMatrix<GLdouble>(sig, arg.GetValue(0)));
-	if (sig.IsSignalled()) return Value::Nil;
+	AutoPtr<Array<GLdouble> > _m(MakeMatrix<GLdouble>(env, arg.GetValue(0)));
+	if (env.IsSignalled()) return Value::Nil;
 	GLdouble *m = _m->GetPointer();
 	glLoadMatrixd(m);
 	return Value::Nil;
@@ -3343,9 +3301,8 @@ Gura_DeclareFunctionAlias(__glLoadMatrixf, "glLoadMatrixf")
 
 Gura_ImplementFunction(__glLoadMatrixf)
 {
-	Signal &sig = env.GetSignal();
-	AutoPtr<Array<GLfloat> > _m(MakeMatrix<GLfloat>(sig, arg.GetValue(0)));
-	if (sig.IsSignalled()) return Value::Nil;
+	AutoPtr<Array<GLfloat> > _m(MakeMatrix<GLfloat>(env, arg.GetValue(0)));
+	if (env.IsSignalled()) return Value::Nil;
 	GLfloat *m = _m->GetPointer();
 	glLoadMatrixf(m);
 	return Value::Nil;
@@ -3640,13 +3597,12 @@ Gura_DeclareFunctionAlias(__glMaterialfv, "glMaterialfv")
 
 Gura_ImplementFunction(__glMaterialfv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum face = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -3689,13 +3645,12 @@ Gura_DeclareFunctionAlias(__glMaterialiv, "glMaterialiv")
 
 Gura_ImplementFunction(__glMaterialiv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum face = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(arg, 2)->GetArray();
 	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -3732,9 +3687,8 @@ Gura_DeclareFunctionAlias(__glMultMatrixd, "glMultMatrixd")
 
 Gura_ImplementFunction(__glMultMatrixd)
 {
-	Signal &sig = env.GetSignal();
-	AutoPtr<Array<GLdouble> > _m(MakeMatrix<GLdouble>(sig, arg.GetValue(0)));
-	if (sig.IsSignalled()) return Value::Nil;
+	AutoPtr<Array<GLdouble> > _m(MakeMatrix<GLdouble>(env, arg.GetValue(0)));
+	if (env.IsSignalled()) return Value::Nil;
 	GLdouble *m = _m->GetPointer();
 	glMultMatrixd(m);
 	return Value::Nil;
@@ -3752,9 +3706,8 @@ Gura_DeclareFunctionAlias(__glMultMatrixf, "glMultMatrixf")
 
 Gura_ImplementFunction(__glMultMatrixf)
 {
-	Signal &sig = env.GetSignal();
-	AutoPtr<Array<GLfloat> > _m(MakeMatrix<GLfloat>(sig, arg.GetValue(0)));
-	if (sig.IsSignalled()) return Value::Nil;
+	AutoPtr<Array<GLfloat> > _m(MakeMatrix<GLfloat>(env, arg.GetValue(0)));
+	if (env.IsSignalled()) return Value::Nil;
 	GLfloat *m = _m->GetPointer();
 	glMultMatrixf(m);
 	return Value::Nil;
@@ -3774,14 +3727,13 @@ Gura_DeclareFunctionAlias(__glNewList, "glNewList")
 
 Gura_ImplementFunction(__glNewList)
 {
-	Signal &sig = env.GetSignal();
 	GLuint list = arg.GetUInt(0);
 	GLenum mode = static_cast<GLenum>(arg.GetInt(1));
 	glNewList(list, mode);
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glEndList();
 	}
@@ -3821,11 +3773,10 @@ Gura_DeclareFunctionAlias(__glNormal3bv, "glNormal3bv")
 
 Gura_ImplementFunction(__glNormal3bv)
 {
-	Signal &sig = env.GetSignal();
 	Array<char> *_v = Object_array<char>::GetObject(arg, 0)->GetArray();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glNormal3bv(v);
@@ -3865,11 +3816,10 @@ Gura_DeclareFunctionAlias(__glNormal3dv, "glNormal3dv")
 
 Gura_ImplementFunction(__glNormal3dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glNormal3dv(v);
@@ -3909,11 +3859,10 @@ Gura_DeclareFunctionAlias(__glNormal3fv, "glNormal3fv")
 
 Gura_ImplementFunction(__glNormal3fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glNormal3fv(v);
@@ -3953,11 +3902,10 @@ Gura_DeclareFunctionAlias(__glNormal3iv, "glNormal3iv")
 
 Gura_ImplementFunction(__glNormal3iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glNormal3iv(v);
@@ -3997,11 +3945,10 @@ Gura_DeclareFunctionAlias(__glNormal3sv, "glNormal3sv")
 
 Gura_ImplementFunction(__glNormal3sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glNormal3sv(v);
@@ -4280,11 +4227,10 @@ Gura_DeclareFunctionAlias(__glPolygonStipple, "glPolygonStipple")
 
 Gura_ImplementFunction(__glPolygonStipple)
 {
-	Signal &sig = env.GetSignal();
 	Array<UChar> *_mask = Object_array<UChar>::GetObject(arg, 0)->GetArray();
 	GLubyte *mask = reinterpret_cast<GLubyte *>(_mask->GetPointer());
 	if (_mask->GetSize() != 32 * 4) {
-		sig.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
+		env.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
 		return Value::Nil;
 	}
 	glPolygonStipple(mask);
@@ -4364,14 +4310,13 @@ Gura_DeclareFunctionAlias(__glPrioritizeTextures, "glPrioritizeTextures")
 
 Gura_ImplementFunction(__glPrioritizeTextures)
 {
-	Signal &sig = env.GetSignal();
 	Array<UInt> *_textures = Object_array<UInt>::GetObject(arg, 0)->GetArray();
 	GLuint *textures = reinterpret_cast<GLuint *>(_textures->GetPointer());
 	Array<float> *_priorities = Object_array<float>::GetObject(arg, 1)->GetArray();
 	GLclampf *priorities = reinterpret_cast<GLclampf *>(_priorities->GetPointer());
 	GLsizei n = _textures->GetSize();
 	if (n != _priorities->GetSize()) {
-		sig.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
+		env.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
 		return Value::Nil;
 	}
 	glPrioritizeTextures(n, textures, priorities);
@@ -4391,13 +4336,12 @@ Gura_DeclareFunctionAlias(__glPushAttrib, "glPushAttrib")
 
 Gura_ImplementFunction(__glPushAttrib)
 {
-	Signal &sig = env.GetSignal();
 	GLbitfield mask = arg.GetUInt(0);
 	glPushAttrib(mask);
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopAttrib();
 	}
@@ -4417,13 +4361,12 @@ Gura_DeclareFunctionAlias(__glPushClientAttrib, "glPushClientAttrib")
 
 Gura_ImplementFunction(__glPushClientAttrib)
 {
-	Signal &sig = env.GetSignal();
 	GLbitfield mask = arg.GetUInt(0);
 	glPushClientAttrib(mask);
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopClientAttrib();
 	}
@@ -4442,12 +4385,11 @@ Gura_DeclareFunctionAlias(__glPushMatrix, "glPushMatrix")
 
 Gura_ImplementFunction(__glPushMatrix)
 {
-	Signal &sig = env.GetSignal();
 	glPushMatrix();
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopMatrix();
 	}
@@ -4467,13 +4409,12 @@ Gura_DeclareFunctionAlias(__glPushName, "glPushName")
 
 Gura_ImplementFunction(__glPushName)
 {
-	Signal &sig = env.GetSignal();
 	GLuint name = arg.GetUInt(0);
 	glPushName(name);
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		glPopName();
 	}
@@ -4511,11 +4452,10 @@ Gura_DeclareFunctionAlias(__glRasterPos2dv, "glRasterPos2dv")
 
 Gura_ImplementFunction(__glRasterPos2dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glRasterPos2dv(v);
@@ -4553,11 +4493,10 @@ Gura_DeclareFunctionAlias(__glRasterPos2fv, "glRasterPos2fv")
 
 Gura_ImplementFunction(__glRasterPos2fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glRasterPos2fv(v);
@@ -4595,11 +4534,10 @@ Gura_DeclareFunctionAlias(__glRasterPos2iv, "glRasterPos2iv")
 
 Gura_ImplementFunction(__glRasterPos2iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glRasterPos2iv(v);
@@ -4637,11 +4575,10 @@ Gura_DeclareFunctionAlias(__glRasterPos2sv, "glRasterPos2sv")
 
 Gura_ImplementFunction(__glRasterPos2sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glRasterPos2sv(v);
@@ -4681,11 +4618,10 @@ Gura_DeclareFunctionAlias(__glRasterPos3dv, "glRasterPos3dv")
 
 Gura_ImplementFunction(__glRasterPos3dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glRasterPos3dv(v);
@@ -4725,11 +4661,10 @@ Gura_DeclareFunctionAlias(__glRasterPos3fv, "glRasterPos3fv")
 
 Gura_ImplementFunction(__glRasterPos3fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glRasterPos3fv(v);
@@ -4769,11 +4704,10 @@ Gura_DeclareFunctionAlias(__glRasterPos3iv, "glRasterPos3iv")
 
 Gura_ImplementFunction(__glRasterPos3iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glRasterPos3iv(v);
@@ -4813,11 +4747,10 @@ Gura_DeclareFunctionAlias(__glRasterPos3sv, "glRasterPos3sv")
 
 Gura_ImplementFunction(__glRasterPos3sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glRasterPos3sv(v);
@@ -4859,11 +4792,10 @@ Gura_DeclareFunctionAlias(__glRasterPos4dv, "glRasterPos4dv")
 
 Gura_ImplementFunction(__glRasterPos4dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have four elements");
+		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
 	glRasterPos4dv(v);
@@ -4905,11 +4837,10 @@ Gura_DeclareFunctionAlias(__glRasterPos4fv, "glRasterPos4fv")
 
 Gura_ImplementFunction(__glRasterPos4fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have four elements");
+		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
 	glRasterPos4fv(v);
@@ -4951,11 +4882,10 @@ Gura_DeclareFunctionAlias(__glRasterPos4iv, "glRasterPos4iv")
 
 Gura_ImplementFunction(__glRasterPos4iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glRasterPos4iv(v);
@@ -4997,11 +4927,10 @@ Gura_DeclareFunctionAlias(__glRasterPos4sv, "glRasterPos4sv")
 
 Gura_ImplementFunction(__glRasterPos4sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glRasterPos4sv(v);
@@ -5042,17 +4971,17 @@ Gura_DeclareFunctionAlias(__glReadPixels, "glReadPixels")
 
 Gura_ImplementFunction(__glReadPixels)
 {
-	Signal &sig = env.GetSignal();
 	GLint x = arg.GetInt(0);
 	GLint y = arg.GetInt(1);
 	GLsizei width = arg.GetInt(2);
 	GLsizei height = arg.GetInt(3);
 	const Symbol *format = arg.GetSymbol(4);
+	Signal &sig = env.GetSignal();
 	Image::Format fmt = Image::SymbolToFormat(sig, format);
-	if (sig.IsSignalled()) return Value::Nil;
+	if (env.IsSignalled()) return Value::Nil;
 	AutoPtr<Image> pImage(new Image(fmt));
-	GLenum _format = GetImageFormat(sig, pImage.get());
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum _format = GetImageFormat(env, pImage.get());
+	if (env.IsSignalled()) return Value::Nil;
 	if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	glReadPixels(x, y, width, height, _format, type, pImage->GetBuffer());
@@ -5095,17 +5024,16 @@ Gura_DeclareFunctionAlias(__glRectdv, "glRectdv")
 
 Gura_ImplementFunction(__glRectdv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v1 = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v1 = reinterpret_cast<GLdouble *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	Array<double> *_v2 = Object_array<double>::GetObject(arg, 1)->GetArray();
 	GLdouble *v2 = reinterpret_cast<GLdouble *>(_v2->GetPointer());
 	if (_v2->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glRectdv(v1, v2);
@@ -5148,17 +5076,16 @@ Gura_DeclareFunctionAlias(__glRectfv, "glRectfv")
 
 Gura_ImplementFunction(__glRectfv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v1 = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v1 = reinterpret_cast<GLfloat *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	Array<float> *_v2 = Object_array<float>::GetObject(arg, 1)->GetArray();
 	GLfloat *v2 = reinterpret_cast<GLfloat *>(_v2->GetPointer());
 	if (_v2->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glRectfv(v1, v2);
@@ -5201,17 +5128,16 @@ Gura_DeclareFunctionAlias(__glRectiv, "glRectiv")
 
 Gura_ImplementFunction(__glRectiv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v1 = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v1 = reinterpret_cast<GLint *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	Array<int> *_v2 = Object_array<int>::GetObject(arg, 1)->GetArray();
 	GLint *v2 = reinterpret_cast<GLint *>(_v2->GetPointer());
 	if (_v2->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glRectiv(v1, v2);
@@ -5254,17 +5180,16 @@ Gura_DeclareFunctionAlias(__glRectsv, "glRectsv")
 
 Gura_ImplementFunction(__glRectsv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v1 = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v1 = reinterpret_cast<GLshort *>(_v1->GetPointer());
 	if (_v1->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	Array<short> *_v2 = Object_array<short>::GetObject(arg, 1)->GetArray();
 	GLshort *v2 = reinterpret_cast<GLshort *>(_v2->GetPointer());
 	if (_v2->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glRectsv(v1, v2);
@@ -5526,11 +5451,10 @@ Gura_DeclareFunctionAlias(__glTexCoord1dv, "glTexCoord1dv")
 
 Gura_ImplementFunction(__glTexCoord1dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
-		sig.SetError(ERR_ValueError, "the list must have one element");
+		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
 	glTexCoord1dv(v);
@@ -5566,11 +5490,10 @@ Gura_DeclareFunctionAlias(__glTexCoord1fv, "glTexCoord1fv")
 
 Gura_ImplementFunction(__glTexCoord1fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
-		sig.SetError(ERR_ValueError, "the list must have one element");
+		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
 	glTexCoord1fv(v);
@@ -5606,11 +5529,10 @@ Gura_DeclareFunctionAlias(__glTexCoord1iv, "glTexCoord1iv")
 
 Gura_ImplementFunction(__glTexCoord1iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
-		sig.SetError(ERR_ValueError, "the list must have one element");
+		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
 	glTexCoord1iv(v);
@@ -5646,11 +5568,10 @@ Gura_DeclareFunctionAlias(__glTexCoord1sv, "glTexCoord1sv")
 
 Gura_ImplementFunction(__glTexCoord1sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 1) {
-		sig.SetError(ERR_ValueError, "the list must have one element");
+		env.SetError(ERR_ValueError, "the list must have one element");
 		return Value::Nil;
 	}
 	glTexCoord1sv(v);
@@ -5688,11 +5609,10 @@ Gura_DeclareFunctionAlias(__glTexCoord2dv, "glTexCoord2dv")
 
 Gura_ImplementFunction(__glTexCoord2dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glTexCoord2dv(v);
@@ -5730,11 +5650,10 @@ Gura_DeclareFunctionAlias(__glTexCoord2fv, "glTexCoord2fv")
 
 Gura_ImplementFunction(__glTexCoord2fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glTexCoord2fv(v);
@@ -5772,11 +5691,10 @@ Gura_DeclareFunctionAlias(__glTexCoord2iv, "glTexCoord2iv")
 
 Gura_ImplementFunction(__glTexCoord2iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glTexCoord2iv(v);
@@ -5814,11 +5732,10 @@ Gura_DeclareFunctionAlias(__glTexCoord2sv, "glTexCoord2sv")
 
 Gura_ImplementFunction(__glTexCoord2sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glTexCoord2sv(v);
@@ -5858,11 +5775,10 @@ Gura_DeclareFunctionAlias(__glTexCoord3dv, "glTexCoord3dv")
 
 Gura_ImplementFunction(__glTexCoord3dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glTexCoord3dv(v);
@@ -5902,11 +5818,10 @@ Gura_DeclareFunctionAlias(__glTexCoord3fv, "glTexCoord3fv")
 
 Gura_ImplementFunction(__glTexCoord3fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glTexCoord3fv(v);
@@ -5946,11 +5861,10 @@ Gura_DeclareFunctionAlias(__glTexCoord3iv, "glTexCoord3iv")
 
 Gura_ImplementFunction(__glTexCoord3iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glTexCoord3iv(v);
@@ -5990,11 +5904,10 @@ Gura_DeclareFunctionAlias(__glTexCoord3sv, "glTexCoord3sv")
 
 Gura_ImplementFunction(__glTexCoord3sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glTexCoord3sv(v);
@@ -6036,11 +5949,10 @@ Gura_DeclareFunctionAlias(__glTexCoord4dv, "glTexCoord4dv")
 
 Gura_ImplementFunction(__glTexCoord4dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have four elements");
+		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
 	glTexCoord4dv(v);
@@ -6082,11 +5994,10 @@ Gura_DeclareFunctionAlias(__glTexCoord4fv, "glTexCoord4fv")
 
 Gura_ImplementFunction(__glTexCoord4fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have four elements");
+		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
 	glTexCoord4fv(v);
@@ -6128,11 +6039,10 @@ Gura_DeclareFunctionAlias(__glTexCoord4iv, "glTexCoord4iv")
 
 Gura_ImplementFunction(__glTexCoord4iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glTexCoord4iv(v);
@@ -6174,11 +6084,10 @@ Gura_DeclareFunctionAlias(__glTexCoord4sv, "glTexCoord4sv")
 
 Gura_ImplementFunction(__glTexCoord4sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glTexCoord4sv(v);
@@ -6220,13 +6129,12 @@ Gura_DeclareFunctionAlias(__glTexEnvfv, "glTexEnvfv")
 
 Gura_ImplementFunction(__glTexEnvfv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -6269,13 +6177,12 @@ Gura_DeclareFunctionAlias(__glTexEnviv, "glTexEnviv")
 
 Gura_ImplementFunction(__glTexEnviv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(arg, 2)->GetArray();
 	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -6318,13 +6225,12 @@ Gura_DeclareFunctionAlias(__glTexGendv, "glTexGendv")
 
 Gura_ImplementFunction(__glTexGendv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum coord = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<double> *_params = Object_array<double>::GetObject(arg, 2)->GetArray();
 	GLdouble *params = reinterpret_cast<GLdouble *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -6367,13 +6273,12 @@ Gura_DeclareFunctionAlias(__glTexGenfv, "glTexGenfv")
 
 Gura_ImplementFunction(__glTexGenfv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum coord = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -6416,13 +6321,12 @@ Gura_DeclareFunctionAlias(__glTexGeniv, "glTexGeniv")
 
 Gura_ImplementFunction(__glTexGeniv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum coord = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(arg, 2)->GetArray();
 	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -6449,7 +6353,6 @@ Gura_DeclareFunctionAlias(__glTexImage1D, "glTexImage1D")
 
 Gura_ImplementFunction(__glTexImage1D)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint level = arg.GetInt(1);
 	GLint internalformat = arg.GetInt(2);
@@ -6459,7 +6362,7 @@ Gura_ImplementFunction(__glTexImage1D)
 	GLenum type = static_cast<GLenum>(arg.GetInt(6));
 	Value pixels = arg.GetValue(7);
 	// check pixels->size()
-	const void *p = GetArrayPointer(sig, type, pixels);
+	const void *p = GetArrayPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glTexImage1D(target, level, internalformat, width, border, format, type, p);
 	return Value::Nil;
@@ -6481,15 +6384,14 @@ Gura_DeclareFunctionAlias(__glTexImage1DFromImage, "glTexImage1DFromImage")
 
 Gura_ImplementFunction(__glTexImage1DFromImage)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint level = arg.GetInt(1);
 	GLint internalformat = arg.GetInt(2);
 	GLint border = arg.GetInt(3);
 	Image *image = Object_image::GetObject(arg, 4)->GetImage();
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
-	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, image);
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
@@ -6516,7 +6418,6 @@ Gura_DeclareFunctionAlias(__glTexImage2D, "glTexImage2D")
 
 Gura_ImplementFunction(__glTexImage2D)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint level = arg.GetInt(1);
 	GLint internalformat = arg.GetInt(2);
@@ -6527,7 +6428,7 @@ Gura_ImplementFunction(__glTexImage2D)
 	GLenum type = static_cast<GLenum>(arg.GetInt(7));
 	Value pixels = arg.GetValue(8);
 	// check pixels->size()
-	const void *p = GetArrayPointer(sig, type, pixels);
+	const void *p = GetArrayPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glTexImage2D(target, level, internalformat, width, height, border, format, type, p);
 	return Value::Nil;
@@ -6549,7 +6450,6 @@ Gura_DeclareFunctionAlias(__glTexImage2DFromImage, "glTexImage2DFromImage")
 
 Gura_ImplementFunction(__glTexImage2DFromImage)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint level = arg.GetInt(1);
 	GLint internalformat = arg.GetInt(2);
@@ -6557,8 +6457,8 @@ Gura_ImplementFunction(__glTexImage2DFromImage)
 	Image *image = Object_image::GetObject(arg, 4)->GetImage();
 	GLsizei width = static_cast<GLsizei>(image->GetWidth()) + border * 2;
 	GLsizei height = static_cast<GLsizei>(image->GetHeight()) + border * 2;
-	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, image);
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
@@ -6600,13 +6500,12 @@ Gura_DeclareFunctionAlias(__glTexParameterfv, "glTexParameterfv")
 
 Gura_ImplementFunction(__glTexParameterfv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -6649,13 +6548,12 @@ Gura_DeclareFunctionAlias(__glTexParameteriv, "glTexParameteriv")
 
 Gura_ImplementFunction(__glTexParameteriv)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(arg, 2)->GetArray();
 	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
 	if (!CheckParamCount(pname, _params->GetSize())) {
-		sig.SetError(ERR_ValueError,
+		env.SetError(ERR_ValueError,
 				"the list must have %d elements", GetParamCount(pname));
 		return Value::Nil;
 	}
@@ -6681,7 +6579,6 @@ Gura_DeclareFunctionAlias(__glTexSubImage1D, "glTexSubImage1D")
 
 Gura_ImplementFunction(__glTexSubImage1D)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint level = arg.GetInt(1);
 	GLint xoffset = arg.GetInt(2);
@@ -6690,7 +6587,7 @@ Gura_ImplementFunction(__glTexSubImage1D)
 	GLenum type = static_cast<GLenum>(arg.GetInt(5));
 	Value pixels = arg.GetValue(6);
 	// check pixels->size()
-	const void *p = GetArrayPointer(sig, type, pixels);
+	const void *p = GetArrayPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glTexSubImage1D(target, level, xoffset, width, format, type, p);
 	return Value::Nil;
@@ -6711,14 +6608,13 @@ Gura_DeclareFunctionAlias(__glTexSubImage1DFromImage, "glTexSubImage1DFromImage"
 
 Gura_ImplementFunction(__glTexSubImage1DFromImage)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint level = arg.GetInt(1);
 	GLint xoffset = arg.GetInt(2);
 	Image *image = Object_image::GetObject(arg, 3)->GetImage();
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
-	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, image);
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
@@ -6745,7 +6641,6 @@ Gura_DeclareFunctionAlias(__glTexSubImage2D, "glTexSubImage2D")
 
 Gura_ImplementFunction(__glTexSubImage2D)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint level = arg.GetInt(1);
 	GLint xoffset = arg.GetInt(2);
@@ -6756,7 +6651,7 @@ Gura_ImplementFunction(__glTexSubImage2D)
 	GLenum type = static_cast<GLenum>(arg.GetInt(7));
 	Value pixels = arg.GetValue(8);
 	// check pixels->size()
-	const void *p = GetArrayPointer(sig, type, pixels);
+	const void *p = GetArrayPointer(env, type, pixels);
 	if (p == nullptr) return Value::Nil;
 	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, p);
 	return Value::Nil;
@@ -6778,7 +6673,6 @@ Gura_DeclareFunctionAlias(__glTexSubImage2DFromImage, "glTexSubImage2DFromImage"
 
 Gura_ImplementFunction(__glTexSubImage2DFromImage)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint level = arg.GetInt(1);
 	GLint xoffset = arg.GetInt(2);
@@ -6786,8 +6680,8 @@ Gura_ImplementFunction(__glTexSubImage2DFromImage)
 	Image *image = Object_image::GetObject(arg, 4)->GetImage();
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
-	GLenum format = GetImageFormat(sig, image);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, image);
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const GLvoid *pixels = reinterpret_cast<const GLvoid *>(image->GetBuffer());
 	glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
@@ -6867,11 +6761,10 @@ Gura_DeclareFunctionAlias(__glVertex2dv, "glVertex2dv")
 
 Gura_ImplementFunction(__glVertex2dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glVertex2dv(v);
@@ -6909,11 +6802,10 @@ Gura_DeclareFunctionAlias(__glVertex2fv, "glVertex2fv")
 
 Gura_ImplementFunction(__glVertex2fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glVertex2fv(v);
@@ -6951,11 +6843,10 @@ Gura_DeclareFunctionAlias(__glVertex2iv, "glVertex2iv")
 
 Gura_ImplementFunction(__glVertex2iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glVertex2iv(v);
@@ -6993,11 +6884,10 @@ Gura_DeclareFunctionAlias(__glVertex2sv, "glVertex2sv")
 
 Gura_ImplementFunction(__glVertex2sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 2) {
-		sig.SetError(ERR_ValueError, "the list must have two elements");
+		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
 	glVertex2sv(v);
@@ -7037,11 +6927,10 @@ Gura_DeclareFunctionAlias(__glVertex3dv, "glVertex3dv")
 
 Gura_ImplementFunction(__glVertex3dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glVertex3dv(v);
@@ -7081,11 +6970,10 @@ Gura_DeclareFunctionAlias(__glVertex3fv, "glVertex3fv")
 
 Gura_ImplementFunction(__glVertex3fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glVertex3fv(v);
@@ -7125,11 +7013,10 @@ Gura_DeclareFunctionAlias(__glVertex3iv, "glVertex3iv")
 
 Gura_ImplementFunction(__glVertex3iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glVertex3iv(v);
@@ -7169,11 +7056,10 @@ Gura_DeclareFunctionAlias(__glVertex3sv, "glVertex3sv")
 
 Gura_ImplementFunction(__glVertex3sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 3) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glVertex3sv(v);
@@ -7215,11 +7101,10 @@ Gura_DeclareFunctionAlias(__glVertex4dv, "glVertex4dv")
 
 Gura_ImplementFunction(__glVertex4dv)
 {
-	Signal &sig = env.GetSignal();
 	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
 	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have four elements");
+		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
 	glVertex4dv(v);
@@ -7261,11 +7146,10 @@ Gura_DeclareFunctionAlias(__glVertex4fv, "glVertex4fv")
 
 Gura_ImplementFunction(__glVertex4fv)
 {
-	Signal &sig = env.GetSignal();
 	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
 	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have four elements");
+		env.SetError(ERR_ValueError, "the list must have four elements");
 		return Value::Nil;
 	}
 	glVertex4fv(v);
@@ -7307,11 +7191,10 @@ Gura_DeclareFunctionAlias(__glVertex4iv, "glVertex4iv")
 
 Gura_ImplementFunction(__glVertex4iv)
 {
-	Signal &sig = env.GetSignal();
 	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
 	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glVertex4iv(v);
@@ -7353,11 +7236,10 @@ Gura_DeclareFunctionAlias(__glVertex4sv, "glVertex4sv")
 
 Gura_ImplementFunction(__glVertex4sv)
 {
-	Signal &sig = env.GetSignal();
 	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (_v->GetSize() != 4) {
-		sig.SetError(ERR_ValueError, "the list must have three elements");
+		env.SetError(ERR_ValueError, "the list must have three elements");
 		return Value::Nil;
 	}
 	glVertex4sv(v);
@@ -7402,7 +7284,6 @@ Gura_DeclareFunctionAlias(__glGetAttachedShaders, "glGetAttachedShaders")
 
 Gura_ImplementFunction(__glGetAttachedShaders)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = arg.GetUInt(0);
 	GLsizei maxCount = arg.GetInt(1);
@@ -7413,7 +7294,7 @@ Gura_ImplementFunction(__glGetAttachedShaders)
 	glGetAttachedShaders(program, maxCount, count, shaders);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetAttachedShaders");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetAttachedShaders");
 	return Value::Nil;
 }
 
@@ -7432,7 +7313,6 @@ Gura_DeclareFunctionAlias(__glGetShaderInfoLog, "glGetShaderInfoLog")
 
 Gura_ImplementFunction(__glGetShaderInfoLog)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint shader = arg.GetUInt(0);
 	GLsizei bufSize = arg.GetInt(1);
@@ -7443,7 +7323,7 @@ Gura_ImplementFunction(__glGetShaderInfoLog)
 	glGetShaderInfoLog(shader, bufSize, length, infoLog);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetShaderInfoLog");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderInfoLog");
 	return Value::Nil;
 }
 
@@ -7462,7 +7342,6 @@ Gura_DeclareFunctionAlias(__glGetProgramInfoLog, "glGetProgramInfoLog")
 
 Gura_ImplementFunction(__glGetProgramInfoLog)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = arg.GetUInt(0);
 	GLsizei bufSize = arg.GetInt(1);
@@ -7473,7 +7352,7 @@ Gura_ImplementFunction(__glGetProgramInfoLog)
 	glGetProgramInfoLog(program, bufSize, length, infoLog);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetProgramInfoLog");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetProgramInfoLog");
 	return Value::Nil;
 }
 
@@ -7491,7 +7370,6 @@ Gura_DeclareFunctionAlias(__glGetUniformLocation, "glGetUniformLocation")
 
 Gura_ImplementFunction(__glGetUniformLocation)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = arg.GetUInt(0);
 	Array<char> *_name = Object_array<char>::GetObject(arg, 1)->GetArray();
@@ -7499,7 +7377,7 @@ Gura_ImplementFunction(__glGetUniformLocation)
 	GLint _rtn = glGetUniformLocation(program, name);
 	return ReturnValue(env, arg, Value(_rtn));
 #endif
-	SetError_NotImpFunction(sig, "glGetUniformLocation");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetUniformLocation");
 	return Value::Nil;
 }
 
@@ -7521,7 +7399,6 @@ Gura_DeclareFunctionAlias(__glGetActiveUniform, "glGetActiveUniform")
 
 Gura_ImplementFunction(__glGetActiveUniform)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = arg.GetUInt(0);
 	GLuint index = arg.GetUInt(1);
@@ -7537,7 +7414,7 @@ Gura_ImplementFunction(__glGetActiveUniform)
 	glGetActiveUniform(program, index, bufSize, length, size, type, name);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetActiveUniform");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetActiveUniform");
 	return Value::Nil;
 }
 
@@ -7555,7 +7432,6 @@ Gura_DeclareFunctionAlias(__glGetUniformfv, "glGetUniformfv")
 
 Gura_ImplementFunction(__glGetUniformfv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = arg.GetUInt(0);
 	GLint location = arg.GetInt(1);
@@ -7564,7 +7440,7 @@ Gura_ImplementFunction(__glGetUniformfv)
 	glGetUniformfv(program, location, params);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetUniformfv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetUniformfv");
 	return Value::Nil;
 }
 
@@ -7582,7 +7458,6 @@ Gura_DeclareFunctionAlias(__glGetUniformiv, "glGetUniformiv")
 
 Gura_ImplementFunction(__glGetUniformiv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = arg.GetUInt(0);
 	GLint location = arg.GetInt(1);
@@ -7591,7 +7466,7 @@ Gura_ImplementFunction(__glGetUniformiv)
 	glGetUniformiv(program, location, params);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetUniformiv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetUniformiv");
 	return Value::Nil;
 }
 
@@ -7610,7 +7485,6 @@ Gura_DeclareFunctionAlias(__glGetShaderSource, "glGetShaderSource")
 
 Gura_ImplementFunction(__glGetShaderSource)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint shader = arg.GetUInt(0);
 	GLsizei bufSize = arg.GetInt(1);
@@ -7621,7 +7495,7 @@ Gura_ImplementFunction(__glGetShaderSource)
 	glGetShaderSource(shader, bufSize, length, source);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetShaderSource");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderSource");
 	return Value::Nil;
 }
 
@@ -7639,7 +7513,6 @@ Gura_DeclareFunctionAlias(__glBindAttribLocation, "glBindAttribLocation")
 
 Gura_ImplementFunction(__glBindAttribLocation)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = arg.GetUInt(0);
 	GLuint index = arg.GetUInt(1);
@@ -7648,7 +7521,7 @@ Gura_ImplementFunction(__glBindAttribLocation)
 	glBindAttribLocation(program, index, name);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glBindAttribLocation");
+	env.SetError(ERR_NotImplementedError, "not implemented function glBindAttribLocation");
 	return Value::Nil;
 }
 
@@ -7670,7 +7543,6 @@ Gura_DeclareFunctionAlias(__glGetActiveAttrib, "glGetActiveAttrib")
 
 Gura_ImplementFunction(__glGetActiveAttrib)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = arg.GetUInt(0);
 	GLuint index = arg.GetUInt(1);
@@ -7686,7 +7558,7 @@ Gura_ImplementFunction(__glGetActiveAttrib)
 	glGetActiveAttrib(program, index, bufSize, length, size, type, name);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glGetActiveAttrib");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetActiveAttrib");
 	return Value::Nil;
 }
 
@@ -7704,7 +7576,6 @@ Gura_DeclareFunctionAlias(__glGetAttribLocation, "glGetAttribLocation")
 
 Gura_ImplementFunction(__glGetAttribLocation)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLuint program = arg.GetUInt(0);
 	Array<char> *_name = Object_array<char>::GetObject(arg, 1)->GetArray();
@@ -7712,7 +7583,7 @@ Gura_ImplementFunction(__glGetAttribLocation)
 	GLint _rtn = glGetAttribLocation(program, name);
 	return ReturnValue(env, arg, Value(_rtn));
 #endif
-	SetError_NotImpFunction(sig, "glGetAttribLocation");
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetAttribLocation");
 	return Value::Nil;
 }
 
@@ -7731,7 +7602,6 @@ Gura_DeclareFunctionAlias(__glUniformMatrix2x3fv, "glUniformMatrix2x3fv")
 
 Gura_ImplementFunction(__glUniformMatrix2x3fv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = arg.GetInt(0);
 	GLsizei count = arg.GetInt(1);
@@ -7741,7 +7611,7 @@ Gura_ImplementFunction(__glUniformMatrix2x3fv)
 	glUniformMatrix2x3fv(location, count, transpose, value);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glUniformMatrix2x3fv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glUniformMatrix2x3fv");
 	return Value::Nil;
 }
 
@@ -7760,7 +7630,6 @@ Gura_DeclareFunctionAlias(__glUniformMatrix3x2fv, "glUniformMatrix3x2fv")
 
 Gura_ImplementFunction(__glUniformMatrix3x2fv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = arg.GetInt(0);
 	GLsizei count = arg.GetInt(1);
@@ -7770,7 +7639,7 @@ Gura_ImplementFunction(__glUniformMatrix3x2fv)
 	glUniformMatrix3x2fv(location, count, transpose, value);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glUniformMatrix3x2fv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glUniformMatrix3x2fv");
 	return Value::Nil;
 }
 
@@ -7789,7 +7658,6 @@ Gura_DeclareFunctionAlias(__glUniformMatrix2x4fv, "glUniformMatrix2x4fv")
 
 Gura_ImplementFunction(__glUniformMatrix2x4fv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = arg.GetInt(0);
 	GLsizei count = arg.GetInt(1);
@@ -7799,7 +7667,7 @@ Gura_ImplementFunction(__glUniformMatrix2x4fv)
 	glUniformMatrix2x4fv(location, count, transpose, value);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glUniformMatrix2x4fv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glUniformMatrix2x4fv");
 	return Value::Nil;
 }
 
@@ -7818,7 +7686,6 @@ Gura_DeclareFunctionAlias(__glUniformMatrix4x2fv, "glUniformMatrix4x2fv")
 
 Gura_ImplementFunction(__glUniformMatrix4x2fv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = arg.GetInt(0);
 	GLsizei count = arg.GetInt(1);
@@ -7828,7 +7695,7 @@ Gura_ImplementFunction(__glUniformMatrix4x2fv)
 	glUniformMatrix4x2fv(location, count, transpose, value);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glUniformMatrix4x2fv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glUniformMatrix4x2fv");
 	return Value::Nil;
 }
 
@@ -7847,7 +7714,6 @@ Gura_DeclareFunctionAlias(__glUniformMatrix3x4fv, "glUniformMatrix3x4fv")
 
 Gura_ImplementFunction(__glUniformMatrix3x4fv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = arg.GetInt(0);
 	GLsizei count = arg.GetInt(1);
@@ -7857,7 +7723,7 @@ Gura_ImplementFunction(__glUniformMatrix3x4fv)
 	glUniformMatrix3x4fv(location, count, transpose, value);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glUniformMatrix3x4fv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glUniformMatrix3x4fv");
 	return Value::Nil;
 }
 
@@ -7876,7 +7742,6 @@ Gura_DeclareFunctionAlias(__glUniformMatrix4x3fv, "glUniformMatrix4x3fv")
 
 Gura_ImplementFunction(__glUniformMatrix4x3fv)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	GLint location = arg.GetInt(0);
 	GLsizei count = arg.GetInt(1);
@@ -7886,7 +7751,7 @@ Gura_ImplementFunction(__glUniformMatrix4x3fv)
 	glUniformMatrix4x3fv(location, count, transpose, value);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glUniformMatrix4x3fv");
+	env.SetError(ERR_NotImplementedError, "not implemented function glUniformMatrix4x3fv");
 	return Value::Nil;
 }
 

@@ -23,8 +23,8 @@ bool DoGLSection(Environment &env, Signal &sig, Argument &args, Image *pImage);
 size_t GetParamCount(GLenum pname);
 bool CheckParamCount(GLenum pname, size_t n);
 
-GLenum GetImageFormat(Signal &sig, const Image *pImage);
-void SetError_NotImpFunction(Signal &sig, const char *funcName);
+GLenum GetImageFormat(Environment &env, const Image *pImage);
+void SetError_NotImpFunction(Environment &env, const char *funcName);
 
 Gura_EndModuleHeader(opengl)
 

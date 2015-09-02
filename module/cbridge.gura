@@ -35,7 +35,7 @@ Gura_ImplementFunction(__${fi.funcNameGura})
 ${fi.tmplBody.render()}
 	${if (!fi.validFlag)}
 #endif
-	SetError_NotImpFunction(sig, "${fi.funcNameGura}");
+	env.SetError(ERR_NotImplementedError, "not implemented function ${fi.funcNameGura}");
 	return Value::Nil;
 	${end}
 }
@@ -152,13 +152,14 @@ FuncInfo = class {
 		} else {
 			this.funcNameGura = this.funcNameC
 		}
-		rtnTypeRaw = caller.attrfront.join('.')
-		if (rtnTypeRaw == 'map') {
-			rtnTypeRaw = ''
-		}
-		if (rtnTypeRaw.isempty() && !this.validFlag) {
+		if (caller.attrs.find(`void)) {
 			rtnTypeRaw = 'void'
+		} else {
+			rtnTypeRaw = caller.attrfront.join('.')
 		}
+		//if (rtnTypeRaw.isempty() && !this.validFlag) {
+		//	rtnTypeRaw = 'void'
+		//}
 		if (caller.attrs.find(`const)) {
 			rtnTypeRaw += ':const'
 		}

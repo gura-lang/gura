@@ -165,7 +165,7 @@ cbridge.AddTypeConvs {
 			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
 			if (_${arg.name}->GetSize() != 1) {
-				sig.SetError(ERR_ValueError, "the list must have one element");
+				env.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Nil;
 			}''',
 			nil,
@@ -176,7 +176,7 @@ cbridge.AddTypeConvs {
 			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
 			if (_${arg.name}->GetSize() != 2) {
-				sig.SetError(ERR_ValueError, "the list must have two elements");
+				env.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -187,7 +187,7 @@ cbridge.AddTypeConvs {
 			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
 			if (_${arg.name}->GetSize() != 3) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -206,7 +206,7 @@ cbridge.AddTypeConvs {
 			Array<char> *_${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 3) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -217,7 +217,7 @@ cbridge.AddTypeConvs {
 			Array<char> *_${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -228,7 +228,7 @@ cbridge.AddTypeConvs {
 			Array<char> *_${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			if (!CheckParamCount(pname, _${arg.name}->GetSize())) {
-				sig.SetError(ERR_ValueError,
+				env.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Nil;
 			}''',
@@ -278,7 +278,7 @@ cbridge.AddTypeConvs {
 			Array<UChar> *_${arg.name} = Object_array<UChar>::GetObject(arg, ${idx})->GetArray();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 3) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -289,7 +289,7 @@ cbridge.AddTypeConvs {
 			Array<UChar> *_${arg.name} = Object_array<UChar>::GetObject(arg, ${idx})->GetArray();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -300,7 +300,7 @@ cbridge.AddTypeConvs {
 			Array<UChar> *_${arg.name} = Object_array<UChar>::GetObject(arg, ${idx})->GetArray();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			if (!CheckParamCount(pname, _${arg.name}->GetSize())) {
-				sig.SetError(ERR_ValueError,
+				env.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Nil;
 			}''',
@@ -320,7 +320,7 @@ cbridge.AddTypeConvs {
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 1) {
-				sig.SetError(ERR_ValueError, "the list must have one element");
+				env.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Nil;
 			}''',
 			nil,
@@ -331,7 +331,7 @@ cbridge.AddTypeConvs {
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 2) {
-				sig.SetError(ERR_ValueError, "the list must have two elements");
+				env.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -342,7 +342,7 @@ cbridge.AddTypeConvs {
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 3) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -353,7 +353,7 @@ cbridge.AddTypeConvs {
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -364,7 +364,7 @@ cbridge.AddTypeConvs {
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			if (!CheckParamCount(pname, ${arg.name}.GetSize())) {
-				sig.SetError(ERR_ValueError,
+				env.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Nil;
 			}''',
@@ -392,7 +392,7 @@ cbridge.AddTypeConvs {
 			Array<UShort> *_${arg.name} = Object_array<UShort>::GetObject(arg, ${idx})->GetArray();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 3) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -403,7 +403,7 @@ cbridge.AddTypeConvs {
 			Array<UShort> *_${arg.name} = Object_array<UShort>::GetObject(arg, ${idx})->GetArray();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -414,7 +414,7 @@ cbridge.AddTypeConvs {
 			Array<UShort> *_${arg.name} = Object_array<UShort>::GetObject(arg, ${idx})->GetArray();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
 			if (!CheckParamCount(pname, _${arg.name}->GetSize())) {
-				sig.SetError(ERR_ValueError,
+				env.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Nil;
 			}''',
@@ -442,7 +442,7 @@ cbridge.AddTypeConvs {
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 1) {
-				sig.SetError(ERR_ValueError, "the list must have one element");
+				env.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Nil;
 			}''',
 			nil,
@@ -453,7 +453,7 @@ cbridge.AddTypeConvs {
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 2) {
-				sig.SetError(ERR_ValueError, "the list must have two elements");
+				env.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -464,7 +464,7 @@ cbridge.AddTypeConvs {
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 3) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -475,7 +475,7 @@ cbridge.AddTypeConvs {
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -486,7 +486,7 @@ cbridge.AddTypeConvs {
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
 			if (!CheckParamCount(pname, _${arg.name}->GetSize())) {
-				sig.SetError(ERR_ValueError,
+				env.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Nil;
 			}''',
@@ -530,7 +530,7 @@ cbridge.AddTypeConvs {
 			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(arg, ${idx})->GetArray();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 3) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -541,7 +541,7 @@ cbridge.AddTypeConvs {
 			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(arg, ${idx})->GetArray();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -552,7 +552,7 @@ cbridge.AddTypeConvs {
 			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(arg, ${idx})->GetArray();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
 			if (!CheckParamCount(pname, _${arg.name}->GetSize())) {
-				sig.SetError(ERR_ValueError,
+				env.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Nil;
 			}''',
@@ -580,7 +580,7 @@ cbridge.AddTypeConvs {
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 1) {
-				sig.SetError(ERR_ValueError, "the list must have one element");
+				env.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Nil;
 			}''',
 			nil,
@@ -591,7 +591,7 @@ cbridge.AddTypeConvs {
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 2) {
-				sig.SetError(ERR_ValueError, "the list must have two elements");
+				env.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -602,7 +602,7 @@ cbridge.AddTypeConvs {
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 3) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -613,7 +613,7 @@ cbridge.AddTypeConvs {
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have four elements");
+				env.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -621,8 +621,8 @@ cbridge.AddTypeConvs {
 	'GLfloat@matrix:const' => TypeConv(
 			'any', 'Once', [],
 			R'''
-			AutoPtr<Array<GLfloat> > _${arg.name}(MakeMatrix<GLfloat>(sig, arg.GetValue(${idx})));
-			if (sig.IsSignalled()) return Value::Nil;
+			AutoPtr<Array<GLfloat> > _${arg.name}(MakeMatrix<GLfloat>(env, arg.GetValue(${idx})));
+			if (env.IsSignalled()) return Value::Nil;
 			GLfloat *${arg.name} = _${arg.name}->GetPointer();
 			''',
 			nil,
@@ -633,7 +633,7 @@ cbridge.AddTypeConvs {
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
 			if (!CheckParamCount(pname, _${arg.name}->GetSize())) {
-				sig.SetError(ERR_ValueError,
+				env.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Nil;
 			}''',
@@ -669,7 +669,7 @@ cbridge.AddTypeConvs {
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 1) {
-				sig.SetError(ERR_ValueError, "the list must have one element");
+				env.SetError(ERR_ValueError, "the list must have one element");
 				return Value::Nil;
 			}''',
 			nil,
@@ -680,7 +680,7 @@ cbridge.AddTypeConvs {
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 2) {
-				sig.SetError(ERR_ValueError, "the list must have two elements");
+				env.SetError(ERR_ValueError, "the list must have two elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -691,7 +691,7 @@ cbridge.AddTypeConvs {
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 3) {
-				sig.SetError(ERR_ValueError, "the list must have three elements");
+				env.SetError(ERR_ValueError, "the list must have three elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -702,7 +702,7 @@ cbridge.AddTypeConvs {
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have four elements");
+				env.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -713,7 +713,7 @@ cbridge.AddTypeConvs {
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
 			if (_${arg.name}->GetSize() != 4) {
-				sig.SetError(ERR_ValueError, "the list must have four elements");
+				env.SetError(ERR_ValueError, "the list must have four elements");
 				return Value::Nil;
 			}''',
 			nil,
@@ -721,8 +721,8 @@ cbridge.AddTypeConvs {
 	'GLdouble@matrix:const' => TypeConv(
 			'any', 'Once', [],
 			R'''
-			AutoPtr<Array<GLdouble> > _${arg.name}(MakeMatrix<GLdouble>(sig, arg.GetValue(${idx})));
-			if (sig.IsSignalled()) return Value::Nil;
+			AutoPtr<Array<GLdouble> > _${arg.name}(MakeMatrix<GLdouble>(env, arg.GetValue(${idx})));
+			if (env.IsSignalled()) return Value::Nil;
 			GLdouble *${arg.name} = _${arg.name}->GetPointer();
 			''',
 			nil,
@@ -733,7 +733,7 @@ cbridge.AddTypeConvs {
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
 			if (!CheckParamCount(pname, _${arg.name}->GetSize())) {
-				sig.SetError(ERR_ValueError,
+				env.SetError(ERR_ValueError,
 						"the list must have %d elements", GetParamCount(pname));
 				return Value::Nil;
 			}''',
