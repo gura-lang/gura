@@ -12,7 +12,7 @@ void AssignFunctions(Environment &env);
 //-----------------------------------------------------------------------------
 // helper
 //-----------------------------------------------------------------------------
-GLenum GetImageFormat(Signal &sig, Image *pImage)
+GLenum GetImageFormat(Environment &env, Image *pImage)
 {
 	GLenum format = 0;
 	Image::Format fmt = pImage->GetFormat();
@@ -20,14 +20,9 @@ GLenum GetImageFormat(Signal &sig, Image *pImage)
 		(fmt == Image::FORMAT_RGB)? GL_BGR_EXT :
 		(fmt == Image::FORMAT_RGBA)? GL_BGRA_EXT : 0;
 	if (format == 0) {
-		sig.SetError(ERR_ValueError, "unsupported image type");
+		env.SetError(ERR_ValueError, "unsupported image type");
 	}
 	return format;
-}
-
-void SetError_NotImpFunction(Signal &sig, const char *funcName)
-{
-	sig.SetError(ERR_RuntimeError, "not implemented function %s", funcName);
 }
 
 //-----------------------------------------------------------------------------
@@ -72,12 +67,12 @@ String Object_Quadric::ToString(bool exprFlag)
 	return String("<quadric>");
 }
 
-void Object_Quadric::SetCallback(Signal &sig, GLenum which, const Function *func)
+void Object_Quadric::SetCallback(Environment &env, GLenum which, const Function *func)
 {
 	switch (which) {
 	DispatchCallback(gluQuadricCallback, _quad, GLU_ERROR, error)
 	default:
-		sig.SetError(ERR_ValueError, "invalid value for which");
+		env.SetError(ERR_ValueError, "invalid value for which");
 		break;
 	}
 }
@@ -156,7 +151,7 @@ String Object_Tesselator::ToString(bool exprFlag)
 	return String("<tesselator>");
 }
 
-void Object_Tesselator::SetCallback(Signal &sig, GLenum which, const Function *func)
+void Object_Tesselator::SetCallback(Environment &env, GLenum which, const Function *func)
 {
 	switch (which) {
 	DispatchCallback(gluTessCallback, _tess, GLU_TESS_BEGIN, begin)
@@ -172,7 +167,7 @@ void Object_Tesselator::SetCallback(Signal &sig, GLenum which, const Function *f
 	DispatchCallback(gluTessCallback, _tess, GLU_TESS_EDGE_FLAG_DATA, edge_flag_data)
 	DispatchCallback(gluTessCallback, _tess, GLU_TESS_COMBINE_DATA, combine_data)
 	default:
-		sig.SetError(ERR_ValueError, "invalid value for which");
+		env.SetError(ERR_ValueError, "invalid value for which");
 		break;
 	}
 }
@@ -387,7 +382,7 @@ String Object_Nurbs::ToString(bool exprFlag)
 	return String("<nurbs>");
 }
 
-void Object_Nurbs::SetCallback(Signal &sig, GLenum which, const Function *func)
+void Object_Nurbs::SetCallback(Environment &env, GLenum which, const Function *func)
 {
 	switch (which) {
 #if defined(GLU_VERSION_1_3)
@@ -406,7 +401,7 @@ void Object_Nurbs::SetCallback(Signal &sig, GLenum which, const Function *func)
 #endif
 	DispatchCallback(gluNurbsCallback, _nurb, GLU_ERROR, error)
 	default:
-		sig.SetError(ERR_ValueError, "invalid value for which");
+		env.SetError(ERR_ValueError, "invalid value for which");
 		break;
 	}
 }

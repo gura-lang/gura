@@ -20,13 +20,12 @@ Gura_DeclareFunctionAlias(__gluBeginCurve, "gluBeginCurve")
 
 Gura_ImplementFunction(__gluBeginCurve)
 {
-	Signal &sig = env.GetSignal();
 	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	gluBeginCurve(nurb);
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndCurve(nurb);
 	}
@@ -46,14 +45,13 @@ Gura_DeclareFunctionAlias(__gluBeginPolygon, "gluBeginPolygon")
 
 Gura_ImplementFunction(__gluBeginPolygon)
 {
-	Signal &sig = env.GetSignal();
 	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
 	tess->CreatePolygonPack(Value::Nil);
 	gluBeginPolygon(tess->GetTesselator());
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndPolygon(tess->GetTesselator());
 		tess->DeletePolygonPack();
@@ -74,13 +72,12 @@ Gura_DeclareFunctionAlias(__gluBeginSurface, "gluBeginSurface")
 
 Gura_ImplementFunction(__gluBeginSurface)
 {
-	Signal &sig = env.GetSignal();
 	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	gluBeginSurface(nurb);
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndSurface(nurb);
 	}
@@ -100,13 +97,12 @@ Gura_DeclareFunctionAlias(__gluBeginTrim, "gluBeginTrim")
 
 Gura_ImplementFunction(__gluBeginTrim)
 {
-	Signal &sig = env.GetSignal();
 	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	gluBeginTrim(nurb);
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluEndTrim(nurb);
 	}
@@ -130,14 +126,13 @@ Gura_DeclareFunctionAlias(__gluBuild1DMipmaps, "gluBuild1DMipmaps")
 
 Gura_ImplementFunction(__gluBuild1DMipmaps)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint internalFormat = arg.GetInt(1);
 	GLsizei width = arg.GetInt(2);
 	GLenum format = static_cast<GLenum>(arg.GetInt(3));
 	GLenum type = static_cast<GLenum>(arg.GetInt(4));
 	Value data = arg.GetValue(5);
-	const void *p = GetArrayPointer(sig, type, data);
+	const void *p = GetArrayPointer(env, type, data);
 	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild1DMipmaps(target,
 					internalFormat, width, format, type, p);
@@ -158,13 +153,12 @@ Gura_DeclareFunctionAlias(__gluBuild1DMipmapsFromImage, "gluBuild1DMipmapsFromIm
 
 Gura_ImplementFunction(__gluBuild1DMipmapsFromImage)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint internalFormat = arg.GetInt(1);
 	Image *image = Object_image::GetObject(arg, 2)->GetImage();
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
-	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = static_cast<GLsizei>(GetImageFormat(env, image));
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const void *data = image->GetBuffer();
 	GLint _rtn = gluBuild1DMipmaps(target,
@@ -190,7 +184,6 @@ Gura_DeclareFunctionAlias(__gluBuild2DMipmaps, "gluBuild2DMipmaps")
 
 Gura_ImplementFunction(__gluBuild2DMipmaps)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint internalFormat = arg.GetInt(1);
 	GLsizei width = arg.GetInt(2);
@@ -198,7 +191,7 @@ Gura_ImplementFunction(__gluBuild2DMipmaps)
 	GLenum format = static_cast<GLenum>(arg.GetInt(4));
 	GLenum type = static_cast<GLenum>(arg.GetInt(5));
 	Value data = arg.GetValue(6);
-	const void *p = GetArrayPointer(sig, type, data);
+	const void *p = GetArrayPointer(env, type, data);
 	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild2DMipmaps(target,
 					internalFormat, width, height, format, type, p);
@@ -219,14 +212,13 @@ Gura_DeclareFunctionAlias(__gluBuild2DMipmapsFromImage, "gluBuild2DMipmapsFromIm
 
 Gura_ImplementFunction(__gluBuild2DMipmapsFromImage)
 {
-	Signal &sig = env.GetSignal();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLint internalFormat = arg.GetInt(1);
 	Image *image = Object_image::GetObject(arg, 2)->GetImage();
 	GLsizei width = static_cast<GLsizei>(image->GetWidth());
 	GLsizei height = static_cast<GLsizei>(image->GetHeight());
-	GLenum format = static_cast<GLsizei>(GetImageFormat(sig, image));
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = static_cast<GLsizei>(GetImageFormat(env, image));
+	if (env.IsSignalled()) return Value::Nil;
 	GLenum type = GL_UNSIGNED_BYTE;
 	const void *data = image->GetBuffer();
 	GLint _rtn = gluBuild2DMipmaps(target,
@@ -621,11 +613,10 @@ Gura_DeclareFunctionAlias(__gluNurbsCallback, "gluNurbsCallback")
 
 Gura_ImplementFunction(__gluNurbsCallback)
 {
-	Signal &sig = env.GetSignal();
 	Object_Nurbs *nurbs = Object_Nurbs::GetObject(arg, 0);
 	GLenum which = static_cast<GLenum>(arg.GetInt(1));
 	const Function *func = Object_function::GetObject(arg, 2)->GetFunction();
-	nurbs->SetCallback(sig, which, func);
+	nurbs->SetCallback(env, which, func);
 	return Value::Nil;
 }
 
@@ -642,7 +633,6 @@ Gura_DeclareFunctionAlias(__gluNurbsCallbackData, "gluNurbsCallbackData")
 
 Gura_ImplementFunction(__gluNurbsCallbackData)
 {
-	Signal &sig = env.GetSignal();
 	Object_Nurbs *nurb = Object_Nurbs::GetObject(arg, 0);
 	Value userData = arg.GetValue(1);
 #if defined(GLU_VERSION_1_3)
@@ -650,7 +640,7 @@ Gura_ImplementFunction(__gluNurbsCallbackData)
 	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
 	return Value::Nil;
 #else
-	sig.SetError(ERR_NotImplementedError,
+	env.SetError(ERR_NotImplementedError,
 				"this function is provided in GLU 1.3 or later");
 	return Value::Nil;
 #endif
@@ -669,7 +659,6 @@ Gura_DeclareFunctionAlias(__gluNurbsCallbackDataEXT, "gluNurbsCallbackDataEXT")
 
 Gura_ImplementFunction(__gluNurbsCallbackDataEXT)
 {
-	Signal &sig = env.GetSignal();
 	Object_Nurbs *nurb = Object_Nurbs::GetObject(arg, 0);
 	Value userData = arg.GetValue(1);
 #if defined(GLU_VERSION_1_3)
@@ -677,7 +666,7 @@ Gura_ImplementFunction(__gluNurbsCallbackDataEXT)
 	gluNurbsCallbackData(nurb->GetNurbs(), nurb);
 	return Value::Nil;
 #else
-	sig.SetError(ERR_NotImplementedError,
+	env.SetError(ERR_NotImplementedError,
 				"this function is provided in GLU 1.3 or later");
 	return Value::Nil;
 #endif
@@ -952,11 +941,10 @@ Gura_DeclareFunctionAlias(__gluQuadricCallback, "gluQuadricCallback")
 
 Gura_ImplementFunction(__gluQuadricCallback)
 {
-	Signal &sig = env.GetSignal();
 	Object_Quadric *quad = Object_Quadric::GetObject(arg, 0);
 	GLenum which = static_cast<GLenum>(arg.GetInt(1));
 	const Function *func = arg.IsValid(2)? Object_function::GetObject(arg, 2)->GetFunction() : nullptr;
-	quad->SetCallback(sig, which, func);
+	quad->SetCallback(env, which, func);
 	return Value::Nil;
 }
 
@@ -1050,27 +1038,26 @@ Gura_DeclareFunctionAlias(__gluScaleImage, "gluScaleImage")
 
 Gura_ImplementFunction(__gluScaleImage)
 {
-	Signal &sig = env.GetSignal();
 	Image *imageIn = Object_image::GetObject(arg, 0)->GetImage();
 	GLsizei wOut = arg.GetInt(1);
 	GLsizei hOut = arg.GetInt(2);
-	GLenum format = GetImageFormat(sig, imageIn);
-	if (sig.IsSignalled()) return Value::Nil;
+	GLenum format = GetImageFormat(env, imageIn);
+	if (env.IsSignalled()) return Value::Nil;
 	GLsizei wIn = static_cast<GLsizei>(imageIn->GetWidth());
 	GLsizei hIn = static_cast<GLsizei>(imageIn->GetHeight());
 	GLenum typeIn = GL_UNSIGNED_BYTE;
 	const void *dataIn = imageIn->GetBuffer();
 	GLenum typeOut = GL_UNSIGNED_BYTE;
-	if (sig.IsSignalled()) return Value::Nil;
+	if (env.IsSignalled()) return Value::Nil;
 	AutoPtr<Image> imageOut(new Image(imageIn->GetFormat()));
-	if (!imageOut->AllocBuffer(sig, wOut, hOut, 0xff)) {
+	if (!imageOut->AllocBuffer(env.GetSignal(), wOut, hOut, 0xff)) {
 		return Value::Nil;
 	}
 	GLvoid *dataOut = imageOut->GetBuffer();
 	GLint rtn = gluScaleImage(format, wIn, hIn, typeIn, dataIn,
 										 	wOut, hOut, typeOut, dataOut);
 	if (rtn != 0) {
-		sig.SetError(ERR_RuntimeError, "gluScaleImage error");
+		env.SetError(ERR_RuntimeError, "gluScaleImage error");
 		return Value::Nil;
 	}
 	return Value(new Object_image(env, imageOut.release()));
@@ -1112,13 +1099,12 @@ Gura_DeclareFunctionAlias(__gluTessBeginContour, "gluTessBeginContour")
 
 Gura_ImplementFunction(__gluTessBeginContour)
 {
-	Signal &sig = env.GetSignal();
 	GLUtesselator *tess = Object_Tesselator::GetObject(arg, 0)->GetTesselator();
 	gluTessBeginContour(tess);
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluTessEndContour(tess);
 	}
@@ -1139,7 +1125,6 @@ Gura_DeclareFunctionAlias(__gluTessBeginPolygon, "gluTessBeginPolygon")
 
 Gura_ImplementFunction(__gluTessBeginPolygon)
 {
-	Signal &sig = env.GetSignal();
 	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
 	Value polygon_data = arg.GetValue(1);
 	PolygonPack *pPolygonPack = tess->CreatePolygonPack(polygon_data);
@@ -1147,7 +1132,7 @@ Gura_ImplementFunction(__gluTessBeginPolygon)
 	if (arg.IsBlockSpecified()) {
 		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (env.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec2(env, pSeqPostHandler);
 		gluTessEndPolygon(tess->GetTesselator());
 		tess->DeletePolygonPack();
@@ -1169,11 +1154,10 @@ Gura_DeclareFunctionAlias(__gluTessCallback, "gluTessCallback")
 
 Gura_ImplementFunction(__gluTessCallback)
 {
-	Signal &sig = env.GetSignal();
 	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
 	GLenum which = static_cast<GLenum>(arg.GetInt(1));
 	const Function *func = Object_function::GetObject(arg, 2)->GetFunction();
-	tess->SetCallback(sig, which, func);
+	tess->SetCallback(env, which, func);
 	return Value::Nil;
 }
 
@@ -1270,14 +1254,13 @@ Gura_DeclareFunctionAlias(__gluTessVertex, "gluTessVertex")
 
 Gura_ImplementFunction(__gluTessVertex)
 {
-	Signal &sig = env.GetSignal();
 	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
 	Array<double> *_location = Object_array<double>::GetObject(arg, 1)->GetArray();
 	GLdouble *location = reinterpret_cast<GLdouble *>(_location->GetPointer());
 	Value vertex_data = arg.GetValue(2);
 	PolygonPack *pPolygonPack = tess->GetPolygonPack();
 	if (pPolygonPack == nullptr) {
-		sig.SetError(ERR_SyntaxError, "gluTessBeginPolygon has not been called");
+		env.SetError(ERR_SyntaxError, "gluTessBeginPolygon has not been called");
 		return Value::Nil;
 	}
 	VertexPack *pVertexPack = pPolygonPack->CreateVertexPack(vertex_data);
