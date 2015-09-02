@@ -727,8 +727,8 @@ String Function::ToString() const
 		str += ":";
 		str += Gura_Symbol(block)->GetName();
 	}
-	str += CallerInfo::MakeAttrForFlags(_flags, 0);
-	str += CallerInfo::MakeAttrForResultMode(_resultMode);
+	str += Symbol::MakeAttrForFlags(_flags, 0);
+	str += Symbol::MakeAttrForResultMode(_resultMode);
 	if (!GetAttrsOpt().empty()) {
 		str += ":[";
 		foreach_const (SymbolSet, ppSymbol, GetAttrsOpt()) {

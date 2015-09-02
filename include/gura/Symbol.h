@@ -109,6 +109,8 @@ public:
 	static OccurPattern ToOccurPattern(const Symbol *pSymbol);
 	static const Symbol *FromResultMode(ResultMode resultMode);
 	static ResultMode ToResultMode(const Symbol *pSymbol);
+	static String MakeAttrForFlags(ULong flagsToSet, ULong flagsToClear);
+	static String MakeAttrForResultMode(ResultMode resultMode);
 };
 
 //-----------------------------------------------------------------------------

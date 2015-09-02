@@ -202,6 +202,57 @@ ResultMode Symbol::ToResultMode(const Symbol *pSymbol)
 	return (iter == _mapToResultMode.end())? RSLTMODE_Normal : iter->second;
 }
 
+String Symbol::MakeAttrForFlags(ULong flagsToSet, ULong flagsToClear)
+{
+	String str;
+	ULong flag = 1;
+	for (ULong flags = flagsToSet; flags != 0; flags >>= 1, flag <<= 1) {
+		if (flags & 1) {
+			const Symbol *pSymbol = FromFlag(flag);
+			if (pSymbol != nullptr) {
+				str += ":";
+				str += pSymbol->GetName();
+			}
+		}
+	}
+	if (flagsToClear & FLAG_Flat) {
+		str += ":noflat";
+	}
+	return str;
+}
+
+String Symbol::MakeAttrForResultMode(ResultMode resultMode)
+{
+#if 1
+	const Symbol *pSymbol = FromResultMode(resultMode);
+	if (pSymbol == nullptr) return String("");
+	String str = ":";
+	str += pSymbol->GetName();
+	return str;
+#else
+	struct Item {
+		ResultMode resultMode;
+		const char *attrName;
+	};
+	static const Item items[] = {
+		{ RSLTMODE_Iterator,	":iter"		},
+		{ RSLTMODE_List,		":list"		},
+		{ RSLTMODE_Reduce,		":reduce"	},
+		{ RSLTMODE_Set,			":set"		},
+		{ RSLTMODE_Void,		":void"		},
+		{ RSLTMODE_XIterator,	":xiter"	},
+		{ RSLTMODE_XList,		":xlist"	},
+		{ RSLTMODE_XReduce,		":xreduce"	},
+		{ RSLTMODE_XSet,		":xset"		},
+	};
+	for (size_t i = 0; i < ArraySizeOf(items); i++) {
+		const Item &item = items[i];
+		if (resultMode == item.resultMode) return String(item.attrName);
+	}
+	return String("");
+#endif
+}
+
 //-----------------------------------------------------------------------------
 // SymbolList
 //-----------------------------------------------------------------------------

@@ -72,10 +72,12 @@ public:
 	}
 	inline bool HasAttrsOpt() const { return !GetAttrsOpt().empty(); }
 	bool UpdateByAttrSymbol(const Symbol *pSymbol);
-	inline String MakeAttrForFlags() const { return MakeAttrForFlags(_flagsToSet, _flagsToClear); }
-	inline String MakeAttrForResultMode() const { return MakeAttrForResultMode(_resultMode); }
-	static String MakeAttrForFlags(ULong flagsToSet, ULong flagsToClear);
-	static String MakeAttrForResultMode(ResultMode resultMode);
+	inline String MakeAttrForFlags() const {
+		return Symbol::MakeAttrForFlags(_flagsToSet, _flagsToClear);
+	}
+	inline String MakeAttrForResultMode() const {
+		return Symbol::MakeAttrForResultMode(_resultMode);
+	}
 };
 
 //-----------------------------------------------------------------------------
