@@ -244,7 +244,7 @@ glutHideOverlay():void = `auto % {`en, 'markdown',
 glutCreateMenu(func:function):int {block?} = R'''
 	int idxMenu = g_pContext->idxMenu++;
 	if (idxMenu >= ArraySizeOf(g_OnMenus)) {
-		sig.SetError(ERR_OutOfRangeError, "too many menus");
+		env.SetError(ERR_OutOfRangeError, "too many menus");
 		return Value::Nil;
 	}
 	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, func->Reference());

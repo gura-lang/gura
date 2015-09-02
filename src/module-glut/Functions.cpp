@@ -851,11 +851,10 @@ Gura_DeclareFunctionAlias(__glutCreateMenu, "glutCreateMenu")
 
 Gura_ImplementFunction(__glutCreateMenu)
 {
-	Signal &sig = env.GetSignal();
 	const Function *func = Object_function::GetObject(arg, 0)->GetFunction();
 	int idxMenu = g_pContext->idxMenu++;
 	if (idxMenu >= ArraySizeOf(g_OnMenus)) {
-		sig.SetError(ERR_OutOfRangeError, "too many menus");
+		env.SetError(ERR_OutOfRangeError, "too many menus");
 		return Value::Nil;
 	}
 	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, func->Reference());
@@ -1786,13 +1785,12 @@ Gura_DeclareFunctionAlias(__glutGetProcAddress, "glutGetProcAddress")
 
 Gura_ImplementFunction(__glutGetProcAddress)
 {
-	Signal &sig = env.GetSignal();
 #if 0
 	const char *procName = arg.GetString(0);
 	glutGetProcAddress(procName);
 	return Value::Nil;
 #endif
-	SetError_NotImpFunction(sig, "glutGetProcAddress");
+	env.SetError(ERR_NotImplementedError, "not implemented function glutGetProcAddress");
 	return Value::Nil;
 }
 
