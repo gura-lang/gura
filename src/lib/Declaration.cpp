@@ -88,6 +88,7 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 	}
 	foreach_const (SymbolSet, ppSymbol, pExprIdentifier->GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
+#if 0
 		if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
 			flags |= FLAG_NoMap;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(nil))) {
@@ -100,6 +101,11 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 			flags |= FLAG_NoCast;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(privileged))) {
 			flags |= FLAG_Privileged;
+		}
+#endif
+		ULong flag = Symbol::ToFlag(pSymbol);
+		if (flag != 0) {
+			flags |= flag;
 		} else if (pSymbolForType == nullptr || !pSymbol->IsIdentical(pSymbolForType)) {
 			sig.SetError(ERR_SyntaxError,
 				"cannot accept a symbol %s in argument declaration", pSymbol->GetName());
@@ -202,6 +208,8 @@ String Declaration::ToString() const
 		str += ":";
 		str += ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName();
 	}
+	str += Symbol::MakeAttrForFlags(_flags & ~FLAG_ListVar, 0);
+#if 0
 	if (GetFlag(FLAG_NoMap)) {
 		str += ":";
 		str += Gura_Symbol(nomap)->GetName();
@@ -226,6 +234,7 @@ String Declaration::ToString() const
 		str += ":";
 		str += Gura_Symbol(privileged)->GetName();
 	}
+#endif
 	if (!_pExprDefault.IsNull()) {
 		str += " ";
 		str += "=>";
