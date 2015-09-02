@@ -168,16 +168,15 @@ ULong Symbol::ToFlag(const Symbol *pSymbol)
 	return (iter == _mapToFlag.end())? FLAG_None : iter->second;
 }
 
-#if 0
 ULong Symbol::ToFlags(const SymbolSet &symbolSet)
 {
-	ULong 
-	foreach_const (SymbolSet, ppSymbol, pExprIdentifier->GetAttrs()) {
-		MapToFlag::const_iterator iter = _mapToFlag.find(pSymbol);
-		return (iter == _mapToFlag.end())? FLAG_None : iter->second;
+	ULong flags = 0;
+	foreach_const (SymbolSet, ppSymbol, symbolSet) {
+		MapToFlag::const_iterator iter = _mapToFlag.find(*ppSymbol);
+		if (iter != _mapToFlag.end()) flags |= iter->second;
 	}
+	return flags;
 }
-#endif
 
 const Symbol *Symbol::FromOccurPattern(OccurPattern occurPattern)
 {

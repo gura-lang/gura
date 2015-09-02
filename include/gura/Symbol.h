@@ -38,6 +38,8 @@ _pUserSymbol_##name = Symbol::Add(str);
 
 namespace Gura {
 
+class SymbolSet;
+
 //-----------------------------------------------------------------------------
 // Symbol
 //-----------------------------------------------------------------------------
@@ -102,6 +104,7 @@ public:
 	static void Initialize();
 	static const Symbol *FromFlag(ULong flag);
 	static ULong ToFlag(const Symbol *pSymbol);
+	static ULong ToFlags(const SymbolSet &symbolSet);
 	static const Symbol *FromOccurPattern(OccurPattern occurPattern);
 	static OccurPattern ToOccurPattern(const Symbol *pSymbol);
 	static const Symbol *FromResultMode(ResultMode resultMode);
