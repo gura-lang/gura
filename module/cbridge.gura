@@ -450,47 +450,47 @@ typeConvDict = %{
 			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'char[]' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			'CArray<char> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'short[]' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			'CArray<short> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'int[]' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			'CArray<int> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'long[]' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			'CArray<long> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'unsigned_char[]' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			'CArray<unsigned char> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'unsigned_short[]' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			'CArray<unsigned short> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'unsigned_int[]' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			'CArray<unsigned int> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'unsigned_long[]' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			'CArray<unsigned long> ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
 	'number[]' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			'const ValueList & ${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)

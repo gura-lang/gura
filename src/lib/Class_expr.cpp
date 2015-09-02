@@ -82,6 +82,8 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
 		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(attrs))) {
+		ULong flags = 0;
+		ResultMode resultMode = RSLTMODE_Normal;
 		const SymbolSet *pAttrs = nullptr;
 		if (GetExpr()->IsIdentifier()) {
 			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
@@ -89,17 +91,30 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 		} else if (GetExpr()->IsCaller()) {
 			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
 			pAttrs = &pExpr->GetAttrs();
+			flags = pExpr->GetCallerInfo().GetFlagsToSet();
+			resultMode = pExpr->GetCallerInfo().GetResultMode();
 		}
-		if (pAttrs != nullptr) {
-			Value rtn;
-			ValueList &valList = rtn.InitAsList(env, pAttrs->size());
-			foreach_const (SymbolSet, ppSymbol, *pAttrs) {
-				valList.push_back(Value(*ppSymbol));
+		if (pAttrs == nullptr) {
+			sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
+			return Value::Nil;
+		}
+		Value rtn;
+		ValueList &valList = rtn.InitAsList(env);
+		foreach_const (SymbolSet, ppSymbol, *pAttrs) {
+			valList.push_back(Value(*ppSymbol));
+		}
+		ULong flag = 1;
+		const Symbol *pSymbol = nullptr;
+		for ( ; flags != 0; flags >>= 1, flag <<= 1) {
+			if ((flags & 1) != 0 && (pSymbol = Symbol::FromFlag(flag)) != nullptr) {
+				valList.push_back(Value(pSymbol));
 			}
-			return rtn;
 		}
-		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
-		return Value::Nil;
+		if (resultMode != RSLTMODE_Normal &&
+			(pSymbol = Symbol::FromResultMode(resultMode)) != nullptr) {
+			valList.push_back(Value(pSymbol));
+		}
+		return rtn;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(attrsopt))) {
 		const SymbolSet *pAttrsOpt = nullptr;
 		if (GetExpr()->IsIdentifier()) {

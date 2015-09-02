@@ -11,7 +11,7 @@ cbridge.AddTypeConvs {
 			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'string[]' => TypeConv(
-			'string', 'Once', ['List'],
+			'string', 'Once', ['ListVar'],
 			'const ValueList &${arg.name} = arg.GetList(${idx});',
 			nil,
 			nil)
@@ -128,7 +128,7 @@ cbridge.AddTypeConvs {
 			return ReturnValue(env, arg, Value(_rtn));
 			''')
 	'GLenum@' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			R'''
 			AutoPtr<Array<GLenum> > _${arg.name}(CreateArrayFromList<GLenum>(arg.GetList(${idx})));
 			GLenum *${arg.name} = _${arg.name}->GetPointer();
@@ -136,7 +136,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLenum@:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			R'''
 			AutoPtr<Array<GLenum> > _${arg.name}(CreateArrayFromList<GLenum>(arg.GetList(${idx})));
 			GLenum *${arg.name} = _${arg.name}->GetPointer();
@@ -144,7 +144,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLboolean@' => TypeConv(
-			'boolean', 'Once', ['List'],
+			'boolean', 'Once', ['ListVar'],
 			R'''
 			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
@@ -152,7 +152,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLboolean@:const' => TypeConv(
-			'boolean', 'Once', ['List'],
+			'boolean', 'Once', ['ListVar'],
 			R'''
 			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
@@ -160,7 +160,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLboolean@1:const' => TypeConv(
-			'boolean', 'Once', ['List'],
+			'boolean', 'Once', ['ListVar'],
 			R'''
 			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
@@ -171,7 +171,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLboolean@2:const' => TypeConv(
-			'boolean', 'Once', ['List'],
+			'boolean', 'Once', ['ListVar'],
 			R'''
 			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
@@ -182,7 +182,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLboolean@3:const' => TypeConv(
-			'boolean', 'Once', ['List'],
+			'boolean', 'Once', ['ListVar'],
 			R'''
 			AutoPtr<Array<GLboolean> > _${arg.name}(CreateArrayFromList<GLboolean>(arg.GetList(${idx})));
 			GLboolean *${arg.name} = _${arg.name}->GetPointer();
@@ -493,7 +493,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLsizei@' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			R'''
 			AutoPtr<Array<GLsizei> > _${arg.name}(CreateArrayFromList<GLsizei>(arg.GetList(${idx})));
 			GLsizei *${arg.name} = _${arg.name}->GetPointer();
@@ -501,7 +501,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLsizei@:const' => TypeConv(
-			'number', 'Once', ['List'],
+			'number', 'Once', ['ListVar'],
 			R'''
 			AutoPtr<Array<GLsizei> > _${arg.name}(CreateArrayFromList<GLsizei>(arg.GetList(${idx})));
 			GLsizei *${arg.name} = _${arg.name}->GetPointer();

@@ -38,3 +38,35 @@ testcase {
 	println(x:*textize(`oneline))
 	println(x:*textize(`brief))
 }
+testcase('attribute') {
+	x = `f():cut_extra_args:dynamic_scope:end_marker:finalizer\
+		:flat:fork:leader:listvar:map:nil:nocast:nomap:nonamed\
+		:private:privileged:public:r:symbol_func:trailer:w\
+		:iter:a:b:c:d:e
+	println(x)
+	println('  ', x.attrs)
+	x = `f():list
+	println(x)
+	println('  ', x.attrs)
+	x = `f():reduce
+	println(x)
+	println('  ', x.attrs)
+	x = `f():set
+	println(x)
+	println('  ', x.attrs)
+	x = `f():void
+	println(x)
+	println('  ', x.attrs)
+	x = `f():xiter
+	println(x)
+	println('  ', x.attrs)
+	x = `f():xlist
+	println(x)
+	println('  ', x.attrs)
+	x = `f():xreduce
+	println(x)
+	println('  ', x.attrs)
+	x = `f():xset
+	println(x)
+	println('  ', x.attrs)
+}

@@ -28,3 +28,48 @@ indexer          (f(x):attr)[0]
 b'\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39'
 ' .. '
 b' .. '
+
+======== #4 attribute ========
+
+f():a:cut_extra_args:dynamic_scope:end_marker:finalizer:flat:fork:leader:listvar:nil:nocast:nomap:nonamed:private:privileged:public:r:symbol_func:trailer:w:iter:b:c:d:e
+  a
+  b
+  c
+  d
+  e
+  cut_extra_args
+  dynamic_scope
+  end_marker
+  finalizer
+  flat
+  fork
+  leader
+  listvar
+  nil
+  nocast
+  nomap
+  nonamed
+  private
+  privileged
+  public
+  r
+  symbol_func
+  trailer
+  w
+  iter
+f():list
+  list
+f():reduce
+  reduce
+f():set
+  set
+f():void
+  void
+f():xiter
+  xiter
+f():xlist
+  xlist
+f():xreduce
+  xreduce
+f():xset
+  xset
