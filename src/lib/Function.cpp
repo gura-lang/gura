@@ -185,8 +185,8 @@ bool Function::CustomDeclare(Environment &env,
 void Function::CopyDeclare(const Function &func)
 {
 	_pDeclOwner.reset(func.GetDeclOwner().Clone());
-	_resultMode	= func._resultMode;	// :list, :xlist, :set, :xset, :iter, :xiter, :void
-	_flags		= func._flags;		// :map, :nomap, :nonamed, :flat, :noflat
+	_resultMode = func._resultMode;
+	_flags = func._flags;
 	_pAttrsOptShared.reset(func._pAttrsOptShared.IsNull()?
 						   nullptr : new SymbolSetShared(*func._pAttrsOptShared));
 	_blockInfo	= func._blockInfo;
@@ -474,8 +474,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 	const ValueList &valListArg = arg.GetValueListArg();
 	ValueList::const_iterator pValue = valListArg.begin();
 	DeclarationList::const_iterator ppDecl = _pDeclOwner->begin();
-	for ( ; pValue != valListArg.end() && ppDecl != _pDeclOwner->end();
-														pValue++, ppDecl++) {
+	for ( ; pValue != valListArg.end() && ppDecl != _pDeclOwner->end(); pValue++, ppDecl++) {
 		pEnvLocal->AssignValue((*ppDecl)->GetSymbol(), *pValue, EXTRA_Public);
 	}
 	if (_pSymbolDict != nullptr) {
