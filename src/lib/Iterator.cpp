@@ -124,7 +124,7 @@ Value Iterator::Reduce(Environment &env, Value valueAccum, const Function *pFunc
 	Value value;
 	while (Next(env, value)) {
 		AutoPtr<Argument> pArgSub(new Argument(pFuncBlock));
-		if (!pArgSub->AddValues(env, value, valueAccum)) return Value::Nil;
+		if (!pArgSub->AddValue(env, value, valueAccum)) return Value::Nil;
 		Value result = pFuncBlock->Eval(env, *pArgSub);
 		if (!sig.IsSignalled()) {
 			// nothing to do

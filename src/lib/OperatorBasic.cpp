@@ -1881,7 +1881,7 @@ Value OperatorEntryCustom::DoEval(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const
 {
 	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
-	if (!pArg->AddValues(env, valueLeft, valueRight)) return Value::Nil;
+	if (!pArg->AddValue(env, valueLeft, valueRight)) return Value::Nil;
 	return _pFunc->Eval(env, *pArg);
 }
 

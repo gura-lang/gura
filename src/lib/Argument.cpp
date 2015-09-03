@@ -13,12 +13,17 @@ Argument::Argument(const Function *pFunc) :
 	_resultMode(RSLTMODE_Normal), _flags(FLAG_None), _listThisFlag(false),
 	_pSymbolDict(pFunc->GetSymbolDict()), _iSlotCur(0)
 {
+	Environment &env = pFunc->GetEnvScope();
 	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
 	_valListArg.reserve(declOwner.size());
 	_slots.reserve(declOwner.size());
 	foreach_const (DeclarationOwner, ppDecl, declOwner) {
 		const Declaration *pDecl = *ppDecl;
-		_slots.emplace_back(pDecl->Reference());
+		if (pDecl->IsVariableLength()) {
+			_slots.emplace_back(pDecl->Reference(), Value::CreateList(env));
+		} else {
+			_slots.emplace_back(pDecl->Reference());
+		}
 	}
 }
 
@@ -28,9 +33,28 @@ Argument::~Argument()
 
 bool Argument::AddValue(Environment &env, const Value &value)
 {
+	//Signal &sig = env.GetSignal();
 	_valListArg.push_back(value);
-	if (_iSlotCur < _slots.size()) {
-		_slots[_iSlotCur++].SetValue(value);
+	if (_iSlotCur >= _slots.size()) {
+		//if (GetFlag(FLAG_CutExtraArgs)) return true;
+		//Declaration::SetError_TooManyArguments(sig);
+		//return false;
+		return true;
+	}
+	Slot &slot = _slots[_iSlotCur];
+	if (slot.GetDeclaration().IsVariableLength()) {
+		slot.GetValue().GetList().push_back(value);
+	} else {
+		slot.SetValue(value);
+		_iSlotCur++;
+	}
+	return true;
+}
+
+bool Argument::AddValue(Environment &env, const ValueList &valList)
+{
+	foreach_const (ValueList, pValue, valList) {
+		if (!AddValue(env, *pValue)) return false;
 	}
 	return true;
 }

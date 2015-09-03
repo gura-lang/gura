@@ -433,6 +433,7 @@ public:
 	static int CompareRational(const Rational &ratio1, const Rational &ratio2);
 	static int CompareString(const char *str1, const char *str2, bool ignoreCaseFlag);
 	static int CompareSymbol(const Symbol *pSymbol1, const Symbol *pSymbol2);
+	static Value CreateList(Environment &env);
 	static Value CreateList(Environment &env, const Value &v1);
 	static Value CreateList(Environment &env, const Value &v1, const Value &v2);
 	static Value CreateList(Environment &env, const Value &v1, const Value &v2,

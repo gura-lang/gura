@@ -106,7 +106,7 @@ void Object::IndexSet(Environment &env, const Value &valueIdx, const Value &valu
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	if (!pArg->AddValues(env, valueIdx, value)) return;
+	if (!pArg->AddValue(env, valueIdx, value)) return;
 	pArg->SetValueThis(valueThis);
 	pFunc->Eval(*this, *pArg);
 }
@@ -129,7 +129,7 @@ Value Object::EvalMethod(Environment &env, const Function *pFunc, const ValueLis
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);
-	pArg->SetValueListArg(valListArg);
+	if (!pArg->AddValue(env, valListArg)) return Value::Nil;
 	return pFunc->Eval(env, *pArg);
 }
 
@@ -143,7 +143,7 @@ Value Object::EvalMethod(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);
-	pArg->SetValueListArg(valListArg);
+	if (!pArg->AddValue(env, valListArg)) return Value::Nil;
 	return pFunc->Eval(env, *pArg);
 }
 
@@ -167,7 +167,7 @@ Value Object::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &va
 	if (pFunc == nullptr) return Value::Nil;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	if (!pArg->AddValues(env, Value(pSymbol), value)) return Value::Nil;
+	if (!pArg->AddValue(env, Value(pSymbol), value)) return Value::Nil;
 	pArg->SetValueThis(valueThis);
 	Value result = pFunc->Eval(*this, *pArg);
 	evaluatedFlag = result.GetBoolean();

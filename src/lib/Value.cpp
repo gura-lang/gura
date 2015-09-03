@@ -669,6 +669,13 @@ bool Value::CastType(Environment &env, ValueType valType, Value &valueCasted) co
 	return env.LookupClass(valType)->CastFrom(env, valueCasted, pDecl.get());
 }
 
+Value Value::CreateList(Environment &env)
+{
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env);
+	return rtn;
+}
+
 Value Value::CreateList(Environment &env, const Value &v1)
 {
 	Value rtn;

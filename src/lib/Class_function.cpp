@@ -128,7 +128,7 @@ Value Object_function::Eval(Environment &env, ValueList &valListArg) const
 	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Argument> pArg(new Argument(GetFunction()));
 	pArg->SetValueThis(_valueThis);
-	pArg->SetValueListArg(valListArg);
+	if (!pArg->AddValue(env, valListArg)) return Value::Nil;
 	return GetFunction()->Eval(env, *pArg);
 }
 

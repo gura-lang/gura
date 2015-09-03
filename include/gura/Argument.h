@@ -19,12 +19,14 @@ public:
 		Value _value;
 	public:
 		inline Slot(Declaration *pDecl) : _pDecl(pDecl), _value(Value::Undefined) {}
+		inline Slot(Declaration *pDecl, const Value &value) : _pDecl(pDecl), _value(value) {}
 		inline Slot(const Slot &slot) : _pDecl(slot._pDecl->Reference()), _value(slot._value) {}
 		inline void operator=(const Slot &slot) {
 			_pDecl.reset(slot._pDecl->Reference());
 			_value = slot._value;
 		}
 		inline const Declaration &GetDeclaration() const { return *_pDecl; }
+		inline Value &GetValue() { return _value; }
 		inline const Value &GetValue() const { return _value; }
 		inline void SetValue(const Value &value) { _value = value; }
 	};
@@ -142,17 +144,18 @@ public:
 	inline size_t CountArgs() const { return _valListArg.size(); }
 	inline void ReserveValueCount(size_t n) { _valListArg.reserve(n); }
 	bool AddValue(Environment &env, const Value &value);
-	inline bool AddValues(Environment &env, const Value &v1, const Value &v2) {
+	bool AddValue(Environment &env, const ValueList &valListArg);
+	inline bool AddValue(Environment &env, const Value &v1, const Value &v2) {
 		return AddValue(env, v1) && AddValue(env, v2);
 	}
-	inline bool AddValues(Environment &env, const Value &v1, const Value &v2, const Value &v3) {
+	inline bool AddValue(Environment &env, const Value &v1, const Value &v2, const Value &v3) {
 		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3);
 	}
-	inline bool AddValues(Environment &env, const Value &v1, const Value &v2,
+	inline bool AddValue(Environment &env, const Value &v1, const Value &v2,
 						  const Value &v3, const Value &v4) {
 		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && AddValue(env, v4);
 	}
-	inline bool AddValues(Environment &env, const Value &v1, const Value &v2,
+	inline bool AddValue(Environment &env, const Value &v1, const Value &v2,
 						  const Value &v3, const Value &v4, const Value &v5) {
 		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && \
 			AddValue(env, v4) && AddValue(env, v5);
@@ -247,7 +250,6 @@ public:
 	inline Function *GetFunction(size_t idxArg)			{ return GetValue(idxArg).GetFunction(); }
 	inline const Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }
 	inline ErrorType GetErrorType(size_t idxArg) const	{ return GetValue(idxArg).GetErrorType(); }
-	inline void SetValueListArg(const ValueList &valListArg) { _valListArg = valListArg; }
 	inline void SetValueDictArg(ValueDict *pValDictArg) { _pValDictArg.reset(pValDictArg); }
 	inline const ValueDict &GetValueDictArg() const { 
 		return _pValDictArg.IsNull()? ValueDict::Empty : *_pValDictArg;

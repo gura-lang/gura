@@ -746,7 +746,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 		}
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 		pArg->SetValueThis(_valueThis);
-		pArg->SetValueListArg(valListComp);
+		if (!pArg->AddValue(env, valListComp)) return false;
 		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
 	} else {
@@ -756,7 +756,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 		}
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 		pArg->SetValueThis(_valueThis);
-		pArg->SetValueListArg(valListComp);
+		if (!pArg->AddValue(env, valListComp)) return false;
 		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
 		//sig.SetError(ERR_TypeError, "invalid structure of arguments");
@@ -2211,7 +2211,7 @@ bool Iterator_cross::DoNext(Environment &env, Value &value)
 			if (_doneFlag) return false;
 			_valListArg[0] = Value(_idx);
 			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			pArg->SetValueListArg(_valListArg);
+			if (!pArg->AddValue(env, _valListArg)) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *pArg);
 			_idx++;
 			if (sig.IsBreak()) {

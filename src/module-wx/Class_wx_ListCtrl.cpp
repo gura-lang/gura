@@ -1486,7 +1486,7 @@ public:
 int wxListCompareFunction::Body(long item1, long item2)
 {
 	AutoPtr<Argument> pArg(new Argument(_pFunc));
-	if (!pArg->AddValues(_env, Value(item1), Value(item2))) return 0;
+	if (!pArg->AddValue(_env, Value(item1), Value(item2))) return 0;
 	Value rtn = _pFunc->Eval(_env, *pArg);
 	return rtn.GetInt();
 }
