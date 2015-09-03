@@ -147,6 +147,7 @@ public:
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	inline size_t CountArgs() const { return _valListArg.size(); }
 	inline void ReserveValueCount(size_t n) { _valListArg.reserve(n); }
+	bool EvalExpr(Environment &env, const ExprList &exprListArg);
 	bool AddValue(Environment &env, const Value &value);
 	bool AddValue(Environment &env, const ValueList &valListArg);
 	inline bool AddValue(Environment &env, const Value &v1, const Value &v2) {

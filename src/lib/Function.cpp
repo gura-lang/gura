@@ -263,43 +263,9 @@ Value Function::Call(
 	pArg->SetValueThis(valueThis);
 	pArg->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
 	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
-
-
-	if (GetType() == FUNCTYPE_Instance &&
-			!pArg->GetValueThis().IsPrimitive() && pArg->GetObjectThis() == nullptr) {
-		sig.SetError(ERR_ValueError,
-					 "object is expected as l-value of field");
-		return Value::Nil;
-	} else if (GetType() == FUNCTYPE_Class &&
-		   pArg->GetValueThis().GetClassItself() == nullptr && pArg->GetObjectThis() == nullptr) {
-		sig.SetError(ERR_ValueError,
-					 "class or object is expected as l-value of field");
-		return Value::Nil;
-	}
-	if (pArg->IsBlockSpecified()) {
-		if (GetBlockInfo().occurPattern == OCCUR_Zero) {
-			sig.SetError(ERR_ValueError,
-						 "block is unnecessary for '%s'", ToString().c_str());
-			return Value::Nil;
-		}
-	} else {
-		if (GetBlockInfo().occurPattern == OCCUR_Once) {
-			sig.SetError(ERR_ValueError,
-						 "block must be specified for '%s'", ToString().c_str());
-			return Value::Nil;
-		}
-	}
-
-
-
-	foreach_const (SymbolSet, ppSymbol, pArg->GetAttrs()) {
-		const Symbol *pSymbol = *ppSymbol;
-		if (!GetAttrsOpt().IsSet(pSymbol)) {
-			sig.SetError(ERR_AttributeError, "unsupported attribute '%s' for '%s'",
-						 pSymbol->GetName(), ToString().c_str());
-			return Value::Nil;
-		}
-	}
+#if 1
+	if (!pArg->EvalExpr(env, callerInfo.GetExprListArg())) return Value::Nil;
+#else
 	Function::ExprMap exprMap;
 	bool stayDeclPointerFlag = false;
 	ValueDict *pValDictArg = nullptr;
@@ -454,7 +420,41 @@ Value Function::Call(
 	}
 	//-------------------------------------------------------------------------
 	pArg->SetValueDictArg(pValDictArg);
-
+#endif
+	//-------------------------------------------------------------------------
+	foreach_const (SymbolSet, ppSymbol, pArg->GetAttrs()) {
+		const Symbol *pSymbol = *ppSymbol;
+		if (!GetAttrsOpt().IsSet(pSymbol)) {
+			sig.SetError(ERR_AttributeError, "unsupported attribute '%s' for '%s'",
+						 pSymbol->GetName(), ToString().c_str());
+			return Value::Nil;
+		}
+	}
+	//-------------------------------------------------------------------------
+	if (GetType() == FUNCTYPE_Instance &&
+			!pArg->GetValueThis().IsPrimitive() && pArg->GetObjectThis() == nullptr) {
+		sig.SetError(ERR_ValueError,
+					 "object is expected as l-value of field");
+		return Value::Nil;
+	} else if (GetType() == FUNCTYPE_Class &&
+		   pArg->GetValueThis().GetClassItself() == nullptr && pArg->GetObjectThis() == nullptr) {
+		sig.SetError(ERR_ValueError,
+					 "class or object is expected as l-value of field");
+		return Value::Nil;
+	}
+	if (pArg->IsBlockSpecified()) {
+		if (GetBlockInfo().occurPattern == OCCUR_Zero) {
+			sig.SetError(ERR_ValueError,
+						 "block is unnecessary for '%s'", ToString().c_str());
+			return Value::Nil;
+		}
+	} else {
+		if (GetBlockInfo().occurPattern == OCCUR_Once) {
+			sig.SetError(ERR_ValueError,
+						 "block must be specified for '%s'", ToString().c_str());
+			return Value::Nil;
+		}
+	}
 
 
 	return (pArg->GetFlag(FLAG_Map) && _pDeclOwner->ShouldImplicitMap(*pArg))?

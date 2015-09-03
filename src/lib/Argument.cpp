@@ -55,6 +55,167 @@ Argument::~Argument()
 {
 }
 
+bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
+{
+	Signal &sig = env.GetSignal();
+	Function::ExprMap exprMap;
+	bool stayDeclPointerFlag = false;
+	ValueDict *pValDictArg = nullptr;
+	bool namedArgFlag = !GetFlag(FLAG_NoNamed);
+	foreach_const (ExprList, ppExprArg, exprListArg) {
+		const Expr *pExprArg = *ppExprArg;
+		if (namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) {
+			// func(..., var => value, ...)
+			const Expr_BinaryOp *pExprBinaryOp = dynamic_cast<const Expr_BinaryOp *>(pExprArg);
+			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
+			const Expr *pExprRight = pExprBinaryOp->GetRight();
+			if (pExprLeft->IsIdentifier()) {
+				const Symbol *pSymbol =
+					dynamic_cast<const Expr_Identifier *>(pExprLeft)->GetSymbol();
+				exprMap[pSymbol] = pExprRight->Reference();
+			} else if (pExprLeft->IsValue()) {
+				const Value &valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
+				Value result = pExprRight->Exec(env, nullptr);
+				if (sig.IsSignalled()) return false;
+				if (pValDictArg == nullptr) pValDictArg = new ValueDict();
+				(*pValDictArg)[valueKey] = result;
+			} else {
+				pExprBinaryOp->SetError(sig, ERR_KeyError,
+					"l-value of dictionary assignment must be an identifier or a constant value");
+				return false;
+			}
+		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Percnt)) {
+			// func(..., value%, ...)
+			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
+			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			if (!result.Is_dict()) {
+				sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
+				return false;
+			}
+			foreach_const (ValueDict, item, result.GetDict()) {
+				const Value &valueKey = item->first;
+				const Value &value = item->second;
+				if (valueKey.Is_symbol()) {
+					Expr *pExpr = nullptr;
+					if (value.Is_expr()) {
+						pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
+					} else {
+						pExpr = new Expr_Value(value);
+					}
+					exprMap[valueKey.GetSymbol()] = pExpr;
+				} else {
+					if (pValDictArg == nullptr) pValDictArg = new ValueDict();
+					pValDictArg->insert(*item);
+				}
+			}
+		}
+	}
+	Slots::const_iterator pSlot = _slots.begin();
+	foreach_const (ExprList, ppExprArg, exprListArg) {
+		const Expr *pExprArg = *ppExprArg;
+		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
+			Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Percnt)) continue;
+		if (pSlot == _slots.end()) {
+			if (GetFlag(FLAG_CutExtraArgs)) break;
+			Declaration::SetError_TooManyArguments(sig);
+			return false;
+		}
+		if (exprMap.find(pSlot->GetDeclaration().GetSymbol()) != exprMap.end()) {
+			sig.SetError(ERR_ValueError, "argument confliction");
+			return false;
+		}
+		if (pSlot->GetDeclaration().IsQuote()) {
+			// func(..., `var, ...)
+			if (!AddValue(env,
+						Value(new Object_expr(env, Expr::Reference(pExprArg))))) return false;
+		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Ast)) {
+			// func(..., value*, ...)
+			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
+			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			if (result.Is_list()) {
+				const ValueList &valList = result.GetList();
+				foreach_const (ValueList, pValue, valList) {
+					if (!AddValue(env, *pValue)) return false;
+					if (pSlot->GetDeclaration().IsVariableLength()) {
+						stayDeclPointerFlag = true;
+					} else {
+						pSlot++;
+					}
+				}
+				continue;
+			}
+			if (!AddValue(env, result)) return false;
+		} else {
+			// func(..., value, ...)
+			Value result = pExprArg->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			if (!AddValue(env, result)) return false;
+		}
+		if (pSlot->GetDeclaration().IsVariableLength()) {
+			stayDeclPointerFlag = true;
+		} else {
+			pSlot++;
+		}
+	}
+	//-------------------------------------------------------------------------
+	for ( ; !stayDeclPointerFlag && pSlot != _slots.end(); pSlot++) {
+		// handling named arguments and arguments with a default value
+		const Expr *pExprArg = pSlot->GetDeclaration().GetExprDefault();
+		Function::ExprMap::iterator iter = exprMap.find(pSlot->GetDeclaration().GetSymbol());
+		if (iter != exprMap.end()) {
+			pExprArg = iter->second;
+			exprMap.erase(iter);
+		}
+		if (pExprArg == nullptr) {
+			if (pSlot->GetDeclaration().GetOccurPattern() == OCCUR_ZeroOrOnce) {
+				if (!AddValue(env, Value::Undefined)) return false;
+				continue;
+			} else if (pSlot->GetDeclaration().GetOccurPattern() == OCCUR_ZeroOrMore) {
+				break;
+			} else {
+				Declaration::SetError_NotEnoughArguments(sig);
+				return false;
+			}
+		} else if (pSlot->GetDeclaration().IsQuote()) {
+			if (!AddValue(env,
+					Value(new Object_expr(env, pExprArg->Reference())))) return false;
+			continue;
+		} else {
+			Value result = pExprArg->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			if (!AddValue(env, result)) return false;
+		}
+	}
+	//-------------------------------------------------------------------------
+	if (exprMap.empty()) {
+		// nothing to do
+	} else if (_pSymbolDict == nullptr) {
+		String str;
+		str = "invalid argument named ";
+		foreach_const (Function::ExprMap, iter, exprMap) {
+			if (iter != exprMap.begin()) str += ", ";
+			str += iter->first->GetName();
+		}
+		sig.SetError(ERR_ValueError, "%s", str.c_str());
+		return false;
+	} else {
+		if (pValDictArg == nullptr) pValDictArg = new ValueDict();
+		foreach (Function::ExprMap, iterExprMap, exprMap) {
+			const Symbol *pSymbol = iterExprMap->first;
+			const Expr *pExprArg = iterExprMap->second;
+			Value result = pExprArg->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			(*pValDictArg)[Value(pSymbol)] = result;
+		}
+	}
+	//-------------------------------------------------------------------------
+	SetValueDictArg(pValDictArg);
+	return true;
+}
+
+
 bool Argument::AddValue(Environment &env, const Value &value)
 {
 	//Signal &sig = env.GetSignal();
