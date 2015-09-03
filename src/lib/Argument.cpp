@@ -13,6 +13,12 @@ Argument::Argument(const Function *pFunc) :
 	_resultMode(RSLTMODE_Normal), _flags(FLAG_None), _listThisFlag(false),
 	_pSymbolDict(pFunc->GetSymbolDict())
 {
+	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
+	_slots.reserve(declOwner.size());
+	foreach_const (DeclarationOwner, ppDecl, declOwner) {
+		const Declaration *pDecl = *ppDecl;
+		_slots.emplace_back(pDecl->Reference());
+	}
 }
 
 Argument::~Argument()
