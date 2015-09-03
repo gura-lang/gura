@@ -263,9 +263,15 @@ Value Function::Call(
 	pArg->SetBlock(Expr_Block::Reference(callerInfo.GetBlock()));
 	pArg->SetAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared()));
 	pArg->SetAttrsOptShared(SymbolSetShared::Reference(callerInfo.GetAttrsOptShared()));
+	pArg->SetResultMode(callerInfo.ModifyResultMode(GetResultMode()));
+	pArg->SetFlags(callerInfo.ModifyFlags(GetFlags()));
+	pArg->SetValueTypeResult(callerInfo.ModifyValueTypeResult(GetValueTypeResult()));
+
 	pArg->SetValueThis(valueThis);
 	pArg->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
 	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
+
+
 	if (GetType() == FUNCTYPE_Instance &&
 			!pArg->GetValueThis().IsPrimitive() && pArg->GetObjectThis() == nullptr) {
 		sig.SetError(ERR_ValueError,
@@ -298,9 +304,6 @@ Value Function::Call(
 			return Value::Nil;
 		}
 	}
-	pArg->SetResultMode(callerInfo.ModifyResultMode(GetResultMode()));
-	pArg->SetFlags(callerInfo.ModifyFlags(GetFlags()));
-	pArg->SetValueTypeResult(callerInfo.ModifyValueTypeResult(GetValueTypeResult()));
 	Function::ExprMap exprMap;
 	bool stayDeclPointerFlag = false;
 	ValueDict *pValDictArg = nullptr;
