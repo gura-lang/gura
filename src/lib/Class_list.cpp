@@ -495,7 +495,7 @@ bool Object_list::Comparator_Custom::
 	Signal &sig = _env.GetSignal();
 	if (sig.IsSignalled()) return false;
 	AutoPtr<Argument> pArgSub(new Argument(_pFunc));
-	pArgSub->SetValues(*pValue1, *pValue2);
+	if (!pArgSub->AddValues(_env, *pValue1, *pValue2)) return false;
 	Value value = _pFunc->Eval(_env, *pArgSub);
 	return value.GetNumber() < 0;
 }

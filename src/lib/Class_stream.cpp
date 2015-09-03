@@ -128,7 +128,7 @@ Gura_ImplementFunction(stream)
 						arg.GetBlockFunc(env, GetSymbolForBlock());
 		if (pFuncBlock == nullptr) return Value::Nil;
 		AutoPtr<Argument> pArgSub(new Argument(pFuncBlock));
-		pArgSub->SetValue(result);
+		if (!pArgSub->AddValue(env, result)) return Value::Nil;
 		pFuncBlock->Eval(env, *pArgSub);
 		result = Value::Nil;	// object is destroyed here
 	}

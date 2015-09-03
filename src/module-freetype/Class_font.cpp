@@ -241,8 +241,7 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal &sig,
 		if (err != 0) return err;
 	} else {
 		AutoPtr<Argument> pArg(new Argument(pFuncDeco));
-		pArg->AddValue(Value(codeUTF32));
-		pArg->AddValue(Value(idx));
+		if (!pArg->AddValues(env, Value(codeUTF32), Value(idx))) return 1; /** FT_ERR(Syntax_Error); **/
 		pFuncDeco->Eval(env, *pArg);
 	}
 	FT_GlyphSlot glyphSlot = GetFace()->glyph;

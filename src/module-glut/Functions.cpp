@@ -32,22 +32,22 @@ public:
 	}
 	inline Value Eval(const Value &v1) {
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
-		pArg->SetValue(v1);
+		if (!pArg->AddValue(*_pEnv, v1)) return Value::Nil;
 		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1, const Value &v2) {
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
-		pArg->SetValues(v1, v2);
+		if (!pArg->AddValues(*_pEnv, v1, v2)) return Value::Nil;
 		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1, const Value &v2, const Value &v3) {
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
-		pArg->SetValues(v1, v2, v3);
+		if (!pArg->AddValues(*_pEnv, v1, v2, v3)) return Value::Nil;
 		return Eval(*pArg);
 	}
 	inline Value Eval(const Value &v1, const Value &v2, const Value &v3, const Value &v4) {
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
-		pArg->SetValues(v1, v2, v3, v4);
+		if (!pArg->AddValues(*_pEnv, v1, v2, v3, v4)) return Value::Nil;
 		return Eval(*pArg);
 	}
 };

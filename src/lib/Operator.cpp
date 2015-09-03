@@ -628,7 +628,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 						Function::Reference(pFunc),
 						Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
 			AutoPtr<Argument> pArgSub(new Argument(pFunc));
-			pArgSub->SetValues(valueLeft, valueRight);
+			if (!pArgSub->AddValues(env, valueLeft, valueRight)) return Value::Nil;
 			return pIteratorFuncBinder->Eval(env, *pArgSub);
 		} else if (valueRight.Is_iterator()) {
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
@@ -641,7 +641,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 				return Value(new Object_iterator(env, pIteratorFuncBinder.release()));
 			} else {
 				AutoPtr<Argument> pArgSub(new Argument(pFunc));
-				pArgSub->SetValues(valueLeft, valueRight);
+				if (!pArgSub->AddValues(env, valueLeft, valueRight)) return Value::Nil;
 				return pIteratorFuncBinder->Eval(env, *pArgSub);
 			}
 		}
@@ -982,7 +982,7 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 		Value result;
 		if (!valueRight.Is_list()) {
 			AutoPtr<Argument> pArgSub(new Argument(pFunc));
-			pArgSub->SetValue(valueRight);
+			if (!pArgSub->AddValue(env, valueRight)) return Value::Nil;
 			result = pFunc->Eval(env, *pArgSub);
 		} else if (!pFunc->GetFlag(FLAG_Map) ||
 				!pFunc->GetDeclOwner().ShouldImplicitMap(valueRight.GetList())) {
@@ -991,7 +991,7 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 			result = pFunc->Eval(env, *pArgSub);
 		} else if (pFunc->IsUnary()) {
 			AutoPtr<Argument> pArgSub(new Argument(pFunc));
-			pArgSub->SetValue(valueRight);
+			if (!pArgSub->AddValue(env, valueRight)) return Value::Nil;
 			result = pFunc->EvalMap(env, *pArgSub);
 		} else {
 			AutoPtr<Argument> pArgSub(new Argument(pFunc));

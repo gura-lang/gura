@@ -1873,7 +1873,7 @@ Gura_ImplementBinaryOperator(Pair, number, any)
 Value OperatorEntryCustom::DoEval(Environment &env, const Value &value) const
 {
 	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
-	pArg->SetValue(value);
+	if (!pArg->AddValue(env, value)) return Value::Nil;
 	return _pFunc->Eval(env, *pArg);
 }
 
@@ -1881,7 +1881,7 @@ Value OperatorEntryCustom::DoEval(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const
 {
 	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
-	pArg->SetValues(valueLeft, valueRight);
+	if (!pArg->AddValues(env, valueLeft, valueRight)) return Value::Nil;
 	return _pFunc->Eval(env, *pArg);
 }
 

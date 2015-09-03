@@ -82,7 +82,7 @@ void Object_Quadric::_CB_error(GLenum err_no, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(Value(static_cast<int>(err_no)));
+	if (!pArg->AddValue(env, Value(static_cast<int>(err_no)))) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -177,7 +177,7 @@ void Object_Tesselator::_CB_begin(GLenum type, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(Value(static_cast<int>(type)));
+	if (!pArg->AddValue(env, Value(static_cast<int>(type)))) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -187,7 +187,7 @@ void Object_Tesselator::_CB_edge_flag(GLboolean flag, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(Value(flag == GL_TRUE));
+	if (!pArg->AddValue(env, Value(flag == GL_TRUE))) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -196,7 +196,7 @@ void Object_Tesselator::_CB_vertex(void *vertex_data, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(reinterpret_cast<VertexPack *>(vertex_data)->GetVertexData());
+	if (!pArg->AddValue(env, reinterpret_cast<VertexPack *>(vertex_data)->GetVertexData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -213,7 +213,7 @@ void Object_Tesselator::_CB_error(GLenum err_no, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(Value(err_no));
+	if (!pArg->AddValue(env, Value(err_no))) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -225,16 +225,16 @@ void Object_Tesselator::_CB_combine(GLdouble coords[3], void *vertex_data[4],
 			reinterpret_cast<VertexPack *>(vertex_data[0])->GetObjTesselator();
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->AddValue(Value::CreateList(env, coords, 3));
+	if (!pArg->AddValue(env, Value::CreateList(env, coords, 3))) return;
 	do {
 		Value value;
 		ValueList &valList = value.InitAsList(env, 4);
 		for (int i = 0; i < 4; i++) {
 			valList.push_back(reinterpret_cast<VertexPack *>(vertex_data[i])->GetVertexData());
 		}
-		pArg->AddValue(value);
+		if (!pArg->AddValue(env, value)) return;
 	} while (0);
-	pArg->AddValue(Value::CreateList(env, weight, 4));
+	if (!pArg->AddValue(env, Value::CreateList(env, weight, 4))) return;
 	Value rtn = pFunc->Eval(env, *pArg);
 	*outData = pObjTess->GetPolygonPack()->CreateVertexPack(rtn);
 }
@@ -244,9 +244,9 @@ void Object_Tesselator::_CB_begin_data(GLenum type, void *polygon_data, const Fu
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValues(
+	if (!pArg->AddValues(env,
 		Value(type),
-		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -255,9 +255,9 @@ void Object_Tesselator::_CB_edge_flag_data(GLboolean flag, void *polygon_data, c
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValues(
+	if (!pArg->AddValues(env,
 		Value(flag == GL_TRUE),
-		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -266,7 +266,7 @@ void Object_Tesselator::_CB_end_data(void *polygon_data, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+	if (!pArg->AddValue(env, reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -275,9 +275,9 @@ void Object_Tesselator::_CB_vertex_data(void *vertex_data, void *polygon_data, c
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValues(
+	if (!pArg->AddValues(env,
 		reinterpret_cast<VertexPack *>(vertex_data)->GetVertexData(),
-		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -286,9 +286,9 @@ void Object_Tesselator::_CB_error_data(GLenum err_no, void *polygon_data, const 
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValues(
+	if (!pArg->AddValues(env,
 		Value(err_no),
-		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+		reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -300,17 +300,17 @@ void Object_Tesselator::_CB_combine_data(GLdouble coords[3], void *vertex_data[4
 			reinterpret_cast<VertexPack *>(vertex_data[0])->GetObjTesselator();
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->AddValue(Value::CreateList(env, coords, 3));
+	if (!pArg->AddValue(env, Value::CreateList(env, coords, 3))) return;
 	do {
 		Value value;
 		ValueList &valList = value.InitAsList(env, 4);
 		for (int i = 0; i < 4; i++) {
 			valList.push_back(reinterpret_cast<VertexPack *>(vertex_data[i])->GetVertexData());
 		}
-		pArg->AddValue(value);
+		if (!pArg->AddValue(env, value)) return;
 	} while (0);
-	pArg->AddValue(Value::CreateList(env, weight, 4));
-	pArg->AddValue(reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData());
+	if (!pArg->AddValue(env, Value::CreateList(env, weight, 4))) return;
+	if (!pArg->AddValue(env, reinterpret_cast<PolygonPack *>(polygon_data)->GetPolygonData())) return;
 	Value rtn = pFunc->Eval(env, *pArg);
 	*outDatab = pObjTess->GetPolygonPack()->CreateVertexPack(rtn);
 }
@@ -411,7 +411,7 @@ void Object_Nurbs::_CB_begin(GLenum type, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(Value(type));
+	if (!pArg->AddValue(env, Value(type))) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -420,7 +420,7 @@ void Object_Nurbs::_CB_vertex(GLfloat *vertex, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(Value::CreateList(env, vertex, 3));
+	if (!pArg->AddValue(env, Value::CreateList(env, vertex, 3))) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -429,7 +429,7 @@ void Object_Nurbs::_CB_normal(GLfloat *normal, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(Value::CreateList(env, normal, 3));
+	if (!pArg->AddValue(env, Value::CreateList(env, normal, 3))) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -438,7 +438,7 @@ void Object_Nurbs::_CB_color(GLfloat *color, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(Value::CreateList(env, color, 4));
+	if (!pArg->AddValue(env, Value::CreateList(env, color, 4))) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -447,7 +447,7 @@ void Object_Nurbs::_CB_texture_coord(GLfloat *tex_coord, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(Value::CreateList(env, tex_coord, 4)); // 1, 2, 3, 4
+	if (!pArg->AddValue(env, Value::CreateList(env, tex_coord, 4))) return; // 1, 2, 3, 4
 	pFunc->Eval(env, *pArg);
 }
 
@@ -464,9 +464,9 @@ void Object_Nurbs::_CB_begin_data(GLenum type, void *userData, const Function *p
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValues(
+	if (!pArg->AddValues(env,
 		Value(type),
-		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -475,10 +475,10 @@ void Object_Nurbs::_CB_vertex_data(GLfloat *vertex, void *userData, const Functi
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValues(
+	if (!pArg->AddValues(env,
 		Value::CreateList(env, vertex, 3),
 		(userData == nullptr)? Value::Nil :
-		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -487,10 +487,10 @@ void Object_Nurbs::_CB_normal_data(GLfloat *normal, void *userData, const Functi
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValues(
+	if (!pArg->AddValues(env,
 		Value::CreateList(env, normal, 3),
 		(userData == nullptr)? Value::Nil :
-		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -499,10 +499,10 @@ void Object_Nurbs::_CB_color_data(GLfloat *color, void *userData, const Function
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValues(
+	if (!pArg->AddValues(env,
 		Value::CreateList(env, color, 4),
 		(userData == nullptr)? Value::Nil :
-		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -511,10 +511,10 @@ void Object_Nurbs::_CB_texture_coord_data(GLfloat *tex_coord, void *userData, co
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValues(
+	if (!pArg->AddValues(env,
 		Value::CreateList(env, tex_coord, 3),
 		(userData == nullptr)? Value::Nil :
-		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -523,9 +523,9 @@ void Object_Nurbs::_CB_end_data(void *userData, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(
+	if (!pArg->AddValue(env,
 		(userData == nullptr)? Value::Nil :
-		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData());
+		reinterpret_cast<Object_Nurbs *>(userData)->GetCallbackData())) return;
 	pFunc->Eval(env, *pArg);
 }
 
@@ -534,7 +534,7 @@ void Object_Nurbs::_CB_error(GLenum err_no, const Function *pFunc)
 	if (pFunc == nullptr) return;
 	Environment &env = pFunc->GetEnvScope();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
-	pArg->SetValue(Value(err_no));
+	if (!pArg->AddValue(env, Value(err_no))) return;
 	pFunc->Eval(env, *pArg);
 }
 

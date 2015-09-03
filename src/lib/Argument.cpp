@@ -11,9 +11,10 @@ namespace Gura {
 Argument::Argument(const Function *pFunc) :
 	_cntRef(1), _valTypeResult(VTYPE_any),
 	_resultMode(RSLTMODE_Normal), _flags(FLAG_None), _listThisFlag(false),
-	_pSymbolDict(pFunc->GetSymbolDict())
+	_pSymbolDict(pFunc->GetSymbolDict()), _iSlotCur(0)
 {
 	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
+	_valListArg.reserve(declOwner.size());
 	_slots.reserve(declOwner.size());
 	foreach_const (DeclarationOwner, ppDecl, declOwner) {
 		const Declaration *pDecl = *ppDecl;
@@ -25,9 +26,12 @@ Argument::~Argument()
 {
 }
 
-bool Argument::AddValue(Environment &env, const Declaration *pDecl, const Value &value)
+bool Argument::AddValue(Environment &env, const Value &value)
 {
 	_valListArg.push_back(value);
+	if (_iSlotCur < _slots.size()) {
+		_slots[_iSlotCur++].SetValue(value);
+	}
 	return true;
 }
 

@@ -438,7 +438,7 @@ bool Stream::ReadToStream(Environment &env, Stream &streamDst,
 		if (pFuncFilter != nullptr) {
 			Value value(new Object_binary(env, buff, bytesUnit, false));
 			AutoPtr<Argument> pArgSub(new Argument(pFuncFilter));
-			pArgSub->SetValue(value);
+			if (!pArgSub->AddValue(env, value)) return false;
 			Value rtn = pFuncFilter->Eval(env, *pArgSub);
 			if (sig.IsSignalled()) return false;
 			if (rtn.Is_binary()) {

@@ -42,6 +42,7 @@ private:
 	const Symbol *_pSymbolDict;
 	Value _valueThis;
 	ValueList _valListArg;
+	size_t _iSlotCur;
 	Slots _slots;
 	AutoPtr<SymbolSetShared> _pAttrsShared;
 	AutoPtr<SymbolSetShared> _pAttrsOptShared;
@@ -140,37 +141,21 @@ public:
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	inline size_t CountArgs() const { return _valListArg.size(); }
 	inline void ReserveValueCount(size_t n) { _valListArg.reserve(n); }
-	bool AddValue(Environment &env, const Declaration *pDecl, const Value &value);
-	inline void AddValue(const Value &value) { _valListArg.push_back(value); }
-	inline void SetValue(const Value &value) {
-		_valListArg.reserve(1);
-		_valListArg.push_back(value);
+	bool AddValue(Environment &env, const Value &value);
+	inline bool AddValues(Environment &env, const Value &v1, const Value &v2) {
+		return AddValue(env, v1) && AddValue(env, v2);
 	}
-	inline void SetValues(const Value &v1, const Value &v2) {
-		_valListArg.reserve(2);
-		_valListArg.push_back(v1);
-		_valListArg.push_back(v2);
+	inline bool AddValues(Environment &env, const Value &v1, const Value &v2, const Value &v3) {
+		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3);
 	}
-	inline void SetValues(const Value &v1, const Value &v2, const Value &v3) {
-		_valListArg.reserve(3);
-		_valListArg.push_back(v1);
-		_valListArg.push_back(v2);
-		_valListArg.push_back(v3);
+	inline bool AddValues(Environment &env, const Value &v1, const Value &v2,
+						  const Value &v3, const Value &v4) {
+		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && AddValue(env, v4);
 	}
-	inline void SetValues(const Value &v1, const Value &v2, const Value &v3, const Value &v4) {
-		_valListArg.reserve(4);
-		_valListArg.push_back(v1);
-		_valListArg.push_back(v2);
-		_valListArg.push_back(v3);
-		_valListArg.push_back(v4);
-	}
-	inline void SetValues(const Value &v1, const Value &v2, const Value &v3, const Value &v4, const Value &v5) {
-		_valListArg.reserve(5);
-		_valListArg.push_back(v1);
-		_valListArg.push_back(v2);
-		_valListArg.push_back(v3);
-		_valListArg.push_back(v4);
-		_valListArg.push_back(v5);
+	inline bool AddValues(Environment &env, const Value &v1, const Value &v2,
+						  const Value &v3, const Value &v4, const Value &v5) {
+		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && \
+			AddValue(env, v4) && AddValue(env, v5);
 	}
 	inline Value GetValue(size_t idxArg) {
 		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;

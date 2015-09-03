@@ -370,7 +370,7 @@ Value Function::Call(
 		}
 		if ((*ppDecl)->IsQuote()) {
 			// func(..., `var, ...)
-			if (!pArg->AddValue(env, *ppDecl,
+			if (!pArg->AddValue(env,
 					Value(new Object_expr(env, Expr::Reference(pExprArg))))) return Value::Nil;
 		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Ast)) {
 			// func(..., value*, ...)
@@ -380,7 +380,7 @@ Value Function::Call(
 			if (result.Is_list()) {
 				const ValueList &valList = result.GetList();
 				foreach_const (ValueList, pValue, valList) {
-					if (!pArg->AddValue(env, *ppDecl, *pValue)) return Value::Nil;
+					if (!pArg->AddValue(env, *pValue)) return Value::Nil;
 					if ((*ppDecl)->IsVariableLength()) {
 						stayDeclPointerFlag = true;
 					} else {
@@ -389,12 +389,12 @@ Value Function::Call(
 				}
 				continue;
 			}
-			if (!pArg->AddValue(env, *ppDecl, result)) return Value::Nil;
+			if (!pArg->AddValue(env, result)) return Value::Nil;
 		} else {
 			// func(..., value, ...)
 			Value result = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return Value::Nil;
-			if (!pArg->AddValue(env, *ppDecl, result)) return Value::Nil;
+			if (!pArg->AddValue(env, result)) return Value::Nil;
 		}
 		if ((*ppDecl)->IsVariableLength()) {
 			stayDeclPointerFlag = true;
@@ -413,7 +413,7 @@ Value Function::Call(
 		}
 		if (pExprArg == nullptr) {
 			if ((*ppDecl)->GetOccurPattern() == OCCUR_ZeroOrOnce) {
-				if (!pArg->AddValue(env, *ppDecl, Value::Undefined)) return Value::Nil;
+				if (!pArg->AddValue(env, Value::Undefined)) return Value::Nil;
 				continue;
 			} else if ((*ppDecl)->GetOccurPattern() == OCCUR_ZeroOrMore) {
 				break;
@@ -422,13 +422,13 @@ Value Function::Call(
 				return Value::Nil;
 			}
 		} else if ((*ppDecl)->IsQuote()) {
-			if (!pArg->AddValue(env, *ppDecl,
+			if (!pArg->AddValue(env,
 				   Value(new Object_expr(env, pExprArg->Reference())))) return Value::Nil;
 			continue;
 		} else {
 			Value result = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return Value::Nil;
-			if (!pArg->AddValue(env, *ppDecl, result)) return Value::Nil;
+			if (!pArg->AddValue(env, result)) return Value::Nil;
 		}
 	}
 	//-------------------------------------------------------------------------
@@ -590,7 +590,7 @@ Value Function::ReturnValue(Environment &env, Argument &arg, const Value &result
 					arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
 	AutoPtr<Argument> pArgSub(new Argument(pFuncBlock));
-	pArgSub->SetValue(result);
+	if (!pArgSub->AddValue(env, result)) return Value::Nil;
 	Value value = pFuncBlock->Eval(env, *pArgSub);
 	if (sig.IsBreak() || sig.IsContinue()) {
 		sig.ClearSignal();

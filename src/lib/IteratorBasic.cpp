@@ -1868,19 +1868,21 @@ bool Iterator_Repeater::DoNext(Environment &env, Value &value)
 			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
 			// **** https://github.com/gura-lang/gura/issues/1 ****
 #if 0
-			pArg->AddValue(valueSrc);
+			if (!pArg->AddValue(env, valueSrc)) return false;
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
 					pIteratorSrc != nullptr; pIteratorSrc = pIteratorSrc->GetSource()) {
-				pArg->AddValue(Value(static_cast<Number>(pIteratorSrc->GetIndexNext())));
+				if (!pArg->AddValue(Value(static_cast<Number>(
+											  pIteratorSrc->GetIndexNext())))) return false;
 			}
 			if (!_pIteratorSrc->Next(env, valueSrc)) return false;
 			pArg->GetValueListArg()[0] = valueSrc;
 #else
 			if (!_pIteratorSrc->Next(env, valueSrc)) return false;
-			pArg->AddValue(valueSrc);
+			if (!pArg->AddValue(env, valueSrc)) return false;
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
 					pIteratorSrc != nullptr; pIteratorSrc = pIteratorSrc->GetSource()) {
-				pArg->AddValue(Value(static_cast<Number>(pIteratorSrc->GetIndexCur())));
+				if (!pArg->AddValue(env, Value(static_cast<Number>(
+												   pIteratorSrc->GetIndexCur())))) return false;
 			}
 #endif
 			value = _pFuncBlock->Eval(*_pEnv, *pArg);
@@ -1954,7 +1956,7 @@ bool Iterator_repeat::DoNext(Environment &env, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			if (_cnt >= 0 && _idx >= _cnt) return false;
 			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			pArg->SetValue(Value(static_cast<Number>(_idx)));
+			if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *pArg);
 			_idx++;
 			if (sig.IsBreak()) {
@@ -2026,7 +2028,7 @@ bool Iterator_while::DoNext(Environment &env, Value &value)
 			SeqPostHandler *pSeqPostHandler = nullptr;
 			if (!_pExpr->Exec2(*_pEnv, pSeqPostHandler).GetBoolean()) return false;
 			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			pArg->SetValue(Value(static_cast<Number>(_idx)));
+			if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *pArg);
 			_idx++;
 			if (sig.IsBreak()) {
@@ -2112,7 +2114,7 @@ bool Iterator_for::DoNext(Environment &env, Value &value)
 			}
 			if (_doneFlag) return false;
 			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			pArg->SetValue(Value(static_cast<Number>(_idx)));
+			if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *pArg);
 			_idx++;
 			if (sig.IsBreak()) {
