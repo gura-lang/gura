@@ -482,14 +482,6 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 		pEnvLocal->AssignValue(_pSymbolDict,
 			   Value(new Object_dict(env, valDictArg.Reference(), false)), EXTRA_Public);
 	}
-	const ValueMap *pValMapHiddenArg = arg.GetValueMapHiddenArg();
-	if (pValMapHiddenArg != nullptr) {
-		foreach_const (ValueMap, iter, *pValMapHiddenArg) {
-			const Symbol *pSymbol = iter->first;
-			const ValueEx &value = iter->second;
-			pEnvLocal->AssignValue(pSymbol, value, EXTRA_Public);
-		}
-	}
 	pEnvLocal->AssignValue(Gura_Symbol(__arg__),
 				Value(new Object_argument(env, arg.Reference())), EXTRA_Public);
 	if (_blockInfo.pSymbol == nullptr) return pEnvLocal.release();

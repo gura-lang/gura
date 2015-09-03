@@ -39,14 +39,13 @@ private:
 	ResultMode _resultMode;
 	ULong _flags;
 	bool _listThisFlag;
-	AutoPtr<SymbolSetShared> _pAttrsShared;
-	AutoPtr<SymbolSetShared> _pAttrsOptShared;
+	const Symbol *_pSymbolDict;
 	Value _valueThis;
 	ValueList _valListArg;
 	Slots _slots;
-	const Symbol *_pSymbolDict;
+	AutoPtr<SymbolSetShared> _pAttrsShared;
+	AutoPtr<SymbolSetShared> _pAttrsOptShared;
 	AutoPtr<ValueDict> _pValDictArg;
-	AutoPtr<ValueMap> _pValMapHiddenArg;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
 	AutoPtr<Iterator> _pIteratorThis;
 	AutoPtr<Expr_Block> _pExprBlock;
@@ -55,36 +54,18 @@ public:
 	Gura_DeclareReferenceAccessor(Argument);
 public:
 	Argument(const Function *pFunc);
-	inline Argument(const Argument &arg) : _cntRef(1),
-		_valTypeResult(arg._valTypeResult),
-		_resultMode(arg._resultMode),
-		_flags(arg._flags),
-		_listThisFlag(arg._listThisFlag),
-		_pAttrsShared(SymbolSetShared::Reference(arg._pAttrsShared.get())),
-		_pAttrsOptShared(SymbolSetShared::Reference(arg._pAttrsOptShared.get())),
-		_valueThis(arg._valueThis),
-		_valListArg(arg._valListArg),
-		_slots(arg._slots),
-		_pSymbolDict(arg._pSymbolDict),
-		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
-		_pValMapHiddenArg(ValueMap::Reference(arg._pValMapHiddenArg.get())),
-		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
-		_pIteratorThis(Iterator::Reference(arg._pIteratorThis.get())),
-		_pExprBlock(Expr_Block::Reference(arg._pExprBlock.get())),
-		_pFuncBlock(Function::Reference(arg._pFuncBlock.get())) {}
 	inline Argument(const Argument &arg, const ValueList &valListArg) : _cntRef(1),
 		_valTypeResult(arg._valTypeResult),
 		_resultMode(arg._resultMode),
 		_flags(arg._flags),
 		_listThisFlag(arg._listThisFlag),
-		_pAttrsShared(SymbolSetShared::Reference(arg._pAttrsShared.get())),
-		_pAttrsOptShared(SymbolSetShared::Reference(arg._pAttrsOptShared.get())),
+		_pSymbolDict(arg._pSymbolDict),
 		_valueThis(arg._valueThis),
 		_valListArg(valListArg),
 		_slots(arg._slots),
-		_pSymbolDict(arg._pSymbolDict),
+		_pAttrsShared(SymbolSetShared::Reference(arg._pAttrsShared.get())),
+		_pAttrsOptShared(SymbolSetShared::Reference(arg._pAttrsOptShared.get())),
 		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
-		_pValMapHiddenArg(ValueMap::Reference(arg._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
 		_pIteratorThis(Iterator::Reference(arg._pIteratorThis.get())),
 		_pExprBlock(Expr_Block::Reference(arg._pExprBlock.get())),
@@ -286,8 +267,6 @@ public:
 	inline const ValueDict &GetValueDictArg() const { 
 		return _pValDictArg.IsNull()? ValueDict::Empty : *_pValDictArg;
 	}
-	inline void SetValueMapHiddenArg(ValueMap *pValMapHiddenArg) { _pValMapHiddenArg.reset(pValMapHiddenArg); }
-	inline ValueMap *GetValueMapHiddenArg() { return _pValMapHiddenArg.get(); }
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
