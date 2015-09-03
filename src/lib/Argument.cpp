@@ -9,9 +9,33 @@ namespace Gura {
 // Argument
 //-----------------------------------------------------------------------------
 Argument::Argument(const Function *pFunc) :
-	_cntRef(1), _valTypeResult(VTYPE_any),
-	_resultMode(RSLTMODE_Normal), _flags(FLAG_None), _listThisFlag(false),
-	_pSymbolDict(pFunc->GetSymbolDict()), _iSlotCur(0)
+	_cntRef(1),
+	_valTypeResult(pFunc->GetValueTypeResult()),
+	_resultMode(pFunc->GetResultMode()),
+	_flags(pFunc->GetFlags()),
+	_pSymbolDict(pFunc->GetSymbolDict()),
+	_listThisFlag(false),
+	_iSlotCur(0)
+{
+	InitializeSlot(pFunc);
+}
+
+Argument::Argument(const Function *pFunc, const CallerInfo &callerInfo) :
+	_cntRef(1),
+	_valTypeResult(callerInfo.ModifyValueTypeResult(pFunc->GetValueTypeResult())),
+	_resultMode(callerInfo.ModifyResultMode(pFunc->GetResultMode())),
+	_flags(callerInfo.ModifyFlags(pFunc->GetFlags())),
+	_pSymbolDict(pFunc->GetSymbolDict()),
+	_pAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared())),
+	_pAttrsOptShared(SymbolSetShared::Reference(callerInfo.GetAttrsOptShared())),
+	_pExprBlock(Expr_Block::Reference(callerInfo.GetBlock())),
+	_listThisFlag(false),
+	_iSlotCur(0)
+{
+	InitializeSlot(pFunc);
+}
+
+void Argument::InitializeSlot(const Function *pFunc)
 {
 	Environment &env = pFunc->GetEnvScope();
 	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();

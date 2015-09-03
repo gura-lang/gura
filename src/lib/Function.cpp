@@ -259,14 +259,7 @@ Value Function::Call(
 	const TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Argument> pArg(new Argument(this));
-	pArg->SetBlock(Expr_Block::Reference(callerInfo.GetBlock()));
-	pArg->SetAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared()));
-	pArg->SetAttrsOptShared(SymbolSetShared::Reference(callerInfo.GetAttrsOptShared()));
-	pArg->SetResultMode(callerInfo.ModifyResultMode(GetResultMode()));
-	pArg->SetFlags(callerInfo.ModifyFlags(GetFlags()));
-	pArg->SetValueTypeResult(callerInfo.ModifyValueTypeResult(GetValueTypeResult()));
-
+	AutoPtr<Argument> pArg(new Argument(this, callerInfo));
 	pArg->SetValueThis(valueThis);
 	pArg->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
 	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
@@ -296,6 +289,9 @@ Value Function::Call(
 			return Value::Nil;
 		}
 	}
+
+
+
 	foreach_const (SymbolSet, ppSymbol, pArg->GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!GetAttrsOpt().IsSet(pSymbol)) {
@@ -458,6 +454,9 @@ Value Function::Call(
 	}
 	//-------------------------------------------------------------------------
 	pArg->SetValueDictArg(pValDictArg);
+
+
+
 	return (pArg->GetFlag(FLAG_Map) && _pDeclOwner->ShouldImplicitMap(*pArg))?
 		EvalMap(env, *pArg) : Eval(env, *pArg);
 }

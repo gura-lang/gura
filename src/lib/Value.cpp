@@ -672,7 +672,7 @@ bool Value::CastType(Environment &env, ValueType valType, Value &valueCasted) co
 Value Value::CreateList(Environment &env)
 {
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
+	rtn.InitAsList(env);
 	return rtn;
 }
 

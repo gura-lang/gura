@@ -40,40 +40,44 @@ private:
 	ValueType _valTypeResult;
 	ResultMode _resultMode;
 	ULong _flags;
-	bool _listThisFlag;
 	const Symbol *_pSymbolDict;
+	AutoPtr<ValueDict> _pValDictArg;
+	AutoPtr<SymbolSetShared> _pAttrsShared;
+	AutoPtr<SymbolSetShared> _pAttrsOptShared;
+	AutoPtr<Expr_Block> _pExprBlock;
+	AutoPtr<Function> _pFuncBlock;
 	Value _valueThis;
+	AutoPtr<Iterator> _pIteratorThis;
+	bool _listThisFlag;
+	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
 	ValueList _valListArg;
 	size_t _iSlotCur;
 	Slots _slots;
-	AutoPtr<SymbolSetShared> _pAttrsShared;
-	AutoPtr<SymbolSetShared> _pAttrsOptShared;
-	AutoPtr<ValueDict> _pValDictArg;
-	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
-	AutoPtr<Iterator> _pIteratorThis;
-	AutoPtr<Expr_Block> _pExprBlock;
-	AutoPtr<Function> _pFuncBlock;
 public:
 	Gura_DeclareReferenceAccessor(Argument);
 public:
 	Argument(const Function *pFunc);
-	inline Argument(const Argument &arg, const ValueList &valListArg) : _cntRef(1),
+	Argument(const Function *pFunc, const CallerInfo &callerInfo);
+	inline Argument(const Argument &arg, const ValueList &valListArg) :
+		_cntRef(1),
 		_valTypeResult(arg._valTypeResult),
 		_resultMode(arg._resultMode),
 		_flags(arg._flags),
-		_listThisFlag(arg._listThisFlag),
 		_pSymbolDict(arg._pSymbolDict),
-		_valueThis(arg._valueThis),
-		_valListArg(valListArg),
-		_slots(arg._slots),
+		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
 		_pAttrsShared(SymbolSetShared::Reference(arg._pAttrsShared.get())),
 		_pAttrsOptShared(SymbolSetShared::Reference(arg._pAttrsOptShared.get())),
-		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
-		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
-		_pIteratorThis(Iterator::Reference(arg._pIteratorThis.get())),
 		_pExprBlock(Expr_Block::Reference(arg._pExprBlock.get())),
-		_pFuncBlock(Function::Reference(arg._pFuncBlock.get())) {}
+		_pFuncBlock(Function::Reference(arg._pFuncBlock.get())),
+		_valueThis(arg._valueThis),
+		_pIteratorThis(Iterator::Reference(arg._pIteratorThis.get())),
+		_listThisFlag(arg._listThisFlag),
+		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
+		_valListArg(valListArg),
+		_iSlotCur(arg._iSlotCur),
+		_slots(arg._slots) {}
 protected:
+	void InitializeSlot(const Function *pFunc);
 	virtual ~Argument();
 public:
 	bool IsSet(const Symbol *pSymbol) const;
