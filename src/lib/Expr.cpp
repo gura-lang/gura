@@ -99,8 +99,6 @@ Value Expr::Exec(Environment &env,
 		// object as its result, and then the block of "repeat" shall evaluate it.
 		//   repeat { flag && return }
 		Object_function *pFuncObj = Object_function::GetObject(result);
-		//result = pFuncObj->GetFunction()->Call(env, CallerInfo::Empty,
-		//					pFuncObj->GetValueThis(), nullptr, false, nullptr);
 		AutoPtr<Argument> pArg(new Argument(pFuncObj->GetFunction()));
 		pArg->SetValueThis(pFuncObj->GetValueThis());
 		result = pFuncObj->GetFunction()->EvalAuto(env, *pArg);

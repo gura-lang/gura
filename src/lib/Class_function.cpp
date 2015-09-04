@@ -123,8 +123,6 @@ Value Object_function::DoCall(
 	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
 	if (!pArg->EvalExpr(env, callerInfo.GetExprListArg())) return Value::Nil;
 	return GetFunction()->EvalAuto(env, *pArg);
-	//return GetFunction()->Call(env, callerInfo,
-	//						   valueThisSel, pIteratorThis, listThisFlag, pTrailCtrlHolder);
 }
 
 Value Object_function::Eval(Environment &env, ValueList &valListArg) const
