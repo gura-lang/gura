@@ -508,11 +508,10 @@ Expr *Expr_TmplString::Clone() const
 	return new Expr_TmplString(*this);
 }
 
-Value Expr_TmplString::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
+Value Expr_TmplString::DoExec(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
 	_pTemplate->Print(sig, _str.c_str());
-	if (pSeqPostHandler != nullptr && !pSeqPostHandler->DoPost(sig, Value::Nil)) return Value::Nil;
 	return Value::Nil;
 }
 
@@ -541,7 +540,7 @@ Expr *Expr_TmplScript::Clone() const
 	return new Expr_TmplScript(*this);
 }
 
-Value Expr_TmplScript::DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const
+Value Expr_TmplScript::DoExec(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
 	if (GetExprOwner().empty()) return Value::Nil;

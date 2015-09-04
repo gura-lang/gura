@@ -653,9 +653,8 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 	foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsAssign()) {
-			SeqPostHandler *pSeqPostHandler = nullptr;
 			const Expr_Assign *pExprAssign = dynamic_cast<const Expr_Assign *>(pExpr);
-			pExprAssign->Exec(*pEnvLocal, *this, pSymbolsAssignable, pSeqPostHandler);
+			pExprAssign->Exec(*pEnvLocal, *this, pSymbolsAssignable);
 		} else if (pExpr->IsCaller()) {
 			const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExpr);
 			Value valueCar = pExprCaller->GetCar()->Exec(*pEnvLocal);
