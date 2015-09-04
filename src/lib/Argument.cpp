@@ -10,10 +10,10 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 Argument::Argument(const Function *pFunc) :
 	_cntRef(1),
+	_pFunc(pFunc->Reference()),
 	_valTypeResult(pFunc->GetValueTypeResult()),
 	_resultMode(pFunc->GetResultMode()),
 	_flags(pFunc->GetFlags()),
-	_pSymbolDict(pFunc->GetSymbolDict()),
 	_listThisFlag(false),
 	_iSlotCur(0)
 {
@@ -22,17 +22,36 @@ Argument::Argument(const Function *pFunc) :
 
 Argument::Argument(const Function *pFunc, const CallerInfo &callerInfo) :
 	_cntRef(1),
+	_pFunc(pFunc->Reference()),
 	_valTypeResult(callerInfo.ModifyValueTypeResult(pFunc->GetValueTypeResult())),
 	_resultMode(callerInfo.ModifyResultMode(pFunc->GetResultMode())),
 	_flags(callerInfo.ModifyFlags(pFunc->GetFlags())),
-	_pSymbolDict(pFunc->GetSymbolDict()),
 	_pAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared())),
-	_pAttrsOptShared(SymbolSetShared::Reference(pFunc->GetAttrsOptShared())),
 	_pExprBlock(Expr_Block::Reference(callerInfo.GetBlock())),
 	_listThisFlag(false),
 	_iSlotCur(0)
 {
 	InitializeSlot(pFunc);
+}
+
+Argument::Argument(const Argument &arg, const ValueList &valListArg) :
+	_cntRef(1),
+	_pFunc(arg._pFunc->Reference()),
+	_valTypeResult(arg._valTypeResult),
+	_resultMode(arg._resultMode),
+	_flags(arg._flags),
+	_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
+	_pAttrsShared(SymbolSetShared::Reference(arg._pAttrsShared.get())),
+	_pExprBlock(Expr_Block::Reference(arg._pExprBlock.get())),
+	_pFuncBlock(Function::Reference(arg._pFuncBlock.get())),
+	_valueThis(arg._valueThis),
+	_pIteratorThis(Iterator::Reference(arg._pIteratorThis.get())),
+	_listThisFlag(arg._listThisFlag),
+	_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
+	_valListArg(valListArg),
+	_iSlotCur(arg._iSlotCur),
+	_slots(arg._slots)
+{
 }
 
 void Argument::InitializeSlot(const Function *pFunc)
@@ -191,7 +210,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 	//-------------------------------------------------------------------------
 	if (exprMap.empty()) {
 		// nothing to do
-	} else if (_pSymbolDict == nullptr) {
+	} else if (_pFunc->GetSymbolDict() == nullptr) {
 		String str;
 		str = "invalid argument named ";
 		foreach_const (Function::ExprMap, iter, exprMap) {
@@ -240,6 +259,43 @@ bool Argument::AddValue(Environment &env, const ValueList &valList)
 {
 	foreach_const (ValueList, pValue, valList) {
 		if (!AddValue(env, *pValue)) return false;
+	}
+	return true;
+}
+
+bool Argument::CheckValidity(Environment &env)
+{
+	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
+		const Symbol *pSymbol = *ppSymbol;
+		if (!GetAttrsOpt().IsSet(pSymbol)) {
+			env.SetError(ERR_AttributeError, "unsupported attribute '%s' for '%s'",
+						 pSymbol->GetName(), _pFunc->ToString().c_str());
+			return false;
+		}
+	}
+	if (_pFunc->GetType() == FUNCTYPE_Instance &&
+			!GetValueThis().IsPrimitive() && GetObjectThis() == nullptr) {
+		env.SetError(ERR_ValueError,
+					 "object is expected as l-value of field");
+		return false;
+	} else if (_pFunc->GetType() == FUNCTYPE_Class &&
+			GetValueThis().GetClassItself() == nullptr && GetObjectThis() == nullptr) {
+		env.SetError(ERR_ValueError,
+					 "class or object is expected as l-value of field");
+		return false;
+	}
+	if (IsBlockSpecified()) {
+		if (_pFunc->GetBlockInfo().occurPattern == OCCUR_Zero) {
+			env.SetError(ERR_ValueError,
+						 "block is unnecessary for '%s'", _pFunc->ToString().c_str());
+			return false;
+		}
+	} else {
+		if (_pFunc->GetBlockInfo().occurPattern == OCCUR_Once) {
+			env.SetError(ERR_ValueError,
+						 "block must be specified for '%s'", _pFunc->ToString().c_str());
+			return false;
+		}
 	}
 	return true;
 }

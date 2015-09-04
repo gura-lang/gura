@@ -37,13 +37,12 @@ public:
 	};
 private:
 	int _cntRef;
+	AutoPtr<Function> _pFunc;
 	ValueType _valTypeResult;
 	ResultMode _resultMode;
 	ULong _flags;
-	const Symbol *_pSymbolDict;
 	AutoPtr<ValueDict> _pValDictArg;
 	AutoPtr<SymbolSetShared> _pAttrsShared;
-	AutoPtr<SymbolSetShared> _pAttrsOptShared;
 	AutoPtr<Expr_Block> _pExprBlock;
 	AutoPtr<Function> _pFuncBlock;
 	Value _valueThis;
@@ -58,44 +57,23 @@ public:
 public:
 	Argument(const Function *pFunc);
 	Argument(const Function *pFunc, const CallerInfo &callerInfo);
-	inline Argument(const Argument &arg, const ValueList &valListArg) :
-		_cntRef(1),
-		_valTypeResult(arg._valTypeResult),
-		_resultMode(arg._resultMode),
-		_flags(arg._flags),
-		_pSymbolDict(arg._pSymbolDict),
-		_pValDictArg(ValueDict::Reference(arg._pValDictArg.get())),
-		_pAttrsShared(SymbolSetShared::Reference(arg._pAttrsShared.get())),
-		_pAttrsOptShared(SymbolSetShared::Reference(arg._pAttrsOptShared.get())),
-		_pExprBlock(Expr_Block::Reference(arg._pExprBlock.get())),
-		_pFuncBlock(Function::Reference(arg._pFuncBlock.get())),
-		_valueThis(arg._valueThis),
-		_pIteratorThis(Iterator::Reference(arg._pIteratorThis.get())),
-		_listThisFlag(arg._listThisFlag),
-		_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
-		_valListArg(valListArg),
-		_iSlotCur(arg._iSlotCur),
-		_slots(arg._slots) {}
+	Argument(const Argument &arg, const ValueList &valListArg);
 protected:
 	void InitializeSlot(const Function *pFunc);
 	virtual ~Argument();
 public:
+	inline const Function *GetFunction() const { return _pFunc.get(); }
 	bool IsSet(const Symbol *pSymbol) const;
 	inline bool IsAttrEmpty() const { return GetAttrs().empty(); }
 	inline void SetAttrsShared(SymbolSetShared *pAttrsShared) {
 		_pAttrsShared.reset(pAttrsShared);
 	}
-	inline void SetAttrsOptShared(SymbolSetShared *pAttrsOptShared) {
-		_pAttrsOptShared.reset(pAttrsOptShared);
-	}
 	inline const SymbolSetShared *GetAttrsShared() const { return _pAttrsShared.get(); }
-	inline const SymbolSetShared *GetAttrsOptShared() const { return _pAttrsOptShared.get(); }
+	inline const SymbolSetShared *GetAttrsOptShared() const { return _pFunc->GetAttrsOptShared(); }
 	inline const SymbolSet &GetAttrs() const {
 		return _pAttrsShared.IsNull()? SymbolSet::Empty : _pAttrsShared->GetSymbolSet();
 	}
-	inline const SymbolSet &GetAttrsOpt() const {
-		return _pAttrsOptShared.IsNull()? SymbolSet::Empty : _pAttrsOptShared->GetSymbolSet();
-	}
+	inline const SymbolSet &GetAttrsOpt() const { return _pFunc->GetAttrsOpt(); }
 	inline void SetValueTypeResult(ValueType valTypeResult) { _valTypeResult = valTypeResult; }
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline void SetResultMode(ResultMode resultMode) { _resultMode = resultMode; }
@@ -133,7 +111,6 @@ public:
 	inline bool IsResultXList() const { return _resultMode == RSLTMODE_XList; }
 	inline bool IsResultXReduce() const { return _resultMode == RSLTMODE_XReduce; }
 	inline bool IsResultXSet() const { return _resultMode == RSLTMODE_XSet; }
-	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
 	inline void SetTrailCtrlHolder(TrailCtrlHolder *pTrailCtrlHolder) {
 		_pTrailCtrlHolder.reset(pTrailCtrlHolder);
 	}
@@ -259,6 +236,7 @@ public:
 	inline const ValueDict &GetValueDictArg() const { 
 		return _pValDictArg.IsNull()? ValueDict::Empty : *_pValDictArg;
 	}
+	bool CheckValidity(Environment &env);
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock() const { return _pExprBlock.get(); }

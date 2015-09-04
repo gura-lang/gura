@@ -256,39 +256,7 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 #if 0
 Value Function::Call(Environment &env, Argument &arg)
 {
-	foreach_const (SymbolSet, ppSymbol, arg.GetAttrs()) {
-		const Symbol *pSymbol = *ppSymbol;
-		if (!GetAttrsOpt().IsSet(pSymbol)) {
-			sig.SetError(ERR_AttributeError, "unsupported attribute '%s' for '%s'",
-						 pSymbol->GetName(), ToString().c_str());
-			return Value::Nil;
-		}
-	}
-	//-------------------------------------------------------------------------
-	if (GetType() == FUNCTYPE_Instance &&
-			!pArg->GetValueThis().IsPrimitive() && pArg->GetObjectThis() == nullptr) {
-		sig.SetError(ERR_ValueError,
-					 "object is expected as l-value of field");
-		return Value::Nil;
-	} else if (GetType() == FUNCTYPE_Class &&
-		   pArg->GetValueThis().GetClassItself() == nullptr && pArg->GetObjectThis() == nullptr) {
-		sig.SetError(ERR_ValueError,
-					 "class or object is expected as l-value of field");
-		return Value::Nil;
-	}
-	if (pArg->IsBlockSpecified()) {
-		if (GetBlockInfo().occurPattern == OCCUR_Zero) {
-			sig.SetError(ERR_ValueError,
-						 "block is unnecessary for '%s'", ToString().c_str());
-			return Value::Nil;
-		}
-	} else {
-		if (GetBlockInfo().occurPattern == OCCUR_Once) {
-			sig.SetError(ERR_ValueError,
-						 "block must be specified for '%s'", ToString().c_str());
-			return Value::Nil;
-		}
-	}
+	if (!pArg->CheckValidity(env)) return Value::Nil;
 	return (pArg->GetFlag(FLAG_Map) && _pDeclOwner->ShouldImplicitMap(*pArg))?
 		EvalMap(env, *pArg) : Eval(env, *pArg);
 }
@@ -300,7 +268,6 @@ Value Function::Call(
 	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
 	const TrailCtrlHolder *pTrailCtrlHolder) const
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<Argument> pArg(new Argument(this, callerInfo));
 	pArg->SetValueThis(valueThis);
 	pArg->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
@@ -463,42 +430,7 @@ Value Function::Call(
 	//-------------------------------------------------------------------------
 	pArg->SetValueDictArg(pValDictArg);
 #endif
-	//-------------------------------------------------------------------------
-	foreach_const (SymbolSet, ppSymbol, pArg->GetAttrs()) {
-		const Symbol *pSymbol = *ppSymbol;
-		if (!GetAttrsOpt().IsSet(pSymbol)) {
-			sig.SetError(ERR_AttributeError, "unsupported attribute '%s' for '%s'",
-						 pSymbol->GetName(), ToString().c_str());
-			return Value::Nil;
-		}
-	}
-	//-------------------------------------------------------------------------
-	if (GetType() == FUNCTYPE_Instance &&
-			!pArg->GetValueThis().IsPrimitive() && pArg->GetObjectThis() == nullptr) {
-		sig.SetError(ERR_ValueError,
-					 "object is expected as l-value of field");
-		return Value::Nil;
-	} else if (GetType() == FUNCTYPE_Class &&
-		   pArg->GetValueThis().GetClassItself() == nullptr && pArg->GetObjectThis() == nullptr) {
-		sig.SetError(ERR_ValueError,
-					 "class or object is expected as l-value of field");
-		return Value::Nil;
-	}
-	if (pArg->IsBlockSpecified()) {
-		if (GetBlockInfo().occurPattern == OCCUR_Zero) {
-			sig.SetError(ERR_ValueError,
-						 "block is unnecessary for '%s'", ToString().c_str());
-			return Value::Nil;
-		}
-	} else {
-		if (GetBlockInfo().occurPattern == OCCUR_Once) {
-			sig.SetError(ERR_ValueError,
-						 "block must be specified for '%s'", ToString().c_str());
-			return Value::Nil;
-		}
-	}
-
-
+	if (!pArg->CheckValidity(env)) return Value::Nil;
 	return (pArg->GetFlag(FLAG_Map) && _pDeclOwner->ShouldImplicitMap(*pArg))?
 		EvalMap(env, *pArg) : Eval(env, *pArg);
 }
