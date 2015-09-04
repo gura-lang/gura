@@ -117,7 +117,6 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			Signal &sig = env.GetSignal();
-			SeqPostHandler *pSeqPostHandler = nullptr;
 			const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 			const ExprOwner &exprOwner = pExprBlock->GetExprOwner();
 			AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(exprOwner.size()));
@@ -128,7 +127,7 @@ public:
 					sig.SetError(ERR_ValueError, "invalid element for array initialization");
 					return Value::Nil;
 				}
-				Value value = pExpr->Exec2(env, pSeqPostHandler);
+				Value value = pExpr->Exec(env);
 				if (!value.Is_number() && !value.Is_boolean()) {
 					sig.SetError(ERR_ValueError, "invalid element for array initialization");
 					return Value::Nil;

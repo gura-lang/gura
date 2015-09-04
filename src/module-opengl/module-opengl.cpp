@@ -1528,7 +1528,7 @@ bool DoGLSection(Environment &env, Signal &sig, Argument &arg, Image *pImage)
 	::glXMakeCurrent(nullptr, xid, ctx);
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (!sig.IsSignalled()) {
-		pExprBlock->Exec2(env);
+		pExprBlock->Exec(env);
 	}
 	::glReadPixels(0, 0, width, height, GL_BGRA_EXT,
 									GL_UNSIGNED_BYTE, pImage->GetBuffer());

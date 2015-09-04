@@ -213,10 +213,6 @@ public:
 	Value Exec(Environment &env, bool evalSymFuncFlag = false) const;
 	Value Assign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
-	inline Value Exec2(Environment &env,
-			SeqPostHandler *pSeqPostHandler, bool evalSymFuncFlag = false) const {
-		return Exec(env, evalSymFuncFlag);
-	}
 	inline void _SetBridgeFunction(BridgeFunctionT bridgeFunction) const {
 		const_cast<Expr *>(this)->_bridgeFunction = bridgeFunction;
 	}
