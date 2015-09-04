@@ -197,39 +197,22 @@ public:
 	Function(const Function &func);
 	Function(Environment &envScope, const Symbol *pSymbol, FunctionType funcType, ULong flags);
 	virtual ~Function();
-	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
-	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
+public:
 	inline void SetSymbol(const Symbol *pSymbol) { _pSymbol = pSymbol; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
-	inline OccurPattern GetBlockOccurPattern() const { return _blockInfo.occurPattern; }
-	inline BlockScope GetBlockScope() const { return _blockInfo.blockScope; }
-	inline bool GetBlockQuoteFlag() const { return _blockInfo.quoteFlag; }
-	inline const Symbol *GetSymbolForBlock() const { return _blockInfo.pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
+	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
+	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
 	inline Environment &GetEnvScope() { return *_pEnvScope; }
 	inline Environment &GetEnvScope() const {
 		return *const_cast<Function *>(this)->_pEnvScope;
 	}
-	virtual bool IsCustom() const;
-	virtual bool IsConstructorOfStruct() const;
-	Value Call(
-		Environment &env, const CallerInfo &callerInfo,
-		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
-		const TrailCtrlHolder *pTrailCtrlHolder) const;
-	Value Eval(Environment &env, Argument &arg) const;
-	Value EvalMap(Environment &env, Argument &arg) const;
+	inline DeclarationOwner &GetDeclOwner() { return *_pDeclOwner; }
+	inline const DeclarationOwner &GetDeclOwner() const { return *_pDeclOwner; }
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
-	inline ULong GetFlags() const { return _flags; }
-	inline void SetFlag(ULong flag) { _flags |= flag; }
-	inline bool GetFlag(ULong flag) const { return (_flags & flag) != 0; }
-	inline const SymbolSet &GetAttrsOpt() const {
-		return _pAttrsOptShared.IsNull()? SymbolSet::Empty : _pAttrsOptShared->GetSymbolSet();
-	}
-	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
-	inline const BlockInfo &GetBlockInfo() const { return _blockInfo; }
 	inline bool IsResultNormal() const { return _resultMode == RSLTMODE_Normal; }
 	inline bool IsResultIterator() const { return _resultMode == RSLTMODE_Iterator; }
 	inline bool IsResultList() const { return _resultMode == RSLTMODE_List; }
@@ -240,6 +223,32 @@ public:
 	inline bool IsResultXList() const { return _resultMode == RSLTMODE_XList; }
 	inline bool IsResultXReduce() const { return _resultMode == RSLTMODE_XReduce; }
 	inline bool IsResultXSet() const { return _resultMode == RSLTMODE_XSet; }
+	inline ULong GetFlags() const { return _flags; }
+	inline void SetFlag(ULong flag) { _flags |= flag; }
+	inline bool GetFlag(ULong flag) const { return (_flags & flag) != 0; }
+	inline const SymbolSet &GetAttrsOpt() const {
+		return _pAttrsOptShared.IsNull()? SymbolSet::Empty : _pAttrsOptShared->GetSymbolSet();
+	}
+	inline const SymbolSetShared *GetAttrsOptShared() const {
+		return _pAttrsOptShared.get();
+	}
+	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
+	inline const BlockInfo &GetBlockInfo() const { return _blockInfo; }
+	inline OccurPattern GetBlockOccurPattern() const { return _blockInfo.occurPattern; }
+	inline BlockScope GetBlockScope() const { return _blockInfo.blockScope; }
+	inline bool GetBlockQuoteFlag() const { return _blockInfo.quoteFlag; }
+	inline const Symbol *GetSymbolForBlock() const { return _blockInfo.pSymbol; }
+	inline void SetSymbolDict(const Symbol *pSymbolDict) { _pSymbolDict = pSymbolDict; }
+	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
+public:
+	virtual bool IsCustom() const;
+	virtual bool IsConstructorOfStruct() const;
+	Value Call(
+		Environment &env, const CallerInfo &callerInfo,
+		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const TrailCtrlHolder *pTrailCtrlHolder) const;
+	Value Eval(Environment &env, Argument &arg) const;
+	Value EvalMap(Environment &env, Argument &arg) const;
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
 	bool CustomDeclare(Environment &env,
@@ -260,15 +269,11 @@ public:
 		if (_pAttrsOptShared.IsNull()) _pAttrsOptShared.reset(new SymbolSetShared());
 		_pAttrsOptShared->GetSymbolSet().Insert(pSymbol);
 	}
-	inline DeclarationOwner &GetDeclOwner() { return *_pDeclOwner; }
-	inline const DeclarationOwner &GetDeclOwner() const { return *_pDeclOwner; }
 	inline bool IsUnary() const {
 		return GetDeclOwner().size() == 1 && !GetDeclOwner().front()->IsVariableLength();
 	}
 	inline bool IsUnaryable() const { return GetDeclOwner().size() == 1; }
 	inline bool IsHelpExist() const { return !_helpOwner.empty(); }
-	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
-	inline void SetSymbolDict(const Symbol *pSymbolDict) { _pSymbolDict = pSymbolDict; }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = nullptr,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
 	void AddHelp(Help *pHelp);

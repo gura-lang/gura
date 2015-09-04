@@ -27,7 +27,7 @@ Argument::Argument(const Function *pFunc, const CallerInfo &callerInfo) :
 	_flags(callerInfo.ModifyFlags(pFunc->GetFlags())),
 	_pSymbolDict(pFunc->GetSymbolDict()),
 	_pAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared())),
-	_pAttrsOptShared(SymbolSetShared::Reference(callerInfo.GetAttrsOptShared())),
+	_pAttrsOptShared(SymbolSetShared::Reference(pFunc->GetAttrsOptShared())),
 	_pExprBlock(Expr_Block::Reference(callerInfo.GetBlock())),
 	_listThisFlag(false),
 	_iSlotCur(0)

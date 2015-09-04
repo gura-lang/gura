@@ -253,6 +253,48 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
+#if 0
+Value Function::Call(Environment &env, Argument &arg)
+{
+	foreach_const (SymbolSet, ppSymbol, arg.GetAttrs()) {
+		const Symbol *pSymbol = *ppSymbol;
+		if (!GetAttrsOpt().IsSet(pSymbol)) {
+			sig.SetError(ERR_AttributeError, "unsupported attribute '%s' for '%s'",
+						 pSymbol->GetName(), ToString().c_str());
+			return Value::Nil;
+		}
+	}
+	//-------------------------------------------------------------------------
+	if (GetType() == FUNCTYPE_Instance &&
+			!pArg->GetValueThis().IsPrimitive() && pArg->GetObjectThis() == nullptr) {
+		sig.SetError(ERR_ValueError,
+					 "object is expected as l-value of field");
+		return Value::Nil;
+	} else if (GetType() == FUNCTYPE_Class &&
+		   pArg->GetValueThis().GetClassItself() == nullptr && pArg->GetObjectThis() == nullptr) {
+		sig.SetError(ERR_ValueError,
+					 "class or object is expected as l-value of field");
+		return Value::Nil;
+	}
+	if (pArg->IsBlockSpecified()) {
+		if (GetBlockInfo().occurPattern == OCCUR_Zero) {
+			sig.SetError(ERR_ValueError,
+						 "block is unnecessary for '%s'", ToString().c_str());
+			return Value::Nil;
+		}
+	} else {
+		if (GetBlockInfo().occurPattern == OCCUR_Once) {
+			sig.SetError(ERR_ValueError,
+						 "block must be specified for '%s'", ToString().c_str());
+			return Value::Nil;
+		}
+	}
+	return (pArg->GetFlag(FLAG_Map) && _pDeclOwner->ShouldImplicitMap(*pArg))?
+		EvalMap(env, *pArg) : Eval(env, *pArg);
+}
+#endif
+
+#if 1
 Value Function::Call(
 	Environment &env, const CallerInfo &callerInfo,
 	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
@@ -460,6 +502,7 @@ Value Function::Call(
 	return (pArg->GetFlag(FLAG_Map) && _pDeclOwner->ShouldImplicitMap(*pArg))?
 		EvalMap(env, *pArg) : Eval(env, *pArg);
 }
+#endif
 
 Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool thisAssignFlag) const
 {
