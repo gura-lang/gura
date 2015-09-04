@@ -1464,8 +1464,7 @@ bool DoGLSection(Environment &env, Signal &sig, Argument &arg, Image *pImage)
 	::wglMakeCurrent(hdc, hglrc);
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (!sig.IsSignalled()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
-		pExprBlock->Exec2(env, pSeqPostHandler);
+		pExprBlock->Exec(env);
 	}
 	::wglMakeCurrent(nullptr, nullptr);
 	::wglDeleteContext(hglrc);
@@ -1504,8 +1503,7 @@ bool DoGLSection(Environment &env, Signal &sig, Argument &arg, Image *pImage)
 	if (status == GL_FRAMEBUFFER_COMPLETE) {
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (!sig.IsSignalled()) {
-			SeqPostHandler *pSeqPostHandler = nullptr;
-			pExprBlock->Exec2(env, pSeqPostHandler);
+			pExprBlock->Exec(env);
 		}
 	}
 	do {

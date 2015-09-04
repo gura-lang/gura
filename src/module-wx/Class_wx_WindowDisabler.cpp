@@ -53,8 +53,7 @@ Gura_ImplementFunction(WindowDisabler)
 	wx_WindowDisabler windowDisabler(winToSkip);
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
-	SeqPostHandler *pSeqPostHandler = nullptr;
-	Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);
+	Value rtn = pExprBlock->Exec(env);
 	return rtn;
 }
 

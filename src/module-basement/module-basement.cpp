@@ -657,15 +657,13 @@ Gura_DeclareFunctionAlias(if_, "if")
 Gura_ImplementFunction(if_)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandlerArg = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	Value value = arg.GetExpr(0)->Exec2(*pEnvBlock, pSeqPostHandlerArg);
+	Value value = arg.GetExpr(0)->Exec(*pEnvBlock);
 	if (value.GetBoolean()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		arg.QuitTrailer();
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Nil;
-		return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
+		return pExprBlock->Exec(*pEnvBlock);
 	}
 	return Value::Nil;
 }
@@ -690,15 +688,13 @@ Gura_DeclareFunctionTrailerAlias(elsif_, "elsif")
 Gura_ImplementFunction(elsif_)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandlerArg = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	Value value = arg.GetExpr(0)->Exec2(*pEnvBlock, pSeqPostHandlerArg);
+	Value value = arg.GetExpr(0)->Exec(*pEnvBlock);
 	if (value.GetBoolean()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Nil;
 		arg.QuitTrailer();
-		return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
+		return pExprBlock->Exec(*pEnvBlock);
 	}
 	return Value::Nil;
 }
@@ -716,13 +712,12 @@ Gura_DeclareFunctionTrailerAlias(else_, "else")
 Gura_ImplementFunction(else_)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandler = nullptr;
 	// this function works as a terminater of if-else and try-catch
 	if (sig.IsErrorSuspended()) return Value::Nil;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Nil;
-	return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
+	return pExprBlock->Exec(*pEnvBlock);
 }
 
 // end (dummy*):void:symbol_func:trailer:end_marker
@@ -757,11 +752,10 @@ Gura_DeclareFunctionAlias(switch_, "switch")
 Gura_ImplementFunction(switch_)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));;
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Nil;
-	pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
+	pExprBlock->Exec(*pEnvBlock);
 	if (sig.IsSwitchDone()) {
 		Value result = sig.GetValue();
 		sig.ClearSignal();
@@ -786,14 +780,12 @@ Gura_DeclareFunctionAlias(case_, "case")
 Gura_ImplementFunction(case_)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandlerArg = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	Value value = arg.GetExpr(0)->Exec2(*pEnvBlock, pSeqPostHandlerArg);
+	Value value = arg.GetExpr(0)->Exec(*pEnvBlock);
 	if (value.GetBoolean()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Nil;
-		Value result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
+		Value result = pExprBlock->Exec(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Nil;
 		sig.SetSignal(SIGTYPE_SwitchDone, result);
 		return result;
@@ -816,11 +808,10 @@ Gura_DeclareFunctionAlias(default_, "default")
 Gura_ImplementFunction(default_)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Nil;
-	Value result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
+	Value result = pExprBlock->Exec(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Nil;
 	sig.SetSignal(SIGTYPE_SwitchDone, result);
 	return result;
@@ -844,11 +835,10 @@ Gura_DeclareFunctionAlias(try_, "try")
 Gura_ImplementFunction(try_)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Nil;
-	Value result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
+	Value result = pExprBlock->Exec(*pEnvBlock);
 	if (sig.IsError()) {
 		sig.SuspendError();
 	} else {
@@ -915,11 +905,10 @@ Gura_DeclareFunctionTrailerAlias(finally_, "finally")
 Gura_ImplementFunction(finally_)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandler = nullptr;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 	if (sig.IsSignalled()) return Value::Nil;
-	return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
+	return pExprBlock->Exec(*pEnvBlock);
 }
 
 // raise(error:error, msg:string => "error", value?)
@@ -1433,7 +1422,6 @@ Gura_DeclareFunctionAlias(public_, "public")
 Gura_ImplementFunction(public_)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandler = nullptr;
 	SymbolSet &symbolsPublic = env.PrepareSymbolsPublic();
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
@@ -1449,7 +1437,7 @@ Gura_ImplementFunction(public_)
 			}
 			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprAssign->GetLeft());
 			symbolsPublic.Insert(pExprIdentifier->GetSymbol());
-			pExpr->Exec2(env, pSeqPostHandler);
+			pExpr->Exec(env);
 			if (sig.IsSignalled()) return Value::Nil;
 		} else {
 			sig.SetError(ERR_ValueError, "invalid element for public");
@@ -1474,13 +1462,11 @@ Gura_ImplementFunction(scope)
 {
 	Signal &sig = env.GetSignal();
 	if (arg.IsInvalid(0)) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Nil;
-		return pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
+		return pExprBlock->Exec(*pEnvBlock);
 	} else {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		Environment *pEnv = nullptr;
 		if (arg.IsModule(0)) {
 			pEnv = arg.GetModule(0);
@@ -1494,7 +1480,7 @@ Gura_ImplementFunction(scope)
 		if (pEnv != nullptr) {
 			const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnv);
 			if (sig.IsSignalled()) return Value::Nil;
-			return pExprBlock->Exec2(*pEnv, pSeqPostHandler);
+			return pExprBlock->Exec(*pEnv);
 		}
 	}
 	sig.SetError(ERR_ValueError, "module or environment must be specified");
@@ -1518,11 +1504,10 @@ Gura_DeclareFunction(module)
 Gura_ImplementFunction(module)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandler = nullptr;
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	Module *pModule = new Module(&env, Gura_Symbol(_anonymous_), "", nullptr, nullptr);
-	pExprBlock->Exec2(*pModule, pSeqPostHandler);
+	pExprBlock->Exec(*pModule);
 	return Value(pModule);
 }
 
@@ -1630,8 +1615,7 @@ Gura_ImplementFunction(isdefined)
 	bool definedFlag = false;
 	const Expr *pExpr = arg.GetExpr(0);
 	if (pExpr->IsIdentifier() || pExpr->IsMember()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
-		Value result = pExpr->Exec2(env, pSeqPostHandler);
+		Value result = pExpr->Exec(env);
 		if (sig.IsSignalled() && !sig.IsError()) return Value::Nil;
 		definedFlag = !sig.IsError() && result.IsDefined();
 		sig.ClearSignal();
@@ -1733,8 +1717,7 @@ Gura_ImplementFunction(typename_)
 	const Expr *pExpr = arg.GetExpr(0);
 	String typeName = "unknown";
 	if (pExpr->IsIdentifier() || pExpr->IsMember()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
-		Value value = pExpr->Exec2(env, pSeqPostHandler);
+		Value value = pExpr->Exec(env);
 		if (sig.IsSignalled() && !sig.IsError()) return Value::Nil;
 		if (sig.IsError()) {
 			typeName = "undefined";
@@ -1743,8 +1726,7 @@ Gura_ImplementFunction(typename_)
 		}
 		sig.ClearSignal();
 	} else {
-		SeqPostHandler *pSeqPostHandler = nullptr;
-		Value value = pExpr->Exec2(env, pSeqPostHandler);
+		Value value = pExpr->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		typeName = value.MakeValueTypeName();
 	}

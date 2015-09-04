@@ -155,11 +155,10 @@ Gura_ImplementFunction(redirect)
 	}
 	Value result;
 	if (arg.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Nil;
-		result = pExprBlock->Exec2(*pEnvBlock, pSeqPostHandler);
+		result = pExprBlock->Exec(*pEnvBlock);
 		_pEnvThis->AssignValue(Gura_Symbol(stdin), value_stdin, EXTRA_Public);
 		_pEnvThis->AssignValue(Gura_Symbol(stdout), value_stdout, EXTRA_Public);
 		_pEnvThis->AssignValue(Gura_Symbol(stderr), value_stderr, EXTRA_Public);

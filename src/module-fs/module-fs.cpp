@@ -684,7 +684,6 @@ Gura_ImplementFunction(chdir)
 {
 	Signal &sig = env.GetSignal();
 	if (arg.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		String pathNameOrg = OAL::GetCurDir();
 		if (!OAL::ChangeCurDir(arg.GetString(0))) {
 			sig.SetError(ERR_IOError, "failed to change current directory");
@@ -692,7 +691,7 @@ Gura_ImplementFunction(chdir)
 		}
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		Value rtn = pExprBlock->Exec2(env, pSeqPostHandler);
+		Value rtn = pExprBlock->Exec(env);
 		OAL::ChangeCurDir(pathNameOrg.c_str());
 		return rtn;
 	} else if (!OAL::ChangeCurDir(arg.GetString(0))) {

@@ -42,10 +42,9 @@ glArrayElement(i:GLint):void:map = `auto % {`en, 'markdown',
 glBegin(mode:GLenum):void:map {block?} = R'''
 	glBegin(mode);
 	if (arg.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (env.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, pSeqPostHandler);
+		pExprBlock->Exec(env);
 		glEnd();
 	}
 	return Value::Nil;
@@ -1376,10 +1375,9 @@ glMultMatrixf(m:GLfloat@matrix:const):void = `auto % {`en, 'markdown',
 glNewList(list:GLuint, mode:GLenum):void:map {block?} = R'''
 	glNewList(list, mode);
 	if (arg.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (env.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, pSeqPostHandler);
+		pExprBlock->Exec(env);
 		glEndList();
 	}
 	return Value::Nil;
@@ -1553,10 +1551,9 @@ glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void:ma
 glPushAttrib(mask:GLbitfield):void:map {block?} = R'''
 	glPushAttrib(mask);
 	if (arg.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (env.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, pSeqPostHandler);
+		pExprBlock->Exec(env);
 		glPopAttrib();
 	}
 	return Value::Nil;
@@ -1568,10 +1565,9 @@ glPushAttrib(mask:GLbitfield):void:map {block?} = R'''
 glPushClientAttrib(mask:GLbitfield):void:map {block?} = R'''
 	glPushClientAttrib(mask);
 	if (arg.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (env.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, pSeqPostHandler);
+		pExprBlock->Exec(env);
 		glPopClientAttrib();
 	}
 	return Value::Nil;
@@ -1583,10 +1579,9 @@ glPushClientAttrib(mask:GLbitfield):void:map {block?} = R'''
 glPushMatrix():void {block?} = R'''
 	glPushMatrix();
 	if (arg.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (env.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, pSeqPostHandler);
+		pExprBlock->Exec(env);
 		glPopMatrix();
 	}
 	return Value::Nil;
@@ -1598,10 +1593,9 @@ glPushMatrix():void {block?} = R'''
 glPushName(name:GLuint):void:map {block?} = R'''
 	glPushName(name);
 	if (arg.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (env.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, pSeqPostHandler);
+		pExprBlock->Exec(env);
 		glPopName();
 	}
 	return Value::Nil;
@@ -2903,10 +2897,9 @@ glIsQuery(id:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 	glBeginQuery(target, id);
 	if (arg.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 		if (env.IsSignalled()) return Value::Nil;
-		pExprBlock->Exec2(env, pSeqPostHandler);
+		pExprBlock->Exec(env);
 		glEndQuery(target);
 	}
 	return Value::Nil;

@@ -756,13 +756,11 @@ Value Object_ole::CallableOLE::DoCall(
 						"a key for named argument of OLE must be a string or an identifier");
 				goto error_done;
 			}
-			SeqPostHandler *pSeqPostHandler = nullptr;
-			Value value = pExprBinaryOp->GetRight()->Exec2(env, pSeqPostHandler);
+			Value value = pExprBinaryOp->GetRight()->Exec(env);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgsNamed.push_back(value);
 		} else {
-			SeqPostHandler *pSeqPostHandler = nullptr;
-			Value value = pExpr->Exec2(env, pSeqPostHandler);
+			Value value = pExpr->Exec(env);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgs.push_back(value);
 		}

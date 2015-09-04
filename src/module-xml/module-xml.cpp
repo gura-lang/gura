@@ -1396,9 +1396,8 @@ Gura_ImplementFunction(element)
 	if (sig.IsSignalled()) return Value::Nil;
 	if (pExprBlock != nullptr) {
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
-			SeqPostHandler *pSeqPostHandler = nullptr;
 			for (const Expr *pExpr = *ppExpr; pExpr != nullptr; ) {
-				Value value = pExpr->Exec2(env, pSeqPostHandler);
+				Value value = pExpr->Exec(env);
 				if (sig.IsSignalled()) return Value::Nil;
 				if (!pElement->AddChild(env, sig, value)) {
 					sig.AddExprCause(pExpr);
