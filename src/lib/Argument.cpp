@@ -231,7 +231,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 	}
 	//-------------------------------------------------------------------------
 	SetValueDictArg(pValDictArg);
-	return true;
+	return CheckValidity(env);
 }
 
 

@@ -285,7 +285,11 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Argument &arg) const
 		}
 		AutoPtr<Environment> pEnvSuper(new Environment(pEnvLocal.get(), ENVTYPE_local));
 		CallerInfo callerInfo(*pExprListArg, nullptr, nullptr, nullptr);
-		pConstructorSuper->Call(*pEnvSuper, callerInfo, valueRtn, nullptr, false, nullptr);
+		//pConstructorSuper->Call(*pEnvSuper, callerInfo, valueRtn, nullptr, false, nullptr);
+		AutoPtr<Argument> pArg(new Argument(pConstructorSuper, callerInfo));
+		pArg->SetValueThis(valueRtn);
+		if (!pArg->EvalExpr(*pEnvSuper, callerInfo.GetExprListArg())) return Value::Nil;
+		pConstructorSuper->EvalAuto(*pEnvSuper, *pArg);
 		if (sig.IsSignalled()) return Value::Nil;
 	}
 	SeqPostHandler *pSeqPostHandler = nullptr;

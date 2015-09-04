@@ -243,10 +243,11 @@ public:
 public:
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	Value Call(
-		Environment &env, const CallerInfo &callerInfo,
-		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
-		const TrailCtrlHolder *pTrailCtrlHolder) const;
+	//Value Call(
+	//	Environment &env, const CallerInfo &callerInfo,
+	//	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+	//	const TrailCtrlHolder *pTrailCtrlHolder) const;
+	Value EvalAuto(Environment &env, Argument &arg) const;
 	Value Eval(Environment &env, Argument &arg) const;
 	Value EvalMap(Environment &env, Argument &arg) const;
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);

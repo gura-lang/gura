@@ -117,8 +117,14 @@ Value Object_function::DoCall(
 {
 	const Value &valueThisSel = (valueThis.IsInvalid() ||
 			(valueThis.IsModule() && _valueThis.IsValid()))? _valueThis : valueThis;
-	return GetFunction()->Call(env, callerInfo,
-							   valueThisSel, pIteratorThis, listThisFlag, pTrailCtrlHolder);
+	AutoPtr<Argument> pArg(new Argument(GetFunction(), callerInfo));
+	pArg->SetValueThis(valueThisSel);
+	pArg->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
+	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
+	if (!pArg->EvalExpr(env, callerInfo.GetExprListArg())) return Value::Nil;
+	return GetFunction()->EvalAuto(env, *pArg);
+	//return GetFunction()->Call(env, callerInfo,
+	//						   valueThisSel, pIteratorThis, listThisFlag, pTrailCtrlHolder);
 }
 
 Value Object_function::Eval(Environment &env, ValueList &valListArg) const

@@ -254,15 +254,6 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 }
 
 #if 0
-Value Function::Call(Environment &env, Argument &arg)
-{
-	if (!pArg->CheckValidity(env)) return Value::Nil;
-	return (pArg->GetFlag(FLAG_Map) && pArg->ShouldImplicitMap())?
-		EvalMap(env, *pArg) : Eval(env, *pArg);
-}
-#endif
-
-#if 1
 Value Function::Call(
 	Environment &env, const CallerInfo &callerInfo,
 	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
@@ -273,9 +264,7 @@ Value Function::Call(
 	pArg->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
 	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
 	if (!pArg->EvalExpr(env, callerInfo.GetExprListArg())) return Value::Nil;
-	if (!pArg->CheckValidity(env)) return Value::Nil;
-	return (pArg->GetFlag(FLAG_Map) && pArg->ShouldImplicitMap())?
-		EvalMap(env, *pArg) : Eval(env, *pArg);
+	return EvalAuto(env, *pArg);
 }
 #endif
 
@@ -325,6 +314,12 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 		pEnvLocal->AssignFunction(pFuncBlock);
 	}
 	return pEnvLocal.release();
+}
+
+Value Function::EvalAuto(Environment &env, Argument &arg) const
+{
+	return (arg.GetFlag(FLAG_Map) && arg.ShouldImplicitMap())?
+									EvalMap(env, arg) : Eval(env, arg);
 }
 
 Value Function::Eval(Environment &env, Argument &arg) const
