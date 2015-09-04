@@ -1917,7 +1917,8 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			SetError(sig, ERR_TypeError, "object is not callable");
 			return Value::Nil;
 		}
-		return pCallable->DoCall(env, GetCallerInfo(), Value::Nil, nullptr, false, pTrailCtrlHolder);
+		return pCallable->DoCall(env, GetCallerInfo(),
+								 Value::Nil, nullptr, false, pTrailCtrlHolder);
 	}
 }
 
