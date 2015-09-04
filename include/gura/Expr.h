@@ -218,6 +218,9 @@ public:
 			SeqPostHandler *pSeqPostHandler, bool evalSymFuncFlag = false) const {
 		return Exec(env, pSeqPostHandler, evalSymFuncFlag);
 	}
+	inline Value Exec(Environment &env, bool evalSymFuncFlag = false) const {
+		return Exec(env, nullptr, evalSymFuncFlag);
+	}
 	inline void _SetBridgeFunction(BridgeFunctionT bridgeFunction) const {
 		const_cast<Expr *>(this)->_bridgeFunction = bridgeFunction;
 	}
@@ -386,7 +389,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env) const;
 	virtual Value DoExec(Environment &env, SeqPostHandler *pSeqPostHandler) const;
-	Value Exec(Environment &env, const Value &valueThis, SeqPostHandler *pSeqPostHandler) const;
+	Value GetProp(Environment &env, const Value &valueThis) const;
 	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);

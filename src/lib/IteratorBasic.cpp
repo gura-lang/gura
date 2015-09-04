@@ -637,13 +637,11 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 		if (sig.IsSignalled()) return false;
 	}
 	if (_pExpr->IsIdentifier()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		const Expr_Identifier *pExprIdentifier =
 							dynamic_cast<const Expr_Identifier *>(_pExpr.get());
-		value = pExprIdentifier->Exec(*pFundEach, valueThisEach, pSeqPostHandler);
+		value = pExprIdentifier->GetProp(*pFundEach, valueThisEach);
 	} else {
-		SeqPostHandler *pSeqPostHandler = nullptr;
-		value = _pExpr->Exec2(*pFundEach, pSeqPostHandler);
+		value = _pExpr->Exec(*pFundEach);
 	}
 	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(env,
@@ -2025,8 +2023,7 @@ bool Iterator_while::DoNext(Environment &env, Value &value)
 	if (_doneFlag) return false;
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
-			SeqPostHandler *pSeqPostHandler = nullptr;
-			if (!_pExpr->Exec2(*_pEnv, pSeqPostHandler).GetBoolean()) return false;
+			if (!_pExpr->Exec(*_pEnv).GetBoolean()) return false;
 			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
 			if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *pArg);
@@ -2320,10 +2317,8 @@ bool PrepareRepeaterIterators(Environment &env,
 			sig.SetError(ERR_TypeError, "iteratable must be specified as arguments");
 			return false;
 		}
-		SeqPostHandler *pSeqPostHandlerLeft = nullptr;
-		const Expr_BinaryOp *pExprBin =
-						dynamic_cast<const Expr_BinaryOp *>(pExpr);
-		value = pExprBin->GetRight()->Exec2(env, pSeqPostHandlerLeft);
+		const Expr_BinaryOp *pExprBin = dynamic_cast<const Expr_BinaryOp *>(pExpr);
+		value = pExprBin->GetRight()->Exec(env);
 		if (sig.IsSignalled()) return false;
 		Iterator *pIterator = value.CreateIterator(sig);
 		if (pIterator == nullptr) return false;

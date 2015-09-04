@@ -211,8 +211,7 @@ Gura_ImplementFunction(MatrixInit)
 	AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 	ValueList valList;
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-		SeqPostHandler *pSeqPostHandler = nullptr;
-		Value value = (*ppExpr)->Exec2(*pEnvLister, pSeqPostHandler);
+		Value value = (*ppExpr)->Exec(*pEnvLister);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(*ppExpr);
 			return Value::Nil;

@@ -319,8 +319,7 @@ bool DeclarationList::Compensate(Environment &env, ValueList &valList) const
 						dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 			value = Value(pSymbol);
 		} else {
-			SeqPostHandler *pSeqPostHandler = nullptr;
-			value = pExprArg->Exec2(env, pSeqPostHandler);
+			value = pExprArg->Exec(env);
 			if (sig.IsSignalled()) return false;
 		}
 		valList.push_back(value);

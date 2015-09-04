@@ -291,11 +291,10 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Argument &arg) const
 		pConstructorSuper->EvalAuto(*pEnvSuper, *pArg);
 		if (sig.IsSignalled()) return Value::Nil;
 	}
-	SeqPostHandler *pSeqPostHandler = nullptr;
 	Value valueThis(valueRtn);
 	valueThis.AddFlags(VFLAG_Privileged);
 	pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
-	GetExprBody()->Exec2(*pEnvLocal, pSeqPostHandler);
+	GetExprBody()->Exec(*pEnvLocal);
 	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, arg, valueRtn);
 }

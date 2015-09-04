@@ -54,27 +54,24 @@ Value Object_operator::DoCall(
 	const ExprList &exprListArg = callerInfo.GetExprListArg();
 	if (exprListArg.size() == 1) {
 		bool suffixFlag = false;
-		SeqPostHandler *pSeqPostHandler = nullptr;
 		if (_opTypeUnary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
 					"operator '%s' is not a unary one", GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		Value value = exprListArg[0]->Exec2(env, pSeqPostHandler);
+		Value value = exprListArg[0]->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		const Operator *pOperator = GetOperator(_opTypeUnary);
 		return pOperator->EvalUnary(env, value, suffixFlag);
 	} else if (exprListArg.size() == 2) {
-		SeqPostHandler *pSeqPostHandlerLeft = nullptr;
-		SeqPostHandler *pSeqPostHandlerRight = nullptr;
 		if (_opTypeBinary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
 					"operator '%s' is not a binary one", GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		Value valueLeft = exprListArg[0]->Exec2(env, pSeqPostHandlerLeft);
+		Value valueLeft = exprListArg[0]->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		Value valueRight = exprListArg[1]->Exec2(env, pSeqPostHandlerRight);
+		Value valueRight = exprListArg[1]->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		const Operator *pOperator = GetOperator(_opTypeBinary);
 		return pOperator->EvalBinary(env, valueLeft, valueRight);

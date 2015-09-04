@@ -1077,9 +1077,8 @@ void Parser::EvalConsoleChar(Environment &env,
 			}
 		} else if (pExpr != nullptr) {
 			pExprRoot->AddExpr(pExpr);
-			SeqPostHandler *pSeqPostHandler = nullptr;
 			bool evalSymFuncFlag = true;
-			Value result = pExpr->Exec2(env, pSeqPostHandler, evalSymFuncFlag);
+			Value result = pExpr->Exec(env, evalSymFuncFlag);
 			if (sig.IsSignalled()) {
 				if (sig.IsReqSaveHistory()) {
 					// t.b.d

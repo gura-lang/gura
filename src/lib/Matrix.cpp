@@ -442,8 +442,7 @@ bool Matrix::GetElemIndex(Environment &env,
 		const Expr *pExprIdx, size_t nElemsSrc, size_t &iElem, size_t &nElems)
 {
 	Signal &sig = env.GetSignal();
-	SeqPostHandler *pSeqPostHandler = nullptr;
-	Value valueIdx = pExprIdx->Exec2(env, pSeqPostHandler);
+	Value valueIdx = pExprIdx->Exec(env);
 	if (sig.IsSignalled()) return false;
 	if (valueIdx.Is_number()) {
 		iElem = valueIdx.GetSizeT();

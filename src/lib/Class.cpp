@@ -654,14 +654,11 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsAssign()) {
 			SeqPostHandler *pSeqPostHandler = nullptr;
-			const Expr_Assign *pExprAssign =
-								dynamic_cast<const Expr_Assign *>(pExpr);
+			const Expr_Assign *pExprAssign = dynamic_cast<const Expr_Assign *>(pExpr);
 			pExprAssign->Exec(*pEnvLocal, *this, pSymbolsAssignable, pSeqPostHandler);
 		} else if (pExpr->IsCaller()) {
-			SeqPostHandler *pSeqPostHandler = nullptr;
-			const Expr_Caller *pExprCaller =
-								dynamic_cast<const Expr_Caller *>(pExpr);
-			Value valueCar = pExprCaller->GetCar()->Exec2(*pEnvLocal, pSeqPostHandler);
+			const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExpr);
+			Value valueCar = pExprCaller->GetCar()->Exec(*pEnvLocal);
 			if (sig.IsSignalled()) return false;
 			Callable *pCallable = valueCar.GetObject();
 			if (pCallable == nullptr) {
