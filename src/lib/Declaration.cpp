@@ -273,11 +273,6 @@ bool DeclarationList::ShouldImplicitMap(const ValueList &valList) const
 	return false;
 }
 
-bool DeclarationList::ShouldImplicitMap(const Argument &arg) const
-{
-	return arg.IsThisIterable() || ShouldImplicitMap(arg.GetValueListArg());
-}
-
 void DeclarationList::SetAsLoose()
 {
 	foreach (DeclarationList, ppDecl, *this) {

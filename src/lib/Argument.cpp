@@ -300,6 +300,19 @@ bool Argument::CheckValidity(Environment &env)
 	return true;
 }
 
+bool Argument::ShouldImplicitMap() const
+{
+	if (IsThisIterable()) return true;
+	ValueList::const_iterator pValue = _valListArg.begin();
+	Slots::const_iterator pSlot = _slots.begin();
+	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		if (decl.ShouldImplicitMap(*pValue)) return true;
+		if (!decl.IsVariableLength()) pSlot++;
+	}
+	return false;
+}
+
 bool Argument::ShouldGenerateIterator(const DeclarationList &declList) const
 {
 	if (IsThisIterator()) return true;

@@ -237,6 +237,7 @@ public:
 		return _pValDictArg.IsNull()? ValueDict::Empty : *_pValDictArg;
 	}
 	bool CheckValidity(Environment &env);
+	bool ShouldImplicitMap() const;
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
