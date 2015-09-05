@@ -4718,7 +4718,7 @@ Gura_ImplementFunction(__CreateRGBSurfaceFrom)
 	} else if (pixels.IsType(VTYPE_array_ulong)) {
 		_pixels = Object_array<ULong>::GetObject(pixels)->GetArray()->GetPointer();
 	} else {
-		Declaration::SetError_InvalidArgument(sig);
+		Declaration::SetError_InvalidArgument(env);
 		return Value::Nil;
 	}
 	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(_pixels, width, height,

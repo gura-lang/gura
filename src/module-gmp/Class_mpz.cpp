@@ -76,7 +76,7 @@ Gura_ImplementFunction(mpz)
 		mpz_class num(Object_mpf::GetEntity(arg, 0));
 		value = Value(new Object_mpz(num));
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, value);

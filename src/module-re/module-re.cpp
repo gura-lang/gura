@@ -605,7 +605,7 @@ Gura_ImplementMethod(pattern, sub)
 		result = DoSubWithFunc(env, sig, pThis->GetRegEx(),
 						arg.GetFunction(0), arg.GetString(1), cnt);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	if (sig.IsSignalled()) return Value::Nil;
@@ -766,7 +766,7 @@ Gura_ImplementMethod(string, sub)
 		result = DoSubWithFunc(env, sig, pRegEx,
 						arg.GetFunction(1), strThis, cnt);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 1);
+		SetError_ArgumentTypeByIndex(env, arg, 1);
 		return Value::Nil;
 	}
 	if (sig.IsSignalled()) return Value::Nil;
@@ -913,7 +913,7 @@ Gura_ImplementFunction(sub)
 		result = DoSubWithFunc(env, sig, pRegEx,
 						arg.GetFunction(1), arg.GetString(2), cnt);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 1);
+		SetError_ArgumentTypeByIndex(env, arg, 1);
 		return Value::Nil;
 	}
 	if (sig.IsSignalled()) return Value::Nil;

@@ -96,7 +96,7 @@ Gura_ImplementFunction(mpq)
 	} else if (arg.IsType(0, VTYPE_mpq)) {
 		value = arg.GetValue(0); // no change
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, value);

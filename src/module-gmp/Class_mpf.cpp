@@ -112,7 +112,7 @@ Gura_ImplementFunction(mpf)
 		if (sig.IsSignalled()) return Value::Nil;
 		value = Value(new Object_mpf(numResult));
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, value);

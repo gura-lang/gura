@@ -540,7 +540,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, BeginStyle)
 		wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(arg, 0)->GetEntity();
 		rtn = pThis->GetEntity()->BeginStyle(*style);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -1689,7 +1689,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetStyle)
 		wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(arg, 1)->GetEntity();
 		rtn = pThis->GetEntity()->GetStyle(position, *style);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 1);
+		SetError_ArgumentTypeByIndex(env, arg, 1);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -1717,7 +1717,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetStyleForRange)
 		wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(arg, 1)->GetEntity();
 		rtn = pThis->GetEntity()->GetStyleForRange(*range, *style);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 1);
+		SetError_ArgumentTypeByIndex(env, arg, 1);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -1765,7 +1765,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetUncombinedStyle)
 		wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(arg, 1)->GetEntity();
 		rtn = pThis->GetEntity()->GetUncombinedStyle(position, *style);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 1);
+		SetError_ArgumentTypeByIndex(env, arg, 1);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -2521,7 +2521,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, NumberList)
 		wxRichTextListStyleDefinition *style = Object_wx_RichTextListStyleDefinition::GetObject(arg, 1)->GetEntity();
 		rtn = pThis->GetEntity()->NumberList(*range, style, flags, startFrom, listLevel);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 1);
+		SetError_ArgumentTypeByIndex(env, arg, 1);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -3149,7 +3149,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetDefaultStyle)
 		wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(arg, 0)->GetEntity();
 		rtn = pThis->GetEntity()->SetDefaultStyle(*style);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -3313,7 +3313,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetListStyle)
 		wxRichTextListStyleDefinition *style = Object_wx_RichTextListStyleDefinition::GetObject(arg, 1)->GetEntity();
 		rtn = pThis->GetEntity()->SetListStyle(*range, style, flags, startFrom, listLevel);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 1);
+		SetError_ArgumentTypeByIndex(env, arg, 1);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -3378,7 +3378,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetStyle)
 		wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(arg, 1)->GetEntity();
 		rtn = pThis->GetEntity()->SetStyle(*range, *style);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 1);
+		SetError_ArgumentTypeByIndex(env, arg, 1);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));

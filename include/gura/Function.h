@@ -287,7 +287,7 @@ public:
 	void SetError_DivideByZero(Signal &sig) const;
 	void SetError_UnsupportedAttr(Signal &sig, const SymbolSet &attrs) const;
 	void SetError_NotConstructor(Signal &sig) const;
-	void SetError_ArgumentTypeByIndex(Signal &sig, Argument &arg, size_t idxArg) const;
+	void SetError_ArgumentTypeByIndex(Environment &env, Argument &arg, size_t idxArg) const;
 	void SetError_InvalidValue(Signal &sig, const Value &value) const;
 	void SetError_InvalidValue(Signal &sig, const Value &value1, const Value &value2) const;
 	void SetError_InvalidValType(Signal &sig, const Value &value) const;

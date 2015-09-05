@@ -35,7 +35,6 @@ Declaration::~Declaration()
 
 Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 {
-	Signal &sig = env.GetSignal();
 	ULong flags = 0;
 	OccurPattern occurPattern = OCCUR_Once;
 	ValueType valType = VTYPE_any;
@@ -52,11 +51,11 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 		pExpr = pExprUnaryOp->GetChild();
 		occurPattern = Symbol::ToOccurPattern(pExprUnaryOp->GetOperator()->GetSymbol());
 		if (occurPattern == OCCUR_Invalid) {
-			sig.SetError(ERR_SyntaxError, "invalid argument expression");
+			env.SetError(ERR_SyntaxError, "invalid argument expression");
 			return nullptr;
 		}
 		if (pExprDefault != nullptr) {
-			sig.SetError(ERR_SyntaxError, "optional arguments cannot take default value");
+			env.SetError(ERR_SyntaxError, "optional arguments cannot take default value");
 			return nullptr;
 		}
 	}
@@ -69,7 +68,7 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 		flags |= FLAG_ListVar;
 	}
 	if (!pExpr->IsIdentifier()) {
-		sig.SetError(ERR_SyntaxError, "invalid argument expression");
+		env.SetError(ERR_SyntaxError, "invalid argument expression");
 		return nullptr;
 	}
 	const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
@@ -77,7 +76,7 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 	const Symbol *pSymbolForType = nullptr;
 	if (!attrFront.empty()) {
 		if (valType != VTYPE_any) {
-			sig.SetError(ERR_SyntaxError, "incompatible type declaration");
+			env.SetError(ERR_SyntaxError, "incompatible type declaration");
 			return nullptr;
 		}
 		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(attrFront);
@@ -107,7 +106,7 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 		if (flag != 0) {
 			flags |= flag;
 		} else if (pSymbolForType == nullptr || !pSymbol->IsIdentical(pSymbolForType)) {
-			sig.SetError(ERR_SyntaxError,
+			env.SetError(ERR_SyntaxError,
 				"cannot accept a symbol %s in argument declaration", pSymbol->GetName());
 		}
 	}
@@ -125,21 +124,17 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 		if (value.Is_list()) {
 			foreach (ValueList, pValue, value.GetList()) {
 				if (!ValidateAndCast(env, *pValue, true)) {
-					SetError_ArgumentType(sig, *pValue);
+					SetError_ArgumentType(env, *pValue);
 					return false;
 				}
 			}
-			goto done;
-		} else if (IsOptional() && value.IsInvalid()) {
-			goto done;
-		} else {
-			SetError_ArgumentMustBeList(sig, value);
+		} else if (value.IsValid() || !IsOptional()) {
+			SetError_ArgumentMustBeList(env, value);
 			return false;
 		}
-	}
-	if (((IsOptional() || GetFlag(FLAG_Nil)) && value.IsInvalid()) ||
+	} else if (((IsOptional() || GetFlag(FLAG_Nil)) && value.IsInvalid()) ||
 												GetValueType() == VTYPE_quote) {
-		goto done;
+		// nothing to do
 	} else if (GetValueType() == VTYPE_any || value.IsInstanceOf(GetValueType())) {
 		if (value.Is_iterator()) {
 			// make a clone of the iterator
@@ -147,7 +142,6 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 			if (pIterator == nullptr) return false;
 			value = Value(new Object_iterator(env, pIterator));
 		}
-		goto done;
 	} else if (GetValueType() == VTYPE_Class && value.IsInstanceOf(VTYPE_function)) {
 		const Function *pFunc = value.GetFunction();
 		Class *pClass = pFunc->GetClassToConstruct();
@@ -156,40 +150,45 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 			return false;
 		}
 		value = Value(pClass);
-		goto done;
-	}
-	if (!GetFlag(FLAG_NoCast)) {
-		Class *pClass = env.LookupClass(GetValueType());
-		for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
-			if (pClass->GetValueType() == VTYPE_undefined) {
-				sig.SetError(ERR_TypeError, "type '%s' is not defined", pClass->GetName());
-				return false;
+	} else {
+		if (!GetFlag(FLAG_NoCast)) {
+			Class *pClass = env.LookupClass(GetValueType());
+			for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
+				if (pClass->GetValueType() == VTYPE_undefined) {
+					sig.SetError(ERR_TypeError, "type '%s' is not defined", pClass->GetName());
+					return false;
+				}
+				if (pClass->CastFrom(env, value, this)) {
+					if (GetFlag(FLAG_Privileged)) value.AddFlags(VFLAG_Privileged);
+					return true;
+				}
+				if (sig.IsSignalled()) return false;
 			}
-			if (pClass->CastFrom(env, value, this)) goto done;
-			if (sig.IsSignalled()) return false;
+			pClass = env.LookupClass(value.GetValueType());
+			for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
+				if (pClass->CastTo(env, value, *this)) {
+					if (GetFlag(FLAG_Privileged)) value.AddFlags(VFLAG_Privileged);
+					return true;
+				}
+				if (sig.IsSignalled()) return false;
+			}
 		}
-		pClass = env.LookupClass(value.GetValueType());
-		for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
-			if (pClass->CastTo(env, value, *this)) goto done;
-			if (sig.IsSignalled()) return false;
-		}
+		SetError_ArgumentType(env, value);
+		return false;
 	}
-	SetError_ArgumentType(sig, value);
-	return false;
-done:
 	if (GetFlag(FLAG_Privileged)) value.AddFlags(VFLAG_Privileged);
 	return true;
 }
 
-void Declaration::SetError_ArgumentType(Signal &sig, const Value &value) const
+void Declaration::SetError_ArgumentType(Environment &env, const Value &value) const
 {
-	sig.SetError(ERR_TypeError, "variable '%s' cannot take %s value in '%s'",
+	env.SetError(ERR_TypeError, "variable '%s' cannot take %s value in '%s'",
 				GetSymbol()->GetName(), value.MakeValueTypeName().c_str(), ToString().c_str());
 }
 
-void Declaration::SetError_ArgumentMustBeList(Signal &sig, const Value &value) const
+void Declaration::SetError_ArgumentMustBeList(Environment &env, const Value &value) const
 {
-	sig.SetError(ERR_TypeError, "variable '%s' can only take a list in '%s'",
+	env.SetError(ERR_TypeError, "variable '%s' can only take a list in '%s'",
 				GetSymbol()->GetName(), ToString().c_str());
 }
 
@@ -300,7 +299,7 @@ bool DeclarationList::Compensate(Environment &env, ValueList &valList) const
 			} else if (pDecl->GetOccurPattern() == OCCUR_ZeroOrMore) {
 				break;
 			} else {
-				Declaration::SetError_NotEnoughArguments(sig);
+				Declaration::SetError_NotEnoughArguments(env);
 				return false;
 			}
 		} else if (pDecl->IsQuote()) {
@@ -312,7 +311,7 @@ bool DeclarationList::Compensate(Environment &env, ValueList &valList) const
 				pExpr = dynamic_cast<const Expr_Quote *>(pExpr)->GetChild();
 			}
 			if (!pExpr->IsIdentifier()) {
-				sig.SetError(ERR_TypeError, "identifier is expected");
+				env.SetError(ERR_TypeError, "identifier is expected");
 				return false;
 			}
 			const Symbol *pSymbol =
@@ -337,19 +336,19 @@ String DeclarationList::ToString() const
 	return str;
 }
 
-void Declaration::SetError_InvalidArgument(Signal &sig)
+void Declaration::SetError_InvalidArgument(Environment &env)
 {
-	sig.SetError(ERR_SyntaxError, "invalid argument");
+	env.SetError(ERR_SyntaxError, "invalid argument");
 }
 
-void Declaration::SetError_NotEnoughArguments(Signal &sig)
+void Declaration::SetError_NotEnoughArguments(Environment &env)
 {
-	sig.SetError(ERR_TypeError, "not enough arguments");
+	env.SetError(ERR_TypeError, "not enough arguments");
 }
 
-void Declaration::SetError_TooManyArguments(Signal &sig)
+void Declaration::SetError_TooManyArguments(Environment &env)
 {
-	sig.SetError(ERR_TypeError, "too many arguments");
+	env.SetError(ERR_TypeError, "too many arguments");
 }
 
 //-----------------------------------------------------------------------------

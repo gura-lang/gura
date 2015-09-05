@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_Sizer, Add)
 			wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
 			rtn = (wxSizerItem *)pThis->GetEntity()->Add(sizer, *flags);
 		} else {
-			SetError_ArgumentTypeByIndex(sig, arg, 0);
+			SetError_ArgumentTypeByIndex(env, arg, 0);
 			return Value::Nil;
 		}
 	} else {
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Sizer, Add)
 			wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
 			rtn = (wxSizerItem *)pThis->GetEntity()->Add(sizer);
 		} else {
-			SetError_ArgumentTypeByIndex(sig, arg, 0);
+			SetError_ArgumentTypeByIndex(env, arg, 0);
 			return Value::Nil;
 		}
 	}
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_Sizer, Add_1)
 		wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
 		rtn = (wxSizerItem *)pThis->GetEntity()->Add(sizer, proportion, flag, border, userData);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(new Object_wx_SizerItem(rtn, nullptr, OwnerFalse)));
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_Sizer, Detach)
 		size_t index = arg.GetSizeT(0);
 		rtn = pThis->GetEntity()->Detach(index);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_Sizer, GetItem)
 		size_t index = arg.GetSizeT(0);
 		rtn = (wxSizerItem *)pThis->GetEntity()->GetItem(index);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(new Object_wx_SizerItem(rtn, nullptr, OwnerFalse)));
@@ -436,7 +436,7 @@ Gura_ImplementMethod(wx_Sizer, Hide)
 		size_t index = arg.GetSizeT(0);
 		rtn = pThis->GetEntity()->Hide(index);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -466,7 +466,7 @@ Gura_ImplementMethod(wx_Sizer, Insert)
 		wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 1)->GetEntity();
 		rtn = (wxSizerItem *)pThis->GetEntity()->Insert(index, sizer, *flags);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 1);
+		SetError_ArgumentTypeByIndex(env, arg, 1);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(new Object_wx_SizerItem(rtn, nullptr, false)));
@@ -554,7 +554,7 @@ Gura_ImplementMethod(wx_Sizer, IsShown)
 		size_t index = arg.GetSizeT(0);
 		rtn = pThis->GetEntity()->IsShown(index);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -597,7 +597,7 @@ Gura_ImplementMethod(wx_Sizer, Prepend)
 			wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
 			rtn = (wxSizerItem *)pThis->GetEntity()->Prepend(sizer, *flags);
 		} else {
-			SetError_ArgumentTypeByIndex(sig, arg, 0);
+			SetError_ArgumentTypeByIndex(env, arg, 0);
 			return Value::Nil;
 		}
 	} else {
@@ -608,7 +608,7 @@ Gura_ImplementMethod(wx_Sizer, Prepend)
 			wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
 			rtn = (wxSizerItem *)pThis->GetEntity()->Prepend(sizer);
 		} else {
-			SetError_ArgumentTypeByIndex(sig, arg, 0);
+			SetError_ArgumentTypeByIndex(env, arg, 0);
 			return Value::Nil;
 		}
 	}
@@ -647,7 +647,7 @@ Gura_ImplementMethod(wx_Sizer, Prepend_1)
 		wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
 		rtn = (wxSizerItem *)pThis->GetEntity()->Prepend(sizer, proportion, flag, border, userData);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(new Object_wx_SizerItem(rtn, nullptr, OwnerFalse)));
@@ -747,7 +747,7 @@ Gura_ImplementMethod(wx_Sizer, Remove)
 		size_t index = arg.GetSizeT(0);
 		rtn = pThis->GetEntity()->Remove(index);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -903,7 +903,7 @@ Gura_ImplementMethod(wx_Sizer, SetItemMinSize)
 		size_t index = arg.GetSizeT(0);
 		pThis->GetEntity()->SetItemMinSize(index, width, height);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return Value::Nil;
@@ -970,7 +970,7 @@ Gura_ImplementMethod(wx_Sizer, Show)
 		size_t index = arg.GetSizeT(0);
 		rtn = pThis->GetEntity()->Show(index, show);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));

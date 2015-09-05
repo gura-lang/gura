@@ -84,7 +84,7 @@ Gura_ImplementFunction(sqrt)
 		mpf_class result = ::sqrt(num);
 		return Value(new Object_mpf(result.get_mpf_t()));
 	}
-	SetError_ArgumentTypeByIndex(sig, arg, 0);
+	SetError_ArgumentTypeByIndex(env, arg, 0);
 	return Value::Nil;
 }
 

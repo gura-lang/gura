@@ -102,7 +102,7 @@ Gura_ImplementFunction(StaticBitmap)
 		wxIcon *label = Object_wx_Icon::GetObject(arg, 2)->GetEntity();
 		pEntity = new wx_StaticBitmap(parent, id, *label, *pos, *size, style, name);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 2);
+		SetError_ArgumentTypeByIndex(env, arg, 2);
 		return Value::Nil;
 	}
 	Object_wx_StaticBitmap *pObj = Object_wx_StaticBitmap::GetObjectThis(arg);

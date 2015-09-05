@@ -2503,7 +2503,7 @@ Gura_ImplementFunction(client)
 	const char *passwordProxy = "";
 	if (arg.Is_string(2)) {
 		if (!arg.Is_number(3)) {
-			Declaration::SetError_NotEnoughArguments(sig);
+			Declaration::SetError_NotEnoughArguments(env);
 			return Value::Nil;
 		}
 		addrProxy = arg.GetString(2);

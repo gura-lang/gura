@@ -124,7 +124,7 @@ public:
 	virtual ~Directory_cURL();
 	virtual Directory *DoNext(Environment &env);
 	virtual Stream *DoOpenStream(Environment &env, ULong attr);
-	FileinfoOwner *DoBrowse(Signal &sig);
+	FileinfoOwner *DoBrowse(Environment &env);
 };
 
 //-----------------------------------------------------------------------------

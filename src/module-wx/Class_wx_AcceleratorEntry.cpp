@@ -6,7 +6,7 @@
 
 Gura_BeginModuleScope(wx)
 
-int ArgToKeyCode(const Function *pFunc, Signal &sig, Argument &arg, size_t iArg);
+int ArgToKeyCode(const Function *pFunc, Argument &arg, size_t iArg);
 
 //----------------------------------------------------------------------------
 // Class derivation
@@ -77,7 +77,7 @@ Gura_ImplementFunction(AcceleratorEntry)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	int flags = arg.GetInt(0);
-	int keyCode = ArgToKeyCode(this, sig, arg, 1);
+	int keyCode = ArgToKeyCode(this, arg, 1);
 	if (sig.IsSignalled()) return Value::Nil;
 	int cmd = arg.GetInt(2);
 	wx_AcceleratorEntry *pEntity = new wx_AcceleratorEntry(flags, keyCode, cmd);
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, Set)
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int flags = arg.GetInt(0);
-	int keyCode = ArgToKeyCode(this, sig, arg, 1);
+	int keyCode = ArgToKeyCode(this, arg, 1);
 	if (sig.IsSignalled()) return Value::Nil;
 	int cmd = arg.GetInt(2);
 	pThis->GetEntity()->Set(flags, keyCode, cmd);
@@ -204,8 +204,9 @@ Gura_ImplementDescendantCreator(wx_AcceleratorEntry)
 	return new Object_wx_AcceleratorEntry((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
-int ArgToKeyCode(const Function *pFunc, Signal &sig, Argument &arg, size_t iArg)
+int ArgToKeyCode(const Function *pFunc, Argument &arg, size_t iArg)
 {
+	Environment &env = pFunc->GetEnvScope();
 	int keyCode = 0;
 	if (arg.IsInstanceOf(iArg, VTYPE_number)) {
 		keyCode = arg.GetInt(iArg);
@@ -213,13 +214,13 @@ int ArgToKeyCode(const Function *pFunc, Signal &sig, Argument &arg, size_t iArg)
 		const char *str = arg.GetString(iArg);
 		size_t len = ::strlen(str);
 		if (len != 1) {
-			sig.SetError(ERR_ValueError,
+			env.SetError(ERR_ValueError,
 					"string for keyCode must contain only one character");
 			return 0;
 		}
 		keyCode = str[0];
 	} else {
-		pFunc->SetError_ArgumentTypeByIndex(sig, arg, iArg);
+		pFunc->SetError_ArgumentTypeByIndex(env, arg, iArg);
 	}
 	return keyCode;
 }

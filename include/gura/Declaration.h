@@ -67,11 +67,11 @@ public:
 			!((IsType(VTYPE_list) || GetFlag(FLAG_ListVar)) && value.IsFlatList());
 	}
 	String ToString() const;
-	void SetError_ArgumentType(Signal &sig, const Value &value) const;
-	void SetError_ArgumentMustBeList(Signal &sig, const Value &value) const;
-	static void SetError_InvalidArgument(Signal &sig);
-	static void SetError_NotEnoughArguments(Signal &sig);
-	static void SetError_TooManyArguments(Signal &sig);
+	void SetError_ArgumentType(Environment &env, const Value &value) const;
+	void SetError_ArgumentMustBeList(Environment &env, const Value &value) const;
+	static void SetError_InvalidArgument(Environment &env);
+	static void SetError_NotEnoughArguments(Environment &env);
+	static void SetError_TooManyArguments(Environment &env);
 };
 
 //-----------------------------------------------------------------------------

@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_GLCanvas, SetCurrent)
 	} else if (arg.IsInvalid(0)) {
 		pThis->GetEntity()->SetCurrent();
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 	}
 	return Value::Nil;
 }

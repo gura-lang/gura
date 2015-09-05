@@ -137,7 +137,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Percnt)) continue;
 		if (pSlot == _slots.end()) {
 			if (GetFlag(FLAG_CutExtraArgs)) break;
-			Declaration::SetError_TooManyArguments(sig);
+			Declaration::SetError_TooManyArguments(env);
 			return false;
 		}
 		if (exprMap.find(pSlot->GetDeclaration().GetSymbol()) != exprMap.end()) {
@@ -194,7 +194,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			} else if (pSlot->GetDeclaration().GetOccurPattern() == OCCUR_ZeroOrMore) {
 				break;
 			} else {
-				Declaration::SetError_NotEnoughArguments(sig);
+				Declaration::SetError_NotEnoughArguments(env);
 				return false;
 			}
 		} else if (pSlot->GetDeclaration().IsQuote()) {
@@ -237,7 +237,6 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 
 bool Argument::AddValue(Environment &env, const Value &value)
 {
-	Signal &sig = env.GetSignal();
 	_valListArg.push_back(value);
 	if (_iSlotCur < _slots.size()) {
 		Slot &slot = _slots[_iSlotCur];
@@ -247,7 +246,7 @@ bool Argument::AddValue(Environment &env, const Value &value)
 	} else if (GetFlag(FLAG_CutExtraArgs)) {
 		return true;
 	}
-	Declaration::SetError_TooManyArguments(sig);
+	Declaration::SetError_TooManyArguments(env);
 	return false;
 }
 

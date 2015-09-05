@@ -324,7 +324,6 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 
 Value Function::Eval(Environment &env, Argument &arg) const
 {
-	Signal &sig = env.GetSignal();
 	ValueList valListCasted;
 	const ValueList &valList = arg.GetValueListArg();
 	ValueList::const_iterator pValue = valList.begin();
@@ -342,7 +341,7 @@ Value Function::Eval(Environment &env, Argument &arg) const
 				valListElem.push_back(value);
 			}
 			if (occurPattern == OCCUR_OnceOrMore && valListElem.empty()) {
-				Declaration::SetError_NotEnoughArguments(sig);
+				Declaration::SetError_NotEnoughArguments(env);
 				return Value::Nil;
 			}
 			break;
@@ -350,7 +349,7 @@ Value Function::Eval(Environment &env, Argument &arg) const
 			if (occurPattern == OCCUR_ZeroOrOnce) {
 				valListCasted.push_back(Value::Undefined);
 			} else {
-				Declaration::SetError_NotEnoughArguments(sig);
+				Declaration::SetError_NotEnoughArguments(env);
 				return Value::Nil;
 			}
 		} else {
@@ -361,7 +360,7 @@ Value Function::Eval(Environment &env, Argument &arg) const
 		}
 	}
 	if (pValue != valList.end() && !GetFlag(FLAG_CutExtraArgs)) {
-		Declaration::SetError_TooManyArguments(sig);
+		Declaration::SetError_TooManyArguments(env);
 		return Value::Nil;
 	}
 	AutoPtr<Argument> pArgCasted(new Argument(arg, valListCasted));
@@ -585,13 +584,13 @@ void Function::SetError_NotConstructor(Signal &sig) const
 	sig.SetError(ERR_ValueError, "'%s' is not a constructor", GetName());
 }
 
-void Function::SetError_ArgumentTypeByIndex(Signal &sig, Argument &arg, size_t idxArg) const
+void Function::SetError_ArgumentTypeByIndex(Environment &env, Argument &arg, size_t idxArg) const
 {
 	if (idxArg < _pDeclOwner->size()) {
 		const Declaration *pDecl = GetDeclOwner()[idxArg];
-		pDecl->SetError_ArgumentType(sig, arg.GetValue(idxArg));
+		pDecl->SetError_ArgumentType(env, arg.GetValue(idxArg));
 	} else {
-		sig.SetError(ERR_TypeError, "argument error");
+		env.SetError(ERR_TypeError, "argument error");
 	}
 }
 

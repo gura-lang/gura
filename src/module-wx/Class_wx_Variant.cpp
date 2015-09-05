@@ -127,7 +127,7 @@ Gura_ImplementFunction(Variant)
 	} else if (arg.IsInstanceOf(0, VTYPE_wx_Object)) {
 		pEntity = new wx_Variant(new wxObject(*Object_wx_Object::GetObject(arg, 0)->GetEntity()), name);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	Object_wx_Variant *pObj = Object_wx_Variant::GetObjectThis(arg);

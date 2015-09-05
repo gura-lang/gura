@@ -98,7 +98,7 @@ public:
 				pArray.reset(CreateArrayFromList<T_Elem>(sig, valList));
 				if (pArray.IsNull()) return Value::Nil;
 			} else {
-				Declaration::SetError_InvalidArgument(sig);
+				Declaration::SetError_InvalidArgument(env);
 				return Value::Nil;
 			}
 			Value value(new Object_array<T_Elem>(env, _valType, pArray.release()));

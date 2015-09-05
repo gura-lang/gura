@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_GridBagSizer, Add)
 		wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
 		rtn = (wxSizerItem *)pThis->GetEntity()->Add(sizer, *pos, *span, flag, border, userData);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(new Object_wx_SizerItem(rtn, nullptr, OwnerFalse)));
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_GridBagSizer, FindItem)
 		wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
 		rtn = (wxGBSizerItem *)pThis->GetEntity()->FindItem(sizer);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(new Object_wx_GBSizerItem(rtn, nullptr, OwnerFalse)));
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_GridBagSizer, GetItemPosition)
 		size_t index = arg.GetSizeT(0);
 		rtn = pThis->GetEntity()->GetItemPosition(index);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(new Object_wx_GBPosition(new wxGBPosition(rtn), nullptr, OwnerTrue)));
@@ -375,7 +375,7 @@ Gura_ImplementMethod(wx_GridBagSizer, GetItemSpan)
 		size_t index = arg.GetSizeT(0);
 		rtn = pThis->GetEntity()->GetItemSpan(index);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(new Object_wx_GBSpan(new wxGBSpan(rtn), nullptr, OwnerTrue)));
@@ -436,7 +436,7 @@ Gura_ImplementMethod(wx_GridBagSizer, SetItemPosition)
 		size_t index = arg.GetSizeT(0);
 		rtn = pThis->GetEntity()->SetItemPosition(index, *pos);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));
@@ -467,7 +467,7 @@ Gura_ImplementMethod(wx_GridBagSizer, SetItemSpan)
 		size_t index = arg.GetSizeT(0);
 		bool rtn = pThis->GetEntity()->SetItemSpan(index, *span);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	return ReturnValue(env, arg, Value(rtn));

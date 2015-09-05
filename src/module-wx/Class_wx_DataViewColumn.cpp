@@ -67,7 +67,7 @@ Gura_ImplementFunction(DataViewColumn)
 		wxBitmap *bitmap = Object_wx_Bitmap::GetObject(arg, 0)->GetEntity();
 		pEntity = new wx_DataViewColumn(*bitmap, renderer, model_column, width, flags);
 	} else {
-		SetError_ArgumentTypeByIndex(sig, arg, 0);
+		SetError_ArgumentTypeByIndex(env, arg, 0);
 		return Value::Nil;
 	}
 	Object_wx_DataViewColumn *pObj = Object_wx_DataViewColumn::GetObjectThis(arg);

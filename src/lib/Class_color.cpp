@@ -126,7 +126,7 @@ Gura_ImplementFunction(color)
 		} else if (valList[1].Is_number()) {
 			a = valList[1].GetUChar();
 		} else {
-			Declaration::SetError_InvalidArgument(sig);
+			Declaration::SetError_InvalidArgument(env);
 			return Value::Nil;
 		}
 		const char *name = valList[0].Is_string()?
@@ -137,7 +137,7 @@ Gura_ImplementFunction(color)
 	} else if (valList[0].Is_number()) {
 		UChar r = valList[0].GetUChar();
 		if (valList.size() < 3) {
-			Declaration::SetError_InvalidArgument(sig);
+			Declaration::SetError_InvalidArgument(env);
 			return Value::Nil;
 		}
 		UChar g = valList[1].GetUChar();
@@ -146,7 +146,7 @@ Gura_ImplementFunction(color)
 		return ReturnValue(env, arg,
 					Value(new Object_color(env, r, g, b, a)));
 	}
-	Declaration::SetError_InvalidArgument(sig);
+	Declaration::SetError_InvalidArgument(env);
 	return Value::Nil;
 }
 

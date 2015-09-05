@@ -719,7 +719,7 @@ Directory *Directory_cURL::DoNext(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	if (_pFileinfoOwner.get() == nullptr) {
-		_pFileinfoOwner.reset(DoBrowse(sig));
+		_pFileinfoOwner.reset(DoBrowse(env));
 		if (sig.IsSignalled()) return nullptr;
 		_ppFileinfo = _pFileinfoOwner->begin();
 	}
@@ -742,8 +742,9 @@ Stream *Directory_cURL::DoOpenStream(Environment &env, ULong attr)
 	return pStream.release();
 }
 
-FileinfoOwner *Directory_cURL::DoBrowse(Signal &sig)
+FileinfoOwner *Directory_cURL::DoBrowse(Environment &env)
 {
+	Signal &sig = env.GetSignal();
 	std::unique_ptr<FileinfoOwner> pFileinfoOwner(new FileinfoOwner());
 	CURL *curl = ::curl_easy_init();
 	if (curl == nullptr) return nullptr;
@@ -1065,7 +1066,7 @@ Gura_ImplementMethod(easy_handle, setopt)
 		}
 		code = ::curl_easy_setopt(pThis->GetEntity(), option, arg.GetString(1));
 	} else {
-		Declaration::SetError_InvalidArgument(sig);
+		Declaration::SetError_InvalidArgument(env);
 		return Value::Nil;
 	}
 	if (code != CURLE_OK) SetError_Curl(sig, code);
