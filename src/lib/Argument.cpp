@@ -246,12 +246,8 @@ bool Argument::AddValue(Environment &env, const Value &value)
 		return true;
 	}
 	Slot &slot = _slots[_iSlotCur];
-	if (slot.GetDeclaration().IsVariableLength()) {
-		slot.GetValue().GetList().push_back(value);
-	} else {
-		slot.SetValue(value);
-		_iSlotCur++;
-	}
+	if (!slot.SetValue(env, value)) return false;
+	if (!slot.GetDeclaration().IsVariableLength()) _iSlotCur++;
 	return true;
 }
 
@@ -385,6 +381,15 @@ bool Argument::IsSet(const Symbol *pSymbol) const
 //-----------------------------------------------------------------------------
 // Argument::Slot
 //-----------------------------------------------------------------------------
+bool Argument::Slot::SetValue(Environment &env, const Value &value)
+{
+	if (_pDecl->IsVariableLength()) {
+		_value.GetList().push_back(value);
+	} else {
+		_value = value;
+	}
+	return true;
+}
 
 //-----------------------------------------------------------------------------
 // Argument::Slots

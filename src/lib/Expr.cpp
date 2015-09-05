@@ -609,7 +609,6 @@ Expr *Expr_Value::Clone() const
 Value Expr_Value::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-	Signal &sig = env.GetSignal();
 	Value result;
 	if (_value.Is_expr()) {
 		result = _value.GetExpr()->Exec(env);
@@ -2384,7 +2383,6 @@ const Expr *Expr_Quote::Unquote() const
 Value Expr_Quote::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-	Signal &sig = env.GetSignal();
 	Value result;
 	if (GetChild()->IsIdentifier()) {
 		const Expr_Identifier *pExprIdentifier =
@@ -2432,7 +2430,6 @@ Expr *Expr_Assign::Clone() const
 Value Expr_Assign::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-	Signal &sig = env.GetSignal();
 	Value result = Exec(env, env, nullptr);
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;

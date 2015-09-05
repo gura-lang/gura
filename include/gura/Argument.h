@@ -28,7 +28,7 @@ public:
 		inline const Declaration &GetDeclaration() const { return *_pDecl; }
 		inline Value &GetValue() { return _value; }
 		inline const Value &GetValue() const { return _value; }
-		inline void SetValue(const Value &value) { _value = value; }
+		bool SetValue(Environment &env, const Value &value);
 	};
 	class Slots : public std::vector<Slot> {
 	public:
