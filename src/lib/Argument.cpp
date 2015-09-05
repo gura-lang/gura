@@ -237,18 +237,18 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 
 bool Argument::AddValue(Environment &env, const Value &value)
 {
-	//Signal &sig = env.GetSignal();
+	Signal &sig = env.GetSignal();
 	_valListArg.push_back(value);
-	if (_iSlotCur >= _slots.size()) {
-		//if (GetFlag(FLAG_CutExtraArgs)) return true;
-		//Declaration::SetError_TooManyArguments(sig);
-		//return false;
+	if (_iSlotCur < _slots.size()) {
+		Slot &slot = _slots[_iSlotCur];
+		if (!slot.SetValue(env, value)) return false;
+		if (!slot.GetDeclaration().IsVariableLength()) _iSlotCur++;
+		return true;
+	} else if (GetFlag(FLAG_CutExtraArgs)) {
 		return true;
 	}
-	Slot &slot = _slots[_iSlotCur];
-	if (!slot.SetValue(env, value)) return false;
-	if (!slot.GetDeclaration().IsVariableLength()) _iSlotCur++;
-	return true;
+	Declaration::SetError_TooManyArguments(sig);
+	return false;
 }
 
 bool Argument::AddValue(Environment &env, const ValueList &valList)
@@ -383,10 +383,15 @@ bool Argument::IsSet(const Symbol *pSymbol) const
 //-----------------------------------------------------------------------------
 bool Argument::Slot::SetValue(Environment &env, const Value &value)
 {
+	Value valueCasted = value;
+	//if (!_pDecl->ValidateAndCast(env, valueCasted)) return false;
 	if (_pDecl->IsVariableLength()) {
-		_value.GetList().push_back(value);
+		_value.GetList().push_back(valueCasted);
+	} else if (_value.IsUndefined()) {
+		_value = valueCasted;
 	} else {
-		_value = value;
+		env.SetError(ERR_ValueError, "argument confliction");
+		return false;
 	}
 	return true;
 }
