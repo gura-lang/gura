@@ -142,6 +142,7 @@ public:
 		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && \
 			AddValue(env, v4) && AddValue(env, v5);
 	}
+	bool Compensate(Environment &env);
 	inline Value GetValue(size_t idxArg) {
 		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
 	}
