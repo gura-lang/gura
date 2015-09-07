@@ -130,21 +130,21 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			}
 		}
 	}
-	Slots::const_iterator pSlot = _slots.begin();
 	foreach_const (ExprList, ppExprArg, exprListArg) {
 		const Expr *pExprArg = *ppExprArg;
 		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
 			Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Percnt)) continue;
-		if (pSlot == _slots.end()) {
+		if (_iSlotCur >= _slots.size()) {
 			if (GetFlag(FLAG_CutExtraArgs)) break;
 			Declaration::SetError_TooManyArguments(env);
 			return false;
 		}
-		if (exprMap.find(pSlot->GetDeclaration().GetSymbol()) != exprMap.end()) {
+		const Slot &slot = _slots[_iSlotCur];
+		if (exprMap.find(slot.GetDeclaration().GetSymbol()) != exprMap.end()) {
 			sig.SetError(ERR_ValueError, "argument confliction");
 			return false;
 		}
-		if (pSlot->GetDeclaration().IsQuote()) {
+		if (slot.GetDeclaration().IsQuote()) {
 			// func(..., `var, ...)
 			if (!AddValue(env,
 						Value(new Object_expr(env, Expr::Reference(pExprArg))))) return false;
@@ -157,10 +157,8 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 				const ValueList &valList = result.GetList();
 				foreach_const (ValueList, pValue, valList) {
 					if (!AddValue(env, *pValue)) return false;
-					if (pSlot->GetDeclaration().IsVariableLength()) {
+					if (slot.GetDeclaration().IsVariableLength()) {
 						stayDeclPointerFlag = true;
-					} else {
-						pSlot++;
 					}
 				}
 				continue;
@@ -172,14 +170,13 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			if (sig.IsSignalled()) return false;
 			if (!AddValue(env, result)) return false;
 		}
-		if (pSlot->GetDeclaration().IsVariableLength()) {
+		if (slot.GetDeclaration().IsVariableLength()) {
 			stayDeclPointerFlag = true;
-		} else {
-			pSlot++;
 		}
 	}
 	//-------------------------------------------------------------------------
 	if (!stayDeclPointerFlag) {
+		Slots::const_iterator pSlot = _slots.begin() + _iSlotCur;
 		for ( ; pSlot != _slots.end(); pSlot++) {
 			// handling named arguments and arguments with a default value
 			const Declaration &decl = pSlot->GetDeclaration();
