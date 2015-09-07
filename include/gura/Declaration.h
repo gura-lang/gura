@@ -88,7 +88,6 @@ public:
 	bool IsVariableLength() const;
 	void SetAsLoose();
 	bool Compensate(Environment &env, ValueList &valList) const;
-	bool ShouldImplicitMap(const ValueList &valList) const;
 	String ToString() const;
 };
 

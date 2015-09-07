@@ -980,22 +980,12 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 	if (valueLeft.Is_function()) {
 		const Function *pFunc = valueLeft.GetFunction();
 		AutoPtr<Argument> pArgSub(new Argument(pFunc));
-		Value result;
-		if (!valueRight.Is_list()) {
+		if (!valueRight.Is_list() || pFunc->IsUnary()) {
 			if (!pArgSub->AddValue(env, valueRight)) return Value::Nil;
-			result = pFunc->Eval(env, *pArgSub);
-		} else if (!pFunc->GetFlag(FLAG_Map) ||
-				!pFunc->GetDeclOwner().ShouldImplicitMap(valueRight.GetList())) {
-			if (!pArgSub->AddValue(env, valueRight.GetList())) return Value::Nil;
-			result = pFunc->Eval(env, *pArgSub);
-		} else if (pFunc->IsUnary()) {
-			if (!pArgSub->AddValue(env, valueRight)) return Value::Nil;
-			result = pFunc->EvalAuto(env, *pArgSub);
 		} else {
 			if (!pArgSub->AddValue(env, valueRight.GetList())) return Value::Nil;
-			result = pFunc->EvalAuto(env, *pArgSub);
 		}
-		return result;
+		return pFunc->EvalAuto(env, *pArgSub);
 	} else if (valueLeft.Is_string()) {
 		const char *format = valueLeft.GetString();
 		if (!valueRight.Is_list()) {

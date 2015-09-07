@@ -260,18 +260,6 @@ bool DeclarationList::IsVariableLength() const
 	return false;
 }
 
-bool DeclarationList::ShouldImplicitMap(const ValueList &valList) const
-{
-	ValueList::const_iterator pValue = valList.begin();
-	const_iterator ppDecl = begin();
-	for ( ; pValue != valList.end() && ppDecl != end(); pValue++) {
-		const Declaration *pDecl = *ppDecl;
-		if (pDecl->ShouldImplicitMap(*pValue)) return true;
-		if (!pDecl->IsVariableLength()) ppDecl++;
-	}
-	return false;
-}
-
 void DeclarationList::SetAsLoose()
 {
 	foreach (DeclarationList, ppDecl, *this) {
