@@ -253,21 +253,6 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
-#if 0
-Value Function::Call(
-	Environment &env, const CallerInfo &callerInfo,
-	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
-	const TrailCtrlHolder *pTrailCtrlHolder) const
-{
-	AutoPtr<Argument> pArg(new Argument(this, callerInfo));
-	pArg->SetValueThis(valueThis);
-	pArg->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
-	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
-	if (!pArg->EvalExpr(env, callerInfo.GetExprListArg())) return Value::Nil;
-	return EvalAuto(env, *pArg);
-}
-#endif
-
 Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool thisAssignFlag) const
 {
 	Signal &sig = env.GetSignal();
