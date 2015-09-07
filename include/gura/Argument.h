@@ -122,8 +122,6 @@ public:
 		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Finalize);
 	}
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
-	inline size_t CountArgs() const { return _valListArg.size(); }
-	inline void ReserveValueCount(size_t n) { _valListArg.reserve(n); }
 	bool EvalExpr(Environment &env, const ExprList &exprListArg);
 	bool AddValue(Environment &env, const Value &value);
 	bool AddValue(Environment &env, const ValueList &valListArg);
@@ -145,9 +143,11 @@ public:
 	bool Compensate(Environment &env);
 	inline Value GetValue(size_t idxArg) {
 		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
+		//return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
 	}
 	inline const Value &GetValue(size_t idxArg) const {
 		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
+		//return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
 	}
 	// nil / undefined
 	inline bool IsValid(size_t idxArg) const			{ return GetValue(idxArg).IsValid();			}

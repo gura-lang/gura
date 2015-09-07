@@ -373,7 +373,6 @@ bool Func_dim_Sub(Environment &env, const Function *pFuncBlock, ValueList &valLi
 		} else {
 			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
 				AutoPtr<Argument> pArg(new Argument(pFuncBlock));
-				pArg->ReserveValueCount(idxList.size());
 				foreach (IntList, pIdxWk, idxList) {
 					if (!pArg->AddValue(env, Value(*pIdxWk))) return false;
 				}
