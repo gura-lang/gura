@@ -62,9 +62,8 @@ public:
 				!IsType(VTYPE_any) && !IsType(VTYPE_list) && !GetFlag(FLAG_ListVar);
 	}
 	inline bool ShouldImplicitMap(const Value &value) const {
-		return (value.Is_list() || value.Is_iterator()) &&
-			!value.GetNoMapFlag() && !GetFlag(FLAG_NoMap) &&
-			!((IsType(VTYPE_list) || GetFlag(FLAG_ListVar)) && value.IsFlatList());
+		return (value.Is_list() || value.Is_iterator()) && !value.GetNoMapFlag() &&
+			!IsType(VTYPE_list) && !GetFlag(FLAG_NoMap | FLAG_ListVar);
 	}
 	String ToString() const;
 	void SetError_ArgumentType(Environment &env, const Value &value) const;

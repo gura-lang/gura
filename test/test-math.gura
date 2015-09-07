@@ -54,7 +54,7 @@ testcase {
 	}
 }
 testcase {
-	bezier1(nums[]:number):map = function(t:number):map {
+	bezier1(nums[]:number) = function(t:number):map {
 		numswk = nums.clone()
 		while ((len = numswk.len()) > 1) {
 			numswk = for (num1 in numswk.head(len - 1), num2 in numswk.offset(1)):list {
@@ -63,7 +63,7 @@ testcase {
 		}
 		numswk[0]
 	}
-	bezier2(nums[]:number):map = {
+	bezier2(nums[]:number) = {
 		a = nums[0]
 		b = 3 * nums[1] - 3 * nums[0]
 		c = 3 * nums[2] - 6 * nums[1] + 3 * nums[0]
@@ -73,8 +73,10 @@ testcase {
 		}
 	}
 	[f_x, f_y] = math.bezier([6, 10, 16, 20], [12, 4, 6, 10])
-	[f1_x, f1_y] = bezier1([[6, 10, 16, 20], [12, 4, 6, 10]])
-	[f2_x, f2_y] = bezier2([[6, 10, 16, 20], [12, 4, 6, 10]])
+	f1_x = bezier1([6, 10, 16, 20])
+	f1_y = bezier1([12, 4, 6, 10])
+	f2_x = bezier2([6, 10, 16, 20])
+	f2_y = bezier2([12, 4, 6, 10])
 	print_func(f2_x)
 	print_func(f2_y)
 	t = interval(0, 1, 10)

@@ -460,3 +460,11 @@ testcase(':cut_extra_args attribute') {
 		println('*** NG ***')
 	}
 }
+testcase('if items are lists, they would not be mapped implicitly') {
+	f(x[]:number):map = {}
+	try {
+		f([[1, 2, 3], [4, 5, 6]])
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
