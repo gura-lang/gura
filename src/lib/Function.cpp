@@ -377,7 +377,7 @@ Value Function::EvalMap(Environment &env, Argument &arg) const
 				Function::Reference(this), arg.Reference(), false));
 	if (sig.IsSignalled()) return Value::Nil;
 	if (arg.IsResultIterator() || arg.IsResultXIterator() ||
-			 (arg.IsResultNormal() && arg.ShouldGenerateIterator(GetDeclOwner()))) {
+					(arg.IsResultNormal() && arg.ShouldGenerateIterator())) {
 		pIterator->SetSkipInvalidFlag(arg.IsResultXIterator());
 		return Value(new Object_iterator(env, pIterator.release()));
 	}

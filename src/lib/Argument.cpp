@@ -344,16 +344,15 @@ bool Argument::ShouldImplicitMap() const
 	return false;
 }
 
-bool Argument::ShouldGenerateIterator(const DeclarationList &declList) const
+bool Argument::ShouldGenerateIterator() const
 {
 	if (IsThisIterator()) return true;
 	ValueList::const_iterator pValue = _valListArg.begin();
-	DeclarationList::const_iterator ppDecl = declList.begin();
-	for ( ; pValue != _valListArg.end() && ppDecl != declList.end(); pValue++) {
-		const Declaration *pDecl = *ppDecl;
-		if (pValue->Is_iterator() &&
-						pDecl->GetValueType() != VTYPE_iterator) return true;
-		if (!pDecl->IsVariableLength()) ppDecl++;
+	Slots::const_iterator pSlot = _slots.begin();
+	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		if (pValue->Is_iterator() && decl.GetValueType() != VTYPE_iterator) return true;
+		if (!decl.IsVariableLength()) pSlot++;
 	}
 	return false;
 }

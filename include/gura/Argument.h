@@ -239,7 +239,7 @@ public:
 	}
 	bool CheckValidity(Environment &env);
 	bool ShouldImplicitMap() const;
-	bool ShouldGenerateIterator(const DeclarationList &declList) const;
+	bool ShouldGenerateIterator() const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
 	const Expr_Block *GetBlockCooked(Environment &env) const;
