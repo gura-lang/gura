@@ -303,8 +303,26 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 
 Value Function::EvalAuto(Environment &env, Argument &arg) const
 {
-	return (arg.GetFlag(FLAG_Map) && arg.ShouldImplicitMap())?
-									EvalMap(env, arg) : Eval(env, arg);
+	if (!arg.GetFlag(FLAG_Map) || !arg.ShouldImplicitMap()) return Eval(env, arg);
+	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(
+				new Environment(env),
+				Function::Reference(this), arg.Reference(), false));
+	if (env.IsSignalled()) return Value::Nil;
+	if (arg.IsResultIterator() || arg.IsResultXIterator() ||
+					(arg.IsResultNormal() && arg.ShouldGenerateIterator())) {
+		pIterator->SetSkipInvalidFlag(arg.IsResultXIterator());
+		return Value(new Object_iterator(env, pIterator.release()));
+	}
+	Value result, value;
+	ResultComposer resultComposer(env, arg, result);
+	size_t n = 0;
+	for ( ; pIterator->Next(env, value); n++) {
+		if (!resultComposer.Store(env, value)) return Value::Nil;
+	}
+	if (n == 0 && !arg.IsResultVoid() && !arg.IsResultReduce() && !arg.IsResultXReduce()) {
+		result.InitAsList(env);
+	}
+	return result;
 }
 
 Value Function::Eval(Environment &env, Argument &arg) const
@@ -352,31 +370,6 @@ Value Function::Eval(Environment &env, Argument &arg) const
 	Value value = DoEval(env, *pArgCasted);
 	if (arg.IsResultVoid()) return Value::Undefined;
 	return value;
-}
-
-Value Function::EvalMap(Environment &env, Argument &arg) const
-{
-	Signal &sig = env.GetSignal();
-	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(
-				new Environment(env),
-				Function::Reference(this), arg.Reference(), false));
-	if (sig.IsSignalled()) return Value::Nil;
-	if (arg.IsResultIterator() || arg.IsResultXIterator() ||
-					(arg.IsResultNormal() && arg.ShouldGenerateIterator())) {
-		pIterator->SetSkipInvalidFlag(arg.IsResultXIterator());
-		return Value(new Object_iterator(env, pIterator.release()));
-	}
-	Value result;
-	ResultComposer resultComposer(env, arg, result);
-	Value value;
-	size_t n = 0;
-	for ( ; pIterator->Next(env, value); n++) {
-		if (!resultComposer.Store(env, value)) return Value::Nil;
-	}
-	if (n == 0 && !arg.IsResultVoid() && !arg.IsResultReduce() && !arg.IsResultXReduce()) {
-		result.InitAsList(env);
-	}
-	return result;
 }
 
 Value Function::ReturnValue(Environment &env, Argument &arg, const Value &result) const

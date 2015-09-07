@@ -990,10 +990,10 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 			result = pFunc->Eval(env, *pArgSub);
 		} else if (pFunc->IsUnary()) {
 			if (!pArgSub->AddValue(env, valueRight)) return Value::Nil;
-			result = pFunc->EvalMap(env, *pArgSub);
+			result = pFunc->EvalAuto(env, *pArgSub);
 		} else {
 			if (!pArgSub->AddValue(env, valueRight.GetList())) return Value::Nil;
-			result = pFunc->EvalMap(env, *pArgSub);
+			result = pFunc->EvalAuto(env, *pArgSub);
 		}
 		return result;
 	} else if (valueLeft.Is_string()) {
