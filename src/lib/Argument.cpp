@@ -78,7 +78,6 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 {
 	Signal &sig = env.GetSignal();
 	Function::ExprMap exprMap;
-	bool stayDeclPointerFlag = false;
 	ValueDict *pValDictArg = nullptr;
 	bool namedArgFlag = !GetFlag(FLAG_NoNamed);
 	foreach_const (ExprList, ppExprArg, exprListArg) {
@@ -157,9 +156,6 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 				const ValueList &valList = result.GetList();
 				foreach_const (ValueList, pValue, valList) {
 					if (!AddValue(env, *pValue)) return false;
-					if (slot.GetDeclaration().IsVariableLength()) {
-						stayDeclPointerFlag = true;
-					}
 				}
 				continue;
 			}
@@ -170,13 +166,11 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			if (sig.IsSignalled()) return false;
 			if (!AddValue(env, result)) return false;
 		}
-		if (slot.GetDeclaration().IsVariableLength()) {
-			stayDeclPointerFlag = true;
-		}
 	}
 	//-------------------------------------------------------------------------
-	if (!stayDeclPointerFlag) {
-		Slots::const_iterator pSlot = _slots.begin() + _iSlotCur;
+	Slots::const_iterator pSlot = _slots.begin() + _iSlotCur;
+	if (pSlot != _slots.end() && (!pSlot->GetDeclaration().IsVariableLength() ||
+								  pSlot->GetValue().GetList().empty())) {
 		for ( ; pSlot != _slots.end(); pSlot++) {
 			// handling named arguments and arguments with a default value
 			const Declaration &decl = pSlot->GetDeclaration();
