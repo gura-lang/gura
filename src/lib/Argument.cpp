@@ -357,6 +357,26 @@ bool Argument::ShouldGenerateIterator() const
 	return false;
 }
 
+bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
+{
+	Signal &sig = env.GetSignal();
+	ValueList::const_iterator pValue = _valListArg.begin();
+	Slots::const_iterator pSlot = _slots.begin();
+	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		Iterator *pIterator = nullptr;
+		if (decl.ShouldImplicitMap(*pValue)) {
+			pIterator = pValue->CreateIterator(sig);
+			if (pIterator == nullptr) return false;
+		} else {
+			pIterator = new Iterator_Constant(*pValue);
+		}
+		iterOwner.push_back(pIterator);
+		if (!decl.IsVariableLength()) pSlot++;
+	}
+	return true;
+}
+
 const Expr_Block *Argument::GetBlockCooked(Environment &env) const
 {
 	Signal &sig = env.GetSignal();

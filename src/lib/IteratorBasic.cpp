@@ -417,12 +417,11 @@ void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 //-----------------------------------------------------------------------------
 Iterator_ImplicitMap::Iterator_ImplicitMap(Environment *pEnv,
 										   Function *pFunc, Argument *pArg, bool skipInvalidFlag) :
-	Iterator(false, skipInvalidFlag), _pEnv(pEnv),
-	_pFunc(pFunc), _pArg(pArg), _doneThisFlag(false)
+	Iterator(false, skipInvalidFlag), _pEnv(pEnv), _pFunc(pFunc), _pArg(pArg), _doneThisFlag(false)
 {
-	Signal &sig = pEnv->GetSignal();
-	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), pArg->GetValueListArg());
-	if (sig.IsSignalled()) return;
+	//Signal &sig = pEnv->GetSignal();
+	//_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), pArg->GetValueListArg());
+	if (!pArg->PrepareForMap(*pEnv, _iterOwner)) return;
 	Iterator *pIteratorThis = _pArg->GetIteratorThis();
 	SetInfiniteFlag(_iterOwner.IsInfinite() &&
 				(pIteratorThis == nullptr || pIteratorThis->IsInfinite()));

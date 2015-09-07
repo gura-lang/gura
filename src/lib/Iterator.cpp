@@ -776,24 +776,4 @@ bool IteratorOwner::IsInfinite() const
 	return true;
 }
 
-bool IteratorOwner::PrepareForMap(Signal &sig,
-				const DeclarationList &declList, const ValueList &valListArg)
-{
-	ValueList::const_iterator pValue = valListArg.begin();
-	DeclarationList::const_iterator ppDecl = declList.begin();
-	for ( ; pValue != valListArg.end() && ppDecl != declList.end(); pValue++) {
-		const Declaration *pDecl = *ppDecl;
-		Iterator *pIterator = nullptr;
-		if (pDecl->ShouldImplicitMap(*pValue)) {
-			pIterator = pValue->CreateIterator(sig);
-			if (pIterator == nullptr) return false;
-		} else {
-			pIterator = new Iterator_Constant(*pValue);
-		}
-		push_back(pIterator);
-		if (!pDecl->IsVariableLength()) ppDecl++;
-	}
-	return true;
-}
-
 }
