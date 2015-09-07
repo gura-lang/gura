@@ -249,8 +249,9 @@ private:
 	bool _doneThisFlag;
 public:
 	Iterator_ImplicitMap(Environment *pEnv,
-					Function *pFunc, Argument *pArg, bool skipInvalidFlag);
+						 Function *pFunc, Argument *pArg, bool skipInvalidFlag);
 	virtual ~Iterator_ImplicitMap();
+	bool Prepare();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;

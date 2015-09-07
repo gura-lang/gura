@@ -377,6 +377,24 @@ bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
 	return true;
 }
 
+// not tested yet
+bool Argument::IsInfiniteMap() const
+{
+	bool infiniteFoundFlag = false;
+	if (!_pIteratorThis.IsNull()) {
+		if (!_pIteratorThis->IsInfinite()) return false;
+		infiniteFoundFlag = true;
+	}
+	foreach_const (Slots, pSlot, _slots) {
+		const Iterator *pIterator = pSlot->GetIteratorMap();
+		if (pIterator != nullptr) {
+			if(!pIterator->IsInfinite()) return false;
+			infiniteFoundFlag = true;
+		}
+	}
+	return infiniteFoundFlag;
+}
+
 const Expr_Block *Argument::GetBlockCooked(Environment &env) const
 {
 	Signal &sig = env.GetSignal();

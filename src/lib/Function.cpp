@@ -305,9 +305,8 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 {
 	if (!arg.GetFlag(FLAG_Map) || !arg.ShouldImplicitMap()) return Eval(env, arg);
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(
-				new Environment(env),
-				Function::Reference(this), arg.Reference(), false));
-	if (env.IsSignalled()) return Value::Nil;
+				new Environment(env), Function::Reference(this), arg.Reference(), false));
+	if (!pIterator->Prepare()) return Value::Nil;
 	if (arg.IsResultIterator() || arg.IsResultXIterator() ||
 					(arg.IsResultNormal() && arg.ShouldGenerateIterator())) {
 		pIterator->SetSkipInvalidFlag(arg.IsResultXIterator());

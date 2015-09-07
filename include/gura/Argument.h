@@ -17,6 +17,7 @@ public:
 	private:
 		AutoPtr<Declaration> _pDecl;
 		Value _value;
+		AutoPtr<Iterator> _pIteratorMap;
 	public:
 		inline Slot(Declaration *pDecl) : _pDecl(pDecl), _value(Value::Undefined) {}
 		inline Slot(Declaration *pDecl, const Value &value) : _pDecl(pDecl), _value(value) {}
@@ -29,6 +30,12 @@ public:
 		inline Value &GetValue() { return _value; }
 		inline const Value &GetValue() const { return _value; }
 		bool SetValue(Environment &env, const Value &value);
+		inline void SetIteratorMap(Iterator *pIteratorMap) { _pIteratorMap.reset(pIteratorMap); }
+		inline Iterator *GetIteratorMap() { return _pIteratorMap.get(); }
+		inline const Iterator *GetIteratorMap() const { return _pIteratorMap.get(); }
+		inline bool NextMap(Environment &env) {
+			return _pIteratorMap.IsNull()? true : _pIteratorMap->Next(env, _value);
+		}
 	};
 	class Slots : public std::vector<Slot> {
 	public:
@@ -241,6 +248,7 @@ public:
 	bool ShouldImplicitMap() const;
 	bool ShouldGenerateIterator() const;
 	bool PrepareForMap(Environment &env, IteratorOwner &iterOwner);
+	bool IsInfiniteMap() const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
 	const Expr_Block *GetBlockCooked(Environment &env) const;
