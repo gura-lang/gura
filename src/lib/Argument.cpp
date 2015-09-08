@@ -228,7 +228,6 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 	return CheckValidity(env);
 }
 
-
 bool Argument::AddValue(Environment &env, const Value &value)
 {
 	_valListArg.push_back(value);
@@ -397,6 +396,53 @@ bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
 		if (!decl.IsVariableLength()) pSlot++;
 	}
 	return true;
+}
+
+Environment *Argument::PrepareEnvironment(Environment &env, bool thisAssignFlag) const
+{
+	Signal &sig = env.GetSignal();
+	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)? &env : &_pFunc->GetEnvScope();
+	EnvType envType = (_pFunc->GetType() == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
+	AutoPtr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
+	if (thisAssignFlag) {
+		Value valueThis(_valueThis);
+		valueThis.AddFlags(VFLAG_Privileged);
+		pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
+	}
+	Slots::const_iterator pSlot = _slots.begin();
+	ValueList::const_iterator pValue = _valListArg.begin();
+	for ( ; pSlot != _slots.end() && pValue != _valListArg.end(); pSlot++, pValue++) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		pEnvLocal->AssignValue(decl.GetSymbol(), *pValue, EXTRA_Public);
+	}
+	const Symbol *pSymbolDict = _pFunc->GetSymbolDict();
+	if (pSymbolDict != nullptr) {
+		pEnvLocal->AssignValue(pSymbolDict,
+			   Value(new Object_dict(env, GetValueDictArg().Reference(), false)), EXTRA_Public);
+	}
+	pEnvLocal->AssignValue(Gura_Symbol(__arg__),
+				Value(new Object_argument(env, Reference())), EXTRA_Public);
+	const Function::BlockInfo &blockInfo = _pFunc->GetBlockInfo();
+	if (blockInfo.pSymbol == nullptr) return pEnvLocal.release();
+	const Expr_Block *pExprBlock = GetBlockCooked(env);
+	if (sig.IsSignalled()) return nullptr;
+	if (pExprBlock == nullptr) {
+		// set nil value to the variable with a symbol specified by blockInfo.pSymbol
+		pEnvLocal->AssignValue(blockInfo.pSymbol, Value::Nil, EXTRA_Public);
+	} else if (blockInfo.quoteFlag) {
+		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprBlock));
+		pEnvLocal->AssignValue(blockInfo.pSymbol, Value(pObj), EXTRA_Public);
+	} else {
+		Environment *pEnv = (blockInfo.blockScope == Function::BLKSCOPE_Inside)?
+			pEnvLocal.get() : &env;
+		FunctionType funcType = (blockInfo.blockScope == Function::BLKSCOPE_SameAsFunc)?
+			FUNCTYPE_Function : FUNCTYPE_Block;
+		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(
+			*pEnv, blockInfo.pSymbol, pExprBlock, funcType);
+		if (pFuncBlock == nullptr) return nullptr;
+		pEnvLocal->AssignFunction(pFuncBlock);
+	}
+	return pEnvLocal.release();
 }
 
 // not tested yet

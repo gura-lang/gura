@@ -253,54 +253,6 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
-Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool thisAssignFlag) const
-{
-	Signal &sig = env.GetSignal();
-	EnvType envType = (_funcType == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
-	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)?
-							&env : const_cast<Environment *>(_pEnvScope.get());
-	AutoPtr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
-	if (thisAssignFlag) {
-		Value valueThis(arg.GetValueThis());
-		valueThis.AddFlags(VFLAG_Privileged);
-		pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
-	}
-	const ValueList &valListArg = arg.GetValueListArg();
-	ValueList::const_iterator pValue = valListArg.begin();
-	DeclarationList::const_iterator ppDecl = _pDeclOwner->begin();
-	for ( ; pValue != valListArg.end() && ppDecl != _pDeclOwner->end(); pValue++, ppDecl++) {
-		pEnvLocal->AssignValue((*ppDecl)->GetSymbol(), *pValue, EXTRA_Public);
-	}
-	if (_pSymbolDict != nullptr) {
-		const ValueDict &valDictArg = arg.GetValueDictArg();
-		pEnvLocal->AssignValue(_pSymbolDict,
-			   Value(new Object_dict(env, valDictArg.Reference(), false)), EXTRA_Public);
-	}
-	pEnvLocal->AssignValue(Gura_Symbol(__arg__),
-				Value(new Object_argument(env, arg.Reference())), EXTRA_Public);
-	if (_blockInfo.pSymbol == nullptr) return pEnvLocal.release();
-	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-	if (sig.IsSignalled()) return nullptr;
-	if (pExprBlock == nullptr) {
-		// set nil value to the variable with a symbol specified by
-		// _blockInfo.pSymbol
-		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value::Nil, EXTRA_Public);
-	} else if (_blockInfo.quoteFlag) {
-		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprBlock));
-		pEnvLocal->AssignValue(_blockInfo.pSymbol, Value(pObj), EXTRA_Public);
-	} else {
-		Environment *pEnv =
-			(_blockInfo.blockScope == BLKSCOPE_Inside)? pEnvLocal.get() : &env;
-		FunctionType funcType = (_blockInfo.blockScope == BLKSCOPE_SameAsFunc)?
-			FUNCTYPE_Function : FUNCTYPE_Block;
-		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(
-			*pEnv, _blockInfo.pSymbol, pExprBlock, funcType);
-		if (pFuncBlock == nullptr) return nullptr;
-		pEnvLocal->AssignFunction(pFuncBlock);
-	}
-	return pEnvLocal.release();
-}
-
 Value Function::EvalAuto(Environment &env, Argument &arg) const
 {
 	if (!arg.GetFlag(FLAG_Map)) return Eval(env, arg);

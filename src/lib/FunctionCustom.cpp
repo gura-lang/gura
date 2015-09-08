@@ -36,7 +36,7 @@ FunctionCustom::~FunctionCustom()
 Value FunctionCustom::DoEval(Environment &env, Argument &arg) const
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, arg, _funcType != FUNCTYPE_Block));
+	AutoPtr<Environment> pEnvLocal(arg.PrepareEnvironment(env, _funcType != FUNCTYPE_Block));
 	if (pEnvLocal.IsNull()) return Value::Nil;
 #if 0
 	Sequence *pSequence = new FunctionCustom::SequenceEx(pEnvLocal.release(),

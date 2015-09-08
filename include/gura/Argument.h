@@ -256,6 +256,7 @@ public:
 	//bool ShouldGenerateIterator() const;
 	bool PrepareForMap(Environment &env, IteratorOwner &iterOwner);
 	bool IsInfiniteMap() const;
+	Environment *PrepareEnvironment(Environment &env, bool thisAssignFlag) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
 	const Expr_Block *GetBlockCooked(Environment &env) const;
