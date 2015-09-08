@@ -27,10 +27,14 @@ public:
 	public:
 		inline Slot(Declaration *pDecl) : _pDecl(pDecl), _value(Value::Undefined) {}
 		inline Slot(Declaration *pDecl, const Value &value) : _pDecl(pDecl), _value(value) {}
-		inline Slot(const Slot &slot) : _pDecl(slot._pDecl->Reference()), _value(slot._value) {}
+		inline Slot(const Slot &slot) :
+			_pDecl(slot._pDecl->Reference()),
+			_value(slot._value),
+			_pIteratorMap(Iterator::Reference(slot._pIteratorMap.get())) {}
 		inline void operator=(const Slot &slot) {
 			_pDecl.reset(slot._pDecl->Reference());
 			_value = slot._value;
+			_pIteratorMap.reset(Iterator::Reference(slot._pIteratorMap.get()));
 		}
 		inline const Declaration &GetDeclaration() const { return *_pDecl; }
 		inline Value &GetValue() { return _value; }
@@ -47,6 +51,7 @@ public:
 	public:
 		inline Slots() {}
 		Slot *FindBySymbol(const Symbol *pSymbol);
+		bool NextMap(Environment &env);
 	};
 private:
 	int _cntRef;

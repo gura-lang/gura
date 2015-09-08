@@ -531,4 +531,12 @@ Argument::Slot *Argument::Slots::FindBySymbol(const Symbol *pSymbol)
 	return nullptr;
 }
 
+bool Argument::Slots::NextMap(Environment &env)
+{
+	foreach (Slots, pSlot, *this) {
+		if (!pSlot->NextMap(env)) return false;
+	}
+	return true;
+}
+
 }
