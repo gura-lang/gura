@@ -252,8 +252,8 @@ public:
 	}
 	bool CheckValidity(Environment &env);
 	MapMode DetermineMapMode() const;
-	bool ShouldImplicitMap() const;
-	bool ShouldGenerateIterator() const;
+	//bool ShouldImplicitMap() const;
+	//bool ShouldGenerateIterator() const;
 	bool PrepareForMap(Environment &env, IteratorOwner &iterOwner);
 	bool IsInfiniteMap() const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }

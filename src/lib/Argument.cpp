@@ -351,6 +351,7 @@ Argument::MapMode Argument::DetermineMapMode() const
 	return mapMode;
 }
 
+#if 0
 bool Argument::ShouldImplicitMap() const
 {
 	if (IsThisIterable()) return true;
@@ -376,6 +377,7 @@ bool Argument::ShouldGenerateIterator() const
 	}
 	return false;
 }
+#endif
 
 bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
 {

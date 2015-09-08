@@ -303,12 +303,14 @@ Environment *Function::PrepareEnvironment(Environment &env, Argument &arg, bool 
 
 Value Function::EvalAuto(Environment &env, Argument &arg) const
 {
-	if (!arg.GetFlag(FLAG_Map) || !arg.ShouldImplicitMap()) return Eval(env, arg);
+	if (!arg.GetFlag(FLAG_Map)) return Eval(env, arg);
+	Argument::MapMode mapMode = arg.DetermineMapMode();
+	if (mapMode == Argument::MAPMODE_None) return Eval(env, arg);
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(
 				new Environment(env), Function::Reference(this), arg.Reference(), false));
 	if (!pIterator->Prepare()) return Value::Nil;
 	if (arg.IsResultIterator() || arg.IsResultXIterator() ||
-					(arg.IsResultNormal() && arg.ShouldGenerateIterator())) {
+			(arg.IsResultNormal() && mapMode == Argument::MAPMODE_ToIter)) {
 		pIterator->SetSkipInvalidFlag(arg.IsResultXIterator());
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
