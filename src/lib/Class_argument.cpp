@@ -26,7 +26,7 @@ Value Object_argument::DoGetProp(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(values))) {
 		Value rtn;
-		rtn.InitAsList(env, _pArg->GetValueListArg());
+		_pArg->GetValues(rtn.InitAsList(env));
 		return rtn;
 	}
 	evaluatedFlag = false;

@@ -293,6 +293,13 @@ bool Argument::Compensate(Environment &env)
 	return true;
 }
 
+void Argument::GetValues(ValueList &valList) const
+{
+	foreach_const (ValueList, pValue, _valListArg) {
+		valList.push_back(*pValue);
+	}
+}
+
 bool Argument::CheckValidity(Environment &env)
 {
 	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
@@ -350,34 +357,6 @@ Argument::MapMode Argument::DetermineMapMode() const
 	return mapMode;
 }
 
-#if 0
-bool Argument::ShouldImplicitMap() const
-{
-	if (IsThisIterable()) return true;
-	ValueList::const_iterator pValue = _valListArg.begin();
-	Slots::const_iterator pSlot = _slots.begin();
-	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
-		const Declaration &decl = pSlot->GetDeclaration();
-		if (decl.ShouldImplicitMap(*pValue)) return true;
-		if (!decl.IsVariableLength()) pSlot++;
-	}
-	return false;
-}
-
-bool Argument::ShouldGenerateIterator() const
-{
-	if (IsThisIterator()) return true;
-	ValueList::const_iterator pValue = _valListArg.begin();
-	Slots::const_iterator pSlot = _slots.begin();
-	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
-		const Declaration &decl = pSlot->GetDeclaration();
-		if (pValue->Is_iterator() && decl.GetValueType() != VTYPE_iterator) return true;
-		if (!decl.IsVariableLength()) pSlot++;
-	}
-	return false;
-}
-#endif
-
 bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
 {
 	Signal &sig = env.GetSignal();
@@ -398,6 +377,16 @@ bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
 	return true;
 }
 
+void Argument::AssignToEnvironment(Environment &env) const
+{
+	Slots::const_iterator pSlot = _slots.begin();
+	ValueList::const_iterator pValue = _valListArg.begin();
+	for ( ; pSlot != _slots.end() && pValue != _valListArg.end(); pSlot++, pValue++) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		env.AssignValue(decl.GetSymbol(), *pValue, EXTRA_Public);
+	}
+}
+
 Environment *Argument::PrepareEnvironment(Environment &env, bool thisAssignFlag) const
 {
 	Signal &sig = env.GetSignal();
@@ -409,12 +398,7 @@ Environment *Argument::PrepareEnvironment(Environment &env, bool thisAssignFlag)
 		valueThis.AddFlags(VFLAG_Privileged);
 		pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
 	}
-	Slots::const_iterator pSlot = _slots.begin();
-	ValueList::const_iterator pValue = _valListArg.begin();
-	for ( ; pSlot != _slots.end() && pValue != _valListArg.end(); pSlot++, pValue++) {
-		const Declaration &decl = pSlot->GetDeclaration();
-		pEnvLocal->AssignValue(decl.GetSymbol(), *pValue, EXTRA_Public);
-	}
+	AssignToEnvironment(*pEnvLocal);
 	const Symbol *pSymbolDict = _pFunc->GetSymbolDict();
 	if (pSymbolDict != nullptr) {
 		pEnvLocal->AssignValue(pSymbolDict,

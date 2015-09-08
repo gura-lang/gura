@@ -162,6 +162,7 @@ public:
 		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
 		//return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
 	}
+	void GetValues(ValueList &valList) const;
 	// nil / undefined
 	inline bool IsValid(size_t idxArg) const			{ return GetValue(idxArg).IsValid();			}
 	inline bool IsInvalid(size_t idxArg) const			{ return GetValue(idxArg).IsInvalid();			}
@@ -256,6 +257,7 @@ public:
 	//bool ShouldGenerateIterator() const;
 	bool PrepareForMap(Environment &env, IteratorOwner &iterOwner);
 	bool IsInfiniteMap() const;
+	void AssignToEnvironment(Environment &env) const;
 	Environment *PrepareEnvironment(Environment &env, bool thisAssignFlag) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock() const { return _pExprBlock.get(); }

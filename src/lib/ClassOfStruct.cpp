@@ -141,13 +141,7 @@ Value ClassOfStruct::Constructor::DoEval(Environment &env, Argument &arg) const
 		pObjThis = _pClassToConstruct->CreateDescendant(env, _pClassToConstruct);
 		valueRtn.InitAsObject(pObjThis);
 	}
-	ValueList::const_iterator pValue = arg.GetValueListArg().begin();
-	DeclarationList::const_iterator ppDecl = GetDeclOwner().begin();
-	for ( ; pValue != arg.GetValueListArg().end() && ppDecl != GetDeclOwner().end();
-														pValue++, ppDecl++) {
-		const Declaration *pDecl = *ppDecl;
-		pObjThis->AssignValue(pDecl->GetSymbol(), *pValue, EXTRA_Public);
-	}
+	arg.AssignToEnvironment(*pObjThis);
 	return ReturnValue(env, arg, valueRtn);
 }
 
