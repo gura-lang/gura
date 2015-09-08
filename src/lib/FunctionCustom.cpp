@@ -38,14 +38,8 @@ Value FunctionCustom::DoEval(Environment &env, Argument &arg) const
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvLocal(arg.PrepareEnvironment(env, _funcType != FUNCTYPE_Block));
 	if (pEnvLocal.IsNull()) return Value::Nil;
-#if 0
-	Sequence *pSequence = new FunctionCustom::SequenceEx(pEnvLocal.release(),
-								dynamic_cast<FunctionCustom *>(Reference()));
-	return Sequence::Return(sig, pSequence);
-#else
 	Value result = GetExprBody()->Exec(*pEnvLocal);
-	EnvType envType = pEnvLocal->GetEnvType();
-	if (envType == ENVTYPE_block) {
+	if (pEnvLocal->GetEnvType() == ENVTYPE_block) {
 		// nothing to do. simply pass the signal to the outside.
 	} else if (!sig.IsSignalled()) {
 		// nothing to do
@@ -58,7 +52,6 @@ Value FunctionCustom::DoEval(Environment &env, Argument &arg) const
 		sig.ClearSignal();
 	}
 	return result;
-#endif
 }
 
 Expr *FunctionCustom::MathDiff(Environment &env,
@@ -142,59 +135,6 @@ bool ExprVisitor_Replace::Visit(Expr *pExpr)
 		return false;
 	}
 	return true;
-}
-
-//-----------------------------------------------------------------------------
-// FunctionCustom::SequenceEx
-//-----------------------------------------------------------------------------
-FunctionCustom::SequenceEx::SequenceEx(Environment *pEnv, FunctionCustom *pFunctionCustom) :
-				Sequence(pEnv), _pFunctionCustom(pFunctionCustom), _idxExpr(0)
-{
-	const Expr *pExprBody = _pFunctionCustom->GetExprBody();
-	if (pExprBody == nullptr) {
-		_pExprOwner.reset(new ExprOwner());
-	} else if (pExprBody->IsBlock()) {
-		const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExprBody);
-		_pExprOwner.reset(pExprBlock->GetExprOwner().Reference());
-	} else {
-		_pExprOwner.reset(new ExprOwner());
-		_pExprOwner->push_back(pExprBody->Reference());
-	}
-}
-
-bool FunctionCustom::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	if (_idxExpr >= _pExprOwner->size()) {
-		_doneFlag = true;
-		return false;
-	}
-	Environment &env = *_pEnv;
-	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
-	result = pExpr->Exec(env, true);
-	if (env.GetEnvType() == ENVTYPE_block) {
-		// nothing to do. simply pass the signal to the outside.
-	} else if (!sig.IsSignalled()) {
-		// nothing to do
-	} else if (sig.IsBreak()) {
-		sig.ClearSignal();
-	} else if (sig.IsContinue()) {
-		sig.ClearSignal();
-	} else if (sig.IsReturn()) {
-		result = sig.GetValue();
-		sig.ClearSignal();
-	} else {
-		return false;
-	}
-	if (_idxExpr < _pExprOwner->size()) return true;
-	_doneFlag = true;
-	return true;
-}
-
-String FunctionCustom::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:functioncustom>";
-	return str;
 }
 
 }
