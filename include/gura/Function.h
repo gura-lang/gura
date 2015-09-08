@@ -143,12 +143,6 @@ const char *GetFuncTypeName(FunctionType funcType);
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Function {
 public:
-	enum {
-		MAP_Off				= (0 << 0),
-		MAP_On				= (1 << 0),
-		FLAT_Off			= (0 << 1),
-		FLAT_On				= (1 << 1),
-	};
 	enum BlockScope {
 		BLKSCOPE_Through,
 		BLKSCOPE_Inside,

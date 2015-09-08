@@ -331,6 +331,26 @@ bool Argument::CheckValidity(Environment &env)
 	return true;
 }
 
+Argument::MapMode Argument::DetermineMapMode() const
+{
+	MapMode mapMode = MAPMODE_None;
+	if (!_pIteratorThis.IsNull()) {
+		if (!_listThisFlag) return MAPMODE_ToIter;
+		mapMode = MAPMODE_ToList;
+	}
+	ValueList::const_iterator pValue = _valListArg.begin();
+	Slots::const_iterator pSlot = _slots.begin();
+	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		if (decl.ShouldImplicitMap(*pValue)) {
+			if (pValue->Is_iterator()) return MAPMODE_ToIter;
+			mapMode = MAPMODE_ToList;
+		}
+		if (!decl.IsVariableLength()) pSlot++;
+	}
+	return mapMode;
+}
+
 bool Argument::ShouldImplicitMap() const
 {
 	if (IsThisIterable()) return true;

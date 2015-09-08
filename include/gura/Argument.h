@@ -13,6 +13,12 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Argument {
 public:
+	enum MapMode {
+		MAPMODE_None,
+		MAPMODE_ToList,
+		MAPMODE_ToIter,
+	};
+public:
 	class GURA_DLLDECLARE Slot {
 	private:
 		AutoPtr<Declaration> _pDecl;
@@ -245,6 +251,7 @@ public:
 		return _pValDictArg.IsNull()? ValueDict::Empty : *_pValDictArg;
 	}
 	bool CheckValidity(Environment &env);
+	MapMode DetermineMapMode() const;
 	bool ShouldImplicitMap() const;
 	bool ShouldGenerateIterator() const;
 	bool PrepareForMap(Environment &env, IteratorOwner &iterOwner);
