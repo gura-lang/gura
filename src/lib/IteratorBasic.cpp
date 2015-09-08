@@ -1866,17 +1866,6 @@ bool Iterator_Repeater::DoNext(Environment &env, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			Value valueSrc;
 			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			// **** https://github.com/gura-lang/gura/issues/1 ****
-#if 0
-			if (!pArg->AddValue(env, valueSrc)) return false;
-			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
-					pIteratorSrc != nullptr; pIteratorSrc = pIteratorSrc->GetSource()) {
-				if (!pArg->AddValue(Value(static_cast<Number>(
-											  pIteratorSrc->GetIndexNext())))) return false;
-			}
-			if (!_pIteratorSrc->Next(env, valueSrc)) return false;
-			pArg->GetValueListArg()[0] = valueSrc;
-#else
 			if (!_pIteratorSrc->Next(env, valueSrc)) return false;
 			if (!pArg->AddValue(env, valueSrc)) return false;
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
@@ -1884,7 +1873,6 @@ bool Iterator_Repeater::DoNext(Environment &env, Value &value)
 				if (!pArg->AddValue(env, Value(static_cast<Number>(
 												   pIteratorSrc->GetIndexCur())))) return false;
 			}
-#endif
 			value = _pFuncBlock->Eval(*_pEnv, *pArg);
 			_idx++;
 			if (sig.IsBreak()) {
