@@ -39,7 +39,7 @@ public:
 		inline const Declaration &GetDeclaration() const { return *_pDecl; }
 		inline Value &GetValue() { return _value; }
 		inline const Value &GetValue() const { return _value; }
-		bool SetValue(Environment &env, const Value &value);
+		bool SetValue(Environment &env, const Value &value, bool mapFlag);
 		inline void SetIteratorMap(Iterator *pIteratorMap) { _pIteratorMap.reset(pIteratorMap); }
 		inline Iterator *GetIteratorMap() { return _pIteratorMap.get(); }
 		inline const Iterator *GetIteratorMap() const { return _pIteratorMap.get(); }

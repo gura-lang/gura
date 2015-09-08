@@ -233,7 +233,7 @@ bool Argument::AddValue(Environment &env, const Value &value)
 	_valListArg.push_back(value);
 	if (_iSlotCur < _slots.size()) {
 		Slot &slot = _slots[_iSlotCur];
-		if (!slot.SetValue(env, value)) return false;
+		if (!slot.SetValue(env, value, GetFlag(FLAG_Map))) return false;
 		if (!slot.GetDeclaration().IsVariableLength()) _iSlotCur++;
 		return true;
 	} else if (GetFlag(FLAG_CutExtraArgs)) {
@@ -505,19 +505,37 @@ bool Argument::IsSet(const Symbol *pSymbol) const
 //-----------------------------------------------------------------------------
 // Argument::Slot
 //-----------------------------------------------------------------------------
-bool Argument::Slot::SetValue(Environment &env, const Value &value)
+bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag)
 {
-	Value valueCasted = value;
-	//if (!_pDecl->ValidateAndCast(env, valueCasted)) return false;
-	if (_pDecl->IsVariableLength()) {
-		_value.GetList().push_back(valueCasted);
-	} else if (_value.IsUndefined()) {
-		_value = valueCasted;
-	} else {
-		env.SetError(ERR_ValueError, "argument confliction");
-		return false;
+#if 0
+	if (mapFlag && _pDecl->ShouldImplicitMap(value)) {
+		if (_pDecl->IsVariableLength()) {
+			_value.GetList().push_back(Value::Undefined);
+			
+		} else if (_value.IsUndefined()) {
+			
+		} else {
+			env.SetError(ERR_ValueError, "argument confliction");
+			return false;
+		}
+		return true;
 	}
-	return true;
+#endif
+	Value valueCasted = value;
+	//if (_pDecl->ValidateAndCast(env, valueCasted)) {
+	if (true) {
+		if (_pDecl->IsVariableLength()) {
+			_value.GetList().push_back(valueCasted);
+			
+		} else if (_value.IsUndefined()) {
+			_value = valueCasted;
+		} else {
+			env.SetError(ERR_ValueError, "argument confliction");
+			return false;
+		}
+		return true;
+	}
+	return false;
 }
 
 //-----------------------------------------------------------------------------
