@@ -359,7 +359,7 @@ Argument::MapMode Argument::DetermineMapMode() const
 		if (!_listThisFlag) return MAPMODE_ToIter;
 		mapMode = MAPMODE_ToList;
 	}
-#if 0
+#if 1
 	ValueList::const_iterator pValue = _valListArg.begin();
 	Slots::const_iterator pSlot = _slots.begin();
 	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
@@ -393,7 +393,7 @@ Argument::MapMode Argument::DetermineMapMode() const
 bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
 {
 	Signal &sig = env.GetSignal();
-#if 0
+#if 1
 	ValueList::const_iterator pValue = _valListArg.begin();
 	Slots::const_iterator pSlot = _slots.begin();
 	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
@@ -591,7 +591,8 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 		return true;
 	}
 	Value valueCasted = value;
-	if (_pDecl->ValidateAndCast(env, valueCasted)) {
+	//if (_pDecl->ValidateAndCast(env, valueCasted)) { // casting would be duplicated
+	if (true) {
 		if (_pDecl->IsVariableLength()) {
 			_value.GetList().push_back(valueCasted);
 			
