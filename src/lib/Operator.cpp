@@ -628,9 +628,13 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 				new Iterator_FuncBinder(
 					new Environment(env), Function::Reference(pFunc),
 					Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
-			AutoPtr<Argument> pArgSub(new Argument(pFunc));
+			//AutoPtr<Argument> pArgSub(new Argument(pFunc));
 			//if (!pArgSub->AddValue(env, valueLeft, valueRight)) return Value::Nil;
-			return pIteratorFuncBinder->Eval(env, *pArgSub);
+			//return pIteratorFuncBinder->Eval(env, *pArgSub);
+			Value result;
+			ResultComposer resultComposer(env, pFunc, result);
+			resultComposer.Store(env, pIteratorFuncBinder.get());
+			return result;
 		} else if (valueRight.Is_iterator()) {
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Nil;
@@ -642,9 +646,13 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 						pFunc->IsResultIterator() || pFunc->IsResultXIterator()) {
 				return Value(new Object_iterator(env, pIteratorFuncBinder.release()));
 			} else {
-				AutoPtr<Argument> pArgSub(new Argument(pFunc));
+				//AutoPtr<Argument> pArgSub(new Argument(pFunc));
 				//if (!pArgSub->AddValue(env, valueLeft, valueRight)) return Value::Nil;
-				return pIteratorFuncBinder->Eval(env, *pArgSub);
+				//return pIteratorFuncBinder->Eval(env, *pArgSub);
+				Value result;
+				ResultComposer resultComposer(env, pFunc, result);
+				resultComposer.Store(env, pIteratorFuncBinder.get());
+				return result;
 			}
 		}
 	} else if ((valueLeft.Is_matrix() && valueRight.Is_list()) ||

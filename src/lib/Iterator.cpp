@@ -98,22 +98,6 @@ Value Iterator::ToList(Environment &env, bool alwaysListFlag, bool excludeNilFla
 	return result;
 }
 
-Value Iterator::Eval(Environment &env, Argument &arg)
-{
-	Signal &sig = env.GetSignal();
-	if (IsInfinite()) {
-		SetError_InfiniteNotAllowed(sig);
-		return Value::Nil;
-	}
-	Value value, result;
-	Function::ResultComposer resultComposer(env, arg, result);
-	while (Next(env, value)) {
-		if (!resultComposer.Store(env, value)) return Value::Nil;
-	}
-	if (sig.IsSignalled()) return Value::Nil;
-	return result;
-}
-
 Value Iterator::Reduce(Environment &env, Value valueAccum, const Function *pFuncBlock)
 {
 	Signal &sig = env.GetSignal();

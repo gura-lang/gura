@@ -46,8 +46,9 @@ Value Object_db::Exec(Signal &sig, const char *sql, Argument &arg)
 	}
 	char *errMsg;
 	Value result;
-	ResultComposerEx resultComposer(*this, sig, arg, result);
-	int rc = ::sqlite3_exec(_db, sql, Callback, &resultComposer, &errMsg); 
+	ResultComposer resultComposer(*this, arg, result);
+	CallbackInfo callbackInfo(*this, resultComposer);
+	int rc = ::sqlite3_exec(_db, sql, Callback, &callbackInfo, &errMsg); 
 	if (rc == SQLITE_OK) return result;
 	if (sig.IsSignalled()) return Value::Nil;
 	sig.SetError(ERR_RuntimeError, "sqlite3 %s", errMsg);
@@ -120,15 +121,15 @@ String Object_db::ToString(bool exprFlag)
 
 int Object_db::Callback(void *user, int argc, char **argv, char **azColName)
 {
-	ResultComposerEx *pResultComposer = reinterpret_cast<ResultComposerEx *>(user);
-	Environment &env = pResultComposer->GetEnv();
-	Signal &sig = pResultComposer->GetSignal();
+	CallbackInfo *pCallbackInfo = reinterpret_cast<CallbackInfo *>(user);
+	Environment &env = pCallbackInfo->GetEnv();
+	ResultComposer &resultComposer = pCallbackInfo->GetResultComposer();
 	Value value;
 	ValueList &valList = value.InitAsList(env);
 	for (int i = 0; i < argc; i++) {
 		valList.push_back(Value(argv[i]));
 	}
-	return pResultComposer->Store(env, value)? SQLITE_OK : SQLITE_ERROR;
+	return resultComposer.Store(env, value)? SQLITE_OK : SQLITE_ERROR;
 }
 
 void Object_db::SetError_NotOpened(Signal &sig)

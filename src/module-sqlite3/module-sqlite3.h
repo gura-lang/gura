@@ -54,17 +54,17 @@ private:
 };
 
 //-----------------------------------------------------------------------------
-// ResultComposerEx
+// CallbackInfo
 //-----------------------------------------------------------------------------
-class ResultComposerEx : public Function::ResultComposer {
+class CallbackInfo {
 private:
 	Environment &_env;
-	Signal &_sig;
+	ResultComposer &_resultComposer;
 public:
-	inline ResultComposerEx(Environment &env, Signal &sig, Argument &arg, Value &result) :
-					ResultComposer(env, arg, result), _env(env), _sig(sig) {}
+	inline CallbackInfo(Environment &env, ResultComposer &resultComposer) :
+									_env(env), _resultComposer(resultComposer) {}
 	inline Environment &GetEnv() { return _env; }
-	inline Signal &GetSignal() { return _sig; }
+	inline ResultComposer &GetResultComposer() { return _resultComposer; }
 };
 
 Gura_EndModuleHeader(sqlite3)

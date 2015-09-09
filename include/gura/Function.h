@@ -148,26 +148,6 @@ public:
 		BLKSCOPE_Inside,
 		BLKSCOPE_SameAsFunc,
 	};
-	class GURA_DLLDECLARE ResultComposer {
-	private:
-		ResultMode _resultMode;
-		ULong _flags;
-		Value &_result;
-		ValueList *_pValList;
-		size_t _cnt;
-	public:
-		ResultComposer(Environment &env, Argument &arg, Value &result);
-		ResultComposer(Environment &env, const Function *pFunc, Value &result);
-		bool Store(Environment &env, const Value &value);
-		inline bool GetFlag(ULong flag) const { return (_flags & flag) != 0; }
-	private:
-		inline void Initialize(Environment &env) {
-			if (_resultMode == RSLTMODE_List || _resultMode == RSLTMODE_XList ||
-				_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) {
-				_pValList = &_result.InitAsList(env);
-			}
-		}
-	};
 	class GURA_DLLDECLARE ExprMap : public std::map<const Symbol *, Expr *, Symbol::KeyCompare_UniqNumber> {
 	public:
 		~ExprMap();
@@ -304,6 +284,34 @@ protected:
 	Environment *PrepareEnvironment(Environment &env, Argument &arg, bool thisAssignFlag) const;
 private:
 	virtual Value DoEval(Environment &env, Argument &arg) const = 0;
+};
+
+//----------------------------------------------------------------------------
+// ResultComposer
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE ResultComposer {
+private:
+	ValueType _valTypeResult;
+	ResultMode _resultMode;
+	ULong _flags;
+	Value &_result;
+	ValueList *_pValList;
+	size_t _cnt;
+public:
+	ResultComposer(Environment &env, ValueType valTypeResult,
+				   ResultMode resultMode, ULong flags, Value &result);
+	ResultComposer(Environment &env, const Function *pFunc, Value &result);
+	ResultComposer(Environment &env, Argument &arg, Value &result);
+	bool Store(Environment &env, const Value &value);
+	bool Store(Environment &env, Iterator *pIterator);
+	inline bool GetFlag(ULong flag) const { return (_flags & flag) != 0; }
+private:
+	inline void Initialize(Environment &env) {
+		if (_resultMode == RSLTMODE_List || _resultMode == RSLTMODE_XList ||
+			_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) {
+			_pValList = &_result.InitAsList(env);
+		}
+	}
 };
 
 }

@@ -10,7 +10,6 @@
 
 namespace Gura {
 
-class Argument;
 class DeclarationList;
 
 //-----------------------------------------------------------------------------
@@ -75,7 +74,6 @@ public:
 	virtual Iterator *Clone() const;
 	bool Consume(Environment &env);
 	Value ToList(Environment &env, bool alwaysListFlag, bool excludeNilFlag);
-	Value Eval(Environment &env, Argument &arg);
 	Value Reduce(Environment &env, Value valueAccum, const Function *pFuncBlock);
 	Value MinMax(Environment &env, bool maxFlag, const SymbolSet &attrs);
 	Value Sum(Environment &env, size_t &cnt);

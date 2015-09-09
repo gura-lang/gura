@@ -387,7 +387,9 @@ Value Function::ReturnIterator(Environment &env, Argument &arg, Iterator *pItera
 		result = Value(new Object_iterator(env, pIterator));
 	} else if (arg.IsResultList() || arg.IsResultXList() ||
 									arg.IsResultSet() || arg.IsResultXSet()) {
-		result = pIterator->Eval(env, arg);
+		ResultComposer resultComposer(env, arg, result);
+		resultComposer.Store(env, pIterator);
+		//result = pIterator->Eval(env, arg);
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Nil;
 	} else if (pIterator->IsRepeater()) {
@@ -565,25 +567,46 @@ void Function::SetError_MathOptimizeError(Signal &sig) const
 }
 
 //-----------------------------------------------------------------------------
-// Function::ResultComposer
+// Function::ExprMap
+//-----------------------------------------------------------------------------
+Function::ExprMap::~ExprMap()
+{
+	foreach (ExprMap, iter, *this) {
+		Expr *pExpr = iter->second;
+		Expr::Delete(pExpr);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// ResultComposer
 // this function's behaviour is affected by the following attributes.
 //   :void, :reduce, :xreduce, :list, :xlist, :set, :xet, :flat
 //-----------------------------------------------------------------------------
-Function::ResultComposer::ResultComposer(Environment &env, Argument &arg, Value &result) :
-	_resultMode(arg.GetResultMode()), _flags(arg.GetFlags()),
+ResultComposer::ResultComposer(Environment &env, ValueType valTypeResult,
+							   ResultMode resultMode, ULong flags, Value &result) :
+	_valTypeResult(valTypeResult), _resultMode(resultMode), _flags(flags),
 	_result(result), _pValList(nullptr), _cnt(0)
 {
 	Initialize(env);
 }
 
-Function::ResultComposer::ResultComposer(Environment &env, const Function *pFunc, Value &result) :
+ResultComposer::ResultComposer(Environment &env, const Function *pFunc, Value &result) :
+	_valTypeResult(pFunc->GetValueTypeResult()),
 	_resultMode(pFunc->GetResultMode()), _flags(pFunc->GetFlags()),
 	_result(result), _pValList(nullptr), _cnt(0)
 {
 	Initialize(env);
 }
 
-bool Function::ResultComposer::Store(Environment &env, const Value &value)
+ResultComposer::ResultComposer(Environment &env, Argument &arg, Value &result) :
+	_valTypeResult(arg.GetValueTypeResult()),
+	_resultMode(arg.GetResultMode()), _flags(arg.GetFlags()),
+	_result(result), _pValList(nullptr), _cnt(0)
+{
+	Initialize(env);
+}
+
+bool ResultComposer::Store(Environment &env, const Value &value)
 {
 	Signal &sig = env.GetSignal();
 	if (_resultMode == RSLTMODE_Void) {
@@ -622,15 +645,19 @@ bool Function::ResultComposer::Store(Environment &env, const Value &value)
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// Function::ExprMap
-//-----------------------------------------------------------------------------
-Function::ExprMap::~ExprMap()
+bool ResultComposer::Store(Environment &env, Iterator *pIterator)
 {
-	foreach (ExprMap, iter, *this) {
-		Expr *pExpr = iter->second;
-		Expr::Delete(pExpr);
+	//Function::ResultComposer resultComposer(env, arg, result);
+	Signal &sig = env.GetSignal();
+	if (pIterator->IsInfinite()) {
+		Iterator::SetError_InfiniteNotAllowed(sig);
+		return false;
 	}
+	Value value;
+	while (pIterator->Next(env, value)) {
+		if (!Store(env, value)) return false;
+	}
+	return sig.IsNoSignalled();
 }
 
 }
