@@ -123,7 +123,7 @@ Value Device::Initialize(Environment &env, const Function *pFuncBlock)
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 		//ValueList valList(result);
 		AutoPtr<Argument> pArg(new Argument(pFuncBlock));
-		pArg->AddValue(result);
+		if (!pArg->AddValue(env, result)) return Value::Nil;
 		pFuncBlock->Eval(*pEnvBlock, *pArg);
 		
 		// temporary handling before GC is correctly implemented
