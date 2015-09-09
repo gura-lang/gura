@@ -507,7 +507,6 @@ bool Argument::IsSet(const Symbol *pSymbol) const
 //-----------------------------------------------------------------------------
 bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag)
 {
-#if 0
 	if (mapFlag && _pDecl->ShouldImplicitMap(value)) {
 		if (_pDecl->IsVariableLength()) {
 			_value.GetList().push_back(Value::Undefined);
@@ -520,7 +519,6 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 		}
 		return true;
 	}
-#endif
 	Value valueCasted = value;
 	//if (_pDecl->ValidateAndCast(env, valueCasted)) {
 	if (true) {
