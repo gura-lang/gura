@@ -274,7 +274,7 @@ String Value::GetStringSTL() const
 	return _u.pStrShrd->GetStringSTL();
 }
 
-const Binary &Value::GetBinary() const
+Binary &Value::GetBinary() const
 {
 	return dynamic_cast<Object_binary *>(_u.pObj)->GetBinary();
 }
@@ -351,7 +351,7 @@ void Value::IndexSet(Environment &env, const Value &valueIdx, const Value &value
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 }
 
-bool Value::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag)
+bool Value::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const
 {
 	if (IsModule()) {
 		return GetModule()->DirProp(env, symbols);
@@ -368,7 +368,7 @@ bool Value::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag)
 	return env.LookupClass(_valType)->DirProp(env, symbols, escalateFlag);
 }
 
-void Value::DirValueType(SymbolSet &symbols, bool escalateFlag)
+void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 {
 	if (IsModule()) {
 		GetModule()->DirValueType(symbols);
@@ -384,31 +384,19 @@ ErrorType Value::GetErrorType() const
 	return dynamic_cast<Object_error *>(_u.pObj)->GetError().GetType();
 }
 
-ValueList &Value::GetList()
+ValueList &Value::GetList() const
 {
 	return dynamic_cast<Object_list *>(_u.pObj)->GetList();
 }
 
-const ValueList &Value::GetList() const
-{
-	return dynamic_cast<const Object_list *>(_u.pObj)->GetList();
-}
-
-ValueDict &Value::GetDict()
+ValueDict &Value::GetDict() const
 {
 	return dynamic_cast<Object_dict *>(_u.pObj)->GetDict();
 }
 
-const ValueDict &Value::GetDict() const
-{
-	return Is_dict()?
-		dynamic_cast<const Object_dict *>(_u.pObj)->GetDict() : ValueDict::Empty;
-}
-
 Iterator *Value::GetIterator() const
 {
-	return Is_iterator()?
-		dynamic_cast<const Object_iterator *>(_u.pObj)->GetIterator() : nullptr;
+	return dynamic_cast<Object_iterator *>(_u.pObj)->GetIterator();
 }
 
 Stream &Value::GetStream() const
@@ -416,14 +404,14 @@ Stream &Value::GetStream() const
 	return dynamic_cast<Object_stream *>(_u.pObj)->GetStream();
 }
 
-const Expr *Value::GetExpr() const
+Expr *Value::GetExpr() const
 {
-	return Is_expr()? dynamic_cast<Object_expr *>(_u.pObj)->GetExpr() : nullptr;
+	return dynamic_cast<Object_expr *>(_u.pObj)->GetExpr();
 }
 
-Function *Value::GetFunction()
+Function *Value::GetFunction() const
 {
-	return Is_function()? dynamic_cast<Object_function *>(_u.pObj)->GetFunction() : nullptr;
+	return dynamic_cast<Object_function *>(_u.pObj)->GetFunction();
 }
 
 Expr *Value::CloneExpr() const

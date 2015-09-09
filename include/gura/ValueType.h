@@ -35,7 +35,7 @@ class Module;
 //-----------------------------------------------------------------------------
 typedef UShort ValueType;
 
-// nil / undefined
+// invalid types
 GURA_DLLDECLARE extern ValueType VTYPE_nil;
 GURA_DLLDECLARE extern ValueType VTYPE_undefined;
 // primitive types

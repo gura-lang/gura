@@ -293,11 +293,11 @@ bool Argument::Compensate(Environment &env)
 	return true;
 }
 
-Value Argument::GetValue(size_t idxArg)
-{
-	return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
-	//return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
-}
+//Value Argument::GetValue(size_t idxArg)
+//{
+//	return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
+//	//return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
+//}
 
 const Value &Argument::GetValue(size_t idxArg) const
 {

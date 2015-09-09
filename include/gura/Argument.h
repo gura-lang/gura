@@ -37,7 +37,7 @@ public:
 			_pIteratorMap.reset(Iterator::Reference(slot._pIteratorMap.get()));
 		}
 		inline const Declaration &GetDeclaration() const { return *_pDecl; }
-		inline Value &GetValue() { return _value; }
+		//inline Value &GetValue() { return _value; }
 		inline const Value &GetValue() const { return _value; }
 		bool SetValue(Environment &env, const Value &value, bool mapFlag);
 		inline void SetIteratorMap(Iterator *pIteratorMap) { _pIteratorMap.reset(pIteratorMap); }
@@ -159,7 +159,7 @@ public:
 			AddValue(env, v4) && AddValue(env, v5);
 	}
 	bool Compensate(Environment &env);
-	Value GetValue(size_t idxArg);
+	//Value GetValue(size_t idxArg);
 	const Value &GetValue(size_t idxArg) const;
 	void GetValues(ValueList &valList) const;
 	// nil / undefined
@@ -233,8 +233,8 @@ public:
 	inline String GetStringSTL(size_t idxArg) const		{ return GetValue(idxArg).GetStringSTL(); }
 	inline const Binary &GetBinary(size_t idxArg) const	{ return GetValue(idxArg).GetBinary();	}
 	inline Complex GetComplex(size_t idxArg) const		{ return GetValue(idxArg).GetComplex();	}
-	inline Module *GetModule(size_t idxArg)				{ return GetValue(idxArg).GetModule();	}
-	inline const Module *GetModule(size_t idxArg) const	{ return GetValue(idxArg).GetModule();	}
+	inline Module *GetModule(size_t idxArg) const		{ return GetValue(idxArg).GetModule();	}
+	//inline const Module *GetModule(size_t idxArg) const	{ return GetValue(idxArg).GetModule();	}
 	inline const ValueList &GetList(size_t idxArg) const{ return GetValue(idxArg).GetList();	}
 	inline const ValueDict &GetDict(size_t idxArg) const{ return GetValue(idxArg).GetDict();	}
 	inline Iterator *GetIterator(size_t idxArg) const	{ return GetValue(idxArg).GetIterator();}
@@ -243,8 +243,8 @@ public:
 		return const_cast<Argument *>(this)->GetValue(idxArg).GetStream();
 	}
 	inline const Expr *GetExpr(size_t idxArg) const		{ return GetValue(idxArg).GetExpr();	}
-	inline Function *GetFunction(size_t idxArg)			{ return GetValue(idxArg).GetFunction(); }
-	inline const Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }
+	inline Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }
+	//inline const Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }
 	inline ErrorType GetErrorType(size_t idxArg) const	{ return GetValue(idxArg).GetErrorType(); }
 	inline void SetValueDictArg(ValueDict *pValDictArg) { _pValDictArg.reset(pValDictArg); }
 	inline const ValueDict &GetValueDictArg() const { 
