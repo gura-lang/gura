@@ -81,10 +81,10 @@ bool Processor::Step(Signal &sig, Value &result)
 		Sequence::Delete(pSequence);
 		_sequenceStack.pop_back();
 	}
-	if (result.IsSequence()) {
-		_sequenceStack.push_back(result.GetSequence()->Reference());
-		return true;
-	}
+	//if (result.IsSequence()) {
+	//	_sequenceStack.push_back(result.GetSequence()->Reference());
+	//	return true;
+	//}
 	return true;
 }
 

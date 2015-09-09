@@ -32,8 +32,6 @@ void Gura_CopyValue(Value &valueDst, const Value &valueSrc)
 		valueDst._u.pModule = Module::Reference(valueSrc._u.pModule);
 	} else if (valueSrc.IsClass()) {
 		valueDst._u.pClass = Class::Reference(valueSrc._u.pClass);
-	} else if (valueSrc.IsSequence()) {
-		valueDst._u.pSequence = Sequence::Reference(valueSrc._u.pSequence);
 	} else {
 		// nothing to do
 		//valueDst._valType = VTYPE_nil;
@@ -62,9 +60,6 @@ void Gura_ReleaseValue(Value &value)
 	} else if (value.IsClass()) {
 		if (value.IsOwner()) Class::Delete(value._u.pClass);
 		value._u.pClass = nullptr;
-	} else if (value.IsSequence()) {
-		if (value.IsOwner()) Sequence::Delete(value._u.pSequence);
-		value._u.pSequence = nullptr;
 	} else { // Number, Boolean
 		// nothing to do
 	}
@@ -87,37 +82,6 @@ Value::Value(const Value &value)
 {
 	Gura_CopyValue(*this, value);
 }
-
-#if 0
-Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._valFlags)
-{
-	if (value.GetTinyBuffFlag()) {
-		_u = value._u;
-	} else if (value.Is_boolean()) {
-		_u.flag = value._u.flag;
-	} else if (value.Is_complex()) {
-		_u.pComp = new Complex(*value._u.pComp);
-	} else if (value.Is_number()) {
-		_u.num = value._u.num;
-	} else if (value.Is_rational()) {
-		_u.pRatio = new Rational(*value._u.pRatio);
-	} else if (value.Is_string()) {
-		_u.pStrShrd = value._u.pStrShrd->Reference();
-	} else if (value.Is_symbol()) {
-		_u.pSymbol = value._u.pSymbol;
-	} else if (value.IsObject()) {
-		_u.pObj = Object::Reference(value._u.pObj);
-	} else if (value.IsModule()) {
-		_u.pModule = Module::Reference(value._u.pModule);
-	} else if (value.IsClass()) {
-		_u.pClass = Class::Reference(value._u.pClass);
-	} else if (value.IsSequence()) {
-		_u.pSequence = Sequence::Reference(value._u.pSequence);
-	} else {
-		// nothing to do
-	}
-}
-#endif
 
 Value::Value(Object *pObj, UShort valFlags) :
 				_valType(pObj->GetClass()->GetValueType()), _valFlags(valFlags)
@@ -176,42 +140,6 @@ Value &Value::operator=(const Value &value)
 	Gura_CopyValue(*this, value);
 	return *this;
 }
-
-#if 0
-Value &Value::operator=(const Value &value)
-{
-	Gura_ReleaseValue(*this);
-	_valType = value._valType;
-	_valFlags = value._valFlags;
-	if (GetTinyBuffFlag()) {
-		_u = value._u;
-	} else if (value.Is_boolean()) {
-		_u.flag = value._u.flag;
-	} else if (value.Is_complex()) {
-		_u.pComp = new Complex(*value._u.pComp);
-	} else if (value.Is_number()) {
-		_u.num = value._u.num;
-	} else if (value.Is_rational()) {
-		_u.pRatio = new Rational(*value._u.pRatio);
-	} else if (value.Is_string()) {
-		_u.pStrShrd = value._u.pStrShrd->Reference();
-	} else if (value.Is_symbol()) {
-		_u.pSymbol = value._u.pSymbol;
-	} else if (value.IsObject()) {
-		_u.pObj = Object::Reference(value._u.pObj);
-	} else if (value.IsModule()) {
-		_u.pModule = Module::Reference(value._u.pModule);
-	} else if (value.IsClass()) {
-		_u.pClass = Class::Reference(value._u.pClass);
-	} else if (value.IsSequence()) {
-		_u.pSequence = Sequence::Reference(value._u.pSequence);
-	} else {
-		// nothing to do
-		//_valType = VTYPE_nil;
-	}
-	return *this;
-}
-#endif
 
 bool Value::MustBe(Signal &sig, bool flag, const char *expected) const
 {
@@ -299,8 +227,6 @@ bool Value::Is(const Value &value) const
 		return GetModule() == value.GetModule();
 	} else if (IsClass()) {
 		return GetClass() == value.GetClass();
-	} else if (IsSequence()) {
-		return GetSequence() == value.GetSequence();
 	} else if (IsObject()) {
 		return GetObject() == value.GetObject();
 	}
@@ -490,8 +416,6 @@ String Value::ToString(bool exprFlag) const
 		return _u.pModule->ToString(exprFlag);
 	} else if (IsClass()) {
 		return _u.pClass->ToString(exprFlag);
-	} else if (IsSequence()) {
-		return _u.pSequence->ToString();
 	} else if (IsObject()) {
 		return _u.pObj->ToString(exprFlag);
 	}

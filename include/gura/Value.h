@@ -23,7 +23,6 @@ class Module;
 class Function;
 class Directory;
 class Class;
-class Sequence;
 class Object;
 class ValueList;
 class ValueDict;
@@ -77,7 +76,6 @@ private:
 		const Symbol *pSymbol;		// symbol
 		Module *pModule;			// module
 		Class *pClass;				// class
-		Sequence *pSequence;		// Sequence
 		Object *pObj;				// objects
 		char tinyBuff[1];
 	} _u;
@@ -105,11 +103,6 @@ public:
 	inline Value(Class *pClass, UShort valFlags = VFLAG_Owner) :
 								_valType(VTYPE_Class), _valFlags(valFlags) {
 		_u.pClass = pClass;
-	}
-	// VTYPE_Sequence
-	inline Value(Sequence *pSequence, UShort valFlags = VFLAG_Owner) :
-								_valType(VTYPE_Sequence), _valFlags(valFlags) {
-		_u.pSequence = pSequence;
 	}
 	// VTYPE_object etc
 	Value(Object *pObj, UShort valFlags = VFLAG_Owner);
@@ -209,8 +202,6 @@ public:
 	// container types
 	inline bool IsModule() const			{ return IsType(VTYPE_Module);			}
 	inline bool IsClass() const				{ return IsType(VTYPE_Class);			}
-	// sequence
-	inline bool IsSequence() const			{ return IsType(VTYPE_Sequence);		}
 	// object types
 	inline bool IsGenericObject() const		{ return IsType(VTYPE_object);			}
 	inline bool IsStruct() const			{ return IsType(VTYPE_Struct);			}
@@ -272,9 +263,6 @@ public:
 						{ return MustBe(sig, IsModule(), 		"module");			}
 	inline bool MustBeClass(Signal &sig) const
 						{ return MustBe(sig, IsClass(), 		"class");			}
-	// sequence
-	inline bool MustBeSequence(Signal &sig) const
-						{ return MustBe(sig, IsSequence(), 		"sequence");		}
 	// object types
 	inline bool MustBeGenericObject(Signal &sig) const
 						{ return MustBe(sig, IsGenericObject(), "generic object");	}
@@ -403,8 +391,6 @@ public:
 	inline Module *GetModule() const		{ return _u.pModule;						}
 	// VTYPE_Class
 	inline Class *GetClassItself() const	{ return _u.pClass;							}
-	// VTYPE_Sequence
-	inline Sequence *GetSequence() const	{ return _u.pSequence;						}
 	// VTYPE_function
 	Function *GetFunction() const;
 	// VTYPE_binary
