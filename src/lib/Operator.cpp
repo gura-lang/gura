@@ -624,24 +624,26 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Nil;
-			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
-						Function::Reference(pFunc),
-						Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
+			AutoPtr<Iterator> pIteratorFuncBinder(
+				new Iterator_FuncBinder(
+					new Environment(env), Function::Reference(pFunc),
+					Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
 			AutoPtr<Argument> pArgSub(new Argument(pFunc));
-			if (!pArgSub->AddValue(env, valueLeft, valueRight)) return Value::Nil;
+			//if (!pArgSub->AddValue(env, valueLeft, valueRight)) return Value::Nil;
 			return pIteratorFuncBinder->Eval(env, *pArgSub);
 		} else if (valueRight.Is_iterator()) {
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Nil;
-			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
-						Function::Reference(pFunc),
-						Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
+			AutoPtr<Iterator> pIteratorFuncBinder(
+				new Iterator_FuncBinder(
+					new Environment(env), Function::Reference(pFunc),
+					Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
 			if (pFunc->IsResultNormal() ||
 						pFunc->IsResultIterator() || pFunc->IsResultXIterator()) {
 				return Value(new Object_iterator(env, pIteratorFuncBinder.release()));
 			} else {
 				AutoPtr<Argument> pArgSub(new Argument(pFunc));
-				if (!pArgSub->AddValue(env, valueLeft, valueRight)) return Value::Nil;
+				//if (!pArgSub->AddValue(env, valueLeft, valueRight)) return Value::Nil;
 				return pIteratorFuncBinder->Eval(env, *pArgSub);
 			}
 		}

@@ -520,8 +520,8 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 		return true;
 	}
 	Value valueCasted = value;
-	//if (_pDecl->ValidateAndCast(env, valueCasted)) {
-	if (true) {
+	if (_pDecl->ValidateAndCast(env, valueCasted)) {
+		//if (true) {
 		if (_pDecl->IsVariableLength()) {
 			_value.GetList().push_back(valueCasted);
 			
