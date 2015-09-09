@@ -51,8 +51,6 @@ GURA_DLLDECLARE extern ValueType VTYPE_any;
 // container types
 GURA_DLLDECLARE extern ValueType VTYPE_Module;
 GURA_DLLDECLARE extern ValueType VTYPE_Class;
-// sequence
-GURA_DLLDECLARE extern ValueType VTYPE_Sequence;
 // object types
 GURA_DLLDECLARE extern ValueType VTYPE_object;
 GURA_DLLDECLARE extern ValueType VTYPE_Struct;
@@ -140,23 +138,22 @@ typedef std::vector<ValueTypeInfo *> ValueTypeList;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ValueTypePool {
 public:
-	// primitive types
+	// invalid types
 	Gura_DeclareVTYPE(nil);
 	Gura_DeclareVTYPE(undefined);
+	// primitive types
 	Gura_DeclareVTYPE(boolean);
 	Gura_DeclareVTYPE(complex);
 	Gura_DeclareVTYPE(number);
 	Gura_DeclareVTYPE(rational);
 	Gura_DeclareVTYPE(string);
 	Gura_DeclareVTYPE(symbol);
-	// for declaration
+	// declaration
 	Gura_DeclareVTYPE(quote);
 	Gura_DeclareVTYPE(any);
 	// container types
 	Gura_DeclareVTYPE(Module);
 	Gura_DeclareVTYPE(Class);
-	// sequence
-	Gura_DeclareVTYPE(Sequence);
 	// object types
 	Gura_DeclareVTYPE(object);
 	Gura_DeclareVTYPE(Struct);

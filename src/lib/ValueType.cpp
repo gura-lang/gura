@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Built-in Value Types
 //-----------------------------------------------------------------------------
-// nil / undefined
+// invalid types
 ValueType VTYPE_nil				= static_cast<ValueType>(0);
 ValueType VTYPE_undefined		= static_cast<ValueType>(1);
 // primitive types
@@ -18,14 +18,12 @@ ValueType VTYPE_number			= static_cast<ValueType>(4);
 ValueType VTYPE_rational		= static_cast<ValueType>(5);
 ValueType VTYPE_string			= static_cast<ValueType>(6);
 ValueType VTYPE_symbol			= static_cast<ValueType>(7);
-// for declaration
+// declaration
 ValueType VTYPE_quote			= static_cast<ValueType>(0);
 ValueType VTYPE_any				= static_cast<ValueType>(0);
 // container types
 ValueType VTYPE_Module			= static_cast<ValueType>(0);
 ValueType VTYPE_Class			= static_cast<ValueType>(0);
-// sequence
-ValueType VTYPE_Sequence		= static_cast<ValueType>(0);
 // object types
 ValueType VTYPE_object			= static_cast<ValueType>(0);
 ValueType VTYPE_argument		= static_cast<ValueType>(0);
@@ -131,7 +129,7 @@ void ValueTypePool::Initialize(Environment &env)
 void ValueTypePool::_Initialize(Environment &env)
 {
 	// primitive types (this order is significant for IsPrimitive())
-	// nil / undefined
+	// invalid types
 	Gura_RealizeVTYPE(nil);			// must be at 1st
 	Gura_RealizeVTYPE(undefined);	// must be at 2nd
 	// primitive types
@@ -141,14 +139,12 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(rational);	// must be at 6th
 	Gura_RealizeVTYPE(string);		// must be at 7th
 	Gura_RealizeVTYPE(symbol);		// must be at 8th
-	// for declaration
+	// declaration
 	Gura_RealizeVTYPE(quote);
 	Gura_RealizeVTYPE(any);
 	// container types
 	Gura_RealizeVTYPEAlias(Module,			"module");
 	Gura_RealizeVTYPEAlias(Class,			"class");
-	// sequence
-	Gura_RealizeVTYPE(Sequence);
 	// object types
 	Gura_RealizeVTYPE(object);
 	Gura_RealizeVTYPE(argument);
@@ -193,7 +189,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPEAlias(Struct,			"struct");
 	Class *pClass = new Class(&env, VTYPE_object);
 	Gura_VTYPEInfo(object		)->SetClass(pClass);
-	// nil / undefined
+	// invalid types
 	Gura_VTYPEInfo(nil			)->SetClass(new Class_nil(pClass));
 	Gura_VTYPEInfo(undefined	)->SetClass(new Class_undefined(pClass));
 	// primitive types
@@ -203,15 +199,13 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(rational		)->SetClass(new Class_rational(pClass));
 	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
 	Gura_VTYPEInfo(symbol		)->SetClass(new Class_symbol(pClass));
-	// for declaration
+	// declaration
 	Gura_VTYPEInfo(quote		)->SetClass(new Class_quote(pClass));
 	Gura_VTYPEInfo(any			)->SetClass(new Class_any(pClass));
 	// container types
 	Gura_VTYPEInfo(Module		)->SetClass(new Class_Module(pClass));
 	Gura_VTYPEInfo(Class		)->SetClass(new Class_Class(pClass));
-	// sequence
-	Gura_VTYPEInfo(Sequence		)->SetClass(new Class_Sequence(pClass));
-	// other built-in object classes
+	// object types
 	Gura_VTYPEInfo(argument		)->SetClass(new Class_argument(pClass));
 	Gura_VTYPEInfo(array_char	)->SetClass(
 		new Class_array<char>(pClass, VTYPE_array_char, "char"));
@@ -267,7 +261,7 @@ void ValueTypePool::_Initialize(Environment &env)
 
 void ValueTypePool::DoPrepareClass(Environment &env)
 {
-	// nil / undefined
+	// invalid types
 	env.LookupClass(VTYPE_nil			)->Prepare(env);
 	env.LookupClass(VTYPE_undefined		)->Prepare(env);
 	// primitive types

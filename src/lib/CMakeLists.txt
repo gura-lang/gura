@@ -10,7 +10,6 @@ Callable.cpp
 Class.cpp
 Class_Class.cpp
 Class_Module.cpp
-Class_Sequence.cpp
 Class_any.cpp
 Class_argument.cpp
 Class_array.cpp

@@ -71,7 +71,6 @@
 
 #include "gura/Class_Class.h"
 #include "gura/Class_Module.h"
-#include "gura/Class_Sequence.h"
 #include "gura/Class_any.h"
 #include "gura/Class_argument.h"
 #include "gura/Class_audio.h"
