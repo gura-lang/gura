@@ -63,9 +63,9 @@ void Argument::InitializeSlot(const Function *pFunc)
 	foreach_const (DeclarationOwner, ppDecl, declOwner) {
 		const Declaration *pDecl = *ppDecl;
 		if (pDecl->IsVariableLength()) {
-			_slots.emplace_back(Slot(pDecl->Reference(), Value::CreateList(env)));
+			_slots.push_back(Slot(pDecl->Reference(), Value::CreateList(env)));
 		} else {
-			_slots.emplace_back(pDecl->Reference());
+			_slots.push_back(Slot(pDecl->Reference()));
 		}
 	}
 }
