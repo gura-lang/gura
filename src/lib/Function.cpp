@@ -570,44 +570,49 @@ void Function::SetError_MathOptimizeError(Signal &sig) const
 //   :void, :reduce, :xreduce, :list, :xlist, :set, :xet, :flat
 //-----------------------------------------------------------------------------
 Function::ResultComposer::ResultComposer(Environment &env, Argument &arg, Value &result) :
-	_arg(arg), _result(result), _pValList(nullptr), _cnt(0),
-	_excludeNilFlag(arg.IsResultXList() || arg.IsResultXSet()),
-	_setFlag(arg.IsResultSet() || arg.IsResultXSet())
+	_resultMode(arg.GetResultMode()), _flags(arg.GetFlags()),
+	_result(result), _pValList(nullptr), _cnt(0)
 {
-	if (_arg.IsResultList() || _arg.IsResultXList() ||
-							_arg.IsResultSet() || _arg.IsResultXSet()) {
-		_pValList = &_result.InitAsList(env);
-	}
+	Initialize(env);
+}
+
+Function::ResultComposer::ResultComposer(Environment &env, const Function *pFunc, Value &result) :
+	_resultMode(pFunc->GetResultMode()), _flags(pFunc->GetFlags()),
+	_result(result), _pValList(nullptr), _cnt(0)
+{
+	Initialize(env);
 }
 
 bool Function::ResultComposer::Store(Environment &env, const Value &value)
 {
 	Signal &sig = env.GetSignal();
-	if (_arg.IsResultVoid()) {
+	if (_resultMode == RSLTMODE_Void) {
 		// nothing to do
-	} else if (_arg.IsResultReduce()) {
+	} else if (_resultMode == RSLTMODE_Reduce) {
 		_result = value;
-	} else if (_arg.IsResultXReduce()) {
+	} else if (_resultMode == RSLTMODE_XReduce) {
 		if (value.IsValid()) _result = value;
-	} else if (_arg.GetFlag(FLAG_Flat) && value.Is_list()) {
+	} else if (GetFlag(FLAG_Flat) && value.Is_list()) {
 		foreach_const (ValueList, pValue, value.GetList()) {
 			if (!Store(env, *pValue)) return false;
 		}
 	} else {
-		if (_arg.IsResultList()) {
+		if (_resultMode == RSLTMODE_List) {
 			_pValList->push_back(value);
 		} else if (value.IsValid()) {
 			if (_pValList == nullptr) {
 				_pValList = &_result.InitAsList(env, _cnt, Value::Nil);
 			}
-			if (!_setFlag || !_pValList->DoesContain(env, value)) {
+			if (!(_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) ||
+										!_pValList->DoesContain(env, value)) {
 				_pValList->push_back(value);
 			}
 			if (sig.IsSignalled()) return false;
-		} else if (_excludeNilFlag) {
+		} else if (_resultMode == RSLTMODE_XList || _resultMode == RSLTMODE_XSet) {
 			// nothing to do
 		} else if (_pValList != nullptr) {
-			if (!_setFlag || !_pValList->DoesContain(env, value)) {
+			if (!(_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) ||
+										!_pValList->DoesContain(env, value)) {
 				_pValList->push_back(value);
 			}
 			if (sig.IsSignalled()) return false;
