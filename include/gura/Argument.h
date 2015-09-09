@@ -142,7 +142,7 @@ public:
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	bool EvalExpr(Environment &env, const ExprList &exprListArg);
 	bool AddValue(Environment &env, const Value &value);
-	bool AddValue(Environment &env, const ValueList &valListArg);
+	bool AddValue(Environment &env, const ValueList &valList);
 	inline bool AddValue(Environment &env, const Value &v1, const Value &v2) {
 		return AddValue(env, v1) && AddValue(env, v2);
 	}
@@ -159,14 +159,8 @@ public:
 			AddValue(env, v4) && AddValue(env, v5);
 	}
 	bool Compensate(Environment &env);
-	inline Value GetValue(size_t idxArg) {
-		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
-		//return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
-	}
-	inline const Value &GetValue(size_t idxArg) const {
-		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
-		//return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
-	}
+	Value GetValue(size_t idxArg);
+	const Value &GetValue(size_t idxArg) const;
 	void GetValues(ValueList &valList) const;
 	// nil / undefined
 	inline bool IsValid(size_t idxArg) const			{ return GetValue(idxArg).IsValid();			}

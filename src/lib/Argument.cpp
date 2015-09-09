@@ -293,10 +293,25 @@ bool Argument::Compensate(Environment &env)
 	return true;
 }
 
+Value Argument::GetValue(size_t idxArg)
+{
+	return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
+	//return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
+}
+
+const Value &Argument::GetValue(size_t idxArg) const
+{
+	return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
+	//return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
+}
+
 void Argument::GetValues(ValueList &valList) const
 {
-	foreach_const (ValueList, pValue, _valListArg) {
-		valList.push_back(*pValue);
+	//foreach_const (ValueList, pValue, _valListArg) {
+	//	valList.push_back(*pValue);
+	//}
+	foreach_const (Slots, pSlot, _slots) {
+		valList.push_back(pSlot->GetValue());
 	}
 }
 
@@ -344,6 +359,7 @@ Argument::MapMode Argument::DetermineMapMode() const
 		if (!_listThisFlag) return MAPMODE_ToIter;
 		mapMode = MAPMODE_ToList;
 	}
+#if 0
 	ValueList::const_iterator pValue = _valListArg.begin();
 	Slots::const_iterator pSlot = _slots.begin();
 	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
@@ -354,12 +370,30 @@ Argument::MapMode Argument::DetermineMapMode() const
 		}
 		if (!decl.IsVariableLength()) pSlot++;
 	}
+#else
+	foreach_const (Slots, pSlot, _slots) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		const Value &value = pSlot->GetValue();
+		if (decl.IsVariableLength()) {
+			foreach_const (ValueList, pValue, value.GetList()) {
+				if (decl.ShouldImplicitMap(*pValue)) {
+					if (pValue->Is_iterator()) return MAPMODE_ToIter;
+					mapMode = MAPMODE_ToList;
+				}
+			}
+		} else if (decl.ShouldImplicitMap(value)) {
+			if (value.Is_iterator()) return MAPMODE_ToIter;
+			mapMode = MAPMODE_ToList;
+		}
+	}
+#endif
 	return mapMode;
 }
 
 bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	ValueList::const_iterator pValue = _valListArg.begin();
 	Slots::const_iterator pSlot = _slots.begin();
 	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
@@ -374,17 +408,52 @@ bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
 		iterOwner.push_back(pIterator);
 		if (!decl.IsVariableLength()) pSlot++;
 	}
+#else
+	foreach_const (Slots, pSlot, _slots) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		const Value &value = pSlot->GetValue();
+		if (decl.IsVariableLength()) {
+			foreach_const (ValueList, pValue, value.GetList()) {
+				Iterator *pIterator = nullptr;
+				if (decl.ShouldImplicitMap(*pValue)) {
+					pIterator = pValue->CreateIterator(sig);
+					if (pIterator == nullptr) return false;
+				} else {
+					pIterator = new Iterator_Constant(*pValue);
+				}
+				iterOwner.push_back(pIterator);
+			}
+		} else {
+			Iterator *pIterator = nullptr;
+			if (decl.ShouldImplicitMap(value)) {
+				pIterator = value.CreateIterator(sig);
+				if (pIterator == nullptr) return false;
+			} else {
+				pIterator = new Iterator_Constant(value);
+			}
+			iterOwner.push_back(pIterator);
+		}
+	}
+#endif
 	return true;
 }
 
 void Argument::AssignToEnvironment(Environment &env) const
 {
+#if 1
 	Slots::const_iterator pSlot = _slots.begin();
 	ValueList::const_iterator pValue = _valListArg.begin();
 	for ( ; pSlot != _slots.end() && pValue != _valListArg.end(); pSlot++, pValue++) {
 		const Declaration &decl = pSlot->GetDeclaration();
 		env.AssignValue(decl.GetSymbol(), *pValue, EXTRA_Public);
 	}
+#else
+	foreach_const (Slots, pSlot, _slots) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		const Value &value = pSlot->GetValue();
+		env.AssignValue(decl.GetSymbol(), value, EXTRA_Public);
+	}
+#endif
 }
 
 Environment *Argument::PrepareEnvironment(Environment &env, bool thisAssignFlag) const
@@ -509,10 +578,12 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 {
 	if (mapFlag && _pDecl->ShouldImplicitMap(value)) {
 		if (_pDecl->IsVariableLength()) {
-			_value.GetList().push_back(Value::Undefined);
+			//_value.GetList().push_back(Value::Undefined);
+			_value.GetList().push_back(value);
 			
 		} else if (_value.IsUndefined()) {
-			
+			_value = value;
+
 		} else {
 			env.SetError(ERR_ValueError, "argument confliction");
 			return false;
@@ -521,7 +592,6 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 	}
 	Value valueCasted = value;
 	if (_pDecl->ValidateAndCast(env, valueCasted)) {
-		//if (true) {
 		if (_pDecl->IsVariableLength()) {
 			_value.GetList().push_back(valueCasted);
 			
