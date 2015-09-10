@@ -86,7 +86,7 @@ public:
 	~DeclarationList();
 	bool IsVariableLength() const;
 	void SetAsLoose();
-	bool Compensate(Environment &env, ValueList &valList) const;
+	//bool Compensate(Environment &env, ValueList &valList) const;
 	String ToString() const;
 };
 

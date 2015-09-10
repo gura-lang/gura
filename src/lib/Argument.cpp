@@ -262,14 +262,15 @@ bool Argument::Compensate(Environment &env)
 	if (_iSlotCur >= _slots.size()) return true;
 	Slots::const_iterator pSlot = _slots.begin() + _iSlotCur;
 	for ( ; pSlot != _slots.end(); pSlot++) {
-		// handling named arguments and arguments with a default value
-
 		const Declaration &decl = pSlot->GetDeclaration();
 		const Expr *pExprArg = decl.GetExprDefault();
 		if (pExprArg == nullptr) {
 			if (decl.GetOccurPattern() == OCCUR_ZeroOrOnce) {
 				if (!AddValue(env, Value::Undefined)) return false;
 			} else if (decl.GetOccurPattern() == OCCUR_ZeroOrMore) {
+				break;
+			} else if (decl.GetOccurPattern() == OCCUR_OnceOrMore &&
+					   !pSlot->GetValue().GetList().empty()) {
 				break;
 			} else {
 				Declaration::SetError_NotEnoughArguments(env);

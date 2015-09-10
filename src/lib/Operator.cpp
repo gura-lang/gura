@@ -614,12 +614,9 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 		} else if (valueRight.Is_list()) {
 			const ValueList &valList = valueRight.GetList();
 			if (valList.IsFlat()) {
-				ValueList valListComp = valList;
-				if (!pFunc->GetDeclOwner().Compensate(env, valListComp)) {
-					return Value::Nil;
-				}
 				AutoPtr<Argument> pArgSub(new Argument(pFunc));
-				if (!pArgSub->AddValues(env, valListComp)) return Value::Nil;
+				if (!pArgSub->AddValues(env, valList)) return Value::Nil;
+				if (!pArgSub->Compensate(env)) return Value::Nil;
 				return pFunc->Eval(env, *pArgSub);
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));

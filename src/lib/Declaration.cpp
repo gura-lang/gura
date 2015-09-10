@@ -272,6 +272,7 @@ void DeclarationList::SetAsLoose()
 	}
 }
 
+#if 0
 bool DeclarationList::Compensate(Environment &env, ValueList &valList) const
 {
 	Signal &sig = env.GetSignal();
@@ -313,6 +314,7 @@ bool DeclarationList::Compensate(Environment &env, ValueList &valList) const
 	}
 	return true;
 }
+#endif
 
 String DeclarationList::ToString() const
 {

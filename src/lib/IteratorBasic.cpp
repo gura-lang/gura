@@ -740,23 +740,17 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 	Value valueArg;
 	if (!_pIterator->Next(env, valueArg)) return false;
 	if (valueArg.Is_list()) {
-		ValueList valListComp = valueArg.GetList();
-		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, valListComp)) {
-			return false;
-		}
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 		pArg->SetValueThis(_valueThis);
-		if (!pArg->AddValues(env, valListComp)) return false;
+		if (!pArg->AddValues(env, valueArg.GetList())) return false;
+		if (!pArg->Compensate(*_pEnv)) return false;
 		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
 	} else {
-		ValueList valListComp(valueArg);
-		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, valListComp)) {
-			return false;
-		}
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 		pArg->SetValueThis(_valueThis);
-		if (!pArg->AddValues(env, valListComp)) return false;
+		if (!pArg->AddValue(env, valueArg)) return false;
+		if (!pArg->Compensate(*_pEnv)) return false;
 		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
 		//sig.SetError(ERR_TypeError, "invalid structure of arguments");

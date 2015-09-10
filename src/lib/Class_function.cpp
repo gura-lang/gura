@@ -127,12 +127,10 @@ Value Object_function::DoCall(
 
 Value Object_function::Eval(Environment &env, ValueList &valListArg) const
 {
-	Signal &sig = env.GetSignal();
-	GetFunction()->GetDeclOwner().Compensate(env, valListArg);
-	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Argument> pArg(new Argument(GetFunction()));
 	pArg->SetValueThis(_valueThis);
 	if (!pArg->AddValues(env, valListArg)) return Value::Nil;
+	if (!pArg->Compensate(env)) return Value::Nil;
 	return GetFunction()->Eval(env, *pArg);
 }
 
