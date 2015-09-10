@@ -278,6 +278,7 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 	return result;
 }
 
+#if 1
 Value Function::Eval(Environment &env, Argument &arg) const
 {
 	ValueList valListCasted;
@@ -324,6 +325,14 @@ Value Function::Eval(Environment &env, Argument &arg) const
 	if (arg.IsResultVoid()) return Value::Undefined;
 	return value;
 }
+#else
+Value Function::Eval(Environment &env, Argument &arg) const
+{
+	Value value = DoEval(env, arg);
+	if (arg.IsResultVoid()) return Value::Undefined;
+	return value;
+}
+#endif
 
 Value Function::ReturnValue(Environment &env, Argument &arg, const Value &result) const
 {
@@ -353,7 +362,7 @@ Value Function::ReturnValues(Environment &env, Argument &arg, const ValueList &v
 					arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
 	AutoPtr<Argument> pArgSub(new Argument(pFuncBlock));
-	if (!pArgSub->AddValue(env, valListArg)) return Value::Nil;
+	if (!pArgSub->SetValues(env, valListArg)) return Value::Nil;
 	Value value = pFuncBlock->Eval(env, *pArgSub);
 	if (sig.IsBreak() || sig.IsContinue()) {
 		sig.ClearSignal();

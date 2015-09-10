@@ -76,6 +76,7 @@ Argument::~Argument()
 {
 }
 
+#if 1
 bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 {
 	Signal &sig = env.GetSignal();
@@ -229,6 +230,8 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 	SetValueDictArg(pValDictArg);
 	return CheckValidity(env);
 }
+#else
+#endif
 
 bool Argument::AddValue(Environment &env, const Value &value)
 {
@@ -245,7 +248,7 @@ bool Argument::AddValue(Environment &env, const Value &value)
 	return false;
 }
 
-bool Argument::AddValue(Environment &env, const ValueList &valList)
+bool Argument::SetValues(Environment &env, const ValueList &valList)
 {
 	foreach_const (ValueList, pValue, valList) {
 		if (!AddValue(env, *pValue)) return false;

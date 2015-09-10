@@ -158,7 +158,7 @@ public:
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	bool EvalExpr(Environment &env, const ExprList &exprListArg);
 	bool AddValue(Environment &env, const Value &value);
-	bool AddValue(Environment &env, const ValueList &valList);
+	bool SetValues(Environment &env, const ValueList &valList);
 	inline bool AddValue(Environment &env, const Value &v1, const Value &v2) {
 		return AddValue(env, v1) && AddValue(env, v2);
 	}
