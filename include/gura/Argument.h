@@ -19,6 +19,21 @@ public:
 		MAPMODE_ToIter,
 	};
 public:
+	class GURA_DLLDECLARE Iterator_VarLength : public Iterator {
+	private:
+		const Declaration *_pDecl;
+		ValueList &_valList;
+		IteratorOwner _iterOwner;
+		bool _finiteFoundFlag;
+	public:
+		inline Iterator_VarLength(const Declaration *pDecl, ValueList &valList) :
+			Iterator(false), _pDecl(pDecl), _valList(valList), _finiteFoundFlag(false) {}
+		virtual Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Value &value);
+		virtual String ToString() const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+		void AddIterator(Iterator *pIterator);
+	};
 	class GURA_DLLDECLARE Slot {
 	private:
 		AutoPtr<Declaration> _pDecl;
@@ -26,7 +41,8 @@ public:
 		AutoPtr<Iterator> _pIteratorMap;
 	public:
 		inline Slot(Declaration *pDecl) : _pDecl(pDecl), _value(Value::Undefined) {}
-		inline Slot(Declaration *pDecl, const Value &value) : _pDecl(pDecl), _value(value) {}
+		inline Slot(Declaration *pDecl, const Value &value, Iterator *pIteratorMap) :
+			_pDecl(pDecl), _value(value), _pIteratorMap(pIteratorMap) {}
 		inline Slot(const Slot &slot) :
 			_pDecl(slot._pDecl->Reference()),
 			_value(slot._value),

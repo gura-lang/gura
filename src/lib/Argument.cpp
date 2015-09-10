@@ -63,7 +63,9 @@ void Argument::InitializeSlot(const Function *pFunc)
 	foreach_const (DeclarationOwner, ppDecl, declOwner) {
 		const Declaration *pDecl = *ppDecl;
 		if (pDecl->IsVariableLength()) {
-			_slots.push_back(Slot(pDecl->Reference(), Value::CreateList(env)));
+			Value value;
+			AutoPtr<Iterator> pIterator(new Iterator_VarLength(pDecl, value.InitAsList(env)));
+			_slots.push_back(Slot(pDecl->Reference(), value, pIterator.release()));
 		} else {
 			_slots.push_back(Slot(pDecl->Reference()));
 		}
@@ -569,6 +571,53 @@ bool Argument::IsSet(const Symbol *pSymbol) const
 {
 	return GetAttrs().IsSet(pSymbol) || (_flags & Symbol::ToFlag(pSymbol)) != 0 ||
 		(_resultMode != RSLTMODE_Normal && _resultMode == Symbol::ToResultMode(pSymbol));
+}
+
+//-----------------------------------------------------------------------------
+// Argument::Iterator_VarLength
+//-----------------------------------------------------------------------------
+Iterator *Argument::Iterator_VarLength::GetSource()
+{
+	return nullptr;
+}
+
+bool Argument::Iterator_VarLength::DoNext(Environment &env, Value &value)
+{
+	size_t idx = 0;
+	foreach_const (IteratorOwner, ppIterator, _iterOwner) {
+		Iterator *pIterator = *ppIterator;
+		if (pIterator != nullptr) {
+			Value valueItem;
+			if (!pIterator->Next(env, valueItem)) return false;
+			if (!_pDecl->ValidateAndCast(env, valueItem)) return false;
+			_valList[idx] = valueItem;
+		}
+		idx++;
+	}
+	return true;
+}
+
+String Argument::Iterator_VarLength::ToString() const
+{
+	String rtn = "varlength(";
+	rtn += ")";
+	return rtn;
+}
+
+void Argument::Iterator_VarLength::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+	if (_cntRef == 1) {
+		_iterOwner.GatherFollower(pFrame, envSet);
+	}
+}
+
+void Argument::Iterator_VarLength::AddIterator(Iterator *pIterator)
+{
+	if (pIterator != nullptr && !_finiteFoundFlag) {
+		SetInfiniteFlag(pIterator->IsInfinite());
+		_finiteFoundFlag = !pIterator->IsInfinite();
+	}
+	_iterOwner.push_back(pIterator);
 }
 
 //-----------------------------------------------------------------------------
