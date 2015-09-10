@@ -96,7 +96,7 @@ protected:
 	void InitializeSlot(const Function *pFunc);
 	virtual ~Argument();
 public:
-	inline const Function *GetFunction() const { return _pFunc.get(); }
+	inline Function *GetFunction() const { return _pFunc.get(); }
 	bool IsSet(const Symbol *pSymbol) const;
 	inline bool IsAttrEmpty() const { return GetAttrs().empty(); }
 	inline void SetAttrsShared(SymbolSetShared *pAttrsShared) {

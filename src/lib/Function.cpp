@@ -258,8 +258,8 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 	if (!arg.GetFlag(FLAG_Map)) return Eval(env, arg);
 	Argument::MapMode mapMode = arg.DetermineMapMode();
 	if (mapMode == Argument::MAPMODE_None) return Eval(env, arg);
-	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(
-				new Environment(env), Function::Reference(this), arg.Reference(), false));
+	AutoPtr<Iterator_ImplicitMap> pIterator(
+		new Iterator_ImplicitMap(new Environment(env), arg.Reference(), false));
 	if (!pIterator->Prepare()) return Value::Nil;
 	if (arg.IsResultIterator() || arg.IsResultXIterator() ||
 			(arg.IsResultNormal() && mapMode == Argument::MAPMODE_ToIter)) {
@@ -398,7 +398,6 @@ Value Function::ReturnIterator(Environment &env, Argument &arg, Iterator *pItera
 									arg.IsResultSet() || arg.IsResultXSet()) {
 		ResultComposer resultComposer(env, arg, result);
 		resultComposer.Store(env, pIterator);
-		//result = pIterator->Eval(env, arg);
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Nil;
 	} else if (pIterator->IsRepeater()) {

@@ -415,9 +415,8 @@ void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 //-----------------------------------------------------------------------------
 // Iterator_ImplicitMap
 //-----------------------------------------------------------------------------
-Iterator_ImplicitMap::Iterator_ImplicitMap(Environment *pEnv,
-										   Function *pFunc, Argument *pArg, bool skipInvalidFlag) :
-	Iterator(false, skipInvalidFlag), _pEnv(pEnv), _pFunc(pFunc), _pArg(pArg), _doneThisFlag(false)
+Iterator_ImplicitMap::Iterator_ImplicitMap(Environment *pEnv, Argument *pArg, bool skipInvalidFlag) :
+	Iterator(false, skipInvalidFlag), _pEnv(pEnv), _pArg(pArg), _doneThisFlag(false)
 {
 }
 
@@ -446,7 +445,7 @@ bool Iterator_ImplicitMap::DoNext(Environment &env, Value &value)
 	ValueList valList;
 	if (_doneThisFlag || !_iterOwner.Next(env, valList)) return false;
 	AutoPtr<Argument> pArgEach(new Argument(*_pArg, valList));
-	value = _pFunc->Eval(*_pEnv, *pArgEach);
+	value = _pArg->GetFunction()->Eval(*_pEnv, *pArgEach);
 	if (sig.IsSignalled()) return false;
 	Iterator *pIteratorThis = _pArg->GetIteratorThis();
 	if (pIteratorThis != nullptr) {
@@ -462,7 +461,7 @@ String Iterator_ImplicitMap::ToString() const
 {
 	String str;
 	str += "implicitmap(";
-	str += _pFunc->GetName();
+	str += _pArg->GetFunction()->GetName();
 	str += ";";
 	foreach_const (IteratorOwner, ppIterator, _iterOwner) {
 		const Iterator *pIterator = *ppIterator;
@@ -481,7 +480,7 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 		if (pIteratorThis != nullptr) {
 			pIteratorThis->GatherFollower(pFrame, envSet);
 		}
-		_pFunc->GatherFollower(pFrame, envSet);
+		_pArg->GetFunction()->GatherFollower(pFrame, envSet);
 		_iterOwner.GatherFollower(pFrame, envSet);
 	}
 }

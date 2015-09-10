@@ -243,13 +243,11 @@ public:
 class GURA_DLLDECLARE Iterator_ImplicitMap : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
-	AutoPtr<Function> _pFunc;
 	AutoPtr<Argument> _pArg;
 	IteratorOwner _iterOwner;
 	bool _doneThisFlag;
 public:
-	Iterator_ImplicitMap(Environment *pEnv,
-						 Function *pFunc, Argument *pArg, bool skipInvalidFlag);
+	Iterator_ImplicitMap(Environment *pEnv, Argument *pArg, bool skipInvalidFlag);
 	virtual ~Iterator_ImplicitMap();
 	bool Prepare();
 	virtual Iterator *GetSource();
