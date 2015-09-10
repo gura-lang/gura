@@ -3,6 +3,8 @@
 //=============================================================================
 #include "stdafx.h"
 
+#define OLD_STYLE 1
+
 namespace Gura {
 
 static bool PrepareRepeaterIterators(Environment &env,
@@ -416,16 +418,18 @@ void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 // Iterator_ImplicitMap
 //-----------------------------------------------------------------------------
 Iterator_ImplicitMap::Iterator_ImplicitMap(Environment *pEnv, Argument *pArg, bool skipInvalidFlag) :
-	Iterator(false, skipInvalidFlag), _pEnv(pEnv), _pArg(pArg), _doneThisFlag(false)
+	Iterator(pArg->IsInfiniteMap(), skipInvalidFlag), _pEnv(pEnv), _pArg(pArg), _doneThisFlag(false)
 {
 }
 
 bool Iterator_ImplicitMap::Prepare()
 {
-	if (!_pArg->PrepareForMap(*_pEnv, _iterOwner)) return false;
+#if OLD_STYLE
 	Iterator *pIteratorThis = _pArg->GetIteratorThis();
+	if (!_pArg->PrepareForMap(*_pEnv, _iterOwner)) return false;
 	SetInfiniteFlag(_iterOwner.IsInfinite() &&
-				(pIteratorThis == nullptr || pIteratorThis->IsInfinite()));
+					(pIteratorThis == nullptr || pIteratorThis->IsInfinite()));
+#endif
 	return true;
 }
 
@@ -441,17 +445,21 @@ Iterator *Iterator_ImplicitMap::GetSource()
 
 bool Iterator_ImplicitMap::DoNext(Environment &env, Value &value)
 {
-	Signal &sig = env.GetSignal();
+#if OLD_STYLE
 	ValueList valList;
 	if (_doneThisFlag || !_iterOwner.Next(env, valList)) return false;
 	AutoPtr<Argument> pArgEach(new Argument(*_pArg, valList));
 	value = _pArg->GetFunction()->Eval(*_pEnv, *pArgEach);
-	if (sig.IsSignalled()) return false;
+#else
+	if (_doneThisFlag || !_pArg->NextMap(env)) return false;
+	value = _pArg->GetFunction()->Eval(*_pEnv, *_pArg);
+#endif
+	if (env.IsSignalled()) return false;
 	Iterator *pIteratorThis = _pArg->GetIteratorThis();
 	if (pIteratorThis != nullptr) {
 		Value valueThis;
 		_doneThisFlag = !pIteratorThis->Next(env, valueThis);
-		if (sig.IsSignalled()) return false;
+		if (env.IsSignalled()) return false;
 		_pArg->SetValueThis(valueThis);
 	}
 	return true;
@@ -462,12 +470,14 @@ String Iterator_ImplicitMap::ToString() const
 	String str;
 	str += "implicitmap(";
 	str += _pArg->GetFunction()->GetName();
+#if 0
 	str += ";";
 	foreach_const (IteratorOwner, ppIterator, _iterOwner) {
 		const Iterator *pIterator = *ppIterator;
 		if (ppIterator != _iterOwner.begin()) str += ",";
 		str += pIterator->ToString();
 	}
+#endif
 	str += ")";
 	return str;
 }
@@ -476,11 +486,7 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 {
 	if (_cntRef == 1) {
 		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
-		Iterator *pIteratorThis = _pArg->GetIteratorThis();
-		if (pIteratorThis != nullptr) {
-			pIteratorThis->GatherFollower(pFrame, envSet);
-		}
-		_pArg->GetFunction()->GatherFollower(pFrame, envSet);
+		_pArg->GatherFollower(pFrame, envSet);
 		_iterOwner.GatherFollower(pFrame, envSet);
 	}
 }

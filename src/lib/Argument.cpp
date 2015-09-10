@@ -3,6 +3,8 @@
 //=============================================================================
 #include "stdafx.h"
 
+#define OLD_STYLE 1
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -76,7 +78,13 @@ Argument::~Argument()
 {
 }
 
-#if 1
+bool Argument::IsSet(const Symbol *pSymbol) const
+{
+	return GetAttrs().IsSet(pSymbol) || (_flags & Symbol::ToFlag(pSymbol)) != 0 ||
+		(_resultMode != RSLTMODE_Normal && _resultMode == Symbol::ToResultMode(pSymbol));
+}
+
+#if OLD_STYLE
 bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 {
 	Signal &sig = env.GetSignal();
@@ -301,21 +309,27 @@ bool Argument::Compensate(Environment &env)
 
 const Value &Argument::GetValue(size_t idxArg) const
 {
+#if OLD_STYLE
 	return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Nil;
-	//return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
+#else
+	return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
+#endif
 }
 
 void Argument::GetValues(ValueList &valList) const
 {
-	//foreach_const (ValueList, pValue, _valListArg) {
-	//	valList.push_back(*pValue);
-	//}
+#if OLD_STYLE
+	foreach_const (ValueList, pValue, _valListArg) {
+		valList.push_back(*pValue);
+	}
+#else
 	foreach_const (Slots, pSlot, _slots) {
 		valList.push_back(pSlot->GetValue());
 	}
+#endif
 }
 
-bool Argument::CheckValidity(Environment &env)
+bool Argument::CheckValidity(Environment &env) const
 {
 	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
@@ -349,6 +363,22 @@ bool Argument::CheckValidity(Environment &env)
 			return false;
 		}
 	}
+#if 0
+	foreach_const (Slots, pSlot, _slots) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		if (decl.GetOccurPattern() == OCCUR_Once) {
+			if (pSlot->GetValue().IsUndefined()) {
+				Declaration::SetError_NotEnoughArguments(env);
+				return false;
+			}
+		} else if (decl.GetOccurPattern() == OCCUR_OnceOrMore) {
+			if (pSlot->GetValue().GetList().empty()) {
+				Declaration::SetError_NotEnoughArguments(env);
+				return false;
+			}
+		}
+	}
+#endif
 	return true;
 }
 
@@ -359,7 +389,7 @@ Argument::MapMode Argument::DetermineMapMode() const
 		if (!_listThisFlag) return MAPMODE_ToIter;
 		mapMode = MAPMODE_ToList;
 	}
-#if 1
+#if OLD_STYLE
 	ValueList::const_iterator pValue = _valListArg.begin();
 	Slots::const_iterator pSlot = _slots.begin();
 	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
@@ -390,10 +420,10 @@ Argument::MapMode Argument::DetermineMapMode() const
 	return mapMode;
 }
 
-bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
+bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner) const
 {
+#if OLD_STYLE
 	Signal &sig = env.GetSignal();
-#if 1
 	ValueList::const_iterator pValue = _valListArg.begin();
 	Slots::const_iterator pSlot = _slots.begin();
 	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
@@ -408,39 +438,13 @@ bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner)
 		iterOwner.push_back(pIterator);
 		if (!decl.IsVariableLength()) pSlot++;
 	}
-#else
-	foreach_const (Slots, pSlot, _slots) {
-		const Declaration &decl = pSlot->GetDeclaration();
-		const Value &value = pSlot->GetValue();
-		if (decl.IsVariableLength()) {
-			foreach_const (ValueList, pValue, value.GetList()) {
-				Iterator *pIterator = nullptr;
-				if (decl.ShouldImplicitMap(*pValue)) {
-					pIterator = pValue->CreateIterator(sig);
-					if (pIterator == nullptr) return false;
-				} else {
-					pIterator = new Iterator_Constant(*pValue);
-				}
-				iterOwner.push_back(pIterator);
-			}
-		} else {
-			Iterator *pIterator = nullptr;
-			if (decl.ShouldImplicitMap(value)) {
-				pIterator = value.CreateIterator(sig);
-				if (pIterator == nullptr) return false;
-			} else {
-				pIterator = new Iterator_Constant(value);
-			}
-			iterOwner.push_back(pIterator);
-		}
-	}
 #endif
 	return true;
 }
 
 void Argument::AssignToEnvironment(Environment &env) const
 {
-#if 1
+#if OLD_STYLE
 	Slots::const_iterator pSlot = _slots.begin();
 	ValueList::const_iterator pValue = _valListArg.begin();
 	for ( ; pSlot != _slots.end() && pValue != _valListArg.end(); pSlot++, pValue++) {
@@ -565,10 +569,24 @@ const Function *Argument::GetBlockFunc(Environment &env, const Symbol *pSymbol)
 	return _pFuncBlock.get();
 }
 
-bool Argument::IsSet(const Symbol *pSymbol) const
+bool Argument::NextMap(Environment &env)
 {
-	return GetAttrs().IsSet(pSymbol) || (_flags & Symbol::ToFlag(pSymbol)) != 0 ||
-		(_resultMode != RSLTMODE_Normal && _resultMode == Symbol::ToResultMode(pSymbol));
+	foreach (Slots, pSlot, _slots) {
+		if (!pSlot->NextMap(env)) return false;
+	}
+	return true;
+}
+
+void Argument::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+	if (!_pIteratorThis.IsNull()) {
+		_pIteratorThis->GatherFollower(pFrame, envSet);
+	}
+	foreach (Slots, pSlot, _slots) {
+		Iterator *pIterator = pSlot->GetIteratorMap();
+		if (pIterator != nullptr) pIterator->GatherFollower(pFrame, envSet);
+	}
+	_pFunc->GatherFollower(pFrame, envSet);
 }
 
 //-----------------------------------------------------------------------------
@@ -623,20 +641,13 @@ void Argument::Iterator_VarLength::AddIterator(Iterator *pIterator)
 //-----------------------------------------------------------------------------
 bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag)
 {
-	//Signal &sig = env.GetSignal();
+#if OLD_STYLE
 	if (mapFlag && _pDecl->ShouldImplicitMap(value)) {
 		if (_pDecl->IsVariableLength()) {
-			//_value.GetList().push_back(Value::Undefined);
 			_value.GetList().push_back(value);
-			//AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
-			//if (pIterator.IsNull()) return false;
-			AutoPtr<Iterator> pIterator;
-			dynamic_cast<Iterator_VarLength *>(_pIteratorMap.get())->AddIterator(pIterator.release());
+			dynamic_cast<Iterator_VarLength *>(_pIteratorMap.get())->AddIterator(nullptr);
 		} else if (_value.IsUndefined()) {
 			_value = value;
-			//AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
-			//if (pIterator.IsNull()) return false;
-			//_pIteratorMap.reset(pIterator.release());
 		} else {
 			env.SetError(ERR_ValueError, "argument confliction");
 			return false;
@@ -644,7 +655,6 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 		return true;
 	}
 	Value valueCasted = value;
-	//if (_pDecl->ValidateAndCast(env, valueCasted)) { // casting would be duplicated
 	if (true) {
 		if (_pDecl->IsVariableLength()) {
 			_value.GetList().push_back(valueCasted);
@@ -658,6 +668,40 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 		return true;
 	}
 	return false;
+#else
+	Signal &sig = env.GetSignal();
+	if (mapFlag && _pDecl->ShouldImplicitMap(value)) {
+		if (_pDecl->IsVariableLength()) {
+			_value.GetList().push_back(Value::Undefined);
+			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+			if (pIterator.IsNull()) return false;
+			dynamic_cast<Iterator_VarLength *>(_pIteratorMap.get())->
+											AddIterator(pIterator.release());
+		} else if (_value.IsUndefined()) {
+			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+			if (pIterator.IsNull()) return false;
+			_pIteratorMap.reset(pIterator.release());
+		} else {
+			env.SetError(ERR_ValueError, "argument confliction");
+			return false;
+		}
+		return true;
+	}
+	Value valueCasted = value;
+	if (_pDecl->ValidateAndCast(env, valueCasted)) {
+		if (_pDecl->IsVariableLength()) {
+			_value.GetList().push_back(valueCasted);
+			dynamic_cast<Iterator_VarLength *>(_pIteratorMap.get())->AddIterator(nullptr);
+		} else if (_value.IsUndefined()) {
+			_value = valueCasted;
+		} else {
+			env.SetError(ERR_ValueError, "argument confliction");
+			return false;
+		}
+		return true;
+	}
+	return false;
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -669,14 +713,6 @@ Argument::Slot *Argument::Slots::FindBySymbol(const Symbol *pSymbol)
 		if (pSlot->GetDeclaration().GetSymbol()->IsIdentical(pSymbol)) return &*pSlot;
 	}
 	return nullptr;
-}
-
-bool Argument::Slots::NextMap(Environment &env)
-{
-	foreach (Slots, pSlot, *this) {
-		if (!pSlot->NextMap(env)) return false;
-	}
-	return true;
 }
 
 }

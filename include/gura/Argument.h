@@ -67,7 +67,6 @@ public:
 	public:
 		inline Slots() {}
 		Slot *FindBySymbol(const Symbol *pSymbol);
-		bool NextMap(Environment &env);
 	};
 private:
 	int _cntRef;
@@ -266,11 +265,9 @@ public:
 	inline const ValueDict &GetValueDictArg() const { 
 		return _pValDictArg.IsNull()? ValueDict::Empty : *_pValDictArg;
 	}
-	bool CheckValidity(Environment &env);
+	bool CheckValidity(Environment &env) const;
 	MapMode DetermineMapMode() const;
-	//bool ShouldImplicitMap() const;
-	//bool ShouldGenerateIterator() const;
-	bool PrepareForMap(Environment &env, IteratorOwner &iterOwner);
+	bool PrepareForMap(Environment &env, IteratorOwner &iterOwner) const;
 	bool IsInfiniteMap() const;
 	void AssignToEnvironment(Environment &env) const;
 	Environment *PrepareEnvironment(Environment &env, bool thisAssignFlag) const;
@@ -278,6 +275,8 @@ public:
 	const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
 	const Expr_Block *GetBlockCooked(Environment &env) const;
 	const Function *GetBlockFunc(Environment &env, const Symbol *pSymbol);
+	bool NextMap(Environment &env);
+	void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
 }

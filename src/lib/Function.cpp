@@ -3,6 +3,8 @@
 //=============================================================================
 #include "stdafx.h"
 
+#define OLD_STYLE 1
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -278,7 +280,7 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 	return result;
 }
 
-#if 1
+#if OLD_STYLE
 Value Function::Eval(Environment &env, Argument &arg) const
 {
 	ValueList valListCasted;
