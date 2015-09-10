@@ -84,7 +84,6 @@ bool Argument::IsSet(const Symbol *pSymbol) const
 		(_resultMode != RSLTMODE_Normal && _resultMode == Symbol::ToResultMode(pSymbol));
 }
 
-#if OLD_STYLE
 bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 {
 	Signal &sig = env.GetSignal();
@@ -238,8 +237,6 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 	SetValueDictArg(pValDictArg);
 	return CheckValidity(env);
 }
-#else
-#endif
 
 bool Argument::AddValue(Environment &env, const Value &value)
 {
@@ -672,12 +669,13 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 	Signal &sig = env.GetSignal();
 	if (mapFlag && _pDecl->ShouldImplicitMap(value)) {
 		if (_pDecl->IsVariableLength()) {
-			_value.GetList().push_back(Value::Undefined);
+			_value.GetList().push_back(value); // necessary for DetermineMapMode()
 			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
 			if (pIterator.IsNull()) return false;
 			dynamic_cast<Iterator_VarLength *>(_pIteratorMap.get())->
 											AddIterator(pIterator.release());
 		} else if (_value.IsUndefined()) {
+			_value = value; // necessary for DetermineMapMode()
 			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
 			if (pIterator.IsNull()) return false;
 			_pIteratorMap.reset(pIterator.release());
