@@ -55,7 +55,7 @@ public:
 		inline const Declaration &GetDeclaration() const { return *_pDecl; }
 		//inline Value &GetValue() { return _value; }
 		inline const Value &GetValue() const { return _value; }
-		bool SetValue(Environment &env, const Value &value, bool mapFlag);
+		bool SetValue(Environment &env, const Value &value, bool mapFlag, MapMode *pMapMode);
 		inline void SetIteratorMap(Iterator *pIteratorMap) { _pIteratorMap.reset(pIteratorMap); }
 		inline Iterator *GetIteratorMap() { return _pIteratorMap.get(); }
 		inline const Iterator *GetIteratorMap() const { return _pIteratorMap.get(); }
@@ -80,7 +80,7 @@ private:
 	AutoPtr<Function> _pFuncBlock;
 	Value _valueThis;
 	AutoPtr<Iterator> _pIteratorThis;
-	bool _listThisFlag;
+	MapMode _mapMode;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
 	ValueList _valListArg;
 	size_t _iSlotCur;
@@ -96,7 +96,6 @@ protected:
 	virtual ~Argument();
 public:
 	inline Function *GetFunction() const { return _pFunc.get(); }
-	bool IsSet(const Symbol *pSymbol) const;
 	inline bool IsAttrEmpty() const { return GetAttrs().empty(); }
 	inline void SetAttrsShared(SymbolSetShared *pAttrsShared) {
 		_pAttrsShared.reset(pAttrsShared);
@@ -121,14 +120,8 @@ public:
 	inline const Object *GetObjectThis() const { return _valueThis.GetObject(); }
 	inline Fundamental *GetFundamentalThis() { return _valueThis.GetFundamental(); }
 	inline const Fundamental *GetFundamentalThis() const { return _valueThis.GetFundamental(); }
-	inline void SetIteratorThis(Iterator *pIteratorThis, bool listThisFlag) {
-		_pIteratorThis.reset(pIteratorThis);
-		_listThisFlag = listThisFlag;
-	}
 	inline Iterator *GetIteratorThis() { return _pIteratorThis.get(); }
 	inline bool IsThisIterable() const { return !_pIteratorThis.IsNull(); }
-	inline bool IsThisList() const { return !_pIteratorThis.IsNull() && _listThisFlag; }
-	inline bool IsThisIterator() const { return !_pIteratorThis.IsNull() && !_listThisFlag; }
 	inline bool IsBlockSpecified() const { return !_pExprBlock.IsNull(); }
 	inline bool IsResultIterator() const { return _resultMode == RSLTMODE_Iterator; }
 	inline bool IsResultList() const { return _resultMode == RSLTMODE_List; }
@@ -173,6 +166,8 @@ public:
 		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && \
 			AddValue(env, v4) && AddValue(env, v5);
 	}
+	void SetIteratorThis(Iterator *pIteratorThis, bool listThisFlag);
+	bool IsSet(const Symbol *pSymbol) const;
 	bool Compensate(Environment &env);
 	//Value GetValue(size_t idxArg);
 	const Value &GetValue(size_t idxArg) const;
@@ -249,7 +244,6 @@ public:
 	inline const Binary &GetBinary(size_t idxArg) const	{ return GetValue(idxArg).GetBinary();	}
 	inline Complex GetComplex(size_t idxArg) const		{ return GetValue(idxArg).GetComplex();	}
 	inline Module *GetModule(size_t idxArg) const		{ return GetValue(idxArg).GetModule();	}
-	//inline const Module *GetModule(size_t idxArg) const	{ return GetValue(idxArg).GetModule();	}
 	inline const ValueList &GetList(size_t idxArg) const{ return GetValue(idxArg).GetList();	}
 	inline const ValueDict &GetDict(size_t idxArg) const{ return GetValue(idxArg).GetDict();	}
 	inline Iterator *GetIterator(size_t idxArg) const	{ return GetValue(idxArg).GetIterator();}
@@ -259,14 +253,13 @@ public:
 	}
 	inline const Expr *GetExpr(size_t idxArg) const		{ return GetValue(idxArg).GetExpr();	}
 	inline Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }
-	//inline const Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }
 	inline ErrorType GetErrorType(size_t idxArg) const	{ return GetValue(idxArg).GetErrorType(); }
 	inline void SetValueDictArg(ValueDict *pValDictArg) { _pValDictArg.reset(pValDictArg); }
 	inline const ValueDict &GetValueDictArg() const { 
 		return _pValDictArg.IsNull()? ValueDict::Empty : *_pValDictArg;
 	}
+	MapMode GetMapMode() const { return _mapMode; }
 	bool CheckValidity(Environment &env) const;
-	MapMode DetermineMapMode() const;
 	bool PrepareForMap(Environment &env, IteratorOwner &iterOwner) const;
 	bool IsInfiniteMap() const;
 	void AssignToEnvironment(Environment &env) const;

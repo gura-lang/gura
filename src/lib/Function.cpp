@@ -257,8 +257,8 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 
 Value Function::EvalAuto(Environment &env, Argument &arg) const
 {
-	if (!arg.GetFlag(FLAG_Map)) return Eval(env, arg);
-	Argument::MapMode mapMode = arg.DetermineMapMode();
+	//if (!arg.GetFlag(FLAG_Map)) return Eval(env, arg);
+	Argument::MapMode mapMode = arg.GetMapMode();
 	if (mapMode == Argument::MAPMODE_None) return Eval(env, arg);
 	AutoPtr<Iterator_ImplicitMap> pIterator(
 		new Iterator_ImplicitMap(new Environment(env), arg.Reference(), false));

@@ -16,7 +16,7 @@ Argument::Argument(const Function *pFunc) :
 	_valTypeResult(pFunc->GetValueTypeResult()),
 	_resultMode(pFunc->GetResultMode()),
 	_flags(pFunc->GetFlags()),
-	_listThisFlag(false),
+	_mapMode(MAPMODE_None),
 	_iSlotCur(0)
 {
 	InitializeSlot(pFunc);
@@ -30,7 +30,7 @@ Argument::Argument(const Function *pFunc, const CallerInfo &callerInfo) :
 	_flags(callerInfo.ModifyFlags(pFunc->GetFlags())),
 	_pAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared())),
 	_pExprBlock(Expr_Block::Reference(callerInfo.GetBlock())),
-	_listThisFlag(false),
+	_mapMode(MAPMODE_None),
 	_iSlotCur(0)
 {
 	InitializeSlot(pFunc);
@@ -48,7 +48,7 @@ Argument::Argument(const Argument &arg, const ValueList &valListArg) :
 	_pFuncBlock(Function::Reference(arg._pFuncBlock.get())),
 	_valueThis(arg._valueThis),
 	_pIteratorThis(Iterator::Reference(arg._pIteratorThis.get())),
-	_listThisFlag(arg._listThisFlag),
+	_mapMode(arg._mapMode),
 	_pTrailCtrlHolder(TrailCtrlHolder::Reference(arg._pTrailCtrlHolder.get())),
 	_valListArg(valListArg),
 	_iSlotCur(arg._iSlotCur),
@@ -76,6 +76,14 @@ void Argument::InitializeSlot(const Function *pFunc)
 
 Argument::~Argument()
 {
+}
+
+void Argument::SetIteratorThis(Iterator *pIteratorThis, bool listThisFlag)
+{
+	_pIteratorThis.reset(pIteratorThis);
+	if (!_pIteratorThis.IsNull() && _mapMode != MAPMODE_ToIter) {
+		_mapMode = listThisFlag? MAPMODE_ToList : MAPMODE_ToIter;
+	}
 }
 
 bool Argument::IsSet(const Symbol *pSymbol) const
@@ -243,7 +251,7 @@ bool Argument::AddValue(Environment &env, const Value &value)
 	_valListArg.push_back(value);
 	if (_iSlotCur < _slots.size()) {
 		Slot &slot = _slots[_iSlotCur];
-		if (!slot.SetValue(env, value, GetFlag(FLAG_Map))) return false;
+		if (!slot.SetValue(env, value, GetFlag(FLAG_Map), &_mapMode)) return false;
 		if (!slot.GetDeclaration().IsVariableLength()) _iSlotCur++;
 		return true;
 	} else if (GetFlag(FLAG_CutExtraArgs)) {
@@ -377,44 +385,6 @@ bool Argument::CheckValidity(Environment &env) const
 	}
 #endif
 	return true;
-}
-
-Argument::MapMode Argument::DetermineMapMode() const
-{
-	MapMode mapMode = MAPMODE_None;
-	if (!_pIteratorThis.IsNull()) {
-		if (!_listThisFlag) return MAPMODE_ToIter;
-		mapMode = MAPMODE_ToList;
-	}
-#if OLD_STYLE
-	ValueList::const_iterator pValue = _valListArg.begin();
-	Slots::const_iterator pSlot = _slots.begin();
-	for ( ; pValue != _valListArg.end() && pSlot != _slots.end(); pValue++) {
-		const Declaration &decl = pSlot->GetDeclaration();
-		if (decl.ShouldImplicitMap(*pValue)) {
-			if (pValue->Is_iterator()) return MAPMODE_ToIter;
-			mapMode = MAPMODE_ToList;
-		}
-		if (!decl.IsVariableLength()) pSlot++;
-	}
-#else
-	foreach_const (Slots, pSlot, _slots) {
-		const Declaration &decl = pSlot->GetDeclaration();
-		const Value &value = pSlot->GetValue();
-		if (decl.IsVariableLength()) {
-			foreach_const (ValueList, pValue, value.GetList()) {
-				if (decl.ShouldImplicitMap(*pValue)) {
-					if (pValue->Is_iterator()) return MAPMODE_ToIter;
-					mapMode = MAPMODE_ToList;
-				}
-			}
-		} else if (decl.ShouldImplicitMap(value)) {
-			if (value.Is_iterator()) return MAPMODE_ToIter;
-			mapMode = MAPMODE_ToList;
-		}
-	}
-#endif
-	return mapMode;
 }
 
 bool Argument::PrepareForMap(Environment &env, IteratorOwner &iterOwner) const
@@ -636,10 +606,13 @@ void Argument::Iterator_VarLength::AddIterator(Iterator *pIterator)
 //-----------------------------------------------------------------------------
 // Argument::Slot
 //-----------------------------------------------------------------------------
-bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag)
+bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag, MapMode *pMapMode)
 {
 #if OLD_STYLE
 	if (mapFlag && _pDecl->ShouldImplicitMap(value)) {
+		if (*pMapMode != MAPMODE_ToIter) {
+			*pMapMode = value.Is_iterator()? MAPMODE_ToIter : MAPMODE_ToList;
+		}
 		if (_pDecl->IsVariableLength()) {
 			_value.GetList().push_back(value);
 			dynamic_cast<Iterator_VarLength *>(_pIteratorMap.get())->AddIterator(nullptr);
@@ -668,14 +641,16 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 #else
 	Signal &sig = env.GetSignal();
 	if (mapFlag && _pDecl->ShouldImplicitMap(value)) {
+		if (*pMapMode != MAPMODE_ToIter) {
+			*pMapMode = value.Is_iterator()? MAPMODE_ToIter : MAPMODE_ToList;
+		}
 		if (_pDecl->IsVariableLength()) {
-			_value.GetList().push_back(value); // necessary for DetermineMapMode()
+			_value.GetList().push_back(Value::Undefined);
 			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
 			if (pIterator.IsNull()) return false;
 			dynamic_cast<Iterator_VarLength *>(_pIteratorMap.get())->
 											AddIterator(pIterator.release());
 		} else if (_value.IsUndefined()) {
-			_value = value; // necessary for DetermineMapMode()
 			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
 			if (pIterator.IsNull()) return false;
 			_pIteratorMap.reset(pIterator.release());
