@@ -267,7 +267,7 @@ Gura_ImplementMethod(template_, call)
 	const Function *pFunc = pValue->GetFunction();
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(arg.GetValueThis());
-	if (!pArg->SetValues(env, arg.GetList(1))) return Value::Nil;
+	if (!pArg->AddValues(env, arg.GetList(1))) return Value::Nil;
 	pTemplate->ClearLastChar();
 	pFunc->Eval(env, *pArg);
 	return (pTemplate->GetLastChar() == '\n')? Value::Nil : Value("");

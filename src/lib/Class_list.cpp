@@ -726,7 +726,7 @@ Gura_ImplementFunction(ListInit)
 				return Value::Nil;
 			}
 			AutoPtr<Argument> pArgSub(new Argument(pFunc));
-			if (!pArgSub->SetValues(env, value.GetList())) return Value::Nil;
+			if (!pArgSub->AddValues(env, value.GetList())) return Value::Nil;
 			Value valueElem = pFunc->Eval(env, *pArgSub);
 			if (sig.IsSignalled()) return Value::Nil;
 			valList.push_back(valueElem);

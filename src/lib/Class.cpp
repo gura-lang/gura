@@ -129,7 +129,7 @@ Value Object::EvalMethod(Environment &env, const Function *pFunc, const ValueLis
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);
-	if (!pArg->SetValues(env, valListArg)) return Value::Nil;
+	if (!pArg->AddValues(env, valListArg)) return Value::Nil;
 	return pFunc->Eval(env, *pArg);
 }
 
@@ -143,7 +143,7 @@ Value Object::EvalMethod(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);
-	if (!pArg->SetValues(env, valListArg)) return Value::Nil;
+	if (!pArg->AddValues(env, valListArg)) return Value::Nil;
 	return pFunc->Eval(env, *pArg);
 }
 

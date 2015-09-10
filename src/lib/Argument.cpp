@@ -248,7 +248,7 @@ bool Argument::AddValue(Environment &env, const Value &value)
 	return false;
 }
 
-bool Argument::SetValues(Environment &env, const ValueList &valList)
+bool Argument::AddValues(Environment &env, const ValueList &valList)
 {
 	foreach_const (ValueList, pValue, valList) {
 		if (!AddValue(env, *pValue)) return false;

@@ -619,7 +619,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 					return Value::Nil;
 				}
 				AutoPtr<Argument> pArgSub(new Argument(pFunc));
-				if (!pArgSub->SetValues(env, valListComp)) return Value::Nil;
+				if (!pArgSub->AddValues(env, valListComp)) return Value::Nil;
 				return pFunc->Eval(env, *pArgSub);
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
@@ -993,7 +993,7 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 		if (!valueRight.Is_list() || pFunc->IsUnary()) {
 			if (!pArgSub->AddValue(env, valueRight)) return Value::Nil;
 		} else {
-			if (!pArgSub->SetValues(env, valueRight.GetList())) return Value::Nil;
+			if (!pArgSub->AddValues(env, valueRight.GetList())) return Value::Nil;
 		}
 		return pFunc->EvalAuto(env, *pArgSub);
 	} else if (valueLeft.Is_string()) {
