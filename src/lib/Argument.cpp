@@ -84,12 +84,28 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			if (pExprLeft->IsIdentifier()) {
 				const Symbol *pSymbol =
 					dynamic_cast<const Expr_Identifier *>(pExprLeft)->GetSymbol();
+#if 1
 				exprMap[pSymbol] = pExprRight->Reference();
+#else
+				Slot *pSlot = _slots.FindBySymbol(pSymbol);
+				if (pSlot == nullptr) {
+					Value value = pExprRight->Exec(env, nullptr);
+					if (sig.IsSignalled()) return false;
+					AddValueDictItem(valueKey, value);
+				} else if (decl.IsQuote()) {
+					Value value(new Object_expr(env, pExprRight->Reference()));
+					if (!pSlot->SetValue(env, value)) return false;
+				} else {
+					Value value = pExprRight->Exec(env, nullptr);
+					if (sig.IsSignalled()) return false;
+					if (!pSlot->SetValue(env, value)) return false;
+				}
+#endif
 			} else if (pExprLeft->IsValue()) {
 				const Value &valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
-				Value result = pExprRight->Exec(env, nullptr);
+				Value value = pExprRight->Exec(env, nullptr);
 				if (sig.IsSignalled()) return false;
-				AddValueDictItem(valueKey, result);
+				AddValueDictItem(valueKey, value);
 			} else {
 				pExprBinaryOp->SetError(sig, ERR_KeyError,
 					"l-value of dictionary assignment must be an identifier or a constant value");
@@ -98,13 +114,13 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Percnt)) {
 			// func(..., value%, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
-			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+			Value value = pExprUnaryOp->GetChild()->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
-			if (!result.Is_dict()) {
+			if (!value.Is_dict()) {
 				sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
 				return false;
 			}
-			foreach_const (ValueDict, item, result.GetDict()) {
+			foreach_const (ValueDict, item, value.GetDict()) {
 				const Value &valueKey = item->first;
 				const Value &value = item->second;
 				if (valueKey.Is_symbol()) {
@@ -142,21 +158,21 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Ast)) {
 			// func(..., value*, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
-			Value result = pExprUnaryOp->GetChild()->Exec(env, nullptr);
+			Value value = pExprUnaryOp->GetChild()->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
-			if (result.Is_list()) {
-				const ValueList &valList = result.GetList();
+			if (value.Is_list()) {
+				const ValueList &valList = value.GetList();
 				foreach_const (ValueList, pValue, valList) {
 					if (!AddValue(env, *pValue)) return false;
 				}
 				continue;
 			}
-			if (!AddValue(env, result)) return false;
+			if (!AddValue(env, value)) return false;
 		} else {
 			// func(..., value, ...)
-			Value result = pExprArg->Exec(env, nullptr);
+			Value value = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
-			if (!AddValue(env, result)) return false;
+			if (!AddValue(env, value)) return false;
 		}
 	}
 	//-------------------------------------------------------------------------
@@ -187,9 +203,9 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 							  Value(new Object_expr(env, pExprArg->Reference())))) return false;
 				continue;
 			} else {
-				Value result = pExprArg->Exec(env, nullptr);
+				Value value = pExprArg->Exec(env, nullptr);
 				if (sig.IsSignalled()) return false;
-				if (!AddValue(env, result)) return false;
+				if (!AddValue(env, value)) return false;
 			}
 		}
 	}
@@ -209,9 +225,9 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 		foreach (Function::ExprMap, iterExprMap, exprMap) {
 			const Symbol *pSymbol = iterExprMap->first;
 			const Expr *pExprArg = iterExprMap->second;
-			Value result = pExprArg->Exec(env, nullptr);
+			Value value = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
-			AddValueDictItem(Value(pSymbol), result);
+			AddValueDictItem(Value(pSymbol), value);
 		}
 	}
 	//-------------------------------------------------------------------------
@@ -275,9 +291,9 @@ bool Argument::Compensate(Environment &env)
 			const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 			if (!AddValue(env, Value(pSymbol))) return false;
 		} else {
-			Value result = pExprArg->Exec(env);
+			Value value = pExprArg->Exec(env);
 			if (sig.IsSignalled()) return false;
-			if (!AddValue(env, result)) return false;
+			if (!AddValue(env, value)) return false;
 		}
 	}
 	return true;
