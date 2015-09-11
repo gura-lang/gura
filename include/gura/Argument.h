@@ -152,11 +152,11 @@ public:
 		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3);
 	}
 	inline bool AddValue(Environment &env, const Value &v1, const Value &v2,
-						  const Value &v3, const Value &v4) {
+						 const Value &v3, const Value &v4) {
 		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && AddValue(env, v4);
 	}
 	inline bool AddValue(Environment &env, const Value &v1, const Value &v2,
-						  const Value &v3, const Value &v4, const Value &v5) {
+						 const Value &v3, const Value &v4, const Value &v5) {
 		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && \
 			AddValue(env, v4) && AddValue(env, v5);
 	}
@@ -165,12 +165,12 @@ public:
 	bool Compensate(Environment &env);
 	const Value &GetValue(size_t idxArg) const;
 	void GetValues(ValueList &valList) const;
-	// nil / undefined
+	inline bool IsType(size_t idxArg, ValueType valType) const { return GetValue(idxArg).IsType(valType); }
+	// invalid types
 	inline bool IsValid(size_t idxArg) const			{ return GetValue(idxArg).IsValid();			}
 	inline bool IsInvalid(size_t idxArg) const			{ return GetValue(idxArg).IsInvalid();			}
 	inline bool IsDefined(size_t idxArg) const			{ return GetValue(idxArg).IsDefined();			}
 	inline bool IsUndefined(size_t idxArg) const		{ return GetValue(idxArg).IsUndefined();		}
-	inline bool IsType(size_t idxArg, ValueType valType) const { return GetValue(idxArg).IsType(valType); }
 	// primitive types
 	inline bool Is_boolean(size_t idxArg) const			{ return GetValue(idxArg).Is_boolean();			}
 	inline bool Is_complex(size_t idxArg) const			{ return GetValue(idxArg).Is_complex();			}
@@ -240,14 +240,14 @@ public:
 	inline const ValueList &GetList(size_t idxArg) const{ return GetValue(idxArg).GetList();	}
 	inline const ValueDict &GetDict(size_t idxArg) const{ return GetValue(idxArg).GetDict();	}
 	inline Iterator *GetIterator(size_t idxArg) const	{ return GetValue(idxArg).GetIterator();}
-	inline Stream &GetStream(size_t idxArg)				{ return GetValue(idxArg).GetStream();	}
-	inline Stream &GetStream(size_t idxArg) const		{
-		return const_cast<Argument *>(this)->GetValue(idxArg).GetStream();
-	}
+	inline Stream &GetStream(size_t idxArg) const		{ return GetValue(idxArg).GetStream();	}
 	inline const Expr *GetExpr(size_t idxArg) const		{ return GetValue(idxArg).GetExpr();	}
 	inline Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }
 	inline ErrorType GetErrorType(size_t idxArg) const	{ return GetValue(idxArg).GetErrorType(); }
-	inline void SetValueDictArg(ValueDict *pValDictArg) { _pValDictArg.reset(pValDictArg); }
+	inline void AddValueDictItem(const Value &valueKey, const Value &value) {
+		if (_pValDictArg.IsNull()) _pValDictArg.reset(new ValueDict());
+		(*_pValDictArg)[valueKey] = value;
+	}
 	inline const ValueDict &GetValueDictArg() const { 
 		return _pValDictArg.IsNull()? ValueDict::Empty : *_pValDictArg;
 	}

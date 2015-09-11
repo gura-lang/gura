@@ -73,7 +73,6 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 {
 	Signal &sig = env.GetSignal();
 	Function::ExprMap exprMap;
-	ValueDict *pValDictArg = nullptr;
 	bool namedArgFlag = !GetFlag(FLAG_NoNamed);
 	foreach_const (ExprList, ppExprArg, exprListArg) {
 		const Expr *pExprArg = *ppExprArg;
@@ -90,8 +89,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 				const Value &valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
 				Value result = pExprRight->Exec(env, nullptr);
 				if (sig.IsSignalled()) return false;
-				if (pValDictArg == nullptr) pValDictArg = new ValueDict();
-				(*pValDictArg)[valueKey] = result;
+				AddValueDictItem(valueKey, result);
 			} else {
 				pExprBinaryOp->SetError(sig, ERR_KeyError,
 					"l-value of dictionary assignment must be an identifier or a constant value");
@@ -118,8 +116,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 					}
 					exprMap[valueKey.GetSymbol()] = pExpr;
 				} else {
-					if (pValDictArg == nullptr) pValDictArg = new ValueDict();
-					pValDictArg->insert(*item);
+					AddValueDictItem(valueKey, value);
 				}
 			}
 		}
@@ -209,17 +206,15 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 		sig.SetError(ERR_ValueError, "%s", str.c_str());
 		return false;
 	} else {
-		if (pValDictArg == nullptr) pValDictArg = new ValueDict();
 		foreach (Function::ExprMap, iterExprMap, exprMap) {
 			const Symbol *pSymbol = iterExprMap->first;
 			const Expr *pExprArg = iterExprMap->second;
 			Value result = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
-			(*pValDictArg)[Value(pSymbol)] = result;
+			AddValueDictItem(Value(pSymbol), result);
 		}
 	}
 	//-------------------------------------------------------------------------
-	SetValueDictArg(pValDictArg);
 	return CheckValidity(env);
 }
 

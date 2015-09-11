@@ -18,12 +18,13 @@ ValueType VTYPE_number			= static_cast<ValueType>(4);
 ValueType VTYPE_rational		= static_cast<ValueType>(5);
 ValueType VTYPE_string			= static_cast<ValueType>(6);
 ValueType VTYPE_symbol			= static_cast<ValueType>(7);
-// declaration
+// pseudo types
 ValueType VTYPE_quote			= static_cast<ValueType>(0);
 ValueType VTYPE_any				= static_cast<ValueType>(0);
 // container types
 ValueType VTYPE_Module			= static_cast<ValueType>(0);
 ValueType VTYPE_Class			= static_cast<ValueType>(0);
+ValueType VTYPE_Struct			= static_cast<ValueType>(0);
 // object types
 ValueType VTYPE_object			= static_cast<ValueType>(0);
 ValueType VTYPE_argument		= static_cast<ValueType>(0);
@@ -65,7 +66,6 @@ ValueType VTYPE_suffixmgr		= static_cast<ValueType>(0);
 ValueType VTYPE_template		= static_cast<ValueType>(0);
 ValueType VTYPE_timedelta		= static_cast<ValueType>(0);
 ValueType VTYPE_uri				= static_cast<ValueType>(0);
-ValueType VTYPE_Struct			= static_cast<ValueType>(0);
 
 //-----------------------------------------------------------------------------
 // ValueTypeInfo
@@ -139,12 +139,13 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(rational);	// must be at 6th
 	Gura_RealizeVTYPE(string);		// must be at 7th
 	Gura_RealizeVTYPE(symbol);		// must be at 8th
-	// declaration
+	// pseudo types
 	Gura_RealizeVTYPE(quote);
 	Gura_RealizeVTYPE(any);
 	// container types
 	Gura_RealizeVTYPEAlias(Module,			"module");
 	Gura_RealizeVTYPEAlias(Class,			"class");
+	Gura_RealizeVTYPEAlias(Struct,			"struct");
 	// object types
 	Gura_RealizeVTYPE(object);
 	Gura_RealizeVTYPE(argument);
@@ -186,7 +187,6 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(template);
 	Gura_RealizeVTYPE(timedelta);
 	Gura_RealizeVTYPE(uri);
-	Gura_RealizeVTYPEAlias(Struct,			"struct");
 	Class *pClass = new Class(&env, VTYPE_object);
 	Gura_VTYPEInfo(object		)->SetClass(pClass);
 	// invalid types
@@ -199,12 +199,13 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(rational		)->SetClass(new Class_rational(pClass));
 	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
 	Gura_VTYPEInfo(symbol		)->SetClass(new Class_symbol(pClass));
-	// declaration
+	// pseudo types
 	Gura_VTYPEInfo(quote		)->SetClass(new Class_quote(pClass));
 	Gura_VTYPEInfo(any			)->SetClass(new Class_any(pClass));
 	// container types
 	Gura_VTYPEInfo(Module		)->SetClass(new Class_Module(pClass));
 	Gura_VTYPEInfo(Class		)->SetClass(new Class_Class(pClass));
+	Gura_VTYPEInfo(Struct		)->SetClass(new ClassOfStruct(pClass));
 	// object types
 	Gura_VTYPEInfo(argument		)->SetClass(new Class_argument(pClass));
 	Gura_VTYPEInfo(array_char	)->SetClass(
@@ -255,7 +256,6 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(template		)->SetClass(new Class_template(pClass));
 	Gura_VTYPEInfo(timedelta	)->SetClass(new Class_timedelta(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
-	Gura_VTYPEInfo(Struct		)->SetClass(new ClassOfStruct(pClass));
 	pClass->Prepare(env); // methods of Object can only be initialized here
 }
 
@@ -271,9 +271,11 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_rational		)->Prepare(env);
 	env.LookupClass(VTYPE_string		)->Prepare(env);
 	env.LookupClass(VTYPE_symbol		)->Prepare(env);
-	// declaration
+	// pseudo types
 	env.LookupClass(VTYPE_quote			)->Prepare(env);
 	env.LookupClass(VTYPE_any			)->Prepare(env);
+	// container types
+	env.LookupClass(VTYPE_Struct		)->Prepare(env);
 	// object types
 	env.LookupClass(VTYPE_argument		)->Prepare(env);
 	env.LookupClass(VTYPE_array_char	)->Prepare(env);
@@ -314,7 +316,6 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_template		)->Prepare(env);
 	env.LookupClass(VTYPE_timedelta		)->Prepare(env);
 	env.LookupClass(VTYPE_uri			)->Prepare(env);
-	env.LookupClass(VTYPE_Struct		)->Prepare(env);
 }
 
 ValueTypeInfo *ValueTypePool::Add(const Symbol *pSymbol)

@@ -45,15 +45,15 @@ GURA_DLLDECLARE extern ValueType VTYPE_number;
 GURA_DLLDECLARE extern ValueType VTYPE_rational;
 GURA_DLLDECLARE extern ValueType VTYPE_string;
 GURA_DLLDECLARE extern ValueType VTYPE_symbol;
-// declaration
+// pseudo types
 GURA_DLLDECLARE extern ValueType VTYPE_quote;
 GURA_DLLDECLARE extern ValueType VTYPE_any;
 // container types
 GURA_DLLDECLARE extern ValueType VTYPE_Module;
 GURA_DLLDECLARE extern ValueType VTYPE_Class;
+GURA_DLLDECLARE extern ValueType VTYPE_Struct;
 // object types
 GURA_DLLDECLARE extern ValueType VTYPE_object;
-GURA_DLLDECLARE extern ValueType VTYPE_Struct;
 GURA_DLLDECLARE extern ValueType VTYPE_argument;
 GURA_DLLDECLARE extern ValueType VTYPE_array_char;
 GURA_DLLDECLARE extern ValueType VTYPE_array_uchar;
@@ -148,15 +148,15 @@ public:
 	Gura_DeclareVTYPE(rational);
 	Gura_DeclareVTYPE(string);
 	Gura_DeclareVTYPE(symbol);
-	// declaration
+	// pseudo types
 	Gura_DeclareVTYPE(quote);
 	Gura_DeclareVTYPE(any);
 	// container types
 	Gura_DeclareVTYPE(Module);
 	Gura_DeclareVTYPE(Class);
+	Gura_DeclareVTYPE(Struct);
 	// object types
 	Gura_DeclareVTYPE(object);
-	Gura_DeclareVTYPE(Struct);
 	Gura_DeclareVTYPE(argument);
 	Gura_DeclareVTYPE(array_char);
 	Gura_DeclareVTYPE(array_uchar);
