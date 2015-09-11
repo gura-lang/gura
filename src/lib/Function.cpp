@@ -3,8 +3,6 @@
 //=============================================================================
 #include "stdafx.h"
 
-#define OLD_STYLE 0
-
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -255,86 +253,36 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
+Value Function::Eval(Environment &env, Argument &arg) const
+{
+	Value value = DoEval(env, arg);
+	return arg.IsResultVoid()? Value::Undefined : value;
+}
+
 Value Function::EvalAuto(Environment &env, Argument &arg) const
 {
-	//if (!arg.GetFlag(FLAG_Map)) return Eval(env, arg);
 	Argument::MapMode mapMode = arg.GetMapMode();
 	if (mapMode == Argument::MAPMODE_None) return Eval(env, arg);
 	AutoPtr<Iterator_ImplicitMap> pIterator(
 		new Iterator_ImplicitMap(new Environment(env), arg.Reference(), false));
-	if (!pIterator->Prepare()) return Value::Nil;
 	if (arg.IsResultIterator() || arg.IsResultXIterator() ||
 			(arg.IsResultNormal() && mapMode == Argument::MAPMODE_ToIter)) {
 		pIterator->SetSkipInvalidFlag(arg.IsResultXIterator());
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
-	Value result, value;
-	ResultComposer resultComposer(env, arg, result);
+	ResultComposer resultComposer(env, arg);
+	Value value;
 	size_t n = 0;
 	for ( ; pIterator->Next(env, value); n++) {
-		if (!resultComposer.Store(env, value)) return Value::Nil;
+		if (!resultComposer.AddValue(env, value)) return Value::Nil;
 	}
 	if (n == 0 && !arg.IsResultVoid() && !arg.IsResultReduce() && !arg.IsResultXReduce()) {
-		result.InitAsList(env);
+		Value valueResult;
+		valueResult.InitAsList(env);
+		return valueResult;
 	}
-	return result;
+	return resultComposer.GetValueResult();
 }
-
-#if OLD_STYLE
-Value Function::Eval(Environment &env, Argument &arg) const
-{
-	ValueList valListCasted;
-	const ValueList &valList = arg.GetValueListArg();
-	ValueList::const_iterator pValue = valList.begin();
-	DeclarationList::const_iterator ppDecl = _pDeclOwner->begin();
-	for ( ; ppDecl != _pDeclOwner->end(); ppDecl++) {
-		const Declaration *pDecl = *ppDecl;
-		OccurPattern occurPattern = pDecl->GetOccurPattern();
-		if (occurPattern == OCCUR_ZeroOrMore || occurPattern == OCCUR_OnceOrMore) {
-			Value value;
-			ValueList &valListElem = value.InitAsList(env);
-			valListCasted.push_back(value);
-			for ( ; pValue != valList.end(); pValue++) {
-				Value value = *pValue;
-				if (!pDecl->ValidateAndCast(env, value)) return Value::Nil;
-				valListElem.push_back(value);
-			}
-			if (occurPattern == OCCUR_OnceOrMore && valListElem.empty()) {
-				Declaration::SetError_NotEnoughArguments(env);
-				return Value::Nil;
-			}
-			break;
-		} else if (pValue == valList.end()) {
-			if (occurPattern == OCCUR_ZeroOrOnce) {
-				valListCasted.push_back(Value::Undefined);
-			} else {
-				Declaration::SetError_NotEnoughArguments(env);
-				return Value::Nil;
-			}
-		} else {
-			Value value = *pValue;
-			if (!pDecl->ValidateAndCast(env, value)) return Value::Nil;
-			valListCasted.push_back(value);
-			pValue++;
-		}
-	}
-	if (pValue != valList.end() && !GetFlag(FLAG_CutExtraArgs)) {
-		Declaration::SetError_TooManyArguments(env);
-		return Value::Nil;
-	}
-	AutoPtr<Argument> pArgCasted(new Argument(arg, valListCasted));
-	Value value = DoEval(env, *pArgCasted);
-	if (arg.IsResultVoid()) return Value::Undefined;
-	return value;
-}
-#else
-Value Function::Eval(Environment &env, Argument &arg) const
-{
-	Value value = DoEval(env, arg);
-	if (arg.IsResultVoid()) return Value::Undefined;
-	return value;
-}
-#endif
 
 Value Function::ReturnValue(Environment &env, Argument &arg, const Value &result) const
 {
@@ -388,8 +336,9 @@ Value Function::ReturnIterator(Environment &env, Argument &arg, Iterator *pItera
 								arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 			if (pFuncBlock == nullptr) return Value::Nil;
 			bool genIterFlag = arg.IsResultIterator() || arg.IsResultXIterator();
-			pIterator = new Iterator_Repeater(pEnvBlock->Reference(), Function::Reference(pFuncBlock),
-								false, genIterFlag, pIterator);
+			pIterator = new Iterator_Repeater(
+				pEnvBlock->Reference(), Function::Reference(pFuncBlock),
+				false, genIterFlag, pIterator);
 		}
 		bool skipInvalidFlag = arg.IsResultXList() || arg.IsResultXSet() || arg.IsResultXIterator();
 		pIterator->SetSkipInvalidFlag(skipInvalidFlag);
@@ -397,11 +346,12 @@ Value Function::ReturnIterator(Environment &env, Argument &arg, Iterator *pItera
 	if (arg.IsResultIterator() || arg.IsResultXIterator()) {
 		result = Value(new Object_iterator(env, pIterator));
 	} else if (arg.IsResultList() || arg.IsResultXList() ||
-									arg.IsResultSet() || arg.IsResultXSet()) {
-		ResultComposer resultComposer(env, arg, result);
-		resultComposer.Store(env, pIterator);
+			   arg.IsResultSet() || arg.IsResultXSet()) {
+		ResultComposer resultComposer(env, arg);
+		resultComposer.AddValues(env, pIterator);
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Nil;
+		result = resultComposer.GetValueResult();
 	} else if (pIterator->IsRepeater()) {
 		while (pIterator->Next(env, result)) ;
 		Iterator::Delete(pIterator);
@@ -593,48 +543,48 @@ Function::ExprMap::~ExprMap()
 //   :void, :reduce, :xreduce, :list, :xlist, :set, :xet, :flat
 //-----------------------------------------------------------------------------
 ResultComposer::ResultComposer(Environment &env, ValueType valTypeResult,
-							   ResultMode resultMode, ULong flags, Value &result) :
+							   ResultMode resultMode, ULong flags) :
 	_valTypeResult(valTypeResult), _resultMode(resultMode), _flags(flags),
-	_result(result), _pValList(nullptr), _cnt(0)
+	_pValList(nullptr), _cnt(0)
 {
 	Initialize(env);
 }
 
-ResultComposer::ResultComposer(Environment &env, const Function *pFunc, Value &result) :
+ResultComposer::ResultComposer(Environment &env, const Function *pFunc) :
 	_valTypeResult(pFunc->GetValueTypeResult()),
 	_resultMode(pFunc->GetResultMode()), _flags(pFunc->GetFlags()),
-	_result(result), _pValList(nullptr), _cnt(0)
+	_pValList(nullptr), _cnt(0)
 {
 	Initialize(env);
 }
 
-ResultComposer::ResultComposer(Environment &env, Argument &arg, Value &result) :
+ResultComposer::ResultComposer(Environment &env, Argument &arg) :
 	_valTypeResult(arg.GetValueTypeResult()),
 	_resultMode(arg.GetResultMode()), _flags(arg.GetFlags()),
-	_result(result), _pValList(nullptr), _cnt(0)
+	_pValList(nullptr), _cnt(0)
 {
 	Initialize(env);
 }
 
-bool ResultComposer::Store(Environment &env, const Value &value)
+bool ResultComposer::AddValue(Environment &env, const Value &value)
 {
 	Signal &sig = env.GetSignal();
 	if (_resultMode == RSLTMODE_Void) {
 		// nothing to do
 	} else if (_resultMode == RSLTMODE_Reduce) {
-		_result = value;
+		_valueResult = value;
 	} else if (_resultMode == RSLTMODE_XReduce) {
-		if (value.IsValid()) _result = value;
+		if (value.IsValid()) _valueResult = value;
 	} else if (GetFlag(FLAG_Flat) && value.Is_list()) {
 		foreach_const (ValueList, pValue, value.GetList()) {
-			if (!Store(env, *pValue)) return false;
+			if (!AddValue(env, *pValue)) return false;
 		}
 	} else {
 		if (_resultMode == RSLTMODE_List) {
 			_pValList->push_back(value);
 		} else if (value.IsValid()) {
 			if (_pValList == nullptr) {
-				_pValList = &_result.InitAsList(env, _cnt, Value::Nil);
+				_pValList = &_valueResult.InitAsList(env, _cnt, Value::Nil);
 			}
 			if (!(_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) ||
 										!_pValList->DoesContain(env, value)) {
@@ -655,9 +605,8 @@ bool ResultComposer::Store(Environment &env, const Value &value)
 	return true;
 }
 
-bool ResultComposer::Store(Environment &env, Iterator *pIterator)
+bool ResultComposer::AddValues(Environment &env, Iterator *pIterator)
 {
-	//Function::ResultComposer resultComposer(env, arg, result);
 	Signal &sig = env.GetSignal();
 	if (pIterator->IsInfinite()) {
 		Iterator::SetError_InfiniteNotAllowed(sig);
@@ -665,7 +614,7 @@ bool ResultComposer::Store(Environment &env, Iterator *pIterator)
 	}
 	Value value;
 	while (pIterator->Next(env, value)) {
-		if (!Store(env, value)) return false;
+		if (!AddValue(env, value)) return false;
 	}
 	return sig.IsNoSignalled();
 }

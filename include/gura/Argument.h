@@ -53,7 +53,6 @@ public:
 			_pIteratorMap.reset(Iterator::Reference(slot._pIteratorMap.get()));
 		}
 		inline const Declaration &GetDeclaration() const { return *_pDecl; }
-		//inline Value &GetValue() { return _value; }
 		inline const Value &GetValue() const { return _value; }
 		bool SetValue(Environment &env, const Value &value, bool mapFlag, MapMode *pMapMode);
 		inline void SetIteratorMap(Iterator *pIteratorMap) { _pIteratorMap.reset(pIteratorMap); }
@@ -80,7 +79,6 @@ private:
 	AutoPtr<Iterator> _pIteratorThis;
 	MapMode _mapMode;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
-	ValueList _valListArg;
 	size_t _iSlotCur;
 	Slots _slots;
 public:
@@ -88,7 +86,6 @@ public:
 public:
 	Argument(const Function *pFunc);
 	Argument(const Function *pFunc, const CallerInfo &callerInfo);
-	Argument(const Argument &arg, const ValueList &valListArg);
 protected:
 	void InitializeSlot(const Function *pFunc);
 	virtual ~Argument();
@@ -145,7 +142,6 @@ public:
 	inline void FinalizeTrailer() {
 		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Finalize);
 	}
-	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	bool EvalExpr(Environment &env, const ExprList &exprListArg);
 	bool AddValue(Environment &env, const Value &value);
 	bool AddValues(Environment &env, const ValueList &valList);
@@ -167,7 +163,6 @@ public:
 	void SetIteratorThis(Iterator *pIteratorThis, bool listThisFlag);
 	bool IsSet(const Symbol *pSymbol) const;
 	bool Compensate(Environment &env);
-	//Value GetValue(size_t idxArg);
 	const Value &GetValue(size_t idxArg) const;
 	void GetValues(ValueList &valList) const;
 	// nil / undefined
@@ -258,7 +253,6 @@ public:
 	}
 	MapMode GetMapMode() const { return _mapMode; }
 	bool CheckValidity(Environment &env) const;
-	bool PrepareForMap(Environment &env, IteratorOwner &iterOwner) const;
 	bool IsInfiniteMap() const;
 	void AssignToEnvironment(Environment &env) const;
 	Environment *PrepareEnvironment(Environment &env, bool thisAssignFlag) const;

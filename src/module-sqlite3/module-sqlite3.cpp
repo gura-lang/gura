@@ -45,11 +45,10 @@ Value Object_db::Exec(Signal &sig, const char *sql, Argument &arg)
 		return Value::Nil;
 	}
 	char *errMsg;
-	Value result;
-	ResultComposer resultComposer(*this, arg, result);
+	ResultComposer resultComposer(*this, arg);
 	CallbackInfo callbackInfo(*this, resultComposer);
 	int rc = ::sqlite3_exec(_db, sql, Callback, &callbackInfo, &errMsg); 
-	if (rc == SQLITE_OK) return result;
+	if (rc == SQLITE_OK) return resultComposer.GetValueResult();
 	if (sig.IsSignalled()) return Value::Nil;
 	sig.SetError(ERR_RuntimeError, "sqlite3 %s", errMsg);
 	return Value::Nil;
@@ -129,7 +128,7 @@ int Object_db::Callback(void *user, int argc, char **argv, char **azColName)
 	for (int i = 0; i < argc; i++) {
 		valList.push_back(Value(argv[i]));
 	}
-	return resultComposer.Store(env, value)? SQLITE_OK : SQLITE_ERROR;
+	return resultComposer.AddValue(env, value)? SQLITE_OK : SQLITE_ERROR;
 }
 
 void Object_db::SetError_NotOpened(Signal &sig)

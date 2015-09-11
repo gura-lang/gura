@@ -186,9 +186,7 @@ public:
 	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
 	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
 	inline Environment &GetEnvScope() { return *_pEnvScope; }
-	inline Environment &GetEnvScope() const {
-		return *const_cast<Function *>(this)->_pEnvScope;
-	}
+	inline Environment &GetEnvScope() const { return *const_cast<Function *>(this)->_pEnvScope; }
 	inline DeclarationOwner &GetDeclOwner() { return *_pDeclOwner; }
 	inline const DeclarationOwner &GetDeclOwner() const { return *_pDeclOwner; }
 	inline FunctionType GetType() const { return _funcType; }
@@ -225,9 +223,8 @@ public:
 public:
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	Value EvalAuto(Environment &env, Argument &arg) const;
 	Value Eval(Environment &env, Argument &arg) const;
-	//Value EvalMap(Environment &env, Argument &arg) const;
+	Value EvalAuto(Environment &env, Argument &arg) const;
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
 	bool CustomDeclare(Environment &env,
@@ -294,22 +291,23 @@ private:
 	ValueType _valTypeResult;
 	ResultMode _resultMode;
 	ULong _flags;
-	Value &_result;
+	Value _valueResult;
 	ValueList *_pValList;
 	size_t _cnt;
 public:
 	ResultComposer(Environment &env, ValueType valTypeResult,
-				   ResultMode resultMode, ULong flags, Value &result);
-	ResultComposer(Environment &env, const Function *pFunc, Value &result);
-	ResultComposer(Environment &env, Argument &arg, Value &result);
-	bool Store(Environment &env, const Value &value);
-	bool Store(Environment &env, Iterator *pIterator);
+				   ResultMode resultMode, ULong flags);
+	ResultComposer(Environment &env, const Function *pFunc);
+	ResultComposer(Environment &env, Argument &arg);
+	bool AddValue(Environment &env, const Value &value);
+	bool AddValues(Environment &env, Iterator *pIterator);
 	inline bool GetFlag(ULong flag) const { return (_flags & flag) != 0; }
+	inline const Value &GetValueResult() const { return _valueResult; }
 private:
 	inline void Initialize(Environment &env) {
 		if (_resultMode == RSLTMODE_List || _resultMode == RSLTMODE_XList ||
 			_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) {
-			_pValList = &_result.InitAsList(env);
+			_pValList = &_valueResult.InitAsList(env);
 		}
 	}
 };

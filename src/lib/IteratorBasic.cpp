@@ -3,8 +3,6 @@
 //=============================================================================
 #include "stdafx.h"
 
-#define OLD_STYLE 0
-
 namespace Gura {
 
 static bool PrepareRepeaterIterators(Environment &env,
@@ -422,17 +420,6 @@ Iterator_ImplicitMap::Iterator_ImplicitMap(Environment *pEnv, Argument *pArg, bo
 {
 }
 
-bool Iterator_ImplicitMap::Prepare()
-{
-#if OLD_STYLE
-	Iterator *pIteratorThis = _pArg->GetIteratorThis();
-	if (!_pArg->PrepareForMap(*_pEnv, _iterOwner)) return false;
-	SetInfiniteFlag(_iterOwner.IsInfinite() &&
-					(pIteratorThis == nullptr || pIteratorThis->IsInfinite()));
-#endif
-	return true;
-}
-
 Iterator_ImplicitMap::~Iterator_ImplicitMap()
 {
 	if (IsVirgin()) Consume(*_pEnv);
@@ -445,15 +432,8 @@ Iterator *Iterator_ImplicitMap::GetSource()
 
 bool Iterator_ImplicitMap::DoNext(Environment &env, Value &value)
 {
-#if OLD_STYLE
-	ValueList valList;
-	if (_doneThisFlag || !_iterOwner.Next(env, valList)) return false;
-	AutoPtr<Argument> pArgEach(new Argument(*_pArg, valList));
-	value = _pArg->GetFunction()->Eval(*_pEnv, *pArgEach);
-#else
 	if (_doneThisFlag || !_pArg->NextMap(env)) return false;
 	value = _pArg->GetFunction()->Eval(*_pEnv, *_pArg);
-#endif
 	if (env.IsSignalled()) return false;
 	Iterator *pIteratorThis = _pArg->GetIteratorThis();
 	if (pIteratorThis != nullptr) {
@@ -487,7 +467,6 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 	if (_cntRef == 1) {
 		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pArg->GatherFollower(pFrame, envSet);
-		_iterOwner.GatherFollower(pFrame, envSet);
 	}
 }
 

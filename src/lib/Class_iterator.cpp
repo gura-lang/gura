@@ -387,9 +387,10 @@ Gura_ImplementMethod(iterator, cycle)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	int cnt = arg.Is_number(0)? arg.GetInt(0) : -1;
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	Value value;
-	ResultComposer resultComposer(env, arg, value);
-	if (!resultComposer.Store(env, pIterator.get()) || value.IsInvalid()) return Value::Nil;
+	ResultComposer resultComposer(env, arg);
+	if (!resultComposer.AddValues(env, pIterator.get())) return Value::Nil;
+	const Value &value = resultComposer.GetValueResult();
+	if (value.IsInvalid()) return Value::Nil;
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, arg,
@@ -963,13 +964,11 @@ Gura_ImplementMethod(iterator, pingpong)
 	bool stickyFlagBtm = arg.IsSet(Gura_Symbol(sticky)) ||
 						arg.IsSet(Gura_Symbol(sticky_at_btm));
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	Value value;
-	ResultComposer resultComposer(env, arg, value);
-	if (!resultComposer.Store(env, pIterator.get()) || value.IsInvalid()) return Value::Nil;
-	//Value value = pIterator->Eval(env, arg);
-	//if (sig.IsSignalled() || value.IsInvalid()) return Value::Nil;
+	ResultComposer resultComposer(env, arg);
+	if (!resultComposer.AddValues(env, pIterator.get())) return Value::Nil;
+	const Value &value = resultComposer.GetValueResult();
+	if (value.IsInvalid()) return Value::Nil;
 	GURA_ASSUME(env, value.Is_list());
-	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, arg,
 			new Object_list::IteratorPingpong(pObj, cnt, stickyFlagTop, stickyFlagBtm));
@@ -1099,11 +1098,10 @@ Gura_ImplementMethod(iterator, rank)
 	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
-	Value value;
-	ResultComposer resultComposer(env, arg, value);
-	if (!resultComposer.Store(env, pIteratorSrc.get()) || value.IsInvalid()) return Value::Nil;
-	//Value value = pIteratorSrc->Eval(env, arg);
-	//if (sig.IsSignalled() || value.IsInvalid()) return Value::Nil;
+	ResultComposer resultComposer(env, arg);
+	if (!resultComposer.AddValues(env, pIteratorSrc.get())) return Value::Nil;
+	const Value &value = resultComposer.GetValueResult();
+	if (value.IsInvalid()) return Value::Nil;
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, arg.GetValue(0), nullptr,
 							true, arg.IsSet(Gura_Symbol(stable)));
@@ -1187,11 +1185,10 @@ Gura_ImplementMethod(iterator, reverse)
 {
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	Value value;
-	ResultComposer resultComposer(env, arg, value);
-	if (!resultComposer.Store(env, pIterator.get()) || value.IsInvalid()) return Value::Nil;
-	//Value value = pIterator->Eval(env, arg);
-	//if (sig.IsSignalled() || value.IsInvalid()) return Value::Nil;
+	ResultComposer resultComposer(env, arg);
+	if (!resultComposer.AddValues(env, pIterator.get())) return Value::Nil;
+	const Value &value = resultComposer.GetValueResult();
+	if (value.IsInvalid()) return Value::Nil;
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, arg,
@@ -1361,11 +1358,9 @@ Gura_ImplementMethod(iterator, sort)
 	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
-	Value value;
-	ResultComposer resultComposer(env, arg, value);
-	if (!resultComposer.Store(env, pIteratorSrc.get())) return Value::Nil;
-	//Value value = pIteratorSrc->Eval(env, arg);
-	//if (sig.IsSignalled()) return Value::Nil;
+	ResultComposer resultComposer(env, arg);
+	if (!resultComposer.AddValues(env, pIteratorSrc.get())) return Value::Nil;
+	const Value &value = resultComposer.GetValueResult();
 	if (value.IsInvalid()) return arg.GetValueThis();
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, arg.GetValue(0),
@@ -1448,11 +1443,10 @@ Gura_ImplementMethod(iterator, tail)
 {
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
-	Value value;
-	ResultComposer resultComposer(env, arg, value);
-	if (!resultComposer.Store(env, pIteratorSrc.get()) || value.IsInvalid()) return Value::Nil;
-	//Value value = pIteratorSrc->Eval(env, arg);
-	//if (sig.IsSignalled() || value.IsInvalid()) return Value::Nil;
+	ResultComposer resultComposer(env, arg);
+	if (!resultComposer.AddValues(env, pIteratorSrc.get())) return Value::Nil;
+	const Value &value = resultComposer.GetValueResult();
+	if (value.IsInvalid()) return Value::Nil;
 	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	int cnt = arg.GetInt(0);
