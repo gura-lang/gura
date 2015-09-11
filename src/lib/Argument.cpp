@@ -73,6 +73,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 {
 	Signal &sig = env.GetSignal();
 	Function::ExprMap exprMap;
+	//bool mapFlag = GetFlag(FLAG_Map);
 	bool namedArgFlag = !GetFlag(FLAG_NoNamed);
 	foreach_const (ExprList, ppExprArg, exprListArg) {
 		const Expr *pExprArg = *ppExprArg;
@@ -89,16 +90,17 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 #else
 				Slot *pSlot = _slots.FindBySymbol(pSymbol);
 				if (pSlot == nullptr) {
+					Value valueKey(pSymbol);
 					Value value = pExprRight->Exec(env, nullptr);
 					if (sig.IsSignalled()) return false;
 					AddValueDictItem(valueKey, value);
-				} else if (decl.IsQuote()) {
+				} else if (pSlot->GetDeclaration().IsQuote()) {
 					Value value(new Object_expr(env, pExprRight->Reference()));
-					if (!pSlot->SetValue(env, value)) return false;
+					if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
 				} else {
 					Value value = pExprRight->Exec(env, nullptr);
 					if (sig.IsSignalled()) return false;
-					if (!pSlot->SetValue(env, value)) return false;
+					if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
 				}
 #endif
 			} else if (pExprLeft->IsValue()) {
