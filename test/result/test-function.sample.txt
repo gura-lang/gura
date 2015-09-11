@@ -316,3 +316,9 @@ g() a=1, b=2, c=3
 ======== #44 if items are lists, they would not be mapped implicitly ========
 
 expected error occurs: TypeError: variable 'x' cannot take list value in 'x[]:number'
+
+======== #45 type-cast while implicit map ========
+
+<color:#ff0000,a:ff>
+<color:#0000ff,a:ff>
+<color:#008000,a:ff>

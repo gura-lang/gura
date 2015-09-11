@@ -3,7 +3,7 @@
 //=============================================================================
 #include "stdafx.h"
 
-#define OLD_STYLE 1
+#define OLD_STYLE 0
 
 namespace Gura {
 
@@ -675,6 +675,13 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 	}
 	return false;
 #endif
+}
+
+bool Argument::Slot::NextMap(Environment &env)
+{
+	if (_pIteratorMap.IsNull()) return true;
+	if (!_pIteratorMap->Next(env, _value)) return false;
+	return _pDecl->IsVariableLength() || _pDecl->ValidateAndCast(env, _value);
 }
 
 //-----------------------------------------------------------------------------

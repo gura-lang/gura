@@ -3,7 +3,7 @@
 //=============================================================================
 #include "stdafx.h"
 
-#define OLD_STYLE 1
+#define OLD_STYLE 0
 
 namespace Gura {
 

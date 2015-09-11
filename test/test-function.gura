@@ -468,3 +468,9 @@ testcase('if items are lists, they would not be mapped implicitly') {
 		println('expected error occurs: ', e.text)
 	}
 }
+testcase('type-cast while implicit map') {
+	f(v1:color):map = {
+		println(v1)
+	}
+	f(['red', 'blue', 'green'])
+}

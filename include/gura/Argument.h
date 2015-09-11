@@ -59,9 +59,7 @@ public:
 		inline void SetIteratorMap(Iterator *pIteratorMap) { _pIteratorMap.reset(pIteratorMap); }
 		inline Iterator *GetIteratorMap() { return _pIteratorMap.get(); }
 		inline const Iterator *GetIteratorMap() const { return _pIteratorMap.get(); }
-		inline bool NextMap(Environment &env) {
-			return _pIteratorMap.IsNull()? true : _pIteratorMap->Next(env, _value);
-		}
+		bool NextMap(Environment &env);
 	};
 	class Slots : public std::vector<Slot> {
 	public:
