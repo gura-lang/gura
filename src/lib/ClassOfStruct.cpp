@@ -6,22 +6,22 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// ObjectOfStruct
+// Object_Struct
 //-----------------------------------------------------------------------------
-ObjectOfStruct::ObjectOfStruct(const ObjectOfStruct &obj) : Object(obj)
+Object_Struct::Object_Struct(const Object_Struct &obj) : Object(obj)
 {
 }
 
-ObjectOfStruct::~ObjectOfStruct()
+Object_Struct::~Object_Struct()
 {
 }
 
-Object *ObjectOfStruct::Clone() const
+Object *Object_Struct::Clone() const
 {
-	return new ObjectOfStruct(*this);
+	return new Object_Struct(*this);
 }
 
-String ObjectOfStruct::ToString(bool exprFlag)
+String Object_Struct::ToString(bool exprFlag)
 {
 	Signal sig;
 	bool evaluatedFlag = false;
@@ -49,7 +49,7 @@ String ObjectOfStruct::ToString(bool exprFlag)
 	return str;
 }
 
-const DeclarationList &ObjectOfStruct::GetDeclList() const
+const DeclarationList &Object_Struct::GetDeclList() const
 {
 	const Class *pClass = _pClass.get();
 	for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
@@ -73,7 +73,7 @@ Gura_DeclareMethod(Struct, tolist)
 
 Gura_ImplementMethod(Struct, tolist)
 {
-	ObjectOfStruct *pThis = ObjectOfStruct::GetObjectThis(arg);
+	Object_Struct *pThis = Object_Struct::GetObjectThis(arg);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	const DeclarationList &declList = pThis->GetDeclList();
@@ -91,16 +91,16 @@ Gura_ImplementMethod(Struct, tolist)
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
-ClassOfStruct::ClassOfStruct(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Struct)
+Class_Struct::Class_Struct(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Struct)
 {
 }
 
-void ClassOfStruct::Prepare(Environment &env)
+void Class_Struct::Prepare(Environment &env)
 {
 	Gura_AssignMethod(Struct, tolist);
 }
 
-bool ClassOfStruct::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+bool Class_Struct::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	Signal &sig = GetSignal();
 	if (value.Is_list()) {
@@ -116,22 +116,22 @@ bool ClassOfStruct::CastFrom(Environment &env, Value &value, const Declaration *
 	return false;
 }
 
-Object *ClassOfStruct::CreateDescendant(Environment &env, Class *pClass)
+Object *Class_Struct::CreateDescendant(Environment &env, Class *pClass)
 {
-	return new ObjectOfStruct((pClass == nullptr)? this : pClass);
+	return new Object_Struct((pClass == nullptr)? this : pClass);
 }
 
 //-----------------------------------------------------------------------------
-// ClassOfStruct::Constructor
+// Class_Struct::Constructor
 //-----------------------------------------------------------------------------
-bool ClassOfStruct::Constructor::IsConstructorOfStruct() const { return true; }
+bool Class_Struct::Constructor::IsConstructorOfStruct() const { return true; }
 
-ClassOfStruct::Constructor::Constructor(Environment &env) :
+Class_Struct::Constructor::Constructor(Environment &env) :
 		Function(env, Gura_Symbol(_anonymous_), FUNCTYPE_Function, FLAG_None)
 {
 }
 
-Value ClassOfStruct::Constructor::DoEval(Environment &env, Argument &arg) const
+Value Class_Struct::Constructor::DoEval(Environment &env, Argument &arg) const
 {
 	Object *pObjThis = nullptr;
 	Value valueRtn(arg.GetValueThis());

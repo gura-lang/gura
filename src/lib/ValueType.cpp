@@ -205,7 +205,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	// container types
 	Gura_VTYPEInfo(Module		)->SetClass(new Class_Module(pClass));
 	Gura_VTYPEInfo(Class		)->SetClass(new Class_Class(pClass));
-	Gura_VTYPEInfo(Struct		)->SetClass(new ClassOfStruct(pClass));
+	Gura_VTYPEInfo(Struct		)->SetClass(new Class_Struct(pClass));
 	// object types
 	Gura_VTYPEInfo(argument		)->SetClass(new Class_argument(pClass));
 	Gura_VTYPEInfo(array_char	)->SetClass(
@@ -275,6 +275,8 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_quote			)->Prepare(env);
 	env.LookupClass(VTYPE_any			)->Prepare(env);
 	// container types
+	env.LookupClass(VTYPE_Module		)->Prepare(env);
+	env.LookupClass(VTYPE_Class			)->Prepare(env);
 	env.LookupClass(VTYPE_Struct		)->Prepare(env);
 	// object types
 	env.LookupClass(VTYPE_argument		)->Prepare(env);
