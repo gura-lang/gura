@@ -34,7 +34,6 @@
 #include "gura/Callable.h"
 #include "gura/Class.h"
 #include "gura/ClassCustom.h"
-#include "gura/ClassOfStruct.h"
 #include "gura/Color.h"
 #include "gura/Complex.h"
 #include "gura/Directory.h"
@@ -71,6 +70,7 @@
 
 #include "gura/Class_Class.h"
 #include "gura/Class_Module.h"
+#include "gura/Class_Struct.h"
 #include "gura/Class_any.h"
 #include "gura/Class_argument.h"
 #include "gura/Class_audio.h"

@@ -10,6 +10,7 @@ Callable.cpp
 Class.cpp
 Class_Class.cpp
 Class_Module.cpp
+Class_Struct.cpp
 Class_any.cpp
 Class_argument.cpp
 Class_array.cpp
@@ -51,7 +52,6 @@ Class_timedelta.cpp
 Class_undefined.cpp
 Class_uri.cpp
 ClassCustom.cpp
-ClassOfStruct.cpp
 Codec.cpp
 Color.cpp
 Common.cpp

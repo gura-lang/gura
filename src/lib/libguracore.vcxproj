@@ -190,6 +190,7 @@
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Class_Class.cpp" />
     <ClCompile Include="Class_Module.cpp" />
+    <ClCompile Include="Class_Struct.cpp" />
     <ClCompile Include="Class_any.cpp" />
     <ClCompile Include="Class_array.cpp" />
     <ClCompile Include="Class_audio.cpp" />
@@ -231,7 +232,6 @@
     <ClCompile Include="Class_declaration.cpp" />
     <ClCompile Include="Class_argument.cpp" />
     <ClCompile Include="ClassCustom.cpp" />
-    <ClCompile Include="ClassOfStruct.cpp" />
     <ClCompile Include="Codec.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Common.cpp" />
@@ -313,9 +313,9 @@
     <ClInclude Include="..\..\include\gura\Callable.h" />
     <ClInclude Include="..\..\include\gura\Class.h" />
     <ClInclude Include="..\..\include\gura\ClassCustom.h" />
-    <ClInclude Include="..\..\include\gura\ClassOfStruct.h" />
     <ClInclude Include="..\..\include\gura\Class_Class.h" />
     <ClInclude Include="..\..\include\gura\Class_Module.h" />
+    <ClInclude Include="..\..\include\gura\Class_Struct.h" />
     <ClInclude Include="..\..\include\gura\Class_any.h" />
     <ClInclude Include="..\..\include\gura\Class_argument.h" />
     <ClInclude Include="..\..\include\gura\Class_array.h" />
