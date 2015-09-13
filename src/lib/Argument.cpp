@@ -44,7 +44,7 @@ void Argument::InitializeSlot(const Function *pFunc)
 		if (pDecl->IsVariableLength()) {
 			Value value;
 			AutoPtr<Iterator> pIterator(new Iterator_VarLength(pDecl, value.InitAsList(env)));
-			_slots.push_back(Slot(pDecl->Reference(), value, pIterator.release()));
+			_slots.push_back(Slot(pDecl->Reference(), value, pIterator.release(), false));
 		} else {
 			_slots.push_back(Slot(pDecl->Reference()));
 		}
@@ -73,7 +73,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 {
 	Signal &sig = env.GetSignal();
 	Function::ExprMap exprMap;
-	//bool mapFlag = GetFlag(FLAG_Map);
+	bool mapFlag = GetFlag(FLAG_Map);
 	bool namedArgFlag = !GetFlag(FLAG_NoNamed);
 	foreach_const (ExprList, ppExprArg, exprListArg) {
 		const Expr *pExprArg = *ppExprArg;
@@ -85,7 +85,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			if (pExprLeft->IsIdentifier()) {
 				const Symbol *pSymbol =
 					dynamic_cast<const Expr_Identifier *>(pExprLeft)->GetSymbol();
-#if 1
+#if 0
 				exprMap[pSymbol] = pExprRight->Reference();
 #else
 				Slot *pSlot = _slots.FindBySymbol(pSymbol);
@@ -178,7 +178,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 		}
 	}
 	//-------------------------------------------------------------------------
-	Slots::const_iterator pSlot = _slots.begin() + _iSlotCur;
+	Slots::iterator pSlot = _slots.begin() + _iSlotCur;
 	if (pSlot != _slots.end() && (!pSlot->GetDeclaration().IsVariableLength() ||
 								  pSlot->GetValue().GetList().empty())) {
 		for ( ; pSlot != _slots.end(); pSlot++) {
@@ -190,9 +190,11 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 				pExprArg = iter->second;
 				exprMap.erase(iter);
 			}
-			if (pExprArg == nullptr) {
+			if (pSlot->GetValueExistFlag()) {
+				// nothing to do
+			} else if (pExprArg == nullptr) {
 				if (decl.GetOccurPattern() == OCCUR_ZeroOrOnce) {
-					if (!AddValue(env, Value::Undefined)) return false;
+					if (!pSlot->SetValue(env, Value::Undefined, mapFlag, &_mapMode)) return false;
 					continue;
 				} else if (decl.GetOccurPattern() == OCCUR_ZeroOrMore) {
 					break;
@@ -201,13 +203,12 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 					return false;
 				}
 			} else if (decl.IsQuote()) {
-				if (!AddValue(env,
-							  Value(new Object_expr(env, pExprArg->Reference())))) return false;
-				continue;
+				Value value(new Object_expr(env, pExprArg->Reference()));
+				if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
 			} else {
 				Value value = pExprArg->Exec(env, nullptr);
 				if (sig.IsSignalled()) return false;
-				if (!AddValue(env, value)) return false;
+				if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
 			}
 		}
 	}
@@ -266,7 +267,9 @@ bool Argument::Compensate(Environment &env)
 	for ( ; pSlot != _slots.end(); pSlot++) {
 		const Declaration &decl = pSlot->GetDeclaration();
 		const Expr *pExprArg = decl.GetExprDefault();
-		if (pExprArg == nullptr) {
+		if (pSlot->GetValueExistFlag()) {
+			// nothing to do
+		} else if (pExprArg == nullptr) {
 			if (decl.GetOccurPattern() == OCCUR_ZeroOrOnce) {
 				if (!AddValue(env, Value::Undefined)) return false;
 			} else if (decl.GetOccurPattern() == OCCUR_ZeroOrMore) {
@@ -347,22 +350,6 @@ bool Argument::CheckValidity(Environment &env) const
 			return false;
 		}
 	}
-#if 0
-	foreach_const (Slots, pSlot, _slots) {
-		const Declaration &decl = pSlot->GetDeclaration();
-		if (decl.GetOccurPattern() == OCCUR_Once) {
-			if (pSlot->GetValue().IsUndefined()) {
-				Declaration::SetError_NotEnoughArguments(env);
-				return false;
-			}
-		} else if (decl.GetOccurPattern() == OCCUR_OnceOrMore) {
-			if (pSlot->GetValue().GetList().empty()) {
-				Declaration::SetError_NotEnoughArguments(env);
-				return false;
-			}
-		}
-	}
-#endif
 	return true;
 }
 
@@ -575,6 +562,7 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 			env.SetError(ERR_ValueError, "argument confliction");
 			return false;
 		}
+		_valueExistFlag = true;
 		return true;
 	}
 	Value valueCasted = value;
@@ -588,6 +576,7 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 			env.SetError(ERR_ValueError, "argument confliction");
 			return false;
 		}
+		_valueExistFlag = true;
 		return true;
 	}
 	return false;

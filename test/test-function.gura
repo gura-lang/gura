@@ -474,3 +474,12 @@ testcase('type-cast while implicit map') {
 	}
 	f(['red', 'blue', 'green'])
 }
+testcase('default value and named argument') {
+	f(a => 'A', b => 'B') = printf('a = %s, b = %s\n', a, b)
+	f()
+	f('AA')
+	f('AA', 'BB')
+	f(a => 'AA')
+	f(b => 'BB')
+	f(a => 'AA', b => 'BB')
+}
