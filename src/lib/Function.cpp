@@ -527,17 +527,6 @@ void Function::SetError_MathOptimizeError(Signal &sig) const
 }
 
 //-----------------------------------------------------------------------------
-// Function::ExprMap
-//-----------------------------------------------------------------------------
-Function::ExprMap::~ExprMap()
-{
-	foreach (ExprMap, iter, *this) {
-		Expr *pExpr = iter->second;
-		Expr::Delete(pExpr);
-	}
-}
-
-//-----------------------------------------------------------------------------
 // ResultComposer
 // this function's behaviour is affected by the following attributes.
 //   :void, :reduce, :xreduce, :list, :xlist, :set, :xet, :flat

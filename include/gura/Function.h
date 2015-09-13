@@ -148,10 +148,6 @@ public:
 		BLKSCOPE_Inside,
 		BLKSCOPE_SameAsFunc,
 	};
-	class GURA_DLLDECLARE ExprMap : public std::map<const Symbol *, Expr *, Symbol::KeyCompare_UniqNumber> {
-	public:
-		~ExprMap();
-	};
 	struct BlockInfo {
 		OccurPattern occurPattern;
 		BlockScope blockScope;

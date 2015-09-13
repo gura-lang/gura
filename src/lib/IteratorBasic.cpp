@@ -389,8 +389,7 @@ Iterator *Iterator_ExplicitMap::GetSource()
 bool Iterator_ExplicitMap::DoNext(Environment &env, Value &value)
 {
 	if (!_pIterator->Next(env, value)) return false;
-	ValueList valList(value);
-	value = _pObjFunc->Eval(*_pEnv, valList);
+	value = _pObjFunc->Eval(*_pEnv, value);
 	return true;
 }
 
@@ -727,14 +726,14 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 		pArg->SetValueThis(_valueThis);
 		if (!pArg->AddValues(env, valueArg.GetList())) return false;
-		if (!pArg->Compensate(*_pEnv)) return false;
+		if (!pArg->Complete(*_pEnv)) return false;
 		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
 	} else {
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 		pArg->SetValueThis(_valueThis);
 		if (!pArg->AddValue(env, valueArg)) return false;
-		if (!pArg->Compensate(*_pEnv)) return false;
+		if (!pArg->Complete(*_pEnv)) return false;
 		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
 		//sig.SetError(ERR_TypeError, "invalid structure of arguments");
@@ -972,8 +971,7 @@ bool Iterator_FilterWithFunc::DoNext(Environment &env, Value &value)
 {
 	Signal &sig = env.GetSignal();
 	while (_pIterator->Next(env, value)) {
-		ValueList valList(value);
-		Value valueCriteria = _pObjFunc->Eval(*_pEnv, valList);
+		Value valueCriteria = _pObjFunc->Eval(*_pEnv, value);
 		if (sig.IsSignalled()) return false;
 		if (valueCriteria.GetBoolean()) return true;
 	}
@@ -1054,8 +1052,7 @@ bool Iterator_WhileWithFunc::DoNext(Environment &env, Value &value)
 	if (_pIterator.IsNull() || _pObjFunc.IsNull()) return false;
 	do {
 		if (!_pIterator->Next(env, value)) break;
-		ValueList valList(value);
-		Value valueCriteria = _pObjFunc->Eval(*_pEnv, valList);
+		Value valueCriteria = _pObjFunc->Eval(*_pEnv, value);
 		if (sig.IsSignalled()) break;
 		if (!valueCriteria.GetBoolean()) break;
 		return true;
@@ -1161,8 +1158,7 @@ bool Iterator_UntilWithFunc::DoNext(Environment &env, Value &value)
 	if (_pIterator.IsNull() || _pObjFunc.IsNull()) return false;
 	do {
 		if (!_pIterator->Next(env, value)) break;
-		ValueList valList(value);
-		Value valueCriteria = _pObjFunc->Eval(*_pEnv, valList);
+		Value valueCriteria = _pObjFunc->Eval(*_pEnv, value);
 		if (sig.IsSignalled()) break;
 		if (valueCriteria.GetBoolean()) {
 			rtnDone = _containLastFlag;
@@ -1274,8 +1270,7 @@ bool Iterator_SinceWithFunc::DoNext(Environment &env, Value &value)
 	for (;;) {
 		if (!_pIterator->Next(env, value)) return false;
 		if (_pObjFunc.IsNull()) break;
-		ValueList valList(value);
-		Value valueCriteria = _pObjFunc->Eval(*_pEnv, valList);
+		Value valueCriteria = _pObjFunc->Eval(*_pEnv, value);
 		if (sig.IsSignalled()) return false;
 		if (valueCriteria.GetBoolean()) {
 			_pObjFunc.reset(nullptr);

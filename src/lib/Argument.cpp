@@ -14,8 +14,7 @@ Argument::Argument(const Function *pFunc) :
 	_valTypeResult(pFunc->GetValueTypeResult()),
 	_resultMode(pFunc->GetResultMode()),
 	_flags(pFunc->GetFlags()),
-	_mapMode(MAPMODE_None),
-	_iSlotCur(0)
+	_mapMode(MAPMODE_None)
 {
 	InitializeSlot(pFunc);
 }
@@ -28,8 +27,7 @@ Argument::Argument(const Function *pFunc, const CallerInfo &callerInfo) :
 	_flags(callerInfo.ModifyFlags(pFunc->GetFlags())),
 	_pAttrsShared(SymbolSetShared::Reference(callerInfo.GetAttrsShared())),
 	_pExprBlock(Expr_Block::Reference(callerInfo.GetBlock())),
-	_mapMode(MAPMODE_None),
-	_iSlotCur(0)
+	_mapMode(MAPMODE_None)
 {
 	InitializeSlot(pFunc);
 }
@@ -49,6 +47,7 @@ void Argument::InitializeSlot(const Function *pFunc)
 			_slots.push_back(Slot(pDecl->Reference()));
 		}
 	}
+	_pSlotCur = _slots.begin();
 }
 
 Argument::~Argument()
@@ -129,18 +128,18 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 					} else if (pSlot->GetDeclaration().IsQuote()) {
 						sig.SetError(ERR_ValueError, "invalid argument");
 						return false;
-					} else {
-						if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
+					} else if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) {
+						return false;
 					}
 				} else {
 					AddValueDictItem(valueKey, value);
 				}
 			}
-		} else if (_iSlotCur >= _slots.size()) {
+		} else if (_pSlotCur == _slots.end()) {
 			if (GetFlag(FLAG_CutExtraArgs)) break;
 			Declaration::SetError_TooManyArguments(env);
 			return false;
-		} else if (_slots[_iSlotCur].GetDeclaration().IsQuote()) {
+		} else if (_pSlotCur->GetDeclaration().IsQuote()) {
 			// func(..., `var, ...)
 			Value value(new Object_expr(env, Expr::Reference(pExprArg)));
 			if (!AddValue(env, value)) return false;
@@ -154,9 +153,9 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 				foreach_const (ValueList, pValue, valList) {
 					if (!AddValue(env, *pValue)) return false;
 				}
-				continue;
+			} else if (!AddValue(env, value)) {
+				return false;
 			}
-			if (!AddValue(env, value)) return false;
 		} else {
 			// func(..., value, ...)
 			Value value = pExprArg->Exec(env, nullptr);
@@ -164,21 +163,21 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			if (!AddValue(env, value)) return false;
 		}
 	}
-	return Compensate(env) && CheckValidity(env);
+	return Complete(env);
 }
 
 bool Argument::AddValue(Environment &env, const Value &value)
 {
-	if (_iSlotCur < _slots.size()) {
-		Slot &slot = _slots[_iSlotCur];
-		if (!slot.SetValue(env, value, GetFlag(FLAG_Map), &_mapMode)) return false;
-		if (!slot.GetDeclaration().IsVariableLength()) _iSlotCur++;
+	if (_pSlotCur != _slots.end()) {
+		if (!_pSlotCur->SetValue(env, value, GetFlag(FLAG_Map), &_mapMode)) return false;
+		if (!_pSlotCur->GetDeclaration().IsVariableLength()) _pSlotCur++;
 		return true;
 	} else if (GetFlag(FLAG_CutExtraArgs)) {
 		return true;
+	} else {
+		Declaration::SetError_TooManyArguments(env);
+		return false;
 	}
-	Declaration::SetError_TooManyArguments(env);
-	return false;
 }
 
 bool Argument::AddValues(Environment &env, const ValueList &valList)
@@ -189,51 +188,29 @@ bool Argument::AddValues(Environment &env, const ValueList &valList)
 	return true;
 }
 
-bool Argument::Compensate(Environment &env)
+bool Argument::Complete(Environment &env)
 {
-	if (_iSlotCur >= _slots.size()) return true;
 	bool mapFlag = GetFlag(FLAG_Map);
-	Slots::iterator pSlot = _slots.begin() + _iSlotCur;
-	for ( ; pSlot != _slots.end(); pSlot++) {
-		const Declaration &decl = pSlot->GetDeclaration();
-		const Expr *pExprArg = decl.GetExprDefault();
-		if (pSlot->GetValueExistFlag()) {
+	for ( ; _pSlotCur != _slots.end(); _pSlotCur++) {
+		const Declaration &decl = _pSlotCur->GetDeclaration();
+		const Expr *pExprDefault = decl.GetExprDefault();
+		if (_pSlotCur->GetValueExistFlag()) {
 			// nothing to do
-		} else if (pExprArg == nullptr) {
-			if (decl.GetOccurPattern() == OCCUR_ZeroOrOnce) {
-				if (!pSlot->SetValue(env, Value::Undefined, mapFlag, &_mapMode)) return false;
-			} else if (decl.GetOccurPattern() == OCCUR_ZeroOrMore) {
-				// nothing to do
-			} else {
+		} else if (pExprDefault == nullptr) {
+			if (decl.GetOccurPattern() != OCCUR_ZeroOrOnce &&
+									decl.GetOccurPattern() != OCCUR_ZeroOrMore) {
 				Declaration::SetError_NotEnoughArguments(env);
 				return false;
 			}
 		} else if (decl.IsQuote()) {
-			Value value(new Object_expr(env, pExprArg->Reference()));
-			if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
+			Value value(new Object_expr(env, pExprDefault->Reference()));
+			if (!_pSlotCur->SetValue(env, value, mapFlag, &_mapMode)) return false;
 		} else {
-			Value value = pExprArg->Exec(env, nullptr);
+			Value value = pExprDefault->Exec(env, nullptr);
 			if (env.IsSignalled()) return false;
-			if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
+			if (!_pSlotCur->SetValue(env, value, mapFlag, &_mapMode)) return false;
 		}
 	}
-	return true;
-}
-
-const Value &Argument::GetValue(size_t idxArg) const
-{
-	return (idxArg < _slots.size())? _slots[idxArg].GetValue() : Value::Nil;
-}
-
-void Argument::GetValues(ValueList &valList) const
-{
-	foreach_const (Slots, pSlot, _slots) {
-		valList.push_back(pSlot->GetValue());
-	}
-}
-
-bool Argument::CheckValidity(Environment &env) const
-{
 	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!GetAttrsOpt().IsSet(pSymbol)) {
@@ -267,6 +244,13 @@ bool Argument::CheckValidity(Environment &env) const
 		}
 	}
 	return true;
+}
+
+void Argument::GetValues(ValueList &valList) const
+{
+	foreach_const (Slots, pSlot, _slots) {
+		valList.push_back(pSlot->GetValue());
+	}
 }
 
 void Argument::AssignToEnvironment(Environment &env) const
@@ -320,7 +304,6 @@ Environment *Argument::PrepareEnvironment(Environment &env, bool thisAssignFlag)
 	return pEnvLocal.release();
 }
 
-// not tested yet
 bool Argument::IsInfiniteMap() const
 {
 	bool infiniteFoundFlag = false;

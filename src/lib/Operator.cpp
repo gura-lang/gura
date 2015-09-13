@@ -616,7 +616,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			if (valList.IsFlat()) {
 				AutoPtr<Argument> pArgSub(new Argument(pFunc));
 				if (!pArgSub->AddValues(env, valList)) return Value::Nil;
-				if (!pArgSub->Compensate(env)) return Value::Nil;
+				if (!pArgSub->Complete(env)) return Value::Nil;
 				return pFunc->Eval(env, *pArgSub);
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));

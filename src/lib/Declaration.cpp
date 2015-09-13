@@ -272,50 +272,6 @@ void DeclarationList::SetAsLoose()
 	}
 }
 
-#if 0
-bool DeclarationList::Compensate(Environment &env, ValueList &valList) const
-{
-	Signal &sig = env.GetSignal();
-	if (valList.size() >= size()) return true;
-	DeclarationList::const_iterator ppDecl = begin() + valList.size();
-	for ( ; ppDecl != end(); ppDecl++) {
-		const Declaration *pDecl = *ppDecl;
-		const Expr *pExprArg = pDecl->GetExprDefault();
-		Value value;
-		if (pExprArg == nullptr) {
-			if (pDecl->GetOccurPattern() == OCCUR_ZeroOrOnce) {
-				value = Value::Undefined;
-			} else if (pDecl->GetOccurPattern() == OCCUR_ZeroOrMore) {
-				break;
-			} else {
-				Declaration::SetError_NotEnoughArguments(env);
-				return false;
-			}
-		} else if (pDecl->IsQuote()) {
-			value = Value(new Object_expr(env, Expr::Reference(pExprArg)));
-			//valList.push_back(value);
-		} else if (pDecl->IsType(VTYPE_symbol)) {
-			const Expr *pExpr = pExprArg;
-			if (pExpr->IsQuote()) {
-				pExpr = dynamic_cast<const Expr_Quote *>(pExpr)->GetChild();
-			}
-			if (!pExpr->IsIdentifier()) {
-				env.SetError(ERR_TypeError, "identifier is expected");
-				return false;
-			}
-			const Symbol *pSymbol =
-						dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
-			value = Value(pSymbol);
-		} else {
-			value = pExprArg->Exec(env);
-			if (sig.IsSignalled()) return false;
-		}
-		valList.push_back(value);
-	}
-	return true;
-}
-#endif
-
 String DeclarationList::ToString() const
 {
 	String str;

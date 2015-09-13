@@ -62,7 +62,10 @@ public:
 		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
 		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	Value Eval(Environment &env, ValueList &valListArg) const;
+	Value Eval(Environment &env, const Value &v1) const;
+	Value Eval(Environment &env, const Value &v1, const Value &v2) const;
+	Value Eval(Environment &env, const Value &v1, const Value &v2, const Value &v3) const;
+	Value Eval(Environment &env, const Value &v1, const Value &v2, const Value &v3, const Value &v4) const;
 };
 
 }

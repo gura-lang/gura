@@ -125,13 +125,46 @@ Value Object_function::DoCall(
 	return GetFunction()->EvalAuto(env, *pArg);
 }
 
-Value Object_function::Eval(Environment &env, ValueList &valListArg) const
+Value Object_function::Eval(Environment &env, const Value &v1) const
 {
 	AutoPtr<Argument> pArg(new Argument(GetFunction()));
 	pArg->SetValueThis(_valueThis);
-	if (!pArg->AddValues(env, valListArg)) return Value::Nil;
-	if (!pArg->Compensate(env)) return Value::Nil;
-	return GetFunction()->Eval(env, *pArg);
+	if (pArg->AddValue(env, v1) && pArg->Complete(env)) {
+		return GetFunction()->Eval(env, *pArg);
+	}
+	return Value::Nil;
+}
+
+Value Object_function::Eval(Environment &env, const Value &v1, const Value &v2) const
+{
+	AutoPtr<Argument> pArg(new Argument(GetFunction()));
+	pArg->SetValueThis(_valueThis);
+	if (pArg->AddValue(env, v1, v2) && pArg->Complete(env)) {
+		return GetFunction()->Eval(env, *pArg);
+	}
+	return Value::Nil;
+}
+
+Value Object_function::Eval(Environment &env, const Value &v1,
+							const Value &v2, const Value &v3) const
+{
+	AutoPtr<Argument> pArg(new Argument(GetFunction()));
+	pArg->SetValueThis(_valueThis);
+	if (pArg->AddValue(env, v1, v2, v3) && pArg->Complete(env)) {
+		return GetFunction()->Eval(env, *pArg);
+	}
+	return Value::Nil;
+}
+
+Value Object_function::Eval(Environment &env, const Value &v1,
+							const Value &v2, const Value &v3, const Value &v4) const
+{
+	AutoPtr<Argument> pArg(new Argument(GetFunction()));
+	pArg->SetValueThis(_valueThis);
+	if (pArg->AddValue(env, v1, v2, v3, v4) && pArg->Complete(env)) {
+		return GetFunction()->Eval(env, *pArg);
+	}
+	return Value::Nil;
 }
 
 Object *Object_function::Clone() const

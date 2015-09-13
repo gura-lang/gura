@@ -1021,8 +1021,7 @@ Gura_ImplementBinaryOperator(Mul, function, any)
 	Signal &sig = env.GetSignal();
 	const Object_function *pObj = Object_function::GetObject(valueLeft);
 	if (pObj->GetFunction()->IsUnary()) {
-		ValueList valListArg(valueRight);
-		Value result = pObj->Eval(env, valListArg);
+		Value result = pObj->Eval(env, valueRight);
 		if (sig.IsSignalled()) return Value::Nil;
 		return result;
 	} else {
