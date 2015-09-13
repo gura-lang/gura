@@ -253,6 +253,16 @@ protected:
 	AutoPtr<FrameCache> _pFrameCache;
 public:
 	Gura_DeclareReferenceAccessor(Environment)
+#if 0
+public:
+	inline static void *operator new(size_t size) {
+		::printf("[Environment: %ld bytes]\n", size);
+		return ::malloc(size);
+	}
+	inline static void operator delete(void *pv) noexcept {
+		::free(pv);
+	}
+#endif
 public:
 	Environment(Signal &sig);
 	Environment(const Environment &env);

@@ -7,6 +7,19 @@
 #include <dlfcn.h>
 #endif
 
+#if 0
+void *operator new(size_t size)
+{
+	::printf("new: %ld bytes\n", size);
+	return ::malloc(size);
+}
+
+void operator delete(void *pv) noexcept
+{
+	::free(pv);
+}
+#endif
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
