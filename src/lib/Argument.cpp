@@ -50,10 +50,6 @@ void Argument::InitializeSlot(const Function *pFunc)
 	_pSlotCur = _slots.begin();
 }
 
-Argument::~Argument()
-{
-}
-
 void Argument::SetIteratorThis(Iterator *pIteratorThis, bool listThisFlag)
 {
 	_pIteratorThis.reset(pIteratorThis);
@@ -479,13 +475,6 @@ bool Argument::Slot::SetValue(Environment &env, const Value &value, bool mapFlag
 		return true;
 	}
 	return false;
-}
-
-bool Argument::Slot::NextMap(Environment &env)
-{
-	if (_pIteratorMap.IsNull()) return true;
-	if (!_pIteratorMap->Next(env, _value)) return false;
-	return _pDecl->IsVariableLength() || _pDecl->ValidateAndCast(env, _value);
 }
 
 //-----------------------------------------------------------------------------

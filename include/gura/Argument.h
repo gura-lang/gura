@@ -64,12 +64,16 @@ public:
 		}
 		inline const Declaration &GetDeclaration() const { return *_pDecl; }
 		inline const Value &GetValue() const { return _value; }
-		bool SetValue(Environment &env, const Value &value, bool mapFlag, MapMode *pMapMode);
 		inline void SetIteratorMap(Iterator *pIteratorMap) { _pIteratorMap.reset(pIteratorMap); }
 		inline Iterator *GetIteratorMap() { return _pIteratorMap.get(); }
 		inline const Iterator *GetIteratorMap() const { return _pIteratorMap.get(); }
 		inline bool GetValueExistFlag() const { return _valueExistFlag; }
-		bool NextMap(Environment &env);
+		inline bool NextMap(Environment &env) {
+			return _pIteratorMap.IsNull() ||
+				(_pIteratorMap->Next(env, _value) &&
+				 (_pDecl->IsVariableLength() || _pDecl->ValidateAndCast(env, _value)));
+		}
+		bool SetValue(Environment &env, const Value &value, bool mapFlag, MapMode *pMapMode);
 	};
 	class Slots : public std::vector<Slot> {
 	public:
@@ -99,7 +103,7 @@ public:
 	Argument(const Function *pFunc, const CallerInfo &callerInfo);
 protected:
 	void InitializeSlot(const Function *pFunc);
-	virtual ~Argument();
+	inline ~Argument() {}
 public:
 	inline Function *GetFunction() const { return _pFunc.get(); }
 	inline bool IsAttrEmpty() const { return GetAttrs().empty(); }
