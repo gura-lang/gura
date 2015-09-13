@@ -127,4 +127,20 @@ bool PathMgr::IsContainer(Environment &env, const char *pathName)
 	return !pDirectory.IsNull() && pDirectory->IsContainer();
 }
 
+//-----------------------------------------------------------------------------
+// PathMgrOwner
+//-----------------------------------------------------------------------------
+PathMgrOwner::~PathMgrOwner()
+{
+	Clear();
+}
+
+void PathMgrOwner::Clear()
+{
+	foreach (PathMgrOwner, ppPathMgr, *this) {
+		delete *ppPathMgr;
+	}
+	clear();
+}
+
 }

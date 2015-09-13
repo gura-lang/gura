@@ -10,6 +10,7 @@
 #include "Help.h"
 #include "Option.h"
 #include "SuffixMgr.h"
+#include "PathMgr.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -80,7 +81,6 @@ class Class_Struct;
 
 class Module;
 class Monitor;
-class PathMgr;
 
 class Callable;
 class FunctionCustom;
@@ -111,15 +111,6 @@ GURA_DLLDECLARE const char *GetEnvTypeName(EnvType envType);
 // ModuleMap
 //-----------------------------------------------------------------------------
 typedef std::map<String, Module *> ModuleMap;
-
-//-----------------------------------------------------------------------------
-// PathMgrOwner
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE PathMgrOwner : public std::vector<PathMgr *> {
-public:
-	~PathMgrOwner();
-	void Clear();
-};
 
 //-----------------------------------------------------------------------------
 // Environment

@@ -46,22 +46,6 @@ const char *GetEnvTypeName(EnvType envType)
 }
 
 //-----------------------------------------------------------------------------
-// PathMgrOwner
-//-----------------------------------------------------------------------------
-PathMgrOwner::~PathMgrOwner()
-{
-	Clear();
-}
-
-void PathMgrOwner::Clear()
-{
-	foreach (PathMgrOwner, ppPathMgr, *this) {
-		delete *ppPathMgr;
-	}
-	clear();
-}
-
-//-----------------------------------------------------------------------------
 // Environment
 //-----------------------------------------------------------------------------
 Environment::Environment(Signal &sig) : _sig(sig), _cntRef(1)

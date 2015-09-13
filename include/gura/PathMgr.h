@@ -5,13 +5,11 @@
 #define __GURA_PATHMGR_H__
 
 #include "Common.h"
-#include "String.h"
-#include "Iterator.h"
-#include "OAL.h"
 
 namespace Gura {
 
 class Directory;
+class Environment;
 
 //-----------------------------------------------------------------------------
 // PathMgr
@@ -54,6 +52,15 @@ public:
 	virtual Directory *DoOpenDirectory(Environment &env,
 				Directory *pParent, const char **pPathName,
 				PathMgr::NotFoundMode notFoundMode) = 0;
+};
+
+//-----------------------------------------------------------------------------
+// PathMgrOwner
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE PathMgrOwner : public std::vector<PathMgr *> {
+public:
+	~PathMgrOwner();
+	void Clear();
 };
 
 }
