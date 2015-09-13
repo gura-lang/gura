@@ -510,6 +510,7 @@ public:
 	virtual ~Expr_Collector();
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
+	inline void Reserve(size_t n) { GetExprOwner().reserve(n); }
 	inline void AddExpr(Expr *pExpr) {
 		GetExprOwner().push_back(pExpr);
 		pExpr->SetParent(this);
@@ -582,7 +583,7 @@ public:
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
+					ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -681,9 +682,15 @@ public:
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
+	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol);
 	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
-							   Expr *pExprArg1 = nullptr, Expr *pExprArg2 = nullptr,
-							   Expr *pExprArg3 = nullptr, Expr *pExprArg4 = nullptr);
+						Expr *pExprArg1);
+	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+						Expr *pExprArg1, Expr *pExprArg2);
+	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+						Expr *pExprArg1, Expr *pExprArg2, Expr *pExprArg3);
+	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+						Expr *pExprArg1, Expr *pExprArg2, Expr *pExprArg3, Expr *pExprArg4);
 	Value EvalEach(Environment &env, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
 	void UpdateCallerInfo();

@@ -2164,20 +2164,72 @@ bool Expr_Caller::GenerateScript(Signal &sig, SimpleStream &stream,
 	return true;
 }
 
-Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
-								 Expr *pExprArg1, Expr *pExprArg2,
-								 Expr *pExprArg3, Expr *pExprArg4)
+Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol)
 {
-	Expr *pExprCar = new Expr_Identifier(pFuncSymbol);
+	AutoPtr<Expr> pExprCar(new Expr_Identifier(pFuncSymbol));
 	if (pContainerSymbol != nullptr) {
-		pExprCar =  new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar);
+		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar.release()));
 	}
-	Expr_Lister *pExprLister = new Expr_Lister();
-	if (pExprArg1 != nullptr) pExprLister->AddExpr(pExprArg1);
-	if (pExprArg2 != nullptr) pExprLister->AddExpr(pExprArg2);
-	if (pExprArg3 != nullptr) pExprLister->AddExpr(pExprArg3);
-	if (pExprArg4 != nullptr) pExprLister->AddExpr(pExprArg4);
-	return new Expr_Caller(pExprCar, pExprLister, nullptr);
+	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
+	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
+}
+
+Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+								 Expr *pExprArg1)
+{
+	AutoPtr<Expr> pExprCar(new Expr_Identifier(pFuncSymbol));
+	if (pContainerSymbol != nullptr) {
+		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar.release()));
+	}
+	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
+	pExprLister->Reserve(1);
+	pExprLister->AddExpr(pExprArg1);
+	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
+}
+
+Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+								 Expr *pExprArg1, Expr *pExprArg2)
+{
+	AutoPtr<Expr> pExprCar(new Expr_Identifier(pFuncSymbol));
+	if (pContainerSymbol != nullptr) {
+		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar.release()));
+	}
+	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
+	pExprLister->Reserve(2);
+	pExprLister->AddExpr(pExprArg1);
+	pExprLister->AddExpr(pExprArg2);
+	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
+}
+
+Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+								 Expr *pExprArg1, Expr *pExprArg2, Expr *pExprArg3)
+{
+	AutoPtr<Expr> pExprCar(new Expr_Identifier(pFuncSymbol));
+	if (pContainerSymbol != nullptr) {
+		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar.release()));
+	}
+	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
+	pExprLister->Reserve(3);
+	pExprLister->AddExpr(pExprArg1);
+	pExprLister->AddExpr(pExprArg2);
+	pExprLister->AddExpr(pExprArg3);
+	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
+}
+
+Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+				 Expr *pExprArg1, Expr *pExprArg2, Expr *pExprArg3, Expr *pExprArg4)
+{
+	AutoPtr<Expr> pExprCar(new Expr_Identifier(pFuncSymbol));
+	if (pContainerSymbol != nullptr) {
+		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar.release()));
+	}
+	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
+	pExprLister->Reserve(4);
+	pExprLister->AddExpr(pExprArg1);
+	pExprLister->AddExpr(pExprArg2);
+	pExprLister->AddExpr(pExprArg3);
+	pExprLister->AddExpr(pExprArg4);
+	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
 }
 
 //-----------------------------------------------------------------------------
