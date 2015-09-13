@@ -72,7 +72,6 @@ bool Argument::IsSet(const Symbol *pSymbol) const
 bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 {
 	Signal &sig = env.GetSignal();
-	Function::ExprMap exprMap;
 	bool mapFlag = GetFlag(FLAG_Map);
 	bool namedArgFlag = !GetFlag(FLAG_NoNamed);
 	foreach_const (ExprList, ppExprArg, exprListArg) {
@@ -85,9 +84,6 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			if (pExprLeft->IsIdentifier()) {
 				const Symbol *pSymbol =
 					dynamic_cast<const Expr_Identifier *>(pExprLeft)->GetSymbol();
-#if 0
-				exprMap[pSymbol] = pExprRight->Reference();
-#else
 				Slot *pSlot = _slots.FindBySymbol(pSymbol);
 				if (pSlot == nullptr) {
 					Value valueKey(pSymbol);
@@ -102,7 +98,6 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 					if (sig.IsSignalled()) return false;
 					if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
 				}
-#endif
 			} else if (pExprLeft->IsValue()) {
 				const Value &valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
 				Value value = pExprRight->Exec(env, nullptr);
@@ -141,26 +136,14 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 					AddValueDictItem(valueKey, value);
 				}
 			}
-		}
-	}
-	foreach_const (ExprList, ppExprArg, exprListArg) {
-		const Expr *pExprArg = *ppExprArg;
-		if ((namedArgFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) ||
-			Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Percnt)) continue;
-		if (_iSlotCur >= _slots.size()) {
+		} else if (_iSlotCur >= _slots.size()) {
 			if (GetFlag(FLAG_CutExtraArgs)) break;
 			Declaration::SetError_TooManyArguments(env);
 			return false;
-		}
-		const Slot &slot = _slots[_iSlotCur];
-		if (exprMap.find(slot.GetDeclaration().GetSymbol()) != exprMap.end()) {
-			sig.SetError(ERR_ValueError, "argument confliction");
-			return false;
-		}
-		if (slot.GetDeclaration().IsQuote()) {
+		} else if (_slots[_iSlotCur].GetDeclaration().IsQuote()) {
 			// func(..., `var, ...)
-			if (!AddValue(env,
-						Value(new Object_expr(env, Expr::Reference(pExprArg))))) return false;
+			Value value(new Object_expr(env, Expr::Reference(pExprArg)));
+			if (!AddValue(env, value)) return false;
 		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Ast)) {
 			// func(..., value*, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
@@ -181,61 +164,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			if (!AddValue(env, value)) return false;
 		}
 	}
-	//-------------------------------------------------------------------------
-	Slots::iterator pSlot = _slots.begin() + _iSlotCur;
-	for ( ; pSlot != _slots.end(); pSlot++) {
-		// handling named arguments and arguments with a default value
-		const Declaration &decl = pSlot->GetDeclaration();
-		const Expr *pExprArg = decl.GetExprDefault();
-		Function::ExprMap::iterator iter = exprMap.find(decl.GetSymbol());
-		if (iter != exprMap.end()) {
-			pExprArg = iter->second;
-			exprMap.erase(iter);
-		}
-		if (pSlot->GetValueExistFlag()) {
-			// nothing to do
-		} else if (pExprArg == nullptr) {
-			if (decl.GetOccurPattern() == OCCUR_ZeroOrOnce) {
-				if (!pSlot->SetValue(env, Value::Undefined, mapFlag, &_mapMode)) return false;
-				continue;
-			} else if (decl.GetOccurPattern() == OCCUR_ZeroOrMore) {
-				break;
-			} else {
-				Declaration::SetError_NotEnoughArguments(env);
-				return false;
-			}
-		} else if (decl.IsQuote()) {
-			Value value(new Object_expr(env, pExprArg->Reference()));
-			if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
-		} else {
-			Value value = pExprArg->Exec(env, nullptr);
-			if (sig.IsSignalled()) return false;
-			if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
-		}
-	}
-	//-------------------------------------------------------------------------
-	if (exprMap.empty()) {
-		// nothing to do
-	} else if (_pFunc->GetSymbolDict() == nullptr) {
-		String str;
-		str = "invalid argument named ";
-		foreach_const (Function::ExprMap, iter, exprMap) {
-			if (iter != exprMap.begin()) str += ", ";
-			str += iter->first->GetName();
-		}
-		sig.SetError(ERR_ValueError, "%s", str.c_str());
-		return false;
-	} else {
-		foreach (Function::ExprMap, iterExprMap, exprMap) {
-			const Symbol *pSymbol = iterExprMap->first;
-			const Expr *pExprArg = iterExprMap->second;
-			Value value = pExprArg->Exec(env, nullptr);
-			if (sig.IsSignalled()) return false;
-			AddValueDictItem(Value(pSymbol), value);
-		}
-	}
-	//-------------------------------------------------------------------------
-	return CheckValidity(env);
+	return Compensate(env) && CheckValidity(env);
 }
 
 bool Argument::AddValue(Environment &env, const Value &value)
@@ -262,9 +191,9 @@ bool Argument::AddValues(Environment &env, const ValueList &valList)
 
 bool Argument::Compensate(Environment &env)
 {
-	Signal &sig = env.GetSignal();
 	if (_iSlotCur >= _slots.size()) return true;
-	Slots::const_iterator pSlot = _slots.begin() + _iSlotCur;
+	bool mapFlag = GetFlag(FLAG_Map);
+	Slots::iterator pSlot = _slots.begin() + _iSlotCur;
 	for ( ; pSlot != _slots.end(); pSlot++) {
 		const Declaration &decl = pSlot->GetDeclaration();
 		const Expr *pExprArg = decl.GetExprDefault();
@@ -272,34 +201,20 @@ bool Argument::Compensate(Environment &env)
 			// nothing to do
 		} else if (pExprArg == nullptr) {
 			if (decl.GetOccurPattern() == OCCUR_ZeroOrOnce) {
-				if (!AddValue(env, Value::Undefined)) return false;
+				if (!pSlot->SetValue(env, Value::Undefined, mapFlag, &_mapMode)) return false;
 			} else if (decl.GetOccurPattern() == OCCUR_ZeroOrMore) {
-				break;
-			} else if (decl.GetOccurPattern() == OCCUR_OnceOrMore &&
-					   !pSlot->GetValue().GetList().empty()) {
-				break;
+				// nothing to do
 			} else {
 				Declaration::SetError_NotEnoughArguments(env);
 				return false;
 			}
 		} else if (decl.IsQuote()) {
-			if (!AddValue(env,
-				  Value(new Object_expr(env, Expr::Reference(pExprArg))))) return false;
-		} else if (decl.IsType(VTYPE_symbol)) {
-			const Expr *pExpr = pExprArg;
-			if (pExpr->IsQuote()) {
-				pExpr = dynamic_cast<const Expr_Quote *>(pExpr)->GetChild();
-			}
-			if (!pExpr->IsIdentifier()) {
-				env.SetError(ERR_TypeError, "identifier is expected");
-				return false;
-			}
-			const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
-			if (!AddValue(env, Value(pSymbol))) return false;
+			Value value(new Object_expr(env, pExprArg->Reference()));
+			if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
 		} else {
-			Value value = pExprArg->Exec(env);
-			if (sig.IsSignalled()) return false;
-			if (!AddValue(env, value)) return false;
+			Value value = pExprArg->Exec(env, nullptr);
+			if (env.IsSignalled()) return false;
+			if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
 		}
 	}
 	return true;
