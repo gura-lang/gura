@@ -1103,10 +1103,29 @@ Expr *Expr_Root::Clone() const
 
 Value Expr_Root::DoExec(Environment &env) const
 {
-	//AutoPtr<Processor> pProcessor(new Processor());
-	//pProcessor->PushSequence(new SequenceRoot(env.Reference(), GetExprOwner().Reference()));
-	//return pProcessor->Run(sig);
-	return Value::Nil;
+	Value result;
+	Signal &sig = env.GetSignal();
+	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
+		result = pExpr->Exec(env);
+		if (sig.IsError()) {
+			sig.AddExprCause(pExpr);
+			return Value::Nil;
+		} else if (sig.IsTerminate()) {
+			sig.PrintSignal(*env.GetConsoleErr());
+			sig.ClearSignal();
+			return Value::Nil;
+		} else if (sig.IsSignalled()) {
+			sig.PrintSignal(*env.GetConsoleErr());
+			sig.ClearSignal();
+		} else if (!env.GetGlobal()->GetEchoFlag()) {
+			// nothing to do
+		} else if (result.IsValid()) {
+			env.GetConsole()->Println(sig, result.ToString().c_str());
+		}
+	}
+	return result;
 }
 
 bool Expr_Root::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const

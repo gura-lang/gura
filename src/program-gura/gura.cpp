@@ -96,10 +96,11 @@ int Main(int argc, const char *argv[])
 			if (exprOwner.empty()) {
 				env.GetConsoleErr()->Println(sig, "incomplete command");
 			} else {
-				AutoPtr<Processor> pProcessor(new Processor());
-				pProcessor->PushSequence(new Expr::SequenceRoot(
-									env.Reference(), exprOwner.Reference()));
-				Value result = pProcessor->Run(sig);
+				//AutoPtr<Processor> pProcessor(new Processor());
+				//pProcessor->PushSequence(new Expr::SequenceRoot(
+				//					env.Reference(), exprOwner.Reference()));
+				//Value result = pProcessor->Run(sig);
+				Value result = pExprRoot->Exec(env);
 				if (sig.IsSignalled()) {
 					sig.PrintSignal(*env.GetConsoleErr());
 					return 1;
@@ -122,10 +123,11 @@ int Main(int argc, const char *argv[])
 		if (opt.IsSet("llvm")) {
 			//pExprRoot->GenerateCode(env, sig, *env.GetConsole());
 		} else {
-			AutoPtr<Processor> pProcessor(new Processor());
-			pProcessor->PushSequence(new Expr::SequenceRoot(env.Reference(),
-										pExprRoot->GetExprOwner().Reference()));
-			pProcessor->Run(sig);
+			//AutoPtr<Processor> pProcessor(new Processor());
+			//pProcessor->PushSequence(new Expr::SequenceRoot(env.Reference(),
+			//							pExprRoot->GetExprOwner().Reference()));
+			//pProcessor->Run(sig);
+			pExprRoot->Exec(env);
 		}
 		if (sig.IsSignalled()) {
 			sig.PrintSignal(*env.GetConsoleErr());

@@ -266,10 +266,11 @@ HRESULT CMain::ParseScriptText(
 	if (exprOwner.empty()) {
 		pConsole->Println(_sig, "incomplete command");
 	} else {
-		Gura::AutoPtr<Gura::Processor> pProcessor(new Gura::Processor());
-		pProcessor->PushSequence(new Gura::Expr::SequenceRoot(
-							_pEnv->Reference(), exprOwner.Reference()));
-		Gura::Value result = pProcessor->Run(_sig);
+		//Gura::AutoPtr<Gura::Processor> pProcessor(new Gura::Processor());
+		//pProcessor->PushSequence(new Gura::Expr::SequenceRoot(
+		//					_pEnv->Reference(), exprOwner.Reference()));
+		//Gura::Value result = pProcessor->Run(_sig);
+		Gura::Value result = pExprRoot->Exec(*_pEnv);
 		if (_sig.IsSignalled()) {
 			_sig.PrintSignal(*pConsole);
 			NotifyScriptError();
