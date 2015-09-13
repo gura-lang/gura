@@ -126,13 +126,17 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 				const Value &valueKey = item->first;
 				const Value &value = item->second;
 				if (valueKey.Is_symbol()) {
-					Expr *pExpr = nullptr;
-					if (value.Is_expr()) {
-						pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
+					const Symbol *pSymbol = valueKey.GetSymbol();
+					Slot *pSlot = _slots.FindBySymbol(pSymbol);
+					if (pSlot == nullptr) {
+						Value valueKey(pSymbol);
+						AddValueDictItem(valueKey, value);
+					} else if (pSlot->GetDeclaration().IsQuote()) {
+						sig.SetError(ERR_ValueError, "invalid argument");
+						return false;
 					} else {
-						pExpr = new Expr_Value(value);
+						if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
 					}
-					exprMap[valueKey.GetSymbol()] = pExpr;
 				} else {
 					AddValueDictItem(valueKey, value);
 				}
@@ -179,37 +183,34 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 	}
 	//-------------------------------------------------------------------------
 	Slots::iterator pSlot = _slots.begin() + _iSlotCur;
-	if (pSlot != _slots.end() && (!pSlot->GetDeclaration().IsVariableLength() ||
-								  pSlot->GetValue().GetList().empty())) {
-		for ( ; pSlot != _slots.end(); pSlot++) {
-			// handling named arguments and arguments with a default value
-			const Declaration &decl = pSlot->GetDeclaration();
-			const Expr *pExprArg = decl.GetExprDefault();
-			Function::ExprMap::iterator iter = exprMap.find(decl.GetSymbol());
-			if (iter != exprMap.end()) {
-				pExprArg = iter->second;
-				exprMap.erase(iter);
-			}
-			if (pSlot->GetValueExistFlag()) {
-				// nothing to do
-			} else if (pExprArg == nullptr) {
-				if (decl.GetOccurPattern() == OCCUR_ZeroOrOnce) {
-					if (!pSlot->SetValue(env, Value::Undefined, mapFlag, &_mapMode)) return false;
-					continue;
-				} else if (decl.GetOccurPattern() == OCCUR_ZeroOrMore) {
-					break;
-				} else {
-					Declaration::SetError_NotEnoughArguments(env);
-					return false;
-				}
-			} else if (decl.IsQuote()) {
-				Value value(new Object_expr(env, pExprArg->Reference()));
-				if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
+	for ( ; pSlot != _slots.end(); pSlot++) {
+		// handling named arguments and arguments with a default value
+		const Declaration &decl = pSlot->GetDeclaration();
+		const Expr *pExprArg = decl.GetExprDefault();
+		Function::ExprMap::iterator iter = exprMap.find(decl.GetSymbol());
+		if (iter != exprMap.end()) {
+			pExprArg = iter->second;
+			exprMap.erase(iter);
+		}
+		if (pSlot->GetValueExistFlag()) {
+			// nothing to do
+		} else if (pExprArg == nullptr) {
+			if (decl.GetOccurPattern() == OCCUR_ZeroOrOnce) {
+				if (!pSlot->SetValue(env, Value::Undefined, mapFlag, &_mapMode)) return false;
+				continue;
+			} else if (decl.GetOccurPattern() == OCCUR_ZeroOrMore) {
+				break;
 			} else {
-				Value value = pExprArg->Exec(env, nullptr);
-				if (sig.IsSignalled()) return false;
-				if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
+				Declaration::SetError_NotEnoughArguments(env);
+				return false;
 			}
+		} else if (decl.IsQuote()) {
+			Value value(new Object_expr(env, pExprArg->Reference()));
+			if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
+		} else {
+			Value value = pExprArg->Exec(env, nullptr);
+			if (sig.IsSignalled()) return false;
+			if (!pSlot->SetValue(env, value, mapFlag, &_mapMode)) return false;
 		}
 	}
 	//-------------------------------------------------------------------------
