@@ -9,7 +9,6 @@
 #include "Signal.h"
 #include "Environment.h"
 #include "Iterator.h"
-#include "Processor.h"
 
 namespace Gura {
 
@@ -182,15 +181,6 @@ public:
 		virtual bool Visit(Expr *pExpr);
 		inline bool GetFoundFlag() const { return _foundFlag; }
 	};
-	class GURA_DLLDECLARE SequenceRoot : public Sequence {
-	private:
-		AutoPtr<ExprOwner> _pExprOwner;
-		size_t _idxExpr;
-	public:
-		SequenceRoot(Environment *pEnv, ExprOwner *pExprOwner);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
 private:
 	ExprType _exprType;
 	int _cntRef;	// const_cast is used to update this value
@@ -310,6 +300,7 @@ public:
 	bool IsContained(const Expr *pExpr) const;
 	void SetParent(const Expr *pExpr);
 	bool IsAtSameLine() const;
+	Value Exec(Environment &env) const;
 private:
 	inline ExprList(const ExprList &exprList) {}; // not supported
 };

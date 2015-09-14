@@ -82,7 +82,6 @@ Option.cpp
 Palette.cpp
 Parser.cpp
 PathMgr.cpp
-Processor.cpp
 Random.cpp
 Rational.cpp
 Signal.cpp

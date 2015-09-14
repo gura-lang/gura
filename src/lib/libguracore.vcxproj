@@ -263,7 +263,6 @@
     <ClCompile Include="Palette.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="PathMgr.cpp" />
-    <ClCompile Include="Processor.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Rational.cpp" />
     <ClCompile Include="Signal.cpp" />
@@ -385,7 +384,6 @@
     <ClInclude Include="..\..\include\gura\Palette.h" />
     <ClInclude Include="..\..\include\gura\Parser.h" />
     <ClInclude Include="..\..\include\gura\PathMgr.h" />
-    <ClInclude Include="..\..\include\gura\Processor.h" />
     <ClInclude Include="..\..\include\gura\Random.h" />
     <ClInclude Include="..\..\include\gura\Rational.h" />
     <ClInclude Include="..\..\include\gura\Signal.h" />

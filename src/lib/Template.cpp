@@ -60,14 +60,15 @@ bool Template::Render(Environment &env, SimpleStream *pStreamDst)
 bool Template::Prepare(Environment &env)
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Processor> pProcessor(new Processor());
+	//AutoPtr<Processor> pProcessor(new Processor());
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	pEnvBlock->AssignValue(Gura_Symbol(this_),
 				Value(new Object_template(env, Reference())), EXTRA_Public);
 	_pValueMap->clear();
-	pProcessor->PushSequence(new Expr::SequenceRoot(pEnvBlock.release(),
-									_pExprOwnerForInit->Reference()));
-	pProcessor->Run(sig);
+	//pProcessor->PushSequence(new Expr::SequenceRoot(pEnvBlock.release(),
+	//								_pExprOwnerForInit->Reference()));
+	//pProcessor->Run(sig);
+	_pExprOwnerForInit->Exec(*pEnvBlock);
 	return !sig.IsSignalled();
 }
 
@@ -620,22 +621,6 @@ bool Expr_TmplScript::GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	return false;
-}
-
-Expr_TmplScript::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_TmplScript::SequenceEx::DoStep(Signal &sig, Value &result)
-{
-	return false;
-}
-
-String Expr_TmplScript::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_tmplscript>";
-	return str;
 }
 
 }

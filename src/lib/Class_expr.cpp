@@ -329,12 +329,13 @@ Gura_DeclareMethod(expr, eval)
 
 Gura_ImplementMethod(expr, eval)
 {
-	Signal &sig = env.GetSignal();
 	const Expr *pExpr = Object_expr::GetObjectThis(arg)->GetExpr();
-	Environment *pEnv = arg.Is_environment(0)?
-			Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
-			new Environment(&env, ENVTYPE_block);
-	return Processor::Run(pEnv, sig, pExpr);
+	AutoPtr<Environment> pEnv(
+		arg.Is_environment(0)?
+		Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
+		new Environment(&env, ENVTYPE_block));
+	//return Processor::Run(pEnv, sig, pExpr);
+	return pExpr->Exec(*pEnv);
 }
 
 // expr.parse(script:string) {block?}

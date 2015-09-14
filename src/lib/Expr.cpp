@@ -405,6 +405,7 @@ bool Expr::ExprVisitor_SearchBar::Visit(Expr *pExpr)
 	return true;
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Expr::SequenceRoot
 //-----------------------------------------------------------------------------
@@ -452,6 +453,7 @@ String Expr::SequenceRoot::ToString() const
 	str += "<sequence:expr_root>";
 	return str;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // ExprList
@@ -526,6 +528,33 @@ bool ExprList::IsAtSameLine() const
 		if (pExprTop->GetLineNoTop() != pExpr->GetLineNoTop()) return false;
 	}
 	return true;
+}
+
+Value ExprList::Exec(Environment &env) const
+{
+	Value result;
+	Signal &sig = env.GetSignal();
+	foreach_const (ExprList, ppExpr, *this) {
+		const Expr *pExpr = *ppExpr;
+		//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
+		result = pExpr->Exec(env);
+		if (sig.IsError()) {
+			sig.AddExprCause(pExpr);
+			return Value::Nil;
+		} else if (sig.IsTerminate()) {
+			sig.PrintSignal(*env.GetConsoleErr());
+			sig.ClearSignal();
+			return Value::Nil;
+		} else if (sig.IsSignalled()) {
+			sig.PrintSignal(*env.GetConsoleErr());
+			sig.ClearSignal();
+		} else if (!env.GetGlobal()->GetEchoFlag()) {
+			// nothing to do
+		} else if (result.IsValid()) {
+			env.GetConsole()->Println(sig, result.ToString().c_str());
+		}
+	}
+	return result;
 }
 
 //-----------------------------------------------------------------------------
@@ -1103,29 +1132,7 @@ Expr *Expr_Root::Clone() const
 
 Value Expr_Root::DoExec(Environment &env) const
 {
-	Value result;
-	Signal &sig = env.GetSignal();
-	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
-		const Expr *pExpr = *ppExpr;
-		//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
-		result = pExpr->Exec(env);
-		if (sig.IsError()) {
-			sig.AddExprCause(pExpr);
-			return Value::Nil;
-		} else if (sig.IsTerminate()) {
-			sig.PrintSignal(*env.GetConsoleErr());
-			sig.ClearSignal();
-			return Value::Nil;
-		} else if (sig.IsSignalled()) {
-			sig.PrintSignal(*env.GetConsoleErr());
-			sig.ClearSignal();
-		} else if (!env.GetGlobal()->GetEchoFlag()) {
-			// nothing to do
-		} else if (result.IsValid()) {
-			env.GetConsole()->Println(sig, result.ToString().c_str());
-		}
-	}
-	return result;
+	return GetExprOwner().Exec(env);
 }
 
 bool Expr_Root::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const

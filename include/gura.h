@@ -54,7 +54,6 @@
 #include "gura/Palette.h"
 #include "gura/Parser.h"
 #include "gura/PathMgr.h"
-#include "gura/Processor.h"
 #include "gura/Random.h"
 #include "gura/Rational.h"
 #include "gura/Stream.h"

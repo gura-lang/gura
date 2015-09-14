@@ -103,13 +103,6 @@ public:
 // Expr_TmplScript
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_TmplScript : public Expr_Collector {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal &sig, Value &result);
-		virtual String ToString() const;
-	};
 protected:
 	Template *_pTemplate;
 	String _strIndent;
