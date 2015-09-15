@@ -405,56 +405,6 @@ bool Expr::ExprVisitor_SearchBar::Visit(Expr *pExpr)
 	return true;
 }
 
-#if 0
-//-----------------------------------------------------------------------------
-// Expr::SequenceRoot
-//-----------------------------------------------------------------------------
-Expr::SequenceRoot::SequenceRoot(Environment *pEnv, ExprOwner *pExprOwner) :
-								Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
-{
-}
-
-bool Expr::SequenceRoot::DoStep(Signal &sig, Value &result)
-{
-	if (_idxExpr >= _pExprOwner->size()) {
-		_doneFlag = true;
-		return false;
-	}
-	Environment &env = *_pEnv;
-	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
-	//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
-	result = pExpr->Exec(env);
-	if (sig.IsError()) {
-		sig.AddExprCause(pExpr);
-		result = Value::Nil;
-		_doneFlag = true;
-		return false;
-	} else if (sig.IsTerminate()) {
-		sig.PrintSignal(*env.GetConsoleErr());
-		sig.ClearSignal();
-		result = Value::Nil;
-		_doneFlag = true;
-		return false;
-	} else if (sig.IsSignalled()) {
-		sig.PrintSignal(*env.GetConsoleErr());
-		sig.ClearSignal();
-	} else if (!env.GetGlobal()->GetEchoFlag()) {
-		// nothing to do
-	} else if (result.IsValid()) {
-		env.GetConsole()->Println(sig, result.ToString().c_str());
-	}
-	_doneFlag = (_idxExpr >= _pExprOwner->size());
-	return true;
-}
-
-String Expr::SequenceRoot::ToString() const
-{
-	String str;
-	str += "<sequence:expr_root>";
-	return str;
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // ExprList
 //-----------------------------------------------------------------------------

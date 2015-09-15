@@ -95,10 +95,6 @@ int MainW(int argc, const char *argv[])
 			if (exprOwner.empty()) {
 				env.GetConsole()->Println(sig, "incomplete command");
 			} else {
-				//AutoPtr<Processor> pProcessor(new Processor());
-				//pProcessor->PushSequence(new Expr::SequenceRoot(
-				//					env.Reference(), exprOwner.Reference()));
-				//Value result = pProcessor->Run(sig);
 				Value result = pExprRoot->Exec(env);
 				if (sig.IsSignalled()) {
 					sig.PrintSignal(*env.GetConsole());
@@ -119,10 +115,6 @@ int MainW(int argc, const char *argv[])
 			sig.PrintSignal(*env.GetConsole());
 			return 1;
 		}
-		//AutoPtr<Processor> pProcessor(new Processor());
-		//pProcessor->PushSequence(new Expr::SequenceRoot(env.Reference(),
-		//							pExprRoot->GetExprOwner().Reference()));
-		//pProcessor->Run(sig);
 		pExprRoot->Exec(env);
 		if (sig.IsSignalled()) {
 			sig.PrintSignal(*env.GetConsole());

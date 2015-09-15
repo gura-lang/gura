@@ -754,12 +754,6 @@ Module *Environment::ImportSeparatedModule_Script(Signal &sig, Environment *pEnv
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
 	bool echoFlagSaved = pModule->GetGlobal()->GetEchoFlag();
 	pModule->GetGlobal()->SetEchoFlag(false);
-	//do {
-	//	AutoPtr<Processor> pProcessor(new Processor());
-	//	pProcessor->PushSequence(new Expr::SequenceRoot(pModule->Reference(),
-	//								pExprRoot->GetExprOwner().Reference()));
-	//	pProcessor->Run(sig);
-	//} while (0);
 	pExprRoot->Exec(*pModule);
 	pModule->GetGlobal()->SetEchoFlag(echoFlagSaved);
 	if (sig.IsSignalled()) {

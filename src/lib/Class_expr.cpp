@@ -334,7 +334,6 @@ Gura_ImplementMethod(expr, eval)
 		arg.Is_environment(0)?
 		Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
 		new Environment(&env, ENVTYPE_block));
-	//return Processor::Run(pEnv, sig, pExpr);
 	return pExpr->Exec(*pEnv);
 }
 
