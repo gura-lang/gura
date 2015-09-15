@@ -1917,15 +1917,31 @@ bool Parser::ReduceThreeElems(Environment &env)
 			}
 		} else if (elem2.IsType(ETYPE_Dot)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr . Expr\n"));
+			if (!pExprRight->IsIdentifier()) {
+				SetError_InvalidElement(sig, __LINE__);
+				return false;
+			}
 			pExpr = new Expr_Member(pExprLeft, pExprRight, Expr_Member::MODE_Normal);
 		} else if (elem2.IsType(ETYPE_ColonColon)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :: Expr\n"));
+			if (!pExprRight->IsIdentifier()) {
+				SetError_InvalidElement(sig, __LINE__);
+				return false;
+			}
 			pExpr = new Expr_Member(pExprLeft, pExprRight, Expr_Member::MODE_MapToList);
 		} else if (elem2.IsType(ETYPE_ColonAsterisk)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :* Expr\n"));
+			if (!pExprRight->IsIdentifier()) {
+				SetError_InvalidElement(sig, __LINE__);
+				return false;
+			}
 			pExpr = new Expr_Member(pExprLeft, pExprRight, Expr_Member::MODE_MapToIter);
 		} else if (elem2.IsType(ETYPE_ColonAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :& Expr\n"));
+			if (!pExprRight->IsIdentifier()) {
+				SetError_InvalidElement(sig, __LINE__);
+				return false;
+			}
 			pExpr = new Expr_Member(pExprLeft, pExprRight, Expr_Member::MODE_MapAlong);
 		} else if (elem2.IsType(ETYPE_OrOr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr || Expr\n"));
