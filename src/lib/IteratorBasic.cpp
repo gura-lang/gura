@@ -624,9 +624,7 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 	if (_pExpr->IsIdentifier()) {
 		const Expr_Identifier *pExprIdentifier =
 							dynamic_cast<const Expr_Identifier *>(_pExpr.get());
-		//value = pExprIdentifier->GetProp(*pFundEach, valueThisEach);
-		value = Expr::GetThisProp(*pFundEach, valueThisEach, pExprIdentifier->GetSymbol(),
-								  pExprIdentifier->GetAttrs());
+		value = pExprIdentifier->GetThisProp(*pFundEach, valueThisEach);
 	} else {
 		value = _pExpr->Exec(*pFundEach);
 	}

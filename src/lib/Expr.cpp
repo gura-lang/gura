@@ -345,28 +345,6 @@ Expr::ScriptStyle Expr::SymbolToScriptStyle(const Symbol *pSymbol)
 	}
 }
 
-Value Expr::GetThisProp(Environment &env, const Value &valueThis,
-						const Symbol *pSymbol, const SymbolSet &attrs)
-{
-	Signal &sig = env.GetSignal();
-	if (valueThis.IsPrimitive()) {
-		bool evaluatedFlag = false;
-		Class *pClass = valueThis.GetValueTypeInfo()->GetClass();
-		Value rtn = pClass->GetPropPrimitive(env,
-						valueThis, pSymbol, attrs, evaluatedFlag);
-		if (evaluatedFlag) return rtn;
-	}
-	EnvRefMode envRefMode =
-			env.IsModule()? ENVREF_Module :
-			!(env.IsClass() || env.IsObject())? ENVREF_Escalate :
-			valueThis.IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
-	int cntSuperSkip = valueThis.GetSuperSkipCount();
-	Value rtn = env.GetProp(env, pSymbol, attrs,
-										nullptr, envRefMode, cntSuperSkip);
-	if (sig.IsSignalled()) return Value::Nil;
-	return rtn;
-}
-
 //-----------------------------------------------------------------------------
 // Expr::ExprVisitor_GatherSymbol
 //-----------------------------------------------------------------------------
@@ -716,8 +694,7 @@ Value Expr_Identifier::DoExec(Environment &env) const
 	return result;
 }
 
-#if 0
-Value Expr_Identifier::GetProp(Environment &env, const Value &valueThis) const
+Value Expr_Identifier::GetThisProp(Environment &env, const Value &valueThis) const
 {
 	Signal &sig = env.GetSignal();
 	if (valueThis.IsPrimitive()) {
@@ -733,11 +710,10 @@ Value Expr_Identifier::GetProp(Environment &env, const Value &valueThis) const
 			valueThis.IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
 	int cntSuperSkip = valueThis.GetSuperSkipCount();
 	Value rtn = env.GetProp(env, GetSymbol(), GetAttrs(),
-										nullptr, envRefMode, cntSuperSkip);
+							nullptr, envRefMode, cntSuperSkip);
 	if (sig.IsSignalled()) return Value::Nil;
 	return rtn;
 }
-#endif
 
 Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
@@ -1927,9 +1903,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		if (pExprRight->IsIdentifier()) {
 			const Expr_Identifier *pExprIdentifier =
 								dynamic_cast<const Expr_Identifier *>(pExprRight);
-			//valueCar = pExprIdentifier->GetProp(*pFund, valueThis);
-			valueCar = GetThisProp(*pFund, valueThis,
-								   pExprIdentifier->GetSymbol(), SymbolSet::Empty);
+			valueCar = pExprIdentifier->GetThisProp(*pFund, valueThis);
 		} else {
 			valueCar = pExprRight->Exec(*pFund);
 		}
@@ -2582,9 +2556,7 @@ Value Expr_Member::DoExec(Environment &env) const
 		if (pExprRight->IsIdentifier()) {
 			const Expr_Identifier *pExprIdentifier =
 								dynamic_cast<const Expr_Identifier *>(pExprRight);
-			//result = pExprIdentifier->GetProp(*pFund, valueThis);
-			result = GetThisProp(*pFund, valueThis,
-								 pExprIdentifier->GetSymbol(), pExprIdentifier->GetAttrs());
+			result = pExprIdentifier->GetThisProp(*pFund, valueThis);
 		} else {
 			result = pExprRight->Exec(*pFund);
 		}
