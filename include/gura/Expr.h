@@ -276,6 +276,8 @@ public:
 	static bool PutNestIndent(Signal &sig, SimpleStream &stream,
 							  int nestLevel, const char *strIndent);
 	static ScriptStyle SymbolToScriptStyle(const Symbol *pSymbol);
+	static Value GetThisProp(Environment &env, const Value &valueThis,
+							 const Symbol *pSymbol, const SymbolSet &attrs);
 };
 
 //-----------------------------------------------------------------------------
@@ -382,7 +384,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env) const;
 	virtual Value DoExec(Environment &env) const;
-	Value GetProp(Environment &env, const Value &valueThis) const;
+	//Value GetProp(Environment &env, const Value &valueThis) const;
 	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor);
