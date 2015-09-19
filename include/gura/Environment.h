@@ -326,6 +326,8 @@ public:
 	Value GetProp(Environment &env, const Symbol *pSymbol,
 					const SymbolSet &attrs, const Value *pValueDefault = nullptr,
 					EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0) const;
+	Value GetThisProp(const Value &valueThis,
+					  const Symbol *pSymbol, const SymbolSet &attrs);
 	void AssignIntegratedModule(Module *pModule);
 	bool ImportModules(Signal &sig, const char *moduleNames,
 								bool binaryOnlyFlag, bool mixinTypeFlag);

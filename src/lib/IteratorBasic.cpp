@@ -594,8 +594,10 @@ void Iterator_BinaryOperatorMap::GatherFollower(Environment::Frame *pFrame, Envi
 //-----------------------------------------------------------------------------
 // Iterator_MemberMap
 //-----------------------------------------------------------------------------
-Iterator_MemberMap::Iterator_MemberMap(Environment *pEnv, Iterator *pIterator, Expr *pExpr) :
-		Iterator(pIterator->IsInfinite()), _pEnv(pEnv), _pIterator(pIterator), _pExpr(pExpr)
+Iterator_MemberMap::Iterator_MemberMap(Environment *pEnv, Iterator *pIterator,
+									   const Symbol *pSymbol, SymbolSetShared *pAttrsShrd) :
+		Iterator(pIterator->IsInfinite()), _pEnv(pEnv), _pIterator(pIterator),
+		_pSymbol(pSymbol), _pAttrsShrd(pAttrsShrd)
 {
 }
 
@@ -621,13 +623,17 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 		pFundEach = valueThisEach.ExtractFundamental(sig);
 		if (sig.IsSignalled()) return false;
 	}
+#if 0
 	if (_pExpr->IsIdentifier()) {
 		const Expr_Identifier *pExprIdentifier =
 							dynamic_cast<const Expr_Identifier *>(_pExpr.get());
-		value = pExprIdentifier->GetThisProp(*pFundEach, valueThisEach);
+		value = pFundEach->GetThisProp(valueThisEach, _pSymbol, _attrs);
 	} else {
 		value = _pExpr->Exec(*pFundEach);
 	}
+#else
+	value = pFundEach->GetThisProp(valueThisEach, GetSymbol(), GetAttrs());
+#endif	
 	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(env,
 									Function::Reference(value.GetFunction()));
@@ -641,7 +647,7 @@ String Iterator_MemberMap::ToString() const
 {
 	String rtn;
 	rtn += "member_map(";
-	rtn += _pExpr->ToString(Expr::SCRSTYLE_Brief);
+	//rtn += _pExpr->ToString(Expr::SCRSTYLE_Brief);
 	rtn += ";";
 	rtn += _pIterator->ToString();
 	rtn += ")";

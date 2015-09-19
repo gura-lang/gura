@@ -299,14 +299,20 @@ class GURA_DLLDECLARE Iterator_MemberMap : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
 	AutoPtr<Iterator> _pIterator;
-	AutoPtr<Expr> _pExpr;
+	const Symbol *_pSymbol;
+	AutoPtr<SymbolSetShared> _pAttrsShrd;
 public:
-	Iterator_MemberMap(Environment *pEnv, Iterator *pIterator, Expr *pExpr);
+	Iterator_MemberMap(Environment *pEnv, Iterator *pIterator,
+					   const Symbol *pSymbol, SymbolSetShared *pAttrsShrd);
 	virtual ~Iterator_MemberMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	inline const Symbol *GetSymbol() const { return _pSymbol; }
+	inline const SymbolSet &GetAttrs() const {
+		return _pAttrsShrd.IsNull()? SymbolSet::Empty : _pAttrsShrd->GetSymbolSet();
+	}
 };
 
 //-----------------------------------------------------------------------------

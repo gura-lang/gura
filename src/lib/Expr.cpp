@@ -668,6 +668,21 @@ bool Expr_Value::GenerateScript(Signal &sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_Identifier::IsIdentifier() const { return true; }
 
+Expr_Identifier::Expr_Identifier(const Symbol *pSymbol) :
+	Expr(EXPRTYPE_Identifier), _pSymbol(pSymbol),
+	_pAttrsShrd(new SymbolSetShared()),
+	_pAttrsOptShrd(new SymbolSetShared())
+{
+}
+
+Expr_Identifier::Expr_Identifier(const Expr_Identifier &expr) :
+	Expr(expr), _pSymbol(expr._pSymbol),
+	_pAttrsShrd(new SymbolSetShared(*expr.GetAttrsShrd())),
+	_pAttrsOptShrd(new SymbolSetShared(*expr.GetAttrsOptShrd())),
+	_attrFront(expr._attrFront)
+{
+}
+
 Expr *Expr_Identifier::Clone() const
 {
 	return new Expr_Identifier(*this);
@@ -694,27 +709,6 @@ Value Expr_Identifier::DoExec(Environment &env) const
 	return result;
 }
 
-Value Expr_Identifier::GetThisProp(Environment &env, const Value &valueThis) const
-{
-	Signal &sig = env.GetSignal();
-	if (valueThis.IsPrimitive()) {
-		bool evaluatedFlag = false;
-		Class *pClass = valueThis.GetValueTypeInfo()->GetClass();
-		Value rtn = pClass->GetPropPrimitive(env,
-						valueThis, GetSymbol(), GetAttrs(), evaluatedFlag);
-		if (evaluatedFlag) return rtn;
-	}
-	EnvRefMode envRefMode =
-			env.IsModule()? ENVREF_Module :
-			!(env.IsClass() || env.IsObject())? ENVREF_Escalate :
-			valueThis.IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
-	int cntSuperSkip = valueThis.GetSuperSkipCount();
-	Value rtn = env.GetProp(env, GetSymbol(), GetAttrs(),
-							nullptr, envRefMode, cntSuperSkip);
-	if (sig.IsSignalled()) return Value::Nil;
-	return rtn;
-}
-
 Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
@@ -728,7 +722,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 		SetError_NotAssignableSymbol(sig, GetSymbol());
 		return Value::Nil;
 	}
-	if (_attrs.IsSet(Gura_Symbol(extern_))) {
+	if (GetAttrs().IsSet(Gura_Symbol(extern_))) {
 		escalateFlag = true;
 		if (env.LookupValue(GetSymbol(), ENVREF_Escalate) == nullptr) {
 			SetError(sig, ERR_ValueError, "undefined symbol '%s'",
@@ -736,7 +730,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 			return Value::Nil;
 		}
 	}
-	if (_attrs.IsSet(Gura_Symbol(local))) {
+	if (GetAttrs().IsSet(Gura_Symbol(local))) {
 		escalateFlag = false;
 	}
 	ValueType valTypeCast = VTYPE_any;
@@ -747,7 +741,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 		}
 	}
 	ULong extra = EXTRA_None;
-	if (_attrs.IsSet(Gura_Symbol(public_))) {
+	if (GetAttrs().IsSet(Gura_Symbol(public_))) {
 		extra = EXTRA_Public;
 	}
 	if (valueAssigned.IsModule()) {
@@ -854,7 +848,7 @@ bool Expr_Identifier::GenerateScriptTail(Signal &sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
-	foreach_const (SymbolSet, ppSymbol, _attrs) {
+	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (!pSymbol->IsIdentical(pSymbolFront)) {
 			stream.PutChar(sig, ':');
@@ -863,14 +857,14 @@ bool Expr_Identifier::GenerateScriptTail(Signal &sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
-	if (!_attrsOpt.empty()) {
+	if (!GetAttrsOpt().empty()) {
 		stream.PutChar(sig, ':');
 		if (sig.IsSignalled()) return false;
 		stream.PutChar(sig, '[');
 		if (sig.IsSignalled()) return false;
-		foreach_const (SymbolSet, ppSymbol, _attrsOpt) {
+		foreach_const (SymbolSet, ppSymbol, GetAttrsOpt()) {
 			const Symbol *pSymbol = *ppSymbol;
-			if (ppSymbol != _attrsOpt.begin()) {
+			if (ppSymbol != GetAttrsOpt().begin()) {
 				stream.PutChar(sig, ',');
 				if (sig.IsSignalled()) return false;
 			}
@@ -1830,7 +1824,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 	// correspond to method-calling, property-getting and property-setting.
 	if (_pExprCar->IsMember()) {
 		const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
-		Value valueThis = pExprMember->GetLeft()->Exec(env);
+		Value valueThis = pExprMember->GetTarget()->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		Expr_Member::Mode mode = pExprMember->GetMode();
 		if (mode != Expr_Member::MODE_Normal) {
@@ -1878,7 +1872,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 {
 	Signal &sig = env.GetSignal();
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
-	const Expr *pExprRight = pExprMember->GetRight();
+	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
 	Value valueCar;
 	Callable *pCallable = nullptr;
 	Fundamental *pFund = nullptr;
@@ -1891,22 +1885,14 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 			return Value::Nil;
 		}
 	}
-	if (pExprRight->IsIdentifier()) {
-		pCallable = pFund->GetCallable(sig,
-					dynamic_cast<const Expr_Identifier *>(pExprRight)->GetSymbol());
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(this);
-			return Value::Nil;
-		}
+	pCallable = pFund->GetCallable(sig, pExprSelector->GetSymbol());
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return Value::Nil;
 	}
 	if (pCallable == nullptr) {
-		if (pExprRight->IsIdentifier()) {
-			const Expr_Identifier *pExprIdentifier =
-								dynamic_cast<const Expr_Identifier *>(pExprRight);
-			valueCar = pExprIdentifier->GetThisProp(*pFund, valueThis);
-		} else {
-			valueCar = pExprRight->Exec(*pFund);
-		}
+		valueCar = pFund->GetThisProp(valueThis, pExprSelector->GetSymbol(),
+									  pExprSelector->GetAttrs());
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Nil;
@@ -1957,11 +1943,7 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 	if (GetCar()->IsMember()) {
 		const Expr_Member *pExprMember =
 						dynamic_cast<const Expr_Member *>(GetCar());
-		if (pExprMember->GetRight()->IsIdentifier()) {
-			const Expr_Identifier *pExprIdentifier =
-						dynamic_cast<const Expr_Identifier *>(pExprMember->GetRight());
-			pSymbol = pExprIdentifier->GetSymbol();
-		}
+		pSymbol = pExprMember->GetSelector()->GetSymbol();
 	} else if (GetCar()->IsIdentifier()) {
 		const Expr_Identifier *pExprIdentifier =
 						dynamic_cast<const Expr_Identifier *>(GetCar());
@@ -2144,7 +2126,8 @@ Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *p
 {
 	AutoPtr<Expr> pExprCar(new Expr_Identifier(pFuncSymbol));
 	if (pContainerSymbol != nullptr) {
-		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar.release()));
+		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol),
+									   dynamic_cast<Expr_Identifier *>(pExprCar.release())));
 	}
 	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
 	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
@@ -2155,7 +2138,8 @@ Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *p
 {
 	AutoPtr<Expr> pExprCar(new Expr_Identifier(pFuncSymbol));
 	if (pContainerSymbol != nullptr) {
-		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar.release()));
+		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol),
+									   dynamic_cast<Expr_Identifier *>(pExprCar.release())));
 	}
 	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
 	pExprLister->Reserve(1);
@@ -2168,7 +2152,8 @@ Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *p
 {
 	AutoPtr<Expr> pExprCar(new Expr_Identifier(pFuncSymbol));
 	if (pContainerSymbol != nullptr) {
-		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar.release()));
+		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol),
+									   dynamic_cast<Expr_Identifier *>(pExprCar.release())));
 	}
 	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
 	pExprLister->Reserve(2);
@@ -2182,7 +2167,8 @@ Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *p
 {
 	AutoPtr<Expr> pExprCar(new Expr_Identifier(pFuncSymbol));
 	if (pContainerSymbol != nullptr) {
-		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar.release()));
+		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol),
+									   dynamic_cast<Expr_Identifier *>(pExprCar.release())));
 	}
 	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
 	pExprLister->Reserve(3);
@@ -2197,7 +2183,8 @@ Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *p
 {
 	AutoPtr<Expr> pExprCar(new Expr_Identifier(pFuncSymbol));
 	if (pContainerSymbol != nullptr) {
-		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar.release()));
+		pExprCar.reset(new Expr_Member(new Expr_Identifier(pContainerSymbol),
+									   dynamic_cast<Expr_Identifier *>(pExprCar.release())));
 	}
 	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
 	pExprLister->Reserve(4);
@@ -2529,9 +2516,38 @@ bool Expr_Assign::GenerateScript(Signal &sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_Member::IsMember() const { return true; }
 
+Expr_Member::Expr_Member(Expr *pExprTarget, Expr_Identifier *pExprSelector, Mode mode) :
+	Expr(EXPRTYPE_Member),
+	_pExprTarget(pExprTarget), _pExprSelector(pExprSelector), _mode(mode)
+{
+	_pExprTarget->SetParent(this);
+	_pExprSelector->SetParent(this);
+}
+
+Expr_Member::Expr_Member(const Expr_Member &expr) : Expr(expr), _mode(expr._mode)
+{
+	_pExprTarget.reset(expr.GetTarget()->Clone());
+	_pExprTarget->SetParent(this);
+	_pExprSelector.reset(dynamic_cast<Expr_Identifier *>(expr.GetSelector()->Clone()));
+	_pExprSelector->SetParent(this);
+}
+
 Expr *Expr_Member::Clone() const
 {
 	return new Expr_Member(*this);
+}
+
+void Expr_Member::Accept(ExprVisitor &visitor)
+{
+	if (visitor.Visit(this)) {
+		if (!_pExprTarget.IsNull()) _pExprTarget->Accept(visitor);
+		if (!_pExprSelector.IsNull()) _pExprSelector->Accept(visitor);
+	}
+}
+
+bool Expr_Member::IsParentOf(const Expr *pExpr) const
+{
+	return GetTarget() == pExpr || GetSelector() == pExpr;
 }
 
 Value Expr_Member::DoExec(Environment &env) const
@@ -2540,7 +2556,7 @@ Value Expr_Member::DoExec(Environment &env) const
 	Signal &sig = env.GetSignal();
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
-	Value valueThis = GetLeft()->Exec(env);
+	Value valueThis = GetTarget()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	Fundamental *pFund = nullptr;
 	if (valueThis.IsPrimitive()) {
@@ -2552,14 +2568,9 @@ Value Expr_Member::DoExec(Environment &env) const
 	Value result;
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
-		const Expr *pExprRight = GetRight();
-		if (pExprRight->IsIdentifier()) {
-			const Expr_Identifier *pExprIdentifier =
-								dynamic_cast<const Expr_Identifier *>(pExprRight);
-			result = pExprIdentifier->GetThisProp(*pFund, valueThis);
-		} else {
-			result = pExprRight->Exec(*pFund);
-		}
+		//result = GetSelector()->GetThisProp(*pFund, valueThis);
+		result = pFund->GetThisProp(valueThis, GetSelector()->GetSymbol(),
+									GetSelector()->GetAttrs());
 		if (result.Is_function()) {
 			Object_function *pObjFunc =
 				dynamic_cast<Object_function *>(Object_function::GetObject(result)->Clone());
@@ -2572,8 +2583,11 @@ Value Expr_Member::DoExec(Environment &env) const
 		Iterator *pIterator = pFund->CreateIterator(sig);
 		if (sig.IsSignalled()) return Value::Nil;
 		if (pIterator != nullptr) {
-			AutoPtr<Iterator> pIteratorMap(new Iterator_MemberMap(
-					   new Environment(env), pIterator, Expr::Reference(GetRight())));
+			AutoPtr<Iterator> pIteratorMap(
+				new Iterator_MemberMap(
+					new Environment(env), pIterator,
+					GetSelector()->GetSymbol(),
+					SymbolSetShared::Reference(GetSelector()->GetAttrsShrd())));;
 			if (mode == MODE_MapToIter) {
 				result = Value(new Object_iterator(env, pIteratorMap.release()));
 			} else {
@@ -2592,18 +2606,18 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 	Signal &sig = env.GetSignal();
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
-	Value valueThis = GetLeft()->Exec(env);
+	Value valueThis = GetTarget()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	Fundamental *pFund = valueThis.ExtractFundamental(sig);
 	if (sig.IsSignalled()) return Value::Nil;
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
-		return GetRight()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
+		return GetSelector()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
 	}
 	AutoPtr<Iterator> pIteratorThis(pFund->CreateIterator(sig));
 	if (pIteratorThis.IsNull()) {
 		if (sig.IsSignalled()) return Value::Nil;
-		return GetRight()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
+		return GetSelector()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
 	}
 	if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
 		AutoPtr<Iterator> pIteratorValue(valueAssigned.CreateIterator(sig));
@@ -2614,7 +2628,7 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 								pIteratorValue->Next(env, value)) {
 			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
 			if (sig.IsSignalled()) break;
-			GetRight()->Assign(*pFundEach, value,
+			GetSelector()->Assign(*pFundEach, value,
 									pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
@@ -2624,7 +2638,7 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 		while (pIteratorThis->Next(env, valueThisEach)) {
 			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
 			if (sig.IsSignalled()) break;
-			GetRight()->Assign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);
+			GetSelector()->Assign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
 		if (sig.IsSignalled()) return Value::Nil;
@@ -2641,26 +2655,26 @@ bool Expr_Member::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool needParenthesisFlag = false;
-	const Expr *pExprLeft = GetLeft();
-	if (pExprLeft->IsIndexer()) {
-		const Expr_Indexer *pExprIndexer = dynamic_cast<const Expr_Indexer *>(pExprLeft);
-		pExprLeft = pExprIndexer->GetCar();
+	const Expr *pExprTarget = GetTarget();
+	if (pExprTarget->IsIndexer()) {
+		const Expr_Indexer *pExprIndexer = dynamic_cast<const Expr_Indexer *>(pExprTarget);
+		pExprTarget = pExprIndexer->GetCar();
 	}
-	if (pExprLeft->IsIdentifier()) {
-		const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprLeft);
+	if (pExprTarget->IsIdentifier()) {
+		const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprTarget);
 		needParenthesisFlag = !pExprIdentifier->GetAttrs().empty();
-	} else if (pExprLeft->IsCaller()) {
-		const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExprLeft);
+	} else if (pExprTarget->IsCaller()) {
+		const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExprTarget);
 		needParenthesisFlag = pExprCaller->GetCallerInfo().HasAttrs();
 	}
 	if (needParenthesisFlag) {
 		stream.PutChar(sig, '(');
 		if (sig.IsSignalled()) return false;
-		if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+		if (!GetTarget()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 		stream.PutChar(sig, ')');
 		if (sig.IsSignalled()) return false;
 	} else {
-		if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+		if (!GetTarget()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	}
 	const char *str =
 		(_mode == MODE_Normal)? "." :
@@ -2672,7 +2686,7 @@ bool Expr_Member::GenerateScript(Signal &sig, SimpleStream &stream,
 		return false;
 	}
 	stream.Print(sig, str);
-	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+	if (!GetSelector()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	return true;
 }
 

@@ -368,13 +368,12 @@ public:
 class GURA_DLLDECLARE Expr_Identifier : public Expr {
 protected:
 	const Symbol *_pSymbol;
-	SymbolSet _attrs;
-	SymbolSet _attrsOpt;
+	AutoPtr<SymbolSetShared> _pAttrsShrd;
+	AutoPtr<SymbolSetShared> _pAttrsOptShrd;
 	SymbolList _attrFront;
 public:
-	inline Expr_Identifier(const Symbol *pSymbol) : Expr(EXPRTYPE_Identifier), _pSymbol(pSymbol) {}
-	inline Expr_Identifier(const Expr_Identifier &expr) : Expr(expr),
-							_pSymbol(expr._pSymbol), _attrs(expr._attrs) {}
+	Expr_Identifier(const Symbol *pSymbol);
+	Expr_Identifier(const Expr_Identifier &expr);
 	inline static Expr_Identifier *Reference(const Expr_Identifier *pExpr) {
 		return dynamic_cast<Expr_Identifier *>(Expr::Reference(pExpr));
 	}
@@ -389,16 +388,18 @@ public:
 	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env) const;
 	inline bool AddAttr(const Symbol *pSymbol) {
-		_attrs.Insert(pSymbol);
+		GetAttrs().Insert(pSymbol);
 		return true;
 	}
-	inline void AddAttrs(const SymbolSet &symbolSet) { _attrs.Insert(symbolSet); }
-	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
-	inline void AddAttrsOpt(const SymbolSet &symbolSet) { _attrsOpt.Insert(symbolSet); }
-	inline SymbolSet &GetAttrs() { return _attrs; }
-	inline SymbolSet &GetAttrsOpt() { return _attrsOpt; }
-	inline const SymbolSet &GetAttrs() const { return _attrs; }
-	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
+	inline void AddAttrs(const SymbolSet &symbolSet) { GetAttrs().Insert(symbolSet); }
+	inline void AddAttrOpt(const Symbol *pSymbol) { GetAttrsOpt().Insert(pSymbol); }
+	inline void AddAttrsOpt(const SymbolSet &symbolSet) { GetAttrsOpt().Insert(symbolSet); }
+	inline const SymbolSetShared *GetAttrsShrd() const { return _pAttrsShrd.get(); }
+	inline const SymbolSetShared *GetAttrsOptShrd() const { return _pAttrsOptShrd.get(); }
+	inline SymbolSet &GetAttrs() { return _pAttrsShrd->GetSymbolSet(); }
+	inline SymbolSet &GetAttrsOpt() { return _pAttrsOptShrd->GetSymbolSet(); }
+	inline const SymbolSet &GetAttrs() const { return _pAttrsShrd->GetSymbolSet(); }
+	inline const SymbolSet &GetAttrsOpt() const { return _pAttrsOptShrd->GetSymbolSet(); }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline SymbolList &GetAttrFront() { return _attrFront; }
 	inline const SymbolList &GetAttrFront() const { return _attrFront; }
@@ -833,7 +834,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Member
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Member : public Expr_Binary {
+class GURA_DLLDECLARE Expr_Member : public Expr {
 public:
 	enum Mode {
 		MODE_Normal,		// foo.bar
@@ -842,11 +843,14 @@ public:
 		MODE_MapAlong,		// foo:&bar .. map-along
 	};
 private:
+	AutoPtr<Expr> _pExprTarget;
+	AutoPtr<Expr_Identifier> _pExprSelector;
 	Mode _mode;
 public:
-	inline Expr_Member(Expr *pExprLeft, Expr *pExprRight, Mode mode = MODE_Normal) :
-				Expr_Binary(EXPRTYPE_Member, pExprLeft, pExprRight), _mode(mode) {}
-	inline Expr_Member(const Expr_Member &expr) : Expr_Binary(expr), _mode(expr._mode) {}
+	Expr_Member(Expr *pExprTarget, Expr_Identifier *pExprSelector, Mode mode = MODE_Normal);
+	Expr_Member(const Expr_Member &expr);
+	inline const Expr *GetTarget() const { return _pExprTarget.get(); }
+	inline const Expr_Identifier *GetSelector() const { return _pExprSelector.get(); }
 	inline Mode GetMode() const { return _mode; }
 	inline static Expr_Member *Reference(const Expr_Member *pExpr) {
 		return dynamic_cast<Expr_Member *>(Expr::Reference(pExpr));
@@ -856,6 +860,8 @@ public:
 	virtual Value DoAssign(Environment &env, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool IsMember() const;
+	virtual void Accept(ExprVisitor &visitor);
+	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;

@@ -79,7 +79,7 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			}
 			return rtn;
 		}
-		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
+		sig.SetError(ERR_ValueError, "expression is not an identifier nor a caller");
 		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(attrs))) {
 		ULong flags = 0;
@@ -95,7 +95,7 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			resultMode = pExpr->GetCallerInfo().GetResultMode();
 		}
 		if (pAttrs == nullptr) {
-			sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
+			sig.SetError(ERR_ValueError, "expression is not an identifier nor a caller");
 			return Value::Nil;
 		}
 		Value rtn;
@@ -132,7 +132,7 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			}
 			return rtn;
 		}
-		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
+		sig.SetError(ERR_ValueError, "expression is not an identifier nor a caller");
 		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(block))) {
 		if (GetExpr()->IsCaller()) {
@@ -191,13 +191,17 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 		if (GetExpr()->IsBinary()) {
 			const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
 			return Value(new Object_expr(env, Expr::Reference(pExpr->GetLeft())));
+		} else if (GetExpr()->IsMember()) {
+			const Expr_Member *pExpr = dynamic_cast<const Expr_Member *>(GetExpr());
+			return Value(new Object_expr(env, Expr::Reference(pExpr->GetTarget())));
 		}
-		sig.SetError(ERR_ValueError, "not a binary expression");
+		sig.SetError(ERR_ValueError, "expression is not a binary nor a member");
 		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
 		return Value(GetExpr()->GetLineNoTop());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(linenobtm))) {
 		return Value(GetExpr()->GetLineNoBtm());
+
 	} else if (pSymbol->IsIdentical(Gura_Symbol(operator_))) {
 		if (GetExpr()->IsUnaryOp()) {
 			const Expr_UnaryOp *pExpr = dynamic_cast<const Expr_UnaryOp *>(GetExpr());
@@ -213,7 +217,7 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			if (pOperator == nullptr) return Value::Nil;
 			return Value(new Object_operator(env, OPTYPE_None, pOperator->GetOpType()));
 		}
-		sig.SetError(ERR_ValueError, "expression is not a unaryop, binaryop nor assign");
+		sig.SetError(ERR_ValueError, "expression is not a unaryop, a binaryop nor an assign");
 		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(postext))) {
 		return Value(GetExpr()->MakePosText());
@@ -221,8 +225,11 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 		if (GetExpr()->IsBinary()) {
 			const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
 			return Value(new Object_expr(env, Expr::Reference(pExpr->GetRight())));
+		} else if (GetExpr()->IsMember()) {
+			const Expr_Member *pExpr = dynamic_cast<const Expr_Member *>(GetExpr());
+			return Value(new Object_expr(env, Expr::Reference(pExpr->GetSelector())));
 		}
-		sig.SetError(ERR_ValueError, "not a binary expression");
+		sig.SetError(ERR_ValueError, "expression is not a binary nor a member");
 		return Value::Nil;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(source))) {
 		const char *sourceName = GetExpr()->GetSourceName();

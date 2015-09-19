@@ -1854,22 +1854,16 @@ bool Parser::ReduceThreeElems(Environment &env)
 					Expr_Identifier *pExprIdentifierDst =
 									dynamic_cast<Expr_Identifier *>(pExprDst);
 					pAttrFront = &pExprIdentifierDst->GetAttrFront();
-					if (pExprMember->GetRight()->IsIdentifier()) {
-						Expr_Identifier *pExprIdentifier =
-							dynamic_cast<Expr_Identifier *>(pExprMember->GetRight());
-						pExprIdentifierDst->AddAttrs(pExprIdentifier->GetAttrs());
-						pExprIdentifierDst->AddAttrsOpt(pExprIdentifier->GetAttrsOpt());
-					}
+					const Expr_Identifier *pExprIdentifier = pExprMember->GetSelector();
+					pExprIdentifierDst->AddAttrs(pExprIdentifier->GetAttrs());
+					pExprIdentifierDst->AddAttrsOpt(pExprIdentifier->GetAttrsOpt());
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprDst);
 					Expr_Caller *pExprTrailer = pExprCaller->GetLastTrailer();
 					pAttrFront = &pExprTrailer->GetAttrFront();
-					if (pExprMember->GetRight()->IsIdentifier()) {
-						Expr_Identifier *pExprIdentifier =
-							dynamic_cast<Expr_Identifier *>(pExprMember->GetRight());
-						pExprTrailer->AddAttrs(pExprIdentifier->GetAttrs());
-						pExprTrailer->AddAttrsOpt(pExprIdentifier->GetAttrsOpt());
-					}
+					const Expr_Identifier *pExprIdentifier = pExprMember->GetSelector();
+					pExprTrailer->AddAttrs(pExprIdentifier->GetAttrs());
+					pExprTrailer->AddAttrsOpt(pExprIdentifier->GetAttrsOpt());
 				} else {
 					SetError_InvalidElement(sig, __LINE__);
 					return false;
@@ -1921,28 +1915,32 @@ bool Parser::ReduceThreeElems(Environment &env)
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
 			}
-			pExpr = new Expr_Member(pExprLeft, pExprRight, Expr_Member::MODE_Normal);
+			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
+									Expr_Member::MODE_Normal);
 		} else if (elem2.IsType(ETYPE_ColonColon)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :: Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
 			}
-			pExpr = new Expr_Member(pExprLeft, pExprRight, Expr_Member::MODE_MapToList);
+			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
+									Expr_Member::MODE_MapToList);
 		} else if (elem2.IsType(ETYPE_ColonAsterisk)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :* Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
 			}
-			pExpr = new Expr_Member(pExprLeft, pExprRight, Expr_Member::MODE_MapToIter);
+			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
+									Expr_Member::MODE_MapToIter);
 		} else if (elem2.IsType(ETYPE_ColonAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :& Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
 			}
-			pExpr = new Expr_Member(pExprLeft, pExprRight, Expr_Member::MODE_MapAlong);
+			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
+									Expr_Member::MODE_MapAlong);
 		} else if (elem2.IsType(ETYPE_OrOr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr || Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_OrOr), pExprLeft, pExprRight);
@@ -2277,14 +2275,9 @@ bool Parser::ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList)
 	for (;;) {
 		if (pExpr->IsMember()) {
 			const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(pExpr);
-			if (pExprMember->GetRight()->IsIdentifier()) {
-				const Expr_Identifier *pExprIdentifier =
-						dynamic_cast<const Expr_Identifier *>(pExprMember->GetRight());
-				symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());
-				pExpr = pExprMember->GetLeft();
-			} else {
-				return false;
-			}
+			const Expr_Identifier *pExprIdentifier = pExprMember->GetSelector();
+			symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());
+			pExpr = pExprMember->GetTarget();
 		} else if (pExpr->IsIdentifier()) {
 			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
 			symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());

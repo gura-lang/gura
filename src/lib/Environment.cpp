@@ -500,6 +500,29 @@ Value Environment::GetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Nil;
 }
 
+Value Environment::GetThisProp(const Value &valueThis,
+							   const Symbol *pSymbol, const SymbolSet &attrs)
+{
+	Environment &env = *this;
+	Signal &sig = env.GetSignal();
+	if (valueThis.IsPrimitive()) {
+		bool evaluatedFlag = false;
+		Class *pClass = valueThis.GetValueTypeInfo()->GetClass();
+		Value rtn = pClass->GetPropPrimitive(env,
+						valueThis, pSymbol, attrs, evaluatedFlag);
+		if (evaluatedFlag) return rtn;
+	}
+	EnvRefMode envRefMode =
+			env.IsModule()? ENVREF_Module :
+			!(env.IsClass() || env.IsObject())? ENVREF_Escalate :
+			valueThis.IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
+	int cntSuperSkip = valueThis.GetSuperSkipCount();
+	Value rtn = env.GetProp(env, pSymbol, attrs,
+							nullptr, envRefMode, cntSuperSkip);
+	if (sig.IsSignalled()) return Value::Nil;
+	return rtn;
+}
+
 void Environment::AssignIntegratedModule(Module *pModule)
 {
 	ULong extra = EXTRA_Public;
