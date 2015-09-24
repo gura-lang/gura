@@ -17,20 +17,20 @@ const char *GetExprTypeName(ExprType exprType)
 		ExprType exprType;
 		const char *name;
 	} tbl[] = {
+		{ EXPRTYPE_Value,			"value",			},
+		{ EXPRTYPE_Identifier,		"identifier",		},
+		{ EXPRTYPE_Suffixed,		"suffixed",			},
+		{ EXPRTYPE_Member,			"member",			},
 		{ EXPRTYPE_UnaryOp,			"unaryop",			},
 		{ EXPRTYPE_Quote,			"quote",			},
 		{ EXPRTYPE_BinaryOp,		"binaryop",			},
 		{ EXPRTYPE_Assign,			"assign",			},
-		{ EXPRTYPE_Member,			"member",			},
 		{ EXPRTYPE_Root,			"root",				},
 		{ EXPRTYPE_Block,			"block",			},
 		{ EXPRTYPE_Lister,			"lister",			},
 		{ EXPRTYPE_Iterer,			"iterer",			},
 		{ EXPRTYPE_Indexer,			"indexer",			},
 		{ EXPRTYPE_Caller,			"caller",			},
-		{ EXPRTYPE_Value,			"value",			},
-		{ EXPRTYPE_Identifier,		"identifier",		},
-		{ EXPRTYPE_Suffixed,		"suffixed",			},
 	};
 	for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].exprType == exprType) return tbl[i].name;
@@ -44,11 +44,11 @@ const char *GetExprTypeName(ExprType exprType)
 // Expr <-+- Expr_Value
 //        +- Expr_Identifier
 //        +- Expr_Suffixed
+//        +- Expr_Member
 //        +- Expr_Unary <-----+- Expr_UnaryOp
 //        |                   `- Expr_Quote
 //        +- Expr_Binary <----+- Expr_BinaryOp
-//        |                   +- Expr_Assign
-//        |                   `- Expr_Member
+//        |                   `- Expr_Assign
 //        +- Expr_Collector <-+- Expr_Root
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
@@ -229,16 +229,20 @@ bool Expr::IsBinaryOp(OpType opType) const
 		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == opType;
 }
 
+// type chekers - no ancestors
+bool Expr::IsValue() const			{ return false; }
+bool Expr::IsIdentifier() const		{ return false; }
+bool Expr::IsSuffixed() const		{ return false; }
+bool Expr::IsMember() const			{ return false; }
 // type chekers - Unary and descendants
 bool Expr::IsUnary() const			{ return false; }
 bool Expr::IsUnaryOp() const		{ return false; }
 bool Expr::IsUnaryOpSuffix() const	{ return false; }
 bool Expr::IsQuote() const			{ return false; }
-	// type chekers - Binary and descendants
+// type chekers - Binary and descendants
 bool Expr::IsBinary() const			{ return false; }
 bool Expr::IsBinaryOp() const		{ return false; }
 bool Expr::IsAssign() const			{ return false; }
-bool Expr::IsMember() const			{ return false; }
 // type chekers - Collector and descendants
 bool Expr::IsCollector() const		{ return false; }
 bool Expr::IsRoot() const			{ return false; }
@@ -249,10 +253,6 @@ bool Expr::IsIterer() const			{ return false; }
 bool Expr::IsCompound() const		{ return false; }
 bool Expr::IsIndexer() const		{ return false; }
 bool Expr::IsCaller() const			{ return false; }
-// type chekers - others
-bool Expr::IsValue() const			{ return false; }
-bool Expr::IsIdentifier() const		{ return false; }
-bool Expr::IsSuffixed() const		{ return false; }
 
 bool Expr::IsParentOf(const Expr *pExpr) const
 {
@@ -573,6 +573,159 @@ String ExprOwner::Iterator::ToString() const
 
 void ExprOwner::Iterator::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
+}
+
+//-----------------------------------------------------------------------------
+// Expr_Unary
+//-----------------------------------------------------------------------------
+bool Expr_Unary::IsUnary() const { return true; }
+
+Expr_Unary::Expr_Unary(ExprType exprType, Expr *pExprChild) :
+								Expr(exprType), _pExprChild(pExprChild)
+{
+	if (pExprChild != nullptr) pExprChild->SetParent(this);
+}
+
+Expr_Unary::Expr_Unary(const Expr_Unary &expr) : Expr(expr)
+{
+	if (expr.GetChild() != nullptr) {
+		_pExprChild.reset(expr.GetChild()->Clone());
+		_pExprChild->SetParent(this);
+	}
+}
+
+Expr_Unary::~Expr_Unary()
+{
+	if (!_pExprChild.IsNull()) _pExprChild->SetParent(GetParent());
+}
+
+void Expr_Unary::Accept(ExprVisitor &visitor)
+{
+	if (visitor.Visit(this) && !_pExprChild.IsNull()) {
+		_pExprChild->Accept(visitor);
+	}
+}
+
+bool Expr_Unary::IsParentOf(const Expr *pExpr) const
+{
+	return GetChild() == pExpr;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_Binary
+//-----------------------------------------------------------------------------
+bool Expr_Binary::IsBinary() const { return true; }
+
+Expr_Binary::Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight) :
+				Expr(exprType), _pExprLeft(pExprLeft), _pExprRight(pExprRight)
+{
+	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(this);
+	if (!_pExprRight.IsNull()) _pExprRight->SetParent(this);
+}
+
+Expr_Binary::Expr_Binary(const Expr_Binary &expr) : Expr(expr)
+{
+	if (expr.GetLeft() != nullptr) {
+		_pExprLeft.reset(expr.GetLeft()->Clone());
+		_pExprLeft->SetParent(this);
+	}
+	if (expr.GetRight() != nullptr) {
+		_pExprRight.reset(expr.GetRight()->Clone());
+		_pExprRight->SetParent(this);
+	}
+}
+
+Expr_Binary::~Expr_Binary()
+{
+	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(GetParent());
+	if (!_pExprRight.IsNull()) _pExprRight->SetParent(GetParent());
+}
+
+void Expr_Binary::Accept(ExprVisitor &visitor)
+{
+	if (visitor.Visit(this)) {
+		if (!_pExprLeft.IsNull()) _pExprLeft->Accept(visitor);
+		if (!_pExprRight.IsNull()) _pExprRight->Accept(visitor);
+	}
+}
+
+bool Expr_Binary::IsParentOf(const Expr *pExpr) const
+{
+	return GetLeft() == pExpr || GetRight() == pExpr;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_Collector
+//-----------------------------------------------------------------------------
+bool Expr_Collector::IsCollector() const { return true; }
+
+Expr_Collector::Expr_Collector(ExprType exprType) :
+						Expr(exprType), _pExprOwner(new ExprOwner())
+{
+}
+
+Expr_Collector::Expr_Collector(ExprType exprType, ExprOwner *pExprOwner) :
+						Expr(exprType), _pExprOwner(pExprOwner)
+{
+}
+
+Expr_Collector::Expr_Collector(const Expr_Collector &expr) : Expr(expr), _pExprOwner(new ExprOwner())
+{
+	foreach_const (ExprOwner, ppExpr, expr.GetExprOwner()) {
+		AddExpr((*ppExpr)->Clone());
+	}
+}
+
+Expr_Collector::~Expr_Collector()
+{
+	GetExprOwner().SetParent(GetParent());
+}
+
+void Expr_Collector::Accept(ExprVisitor &visitor)
+{
+	if (visitor.Visit(this)) {
+		GetExprOwner().Accept(visitor);
+	}
+}
+
+bool Expr_Collector::IsParentOf(const Expr *pExpr) const
+{
+	return GetExprOwner().IsContained(pExpr);
+}
+
+//-----------------------------------------------------------------------------
+// Expr_Compound
+//-----------------------------------------------------------------------------
+bool Expr_Compound::IsCompound() const { return true; }
+
+Expr_Compound::Expr_Compound(ExprType exprType, Expr *pExprCar, Expr_Lister *pExprLister) :
+	Expr(exprType), _pExprCar(pExprCar), _pExprLister(pExprLister),
+	_exprOwner(_pExprLister->GetExprOwner())
+{
+	if (!_pExprCar.IsNull()) _pExprCar->SetParent(this);
+	if (!_pExprLister.IsNull()) _pExprLister->SetParent(this);
+}
+
+Expr_Compound::Expr_Compound(const Expr_Compound &expr) :
+	Expr(expr), _pExprCar(expr._pExprCar->Clone()),
+	_pExprLister(dynamic_cast<Expr_Lister *>(expr._pExprLister->Clone())),
+	_exprOwner(_pExprLister->GetExprOwner())
+{
+	if (!_pExprCar.IsNull()) _pExprCar->SetParent(this);
+	if (!_pExprLister.IsNull()) _pExprLister->SetParent(this);
+}
+
+Expr_Compound::~Expr_Compound()
+{
+	if (!_pExprCar.IsNull()) _pExprCar->SetParent(GetParent());
+	if (!_pExprLister.IsNull()) _pExprLister->SetParent(GetParent());
+}
+
+bool Expr_Compound::IsParentOf(const Expr *pExpr) const
+{
+	return _pExprCar.get() == pExpr || _pExprLister.get() == pExpr ||
+			(!_pExprCar.IsNull() && _pExprCar->IsParentOf(pExpr)) ||
+			(!_pExprLister.IsNull() && _pExprLister->IsParentOf(pExpr));
 }
 
 //-----------------------------------------------------------------------------
@@ -939,121 +1092,498 @@ bool Expr_Suffixed::GenerateScript(Signal &sig, SimpleStream &stream,
 }
 
 //-----------------------------------------------------------------------------
-// Expr_Unary
+// Expr_Member
 //-----------------------------------------------------------------------------
-bool Expr_Unary::IsUnary() const { return true; }
+bool Expr_Member::IsMember() const { return true; }
 
-Expr_Unary::Expr_Unary(ExprType exprType, Expr *pExprChild) :
-								Expr(exprType), _pExprChild(pExprChild)
+Expr_Member::Expr_Member(Expr *pExprTarget, Expr_Identifier *pExprSelector, Mode mode) :
+	Expr(EXPRTYPE_Member),
+	_pExprTarget(pExprTarget), _pExprSelector(pExprSelector), _mode(mode)
 {
-	if (pExprChild != nullptr) pExprChild->SetParent(this);
+	_pExprTarget->SetParent(this);
+	_pExprSelector->SetParent(this);
 }
 
-Expr_Unary::Expr_Unary(const Expr_Unary &expr) : Expr(expr)
+Expr_Member::Expr_Member(const Expr_Member &expr) : Expr(expr), _mode(expr._mode)
 {
-	if (expr.GetChild() != nullptr) {
-		_pExprChild.reset(expr.GetChild()->Clone());
-		_pExprChild->SetParent(this);
-	}
+	_pExprTarget.reset(expr.GetTarget()->Clone());
+	_pExprTarget->SetParent(this);
+	_pExprSelector.reset(dynamic_cast<Expr_Identifier *>(expr.GetSelector()->Clone()));
+	_pExprSelector->SetParent(this);
 }
 
-Expr_Unary::~Expr_Unary()
+Expr *Expr_Member::Clone() const
 {
-	if (!_pExprChild.IsNull()) _pExprChild->SetParent(GetParent());
+	return new Expr_Member(*this);
 }
 
-void Expr_Unary::Accept(ExprVisitor &visitor)
-{
-	if (visitor.Visit(this) && !_pExprChild.IsNull()) {
-		_pExprChild->Accept(visitor);
-	}
-}
-
-bool Expr_Unary::IsParentOf(const Expr *pExpr) const
-{
-	return GetChild() == pExpr;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_Binary
-//-----------------------------------------------------------------------------
-bool Expr_Binary::IsBinary() const { return true; }
-
-Expr_Binary::Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight) :
-				Expr(exprType), _pExprLeft(pExprLeft), _pExprRight(pExprRight)
-{
-	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(this);
-	if (!_pExprRight.IsNull()) _pExprRight->SetParent(this);
-}
-
-Expr_Binary::Expr_Binary(const Expr_Binary &expr) : Expr(expr)
-{
-	if (expr.GetLeft() != nullptr) {
-		_pExprLeft.reset(expr.GetLeft()->Clone());
-		_pExprLeft->SetParent(this);
-	}
-	if (expr.GetRight() != nullptr) {
-		_pExprRight.reset(expr.GetRight()->Clone());
-		_pExprRight->SetParent(this);
-	}
-}
-
-Expr_Binary::~Expr_Binary()
-{
-	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(GetParent());
-	if (!_pExprRight.IsNull()) _pExprRight->SetParent(GetParent());
-}
-
-void Expr_Binary::Accept(ExprVisitor &visitor)
+void Expr_Member::Accept(ExprVisitor &visitor)
 {
 	if (visitor.Visit(this)) {
-		if (!_pExprLeft.IsNull()) _pExprLeft->Accept(visitor);
-		if (!_pExprRight.IsNull()) _pExprRight->Accept(visitor);
+		if (!_pExprTarget.IsNull()) _pExprTarget->Accept(visitor);
+		if (!_pExprSelector.IsNull()) _pExprSelector->Accept(visitor);
 	}
 }
 
-bool Expr_Binary::IsParentOf(const Expr *pExpr) const
+bool Expr_Member::IsParentOf(const Expr *pExpr) const
 {
-	return GetLeft() == pExpr || GetRight() == pExpr;
+	return GetTarget() == pExpr || GetSelector() == pExpr;
+}
+
+Value Expr_Member::DoExec(Environment &env) const
+{
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
+	Signal &sig = env.GetSignal();
+	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
+	// correspond to method-calling, property-getting and property-setting.
+	Value valueThis = GetTarget()->Exec(env);
+	if (sig.IsSignalled()) return Value::Nil;
+	Fundamental *pFund = nullptr;
+	if (valueThis.IsPrimitive()) {
+		pFund = env.LookupClass(valueThis.GetValueType());
+	} else {
+		pFund = valueThis.ExtractFundamental(sig);
+		if (sig.IsSignalled()) return Value::Nil;
+	}
+	Value result;
+	Mode mode = GetMode();
+	if (mode == MODE_Normal) {
+		//result = GetSelector()->GetThisProp(*pFund, valueThis);
+		result = pFund->GetThisProp(valueThis, GetSelector()->GetSymbol(),
+									GetSelector()->GetAttrs());
+		if (result.Is_function()) {
+			Object_function *pObjFunc =
+				dynamic_cast<Object_function *>(Object_function::GetObject(result)->Clone());
+			pObjFunc->SetValueThis(valueThis);
+			result = Value(pObjFunc);
+		}
+	} else if (valueThis.Is_list() && valueThis.GetList().empty()) {
+		result = valueThis;
+	} else {
+		Iterator *pIterator = pFund->CreateIterator(sig);
+		if (sig.IsSignalled()) return Value::Nil;
+		if (pIterator != nullptr) {
+			AutoPtr<Iterator> pIteratorMap(
+				new Iterator_MemberMap(
+					new Environment(env), pIterator,
+					GetSelector()->GetSymbol(),
+					SymbolSetShared::Reference(GetSelector()->GetAttrsShrd())));;
+			if (mode == MODE_MapToIter) {
+				result = Value(new Object_iterator(env, pIteratorMap.release()));
+			} else {
+				result = pIteratorMap->ToList(env, false, false);
+				if (sig.IsSignalled()) return Value::Nil;
+			}
+		}
+	}
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
+	return result;
+}
+
+Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
+					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+{
+	Signal &sig = env.GetSignal();
+	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
+	// correspond to method-calling, property-getting and property-setting.
+	Value valueThis = GetTarget()->Exec(env);
+	if (sig.IsSignalled()) return Value::Nil;
+	Fundamental *pFund = valueThis.ExtractFundamental(sig);
+	if (sig.IsSignalled()) return Value::Nil;
+	Mode mode = GetMode();
+	if (mode == MODE_Normal) {
+		return GetSelector()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
+	}
+	AutoPtr<Iterator> pIteratorThis(pFund->CreateIterator(sig));
+	if (pIteratorThis.IsNull()) {
+		if (sig.IsSignalled()) return Value::Nil;
+		return GetSelector()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
+	}
+	if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
+		AutoPtr<Iterator> pIteratorValue(valueAssigned.CreateIterator(sig));
+		if (sig.IsSignalled()) return Value::Nil;
+		Value value;
+		Value valueThisEach;
+		while (pIteratorThis->Next(env, valueThisEach) &&
+								pIteratorValue->Next(env, value)) {
+			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
+			if (sig.IsSignalled()) break;
+			GetSelector()->Assign(*pFundEach, value,
+									pSymbolsAssignable, escalateFlag);
+			if (sig.IsSignalled()) break;
+		}
+		if (sig.IsSignalled()) return Value::Nil;
+	} else {
+		Value valueThisEach;
+		while (pIteratorThis->Next(env, valueThisEach)) {
+			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
+			if (sig.IsSignalled()) break;
+			GetSelector()->Assign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);
+			if (sig.IsSignalled()) break;
+		}
+		if (sig.IsSignalled()) return Value::Nil;
+	}
+	return valueAssigned;
+}
+
+bool Expr_Member::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
+{
+	return codeGenerator.GenCode_Member(env, this);
+}
+
+bool Expr_Member::GenerateScript(Signal &sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
+{
+	bool needParenthesisFlag = false;
+	const Expr *pExprTarget = GetTarget();
+	if (pExprTarget->IsIndexer()) {
+		const Expr_Indexer *pExprIndexer = dynamic_cast<const Expr_Indexer *>(pExprTarget);
+		pExprTarget = pExprIndexer->GetCar();
+	}
+	if (pExprTarget->IsIdentifier()) {
+		const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprTarget);
+		needParenthesisFlag = !pExprIdentifier->GetAttrs().empty();
+	} else if (pExprTarget->IsCaller()) {
+		const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExprTarget);
+		needParenthesisFlag = pExprCaller->GetCallerInfo().HasAttrs();
+	}
+	if (needParenthesisFlag) {
+		stream.PutChar(sig, '(');
+		if (sig.IsSignalled()) return false;
+		if (!GetTarget()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+		stream.PutChar(sig, ')');
+		if (sig.IsSignalled()) return false;
+	} else {
+		if (!GetTarget()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+	}
+	const char *str =
+		(_mode == MODE_Normal)? "." :
+		(_mode == MODE_MapToList)? "::" :
+		(_mode == MODE_MapToIter)? ":*" :
+		(_mode == MODE_MapAlong)? ":&" : nullptr;
+	if (str == nullptr) {
+		sig.SetError(ERR_SyntaxError, "unknown mapping operator");
+		return false;
+	}
+	stream.Print(sig, str);
+	if (!GetSelector()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
-// Expr_Collector
+// Expr_UnaryOp
 //-----------------------------------------------------------------------------
-bool Expr_Collector::IsCollector() const { return true; }
+bool Expr_UnaryOp::IsUnaryOp() const { return true; }
+bool Expr_UnaryOp::IsUnaryOpSuffix() const { return _suffixFlag; }
 
-Expr_Collector::Expr_Collector(ExprType exprType) :
-						Expr(exprType), _pExprOwner(new ExprOwner())
+Expr *Expr_UnaryOp::Clone() const
 {
+	return new Expr_UnaryOp(*this);
 }
 
-Expr_Collector::Expr_Collector(ExprType exprType, ExprOwner *pExprOwner) :
-						Expr(exprType), _pExprOwner(pExprOwner)
+Value Expr_UnaryOp::DoExec(Environment &env) const
 {
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
+	Signal &sig = env.GetSignal();
+	Value value = GetChild()->Exec(env);
+	if (sig.IsSignalled()) return Value::Nil;
+	Value result = _pOperator->EvalMapUnary(env, value, _suffixFlag);
+	if (sig.IsSignalled()) return Value::Nil;
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
+	return result;
 }
 
-Expr_Collector::Expr_Collector(const Expr_Collector &expr) : Expr(expr), _pExprOwner(new ExprOwner())
+Expr *Expr_UnaryOp::MathDiff(Environment &env, const Symbol *pSymbol) const
 {
-	foreach_const (ExprOwner, ppExpr, expr.GetExprOwner()) {
-		AddExpr((*ppExpr)->Clone());
+	return _pOperator->MathDiffUnary(env, GetChild(), pSymbol);
+}
+
+Expr *Expr_UnaryOp::MathOptimize(Environment &env) const
+{
+	Signal &sig = env.GetSignal();
+	Expr *pExprOpt = GetChild()->MathOptimize(env);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return nullptr;
 	}
+	return _pOperator->MathOptimizeUnary(env, pExprOpt);
 }
 
-Expr_Collector::~Expr_Collector()
+bool Expr_UnaryOp::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
-	GetExprOwner().SetParent(GetParent());
+	return codeGenerator.GenCode_UnaryOp(env, this);
 }
 
-void Expr_Collector::Accept(ExprVisitor &visitor)
+bool Expr_UnaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
-	if (visitor.Visit(this)) {
-		GetExprOwner().Accept(visitor);
+	bool needParenthesisFlag = false;
+	if (GetParent() != nullptr) {
+		needParenthesisFlag = (GetParent()->IsUnaryOp() ||
+					GetParent()->IsBinaryOp() || GetParent()->IsMember());
 	}
+	if (needParenthesisFlag) {
+		stream.PutChar(sig, '(');
+		if (sig.IsSignalled()) return false;
+	}
+	if (!_suffixFlag) {
+		stream.Print(sig, _pOperator->GetSymbol()->GetName());
+		if (sig.IsSignalled()) return false;
+	}
+	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+	if (_suffixFlag) {
+		stream.Print(sig, _pOperator->GetSymbol()->GetName());
+		if (sig.IsSignalled()) return false;
+	}
+	if (needParenthesisFlag) {
+		stream.PutChar(sig, ')');
+		if (sig.IsSignalled()) return false;
+	}
+	return true;
 }
 
-bool Expr_Collector::IsParentOf(const Expr *pExpr) const
+//-----------------------------------------------------------------------------
+// Expr_Quote
+//-----------------------------------------------------------------------------
+bool Expr_Quote::IsQuote() const { return true; }
+
+Expr *Expr_Quote::Clone() const
 {
-	return GetExprOwner().IsContained(pExpr);
+	return new Expr_Quote(*this);
+}
+
+const Expr *Expr_Quote::Unquote() const
+{
+	return GetChild();
+}
+
+Value Expr_Quote::DoExec(Environment &env) const
+{
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
+	Value result;
+	if (GetChild()->IsIdentifier()) {
+		const Expr_Identifier *pExprIdentifier =
+						dynamic_cast<const Expr_Identifier *>(GetChild());
+		result.SetSymbol(pExprIdentifier->GetSymbol());
+	} else {
+		result = Value(new Object_expr(env, Expr::Reference(GetChild())));
+	}
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
+	return result;
+}
+
+bool Expr_Quote::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
+{
+	return codeGenerator.GenCode_Quote(env, this);
+}
+
+bool Expr_Quote::GenerateScript(Signal &sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
+{
+	if (GetChild()->IsUnary() || GetChild()->IsBinary()) {
+		stream.Print(sig, "`(");
+		if (sig.IsSignalled()) return false;
+		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+		stream.Print(sig, ")");
+		if (sig.IsSignalled()) return false;
+	} else {
+		stream.Print(sig, "`");
+		if (sig.IsSignalled()) return false;
+		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+	}
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_BinaryOp
+//-----------------------------------------------------------------------------
+bool Expr_BinaryOp::IsBinaryOp() const { return true; }
+
+Expr *Expr_BinaryOp::Clone() const
+{
+	return new Expr_BinaryOp(*this);
+}
+
+Value Expr_BinaryOp::DoExec(Environment &env) const
+{
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
+	Signal &sig = env.GetSignal();
+	OpType opType = _pOperator->GetOpType();
+	const Expr *pExprLeft = GetLeft();
+	const Expr *pExprRight = GetRight();
+	Value valueLeft, valueRight, result;
+	if (opType == OPTYPE_OrOr) {
+		valueLeft = pExprLeft->Exec(env);
+		if (sig.IsSignalled()) return Value::Nil;
+		if (!valueLeft.IsListOrIterator() && valueLeft.GetBoolean()) {
+			result = valueLeft;
+		} else {
+			valueRight = pExprRight->Exec(env);
+			if (sig.IsSignalled()) return Value::Nil;
+			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
+			if (sig.IsSignalled()) return Value::Nil;
+		}
+	} else if (opType == OPTYPE_AndAnd) {
+		valueLeft = pExprLeft->Exec(env);
+		if (sig.IsSignalled()) return Value::Nil;
+		if (!valueLeft.IsListOrIterator() && !valueLeft.GetBoolean()) {
+			result = valueLeft;
+		} else {
+			valueRight = pExprRight->Exec(env);
+			if (sig.IsSignalled()) return Value::Nil;
+			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
+			if (sig.IsSignalled()) return Value::Nil;
+		}
+	} else {
+		valueLeft = pExprLeft->Exec(env);
+		if (sig.IsSignalled()) return Value::Nil;
+		valueRight = pExprRight->Exec(env);
+		if (sig.IsSignalled()) return Value::Nil;
+		result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
+		if (sig.IsSignalled()) return Value::Nil;
+	}
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
+	return result;
+}
+
+Expr *Expr_BinaryOp::MathDiff(Environment &env, const Symbol *pSymbol) const
+{
+	return _pOperator->MathDiffBinary(env, GetLeft(), GetRight(), pSymbol);
+}
+
+Expr *Expr_BinaryOp::MathOptimize(Environment &env) const
+{
+	Signal &sig = env.GetSignal();
+	AutoPtr<Expr> pExprOpt1(GetLeft()->MathOptimize(env));
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return nullptr;
+	}
+	AutoPtr<Expr> pExprOpt2(GetRight()->MathOptimize(env));
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return nullptr;
+	}
+	return _pOperator->MathOptimizeBinary(env, pExprOpt1.release(), pExprOpt2.release());
+}
+
+bool Expr_BinaryOp::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
+{
+	return codeGenerator.GenCode_BinaryOp(env, this);
+}
+
+bool Expr_BinaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
+{
+	bool needParenthesisFlag = false;
+	if (GetParent() == nullptr) {
+		// nothing to do
+	} else if (GetParent()->IsUnaryOp()) {
+		needParenthesisFlag = true;
+	} else if (GetParent()->IsBinaryOp()) {
+		const Expr_BinaryOp *pExprOuter =
+								dynamic_cast<const Expr_BinaryOp *>(GetParent());
+		needParenthesisFlag = NeedParenthesis(pExprOuter->GetOperator(),
+							GetOperator(), pExprOuter->GetRight() == this);
+	} else if (GetParent()->IsMember()) {
+		needParenthesisFlag = true;
+	}
+	if (needParenthesisFlag) {
+		stream.PutChar(sig, '(');
+		if (sig.IsSignalled()) return false;
+	}
+	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+	String text;
+	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
+	text += _pOperator->GetSymbol()->GetName();
+	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
+	stream.Print(sig, text.c_str());
+	if (sig.IsSignalled()) return false;
+	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+	if (needParenthesisFlag) {
+		stream.PutChar(sig, ')');
+		if (sig.IsSignalled()) return false;
+	}
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_Assign
+//-----------------------------------------------------------------------------
+bool Expr_Assign::IsAssign() const { return true; }
+
+Expr *Expr_Assign::Clone() const
+{
+	return new Expr_Assign(*this);
+}
+
+Value Expr_Assign::DoExec(Environment &env) const
+{
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
+	Value result = Exec(env, env, nullptr);
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
+	return result;
+}
+
+Value Expr_Assign::Exec(Environment &env, Environment &envDst,
+						const SymbolSet *pSymbolsAssignable) const
+{
+	Signal &sig = env.GetSignal();
+	Value valueAssigned;
+	const Expr *pExpr = GetLeft();
+	if (pExpr->IsCaller()) {
+		if (_pOperatorToApply != nullptr) {
+			SetError(sig, ERR_SyntaxError, "invalid operation");
+			return Value::Nil;
+		}
+		Expr *pExprBody = Expr::Reference(GetRight()->Unquote());
+		valueAssigned = Value(new Object_expr(env, pExprBody));
+	} else {
+		valueAssigned = GetRight()->Exec(env);
+		if (sig.IsSignalled()) return Value::Nil;
+		if (_pOperatorToApply != nullptr) {
+			Value valueLeft = pExpr->Exec(env);
+			if (sig.IsSignalled()) return Value::Nil;
+			valueAssigned = _pOperatorToApply->EvalMapBinary(env, valueLeft, valueAssigned);
+			if (sig.IsSignalled()) return Value::Nil;
+		}
+	}
+	return GetLeft()->Assign(envDst, valueAssigned, pSymbolsAssignable, true);
+}
+
+bool Expr_Assign::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
+{
+	return codeGenerator.GenCode_Assign(env, this);
+}
+
+bool Expr_Assign::GenerateScript(Signal &sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
+{
+	bool needParenthesisFlag = false;
+	if (GetParent() != nullptr) {
+		needParenthesisFlag = (GetParent()->IsUnary() ||
+						GetParent()->IsBinary()) && !GetParent()->IsQuote();
+	}
+	if (needParenthesisFlag) {
+		stream.PutChar(sig, '(');
+		if (sig.IsSignalled()) return false;
+	}
+	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+	String text;
+	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
+	if (_pOperatorToApply != nullptr) {
+		text += _pOperatorToApply->GetSymbol()->GetName();
+	}
+	text += '=';
+	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
+	stream.Print(sig, text.c_str());
+	if (sig.IsSignalled()) return false;
+	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+	if (needParenthesisFlag) {
+		stream.PutChar(sig, ')');
+		if (sig.IsSignalled()) return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -1430,39 +1960,6 @@ bool Expr_Iterer::GenerateScript(Signal &sig, SimpleStream &stream,
 	stream.PutChar(sig, ')');
 	if (sig.IsSignalled()) return false;
 	return true;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_Compound
-//-----------------------------------------------------------------------------
-bool Expr_Compound::IsCompound() const { return true; }
-
-Expr_Compound::Expr_Compound(ExprType exprType, Expr *pExprCar, Expr_Lister *pExprLister) :
-			Expr(exprType), _pExprCar(pExprCar), _pExprLister(pExprLister)
-{
-	if (!_pExprCar.IsNull()) _pExprCar->SetParent(this);
-	if (!_pExprLister.IsNull()) _pExprLister->SetParent(this);
-}
-
-Expr_Compound::Expr_Compound(const Expr_Compound &expr) : Expr(expr),
-			_pExprCar(expr._pExprCar->Clone()),
-			_pExprLister(dynamic_cast<Expr_Lister *>(expr._pExprLister->Clone()))
-{
-	if (!_pExprCar.IsNull()) _pExprCar->SetParent(this);
-	if (!_pExprLister.IsNull()) _pExprLister->SetParent(this);
-}
-
-Expr_Compound::~Expr_Compound()
-{
-	if (!_pExprCar.IsNull()) _pExprCar->SetParent(GetParent());
-	if (!_pExprLister.IsNull()) _pExprLister->SetParent(GetParent());
-}
-
-bool Expr_Compound::IsParentOf(const Expr *pExpr) const
-{
-	return _pExprCar.get() == pExpr || _pExprLister.get() == pExpr ||
-			(!_pExprCar.IsNull() && _pExprCar->IsParentOf(pExpr)) ||
-			(!_pExprLister.IsNull() && _pExprLister->IsParentOf(pExpr));
 }
 
 //-----------------------------------------------------------------------------
@@ -2193,501 +2690,6 @@ Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *p
 	pExprLister->AddExpr(pExprArg3);
 	pExprLister->AddExpr(pExprArg4);
 	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
-}
-
-//-----------------------------------------------------------------------------
-// Expr_UnaryOp
-//-----------------------------------------------------------------------------
-bool Expr_UnaryOp::IsUnaryOp() const { return true; }
-bool Expr_UnaryOp::IsUnaryOpSuffix() const { return _suffixFlag; }
-
-Expr *Expr_UnaryOp::Clone() const
-{
-	return new Expr_UnaryOp(*this);
-}
-
-Value Expr_UnaryOp::DoExec(Environment &env) const
-{
-	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-	Signal &sig = env.GetSignal();
-	Value value = GetChild()->Exec(env);
-	if (sig.IsSignalled()) return Value::Nil;
-	Value result = _pOperator->EvalMapUnary(env, value, _suffixFlag);
-	if (sig.IsSignalled()) return Value::Nil;
-	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
-	return result;
-}
-
-Expr *Expr_UnaryOp::MathDiff(Environment &env, const Symbol *pSymbol) const
-{
-	return _pOperator->MathDiffUnary(env, GetChild(), pSymbol);
-}
-
-Expr *Expr_UnaryOp::MathOptimize(Environment &env) const
-{
-	Signal &sig = env.GetSignal();
-	Expr *pExprOpt = GetChild()->MathOptimize(env);
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(this);
-		return nullptr;
-	}
-	return _pOperator->MathOptimizeUnary(env, pExprOpt);
-}
-
-bool Expr_UnaryOp::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
-{
-	return codeGenerator.GenCode_UnaryOp(env, this);
-}
-
-bool Expr_UnaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
-{
-	bool needParenthesisFlag = false;
-	if (GetParent() != nullptr) {
-		needParenthesisFlag = (GetParent()->IsUnaryOp() ||
-					GetParent()->IsBinaryOp() || GetParent()->IsMember());
-	}
-	if (needParenthesisFlag) {
-		stream.PutChar(sig, '(');
-		if (sig.IsSignalled()) return false;
-	}
-	if (!_suffixFlag) {
-		stream.Print(sig, _pOperator->GetSymbol()->GetName());
-		if (sig.IsSignalled()) return false;
-	}
-	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-	if (_suffixFlag) {
-		stream.Print(sig, _pOperator->GetSymbol()->GetName());
-		if (sig.IsSignalled()) return false;
-	}
-	if (needParenthesisFlag) {
-		stream.PutChar(sig, ')');
-		if (sig.IsSignalled()) return false;
-	}
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_BinaryOp
-//-----------------------------------------------------------------------------
-bool Expr_BinaryOp::IsBinaryOp() const { return true; }
-
-Expr *Expr_BinaryOp::Clone() const
-{
-	return new Expr_BinaryOp(*this);
-}
-
-Value Expr_BinaryOp::DoExec(Environment &env) const
-{
-	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-	Signal &sig = env.GetSignal();
-	OpType opType = _pOperator->GetOpType();
-	const Expr *pExprLeft = GetLeft();
-	const Expr *pExprRight = GetRight();
-	Value valueLeft, valueRight, result;
-	if (opType == OPTYPE_OrOr) {
-		valueLeft = pExprLeft->Exec(env);
-		if (sig.IsSignalled()) return Value::Nil;
-		if (!valueLeft.IsListOrIterator() && valueLeft.GetBoolean()) {
-			result = valueLeft;
-		} else {
-			valueRight = pExprRight->Exec(env);
-			if (sig.IsSignalled()) return Value::Nil;
-			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
-			if (sig.IsSignalled()) return Value::Nil;
-		}
-	} else if (opType == OPTYPE_AndAnd) {
-		valueLeft = pExprLeft->Exec(env);
-		if (sig.IsSignalled()) return Value::Nil;
-		if (!valueLeft.IsListOrIterator() && !valueLeft.GetBoolean()) {
-			result = valueLeft;
-		} else {
-			valueRight = pExprRight->Exec(env);
-			if (sig.IsSignalled()) return Value::Nil;
-			result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
-			if (sig.IsSignalled()) return Value::Nil;
-		}
-	} else {
-		valueLeft = pExprLeft->Exec(env);
-		if (sig.IsSignalled()) return Value::Nil;
-		valueRight = pExprRight->Exec(env);
-		if (sig.IsSignalled()) return Value::Nil;
-		result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
-		if (sig.IsSignalled()) return Value::Nil;
-	}
-	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
-	return result;
-}
-
-Expr *Expr_BinaryOp::MathDiff(Environment &env, const Symbol *pSymbol) const
-{
-	return _pOperator->MathDiffBinary(env, GetLeft(), GetRight(), pSymbol);
-}
-
-Expr *Expr_BinaryOp::MathOptimize(Environment &env) const
-{
-	Signal &sig = env.GetSignal();
-	AutoPtr<Expr> pExprOpt1(GetLeft()->MathOptimize(env));
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(this);
-		return nullptr;
-	}
-	AutoPtr<Expr> pExprOpt2(GetRight()->MathOptimize(env));
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(this);
-		return nullptr;
-	}
-	return _pOperator->MathOptimizeBinary(env, pExprOpt1.release(), pExprOpt2.release());
-}
-
-bool Expr_BinaryOp::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
-{
-	return codeGenerator.GenCode_BinaryOp(env, this);
-}
-
-bool Expr_BinaryOp::GenerateScript(Signal &sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
-{
-	bool needParenthesisFlag = false;
-	if (GetParent() == nullptr) {
-		// nothing to do
-	} else if (GetParent()->IsUnaryOp()) {
-		needParenthesisFlag = true;
-	} else if (GetParent()->IsBinaryOp()) {
-		const Expr_BinaryOp *pExprOuter =
-								dynamic_cast<const Expr_BinaryOp *>(GetParent());
-		needParenthesisFlag = NeedParenthesis(pExprOuter->GetOperator(),
-							GetOperator(), pExprOuter->GetRight() == this);
-	} else if (GetParent()->IsMember()) {
-		needParenthesisFlag = true;
-	}
-	if (needParenthesisFlag) {
-		stream.PutChar(sig, '(');
-		if (sig.IsSignalled()) return false;
-	}
-	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-	String text;
-	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
-	text += _pOperator->GetSymbol()->GetName();
-	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
-	stream.Print(sig, text.c_str());
-	if (sig.IsSignalled()) return false;
-	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-	if (needParenthesisFlag) {
-		stream.PutChar(sig, ')');
-		if (sig.IsSignalled()) return false;
-	}
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_Quote
-//-----------------------------------------------------------------------------
-bool Expr_Quote::IsQuote() const { return true; }
-
-Expr *Expr_Quote::Clone() const
-{
-	return new Expr_Quote(*this);
-}
-
-const Expr *Expr_Quote::Unquote() const
-{
-	return GetChild();
-}
-
-Value Expr_Quote::DoExec(Environment &env) const
-{
-	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-	Value result;
-	if (GetChild()->IsIdentifier()) {
-		const Expr_Identifier *pExprIdentifier =
-						dynamic_cast<const Expr_Identifier *>(GetChild());
-		result.SetSymbol(pExprIdentifier->GetSymbol());
-	} else {
-		result = Value(new Object_expr(env, Expr::Reference(GetChild())));
-	}
-	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
-	return result;
-}
-
-bool Expr_Quote::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
-{
-	return codeGenerator.GenCode_Quote(env, this);
-}
-
-bool Expr_Quote::GenerateScript(Signal &sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
-{
-	if (GetChild()->IsUnary() || GetChild()->IsBinary()) {
-		stream.Print(sig, "`(");
-		if (sig.IsSignalled()) return false;
-		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-		stream.Print(sig, ")");
-		if (sig.IsSignalled()) return false;
-	} else {
-		stream.Print(sig, "`");
-		if (sig.IsSignalled()) return false;
-		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-	}
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_Assign
-//-----------------------------------------------------------------------------
-bool Expr_Assign::IsAssign() const { return true; }
-
-Expr *Expr_Assign::Clone() const
-{
-	return new Expr_Assign(*this);
-}
-
-Value Expr_Assign::DoExec(Environment &env) const
-{
-	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-	Value result = Exec(env, env, nullptr);
-	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
-	return result;
-}
-
-Value Expr_Assign::Exec(Environment &env, Environment &envDst,
-						const SymbolSet *pSymbolsAssignable) const
-{
-	Signal &sig = env.GetSignal();
-	Value valueAssigned;
-	const Expr *pExpr = GetLeft();
-	if (pExpr->IsCaller()) {
-		if (_pOperatorToApply != nullptr) {
-			SetError(sig, ERR_SyntaxError, "invalid operation");
-			return Value::Nil;
-		}
-		Expr *pExprBody = Expr::Reference(GetRight()->Unquote());
-		valueAssigned = Value(new Object_expr(env, pExprBody));
-	} else {
-		valueAssigned = GetRight()->Exec(env);
-		if (sig.IsSignalled()) return Value::Nil;
-		if (_pOperatorToApply != nullptr) {
-			Value valueLeft = pExpr->Exec(env);
-			if (sig.IsSignalled()) return Value::Nil;
-			valueAssigned = _pOperatorToApply->EvalMapBinary(env, valueLeft, valueAssigned);
-			if (sig.IsSignalled()) return Value::Nil;
-		}
-	}
-	return GetLeft()->Assign(envDst, valueAssigned, pSymbolsAssignable, true);
-}
-
-bool Expr_Assign::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
-{
-	return codeGenerator.GenCode_Assign(env, this);
-}
-
-bool Expr_Assign::GenerateScript(Signal &sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
-{
-	bool needParenthesisFlag = false;
-	if (GetParent() != nullptr) {
-		needParenthesisFlag = (GetParent()->IsUnary() ||
-						GetParent()->IsBinary()) && !GetParent()->IsQuote();
-	}
-	if (needParenthesisFlag) {
-		stream.PutChar(sig, '(');
-		if (sig.IsSignalled()) return false;
-	}
-	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-	String text;
-	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
-	if (_pOperatorToApply != nullptr) {
-		text += _pOperatorToApply->GetSymbol()->GetName();
-	}
-	text += '=';
-	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
-	stream.Print(sig, text.c_str());
-	if (sig.IsSignalled()) return false;
-	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-	if (needParenthesisFlag) {
-		stream.PutChar(sig, ')');
-		if (sig.IsSignalled()) return false;
-	}
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_Member
-//-----------------------------------------------------------------------------
-bool Expr_Member::IsMember() const { return true; }
-
-Expr_Member::Expr_Member(Expr *pExprTarget, Expr_Identifier *pExprSelector, Mode mode) :
-	Expr(EXPRTYPE_Member),
-	_pExprTarget(pExprTarget), _pExprSelector(pExprSelector), _mode(mode)
-{
-	_pExprTarget->SetParent(this);
-	_pExprSelector->SetParent(this);
-}
-
-Expr_Member::Expr_Member(const Expr_Member &expr) : Expr(expr), _mode(expr._mode)
-{
-	_pExprTarget.reset(expr.GetTarget()->Clone());
-	_pExprTarget->SetParent(this);
-	_pExprSelector.reset(dynamic_cast<Expr_Identifier *>(expr.GetSelector()->Clone()));
-	_pExprSelector->SetParent(this);
-}
-
-Expr *Expr_Member::Clone() const
-{
-	return new Expr_Member(*this);
-}
-
-void Expr_Member::Accept(ExprVisitor &visitor)
-{
-	if (visitor.Visit(this)) {
-		if (!_pExprTarget.IsNull()) _pExprTarget->Accept(visitor);
-		if (!_pExprSelector.IsNull()) _pExprSelector->Accept(visitor);
-	}
-}
-
-bool Expr_Member::IsParentOf(const Expr *pExpr) const
-{
-	return GetTarget() == pExpr || GetSelector() == pExpr;
-}
-
-Value Expr_Member::DoExec(Environment &env) const
-{
-	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
-	Signal &sig = env.GetSignal();
-	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
-	// correspond to method-calling, property-getting and property-setting.
-	Value valueThis = GetTarget()->Exec(env);
-	if (sig.IsSignalled()) return Value::Nil;
-	Fundamental *pFund = nullptr;
-	if (valueThis.IsPrimitive()) {
-		pFund = env.LookupClass(valueThis.GetValueType());
-	} else {
-		pFund = valueThis.ExtractFundamental(sig);
-		if (sig.IsSignalled()) return Value::Nil;
-	}
-	Value result;
-	Mode mode = GetMode();
-	if (mode == MODE_Normal) {
-		//result = GetSelector()->GetThisProp(*pFund, valueThis);
-		result = pFund->GetThisProp(valueThis, GetSelector()->GetSymbol(),
-									GetSelector()->GetAttrs());
-		if (result.Is_function()) {
-			Object_function *pObjFunc =
-				dynamic_cast<Object_function *>(Object_function::GetObject(result)->Clone());
-			pObjFunc->SetValueThis(valueThis);
-			result = Value(pObjFunc);
-		}
-	} else if (valueThis.Is_list() && valueThis.GetList().empty()) {
-		result = valueThis;
-	} else {
-		Iterator *pIterator = pFund->CreateIterator(sig);
-		if (sig.IsSignalled()) return Value::Nil;
-		if (pIterator != nullptr) {
-			AutoPtr<Iterator> pIteratorMap(
-				new Iterator_MemberMap(
-					new Environment(env), pIterator,
-					GetSelector()->GetSymbol(),
-					SymbolSetShared::Reference(GetSelector()->GetAttrsShrd())));;
-			if (mode == MODE_MapToIter) {
-				result = Value(new Object_iterator(env, pIteratorMap.release()));
-			} else {
-				result = pIteratorMap->ToList(env, false, false);
-				if (sig.IsSignalled()) return Value::Nil;
-			}
-		}
-	}
-	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
-	return result;
-}
-
-Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
-{
-	Signal &sig = env.GetSignal();
-	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
-	// correspond to method-calling, property-getting and property-setting.
-	Value valueThis = GetTarget()->Exec(env);
-	if (sig.IsSignalled()) return Value::Nil;
-	Fundamental *pFund = valueThis.ExtractFundamental(sig);
-	if (sig.IsSignalled()) return Value::Nil;
-	Mode mode = GetMode();
-	if (mode == MODE_Normal) {
-		return GetSelector()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
-	}
-	AutoPtr<Iterator> pIteratorThis(pFund->CreateIterator(sig));
-	if (pIteratorThis.IsNull()) {
-		if (sig.IsSignalled()) return Value::Nil;
-		return GetSelector()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
-	}
-	if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
-		AutoPtr<Iterator> pIteratorValue(valueAssigned.CreateIterator(sig));
-		if (sig.IsSignalled()) return Value::Nil;
-		Value value;
-		Value valueThisEach;
-		while (pIteratorThis->Next(env, valueThisEach) &&
-								pIteratorValue->Next(env, value)) {
-			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
-			if (sig.IsSignalled()) break;
-			GetSelector()->Assign(*pFundEach, value,
-									pSymbolsAssignable, escalateFlag);
-			if (sig.IsSignalled()) break;
-		}
-		if (sig.IsSignalled()) return Value::Nil;
-	} else {
-		Value valueThisEach;
-		while (pIteratorThis->Next(env, valueThisEach)) {
-			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
-			if (sig.IsSignalled()) break;
-			GetSelector()->Assign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);
-			if (sig.IsSignalled()) break;
-		}
-		if (sig.IsSignalled()) return Value::Nil;
-	}
-	return valueAssigned;
-}
-
-bool Expr_Member::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
-{
-	return codeGenerator.GenCode_Member(env, this);
-}
-
-bool Expr_Member::GenerateScript(Signal &sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
-{
-	bool needParenthesisFlag = false;
-	const Expr *pExprTarget = GetTarget();
-	if (pExprTarget->IsIndexer()) {
-		const Expr_Indexer *pExprIndexer = dynamic_cast<const Expr_Indexer *>(pExprTarget);
-		pExprTarget = pExprIndexer->GetCar();
-	}
-	if (pExprTarget->IsIdentifier()) {
-		const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprTarget);
-		needParenthesisFlag = !pExprIdentifier->GetAttrs().empty();
-	} else if (pExprTarget->IsCaller()) {
-		const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExprTarget);
-		needParenthesisFlag = pExprCaller->GetCallerInfo().HasAttrs();
-	}
-	if (needParenthesisFlag) {
-		stream.PutChar(sig, '(');
-		if (sig.IsSignalled()) return false;
-		if (!GetTarget()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-		stream.PutChar(sig, ')');
-		if (sig.IsSignalled()) return false;
-	} else {
-		if (!GetTarget()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-	}
-	const char *str =
-		(_mode == MODE_Normal)? "." :
-		(_mode == MODE_MapToList)? "::" :
-		(_mode == MODE_MapToIter)? ":*" :
-		(_mode == MODE_MapAlong)? ":&" : nullptr;
-	if (str == nullptr) {
-		sig.SetError(ERR_SyntaxError, "unknown mapping operator");
-		return false;
-	}
-	stream.Print(sig, str);
-	if (!GetSelector()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
-	return true;
 }
 
 }

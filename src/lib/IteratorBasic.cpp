@@ -623,17 +623,7 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 		pFundEach = valueThisEach.ExtractFundamental(sig);
 		if (sig.IsSignalled()) return false;
 	}
-#if 0
-	if (_pExpr->IsIdentifier()) {
-		const Expr_Identifier *pExprIdentifier =
-							dynamic_cast<const Expr_Identifier *>(_pExpr.get());
-		value = pFundEach->GetThisProp(valueThisEach, _pSymbol, _attrs);
-	} else {
-		value = _pExpr->Exec(*pFundEach);
-	}
-#else
 	value = pFundEach->GetThisProp(valueThisEach, GetSymbol(), GetAttrs());
-#endif	
 	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(env,
 									Function::Reference(value.GetFunction()));
@@ -647,7 +637,11 @@ String Iterator_MemberMap::ToString() const
 {
 	String rtn;
 	rtn += "member_map(";
-	//rtn += _pExpr->ToString(Expr::SCRSTYLE_Brief);
+	rtn += GetSymbol()->GetName();
+	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
+		rtn += ":";
+		rtn += (*ppSymbol)->GetName();
+	}
 	rtn += ";";
 	rtn += _pIterator->ToString();
 	rtn += ")";
@@ -692,7 +686,7 @@ bool Iterator_MethodMap::DoNext(Environment &env, Value &value)
 String Iterator_MethodMap::ToString() const
 {
 	String rtn;
-	rtn += "member_map(";
+	rtn += "method_map(";
 	rtn += _pExprCaller->ToString(Expr::SCRSTYLE_Brief);
 	rtn += ";";
 	rtn += _pIteratorThis->ToString();
