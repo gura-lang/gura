@@ -300,10 +300,10 @@ public:
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
 public:
 	void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra);
+	Function *AssignFunction(Function *pFunc);
 	void AssignValueFromBlock(const Symbol *pSymbol, const Value &value, ULong extra);
 	bool ImportValue(const Symbol *pSymbol, const Value &value,
 										ULong extra, bool overwriteFlag);
-	Function *AssignFunction(Function *pFunc);
 public:
 	void RemoveValue(const Symbol *pSymbol);
 public:

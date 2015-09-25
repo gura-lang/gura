@@ -190,6 +190,14 @@ void Environment::AssignValue(const Symbol *pSymbol, const Value &value, ULong e
 	CacheFrame(pSymbol, pFrame);
 }
 
+Function *Environment::AssignFunction(Function *pFunc)
+{
+	ULong extra = EXTRA_Public;
+	Value value(new Object_function(*this, pFunc));
+	GetTopFrame()->AssignValue(pFunc->GetSymbol(), value, extra);
+	return pFunc;
+}
+
 void Environment::AssignValueFromBlock(const Symbol *pSymbol, const Value &value, ULong extra)
 {
 	if ((extra & EXTRA_Public) == 0 && IsSymbolPublic(pSymbol)) {
@@ -227,14 +235,6 @@ bool Environment::ImportValue(const Symbol *pSymbol, const Value &value,
 		}
 	}
 	return true;
-}
-
-Function *Environment::AssignFunction(Function *pFunc)
-{
-	ULong extra = EXTRA_Public;
-	Value value(new Object_function(*this, pFunc));
-	GetTopFrame()->AssignValue(pFunc->GetSymbol(), value, extra);
-	return pFunc;
 }
 
 void Environment::RemoveValue(const Symbol *pSymbol)
@@ -286,13 +286,11 @@ ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, 
 	return nullptr;
 }
 
-#if 1
 Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
 {
 	const ValueEx *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
 	return (pValue != nullptr && pValue->Is_function())? pValue->GetFunction() : nullptr;
 }
-#endif
 
 Value Environment::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
@@ -391,57 +389,6 @@ Value Environment::GetThisProp(const Value &valueThis,
 	if (sig.IsSignalled()) return Value::Nil;
 	return rtn;
 }
-
-#if 0
-Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
-{
-	EnvType envType = GetTopFrame()->GetEnvType();
-	if (envRefMode == ENVREF_NoEscalate || envRefMode == ENVREF_Module) {
-		Frame *pFrame = const_cast<Frame *>(GetTopFrame());
-		Value *pValue = pFrame->LookupValue(pSymbol);
-		if (pValue != nullptr && pValue->Is_function()) {
-			return pValue->GetFunction();
-		}
-	} else if (envType == ENVTYPE_object || envType == ENVTYPE_class) {
-		foreach_const (FrameOwner, ppFrame, _frameOwner) {
-			Frame *pFrame = *ppFrame;
-			if (pFrame->IsType(ENVTYPE_object)) {
-				Value *pValue = pFrame->LookupValue(pSymbol);
-				if (pValue != nullptr && pValue->Is_function()) {
-					return pValue->GetFunction();
-				}
-			} else if (pFrame->IsType(ENVTYPE_class)) {
-				if (cntSuperSkip > 0) {
-					cntSuperSkip--;
-				} else {
-					Value *pValue = pFrame->LookupValue(pSymbol);
-					if (pValue != nullptr && pValue->Is_function()) {
-						return pValue->GetFunction();
-					}
-				}
-			}
-		}
-	} else {
-		foreach_const (FrameOwner, ppFrame, _frameOwner) {
-			Frame *pFrame = *ppFrame;
-			Value *pValue = pFrame->LookupValue(pSymbol);
-			if (pValue != nullptr && pValue->Is_function()) {
-				return pValue->GetFunction();
-			}
-		}
-	}
-	return nullptr;
-}
-#endif
-
-#if 0
-FunctionCustom *Environment::LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
-{
-	Function *pFunc = LookupFunction(pSymbol, envRefMode, cntSuperSkip);
-	return (pFunc != nullptr && pFunc->IsCustom())?
-						dynamic_cast<FunctionCustom *>(pFunc) : nullptr;
-}
-#endif
 
 void Environment::AssignValueType(ValueTypeInfo *pValueTypeInfo)
 {
