@@ -279,7 +279,6 @@ public:
 	inline bool IsType(EnvType envType) const	{ return GetTopFrame()->IsType(envType);	}
 	inline Global *GetGlobal()					{ return GetTopFrame()->GetGlobal();		}
 	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();		}
-public:
 	inline Option &GetOption()					{ return GetGlobal()->GetOption();			}
 	inline Operator *GetOperator(OpType opType) { return GetGlobal()->GetOperator(opType);	}
 	inline const Operator *GetOperator(OpType opType) const
@@ -293,17 +292,21 @@ public:
 public:
 	const SymbolSet &GetSymbolsPublic() const;
 	SymbolSet &PrepareSymbolsPublic();
+	bool IsSymbolPublic(const Symbol *pSymbol) const;
+public:
 	void AddRootFrame(const FrameList &frameListSrc);
 	void AddOuterFrame(const FrameList &frameListSrc);
 	void AddLackingFrame(const FrameList &frameListSrc);
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
-	bool IsSymbolPublic(const Symbol *pSymbol) const;
+public:
 	void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra);
 	void AssignValueFromBlock(const Symbol *pSymbol, const Value &value, ULong extra);
 	bool ImportValue(const Symbol *pSymbol, const Value &value,
 										ULong extra, bool overwriteFlag);
-	void RemoveValue(const Symbol *pSymbol);
 	Function *AssignFunction(Function *pFunc);
+public:
+	void RemoveValue(const Symbol *pSymbol);
+public:
 	ValueEx *LookupValue(const Symbol *pSymbol,
 						EnvRefMode envRefMode, int cntSuperSkip = 0);
 	inline const ValueEx *LookupValue(const Symbol *pSymbol,
@@ -312,12 +315,8 @@ public:
 						LookupValue(pSymbol, envRefMode, cntSuperSkip));
 	}
 	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
-	FunctionCustom *LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
-	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
-	ValueTypeInfo *LookupValueType(const SymbolList &symbolList);
-	ValueTypeInfo *LookupValueType(const Symbol *pSymbol);
-	ValueTypeInfo *LookupValueType(Signal &sig, const ValueList &valList);
-	ValueTypeInfo *LookupValueType(Signal &sig, const Expr *pExpr);
+	//FunctionCustom *LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
+public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
@@ -328,6 +327,13 @@ public:
 					EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0) const;
 	Value GetThisProp(const Value &valueThis,
 					  const Symbol *pSymbol, const SymbolSet &attrs);
+public:
+	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
+	ValueTypeInfo *LookupValueType(const SymbolList &symbolList);
+	ValueTypeInfo *LookupValueType(const Symbol *pSymbol);
+	ValueTypeInfo *LookupValueType(Signal &sig, const ValueList &valList);
+	ValueTypeInfo *LookupValueType(Signal &sig, const Expr *pExpr);
+public:
 	void AssignIntegratedModule(Module *pModule);
 	bool ImportModules(Signal &sig, const char *moduleNames,
 								bool binaryOnlyFlag, bool mixinTypeFlag);
@@ -338,6 +344,7 @@ public:
 			SymbolList::const_iterator ppSymbolOfModuleEnd, bool assignModuleNameFlag,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
+public:
 	static bool IsBinaryModule(const char *pathName);
 	virtual bool IsModule() const;
 	virtual bool IsClass() const;

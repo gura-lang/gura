@@ -138,6 +138,22 @@ SymbolSet &Environment::PrepareSymbolsPublic()
 	return GetTopFrame()->PrepareSymbolsPublic(); // this must not happen
 }
 
+bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
+{
+	EnvType envType = GetTopFrame()->GetEnvType();
+	if (envType == ENVTYPE_class || envType == ENVTYPE_object) {
+		foreach_const (FrameOwner, ppFrame, _frameOwner) {
+			const Frame *pFrame = *ppFrame;
+			if (pFrame->IsType(ENVTYPE_class) && pFrame->IsSymbolPublic(pSymbol)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	const Frame *pFrame = GetTopFrame();
+	return pFrame->IsSymbolPublic(pSymbol);
+}
+
 void Environment::AddRootFrame(const FrameList &frameListSrc)
 {
 	// reference to the root environment
@@ -175,22 +191,6 @@ void Environment::CacheFrame(const Symbol *pSymbol, Frame *pFrame)
 {
 	if (_pFrameCache.get() == nullptr) _pFrameCache.reset(new FrameCache());
 	(*_pFrameCache)[pSymbol] = pFrame;
-}
-
-bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
-{
-	EnvType envType = GetTopFrame()->GetEnvType();
-	if (envType == ENVTYPE_class || envType == ENVTYPE_object) {
-		foreach_const (FrameOwner, ppFrame, _frameOwner) {
-			const Frame *pFrame = *ppFrame;
-			if (pFrame->IsType(ENVTYPE_class) && pFrame->IsSymbolPublic(pSymbol)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	const Frame *pFrame = GetTopFrame();
-	return pFrame->IsSymbolPublic(pSymbol);
 }
 
 void Environment::AssignValue(const Symbol *pSymbol, const Value &value, ULong extra)
@@ -242,6 +242,14 @@ bool Environment::ImportValue(const Symbol *pSymbol, const Value &value,
 	return true;
 }
 
+Function *Environment::AssignFunction(Function *pFunc)
+{
+	ULong extra = EXTRA_Public;
+	Value value(new Object_function(*this, pFunc));
+	GetTopFrame()->AssignValue(pFunc->GetSymbol(), value, extra);
+	return pFunc;
+}
+
 void Environment::RemoveValue(const Symbol *pSymbol)
 {
 	GetTopFrame()->RemoveValue(pSymbol);
@@ -291,139 +299,13 @@ ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, 
 	return nullptr;
 }
 
-Function *Environment::AssignFunction(Function *pFunc)
-{
-	ULong extra = EXTRA_Public;
-	Value value(new Object_function(*this, pFunc));
-	GetTopFrame()->AssignValue(pFunc->GetSymbol(), value, extra);
-	return pFunc;
-}
-
+#if 1
 Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
 {
-	EnvType envType = GetTopFrame()->GetEnvType();
-	if (envRefMode == ENVREF_NoEscalate || envRefMode == ENVREF_Module) {
-		Frame *pFrame = const_cast<Frame *>(GetTopFrame());
-		Value *pValue = pFrame->LookupValue(pSymbol);
-		if (pValue != nullptr && pValue->Is_function()) {
-			return pValue->GetFunction();
-		}
-	} else if (envType == ENVTYPE_object || envType == ENVTYPE_class) {
-		foreach_const (FrameOwner, ppFrame, _frameOwner) {
-			Frame *pFrame = *ppFrame;
-			if (pFrame->IsType(ENVTYPE_object)) {
-				Value *pValue = pFrame->LookupValue(pSymbol);
-				if (pValue != nullptr && pValue->Is_function()) {
-					return pValue->GetFunction();
-				}
-			} else if (pFrame->IsType(ENVTYPE_class)) {
-				if (cntSuperSkip > 0) {
-					cntSuperSkip--;
-				} else {
-					Value *pValue = pFrame->LookupValue(pSymbol);
-					if (pValue != nullptr && pValue->Is_function()) {
-						return pValue->GetFunction();
-					}
-				}
-			}
-		}
-	} else {
-		foreach_const (FrameOwner, ppFrame, _frameOwner) {
-			Frame *pFrame = *ppFrame;
-			Value *pValue = pFrame->LookupValue(pSymbol);
-			if (pValue != nullptr && pValue->Is_function()) {
-				return pValue->GetFunction();
-			}
-		}
-	}
-	return nullptr;
+	const ValueEx *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
+	return (pValue != nullptr && pValue->Is_function())? pValue->GetFunction() : nullptr;
 }
-
-FunctionCustom *Environment::LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
-{
-	Function *pFunc = LookupFunction(pSymbol, envRefMode, cntSuperSkip);
-	return (pFunc != nullptr && pFunc->IsCustom())?
-						dynamic_cast<FunctionCustom *>(pFunc) : nullptr;
-}
-
-void Environment::AssignValueType(ValueTypeInfo *pValueTypeInfo)
-{
-	GetTopFrame()->AssignValueType(pValueTypeInfo);
-}
-
-ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList)
-{
-	AutoPtr<Environment> pEnvRoot;
-	SymbolList::const_iterator ppSymbol = symbolList.begin();
-	Environment *pEnv = this;
-	if ((*ppSymbol)->IsIdentical(Gura_Symbol(root))) {
-		// make a reference to the root environment
-		pEnvRoot.reset(new Environment(GetSignal()));
-		pEnvRoot->AddRootFrame(GetFrameOwner());
-		pEnv = pEnvRoot.get();
-		ppSymbol++;
-		if (ppSymbol == symbolList.end()) return nullptr;
-	}
-	EnvRefMode envRefMode = ENVREF_Escalate;
-	int cntSuperSkip = 0;
-	for ( ; ppSymbol + 1 != symbolList.end(); ppSymbol++) {
-		Value *pValue = pEnv->LookupValue(*ppSymbol, envRefMode, cntSuperSkip);
-		if (pValue == nullptr || !pValue->IsModule()) return nullptr;
-		pEnv = pValue->GetModule();
-		envRefMode = ENVREF_NoEscalate;
-	}
-	return pEnv->LookupValueType(*ppSymbol);
-}
-
-ValueTypeInfo *Environment::LookupValueType(const Symbol *pSymbol)
-{
-	foreach_const (FrameOwner, ppFrame, _frameOwner) {
-		Frame *pFrame = *ppFrame;
-		ValueTypeInfo *pValueTypeInfo = pFrame->LookupValueType(pSymbol);
-		if (pValueTypeInfo != nullptr) return pValueTypeInfo;
-	}
-	return nullptr;
-}
-
-ValueTypeInfo *Environment::LookupValueType(Signal &sig, const ValueList &valList)
-{
-	SymbolList symbolList;
-	foreach_const_reverse (ValueList, pValue, valList) {
-		if (!pValue->Is_expr()) {
-			sig.SetError(ERR_TypeError, "expr must be specified");
-			return nullptr;
-		}
-		if (!Parser::ParseDottedIdentifier(pValue->GetExpr(), symbolList)) {
-			sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
-					pValue->GetExpr()->ToString(Expr::SCRSTYLE_OneLine).c_str());
-			return nullptr;
-		}
-	}
-	ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
-	if (pValueTypeInfo == nullptr) {
-		sig.SetError(ERR_ValueError, "can't find type name: '%s'",
-								symbolList.Join(".").c_str());
-		return nullptr;
-	}
-	return pValueTypeInfo;
-}
-
-ValueTypeInfo *Environment::LookupValueType(Signal &sig, const Expr *pExpr)
-{
-	SymbolList symbolList;
-	if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
-		sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
-						pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
-		return nullptr;
-	}
-	ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
-	if (pValueTypeInfo == nullptr) {
-		sig.SetError(ERR_ValueError, "can't find type name: '%s'",
-								symbolList.Join(".").c_str());
-		return nullptr;
-	}
-	return pValueTypeInfo;
-}
+#endif
 
 Value Environment::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
@@ -521,6 +403,136 @@ Value Environment::GetThisProp(const Value &valueThis,
 							nullptr, envRefMode, cntSuperSkip);
 	if (sig.IsSignalled()) return Value::Nil;
 	return rtn;
+}
+
+#if 0
+Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
+{
+	EnvType envType = GetTopFrame()->GetEnvType();
+	if (envRefMode == ENVREF_NoEscalate || envRefMode == ENVREF_Module) {
+		Frame *pFrame = const_cast<Frame *>(GetTopFrame());
+		Value *pValue = pFrame->LookupValue(pSymbol);
+		if (pValue != nullptr && pValue->Is_function()) {
+			return pValue->GetFunction();
+		}
+	} else if (envType == ENVTYPE_object || envType == ENVTYPE_class) {
+		foreach_const (FrameOwner, ppFrame, _frameOwner) {
+			Frame *pFrame = *ppFrame;
+			if (pFrame->IsType(ENVTYPE_object)) {
+				Value *pValue = pFrame->LookupValue(pSymbol);
+				if (pValue != nullptr && pValue->Is_function()) {
+					return pValue->GetFunction();
+				}
+			} else if (pFrame->IsType(ENVTYPE_class)) {
+				if (cntSuperSkip > 0) {
+					cntSuperSkip--;
+				} else {
+					Value *pValue = pFrame->LookupValue(pSymbol);
+					if (pValue != nullptr && pValue->Is_function()) {
+						return pValue->GetFunction();
+					}
+				}
+			}
+		}
+	} else {
+		foreach_const (FrameOwner, ppFrame, _frameOwner) {
+			Frame *pFrame = *ppFrame;
+			Value *pValue = pFrame->LookupValue(pSymbol);
+			if (pValue != nullptr && pValue->Is_function()) {
+				return pValue->GetFunction();
+			}
+		}
+	}
+	return nullptr;
+}
+#endif
+
+#if 0
+FunctionCustom *Environment::LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip) const
+{
+	Function *pFunc = LookupFunction(pSymbol, envRefMode, cntSuperSkip);
+	return (pFunc != nullptr && pFunc->IsCustom())?
+						dynamic_cast<FunctionCustom *>(pFunc) : nullptr;
+}
+#endif
+
+void Environment::AssignValueType(ValueTypeInfo *pValueTypeInfo)
+{
+	GetTopFrame()->AssignValueType(pValueTypeInfo);
+}
+
+ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList)
+{
+	AutoPtr<Environment> pEnvRoot;
+	SymbolList::const_iterator ppSymbol = symbolList.begin();
+	Environment *pEnv = this;
+	if ((*ppSymbol)->IsIdentical(Gura_Symbol(root))) {
+		// make a reference to the root environment
+		pEnvRoot.reset(new Environment(GetSignal()));
+		pEnvRoot->AddRootFrame(GetFrameOwner());
+		pEnv = pEnvRoot.get();
+		ppSymbol++;
+		if (ppSymbol == symbolList.end()) return nullptr;
+	}
+	EnvRefMode envRefMode = ENVREF_Escalate;
+	int cntSuperSkip = 0;
+	for ( ; ppSymbol + 1 != symbolList.end(); ppSymbol++) {
+		Value *pValue = pEnv->LookupValue(*ppSymbol, envRefMode, cntSuperSkip);
+		if (pValue == nullptr || !pValue->IsModule()) return nullptr;
+		pEnv = pValue->GetModule();
+		envRefMode = ENVREF_NoEscalate;
+	}
+	return pEnv->LookupValueType(*ppSymbol);
+}
+
+ValueTypeInfo *Environment::LookupValueType(const Symbol *pSymbol)
+{
+	foreach_const (FrameOwner, ppFrame, _frameOwner) {
+		Frame *pFrame = *ppFrame;
+		ValueTypeInfo *pValueTypeInfo = pFrame->LookupValueType(pSymbol);
+		if (pValueTypeInfo != nullptr) return pValueTypeInfo;
+	}
+	return nullptr;
+}
+
+ValueTypeInfo *Environment::LookupValueType(Signal &sig, const ValueList &valList)
+{
+	SymbolList symbolList;
+	foreach_const_reverse (ValueList, pValue, valList) {
+		if (!pValue->Is_expr()) {
+			sig.SetError(ERR_TypeError, "expr must be specified");
+			return nullptr;
+		}
+		if (!Parser::ParseDottedIdentifier(pValue->GetExpr(), symbolList)) {
+			sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
+					pValue->GetExpr()->ToString(Expr::SCRSTYLE_OneLine).c_str());
+			return nullptr;
+		}
+	}
+	ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
+	if (pValueTypeInfo == nullptr) {
+		sig.SetError(ERR_ValueError, "can't find type name: '%s'",
+								symbolList.Join(".").c_str());
+		return nullptr;
+	}
+	return pValueTypeInfo;
+}
+
+ValueTypeInfo *Environment::LookupValueType(Signal &sig, const Expr *pExpr)
+{
+	SymbolList symbolList;
+	if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
+		sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
+						pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
+		return nullptr;
+	}
+	ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
+	if (pValueTypeInfo == nullptr) {
+		sig.SetError(ERR_ValueError, "can't find type name: '%s'",
+								symbolList.Join(".").c_str());
+		return nullptr;
+	}
+	return pValueTypeInfo;
 }
 
 void Environment::AssignIntegratedModule(Module *pModule)

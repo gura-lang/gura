@@ -3423,6 +3423,12 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
+Function *LookupFunctionCustom(Environment &env, const Symbol *pSymbol, EnvRefMode envRefMode)
+{
+	Function *pFunc = env.LookupFunction(pSymbol, envRefMode);
+	return (pFunc != nullptr && pFunc->IsCustom())? pFunc : nullptr;
+}
+
 void SetWxReadyFlag(bool wxReadyFlag)
 {
 	g_wxReadyFlag = wxReadyFlag;

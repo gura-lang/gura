@@ -29,7 +29,7 @@ Gura_AssignValue(name, Value(new Object_wx_##className(const_cast<wx##className 
 Gura_AssignValue(name, Value(name))
 
 #define Gura_LookupWxMethod(pObj, name) \
-pObj->LookupFunctionCustom(Gura_UserSymbol(name), ENVREF_Escalate)
+LookupFunctionCustom(*pObj, Gura_UserSymbol(name), ENVREF_Escalate)
 
 Gura_BeginModuleHeader(wx)
 
@@ -39,6 +39,7 @@ extern const bool OwnerTrue;
 //-----------------------------------------------------------------------------
 // Functions
 //-----------------------------------------------------------------------------
+Function *LookupFunctionCustom(Environment &env, const Symbol *pSymbol, EnvRefMode envRefMode);
 void SetWxReadyFlag(bool wxReadyFlag);
 bool IsWxReady();
 bool CheckWxReady(Signal &sig);

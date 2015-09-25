@@ -150,8 +150,10 @@ void Object_wx_GridCellRenderer::EvalMethod_Draw(Signal &sig, bool &evaluatedFla
 			const wxRect &rect, int row, int col, bool isSelected)
 {
 	evaluatedFlag = false;
-	const Function *pFunc = LookupFunctionCustom(Gura_UserSymbol(Draw), ENVREF_Escalate);
-	if (pFunc == nullptr) return;
+	//const Function *pFunc = LookupFunctionCustom(Gura_UserSymbol(Draw), ENVREF_Escalate);
+	//if (pFunc == nullptr) return;
+	const Function *pFunc = LookupFunction(Gura_UserSymbol(Draw), ENVREF_Escalate);
+	if (pFunc == nullptr || !pFunc->IsCustom()) return;
 	evaluatedFlag = true;
 	ValueList valList;
 	valList.push_back(Value(new Object_wx_Grid(&grid, nullptr, OwnerFalse)));
