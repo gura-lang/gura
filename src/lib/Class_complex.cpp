@@ -123,7 +123,7 @@ void Class_complex::Prepare(Environment &env)
 	Gura_AssignSuffixMgrForNumber(j);
 }
 
-Value Class_complex::GetPropPrimitive(Environment &env, const Value &valueThis,
+Value Class_complex::GetPropPrimitive(const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	evaluatedFlag = true;

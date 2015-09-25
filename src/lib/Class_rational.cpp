@@ -90,7 +90,7 @@ void Class_rational::Prepare(Environment &env)
 	Gura_AssignSuffixMgrForNumber(r);
 }
 
-Value Class_rational::GetPropPrimitive(Environment &env, const Value &valueThis,
+Value Class_rational::GetPropPrimitive(const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	evaluatedFlag = true;

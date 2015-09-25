@@ -15,7 +15,7 @@ class GURA_DLLDECLARE Class_rational : public Class {
 public:
 	Class_rational(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
-	virtual Value GetPropPrimitive(Environment &env, const Value &valueThis,
+	virtual Value GetPropPrimitive(const Value &valueThis,
 			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;

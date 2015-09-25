@@ -41,7 +41,7 @@ void Class_number::Prepare(Environment &env)
 	Gura_AssignMethod(number, roundoff);	// primitive method
 }
 
-Value Class_number::GetPropPrimitive(Environment &env, const Value &valueThis,
+Value Class_number::GetPropPrimitive(const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	evaluatedFlag = true;
