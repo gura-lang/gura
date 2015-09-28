@@ -16,6 +16,8 @@ namespace Gura {
 // Fundamental
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Fundamental : public Environment, public Callable {
+public:
+	Gura_DeclareReferenceAccessor(Fundamental);
 protected:
 	Fundamental(const Fundamental &fund);
 	Fundamental(Environment *pEnvOuter, EnvType envType);

@@ -26,12 +26,8 @@ void Gura_CopyValue(Value &valueDst, const Value &valueSrc)
 		valueDst._u.pStrShrd = valueSrc._u.pStrShrd->Reference();
 	} else if (valueSrc.Is_symbol()) {
 		valueDst._u.pSymbol = valueSrc._u.pSymbol;
-	} else if (valueSrc.IsObject()) {
-		valueDst._u.pObj = Object::Reference(valueSrc._u.pObj);
-	} else if (valueSrc.IsModule()) {
-		valueDst._u.pModule = Module::Reference(valueSrc._u.pModule);
-	} else if (valueSrc.IsClass()) {
-		valueDst._u.pClass = Class::Reference(valueSrc._u.pClass);
+	} else if (valueSrc.IsFundamental()) {
+		valueDst._u.pFund = Fundamental::Reference(valueSrc._u.pFund);
 	} else {
 		// nothing to do
 		//valueDst._valType = VTYPE_nil;
@@ -51,15 +47,9 @@ void Gura_ReleaseValue(Value &value)
 	} else if (value.Is_string()) {
 		StringShared::Delete(value._u.pStrShrd);
 		value._u.pStrShrd = nullptr;
-	} else if (value.IsObject()) {
-		if (value.IsOwner()) Object::Delete(value._u.pObj);
-		value._u.pObj = nullptr;
-	} else if (value.IsModule()) {
-		if (value.IsOwner()) Module::Delete(value._u.pModule);
-		value._u.pModule = nullptr;
-	} else if (value.IsClass()) {
-		if (value.IsOwner()) Class::Delete(value._u.pClass);
-		value._u.pClass = nullptr;
+	} else if (value.IsFundamental()) {
+		if (value.IsOwner()) Fundamental::Delete(value._u.pFund);
+		value._u.pFund = nullptr;
 	} else { // Number, Boolean
 		// nothing to do
 	}
@@ -86,19 +76,19 @@ Value::Value(const Value &value)
 Value::Value(Module *pModule, UShort valFlags) :
 				_valType(VTYPE_Module), _valFlags(valFlags)
 {
-	_u.pModule = pModule;
+	_u.pFund = pModule;
 }
 
 Value::Value(Class *pClass, UShort valFlags) :
 				_valType(VTYPE_Class), _valFlags(valFlags)
 {
-	_u.pClass = pClass;
+	_u.pFund = pClass;
 }
 
 Value::Value(Object *pObj, UShort valFlags) :
 				_valType(pObj->GetClass()->GetValueType()), _valFlags(valFlags)
 {
-	_u.pObj = pObj;
+	_u.pFund = pObj;
 }
 
 Value::~Value()
@@ -216,7 +206,7 @@ String Value::GetStringSTL() const
 
 Binary &Value::GetBinary() const
 {
-	return dynamic_cast<Object_binary *>(_u.pObj)->GetBinary();
+	return dynamic_cast<Object_binary *>(GetObject())->GetBinary();
 }
 
 bool Value::Is(const Value &value) const
@@ -235,12 +225,8 @@ bool Value::Is(const Value &value) const
 		return ::strcmp(GetString(), value.GetString()) == 0;
 	} else if (Is_symbol()) {
 		return GetSymbol()->IsIdentical(value.GetSymbol());
-	} else if (IsModule()) {
-		return GetModule() == value.GetModule();
-	} else if (IsClass()) {
-		return GetClass() == value.GetClass();
-	} else if (IsObject()) {
-		return GetObject() == value.GetObject();
+	} else if (IsFundamental()) {
+		return GetFundamental() == value.GetFundamental();
 	}
 	return false;
 }
@@ -319,62 +305,50 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 
 ErrorType Value::GetErrorType() const
 {
-	return dynamic_cast<Object_error *>(_u.pObj)->GetError().GetType();
+	return dynamic_cast<Object_error *>(GetObject())->GetError().GetType();
 }
 
 ValueList &Value::GetList() const
 {
-	return dynamic_cast<Object_list *>(_u.pObj)->GetList();
+	return dynamic_cast<Object_list *>(GetObject())->GetList();
 }
 
 ValueDict &Value::GetDict() const
 {
-	return dynamic_cast<Object_dict *>(_u.pObj)->GetDict();
+	return dynamic_cast<Object_dict *>(GetObject())->GetDict();
 }
 
 Iterator *Value::GetIterator() const
 {
-	return dynamic_cast<Object_iterator *>(_u.pObj)->GetIterator();
+	return dynamic_cast<Object_iterator *>(GetObject())->GetIterator();
 }
 
 Stream &Value::GetStream() const
 {
-	return dynamic_cast<Object_stream *>(_u.pObj)->GetStream();
+	return dynamic_cast<Object_stream *>(GetObject())->GetStream();
 }
 
 Expr *Value::GetExpr() const
 {
-	return dynamic_cast<Object_expr *>(_u.pObj)->GetExpr();
+	return dynamic_cast<Object_expr *>(GetObject())->GetExpr();
 }
 
 Function *Value::GetFunction() const
 {
-	return dynamic_cast<Object_function *>(_u.pObj)->GetFunction();
+	return dynamic_cast<Object_function *>(GetObject())->GetFunction();
 }
 
 Expr *Value::CloneExpr() const
 {
 	return
-		Is_expr()? Expr::Reference(dynamic_cast<Object_expr *>(_u.pObj)->GetExpr()) :
+		Is_expr()? Expr::Reference(dynamic_cast<Object_expr *>(GetObject())->GetExpr()) :
 		Is_symbol()? new Expr_Identifier(_u.pSymbol) : nullptr;
-}
-
-Fundamental *Value::GetFundamental()
-{
-	if (IsObject()) {
-		return _u.pObj;
-	} else if (IsClass()) {
-		return _u.pClass;
-	} else if (IsModule()) {
-		return _u.pModule;
-	}
-	return nullptr;
 }
 
 Iterator *Value::CreateIterator(Signal &sig) const
 {
 	if (IsObject()) {
-		return _u.pObj->CreateIterator(sig);
+		return GetObject()->CreateIterator(sig);
 	}
 	sig.SetError(ERR_ValueError, "value of %s cannot generate iterator",
 											MakeValueTypeName().c_str());
@@ -424,12 +398,8 @@ String Value::ToString(bool exprFlag) const
 		if (exprFlag) str += '`';
 		str += _u.pSymbol->GetName();
 		return str;
-	} else if (IsModule()) {
-		return _u.pModule->ToString(exprFlag);
-	} else if (IsClass()) {
-		return _u.pClass->ToString(exprFlag);
-	} else if (IsObject()) {
-		return _u.pObj->ToString(exprFlag);
+	} else if (IsFundamental()) {
+		return _u.pFund->ToString(exprFlag);
 	}
 	return String(exprFlag? "nil" : "");
 }
@@ -525,27 +495,27 @@ bool Value::Accept(ValueVisitor &visitor) const
 void Value::InitAsModule(Module *pModule)
 {
 	Gura_ReleaseValue(*this);
-	_valType = VTYPE_Module, _u.pModule = pModule;
+	_valType = VTYPE_Module, _u.pFund = pModule;
 	_valFlags = VFLAG_Owner;
 }
 
 void Value::InitAsClass(Class *pClass)
 {
 	Gura_ReleaseValue(*this);
-	_valType = VTYPE_Class, _u.pClass = pClass;
+	_valType = VTYPE_Class, _u.pFund = pClass;
 	_valFlags = VFLAG_Owner;
 }
 
 void Value::InitAsObject(Object *pObj)
 {
 	Gura_ReleaseValue(*this);
-	_valType = pObj->GetClass()->GetValueType(), _u.pObj = pObj;
+	_valType = pObj->GetClass()->GetValueType(), _u.pFund = pObj;
 	_valFlags = VFLAG_Owner;
 }
 
 void Value::_SetObject(Object *pObj)
 {
-	_valType = pObj->GetClass()->GetValueType(), _u.pObj = pObj;
+	_valType = pObj->GetClass()->GetValueType(), _u.pFund = pObj;
 	_valFlags = VFLAG_Owner;
 }
 

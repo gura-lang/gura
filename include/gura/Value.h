@@ -75,9 +75,7 @@ private:
 		Rational *pRatio;			// rational
 		StringShared *pStrShrd;		// string
 		const Symbol *pSymbol;		// symbol
-		Module *pModule;			// module
-		Class *pClass;				// class
-		Object *pObj;				// objects
+		Fundamental *pFund;			// Module/Class/object
 	} _u;
 public:
 	static const Value Nil;			// nil
@@ -383,17 +381,14 @@ public:
 	// VTYPE_symbol
 	inline const Symbol *GetSymbol() const	{ return Is_symbol()? _u.pSymbol : nullptr;	}
 	// fundamental
-	Fundamental *GetFundamental();
-	const Fundamental *GetFundamental() const {
-		return const_cast<Value *>(this)->GetFundamental();
-	}
+	inline Fundamental *GetFundamental() const
+											{ return _u.pFund;							}
 	// VTYPE_Module
-	inline Module *GetModule() const		{ return _u.pModule;						}
+	inline Module *GetModule() const		{ return (Module *)_u.pFund;				}
 	// VTYPE_Class
-	inline Class *GetClassItself() const	{ return _u.pClass;							}
+	inline Class *GetClassItself() const	{ return (Class *)_u.pFund;					}
 	// object
-	inline Object *GetObject()				{ return _u.pObj;							}
-	inline Object *GetObject() const		{ return _u.pObj;							}
+	inline Object *GetObject() const		{ return (Object *)_u.pFund;				}
 	// VTYPE_function
 	Function *GetFunction() const;
 	// VTYPE_binary

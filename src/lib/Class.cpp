@@ -338,10 +338,8 @@ Gura_ImplementMethod(Object, __call__)
 {
 	Signal &sig = env.GetSignal();
 	const Symbol *pSymbol = arg.GetSymbol(0);
-	Fundamental *pThis = arg.GetFundamentalThis();
-	if (pThis == nullptr) {
-		pThis = arg.GetValueThis().GetClass();
-	}
+	Fundamental *pThis = arg.GetValueThis().IsFundamental()?
+					arg.GetFundamentalThis() : arg.GetValueThis().GetClass();
 	Value valueToCall;
 	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
 	if (pValue == nullptr) {
@@ -350,13 +348,13 @@ Gura_ImplementMethod(Object, __call__)
 	} else {
 		valueToCall = *pValue;
 	}
-	Fundamental *pFund = valueToCall.GetFundamental();
-	if (pFund == nullptr) {
+	if (!valueToCall.IsFundamental()) {
 		sig.SetError(ERR_ValueError,
 					 "instance associated with a symbol '%s' is not a callable",
 					 pSymbol->GetName());
 		return Value::Nil;
 	}
+	Fundamental *pFund = valueToCall.GetFundamental();
 	ExprList exprListArg;
 	exprListArg.reserve(arg.GetList(1).size());
 	foreach_const (ValueList, pValue, arg.GetList(1)) {
