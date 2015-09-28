@@ -849,7 +849,7 @@ Callable *Expr_Identifier::LookupCallable(Environment &env) const
 		sig.AddExprCause(this);
 		return nullptr;
 	}
-	return rtn.GetObject();
+	return rtn.IsObject()? rtn.GetObjectNoCheck() : nullptr;
 }
 
 Value Expr_Identifier::DoExec(Environment &env) const
@@ -2264,7 +2264,7 @@ Callable *Expr_Caller::LookupCallable(Environment &env) const
 		sig.AddExprCause(this);
 		return nullptr;
 	}
-	return valueCar.GetObject();
+	return valueCar.IsObject()? valueCar.GetObjectNoCheck() : nullptr;
 }
 
 Value Expr_Caller::DoExec(Environment &env) const
@@ -2354,12 +2354,12 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 	} else {
 		Value valueCar = _pExprCar->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		Callable *pCallable = valueCar.GetObject();
-		if (pCallable == nullptr) {
+		if (!valueCar.IsObject()) {
 			SetError(sig, ERR_TypeError, "object is not callable");
 			return Value::Nil;
 		}
-		return pCallable->DoCall(env, GetCallerInfo(),
+		Object *pObj = valueCar.GetObjectNoCheck();
+		return pObj->DoCall(env, GetCallerInfo(),
 								 Value::Nil, nullptr, false, pTrailCtrlHolder);
 	}
 }
@@ -2394,7 +2394,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 			sig.AddExprCause(this);
 			return Value::Nil;
 		}
-		pCallable = valueCar.GetObject();
+		pCallable = valueCar.IsObject()? valueCar.GetObjectNoCheck() : nullptr;
 	}
 	if (pCallable == nullptr) {
 		SetError(sig, ERR_TypeError, "object is not callable");

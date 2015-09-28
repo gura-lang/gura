@@ -136,8 +136,8 @@ public:
 	inline void SetValueThis(const Value &valueThis) { _valueThis = valueThis; }
 	inline Value &GetValueThis() { return _valueThis; }
 	inline const Value &GetValueThis() const { return _valueThis; }
-	inline Object *GetObjectThis() { return _valueThis.GetObject(); }
-	inline const Object *GetObjectThis() const { return _valueThis.GetObject(); }
+	inline Object *GetObjectThis() { return _valueThis.GetObjectNoCheck(); }
+	inline const Object *GetObjectThis() const { return _valueThis.GetObjectNoCheck(); }
 	inline Fundamental *GetFundamentalThis() { return _valueThis.GetFundamental(); }
 	inline const Fundamental *GetFundamentalThis() const { return _valueThis.GetFundamental(); }
 	inline Iterator *GetIteratorThis() { return _pIteratorThis.get(); }
@@ -251,8 +251,8 @@ public:
 	inline double GetDouble(size_t idxArg) const		{ return GetValue(idxArg).GetDouble();			}
 	inline bool GetBoolean(size_t idxArg) const			{ return GetValue(idxArg).GetBoolean();			}
 	inline const Symbol *GetSymbol(size_t idxArg) const	{ return GetValue(idxArg).GetSymbol();			}
-	inline Object *GetObject(size_t idxArg)				{ return GetValue(idxArg).GetObject();			}
-	inline Object *GetObject(size_t idxArg) const		{ return GetValue(idxArg).GetObject();			}
+	inline Object *GetObject(size_t idxArg)				{ return GetValue(idxArg).GetObjectNoCheck();			}
+	inline Object *GetObject(size_t idxArg) const		{ return GetValue(idxArg).GetObjectNoCheck();			}
 	inline const char *GetString(size_t idxArg) const	{ return GetValue(idxArg).GetString();			}
 	inline String GetStringSTL(size_t idxArg) const		{ return GetValue(idxArg).GetStringSTL();		}
 	inline const Binary &GetBinary(size_t idxArg) const	{ return GetValue(idxArg).GetBinary();			}

@@ -136,7 +136,7 @@ Value Class_Struct::Constructor::DoEval(Environment &env, Argument &arg) const
 	Object *pObjThis = nullptr;
 	Value valueRtn(arg.GetValueThis());
 	if (valueRtn.IsObject()) {
-		pObjThis = valueRtn.GetObject();
+		pObjThis = valueRtn.GetObjectNoCheck();
 	} else {
 		pObjThis = _pClassToConstruct->CreateDescendant(env, _pClassToConstruct);
 		valueRtn.InitAsObject(pObjThis);

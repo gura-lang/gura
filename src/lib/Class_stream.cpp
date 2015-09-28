@@ -904,8 +904,7 @@ bool Class_stream::CastFrom(Environment &env, Value &value, const Declaration *p
 		value = Value(new Object_stream(env, pStream));
 		return true;
 	} else if (value.Is_binary()) {
-		Object_binary *pObjBinary = Object_binary::Reference(
-						dynamic_cast<Object_binary *>(value.GetObject()));
+		Object_binary *pObjBinary = Object_binary::Reference(Object_binary::GetObject(value));
 		bool seekEndFlag = pDecl->GetFlag(FLAG_Write);
 		Object *pObj = new Object_stream(env,
 					new Stream_Binary(env, pObjBinary, seekEndFlag));

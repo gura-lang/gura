@@ -216,12 +216,12 @@ bool Argument::Complete(Environment &env)
 		}
 	}
 	if (_pFunc->GetType() == FUNCTYPE_Instance &&
-			!GetValueThis().IsPrimitive() && GetObjectThis() == nullptr) {
+				!GetValueThis().IsPrimitive() && !GetValueThis().IsObject()) {
 		env.SetError(ERR_ValueError,
 					 "object is expected as l-value of field");
 		return false;
 	} else if (_pFunc->GetType() == FUNCTYPE_Class &&
-			GetValueThis().GetClassItself() == nullptr && GetObjectThis() == nullptr) {
+			   !GetValueThis().IsClass() && !GetValueThis().IsObject()) {
 		env.SetError(ERR_ValueError,
 					 "class or object is expected as l-value of field");
 		return false;
