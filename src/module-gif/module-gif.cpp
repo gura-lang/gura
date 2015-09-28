@@ -846,7 +846,7 @@ void GIF::AddImage(const Value &value, UShort delayTime,
 		UShort imageLeftPosition, UShort imageTopPosition,
 		UChar disposalMethod)
 {
-	Object_image *pObjImage = dynamic_cast<Object_image *>(value.GetObject());
+	Object_image *pObjImage = Object_image::GetObject(value);
 	Image *pImage = pObjImage->GetImage();
 	AutoPtr<Object_GraphicControl> pObjGraphicControl;
 	AutoPtr<Object_ImageDescriptor> pObjImageDescriptor;
@@ -938,14 +938,14 @@ GIF::GraphicControlExtension *GIF::GetGraphicControl(const Object_image *pObjIma
 {
 	const Value *pValue = pObjImage->LookupValue(Gura_UserSymbol(gif), ENVREF_NoEscalate);
 	if (pValue == nullptr || !pValue->IsType(VTYPE_imgprop)) return nullptr;
-	return dynamic_cast<Object_imgprop *>(pValue->GetObject())->GetGraphicControl();
+	return Object_imgprop::GetObject(*pValue)->GetGraphicControl();
 }
 
 GIF::ImageDescriptor *GIF::GetImageDescriptor(const Object_image *pObjImage)
 {
 	const Value *pValue = pObjImage->LookupValue(Gura_UserSymbol(gif), ENVREF_NoEscalate);
 	if (pValue == nullptr || !pValue->IsType(VTYPE_imgprop)) return nullptr;
-	return dynamic_cast<Object_imgprop *>(pValue->GetObject())->GetImageDescriptor();
+	return Object_imgprop::GetObject(*pValue)->GetImageDescriptor();
 }
 
 int GIF::GetPlausibleBackgroundIndex(Palette *pPalette, Image *pImage)
