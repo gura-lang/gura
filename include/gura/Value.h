@@ -17,17 +17,17 @@ namespace Gura {
 
 class Expr;
 class Binary;
-class Fundamental;
-class Environment;
-class Module;
-class Function;
 class Directory;
+class Function;
+class Iterator;
+class Environment;
+class Fundamental;
+class Module;
 class Class;
 class Object;
 class ValueList;
 class ValueDict;
 class ValueVisitor;
-class Iterator;
 
 //-----------------------------------------------------------------------------
 // Value Flags
@@ -68,6 +68,7 @@ private:
 	UShort _valType;				// 2 bytes
 	UShort _valFlags;				// 2 bytes
 	union {							// 8 bytes
+		char tinyBuff[1];
 		bool flag;					// boolean
 		Complex *pComp;				// complex
 		Number num;					// number
@@ -77,7 +78,6 @@ private:
 		Module *pModule;			// module
 		Class *pClass;				// class
 		Object *pObj;				// objects
-		char tinyBuff[1];
 	} _u;
 public:
 	static const Value Nil;			// nil
@@ -95,15 +95,9 @@ public:
 	inline Value() : _valType(VTYPE_nil), _valFlags(VFLAG_Owner) {}
 	inline Value(ValueType valType, UShort valFlags) : _valType(valType), _valFlags(valFlags) {}
 	// VTYPE_Module
-	inline Value(Module *pModule, UShort valFlags = VFLAG_Owner) :
-								_valType(VTYPE_Module), _valFlags(valFlags) {
-		_u.pModule = pModule;
-	}
+	Value(Module *pModule, UShort valFlags = VFLAG_Owner);
 	// VTYPE_Class
-	inline Value(Class *pClass, UShort valFlags = VFLAG_Owner) :
-								_valType(VTYPE_Class), _valFlags(valFlags) {
-		_u.pClass = pClass;
-	}
+	Value(Class *pClass, UShort valFlags = VFLAG_Owner);
 	// VTYPE_object etc
 	Value(Object *pObj, UShort valFlags = VFLAG_Owner);
 	// VTYPE_boolean
@@ -185,6 +179,7 @@ public:
 	inline bool IsType(ValueType valType) const { return _valType == valType;	}
 	inline bool IsObject() const			{ return _valType >= VTYPE_object;		}
 	inline bool IsPrimitive() const			{ return _valType <= VTYPE_symbol;		}
+	inline bool IsFundamental() const		{ return _valType >= VTYPE_Module;		}
 	inline bool IsInvalid() const			{ return _valType <= VTYPE_undefined;	}
 	inline bool IsValid() const				{ return _valType > VTYPE_undefined;	}
 	// invalid types

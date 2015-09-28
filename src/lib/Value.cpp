@@ -69,18 +69,30 @@ void Gura_ReleaseValue(Value &value)
 //-----------------------------------------------------------------------------
 // Value
 //-----------------------------------------------------------------------------
-const Value Value::Nil;
-const Value Value::Undefined(VTYPE_undefined, VFLAG_Owner);
-const Value Value::Zero(0);
-const Value Value::One(1);
-const Value Value::True(true);
-const Value Value::False(false);
+const Value Value::Nil;										// nil
+const Value Value::Undefined(VTYPE_undefined, VFLAG_Owner);	// undefined
+const Value Value::True(true);								// boolean
+const Value Value::False(false);							// boolean
+const Value Value::Zero(0);									// number
+const Value Value::One(1);									// number
 const Value::KeyCompare Value::KeyCompareCase(false);
 const Value::KeyCompare Value::KeyCompareIgnoreCase(true);
 
 Value::Value(const Value &value)
 {
 	Gura_CopyValue(*this, value);
+}
+
+Value::Value(Module *pModule, UShort valFlags) :
+				_valType(VTYPE_Module), _valFlags(valFlags)
+{
+	_u.pModule = pModule;
+}
+
+Value::Value(Class *pClass, UShort valFlags) :
+				_valType(VTYPE_Class), _valFlags(valFlags)
+{
+	_u.pClass = pClass;
 }
 
 Value::Value(Object *pObj, UShort valFlags) :

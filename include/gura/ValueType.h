@@ -48,6 +48,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_symbol;
 // pseudo types
 GURA_DLLDECLARE extern ValueType VTYPE_quote;
 GURA_DLLDECLARE extern ValueType VTYPE_any;
+// following types are descendants of fudamental
 // container types
 GURA_DLLDECLARE extern ValueType VTYPE_Module;
 GURA_DLLDECLARE extern ValueType VTYPE_Class;
