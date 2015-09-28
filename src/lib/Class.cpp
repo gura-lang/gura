@@ -660,7 +660,7 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 			Value valueCar = pExprCaller->GetCar()->Exec(*pEnvLocal);
 			if (sig.IsSignalled()) return false;
 			if (valueCar.IsObject()) {
-				Callable *pObj = valueCar.GetObjectNoCheck();
+				Callable *pObj = valueCar.GetObject();
 				pObj->DoCall(*this, pExprCaller->GetCallerInfo(),
 								  valueThis, nullptr, false, nullptr);
 				if (sig.IsSignalled()) {

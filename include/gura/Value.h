@@ -392,10 +392,8 @@ public:
 	// VTYPE_Class
 	inline Class *GetClassItself() const	{ return _u.pClass;							}
 	// object
-	//inline Object *GetObject()				{ return IsObject()? _u.pObj : nullptr;		}
-	//inline Object *GetObject() const		{ return IsObject()? _u.pObj : nullptr;		}
-	inline Object *GetObjectNoCheck()		{ return _u.pObj;							}
-	inline Object *GetObjectNoCheck() const	{ return _u.pObj;							}
+	inline Object *GetObject()				{ return _u.pObj;							}
+	inline Object *GetObject() const		{ return _u.pObj;							}
 	// VTYPE_function
 	Function *GetFunction() const;
 	// VTYPE_binary

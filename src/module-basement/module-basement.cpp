@@ -1773,7 +1773,7 @@ Gura_ImplementFunction(undef_)
 				} else if (pValue->IsClass()) {
 					pEnv = pValue->GetClassItself();
 				} else if (pValue->IsObject()) {
-					pEnv = pValue->GetObjectNoCheck();
+					pEnv = pValue->GetObject();
 				} else {
 					sig.SetError(ERR_ValueError, "invalid identifier name");
 					return Value::Nil;

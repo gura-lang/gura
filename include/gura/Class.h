@@ -106,13 +106,13 @@ Gura_UserClass(name)->Prepare(env);
 
 #define Gura_DeclareObjectAccessorEx(T) \
 inline static T *GetObject(const Value &value) { \
-	return dynamic_cast<T *>(value.GetObjectNoCheck()); \
+	return dynamic_cast<T *>(value.GetObject()); \
 } \
 inline static T *GetObject(Argument &arg, size_t idxArg) { \
 	return dynamic_cast<T *>(arg.GetObject(idxArg)); \
 } \
 inline static T *GetObjectThis(Argument &arg) { \
-	return dynamic_cast<T *>(arg.GetValueThis().GetObjectNoCheck()); \
+	return dynamic_cast<T *>(arg.GetValueThis().GetObject()); \
 } \
 inline static T *Reference(const T *pObj) { \
 	return dynamic_cast<T *>(Object::Reference(pObj)); \

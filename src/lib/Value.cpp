@@ -240,7 +240,7 @@ bool Value::Is(const Value &value) const
 	} else if (IsClass()) {
 		return GetClass() == value.GetClass();
 	} else if (IsObject()) {
-		return GetObjectNoCheck() == value.GetObjectNoCheck();
+		return GetObject() == value.GetObject();
 	}
 	return false;
 }
@@ -251,7 +251,7 @@ Value Value::EmptyIndexGet(Environment &env) const
 	if (IsPrimitive()) {
 		return env.LookupClass(_valType)->EmptyIndexGetPrimitive(env, *this);
 	} else if (IsObject()) {
-		return GetObjectNoCheck()->EmptyIndexGet(env);
+		return GetObject()->EmptyIndexGet(env);
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 	return Value::Nil;
@@ -261,7 +261,7 @@ void Value::EmptyIndexSet(Environment &env, const Value &value)
 {
 	Signal &sig = env.GetSignal();
 	if (IsObject()) {
-		GetObjectNoCheck()->EmptyIndexSet(env, value);
+		GetObject()->EmptyIndexSet(env, value);
 		return;
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
@@ -273,7 +273,7 @@ Value Value::IndexGet(Environment &env, const Value &valueIdx) const
 	if (IsPrimitive()) {
 		return env.LookupClass(_valType)->IndexGetPrimitive(env, *this, valueIdx);
 	} else if (IsObject()) {
-		return GetObjectNoCheck()->IndexGet(env, valueIdx);
+		return GetObject()->IndexGet(env, valueIdx);
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
 	return Value::Nil;
@@ -283,7 +283,7 @@ void Value::IndexSet(Environment &env, const Value &valueIdx, const Value &value
 {
 	Signal &sig = env.GetSignal();
 	if (IsObject()) {
-		GetObjectNoCheck()->IndexSet(env, valueIdx, value);
+		GetObject()->IndexSet(env, valueIdx, value);
 		return;
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
@@ -301,7 +301,7 @@ bool Value::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) con
 			return pClass->DirProp(env, symbols, escalateFlag);
 		}
 	} else if (IsObject()) {
-		return GetObjectNoCheck()->DirProp(env, symbols);
+		return GetObject()->DirProp(env, symbols);
 	}
 	return env.LookupClass(_valType)->DirProp(env, symbols, escalateFlag);
 }
