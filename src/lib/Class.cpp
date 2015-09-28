@@ -659,16 +659,17 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 			const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExpr);
 			Value valueCar = pExprCaller->GetCar()->Exec(*pEnvLocal);
 			if (sig.IsSignalled()) return false;
-			Callable *pCallable = valueCar.GetObject();
-			if (pCallable == nullptr) {
-				sig.SetError(ERR_TypeError, "object is not callable");
-			} else {
-				pCallable->DoCall(*this, pExprCaller->GetCallerInfo(),
+			if (valueCar.IsObject()) {
+				Callable *pObj = valueCar.GetObject();
+				pObj->DoCall(*this, pExprCaller->GetCallerInfo(),
 								  valueThis, nullptr, false, nullptr);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);
 					return false;
 				}
+			} else {
+				sig.SetError(ERR_TypeError, "object is not callable");
+				return false;
 			}
 		} else {
 			sig.SetError(ERR_SyntaxError, "invalid element in class constructor");
