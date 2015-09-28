@@ -382,10 +382,18 @@ public:
 	String GetStringSTL() const;
 	// VTYPE_symbol
 	inline const Symbol *GetSymbol() const	{ return Is_symbol()? _u.pSymbol : nullptr;	}
+	// fundamental
+	Fundamental *GetFundamental();
+	const Fundamental *GetFundamental() const {
+		return const_cast<Value *>(this)->GetFundamental();
+	}
 	// VTYPE_Module
 	inline Module *GetModule() const		{ return _u.pModule;						}
 	// VTYPE_Class
 	inline Class *GetClassItself() const	{ return _u.pClass;							}
+	// object
+	inline Object *GetObject()				{ return IsObject()? _u.pObj : nullptr;		}
+	inline Object *GetObject() const		{ return IsObject()? _u.pObj : nullptr;		}
 	// VTYPE_function
 	Function *GetFunction() const;
 	// VTYPE_binary
@@ -416,12 +424,6 @@ public:
 		return const_cast<Value *>(this)->ExtractFundamental(sig);
 	}
 	Expr *CloneExpr() const;
-	inline Object *GetObject() { return IsObject()? _u.pObj : nullptr; }
-	inline Object *GetObject() const { return IsObject()? _u.pObj : nullptr; }
-	Fundamental *GetFundamental();
-	const Fundamental *GetFundamental() const {
-		return const_cast<Value *>(this)->GetFundamental();
-	}
 	Iterator *CreateIterator(Signal &sig) const;
 	String ToString(bool exprFlag = true) const;
 	Number ToNumber(bool allowPartFlag, bool &successFlag) const;
