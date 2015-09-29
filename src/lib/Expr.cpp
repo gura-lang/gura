@@ -1148,9 +1148,8 @@ Value Expr_Member::DoExec(Environment &env) const
 	Value result;
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
-		//result = GetSelector()->GetThisProp(*pFund, valueThis);
-		result = pFund->GetThisProp(valueThis, GetSelector()->GetSymbol(),
-									GetSelector()->GetAttrs());
+		result = pFund->GetThisProp(valueThis, GetSelector()->GetSymbol(), GetSelector()->GetAttrs());
+		//result = valueThis.GetProp(GetSelector()->GetSymbol(), GetSelector()->GetAttrs());
 		if (result.Is_function()) {
 			Object_function *pObjFunc =
 				dynamic_cast<Object_function *>(Object_function::GetObject(result)->Clone());
@@ -2390,6 +2389,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 	if (pCallable == nullptr) {
 		valueCar = pFund->GetThisProp(valueThis, pExprSelector->GetSymbol(),
 									  pExprSelector->GetAttrs());
+		//valueCar = valueThis.GetProp(pExprSelector->GetSymbol(), pExprSelector->GetAttrs());
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Nil;

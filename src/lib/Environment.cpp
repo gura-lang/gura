@@ -347,23 +347,7 @@ Value Environment::GetProp(Environment &env, const Symbol *pSymbol,
 	if (sig.IsSignalled()) return Value::Nil;
 	if (evaluatedFlag) return result;
 	if (pValueDefault != nullptr) return *pValueDefault;
-	if (IsModule()) {
-		sig.SetError(ERR_ValueError,
-				"%s module does not have a symbol '%s'",
-				dynamic_cast<const Module *>(this)->GetName(), pSymbol->GetName());
-	} else if (IsClass()) {
-		sig.SetError(ERR_ValueError,
-				"%s class does not have a property '%s'",
-				dynamic_cast<const Class *>(this)->GetName(), pSymbol->GetName());
-	} else if (IsObject()) {
-		sig.SetError(ERR_ValueError,
-				"the object of %s class does not have a property '%s'",
-				dynamic_cast<const Object *>(this)->GetClass()->GetName(),
-				pSymbol->GetName());
-	} else {
-		sig.SetError(ERR_ValueError,
-				"undefined symbol '%s'", pSymbol->GetName());
-	}
+	SetError_PropertyNotFound(pSymbol);
 	return Value::Nil;
 }
 
@@ -818,6 +802,27 @@ void Environment::SetError(ErrorType errType, const char *format, ...) const
 	va_start(ap, format);
 	SetErrorV(errType, format, ap);
 	va_end(ap);
+}
+
+void Environment::SetError_PropertyNotFound(const Symbol *pSymbol) const
+{
+	if (IsModule()) {
+		SetError(ERR_ValueError,
+				 "%s module does not have a symbol '%s'",
+				 dynamic_cast<const Module *>(this)->GetName(), pSymbol->GetName());
+	} else if (IsClass()) {
+		SetError(ERR_ValueError,
+				 "%s class does not have a property '%s'",
+				 dynamic_cast<const Class *>(this)->GetName(), pSymbol->GetName());
+	} else if (IsObject()) {
+		SetError(ERR_ValueError,
+				 "the object of %s class does not have a property '%s'",
+				 dynamic_cast<const Object *>(this)->GetClass()->GetName(),
+				 pSymbol->GetName());
+	} else {
+		SetError(ERR_ValueError,
+				 "undefined symbol '%s'", pSymbol->GetName());
+	}
 }
 
 //-----------------------------------------------------------------------------

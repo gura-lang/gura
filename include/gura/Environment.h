@@ -325,8 +325,7 @@ public:
 	Value GetProp(Environment &env, const Symbol *pSymbol,
 					const SymbolSet &attrs, const Value *pValueDefault = nullptr,
 					EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0) const;
-	Value GetThisProp(const Value &valueThis,
-					  const Symbol *pSymbol, const SymbolSet &attrs);
+	Value GetThisProp(const Value &valueThis, const Symbol *pSymbol, const SymbolSet &attrs);
 public:
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	ValueTypeInfo *LookupValueType(const SymbolList &symbolList);
@@ -365,6 +364,7 @@ public:
 						  const char *format, va_list ap, const char *textPre = "") const {
 		GetSignal().SetErrorV(errType, format, ap, textPre);
 	}
+	void SetError_PropertyNotFound(const Symbol *pSymbol) const;
 private:
 	bool SearchSeparatedModuleFile(Signal &sig, String &pathName,
 			SymbolList::const_iterator ppSymbolOfModule,

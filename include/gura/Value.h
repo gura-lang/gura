@@ -407,6 +407,7 @@ public:
 	void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const;
 	void DirValueType(SymbolSet &symbols, bool escalateFlag) const;
+	Value GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const;
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
 	bool IsInstanceOf(ValueType valType) const;
