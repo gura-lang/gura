@@ -615,6 +615,7 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 {
 	Value valueThisEach;
 	if (!_pIterator->Next(env, valueThisEach)) return false;
+#if 0
 	Signal &sig = env.GetSignal();
 	Fundamental *pFundEach = nullptr;
 	if (valueThisEach.IsPrimitive()) {
@@ -624,8 +625,10 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 		if (sig.IsSignalled()) return false;
 	}
 	value = pFundEach->GetThisProp(valueThisEach, GetSymbol(), GetAttrs());
-	//value = valueThisEach.GetProp(GetSymbol(), GetAttrs());
-	//if (env.IsSignalled()) return false;
+#else
+	value = valueThisEach.GetProp(GetSymbol(), GetAttrs());
+	if (env.IsSignalled()) return false;
+#endif
 	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(
 			env, Function::Reference(value.GetFunction()));

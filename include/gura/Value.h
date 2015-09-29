@@ -170,12 +170,13 @@ public:
 	}
 	inline String MakeValueTypeName() const { return GetValueTypeInfo()->MakeFullName();	}
 	inline Class *GetClass() const			{ return GetValueTypeInfo()->GetClass();		}
-	inline bool IsType(ValueType valType) const { return _valType == valType;				}
-	inline bool IsObject() const			{ return _valType >= VTYPE_object;				}
-	inline bool IsPrimitive() const			{ return _valType <= VTYPE_symbol;				}
-	inline bool IsFundamental() const		{ return _valType >= VTYPE_Module;				}
+	inline bool IsType(ValueType valType) const
+											{ return _valType == valType;					}
 	inline bool IsInvalid() const			{ return _valType <= VTYPE_undefined;			}
 	inline bool IsValid() const				{ return _valType > VTYPE_undefined;			}
+	inline bool IsPrimitive() const			{ return _valType <= VTYPE_symbol;				}
+	inline bool IsFundamental() const		{ return _valType >= VTYPE_Module;				}
+	inline bool IsObject() const			{ return _valType >= VTYPE_object;				}
 	// invalid types
 	inline bool IsNil() const				{ return IsType(VTYPE_nil);						}
 	inline bool IsUndefined() const			{ return IsType(VTYPE_undefined);				}
@@ -227,94 +228,94 @@ public:
 	inline bool IsValidKey() const			{ return Is_number() || Is_string() || Is_symbol(); }
 	bool MustBe(Signal &sig, bool flag, const char *expected) const;
 	inline bool MustBeInvalid(Signal &sig) const
-						{ return MustBe(sig, IsInvalid(),		"invalid");					}
+								{ return MustBe(sig, IsInvalid(),		"invalid");			}
 	inline bool MustBeUndefined(Signal &sig) const
-						{ return MustBe(sig, IsUndefined(),		"undefined");				}
+								{ return MustBe(sig, IsUndefined(),		"undefined");		}
 	inline bool MustBeValid(Signal &sig) const
-						{ return MustBe(sig, IsValid(),			"valid");					}
+								{ return MustBe(sig, IsValid(),			"valid");			}
 	inline bool MustBeDefined(Signal &sig) const
-						{ return MustBe(sig, IsDefined(),		"defined");					}
+								{ return MustBe(sig, IsDefined(),		"defined");			}
 	// primitive types
 	inline bool MustBe_boolean(Signal &sig) const
-						{ return MustBe(sig, Is_boolean(), 		"boolean");					}
+								{ return MustBe(sig, Is_boolean(), 		"boolean");			}
 	inline bool MustBe_complex(Signal &sig) const
-						{ return MustBe(sig, Is_complex(), 		"complex");					}
+								{ return MustBe(sig, Is_complex(), 		"complex");			}
 	inline bool MustBe_number(Signal &sig) const
-						{ return MustBe(sig, Is_number(), 		"number");					}
+								{ return MustBe(sig, Is_number(), 		"number");			}
 	inline bool MustBe_rational(Signal &sig) const
-						{ return MustBe(sig, Is_rational(), 	"rational");				}
+								{ return MustBe(sig, Is_rational(), 	"rational");		}
 	inline bool MustBe_string(Signal &sig) const
-						{ return MustBe(sig, Is_string(), 		"string");					}
+								{ return MustBe(sig, Is_string(), 		"string");			}
 	inline bool MustBe_symbol(Signal &sig) const
-						{ return MustBe(sig, Is_symbol(),		"symbol");					}
+								{ return MustBe(sig, Is_symbol(),		"symbol");			}
 	// container types
 	inline bool MustBeModule(Signal &sig) const
-						{ return MustBe(sig, IsModule(), 		"module");					}
+								{ return MustBe(sig, IsModule(), 		"module");			}
 	inline bool MustBeClass(Signal &sig) const
-						{ return MustBe(sig, IsClass(), 		"class");					}
+								{ return MustBe(sig, IsClass(), 		"class");			}
 	// object types
 	inline bool MustBeGenericObject(Signal &sig) const
-						{ return MustBe(sig, IsGenericObject(), "generic object");			}
+								{ return MustBe(sig, IsGenericObject(), "generic object");	}
 	inline bool MustBeStruct(Signal &sig) const
-						{ return MustBe(sig, IsStruct(), 		"struct");					}
+								{ return MustBe(sig, IsStruct(), 		"struct");			}
 	inline bool MustBe_argument(Signal &sig) const
-						{ return MustBe(sig, Is_argument(), 	"argument");				}
+								{ return MustBe(sig, Is_argument(), 	"argument");		}
 	inline bool MustBe_audio(Signal &sig) const
-						{ return MustBe(sig, Is_audio(), 		"audio");					}
+								{ return MustBe(sig, Is_audio(), 		"audio");			}
 	inline bool MustBe_binary(Signal &sig) const
-						{ return MustBe(sig, Is_binary(), 		"binary");					}
+								{ return MustBe(sig, Is_binary(), 		"binary");			}
 	inline bool MustBe_codec(Signal &sig) const
-						{ return MustBe(sig, Is_codec(), 		"codec");					}
+								{ return MustBe(sig, Is_codec(), 		"codec");			}
 	inline bool MustBe_color(Signal &sig) const
-						{ return MustBe(sig, Is_color(), 		"color");					}
+								{ return MustBe(sig, Is_color(), 		"color");			}
 	inline bool MustBe_datetime(Signal &sig) const
-						{ return MustBe(sig, Is_datetime(), 	"datetime");				}
+								{ return MustBe(sig, Is_datetime(), 	"datetime");		}
 	inline bool MustBe_declaration(Signal &sig) const
-						{ return MustBe(sig, Is_declaration(),	"declaration");				}
+								{ return MustBe(sig, Is_declaration(),	"declaration");		}
 	inline bool MustBe_dict(Signal &sig) const
-						{ return MustBe(sig, Is_dict(), 		"dict");					}
+								{ return MustBe(sig, Is_dict(), 		"dict");			}
 	inline bool MustBe_directory(Signal &sig) const
-						{ return MustBe(sig, Is_directory(), 	"directory");				}
+								{ return MustBe(sig, Is_directory(), 	"directory");		}
 	inline bool MustBe_environment(Signal &sig) const
-						{ return MustBe(sig, Is_environment(),	"environment");				}
+								{ return MustBe(sig, Is_environment(),	"environment");		}
 	inline bool MustBe_error(Signal &sig) const
-						{ return MustBe(sig, Is_error(), 		"error");					}
+								{ return MustBe(sig, Is_error(), 		"error");			}
 	inline bool MustBe_expr(Signal &sig) const
-						{ return MustBe(sig, Is_expr(), 		"expr");					}
+								{ return MustBe(sig, Is_expr(), 		"expr");			}
 	inline bool MustBe_formatter(Signal &sig) const
-						{ return MustBe(sig, Is_formatter(), 	"formatter");				}
+								{ return MustBe(sig, Is_formatter(), 	"formatter");		}
 	inline bool MustBe_function(Signal &sig) const
-						{ return MustBe(sig, Is_function(), 	"function");				}
+								{ return MustBe(sig, Is_function(), 	"function");		}
 	inline bool MustBe_help(Signal &sig) const
-						{ return MustBe(sig, Is_help(), 		"help");					}
+								{ return MustBe(sig, Is_help(), 		"help");			}
 	inline bool MustBe_image(Signal &sig) const
-						{ return MustBe(sig, Is_image(), 		"image");					}
+								{ return MustBe(sig, Is_image(), 		"image");			}
 	inline bool MustBe_iterator(Signal &sig) const
-						{ return MustBe(sig, Is_iterator(), 	"iterator");				}
+								{ return MustBe(sig, Is_iterator(), 	"iterator");		}
 	inline bool MustBe_list(Signal &sig) const
-						{ return MustBe(sig, Is_list(), 		"list");					}
+								{ return MustBe(sig, Is_list(), 		"list");			}
 	inline bool MustBe_matrix(Signal &sig) const
-						{ return MustBe(sig, Is_matrix(), 		"matrix");					}
+								{ return MustBe(sig, Is_matrix(), 		"matrix");			}
 	inline bool MustBe_monitor(Signal &sig) const
-						{ return MustBe(sig, Is_monitor(), 		"monitor");					}
+								{ return MustBe(sig, Is_monitor(), 		"monitor");			}
 	inline bool MustBe_operator(Signal &sig) const
-						{ return MustBe(sig, Is_operator(), 	"operator");				}
+								{ return MustBe(sig, Is_operator(), 	"operator");		}
 	inline bool MustBe_palette(Signal &sig) const
-						{ return MustBe(sig, Is_palette(), 		"palette");					}
+								{ return MustBe(sig, Is_palette(), 		"palette");			}
 	inline bool MustBe_pointer(Signal &sig) const
-						{ return MustBe(sig, Is_pointer(), 		"pointer");					}
+								{ return MustBe(sig, Is_pointer(), 		"pointer");			}
 	inline bool MustBe_semaphore(Signal &sig) const
-						{ return MustBe(sig, Is_semaphore(), 	"semaphore");				}
+								{ return MustBe(sig, Is_semaphore(), 	"semaphore");		}
 	inline bool MustBe_stream(Signal &sig) const
-						{ return MustBe(sig, Is_stream(), 		"stream");					}
+								{ return MustBe(sig, Is_stream(), 		"stream");			}
 	inline bool MustBe_suffixmgr(Signal &sig) const
-						{ return MustBe(sig, Is_suffixmgr(), 	"suffixmgr");				}
+								{ return MustBe(sig, Is_suffixmgr(), 	"suffixmgr");		}
 	inline bool MustBe_template(Signal &sig) const
-						{ return MustBe(sig, Is_template(), 	"template");				}
+								{ return MustBe(sig, Is_template(), 	"template");		}
 	inline bool MustBe_timedelta(Signal &sig) const
-						{ return MustBe(sig, Is_timedelta(), 	"timedelta");				}
+								{ return MustBe(sig, Is_timedelta(), 	"timedelta");		}
 	inline bool MustBe_uri(Signal &sig) const
-						{ return MustBe(sig, Is_uri(), 			"uri");						}
+								{ return MustBe(sig, Is_uri(), 			"uri");				}
 	// setter methods
 	inline void SetBoolean(bool flag) {
 		Gura_ReleaseValue(*this); _valType = VTYPE_boolean, _u.flag = flag;
@@ -351,40 +352,40 @@ public:
 				Is_boolean()? (_u.flag? 1. : 0.) :
 				Is_string()? ::strtod(GetString(), nullptr) : 0.;
 	}
-	inline int GetInt() const				{ return static_cast<int>(GetNumber());		}
-	inline UInt GetUInt() const				{ return static_cast<UInt>(GetNumber());	}
-	inline size_t GetSizeT() const			{ return static_cast<size_t>(GetNumber());	}
-	inline char GetChar() const				{ return static_cast<char>(GetNumber());	}
-	inline UChar GetUChar() const			{ return static_cast<UChar>(GetNumber());	}
-	inline short GetShort() const			{ return static_cast<short>(GetNumber());	}
-	inline UShort GetUShort() const			{ return static_cast<UShort>(GetNumber());	}
+	inline int GetInt() const				{ return static_cast<int>(GetNumber());			}
+	inline UInt GetUInt() const				{ return static_cast<UInt>(GetNumber());		}
+	inline size_t GetSizeT() const			{ return static_cast<size_t>(GetNumber());		}
+	inline char GetChar() const				{ return static_cast<char>(GetNumber());		}
+	inline UChar GetUChar() const			{ return static_cast<UChar>(GetNumber());		}
+	inline short GetShort() const			{ return static_cast<short>(GetNumber());		}
+	inline UShort GetUShort() const			{ return static_cast<UShort>(GetNumber());		}
 	inline long GetLong() const {
 		Number num = GetNumber();
 		return (num < 0x80000000)? static_cast<long>(num) :
 						static_cast<long>(static_cast<ULong>(num));
 	}
-	inline ULong GetULong() const			{ return static_cast<ULong>(GetNumber());	}
-	inline Int64 GetInt64() const			{ return static_cast<Int64>(GetNumber());	}
-	inline UInt64 GetUInt64() const			{ return static_cast<UInt64>(GetNumber());	}
-	inline float GetFloat() const			{ return static_cast<float>(GetNumber());	}
-	inline double GetDouble() const			{ return static_cast<double>(GetNumber());	}
+	inline ULong GetULong() const			{ return static_cast<ULong>(GetNumber());		}
+	inline Int64 GetInt64() const			{ return static_cast<Int64>(GetNumber());		}
+	inline UInt64 GetUInt64() const			{ return static_cast<UInt64>(GetNumber());		}
+	inline float GetFloat() const			{ return static_cast<float>(GetNumber());		}
+	inline double GetDouble() const			{ return static_cast<double>(GetNumber());		}
 	// VTYPE_rational
-	inline Rational &GetRational() const	{ return *_u.pRatio;						}
-	inline Rational *GetRationalPtr() const	{ return _u.pRatio;							}
+	inline Rational &GetRational() const	{ return *_u.pRatio;							}
+	inline Rational *GetRationalPtr() const	{ return _u.pRatio;								}
 	// VTYPE_string
 	const char *GetString() const;
 	String GetStringSTL() const;
 	// VTYPE_symbol
-	inline const Symbol *GetSymbol() const	{ return Is_symbol()? _u.pSymbol : nullptr;	}
+	inline const Symbol *GetSymbol() const	{ return Is_symbol()? _u.pSymbol : nullptr;		}
 	// fundamental
 	inline Fundamental *GetFundamental() const
-											{ return _u.pFund;							}
+											{ return _u.pFund;								}
 	// VTYPE_Module
-	inline Module *GetModule() const		{ return (Module *)_u.pFund;				}
+	inline Module *GetModule() const		{ return (Module *)_u.pFund;					}
 	// VTYPE_Class
-	inline Class *GetClassItself() const	{ return (Class *)_u.pFund;					}
+	inline Class *GetClassItself() const	{ return (Class *)_u.pFund;						}
 	// object
-	inline Object *GetObject() const		{ return (Object *)_u.pFund;				}
+	inline Object *GetObject() const		{ return (Object *)_u.pFund;					}
 	// VTYPE_function
 	Function *GetFunction() const;
 	// VTYPE_binary

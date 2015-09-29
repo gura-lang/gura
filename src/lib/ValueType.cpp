@@ -11,16 +11,16 @@ namespace Gura {
 // invalid types
 ValueType VTYPE_nil				= static_cast<ValueType>(0);
 ValueType VTYPE_undefined		= static_cast<ValueType>(1);
-// primitive types
-ValueType VTYPE_boolean			= static_cast<ValueType>(2);
-ValueType VTYPE_complex			= static_cast<ValueType>(3);
-ValueType VTYPE_number			= static_cast<ValueType>(4);
-ValueType VTYPE_rational		= static_cast<ValueType>(5);
-ValueType VTYPE_string			= static_cast<ValueType>(6);
-ValueType VTYPE_symbol			= static_cast<ValueType>(7);
 // pseudo types
-ValueType VTYPE_quote			= static_cast<ValueType>(0);
-ValueType VTYPE_any				= static_cast<ValueType>(0);
+ValueType VTYPE_quote			= static_cast<ValueType>(2);
+ValueType VTYPE_any				= static_cast<ValueType>(3);
+// primitive types
+ValueType VTYPE_boolean			= static_cast<ValueType>(4);
+ValueType VTYPE_complex			= static_cast<ValueType>(5);
+ValueType VTYPE_number			= static_cast<ValueType>(6);
+ValueType VTYPE_rational		= static_cast<ValueType>(7);
+ValueType VTYPE_string			= static_cast<ValueType>(8);
+ValueType VTYPE_symbol			= static_cast<ValueType>(9);
 // container types
 ValueType VTYPE_Module			= static_cast<ValueType>(0);
 ValueType VTYPE_Class			= static_cast<ValueType>(0);
@@ -128,26 +128,31 @@ void ValueTypePool::Initialize(Environment &env)
 
 void ValueTypePool::_Initialize(Environment &env)
 {
-	// primitive types (this order is significant for IsPrimitive())
+	// primitive types. This order is significant for the following methods:
+	// - Value::IsInvalid()
+	// - Value::IsValid()
+	// - Value::IsPrimitive()
+	// - Value::IsFundamental()
+	// - Value::IsObject()
 	// invalid types
-	Gura_RealizeVTYPE(nil);			// must be at 1st
-	Gura_RealizeVTYPE(undefined);	// must be at 2nd
-	// primitive types
-	Gura_RealizeVTYPE(boolean);		// must be at 3rd
-	Gura_RealizeVTYPE(complex);		// must be at 4th
-	Gura_RealizeVTYPE(number);		// must be at 5th
-	Gura_RealizeVTYPE(rational);	// must be at 6th
-	Gura_RealizeVTYPE(string);		// must be at 7th
-	Gura_RealizeVTYPE(symbol);		// must be at 8th
+	Gura_RealizeVTYPE(nil);									// must be at 1st
+	Gura_RealizeVTYPE(undefined);							// must be at 2nd
 	// pseudo types
-	Gura_RealizeVTYPE(quote);
-	Gura_RealizeVTYPE(any);
+	Gura_RealizeVTYPE(quote);								// must be at 3rd
+	Gura_RealizeVTYPE(any);									// must be at 4th
+	// primitive types
+	Gura_RealizeVTYPE(boolean);								// must be at 5th
+	Gura_RealizeVTYPE(complex);								// must be at 6th
+	Gura_RealizeVTYPE(number);								// must be at 7th
+	Gura_RealizeVTYPE(rational);							// must be at 8th
+	Gura_RealizeVTYPE(string);								// must be at 9th
+	Gura_RealizeVTYPE(symbol);								// must be at 10th
 	// container types
-	Gura_RealizeVTYPEAlias(Module,			"module");
-	Gura_RealizeVTYPEAlias(Class,			"class");
-	Gura_RealizeVTYPEAlias(Struct,			"struct");
+	Gura_RealizeVTYPEAlias(Module,			"module");		// must be at 11th
+	Gura_RealizeVTYPEAlias(Class,			"class");		// must be at 12th
 	// object types
-	Gura_RealizeVTYPE(object);
+	Gura_RealizeVTYPE(object);								// must be at 13th
+	Gura_RealizeVTYPEAlias(Struct,			"struct");
 	Gura_RealizeVTYPE(argument);
 	Gura_RealizeVTYPEAlias(array_char,		"array@char");
 	Gura_RealizeVTYPEAlias(array_uchar,		"array@uchar");
@@ -192,6 +197,9 @@ void ValueTypePool::_Initialize(Environment &env)
 	// invalid types
 	Gura_VTYPEInfo(nil			)->SetClass(new Class_nil(pClass));
 	Gura_VTYPEInfo(undefined	)->SetClass(new Class_undefined(pClass));
+	// pseudo types
+	Gura_VTYPEInfo(quote		)->SetClass(new Class_quote(pClass));
+	Gura_VTYPEInfo(any			)->SetClass(new Class_any(pClass));
 	// primitive types
 	Gura_VTYPEInfo(boolean		)->SetClass(new Class_boolean(pClass));
 	Gura_VTYPEInfo(complex		)->SetClass(new Class_complex(pClass));
@@ -199,14 +207,11 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(rational		)->SetClass(new Class_rational(pClass));
 	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
 	Gura_VTYPEInfo(symbol		)->SetClass(new Class_symbol(pClass));
-	// pseudo types
-	Gura_VTYPEInfo(quote		)->SetClass(new Class_quote(pClass));
-	Gura_VTYPEInfo(any			)->SetClass(new Class_any(pClass));
 	// container types
 	Gura_VTYPEInfo(Module		)->SetClass(new Class_Module(pClass));
 	Gura_VTYPEInfo(Class		)->SetClass(new Class_Class(pClass));
-	Gura_VTYPEInfo(Struct		)->SetClass(new Class_Struct(pClass));
 	// object types
+	Gura_VTYPEInfo(Struct		)->SetClass(new Class_Struct(pClass));
 	Gura_VTYPEInfo(argument		)->SetClass(new Class_argument(pClass));
 	Gura_VTYPEInfo(array_char	)->SetClass(
 		new Class_array<char>(pClass, VTYPE_array_char, "char"));
@@ -264,6 +269,9 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	// invalid types
 	env.LookupClass(VTYPE_nil			)->Prepare(env);
 	env.LookupClass(VTYPE_undefined		)->Prepare(env);
+	// pseudo types
+	env.LookupClass(VTYPE_quote			)->Prepare(env);
+	env.LookupClass(VTYPE_any			)->Prepare(env);
 	// primitive types
 	env.LookupClass(VTYPE_boolean		)->Prepare(env);
 	env.LookupClass(VTYPE_complex		)->Prepare(env);
@@ -271,9 +279,6 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_rational		)->Prepare(env);
 	env.LookupClass(VTYPE_string		)->Prepare(env);
 	env.LookupClass(VTYPE_symbol		)->Prepare(env);
-	// pseudo types
-	env.LookupClass(VTYPE_quote			)->Prepare(env);
-	env.LookupClass(VTYPE_any			)->Prepare(env);
 	// container types
 	env.LookupClass(VTYPE_Module		)->Prepare(env);
 	env.LookupClass(VTYPE_Class			)->Prepare(env);

@@ -305,32 +305,29 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 
 Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
 {
-	Class *pClass = GetClass();
-	Environment &env = *pClass;
+	Fundamental *pFund = nullptr;
 	if (IsPrimitive()) {
+		Class *pClass = GetClass();
 		bool evaluatedFlag = false;
 		Value rtn = pClass->GetPropPrimitive(*this, pSymbol, attrs, evaluatedFlag);
 		if (evaluatedFlag) return rtn;
-		pClass->SetError_PropertyNotFound(pSymbol);
-		return Value::Nil;
-	} else if (IsFundamental()) {
-		Fundamental *pFund = GetFundamental();
+		pFund = pClass;
+	} else {
+		pFund = GetFundamental();
 		if (pFund->IsFunction()) {
 			const Function *pFunc =
 				dynamic_cast<const Object_function *>(pFund)->GetFunction();
 			Class *pClass = pFunc->GetClassToConstruct();
 			if (pClass != nullptr) pFund = pClass;
 		}
-		EnvRefMode envRefMode =
-			pFund->IsModule()? ENVREF_Module :
-			!(pFund->IsClass() || pFund->IsObject())? ENVREF_Escalate :
-			IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
-		int cntSuperSkip = GetSuperSkipCount();
-		Value rtn = pFund->GetProp(env, pSymbol, attrs, nullptr, envRefMode, cntSuperSkip);
-		return rtn;
 	}
-	env.SetError(ERR_ValueError, "invalid access");
-	return Value::Nil;
+	EnvRefMode envRefMode =
+		pFund->IsModule()? ENVREF_Module :
+		!(pFund->IsClass() || pFund->IsObject())? ENVREF_Escalate :
+		IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
+	int cntSuperSkip = GetSuperSkipCount();
+	Value rtn = pFund->GetProp(*pFund, pSymbol, attrs, nullptr, envRefMode, cntSuperSkip);
+	return rtn;
 }
 
 ErrorType Value::GetErrorType() const

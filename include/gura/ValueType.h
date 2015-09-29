@@ -38,6 +38,9 @@ typedef UShort ValueType;
 // invalid types
 GURA_DLLDECLARE extern ValueType VTYPE_nil;
 GURA_DLLDECLARE extern ValueType VTYPE_undefined;
+// pseudo types
+GURA_DLLDECLARE extern ValueType VTYPE_quote;
+GURA_DLLDECLARE extern ValueType VTYPE_any;
 // primitive types
 GURA_DLLDECLARE extern ValueType VTYPE_boolean;
 GURA_DLLDECLARE extern ValueType VTYPE_complex;
@@ -45,9 +48,6 @@ GURA_DLLDECLARE extern ValueType VTYPE_number;
 GURA_DLLDECLARE extern ValueType VTYPE_rational;
 GURA_DLLDECLARE extern ValueType VTYPE_string;
 GURA_DLLDECLARE extern ValueType VTYPE_symbol;
-// pseudo types
-GURA_DLLDECLARE extern ValueType VTYPE_quote;
-GURA_DLLDECLARE extern ValueType VTYPE_any;
 // following types are descendants of fudamental
 // container types
 GURA_DLLDECLARE extern ValueType VTYPE_Module;
@@ -142,6 +142,9 @@ public:
 	// invalid types
 	Gura_DeclareVTYPE(nil);
 	Gura_DeclareVTYPE(undefined);
+	// pseudo types
+	Gura_DeclareVTYPE(quote);
+	Gura_DeclareVTYPE(any);
 	// primitive types
 	Gura_DeclareVTYPE(boolean);
 	Gura_DeclareVTYPE(complex);
@@ -149,9 +152,6 @@ public:
 	Gura_DeclareVTYPE(rational);
 	Gura_DeclareVTYPE(string);
 	Gura_DeclareVTYPE(symbol);
-	// pseudo types
-	Gura_DeclareVTYPE(quote);
-	Gura_DeclareVTYPE(any);
 	// container types
 	Gura_DeclareVTYPE(Module);
 	Gura_DeclareVTYPE(Class);
