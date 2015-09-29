@@ -112,7 +112,7 @@ makeBindScript(func:function) = {
 	args = func.decls:*symbol
 	cmdName = _interp.command(func)
 	elems = [cmdName]
-	elems.append('%' + bindSubstDict.gets(args, args:*tostring()))
+	elems.append('%' + bindSubstDict.get(args, args:*tostring()))
 	elems.join(' ')
 }
 
@@ -563,7 +563,7 @@ Treeview = class(Widget) {
 	Selection() = {
 		ids = tclEval(this, 'selection')
 		ids.isempty() && return
-		this._itemDict.gets(ids)
+		this._itemDict.get(ids)
 	}
 	Tag() {block?} = {
 		tagName = 'tag' + this._cntTags
