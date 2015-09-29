@@ -36,8 +36,9 @@ Function::Function(const Function &func) :
 	_pSymbol(func._pSymbol),
 	_pClassToConstruct(func._pClassToConstruct),
 	_pEnvScope(new Environment(func.GetEnvScope())),
-	_pDeclOwner(func.GetDeclOwner().Clone()),
 	_funcType(func._funcType),
+	_pDeclOwner(func.GetDeclOwner().Clone()),
+	_valTypeResult(func._valTypeResult),
 	_resultMode(func._resultMode),
 	_flags(func._flags),
 	_pAttrsOptShared(func._pAttrsOptShared.IsNull()?
@@ -53,8 +54,9 @@ Function::Function(Environment &envScope, const Symbol *pSymbol,
 	_pSymbol(pSymbol),
 	_pClassToConstruct(nullptr),
 	_pEnvScope(Environment::Reference(&envScope)),
-	_pDeclOwner(new DeclarationOwner()),
 	_funcType(funcType),
+	_pDeclOwner(new DeclarationOwner()),
+	_valTypeResult(VTYPE_any),
 	_resultMode(RSLTMODE_Normal),
 	_flags(flags),
 	_pAttrsOptShared(nullptr),
@@ -182,14 +184,16 @@ bool Function::CustomDeclare(Environment &env,
 	return true;
 }
 
-void Function::CopyDeclare(const Function &func)
+void Function::CopyDeclarationInfo(const Function &func)
 {
 	_pDeclOwner.reset(func.GetDeclOwner().Clone());
+	_valTypeResult = func._valTypeResult;
 	_resultMode = func._resultMode;
 	_flags = func._flags;
 	_pAttrsOptShared.reset(func._pAttrsOptShared.IsNull()?
 						   nullptr : new SymbolSetShared(*func._pAttrsOptShared));
 	_blockInfo	= func._blockInfo;
+	_pSymbolDict = func._pSymbolDict;
 }
 
 Declaration *Function::DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,

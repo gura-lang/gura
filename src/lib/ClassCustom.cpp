@@ -64,7 +64,7 @@ Function *ClassCustom::PrepareConstructor(Environment &env)
 	if (pFuncInit != nullptr) {
 		pFunc.reset(new Constructor(pFuncInit->GetEnvScope(), Gura_Symbol(_anonymous_),
 						Expr::Reference(pFuncInit->GetExprBody()), FUNCTYPE_Function));
-		pFunc->CopyDeclare(*pFuncInit);
+		pFunc->CopyDeclarationInfo(*pFuncInit);
 	} else if (!_pClassSuper.IsNull() && _pClassSuper->GetConstructor() != nullptr) {
 		Function *pConstructorSuper = _pClassSuper->GetConstructor();
 		Expr_Block *pExprBlock = new Expr_Block();
@@ -77,7 +77,7 @@ Function *ClassCustom::PrepareConstructor(Environment &env)
 		pExprBlock->SetExprOwnerParam(pExprOwnerParam);
 		pFunc.reset(new Constructor(env, Gura_Symbol(_anonymous_),
 												pExprBlock, FUNCTYPE_Function));
-		pFunc->CopyDeclare(*pConstructorSuper);
+		pFunc->CopyDeclarationInfo(*pConstructorSuper);
 	} else {
 		pFunc.reset(new Constructor(env, Gura_Symbol(_anonymous_),
 												new Expr_Block(), FUNCTYPE_Function));

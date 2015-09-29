@@ -494,7 +494,7 @@ Gura_ImplementMethod(function, mathdiff)
 	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
 				Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
-	pFuncDiff->CopyDeclare(*pFunc);
+	pFuncDiff->CopyDeclarationInfo(*pFunc);
 	return Value(new Object_function(env, pFuncDiff.release()));
 }
 

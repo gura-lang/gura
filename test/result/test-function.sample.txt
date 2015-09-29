@@ -331,3 +331,7 @@ a = AA, b = BB
 a = AA, b = B
 a = A, b = BB
 a = AA, b = BB
+
+======== #47 declaration of constructor ========
+
+A.A(a:number, b:string, c[]:boolean, d => 'hoge', dict%):map:[att1,att2,att3] {block?}

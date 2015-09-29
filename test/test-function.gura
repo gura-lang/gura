@@ -483,3 +483,9 @@ testcase('default value and named argument') {
 	f(b => 'BB')
 	f(a => 'AA', b => 'BB')
 }
+testcase('declaration of constructor') {
+	A = class {
+		__init__(a:number, b:string, c[]:boolean, d => 'hoge', dict%):map:[att1,att2,att3] = {}
+	}
+	println(A)
+}

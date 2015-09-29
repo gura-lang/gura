@@ -159,14 +159,16 @@ protected:
 	const Symbol *_pSymbol;
 	Class *_pClassToConstruct;
 	AutoPtr<Environment> _pEnvScope;
-	AutoPtr<DeclarationOwner> _pDeclOwner;
 	AutoPtr<Function> _pFuncHelpLink;
 	FunctionType _funcType;
+	HelpOwner _helpOwner;
+protected:
+	// declaration information
+	AutoPtr<DeclarationOwner> _pDeclOwner;
 	ValueType _valTypeResult;
 	ResultMode _resultMode;
 	ULong _flags;
 	AutoPtr<SymbolSetShared> _pAttrsOptShared;
-	HelpOwner _helpOwner;
 	BlockInfo _blockInfo;
 	const Symbol *_pSymbolDict;
 public:
@@ -225,7 +227,7 @@ public:
 	void SetClassToConstruct(Class *pClassToConstruct);
 	bool CustomDeclare(Environment &env,
 					   const CallerInfo &callerInfo, const SymbolSet &attrsAcceptable);
-	void CopyDeclare(const Function &func);
+	void CopyDeclarationInfo(const Function &func);
 	Declaration *DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
 			OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
 			Expr *pExprDefault = nullptr);
