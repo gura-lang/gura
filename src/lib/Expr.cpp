@@ -2391,11 +2391,11 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 			sig.AddExprCause(this);
 			return Value::Nil;
 		}
-		pCallable = valueCar.IsObject()? valueCar.GetObject() : nullptr;
-	}
-	if (pCallable == nullptr) {
-		SetError(sig, ERR_TypeError, "object is not callable");
-		return Value::Nil;
+		if (!valueCar.IsFundamental()) {
+			SetError(sig, ERR_TypeError, "object is not callable");
+			return Value::Nil;
+		}
+		pCallable = valueCar.GetFundamental();
 	}
 	return pCallable->DoCall(env, GetCallerInfo(),
 							 valueThis, pIteratorThis, listThisFlag, pTrailCtrlHolder);
