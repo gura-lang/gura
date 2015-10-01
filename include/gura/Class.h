@@ -112,7 +112,8 @@ inline static T *GetObject(Argument &arg, size_t idxArg) { \
 	return dynamic_cast<T *>(arg.GetObject(idxArg)); \
 } \
 inline static T *GetObjectThis(Argument &arg) { \
-	return dynamic_cast<T *>(arg.GetValueThis().GetObject()); \
+	return arg.GetValueThis().IsObject()? \
+			dynamic_cast<T *>(arg.GetValueThis().GetObject()) : nullptr; \
 } \
 inline static T *Reference(const T *pObj) { \
 	return dynamic_cast<T *>(Object::Reference(pObj)); \
