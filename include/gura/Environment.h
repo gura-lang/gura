@@ -325,7 +325,6 @@ public:
 	Value GetProp(Environment &env, const Symbol *pSymbol,
 					const SymbolSet &attrs, const Value *pValueDefault = nullptr,
 					EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0) const;
-	Value GetThisProp(const Value &valueThis, const Symbol *pSymbol, const SymbolSet &attrs);
 public:
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	ValueTypeInfo *LookupValueType(const SymbolList &symbolList);
