@@ -29,9 +29,6 @@ class Expr_Iterer;
 class Expr_Indexer;
 class Expr_Caller;
 
-class Callable;
-class CallerInfo;
-
 typedef void (*BridgeFunctionT)(Environment &env, const Value &valueThis, Value &valueResult);
 
 //-----------------------------------------------------------------------------

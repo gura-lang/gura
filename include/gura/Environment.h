@@ -98,6 +98,9 @@ enum EnvType {
 	ENVTYPE_lister,
 };
 
+//-----------------------------------------------------------------------------
+// EnvRefMode
+//-----------------------------------------------------------------------------
 enum EnvRefMode {
 	ENVREF_NoEscalate,
 	ENVREF_Module,
@@ -360,6 +363,7 @@ public:
 						  const char *format, va_list ap, const char *textPre = "") const {
 		GetSignal().SetErrorV(errType, format, ap, textPre);
 	}
+	void SetError_AccessViolation(const Symbol *pSymbol) const;
 	void SetError_PropertyNotFound(const Symbol *pSymbol) const;
 private:
 	bool SearchSeparatedModuleFile(Signal &sig, String &pathName,

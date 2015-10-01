@@ -122,7 +122,7 @@ SymbolSet &Environment::PrepareSymbolsPublic()
 
 bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
 {
-	EnvType envType = GetTopFrame()->GetEnvType();
+	EnvType envType = GetEnvType();
 	if (envType == ENVTYPE_class || envType == ENVTYPE_object) {
 		foreach_const (FrameOwner, ppFrame, _frameOwner) {
 			const Frame *pFrame = *ppFrame;
@@ -132,8 +132,7 @@ bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
 		}
 		return false;
 	}
-	const Frame *pFrame = GetTopFrame();
-	return pFrame->IsSymbolPublic(pSymbol);
+	return GetTopFrame()->IsSymbolPublic(pSymbol);
 }
 
 void Environment::AddRootFrame(const FrameList &frameListSrc)
@@ -239,7 +238,7 @@ void Environment::RemoveValue(const Symbol *pSymbol)
 
 ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip)
 {
-	EnvType envType = GetTopFrame()->GetEnvType();
+	EnvType envType = GetEnvType();
 	if (envRefMode == ENVREF_NoEscalate || envRefMode == ENVREF_Module) {
 		Frame *pFrame = GetTopFrame();
 		ValueEx *pValue = pFrame->LookupValue(pSymbol);
@@ -311,39 +310,20 @@ Value Environment::GetProp(Environment &env, const Symbol *pSymbol,
 	Signal &sig = env.GetSignal();
 	const ValueEx *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
 	if (pValue == nullptr) {
-		// nothing to do
-	} else if (envRefMode != ENVREF_Restricted && envRefMode != ENVREF_Module) {
-		return *pValue;
-	} else if (pValue->GetExtra() & EXTRA_Public) {
-		return *pValue;
-	} else if (IsModule()) {
-		sig.SetError(ERR_MemberAccessError,
-				"can't access module member %s.%s",
-				dynamic_cast<const Module *>(this)->GetName(), pSymbol->GetName());
+		bool evaluatedFlag = false;
+		Value result = const_cast<Environment *>(this)->
+							DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+		if (sig.IsSignalled()) return Value::Nil;
+		if (evaluatedFlag) return result;
+		if (pValueDefault != nullptr) return *pValueDefault;
+		SetError_PropertyNotFound(pSymbol);
 		return Value::Nil;
-	} else if (IsClass()) {
-		sig.SetError(ERR_MemberAccessError,
-				"can't access class member %s.%s",
-				dynamic_cast<const Class *>(this)->GetName(), pSymbol->GetName());
-		return Value::Nil;
-	} else if (IsObject()) {
-		sig.SetError(ERR_MemberAccessError,
-				"can't access object member %s#%s",
-				dynamic_cast<const Object *>(this)->GetClass()->GetName(),
-				pSymbol->GetName());
-		return Value::Nil;
-	} else {
-		sig.SetError(ERR_ValueError,
-				"can't access variable %s", pSymbol->GetName());
+	} else if ((envRefMode == ENVREF_Restricted || envRefMode == ENVREF_Module) &&
+									(pValue->GetExtra() & EXTRA_Public) == 0) {
+		SetError_AccessViolation(pSymbol);
 		return Value::Nil;
 	}
-	bool evaluatedFlag = false;
-	Value result = const_cast<Environment *>(this)->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-	if (sig.IsSignalled()) return Value::Nil;
-	if (evaluatedFlag) return result;
-	if (pValueDefault != nullptr) return *pValueDefault;
-	SetError_PropertyNotFound(pSymbol);
-	return Value::Nil;
+	return *pValue;
 }
 
 void Environment::AssignValueType(ValueTypeInfo *pValueTypeInfo)
@@ -777,6 +757,27 @@ void Environment::SetError(ErrorType errType, const char *format, ...) const
 	va_start(ap, format);
 	SetErrorV(errType, format, ap);
 	va_end(ap);
+}
+
+void Environment::SetError_AccessViolation(const Symbol *pSymbol) const
+{
+	if (IsModule()) {
+		SetError(ERR_MemberAccessError,
+				 "can't access module member %s.%s",
+				 dynamic_cast<const Module *>(this)->GetName(), pSymbol->GetName());
+	} else if (IsClass()) {
+		SetError(ERR_MemberAccessError,
+				 "can't access class member %s.%s",
+				 dynamic_cast<const Class *>(this)->GetName(), pSymbol->GetName());
+	} else if (IsObject()) {
+		SetError(ERR_MemberAccessError,
+				 "can't access object member %s#%s",
+				 dynamic_cast<const Object *>(this)->GetClass()->GetName(),
+				 pSymbol->GetName());
+	} else {
+		SetError(ERR_ValueError,
+				 "can't access variable %s", pSymbol->GetName());
+	}
 }
 
 void Environment::SetError_PropertyNotFound(const Symbol *pSymbol) const
