@@ -209,12 +209,38 @@ public:
 		inline bool IsSymbolPublic(const Symbol *pSymbol) const {
 			return _pSymbolsPublic.get() != nullptr && _pSymbolsPublic->IsSet(pSymbol);
 		}
-		void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra);
-		void RemoveValue(const Symbol *pSymbol);
-		ValueEx *LookupValue(const Symbol *pSymbol);
-		void AssignValueType(ValueTypeInfo *pValueTypeInfo);
-		ValueTypeInfo *LookupValueType(const Symbol *pSymbol);
-		SymbolSet &PrepareSymbolsPublic();
+		inline void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra) {
+			if (_pValueMap.get() == nullptr) _pValueMap.reset(new ValueMap());
+			ValueMap::iterator iter = _pValueMap->find(pSymbol);
+			if (iter != _pValueMap->end() && (iter->second.GetExtra() & EXTRA_Public) != 0) {
+				extra |= EXTRA_Public;
+			}
+			(*_pValueMap)[pSymbol] = ValueEx(value, extra);
+		}
+		inline ValueEx *LookupValue(const Symbol *pSymbol) {
+			if (_pValueMap.get() == nullptr) return nullptr;
+			ValueMap::iterator iter = _pValueMap->find(pSymbol);
+			return (iter == _pValueMap->end())? nullptr : &iter->second;
+		}
+		inline void RemoveValue(const Symbol *pSymbol) {
+			if (_pValueMap.get() == nullptr) return;
+			_pValueMap->erase(pSymbol);
+		}
+		inline void AssignValueType(ValueTypeInfo *pValueTypeInfo) {
+			if (_pValueTypeMap.get() == nullptr) _pValueTypeMap.reset(new ValueTypeMap());
+			(*_pValueTypeMap)[pValueTypeInfo->GetSymbol()] = pValueTypeInfo;
+		}
+		inline ValueTypeInfo *LookupValueType(const Symbol *pSymbol) {
+			if (_pValueTypeMap.get() == nullptr) return nullptr;
+			ValueTypeMap::iterator iter = _pValueTypeMap->find(pSymbol);
+			return (iter == _pValueTypeMap->end())? nullptr : iter->second;
+		}
+		inline SymbolSet &PrepareSymbolsPublic() {
+			if (_pSymbolsPublic.get() == nullptr) {
+				_pSymbolsPublic.reset(new SymbolSet());
+			}
+			return *_pSymbolsPublic;
+		}
 		void DbgPrint() const;
 	};
 	class GURA_DLLDECLARE FrameList : public std::list<Frame *> {
@@ -300,12 +326,10 @@ public:
 	void CacheFrame(const Symbol *pSymbol, Frame *pFrame);
 public:
 	void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra);
-	Function *AssignFunction(Function *pFunc);
+	Function *AssignFunction(Function *pFunc, ULong extra = EXTRA_Public);
 	void AssignValueFromBlock(const Symbol *pSymbol, const Value &value, ULong extra);
 	bool ImportValue(const Symbol *pSymbol, const Value &value,
 										ULong extra, bool overwriteFlag);
-public:
-	void RemoveValue(const Symbol *pSymbol);
 public:
 	ValueEx *LookupValue(const Symbol *pSymbol,
 						EnvRefMode envRefMode, int cntSuperSkip = 0);
@@ -315,7 +339,8 @@ public:
 						LookupValue(pSymbol, envRefMode, cntSuperSkip));
 	}
 	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
-	//FunctionCustom *LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
+public:
+	void RemoveValue(const Symbol *pSymbol);
 public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);

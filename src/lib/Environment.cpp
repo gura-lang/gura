@@ -184,9 +184,8 @@ void Environment::AssignValue(const Symbol *pSymbol, const Value &value, ULong e
 	CacheFrame(pSymbol, pFrame);
 }
 
-Function *Environment::AssignFunction(Function *pFunc)
+Function *Environment::AssignFunction(Function *pFunc, ULong extra)
 {
-	ULong extra = EXTRA_Public;
 	Value value(new Object_function(*this, pFunc));
 	GetTopFrame()->AssignValue(pFunc->GetSymbol(), value, extra);
 	return pFunc;
@@ -229,11 +228,6 @@ bool Environment::ImportValue(const Symbol *pSymbol, const Value &value,
 		}
 	}
 	return true;
-}
-
-void Environment::RemoveValue(const Symbol *pSymbol)
-{
-	GetTopFrame()->RemoveValue(pSymbol);
 }
 
 ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip)
@@ -284,6 +278,11 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMo
 {
 	const ValueEx *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
 	return (pValue != nullptr && pValue->Is_function())? pValue->GetFunction() : nullptr;
+}
+
+void Environment::RemoveValue(const Symbol *pSymbol)
+{
+	GetTopFrame()->RemoveValue(pSymbol);
 }
 
 Value Environment::DoGetProp(Environment &env, const Symbol *pSymbol,
@@ -909,51 +908,6 @@ void Environment::Frame::Delete(Frame *pFrame)
 	if (pFrame->DecRef() <= 0) {
 		delete pFrame;
 	}
-}
-
-void Environment::Frame::AssignValue(const Symbol *pSymbol,
-									const Value &value, ULong extra)
-{
-	if (_pValueMap.get() == nullptr) _pValueMap.reset(new ValueMap());
-	ValueMap::iterator iter = _pValueMap->find(pSymbol);
-	if (iter != _pValueMap->end() && (iter->second.GetExtra() & EXTRA_Public) != 0) {
-		extra |= EXTRA_Public;
-	}
-	(*_pValueMap)[pSymbol] = ValueEx(value, extra);
-}
-
-void Environment::Frame::RemoveValue(const Symbol *pSymbol)
-{
-	if (_pValueMap.get() == nullptr) return;
-	_pValueMap->erase(pSymbol);
-}
-
-ValueEx *Environment::Frame::LookupValue(const Symbol *pSymbol)
-{
-	if (_pValueMap.get() == nullptr) return nullptr;
-	ValueMap::iterator iter = _pValueMap->find(pSymbol);
-	return (iter == _pValueMap->end())? nullptr : &iter->second;
-}
-
-void Environment::Frame::AssignValueType(ValueTypeInfo *pValueTypeInfo)
-{
-	if (_pValueTypeMap.get() == nullptr) _pValueTypeMap.reset(new ValueTypeMap());
-	(*_pValueTypeMap)[pValueTypeInfo->GetSymbol()] = pValueTypeInfo;
-}
-
-ValueTypeInfo *Environment::Frame::LookupValueType(const Symbol *pSymbol)
-{
-	if (_pValueTypeMap.get() == nullptr) return nullptr;
-	ValueTypeMap::iterator iter = _pValueTypeMap->find(pSymbol);
-	return (iter == _pValueTypeMap->end())? nullptr : iter->second;
-}
-
-SymbolSet &Environment::Frame::PrepareSymbolsPublic()
-{
-	if (_pSymbolsPublic.get() == nullptr) {
-		_pSymbolsPublic.reset(new SymbolSet());
-	}
-	return *_pSymbolsPublic;
 }
 
 void Environment::Frame::DbgPrint() const
