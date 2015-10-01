@@ -4,10 +4,15 @@
 #ifndef __GURA_CALLABLE_H__
 #define __GURA_CALLABLE_H__
 
-#include "Common.h"
-#include "Expr.h"
+#include "ValueType.h"
 
 namespace Gura {
+
+class ExprList;
+class Expr_Block;
+class Environment;
+class Value;
+class TrailCtrlHolder;
 
 //-----------------------------------------------------------------------------
 // CallerInfo
@@ -84,11 +89,19 @@ public:
 // Callable
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Callable {
+protected:
+	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(Callable)
+public:
+	inline Callable() : _cntRef(1) {}
+protected:
+	virtual ~Callable();
 public:
 	virtual Value DoCall(
 		Environment &env, const CallerInfo &callerInfo,
 		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
-		const TrailCtrlHolder *pTrailCtrlHolder) = 0;
+		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsFinalizer() const;

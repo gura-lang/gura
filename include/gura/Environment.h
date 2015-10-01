@@ -11,6 +11,7 @@
 #include "Option.h"
 #include "SuffixMgr.h"
 #include "PathMgr.h"
+#include "Callable.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -82,7 +83,6 @@ class Class_Struct;
 class Module;
 class Monitor;
 
-class Callable;
 class FunctionCustom;
 
 //-----------------------------------------------------------------------------
@@ -115,7 +115,7 @@ typedef std::map<String, Module *> ModuleMap;
 //-----------------------------------------------------------------------------
 // Environment
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Environment {
+class GURA_DLLDECLARE Environment : public Callable {
 public:
 	class GURA_DLLDECLARE Global {
 	private:
@@ -239,7 +239,6 @@ public:
 	};
 protected:
 	Signal &_sig;	// this must be placed at top.
-	int _cntRef;
 	FrameOwner _frameOwner;
 	AutoPtr<FrameCache> _pFrameCache;
 public:
@@ -258,8 +257,6 @@ public:
 	Environment(Signal &sig);
 	Environment(const Environment &env);
 	Environment(const Environment *pEnvOuter, EnvType envType);
-protected:
-	virtual ~Environment();
 public:
 	inline Signal &GetSignal() const { return _sig; }
 	bool InitializeAsRoot(int &argc, const char *argv[],

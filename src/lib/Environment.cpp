@@ -35,11 +35,11 @@ const char *GetEnvTypeName(EnvType envType)
 //-----------------------------------------------------------------------------
 // Environment
 //-----------------------------------------------------------------------------
-Environment::Environment(Signal &sig) : _sig(sig), _cntRef(1)
+Environment::Environment(Signal &sig) : _sig(sig)
 {
 }
 
-Environment::Environment(const Environment &env) : _sig(env.GetSignal()), _cntRef(1)
+Environment::Environment(const Environment &env) : _sig(env.GetSignal())
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	foreach_const (FrameOwner, ppFrame, env.GetFrameOwner()) {
@@ -49,7 +49,7 @@ Environment::Environment(const Environment &env) : _sig(env.GetSignal()), _cntRe
 }
 
 Environment::Environment(const Environment *pEnvOuter, EnvType envType) :
-	_sig(pEnvOuter->GetSignal()), _cntRef(1)
+	_sig(pEnvOuter->GetSignal())
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	//if (envType == ENVTYPE_block && pEnvOuter->GetFrameCache() != nullptr) {
@@ -60,11 +60,6 @@ Environment::Environment(const Environment *pEnvOuter, EnvType envType) :
 		Frame *pFrame = *ppFrame;
 		_frameOwner.push_back(Frame::Reference(pFrame));
 	}
-}
-
-Environment::~Environment()
-{
-	// virtual destructor
 }
 
 bool Environment::InitializeAsRoot(int &argc, const char *argv[],

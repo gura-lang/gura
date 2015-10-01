@@ -8,14 +8,13 @@
 #include "Environment.h"
 #include "Function.h"
 #include "Iterator.h"
-#include "Callable.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
 // Fundamental
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Fundamental : public Environment, public Callable {
+class GURA_DLLDECLARE Fundamental : public Environment {
 public:
 	Gura_DeclareReferenceAccessor(Fundamental);
 protected:
@@ -25,10 +24,6 @@ public:
 	virtual bool IsFunction() const;
 	virtual Iterator *CreateIterator(Signal &sig);
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoCall(
-		Environment &env, const CallerInfo &callerInfo,
-		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
-		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual String ToString(bool exprFlag) = 0;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };

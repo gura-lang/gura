@@ -56,6 +56,20 @@ bool CallerInfo::UpdateByAttrSymbol(const Symbol *pSymbol)
 //-----------------------------------------------------------------------------
 // Callable
 //-----------------------------------------------------------------------------
+Callable::~Callable()
+{
+	// virtual destructor
+}
+
+Value Callable::DoCall(
+	Environment &env, const CallerInfo &callerInfo,
+	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+	const TrailCtrlHolder *pTrailCtrlHolder)
+{
+	env.SetError(ERR_TypeError, "object is not callable");
+	return Value::Nil;
+}
+
 bool Callable::IsLeader() const
 {
 	return false;
