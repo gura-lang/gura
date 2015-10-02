@@ -41,6 +41,7 @@ protected:
 	bool _infiniteFlag;
 	bool _skipInvalidFlag;
 	bool _repeaterFlag;
+	bool _listOriginFlag;
 public:
 	Gura_DeclareReferenceAccessor(Iterator);
 #if 0
@@ -55,13 +56,13 @@ public:
 #endif
 public:
 	inline Iterator(bool infiniteFlag, bool skipInvalidFlag = false, bool repeaterFlag = false) :
-			_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(nullptr),
-			_infiniteFlag(infiniteFlag), _skipInvalidFlag(skipInvalidFlag),
-			_repeaterFlag(repeaterFlag) {}
+		_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(nullptr),
+		_infiniteFlag(infiniteFlag), _skipInvalidFlag(skipInvalidFlag),
+		_repeaterFlag(repeaterFlag), _listOriginFlag(false) {}
 	inline Iterator(const Iterator &iter) :
-			_cntRef(1), _idxCur(iter._idxCur), _idxNext(iter._idxNext), _pShare(nullptr),
-			_infiniteFlag(iter._infiniteFlag), _skipInvalidFlag(iter._skipInvalidFlag),
-			_repeaterFlag(iter._repeaterFlag) {}
+		_cntRef(1), _idxCur(iter._idxCur), _idxNext(iter._idxNext), _pShare(nullptr),
+		_infiniteFlag(iter._infiniteFlag), _skipInvalidFlag(iter._skipInvalidFlag),
+		_repeaterFlag(iter._repeaterFlag), _listOriginFlag(iter._listOriginFlag) {}
 	virtual ~Iterator();
 	inline int GetIndexCur() const { return _idxCur; }
 	inline int GetIndexNext() const { return _idxNext; }
@@ -69,9 +70,11 @@ public:
 	inline bool IsInfinite() const { return _infiniteFlag; }
 	inline bool IsSkipInvalid() const { return _skipInvalidFlag; }
 	inline bool IsRepeater() const { return _repeaterFlag; }
+	inline bool IsListOrigin() const { return _listOriginFlag; }
 	inline void SetInfiniteFlag(bool infiniteFlag) { _infiniteFlag = infiniteFlag; }
 	inline void SetSkipInvalidFlag(bool skipInvalidFlag) { _skipInvalidFlag = skipInvalidFlag; }
 	inline void SetRepeaterFlag(bool repeaterFlag) { _repeaterFlag = repeaterFlag; }
+	inline void SetListOriginFlag(bool listOriginFlag) { _listOriginFlag = listOriginFlag; }
 	inline bool Next(Environment &env, Value &value) {
 		_idxCur = _idxNext;
 		_idxNext++;

@@ -2334,6 +2334,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 				// nothing to do
 			} else if (mode == Expr_Member::MODE_MapAlong) {
 				Value valueThisEach;
+				pIteratorThis->SetListOriginFlag(valueThis.Is_list());
 				if (!pIteratorThis->Next(env, valueThisEach)) return Value::Nil;
 				return EvalEach(env, valueThisEach,
 								pIteratorThis, valueThis.Is_list(), pTrailCtrlHolder);
