@@ -50,11 +50,11 @@ void Argument::InitializeSlot(const Function *pFunc)
 	_pSlotCur = _slots.begin();
 }
 
-void Argument::SetIteratorThis(Iterator *pIteratorThis, bool listThisFlag)
+void Argument::SetIteratorThis(Iterator *pIteratorThis)
 {
 	_pIteratorThis.reset(pIteratorThis);
 	if (!_pIteratorThis.IsNull() && _mapMode != MAPMODE_ToIter) {
-		_mapMode = listThisFlag? MAPMODE_ToList : MAPMODE_ToIter;
+		_mapMode = pIteratorThis->IsListOrigin()? MAPMODE_ToList : MAPMODE_ToIter;
 	}
 }
 

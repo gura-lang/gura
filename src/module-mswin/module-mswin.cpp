@@ -726,7 +726,7 @@ void Object_ole::SetError(Signal &sig, HRESULT hr)
 //-----------------------------------------------------------------------------
 Value Object_ole::CallableOLE::DoCall(
 	Environment &env, const CallerInfo &callerInfo,
-	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+	const Value &valueThis, const Iterator *pIteratorThis,
 	const TrailCtrlHolder *pTrailCtrlHolder)
 {
 	Signal &sig = env.GetSignal();

@@ -830,7 +830,7 @@ public:
 	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
 						Expr *pExprArg1, Expr *pExprArg2, Expr *pExprArg3, Expr *pExprArg4);
 	Value EvalEach(Environment &env, const Value &valueThis,
-		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
+		Iterator *pIteratorThis, TrailCtrlHolder *pTrailCtrlHolder) const;
 	void UpdateCallerInfo();
 	bool AddAttr(const Symbol *pSymbol);
 	void AddAttrs(const SymbolSet &symbolSet);

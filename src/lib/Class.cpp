@@ -363,7 +363,7 @@ Gura_ImplementMethod(Object, __call__)
 	CallerInfo callerInfo(exprListArg, arg.GetBlock(),
 						  arg.GetAttrsShared(), arg.GetAttrsOptShared());
 	return pFund->DoCall(env, callerInfo,
-						 arg.GetValueThis(), nullptr, false, arg.GetTrailCtrlHolder());
+						 arg.GetValueThis(), nullptr, arg.GetTrailCtrlHolder());
 }
 
 // object#__iter__()
@@ -660,7 +660,7 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 			if (valueCar.IsObject()) {
 				Callable *pObj = valueCar.GetObject();
 				pObj->DoCall(*this, pExprCaller->GetCallerInfo(),
-								  valueThis, nullptr, false, nullptr);
+								  valueThis, nullptr, nullptr);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);
 					return false;

@@ -672,7 +672,7 @@ bool Iterator_MethodMap::DoNext(Environment &env, Value &value)
 {
 	Value valueThis;
 	if (!_pIteratorThis->Next(env, valueThis)) return false;
-	value = _pExprCaller->EvalEach(*_pEnv, valueThis, nullptr, false, nullptr);
+	value = _pExprCaller->EvalEach(*_pEnv, valueThis, nullptr, nullptr);
 	return true;
 }
 

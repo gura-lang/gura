@@ -67,7 +67,7 @@ public:
 								_pObj(pObj), _pSymbol(pSymbol), _dispid(dispid) {}
 		virtual Value DoCall(
 			Environment &env, const CallerInfo &callerInfo,
-			const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+			const Value &valueThis, const Iterator *pIteratorThis,
 			const TrailCtrlHolder *pTrailCtrlHolder);
 		inline const Symbol *GetSymbol() const { return _pSymbol; }
 	};

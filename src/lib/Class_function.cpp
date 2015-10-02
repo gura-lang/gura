@@ -112,14 +112,14 @@ OccurPattern Object_function::GetBlockOccurPattern() const
 
 Value Object_function::DoCall(
 	Environment &env, const CallerInfo &callerInfo,
-	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+	const Value &valueThis, const Iterator *pIteratorThis,
 	const TrailCtrlHolder *pTrailCtrlHolder)
 {
 	const Value &valueThisSel = (valueThis.IsInvalid() ||
 			(valueThis.IsModule() && _valueThis.IsValid()))? _valueThis : valueThis;
 	AutoPtr<Argument> pArg(new Argument(GetFunction(), callerInfo));
 	pArg->SetValueThis(valueThisSel);
-	pArg->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
+	pArg->SetIteratorThis(Iterator::Reference(pIteratorThis));
 	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
 	if (!pArg->EvalExpr(env, callerInfo.GetExprListArg())) return Value::Nil;
 	return GetFunction()->EvalAuto(env, *pArg);

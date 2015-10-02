@@ -47,7 +47,7 @@ Value Object_operator::DoGetProp(Environment &env, const Symbol *pSymbol,
 
 Value Object_operator::DoCall(
 	Environment &env, const CallerInfo &callerInfo,
-	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+	const Value &valueThis, const Iterator *pIteratorThis,
 	const TrailCtrlHolder *pTrailCtrlHolder)
 {
 	Signal &sig = env.GetSignal();

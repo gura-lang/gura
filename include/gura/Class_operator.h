@@ -40,7 +40,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoCall(
 		Environment &env, const CallerInfo &callerInfo,
-		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const Value &valueThis, const Iterator *pIteratorThis,
 		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual String ToString(bool exprFlag);
 	const Symbol *GetSymbol() const;

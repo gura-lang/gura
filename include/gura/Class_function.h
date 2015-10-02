@@ -59,7 +59,7 @@ public:
 	virtual OccurPattern GetBlockOccurPattern() const;
 	virtual Value DoCall(
 		Environment &env, const CallerInfo &callerInfo,
-		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const Value &valueThis, const Iterator *pIteratorThis,
 		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	Value Eval(Environment &env) const;

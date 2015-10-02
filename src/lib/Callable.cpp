@@ -63,7 +63,7 @@ Callable::~Callable()
 
 Value Callable::DoCall(
 	Environment &env, const CallerInfo &callerInfo,
-	const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+	const Value &valueThis, const Iterator *pIteratorThis,
 	const TrailCtrlHolder *pTrailCtrlHolder)
 {
 	env.SetError(ERR_TypeError, "object is not callable");

@@ -100,7 +100,7 @@ protected:
 public:
 	virtual Value DoCall(
 		Environment &env, const CallerInfo &callerInfo,
-		const Value &valueThis, const Iterator *pIteratorThis, bool listThisFlag,
+		const Value &valueThis, const Iterator *pIteratorThis,
 		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;

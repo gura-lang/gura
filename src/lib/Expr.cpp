@@ -2336,8 +2336,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 				Value valueThisEach;
 				pIteratorThis->SetListOriginFlag(valueThis.Is_list());
 				if (!pIteratorThis->Next(env, valueThisEach)) return Value::Nil;
-				return EvalEach(env, valueThisEach,
-								pIteratorThis, valueThis.Is_list(), pTrailCtrlHolder);
+				return EvalEach(env, valueThisEach, pIteratorThis, pTrailCtrlHolder);
 			} else {
 				AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(new Environment(env),
 									pIteratorThis, Expr_Caller::Reference(this)));
@@ -2349,7 +2348,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 				return result;
 			}
 		}
-		return EvalEach(env, valueThis, nullptr, false, pTrailCtrlHolder);
+		return EvalEach(env, valueThis, nullptr, pTrailCtrlHolder);
 	} else {
 		Value valueCar = _pExprCar->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
@@ -2358,13 +2357,12 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			return Value::Nil;
 		}
 		Object *pObj = valueCar.GetObject();
-		return pObj->DoCall(env, GetCallerInfo(),
-								 Value::Nil, nullptr, false, pTrailCtrlHolder);
+		return pObj->DoCall(env, GetCallerInfo(), Value::Nil, nullptr, pTrailCtrlHolder);
 	}
 }
 
 Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
-		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const
+		Iterator *pIteratorThis, TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	Signal &sig = env.GetSignal();
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
@@ -2399,7 +2397,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		pCallable = valueCar.GetFundamental();
 	}
 	return pCallable->DoCall(env, GetCallerInfo(),
-							 valueThis, pIteratorThis, listThisFlag, pTrailCtrlHolder);
+							 valueThis, pIteratorThis, pTrailCtrlHolder);
 }
 
 Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
