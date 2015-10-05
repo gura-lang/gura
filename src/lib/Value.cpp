@@ -332,36 +332,14 @@ Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
 
 Callable *Value::GetCallable(const Symbol *pSymbol, const SymbolSet &attrs) const
 {
-	Class *pClass = GetClass();
-	Signal &sig = pClass->GetSignal();
-	Fundamental *pFund = nullptr;
-	if (IsPrimitive()) {
-		bool evaluatedFlag = false;
-		Value rtn = pClass->GetPropPrimitive(*this, pSymbol, attrs, evaluatedFlag);
-		if (evaluatedFlag) {
-			if (rtn.IsFundamental()) return rtn.GetFundamental();
-			sig.SetError(ERR_TypeError, "object is not callable");
-			return nullptr;
-		}
-		pFund = pClass;
-	} else {
-		pFund = ExtractFundamental(sig);
-		if (pFund->IsFunction()) {
-			const Function *pFunc =
-				dynamic_cast<const Object_function *>(pFund)->GetFunction();
-			Class *pClass = pFunc->GetClassToConstruct();
-			if (pClass != nullptr) pFund = pClass;
-		}
-	}
+	Fundamental *pFund = IsPrimitive()? GetClass() : GetFundamental();
+	Signal &sig = pFund->GetSignal();
 	Callable *pCallable = pFund->GetCallable(sig, pSymbol);
-	if (pCallable != nullptr) return pCallable;
-	EnvRefMode envRefMode =
-		pFund->IsModule()? ENVREF_Module :
-		!(pFund->IsClass() || pFund->IsObject())? ENVREF_Escalate :
-		IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
-	int cntSuperSkip = GetSuperSkipCount();
-	Value rtn = pFund->GetProp(*pFund, pSymbol, attrs, nullptr, envRefMode, cntSuperSkip);
-	if (rtn.IsFundamental()) return rtn.GetFundamental();
+	if (sig.IsSignalled()) return nullptr;
+	if (pCallable != nullptr) return pCallable->Reference();
+	Value valueCar = GetProp(pSymbol, attrs);
+	if (sig.IsSignalled()) return nullptr;
+	if (valueCar.IsFundamental()) return valueCar.GetFundamental()->Reference();
 	sig.SetError(ERR_TypeError, "object is not callable");
 	return nullptr;
 }
