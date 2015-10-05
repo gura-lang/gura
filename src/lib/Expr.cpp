@@ -545,7 +545,7 @@ void ExprOwner::Clear()
 // ExprOwner::Iterator
 //-----------------------------------------------------------------------------
 ExprOwner::Iterator::Iterator(ExprOwner *pExprOwner) :
-					Gura::Iterator(false), _idx(0), _pExprOwner(pExprOwner)
+	Gura::Iterator(false), _idx(0), _pExprOwner(pExprOwner)
 {
 }
 
@@ -581,7 +581,7 @@ void ExprOwner::Iterator::GatherFollower(Environment::Frame *pFrame, Environment
 bool Expr_Unary::IsUnary() const { return true; }
 
 Expr_Unary::Expr_Unary(ExprType exprType, Expr *pExprChild) :
-								Expr(exprType), _pExprChild(pExprChild)
+	Expr(exprType), _pExprChild(pExprChild)
 {
 	if (pExprChild != nullptr) pExprChild->SetParent(this);
 }
@@ -617,7 +617,7 @@ bool Expr_Unary::IsParentOf(const Expr *pExpr) const
 bool Expr_Binary::IsBinary() const { return true; }
 
 Expr_Binary::Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight) :
-				Expr(exprType), _pExprLeft(pExprLeft), _pExprRight(pExprRight)
+	Expr(exprType), _pExprLeft(pExprLeft), _pExprRight(pExprRight)
 {
 	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(this);
 	if (!_pExprRight.IsNull()) _pExprRight->SetParent(this);
@@ -660,16 +660,17 @@ bool Expr_Binary::IsParentOf(const Expr *pExpr) const
 bool Expr_Collector::IsCollector() const { return true; }
 
 Expr_Collector::Expr_Collector(ExprType exprType) :
-						Expr(exprType), _pExprOwner(new ExprOwner())
+	Expr(exprType), _pExprOwner(new ExprOwner())
 {
 }
 
 Expr_Collector::Expr_Collector(ExprType exprType, ExprOwner *pExprOwner) :
-						Expr(exprType), _pExprOwner(pExprOwner)
+	Expr(exprType), _pExprOwner(pExprOwner)
 {
 }
 
-Expr_Collector::Expr_Collector(const Expr_Collector &expr) : Expr(expr), _pExprOwner(new ExprOwner())
+Expr_Collector::Expr_Collector(const Expr_Collector &expr) :
+	Expr(expr), _pExprOwner(new ExprOwner())
 {
 	foreach_const (ExprOwner, ppExpr, expr.GetExprOwner()) {
 		AddExpr((*ppExpr)->Clone());
@@ -2135,7 +2136,8 @@ bool Expr_Indexer::GenerateScript(Signal &sig, SimpleStream &stream,
 {
 	if (GetCar()->IsIdentifier()) {
 		const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(GetCar());
-		if (!pExprIdentifier->GenerateScriptHead(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+		if (!pExprIdentifier->GenerateScriptHead(
+				sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 		stream.PutChar(sig, '[');
 		if (sig.IsSignalled()) return false;
 		if (GetExprOwner().empty()) {
@@ -2144,12 +2146,13 @@ bool Expr_Indexer::GenerateScript(Signal &sig, SimpleStream &stream,
 			stream.Print(sig, " .. ");
 			if (sig.IsSignalled()) return false;
 		} else {
-			if (!GetExprOwner().GenerateScript(sig, stream,
-								scriptStyle, nestLevel, strIndent, SEP_Comma)) return false;
+			if (!GetExprOwner().GenerateScript(
+					sig, stream, scriptStyle, nestLevel, strIndent, SEP_Comma)) return false;
 		}
 		stream.PutChar(sig, ']');
 		if (sig.IsSignalled()) return false;
-		if (!pExprIdentifier->GenerateScriptTail(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+		if (!pExprIdentifier->GenerateScriptTail(
+				sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 		return true;
 	} else {
 		bool needParenthesisFlag = false;
@@ -2189,11 +2192,11 @@ bool Expr_Indexer::GenerateScript(Signal &sig, SimpleStream &stream,
 bool Expr_Caller::IsCaller() const { return true; }
 
 Expr_Caller::Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) :
-		Expr_Compound(EXPRTYPE_Caller,
-				pExprCar, (pExprLister == nullptr)? new Expr_Lister() : pExprLister),
-		_pExprBlock(pExprBlock), _pExprTrailer(nullptr),
-		_pAttrsShrd(new SymbolSetShared()),
-		_pAttrsOptShrd(new SymbolSetShared())
+	Expr_Compound(EXPRTYPE_Caller,
+				  pExprCar, (pExprLister == nullptr)? new Expr_Lister() : pExprLister),
+	_pExprBlock(pExprBlock), _pExprTrailer(nullptr),
+	_pAttrsShrd(new SymbolSetShared()),
+	_pAttrsOptShrd(new SymbolSetShared())
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
 	_pCallerInfo.reset(new CallerInfo(

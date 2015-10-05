@@ -13,6 +13,7 @@ class Expr_Block;
 class Environment;
 class Value;
 class TrailCtrlHolder;
+class Iterator;
 
 //-----------------------------------------------------------------------------
 // CallerInfo
