@@ -413,9 +413,9 @@ public:
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
 	bool IsInstanceOf(ValueType valType) const;
-	Fundamental *ExtractFundamental(Signal &sig);
-	inline Fundamental *ExtractFundamental(Signal &sig) const {
-		return const_cast<Value *>(this)->ExtractFundamental(sig);
+	Fundamental *ExtractFundamental();
+	inline Fundamental *ExtractFundamental() const {
+		return const_cast<Value *>(this)->ExtractFundamental();
 	}
 	Expr *CloneExpr() const;
 	Iterator *CreateIterator(Signal &sig) const;

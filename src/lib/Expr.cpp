@@ -1139,13 +1139,14 @@ Value Expr_Member::DoExec(Environment &env) const
 	// correspond to method-calling, property-getting and property-setting.
 	Value valueThis = GetTarget()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
-	Fundamental *pFund = nullptr;
-	if (valueThis.IsPrimitive()) {
-		pFund = env.LookupClass(valueThis.GetValueType());
-	} else {
-		pFund = valueThis.ExtractFundamental(sig);
-		if (sig.IsSignalled()) return Value::Nil;
-	}
+	Fundamental *pFund = valueThis.ExtractFundamental();
+	//Fundamental *pFund = nullptr;
+	//if (valueThis.IsPrimitive()) {
+	//	pFund = env.LookupClass(valueThis.GetValueType());
+	//} else {
+	//	pFund = valueThis.ExtractFundamental(sig);
+	//	if (sig.IsSignalled()) return Value::Nil;
+	//}
 	Value result;
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
@@ -1187,8 +1188,13 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 	// correspond to method-calling, property-getting and property-setting.
 	Value valueThis = GetTarget()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
-	Fundamental *pFund = valueThis.ExtractFundamental(sig);
-	if (sig.IsSignalled()) return Value::Nil;
+	if (valueThis.IsPrimitive()) {
+		sig.SetError(ERR_ValueError, "%s can not be specified as l-value of member",
+					 valueThis.MakeValueTypeName().c_str());
+		return Value::Nil;
+	}
+	Fundamental *pFund = valueThis.ExtractFundamental();
+	//if (sig.IsSignalled()) return Value::Nil;
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
 		return GetSelector()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
@@ -1205,8 +1211,13 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 		Value valueThisEach;
 		while (pIteratorThis->Next(env, valueThisEach) &&
 								pIteratorValue->Next(env, value)) {
-			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
-			if (sig.IsSignalled()) break;
+			if (valueThisEach.IsPrimitive()) {
+				sig.SetError(ERR_ValueError, "%s can not be specified as l-value of member",
+							 valueThisEach.MakeValueTypeName().c_str());
+				return Value::Nil;
+			}
+			Fundamental *pFundEach = valueThisEach.ExtractFundamental();
+			//if (sig.IsSignalled()) break;
 			GetSelector()->Assign(*pFundEach, value,
 									pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
@@ -1215,8 +1226,13 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 	} else {
 		Value valueThisEach;
 		while (pIteratorThis->Next(env, valueThisEach)) {
-			Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
-			if (sig.IsSignalled()) break;
+			if (valueThisEach.IsPrimitive()) {
+				sig.SetError(ERR_ValueError, "%s can not be specified as l-value of member",
+							 valueThisEach.MakeValueTypeName().c_str());
+				return Value::Nil;
+			}
+			Fundamental *pFundEach = valueThisEach.ExtractFundamental();
+			//if (sig.IsSignalled()) break;
 			GetSelector()->Assign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
@@ -2329,8 +2345,8 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			if (valueThis.Is_list() && valueThis.GetList().empty()) {
 				return valueThis;
 			}
-			Fundamental *pFund = valueThis.ExtractFundamental(sig);
-			if (sig.IsSignalled()) return Value::Nil;
+			Fundamental *pFund = valueThis.ExtractFundamental();
+			//if (sig.IsSignalled()) return Value::Nil;
 			Iterator *pIteratorThis = pFund->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Nil;
 			if (pIteratorThis == nullptr) {
@@ -2373,16 +2389,17 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
 	Value valueCar;
 	Callable *pCallable = nullptr;
-	Fundamental *pFund = nullptr;
-	if (valueThis.IsPrimitive()) {
-		pFund = env.LookupClass(valueThis.GetValueType());
-	} else {
-		pFund = valueThis.ExtractFundamental(sig);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(this);
-			return Value::Nil;
-		}
-	}
+	Fundamental *pFund = valueThis.ExtractFundamental();
+	//Fundamental *pFund = nullptr;
+	//if (valueThis.IsPrimitive()) {
+	//	pFund = env.LookupClass(valueThis.GetValueType());
+	//} else {
+	//	pFund = valueThis.ExtractFundamental(sig);
+	//	if (sig.IsSignalled()) {
+	//		sig.AddExprCause(this);
+	//		return Value::Nil;
+	//	}
+	//}
 	pCallable = pFund->GetCallable(sig, pExprSelector->GetSymbol());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);

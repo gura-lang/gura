@@ -150,7 +150,7 @@ bool Value::MustBe(Signal &sig, bool flag, const char *expected) const
 	return false;
 }
 
-Fundamental *Value::ExtractFundamental(Signal &sig)
+Fundamental *Value::ExtractFundamental()
 {
 	if (IsModule()) {
 		return GetModule();
@@ -169,9 +169,10 @@ Fundamental *Value::ExtractFundamental(Signal &sig)
 		}
 		return pFund;
 	}
-	sig.SetError(ERR_ValueError,
-		"%s can not be specified as l-value of member", MakeValueTypeName().c_str());
-	return nullptr;
+	return GetClass();
+	//sig.SetError(ERR_ValueError,
+	//	"%s can not be specified as l-value of member", MakeValueTypeName().c_str());
+	//return nullptr;
 }
 
 bool Value::IsFlatList() const
