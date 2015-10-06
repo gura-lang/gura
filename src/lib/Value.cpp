@@ -152,27 +152,14 @@ bool Value::MustBe(Signal &sig, bool flag, const char *expected) const
 
 Fundamental *Value::ExtractFundamental()
 {
-	if (IsModule()) {
-		return GetModule();
-	} else if (IsClass()) {
-		return GetClassItself();
-	} else if (IsObject()) {
-		Fundamental *pFund = GetFundamental();
-		if (pFund->IsFunction()) {
-			const Object_function *pObjFunc =
-								dynamic_cast<const Object_function *>(pFund);
-			Class *pClass = pObjFunc->GetFunction()->GetClassToConstruct();
-			if (pClass != nullptr) {
-				InitAsClass(Class::Reference(pClass));
-				pFund = pClass;
-			}
-		}
-		return pFund;
-	}
-	return GetClass();
-	//sig.SetError(ERR_ValueError,
-	//	"%s can not be specified as l-value of member", MakeValueTypeName().c_str());
-	//return nullptr;
+	if (IsPrimitive()) return GetClass();
+	Fundamental *pFund = GetFundamental();
+	if (!pFund->IsFunction()) return pFund;
+	const Object_function *pObjFunc = dynamic_cast<const Object_function *>(pFund);
+	Class *pClass = pObjFunc->GetFunction()->GetClassToConstruct();
+	if (pClass == nullptr) return pFund;
+	InitAsClass(Class::Reference(pClass));
+	return pClass;
 }
 
 bool Value::IsFlatList() const

@@ -1140,13 +1140,6 @@ Value Expr_Member::DoExec(Environment &env) const
 	Value valueThis = GetTarget()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
 	Fundamental *pFund = valueThis.ExtractFundamental();
-	//Fundamental *pFund = nullptr;
-	//if (valueThis.IsPrimitive()) {
-	//	pFund = env.LookupClass(valueThis.GetValueType());
-	//} else {
-	//	pFund = valueThis.ExtractFundamental(sig);
-	//	if (sig.IsSignalled()) return Value::Nil;
-	//}
 	Value result;
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
@@ -1194,7 +1187,6 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 		return Value::Nil;
 	}
 	Fundamental *pFund = valueThis.ExtractFundamental();
-	//if (sig.IsSignalled()) return Value::Nil;
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
 		return GetSelector()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
@@ -1217,7 +1209,6 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 				return Value::Nil;
 			}
 			Fundamental *pFundEach = valueThisEach.ExtractFundamental();
-			//if (sig.IsSignalled()) break;
 			GetSelector()->Assign(*pFundEach, value,
 									pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
@@ -1232,7 +1223,6 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 				return Value::Nil;
 			}
 			Fundamental *pFundEach = valueThisEach.ExtractFundamental();
-			//if (sig.IsSignalled()) break;
 			GetSelector()->Assign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
@@ -2346,7 +2336,6 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 				return valueThis;
 			}
 			Fundamental *pFund = valueThis.ExtractFundamental();
-			//if (sig.IsSignalled()) return Value::Nil;
 			Iterator *pIteratorThis = pFund->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Nil;
 			if (pIteratorThis == nullptr) {
@@ -2388,19 +2377,8 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
 	Value valueCar;
-	Callable *pCallable = nullptr;
 	Fundamental *pFund = valueThis.ExtractFundamental();
-	//Fundamental *pFund = nullptr;
-	//if (valueThis.IsPrimitive()) {
-	//	pFund = env.LookupClass(valueThis.GetValueType());
-	//} else {
-	//	pFund = valueThis.ExtractFundamental(sig);
-	//	if (sig.IsSignalled()) {
-	//		sig.AddExprCause(this);
-	//		return Value::Nil;
-	//	}
-	//}
-	pCallable = pFund->GetCallable(sig, pExprSelector->GetSymbol());
+	Callable *pCallable = pFund->GetCallable(sig, pExprSelector->GetSymbol());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Nil;
