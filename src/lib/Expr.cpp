@@ -1139,7 +1139,7 @@ Value Expr_Member::DoExec(Environment &env) const
 	// correspond to method-calling, property-getting and property-setting.
 	Value valueThis = GetTarget()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
-	Fundamental *pFund = valueThis.ExtractFundamental();
+	Fundamental *pFund = valueThis.ExtractFundamentalMod();
 	Value result;
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
@@ -2335,7 +2335,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			if (valueThis.Is_list() && valueThis.GetList().empty()) {
 				return valueThis;
 			}
-			Fundamental *pFund = valueThis.ExtractFundamental();
+			Fundamental *pFund = valueThis.ExtractFundamentalMod();
 			Iterator *pIteratorThis = pFund->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Nil;
 			if (pIteratorThis == nullptr) {
@@ -2369,7 +2369,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 	}
 }
 
-Value Expr_Caller::EvalEach(Environment &env, Value &valueThis,
+Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		Iterator *pIteratorThis, TrailCtrlHolder *pTrailCtrlHolder) const
 {
 #if 1
@@ -2377,14 +2377,15 @@ Value Expr_Caller::EvalEach(Environment &env, Value &valueThis,
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
 	Value valueCar;
-	Fundamental *pFund = valueThis.ExtractFundamental();
+	Value valueThisMod = valueThis;
+	Fundamental *pFund = valueThisMod.ExtractFundamentalMod();
 	Callable *pCallable = pFund->GetCallable(pExprSelector->GetSymbol());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Nil;
 	}
 	if (pCallable == nullptr) {
-		valueCar = valueThis.GetProp(pExprSelector->GetSymbol(), pExprSelector->GetAttrs());
+		valueCar = valueThisMod.GetProp(pExprSelector->GetSymbol(), pExprSelector->GetAttrs());
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Nil;
@@ -2396,7 +2397,7 @@ Value Expr_Caller::EvalEach(Environment &env, Value &valueThis,
 		pCallable = valueCar.GetFundamental();
 	}
 	return pCallable->DoCall(env, GetCallerInfo(),
-							 valueThis, pIteratorThis, pTrailCtrlHolder);
+							 valueThisMod, pIteratorThis, pTrailCtrlHolder);
 #else
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();

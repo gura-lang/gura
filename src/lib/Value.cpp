@@ -279,7 +279,18 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 	}
 }
 
-Fundamental *Value::ExtractFundamental()
+Fundamental *Value::ExtractFundamental() const
+{
+	if (IsPrimitive()) return GetClass();
+	Fundamental *pFund = GetFundamental();
+	if (!pFund->IsFunction()) return pFund;
+	const Object_function *pObjFunc = dynamic_cast<const Object_function *>(pFund);
+	Class *pClass = pObjFunc->GetFunction()->GetClassToConstruct();
+	if (pClass == nullptr) return pFund;
+	return pClass;
+}
+
+Fundamental *Value::ExtractFundamentalMod()
 {
 	if (IsPrimitive()) return GetClass();
 	Fundamental *pFund = GetFundamental();
