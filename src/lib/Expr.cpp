@@ -2378,7 +2378,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
 	Value valueCar;
 	Fundamental *pFund = valueThis.ExtractFundamental();
-	Callable *pCallable = pFund->GetCallable(sig, pExprSelector->GetSymbol());
+	Callable *pCallable = pFund->GetCallable(pExprSelector->GetSymbol());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Nil;

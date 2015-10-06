@@ -631,8 +631,9 @@ Value Object_ole::DoSetProp(Environment &env, const Symbol *pSymbol, const Value
 	return value;
 }
 
-Callable *Object_ole::GetCallable(Signal &sig, const Symbol *pSymbol)
+Callable *Object_ole::GetCallable(const Symbol *pSymbol)
 {
+	Signal &sig = GetSignal();
 	foreach (CallableOLEOwner, ppCallableOLE, _callableOLEOwner) {
 		CallableOLE *pCallableOLE = *ppCallableOLE;
 		if (pCallableOLE->GetSymbol() == pSymbol) return pCallableOLE;

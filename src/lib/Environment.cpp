@@ -297,7 +297,7 @@ Value Environment::DoSetProp(Environment &env, const Symbol *pSymbol, const Valu
 	return Value::Nil;
 }
 
-Callable *Environment::GetCallable(Signal &sig, const Symbol *pSymbol)
+Callable *Environment::GetCallable(const Symbol *pSymbol)
 {
 	return nullptr;
 }

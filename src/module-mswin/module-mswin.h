@@ -103,7 +103,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual Callable *GetCallable(Signal &sig, const Symbol *pSymbol);
+	virtual Callable *GetCallable(const Symbol *pSymbol);
 	virtual String ToString(bool exprFlag);
 	static void SetError(Signal &sig, HRESULT hr);
 };

@@ -318,17 +318,16 @@ Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
 	return rtn;
 }
 
-Callable *Value::GetCallable(const Symbol *pSymbol, const SymbolSet &attrs) const
+Callable *Value::GetCallable(const Symbol *pSymbol, const SymbolSet &attrs)
 {
-	Fundamental *pFund = IsPrimitive()? GetClass() : GetFundamental();
-	Signal &sig = pFund->GetSignal();
-	Callable *pCallable = pFund->GetCallable(sig, pSymbol);
-	if (sig.IsSignalled()) return nullptr;
+	Fundamental *pFund = ExtractFundamental();
+	Callable *pCallable = pFund->GetCallable(pSymbol);
+	if (pFund->IsSignalled()) return nullptr;
 	if (pCallable != nullptr) return pCallable->Reference();
 	Value valueCar = GetProp(pSymbol, attrs);
-	if (sig.IsSignalled()) return nullptr;
+	if (pFund->IsSignalled()) return nullptr;
 	if (valueCar.IsFundamental()) return valueCar.GetFundamental()->Reference();
-	sig.SetError(ERR_TypeError, "object is not callable");
+	pFund->SetError(ERR_TypeError, "object is not callable");
 	return nullptr;
 }
 
