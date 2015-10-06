@@ -2369,7 +2369,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 	}
 }
 
-Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
+Value Expr_Caller::EvalEach(Environment &env, Value &valueThis,
 		Iterator *pIteratorThis, TrailCtrlHolder *pTrailCtrlHolder) const
 {
 #if 1

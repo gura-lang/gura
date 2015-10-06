@@ -150,18 +150,6 @@ bool Value::MustBe(Signal &sig, bool flag, const char *expected) const
 	return false;
 }
 
-Fundamental *Value::ExtractFundamental()
-{
-	if (IsPrimitive()) return GetClass();
-	Fundamental *pFund = GetFundamental();
-	if (!pFund->IsFunction()) return pFund;
-	const Object_function *pObjFunc = dynamic_cast<const Object_function *>(pFund);
-	Class *pClass = pObjFunc->GetFunction()->GetClassToConstruct();
-	if (pClass == nullptr) return pFund;
-	InitAsClass(Class::Reference(pClass));
-	return pClass;
-}
-
 bool Value::IsFlatList() const
 {
 	return Is_list() && GetList().IsFlat();
@@ -289,6 +277,18 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 	} else if (IsObject()) {
 		// nothing to do
 	}
+}
+
+Fundamental *Value::ExtractFundamental()
+{
+	if (IsPrimitive()) return GetClass();
+	Fundamental *pFund = GetFundamental();
+	if (!pFund->IsFunction()) return pFund;
+	const Object_function *pObjFunc = dynamic_cast<const Object_function *>(pFund);
+	Class *pClass = pObjFunc->GetFunction()->GetClassToConstruct();
+	if (pClass == nullptr) return pFund;
+	InitAsClass(Class::Reference(pClass));
+	return pClass;
 }
 
 Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const

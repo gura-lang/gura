@@ -408,15 +408,12 @@ public:
 	void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const;
 	void DirValueType(SymbolSet &symbols, bool escalateFlag) const;
+	Fundamental *ExtractFundamental();
 	Value GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const;
 	Callable *GetCallable(const Symbol *pSymbol, const SymbolSet &attrs);
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
 	bool IsInstanceOf(ValueType valType) const;
-	Fundamental *ExtractFundamental();
-	inline Fundamental *ExtractFundamental() const {
-		return const_cast<Value *>(this)->ExtractFundamental();
-	}
 	Expr *CloneExpr() const;
 	Iterator *CreateIterator(Signal &sig) const;
 	String ToString(bool exprFlag = true) const;
