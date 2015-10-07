@@ -34,7 +34,7 @@ public:
 	virtual ~ClassCustom();
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
-	Function *PrepareConstructor(Environment &env);
+	bool PrepareConstructor(Environment &env);
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;

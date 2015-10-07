@@ -544,6 +544,15 @@ bool Class_function::CastFrom(Environment &env, Value &value, const Declaration 
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_function(env, pFunc.release()));
 		return true;
+	} else if (value.IsClass()) {
+		Class *pClass = value.GetClassItself();
+		const Function *pFunc = pClass->GetConstructor();
+		if (pFunc == nullptr) {
+			pClass->SetError_NoConstructor();
+			return false;
+		}
+		value = Value(new Object_function(env, pFunc->Reference()));
+		return true;
 	}
 	return false;
 }

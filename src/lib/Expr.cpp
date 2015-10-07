@@ -913,10 +913,10 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 			}
 			pValueTypeInfo->SetClass(Class::Reference(pClass));
 			env.AssignValueType(pValueTypeInfo);
-			Function *pFunc = pClass->PrepareConstructor(env);
-			if (pFunc == nullptr) return Value::Nil;
+			if (!pClass->PrepareConstructor(env)) return Value::Nil;
 			//*****
-			valueAssigned = Value(new Object_function(env, pFunc));
+			//valueAssigned = Value(new Object_function(
+			//						  env, pClass->GetConstructor()->Reference()));
 			//*****
 		}
 		extra = EXTRA_Public;
