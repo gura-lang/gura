@@ -515,7 +515,7 @@ Value Class::DoCall(Environment &env, const CallerInfo &callerInfo,
 					const TrailCtrlHolder *pTrailCtrlHolder)
 {
 	if (GetConstructor() == nullptr) {
-		env.SetError(ERR_ValueError, "class %s doesn't have a constructor", GetName());
+		SetError_NoConstructor();
 		return Value::Nil;
 	}
 	AutoPtr<Argument> pArg(new Argument(GetConstructor(), callerInfo));
@@ -686,6 +686,11 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 		if (sig.IsSignalled()) return false;
 	}
 	return true;
+}
+
+void Class::SetError_NoConstructor() const
+{
+	SetError(ERR_ValueError, "class %s doesn't have a constructor", GetName());
 }
 
 }

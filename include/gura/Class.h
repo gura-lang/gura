@@ -106,14 +106,14 @@ Gura_UserClass(name)->Prepare(env);
 
 #define Gura_DeclareObjectAccessorEx(T) \
 inline static T *GetObject(const Value &value) { \
-	return dynamic_cast<T *>(value.GetObject()); \
+	return dynamic_cast<T *>(value.GetFundamental()); \
 } \
 inline static T *GetObject(Argument &arg, size_t idxArg) { \
-	return dynamic_cast<T *>(arg.GetObject(idxArg)); \
+	return dynamic_cast<T *>(arg.GetFundamental(idxArg)); \
 } \
 inline static T *GetObjectThis(Argument &arg) { \
 	return arg.GetValueThis().IsObject()? \
-			dynamic_cast<T *>(arg.GetValueThis().GetObject()) : nullptr; \
+			dynamic_cast<T *>(arg.GetValueThis().GetFundamental()) : nullptr; \
 } \
 inline static T *Reference(const T *pObj) { \
 	return dynamic_cast<T *>(Object::Reference(pObj)); \
@@ -232,6 +232,7 @@ public:
 	virtual bool Format_c(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	bool BuildContent(Environment &env, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = nullptr);
+	void SetError_NoConstructor() const;
 };
 
 }

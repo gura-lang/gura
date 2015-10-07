@@ -1030,6 +1030,26 @@ Gura_ImplementBinaryOperator(Mul, function, any)
 	}
 }
 
+Gura_ImplementBinaryOperator(Mul, Class, any)
+{
+	Signal &sig = env.GetSignal();
+	const Class *pClass = valueLeft.GetClass();
+	const Function *pConstructor = pClass->GetConstructor();
+	if (pConstructor == nullptr) {
+		pClass->SetError_NoConstructor();
+		return Value::Nil;
+	} else if (pConstructor->IsUnary()) {
+		AutoPtr<Argument> pArg(new Argument(pConstructor));
+		if (pArg->AddValue(env, valueRight) && pArg->Complete(env)) {
+			return pConstructor->Eval(env, *pArg);
+		}
+		return Value::Nil;
+	} else {
+		sig.SetError(ERR_TypeError, "unary function is expected for multiplier-form applier");
+		return Value::Nil;
+	}
+}
+
 Gura_ImplementBinaryOperator(Mul, string, number)
 {
 	String str;
@@ -1973,6 +1993,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Mul, timedelta, number);
 	Gura_AssignBinaryOperator(Mul, number, timedelta);
 	Gura_AssignBinaryOperator(Mul, function, any);
+	Gura_AssignBinaryOperator(Mul, Class, any);
 	Gura_AssignBinaryOperator(Mul, string, number);
 	Gura_AssignBinaryOperator(Mul, number, string);
 	Gura_AssignBinaryOperator(Mul, binary, number);

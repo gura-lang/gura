@@ -915,7 +915,9 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 			env.AssignValueType(pValueTypeInfo);
 			Function *pFunc = pClass->PrepareConstructor(env);
 			if (pFunc == nullptr) return Value::Nil;
+			//*****
 			valueAssigned = Value(new Object_function(env, pFunc));
+			//*****
 		}
 		extra = EXTRA_Public;
 	} else if (valueAssigned.Is_function()) {

@@ -251,7 +251,8 @@ public:
 	inline double GetDouble(size_t idxArg) const		{ return GetValue(idxArg).GetDouble();			}
 	inline bool GetBoolean(size_t idxArg) const			{ return GetValue(idxArg).GetBoolean();			}
 	inline const Symbol *GetSymbol(size_t idxArg) const	{ return GetValue(idxArg).GetSymbol();			}
-	inline Object *GetObject(size_t idxArg)				{ return GetValue(idxArg).GetObject();			}
+	inline Fundamental *GetFundamental(size_t idxArg) const
+														{ return GetValue(idxArg).GetFundamental();		}
 	inline Object *GetObject(size_t idxArg) const		{ return GetValue(idxArg).GetObject();			}
 	inline const char *GetString(size_t idxArg) const	{ return GetValue(idxArg).GetString();			}
 	inline String GetStringSTL(size_t idxArg) const		{ return GetValue(idxArg).GetStringSTL();		}
