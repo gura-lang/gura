@@ -850,7 +850,7 @@ Callable *Expr_Identifier::LookupCallable(Environment &env) const
 		sig.AddExprCause(this);
 		return nullptr;
 	}
-	return rtn.IsObject()? rtn.GetObject() : nullptr;
+	return rtn.IsFundamental()? rtn.GetFundamental() : nullptr;
 }
 
 Value Expr_Identifier::DoExec(Environment &env) const
@@ -912,7 +912,6 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 				pValueTypeInfo = ValueTypePool::GetInstance()->Add(GetSymbol());
 			}
 			pValueTypeInfo->SetClass(Class::Reference(pClass));
-			//env.GetTopFrame()->AssignValueType(pValueTypeInfo);
 			env.AssignValueType(pValueTypeInfo);
 			Function *pFunc = pClass->PrepareConstructor(env);
 			if (pFunc == nullptr) return Value::Nil;
@@ -2271,7 +2270,7 @@ Callable *Expr_Caller::LookupCallable(Environment &env) const
 		sig.AddExprCause(this);
 		return nullptr;
 	}
-	return valueCar.IsObject()? valueCar.GetObject() : nullptr;
+	return valueCar.IsFundamental()? valueCar.GetFundamental() : nullptr;
 }
 
 Value Expr_Caller::DoExec(Environment &env) const
@@ -2360,12 +2359,12 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 	} else {
 		Value valueCar = _pExprCar->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		if (!valueCar.IsObject()) {
+		if (!valueCar.IsFundamental()) {
 			SetError(sig, ERR_TypeError, "object is not callable");
 			return Value::Nil;
 		}
-		Object *pObj = valueCar.GetObject();
-		return pObj->DoCall(env, GetCallerInfo(), Value::Nil, nullptr, pTrailCtrlHolder);
+		Fundamental *pFund = valueCar.GetFundamental();
+		return pFund->DoCall(env, GetCallerInfo(), Value::Nil, nullptr, pTrailCtrlHolder);
 	}
 }
 
