@@ -41,7 +41,7 @@ case(`cond) {block}
 catch(errors*:error):leader:trailer {block}
 choose(index:number, values+):map
 chr(code:number):map
-class(superclass?:function) {block?}
+class(superclass?:class) {block?}
 classref(type+:expr):map {block?}
 codec(encoding:string) {block?}
 codecs:module = <module:codecs:<integrated>>

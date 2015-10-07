@@ -927,8 +927,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 		}
 		Class *pClassToConstruct = pFunc->GetClassToConstruct();
 		if (pClassToConstruct != nullptr && pClassToConstruct->IsAnonymous()) {
-			ValueTypeInfo *pValueTypeInfo =
-							ValueTypePool::GetInstance()->Add(GetSymbol());
+			ValueTypeInfo *pValueTypeInfo = ValueTypePool::GetInstance()->Add(GetSymbol());
 			pValueTypeInfo->SetClass(pClassToConstruct);
 			env.AssignValueType(pValueTypeInfo);
 		}

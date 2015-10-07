@@ -142,6 +142,7 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 			if (pIterator == nullptr) return false;
 			value = Value(new Object_iterator(env, pIterator));
 		}
+#if 1
 	} else if (GetValueType() == VTYPE_Class && value.IsInstanceOf(VTYPE_function)) {
 		const Function *pFunc = value.GetFunction();
 		Class *pClass = pFunc->GetClassToConstruct();
@@ -149,7 +150,8 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 			sig.SetError(ERR_ValueError, "constructor function must be specified");
 			return false;
 		}
-		value = Value(pClass);
+		value = Value(pClass->Reference());
+#endif
 	} else {
 		if (!GetFlag(FLAG_NoCast)) {
 			Class *pClass = env.LookupClass(GetValueType());

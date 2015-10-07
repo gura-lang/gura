@@ -253,12 +253,13 @@ public:
 	inline const Symbol *GetSymbol(size_t idxArg) const	{ return GetValue(idxArg).GetSymbol();			}
 	inline Fundamental *GetFundamental(size_t idxArg) const
 														{ return GetValue(idxArg).GetFundamental();		}
+	inline Module *GetModule(size_t idxArg) const		{ return GetValue(idxArg).GetModule();			}
+	inline Class *GetClassItself(size_t idxArg) const	{ return GetValue(idxArg).GetClassItself();		}
 	inline Object *GetObject(size_t idxArg) const		{ return GetValue(idxArg).GetObject();			}
 	inline const char *GetString(size_t idxArg) const	{ return GetValue(idxArg).GetString();			}
 	inline String GetStringSTL(size_t idxArg) const		{ return GetValue(idxArg).GetStringSTL();		}
 	inline const Binary &GetBinary(size_t idxArg) const	{ return GetValue(idxArg).GetBinary();			}
 	inline Complex GetComplex(size_t idxArg) const		{ return GetValue(idxArg).GetComplex();			}
-	inline Module *GetModule(size_t idxArg) const		{ return GetValue(idxArg).GetModule();			}
 	inline const ValueList &GetList(size_t idxArg) const{ return GetValue(idxArg).GetList();			}
 	inline const ValueDict &GetDict(size_t idxArg) const{ return GetValue(idxArg).GetDict();			}
 	inline Iterator *GetIterator(size_t idxArg) const	{ return GetValue(idxArg).GetIterator();		}

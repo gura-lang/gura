@@ -253,6 +253,7 @@ void Value::IndexSet(Environment &env, const Value &valueIdx, const Value &value
 
 bool Value::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const
 {
+#if 0
 	if (IsModule()) {
 		return GetModule()->DirProp(env, symbols);
 	} else if (IsClass()) {
@@ -266,6 +267,17 @@ bool Value::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) con
 		return GetObject()->DirProp(env, symbols);
 	}
 	return env.LookupClass(_valType)->DirProp(env, symbols, escalateFlag);
+#else
+	if (IsModule()) {
+		return GetModule()->DirProp(env, symbols);
+	} else if (IsClass()) {
+		return GetClassItself()->DirProp(env, symbols, escalateFlag);
+	} else if (IsObject()) {
+		return GetObject()->DirProp(env, symbols);
+	} else {
+		return GetClass()->DirProp(env, symbols, escalateFlag);
+	}
+#endif
 }
 
 void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const

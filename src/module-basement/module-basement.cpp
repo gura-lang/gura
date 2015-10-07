@@ -1121,11 +1121,11 @@ Gura_ImplementFunction(tosymbol)
 //-----------------------------------------------------------------------------
 // Class Operations
 //-----------------------------------------------------------------------------
-// class(superclass?:function) {block?}
+// class(superclass?:class) {block?}
 Gura_DeclareFunctionAlias(class_, "class")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "superclass", VTYPE_function, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "superclass", VTYPE_Class, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1159,6 +1159,7 @@ Gura_ImplementFunction(class_)
 	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
+#if 0
 	Class *pClassSuper = env.LookupClass(VTYPE_object);
 	const Value &valueSuper = arg.GetValue(0);
 	if (valueSuper.Is_function()) {
@@ -1168,6 +1169,8 @@ Gura_ImplementFunction(class_)
 			return Value::Nil;
 		}
 	}
+#endif
+	Class *pClassSuper = arg.IsClass(0)? arg.GetClassItself(0) : env.LookupClass(VTYPE_object);
 	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
 			pClassSuper->GetValueType(),
 			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)));
