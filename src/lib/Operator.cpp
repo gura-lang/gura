@@ -607,8 +607,20 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 							const Value &valueLeft, const Value &valueRight) const
 {
 	Signal &sig = env.GetSignal();
-	if (valueLeft.Is_function()) {
-		const Function *pFunc = valueLeft.GetFunction();
+	if (valueLeft.Is_function() || valueLeft.IsClass()) {
+		const Function *pFunc = nullptr;
+		Value valueThis;
+		if (valueLeft.Is_function()) {
+			pFunc = valueLeft.GetFunction();
+			valueThis = Object_function::GetObject(valueLeft)->GetValueThis();
+		} else { // valueLeft.IsClass()
+			Class *pClass = valueLeft.GetClassItself();
+			pFunc = pClass->GetConstructor();
+			if (pFunc == nullptr) {
+				pClass->SetError_NoConstructor();
+				return Value::Nil;
+			}
+		}
 		if (pFunc->IsUnary()) {
 			// nothing to do
 		} else if (valueRight.Is_list()) {
@@ -624,7 +636,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			AutoPtr<Iterator> pIteratorFuncBinder(
 				new Iterator_FuncBinder(
 					new Environment(env), Function::Reference(pFunc),
-					Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
+					valueThis, pIterator.release()));
 			ResultComposer resultComposer(env, pFunc);
 			resultComposer.AddValues(env, pIteratorFuncBinder.get());
 			return resultComposer.GetValueResult();
@@ -634,7 +646,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			AutoPtr<Iterator> pIteratorFuncBinder(
 				new Iterator_FuncBinder(
 					new Environment(env), Function::Reference(pFunc),
-					Object_function::GetObject(valueLeft)->GetValueThis(), pIterator.release()));
+					valueThis, pIterator.release()));
 			if (pFunc->IsResultNormal() ||
 						pFunc->IsResultIterator() || pFunc->IsResultXIterator()) {
 				return Value(new Object_iterator(env, pIteratorFuncBinder.release()));
@@ -644,6 +656,12 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 				return resultComposer.GetValueResult();
 			}
 		}
+		//AutoPtr<Argument> pArg(new Argument(pFunc));
+		//pArg->SetValueThis(valueThis);
+		//if (pArg->AddValue(env, valueRight) && pArg->Complete(env)) {
+		//	return pFunc->Eval(env, *pArg);
+		//}
+		//return Value::Nil;
 	} else if ((valueLeft.Is_matrix() && valueRight.Is_list()) ||
 			   (valueLeft.Is_list() && valueRight.Is_matrix())) {
 		return EvalBinary(env, valueLeft, valueRight);

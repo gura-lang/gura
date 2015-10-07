@@ -1020,34 +1020,24 @@ Gura_ImplementBinaryOperator(Mul, function, any)
 {
 	Signal &sig = env.GetSignal();
 	const Object_function *pObj = Object_function::GetObject(valueLeft);
-	if (pObj->GetFunction()->IsUnary()) {
-		Value result = pObj->Eval(env, valueRight);
-		if (sig.IsSignalled()) return Value::Nil;
-		return result;
-	} else {
-		sig.SetError(ERR_TypeError, "unary function is expected for multiplier-form applier");
-		return Value::Nil;
-	}
+	Value result = pObj->Eval(env, valueRight);
+	if (sig.IsSignalled()) return Value::Nil;
+	return result;
 }
 
 Gura_ImplementBinaryOperator(Mul, Class, any)
 {
-	Signal &sig = env.GetSignal();
-	const Class *pClass = valueLeft.GetClass();
+	const Class *pClass = valueLeft.GetClassItself();
 	const Function *pConstructor = pClass->GetConstructor();
 	if (pConstructor == nullptr) {
 		pClass->SetError_NoConstructor();
 		return Value::Nil;
-	} else if (pConstructor->IsUnary()) {
-		AutoPtr<Argument> pArg(new Argument(pConstructor));
-		if (pArg->AddValue(env, valueRight) && pArg->Complete(env)) {
-			return pConstructor->Eval(env, *pArg);
-		}
-		return Value::Nil;
-	} else {
-		sig.SetError(ERR_TypeError, "unary function is expected for multiplier-form applier");
-		return Value::Nil;
 	}
+	AutoPtr<Argument> pArg(new Argument(pConstructor));
+	if (pArg->AddValue(env, valueRight) && pArg->Complete(env)) {
+		return pConstructor->Eval(env, *pArg);
+	}
+	return Value::Nil;
 }
 
 Gura_ImplementBinaryOperator(Mul, string, number)
