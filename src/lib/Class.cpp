@@ -502,14 +502,26 @@ bool Class::CastTo(Environment &env, Value &value, const Declaration &decl)
 
 String Class::ToString(bool exprFlag)
 {
-	String str;
-	str += "<class:";
-	str += GetName();
-	//char buff[32];
-	//::sprintf(buff, ":%08x", GetValueType());
-	//str += buff;
-	str += ">";
-	return str;
+	if (GetConstructor() == nullptr) {
+		String str;
+		str += "<class:";
+		str += GetName();
+		str += ">";
+		return str;
+	} else {
+		return GetConstructor()->ToString();
+	}
+}
+
+Value Class::DoCall(Environment &env, const CallerInfo &callerInfo,
+					const Value &valueThis, const Iterator *pIteratorThis,
+					const TrailCtrlHolder *pTrailCtrlHolder)
+{
+	AutoPtr<Argument> pArg(new Argument(GetConstructor(), callerInfo));
+	pArg->SetValueThis(valueThis);
+	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
+	if (!pArg->EvalExpr(env, callerInfo.GetExprListArg())) return Value::Nil;
+	return GetConstructor()->EvalAuto(env, *pArg);
 }
 
 // assignment

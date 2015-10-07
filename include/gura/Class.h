@@ -214,6 +214,10 @@ public:
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 	virtual String ToString(bool exprFlag);
+	virtual Value DoCall(
+		Environment &env, const CallerInfo &callerInfo,
+		const Value &valueThis, const Iterator *pIteratorThis,
+		const TrailCtrlHolder *pTrailCtrlHolder);
 	virtual bool Serialize(Environment &env, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Stream &stream, Value &value) const;
 	virtual bool Format_d(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
