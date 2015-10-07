@@ -502,21 +502,22 @@ bool Class::CastTo(Environment &env, Value &value, const Declaration &decl)
 
 String Class::ToString(bool exprFlag)
 {
-	if (GetConstructor() == nullptr) {
-		String str;
-		str += "<class:";
-		str += GetName();
-		str += ">";
-		return str;
-	} else {
-		return GetConstructor()->ToString();
-	}
+	if (GetConstructor() != nullptr) return GetConstructor()->ToString();
+	String str;
+	str += "<class:";
+	str += GetName();
+	str += ">";
+	return str;
 }
 
 Value Class::DoCall(Environment &env, const CallerInfo &callerInfo,
 					const Value &valueThis, const Iterator *pIteratorThis,
 					const TrailCtrlHolder *pTrailCtrlHolder)
 {
+	if (GetConstructor() == nullptr) {
+		env.SetError(ERR_ValueError, "class %s doesn't have a constructor", GetName());
+		return Value::Nil;
+	}
 	AutoPtr<Argument> pArg(new Argument(GetConstructor(), callerInfo));
 	pArg->SetValueThis(valueThis);
 	pArg->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
