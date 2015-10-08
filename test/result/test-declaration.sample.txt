@@ -16,17 +16,17 @@
 @ushort() {block}
 __name__:string = __main__
 argument:class = <class:argument>
-array@char(arg, init?:number) {block?}
-array@double(arg, init?:number) {block?}
-array@float(arg, init?:number) {block?}
-array@int(arg, init?:number) {block?}
-array@long(arg, init?:number) {block?}
-array@short(arg, init?:number) {block?}
-array@uchar(arg, init?:number) {block?}
-array@uint(arg, init?:number) {block?}
-array@ulong(arg, init?:number) {block?}
-array@ushort(arg, init?:number) {block?}
-audio(args+):map {block?}
+array@char:class = <class:array@char(arg, init?:number) {block?}>
+array@double:class = <class:array@double(arg, init?:number) {block?}>
+array@float:class = <class:array@float(arg, init?:number) {block?}>
+array@int:class = <class:array@int(arg, init?:number) {block?}>
+array@long:class = <class:array@long(arg, init?:number) {block?}>
+array@short:class = <class:array@short(arg, init?:number) {block?}>
+array@uchar:class = <class:array@uchar(arg, init?:number) {block?}>
+array@uint:class = <class:array@uint(arg, init?:number) {block?}>
+array@ulong:class = <class:array@ulong(arg, init?:number) {block?}>
+array@ushort:class = <class:array@ushort(arg, init?:number) {block?}>
+audio:class = <class:audio(args+):map {block?}>
 base64:module = <module:base64:<integrated>>
   __name__:string = base64
   __source__:string = <integrated>
@@ -35,7 +35,7 @@ base64:module = <module:base64:<integrated>>
   base64.encode(stream:stream:r, linelen:number:nil => 76) {block?}
   base64.reader(stream:stream:r) {block?}
   base64.writer(stream:stream:w, linelen:number:nil => 76) {block?}
-binary(buff*) {block?}
+binary:class = <class:binary(buff*) {block?}>
 boolean:class = <class:boolean>
 case(`cond) {block}
 catch(errors*:error):leader:trailer {block}
@@ -43,7 +43,7 @@ choose(index:number, values+):map
 chr(code:number):map
 class(superclass?:class) {block?}
 classref(type+:expr):map {block?}
-codec(encoding:string) {block?}
+codec:class = <class:codec(encoding:string) {block?}>
 codecs:module = <module:codecs:<integrated>>
   __name__:string = codecs
   __source__:string = <integrated>
@@ -69,26 +69,26 @@ codecs:module = <module:codecs:<integrated>>
     __name__:string = korean
     __source__:string = <integrated>
     __symbol__:symbol = korean
-color(args+):map {block?}
-complex(real:number, imag?:number):map {block?}
+color:class = <class:color(args+):map {block?}>
+complex:class = <class:complex(real:number, imag?:number):map {block?}>
 cond(flag:boolean, value1:nomap, value2?:nomap):map
 conds(flag:boolean, value1, value2?):map
 consts(value, num?:number) {block?}
 cross (`expr+) {block}
-datetime(year:number, month:number, day:number, hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0, minsoff?:number):map {block?}
+datetime:class = <class:datetime(year:number, month:number, day:number, hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0, minsoff?:number):map {block?}>
 declaration:class = <class:declaration>
 default() {block}
-dict(elems?):[icase] {block?}
+dict:class = <class:dict(elems?):[icase] {block?}>
 dim(n+:number) {block?}
 dir(obj?):[noesc]
-directory(pathname:string):map {block?}
+directory:class = <class:directory(pathname:string):map {block?}>
 dirtype(obj?):[noesc]
 else():trailer {block}
 elsif (`cond):leader:trailer {block}
 end(dummy*):end_marker:symbol_func:trailer:void
 environment:class = <class:environment>
 error:class = <class:error>
-expr(src:stream:r):map {block?}
+expr:class = <class:expr(src:stream:r):map {block?}>
 false:boolean = false
 finally():finalizer:trailer {block}
 for (`expr+) {block}
@@ -107,11 +107,11 @@ fs:module = <module:fs:<integrated>>
   fs.remove(pathname:string):map:void
   fs.rename(src:string, dst:string):map:void
   fs.rmdir(pathname:string):map:void:[tree]
-function(`args*) {block}
+function:class = <class:function(`args*) {block}>
 help:class = <class:help>
 hex(num:number, digits?:number):map:[upper]
 if (`cond):leader {block}
-image(args+):map {block?}
+image:class = <class:image(args+):map {block?}>
 import(`module, `alias?):[binary,mixin_type,overwrite] {block?}
 int(value):map
 interval(begin:number, end:number, samples:number):map:[open,open_l,open_r] {block?}
@@ -140,8 +140,8 @@ issymbol(value)
 istimedelta(value)
 istype(value, type+:expr):map
 isuri(value)
-iterator(value+) {block?}
-list(value+)
+iterator:class = <class:iterator(value+) {block?}>
+list:class = <class:list(value+)>
 local(`syms+)
 locals(module?:module) {block?}
 math:module = <module:math:<integrated>>
@@ -184,16 +184,16 @@ math:module = <module:math:<integrated>>
   math.sqrt(num):map
   math.tan(num):map:[deg]
   math.tanh(num):map
-matrix(nrows:number, ncols:number, value?) {block?}
+matrix:class = <class:matrix(nrows:number, ncols:number, value?) {block?}>
 max(values+):map
 min(values+):map
 module() {block}
-monitor() {block?}
+monitor:class = <class:monitor() {block?}>
 nil:nil = nil
 number:class = <class:number>
 object() {block?}
 open(pathname:string, mode?:string, codec?:codec):map {block?}
-operator(symbol:symbol):map {block?}
+operator:class = <class:operator(symbol:symbol):map {block?}>
 ord(str:string):map
 os:module = <module:os:<integrated>>
   __name__:string = os
@@ -210,7 +210,7 @@ os:module = <module:os:<integrated>>
   os.tonative(str:string):map
   os.unsetenv(name:string):void
 outers() {block?}
-palette(type) {block?}
+palette:class = <class:palette(type) {block?}>
 path:module = <module:path:<integrated>>
   __name__:string = path
   __source__:string = <integrated>
@@ -242,17 +242,17 @@ rand(range?:number) {block?}
 rands(range?:number, num?:number) {block?}
 randseed(seed:number):void
 range(num:number, num_end?:number, step?:number):map {block?}
-rational(numer:number, denom?:number):map {block?}
+rational:class = <class:rational(numer:number, denom?:number):map {block?}>
 readlines(stream?:stream:r):[chop] {block?}
 repeat (n?:number) {block}
 root:environment = <environment:root>
 scope(target?) {block}
-semaphore()
+semaphore:class = <class:semaphore()>
 set(iter+:iterator):[and,or,xor]
-stream(pathname:string, mode?:string, codec?:codec):map {block?}
+stream:class = <class:stream(pathname:string, mode?:string, codec?:codec):map {block?}>
 string:class = <class:string>
 struct(`args+):nonamed:[loose] {block?}
-suffixmgr(type:symbol) {block?}
+suffixmgr:class = <class:suffixmgr(type:symbol) {block?}>
 super(obj):map {block?}
 switch() {block}
 symbol:class = <class:symbol>
@@ -265,8 +265,8 @@ sys:module = <module:sys:<integrated>>
   ps1:string = >>> 
   ps2:string = ... 
   sys.required_version(major:number, minor:number, patch:number)
-template(src?:stream:r):map:[lasteol,noindent] {block?}
-timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map {block?}
+template:class = <class:template(src?:stream:r):map:[lasteol,noindent] {block?}>
+timedelta:class = <class:timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map {block?}>
 tonumber(value):map:[nil,raise,strict,zero]
 tostring(value):map
 tosymbol(str:string):map
@@ -274,7 +274,7 @@ true:boolean = true
 try():leader {block}
 typename(`value)
 undef(`identifier+):[raise]
-uri(str?:string):map {block?}
+uri:class = <class:uri(str?:string):map {block?}>
 while (`cond) {block}
 xlist(value+)
 xset(iter+:iterator):[and,or,xor]

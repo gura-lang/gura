@@ -502,10 +502,13 @@ bool Class::CastTo(Environment &env, Value &value, const Declaration &decl)
 
 String Class::ToString(bool exprFlag)
 {
-	if (GetConstructor() != nullptr) return GetConstructor()->ToString();
 	String str;
 	str += "<class:";
-	str += GetName();
+	if (GetConstructor() == nullptr) {
+		str += GetName();
+	} else {
+		str += GetConstructor()->ToString();
+	}
 	str += ">";
 	return str;
 }

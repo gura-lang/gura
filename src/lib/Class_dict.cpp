@@ -212,7 +212,9 @@ Gura_DeclareFunction(dict)
 	DeclareArg(env, "elems", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_dict));
+	if (::strcmp(GetName(), "dict") == 0) {
+		SetClassToConstruct(env.LookupClass(VTYPE_dict));
+	}
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a `dict` instance.\n"

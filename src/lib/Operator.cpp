@@ -994,9 +994,22 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 							const Value &valueLeft, const Value &valueRight) const
 {
 	Signal &sig = env.GetSignal();
-	if (valueLeft.Is_function()) {
-		const Function *pFunc = valueLeft.GetFunction();
+	if (valueLeft.Is_function() || valueLeft.IsClass()) {
+		const Function *pFunc = nullptr;
+		Value valueThis;
+		if (valueLeft.Is_function()) {
+			pFunc = valueLeft.GetFunction();
+			valueThis = Object_function::GetObject(valueLeft)->GetValueThis();
+		} else { // valueLeft.IsClass()
+			Class *pClass = valueLeft.GetClassItself();
+			pFunc = pClass->GetConstructor();
+			if (pFunc == nullptr) {
+				pClass->SetError_NoConstructor();
+				return Value::Nil;
+			}
+		}
 		AutoPtr<Argument> pArgSub(new Argument(pFunc));
+		pArgSub->SetValueThis(valueThis);
 		if (!valueRight.Is_list() || pFunc->IsUnary()) {
 			if (!pArgSub->AddValue(env, valueRight)) return Value::Nil;
 		} else {

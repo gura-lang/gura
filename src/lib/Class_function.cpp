@@ -211,7 +211,9 @@ void Object_function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 Gura_DeclareFunction(function)
 {
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
-	SetClassToConstruct(env.LookupClass(VTYPE_function));
+	if (::strcmp(GetName(), "function") == 0) {
+		SetClassToConstruct(env.LookupClass(VTYPE_function));
+	}
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,

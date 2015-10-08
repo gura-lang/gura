@@ -293,6 +293,7 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag) const
 
 Fundamental *Value::ExtractFundamental() const
 {
+#if 1
 	if (IsPrimitive()) return GetClass();
 	Fundamental *pFund = GetFundamental();
 	if (!pFund->IsFunction()) return pFund;
@@ -300,10 +301,14 @@ Fundamental *Value::ExtractFundamental() const
 	Class *pClass = pObjFunc->GetFunction()->GetClassToConstruct();
 	if (pClass == nullptr) return pFund;
 	return pClass;
+#else
+	return IsPrimitive()? GetClass() : GetFundamental();
+#endif
 }
 
 Fundamental *Value::ExtractFundamentalMod()
 {
+#if 1
 	if (IsPrimitive()) return GetClass();
 	Fundamental *pFund = GetFundamental();
 	if (!pFund->IsFunction()) return pFund;
@@ -312,6 +317,9 @@ Fundamental *Value::ExtractFundamentalMod()
 	if (pClass == nullptr) return pFund;
 	InitAsClass(Class::Reference(pClass));
 	return pClass;
+#else
+	return IsPrimitive()? GetClass() : GetFundamental();
+#endif
 }
 
 Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
@@ -325,12 +333,14 @@ Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
 		pFund = pClass;
 	} else {
 		pFund = GetFundamental();
+#if 0
 		if (pFund->IsFunction()) {
 			const Function *pFunc =
 				dynamic_cast<const Object_function *>(pFund)->GetFunction();
 			Class *pClass = pFunc->GetClassToConstruct();
 			if (pClass != nullptr) pFund = pClass;
 		}
+#endif
 	}
 	EnvRefMode envRefMode =
 		pFund->IsModule()? ENVREF_Module :

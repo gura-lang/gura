@@ -112,7 +112,7 @@ number number complex boolean module string list dict function symbol
 ======== #11 ========
 
 hoge           isdefined:false  undefined
-function       isdefined:true   function
+function       isdefined:true   class
 math.sin       isdefined:true   function
 0      number   defined:y symbol:n boolean:n number:y complex:y rational:n string:n module:n class:n y
 3.14   number   defined:y symbol:n boolean:n number:y complex:y rational:n string:n module:n class:n y

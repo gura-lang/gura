@@ -1,48 +1,48 @@
 ======== #1 construct ========
 
-array@char(arg, init?:number) {block?}
+<class:array@char(arg, init?:number) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
-array@uchar(arg, init?:number) {block?}
+<class:array@uchar(arg, init?:number) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
-array@short(arg, init?:number) {block?}
+<class:array@short(arg, init?:number) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
-array@ushort(arg, init?:number) {block?}
+<class:array@ushort(arg, init?:number) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
-array@long(arg, init?:number) {block?}
+<class:array@long(arg, init?:number) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
-array@ulong(arg, init?:number) {block?}
+<class:array@ulong(arg, init?:number) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
-array@float(arg, init?:number) {block?}
+<class:array@float(arg, init?:number) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
-array@double(arg, init?:number) {block?}
+<class:array@double(arg, init?:number) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
@@ -51,21 +51,21 @@ array@double(arg, init?:number) {block?}
 
 ======== #2 cast to list ========
 
-array@char(arg, init?:number) {block?}
+<class:array@char(arg, init?:number) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-array@uchar(arg, init?:number) {block?}
+<class:array@uchar(arg, init?:number) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-array@short(arg, init?:number) {block?}
+<class:array@short(arg, init?:number) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-array@ushort(arg, init?:number) {block?}
+<class:array@ushort(arg, init?:number) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-array@long(arg, init?:number) {block?}
+<class:array@long(arg, init?:number) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-array@ulong(arg, init?:number) {block?}
+<class:array@ulong(arg, init?:number) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-array@float(arg, init?:number) {block?}
+<class:array@float(arg, init?:number) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-array@double(arg, init?:number) {block?}
+<class:array@double(arg, init?:number) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 
 ======== #3 cast from list ========
@@ -81,7 +81,7 @@ array@double(arg, init?:number) {block?}
 
 ======== #4 head/tail ========
 
-array@char(arg, init?:number) {block?}
+<class:array@char(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -89,7 +89,7 @@ array@char(arg, init?:number) {block?}
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 expected error occurs: OutOfRange: offset is out of range
 expected error occurs: OutOfRange: offset is out of range
-array@uchar(arg, init?:number) {block?}
+<class:array@uchar(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -97,7 +97,7 @@ array@uchar(arg, init?:number) {block?}
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 expected error occurs: OutOfRange: offset is out of range
 expected error occurs: OutOfRange: offset is out of range
-array@short(arg, init?:number) {block?}
+<class:array@short(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -105,7 +105,7 @@ array@short(arg, init?:number) {block?}
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 expected error occurs: OutOfRange: offset is out of range
 expected error occurs: OutOfRange: offset is out of range
-array@ushort(arg, init?:number) {block?}
+<class:array@ushort(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -113,7 +113,7 @@ array@ushort(arg, init?:number) {block?}
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 expected error occurs: OutOfRange: offset is out of range
 expected error occurs: OutOfRange: offset is out of range
-array@long(arg, init?:number) {block?}
+<class:array@long(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -121,7 +121,7 @@ array@long(arg, init?:number) {block?}
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 expected error occurs: OutOfRange: offset is out of range
 expected error occurs: OutOfRange: offset is out of range
-array@ulong(arg, init?:number) {block?}
+<class:array@ulong(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -129,7 +129,7 @@ array@ulong(arg, init?:number) {block?}
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 expected error occurs: OutOfRange: offset is out of range
 expected error occurs: OutOfRange: offset is out of range
-array@float(arg, init?:number) {block?}
+<class:array@float(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -137,7 +137,7 @@ array@float(arg, init?:number) {block?}
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 expected error occurs: OutOfRange: offset is out of range
 expected error occurs: OutOfRange: offset is out of range
-array@double(arg, init?:number) {block?}
+<class:array@double(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -148,56 +148,56 @@ expected error occurs: OutOfRange: offset is out of range
 
 ======== #5 offset ========
 
-array@char(arg, init?:number) {block?}
+<class:array@char(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
 29
 
 expected error occurs: OutOfRange: offset is out of range
-array@uchar(arg, init?:number) {block?}
+<class:array@uchar(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
 29
 
 expected error occurs: OutOfRange: offset is out of range
-array@short(arg, init?:number) {block?}
+<class:array@short(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
 29
 
 expected error occurs: OutOfRange: offset is out of range
-array@ushort(arg, init?:number) {block?}
+<class:array@ushort(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
 29
 
 expected error occurs: OutOfRange: offset is out of range
-array@long(arg, init?:number) {block?}
+<class:array@long(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
 29
 
 expected error occurs: OutOfRange: offset is out of range
-array@ulong(arg, init?:number) {block?}
+<class:array@ulong(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
 29
 
 expected error occurs: OutOfRange: offset is out of range
-array@float(arg, init?:number) {block?}
+<class:array@float(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
 29
 
 expected error occurs: OutOfRange: offset is out of range
-array@double(arg, init?:number) {block?}
+<class:array@double(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
@@ -207,49 +207,49 @@ expected error occurs: OutOfRange: offset is out of range
 
 ======== #6 paste ========
 
-array@char(arg, init?:number) {block?}
+<class:array@char(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
 expected error occurs: OutOfRange: out of range
 90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99
-array@uchar(arg, init?:number) {block?}
+<class:array@uchar(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
 expected error occurs: OutOfRange: out of range
 90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99
-array@short(arg, init?:number) {block?}
+<class:array@short(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
 expected error occurs: OutOfRange: out of range
 90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99
-array@ushort(arg, init?:number) {block?}
+<class:array@ushort(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
 expected error occurs: OutOfRange: out of range
 90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99
-array@long(arg, init?:number) {block?}
+<class:array@long(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
 expected error occurs: OutOfRange: out of range
 90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99
-array@ulong(arg, init?:number) {block?}
+<class:array@ulong(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
 expected error occurs: OutOfRange: out of range
 90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99
-array@float(arg, init?:number) {block?}
+<class:array@float(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
 expected error occurs: OutOfRange: out of range
 90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99
-array@double(arg, init?:number) {block?}
+<class:array@double(arg, init?:number) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
@@ -269,7 +269,7 @@ expected error occurs: OutOfRange: out of range
 
 ======== #8 operator ========
 
-array@char(arg, init?:number) {block?}
+<class:array@char(arg, init?:number) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -300,7 +300,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 3 | b =  3  3  3  7  7  7  7 11 11 11
 3 ^ b =  2  1  0  7  6  5  4 11 10  9
 
-array@uchar(arg, init?:number) {block?}
+<class:array@uchar(arg, init?:number) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -331,7 +331,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 3 | b =  3  3  3  7  7  7  7 11 11 11
 3 ^ b =  2  1  0  7  6  5  4 11 10  9
 
-array@short(arg, init?:number) {block?}
+<class:array@short(arg, init?:number) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -362,7 +362,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 3 | b =  3  3  3  7  7  7  7 11 11 11
 3 ^ b =  2  1  0  7  6  5  4 11 10  9
 
-array@ushort(arg, init?:number) {block?}
+<class:array@ushort(arg, init?:number) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -393,7 +393,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 3 | b =  3  3  3  7  7  7  7 11 11 11
 3 ^ b =  2  1  0  7  6  5  4 11 10  9
 
-array@long(arg, init?:number) {block?}
+<class:array@long(arg, init?:number) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -424,7 +424,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 3 | b =  3  3  3  7  7  7  7 11 11 11
 3 ^ b =  2  1  0  7  6  5  4 11 10  9
 
-array@ulong(arg, init?:number) {block?}
+<class:array@ulong(arg, init?:number) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -455,7 +455,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 3 | b =  3  3  3  7  7  7  7 11 11 11
 3 ^ b =  2  1  0  7  6  5  4 11 10  9
 
-array@float(arg, init?:number) {block?}
+<class:array@float(arg, init?:number) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -486,7 +486,7 @@ a ^ 3 = error
 3 | b = error
 3 ^ b = error
 
-array@double(arg, init?:number) {block?}
+<class:array@double(arg, init?:number) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
 a + b =  3  5  7  9 11 13 15 17 19 21

@@ -509,10 +509,14 @@ Gura_DeclareFunctionBegin(list_xlist)
 	bool _acceptInvalidFlag;
 Gura_DeclareFunctionEnd(list_xlist)
 {
-	_acceptInvalidFlag = (::strcmp(GetName(), "list") == 0);
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
-	SetClassToConstruct(env.LookupClass(VTYPE_list));
+	if (::strcmp(GetName(), "list") == 0) {
+		_acceptInvalidFlag = true;
+		SetClassToConstruct(env.LookupClass(VTYPE_list));
+	} else {
+		_acceptInvalidFlag = false;
+	}
 	String text = _acceptInvalidFlag?
 		"Creates a new list from given values in its argument list.\n" :
 		"Creates a new list from given values except for `nil` in its argument list.\n";
