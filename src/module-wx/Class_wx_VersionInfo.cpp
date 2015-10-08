@@ -40,7 +40,7 @@ void wx_VersionInfo::GuraObjectDeleted()
 Gura_DeclareFunction(VersionInfo)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	SetClassToConstruct(Gura_UserClass(wx_Point));
+	SetClassToConstruct(Gura_UserClass(wx_VersionInfo));
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "major", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "minor", VTYPE_number, OCCUR_ZeroOrOnce);

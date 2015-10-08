@@ -81,8 +81,12 @@ void Function::SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong
 
 void Function::SetClassToConstruct(Class *pClassToConstruct)
 {
-	_pClassToConstruct = pClassToConstruct;
-	pClassToConstruct->SetConstructor(Function::Reference(this));
+	if (::strcmp(GetName(), pClassToConstruct->GetName()) == 0) {
+		_pClassToConstruct = pClassToConstruct;
+		pClassToConstruct->SetConstructor(Function::Reference(this));
+	} else {
+		//::printf("%s %s\n", GetName(), pClassToConstruct->GetName());
+	}
 }
 
 bool Function::CustomDeclare(Environment &env,
