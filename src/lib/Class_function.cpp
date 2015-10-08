@@ -16,8 +16,8 @@ Object_function::~Object_function()
 
 bool Object_function::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	Class *pClass = GetFunction()->GetClassToConstruct();
-	if (pClass != nullptr) return pClass->DoDirProp(env, symbols);
+	//Class *pClass = GetFunction()->GetClassToConstruct();
+	//if (pClass != nullptr) return pClass->DoDirProp(env, symbols);
 	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(decls));
 	symbols.insert(Gura_Symbol(expr));
