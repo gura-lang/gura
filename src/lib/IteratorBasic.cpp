@@ -653,9 +653,11 @@ void Iterator_MemberMap::GatherFollower(Environment::Frame *pFrame, EnvironmentS
 // Iterator_MethodMap
 //-----------------------------------------------------------------------------
 Iterator_MethodMap::Iterator_MethodMap(Environment *pEnv, Iterator *pIteratorThis, Expr_Caller *pExprCaller) :
-		Iterator(pIteratorThis->IsInfinite()), _pEnv(pEnv),
-		_pIteratorThis(pIteratorThis), _pExprCaller(pExprCaller)
+	Iterator(pIteratorThis->IsInfinite()), _pEnv(pEnv),
+	_pIteratorThis(pIteratorThis), _pExprCaller(pExprCaller), _valTypePrev(VTYPE_undefined)
 {
+	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(_pExprCaller->GetCar());
+	_pExprSelector = pExprMember->GetSelector();
 }
 
 Iterator_MethodMap::~Iterator_MethodMap()
@@ -672,8 +674,15 @@ bool Iterator_MethodMap::DoNext(Environment &env, Value &value)
 {
 	Value valueThis;
 	if (!_pIteratorThis->Next(env, valueThis)) return false;
-	value = _pExprCaller->EvalEach(*_pEnv, valueThis, nullptr, nullptr);
-	return true;
+	//value = _pExprCaller->EvalEach(*_pEnv, valueThis, nullptr, nullptr);
+	if (_valTypePrev != valueThis.GetValueType()) {
+		_pCallable.reset(
+			valueThis.GetCallable(_pExprSelector->GetSymbol(), _pExprSelector->GetAttrs()));
+		if (_pCallable.IsNull()) return false;
+		_valTypePrev = valueThis.GetValueType();
+	}
+	value = _pCallable->DoCall(*_pEnv, _pExprCaller->GetCallerInfo(), valueThis, nullptr, nullptr);
+	return !env.IsSignalled();
 }
 
 String Iterator_MethodMap::ToString() const

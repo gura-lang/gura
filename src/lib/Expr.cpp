@@ -2329,6 +2329,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 	if (_pExprCar->IsMember()) {
 		const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 		Value valueThis = pExprMember->GetTarget()->Exec(env);
+		Iterator *pIteratorThis = nullptr;
 		if (sig.IsSignalled()) return Value::Nil;
 		Expr_Member::Mode mode = pExprMember->GetMode();
 		if (mode != Expr_Member::MODE_Normal) {
@@ -2337,7 +2338,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			}
 			Fundamental *pFund = valueThis.IsPrimitive()?
 				valueThis.GetClass() : valueThis.GetFundamental();
-			Iterator *pIteratorThis = pFund->CreateIterator(sig);
+			pIteratorThis = pFund->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Nil;
 			if (pIteratorThis == nullptr) {
 				// nothing to do
@@ -2345,7 +2346,8 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 				Value valueThisEach;
 				pIteratorThis->SetListOriginFlag(valueThis.Is_list());
 				if (!pIteratorThis->Next(env, valueThisEach)) return Value::Nil;
-				return EvalEach(env, valueThisEach, pIteratorThis, pTrailCtrlHolder);
+				//return EvalEach(env, valueThisEach, pIteratorThis, pTrailCtrlHolder);
+				valueThis = valueThisEach;
 			} else {
 				AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(new Environment(env),
 									pIteratorThis, Expr_Caller::Reference(this)));
@@ -2357,7 +2359,13 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 				return result;
 			}
 		}
-		return EvalEach(env, valueThis, nullptr, pTrailCtrlHolder);
+		const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
+		AutoPtr<Callable> pCallable(
+			valueThis.GetCallable(pExprSelector->GetSymbol(), pExprSelector->GetAttrs()));
+		if (pCallable.IsNull()) return Value::Nil;
+		return pCallable->DoCall(env, GetCallerInfo(),
+								 valueThis, pIteratorThis, pTrailCtrlHolder);
+		//return EvalEach(env, valueThis, pIteratorThis, pTrailCtrlHolder);
 	} else {
 		Value valueCar = _pExprCar->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
@@ -2370,6 +2378,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 	}
 }
 
+#if 0
 Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		Iterator *pIteratorThis, TrailCtrlHolder *pTrailCtrlHolder) const
 {
@@ -2409,6 +2418,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 						  valueThis, pIteratorThis, pTrailCtrlHolder);
 #endif
 }
+#endif
 
 Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const

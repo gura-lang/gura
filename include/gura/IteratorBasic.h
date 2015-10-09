@@ -323,6 +323,9 @@ private:
 	AutoPtr<Environment> _pEnv;
 	AutoPtr<Iterator> _pIteratorThis;
 	AutoPtr<Expr_Caller> _pExprCaller;
+	AutoPtr<Callable> _pCallable;
+	const Expr_Identifier *_pExprSelector;
+	ValueType _valTypePrev;
 public:
 	Iterator_MethodMap(Environment *pEnv, Iterator *pIteratorThis, Expr_Caller *pExprCaller);
 	virtual ~Iterator_MethodMap();
