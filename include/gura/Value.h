@@ -408,8 +408,6 @@ public:
 	void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag) const;
 	void DirValueType(SymbolSet &symbols, bool escalateFlag) const;
-	Fundamental *ExtractFundamental() const;
-	Fundamental *ExtractFundamentalMod();
 	Value GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const;
 	Callable *GetCallable(const Symbol *pSymbol, const SymbolSet &attrs);
 	ErrorType GetErrorType() const;

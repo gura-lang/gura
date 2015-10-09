@@ -1159,17 +1159,6 @@ Gura_ImplementFunction(class_)
 	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
-#if 0
-	Class *pClassSuper = env.LookupClass(VTYPE_object);
-	const Value &valueSuper = arg.GetValue(0);
-	if (valueSuper.Is_function()) {
-		pClassSuper = valueSuper.GetFunction()->GetClassToConstruct();
-		if (pClassSuper == nullptr) {
-			valueSuper.GetFunction()->SetError_NotConstructor(sig);
-			return Value::Nil;
-		}
-	}
-#endif
 	Class *pClassSuper = arg.IsClass(0)? arg.GetClassItself(0) : env.LookupClass(VTYPE_object);
 	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
 			pClassSuper->GetValueType(),
@@ -1474,8 +1463,6 @@ Gura_ImplementFunction(scope)
 			pEnv = arg.GetModule(0);
 		} else if (arg.IsClass(0)) {
 			pEnv = arg.GetValue(0).GetClassItself();
-		} else if (arg.Is_function(0)) {
-			pEnv = arg.GetFunction(0)->GetClassToConstruct();
 		} else if (arg.IsType(0, VTYPE_environment)) {
 			pEnv = &Object_environment::GetObject(arg, 0)->GetEnv();
 		}

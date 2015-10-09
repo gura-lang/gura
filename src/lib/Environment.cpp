@@ -188,16 +188,12 @@ Function *Environment::AssignFunction(Function *pFunc, ULong extra)
 {
 	const Symbol *pSymbol = pFunc->GetSymbol();
 	Frame *pFrame = GetTopFrame();
-#if 1
 	Class *pClass = pFunc->GetClassToConstruct();
 	if (pClass == nullptr) {
 		pFrame->AssignValue(pSymbol, Value(new Object_function(*this, pFunc)), extra);
 	} else {
 		pFrame->AssignValue(pSymbol, Value(pClass->Reference()), extra);
 	}
-#else
-	pFrame->AssignValue(pSymbol, Value(new Object_function(*this, pFunc)), extra);
-#endif
 	return pFunc;
 }
 

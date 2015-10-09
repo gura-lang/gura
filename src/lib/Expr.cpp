@@ -914,10 +914,6 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 			pValueTypeInfo->SetClass(Class::Reference(pClass));
 			env.AssignValueType(pValueTypeInfo);
 			if (!pClass->PrepareConstructor(env)) return Value::Nil;
-			//*****
-			//valueAssigned = Value(new Object_function(
-			//						  env, pClass->GetConstructor()->Reference()));
-			//*****
 		}
 		extra = EXTRA_Public;
 	} else if (valueAssigned.Is_function()) {
@@ -1139,7 +1135,8 @@ Value Expr_Member::DoExec(Environment &env) const
 	// correspond to method-calling, property-getting and property-setting.
 	Value valueThis = GetTarget()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
-	Fundamental *pFund = valueThis.ExtractFundamentalMod();
+	Fundamental *pFund = valueThis.IsPrimitive()?
+		valueThis.GetClass() : valueThis.GetFundamental();
 	Value result;
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
@@ -1186,7 +1183,8 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 					 valueThis.MakeValueTypeName().c_str());
 		return Value::Nil;
 	}
-	Fundamental *pFund = valueThis.ExtractFundamental();
+	Fundamental *pFund = valueThis.IsPrimitive()?
+		valueThis.GetClass() : valueThis.GetFundamental();
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
 		return GetSelector()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
@@ -1208,7 +1206,8 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 							 valueThisEach.MakeValueTypeName().c_str());
 				return Value::Nil;
 			}
-			Fundamental *pFundEach = valueThisEach.ExtractFundamental();
+			Fundamental *pFundEach = valueThisEach.IsPrimitive()?
+				valueThisEach.GetClass() : valueThisEach.GetFundamental();
 			GetSelector()->Assign(*pFundEach, value,
 									pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
@@ -1222,7 +1221,8 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 							 valueThisEach.MakeValueTypeName().c_str());
 				return Value::Nil;
 			}
-			Fundamental *pFundEach = valueThisEach.ExtractFundamental();
+			Fundamental *pFundEach = valueThisEach.IsPrimitive()?
+				valueThisEach.GetClass() : valueThisEach.GetFundamental();
 			GetSelector()->Assign(*pFundEach, valueAssigned, pSymbolsAssignable, escalateFlag);
 			if (sig.IsSignalled()) break;
 		}
@@ -2335,7 +2335,8 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			if (valueThis.Is_list() && valueThis.GetList().empty()) {
 				return valueThis;
 			}
-			Fundamental *pFund = valueThis.ExtractFundamentalMod();
+			Fundamental *pFund = valueThis.IsPrimitive()?
+				valueThis.GetClass() : valueThis.GetFundamental();
 			Iterator *pIteratorThis = pFund->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Nil;
 			if (pIteratorThis == nullptr) {
@@ -2377,15 +2378,15 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
 	Value valueCar;
-	Value valueThisMod = valueThis;
-	Fundamental *pFund = valueThisMod.ExtractFundamentalMod();
+	Fundamental *pFund = valueThis.IsPrimitive()?
+		valueThis.GetClass() : valueThis.GetFundamental();
 	Callable *pCallable = pFund->GetCallable(pExprSelector->GetSymbol());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Nil;
 	}
 	if (pCallable == nullptr) {
-		valueCar = valueThisMod.GetProp(pExprSelector->GetSymbol(), pExprSelector->GetAttrs());
+		valueCar = valueThis.GetProp(pExprSelector->GetSymbol(), pExprSelector->GetAttrs());
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Nil;
@@ -2397,7 +2398,7 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		pCallable = valueCar.GetFundamental();
 	}
 	return pCallable->DoCall(env, GetCallerInfo(),
-							 valueThisMod, pIteratorThis, pTrailCtrlHolder);
+							 valueThis, pIteratorThis, pTrailCtrlHolder);
 #else
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
