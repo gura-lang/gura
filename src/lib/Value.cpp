@@ -296,7 +296,7 @@ Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
 	return rtn;
 }
 
-Callable *Value::GetCallable(const Symbol *pSymbol, const SymbolSet &attrs)
+Callable *Value::GetCallable(const Symbol *pSymbol, const SymbolSet &attrs) const
 {
 	Fundamental *pFund = IsPrimitive()? GetClass() : GetFundamental();
 	Callable *pCallable = pFund->GetCallable(pSymbol);
@@ -304,7 +304,11 @@ Callable *Value::GetCallable(const Symbol *pSymbol, const SymbolSet &attrs)
 	if (pCallable != nullptr) return pCallable->Reference();
 	Value valueCar = GetProp(pSymbol, attrs);
 	if (pFund->IsSignalled()) return nullptr;
-	if (valueCar.IsFundamental()) return valueCar.GetFundamental()->Reference();
+	if (valueCar.IsFundamental()) {
+		// the pointer must be referenced because valueCar will be destroyed
+		// after this scope vanishes.
+		return valueCar.GetFundamental()->Reference();
+	}
 	pFund->SetError(ERR_TypeError, "object is not callable");
 	return nullptr;
 }

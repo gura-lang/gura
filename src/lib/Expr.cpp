@@ -2373,7 +2373,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 		Iterator *pIteratorThis, TrailCtrlHolder *pTrailCtrlHolder) const
 {
-#if 1
+#if 0
 	Signal &sig = env.GetSignal();
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
@@ -2404,8 +2404,8 @@ Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
 	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
 	AutoPtr<Callable> pCallable(
 		valueThis.GetCallable(pExprSelector->GetSymbol(), pExprSelector->GetAttrs()));
-	return pCallable.IsNull()? Value::Nil :
-		pCallable->DoCall(env, GetCallerInfo(),
+	if (pCallable.IsNull()) return Value::Nil;
+	return pCallable->DoCall(env, GetCallerInfo(),
 						  valueThis, pIteratorThis, pTrailCtrlHolder);
 #endif
 }
