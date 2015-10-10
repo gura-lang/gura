@@ -656,12 +656,6 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 				return resultComposer.GetValueResult();
 			}
 		}
-		//AutoPtr<Argument> pArg(new Argument(pFunc));
-		//pArg->SetValueThis(valueThis);
-		//if (pArg->AddValue(env, valueRight) && pArg->Complete(env)) {
-		//	return pFunc->Eval(env, *pArg);
-		//}
-		//return Value::Nil;
 	} else if ((valueLeft.Is_matrix() && valueRight.Is_list()) ||
 			   (valueLeft.Is_list() && valueRight.Is_matrix())) {
 		return EvalBinary(env, valueLeft, valueRight);
