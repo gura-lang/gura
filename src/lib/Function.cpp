@@ -273,12 +273,21 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	ResultComposer resultComposer(env, arg);
+#if 0
 	Value value;
 	size_t n = 0;
 	for ( ; pIterator->Next(env, value); n++) {
 		if (!resultComposer.AddValue(env, value)) return Value::Nil;
 	}
 	if (n == 0 && !arg.IsResultVoid() && !arg.IsResultReduce() && !arg.IsResultXReduce()) {
+		Value valueResult;
+		valueResult.InitAsList(env);
+		return valueResult;
+	}
+#endif
+	if (!resultComposer.AddValues(env, pIterator.get())) return Value::Nil;
+	if (resultComposer.CountAdded() == 0 &&
+			!arg.IsResultVoid() && !arg.IsResultReduce() && !arg.IsResultXReduce()) {
 		Value valueResult;
 		valueResult.InitAsList(env);
 		return valueResult;
@@ -536,7 +545,7 @@ void Function::SetError_MathOptimizeError(Signal &sig) const
 ResultComposer::ResultComposer(Environment &env, ValueType valTypeResult,
 							   ResultMode resultMode, ULong flags) :
 	_valTypeResult(valTypeResult), _resultMode(resultMode), _flags(flags),
-	_pValList(nullptr), _cnt(0)
+	_pValList(nullptr), _cntAdded(0)
 {
 	Initialize(env);
 }
@@ -544,7 +553,7 @@ ResultComposer::ResultComposer(Environment &env, ValueType valTypeResult,
 ResultComposer::ResultComposer(Environment &env, const Function *pFunc) :
 	_valTypeResult(pFunc->GetValueTypeResult()),
 	_resultMode(pFunc->GetResultMode()), _flags(pFunc->GetFlags()),
-	_pValList(nullptr), _cnt(0)
+	_pValList(nullptr), _cntAdded(0)
 {
 	Initialize(env);
 }
@@ -552,7 +561,7 @@ ResultComposer::ResultComposer(Environment &env, const Function *pFunc) :
 ResultComposer::ResultComposer(Environment &env, Argument &arg) :
 	_valTypeResult(arg.GetValueTypeResult()),
 	_resultMode(arg.GetResultMode()), _flags(arg.GetFlags()),
-	_pValList(nullptr), _cnt(0)
+	_pValList(nullptr), _cntAdded(0)
 {
 	Initialize(env);
 }
@@ -570,29 +579,27 @@ bool ResultComposer::AddValue(Environment &env, const Value &value)
 		foreach_const (ValueList, pValue, value.GetList()) {
 			if (!AddValue(env, *pValue)) return false;
 		}
-	} else {
-		if (_resultMode == RSLTMODE_List) {
-			_pValList->push_back(value);
-		} else if (value.IsValid()) {
-			if (_pValList == nullptr) {
-				_pValList = &_valueResult.InitAsList(env, _cnt, Value::Nil);
-			}
-			if (!(_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) ||
-										!_pValList->DoesContain(env, value)) {
-				_pValList->push_back(value);
-			}
-			if (sig.IsSignalled()) return false;
-		} else if (_resultMode == RSLTMODE_XList || _resultMode == RSLTMODE_XSet) {
-			// nothing to do
-		} else if (_pValList != nullptr) {
-			if (!(_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) ||
-										!_pValList->DoesContain(env, value)) {
-				_pValList->push_back(value);
-			}
-			if (sig.IsSignalled()) return false;
+	} else if (_resultMode == RSLTMODE_List) {
+		_pValList->push_back(value);
+	} else if (value.IsValid()) {
+		if (_pValList == nullptr) {
+			_pValList = &_valueResult.InitAsList(env, _cntAdded, Value::Nil);
 		}
-		_cnt++;
+		if (!(_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) ||
+			!_pValList->DoesContain(env, value)) {
+			_pValList->push_back(value);
+		}
+		if (sig.IsSignalled()) return false;
+	} else if (_resultMode == RSLTMODE_XList || _resultMode == RSLTMODE_XSet) {
+		// nothing to do
+	} else if (_pValList != nullptr) {
+		if (!(_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) ||
+			!_pValList->DoesContain(env, value)) {
+			_pValList->push_back(value);
+		}
+		if (sig.IsSignalled()) return false;
 	}
+	_cntAdded++;
 	return true;
 }
 

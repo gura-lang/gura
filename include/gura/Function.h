@@ -295,7 +295,7 @@ private:
 	ULong _flags;
 	Value _valueResult;
 	ValueList *_pValList;
-	size_t _cnt;
+	size_t _cntAdded;
 public:
 	ResultComposer(Environment &env, ValueType valTypeResult,
 				   ResultMode resultMode, ULong flags);
@@ -305,6 +305,7 @@ public:
 	bool AddValues(Environment &env, Iterator *pIterator);
 	inline bool GetFlag(ULong flag) const { return (_flags & flag) != 0; }
 	inline const Value &GetValueResult() const { return _valueResult; }
+	inline size_t CountAdded() const { return _cntAdded; }
 private:
 	inline void Initialize(Environment &env) {
 		if (_resultMode == RSLTMODE_List || _resultMode == RSLTMODE_XList ||
