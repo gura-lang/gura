@@ -209,7 +209,7 @@ bool Argument::Complete(Environment &env)
 	}
 	foreach_const (SymbolSet, ppSymbol, GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
-		if (!GetAttrsOpt().IsSet(pSymbol)) {
+		if (!_pFunc->GetAttrsOpt().IsSet(pSymbol)) {
 			env.SetError(ERR_AttributeError, "unsupported attribute '%s' for '%s'",
 						 pSymbol->GetName(), _pFunc->ToString().c_str());
 			return false;

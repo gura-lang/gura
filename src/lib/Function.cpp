@@ -261,12 +261,6 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
-Value Function::Eval(Environment &env, Argument &arg) const
-{
-	Value value = DoEval(env, arg);
-	return arg.IsResultVoid()? Value::Undefined : value;
-}
-
 Value Function::EvalAuto(Environment &env, Argument &arg) const
 {
 	Argument::MapMode mapMode = arg.GetMapMode();

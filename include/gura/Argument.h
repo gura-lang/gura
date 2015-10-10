@@ -4,9 +4,15 @@
 #ifndef __GURA_ARGUMENT_H__
 #define __GURA_ARGUMENT_H__
 
-#include "Function.h"
+#include "Common.h"
+#include "Declaration.h"
+#include "Environment.h"
+#include "Parser.h"
+#include "Help.h"
 
 namespace Gura {
+
+class Function;
 
 //-----------------------------------------------------------------------------
 // Argument
@@ -121,11 +127,9 @@ public:
 		_pAttrsShared.reset(pAttrsShared);
 	}
 	inline const SymbolSetShared *GetAttrsShared() const { return _pAttrsShared.get(); }
-	inline const SymbolSetShared *GetAttrsOptShared() const { return _pFunc->GetAttrsOptShared(); }
 	inline const SymbolSet &GetAttrs() const {
 		return _pAttrsShared.IsNull()? SymbolSet::Empty : _pAttrsShared->GetSymbolSet();
 	}
-	inline const SymbolSet &GetAttrsOpt() const { return _pFunc->GetAttrsOpt(); }
 	inline void SetValueTypeResult(ValueType valTypeResult) { _valTypeResult = valTypeResult; }
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline void SetResultMode(ResultMode resultMode) { _resultMode = resultMode; }

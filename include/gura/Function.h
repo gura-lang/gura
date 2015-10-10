@@ -221,7 +221,11 @@ public:
 public:
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	Value Eval(Environment &env, Argument &arg) const;
+	inline Value Eval(Environment &env, Argument &arg) const {
+		Value value = DoEval(env, arg);
+		return arg.IsResultVoid()? Value::Undefined : value;
+	}
+	//Value Eval(Environment &env, Argument &arg) const;
 	Value EvalAuto(Environment &env, Argument &arg) const;
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);

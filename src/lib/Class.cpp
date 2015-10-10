@@ -361,7 +361,7 @@ Gura_ImplementMethod(Object, __call__)
 		exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
 	}
 	CallerInfo callerInfo(exprListArg, arg.GetBlock(),
-						  arg.GetAttrsShared(), arg.GetAttrsOptShared());
+						  arg.GetAttrsShared(), arg.GetFunction()->GetAttrsOptShared());
 	return pFund->DoCall(env, callerInfo, arg.GetValueThis(), nullptr, arg.GetTrailCtrlHolder());
 }
 
