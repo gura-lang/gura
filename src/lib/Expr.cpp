@@ -2319,7 +2319,6 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 				Value valueThisEach;
 				pIteratorThis->SetListOriginFlag(valueThis.Is_list());
 				if (!pIteratorThis->Next(env, valueThisEach)) return Value::Nil;
-				//return EvalEach(env, valueThisEach, pIteratorThis, pTrailCtrlHolder);
 				valueThis = valueThisEach;
 			} else {
 				AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(new Environment(env),
@@ -2338,7 +2337,6 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 		if (pCallable.IsNull()) return Value::Nil;
 		return pCallable->DoCall(env, GetCallerInfo(),
 								 valueThis, pIteratorThis, pTrailCtrlHolder);
-		//return EvalEach(env, valueThis, pIteratorThis, pTrailCtrlHolder);
 	} else {
 		Value valueCar = _pExprCar->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
@@ -2350,48 +2348,6 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 		return pFund->DoCall(env, GetCallerInfo(), Value::Nil, nullptr, pTrailCtrlHolder);
 	}
 }
-
-#if 0
-Value Expr_Caller::EvalEach(Environment &env, const Value &valueThis,
-		Iterator *pIteratorThis, TrailCtrlHolder *pTrailCtrlHolder) const
-{
-#if 0
-	Signal &sig = env.GetSignal();
-	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
-	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
-	Value valueCar;
-	Fundamental *pFund = valueThis.IsPrimitive()?
-		valueThis.GetClass() : valueThis.GetFundamental();
-	Callable *pCallable = pFund->GetCallable(pExprSelector->GetSymbol());
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(this);
-		return Value::Nil;
-	}
-	if (pCallable == nullptr) {
-		valueCar = valueThis.GetProp(pExprSelector->GetSymbol(), pExprSelector->GetAttrs());
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(this);
-			return Value::Nil;
-		}
-		if (!valueCar.IsFundamental()) {
-			SetError(sig, ERR_TypeError, "object is not callable");
-			return Value::Nil;
-		}
-		pCallable = valueCar.GetFundamental();
-	}
-	return pCallable->DoCall(env, GetCallerInfo(),
-							 valueThis, pIteratorThis, pTrailCtrlHolder);
-#else
-	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
-	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
-	AutoPtr<Callable> pCallable(
-		valueThis.GetCallable(pExprSelector->GetSymbol(), pExprSelector->GetAttrs()));
-	if (pCallable.IsNull()) return Value::Nil;
-	return pCallable->DoCall(env, GetCallerInfo(),
-						  valueThis, pIteratorThis, pTrailCtrlHolder);
-#endif
-}
-#endif
 
 Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
