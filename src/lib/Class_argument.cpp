@@ -55,8 +55,9 @@ Gura_DeclareMethod(arg, finalize_trailer)
 
 Gura_ImplementMethod(arg, finalize_trailer)
 {
-	Argument *pArg = Object_argument::GetObjectThis(arg)->GetArgument();
-	pArg->FinalizeTrailer();
+	//Argument *pArg = Object_argument::GetObjectThis(arg)->GetArgument();
+	//pArg->FinalizeTrailer();
+	env.SetError(ERR_NotImplementedError, "not implemented yet");
 	return Value::Nil;
 }
 

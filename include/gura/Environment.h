@@ -383,6 +383,7 @@ public:
 	Stream *GetConsoleErr();
 	Stream *GetConsoleDumb();
 	inline bool IsSignalled() const { return GetSignal().IsSignalled(); }
+	inline bool IsNoSignalled() const { return GetSignal().IsNoSignalled(); }
 	void SetError(ErrorType errType, const char *format, ...) const;
 	inline void SetErrorV(ErrorType errType,
 						  const char *format, va_list ap, const char *textPre = "") const {

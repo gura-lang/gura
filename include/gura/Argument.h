@@ -168,9 +168,6 @@ public:
 	inline void QuitTrailer() {
 		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Quit);
 	}
-	inline void FinalizeTrailer() {
-		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Finalize);
-	}
 	bool EvalExpr(Environment &env, const ExprList &exprListArg);
 	bool AddValue(Environment &env, const Value &value);
 	inline bool AddValue(Environment &env, const Value &v1, const Value &v2) {

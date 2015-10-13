@@ -2003,36 +2003,36 @@ Value Expr_Indexer::DoExec(Environment &env) const
 				valIdxList.push_back(value);
 			}
 		}
-		if (valIdxList.size() > 0) {
-			if (valIdxList.size() == 1 && !valIdxList.front().IsListOrIterator()) {
-				// obj[idx]
-				result = valueCar.IndexGet(env, valIdxList.front());
-				if (sig.IsSignalled()) return Value::Nil;
-			} else {
-				// obj[idx, idx, ..]
-				ValueList &valListDst = result.InitAsList(env);
-				foreach_const (ValueList, pValueIdx, valIdxList) {
-					if (pValueIdx->Is_list() || pValueIdx->Is_iterator()) {
-						AutoPtr<Iterator> pIteratorIdx(pValueIdx->CreateIterator(sig));
-						if (sig.IsSignalled()) break;
-						Value valueIdxEach;
-						while (pIteratorIdx->Next(env, valueIdxEach)) {
-							Value value = valueCar.IndexGet(env, valueIdxEach);
-							if (sig.IsSignalled()) {
-								if (sig.GetError().GetType() == ERR_IndexError &&
-														pIteratorIdx->IsInfinite()) {
-									sig.ClearSignal();
-								}
-								break;
+		if (valIdxList.size() == 0) {
+			// obj[] .. nothing to do
+		} else if (valIdxList.size() == 1 && !valIdxList.front().IsListOrIterator()) {
+			// obj[idx]
+			result = valueCar.IndexGet(env, valIdxList.front());
+			if (sig.IsSignalled()) return Value::Nil;
+		} else {
+			// obj[idx, idx, ..]
+			ValueList &valListDst = result.InitAsList(env);
+			foreach_const (ValueList, pValueIdx, valIdxList) {
+				if (pValueIdx->Is_list() || pValueIdx->Is_iterator()) {
+					AutoPtr<Iterator> pIteratorIdx(pValueIdx->CreateIterator(sig));
+					if (sig.IsSignalled()) break;
+					Value valueIdxEach;
+					while (pIteratorIdx->Next(env, valueIdxEach)) {
+						Value value = valueCar.IndexGet(env, valueIdxEach);
+						if (sig.IsSignalled()) {
+							if (sig.GetError().GetType() == ERR_IndexError &&
+								pIteratorIdx->IsInfinite()) {
+								sig.ClearSignal();
 							}
-							valListDst.push_back(value);
+							break;
 						}
-						if (sig.IsSignalled()) return Value::Nil;
-					} else {
-						Value value = valueCar.IndexGet(env, *pValueIdx);
-						if (sig.IsSignalled()) break;
 						valListDst.push_back(value);
 					}
+					if (sig.IsSignalled()) return Value::Nil;
+				} else {
+					Value value = valueCar.IndexGet(env, *pValueIdx);
+					if (sig.IsSignalled()) break;
+					valListDst.push_back(value);
 				}
 			}
 		}
@@ -2286,33 +2286,6 @@ Value Expr_Caller::DoExec(Environment &env) const
 		if (!Monitor::NotifyExprPost(env, pExprCaller, result)) return Value::Nil;
 		TrailCtrl trailCtrl = pTrailCtrlHolder->Get();
 		if (trailCtrl == TRAILCTRL_Quit) break;
-		if (trailCtrl == TRAILCTRL_Finalize) {
-			// doesn't work correctly yet.
-			ULong sigType = SIGTYPE_None;
-			Value valueSig;
-			if (sig.IsErrorSuspended() || sig.IsError() || sig.IsTerminate()) break;
-			if (sig.IsBreak() || sig.IsContinue() || sig.IsReturn()) {
-				sigType = sig.GetType();
-				valueSig = sig.GetValue();
-			}
-			sig.ClearSignal();
-			for ( ; pExprCaller != nullptr; pExprCaller = pExprCaller->GetTrailer()) {
-				Callable *pCallable = pExprCaller->LookupCallable(env);
-				if (sig.IsSignalled()) return Value::Nil;
-				if (pCallable != nullptr && pCallable->IsFinalizer()) {
-					if (!Monitor::NotifyExprPre(env, pExprCaller)) return Value::Nil;
-					result = pExprCaller->DoExec(env, pTrailCtrlHolder.get());
-					if (!Monitor::NotifyExprPost(env, pExprCaller, result)) return Value::Nil;
-					if (sig.IsSignalled()) return Value::Nil;
-					sig.SetType(sigType);
-					sig.SetValue(valueSig);
-					return Value::Nil;
-				}
-			}
-			sig.SetType(sigType);
-			sig.SetValue(valueSig);
-			break;
-		}
 	}
 	// if there's an error suspended by try() function, it would be resumed below.
 	// otherwise, nothing would happen and any error would be kept intact.
