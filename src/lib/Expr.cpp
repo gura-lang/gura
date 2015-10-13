@@ -1135,35 +1135,36 @@ Value Expr_Member::DoExec(Environment &env) const
 	// correspond to method-calling, property-getting and property-setting.
 	Value valueThis = GetTarget()->Exec(env);
 	if (sig.IsSignalled()) return Value::Nil;
-	Fundamental *pFund = valueThis.IsPrimitive()?
-		valueThis.GetClass() : valueThis.GetFundamental();
 	Value result;
-	Mode mode = GetMode();
-	if (mode == MODE_Normal) {
+	if (_mode == MODE_Normal) {
 		result = valueThis.GetProp(GetSelector()->GetSymbol(), GetSelector()->GetAttrs());
 		if (result.Is_function()) {
-			Object_function *pObjFunc =
-				dynamic_cast<Object_function *>(Object_function::GetObject(result)->Clone());
-			pObjFunc->SetValueThis(valueThis);
-			result = Value(pObjFunc);
+			//Object_function *pObjFunc =
+			//	dynamic_cast<Object_function *>(Object_function::GetObject(result)->Clone());
+			//pObjFunc->SetValueThis(valueThis);
+			result = Value(new Object_function(env, result.GetFunction()->Reference(), valueThis));
 		}
 	} else if (valueThis.Is_list() && valueThis.GetList().empty()) {
 		result = valueThis;
 	} else {
+		Fundamental *pFund = valueThis.IsPrimitive()?
+			valueThis.GetClass() : valueThis.GetFundamental();
 		Iterator *pIterator = pFund->CreateIterator(sig);
 		if (sig.IsSignalled()) return Value::Nil;
-		if (pIterator != nullptr) {
-			AutoPtr<Iterator> pIteratorMap(
-				new Iterator_MemberMap(
-					new Environment(env), pIterator,
-					GetSelector()->GetSymbol(),
-					SymbolSetShared::Reference(GetSelector()->GetAttrsShrd())));;
-			if (mode == MODE_MapToIter) {
-				result = Value(new Object_iterator(env, pIteratorMap.release()));
-			} else {
-				result = pIteratorMap->ToList(env, false, false);
-				if (sig.IsSignalled()) return Value::Nil;
-			}
+		if (pIterator == nullptr) {
+			sig.SetError(ERR_ValueError, "member mapping can only be applied to iterables");
+			return Value::Nil;
+		}
+		AutoPtr<Iterator>
+			pIteratorMap(new Iterator_MemberMap(
+							 new Environment(env), pIterator,
+							 GetSelector()->GetSymbol(),
+							 SymbolSetShared::Reference(GetSelector()->GetAttrsShrd())));;
+		if (_mode == MODE_MapToIter) {
+			result = Value(new Object_iterator(env, pIteratorMap.release()));
+		} else { // _mode == MODE_MapToList
+			result = pIteratorMap->ToList(env, false, false);
+			if (sig.IsSignalled()) return Value::Nil;
 		}
 	}
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
@@ -1185,8 +1186,7 @@ Value Expr_Member::DoAssign(Environment &env, Value &valueAssigned,
 	}
 	Fundamental *pFund = valueThis.IsPrimitive()?
 		valueThis.GetClass() : valueThis.GetFundamental();
-	Mode mode = GetMode();
-	if (mode == MODE_Normal) {
+	if (_mode == MODE_Normal) {
 		return GetSelector()->Assign(*pFund, valueAssigned, pSymbolsAssignable, escalateFlag);
 	}
 	AutoPtr<Iterator> pIteratorThis(pFund->CreateIterator(sig));
