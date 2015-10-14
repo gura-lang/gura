@@ -21,6 +21,7 @@ caller           f(x)
 assign           f(x) = {}
 assign           f(x) = {|a, b| c }
 indexer          (f(x):attr)[0]
+assign           f(x) = {|(a | b | c), (d | e | f)| g | h }
 
 ======== #3 ========
 

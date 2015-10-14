@@ -225,6 +225,7 @@ public:
 										const Operator *pOperator, bool rightFlag);
 	virtual Expr *Clone() const = 0;
 	virtual Callable *LookupCallable(Environment &env) const;
+	bool SearchBar() const;
 private:
 	virtual Value DoExec(Environment &env) const = 0;
 	virtual Value DoAssign(Environment &env, Value &valueAssigned,

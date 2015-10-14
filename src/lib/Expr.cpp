@@ -279,6 +279,13 @@ Callable *Expr::LookupCallable(Environment &env) const
 	return nullptr;
 }
 
+bool Expr::SearchBar() const
+{
+	ExprVisitor_SearchBar visitor;
+	const_cast<Expr *>(this)->Accept(visitor);
+	return visitor.GetFoundFlag();
+}
+
 bool Expr::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
 	return false;
@@ -1724,9 +1731,7 @@ bool Expr_Block::GenerateScript(Signal &sig, SimpleStream &stream,
 				stream.Print(sig, sepText);
 				if (sig.IsSignalled()) return false;
 			}
-			ExprVisitor_SearchBar visitor;
-			pExpr->Accept(visitor);
-			if (visitor.GetFoundFlag()) {
+			if (pExpr->SearchBar()) {
 				stream.PutChar(sig, '(');
 				if (sig.IsSignalled()) return false;
 				if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
