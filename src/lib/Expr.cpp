@@ -1823,6 +1823,7 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 	Signal &sig = env.GetSignal();
 	const ExprList &exprList = GetExprOwner();
 	if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
+		// [a, b, ..] = [v, v, ..]
 		ValueList *pValList = nullptr;
 		ExprList::const_iterator ppExpr = exprList.begin();
 		AutoPtr<Iterator> pIterator(valueAssigned.CreateIterator(sig));
@@ -1882,6 +1883,7 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 			}
 		}
 	} else {
+		// [a, b, ..] = v
 		foreach_const (ExprList, ppExpr, exprList) {
 			const Expr *pExpr = *ppExpr;
 			pExpr->Assign(env, valueAssigned, pSymbolsAssignable, escalateFlag);
@@ -2308,45 +2310,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 	Signal &sig = env.GetSignal();
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
-	if (_pExprCar->IsMember()) {
-		const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
-		Value valueThis = pExprMember->GetTarget()->Exec(env);
-		Iterator *pIteratorThis = nullptr;
-		if (sig.IsSignalled()) return Value::Nil;
-		Expr_Member::Mode mode = pExprMember->GetMode();
-		if (mode != Expr_Member::MODE_Normal) {
-			if (valueThis.Is_list() && valueThis.GetList().empty()) {
-				return valueThis;
-			}
-			Fundamental *pFund = valueThis.IsPrimitive()?
-				valueThis.GetClass() : valueThis.GetFundamental();
-			pIteratorThis = pFund->CreateIterator(sig);
-			if (sig.IsSignalled()) return Value::Nil;
-			if (pIteratorThis == nullptr) {
-				// nothing to do
-			} else if (mode == Expr_Member::MODE_MapAlong) {
-				Value valueThisEach;
-				pIteratorThis->SetListOriginFlag(valueThis.Is_list());
-				if (!pIteratorThis->Next(env, valueThisEach)) return Value::Nil;
-				valueThis = valueThisEach;
-			} else {
-				AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(new Environment(env),
-									pIteratorThis, Expr_Caller::Reference(this)));
-				if (mode == Expr_Member::MODE_MapToIter) {
-					return Value(new Object_iterator(env, pIteratorMap.release()));
-				}
-				Value result = pIteratorMap->ToList(env, false, false);
-				if (sig.IsSignalled()) return Value::Nil;
-				return result;
-			}
-		}
-		const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
-		AutoPtr<Callable> pCallable(
-			valueThis.GetCallable(pExprSelector->GetSymbol(), pExprSelector->GetAttrs()));
-		if (pCallable.IsNull()) return Value::Nil;
-		return pCallable->DoCall(env, GetCallerInfo(),
-								 valueThis, pIteratorThis, pTrailCtrlHolder);
-	} else {
+	if (!_pExprCar->IsMember()) {
 		Value valueCar = _pExprCar->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		if (!valueCar.IsFundamental()) {
@@ -2356,6 +2320,44 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 		Fundamental *pFund = valueCar.GetFundamental();
 		return pFund->DoCall(env, GetCallerInfo(), Value::Nil, nullptr, pTrailCtrlHolder);
 	}
+	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
+	Value valueThis = pExprMember->GetTarget()->Exec(env);
+	Iterator *pIteratorThis = nullptr;
+	if (sig.IsSignalled()) return Value::Nil;
+	Expr_Member::Mode mode = pExprMember->GetMode();
+	if (mode != Expr_Member::MODE_Normal) {
+		if (valueThis.Is_list() && valueThis.GetList().empty()) {
+			return valueThis;
+		}
+		Fundamental *pFund = valueThis.IsPrimitive()?
+			valueThis.GetClass() : valueThis.GetFundamental();
+		pIteratorThis = pFund->CreateIterator(sig);
+		if (sig.IsSignalled()) return Value::Nil;
+		if (pIteratorThis == nullptr) {
+			// nothing to do
+		} else if (mode == Expr_Member::MODE_MapAlong) {
+			Value valueThisEach;
+			pIteratorThis->SetListOriginFlag(valueThis.Is_list());
+			if (!pIteratorThis->Next(env, valueThisEach)) return Value::Nil;
+			valueThis = valueThisEach;
+		} else {
+			AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(
+											   new Environment(env),
+											   pIteratorThis, Expr_Caller::Reference(this)));
+			if (mode == Expr_Member::MODE_MapToIter) {
+				return Value(new Object_iterator(env, pIteratorMap.release()));
+			}
+			Value result = pIteratorMap->ToList(env, false, false);
+			if (sig.IsSignalled()) return Value::Nil;
+			return result;
+		}
+	}
+	const Expr_Identifier *pExprSelector = pExprMember->GetSelector();
+	AutoPtr<Callable> pCallable(
+		valueThis.GetCallable(pExprSelector->GetSymbol(), pExprSelector->GetAttrs()));
+	if (pCallable.IsNull()) return Value::Nil;
+	return pCallable->DoCall(env, GetCallerInfo(),
+							 valueThis, pIteratorThis, pTrailCtrlHolder);
 }
 
 Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
