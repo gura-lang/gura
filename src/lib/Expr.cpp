@@ -1735,11 +1735,13 @@ bool Expr_Block::GenerateScript(Signal &sig, SimpleStream &stream,
 			if (pExpr->SearchBar()) {
 				stream.PutChar(sig, '(');
 				if (sig.IsSignalled()) return false;
-				if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+				if (!pExpr->GenerateScript(sig, stream, scriptStyle,
+										   nestLevel, strIndent)) return false;
 				stream.PutChar(sig, ')');
 				if (sig.IsSignalled()) return false;
 			} else {
-				if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+				if (!pExpr->GenerateScript(sig, stream, scriptStyle,
+										   nestLevel, strIndent)) return false;
 			}
 		}
 		stream.PutChar(sig, '|');
@@ -1790,6 +1792,7 @@ Value Expr_Lister::DoExec(Environment &env) const
 	Signal &sig = env.GetSignal();
 	Value result;
 	ValueList &valList = result.InitAsList(env);
+	valList.reserve(GetExprOwner().size());
 	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		Value value = pExpr->Exec(env);
