@@ -1683,6 +1683,7 @@ Value Expr_Block::DoExec(Environment &env) const
 	Value result;
 	if (env.IsType(ENVTYPE_lister)) {
 		ValueList &valList = result.InitAsList(env);
+		valList.reserve(GetExprOwner().size());
 		foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
 			Value value = (*ppExpr)->Exec(env, true);
 			if (sig.IsSignalled()) return Value::Nil;
