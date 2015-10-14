@@ -1146,9 +1146,6 @@ Value Expr_Member::DoExec(Environment &env) const
 	if (_mode == MODE_Normal) {
 		result = valueThis.GetProp(GetSelector()->GetSymbol(), GetSelector()->GetAttrs());
 		if (result.Is_function()) {
-			//Object_function *pObjFunc =
-			//	dynamic_cast<Object_function *>(Object_function::GetObject(result)->Clone());
-			//pObjFunc->SetValueThis(valueThis);
 			result = Value(new Object_function(env, result.GetFunction()->Reference(), valueThis));
 		}
 	} else if (valueThis.Is_list() && valueThis.GetList().empty()) {
