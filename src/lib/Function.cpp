@@ -273,18 +273,6 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	ResultComposer resultComposer(env, arg);
-#if 0
-	Value value;
-	size_t n = 0;
-	for ( ; pIterator->Next(env, value); n++) {
-		if (!resultComposer.AddValue(env, value)) return Value::Nil;
-	}
-	if (n == 0 && !arg.IsResultVoid() && !arg.IsResultReduce() && !arg.IsResultXReduce()) {
-		Value valueResult;
-		valueResult.InitAsList(env);
-		return valueResult;
-	}
-#endif
 	if (!resultComposer.AddValues(env, pIterator.get())) return Value::Nil;
 	if (resultComposer.CountAdded() == 0 &&
 			!arg.IsResultVoid() && !arg.IsResultReduce() && !arg.IsResultXReduce()) {

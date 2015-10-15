@@ -87,21 +87,6 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 	}
 	foreach_const (SymbolSet, ppSymbol, pExprIdentifier->GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
-#if 0
-		if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
-			flags |= FLAG_NoMap;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(nil))) {
-			flags |= FLAG_Nil;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(r))) {
-			flags |= FLAG_Read;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(w))) {
-			flags |= FLAG_Write;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(nocast))) {
-			flags |= FLAG_NoCast;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(privileged))) {
-			flags |= FLAG_Privileged;
-		}
-#endif
 		ULong flag = Symbol::ToFlag(pSymbol);
 		if (flag != 0) {
 			flags |= flag;
@@ -200,32 +185,6 @@ String Declaration::ToString() const
 		str += ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName();
 	}
 	str += Symbol::MakeAttrForFlags(_flags & ~FLAG_ListVar, 0);
-#if 0
-	if (GetFlag(FLAG_NoMap)) {
-		str += ":";
-		str += Gura_Symbol(nomap)->GetName();
-	}
-	if (GetFlag(FLAG_Nil)) {
-		str += ":";
-		str += Gura_Symbol(nil)->GetName();
-	}
-	if (GetFlag(FLAG_Read)) {
-		str += ":";
-		str += Gura_Symbol(r)->GetName();
-	}
-	if (GetFlag(FLAG_Write)) {
-		str += ":";
-		str += Gura_Symbol(w)->GetName();
-	}
-	if (GetFlag(FLAG_NoCast)) {
-		str += ":";
-		str += Gura_Symbol(nocast)->GetName();
-	}
-	if (GetFlag(FLAG_Privileged)) {
-		str += ":";
-		str += Gura_Symbol(privileged)->GetName();
-	}
-#endif
 	if (!_pExprDefault.IsNull()) {
 		str += " ";
 		str += "=>";

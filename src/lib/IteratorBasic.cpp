@@ -449,14 +449,6 @@ String Iterator_ImplicitMap::ToString() const
 	String str;
 	str += "implicitmap(";
 	str += _pArg->GetFunction()->GetName();
-#if 0
-	str += ";";
-	foreach_const (IteratorOwner, ppIterator, _iterOwner) {
-		const Iterator *pIterator = *ppIterator;
-		if (ppIterator != _iterOwner.begin()) str += ",";
-		str += pIterator->ToString();
-	}
-#endif
 	str += ")";
 	return str;
 }
