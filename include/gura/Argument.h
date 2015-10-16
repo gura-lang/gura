@@ -79,7 +79,8 @@ public:
 				(_pIteratorMap->Next(env, _value) &&
 				 (_pDecl->IsVariableLength() || _pDecl->ValidateAndCast(env, _value)));
 		}
-		bool SetValue(Environment &env, const Value &value, bool mapFlag, MapMode *pMapMode);
+		bool StoreValue(Environment &env, const Value &value, bool mapFlag, MapMode *pMapMode);
+		bool UpdateValue(Environment &env, const Value &value);
 	};
 	class Slots : public std::vector<Slot> {
 	public:
@@ -181,7 +182,7 @@ public:
 		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && AddValue(env, v4);
 	}
 	bool AddValues(Environment &env, const ValueList &valList);
-	bool SetValue(Environment &env, size_t iSlot, const Value &value);
+	bool UpdateValue(Environment &env, size_t iSlot, const Value &value);
 	void SetIteratorThis(Iterator *pIteratorThis);
 	bool IsSet(const Symbol *pSymbol) const;
 	bool Complete(Environment &env);
