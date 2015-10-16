@@ -183,6 +183,7 @@ public:
 	}
 	bool AddValues(Environment &env, const ValueList &valList);
 	bool UpdateValue(Environment &env, size_t iSlot, const Value &value);
+	bool UpdateValues(Environment &env, const ValueList &valList);
 	void SetIteratorThis(Iterator *pIteratorThis);
 	bool IsSet(const Symbol *pSymbol) const;
 	bool Complete(Environment &env);

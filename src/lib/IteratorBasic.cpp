@@ -1967,7 +1967,8 @@ Iterator_while::Iterator_while(Environment *pEnv, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, Expr *pExpr) :
 		Iterator(false, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
-		_pIteratorNest(nullptr), _pExpr(Expr::Reference(pExpr)), _idx(0), _doneFlag(false)
+		_pIteratorNest(nullptr), _pExpr(Expr::Reference(pExpr)), _idx(0), _doneFlag(false),
+		_pArg(new Argument(pFuncBlock))
 {
 }
 
@@ -1983,9 +1984,10 @@ bool Iterator_while::DoNext(Environment &env, Value &value)
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			if (!_pExpr->Exec(*_pEnv).GetBoolean()) return false;
-			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
-			value = _pFuncBlock->Eval(*_pEnv, *pArg);
+			//AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
+			//if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
+			if (!_pArg->UpdateValue(env, 0, Value(static_cast<Number>(_idx)))) return false;
+			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
@@ -2038,7 +2040,8 @@ Iterator_for::Iterator_for(Environment *pEnv, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg) :
 		Iterator(false, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
-		_pIteratorNest(nullptr), _idx(0), _doneFlag(false)
+		_pIteratorNest(nullptr), _idx(0), _doneFlag(false),
+		_pArg(new Argument(pFuncBlock))
 {
 	PrepareRepeaterIterators(*_pEnv, valListArg, _exprLeftList, _iteratorOwner);
 }
@@ -2069,9 +2072,10 @@ bool Iterator_for::DoNext(Environment &env, Value &value)
 				ppExprLeft++;
 			}
 			if (_doneFlag) return false;
-			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
-			value = _pFuncBlock->Eval(*_pEnv, *pArg);
+			//AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
+			//if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
+			if (!_pArg->UpdateValue(env, 0, Value(static_cast<Number>(_idx)))) return false;
+			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
@@ -2125,7 +2129,8 @@ Iterator_cross::Iterator_cross(Environment *pEnv, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg) :
 		Iterator(false, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
-		_pIteratorNest(nullptr), _idx(0), _doneFlag(true)
+		_pIteratorNest(nullptr), _idx(0), _doneFlag(true),
+		_pArg(new Argument(pFuncBlock))
 {
 	Signal &sig = pEnv->GetSignal();
 	if (!PrepareRepeaterIterators(*_pEnv, valListArg,
@@ -2166,9 +2171,10 @@ bool Iterator_cross::DoNext(Environment &env, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			if (_doneFlag) return false;
 			_valListArg[0] = Value(_idx);
-			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			if (!pArg->AddValues(env, _valListArg)) return false;
-			value = _pFuncBlock->Eval(*_pEnv, *pArg);
+			//AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
+			//if (!pArg->AddValues(env, _valListArg)) return false;
+			if (!_pArg->UpdateValues(env, _valListArg)) return false;
+			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();

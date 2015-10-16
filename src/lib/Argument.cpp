@@ -189,6 +189,17 @@ bool Argument::UpdateValue(Environment &env, size_t iSlot, const Value &value)
 	return (iSlot >= _slots.size()) || _slots[iSlot].UpdateValue(env, value);
 }
 
+bool Argument::UpdateValues(Environment &env, const ValueList &valList)
+{
+	Slots::iterator pSlot = _slots.begin();
+	foreach_const (ValueList, pValue, valList) {
+		if (pSlot == _slots.end()) break;
+		if (!pSlot->UpdateValue(env, *pValue)) return false;
+		pSlot++;
+	}
+	return true;
+}
+
 bool Argument::Complete(Environment &env)
 {
 	bool mapFlag = GetFlag(FLAG_Map);

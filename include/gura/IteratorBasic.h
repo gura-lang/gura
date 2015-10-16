@@ -847,6 +847,7 @@ private:
 	AutoPtr<Expr> _pExpr;
 	int _idx;
 	bool _doneFlag;
+	AutoPtr<Argument> _pArg;
 public:
 	Iterator_while(Environment *pEnv, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, Expr *pExpr);
@@ -869,6 +870,7 @@ private:
 	IteratorOwner _iteratorOwner;
 	int _idx;
 	bool _doneFlag;
+	AutoPtr<Argument> _pArg;
 public:
 	Iterator_for(Environment *pEnv, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg);
@@ -893,6 +895,7 @@ private:
 	ValueList _valListArg;
 	int _idx;
 	bool _doneFlag;
+	AutoPtr<Argument> _pArg;
 public:
 	Iterator_cross(Environment *pEnv, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg);
