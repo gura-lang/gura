@@ -170,18 +170,18 @@ public:
 		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Quit);
 	}
 	bool EvalExpr(Environment &env, const ExprList &exprListArg);
-	bool AddValue(Environment &env, const Value &value);
-	inline bool AddValue(Environment &env, const Value &v1, const Value &v2) {
-		return AddValue(env, v1) && AddValue(env, v2);
+	bool StoreValue(Environment &env, const Value &value);
+	inline bool StoreValue(Environment &env, const Value &v1, const Value &v2) {
+		return StoreValue(env, v1) && StoreValue(env, v2);
 	}
-	inline bool AddValue(Environment &env, const Value &v1, const Value &v2, const Value &v3) {
-		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3);
+	inline bool StoreValue(Environment &env, const Value &v1, const Value &v2, const Value &v3) {
+		return StoreValue(env, v1) && StoreValue(env, v2) && StoreValue(env, v3);
 	}
-	inline bool AddValue(Environment &env, const Value &v1, const Value &v2,
+	inline bool StoreValue(Environment &env, const Value &v1, const Value &v2,
 						 const Value &v3, const Value &v4) {
-		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && AddValue(env, v4);
+		return StoreValue(env, v1) && StoreValue(env, v2) && StoreValue(env, v3) && StoreValue(env, v4);
 	}
-	bool AddValues(Environment &env, const ValueList &valList);
+	bool StoreValues(Environment &env, const ValueList &valList);
 	bool UpdateValue(Environment &env, size_t iSlot, const Value &value);
 	bool UpdateValues(Environment &env, const ValueList &valList);
 	void SetIteratorThis(Iterator *pIteratorThis);

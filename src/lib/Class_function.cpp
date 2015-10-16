@@ -137,7 +137,7 @@ Value Object_function::Eval(Environment &env, const Value &v1) const
 {
 	AutoPtr<Argument> pArg(new Argument(GetFunction()));
 	pArg->SetValueThis(_valueThis);
-	if (pArg->AddValue(env, v1) && pArg->Complete(env)) {
+	if (pArg->StoreValue(env, v1) && pArg->Complete(env)) {
 		return GetFunction()->Eval(env, *pArg);
 	}
 	return Value::Nil;
@@ -147,7 +147,7 @@ Value Object_function::Eval(Environment &env, const Value &v1, const Value &v2) 
 {
 	AutoPtr<Argument> pArg(new Argument(GetFunction()));
 	pArg->SetValueThis(_valueThis);
-	if (pArg->AddValue(env, v1, v2) && pArg->Complete(env)) {
+	if (pArg->StoreValue(env, v1, v2) && pArg->Complete(env)) {
 		return GetFunction()->Eval(env, *pArg);
 	}
 	return Value::Nil;
@@ -158,7 +158,7 @@ Value Object_function::Eval(Environment &env, const Value &v1,
 {
 	AutoPtr<Argument> pArg(new Argument(GetFunction()));
 	pArg->SetValueThis(_valueThis);
-	if (pArg->AddValue(env, v1, v2, v3) && pArg->Complete(env)) {
+	if (pArg->StoreValue(env, v1, v2, v3) && pArg->Complete(env)) {
 		return GetFunction()->Eval(env, *pArg);
 	}
 	return Value::Nil;
@@ -169,7 +169,7 @@ Value Object_function::Eval(Environment &env, const Value &v1,
 {
 	AutoPtr<Argument> pArg(new Argument(GetFunction()));
 	pArg->SetValueThis(_valueThis);
-	if (pArg->AddValue(env, v1, v2, v3, v4) && pArg->Complete(env)) {
+	if (pArg->StoreValue(env, v1, v2, v3, v4) && pArg->Complete(env)) {
 		return GetFunction()->Eval(env, *pArg);
 	}
 	return Value::Nil;
@@ -179,7 +179,7 @@ Value Object_function::Eval(Environment &env, const ValueList &valList) const
 {
 	AutoPtr<Argument> pArg(new Argument(GetFunction()));
 	pArg->SetValueThis(_valueThis);
-	if (pArg->AddValues(env, valList) && pArg->Complete(env)) {
+	if (pArg->StoreValues(env, valList) && pArg->Complete(env)) {
 		return GetFunction()->Eval(env, *pArg);
 	}
 	return Value::Nil;

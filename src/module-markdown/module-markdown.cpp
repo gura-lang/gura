@@ -3009,17 +3009,17 @@ bool HelpPresenter_markdown::DoPresent(Environment &env,
 	//ValueList valListArg;
 	AutoPtr<Argument> pArg(new Argument(g_pFunc_Presenter.get()));
 	if (title == nullptr) {
-		if (!pArg->AddValue(env, Value::Nil)) return false;
+		if (!pArg->StoreValue(env, Value::Nil)) return false;
 	} else {
-		if (!pArg->AddValue(env, Value(title))) return false;
+		if (!pArg->StoreValue(env, Value(title))) return false;
 	}
 	if (pHelp == nullptr) {
-		if (!pArg->AddValue(env, Value::Nil)) return false;
+		if (!pArg->StoreValue(env, Value::Nil)) return false;
 	} else {
 		AutoPtr<Document> pDocument(new Document());
 		SimpleStream_CStringReader streamSrc(pHelp->GetText());
 		if (!pDocument->ParseStream(sig, streamSrc)) return false;
-		if (!pArg->AddValue(env, Value(new Object_document(pDocument->Reference())))) return false;
+		if (!pArg->StoreValue(env, Value(new Object_document(pDocument->Reference())))) return false;
 	}
 	g_pFunc_Presenter->Eval(env, *pArg);
 	return !sig.IsSignalled();

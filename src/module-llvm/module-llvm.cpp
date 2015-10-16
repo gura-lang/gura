@@ -317,7 +317,7 @@ extern "C" bool GuraStub_CallFunction(
 			Value valueResult;
 			bridgeFuncArg(env, valueThis, valueResult);
 			if (sig.IsSignalled()) return false;
-			if (!pArg->AddValue(env, valueResult)) return false;
+			if (!pArg->StoreValue(env, valueResult)) return false;
 		}
 		Gura_CopyValue(valueResult, pFunc->Eval(env, *pArg));
 		return sig.IsNoSignalled();

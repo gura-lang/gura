@@ -1153,7 +1153,7 @@ String DoSubWithFunc(Environment &env, Signal &sig, regex_t *pRegEx,
 				goto error_done;
 			}
 			AutoPtr<Argument> pArg(new Argument(pFunc));
-			if (!pArg->AddValue(env, Value(pObj))) goto error_done;
+			if (!pArg->StoreValue(env, Value(pObj))) goto error_done;
 			Value resultFunc = pFunc->Eval(env, *pArg);
 			if (sig.IsSignalled()) goto error_done;
 			result += String(str + idx, rtn - idx);

@@ -627,7 +627,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			const ValueList &valList = valueRight.GetList();
 			if (valList.IsFlat()) {
 				AutoPtr<Argument> pArgSub(new Argument(pFunc));
-				if (!pArgSub->AddValues(env, valList)) return Value::Nil;
+				if (!pArgSub->StoreValues(env, valList)) return Value::Nil;
 				if (!pArgSub->Complete(env)) return Value::Nil;
 				return pFunc->Eval(env, *pArgSub);
 			}
@@ -1005,9 +1005,9 @@ Value Operator_Mod::EvalMapBinary(Environment &env,
 		AutoPtr<Argument> pArgSub(new Argument(pFunc));
 		pArgSub->SetValueThis(valueThis);
 		if (!valueRight.Is_list() || pFunc->IsUnary()) {
-			if (!pArgSub->AddValue(env, valueRight)) return Value::Nil;
+			if (!pArgSub->StoreValue(env, valueRight)) return Value::Nil;
 		} else {
-			if (!pArgSub->AddValues(env, valueRight.GetList())) return Value::Nil;
+			if (!pArgSub->StoreValues(env, valueRight.GetList())) return Value::Nil;
 		}
 		return pFunc->EvalAuto(env, *pArgSub);
 	} else if (valueLeft.Is_string()) {

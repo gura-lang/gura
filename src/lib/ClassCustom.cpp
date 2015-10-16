@@ -99,7 +99,7 @@ bool ClassCustom::CastFrom(Environment &env, Value &value, const Declaration *pD
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);
-	if (!pArg->AddValue(env, value)) return false;
+	if (!pArg->StoreValue(env, value)) return false;
 	value = pFunc->Eval(*pEnvLocal, *pArg);
 	if (sig.IsSignalled()) return false;
 	return true;
@@ -114,7 +114,7 @@ bool ClassCustom::CastTo(Environment &env, Value &value, const Declaration &decl
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(value);
-	if (!pArg->AddValue(env, Value(new Object_declaration(env, decl.Reference())))) return false;
+	if (!pArg->StoreValue(env, Value(new Object_declaration(env, decl.Reference())))) return false;
 	value = pFunc->Eval(*pEnvLocal, *pArg);
 	if (sig.IsSignalled()) return false;
 	return true;
@@ -244,7 +244,7 @@ bool ClassCustom::Format_X(Signal &sig, Formatter *pFormatter,
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(value);
-	if (!pArg->AddValue(*pEnvLocal, Value(new Object_formatter(*pEnvLocal, flags)))) return false;
+	if (!pArg->StoreValue(*pEnvLocal, Value(new Object_formatter(*pEnvLocal, flags)))) return false;
 	Value valueRtn = pFunc->Eval(*pEnvLocal, *pArg);
 	if (sig.IsSignalled()) return false;
 	if (!valueRtn.MustBe_string(sig)) return false;

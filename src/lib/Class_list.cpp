@@ -495,7 +495,7 @@ bool Object_list::Comparator_Custom::
 	Signal &sig = _env.GetSignal();
 	if (sig.IsSignalled()) return false;
 	AutoPtr<Argument> pArgSub(new Argument(_pFunc));
-	if (!pArgSub->AddValue(_env, *pValue1, *pValue2)) return false;
+	if (!pArgSub->StoreValue(_env, *pValue1, *pValue2)) return false;
 	Value value = _pFunc->Eval(_env, *pArgSub);
 	return value.GetNumber() < 0;
 }
@@ -730,7 +730,7 @@ Gura_ImplementFunction(ListInit)
 				return Value::Nil;
 			}
 			AutoPtr<Argument> pArgSub(new Argument(pFunc));
-			if (!pArgSub->AddValues(env, value.GetList())) return Value::Nil;
+			if (!pArgSub->StoreValues(env, value.GetList())) return Value::Nil;
 			Value valueElem = pFunc->Eval(env, *pArgSub);
 			if (sig.IsSignalled()) return Value::Nil;
 			valList.push_back(valueElem);

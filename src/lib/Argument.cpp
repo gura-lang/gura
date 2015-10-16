@@ -138,7 +138,7 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 		} else if (_pSlotCur->GetDeclaration().IsQuote()) {
 			// func(..., `var, ...)
 			Value value(new Object_expr(env, Expr::Reference(pExprArg)));
-			if (!AddValue(env, value)) return false;
+			if (!StoreValue(env, value)) return false;
 		} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Symbol::Ast)) {
 			// func(..., value*, ...)
 			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
@@ -147,22 +147,22 @@ bool Argument::EvalExpr(Environment &env, const ExprList &exprListArg)
 			if (value.Is_list()) {
 				const ValueList &valList = value.GetList();
 				foreach_const (ValueList, pValue, valList) {
-					if (!AddValue(env, *pValue)) return false;
+					if (!StoreValue(env, *pValue)) return false;
 				}
-			} else if (!AddValue(env, value)) {
+			} else if (!StoreValue(env, value)) {
 				return false;
 			}
 		} else {
 			// func(..., value, ...)
 			Value value = pExprArg->Exec(env, nullptr);
 			if (sig.IsSignalled()) return false;
-			if (!AddValue(env, value)) return false;
+			if (!StoreValue(env, value)) return false;
 		}
 	}
 	return Complete(env);
 }
 
-bool Argument::AddValue(Environment &env, const Value &value)
+bool Argument::StoreValue(Environment &env, const Value &value)
 {
 	if (_pSlotCur != _slots.end()) {
 		if (!_pSlotCur->StoreValue(env, value, GetFlag(FLAG_Map), &_mapMode)) return false;
@@ -176,10 +176,10 @@ bool Argument::AddValue(Environment &env, const Value &value)
 	}
 }
 
-bool Argument::AddValues(Environment &env, const ValueList &valList)
+bool Argument::StoreValues(Environment &env, const ValueList &valList)
 {
 	foreach_const (ValueList, pValue, valList) {
-		if (!AddValue(env, *pValue)) return false;
+		if (!StoreValue(env, *pValue)) return false;
 	}
 	return true;
 }

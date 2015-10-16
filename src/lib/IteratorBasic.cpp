@@ -739,14 +739,14 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 	if (valueArg.Is_list()) {
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 		pArg->SetValueThis(_valueThis);
-		if (!pArg->AddValues(env, valueArg.GetList())) return false;
+		if (!pArg->StoreValues(env, valueArg.GetList())) return false;
 		if (!pArg->Complete(*_pEnv)) return false;
 		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
 	} else {
 		AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 		pArg->SetValueThis(_valueThis);
-		if (!pArg->AddValue(env, valueArg)) return false;
+		if (!pArg->StoreValue(env, valueArg)) return false;
 		if (!pArg->Complete(*_pEnv)) return false;
 		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
@@ -1854,10 +1854,10 @@ bool Iterator_Repeater::DoNext(Environment &env, Value &value)
 			Value valueSrc;
 			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
 			if (!_pIteratorSrc->Next(env, valueSrc)) return false;
-			if (!pArg->AddValue(env, valueSrc)) return false;
+			if (!pArg->StoreValue(env, valueSrc)) return false;
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
 					pIteratorSrc != nullptr; pIteratorSrc = pIteratorSrc->GetSource()) {
-				if (!pArg->AddValue(env, Value(static_cast<Number>(
+				if (!pArg->StoreValue(env, Value(static_cast<Number>(
 												   pIteratorSrc->GetIndexCur())))) return false;
 			}
 			value = _pFuncBlock->Eval(*_pEnv, *pArg);
@@ -1932,7 +1932,7 @@ bool Iterator_repeat::DoNext(Environment &env, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			if (_cnt >= 0 && _idx >= _cnt) return false;
 			//AutoPtr<Argument> _pArg(new Argument(_pFuncBlock.get()));
-			//if (!_pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
+			//if (!_pArg->StoreValue(env, Value(static_cast<Number>(_idx)))) return false;
 			if (!_pArg->UpdateValue(env, 0, Value(static_cast<Number>(_idx)))) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
@@ -2005,7 +2005,7 @@ bool Iterator_while::DoNext(Environment &env, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			if (!_pExpr->Exec(*_pEnv).GetBoolean()) return false;
 			//AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			//if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
+			//if (!pArg->StoreValue(env, Value(static_cast<Number>(_idx)))) return false;
 			if (!_pArg->UpdateValue(env, 0, Value(static_cast<Number>(_idx)))) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
@@ -2093,7 +2093,7 @@ bool Iterator_for::DoNext(Environment &env, Value &value)
 			}
 			if (_doneFlag) return false;
 			//AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			//if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
+			//if (!pArg->StoreValue(env, Value(static_cast<Number>(_idx)))) return false;
 			if (!_pArg->UpdateValue(env, 0, Value(static_cast<Number>(_idx)))) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
@@ -2192,7 +2192,7 @@ bool Iterator_cross::DoNext(Environment &env, Value &value)
 			if (_doneFlag) return false;
 			_valListArg[0] = Value(_idx);
 			//AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			//if (!pArg->AddValues(env, _valListArg)) return false;
+			//if (!pArg->StoreValues(env, _valListArg)) return false;
 			if (!_pArg->UpdateValues(env, _valListArg)) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
