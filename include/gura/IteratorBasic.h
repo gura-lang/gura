@@ -825,6 +825,7 @@ private:
 	int _cnt;
 	int _idx;
 	bool _doneFlag;
+	AutoPtr<Argument> _pArg;
 public:
 	Iterator_repeat(Environment *pEnv, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, int cnt);

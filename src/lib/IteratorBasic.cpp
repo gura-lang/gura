@@ -1894,7 +1894,8 @@ Iterator_repeat::Iterator_repeat(Environment *pEnv, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, int cnt) :
 		Iterator(cnt < 0, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
-		_pIteratorNest(nullptr), _cnt(cnt), _idx(0), _doneFlag(false)
+		_pIteratorNest(nullptr), _cnt(cnt), _idx(0), _doneFlag(false),
+		_pArg(new Argument(pFuncBlock))
 {
 }
 
@@ -1907,14 +1908,13 @@ bool Iterator_repeat::DoNext(Environment &env, Value &value)
 {
 	Signal &sig = env.GetSignal();
 	if (_doneFlag) return false;
-	//AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			if (_cnt >= 0 && _idx >= _cnt) return false;
-			AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			if (!pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
-			//if (!pArg->UpdateValue(env, 0, Value(static_cast<Number>(_idx)))) return false;
-			value = _pFuncBlock->Eval(*_pEnv, *pArg);
+			//AutoPtr<Argument> _pArg(new Argument(_pFuncBlock.get()));
+			//if (!_pArg->AddValue(env, Value(static_cast<Number>(_idx)))) return false;
+			if (!_pArg->UpdateValue(env, 0, Value(static_cast<Number>(_idx)))) return false;
+			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
