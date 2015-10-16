@@ -466,7 +466,8 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 //-----------------------------------------------------------------------------
 Iterator_UnaryOperatorMap::Iterator_UnaryOperatorMap(Environment *pEnv,
 				const Operator *pOperator, const Value &value, bool suffixFlag) :
-	Iterator(false), _pEnv(pEnv), _pOperator(pOperator), _suffixFlag(suffixFlag)
+	Iterator(false), _pEnv(pEnv), _pOperator(pOperator), _suffixFlag(suffixFlag),
+	_pOperatorEntry(nullptr), _valTypePrev(VTYPE_undefined)
 {
 	Signal &sig = pEnv->GetSignal();
 	if (value.IsListOrIterator()) {
@@ -493,7 +494,15 @@ bool Iterator_UnaryOperatorMap::DoNext(Environment &env, Value &value)
 	Signal &sig = env.GetSignal();
 	Value valueArg;
 	if (!_pIterator->Next(env, valueArg)) return false;
+#if 1
+	if (_valTypePrev != valueArg.GetValueType()) {
+		_valTypePrev = valueArg.GetValueType();
+		_pOperatorEntry = _pOperator->Lookup(_valTypePrev, _suffixFlag);
+	}
+	value = _pOperatorEntry->DoEval(env, valueArg);
+#else
 	value = _pOperator->EvalUnary(*_pEnv, valueArg, _suffixFlag);
+#endif
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -522,7 +531,8 @@ void Iterator_UnaryOperatorMap::GatherFollower(Environment::Frame *pFrame, Envir
 //-----------------------------------------------------------------------------
 Iterator_BinaryOperatorMap::Iterator_BinaryOperatorMap(Environment *pEnv,
 		const Operator *pOperator, const Value &valueLeft, const Value &valueRight) :
-	Iterator(false), _pEnv(pEnv), _pOperator(pOperator)
+	Iterator(false), _pEnv(pEnv), _pOperator(pOperator),
+	_pOperatorEntry(nullptr), _valTypeLeftPrev(VTYPE_undefined), _valTypeRightPrev(VTYPE_undefined)
 {
 	Signal &sig = pEnv->GetSignal();
 	if (valueLeft.IsListOrIterator()) {
@@ -556,7 +566,17 @@ bool Iterator_BinaryOperatorMap::DoNext(Environment &env, Value &value)
 	Value valueLeft, valueRight;
 	if (!_pIteratorLeft->Next(env, valueLeft) ||
 			!_pIteratorRight->Next(env, valueRight)) return false;
+#if 1
+	if (_valTypeLeftPrev != valueLeft.GetValueType() ||
+				_valTypeRightPrev != valueRight.GetValueType()) {
+		_valTypeLeftPrev = valueLeft.GetValueType();
+		_valTypeRightPrev = valueRight.GetValueType();
+		_pOperatorEntry = _pOperator->Lookup(_valTypeLeftPrev, _valTypeRightPrev);
+	}
+	value = _pOperatorEntry->DoEval(env, valueLeft, valueRight);
+#else
 	value = _pOperator->EvalBinary(*_pEnv, valueLeft, valueRight);
+#endif
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -611,8 +631,8 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 	if (env.IsSignalled()) return false;
 	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(
-			env, Function::Reference(value.GetFunction()));
-		pObj->SetValueThis(valueThisEach);
+			env, Function::Reference(value.GetFunction()), valueThisEach);
+		//pObj->SetValueThis(valueThisEach);
 		value = Value(pObj);
 	}
 	return true;

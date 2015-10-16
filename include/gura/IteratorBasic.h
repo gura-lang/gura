@@ -263,6 +263,8 @@ private:
 	const Operator *_pOperator;
 	AutoPtr<Iterator> _pIterator;
 	bool _suffixFlag;
+	const OperatorEntry *_pOperatorEntry;
+	ValueType _valTypePrev;
 public:
 	Iterator_UnaryOperatorMap(Environment *pEnv,
 				const Operator *pOperator, const Value &value, bool suffixFlag);
@@ -282,6 +284,8 @@ private:
 	const Operator *_pOperator;
 	AutoPtr<Iterator> _pIteratorLeft;
 	AutoPtr<Iterator> _pIteratorRight;
+	const OperatorEntry *_pOperatorEntry;
+	ValueType _valTypeLeftPrev, _valTypeRightPrev;
 public:
 	Iterator_BinaryOperatorMap(Environment *pEnv,
 		const Operator *pOperator, const Value &valueLeft, const Value &valueRight);
