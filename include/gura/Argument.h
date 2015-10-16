@@ -181,6 +181,7 @@ public:
 		return AddValue(env, v1) && AddValue(env, v2) && AddValue(env, v3) && AddValue(env, v4);
 	}
 	bool AddValues(Environment &env, const ValueList &valList);
+	bool SetValue(Environment &env, size_t iSlot, const Value &value);
 	void SetIteratorThis(Iterator *pIteratorThis);
 	bool IsSet(const Symbol *pSymbol) const;
 	bool Complete(Environment &env);

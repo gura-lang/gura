@@ -184,6 +184,12 @@ bool Argument::AddValues(Environment &env, const ValueList &valList)
 	return true;
 }
 
+bool Argument::SetValue(Environment &env, size_t iSlot, const Value &value)
+{
+	return (iSlot >= _slots.size()) ||
+		_slots[iSlot].SetValue(env, value, GetFlag(FLAG_Map), &_mapMode);
+}
+
 bool Argument::Complete(Environment &env)
 {
 	bool mapFlag = GetFlag(FLAG_Map);

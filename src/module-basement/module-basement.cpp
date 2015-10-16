@@ -191,8 +191,7 @@ Gura_DeclareFunction(cross)
 Gura_ImplementFunction(cross)
 {
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
+	const Function *pFuncBlock = arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
 	bool skipInvalidFlag = arg.IsResultXList() || arg.IsResultXSet() || arg.IsResultXIterator();
 	bool genIterFlag = arg.IsResultIterator() || arg.IsResultXIterator();
@@ -221,8 +220,7 @@ Gura_DeclareFunctionAlias(for_, "for")
 Gura_ImplementFunction(for_)
 {
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
+	const Function *pFuncBlock = arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
 	bool skipInvalidFlag = arg.IsResultXList() || arg.IsResultXSet() || arg.IsResultXIterator();
 	bool genIterFlag = arg.IsResultIterator() || arg.IsResultXIterator();
@@ -250,8 +248,7 @@ Gura_DeclareFunction(repeat)
 Gura_ImplementFunction(repeat)
 {
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
+	const Function *pFuncBlock = arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
 	bool skipInvalidFlag = arg.IsResultXList() || arg.IsResultXSet() || arg.IsResultXIterator();
 	bool genIterFlag = arg.IsResultIterator() || arg.IsResultXIterator();
@@ -278,8 +275,7 @@ Gura_DeclareFunctionAlias(while_, "while")
 Gura_ImplementFunction(while_)
 {
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
+	const Function *pFuncBlock = arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
 	bool skipInvalidFlag = arg.IsResultXList() || arg.IsResultXSet() || arg.IsResultXIterator();
 	bool genIterFlag = arg.IsResultIterator() || arg.IsResultXIterator();
@@ -398,8 +394,7 @@ bool Func_dim_Sub(Environment &env, const Function *pFuncBlock, ValueList &valLi
 Gura_ImplementFunction(dim)
 {
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
+	const Function *pFuncBlock = arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	const ValueList &valListArg = arg.GetList(0);
 	size_t nArgs = valListArg.size();
 	IntList cntList, idxList;
@@ -882,8 +877,7 @@ Gura_ImplementFunction(catch_)
 	arg.QuitTrailer();
 	Object_error *pObj = new Object_error(env, sig.GetError());
 	sig.ClearSignal(); // clear even the suspended state
-	const Function *pFuncBlock =
-						arg.GetBlockFunc(env, GetSymbolForBlock());
+	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	AutoPtr<Argument> pArgSub(new Argument(pFuncBlock));
