@@ -68,13 +68,13 @@ private:
 	UShort _valType;				// 2 bytes
 	UShort _valFlags;				// 2 bytes
 	union {							// 8 bytes
-		char tinyBuff[1];
-		bool flag;					// boolean
-		Complex *pComp;				// complex
-		Number num;					// number
-		Rational *pRatio;			// rational
+		char tinyBuff[1];			// string (tiny buffer) .. dumb copiable
+		bool flag;					// boolean .. dumb copiable
+		Number num;					// number .. dumb copiable
+		const Symbol *pSymbol;		// symbol .. dumb copiable
 		StringShared *pStrShrd;		// string
-		const Symbol *pSymbol;		// symbol
+		Complex *pComp;				// complex
+		Rational *pRatio;			// rational
 		Fundamental *pFund;			// Module/Class/object
 	} _u;
 public:
@@ -174,9 +174,11 @@ public:
 											{ return _valType == valType;					}
 	inline bool IsInvalid() const			{ return _valType <= VTYPE_nil;					}
 	inline bool IsValid() const				{ return _valType > VTYPE_nil;					}
-	inline bool IsPrimitive() const			{ return _valType <= VTYPE_symbol;				}
+	inline bool IsPrimitive() const			{ return _valType <= VTYPE_rational;			}
 	inline bool IsFundamental() const		{ return _valType >= VTYPE_Module;				}
 	inline bool IsObject() const			{ return _valType >= VTYPE_object;				}
+	inline bool IsDumbCopiable() const
+									{ return _valType <= VTYPE_symbol || GetTinyBuffFlag();	}
 	// invalid types
 	inline bool IsUndefined() const			{ return IsType(VTYPE_undefined);				}
 	inline bool IsDefined() const			{ return !IsUndefined();						}

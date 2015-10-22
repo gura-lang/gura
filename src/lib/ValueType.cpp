@@ -9,18 +9,18 @@ namespace Gura {
 // Built-in Value Types
 //-----------------------------------------------------------------------------
 // invalid types
-ValueType VTYPE_undefined		= static_cast<ValueType>(0);
-ValueType VTYPE_nil				= static_cast<ValueType>(1);
+ValueType VTYPE_undefined		= static_cast<ValueType>(0);	// dumb copiable
+ValueType VTYPE_nil				= static_cast<ValueType>(1);	// dumb copiable
 // pseudo types
-ValueType VTYPE_quote			= static_cast<ValueType>(2);
-ValueType VTYPE_any				= static_cast<ValueType>(3);
+ValueType VTYPE_quote			= static_cast<ValueType>(2);	// dumb copiable
+ValueType VTYPE_any				= static_cast<ValueType>(3);	// dumb copiable
 // primitive types
-ValueType VTYPE_boolean			= static_cast<ValueType>(4);
-ValueType VTYPE_complex			= static_cast<ValueType>(5);
-ValueType VTYPE_number			= static_cast<ValueType>(6);
-ValueType VTYPE_rational		= static_cast<ValueType>(7);
-ValueType VTYPE_string			= static_cast<ValueType>(8);
-ValueType VTYPE_symbol			= static_cast<ValueType>(9);
+ValueType VTYPE_boolean			= static_cast<ValueType>(4);	// dumb copiable
+ValueType VTYPE_number			= static_cast<ValueType>(5);	// dumb copiable
+ValueType VTYPE_symbol			= static_cast<ValueType>(6);	// dumb copiable
+ValueType VTYPE_string			= static_cast<ValueType>(7);
+ValueType VTYPE_complex			= static_cast<ValueType>(8);
+ValueType VTYPE_rational		= static_cast<ValueType>(9);
 // container types
 ValueType VTYPE_Module			= static_cast<ValueType>(0);
 ValueType VTYPE_Class			= static_cast<ValueType>(0);
@@ -142,11 +142,11 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(any);									// must be at 4th
 	// primitive types
 	Gura_RealizeVTYPE(boolean);								// must be at 5th
-	Gura_RealizeVTYPE(complex);								// must be at 6th
-	Gura_RealizeVTYPE(number);								// must be at 7th
-	Gura_RealizeVTYPE(rational);							// must be at 8th
-	Gura_RealizeVTYPE(string);								// must be at 9th
-	Gura_RealizeVTYPE(symbol);								// must be at 10th
+	Gura_RealizeVTYPE(number);								// must be at 6th
+	Gura_RealizeVTYPE(symbol);								// must be at 7th
+	Gura_RealizeVTYPE(string);								// must be at 8th
+	Gura_RealizeVTYPE(complex);								// must be at 9th
+	Gura_RealizeVTYPE(rational);							// must be at 10th
 	// container types
 	Gura_RealizeVTYPEAlias(Module,			"module");		// must be at 11th
 	Gura_RealizeVTYPEAlias(Class,			"class");		// must be at 12th
@@ -202,11 +202,11 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(any			)->SetClass(new Class_any(pClass));
 	// primitive types
 	Gura_VTYPEInfo(boolean		)->SetClass(new Class_boolean(pClass));
-	Gura_VTYPEInfo(complex		)->SetClass(new Class_complex(pClass));
 	Gura_VTYPEInfo(number		)->SetClass(new Class_number(pClass));
-	Gura_VTYPEInfo(rational		)->SetClass(new Class_rational(pClass));
-	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
 	Gura_VTYPEInfo(symbol		)->SetClass(new Class_symbol(pClass));
+	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
+	Gura_VTYPEInfo(complex		)->SetClass(new Class_complex(pClass));
+	Gura_VTYPEInfo(rational		)->SetClass(new Class_rational(pClass));
 	// container types
 	Gura_VTYPEInfo(Module		)->SetClass(new Class_Module(pClass));
 	Gura_VTYPEInfo(Class		)->SetClass(new Class_Class(pClass));
@@ -274,11 +274,11 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_any			)->Prepare(env);
 	// primitive types
 	env.LookupClass(VTYPE_boolean		)->Prepare(env);
-	env.LookupClass(VTYPE_complex		)->Prepare(env);
 	env.LookupClass(VTYPE_number		)->Prepare(env);
-	env.LookupClass(VTYPE_rational		)->Prepare(env);
-	env.LookupClass(VTYPE_string		)->Prepare(env);
 	env.LookupClass(VTYPE_symbol		)->Prepare(env);
+	env.LookupClass(VTYPE_string		)->Prepare(env);
+	env.LookupClass(VTYPE_complex		)->Prepare(env);
+	env.LookupClass(VTYPE_rational		)->Prepare(env);
 	// container types
 	env.LookupClass(VTYPE_Module		)->Prepare(env);
 	env.LookupClass(VTYPE_Class			)->Prepare(env);

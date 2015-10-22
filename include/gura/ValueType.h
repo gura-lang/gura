@@ -36,18 +36,18 @@ class Module;
 typedef UShort ValueType;
 
 // invalid types
-GURA_DLLDECLARE extern ValueType VTYPE_undefined;
-GURA_DLLDECLARE extern ValueType VTYPE_nil;
+GURA_DLLDECLARE extern ValueType VTYPE_undefined;	// dumb copiable
+GURA_DLLDECLARE extern ValueType VTYPE_nil;			// dumb copiable
 // pseudo types
-GURA_DLLDECLARE extern ValueType VTYPE_quote;
-GURA_DLLDECLARE extern ValueType VTYPE_any;
+GURA_DLLDECLARE extern ValueType VTYPE_quote;		// dumb copiable
+GURA_DLLDECLARE extern ValueType VTYPE_any;			// dumb copiable
 // primitive types
-GURA_DLLDECLARE extern ValueType VTYPE_boolean;
-GURA_DLLDECLARE extern ValueType VTYPE_complex;
-GURA_DLLDECLARE extern ValueType VTYPE_number;
-GURA_DLLDECLARE extern ValueType VTYPE_rational;
+GURA_DLLDECLARE extern ValueType VTYPE_boolean;		// dumb copiable
+GURA_DLLDECLARE extern ValueType VTYPE_number;		// dumb copiable
+GURA_DLLDECLARE extern ValueType VTYPE_symbol;		// dumb copiable
 GURA_DLLDECLARE extern ValueType VTYPE_string;
-GURA_DLLDECLARE extern ValueType VTYPE_symbol;
+GURA_DLLDECLARE extern ValueType VTYPE_complex;
+GURA_DLLDECLARE extern ValueType VTYPE_rational;
 // following types are descendants of fudamental
 // container types
 GURA_DLLDECLARE extern ValueType VTYPE_Module;
@@ -147,11 +147,11 @@ public:
 	Gura_DeclareVTYPE(any);
 	// primitive types
 	Gura_DeclareVTYPE(boolean);
-	Gura_DeclareVTYPE(complex);
 	Gura_DeclareVTYPE(number);
-	Gura_DeclareVTYPE(rational);
-	Gura_DeclareVTYPE(string);
 	Gura_DeclareVTYPE(symbol);
+	Gura_DeclareVTYPE(string);
+	Gura_DeclareVTYPE(complex);
+	Gura_DeclareVTYPE(rational);
 	// container types
 	Gura_DeclareVTYPE(Module);
 	Gura_DeclareVTYPE(Class);
