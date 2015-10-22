@@ -12,25 +12,27 @@ void Gura_CopyValue(Value &valueDst, const Value &valueSrc)
 {
 	valueDst._valType = valueSrc._valType;
 	valueDst._valFlags = valueSrc._valFlags;
+#if 1
+	if (valueSrc.IsDumbCopiable()) {
+		valueDst._u = valueSrc._u;
+#else
 	if (valueSrc.GetTinyBuffFlag()) {
 		valueDst._u = valueSrc._u;
 	} else if (valueSrc.Is_boolean()) {
 		valueDst._u.flag = valueSrc._u.flag;
-	} else if (valueSrc.Is_complex()) {
-		valueDst._u.pComp = new Complex(*valueSrc._u.pComp);
 	} else if (valueSrc.Is_number()) {
 		valueDst._u.num = valueSrc._u.num;
-	} else if (valueSrc.Is_rational()) {
-		valueDst._u.pRatio = new Rational(*valueSrc._u.pRatio);
-	} else if (valueSrc.Is_string()) {
-		valueDst._u.pStrShrd = valueSrc._u.pStrShrd->Reference();
 	} else if (valueSrc.Is_symbol()) {
 		valueDst._u.pSymbol = valueSrc._u.pSymbol;
+#endif
+	} else if (valueSrc.Is_string()) {
+		valueDst._u.pStrShrd = valueSrc._u.pStrShrd->Reference();
 	} else if (valueSrc.IsFundamental()) {
 		valueDst._u.pFund = Fundamental::Reference(valueSrc._u.pFund);
-	} else {
-		// nothing to do
-		//valueDst._valType = VTYPE_nil;
+	} else if (valueSrc.Is_complex()) {
+		valueDst._u.pComp = new Complex(*valueSrc._u.pComp);
+	} else if (valueSrc.Is_rational()) {
+		valueDst._u.pRatio = new Rational(*valueSrc._u.pRatio);
 	}
 }
 
@@ -38,33 +40,33 @@ void Gura_ReleaseValue(Value &value)
 {
 	if (value.GetTinyBuffFlag()) {
 		// nothing to do
-	} else if (value.Is_complex()) {
-		delete value._u.pComp;
-		value._u.pComp = nullptr;
-	} else if (value.Is_rational()) {
-		delete value._u.pRatio;
-		value._u.pRatio = nullptr;
 	} else if (value.Is_string()) {
 		StringShared::Delete(value._u.pStrShrd);
 		value._u.pStrShrd = nullptr;
 	} else if (value.IsFundamental()) {
 		if (value.IsFundOwner()) Fundamental::Delete(value._u.pFund);
 		value._u.pFund = nullptr;
-	} else { // Number, Boolean
-		// nothing to do
+	} else if (value.Is_complex()) {
+		delete value._u.pComp;
+		value._u.pComp = nullptr;
+	} else if (value.Is_rational()) {
+		delete value._u.pRatio;
+		value._u.pRatio = nullptr;
 	}
-	value._valType = VTYPE_nil;
+	value._valType = VTYPE_undefined;
+	value._valFlags = VFLAG_None;
 }
 
 //-----------------------------------------------------------------------------
 // Value
 //-----------------------------------------------------------------------------
-const Value Value::Nil;										// nil
 const Value Value::Undefined(VTYPE_undefined, VFLAG_None);	// undefined
+const Value Value::Nil;										// nil
 const Value Value::True(true);								// boolean
 const Value Value::False(false);							// boolean
 const Value Value::Zero(0);									// number
 const Value Value::One(1);									// number
+
 const Value::KeyCompare Value::KeyCompareCase(false);
 const Value::KeyCompare Value::KeyCompareIgnoreCase(true);
 
