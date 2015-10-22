@@ -34,8 +34,8 @@ class ValueVisitor;
 //-----------------------------------------------------------------------------
 enum {
 	VFLAG_None			= 0,
-	VFLAG_NoOwner		= (0 << 0),
-	VFLAG_Owner			= (1 << 0),
+	VFLAG_NoFundOwner	= (0 << 0),
+	VFLAG_FundOwner		= (1 << 0),
 	VFLAG_TinyBuff		= (1 << 1),
 	VFLAG_Privileged	= (1 << 2),
 	VFLAG_NoMap			= (1 << 3),
@@ -78,8 +78,8 @@ private:
 		Fundamental *pFund;			// Module/Class/object
 	} _u;
 public:
-	static const Value Nil;			// nil
 	static const Value Undefined;	// undefined
+	static const Value Nil;			// nil
 	static const Value True;		// boolean
 	static const Value False;		// boolean
 	static const Value Zero;		// number
@@ -90,58 +90,58 @@ public:
 	Value(const Value &value);
 	~Value();
 	// VTYPE_nil
-	inline Value() : _valType(VTYPE_nil), _valFlags(VFLAG_Owner) {}
+	inline Value() : _valType(VTYPE_nil), _valFlags(VFLAG_None) {}
 	inline Value(ValueType valType, UShort valFlags) : _valType(valType), _valFlags(valFlags) {}
 	// VTYPE_Module
-	Value(Module *pModule, UShort valFlags = VFLAG_Owner);
+	Value(Module *pModule, UShort valFlags = VFLAG_FundOwner);
 	// VTYPE_Class
-	Value(Class *pClass, UShort valFlags = VFLAG_Owner);
+	Value(Class *pClass, UShort valFlags = VFLAG_FundOwner);
 	// VTYPE_object etc
-	Value(Object *pObj, UShort valFlags = VFLAG_Owner);
+	Value(Object *pObj, UShort valFlags = VFLAG_FundOwner);
 	// VTYPE_boolean
-	inline Value(bool flag) : _valType(VTYPE_boolean), _valFlags(VFLAG_Owner) {
+	inline Value(bool flag) : _valType(VTYPE_boolean), _valFlags(VFLAG_None) {
 		_u.flag = flag;
 	}
 	// VTYPE_complex
-	inline Value(const Complex &comp) : _valType(VTYPE_complex), _valFlags(VFLAG_Owner) {
+	inline Value(const Complex &comp) : _valType(VTYPE_complex), _valFlags(VFLAG_None) {
 		_u.pComp = new Complex(comp);
 	}
 	// VTYPE_number
-	inline Value(Number num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(Number num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = num;
 	}
-	inline Value(int num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(int num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(UInt num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(UInt num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(char num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(char num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(UChar num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(UChar num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(short num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(short num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(UShort num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(UShort num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(long num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(long num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(ULong num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(ULong num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(Int64 num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(Int64 num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
-	inline Value(UInt64 num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
+	inline Value(UInt64 num) : _valType(VTYPE_number), _valFlags(VFLAG_None) {
 		_u.num = static_cast<Number>(num);
 	}
 	// VTYPE_rational
-	inline Value(const Rational &ratio) : _valType(VTYPE_rational), _valFlags(VFLAG_Owner) {
+	inline Value(const Rational &ratio) : _valType(VTYPE_rational), _valFlags(VFLAG_None) {
 		_u.pRatio = new Rational(ratio);
 	}
 	// VTYPE_string
@@ -149,14 +149,14 @@ public:
 	Value(const char *str);
 	Value(const char *str, size_t len);
 	// VTYPE_symbol
-	inline Value(const Symbol *pSymbol) : _valType(VTYPE_symbol), _valFlags(VFLAG_Owner) {
+	inline Value(const Symbol *pSymbol) : _valType(VTYPE_symbol), _valFlags(VFLAG_None) {
 		_u.pSymbol = pSymbol;
 	}
 	Value &operator=(const Value &value);
 	inline UShort GetFlags() const			{ return _valFlags;								}
 	inline void SetFlags(UShort valFlags)	{ _valFlags = valFlags;							}
 	inline void AddFlags(UShort valFlags)	{ _valFlags |= valFlags;						}
-	inline bool IsOwner() const				{ return (_valFlags & VFLAG_Owner) != 0;		}
+	inline bool IsFundOwner() const			{ return (_valFlags & VFLAG_FundOwner) != 0;		}
 	inline bool IsPrivileged() const		{ return (_valFlags & VFLAG_Privileged) != 0;	}
 	inline bool GetTinyBuffFlag() const		{ return (_valFlags & VFLAG_TinyBuff) != 0;		}
 	inline bool GetNoMapFlag() const		{ return (_valFlags & VFLAG_NoMap) != 0;		}
@@ -172,15 +172,15 @@ public:
 	inline Class *GetClass() const			{ return GetValueTypeInfo()->GetClass();		}
 	inline bool IsType(ValueType valType) const
 											{ return _valType == valType;					}
-	inline bool IsInvalid() const			{ return _valType <= VTYPE_undefined;			}
-	inline bool IsValid() const				{ return _valType > VTYPE_undefined;			}
+	inline bool IsInvalid() const			{ return _valType <= VTYPE_nil;					}
+	inline bool IsValid() const				{ return _valType > VTYPE_nil;					}
 	inline bool IsPrimitive() const			{ return _valType <= VTYPE_symbol;				}
 	inline bool IsFundamental() const		{ return _valType >= VTYPE_Module;				}
 	inline bool IsObject() const			{ return _valType >= VTYPE_object;				}
 	// invalid types
-	inline bool IsNil() const				{ return IsType(VTYPE_nil);						}
 	inline bool IsUndefined() const			{ return IsType(VTYPE_undefined);				}
 	inline bool IsDefined() const			{ return !IsUndefined();						}
+	inline bool IsNil() const				{ return IsType(VTYPE_nil);						}
 	// primitive types
 	inline bool Is_boolean() const			{ return IsType(VTYPE_boolean);					}
 	inline bool Is_complex() const			{ return IsType(VTYPE_complex);					}
@@ -227,14 +227,14 @@ public:
 	inline bool IsListOrIterator() const	{ return Is_list() || Is_iterator();			}
 	inline bool IsValidKey() const			{ return Is_number() || Is_string() || Is_symbol(); }
 	bool MustBe(Signal &sig, bool flag, const char *expected) const;
-	inline bool MustBeInvalid(Signal &sig) const
-								{ return MustBe(sig, IsInvalid(),		"invalid");			}
 	inline bool MustBeUndefined(Signal &sig) const
 								{ return MustBe(sig, IsUndefined(),		"undefined");		}
-	inline bool MustBeValid(Signal &sig) const
-								{ return MustBe(sig, IsValid(),			"valid");			}
 	inline bool MustBeDefined(Signal &sig) const
 								{ return MustBe(sig, IsDefined(),		"defined");			}
+	inline bool MustBeInvalid(Signal &sig) const
+								{ return MustBe(sig, IsInvalid(),		"invalid");			}
+	inline bool MustBeValid(Signal &sig) const
+								{ return MustBe(sig, IsValid(),			"valid");			}
 	// primitive types
 	inline bool MustBe_boolean(Signal &sig) const
 								{ return MustBe(sig, Is_boolean(), 		"boolean");			}

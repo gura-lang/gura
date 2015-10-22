@@ -388,7 +388,7 @@ Gura_ImplementMethod(iterator, cycle)
 	int cnt = arg.Is_number(0)? arg.GetInt(0) : -1;
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	ResultComposer resultComposer(env, arg);
-	if (!resultComposer.AddValues(env, pIterator.get())) return Value::Nil;
+	if (!resultComposer.StoreValues(env, pIterator.get())) return Value::Nil;
 	const Value &value = resultComposer.GetValueResult();
 	if (value.IsInvalid()) return Value::Nil;
 	GURA_ASSUME(env, value.Is_list());
@@ -965,7 +965,7 @@ Gura_ImplementMethod(iterator, pingpong)
 						arg.IsSet(Gura_Symbol(sticky_at_btm));
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	ResultComposer resultComposer(env, arg);
-	if (!resultComposer.AddValues(env, pIterator.get())) return Value::Nil;
+	if (!resultComposer.StoreValues(env, pIterator.get())) return Value::Nil;
 	const Value &value = resultComposer.GetValueResult();
 	if (value.IsInvalid()) return Value::Nil;
 	GURA_ASSUME(env, value.Is_list());
@@ -1099,7 +1099,7 @@ Gura_ImplementMethod(iterator, rank)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	ResultComposer resultComposer(env, arg);
-	if (!resultComposer.AddValues(env, pIteratorSrc.get())) return Value::Nil;
+	if (!resultComposer.StoreValues(env, pIteratorSrc.get())) return Value::Nil;
 	const Value &value = resultComposer.GetValueResult();
 	if (value.IsInvalid()) return Value::Nil;
 	GURA_ASSUME(env, value.Is_list());
@@ -1186,7 +1186,7 @@ Gura_ImplementMethod(iterator, reverse)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	ResultComposer resultComposer(env, arg);
-	if (!resultComposer.AddValues(env, pIterator.get())) return Value::Nil;
+	if (!resultComposer.StoreValues(env, pIterator.get())) return Value::Nil;
 	const Value &value = resultComposer.GetValueResult();
 	if (value.IsInvalid()) return Value::Nil;
 	GURA_ASSUME(env, value.Is_list());
@@ -1359,7 +1359,7 @@ Gura_ImplementMethod(iterator, sort)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	ResultComposer resultComposer(env, arg);
-	if (!resultComposer.AddValues(env, pIteratorSrc.get())) return Value::Nil;
+	if (!resultComposer.StoreValues(env, pIteratorSrc.get())) return Value::Nil;
 	const Value &value = resultComposer.GetValueResult();
 	if (value.IsInvalid()) return arg.GetValueThis();
 	GURA_ASSUME(env, value.Is_list());
@@ -1444,7 +1444,7 @@ Gura_ImplementMethod(iterator, tail)
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	ResultComposer resultComposer(env, arg);
-	if (!resultComposer.AddValues(env, pIteratorSrc.get())) return Value::Nil;
+	if (!resultComposer.StoreValues(env, pIteratorSrc.get())) return Value::Nil;
 	const Value &value = resultComposer.GetValueResult();
 	if (value.IsInvalid()) return Value::Nil;
 	GURA_ASSUME(env, value.Is_list());

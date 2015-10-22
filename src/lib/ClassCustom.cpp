@@ -43,7 +43,7 @@ Object *ClassCustom::CreateDescendant(Environment &env, Class *pClass)
 bool ClassCustom::PrepareConstructor(Environment &env)
 {
 	Signal &sig = env.GetSignal();
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged);
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged);
 	if (!_pExprContent.IsNull() &&
 					!BuildContent(env, valueThis, _pExprContent.get())) {
 		return false;
@@ -95,7 +95,7 @@ bool ClassCustom::CastFrom(Environment &env, Value &value, const Declaration *pD
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__cast__), ENVREF_NoEscalate));
 	if (pFunc == nullptr) return false;
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged);
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged);
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);

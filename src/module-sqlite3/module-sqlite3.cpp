@@ -128,7 +128,7 @@ int Object_db::Callback(void *user, int argc, char **argv, char **azColName)
 	for (int i = 0; i < argc; i++) {
 		valList.push_back(Value(argv[i]));
 	}
-	return resultComposer.AddValue(env, value)? SQLITE_OK : SQLITE_ERROR;
+	return resultComposer.StoreValue(env, value)? SQLITE_OK : SQLITE_ERROR;
 }
 
 void Object_db::SetError_NotOpened(Signal &sig)

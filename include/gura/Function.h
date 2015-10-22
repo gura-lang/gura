@@ -301,8 +301,8 @@ public:
 				   ResultMode resultMode, ULong flags);
 	ResultComposer(Environment &env, const Function *pFunc);
 	ResultComposer(Environment &env, Argument &arg);
-	bool AddValue(Environment &env, const Value &value);
-	bool AddValues(Environment &env, Iterator *pIterator);
+	bool StoreValue(Environment &env, const Value &value);
+	bool StoreValues(Environment &env, Iterator *pIterator);
 	inline bool GetFlag(ULong flag) const { return (_flags & flag) != 0; }
 	inline const Value &GetValueResult() const { return _valueResult; }
 	inline size_t CountAdded() const { return _cntAdded; }

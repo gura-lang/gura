@@ -36,8 +36,8 @@ class Module;
 typedef UShort ValueType;
 
 // invalid types
-GURA_DLLDECLARE extern ValueType VTYPE_nil;
 GURA_DLLDECLARE extern ValueType VTYPE_undefined;
+GURA_DLLDECLARE extern ValueType VTYPE_nil;
 // pseudo types
 GURA_DLLDECLARE extern ValueType VTYPE_quote;
 GURA_DLLDECLARE extern ValueType VTYPE_any;
@@ -140,8 +140,8 @@ typedef std::vector<ValueTypeInfo *> ValueTypeList;
 class GURA_DLLDECLARE ValueTypePool {
 public:
 	// invalid types
-	Gura_DeclareVTYPE(nil);
 	Gura_DeclareVTYPE(undefined);
+	Gura_DeclareVTYPE(nil);
 	// pseudo types
 	Gura_DeclareVTYPE(quote);
 	Gura_DeclareVTYPE(any);

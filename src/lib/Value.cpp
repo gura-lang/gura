@@ -48,7 +48,7 @@ void Gura_ReleaseValue(Value &value)
 		StringShared::Delete(value._u.pStrShrd);
 		value._u.pStrShrd = nullptr;
 	} else if (value.IsFundamental()) {
-		if (value.IsOwner()) Fundamental::Delete(value._u.pFund);
+		if (value.IsFundOwner()) Fundamental::Delete(value._u.pFund);
 		value._u.pFund = nullptr;
 	} else { // Number, Boolean
 		// nothing to do
@@ -60,7 +60,7 @@ void Gura_ReleaseValue(Value &value)
 // Value
 //-----------------------------------------------------------------------------
 const Value Value::Nil;										// nil
-const Value Value::Undefined(VTYPE_undefined, VFLAG_Owner);	// undefined
+const Value Value::Undefined(VTYPE_undefined, VFLAG_None);	// undefined
 const Value Value::True(true);								// boolean
 const Value Value::False(false);							// boolean
 const Value Value::Zero(0);									// number
@@ -103,7 +103,7 @@ Value::~Value()
 }
 
 // VTYPE_string
-Value::Value(const String &str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
+Value::Value(const String &str) : _valType(VTYPE_string), _valFlags(VFLAG_None)
 {
 	size_t len = str.size();
 	if (len < sizeof(_u) - 1) {
@@ -114,7 +114,7 @@ Value::Value(const String &str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 	}
 }
 
-Value::Value(const char *str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
+Value::Value(const char *str) : _valType(VTYPE_string), _valFlags(VFLAG_None)
 {
 	size_t len = ::strlen(str);
 	if (len < sizeof(_u) - 1) {
@@ -125,7 +125,7 @@ Value::Value(const char *str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 	}
 }
 
-Value::Value(const char *str, size_t len) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
+Value::Value(const char *str, size_t len) : _valType(VTYPE_string), _valFlags(VFLAG_None)
 {
 	if (len < sizeof(_u) - 1) {
 		_valFlags |= VFLAG_TinyBuff;
@@ -506,27 +506,27 @@ void Value::InitAsModule(Module *pModule)
 {
 	Gura_ReleaseValue(*this);
 	_valType = VTYPE_Module, _u.pFund = pModule;
-	_valFlags = VFLAG_Owner;
+	_valFlags = VFLAG_FundOwner;
 }
 
 void Value::InitAsClass(Class *pClass)
 {
 	Gura_ReleaseValue(*this);
 	_valType = VTYPE_Class, _u.pFund = pClass;
-	_valFlags = VFLAG_Owner;
+	_valFlags = VFLAG_FundOwner;
 }
 
 void Value::InitAsObject(Object *pObj)
 {
 	Gura_ReleaseValue(*this);
 	_valType = pObj->GetClass()->GetValueType(), _u.pFund = pObj;
-	_valFlags = VFLAG_Owner;
+	_valFlags = VFLAG_FundOwner;
 }
 
 void Value::_SetObject(Object *pObj)
 {
 	_valType = pObj->GetClass()->GetValueType(), _u.pFund = pObj;
-	_valFlags = VFLAG_Owner;
+	_valFlags = VFLAG_FundOwner;
 }
 
 ValueList &Value::InitAsList(Environment &env)

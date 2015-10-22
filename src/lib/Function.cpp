@@ -273,7 +273,7 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	ResultComposer resultComposer(env, arg);
-	if (!resultComposer.AddValues(env, pIterator.get())) return Value::Nil;
+	if (!resultComposer.StoreValues(env, pIterator.get())) return Value::Nil;
 	if (resultComposer.CountAdded() == 0 &&
 			!arg.IsResultVoid() && !arg.IsResultReduce() && !arg.IsResultXReduce()) {
 		Value valueResult;
@@ -347,7 +347,7 @@ Value Function::ReturnIterator(Environment &env, Argument &arg, Iterator *pItera
 	} else if (arg.IsResultList() || arg.IsResultXList() ||
 			   arg.IsResultSet() || arg.IsResultXSet()) {
 		ResultComposer resultComposer(env, arg);
-		resultComposer.AddValues(env, pIterator);
+		resultComposer.StoreValues(env, pIterator);
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Nil;
 		result = resultComposer.GetValueResult();
@@ -554,7 +554,7 @@ ResultComposer::ResultComposer(Environment &env, Argument &arg) :
 	Initialize(env);
 }
 
-bool ResultComposer::AddValue(Environment &env, const Value &value)
+bool ResultComposer::StoreValue(Environment &env, const Value &value)
 {
 	Signal &sig = env.GetSignal();
 	if (_resultMode == RSLTMODE_Void) {
@@ -565,7 +565,7 @@ bool ResultComposer::AddValue(Environment &env, const Value &value)
 		if (value.IsValid()) _valueResult = value;
 	} else if (GetFlag(FLAG_Flat) && value.Is_list()) {
 		foreach_const (ValueList, pValue, value.GetList()) {
-			if (!AddValue(env, *pValue)) return false;
+			if (!StoreValue(env, *pValue)) return false;
 		}
 	} else if (_resultMode == RSLTMODE_List) {
 		_pValList->push_back(value);
@@ -591,7 +591,7 @@ bool ResultComposer::AddValue(Environment &env, const Value &value)
 	return true;
 }
 
-bool ResultComposer::AddValues(Environment &env, Iterator *pIterator)
+bool ResultComposer::StoreValues(Environment &env, Iterator *pIterator)
 {
 	Signal &sig = env.GetSignal();
 	if (pIterator->IsInfinite()) {
@@ -600,7 +600,7 @@ bool ResultComposer::AddValues(Environment &env, Iterator *pIterator)
 	}
 	Value value;
 	while (pIterator->Next(env, value)) {
-		if (!AddValue(env, value)) return false;
+		if (!StoreValue(env, value)) return false;
 	}
 	return sig.IsNoSignalled();
 }

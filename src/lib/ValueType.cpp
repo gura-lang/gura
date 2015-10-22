@@ -9,8 +9,8 @@ namespace Gura {
 // Built-in Value Types
 //-----------------------------------------------------------------------------
 // invalid types
-ValueType VTYPE_nil				= static_cast<ValueType>(0);
-ValueType VTYPE_undefined		= static_cast<ValueType>(1);
+ValueType VTYPE_undefined		= static_cast<ValueType>(0);
+ValueType VTYPE_nil				= static_cast<ValueType>(1);
 // pseudo types
 ValueType VTYPE_quote			= static_cast<ValueType>(2);
 ValueType VTYPE_any				= static_cast<ValueType>(3);
@@ -135,8 +135,8 @@ void ValueTypePool::_Initialize(Environment &env)
 	// - Value::IsFundamental()
 	// - Value::IsObject()
 	// invalid types
-	Gura_RealizeVTYPE(nil);									// must be at 1st
-	Gura_RealizeVTYPE(undefined);							// must be at 2nd
+	Gura_RealizeVTYPE(undefined);							// must be at 1st
+	Gura_RealizeVTYPE(nil);									// must be at 2nd
 	// pseudo types
 	Gura_RealizeVTYPE(quote);								// must be at 3rd
 	Gura_RealizeVTYPE(any);									// must be at 4th
@@ -195,8 +195,8 @@ void ValueTypePool::_Initialize(Environment &env)
 	Class *pClass = new Class(&env, VTYPE_object);
 	Gura_VTYPEInfo(object		)->SetClass(pClass);
 	// invalid types
-	Gura_VTYPEInfo(nil			)->SetClass(new Class_nil(pClass));
 	Gura_VTYPEInfo(undefined	)->SetClass(new Class_undefined(pClass));
+	Gura_VTYPEInfo(nil			)->SetClass(new Class_nil(pClass));
 	// pseudo types
 	Gura_VTYPEInfo(quote		)->SetClass(new Class_quote(pClass));
 	Gura_VTYPEInfo(any			)->SetClass(new Class_any(pClass));
@@ -267,8 +267,8 @@ void ValueTypePool::_Initialize(Environment &env)
 void ValueTypePool::DoPrepareClass(Environment &env)
 {
 	// invalid types
-	env.LookupClass(VTYPE_nil			)->Prepare(env);
 	env.LookupClass(VTYPE_undefined		)->Prepare(env);
+	env.LookupClass(VTYPE_nil			)->Prepare(env);
 	// pseudo types
 	env.LookupClass(VTYPE_quote			)->Prepare(env);
 	env.LookupClass(VTYPE_any			)->Prepare(env);

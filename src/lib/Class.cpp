@@ -27,7 +27,7 @@ Object::~Object()
 	const Function *pFunc =
 			pClassCustom->LookupFunction(Gura_Symbol(__del__), ENVREF_NoEscalate);
 	if (pFunc == nullptr) return;
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);
 	pFunc->Eval(*this, *pArg);
@@ -60,7 +60,7 @@ Value Object::EmptyIndexGet(Environment &env)
 		sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
 		return Value::Nil;
 	}
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);
 	return pFunc->Eval(*this, *pArg);
@@ -74,7 +74,7 @@ void Object::EmptyIndexSet(Environment &env, const Value &value)
 		sig.SetError(ERR_ValueError, "empty-indexed setting access is not supported");
 		return;
 	}
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	if (!pArg->StoreValue(env, value)) return;
 	pArg->SetValueThis(valueThis);
@@ -89,7 +89,7 @@ Value Object::IndexGet(Environment &env, const Value &valueIdx)
 		sig.SetError(ERR_ValueError, "indexed getting access is not supported");
 		return Value::Nil;
 	}
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	if (!pArg->StoreValue(env, valueIdx)) return Value::Nil;
 	pArg->SetValueThis(valueThis);
@@ -104,7 +104,7 @@ void Object::IndexSet(Environment &env, const Value &valueIdx, const Value &valu
 		sig.SetError(ERR_ValueError, "indexed setting access is not supported");
 		return;
 	}
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	if (!pArg->StoreValue(env, valueIdx, value)) return;
 	pArg->SetValueThis(valueThis);
@@ -126,7 +126,7 @@ bool Object::DirProp(Environment &env, SymbolSet &symbols)
 
 Value Object::EvalMethod(Environment &env, const Function *pFunc, const ValueList &valListArg)
 {
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);
 	if (!pArg->StoreValues(env, valListArg)) return Value::Nil;
@@ -139,7 +139,7 @@ Value Object::EvalMethod(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = false;
 	const Function *pFunc = LookupFunction(pSymbol, ENVREF_Escalate);
 	if (pFunc == nullptr) return Value::Nil;
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
 	evaluatedFlag = true;
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);
@@ -153,7 +153,7 @@ Value Object::DoGetProp(Environment &env, const Symbol *pSymbol,
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getprop__), ENVREF_Escalate);
 	if (pFunc == nullptr) return Value::Nil;
 	evaluatedFlag = true;
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	if (!pArg->StoreValue(env, Value(pSymbol))) return Value::Nil;
 	pArg->SetValueThis(valueThis);
@@ -165,7 +165,7 @@ Value Object::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &va
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), ENVREF_Escalate);
 	if (pFunc == nullptr) return Value::Nil;
-	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
+	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged); // reference to this
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	if (!pArg->StoreValue(env, Value(pSymbol), value)) return Value::Nil;
 	pArg->SetValueThis(valueThis);

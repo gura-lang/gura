@@ -638,7 +638,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 					new Environment(env), Function::Reference(pFunc),
 					valueThis, pIterator.release()));
 			ResultComposer resultComposer(env, pFunc);
-			resultComposer.AddValues(env, pIteratorFuncBinder.get());
+			resultComposer.StoreValues(env, pIteratorFuncBinder.get());
 			return resultComposer.GetValueResult();
 		} else if (valueRight.Is_iterator()) {
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
@@ -652,7 +652,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 				return Value(new Object_iterator(env, pIteratorFuncBinder.release()));
 			} else {
 				ResultComposer resultComposer(env, pFunc);
-				resultComposer.AddValues(env, pIteratorFuncBinder.get());
+				resultComposer.StoreValues(env, pIteratorFuncBinder.get());
 				return resultComposer.GetValueResult();
 			}
 		}
