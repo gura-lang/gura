@@ -35,7 +35,7 @@ Function::Function(const Function &func) :
 	_cntRef(1),
 	_pSymbol(func._pSymbol),
 	_pClassToConstruct(func._pClassToConstruct),
-	_pEnvScope(new Environment(func.GetEnvScope())),
+	_pEnvScope(func.GetEnvScope().Clone()),
 	_funcType(func._funcType),
 	_pDeclOwner(func.GetDeclOwner().Clone()),
 	_valTypeResult(func._valTypeResult),
@@ -266,7 +266,7 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 	Argument::MapMode mapMode = arg.GetMapMode();
 	if (mapMode == Argument::MAPMODE_None) return Eval(env, arg);
 	AutoPtr<Iterator_ImplicitMap> pIterator(
-		new Iterator_ImplicitMap(new Environment(env), arg.Reference(), false));
+		new Iterator_ImplicitMap(env.Clone(), arg.Reference(), false));
 	if (arg.IsResultIterator() || arg.IsResultXIterator() ||
 			(arg.IsResultNormal() && mapMode == Argument::MAPMODE_ToIter)) {
 		pIterator->SetSkipInvalidFlag(arg.IsResultXIterator());

@@ -29,9 +29,9 @@ private:
 	AutoPtr<Environment> _pEnv;
 public:
 	inline Object_environment(Environment &env) :
-			Object(env.LookupClass(VTYPE_environment)), _pEnv(new Environment(env)) {}
+		Object(env.LookupClass(VTYPE_environment)), _pEnv(env.Clone()) {}
 	inline Object_environment(Class *pClass, Environment &env) :
-						Object(pClass), _pEnv(new Environment(env)) {}
+		Object(pClass), _pEnv(env.Clone()) {}
 	Object_environment(const Object_environment &obj);
 	inline Environment &GetEnv() { return *_pEnv; }
 	virtual ~Object_environment();

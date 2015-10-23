@@ -182,7 +182,7 @@ Value Operator::EvalMapUnary(Environment &env, const Value &value, bool suffixFl
 		return EvalUnary(env, value, suffixFlag);
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(
-							new Environment(env), this, value, suffixFlag));
+									env.Clone(), this, value, suffixFlag));
 	if (value.Is_iterator()) {
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
@@ -196,7 +196,7 @@ Value Operator::EvalMapBinary(Environment &env,
 				(!valueRight.IsListOrIterator() || valueRight.GetNoMapFlag()))) {
 		return EvalBinary(env, valueLeft, valueRight);
 	}
-	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(new Environment(env),
+	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(env.Clone(),
 									this, valueLeft, valueRight));
 	if (valueLeft.Is_iterator() || valueRight.Is_iterator()) {
 		return Value(new Object_iterator(env, pIterator.release()));
@@ -635,7 +635,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			if (sig.IsSignalled()) return Value::Nil;
 			AutoPtr<Iterator> pIteratorFuncBinder(
 				new Iterator_FuncBinder(
-					new Environment(env), Function::Reference(pFunc),
+					env.Clone(), Function::Reference(pFunc),
 					valueThis, pIterator.release()));
 			ResultComposer resultComposer(env, pFunc);
 			resultComposer.StoreValues(env, pIteratorFuncBinder.get());
@@ -645,7 +645,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env,
 			if (sig.IsSignalled()) return Value::Nil;
 			AutoPtr<Iterator> pIteratorFuncBinder(
 				new Iterator_FuncBinder(
-					new Environment(env), Function::Reference(pFunc),
+					env.Clone(), Function::Reference(pFunc),
 					valueThis, pIterator.release()));
 			if (pFunc->IsResultNormal() ||
 						pFunc->IsResultIterator() || pFunc->IsResultXIterator()) {

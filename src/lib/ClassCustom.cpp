@@ -256,8 +256,8 @@ bool ClassCustom::Format_X(Signal &sig, Formatter *pFormatter,
 //-----------------------------------------------------------------------------
 ClassCustom::Constructor::Constructor(Environment &envScope,
 				const Symbol *pSymbol, Expr *pExprBody, FunctionType funcType) :
-		Function(envScope, pSymbol, funcType, FLAG_None), _pEnvScope(new Environment(envScope)),
-		_pExprBody(pExprBody)
+	Function(envScope, pSymbol, funcType, FLAG_None), _pEnvScope(envScope.Clone()),
+	_pExprBody(pExprBody)
 {
 }
 

@@ -10,7 +10,7 @@ private:
 public:
 	inline FunctionPack() {}
 	inline void SetFunc(Environment &env, Function *pFunc) {
-		_pEnv.reset(new Environment(env));
+		_pEnv.reset(env.Clone());
 		_pFunc.reset(pFunc);
 	}
 	inline void ClearFunc() {

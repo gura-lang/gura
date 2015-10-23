@@ -521,7 +521,7 @@ Iterator *Iterator::Filter(Environment &env, const Value &criteria)
 	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria =
 			Object_function::Reference(Object_function::GetObject(criteria));
-		return new Iterator_FilterWithFunc(new Environment(env), this, pFuncObjCriteria);
+		return new Iterator_FilterWithFunc(env.Clone(), this, pFuncObjCriteria);
 	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return nullptr;
@@ -538,7 +538,7 @@ Iterator *Iterator::While(Environment &env, const Value &criteria)
 	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
-		return new Iterator_WhileWithFunc(new Environment(env), this, pFuncObjCriteria);
+		return new Iterator_WhileWithFunc(env.Clone(), this, pFuncObjCriteria);
 	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return nullptr;
@@ -555,7 +555,7 @@ Iterator *Iterator::Since(Environment &env, const Value &criteria, bool containF
 	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
-		return new Iterator_SinceWithFunc(new Environment(env), this, pFuncObjCriteria, containFirstFlag);
+		return new Iterator_SinceWithFunc(env.Clone(), this, pFuncObjCriteria, containFirstFlag);
 	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return nullptr;
@@ -572,7 +572,7 @@ Iterator *Iterator::Until(Environment &env, const Value &criteria, bool containL
 	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
-		return new Iterator_UntilWithFunc(new Environment(env), this, pFuncObjCriteria, containLastFlag);
+		return new Iterator_UntilWithFunc(env.Clone(), this, pFuncObjCriteria, containLastFlag);
 	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return nullptr;

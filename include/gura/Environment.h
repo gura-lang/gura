@@ -284,9 +284,12 @@ public:
 #endif
 public:
 	Environment(Signal &sig);
+protected:
 	Environment(const Environment &env);
+public:
 	Environment(const Environment *pEnvOuter, EnvType envType);
 public:
+	inline Environment *Clone() const			{ return new Environment(*this);			}
 	inline Signal &GetSignal() const { return _sig; }
 	bool InitializeAsRoot(int &argc, const char *argv[],
 						  const Option::Info *optInfoTbl, int cntOptInfo);

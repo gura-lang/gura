@@ -9,7 +9,7 @@ namespace Gura {
 // Object_environment
 //-----------------------------------------------------------------------------
 Object_environment::Object_environment(const Object_environment &obj) :
-								Object(obj), _pEnv(new Environment(*obj._pEnv))
+	Object(obj), _pEnv(obj._pEnv->Clone())
 {
 }
 

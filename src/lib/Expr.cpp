@@ -1161,7 +1161,7 @@ Value Expr_Member::DoExec(Environment &env) const
 		}
 		AutoPtr<Iterator>
 			pIteratorMap(new Iterator_MemberMap(
-							 new Environment(env), pIterator,
+							 env.Clone(), pIterator,
 							 GetSelector()->GetSymbol(),
 							 SymbolSetShared::Reference(GetSelector()->GetAttrsShrd())));;
 		if (_mode == MODE_MapToIter) {
@@ -2339,7 +2339,7 @@ Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) c
 			valueThis = valueThisEach;
 		} else {
 			AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(
-											   new Environment(env),
+											   env.Clone(),
 											   pIteratorThis, Expr_Caller::Reference(this)));
 			if (mode == Expr_Member::MODE_MapToIter) {
 				return Value(new Object_iterator(env, pIteratorMap.release()));

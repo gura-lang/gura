@@ -42,6 +42,7 @@ Environment::Environment(Signal &sig) : _sig(sig)
 Environment::Environment(const Environment &env) : _sig(env.GetSignal())
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
+	//_frameOwner.reserve(env.GetFrameOwner().size());
 	foreach_const (FrameOwner, ppFrame, env.GetFrameOwner()) {
 		Frame *pFrame = *ppFrame;
 		_frameOwner.push_back(Frame::Reference(pFrame));
@@ -55,6 +56,7 @@ Environment::Environment(const Environment *pEnvOuter, EnvType envType) :
 	//if (envType == ENVTYPE_block && pEnvOuter->GetFrameCache() != nullptr) {
 	//	_pFrameCache.reset(pEnvOuter->GetFrameCache()->Reference());
 	//}
+	//_frameOwner.reserve(pEnvOuter->GetFrameOwner().size() + 1);
 	_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));
 	foreach_const (FrameOwner, ppFrame, pEnvOuter->GetFrameOwner()) {
 		Frame *pFrame = *ppFrame;

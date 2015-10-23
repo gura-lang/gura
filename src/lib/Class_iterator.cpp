@@ -710,7 +710,7 @@ Gura_DeclareMethod(iterator, map)
 Gura_ImplementMethod(iterator, map)
 {
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
-	Iterator *pIterator = new Iterator_ExplicitMap(new Environment(env),
+	Iterator *pIterator = new Iterator_ExplicitMap(env.Clone(),
 			pThis->GetIterator()->Clone(),
 			Object_function::Reference(Object_function::GetObject(arg, 0)));
 	return ReturnIterator(env, arg, pIterator);

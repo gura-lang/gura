@@ -110,7 +110,7 @@ private:
 public:
 	inline EventHandlerPack(Environment &env,
 				Object_function *pObjFunc, Object_wx_EventFactory *pEventFactory) :
-		_pEnv(new Environment(env)), _pObjFunc(pObjFunc), _pEventFactory(pEventFactory) {}
+		_pEnv(env.Clone()), _pObjFunc(pObjFunc), _pEventFactory(pEventFactory) {}
 	virtual ~EventHandlerPack();
 	void Eval(wxEvent &event);
 	Signal &GetSignal() { return _pEnv->GetSignal(); }
