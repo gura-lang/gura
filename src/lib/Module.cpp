@@ -19,7 +19,7 @@ Module::Module(const Module &module) :
 
 Module::Module(Environment *pEnvOuter, const Symbol *pSymbol, const char *sourceName,
 						Expr *pExprScript, ModuleTerminateType moduleTerminate) :
-	Fundamental(pEnvOuter, ENVTYPE_local), _pSymbol(pSymbol), _sourceName(sourceName),
+	Fundamental(*pEnvOuter, ENVTYPE_local), _pSymbol(pSymbol), _sourceName(sourceName),
 	_pExprScript(pExprScript), _moduleTerminate(moduleTerminate)
 {
 	AssignValue(Gura_Symbol(__name__), Value(GetName()), EXTRA_Public);

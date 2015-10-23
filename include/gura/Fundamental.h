@@ -19,7 +19,7 @@ public:
 	Gura_DeclareReferenceAccessor(Fundamental);
 protected:
 	Fundamental(const Fundamental &fund);
-	Fundamental(Environment *pEnvOuter, EnvType envType);
+	Fundamental(Environment &envOuter, EnvType envType);
 public:
 	virtual bool IsFunction() const;
 	virtual Iterator *CreateIterator(Signal &sig);

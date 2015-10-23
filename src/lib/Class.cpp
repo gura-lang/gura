@@ -16,7 +16,7 @@ Object::Object(const Object &obj) :
 }
 
 Object::Object(Class *pClass) :
-		Fundamental(pClass, ENVTYPE_object), _pClass(Class::Reference(pClass))
+		Fundamental(*pClass, ENVTYPE_object), _pClass(Class::Reference(pClass))
 {
 }
 
@@ -437,7 +437,7 @@ bool Class::IsClass() const { return true; }
 bool Class::IsCustom() const { return false; }
 
 Class::Class(Environment *pEnvOuter, ValueType valType) :
-	Fundamental(pEnvOuter, ENVTYPE_class),
+	Fundamental(*pEnvOuter, ENVTYPE_class),
 	_pClassSuper(pEnvOuter->IsClass()?
 			Class::Reference(dynamic_cast<Class *>(pEnvOuter)) : nullptr),
 	_valType(valType), _pSymbol(Gura_Symbol(_anonymous_)), _pConstructor(nullptr)

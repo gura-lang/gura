@@ -12,8 +12,8 @@ Fundamental::Fundamental(const Fundamental &fund) : Environment(fund)
 {
 }
 
-Fundamental::Fundamental(Environment *pEnvOuter, EnvType envType) :
-											Environment(*pEnvOuter, envType)
+Fundamental::Fundamental(Environment &envOuter, EnvType envType) :
+											Environment(envOuter, envType)
 {
 }
 
