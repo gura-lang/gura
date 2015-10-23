@@ -208,7 +208,7 @@ Gura_ImplementFunction(MatrixInit)
 	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
+	AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
 	ValueList valList;
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 		Value value = (*ppExpr)->Exec(*pEnvLister);

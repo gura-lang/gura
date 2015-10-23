@@ -48,7 +48,7 @@ bool Template::Render(Environment &env, SimpleStream *pStreamDst)
 	if (pTemplateTop->GetFuncForBody() == nullptr) return true;
 	AutoPtr<Argument> pArg(new Argument(pTemplateTop->GetFuncForBody()));
 	pArg->SetValueThis(Value(new Object_template(env, Reference())));
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
+	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_local));
 	pTemplateTop->GetFuncForBody()->Eval(*pEnvBlock, *pArg);
 	for (Template *pTemplate = this; pTemplate != nullptr;
 							pTemplate = pTemplate->GetTemplateSuper()) {
@@ -60,7 +60,7 @@ bool Template::Render(Environment &env, SimpleStream *pStreamDst)
 bool Template::Prepare(Environment &env)
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
+	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_local));
 	pEnvBlock->AssignValue(Gura_Symbol(this_),
 				Value(new Object_template(env, Reference())), EXTRA_Public);
 	_pValueMap->clear();

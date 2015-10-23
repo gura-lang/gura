@@ -662,7 +662,7 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
+	AutoPtr<Environment> pEnvLocal(Derive(ENVTYPE_local));
 	foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsAssign()) {

@@ -717,7 +717,7 @@ Gura_ImplementFunction(ListInit)
 			sig.SetError(ERR_TypeError, "function '%s' needs no argument", pFunc->GetName());
 			return Value::Nil;
 		}
-		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
+		AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
 		ValueList &valList = result.InitAsList(env);
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 			Value value = (*ppExpr)->Exec(*pEnvLister);
@@ -736,7 +736,7 @@ Gura_ImplementFunction(ListInit)
 			valList.push_back(valueElem);
 		}
 	} else {
-		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
+		AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
 		result = pExprBlock->Exec(*pEnvLister, nullptr);
 	}
 	return result;
@@ -1748,7 +1748,7 @@ Gura_ImplementMethod(list, reduce)
 	Object_list *pThis = Object_list::GetObjectThis(arg);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
 	const Function *pFuncBlock =
 						arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) {

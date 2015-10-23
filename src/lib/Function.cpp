@@ -288,7 +288,7 @@ Value Function::ReturnValue(Environment &env, Argument &arg, const Value &result
 	Signal &sig = env.GetSignal();
 	if (!arg.IsBlockSpecified()) return result;
 	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
 	const Function *pFuncBlock =
 					arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
@@ -306,7 +306,7 @@ Value Function::ReturnValues(Environment &env, Argument &arg, const ValueList &v
 	Signal &sig = env.GetSignal();
 	if (!arg.IsBlockSpecified()) return valListArg.front();
 	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
 	const Function *pFuncBlock =
 					arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
@@ -330,7 +330,7 @@ Value Function::ReturnIterator(Environment &env, Argument &arg, Iterator *pItera
 	Value result;
 	if (!pIterator->IsRepeater()) {
 		if (arg.IsBlockSpecified()) {
-			AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+			AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
 			const Function *pFuncBlock =
 								arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 			if (pFuncBlock == nullptr) return Value::Nil;

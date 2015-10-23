@@ -155,7 +155,7 @@ Gura_ImplementFunction(redirect)
 	}
 	Value result;
 	if (arg.IsBlockSpecified()) {
-		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
+		AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_local));
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
 		if (sig.IsSignalled()) return Value::Nil;
 		result = pExprBlock->Exec(*pEnvBlock);

@@ -120,7 +120,7 @@ Value Device::Initialize(Environment &env, const Function *pFuncBlock)
 	Object_Canvas *pObj = new Object_Canvas(env, this);
 	Value result(pObj);
 	if (pFuncBlock != nullptr) {
-		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+		AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
 		//ValueList valList(result);
 		AutoPtr<Argument> pArg(new Argument(pFuncBlock));
 		if (!pArg->StoreValue(env, result)) return Value::Nil;

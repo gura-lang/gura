@@ -2085,7 +2085,7 @@ Gura_ImplementMethod(server, wait)
 		if (sig.IsSignalled()) return Value::Nil;
 		return Value(pObjRequest);
 	}
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
 	const Function *pFuncBlock =
 					arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;

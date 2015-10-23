@@ -58,7 +58,7 @@ extern "C" bool GuraStub_LookupValueInMember_MapToIter(
 		if (pIterator.IsNull()) return false;
 		AutoPtr<Iterator> pIteratorMap(
 			new Iterator_IdentifierInMember(
-				new Environment(env), pIterator.release(), pSymbol));
+				env.Clone(), pIterator.release(), pSymbol));
 		valueResult = Value(new Object_iterator(env, pIteratorMap.release()));
 	}
 	return true;
@@ -78,7 +78,7 @@ extern "C" bool GuraStub_LookupValueInMember_MapToList(
 		if (pIterator.IsNull()) return false;
 		AutoPtr<Iterator> pIteratorMap(
 			new Iterator_IdentifierInMember(
-				new Environment(env), pIterator.release(), pSymbol));
+				env.Clone(), pIterator.release(), pSymbol));
 		valueResult = pIteratorMap->ToList(env, false, false);
 		if (sig.IsSignalled()) return false;
 	}

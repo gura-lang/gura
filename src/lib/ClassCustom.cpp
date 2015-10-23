@@ -96,7 +96,7 @@ bool ClassCustom::CastFrom(Environment &env, Value &value, const Declaration *pD
 					LookupFunction(Gura_Symbol(__cast__), ENVREF_NoEscalate));
 	if (pFunc == nullptr) return false;
 	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged);
-	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
+	AutoPtr<Environment> pEnvLocal(Derive(ENVTYPE_local));
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(valueThis);
 	if (!pArg->StoreValue(env, value)) return false;
@@ -111,7 +111,7 @@ bool ClassCustom::CastTo(Environment &env, Value &value, const Declaration &decl
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__castto__), ENVREF_NoEscalate));
 	if (pFunc == nullptr) return false;
-	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
+	AutoPtr<Environment> pEnvLocal(Derive(ENVTYPE_local));
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(value);
 	if (!pArg->StoreValue(env, Value(new Object_declaration(env, decl.Reference())))) return false;
@@ -241,7 +241,7 @@ bool ClassCustom::Format_c(Formatter *pFormatter,
 bool ClassCustom::Format_X(Signal &sig, Formatter *pFormatter,
 	Formatter::Flags &flags, const Value &value, const FunctionCustom *pFunc) const
 {
-	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
+	AutoPtr<Environment> pEnvLocal(Derive(ENVTYPE_local));
 	AutoPtr<Argument> pArg(new Argument(pFunc));
 	pArg->SetValueThis(value);
 	if (!pArg->StoreValue(*pEnvLocal, Value(new Object_formatter(*pEnvLocal, flags)))) return false;
@@ -283,7 +283,7 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Argument &arg) const
 				pExprListArg = pExprBlock->GetExprOwnerParam();
 			}
 		}
-		AutoPtr<Environment> pEnvSuper(new Environment(pEnvLocal.get(), ENVTYPE_local));
+		AutoPtr<Environment> pEnvSuper(pEnvLocal->Derive(ENVTYPE_local));
 		CallerInfo callerInfo(*pExprListArg, nullptr, nullptr, nullptr);
 		AutoPtr<Argument> pArg(new Argument(pConstructorSuper, callerInfo));
 		pArg->SetValueThis(valueRtn);

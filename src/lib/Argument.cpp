@@ -279,7 +279,7 @@ Environment *Argument::PrepareEnvironment(Environment &env, bool thisAssignFlag)
 	Signal &sig = env.GetSignal();
 	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)? &env : &_pFunc->GetEnvScope();
 	EnvType envType = (_pFunc->GetType() == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
-	AutoPtr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
+	AutoPtr<Environment> pEnvLocal(pEnvOuter->Derive(envType));
 	if (thisAssignFlag) {
 		Value valueThis(_valueThis);
 		valueThis.AddFlags(VFLAG_Privileged);

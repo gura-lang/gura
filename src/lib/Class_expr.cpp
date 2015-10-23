@@ -340,7 +340,7 @@ Gura_ImplementMethod(expr, eval)
 	AutoPtr<Environment> pEnv(
 		arg.Is_environment(0)?
 		Object_environment::GetObject(arg, 0)->GetEnv().Reference() :
-		new Environment(&env, ENVTYPE_block));
+		env.Derive(ENVTYPE_block));
 	return pExpr->Exec(*pEnv);
 }
 
