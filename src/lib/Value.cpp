@@ -12,19 +12,8 @@ void Gura_CopyValue(Value &valueDst, const Value &valueSrc)
 {
 	valueDst._valType = valueSrc._valType;
 	valueDst._valFlags = valueSrc._valFlags;
-#if 1
 	if (valueSrc.IsDumbCopiable()) {
 		valueDst._u = valueSrc._u;
-#else
-	if (valueSrc.GetTinyBuffFlag()) {
-		valueDst._u = valueSrc._u;
-	} else if (valueSrc.Is_boolean()) {
-		valueDst._u.flag = valueSrc._u.flag;
-	} else if (valueSrc.Is_number()) {
-		valueDst._u.num = valueSrc._u.num;
-	} else if (valueSrc.Is_symbol()) {
-		valueDst._u.pSymbol = valueSrc._u.pSymbol;
-#endif
 	} else if (valueSrc.Is_string()) {
 		valueDst._u.pStrShrd = valueSrc._u.pStrShrd->Reference();
 	} else if (valueSrc.IsFundamental()) {
