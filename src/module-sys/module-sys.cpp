@@ -147,7 +147,7 @@ static bool ExpandWildCard(Environment &env, Signal &sig,
 }
 #endif
 
-bool SetCmdLineArgs(Module *pModule, Signal &sig, int argc, const char *argv[])
+bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[])
 {
 	Environment &env = *pModule;
 	String fileNameScript;
@@ -158,7 +158,8 @@ bool SetCmdLineArgs(Module *pModule, Signal &sig, int argc, const char *argv[])
 		Value value;
 		ValueList &valList = value.InitAsList(env);
 		if (argc >= 2 && argv != nullptr) {
-			valList.push_back(Value(OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str())));
+			valList.push_back(Value(OAL::MakeAbsPathName(
+										OAL::FileSeparator, fileNameScript.c_str())));
 			for (int i = 2; i < argc; i++) {
 				const char *arg = argv[i];
 				//if (Directory::HasWildCard(arg)) {
@@ -179,7 +180,8 @@ bool SetCmdLineArgs(Module *pModule, Signal &sig, int argc, const char *argv[])
 			String dirName, fileName;
 			PathMgr::SplitFileName(fileNameScript.c_str(), &dirName, &fileName);
 			if (!dirName.empty()) {
-				valList.push_back(Value(OAL::MakeAbsPathName(OAL::FileSeparator, dirName.c_str())));
+				valList.push_back(Value(OAL::MakeAbsPathName(
+											OAL::FileSeparator, dirName.c_str())));
 			}
 		} while (0);
 		valList.push_back(Value("."));
@@ -194,7 +196,8 @@ bool SetCmdLineArgs(Module *pModule, Signal &sig, int argc, const char *argv[])
 			valList.push_back(Value(*pStr));
 		}
 		if (argc >= 2 && IsCompositeFile(fileNameScript.c_str())) {
-			valList.push_back(Value(OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str())));
+			valList.push_back(Value(OAL::MakeAbsPathName(
+										OAL::FileSeparator, fileNameScript.c_str())));
 		}
 		env.AssignValue(Symbol::Add("path"), value, EXTRA_Public);
 	} while (0);

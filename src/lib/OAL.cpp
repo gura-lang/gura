@@ -45,12 +45,25 @@ const char FileSeparatorUnix = '/';
 #if defined(GURA_ON_MSWIN)
 const bool IgnoreCaseInPathNameFlag = true;
 const char FileSeparator = '\\';
+
+void Initialize()
+{
+	::_set_output_format(_TWO_DIGIT_EXPONENT);
+}
 #elif defined(GURA_ON_DARWIN)
 const bool IgnoreCaseInPathNameFlag = true;
 const char FileSeparator = '/';
+
+void Initialize()
+{
+}
 #elif defined(GURA_ON_LINUX)
 const bool IgnoreCaseInPathNameFlag = false;
 const char FileSeparator = '/';
+
+void Initialize()
+{
+}
 #endif
 
 bool IsAbsPathName(const char *pathName)

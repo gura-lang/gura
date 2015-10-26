@@ -415,7 +415,6 @@ public:
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
 	bool IsInstanceOf(ValueType valType) const;
-	Expr *CloneExpr() const;
 	Iterator *CreateIterator(Signal &sig) const;
 	String ToString(bool exprFlag = true) const;
 	Number ToNumber(bool allowPartFlag, bool &successFlag) const;

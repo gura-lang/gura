@@ -7,7 +7,7 @@
 
 Gura_BeginModuleHeader(sys)
 
-bool SetCmdLineArgs(Module *pModule, Signal &sig, int argc, const char *argv[]);
+bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[]);
 
 Gura_EndModuleHeader(sys)
 

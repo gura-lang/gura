@@ -339,13 +339,6 @@ Function *Value::GetFunction() const
 	return dynamic_cast<Object_function *>(GetObject())->GetFunction();
 }
 
-Expr *Value::CloneExpr() const
-{
-	return
-		Is_expr()? Expr::Reference(dynamic_cast<Object_expr *>(GetObject())->GetExpr()) :
-		Is_symbol()? new Expr_Identifier(_u.pSymbol) : nullptr;
-}
-
 Iterator *Value::CreateIterator(Signal &sig) const
 {
 	if (IsObject()) {
