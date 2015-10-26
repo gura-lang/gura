@@ -84,7 +84,7 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal &sig, const Value 
 		const Function *pFunc =
 					pObj->LookupFunction(Gura_UserSymbol(__tclname__), ENVREF_Escalate);
 		if (pFunc != nullptr) {
-			Value valueThis(pObj, VFLAG_NoOwner); // reference to self
+			Value valueThis(pObj, VFLAG_NoFundOwner); // reference to self
 			AutoPtr<Argument> pArg(new Argument(pFunc));
 			pArg->SetValueThis(valueThis);
 			Value result = pFunc->Eval(*pObj, *pArg);
@@ -636,7 +636,7 @@ bool Object_timer::TimerProc()
 {
 	ValueList valListArg;
 	valListArg.reserve(1);
-	valListArg.push_back(Value(this, VFLAG_NoOwner));
+	valListArg.push_back(Value(this, VFLAG_NoFundOwner));
 	_pHandler->Eval(valListArg);
 	_idx++;
 	if (_contFlag && _idx != _cnt) {

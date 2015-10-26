@@ -97,7 +97,7 @@ bool Object_Timer::DoHandle()
 	Environment &env = pFunc->GetEnvScope();
 	ValueList valListArg;
 	valListArg.reserve(1);
-	valListArg.push_back(Value(this, VFLAG_NoOwner));
+	valListArg.push_back(Value(this, VFLAG_NoFundOwner));
 	Value result = _pObjFunc->Eval(env, valListArg);
 	if (_sig.IsSignalled()) {
 		SDL_QuitEvent event;
