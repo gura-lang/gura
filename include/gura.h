@@ -45,6 +45,7 @@
 #include "gura/IteratorBasic.h"
 #include "gura/Matrix.h"
 #include "gura/Memory.h"
+#include "gura/MemoryPool.h"
 #include "gura/Module.h"
 #include "gura/Monitor.h"
 #include "gura/MonitorBasic.h"

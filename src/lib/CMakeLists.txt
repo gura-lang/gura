@@ -72,6 +72,7 @@ Iterator.cpp
 IteratorBasic.cpp
 Matrix.cpp
 Memory.cpp
+MemoryPool.cpp
 Module.cpp
 Monitor.cpp
 MonitorBasic.cpp

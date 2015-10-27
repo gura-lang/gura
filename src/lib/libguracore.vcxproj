@@ -253,6 +253,7 @@
     <ClCompile Include="IteratorBasic.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="MemoryPool.cpp" />
     <ClCompile Include="Module.cpp" />
     <ClCompile Include="Monitor.cpp" />
     <ClCompile Include="MonitorBasic.cpp" />
@@ -374,6 +375,7 @@
     <ClInclude Include="..\..\include\gura\IteratorBasic.h" />
     <ClInclude Include="..\..\include\gura\Matrix.h" />
     <ClInclude Include="..\..\include\gura\Memory.h" />
+    <ClInclude Include="..\..\include\gura\MemoryPool.h" />
     <ClInclude Include="..\..\include\gura\Module.h" />
     <ClInclude Include="..\..\include\gura\Monitor.h" />
     <ClInclude Include="..\..\include\gura\MonitorBasic.h" />
