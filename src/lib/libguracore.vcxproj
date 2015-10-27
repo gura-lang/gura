@@ -182,6 +182,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Algorithm.cpp" />
+    <ClCompile Include="Allocator.cpp" />
     <ClCompile Include="Argument.cpp" />
     <ClCompile Include="Array.cpp" />
     <ClCompile Include="Audio.cpp" />
@@ -253,7 +254,6 @@
     <ClCompile Include="IteratorBasic.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Memory.cpp" />
-    <ClCompile Include="MemoryPool.cpp" />
     <ClCompile Include="Module.cpp" />
     <ClCompile Include="Monitor.cpp" />
     <ClCompile Include="MonitorBasic.cpp" />
@@ -306,6 +306,7 @@
     <ClInclude Include="..\..\include\gura\stdafx.h" />
     <ClInclude Include="..\..\include\gura.h" />
     <ClInclude Include="..\..\include\gura\Algorithm.h" />
+    <ClInclude Include="..\..\include\gura\Allocator.h" />
     <ClInclude Include="..\..\include\gura\Argument.h" />
     <ClInclude Include="..\..\include\gura\Array.h" />
     <ClInclude Include="..\..\include\gura\Audio.h" />
@@ -375,7 +376,6 @@
     <ClInclude Include="..\..\include\gura\IteratorBasic.h" />
     <ClInclude Include="..\..\include\gura\Matrix.h" />
     <ClInclude Include="..\..\include\gura\Memory.h" />
-    <ClInclude Include="..\..\include\gura\MemoryPool.h" />
     <ClInclude Include="..\..\include\gura\Module.h" />
     <ClInclude Include="..\..\include\gura\Monitor.h" />
     <ClInclude Include="..\..\include\gura\MonitorBasic.h" />

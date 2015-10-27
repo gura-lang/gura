@@ -1,14 +1,14 @@
 //=============================================================================
-// MemoryPool
+// Allocator
 //=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// MemoryPool
+// Allocator
 //-----------------------------------------------------------------------------
-class MemoryPool {
+class Allocator {
 public:
 	class Chunk {
 	private:
@@ -21,15 +21,14 @@ public:
 		inline Chunk(size_t bytesBlock, size_t nBlocks) :
 			_bytesBlock(bytesBlock), _nBlocks(nBlocks), _iBlockNext(nBlocks),
 			_buff(nullptr), _pFreed(nullptr) {}
-		bool Initialize(size_t nBlocks);
 		void *Allocate();
 		void Free(void *p);
 	};
 private:
 	Chunk *_pChunk;
-	static MemoryPool _inst;
+	static Allocator _inst;
 public:
-	inline MemoryPool() : _pChunk(nullptr) {}
+	inline Allocator() : _pChunk(nullptr) {}
 	inline void *Allocate(size_t bytes) { return _inst.DoAllocate(bytes); }
 	inline void Free(void *p) { _inst.DoFree(p); }
 private:
@@ -38,16 +37,16 @@ private:
 };
 
 //-----------------------------------------------------------------------------
-// MemoryPool
+// Allocator
 //-----------------------------------------------------------------------------
-MemoryPool MemoryPool::_inst;
+Allocator Allocator::_inst;
 
-void *MemoryPool::DoAllocate(size_t bytes)
+void *Allocator::DoAllocate(size_t bytes)
 {
 	return nullptr;
 }
 
-void MemoryPool::DoFree(void *p)
+void Allocator::DoFree(void *p)
 {
 	char *pRaw = reinterpret_cast<char *>(p) - sizeof(Chunk *);
 	Chunk *pChunk = *reinterpret_cast<Chunk **>(pRaw);
@@ -55,9 +54,9 @@ void MemoryPool::DoFree(void *p)
 }
 
 //-----------------------------------------------------------------------------
-// MemoryPool::Chunk
+// Allocator::Chunk
 //-----------------------------------------------------------------------------
-void *MemoryPool::Chunk::Allocate()
+void *Allocator::Chunk::Allocate()
 {
 	char *pRaw = nullptr;
 	if (_pFreed == nullptr) {
@@ -76,7 +75,7 @@ void *MemoryPool::Chunk::Allocate()
 	return pRaw + sizeof(Chunk *);
 }
 
-void MemoryPool::Chunk::Free(void *p)
+void Allocator::Chunk::Free(void *p)
 {
 	char *pRaw = reinterpret_cast<char *>(p) - sizeof(Chunk *);
 	*reinterpret_cast<char **>(pRaw) = _pFreed;
