@@ -69,7 +69,7 @@ Gura_ImplementFunction(test_thread)
 		pStreamFIFO->SetWriteDoneFlag();
 		cntRound++;
 		if (cntRound > 10000) {
-			::printf("offsetWrite:%-5d offsetRead:%-5d bytesAvail:%-5d\n",
+			::printf("offsetWrite:%-5ld offsetRead:%-5ld bytesAvail:%-5ld\n",
 								pStreamFIFO->GetOffsetWrite(),
 								pStreamFIFO->GetOffsetRead(),
 								pStreamFIFO->GetBytesAvail());
@@ -88,6 +88,7 @@ Gura_DeclareFunction(test_allocator)
 
 Gura_ImplementFunction(test_allocator)
 {
+	Allocator::Allocate(100);
 	return Value::Nil;
 }
 

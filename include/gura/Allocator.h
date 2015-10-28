@@ -52,8 +52,8 @@ private:
 	ChunkVariable _chunkVariable;
 public:
 	Allocator();
-	inline void *Allocate(size_t bytes) { return _inst.DoAllocate(bytes); }
-	inline void Free(void *p) { _inst.DoFree(p); }
+	inline static void *Allocate(size_t bytes) { return _inst.DoAllocate(bytes); }
+	inline static void Free(void *p) { _inst.DoFree(p); }
 private:
 	void *DoAllocate(size_t bytes);
 	void DoFree(void *p);
