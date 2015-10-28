@@ -10,7 +10,7 @@ Gura_BeginModuleBody(tester)
 //-----------------------------------------------------------------------------
 class Thread1 : public OAL::Thread {
 private:
-	Signal _sig;
+	Signal &_sig;
 	AutoPtr<StreamFIFO> _pStreamFIFO;
 public:
 	inline Thread1(Signal &sig, StreamFIFO *pStreamFIFO) :
@@ -41,26 +41,26 @@ void Thread1::Run()
 //-----------------------------------------------------------------------------
 // Gura module functions: tester
 //-----------------------------------------------------------------------------
-// tester.run()
-Gura_DeclareFunction(run)
+// tester.test_thread()
+Gura_DeclareFunction(test_thread)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "run tester.");
 }
 
-Gura_ImplementFunction(run)
+Gura_ImplementFunction(test_thread)
 {
 	Signal &sig = env.GetSignal();
-	RandomGenerator::Initialize(0);
+	Random::Initialize(0);
 	UChar buff[1024];
-	AutoPtr<StreamFIFO> pStreamFIFO(new StreamFIFO(env, sig, 256));
+	AutoPtr<StreamFIFO> pStreamFIFO(new StreamFIFO(env, 256));
 	OAL::Thread *pThread1 = new Thread1(sig,
 			dynamic_cast<StreamFIFO *>(Stream::Reference(pStreamFIFO.get())));
 	pThread1->Start();
 	int num = 0;
 	int cntRound = 0;
 	for (;;) {
-		size_t bytesToWrite = static_cast<int>(RandomGenerator::Real2() * 1024) + 1;
+		size_t bytesToWrite = static_cast<int>(Random::Real2() * 1024) + 1;
 		for (size_t i = 0; i < bytesToWrite; i++, num++) {
 			buff[i] = static_cast<UChar>(num);
 		}
@@ -79,6 +79,18 @@ Gura_ImplementFunction(run)
 	return Value::Nil;
 }
 
+// tester.test_allocator()
+Gura_DeclareFunction(test_allocator)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "run tester.");
+}
+
+Gura_ImplementFunction(test_allocator)
+{
+	return Value::Nil;
+}
+
 //-----------------------------------------------------------------------------
 // Module Entries
 //-----------------------------------------------------------------------------
@@ -89,8 +101,8 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
-	// function assignment
-	Gura_AssignFunction(run);
+	Gura_AssignFunction(test_thread);
+	Gura_AssignFunction(test_allocator);
 	return true;
 }
 

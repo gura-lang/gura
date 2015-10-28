@@ -1,4 +1,4 @@
 #!/usr/bin/env gura
 import(tester)
 
-tester.run()
+tester.test_allocator()
