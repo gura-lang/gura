@@ -8,42 +8,22 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Allocator
 //-----------------------------------------------------------------------------
-class Allocator {
-public:
-	class Chunk {
-	private:
-		size_t _bytesBlock;
-		size_t _nBlocks;
-		size_t _iBlockNext;
-		char *_buff;
-		char *_pFreed;
-	public:
-		inline Chunk(size_t bytesBlock, size_t nBlocks) :
-			_bytesBlock(bytesBlock), _nBlocks(nBlocks), _iBlockNext(nBlocks),
-			_buff(nullptr), _pFreed(nullptr) {}
-		void *Allocate();
-		void Free(void *p);
-	};
-private:
-	Chunk *_pChunk;
-	static Allocator _inst;
-public:
-	inline Allocator() : _pChunk(nullptr) {}
-	inline void *Allocate(size_t bytes) { return _inst.DoAllocate(bytes); }
-	inline void Free(void *p) { _inst.DoFree(p); }
-private:
-	void *DoAllocate(size_t bytes);
-	void DoFree(void *p);
-};
-
-//-----------------------------------------------------------------------------
-// Allocator
-//-----------------------------------------------------------------------------
 Allocator Allocator::_inst;
+
+Allocator::Allocator() :
+	_chunkFixed1(128, 10000), _chunkFixed2(256, 10000), _chunkVariable()
+{
+}
 
 void *Allocator::DoAllocate(size_t bytes)
 {
-	return nullptr;
+	if (bytes <= _chunkFixed1.GetBytesBlock()) {
+		return _chunkFixed1.Allocate();
+	} else if (bytes <= _chunkFixed2.GetBytesBlock()) {
+		return _chunkFixed2.Allocate();
+	} else {
+		return _chunkVariable.Allocate(bytes);
+	}
 }
 
 void Allocator::DoFree(void *p)
@@ -54,32 +34,51 @@ void Allocator::DoFree(void *p)
 }
 
 //-----------------------------------------------------------------------------
-// Allocator::Chunk
+// Allocator::ChunkFixed
 //-----------------------------------------------------------------------------
-void *Allocator::Chunk::Allocate()
+void *Allocator::ChunkFixed::Allocate()
 {
-	char *pRaw = nullptr;
-	if (_pFreed == nullptr) {
-		size_t bytesFrame = sizeof(Chunk *) + _bytesBlock;
+	Frame *pFrame = nullptr;
+	if (_pFrameFreed == nullptr) {
+		size_t bytesFrame = sizeof(Frame) + _bytesBlock - 1;
 		if (_iBlockNext >= _nBlocks) {
 			_iBlockNext = 0;
 			_buff = reinterpret_cast<char *>(::malloc(bytesFrame * _nBlocks));
 		}
-		pRaw = _buff + bytesFrame * _iBlockNext;
+		pFrame = reinterpret_cast<Frame *>(_buff + bytesFrame * _iBlockNext);
 		_iBlockNext++;
 	} else {
-		pRaw = _pFreed;
-		_pFreed = *reinterpret_cast<char **>(pRaw);
+		pFrame = _pFrameFreed;
+		_pFrameFreed = pFrame->u.pFrameNext;
 	}
-	*reinterpret_cast<Chunk **>(pRaw) = this;
-	return pRaw + sizeof(Chunk *);
+	pFrame->u.pChunk = this;
+	return pFrame->buff;
 }
 
-void Allocator::Chunk::Free(void *p)
+void Allocator::ChunkFixed::Free(void *p)
 {
 	char *pRaw = reinterpret_cast<char *>(p) - sizeof(Chunk *);
-	*reinterpret_cast<char **>(pRaw) = _pFreed;
-	_pFreed = pRaw;
+	Frame *pFrame = reinterpret_cast<Frame *>(pRaw);
+	pFrame->u.pFrameNext = _pFrameFreed;
+	_pFrameFreed = pFrame;
+}
+
+//-----------------------------------------------------------------------------
+// Allocator::ChunkVariable
+//-----------------------------------------------------------------------------
+void *Allocator::ChunkVariable::Allocate(size_t bytes)
+{
+	size_t bytesFrame = sizeof(Frame) + bytes - 1;
+	Frame *pFrame = reinterpret_cast<Frame *>(::malloc(bytesFrame));
+	if (pFrame == nullptr) return nullptr;
+	pFrame->u.pChunk = this;
+	return pFrame->buff;
+}
+
+void Allocator::ChunkVariable::Free(void *p)
+{
+	char *pRaw = reinterpret_cast<char *>(p) - sizeof(Chunk *);
+	::free(pRaw);
 }
 
 }
