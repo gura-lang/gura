@@ -88,7 +88,10 @@ Gura_DeclareFunction(test_allocator)
 
 Gura_ImplementFunction(test_allocator)
 {
-	Allocator::Allocate(100);
+	for (int i = 0; i < 1000000; i++) {
+		void *p = Allocator::Allocate(100);
+		::printf("%8d %p\n", i, p);
+	}
 	return Value::Nil;
 }
 

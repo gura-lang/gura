@@ -3,6 +3,22 @@
 //=============================================================================
 #include "stdafx.h"
 
+//-----------------------------------------------------------------------------
+// Overload of new/delete operator
+//-----------------------------------------------------------------------------
+#if 0
+void *operator new(size_t size)
+{
+	//::printf("new: %ld bytes\n", size);
+	return Gura::Allocator::Allocate(size);
+}
+
+void operator delete(void *pv) noexcept
+{
+	Gura::Allocator::Free(pv);
+}
+#endif
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -17,6 +33,7 @@ Allocator::Allocator() :
 
 void *Allocator::DoAllocate(size_t bytes)
 {
+#if 1
 	if (bytes <= _chunkFixed1.GetBytesBlock()) {
 		return _chunkFixed1.Allocate();
 	} else if (bytes <= _chunkFixed2.GetBytesBlock()) {
@@ -24,6 +41,9 @@ void *Allocator::DoAllocate(size_t bytes)
 	} else {
 		return _chunkVariable.Allocate(bytes);
 	}
+#else
+	return _chunkVariable.Allocate(bytes);
+#endif
 }
 
 void Allocator::DoFree(void *p)
