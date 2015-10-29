@@ -44,16 +44,13 @@ protected:
 	bool _listOriginFlag;
 public:
 	Gura_DeclareReferenceAccessor(Iterator);
-#if 0
 public:
 	inline static void *operator new(size_t size) {
-		::printf("[Iterator: %ld bytes]\n", size);
-		return ::malloc(size);
+		return MemoryPool::Allocate(size, "Iterator");
 	}
 	inline static void operator delete(void *pv) noexcept {
-		::free(pv);
+		MemoryPool::Deallocate(pv);
 	}
-#endif
 public:
 	inline Iterator(bool infiniteFlag, bool skipInvalidFlag = false, bool repeaterFlag = false) :
 		_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(nullptr),

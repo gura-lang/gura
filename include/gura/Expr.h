@@ -71,16 +71,13 @@ private:
 	TrailCtrl _trailCtrl;
 public:
 	Gura_DeclareReferenceAccessor(TrailCtrlHolder);
-#if 0
 public:
 	inline static void *operator new(size_t size) {
-		::printf("[TrailCtrlHolder: %ld bytes]\n", size);
-		return ::malloc(size);
+		return MemoryPool::Allocate(size, "TrailCtrlHolder");
 	}
 	inline static void operator delete(void *pv) noexcept {
-		::free(pv);
+		MemoryPool::Deallocate(pv);
 	}
-#endif
 public:
 	inline TrailCtrlHolder(TrailCtrl trailCtrl) :
 									_cntRef(1), _trailCtrl(trailCtrl) {}

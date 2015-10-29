@@ -105,16 +105,13 @@ private:
 	Slots::iterator _pSlotCur;
 public:
 	Gura_DeclareReferenceAccessor(Argument);
-#if 0
 public:
 	inline static void *operator new(size_t size) {
-		::printf("[Argument: %ld bytes]\n", size);
-		return ::malloc(size);
+		return MemoryPool::Allocate(size, "Argument");
 	}
 	inline static void operator delete(void *pv) noexcept {
-		::free(pv);
+		MemoryPool::Deallocate(pv);
 	}
-#endif
 public:
 	Argument(const Function *pFunc);
 	Argument(const Function *pFunc, const CallerInfo &callerInfo);

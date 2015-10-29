@@ -6,10 +6,8 @@
 //-----------------------------------------------------------------------------
 // Overload of new/delete operator
 //-----------------------------------------------------------------------------
-#if 1
 void *operator new(size_t size)
 {
-	//::printf("new: %ld bytes\n", size);
 	return Gura::MemoryPool::Allocate(size);
 }
 
@@ -17,7 +15,6 @@ void operator delete(void *pv) noexcept
 {
 	Gura::MemoryPool::Deallocate(pv);
 }
-#endif
 
 namespace Gura {
 
