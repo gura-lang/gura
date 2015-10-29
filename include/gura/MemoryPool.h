@@ -14,7 +14,7 @@ class GURA_DLLDECLARE MemoryPool {
 public:
 	class Chunk {
 	public:
-		virtual void Free(void *p) = 0;
+		virtual void Deallocate(void *p) = 0;
 	};
 	struct Pool {
 		Pool *pPoolPrev;
@@ -23,7 +23,7 @@ public:
 	struct Header {
 		union {
 			Chunk *pChunk;
-			Header *pHeaderNext;
+			Header *pHeaderVacantNext;
 		} u;
 		const char *ownerName;
 	};
@@ -33,21 +33,21 @@ public:
 		size_t _nBlocks;
 		size_t _iBlockNext;
 		Pool *_pPool;
-		Header *_pHeaderFreed;
+		Header *_pHeaderVacantHead;
 	public:
 		inline ChunkFixed(size_t bytesBlock, size_t nBlocks) :
 			_bytesBlock(bytesBlock), _nBlocks(nBlocks), _iBlockNext(nBlocks),
-			_pPool(nullptr), _pHeaderFreed(nullptr) {}
+			_pPool(nullptr), _pHeaderVacantHead(nullptr) {}
 		inline size_t GetBytesBlock() const { return _bytesBlock; }
 		void Print() const;
 		void *Allocate(const char *ownerName);
-		virtual void Free(void *p);
+		virtual void Deallocate(void *p);
 	};
 	class ChunkVariable : public Chunk {
 	public:
 		inline ChunkVariable() {}
 		void *Allocate(size_t bytes, const char *ownerName);
-		virtual void Free(void *p);
+		virtual void Deallocate(void *p);
 	};
 private:
 	static MemoryPool _inst;
@@ -60,11 +60,11 @@ public:
 	inline static void *Allocate(size_t bytes, const char *ownerName = "") {
 		return _inst.DoAllocate(bytes, ownerName);
 	}
-	inline static void Free(void *p) { _inst.DoFree(p); }
+	inline static void Deallocate(void *p) { _inst.DoDeallocate(p); }
 	inline static void Print() { _inst.DoPrint(); }
 private:
 	void *DoAllocate(size_t bytes, const char *ownerName);
-	void DoFree(void *p);
+	void DoDeallocate(void *p);
 	void DoPrint() const;
 };
 

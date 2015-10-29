@@ -12,6 +12,7 @@
 #include "SuffixMgr.h"
 #include "PathMgr.h"
 #include "Callable.h"
+#include "MemoryPool.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -272,16 +273,13 @@ protected:
 	AutoPtr<FrameCache> _pFrameCache;
 public:
 	Gura_DeclareReferenceAccessor(Environment)
-#if 0
 public:
 	inline static void *operator new(size_t size) {
-		::printf("[Environment: %ld bytes]\n", size);
-		return ::malloc(size);
+		return MemoryPool::Allocate(size, "Environment");
 	}
 	inline static void operator delete(void *pv) noexcept {
-		::free(pv);
+		MemoryPool::Deallocate(pv);
 	}
-#endif
 public:
 	Environment(Signal &sig);
 protected:
