@@ -2,7 +2,6 @@
 
 add_library(guracore SHARED
 Algorithm.cpp
-Allocator.cpp
 Argument.cpp
 Array.cpp
 Audio.cpp
@@ -73,6 +72,7 @@ Iterator.cpp
 IteratorBasic.cpp
 Matrix.cpp
 Memory.cpp
+MemoryPool.cpp
 Module.cpp
 Monitor.cpp
 MonitorBasic.cpp

@@ -27,7 +27,6 @@
 #include <algorithm>
 
 #include "gura/Algorithm.h"
-#include "gura/Allocator.h"
 #include "gura/Argument.h"
 #include "gura/Array.h"
 #include "gura/Audio.h"
@@ -46,6 +45,7 @@
 #include "gura/IteratorBasic.h"
 #include "gura/Matrix.h"
 #include "gura/Memory.h"
+#include "gura/MemoryPool.h"
 #include "gura/Module.h"
 #include "gura/Monitor.h"
 #include "gura/MonitorBasic.h"

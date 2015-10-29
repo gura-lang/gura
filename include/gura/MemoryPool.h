@@ -1,27 +1,27 @@
 //=============================================================================
-// Allocator
+// MemoryPool
 //=============================================================================
-#ifndef __GURA_ALLOCATOR_H__
-#define __GURA_ALLOCATOR_H__
+#ifndef __GURA_MEMORYPOOL_H__
+#define __GURA_MEMORYPOOL_H__
 #include "Common.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Allocator
+// MemoryPool
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Allocator {
+class GURA_DLLDECLARE MemoryPool {
 public:
 	class Chunk {
 	public:
 		virtual void Free(void *p) = 0;
 	};
-	struct Frame {
+	struct Header {
 		union {
 			Chunk *pChunk;
-			Frame *pFrameNext;
+			Header *pHeaderNext;
 		} u;
-		char buff[1];
+		const char *ownerName;
 	};
 	class ChunkFixed : public Chunk {
 	private:
@@ -29,34 +29,39 @@ public:
 		size_t _nBlocks;
 		size_t _iBlockNext;
 		char *_buff;
-		Frame *_pFrameFreed;
+		Header *_pHeaderFreed;
 	public:
 		inline ChunkFixed(size_t bytesBlock, size_t nBlocks) :
 			_bytesBlock(bytesBlock), _nBlocks(nBlocks), _iBlockNext(nBlocks),
-			_buff(nullptr), _pFrameFreed(nullptr) {}
+			_buff(nullptr), _pHeaderFreed(nullptr) {}
 		inline size_t GetBytesBlock() const { return _bytesBlock; }
-		void *Allocate();
+		void Print() const;
+		void *Allocate(const char *ownerName);
 		virtual void Free(void *p);
 	};
 	class ChunkVariable : public Chunk {
 	public:
 		inline ChunkVariable() {}
-		void *Allocate(size_t bytes);
+		void *Allocate(size_t bytes, const char *ownerName);
 		virtual void Free(void *p);
 	};
 private:
-	static Allocator _inst;
+	static MemoryPool _inst;
 private:
 	ChunkFixed _chunkFixed1;
 	ChunkFixed _chunkFixed2;
 	ChunkVariable _chunkVariable;
 public:
-	Allocator();
-	inline static void *Allocate(size_t bytes) { return _inst.DoAllocate(bytes); }
+	MemoryPool();
+	inline static void *Allocate(size_t bytes, const char *ownerName = "") {
+		return _inst.DoAllocate(bytes, ownerName);
+	}
 	inline static void Free(void *p) { _inst.DoFree(p); }
+	inline static void Print() { _inst.DoPrint(); }
 private:
-	void *DoAllocate(size_t bytes);
+	void *DoAllocate(size_t bytes, const char *ownerName);
 	void DoFree(void *p);
+	void DoPrint() const;
 };
 
 }
