@@ -24,7 +24,7 @@ namespace Gura {
 MemoryPool MemoryPool::_inst;
 
 MemoryPool::MemoryPool() :
-	_chunkFixed1(128, 10000), _chunkFixed2(256, 10000), _chunkVariable()
+	_chunkFixed1(64, 10000), _chunkFixed2(128, 10000), _chunkVariable()
 {
 }
 
