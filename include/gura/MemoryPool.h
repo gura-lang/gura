@@ -68,6 +68,24 @@ private:
 	void DoPrint() const;
 };
 
+//-----------------------------------------------------------------------------
+// Allocator
+//-----------------------------------------------------------------------------
+template<typename _Tp> class Allocator : public std::allocator<_Tp> {
+public:
+	inline Allocator() {}
+	inline Allocator(const Allocator &a) throw() {}
+	template<typename _Tp1> struct rebind {
+		typedef Allocator<_Tp1> other;
+	};
+	inline _Tp *allocate(size_t num, std::allocator<void>::const_pointer hint = nullptr) {
+		return reinterpret_cast<_Tp *>(MemoryPool::Allocate(num * sizeof(_Tp), "Allocator"));
+	}
+	inline void deallocate(_Tp *p, size_t num) {
+		MemoryPool::Deallocate(p);
+	}
+};
+
 }
 
 #endif

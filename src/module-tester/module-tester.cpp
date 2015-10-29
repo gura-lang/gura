@@ -86,34 +86,43 @@ Gura_DeclareFunction(test_allocator)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "run tester.");
 }
 
+typedef std::vector<Value, Allocator<Value> > ValueList2;
+
 Gura_ImplementFunction(test_allocator)
 {
+	ValueList2 valList;
+	//valList.reserve(100);
+	for (int i = 0; i < 1000; i++) {
+		valList.push_back(Value::Nil);
+	}
+#if 0
 #if 0
 	for (int i = 0; i < 1000000; i++) {
-		void *p = Allocator::Allocate(100);
+		void *p = MemoryPool::Allocate(100);
 		::printf("%8d %p\n", i, p);
 	}
 #endif
-	Allocator::Print();
+	MemoryPool::Print();
 	::printf("----\n");
-	void *p1 = Allocator::Allocate(100);
-	void *p2 = Allocator::Allocate(100);
-	Allocator::Print();
+	void *p1 = MemoryPool::Allocate(100);
+	void *p2 = MemoryPool::Allocate(100);
+	MemoryPool::Print();
 	::printf("----\n");
-	Allocator::Free(p1);
-	Allocator::Print();
+	MemoryPool::Deallocate(p1);
+	MemoryPool::Print();
 	::printf("----\n");
-	Allocator::Free(p2);
-	Allocator::Print();
+	MemoryPool::Deallocate(p2);
+	MemoryPool::Print();
 	::printf("----\n");
-	p1 = Allocator::Allocate(100);
-	Allocator::Print();
+	p1 = MemoryPool::Allocate(100);
+	MemoryPool::Print();
 	::printf("----\n");
-	p2 = Allocator::Allocate(100);
-	Allocator::Print();
+	p2 = MemoryPool::Allocate(100);
+	MemoryPool::Print();
 	::printf("----\n");
-	void *p3 = Allocator::Allocate(100);
-	Allocator::Print();
+	void *p3 = MemoryPool::Allocate(100);
+	MemoryPool::Print();
+#endif
 	return Value::Nil;
 }
 
