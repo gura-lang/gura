@@ -16,6 +16,10 @@ public:
 	public:
 		virtual void Free(void *p) = 0;
 	};
+	struct Pool {
+		Pool *pPoolPrev;
+		char buff[1];
+	};
 	struct Header {
 		union {
 			Chunk *pChunk;
@@ -28,12 +32,12 @@ public:
 		size_t _bytesBlock;
 		size_t _nBlocks;
 		size_t _iBlockNext;
-		char *_buff;
+		Pool *_pPool;
 		Header *_pHeaderFreed;
 	public:
 		inline ChunkFixed(size_t bytesBlock, size_t nBlocks) :
 			_bytesBlock(bytesBlock), _nBlocks(nBlocks), _iBlockNext(nBlocks),
-			_buff(nullptr), _pHeaderFreed(nullptr) {}
+			_pPool(nullptr), _pHeaderFreed(nullptr) {}
 		inline size_t GetBytesBlock() const { return _bytesBlock; }
 		void Print() const;
 		void *Allocate(const char *ownerName);
