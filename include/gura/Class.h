@@ -133,6 +133,13 @@ class Class;
 class GURA_DLLDECLARE Object : public Fundamental {
 protected:
 	AutoPtr<Class> _pClass;
+public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "Object");
+	}
+	inline static void operator delete(void *pv) noexcept {
+		MemoryPool::Deallocate(pv);
+	}
 protected:
 	Object(const Object &obj);
 public:
@@ -175,6 +182,13 @@ protected:
 	AutoPtr<Function> _pConstructor;
 public:
 	Gura_DeclareReferenceAccessor(Class);
+public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "Class");
+	}
+	inline static void operator delete(void *pv) noexcept {
+		MemoryPool::Deallocate(pv);
+	}
 protected:
 	inline Class(const Class &cls) : Fundamental(cls),
 		_pClassSuper(Class::Reference(cls._pClassSuper.get())), _valType(cls._valType),

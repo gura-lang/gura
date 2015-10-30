@@ -32,6 +32,7 @@ MemoryPool::MemoryPool() :
 
 void *MemoryPool::DoAllocate(size_t bytes, const char *ownerName)
 {
+	//::printf("Allocate %ldbytes %s\n", bytes, ownerName);
 #if 1
 	if (bytes <= _chunkFixed1.GetBytesBlock()) {
 		return _chunkFixed1.Allocate(ownerName);

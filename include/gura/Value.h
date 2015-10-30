@@ -491,13 +491,13 @@ public:
 //-----------------------------------------------------------------------------
 // ValueList
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueList : public std::vector<Value> {
+class GURA_DLLDECLARE ValueList : public std::vector<Value, Allocator<Value> > {
 public:
 	static const ValueList Empty;
 public:
 	inline ValueList() {}
-	inline ValueList(size_t n) : std::vector<Value>(n) {}
-	inline ValueList(size_t n, const Value &value) : std::vector<Value>(n, value) {}
+	inline ValueList(size_t n) : std::vector<Value, Allocator<Value> >(n) {}
+	inline ValueList(size_t n, const Value &value) : std::vector<Value, Allocator<Value> >(n, value) {}
 	inline ValueList(const Value &value) {
 		reserve(1);
 		push_back(value);

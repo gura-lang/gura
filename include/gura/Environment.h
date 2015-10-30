@@ -12,7 +12,6 @@
 #include "SuffixMgr.h"
 #include "PathMgr.h"
 #include "Callable.h"
-#include "MemoryPool.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -180,6 +179,13 @@ public:
 		std::unique_ptr<ValueTypeMap> _pValueTypeMap;
 		std::unique_ptr<SymbolSet> _pSymbolsPublic;
 	public:
+		inline static void *operator new(size_t size) {
+			return MemoryPool::Allocate(size, "Frame");
+		}
+		inline static void operator delete(void *pv) noexcept {
+			MemoryPool::Deallocate(pv);
+		}
+	public:
 		Frame(const Frame &frame);
 		Frame(EnvType envType, Global *pGlobal);
 		virtual ~Frame();
@@ -244,7 +250,7 @@ public:
 		}
 		void DbgPrint() const;
 	};
-	class GURA_DLLDECLARE FrameList : public std::list<Frame *> {
+	class GURA_DLLDECLARE FrameList : public std::vector<Frame *, Allocator<Frame *> > {
 	public:
 		inline bool DoesExist(Frame *pFrame) const {
 			return std::find(begin(), end(), pFrame) != end();
