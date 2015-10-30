@@ -189,8 +189,8 @@ private:
 //-----------------------------------------------------------------------------
 struct my_char_traits : public std::char_traits<char> {};
 
-typedef std::basic_string<char, my_char_traits> String;
-typedef std::deque<String> StringDeque;
+typedef std::basic_string<char, my_char_traits, Allocator<char> > String;
+typedef std::deque<String, Allocator<String> > StringDeque;
 
 class GURA_DLLDECLARE StringShared {
 private:
@@ -198,6 +198,13 @@ private:
 	String _str;
 public:
 	Gura_DeclareReferenceAccessor(StringShared)
+public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "StringShared");
+	}
+	inline static void operator delete(void *pv) noexcept {
+		MemoryPool::Deallocate(pv);
+	}
 public:
 	inline StringShared() : _cntRef(1) {}
 	inline StringShared(const String &str) : _cntRef(1), _str(str) {}

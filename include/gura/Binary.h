@@ -10,15 +10,15 @@
 
 namespace Gura {
 
-class GURA_DLLDECLARE Binary : public std::basic_string<char, my_char_traits> {
+class GURA_DLLDECLARE Binary : public String {
 public:
 	inline Binary() {}
-	inline Binary(const Binary &binary) : std::basic_string<char, my_char_traits>(binary) {}
-	inline Binary(const String &str) : std::basic_string<char, my_char_traits>(str) {}
-	inline Binary(const char *str) : std::basic_string<char, my_char_traits>(str) {}
-	inline Binary(const char *buff, size_t size) : std::basic_string<char, my_char_traits>(buff, size) {}
+	inline Binary(const Binary &binary) : String(binary) {}
+	inline Binary(const String &str) : String(str) {}
+	inline Binary(const char *str) : String(str) {}
+	inline Binary(const char *buff, size_t size) : String(buff, size) {}
 	inline Binary &operator=(const Binary &binary) {
-		std::basic_string<char, my_char_traits>::operator=(binary);
+		String::operator=(binary);
 		return *this;
 	}
 public:
