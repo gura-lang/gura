@@ -13,6 +13,13 @@ class GURA_DLLDECLARE Complex : public std::complex<double> {
 public:
 	static const Complex Zero;
 public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "Complex");
+	}
+	inline static void operator delete(void *pv) noexcept {
+		MemoryPool::Deallocate(pv);
+	}
+public:
 	inline Complex() : std::complex<double>(0.) {}
 	inline Complex(const Complex &comp) : std::complex<double>(comp) {}
 	inline Complex(const std::complex<double> &comp) : std::complex<double>(comp) {}

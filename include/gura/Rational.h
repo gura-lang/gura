@@ -16,6 +16,13 @@ public:
 public:
 	static const Rational Zero;
 public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "Rational");
+	}
+	inline static void operator delete(void *pv) noexcept {
+		MemoryPool::Deallocate(pv);
+	}
+public:
 	inline Rational() : numer(0), denom(1) {}
 	inline Rational(int numer_, int denom_) : numer(numer_), denom(denom_) {}
 	inline Rational(const Rational &ratio) : numer(ratio.numer), denom(ratio.denom) {}

@@ -29,6 +29,13 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Declaration)
 public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "Declaration");
+	}
+	inline static void operator delete(void *pv) noexcept {
+		MemoryPool::Deallocate(pv);
+	}
+public:
 	Declaration(const Declaration &decl);
 	Declaration(const Symbol *pSymbol, ValueType valType);
 	Declaration(const Symbol *pSymbol, ValueType valType,
@@ -76,9 +83,7 @@ public:
 //-----------------------------------------------------------------------------
 // DeclarationList
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE DeclarationList : public std::vector<Declaration *> {
-public:
-	typedef std::map<const Symbol *, const Expr *, Symbol::KeyCompare_UniqNumber> ExprMap;
+class GURA_DLLDECLARE DeclarationList : public std::vector<Declaration *, Allocator<Declaration *> > {
 public:
 	static const DeclarationList Empty;
 public:

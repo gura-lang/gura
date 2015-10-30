@@ -113,8 +113,8 @@ public:
 class ColorMap : public std::map<const Symbol *, Color> {
 };
 
-typedef std::vector<Color> ColorList;
-typedef std::deque<Color> ColorDeque;
+typedef std::vector<Color, Allocator<Color> > ColorList;
+typedef std::deque<Color, Allocator<Color> > ColorDeque;
 typedef std::set<Color> ColorSet;
 
 }
