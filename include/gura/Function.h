@@ -174,6 +174,13 @@ protected:
 public:
 	Gura_DeclareReferenceAccessor(Function);
 public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "Function");
+	}
+	inline static void operator delete(void *pv) noexcept {
+		MemoryPool::Deallocate(pv);
+	}
+public:
 	Function(const Function &func);
 	Function(Environment &envScope, const Symbol *pSymbol, FunctionType funcType, ULong flags);
 	virtual ~Function();

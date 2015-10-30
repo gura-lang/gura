@@ -204,6 +204,13 @@ protected:
 public:
 	Gura_DeclareReferenceAccessor(Image);
 public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "Image");
+	}
+	inline static void operator delete(void *pv) noexcept {
+		MemoryPool::Deallocate(pv);
+	}
+public:
 	Image(Format format);
 	Image(const Image &image);
 protected:

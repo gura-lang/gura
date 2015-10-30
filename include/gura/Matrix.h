@@ -20,6 +20,13 @@ public:
 	public:
 		Gura_DeclareReferenceAccessor(Elements);
 	public:
+		inline static void *operator new(size_t size) {
+			return MemoryPool::Allocate(size, "Matrix.Elements");
+		}
+		inline static void operator delete(void *pv) noexcept {
+			MemoryPool::Deallocate(pv);
+		}
+	public:
 		inline Elements() : _cntRef(1) {}
 		inline Elements(const Elements &elements) :
 							_cntRef(1), _valList(elements._valList) {}
@@ -79,6 +86,13 @@ private:
 	bool _indexForColFlag;
 public:
 	Gura_DeclareReferenceAccessor(Matrix);
+public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "Matrix");
+	}
+	inline static void operator delete(void *pv) noexcept {
+		MemoryPool::Deallocate(pv);
+	}
 public:
 	Matrix(const Matrix &matrix);
 	Matrix(size_t nRows, size_t nCols);

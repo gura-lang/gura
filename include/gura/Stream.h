@@ -76,6 +76,13 @@ protected:
 	} _peek;
 public:
 	Gura_DeclareReferenceAccessor(Stream);
+public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "Stream");
+	}
+	inline static void operator delete(void *pv) noexcept {
+		MemoryPool::Deallocate(pv);
+	}
 protected:
 	virtual ~Stream();
 public:
