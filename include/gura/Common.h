@@ -71,29 +71,29 @@ typedef unsigned short		UShort;		// unsigned 16bit
 typedef unsigned long		ULong;		// unsigned 32bit
 typedef uint64				UInt64;		// unsigned 64bit
 
-typedef std::vector<char>	CharList;
-typedef std::vector<short>	ShortList;
-typedef std::vector<int>	IntList;
-typedef std::vector<long>	LongList;
-typedef std::vector<float>	FloatList;
-typedef std::vector<double>	DoubleList;
-typedef std::vector<UChar>	UCharList;
-typedef std::vector<UShort>	UShortList;
-typedef std::vector<UInt>	UIntList;
-typedef std::vector<ULong>	ULongList;
-typedef std::vector<Number>	NumberList;
+typedef std::vector<char, Allocator<char> >		CharList;
+typedef std::vector<short, Allocator<short> >	ShortList;
+typedef std::vector<int, Allocator<int> >		IntList;
+typedef std::vector<long, Allocator<long> >		LongList;
+typedef std::vector<float, Allocator<float> >	FloatList;
+typedef std::vector<double, Allocator<double> >	DoubleList;
+typedef std::vector<UChar, Allocator<UChar> >	UCharList;
+typedef std::vector<UShort, Allocator<UShort> >	UShortList;
+typedef std::vector<UInt, Allocator<UInt> >		UIntList;
+typedef std::vector<ULong, Allocator<ULong> >	ULongList;
+typedef std::vector<Number, Allocator<Number> >	NumberList;
 
-typedef std::deque<char>	CharDeque;
-typedef std::deque<short>	ShortDeque;
-typedef std::deque<int>		IntDeque;
-typedef std::deque<long>	LongDeque;
-typedef std::deque<float>	FloatDeque;
-typedef std::deque<double>	DoubleDeque;
-typedef std::deque<UChar>	UCharDeque;
-typedef std::deque<UShort>	UShortDeque;
-typedef std::deque<UInt>	UIntDeque;
-typedef std::deque<ULong>	ULongDeque;
-typedef std::deque<Number>	NumberDeque;
+typedef std::deque<char, Allocator<char> >		CharDeque;
+typedef std::deque<short, Allocator<short> >	ShortDeque;
+typedef std::deque<int, Allocator<int> >		IntDeque;
+typedef std::deque<long, Allocator<long> >		LongDeque;
+typedef std::deque<float, Allocator<float> >	FloatDeque;
+typedef std::deque<double, Allocator<double> >	DoubleDeque;
+typedef std::deque<UChar, Allocator<UChar> >	UCharDeque;
+typedef std::deque<UShort, Allocator<UShort> >	UShortDeque;
+typedef std::deque<UInt, Allocator<UInt> >		UIntDeque;
+typedef std::deque<ULong, Allocator<ULong> >	ULongDeque;
+typedef std::deque<Number, Allocator<Number> >	NumberDeque;
 
 //-----------------------------------------------------------------------------
 // Flag
