@@ -263,7 +263,7 @@ public:
 		void Clear();
 	};
 	class GURA_DLLDECLARE FrameCache :
-			public std::map<const Symbol *, Frame *, Symbol::KeyCompare_UniqNumber> {
+		public std::map<const Symbol *, Frame *, Symbol::KeyCompare_UniqNumber, Allocator<const Symbol *> > {
 	protected:
 		int _cntRef;
 	public:

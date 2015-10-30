@@ -535,12 +535,12 @@ public:
 //-----------------------------------------------------------------------------
 // ValuePtrList
 //-----------------------------------------------------------------------------
-typedef std::vector<const Value *> ValuePtrList;
+typedef std::vector<const Value *, Allocator<const Value *> > ValuePtrList;
 
 //-----------------------------------------------------------------------------
 // ValueMap
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, ValueEx, Symbol::KeyCompare_UniqNumber> {
+class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, ValueEx, Symbol::KeyCompare_UniqNumber, Allocator<const Symbol *> > {
 public:
 	static const ValueMap Empty;
 private:
@@ -560,12 +560,12 @@ public:
 //-----------------------------------------------------------------------------
 // ValueDeque
 //-----------------------------------------------------------------------------
-typedef std::deque<Value> ValueDeque;
+typedef std::deque<Value, Allocator<Value> > ValueDeque;
 
 //-----------------------------------------------------------------------------
 // ValueDict
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueDict : public std::map<Value, Value, Value::KeyCompare> {
+class GURA_DLLDECLARE ValueDict : public std::map<Value, Value, Value::KeyCompare, Allocator<Value> > {
 public:
 	enum StoreMode {
 		STORE_Strict,
@@ -579,13 +579,13 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(ValueDict);
 public:
-	inline ValueDict() : std::map<Value, Value, Value::KeyCompare>(),
+	inline ValueDict() : std::map<Value, Value, Value::KeyCompare, Allocator<Value> >(),
 								_cntRef(1), _ignoreCaseFlag(false) {}
 	inline ValueDict(bool ignoreCaseFlag) :
-		std::map<Value, Value, Value::KeyCompare>(ignoreCaseFlag? Value::KeyCompareIgnoreCase : Value::KeyCompareCase),
+		std::map<Value, Value, Value::KeyCompare, Allocator<Value> >(ignoreCaseFlag? Value::KeyCompareIgnoreCase : Value::KeyCompareCase),
 		_cntRef(1), _ignoreCaseFlag(ignoreCaseFlag) {}
 	inline ValueDict(const ValueDict &valDict) :
-		std::map<Value, Value, Value::KeyCompare>(valDict),
+		std::map<Value, Value, Value::KeyCompare, Allocator<Value> >(valDict),
 		_cntRef(1), _ignoreCaseFlag(valDict._ignoreCaseFlag) {}
 private:
 	inline ~ValueDict() {}
