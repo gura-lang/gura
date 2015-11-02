@@ -178,6 +178,7 @@ public:
 		AutoPtr<ValueMap> _pValueMap;
 		std::unique_ptr<ValueTypeMap> _pValueTypeMap;
 		std::unique_ptr<SymbolSet> _pSymbolsPublic;
+		AutoPtr<Argument> _pArg;
 	public:
 		inline static void *operator new(size_t size) {
 			return MemoryPool::Allocate(size, "Frame");
@@ -248,6 +249,8 @@ public:
 			}
 			return *_pSymbolsPublic;
 		}
+		inline void SetArgument(Argument *pArg) { _pArg.reset(pArg); }
+		inline Argument *GetArgument() { return _pArg.get(); }
 		void DbgPrint() const;
 	};
 	class GURA_DLLDECLARE FrameList : public std::vector<Frame *, Allocator<Frame *> > {
@@ -313,6 +316,8 @@ public:
 	inline bool IsType(EnvType envType) const	{ return GetTopFrame()->IsType(envType);	}
 	inline Global *GetGlobal()					{ return GetTopFrame()->GetGlobal();		}
 	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();		}
+	inline void SetArgument(Argument *pArg)		{ GetTopFrame()->SetArgument(pArg);			}
+	inline Argument *GetArgument()				{ return GetTopFrame()->GetArgument();		}
 	inline Option &GetOption()					{ return GetGlobal()->GetOption();			}
 	inline Operator *GetOperator(OpType opType) { return GetGlobal()->GetOperator(opType);	}
 	inline const Operator *GetOperator(OpType opType) const
