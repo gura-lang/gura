@@ -13,18 +13,30 @@ static Environment *_pEnvThis = nullptr;
 //-----------------------------------------------------------------------------
 // Gura module functions: os
 //-----------------------------------------------------------------------------
-// os.clock()
+// os.clock() {block?}
 Gura_DeclareFunction(clock)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns the time duration in second since the system has started.\n"
+		"\n"
+		"If `block` is specified, it would calculate how much time has been spent\n"
+		"during evaluating the block.\n ");
 }
 
 Gura_ImplementFunction(clock)
 {
-	return Value(OAL::GetTickTime());
+	if (!arg.IsBlockSpecified()) return Value(OAL::GetTickTime());
+	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_local));
+	const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
+	if (env.IsSignalled()) return Value::Nil;
+	Number timeStart = OAL::GetTickTime();
+	pExprBlock->Exec(*pEnvBlock);
+	Number timeEnd = OAL::GetTickTime();
+	if (env.IsSignalled()) return Value::Nil;
+	return Value(timeEnd - timeStart);
 }
 
 // os.exec(pathname:string, args*:string):map:[fork]
