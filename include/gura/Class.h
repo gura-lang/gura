@@ -137,7 +137,7 @@ public:
 	inline static void *operator new(size_t size) {
 		return MemoryPool::Allocate(size, "Object");
 	}
-	inline static void operator delete(void *pv) noexcept {
+	inline static void operator delete(void *pv) {
 		MemoryPool::Deallocate(pv);
 	}
 protected:
@@ -186,7 +186,7 @@ public:
 	inline static void *operator new(size_t size) {
 		return MemoryPool::Allocate(size, "Class");
 	}
-	inline static void operator delete(void *pv) noexcept {
+	inline static void operator delete(void *pv) {
 		MemoryPool::Deallocate(pv);
 	}
 protected:
