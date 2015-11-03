@@ -56,8 +56,8 @@ const Value Value::False(false);							// boolean
 const Value Value::Zero(0);									// number
 const Value Value::One(1);									// number
 
-const Value::KeyCompare Value::KeyCompareCase(false);
-const Value::KeyCompare Value::KeyCompareIgnoreCase(true);
+const Value::LessThan Value::LessThanCase(false);
+const Value::LessThan Value::LessThanIgnoreCase(true);
 
 Value::Value(const Value &value)
 {
@@ -739,7 +739,7 @@ bool Value::Deserialize(Environment &env, Stream &stream, Value &value, bool mus
 	return pValueTypeInfo->GetClass()->Deserialize(env, stream, value);
 }
 
-bool Value::KeyCompare::operator()(const Value &value1, const Value &value2) const
+bool Value::LessThan::operator()(const Value &value1, const Value &value2) const
 {
 	if (value1.GetValueType() != value2.GetValueType()) {
 		return value1.GetValueType() < value2.GetValueType();

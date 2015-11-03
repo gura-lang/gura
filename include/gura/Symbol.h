@@ -46,24 +46,34 @@ class SymbolSet;
 class GURA_DLLDECLARE Symbol {
 public:
 	typedef UInt UniqNumber;
-	struct KeyCompare_UniqNumber {
+	struct LessThan {
 		inline bool operator()(const Symbol *pSymbol1, const Symbol *pSymbol2) const {
 			return pSymbol1->GetUniqNum() < pSymbol2->GetUniqNum();
 		}
 	};
-	struct KeyCompare_Name {
+	struct LessThan_Name {
 		inline bool operator()(const Symbol *pSymbol1, const Symbol *pSymbol2) const {
 			return ::strcmp(pSymbol1->GetName(), pSymbol2->GetName()) < 0;
 		}
 	};
+	struct Hasher {
+		inline size_t operator()(const Symbol *pSymbol) const {
+			return static_cast<size_t>(pSymbol->GetUniqNum());
+		}
+	};
+	struct EqualTo {
+		inline bool operator()(const Symbol *pSymbol1, const Symbol *pSymbol2) const {
+			return pSymbol1->GetUniqNum() == pSymbol2->GetUniqNum();
+		}
+	};
 public:
-	typedef std::set<const Symbol *, KeyCompare_UniqNumber> Set;
+	typedef std::set<const Symbol *, LessThan> Set;
 	typedef std::map<ULong, const Symbol *> MapFromFlag;
-	typedef std::map<const Symbol *, ULong, KeyCompare_UniqNumber> MapToFlag;
+	typedef std::map<const Symbol *, ULong, LessThan> MapToFlag;
 	typedef std::map<OccurPattern, const Symbol *> MapFromOccurPattern;
-	typedef std::map<const Symbol *, OccurPattern, KeyCompare_UniqNumber> MapToOccurPattern;
+	typedef std::map<const Symbol *, OccurPattern, LessThan> MapToOccurPattern;
 	typedef std::map<ResultMode, const Symbol *> MapFromResultMode;
-	typedef std::map<const Symbol *, ResultMode, KeyCompare_UniqNumber> MapToResultMode;
+	typedef std::map<const Symbol *, ResultMode, LessThan> MapToResultMode;
 private:
 	UniqNumber _uniqNum;
 	char *_name;
@@ -133,7 +143,7 @@ public:
 //-----------------------------------------------------------------------------
 // SymbolSet
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE SymbolSet : public std::set<const Symbol *, Symbol::KeyCompare_UniqNumber> {
+class GURA_DLLDECLARE SymbolSet : public std::set<const Symbol *, Symbol::LessThan> {
 public:
 	static const SymbolSet Empty;
 public:
@@ -583,7 +593,7 @@ public:
 	Gura_DeclareSymbol(zero);
 	Gura_DeclareSymbol(zh);
 private:
-	typedef std::set<Symbol *, Symbol::KeyCompare_Name> Content;
+	typedef std::set<Symbol *, Symbol::LessThan_Name> Content;
 private:
 	static SymbolPool *_pInst;
 	Symbol::UniqNumber _uniqNum;

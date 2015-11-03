@@ -296,7 +296,7 @@ String SymbolList::Join(SymbolList::const_iterator ppSymbol,
 
 void SymbolList::SortByName()
 {
-	std::stable_sort(begin(), end(), Symbol::KeyCompare_Name());
+	std::stable_sort(begin(), end(), Symbol::LessThan_Name());
 }
 
 //-----------------------------------------------------------------------------

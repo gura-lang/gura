@@ -123,7 +123,7 @@ public:
 // ValueTypeMap
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ValueTypeMap : public std::map<const Symbol *,
-							ValueTypeInfo *, Symbol::KeyCompare_UniqNumber> {
+							ValueTypeInfo *, Symbol::LessThan> {
 public:
 	static const ValueTypeMap Empty;
 	inline ValueTypeMap() {}

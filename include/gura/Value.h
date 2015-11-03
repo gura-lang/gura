@@ -53,11 +53,11 @@ extern "C" void Gura_ReleaseValue(Value &value);
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Value {
 public:
-	class KeyCompare {
+	class LessThan {
 	private:
 		bool _ignoreCaseFlag;
 	public:
-		inline KeyCompare(bool ignoreCaseFlag = false) : _ignoreCaseFlag(ignoreCaseFlag) {}
+		inline LessThan(bool ignoreCaseFlag = false) : _ignoreCaseFlag(ignoreCaseFlag) {}
 		bool operator()(const Value &value1, const Value &value2) const;
 	};
 public:
@@ -84,8 +84,8 @@ public:
 	static const Value False;		// boolean
 	static const Value Zero;		// number
 	static const Value One;			// number
-	static const KeyCompare KeyCompareCase;
-	static const KeyCompare KeyCompareIgnoreCase;
+	static const LessThan LessThanCase;
+	static const LessThan LessThanIgnoreCase;
 public:
 	Value(const Value &value);
 	~Value();
@@ -540,7 +540,7 @@ typedef std::vector<const Value *, Allocator<const Value *> > ValuePtrList;
 //-----------------------------------------------------------------------------
 // ValueMap
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, ValueEx, Symbol::KeyCompare_UniqNumber, Allocator<const Symbol *> > {
+class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, ValueEx, Symbol::LessThan, Allocator<const Symbol *> > {
 public:
 	static const ValueMap Empty;
 private:
@@ -565,7 +565,7 @@ typedef std::deque<Value, Allocator<Value> > ValueDeque;
 //-----------------------------------------------------------------------------
 // ValueDict
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueDict : public std::map<Value, Value, Value::KeyCompare, Allocator<Value> > {
+class GURA_DLLDECLARE ValueDict : public std::map<Value, Value, Value::LessThan, Allocator<Value> > {
 public:
 	enum StoreMode {
 		STORE_Strict,
@@ -579,13 +579,13 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(ValueDict);
 public:
-	inline ValueDict() : std::map<Value, Value, Value::KeyCompare, Allocator<Value> >(),
+	inline ValueDict() : std::map<Value, Value, Value::LessThan, Allocator<Value> >(),
 								_cntRef(1), _ignoreCaseFlag(false) {}
 	inline ValueDict(bool ignoreCaseFlag) :
-		std::map<Value, Value, Value::KeyCompare, Allocator<Value> >(ignoreCaseFlag? Value::KeyCompareIgnoreCase : Value::KeyCompareCase),
+		std::map<Value, Value, Value::LessThan, Allocator<Value> >(ignoreCaseFlag? Value::LessThanIgnoreCase : Value::LessThanCase),
 		_cntRef(1), _ignoreCaseFlag(ignoreCaseFlag) {}
 	inline ValueDict(const ValueDict &valDict) :
-		std::map<Value, Value, Value::KeyCompare, Allocator<Value> >(valDict),
+		std::map<Value, Value, Value::LessThan, Allocator<Value> >(valDict),
 		_cntRef(1), _ignoreCaseFlag(valDict._ignoreCaseFlag) {}
 private:
 	inline ~ValueDict() {}
