@@ -75,6 +75,7 @@ template<typename _Tp> class Allocator : public std::allocator<_Tp> {
 public:
 	inline Allocator() {}
 	inline Allocator(const Allocator &a) throw() {}
+	template<typename _Tp1> inline Allocator(const Allocator<_Tp1> &a) throw() {}
 	template<typename _Tp1> struct rebind {
 		typedef Allocator<_Tp1> other;
 	};
