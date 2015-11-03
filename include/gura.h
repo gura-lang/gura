@@ -25,6 +25,7 @@
 #include <set>
 #include <memory>
 #include <algorithm>
+#include <unordered_map>
 
 #include "gura/Algorithm.h"
 #include "gura/Argument.h"
