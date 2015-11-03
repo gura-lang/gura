@@ -110,7 +110,7 @@ public:
 	static const ElementEntry *GetElementEntries(size_t *pCnt);
 };
 
-class ColorMap : public std::map<const Symbol *, Color> {
+class ColorMap : public std::unordered_map<const Symbol *, Color, Symbol::Hasher, Symbol::EqualTo> {
 };
 
 typedef std::vector<Color, Allocator<Color> > ColorList;

@@ -540,7 +540,6 @@ typedef std::vector<const Value *, Allocator<const Value *> > ValuePtrList;
 //-----------------------------------------------------------------------------
 // ValueMap
 //-----------------------------------------------------------------------------
-//class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, ValueEx, Symbol::LessThan> {
 class GURA_DLLDECLARE ValueMap : public std::unordered_map<
 	const Symbol *, ValueEx, Symbol::Hasher, Symbol::EqualTo> {
 public:

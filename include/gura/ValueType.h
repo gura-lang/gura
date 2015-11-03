@@ -122,8 +122,8 @@ public:
 //-----------------------------------------------------------------------------
 // ValueTypeMap
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueTypeMap : public std::map<const Symbol *,
-							ValueTypeInfo *, Symbol::LessThan> {
+class GURA_DLLDECLARE ValueTypeMap : public std::unordered_map<const Symbol *,
+	ValueTypeInfo *, Symbol::Hasher, Symbol::EqualTo> {
 public:
 	static const ValueTypeMap Empty;
 	inline ValueTypeMap() {}

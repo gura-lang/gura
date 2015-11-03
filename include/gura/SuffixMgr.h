@@ -56,7 +56,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE SuffixMgr {
 public:
-	typedef std::map<const Symbol *, SuffixMgrEntry *, Symbol::LessThan> Map;
+	typedef std::unordered_map<const Symbol *, SuffixMgrEntry *, Symbol::Hasher, Symbol::EqualTo> Map;
 private:
 	Map _map;
 public:

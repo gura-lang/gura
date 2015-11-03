@@ -266,7 +266,7 @@ public:
 		void Clear();
 	};
 	class GURA_DLLDECLARE FrameCache :
-		public std::map<const Symbol *, Frame *, Symbol::LessThan, Allocator<const Symbol *> > {
+		public std::unordered_map<const Symbol *, Frame *, Symbol::Hasher, Symbol::EqualTo> {
 	protected:
 		int _cntRef;
 	public:
