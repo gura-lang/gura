@@ -265,7 +265,7 @@ void Argument::GetValues(ValueList &valList) const
 	}
 }
 
-void Argument::AssignToEnvironment(Environment &env) const
+void Argument::AssignValuesToEnvironment(Environment &env) const
 {
 	foreach_const (Slots, pSlot, _slots) {
 		const Declaration &decl = pSlot->GetDeclaration();
@@ -285,7 +285,7 @@ Environment *Argument::PrepareEnvironment(Environment &env) const
 		valueThis.AddFlags(VFLAG_Privileged);
 		pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
 	}
-	AssignToEnvironment(*pEnvLocal);
+	AssignValuesToEnvironment(*pEnvLocal);
 	const Symbol *pSymbolDict = _pFunc->GetSymbolDict();
 	if (pSymbolDict != nullptr) {
 		pEnvLocal->AssignValue(pSymbolDict,
