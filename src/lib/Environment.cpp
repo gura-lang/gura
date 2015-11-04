@@ -226,7 +226,7 @@ bool Environment::ImportValue(const Symbol *pSymbol, const Value &value,
 		Frame *pFrame = *ppFrame;
 		if (pFrame->IsType(ENVTYPE_block)) {
 			// nothing to do
-		} else if (overwriteFlag || pFrame->LookupValue(pSymbol) == nullptr) {
+		} else if (overwriteFlag || pFrame->LookupValue(*this, pSymbol) == nullptr) {
 			pFrame->AssignValue(pSymbol, value, extra);
 			break;
 		} else {
@@ -241,7 +241,7 @@ ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, 
 	EnvType envType = GetEnvType();
 	if (envRefMode == ENVREF_NoEscalate || envRefMode == ENVREF_Module) {
 		Frame *pFrame = GetTopFrame();
-		ValueEx *pValue = pFrame->LookupValue(pSymbol);
+		ValueEx *pValue = pFrame->LookupValue(*this, pSymbol);
 		if (pValue != nullptr) {
 			CacheFrame(pSymbol, pFrame);
 			return pValue;
@@ -250,7 +250,7 @@ ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, 
 		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			if (pFrame->IsType(ENVTYPE_object)) {
-				ValueEx *pValue = pFrame->LookupValue(pSymbol);
+				ValueEx *pValue = pFrame->LookupValue(*this, pSymbol);
 				if (pValue != nullptr) {
 					CacheFrame(pSymbol, pFrame);
 					return pValue;
@@ -259,7 +259,7 @@ ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, 
 				if (cntSuperSkip > 0) {
 					cntSuperSkip--;
 				} else {
-					ValueEx *pValue = pFrame->LookupValue(pSymbol);
+					ValueEx *pValue = pFrame->LookupValue(*this, pSymbol);
 					if (pValue != nullptr) {
 						CacheFrame(pSymbol, pFrame);
 						return pValue;
@@ -270,7 +270,7 @@ ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, 
 	} else {
 		foreach (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
-			ValueEx *pValue = pFrame->LookupValue(pSymbol);
+			ValueEx *pValue = pFrame->LookupValue(*this, pSymbol);
 			if (pValue != nullptr) {
 				CacheFrame(pSymbol, pFrame);
 				return pValue;
@@ -914,6 +914,65 @@ void Environment::Frame::Delete(Frame *pFrame)
 	if (pFrame->DecRef() <= 0) {
 		delete pFrame;
 	}
+}
+
+void Environment::Frame::AssignValue(const Symbol *pSymbol, const Value &value, ULong extra)
+{
+	if (_pValueMap.get() == nullptr) _pValueMap.reset(new ValueMap());
+	ValueMap::iterator iter = _pValueMap->find(pSymbol);
+	if (iter == _pValueMap->end()) {
+		(*_pValueMap)[pSymbol] = ValueEx(value, extra);
+	} else {
+		if ((iter->second.GetExtra() & EXTRA_Public) != 0) extra |= EXTRA_Public;
+		iter->second = ValueEx(value, extra);
+	}
+}
+
+ValueEx *Environment::Frame::LookupValue(Environment &env, const Symbol *pSymbol)
+{
+	if (pSymbol->IsIdentical(Gura_Symbol(__arg__))) {
+		if (_pArg.IsNull()) return nullptr;
+		if (_pValueMap.get() == nullptr) {
+			_pValueMap.reset(new ValueMap());
+		} else {
+			ValueMap::iterator iter = _pValueMap->find(pSymbol);
+			if (iter != _pValueMap->end()) return &iter->second;
+		}
+		ValueEx valueEx(Value(new Object_argument(env, _pArg->Reference())), EXTRA_Public);
+		std::pair<ValueMap::iterator, bool> rtn =
+			_pValueMap->insert(ValueMap::value_type(pSymbol, valueEx));
+		return &rtn.first->second;
+	}
+	if (_pValueMap.get() == nullptr) return nullptr;
+	ValueMap::iterator iter = _pValueMap->find(pSymbol);
+	return (iter == _pValueMap->end())? nullptr : &iter->second;
+}
+
+void Environment::Frame::RemoveValue(const Symbol *pSymbol)
+{
+	if (_pValueMap.get() == nullptr) return;
+	_pValueMap->erase(pSymbol);
+}
+
+void Environment::Frame::AssignValueType(ValueTypeInfo *pValueTypeInfo)
+{
+	if (_pValueTypeMap.get() == nullptr) _pValueTypeMap.reset(new ValueTypeMap());
+	(*_pValueTypeMap)[pValueTypeInfo->GetSymbol()] = pValueTypeInfo;
+}
+
+ValueTypeInfo *Environment::Frame::LookupValueType(const Symbol *pSymbol)
+{
+	if (_pValueTypeMap.get() == nullptr) return nullptr;
+	ValueTypeMap::iterator iter = _pValueTypeMap->find(pSymbol);
+	return (iter == _pValueTypeMap->end())? nullptr : iter->second;
+}
+
+SymbolSet &Environment::Frame::PrepareSymbolsPublic()
+{
+	if (_pSymbolsPublic.get() == nullptr) {
+		_pSymbolsPublic.reset(new SymbolSet());
+	}
+	return *_pSymbolsPublic;
 }
 
 void Environment::Frame::DbgPrint() const

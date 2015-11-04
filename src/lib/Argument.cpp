@@ -291,8 +291,9 @@ Environment *Argument::PrepareEnvironment(Environment &env, bool thisAssignFlag)
 		pEnvLocal->AssignValue(pSymbolDict,
 			   Value(new Object_dict(env, GetValueDictArg().Reference(), false)), EXTRA_Public);
 	}
-	pEnvLocal->AssignValue(Gura_Symbol(__arg__),
-				Value(new Object_argument(env, Reference())), EXTRA_Public);
+	//pEnvLocal->AssignValue(Gura_Symbol(__arg__),
+	//			Value(new Object_argument(env, Reference())), EXTRA_Public);
+	pEnvLocal->SetArgument(Reference());
 	const Function::BlockInfo &blockInfo = _pFunc->GetBlockInfo();
 	if (blockInfo.pSymbol == nullptr) return pEnvLocal.release();
 	const Expr_Block *pExprBlock = GetBlockCooked(env);

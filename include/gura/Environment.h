@@ -217,40 +217,14 @@ public:
 		inline bool IsSymbolPublic(const Symbol *pSymbol) const {
 			return _pSymbolsPublic.get() != nullptr && _pSymbolsPublic->IsSet(pSymbol);
 		}
-		inline void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra) {
-			if (_pValueMap.get() == nullptr) _pValueMap.reset(new ValueMap());
-			ValueMap::iterator iter = _pValueMap->find(pSymbol);
-			if (iter != _pValueMap->end() && (iter->second.GetExtra() & EXTRA_Public) != 0) {
-				extra |= EXTRA_Public;
-			}
-			(*_pValueMap)[pSymbol] = ValueEx(value, extra);
-		}
-		inline ValueEx *LookupValue(const Symbol *pSymbol) {
-			if (_pValueMap.get() == nullptr) return nullptr;
-			ValueMap::iterator iter = _pValueMap->find(pSymbol);
-			return (iter == _pValueMap->end())? nullptr : &iter->second;
-		}
-		inline void RemoveValue(const Symbol *pSymbol) {
-			if (_pValueMap.get() == nullptr) return;
-			_pValueMap->erase(pSymbol);
-		}
-		inline void AssignValueType(ValueTypeInfo *pValueTypeInfo) {
-			if (_pValueTypeMap.get() == nullptr) _pValueTypeMap.reset(new ValueTypeMap());
-			(*_pValueTypeMap)[pValueTypeInfo->GetSymbol()] = pValueTypeInfo;
-		}
-		inline ValueTypeInfo *LookupValueType(const Symbol *pSymbol) {
-			if (_pValueTypeMap.get() == nullptr) return nullptr;
-			ValueTypeMap::iterator iter = _pValueTypeMap->find(pSymbol);
-			return (iter == _pValueTypeMap->end())? nullptr : iter->second;
-		}
-		inline SymbolSet &PrepareSymbolsPublic() {
-			if (_pSymbolsPublic.get() == nullptr) {
-				_pSymbolsPublic.reset(new SymbolSet());
-			}
-			return *_pSymbolsPublic;
-		}
 		inline void SetArgument(Argument *pArg) { _pArg.reset(pArg); }
 		inline Argument *GetArgument() { return _pArg.get(); }
+		void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra);
+		ValueEx *LookupValue(Environment &env, const Symbol *pSymbol);
+		void RemoveValue(const Symbol *pSymbol);
+		void AssignValueType(ValueTypeInfo *pValueTypeInfo);
+		ValueTypeInfo *LookupValueType(const Symbol *pSymbol);
+		SymbolSet &PrepareSymbolsPublic();
 		void DbgPrint() const;
 	};
 	class GURA_DLLDECLARE FrameList : public std::vector<Frame *, Allocator<Frame *> > {
