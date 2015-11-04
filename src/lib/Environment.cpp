@@ -938,9 +938,22 @@ ValueEx *Environment::Frame::LookupValue(Environment &env, const Symbol *pSymbol
 			ValueMap::iterator iter = _pValueMap->find(pSymbol);
 			if (iter != _pValueMap->end()) return &iter->second;
 		}
-		ValueEx valueEx(Value(new Object_argument(env, _pArg->Reference())), EXTRA_Public);
+		Value value(new Object_argument(env, _pArg->Reference()));
 		std::pair<ValueMap::iterator, bool> rtn =
-			_pValueMap->insert(ValueMap::value_type(pSymbol, valueEx));
+			_pValueMap->insert(ValueMap::value_type(pSymbol, ValueEx(value, EXTRA_Public)));
+		return &rtn.first->second;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(this_)) &&
+			   !_pArg.IsNull() && _pArg->GetFunction()->GetType() != FUNCTYPE_Block) {
+		if (_pValueMap.get() == nullptr) {
+			_pValueMap.reset(new ValueMap());
+		} else {
+			ValueMap::iterator iter = _pValueMap->find(pSymbol);
+			if (iter != _pValueMap->end()) return &iter->second;
+		}
+		Value value(_pArg->GetValueThis());
+		value.AddFlags(VFLAG_Privileged);
+		std::pair<ValueMap::iterator, bool> rtn =
+			_pValueMap->insert(ValueMap::value_type(pSymbol, ValueEx(value, EXTRA_Public)));
 		return &rtn.first->second;
 	}
 	if (_pValueMap.get() == nullptr) return nullptr;

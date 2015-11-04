@@ -280,11 +280,11 @@ Environment *Argument::PrepareEnvironment(Environment &env) const
 	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)? &env : &_pFunc->GetEnvScope();
 	EnvType envType = (_pFunc->GetType() == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
 	AutoPtr<Environment> pEnvLocal(pEnvOuter->Derive(envType));
-	if (_pFunc->GetType() != FUNCTYPE_Block) {
-		Value valueThis(_valueThis);
-		valueThis.AddFlags(VFLAG_Privileged);
-		pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
-	}
+	//if (_pFunc->GetType() != FUNCTYPE_Block) {
+	//	Value valueThis(_valueThis);
+	//	valueThis.AddFlags(VFLAG_Privileged);
+	//	pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
+	//}
 	AssignValuesToEnvironment(*pEnvLocal);
 	const Symbol *pSymbolDict = _pFunc->GetSymbolDict();
 	if (pSymbolDict != nullptr) {
