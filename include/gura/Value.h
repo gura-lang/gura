@@ -495,6 +495,13 @@ class GURA_DLLDECLARE ValueList : public std::vector<Value, Allocator<Value> > {
 public:
 	static const ValueList Empty;
 public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "ValueList");
+	}
+	inline static void operator delete(void *pv) {
+		MemoryPool::Deallocate(pv);
+	}
+public:
 	inline ValueList() {}
 	inline ValueList(size_t n) : std::vector<Value, Allocator<Value> >(n) {}
 	inline ValueList(size_t n, const Value &value) : std::vector<Value, Allocator<Value> >(n, value) {}
@@ -549,6 +556,13 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(ValueMap);
 public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "ValueMap");
+	}
+	inline static void operator delete(void *pv) {
+		MemoryPool::Deallocate(pv);
+	}
+public:
 	inline ValueMap() : _cntRef(1) {}
 private:
 	inline ~ValueMap() {}
@@ -579,6 +593,13 @@ private:
 	bool _ignoreCaseFlag;
 public:
 	Gura_DeclareReferenceAccessor(ValueDict);
+public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "ValueDict");
+	}
+	inline static void operator delete(void *pv) {
+		MemoryPool::Deallocate(pv);
+	}
 public:
 	inline ValueDict() : std::map<Value, Value, Value::LessThan, Allocator<Value> >(),
 								_cntRef(1), _ignoreCaseFlag(false) {}

@@ -36,7 +36,7 @@ FunctionCustom::~FunctionCustom()
 Value FunctionCustom::DoEval(Environment &env, Argument &arg) const
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Environment> pEnvLocal(arg.PrepareEnvironment(env, _funcType != FUNCTYPE_Block));
+	AutoPtr<Environment> pEnvLocal(arg.PrepareEnvironment(env));
 	if (pEnvLocal.IsNull()) return Value::Nil;
 	Value result = GetExprBody()->Exec(*pEnvLocal);
 	if (pEnvLocal->GetEnvType() == ENVTYPE_block) {

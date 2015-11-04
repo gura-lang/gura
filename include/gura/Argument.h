@@ -278,7 +278,7 @@ public:
 	inline MapMode GetMapMode() const { return _mapMode; }
 	bool IsInfiniteMap() const;
 	void AssignToEnvironment(Environment &env) const;
-	Environment *PrepareEnvironment(Environment &env, bool thisAssignFlag) const;
+	Environment *PrepareEnvironment(Environment &env) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	inline const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
 	const Expr_Block *GetBlockCooked(Environment &env) const;

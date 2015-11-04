@@ -264,7 +264,7 @@ ClassCustom::Constructor::Constructor(Environment &envScope,
 Value ClassCustom::Constructor::DoEval(Environment &env, Argument &arg) const
 {
 	Signal &sig = env.GetSignal();
-	AutoPtr<Environment> pEnvLocal(arg.PrepareEnvironment(env, false));
+	AutoPtr<Environment> pEnvLocal(arg.PrepareEnvironment(env));
 	if (pEnvLocal.IsNull()) return Value::Nil;
 	Value valueRtn(arg.GetValueThis());
 	if (!valueRtn.IsObject()) {
