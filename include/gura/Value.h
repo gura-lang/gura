@@ -479,7 +479,9 @@ public:
 	inline ValueEx(const Value &value, ULong extra = 0) : Value(value), _extra(extra) {}
 	inline ValueEx(const ValueEx &valueEx) : Value(valueEx), _extra(valueEx._extra) {}
 	inline ValueEx(Object *pObj, UShort valFlags, ULong extra) :
-		Value(pObj, valFlags), _extra(extra) {};
+		Value(pObj, valFlags), _extra(extra) {}
+	inline ValueEx(ValueType valType, UShort valFlags, ULong extra) :
+		Value(valType, valFlags), _extra(extra) {}
 	inline ULong GetExtra() const { return _extra; }
 	inline ValueEx &operator=(const ValueEx &valueEx) {
 		Value::operator=(valueEx);

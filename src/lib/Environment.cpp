@@ -864,7 +864,9 @@ void Environment::Global::UnregisterSeparatedModule(const char *pathName)
 // Environment::Frame
 //-----------------------------------------------------------------------------
 Environment::Frame::Frame(const Frame &frame) :
-			_cntRef(1), _envType(frame._envType), _pGlobal(frame._pGlobal)
+	_cntRef(1), _envType(frame._envType), _pGlobal(frame._pGlobal),
+	_valueEx_arg(VTYPE_undefined, VFLAG_None, EXTRA_None),
+	_valueEx_this(VTYPE_undefined, VFLAG_None, EXTRA_None)
 {
 	if (frame._pValueMap.get() != nullptr) {
 		_pValueMap.reset(new ValueMap(*frame._pValueMap));
@@ -875,7 +877,9 @@ Environment::Frame::Frame(const Frame &frame) :
 }
 
 Environment::Frame::Frame(EnvType envType, Global *pGlobal) :
-			_cntRef(1), _envType(envType), _pGlobal(pGlobal)
+	_cntRef(1), _envType(envType), _pGlobal(pGlobal),
+	_valueEx_arg(VTYPE_undefined, VFLAG_None, EXTRA_None),
+	_valueEx_this(VTYPE_undefined, VFLAG_None, EXTRA_None)
 {
 }
 

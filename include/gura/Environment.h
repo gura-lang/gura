@@ -179,6 +179,8 @@ public:
 		std::unique_ptr<ValueTypeMap> _pValueTypeMap;
 		std::unique_ptr<SymbolSet> _pSymbolsPublic;
 		AutoPtr<Argument> _pArg;
+		ValueEx _valueEx_arg;
+		ValueEx _valueEx_this;
 	public:
 		inline static void *operator new(size_t size) {
 			return MemoryPool::Allocate(size, "Frame");
