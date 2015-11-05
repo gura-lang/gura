@@ -938,9 +938,10 @@ ValueEx *Environment::Frame::LookupValue(Environment &env, const Symbol *pSymbol
 			ValueMap::iterator iter = _pValueMap->find(pSymbol);
 			if (iter != _pValueMap->end()) return &iter->second;
 		}
-		Value value(new Object_argument(env, _pArg->Reference()));
+		ValueEx valueEx(new Object_argument(env, _pArg->Reference()),
+						VFLAG_FundOwner, EXTRA_Public);
 		std::pair<ValueMap::iterator, bool> rtn =
-			_pValueMap->insert(ValueMap::value_type(pSymbol, ValueEx(value, EXTRA_Public)));
+			_pValueMap->insert(ValueMap::value_type(pSymbol, valueEx));
 		return &rtn.first->second;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(this_)) &&
 			   !_pArg.IsNull() && _pArg->GetFunction()->GetType() != FUNCTYPE_Block) {
