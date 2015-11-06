@@ -138,6 +138,7 @@ bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
 void Environment::AddRootFrame(const FrameList &frameListSrc)
 {
 	// reference to the root environment
+	_frameOwner.reserve(_frameOwner.size() + frameListSrc.size());
 	foreach_const (FrameList, ppFrame, frameListSrc) {
 		Frame *pFrame = *ppFrame;
 		if (pFrame->GetEnvType() == ENVTYPE_root) {
@@ -150,6 +151,7 @@ void Environment::AddRootFrame(const FrameList &frameListSrc)
 void Environment::AddOuterFrame(const FrameList &frameListSrc)
 {
 	if (frameListSrc.size() <= 1) return;
+	_frameOwner.reserve(_frameOwner.size() + frameListSrc.size() - 1);
 	FrameList::const_iterator ppFrame = frameListSrc.begin();
 	ppFrame++;
 	for ( ; ppFrame != frameListSrc.end(); ppFrame++) {
@@ -160,6 +162,7 @@ void Environment::AddOuterFrame(const FrameList &frameListSrc)
 
 void Environment::AddLackingFrame(const FrameList &frameListSrc)
 {
+	_frameOwner.reserve(_frameOwner.size() + frameListSrc.size());
 	foreach_const (FrameList, ppFrame, frameListSrc) {
 		Frame *pFrame = *ppFrame;
 		if (!_frameOwner.DoesExist(pFrame)) {
@@ -922,18 +925,25 @@ void Environment::Frame::Delete(Frame *pFrame)
 
 void Environment::Frame::AssignValue(const Symbol *pSymbol, const Value &value, ULong extra)
 {
-	if (_pValueMap.get() == nullptr) _pValueMap.reset(new ValueMap());
-	ValueMap::iterator iter = _pValueMap->find(pSymbol);
-	if (iter == _pValueMap->end()) {
-		(*_pValueMap)[pSymbol] = ValueEx(value, extra);
+	if (pSymbol->IsIdentical(Gura_Symbol(__arg__))) {
+		_valueEx_arg = ValueEx(value, extra);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(this_))) {
+		_valueEx_this = ValueEx(value, extra);
 	} else {
-		if ((iter->second.GetExtra() & EXTRA_Public) != 0) extra |= EXTRA_Public;
-		iter->second = ValueEx(value, extra);
+		if (_pValueMap.get() == nullptr) _pValueMap.reset(new ValueMap());
+		ValueMap::iterator iter = _pValueMap->find(pSymbol);
+		if (iter == _pValueMap->end()) {
+			(*_pValueMap)[pSymbol] = ValueEx(value, extra);
+		} else {
+			if ((iter->second.GetExtra() & EXTRA_Public) != 0) extra |= EXTRA_Public;
+			iter->second = ValueEx(value, extra);
+		}
 	}
 }
 
 ValueEx *Environment::Frame::LookupValue(Environment &env, const Symbol *pSymbol)
 {
+#if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(__arg__))) {
 		if (_pArg.IsNull()) return nullptr;
 		if (_pValueMap.get() == nullptr) {
@@ -961,9 +971,25 @@ ValueEx *Environment::Frame::LookupValue(Environment &env, const Symbol *pSymbol
 			_pValueMap->insert(ValueMap::value_type(pSymbol, ValueEx(value, EXTRA_Public)));
 		return &rtn.first->second;
 	}
-	if (_pValueMap.get() == nullptr) return nullptr;
-	ValueMap::iterator iter = _pValueMap->find(pSymbol);
-	return (iter == _pValueMap->end())? nullptr : &iter->second;
+#endif
+	if (pSymbol->IsIdentical(Gura_Symbol(__arg__))) {
+		if (_valueEx_arg.IsInvalid() && !_pArg.IsNull()) {
+			_valueEx_arg = ValueEx(new Object_argument(env, _pArg->Reference()),
+								   VFLAG_FundOwner, EXTRA_Public);
+		}
+		return _valueEx_arg.IsValid()? &_valueEx_arg : nullptr;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(this_))) {
+		if (_valueEx_this.IsInvalid() && !_pArg.IsNull() &&
+							_pArg->GetFunction()->GetType() != FUNCTYPE_Block) {
+			_valueEx_this = ValueEx(_pArg->GetValueThis(), EXTRA_Public);
+			_valueEx_this.AddFlags(VFLAG_Privileged);
+		}
+		return _valueEx_this.IsValid()? &_valueEx_this : nullptr;
+	} else {
+		if (_pValueMap.get() == nullptr) return nullptr;
+		ValueMap::iterator iter = _pValueMap->find(pSymbol);
+		return (iter == _pValueMap->end())? nullptr : &iter->second;
+	}
 }
 
 void Environment::Frame::RemoveValue(const Symbol *pSymbol)
