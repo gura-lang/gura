@@ -109,6 +109,9 @@ An `argument` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
+<tr><td><code>argument#function</code></td><td><code>function</code></td><td>R</td>
+<td>The <code>function</code> instance that has created the argument.</td></tr>
+
 <tr><td><code>argument#values</code></td><td><code>list</code></td><td>R</td>
 <td>A list of argument values.</td></tr>
 

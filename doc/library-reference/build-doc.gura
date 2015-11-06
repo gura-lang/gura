@@ -43,7 +43,6 @@ baseNames = [
 	'math'
 	'midi'
 	'modbuild'
-	'moddoc'
 	//'modgen'
 	'msico'
 	//'mswin'
