@@ -260,6 +260,7 @@ bool Argument::Complete(Environment &env)
 
 void Argument::GetValues(ValueList &valList) const
 {
+	valList.reserve(valList.size() + _slots.size());
 	foreach_const (Slots, pSlot, _slots) {
 		valList.push_back(pSlot->GetValue());
 	}

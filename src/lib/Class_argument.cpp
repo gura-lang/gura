@@ -16,6 +16,7 @@ Object *Object_argument::Clone() const
 bool Object_argument::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_Symbol(function));
 	symbols.insert(Gura_Symbol(values));
 	return true;
 }
@@ -24,7 +25,9 @@ Value Object_argument::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(values))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(function))) {
+		return Value(new Object_function(env, _pArg->GetFunction()->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(values))) {
 		Value rtn;
 		_pArg->GetValues(rtn.InitAsList(env));
 		return rtn;
@@ -35,8 +38,11 @@ Value Object_argument::DoGetProp(Environment &env, const Symbol *pSymbol,
 
 String Object_argument::ToString(bool exprFlag)
 {
+	char buff[80];
 	String str;
 	str += "<argument:";
+	::sprintf(buff, "%ldslots", _pArg->CountSlot());
+	str += buff;
 	str += ">";
 	return str;
 }

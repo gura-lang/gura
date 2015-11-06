@@ -276,6 +276,7 @@ public:
 		return _pValDictArg.IsNull()? ValueDict::Empty : *_pValDictArg;
 	}
 	inline MapMode GetMapMode() const { return _mapMode; }
+	inline size_t CountSlot() const { return _slots.size(); }
 	bool IsInfiniteMap() const;
 	void AssignValuesToEnvironment(Environment &env) const;
 	Environment *PrepareEnvironment(Environment &env) const;
