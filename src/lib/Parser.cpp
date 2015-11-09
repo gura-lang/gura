@@ -923,11 +923,43 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 	return pExpr;
 }
 
+class Expr_Caller_if : public Expr_Caller {
+public:
+	inline Expr_Caller_if(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) :
+		Expr_Caller(pExprCar, pExprLister, pExprBlock) {}
+	virtual Value DoExec(Environment &env) const;
+};
+
+Value Expr_Caller_if::DoExec(Environment &env) const
+{
+	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
+	for (const Expr_Caller *pExpr = this; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
+		bool flag = true;
+		if (!pExpr->GetExprOwner().empty()) {
+			const Expr *pExprCond = pExpr->GetExprOwner()[0];
+			Value rtn = pExprCond->Exec(*pEnvBlock);
+			if (env.IsSignalled()) return Value::Nil;
+			flag = rtn.GetBoolean();
+		}
+		if (flag) {
+			return pExpr->GetBlock()->Exec(*pEnvBlock);
+		}
+	}
+	return Value::Nil;
+}
+
 Expr_Caller *Parser::CreateCaller(Environment &env, Expr *pExprCar,
 								  Expr_Lister *pExprLister, Expr_Block *pExprBlock) const
 {
-	Expr_Caller *pExpr = new Expr_Caller(pExprCar, pExprLister, pExprBlock);
-	return pExpr;
+#if 0
+	if (pExprCar->IsIdentifier()) {
+		const Symbol *pSymbol = dynamic_cast<Expr_Identifier *>(pExprCar)->GetSymbol();
+		if (pSymbol->IsIdentical(Gura_Symbol(if_))) {
+			return new Expr_Caller_if(pExprCar, pExprLister, pExprBlock);
+		}
+	}
+#endif
+	return new Expr_Caller(pExprCar, pExprLister, pExprBlock);
 }
 
 bool Parser::CheckBlockParamEnd() const
