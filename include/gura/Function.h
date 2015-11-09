@@ -66,6 +66,7 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 #define Gura_DeclareFunctionWithMathDiff(name) \
 Gura_DeclareFunctionWithMathDiffAlias(name, #name)
 
+#if 0
 // DeclareFunctionTrailer
 #define Gura_DeclareFunctionTrailerAlias(name, nameAlias) \
 class Func_##name : public Function { \
@@ -78,6 +79,7 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 
 #define Gura_DeclareFunctionTrailer(name) \
 Gura_DeclareFunctionTrailerAlias(name, #name)
+#endif
 
 // DeclareMethod
 #define Gura_DeclareMethodAlias(className, name, nameAlias) \

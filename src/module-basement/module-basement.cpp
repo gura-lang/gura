@@ -689,7 +689,7 @@ Gura_ImplementFastFunctionGenerator(if_)
 #endif
 
 // elsif (`cond):leader:trailer {block}
-Gura_DeclareFunctionTrailerAlias(elsif_, "elsif")
+Gura_DeclareFunctionAlias(elsif_, "elsif")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -705,6 +705,7 @@ Gura_DeclareFunctionTrailerAlias(elsif_, "elsif")
 		"If no trailer exists, the function returns `nil` value.\n");
 }
 
+#if 1
 Gura_ImplementFunction(elsif_)
 {
 	Signal &sig = env.GetSignal();
@@ -718,9 +719,21 @@ Gura_ImplementFunction(elsif_)
 	}
 	return Value::Nil;
 }
+#else
+Gura_ImplementFastFunction(elsif_)
+{
+	// dummy
+	return Value::Nil;
+}
+
+Gura_ImplementFastFunctionGenerator(elsif_)
+{
+	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+}
+#endif
 
 // else ():trailer {block}
-Gura_DeclareFunctionTrailerAlias(else_, "else")
+Gura_DeclareFunctionAlias(else_, "else")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
@@ -729,6 +742,7 @@ Gura_DeclareFunctionTrailerAlias(else_, "else")
 		"Specify an \"else\" block within a statement of `if-elsif-else` or `try-catch-else`.\n");
 }
 
+#if 1
 Gura_ImplementFunction(else_)
 {
 	Signal &sig = env.GetSignal();
@@ -739,6 +753,18 @@ Gura_ImplementFunction(else_)
 	if (sig.IsSignalled()) return Value::Nil;
 	return pExprBlock->Exec(*pEnvBlock);
 }
+#else
+Gura_ImplementFastFunction(else_)
+{
+	// dummy
+	return Value::Nil;
+}
+
+Gura_ImplementFastFunctionGenerator(else_)
+{
+	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+}
+#endif
 
 // end (dummy*):void:symbol_func:trailer:end_marker
 Gura_DeclareFunction(end)
@@ -868,7 +894,7 @@ Gura_ImplementFunction(try_)
 }
 
 // catch (errors*:error):leader:trailer {block}
-Gura_DeclareFunctionTrailerAlias(catch_, "catch")
+Gura_DeclareFunctionAlias(catch_, "catch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
@@ -912,7 +938,7 @@ Gura_ImplementFunction(catch_)
 }
 
 // finally ():trailer:finalizer {block}
-Gura_DeclareFunctionTrailerAlias(finally_, "finally")
+Gura_DeclareFunctionAlias(finally_, "finally")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
 	DeclareBlock(OCCUR_Once);
