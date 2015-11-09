@@ -33,6 +33,25 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 
 #define Gura_DeclareFunction(name) Gura_DeclareFunctionAlias(name, #name)
 
+#define Gura_DeclareFastFunctionAlias(name, nameAlias) \
+class Func_##name : public Function { \
+public: \
+	class ExprEx : public Expr_Caller { \
+	public: \
+		inline ExprEx(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) : \
+			Expr_Caller(pExprCar, pExprLister, pExprBlock) {} \
+		virtual Value DoExec(Environment &env) const; \
+	}; \
+public: \
+	Func_##name(Environment &env, const char *name = nameAlias); \
+	virtual Expr_Caller *GenerateSpecificExpr(Environment &env, Expr *pExprCar, \
+				  Expr_Lister *pExprLister, Expr_Block *pExprBlock) const; \
+}; \
+Func_##name::Func_##name(Environment &env, const char *name) : \
+					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
+
+#define Gura_DeclareFastFunction(name) Gura_DeclareFastFunctionAlias(name, #name)
+
 // DeclareFunctionWithMathDiff
 #define Gura_DeclareFunctionWithMathDiffAlias(name, nameAlias) \
 class Func_##name : public Function { \
@@ -107,6 +126,13 @@ Value Func_##className##__##name::DoEval(Environment &env, Argument &arg) const
 
 #define Gura_ImplementMathDiff(name) \
 Expr *Func_##name::MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const
+
+#define Gura_ImplementFastFunction(name) \
+Value Func_##name::ExprEx::DoExec(Environment &env) const
+
+#define Gura_ImplementFastFunctionGenerator(name) \
+Expr_Caller *Func_##name::GenerateSpecificExpr(Environment &env, Expr *pExprCar, \
+						  Expr_Lister *pExprLister, Expr_Block *pExprBlock) const
 
 #define Gura_Function(name) Func_##name
 
@@ -232,7 +258,6 @@ public:
 		Value value = DoEval(env, arg);
 		return arg.IsResultVoid()? Value::Undefined : value;
 	}
-	//Value Eval(Environment &env, Argument &arg) const;
 	Value EvalAuto(Environment &env, Argument &arg) const;
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
@@ -279,6 +304,8 @@ public:
 	void SetError_InvalidFunctionExpression(Signal &sig) const;
 	void SetError_MathDiffError(Signal &sig) const;
 	void SetError_MathOptimizeError(Signal &sig) const;
+	virtual Expr_Caller *GenerateSpecificExpr(Environment &env,
+		Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) const;
 	virtual Expr *MathDiff(Environment &env,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Expr *pExprOpt) const;
@@ -289,7 +316,7 @@ protected:
 	Value ReturnIterator(Environment &env, Argument &arg, Iterator *pIterator) const;
 	Environment *PrepareEnvironment(Environment &env, Argument &arg, bool thisAssignFlag) const;
 private:
-	virtual Value DoEval(Environment &env, Argument &arg) const = 0;
+	virtual Value DoEval(Environment &env, Argument &arg) const;
 };
 
 //----------------------------------------------------------------------------

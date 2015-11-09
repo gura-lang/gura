@@ -261,6 +261,11 @@ const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) cons
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
+Value Function::DoEval(Environment &env, Argument &arg) const
+{
+	return Value::Nil;
+}
+
 Value Function::EvalAuto(Environment &env, Argument &arg) const
 {
 	Argument::MapMode mapMode = arg.GetMapMode();
@@ -359,6 +364,12 @@ Value Function::ReturnIterator(Environment &env, Argument &arg, Iterator *pItera
 		result = Value(new Object_iterator(env, pIterator));
 	}
 	return result;
+}
+
+Expr_Caller *Function::GenerateSpecificExpr(Environment &env,
+		Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) const
+{
+	return nullptr;
 }
 
 Expr *Function::MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const

@@ -633,6 +633,7 @@ Gura_ImplementFunction(return_)
 //-----------------------------------------------------------------------------
 // if (`cond):leader {block}
 Gura_DeclareFunctionAlias(if_, "if")
+//Gura_DeclareFastFunctionAlias(if_, "if")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -648,6 +649,7 @@ Gura_DeclareFunctionAlias(if_, "if")
 		"If no trailer exists, the function returns `nil` value.\n");
 }
 
+#if 1
 Gura_ImplementFunction(if_)
 {
 	Signal &sig = env.GetSignal();
@@ -661,6 +663,30 @@ Gura_ImplementFunction(if_)
 	}
 	return Value::Nil;
 }
+#else
+Gura_ImplementFastFunction(if_)
+{
+	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
+	for (const Expr_Caller *pExpr = this; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
+		bool flag = true;
+		if (!pExpr->GetExprOwner().empty()) {
+			const Expr *pExprCond = pExpr->GetExprOwner()[0];
+			Value rtn = pExprCond->Exec(*pEnvBlock);
+			if (env.IsSignalled()) return Value::Nil;
+			flag = rtn.GetBoolean();
+		}
+		if (flag) {
+			return pExpr->GetBlock()->Exec(*pEnvBlock);
+		}
+	}
+	return Value::Nil;
+}
+
+Gura_ImplementFastFunctionGenerator(if_)
+{
+	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+}
+#endif
 
 // elsif (`cond):leader:trailer {block}
 Gura_DeclareFunctionTrailerAlias(elsif_, "elsif")
