@@ -2290,7 +2290,7 @@ Value Expr_Caller::DoExec(Environment &env) const
 	for (const Expr_Caller *pExprCaller = this; pExprCaller != nullptr;
 									pExprCaller = pExprCaller->GetTrailer()) {
 		if (!Monitor::NotifyExprPre(env, pExprCaller)) return Value::Nil;
-		result = pExprCaller->DoExec(env, pTrailCtrlHolder.get());
+		result = pExprCaller->ExecCallable(env, pTrailCtrlHolder.get());
 		if (!Monitor::NotifyExprPost(env, pExprCaller, result)) return Value::Nil;
 		TrailCtrl trailCtrl = pTrailCtrlHolder->Get();
 		if (trailCtrl == TRAILCTRL_Quit) break;
@@ -2302,7 +2302,7 @@ Value Expr_Caller::DoExec(Environment &env) const
 	return result;
 }
 
-Value Expr_Caller::DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) const
+Value Expr_Caller::ExecCallable(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	Signal &sig = env.GetSignal();
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()

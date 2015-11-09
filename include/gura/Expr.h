@@ -858,7 +858,7 @@ public:
 	}
 	inline const CallerInfo &GetCallerInfo() const { return *_pCallerInfo; }
 private:
-	Value DoExec(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) const;
+	Value ExecCallable(Environment &env, TrailCtrlHolder *pTrailCtrlHolder) const;
 };
 
 }
