@@ -263,6 +263,8 @@ public:
 	static bool ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList);
 	static bool ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList);
 private:
+	Expr_Caller *CreateCaller(Environment &env, Expr *pExprCar,
+							  Expr_Lister *pExprLister, Expr_Block *pExprBlock) const;
 	bool CheckBlockParamEnd() const;
 	static ElemType ElemTypeForString(const StringInfo &stringInfo);
 	static bool CheckStringPrefix(StringInfo &stringInfo, const String &token);
