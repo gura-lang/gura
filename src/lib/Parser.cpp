@@ -923,8 +923,9 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 	return pExpr;
 }
 
-Expr_Caller *Parser::CreateCaller(Environment &env, Expr *pExprCar,
-								  Expr_Lister *pExprLister, Expr_Block *pExprBlock) const
+Expr_Caller *Parser::CreateCaller(
+	Environment &env, Expr *pExprCar, Expr_Lister *pExprLister,
+	Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const
 {
 #if 1
 	if (pExprCar->IsIdentifier()) {
@@ -932,7 +933,7 @@ Expr_Caller *Parser::CreateCaller(Environment &env, Expr *pExprCar,
 		const Function *pFunc = env.LookupFunction(pSymbol, ENVREF_Escalate);
 		if (pFunc != nullptr) {
 			Expr_Caller *pExpr = pFunc->GenerateSpecificExpr(
-				env, pExprCar, pExprLister, pExprBlock);
+				env, pExprCar, pExprLister, pExprBlock, pExprLeader);
 			if (env.IsSignalled()) return nullptr;
 			if (pExpr != nullptr) return pExpr;
 		}
@@ -1495,7 +1496,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 				// %{..}
 				Expr *pExprCar = new Expr_Identifier(Symbol::Percnt);
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock);
+				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock, nullptr);
 				if (pExpr == nullptr) return false;
 			} else {
 				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), elem2.GetExpr(), false);
@@ -1506,7 +1507,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 				// %%{..}
 				Expr *pExprCar = new Expr_Identifier(Symbol::PercntPercnt);
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock);
+				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock, nullptr);
 				if (pExpr == nullptr) return false;
 			} else {
 				SetError_InvalidElement(sig, __LINE__);
@@ -1518,7 +1519,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 				// &{..}
 				Expr *pExprCar = new Expr_Identifier(Symbol::Amp);
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock);
+				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock, nullptr);
 				if (pExpr == nullptr) return false;
 			} else {
 				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_And), elem2.GetExpr(), false);
@@ -1626,7 +1627,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 				pExprLister = new Expr_Lister();
 			}
 			Expr_Caller *pExprCaller =
-				CreateCaller(env, elem1.GetExpr(), pExprLister, nullptr);
+				CreateCaller(env, elem1.GetExpr(), pExprLister, nullptr, nullptr);
 			if (pExprCaller == nullptr) return false;
 			pExpr = pExprCaller;
 		} else if (elem3.IsType(ETYPE_EOL)) {
@@ -1655,7 +1656,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 					pExprBlock = new Expr_Block();
 				}
 				Expr_Caller *pExprCaller =
-					CreateCaller(env, elem1.GetExpr(), nullptr, pExprBlock);
+					CreateCaller(env, elem1.GetExpr(), nullptr, pExprBlock, nullptr);
 				if (pExprCaller == nullptr) return false;
 				pExpr = pExprCaller;
 			}
@@ -2021,17 +2022,16 @@ bool Parser::ReduceFourElems(Environment &env)
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
-			Expr_Caller *pExprCaller = 
-				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr);
-			if (pExprCaller == nullptr) return false;
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
 			}
-			Expr_Caller *pExprCallerPrev =
-							dynamic_cast<Expr_Caller *>(elem1.GetExpr());
-			pExprCallerPrev->GetLastTrailer()->SetTrailer(pExprCaller);
-			pExpr = pExprCallerPrev;
+			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+			Expr_Caller *pExprCaller =
+				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr, pExprLeader);
+			if (pExprCaller == nullptr) return false;
+			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			pExpr = pExprLeader;
 		} else if (elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '(' -> Expr Expr '(' EOL\n"));
@@ -2049,22 +2049,21 @@ bool Parser::ReduceFourElems(Environment &env)
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
-			Expr_Caller *pExprCaller;
-			if (elem2.GetExpr()->IsCaller()) {
-				pExprCaller = dynamic_cast<Expr_Caller *>(elem2.GetExpr());
-				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
-			} else {
-				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock);
-				if (pExprCaller == nullptr) return false;
-			}
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
 			}
-			Expr_Caller *pExprCallerPrev =
-							dynamic_cast<Expr_Caller *>(elem1.GetExpr());
-			pExprCallerPrev->GetLastTrailer()->SetTrailer(pExprCaller);
-			pExpr = pExprCallerPrev;
+			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+			Expr_Caller *pExprCaller = nullptr;
+			if (elem2.GetExpr()->IsCaller()) {
+				pExprCaller = dynamic_cast<Expr_Caller *>(elem2.GetExpr());
+				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
+			} else {
+				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock, pExprLeader);
+				if (pExprCaller == nullptr) return false;
+			}
+			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			pExpr = pExprLeader;
 		} else if (elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '{' -> Expr Expr '{' EOL\n"));
@@ -2084,7 +2083,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			}
 			pExprLister->AddExpr(elem3.GetExpr());
 			Expr_Caller *pExprCaller =
-				CreateCaller(env, elem1.GetExpr(), pExprLister, nullptr);
+				CreateCaller(env, elem1.GetExpr(), pExprLister, nullptr, nullptr);
 			if (pExprCaller == nullptr) return false;
 			pExpr = pExprCaller;
 		} else if (elem4.IsType(ETYPE_Comma) || elem4.IsType(ETYPE_EOL)) {
@@ -2118,7 +2117,7 @@ bool Parser::ReduceFourElems(Environment &env)
 				pExpr = pExprCaller;
 			} else {
 				Expr_Caller *pExprCaller =
-					CreateCaller(env, elem1.GetExpr(), nullptr, pExprBlock);
+					CreateCaller(env, elem1.GetExpr(), nullptr, pExprBlock, nullptr);
 				if (pExprCaller == nullptr) return false;
 				pExpr = pExprCaller;
 			}
@@ -2196,17 +2195,16 @@ bool Parser::ReduceFiveElems(Environment &env)
 				pExprLister = new Expr_Lister();
 			}
 			pExprLister->AddExpr(elem4.GetExpr());
-			Expr_Caller *pExprCaller =
-				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr);
-			if (pExprCaller == nullptr) return false;
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
 			}
-			Expr_Caller *pExprCallerPrev =
-							dynamic_cast<Expr_Caller *>(elem1.GetExpr());
-			pExprCallerPrev->GetLastTrailer()->SetTrailer(pExprCaller);
-			pExpr = pExprCallerPrev;
+			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+			Expr_Caller *pExprCaller =
+				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr, pExprLeader);
+			if (pExprCaller == nullptr) return false;
+			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			pExpr = pExprLeader;
 		} else if (elem5.IsType(ETYPE_Comma) || elem5.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '(' -> Expr Expr '(' Expr ','\n"));
@@ -2231,22 +2229,21 @@ bool Parser::ReduceFiveElems(Environment &env)
 				pExprBlock = new Expr_Block();
 			}
 			pExprBlock->AddExpr(elem4.GetExpr());
-			Expr_Caller *pExprCaller;
-			if (elem2.GetExpr()->IsCaller()) {
-				pExprCaller = dynamic_cast<Expr_Caller *>(elem2.GetExpr());
-				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
-			} else {
-				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock);
-				if (pExprCaller == nullptr) return false;
-			}
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
 			}
-			Expr_Caller *pExprCallerPrev =
-							dynamic_cast<Expr_Caller *>(elem1.GetExpr());
-			pExprCallerPrev->GetLastTrailer()->SetTrailer(pExprCaller);
-			pExpr = pExprCallerPrev;
+			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+			Expr_Caller *pExprCaller = nullptr;
+			if (elem2.GetExpr()->IsCaller()) {
+				pExprCaller = dynamic_cast<Expr_Caller *>(elem2.GetExpr());
+				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
+			} else {
+				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock, pExprLeader);
+				if (pExprCaller == nullptr) return false;
+			}
+			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			pExpr = pExprLeader;
 		} else if (elem5.IsType(ETYPE_Comma) ||
 					elem5.IsType(ETYPE_Semicolon) || elem5.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing

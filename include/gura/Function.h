@@ -45,7 +45,7 @@ public: \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
 	virtual Expr_Caller *GenerateSpecificExpr(Environment &env, Expr *pExprCar, \
-				  Expr_Lister *pExprLister, Expr_Block *pExprBlock) const; \
+		Expr_Lister *pExprLister, Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -132,7 +132,7 @@ Value Func_##name::ExprEx::DoExec(Environment &env) const
 
 #define Gura_ImplementFastFunctionGenerator(name) \
 Expr_Caller *Func_##name::GenerateSpecificExpr(Environment &env, Expr *pExprCar, \
-						  Expr_Lister *pExprLister, Expr_Block *pExprBlock) const
+	   Expr_Lister *pExprLister, Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const
 
 #define Gura_Function(name) Func_##name
 
@@ -304,8 +304,9 @@ public:
 	void SetError_InvalidFunctionExpression(Signal &sig) const;
 	void SetError_MathDiffError(Signal &sig) const;
 	void SetError_MathOptimizeError(Signal &sig) const;
-	virtual Expr_Caller *GenerateSpecificExpr(Environment &env,
-		Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) const;
+	virtual Expr_Caller *GenerateSpecificExpr(
+		Environment &env, Expr *pExprCar, Expr_Lister *pExprLister,
+		Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const;
 	virtual Expr *MathDiff(Environment &env,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Expr *pExprOpt) const;
