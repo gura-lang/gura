@@ -684,12 +684,17 @@ Gura_ImplementFastFunction(if_)
 
 Gura_ImplementFastFunctionGenerator(if_)
 {
+	if (pExprLeader != nullptr) {
+		env.SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+		return nullptr;
+	}
 	return new ExprEx(pExprCar, pExprLister, pExprBlock);
 }
 #endif
 
 // elsif (`cond):leader:trailer {block}
 Gura_DeclareFunctionAlias(elsif_, "elsif")
+//Gura_DeclareFastFunctionAlias(elsif_, "elsif")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -728,12 +733,23 @@ Gura_ImplementFastFunction(elsif_)
 
 Gura_ImplementFastFunctionGenerator(elsif_)
 {
-	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	if (!pExprLeader->GetCar()->IsIdentifier()) {
+		env.SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+		return nullptr;
+	}
+	const Symbol *pSymbol =
+		dynamic_cast<const Expr_Identifier *>(pExprLeader->GetCar())->GetSymbol();
+	if (pSymbol->IsIdentical(Gura_Symbol(if_)) || pSymbol->IsIdentical(Gura_Symbol(elsif))) {
+		return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	}
+	env.SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+	return nullptr;
 }
 #endif
 
 // else ():trailer {block}
 Gura_DeclareFunctionAlias(else_, "else")
+//Gura_DeclareFastFunctionAlias(else_, "else")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
@@ -762,7 +778,17 @@ Gura_ImplementFastFunction(else_)
 
 Gura_ImplementFastFunctionGenerator(else_)
 {
-	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	if (!pExprLeader->GetCar()->IsIdentifier()) {
+		env.SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+		return nullptr;
+	}
+	const Symbol *pSymbol =
+		dynamic_cast<const Expr_Identifier *>(pExprLeader->GetCar())->GetSymbol();
+	if (pSymbol->IsIdentical(Gura_Symbol(if_)) || pSymbol->IsIdentical(Gura_Symbol(elsif))) {
+		return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	}
+	env.SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+	return nullptr;
 }
 #endif
 
