@@ -273,6 +273,7 @@ public:
 	Gura_DeclareSymbol(car);
 	Gura_DeclareSymbol(carray);
 	Gura_DeclareSymbol(cast);
+	Gura_DeclareSymbol(catch_);
 	Gura_DeclareSymbol(cdr);
 	Gura_DeclareSymbol(center);
 	Gura_DeclareSymbol(channels);
@@ -557,6 +558,7 @@ public:
 	Gura_DeclareSymbol(trailer);
 	Gura_DeclareSymbol(transpose);
 	Gura_DeclareSymbol(true_);
+	Gura_DeclareSymbol(try_);
 	Gura_DeclareSymbol(tuesday);
 	Gura_DeclareSymbol(typename_);
 	Gura_DeclareSymbol(typesym);

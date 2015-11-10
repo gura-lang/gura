@@ -315,7 +315,7 @@ Gura_DeclareFunction(expr)
 Gura_ImplementFunction(expr)
 {
 	Stream &stream = Object_stream::GetObject(arg, 0)->GetStream();
-	Parser parser(stream.GetName());
+	Parser parser(env.GetSignal(), stream.GetName());
 	AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, stream));
 	if (pExprRoot.IsNull()) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_expr(env, pExprRoot.release())));
@@ -361,7 +361,7 @@ Gura_DeclareClassMethod(expr, parse)
 Gura_ImplementClassMethod(expr, parse)
 {
 	AutoPtr<Expr_Block> pExpr(new Expr_Block());
-	Parser parser(SRCNAME_string);
+	Parser parser(env.GetSignal(), SRCNAME_string);
 	if (!parser.ParseString(env, pExpr->GetExprOwner(),
 								arg.GetString(0), true)) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_expr(env, pExpr.release())));
@@ -582,7 +582,7 @@ bool Class_expr::CastFrom(Environment &env, Value &value, const Declaration *pDe
 	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
 	if (value.Is_stream()) {
 		Stream &stream = value.GetStream();
-		Parser parser(stream.GetName());
+		Parser parser(env.GetSignal(), stream.GetName());
 		AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, stream));
 		value = Value::Nil; // delete stream instance
 		if (pExprRoot.IsNull()) return false;

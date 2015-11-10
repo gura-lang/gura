@@ -10,11 +10,11 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-Parser::Parser(const String &sourceName, int cntLineStart) :
-		_stat(STAT_BOF), _lineHeadFlag(true),
-		_appearShebangFlag(false), _blockParamFlag(false),
-		_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0),
-		_pSourceName(new StringShared(sourceName))
+Parser::Parser(Signal &sig, const String &sourceName, int cntLineStart) :
+	_sig(sig), _stat(STAT_BOF), _lineHeadFlag(true),
+	_appearShebangFlag(false), _blockParamFlag(false),
+	_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0),
+	_pSourceName(new StringShared(sourceName))
 {
 	InitStack();
 	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
@@ -177,7 +177,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 				if (tbl[i].ch == ch) break;
 			}
 			if (i >= ArraySizeOf(tbl)) {
-				SetError(sig, ERR_SyntaxError, "unexpected character '%c' (%d)", ch, ch);
+				SetError(ERR_SyntaxError, "unexpected character '%c' (%d)", ch, ch);
 				_stat = STAT_Error;
 			} else if (tbl[i].elemType == ETYPE_DoubleChars) {
 				_token.clear();
@@ -261,7 +261,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 				_stat = STAT_CommentLine;
 			}
 		} else if (chFirst == '*' && ch == '/') {
-			SetError(sig, ERR_SyntaxError, "unmatching comment description");
+			SetError(ERR_SyntaxError, "unmatching comment description");
 			_stat = STAT_Error;
 		} else {
 			Gura_Pushback();
@@ -348,7 +348,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 		} else if (IsWhite(ch)) {
 			// nothing to do
 		} else {
-			SetError(sig, ERR_SyntaxError, "invalid escape character");
+			SetError(ERR_SyntaxError, "invalid escape character");
 			_stat = STAT_Error;
 		}
 		break;
@@ -428,7 +428,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 		if (IsHexDigit(ch)) {
 			_token.push_back(ch);
 		} else if (_token.size() <= 2) {
-			SetError(sig, ERR_SyntaxError, "wrong format of hexadecimal number");
+			SetError(ERR_SyntaxError, "wrong format of hexadecimal number");
 			Gura_Pushback();
 			_stat = STAT_Error;
 		} else if (IsSymbolFirstChar(ch)) {
@@ -460,7 +460,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 		if (IsBinDigit(ch)) {
 			_token.push_back(ch);
 		} else if (_token.size() <= 2) {
-			SetError(sig, ERR_SyntaxError, "wrong format of binary number");
+			SetError(ERR_SyntaxError, "wrong format of binary number");
 			Gura_Pushback();
 			_stat = STAT_Error;
 		} else if (IsSymbolFirstChar(ch)) {
@@ -508,7 +508,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 			} else if (pos == String::npos) {
 				_token.push_back(ch);
 			} else {
-				SetError(sig, ERR_SyntaxError, "dot has already been scanned");
+				SetError(ERR_SyntaxError, "dot has already been scanned");
 				_stat = STAT_Error;
 			}
 		} else if (ch == 'e' || ch == 'E') {
@@ -533,7 +533,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 			_token.push_back(ch);
 			_stat = STAT_NumberExpAfterSign;
 		} else {
-			SetError(sig, ERR_SyntaxError, "wrong exponential expression");
+			SetError(ERR_SyntaxError, "wrong exponential expression");
 			_stat = STAT_Error;
 		}
 		break;
@@ -543,7 +543,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 			_token.push_back(ch);
 			_stat = STAT_NumberExp;
 		} else {
-			SetError(sig, ERR_SyntaxError, "wrong exponential expression");
+			SetError(ERR_SyntaxError, "wrong exponential expression");
 			_stat = STAT_Error;
 		}
 		break;
@@ -727,7 +727,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 			_stringInfo.statRtn = STAT_String;
 			_stat = STAT_StringEsc;
 		} else if (ch == '\0' || ch == '\n') {
-			SetError(sig, ERR_SyntaxError, "string is not terminated correctly");
+			SetError(ERR_SyntaxError, "string is not terminated correctly");
 			_stat = STAT_Error;
 		} else {
 			_token.push_back(ch);
@@ -750,7 +750,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 			_stringInfo.statRtn = STAT_MString;
 			_stat = STAT_StringEsc;
 		} else if (ch == '\0') {
-			SetError(sig, ERR_SyntaxError, "string is not terminated correctly");
+			SetError(ERR_SyntaxError, "string is not terminated correctly");
 			_stat = STAT_Error;
 		} else if (ch == '\n' && _stringInfo.wiseFlag) {
 			_token.push_back(ch);
@@ -815,7 +815,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 				_stat = _stringInfo.statRtn;
 			}
 		} else {
-			SetError(sig, ERR_SyntaxError, "invalid hex expression in string");
+			SetError(ERR_SyntaxError, "invalid hex expression in string");
 			_stat = STAT_Error;
 		}
 		break;
@@ -829,7 +829,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 				_stat = _stringInfo.statRtn;
 			}
 		} else {
-			SetError(sig, ERR_SyntaxError, "invalid oct expression in string");
+			SetError(ERR_SyntaxError, "invalid oct expression in string");
 			_stat = STAT_Error;
 		}
 		break;
@@ -843,7 +843,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 				_stat = _stringInfo.statRtn;
 			}
 		} else {
-			SetError(sig, ERR_SyntaxError, "invalid Unicode code point in string");
+			SetError(ERR_SyntaxError, "invalid Unicode code point in string");
 			_stat = STAT_Error;
 		}
 		break;
@@ -925,7 +925,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 
 Expr_Caller *Parser::CreateCaller(
 	Environment &env, Expr *pExprCar, Expr_Lister *pExprLister,
-	Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const
+	Expr_Block *pExprBlock, const Expr_Caller *pExprLeader)
 {
 #if 1
 	if (pExprCar->IsIdentifier()) {
@@ -933,7 +933,7 @@ Expr_Caller *Parser::CreateCaller(
 		const Function *pFunc = env.LookupFunction(pSymbol, ENVREF_Escalate);
 		if (pFunc != nullptr) {
 			Expr_Caller *pExpr = pFunc->GenerateSpecificExpr(
-				env, pExprCar, pExprLister, pExprBlock, pExprLeader);
+				this, pExprCar, pExprLister, pExprBlock, pExprLeader);
 			if (env.IsSignalled()) return nullptr;
 			if (pExpr != nullptr) return pExpr;
 		}
@@ -998,7 +998,7 @@ Expr_Root *Parser::ParseStream(Environment &env, Stream &stream)
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		if (sig.IsSignalled()) {
-			SetError(sig, ERR_CodecError, "stream can not be recognized as %s encoded string",
+			SetError(ERR_CodecError, "stream can not be recognized as %s encoded string",
 										stream.GetCodec()->GetEncoding());
 			return nullptr;
 		}
@@ -1241,7 +1241,6 @@ Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 
 Expr *Parser::FeedElement(Environment &env, const Element &elem)
 {
-	Signal &sig = env.GetSignal();
 	//::printf("FeedElement(%s)\n", elem.GetTypeSymbol());
 	Expr *pExpr = nullptr;
 	for (;;) {
@@ -1259,7 +1258,7 @@ Expr *Parser::FeedElement(Environment &env, const Element &elem)
 				_elemStack.pop_back();
 			} else {
 				// something's wrong
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				InitStack();
 			}
 			break;
@@ -1298,7 +1297,7 @@ Expr *Parser::FeedElement(Environment &env, const Element &elem)
 			} else if (cntElem == 5) {
 				rtn = ReduceFiveElems(env);
 			} else {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				rtn = false;
 			}
 			if (!rtn) {
@@ -1306,11 +1305,11 @@ Expr *Parser::FeedElement(Environment &env, const Element &elem)
 				break;
 			}
 		} else if (elem.IsCloseElement()) {
-			SetError(sig, ERR_SyntaxError, "unmatched closing character");
+			SetError(ERR_SyntaxError, "unmatched closing character");
 			InitStack();
 			break;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			InitStack();
 			break;
 		}
@@ -1320,7 +1319,6 @@ Expr *Parser::FeedElement(Environment &env, const Element &elem)
 
 bool Parser::ReduceOneElem(Environment &env)
 {
-	Signal &sig = env.GetSignal();
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(0);
 	if (elem1.IsType(ETYPE_Number)) {
@@ -1358,7 +1356,7 @@ bool Parser::ReduceOneElem(Environment &env)
 		DBGPARSER(::printf("Reduce: Expr -> '-'\n"));
 		pExpr = new Expr_Identifier(Symbol::Hyphen);
 	} else {
-		SetError_InvalidElement(sig, __LINE__);
+		SetError_InvalidElement(__LINE__);
 		return false;
 	}
 	int lineNoTop = elem1.GetLineNo();
@@ -1370,7 +1368,6 @@ bool Parser::ReduceOneElem(Environment &env)
 
 bool Parser::ReduceTwoElems(Environment &env)
 {
-	Signal &sig = env.GetSignal();
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(1);
 	Element &elem2 = _elemStack.Peek(0);
@@ -1389,7 +1386,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_LBracket)) {
@@ -1407,7 +1404,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_LBrace)) {
@@ -1425,7 +1422,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_LBlockParam)) {
@@ -1451,7 +1448,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 				Expr::Delete(pExprBlockParam);
 			} else {
 				Expr::Delete(pExprBlockParam);
-				SetError(sig, ERR_SyntaxError, "invalid placement of block parameter");
+				SetError(ERR_SyntaxError, "invalid placement of block parameter");
 				return false;
 			}
 			return true;
@@ -1461,7 +1458,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Symbol)) {
@@ -1510,7 +1507,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock, nullptr);
 				if (pExpr == nullptr) return false;
 			} else {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				return false;
 			}
 		} else if (elem1.IsType(ETYPE_And)) {
@@ -1528,7 +1525,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> '*' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mul), elem2.GetExpr(), false);
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr)) {
@@ -1548,11 +1545,11 @@ bool Parser::ReduceTwoElems(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr ..\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_SeqInf), elem1.GetExpr(), true);
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else {
-		SetError_InvalidElement(sig, __LINE__);
+		SetError_InvalidElement(__LINE__);
 		return false;
 	}
 	int lineNoTop = elem1.GetLineNo();
@@ -1592,7 +1589,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_LBracket) && elem2.IsType(ETYPE_Expr)) {
@@ -1616,7 +1613,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_LParenthesis)) {
@@ -1636,7 +1633,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_LBrace)) {
@@ -1666,7 +1663,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_LBracket)) {
@@ -1684,7 +1681,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_LBrace) && elem2.IsType(ETYPE_Expr)) {
@@ -1709,7 +1706,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_LBlockParam) && elem2.IsType(ETYPE_Expr)) {
@@ -1737,7 +1734,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 				Expr::Delete(pExprBlockParam);
 			} else {
 				Expr::Delete(pExprBlockParam);
-				SetError(sig, ERR_SyntaxError, "invalid placement of block parameter");
+				SetError(ERR_SyntaxError, "invalid placement of block parameter");
 				return false;
 			}
 			return true;
@@ -1754,7 +1751,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem3.IsType(ETYPE_Expr)) {
@@ -1865,7 +1862,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 					optAttrFlag = pExprTrailer->AddAttr(pSymbol);
 					pAttrFront = &pExprTrailer->GetAttrFront();
 				} else {
-					SetError_InvalidElement(sig, __LINE__);
+					SetError_InvalidElement(__LINE__);
 					return false;
 				}
 				if (optAttrFlag && pAttrFront->empty()) pAttrFront->push_back(pSymbol);
@@ -1889,7 +1886,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 					pExprTrailer->AddAttrs(pExprIdentifier->GetAttrs());
 					pExprTrailer->AddAttrsOpt(pExprIdentifier->GetAttrsOpt());
 				} else {
-					SetError_InvalidElement(sig, __LINE__);
+					SetError_InvalidElement(__LINE__);
 					return false;
 				}
 				if (!pAttrFront->empty()) {
@@ -1916,7 +1913,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 					foreach (ExprList, ppExpr, exprList) {
 						Expr *pExpr = *ppExpr;
 						if (!pExpr->IsIdentifier()) {
-							SetError_InvalidElement(sig, __LINE__);
+							SetError_InvalidElement(__LINE__);
 							return false;
 						}
 						const Symbol *pSymbol =
@@ -1924,19 +1921,19 @@ bool Parser::ReduceThreeElems(Environment &env)
 						pExprCaller->AddAttrOpt(pSymbol);
 					}
 				} else {
-					SetError_InvalidElement(sig, __LINE__);
+					SetError_InvalidElement(__LINE__);
 					return false;
 				}
 				pExpr = pExprLeft;
 				Expr::Delete(pExprRight);
 			} else {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				return false;
 			}
 		} else if (elem2.IsType(ETYPE_Dot)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr . Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				return false;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
@@ -1944,7 +1941,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 		} else if (elem2.IsType(ETYPE_ColonColon)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :: Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				return false;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
@@ -1952,7 +1949,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 		} else if (elem2.IsType(ETYPE_ColonAsterisk)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :* Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				return false;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
@@ -1960,7 +1957,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 		} else if (elem2.IsType(ETYPE_ColonAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :& Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				return false;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
@@ -1990,11 +1987,11 @@ bool Parser::ReduceThreeElems(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr .. Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Seq), pExprLeft, pExprRight);
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else {
-		SetError_InvalidElement(sig, __LINE__);
+		SetError_InvalidElement(__LINE__);
 		return false;
 	}
 	int lineNoTop = elem1.GetLineNo();
@@ -2008,7 +2005,6 @@ bool Parser::ReduceThreeElems(Environment &env)
 
 bool Parser::ReduceFourElems(Environment &env)
 {
-	Signal &sig = env.GetSignal();
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(3);
 	Element &elem2 = _elemStack.Peek(2);
@@ -2023,7 +2019,7 @@ bool Parser::ReduceFourElems(Environment &env)
 				pExprLister = new Expr_Lister();
 			}
 			if (!elem1.GetExpr()->IsCaller()) {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				return false;
 			}
 			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
@@ -2038,7 +2034,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
@@ -2050,7 +2046,7 @@ bool Parser::ReduceFourElems(Environment &env)
 				pExprBlock = new Expr_Block();
 			}
 			if (!elem1.GetExpr()->IsCaller()) {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				return false;
 			}
 			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
@@ -2070,7 +2066,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) &&
@@ -2098,7 +2094,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) &&
@@ -2134,7 +2130,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) &&
@@ -2160,11 +2156,11 @@ bool Parser::ReduceFourElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else {
-		SetError_InvalidElement(sig, __LINE__);
+		SetError_InvalidElement(__LINE__);
 		return false;
 	}
 	int lineNoTop = elem1.GetLineNo();
@@ -2179,7 +2175,6 @@ bool Parser::ReduceFourElems(Environment &env)
 
 bool Parser::ReduceFiveElems(Environment &env)
 {
-	Signal &sig = env.GetSignal();
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(4);
 	Element &elem2 = _elemStack.Peek(3);
@@ -2196,7 +2191,7 @@ bool Parser::ReduceFiveElems(Environment &env)
 			}
 			pExprLister->AddExpr(elem4.GetExpr());
 			if (!elem1.GetExpr()->IsCaller()) {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				return false;
 			}
 			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
@@ -2217,7 +2212,7 @@ bool Parser::ReduceFiveElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
@@ -2230,7 +2225,7 @@ bool Parser::ReduceFiveElems(Environment &env)
 			}
 			pExprBlock->AddExpr(elem4.GetExpr());
 			if (!elem1.GetExpr()->IsCaller()) {
-				SetError_InvalidElement(sig, __LINE__);
+				SetError_InvalidElement(__LINE__);
 				return false;
 			}
 			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
@@ -2257,11 +2252,11 @@ bool Parser::ReduceFiveElems(Environment &env)
 			_elemStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(sig, __LINE__);
+			SetError_InvalidElement(__LINE__);
 			return false;
 		}
 	} else {
-		SetError_InvalidElement(sig, __LINE__);
+		SetError_InvalidElement(__LINE__);
 		return false;
 	}
 	int lineNoTop = elem1.GetLineNo();
@@ -2315,7 +2310,7 @@ bool Parser::ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList)
 	return true;
 }
 
-void Parser::SetError(Signal &sig, ErrorType errType, const char *format, ...)
+void Parser::SetError(ErrorType errType, const char *format, ...)
 {
 	String textPre;
 	if (!_pSourceName->GetStringSTL().empty()) {
@@ -2330,18 +2325,18 @@ void Parser::SetError(Signal &sig, ErrorType errType, const char *format, ...)
 	} while (0);
 	va_list ap;
 	va_start(ap, format);
-	sig.SetErrorV(errType, format, ap, textPre.c_str());
+	_sig.SetErrorV(errType, format, ap, textPre.c_str());
 	va_end(ap);
 }
 
-void Parser::SetError_InvalidElement(Signal &sig)
+void Parser::SetError_InvalidElement()
 {
-	SetError(sig, ERR_SyntaxError, "invalid element");
+	SetError(ERR_SyntaxError, "invalid element");
 }
 
-void Parser::SetError_InvalidElement(Signal &sig, int lineno)
+void Parser::SetError_InvalidElement(int lineno)
 {
-	SetError(sig, ERR_SyntaxError, "invalid element (%d) .. %s", lineno,
+	SetError(ERR_SyntaxError, "invalid element (%d) .. %s", lineno,
 										_elemStack.ToString().c_str());
 }
 

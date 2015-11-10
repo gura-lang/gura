@@ -431,6 +431,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(car);
 	Gura_RealizeSymbol(carray);
 	Gura_RealizeSymbol(cast);
+	Gura_RealizeSymbolAlias(catch_,			"catch");
 	Gura_RealizeSymbol(cdr);
 	Gura_RealizeSymbol(center);
 	Gura_RealizeSymbol(channels);
@@ -715,6 +716,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(trailer);
 	Gura_RealizeSymbol(transpose);
 	Gura_RealizeSymbolAlias(true_,			"true");
+	Gura_RealizeSymbolAlias(try_,			"try");
 	Gura_RealizeSymbol(tuesday);
 	Gura_RealizeSymbolAlias(typename_,		"typename");
 	Gura_RealizeSymbol(typesym);

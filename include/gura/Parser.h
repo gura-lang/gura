@@ -219,6 +219,7 @@ public:
 		String ToString() const;
 	};
 private:
+	Signal &_sig;
 	Stat _stat;
 	bool _lineHeadFlag;
 	MagicCommentParser _magicCommentParser;
@@ -237,7 +238,7 @@ private:
 	String _strIndent;
 	static const ElemTypeInfo _elemTypeInfoTbl[];
 public:
-	Parser(const String &sourceName, int cntLineStart = 0);
+	Parser(Signal &sig, const String &sourceName, int cntLineStart = 0);
 	~Parser();
 	void Reset();
 	void InitStack();
@@ -262,16 +263,16 @@ public:
 	static int CompareOpTypePrec(OpType opType1, OpType opType2);
 	static bool ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList);
 	static bool ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList);
+	void SetError(ErrorType errType, const char *format, ...);
 private:
 	Expr_Caller *CreateCaller(
 		Environment &env, Expr *pExprCar, Expr_Lister *pExprLister,
-		Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const;
+		Expr_Block *pExprBlock, const Expr_Caller *pExprLeader);
 	bool CheckBlockParamEnd() const;
 	static ElemType ElemTypeForString(const StringInfo &stringInfo);
 	static bool CheckStringPrefix(StringInfo &stringInfo, const String &token);
-	void SetError(Signal &sig, ErrorType errType, const char *format, ...);
-	void SetError_InvalidElement(Signal &sig);
-	void SetError_InvalidElement(Signal &sig, int lineno);
+	void SetError_InvalidElement();
+	void SetError_InvalidElement(int lineno);
 	static Precedence _LookupPrec(int indexLeft, int indexRight);
 	inline  Precedence LookupPrecFast(ElemType elemTypeLeft, ElemType elemTypeRight) {
 		return _LookupPrec(ElemTypeToIndex(elemTypeLeft), ElemTypeToIndex(elemTypeRight));

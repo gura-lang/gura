@@ -240,10 +240,10 @@ bool Template::Parser::ParseStream(Environment &env,
 		}
 		case STAT_ScriptPost: {
 			const char *strPost = (ch == '\n')? "\n" : "";
-			if (!CreateTmplScript(env,
-								  strIndent.c_str(), strTmplScript.c_str(), strPost,
-								  pTemplate, pExprBlockRoot,
-								  pSourceName.get(), cntLineTop, cntLine)) return false;
+			if (!CreateTmplScript(
+					env, strIndent.c_str(), strTmplScript.c_str(), strPost,
+					pTemplate, pExprBlockRoot,
+					pSourceName.get(), cntLineTop, cntLine)) return false;
 			strIndent.clear();
 			strTmplScript.clear();
 			if (ch == '\n') {
@@ -368,7 +368,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 		strTmplScript++;
 		AutoPtr<ExprOwner> pExprOwnerForInit(new ExprOwner());
 		do {
-			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
+			Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop);
 			// Appends "this.init_" before the script string while parsing
 			// so that it generates an expression "this.init_foo()" from the directive "${=foo()}".
 			if (!parser.ParseString(env, *pExprOwnerForInit, "this.init_", false)) return false;
@@ -376,7 +376,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 		} while (0);
 		do {
 			ExprOwner &exprOwner = pExprTmplScript->GetExprOwner();
-			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
+			Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop);
 			// Appends "this." before the script string while parsing
 			// so that it generates an expression "this.foo()" from the directive "${=foo()}".
 			if (!parser.ParseString(env, exprOwner, "this.", false)) return false;
@@ -422,7 +422,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 	} else {
 		// Parsing a normal script other than template directive.
 		AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
-		Gura::Parser parser(pSourceName->GetString(), cntLineTop);
+		Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop);
 		if (!parser.ParseString(env, *pExprOwnerPart, strTmplScript, true)) return false;
 		ExprOwner::iterator ppExpr = pExprOwnerPart->begin();
 		//::printf("[%s], [%s], [%s]\n", strIndent, strTmplScript, strPost);

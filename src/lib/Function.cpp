@@ -367,7 +367,7 @@ Value Function::ReturnIterator(Environment &env, Argument &arg, Iterator *pItera
 }
 
 Expr_Caller *Function::GenerateSpecificExpr(
-	Environment &env, Expr *pExprCar, Expr_Lister *pExprLister,
+	Parser *pParser, Expr *pExprCar, Expr_Lister *pExprLister,
 	Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const
 {
 	return nullptr;

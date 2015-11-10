@@ -248,7 +248,7 @@ HRESULT CMain::ParseScriptText(
 	Gura::ExprOwner &exprOwner = pExprRoot->GetExprOwner();
 	int cntLineOffset = static_cast<int>(ulStartingLineNumber) - 1;
 	if (cntLineOffset < 0) cntLineOffset = 0;
-	Gura::Parser parser("<ole>", cntLineOffset);
+	Gura::Parser parser(_sig, "<ole>", cntLineOffset);
 	if (!parser.ParseString(*_pEnv, exprOwner,
 			Gura::Gura_Module(mswin)::BSTRToString(pstrCode).c_str(), true)) {
 		pexcepinfo->bstrDescription = L"*************";

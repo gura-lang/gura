@@ -669,7 +669,9 @@ Gura_ImplementFastFunction(if_)
 	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
 	for (const Expr_Caller *pExpr = this; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 		bool flag = true;
-		if (!pExpr->GetExprOwner().empty()) {
+		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
+		if (pSymbolCar->IsIdentical(Gura_Symbol(if_)) ||
+							pSymbolCar->IsIdentical(Gura_Symbol(elsif))) {
 			const Expr *pExprCond = pExpr->GetExprOwner()[0];
 			Value rtn = pExprCond->Exec(*pEnvBlock);
 			if (env.IsSignalled()) return Value::Nil;
@@ -685,7 +687,15 @@ Gura_ImplementFastFunction(if_)
 Gura_ImplementFastFunctionGenerator(if_)
 {
 	if (pExprLeader != nullptr) {
-		env.SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+		pParser->SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+		return nullptr;
+	}
+	if (pExprLister == nullptr || pExprLister->GetExprOwner().empty()) {
+		pParser->SetError(ERR_SyntaxError, "missing condition");
+		return nullptr;
+	}
+	if (pExprLister->GetExprOwner().size() > 1) {
+		pParser->SetError(ERR_SyntaxError, "too many conditions");
 		return nullptr;
 	}
 	return new ExprEx(pExprCar, pExprLister, pExprBlock);
@@ -733,17 +743,23 @@ Gura_ImplementFastFunction(elsif_)
 
 Gura_ImplementFastFunctionGenerator(elsif_)
 {
-	if (!pExprLeader->GetCar()->IsIdentifier()) {
-		env.SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+	if (pExprLister == nullptr || pExprLister->GetExprOwner().empty()) {
+		pParser->SetError(ERR_SyntaxError, "missing condition");
 		return nullptr;
 	}
-	const Symbol *pSymbol =
-		dynamic_cast<const Expr_Identifier *>(pExprLeader->GetCar())->GetSymbol();
-	if (pSymbol->IsIdentical(Gura_Symbol(if_)) || pSymbol->IsIdentical(Gura_Symbol(elsif))) {
-		return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	if (pExprLister->GetExprOwner().size() > 1) {
+		pParser->SetError(ERR_SyntaxError, "too many conditions");
+		return nullptr;
 	}
-	env.SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
-	return nullptr;
+	if (pExprLeader != nullptr) {
+		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
+		if (!pSymbolCar->IsIdentical(Gura_Symbol(if_)) &&
+							!pSymbolCar->IsIdentical(Gura_Symbol(elsif))) {
+			pParser->SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+			return nullptr;
+		}
+	}
+	return new ExprEx(pExprCar, pExprLister, pExprBlock);
 }
 #endif
 
@@ -778,17 +794,21 @@ Gura_ImplementFastFunction(else_)
 
 Gura_ImplementFastFunctionGenerator(else_)
 {
-	if (!pExprLeader->GetCar()->IsIdentifier()) {
-		env.SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+	if (pExprLister != nullptr && !pExprLister->GetExprOwner().empty()) {
+		pParser->SetError(ERR_SyntaxError, "no condition necessary");
 		return nullptr;
 	}
-	const Symbol *pSymbol =
-		dynamic_cast<const Expr_Identifier *>(pExprLeader->GetCar())->GetSymbol();
-	if (pSymbol->IsIdentical(Gura_Symbol(if_)) || pSymbol->IsIdentical(Gura_Symbol(elsif))) {
-		return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	if (pExprLeader != nullptr) {
+		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
+		if (!pSymbolCar->IsIdentical(Gura_Symbol(if_)) &&
+			!pSymbolCar->IsIdentical(Gura_Symbol(elsif)) &&
+			!pSymbolCar->IsIdentical(Gura_Symbol(try_)) &&
+			!pSymbolCar->IsIdentical(Gura_Symbol(catch_))) {
+			pParser->SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
+			return nullptr;
+		}
 	}
-	env.SetError(ERR_SyntaxError, "invalid format of if-elsif-else statement");
-	return nullptr;
+	return new ExprEx(pExprCar, pExprLister, pExprBlock);
 }
 #endif
 
