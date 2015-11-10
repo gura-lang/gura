@@ -419,6 +419,8 @@ protected:
 	AutoPtr<Expr> _pExprCar;
 	AutoPtr<Expr_Lister> _pExprLister;
 	ExprOwner &_exprOwner;
+	const Symbol *_pSymbolCar;	// set if pExprCar is Expr_Identifier.
+								// set to Symbol::Empty otherwise.
 public:
 	Expr_Compound(ExprType exprType, Expr *pExprCar, Expr_Lister *pExprLister);
 	Expr_Compound(const Expr_Compound &expr);
@@ -430,6 +432,7 @@ public:
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	inline Expr *GetCar() { return _pExprCar.get(); }
 	inline const Expr *GetCar() const { return _pExprCar.get(); }
+	inline const Symbol *GetSymbolCar() const { return _pSymbolCar; }
 	inline ExprOwner &GetExprOwner() { return _exprOwner; }
 	inline const ExprOwner &GetExprOwner() const { return _exprOwner; }
 };

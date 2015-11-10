@@ -708,16 +708,22 @@ bool Expr_Compound::IsCompound() const { return true; }
 
 Expr_Compound::Expr_Compound(ExprType exprType, Expr *pExprCar, Expr_Lister *pExprLister) :
 	Expr(exprType), _pExprCar(pExprCar), _pExprLister(pExprLister),
-	_exprOwner(_pExprLister->GetExprOwner())
+	_exprOwner(_pExprLister->GetExprOwner()), _pSymbolCar(Symbol::Empty)
 {
-	if (!_pExprCar.IsNull()) _pExprCar->SetParent(this);
+	if (!_pExprCar.IsNull()) {
+		_pExprCar->SetParent(this);
+		if (_pExprCar->IsIdentifier()) {
+			_pSymbolCar = dynamic_cast<Expr_Identifier *>(_pExprCar.get())->GetSymbol();
+		}
+	}
 	if (!_pExprLister.IsNull()) _pExprLister->SetParent(this);
 }
 
 Expr_Compound::Expr_Compound(const Expr_Compound &expr) :
 	Expr(expr), _pExprCar(expr._pExprCar->Clone()),
 	_pExprLister(dynamic_cast<Expr_Lister *>(expr._pExprLister->Clone())),
-	_exprOwner(_pExprLister->GetExprOwner())
+	_exprOwner(_pExprLister->GetExprOwner()),
+	_pSymbolCar(expr._pSymbolCar)
 {
 	if (!_pExprCar.IsNull()) _pExprCar->SetParent(this);
 	if (!_pExprLister.IsNull()) _pExprLister->SetParent(this);
