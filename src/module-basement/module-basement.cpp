@@ -914,6 +914,7 @@ Gura_ImplementFunction(default_)
 //-----------------------------------------------------------------------------
 // try ():leader {block}
 Gura_DeclareFunctionAlias(try_, "try")
+//Gura_DeclareFastFunctionAlias(try_, "try")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
@@ -924,6 +925,7 @@ Gura_DeclareFunctionAlias(try_, "try")
 		"`catch()` or `else()` function that follow after it.");
 }
 
+#if 1
 Gura_ImplementFunction(try_)
 {
 	Signal &sig = env.GetSignal();
@@ -938,9 +940,21 @@ Gura_ImplementFunction(try_)
 	}
 	return result;
 }
+#else
+Gura_ImplementFastFunction(try_)
+{
+	return Value::Nil;
+}
+
+Gura_ImplementFastFunctionGenerator(try_)
+{
+	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+}
+#endif
 
 // catch (errors*:error):leader:trailer {block}
 Gura_DeclareFunctionAlias(catch_, "catch")
+//Gura_DeclareFastFunctionAlias(catch_, "catch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
@@ -955,6 +969,7 @@ Gura_DeclareFunctionAlias(catch_, "catch")
 		"`error` is an error object that contains information of the handled error.");
 }
 
+#if 1
 Gura_ImplementFunction(catch_)
 {
 	Signal &sig = env.GetSignal();
@@ -982,9 +997,22 @@ Gura_ImplementFunction(catch_)
 	if (!pArgSub->StoreValue(env, Value(pObj))) return Value::Nil;
 	return pFuncBlock->Eval(*pEnvBlock, *pArgSub);
 }
+#else
+Gura_ImplementFastFunction(catch_)
+{
+	// dummy
+	return Value::Nil;
+}
+
+Gura_ImplementFastFunctionGenerator(catch_)
+{
+	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+}
+#endif
 
 // finally ():trailer:finalizer {block}
 Gura_DeclareFunctionAlias(finally_, "finally")
+//Gura_DeclareFastFunctionAlias(finally_, "finally")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
 	DeclareBlock(OCCUR_Once);
@@ -993,6 +1021,7 @@ Gura_DeclareFunctionAlias(finally_, "finally")
 		"");
 }
 
+#if 1
 Gura_ImplementFunction(finally_)
 {
 	Signal &sig = env.GetSignal();
@@ -1001,6 +1030,18 @@ Gura_ImplementFunction(finally_)
 	if (sig.IsSignalled()) return Value::Nil;
 	return pExprBlock->Exec(*pEnvBlock);
 }
+#else
+Gura_ImplementFastFunction(finally_)
+{
+	// dummy
+	return Value::Nil;
+}
+
+Gura_ImplementFastFunctionGenerator(finally_)
+{
+	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+}
+#endif
 
 // raise(error:error, msg:string => "error", value?)
 Gura_DeclareFunction(raise)
