@@ -943,7 +943,41 @@ Gura_ImplementFunction(try_)
 #else
 Gura_ImplementFastFunction(try_)
 {
-	return Value::Nil;
+	Signal &sig = env.GetSignal();
+	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
+	Value result = GetBlock()->Exec(*pEnvBlock);
+	if (!sig.IsError()) return result;
+	sig.SuspendError();
+	for (const Expr_Caller *pExpr = GetTrailer();
+						 pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
+		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
+		if (pSymbolCar->IsIdentical(Gura_Symbol(catch_))) {
+			bool handleFlag = false;
+			foreach_const (ExprOwner, ppExprArg, pExpr->GetExprOwner()) {
+				const Expr *pExprArg = *ppExprArg;
+				Value valueArg = pExprArg->Exec(*pEnvBlock);
+				if (sig.IsError()) return Value::Nil;
+				if (!valueArg.Is_error()) {
+					sig.SetError(ERR_TypeError, "error object must be specified");
+					return Value::Nil;
+				}
+				if (valueArg.GetErrorType() == sig.GetError().GetType()) {
+					handleFlag = true;
+				}
+			}
+			if (handleFlag) {
+
+
+				result = pExpr->GetBlock()->Exec(*pEnvBlock);
+
+
+				break;
+			}
+		} else if (pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
+			
+		}
+	}
+	return result;
 }
 
 Gura_ImplementFastFunctionGenerator(try_)
