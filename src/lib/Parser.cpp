@@ -932,10 +932,11 @@ Expr_Caller *Parser::CreateCaller(
 		const Symbol *pSymbol = dynamic_cast<Expr_Identifier *>(pExprCar)->GetSymbol();
 		const Function *pFunc = env.LookupFunction(pSymbol, ENVREF_Escalate);
 		if (pFunc != nullptr) {
-			Expr_Caller *pExpr = pFunc->GenerateSpecificExpr(
-				this, pExprCar, pExprLister, pExprBlock, pExprLeader);
+			AutoPtr<Expr_Caller> pExpr(
+				pFunc->GenerateSpecificExpr(
+					this, pExprCar, pExprLister, pExprBlock, pExprLeader));
 			if (env.IsSignalled()) return nullptr;
-			if (pExpr != nullptr) return pExpr;
+			if (!pExpr.IsNull()) return pExpr.release();
 		}
 	}
 #endif
