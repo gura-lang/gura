@@ -334,6 +334,7 @@ public:
 	Gura_DeclareSymbol(file);
 	Gura_DeclareSymbol(finalize);
 	Gura_DeclareSymbol(finalizer);
+	Gura_DeclareSymbol(finally);
 	Gura_DeclareSymbol(firsteol);
 	Gura_DeclareSymbol(flat);
 	Gura_DeclareSymbol(for_);

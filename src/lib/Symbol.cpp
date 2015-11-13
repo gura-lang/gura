@@ -492,6 +492,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(file);
 	Gura_RealizeSymbol(finalize);
 	Gura_RealizeSymbol(finalizer);
+	Gura_RealizeSymbol(finally);
 	Gura_RealizeSymbol(firsteol);
 	Gura_RealizeSymbol(flat);
 	Gura_RealizeSymbolAlias(for_,			"for");

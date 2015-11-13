@@ -913,8 +913,8 @@ Gura_ImplementFunction(default_)
 // Exception Handling
 //-----------------------------------------------------------------------------
 // try ():leader {block}
-//Gura_DeclareFunctionAlias(try_, "try")
-Gura_DeclareFastFunctionAlias(try_, "try")
+Gura_DeclareFunctionAlias(try_, "try")
+//Gura_DeclareFastFunctionAlias(try_, "try")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
@@ -925,7 +925,7 @@ Gura_DeclareFastFunctionAlias(try_, "try")
 		"`catch()` or `else()` function that follow after it.");
 }
 
-#if 0
+#if 1
 Gura_ImplementFunction(try_)
 {
 	Signal &sig = env.GetSignal();
@@ -946,10 +946,10 @@ Gura_ImplementFastFunction(try_)
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
 	Value result = GetBlock()->Exec(*pEnvBlock);
+	const Expr_Caller *pExpr = GetTrailer();
 	if (sig.IsError()) {
 		sig.SuspendError();
-		for (const Expr_Caller *pExpr = GetTrailer();
-							 pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
+		for ( ; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 			const Symbol *pSymbolCar = pExpr->GetSymbolCar();
 			if (!pSymbolCar->IsIdentical(Gura_Symbol(catch_))) continue;
 			bool handleFlag = true;
@@ -982,13 +982,19 @@ Gura_ImplementFastFunction(try_)
 			break;
 		}
 	} else {
-		for (const Expr_Caller *pExpr = GetTrailer();
-							 pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
+		for ( ; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 			const Symbol *pSymbolCar = pExpr->GetSymbolCar();
 			if (pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
 				result = pExpr->GetBlock()->Exec(*pEnvBlock);
 				break;
 			}
+		}
+	}
+	for ( ; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
+		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
+		if (pSymbolCar->IsIdentical(Gura_Symbol(finally))) {
+			
+			break;
 		}
 	}
 	return result;
