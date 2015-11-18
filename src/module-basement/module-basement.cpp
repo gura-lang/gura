@@ -632,8 +632,8 @@ Gura_ImplementFunction(return_)
 // Branch Sequence
 //-----------------------------------------------------------------------------
 // if (`cond):leader {block}
-Gura_DeclareFunctionAlias(if_, "if")
-//Gura_DeclareFastFunctionAlias(if_, "if")
+//Gura_DeclareFunctionAlias(if_, "if")
+Gura_DeclareFastFunctionAlias(if_, "if")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -649,7 +649,7 @@ Gura_DeclareFunctionAlias(if_, "if")
 		"If no trailer exists, the function returns `nil` value.\n");
 }
 
-#if 1
+#if 0
 Gura_ImplementFunction(if_)
 {
 	Signal &sig = env.GetSignal();
@@ -703,8 +703,8 @@ Gura_ImplementFastFunctionGenerator(if_)
 #endif
 
 // elsif (`cond):leader:trailer {block}
-Gura_DeclareFunctionAlias(elsif_, "elsif")
-//Gura_DeclareFastFunctionAlias(elsif_, "elsif")
+//Gura_DeclareFunctionAlias(elsif_, "elsif")
+Gura_DeclareFastFunctionAlias(elsif_, "elsif")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -720,7 +720,7 @@ Gura_DeclareFunctionAlias(elsif_, "elsif")
 		"If no trailer exists, the function returns `nil` value.\n");
 }
 
-#if 1
+#if 0
 Gura_ImplementFunction(elsif_)
 {
 	Signal &sig = env.GetSignal();
@@ -764,8 +764,8 @@ Gura_ImplementFastFunctionGenerator(elsif_)
 #endif
 
 // else ():trailer {block}
-Gura_DeclareFunctionAlias(else_, "else")
-//Gura_DeclareFastFunctionAlias(else_, "else")
+//Gura_DeclareFunctionAlias(else_, "else")
+Gura_DeclareFastFunctionAlias(else_, "else")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
@@ -774,7 +774,7 @@ Gura_DeclareFunctionAlias(else_, "else")
 		"Specify an \"else\" block within a statement of `if-elsif-else` or `try-catch-else`.\n");
 }
 
-#if 1
+#if 0
 Gura_ImplementFunction(else_)
 {
 	Signal &sig = env.GetSignal();
@@ -913,8 +913,8 @@ Gura_ImplementFunction(default_)
 // Exception Handling
 //-----------------------------------------------------------------------------
 // try ():leader {block}
-Gura_DeclareFunctionAlias(try_, "try")
-//Gura_DeclareFastFunctionAlias(try_, "try")
+//Gura_DeclareFunctionAlias(try_, "try")
+Gura_DeclareFastFunctionAlias(try_, "try")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
@@ -925,7 +925,7 @@ Gura_DeclareFunctionAlias(try_, "try")
 		"`catch()` or `else()` function that follow after it.");
 }
 
-#if 1
+#if 0
 Gura_ImplementFunction(try_)
 {
 	Signal &sig = env.GetSignal();
@@ -1007,8 +1007,8 @@ Gura_ImplementFastFunctionGenerator(try_)
 #endif
 
 // catch (errors*:error):leader:trailer {block}
-Gura_DeclareFunctionAlias(catch_, "catch")
-//Gura_DeclareFastFunctionAlias(catch_, "catch")
+//Gura_DeclareFunctionAlias(catch_, "catch")
+Gura_DeclareFastFunctionAlias(catch_, "catch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
@@ -1023,7 +1023,7 @@ Gura_DeclareFunctionAlias(catch_, "catch")
 		"`error` is an error object that contains information of the handled error.");
 }
 
-#if 1
+#if 0
 Gura_ImplementFunction(catch_)
 {
 	Signal &sig = env.GetSignal();
@@ -1063,7 +1063,7 @@ Gura_ImplementFastFunctionGenerator(catch_)
 	if (pExprLeader != nullptr) {
 		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
 		if (!pSymbolCar->IsIdentical(Gura_Symbol(try_)) &&
-							!pSymbolCar->IsIdentical(Gura_Symbol(catch_))) {
+					!pSymbolCar->IsIdentical(Gura_Symbol(catch_))) {
 			pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
 			return nullptr;
 		}
@@ -1073,8 +1073,8 @@ Gura_ImplementFastFunctionGenerator(catch_)
 #endif
 
 // finally ():trailer:finalizer {block}
-Gura_DeclareFunctionAlias(finally_, "finally")
-//Gura_DeclareFastFunctionAlias(finally_, "finally")
+//Gura_DeclareFunctionAlias(finally_, "finally")
+Gura_DeclareFastFunctionAlias(finally_, "finally")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
 	DeclareBlock(OCCUR_Once);
@@ -1083,7 +1083,7 @@ Gura_DeclareFunctionAlias(finally_, "finally")
 		"");
 }
 
-#if 1
+#if 0
 Gura_ImplementFunction(finally_)
 {
 	Signal &sig = env.GetSignal();
@@ -1101,6 +1101,15 @@ Gura_ImplementFastFunction(finally_)
 
 Gura_ImplementFastFunctionGenerator(finally_)
 {
+	if (pExprLeader != nullptr) {
+		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
+		if (!pSymbolCar->IsIdentical(Gura_Symbol(try_)) &&
+					!pSymbolCar->IsIdentical(Gura_Symbol(catch_)) &&
+					!pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
+			pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
+			return nullptr;
+		}
+	}
 	return new ExprEx(pExprCar, pExprLister, pExprBlock);
 }
 #endif
