@@ -1322,6 +1322,7 @@ bool Parser::ReduceOneElem(Environment &env)
 {
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(0);
+	int lineNoTop = elem1.GetLineNo();
 	if (elem1.IsType(ETYPE_Number)) {
 		DBGPARSER(::printf("Reduce: Expr -> Number\n"));
 		Expr_Value *pExprEx = new Expr_Value(Value(ToNumber(elem1.GetString())));
@@ -1358,13 +1359,15 @@ bool Parser::ReduceOneElem(Environment &env)
 		pExpr = new Expr_Identifier(Symbol::Hyphen);
 	} else {
 		SetError_InvalidElement(__LINE__);
-		return false;
+		goto error_done;
 	}
-	int lineNoTop = elem1.GetLineNo();
 	_elemStack.pop_back();
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
+error_done:
+	_elemStack.pop_back();
+	return false;
 }
 
 bool Parser::ReduceTwoElems(Environment &env)
@@ -1372,6 +1375,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(1);
 	Element &elem2 = _elemStack.Peek(0);
+	int lineNoTop = elem1.GetLineNo();
 	if (elem1.IsType(ETYPE_LParenthesis)) {
 		if (elem2.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' ')'\n"));
@@ -1388,7 +1392,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_LBracket)) {
 		if (elem2.IsType(ETYPE_RBracket)) {
@@ -1406,7 +1410,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_LBrace)) {
 		if (elem2.IsType(ETYPE_RBrace)) {
@@ -1424,7 +1428,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_LBlockParam)) {
 		if (elem2.IsType(ETYPE_RBlockParam)) {
@@ -1450,7 +1454,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			} else {
 				Expr::Delete(pExprBlockParam);
 				SetError(ERR_SyntaxError, "invalid placement of block parameter");
-				return false;
+				goto error_done;
 			}
 			return true;
 		} else if (elem2.IsType(ETYPE_EOL)) {
@@ -1460,7 +1464,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Symbol)) {
 		// this is a special case of reducing
@@ -1495,7 +1499,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 				Expr *pExprCar = new Expr_Identifier(Symbol::Percnt);
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock, nullptr);
-				if (pExpr == nullptr) return false;
+				if (pExpr == nullptr) goto error_done;
 			} else {
 				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), elem2.GetExpr(), false);
 			}
@@ -1506,10 +1510,10 @@ bool Parser::ReduceTwoElems(Environment &env)
 				Expr *pExprCar = new Expr_Identifier(Symbol::PercntPercnt);
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock, nullptr);
-				if (pExpr == nullptr) return false;
+				if (pExpr == nullptr) goto error_done;
 			} else {
 				SetError_InvalidElement(__LINE__);
-				return false;
+				goto error_done;
 			}
 		} else if (elem1.IsType(ETYPE_And)) {
 			DBGPARSER(::printf("Reduce: Expr -> '&' Expr\n"));
@@ -1518,7 +1522,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 				Expr *pExprCar = new Expr_Identifier(Symbol::Amp);
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock, nullptr);
-				if (pExpr == nullptr) return false;
+				if (pExpr == nullptr) goto error_done;
 			} else {
 				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_And), elem2.GetExpr(), false);
 			}
@@ -1527,7 +1531,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mul), elem2.GetExpr(), false);
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr)) {
 		if (elem2.IsType(ETYPE_Add)) {
@@ -1547,18 +1551,21 @@ bool Parser::ReduceTwoElems(Environment &env)
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_SeqInf), elem1.GetExpr(), true);
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else {
 		SetError_InvalidElement(__LINE__);
-		return false;
+		goto error_done;
 	}
-	int lineNoTop = elem1.GetLineNo();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
+error_done:
+	_elemStack.pop_back();
+	_elemStack.pop_back();
+	return false;
 }
 
 bool Parser::ReduceThreeElems(Environment &env)
@@ -1568,6 +1575,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 	Element &elem1 = _elemStack.Peek(2);
 	Element &elem2 = _elemStack.Peek(1);
 	Element &elem3 = _elemStack.Peek(0);
+	int lineNoTop = elem1.GetLineNo();
 	if (elem1.IsType(ETYPE_LParenthesis) && elem2.IsType(ETYPE_Expr)) {
 		Expr_Iterer *pExprIterer = dynamic_cast<Expr_Iterer *>(elem1.GetExpr());
 		if (elem3.IsType(ETYPE_RParenthesis)) {
@@ -1591,7 +1599,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_LBracket) && elem2.IsType(ETYPE_Expr)) {
 		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem1.GetExpr());
@@ -1615,7 +1623,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_LParenthesis)) {
 		if (elem3.IsType(ETYPE_RParenthesis)) {
@@ -1626,7 +1634,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			}
 			Expr_Caller *pExprCaller =
 				CreateCaller(env, elem1.GetExpr(), pExprLister, nullptr, nullptr);
-			if (pExprCaller == nullptr) return false;
+			if (pExprCaller == nullptr) goto error_done;
 			pExpr = pExprCaller;
 		} else if (elem3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -1635,7 +1643,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_LBrace)) {
 		if (elem3.IsType(ETYPE_RBrace)) {
@@ -1655,7 +1663,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 				}
 				Expr_Caller *pExprCaller =
 					CreateCaller(env, elem1.GetExpr(), nullptr, pExprBlock, nullptr);
-				if (pExprCaller == nullptr) return false;
+				if (pExprCaller == nullptr) goto error_done;
 				pExpr = pExprCaller;
 			}
 		} else if (elem3.IsType(ETYPE_EOL)) {
@@ -1665,7 +1673,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_LBracket)) {
 		if (elem3.IsType(ETYPE_RBracket)) {
@@ -1683,7 +1691,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_LBrace) && elem2.IsType(ETYPE_Expr)) {
 		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem1.GetExpr());
@@ -1708,7 +1716,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_LBlockParam) && elem2.IsType(ETYPE_Expr)) {
 		Expr_Lister *pExprBlockParam = dynamic_cast<Expr_Lister *>(elem1.GetExpr());
@@ -1736,7 +1744,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			} else {
 				Expr::Delete(pExprBlockParam);
 				SetError(ERR_SyntaxError, "invalid placement of block parameter");
-				return false;
+				goto error_done;
 			}
 			return true;
 		} else if (elem3.IsType(ETYPE_Comma) ||
@@ -1753,7 +1761,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem3.IsType(ETYPE_Expr)) {
 		Expr *pExprLeft = elem1.GetExpr();
@@ -1864,7 +1872,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 					pAttrFront = &pExprTrailer->GetAttrFront();
 				} else {
 					SetError_InvalidElement(__LINE__);
-					return false;
+					goto error_done;
 				}
 				if (optAttrFlag && pAttrFront->empty()) pAttrFront->push_back(pSymbol);
 				pExpr = pExprLeft;
@@ -1888,16 +1896,16 @@ bool Parser::ReduceThreeElems(Environment &env)
 					pExprTrailer->AddAttrsOpt(pExprIdentifier->GetAttrsOpt());
 				} else {
 					SetError_InvalidElement(__LINE__);
-					return false;
+					goto error_done;
 				}
 				if (!pAttrFront->empty()) {
 					sig.SetError(ERR_SyntaxError,
 							"value type must be specified as a first attribute");
-					return false;
+					goto error_done;
 				}
 				if (!ParseDottedIdentifier(pExprRight, *pAttrFront)) {
 					sig.SetError(ERR_SyntaxError, "invalid declaration of value type");
-					return false;
+					goto error_done;
 				}
 				pExpr = pExprLeft;
 				Expr::Delete(pExprRight);
@@ -1907,7 +1915,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 				if (pExprDst->IsIdentifier()) {
 					sig.SetError(ERR_TypeError,
 									"identifiers cannot declare optional attributes");
-					return false;
+					goto error_done;
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExprDst);
 					pExprCaller = pExprCaller->GetLastTrailer();
@@ -1915,7 +1923,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 						Expr *pExpr = *ppExpr;
 						if (!pExpr->IsIdentifier()) {
 							SetError_InvalidElement(__LINE__);
-							return false;
+							goto error_done;
 						}
 						const Symbol *pSymbol =
 								dynamic_cast<Expr_Identifier *>(pExpr)->GetSymbol();
@@ -1923,19 +1931,19 @@ bool Parser::ReduceThreeElems(Environment &env)
 					}
 				} else {
 					SetError_InvalidElement(__LINE__);
-					return false;
+					goto error_done;
 				}
 				pExpr = pExprLeft;
 				Expr::Delete(pExprRight);
 			} else {
 				SetError_InvalidElement(__LINE__);
-				return false;
+				goto error_done;
 			}
 		} else if (elem2.IsType(ETYPE_Dot)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr . Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidElement(__LINE__);
-				return false;
+				goto error_done;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_Normal);
@@ -1943,7 +1951,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr :: Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidElement(__LINE__);
-				return false;
+				goto error_done;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_MapToList);
@@ -1951,7 +1959,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr :* Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidElement(__LINE__);
-				return false;
+				goto error_done;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_MapToIter);
@@ -1959,7 +1967,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr :& Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidElement(__LINE__);
-				return false;
+				goto error_done;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_MapAlong);
@@ -1989,19 +1997,23 @@ bool Parser::ReduceThreeElems(Environment &env)
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Seq), pExprLeft, pExprRight);
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else {
 		SetError_InvalidElement(__LINE__);
-		return false;
+		goto error_done;
 	}
-	int lineNoTop = elem1.GetLineNo();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
+error_done:
+	_elemStack.pop_back();
+	_elemStack.pop_back();
+	_elemStack.pop_back();
+	return false;
 }
 
 bool Parser::ReduceFourElems(Environment &env)
@@ -2011,6 +2023,7 @@ bool Parser::ReduceFourElems(Environment &env)
 	Element &elem2 = _elemStack.Peek(2);
 	Element &elem3 = _elemStack.Peek(1);
 	Element &elem4 = _elemStack.Peek(0);
+	int lineNoTop = elem1.GetLineNo();
 	if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
 											elem3.IsType(ETYPE_LParenthesis)) {
 		if (elem4.IsType(ETYPE_RParenthesis)) {
@@ -2021,12 +2034,12 @@ bool Parser::ReduceFourElems(Environment &env)
 			}
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(__LINE__);
-				return false;
+				goto error_done;
 			}
 			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
 			Expr_Caller *pExprCaller =
 				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr, pExprLeader);
-			if (pExprCaller == nullptr) return false;
+			if (pExprCaller == nullptr) goto error_done;
 			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExpr = pExprLeader;
 		} else if (elem4.IsType(ETYPE_EOL)) {
@@ -2036,7 +2049,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
 												elem3.IsType(ETYPE_LBrace)) {
@@ -2048,7 +2061,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			}
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(__LINE__);
-				return false;
+				goto error_done;
 			}
 			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
 			Expr_Caller *pExprCaller = nullptr;
@@ -2057,7 +2070,7 @@ bool Parser::ReduceFourElems(Environment &env)
 				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 			} else {
 				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock, pExprLeader);
-				if (pExprCaller == nullptr) return false;
+				if (pExprCaller == nullptr) goto error_done;
 			}
 			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExpr = pExprLeader;
@@ -2068,7 +2081,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) &&
 				elem2.IsType(ETYPE_LParenthesis) && elem3.IsType(ETYPE_Expr)) {
@@ -2081,7 +2094,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			pExprLister->AddExpr(elem3.GetExpr());
 			Expr_Caller *pExprCaller =
 				CreateCaller(env, elem1.GetExpr(), pExprLister, nullptr, nullptr);
-			if (pExprCaller == nullptr) return false;
+			if (pExprCaller == nullptr) goto error_done;
 			pExpr = pExprCaller;
 		} else if (elem4.IsType(ETYPE_Comma) || elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -2096,7 +2109,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) &&
 				elem2.IsType(ETYPE_LBrace) && elem3.IsType(ETYPE_Expr)) {
@@ -2115,7 +2128,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			} else {
 				Expr_Caller *pExprCaller =
 					CreateCaller(env, elem1.GetExpr(), nullptr, pExprBlock, nullptr);
-				if (pExprCaller == nullptr) return false;
+				if (pExprCaller == nullptr) goto error_done;
 				pExpr = pExprCaller;
 			}
 		} else if (elem4.IsType(ETYPE_Comma) ||
@@ -2132,7 +2145,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) &&
 				elem2.IsType(ETYPE_LBracket) && elem3.IsType(ETYPE_Expr)) {
@@ -2158,13 +2171,12 @@ bool Parser::ReduceFourElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else {
 		SetError_InvalidElement(__LINE__);
-		return false;
+		goto error_done;
 	}
-	int lineNoTop = elem1.GetLineNo();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
@@ -2172,6 +2184,12 @@ bool Parser::ReduceFourElems(Environment &env)
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
+error_done:
+	_elemStack.pop_back();
+	_elemStack.pop_back();
+	_elemStack.pop_back();
+	_elemStack.pop_back();
+	return false;
 }
 
 bool Parser::ReduceFiveElems(Environment &env)
@@ -2182,6 +2200,7 @@ bool Parser::ReduceFiveElems(Environment &env)
 	Element &elem3 = _elemStack.Peek(2);
 	Element &elem4 = _elemStack.Peek(1);
 	Element &elem5 = _elemStack.Peek(0);
+	int lineNoTop = elem1.GetLineNo();
 	if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
 				elem3.IsType(ETYPE_LParenthesis) && elem4.IsType(ETYPE_Expr)) {
 		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem3.GetExpr());
@@ -2193,12 +2212,12 @@ bool Parser::ReduceFiveElems(Environment &env)
 			pExprLister->AddExpr(elem4.GetExpr());
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(__LINE__);
-				return false;
+				goto error_done;
 			}
 			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
 			Expr_Caller *pExprCaller =
 				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr, pExprLeader);
-			if (pExprCaller == nullptr) return false;
+			if (pExprCaller == nullptr) goto error_done;
 			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExpr = pExprLeader;
 		} else if (elem5.IsType(ETYPE_Comma) || elem5.IsType(ETYPE_EOL)) {
@@ -2214,7 +2233,7 @@ bool Parser::ReduceFiveElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
 				elem3.IsType(ETYPE_LBrace) && elem4.IsType(ETYPE_Expr)) {
@@ -2227,7 +2246,7 @@ bool Parser::ReduceFiveElems(Environment &env)
 			pExprBlock->AddExpr(elem4.GetExpr());
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(__LINE__);
-				return false;
+				goto error_done;
 			}
 			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
 			Expr_Caller *pExprCaller = nullptr;
@@ -2236,7 +2255,7 @@ bool Parser::ReduceFiveElems(Environment &env)
 				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 			} else {
 				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock, pExprLeader);
-				if (pExprCaller == nullptr) return false;
+				if (pExprCaller == nullptr) goto error_done;
 			}
 			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExpr = pExprLeader;
@@ -2254,13 +2273,12 @@ bool Parser::ReduceFiveElems(Environment &env)
 			return true;
 		} else {
 			SetError_InvalidElement(__LINE__);
-			return false;
+			goto error_done;
 		}
 	} else {
 		SetError_InvalidElement(__LINE__);
-		return false;
+		goto error_done;
 	}
-	int lineNoTop = elem1.GetLineNo();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
@@ -2269,6 +2287,13 @@ bool Parser::ReduceFiveElems(Environment &env)
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
+error_done:
+	_elemStack.pop_back();
+	_elemStack.pop_back();
+	_elemStack.pop_back();
+	_elemStack.pop_back();
+	_elemStack.pop_back();
+	return false;
 }
 
 bool Parser::ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList)
