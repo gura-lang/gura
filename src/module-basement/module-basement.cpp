@@ -633,7 +633,7 @@ Gura_ImplementFunction(return_)
 //-----------------------------------------------------------------------------
 // if (`cond):leader {block}
 //Gura_DeclareFunctionAlias(if_, "if")
-Gura_DeclareFastFunctionAlias(if_, "if")
+Gura_DeclareStatementAlias(if_, "if")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -664,7 +664,7 @@ Gura_ImplementFunction(if_)
 	return Value::Nil;
 }
 #else
-Gura_ImplementFastFunction(if_)
+Gura_ImplementStatement(if_)
 {
 	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
 	for (const Expr_Caller *pExpr = this; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
@@ -684,27 +684,27 @@ Gura_ImplementFastFunction(if_)
 	return Value::Nil;
 }
 
-Gura_ImplementFastFunctionGenerator(if_)
+Gura_ImplementStatementValidator(if_)
 {
 	if (pExprLeader != nullptr) {
 		pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
-		return nullptr;
+		return false;
 	}
 	if (pExprLister == nullptr || pExprLister->GetExprOwner().empty()) {
 		pParser->SetError(ERR_SyntaxError, "missing condition");
-		return nullptr;
+		return false;
 	}
 	if (pExprLister->GetExprOwner().size() > 1) {
 		pParser->SetError(ERR_SyntaxError, "too many conditions");
-		return nullptr;
+		return false;
 	}
-	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	return true;
 }
 #endif
 
 // elsif (`cond):leader:trailer {block}
 //Gura_DeclareFunctionAlias(elsif_, "elsif")
-Gura_DeclareFastFunctionAlias(elsif_, "elsif")
+Gura_DeclareStatementAlias(elsif_, "elsif")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -735,37 +735,37 @@ Gura_ImplementFunction(elsif_)
 	return Value::Nil;
 }
 #else
-Gura_ImplementFastFunction(elsif_)
+Gura_ImplementStatement(elsif_)
 {
 	// dummy
 	return Value::Nil;
 }
 
-Gura_ImplementFastFunctionGenerator(elsif_)
+Gura_ImplementStatementValidator(elsif_)
 {
 	if (pExprLister == nullptr || pExprLister->GetExprOwner().empty()) {
 		pParser->SetError(ERR_SyntaxError, "missing condition");
-		return nullptr;
+		return false;
 	}
 	if (pExprLister->GetExprOwner().size() > 1) {
 		pParser->SetError(ERR_SyntaxError, "too many conditions");
-		return nullptr;
+		return false;
 	}
 	if (pExprLeader != nullptr) {
 		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
 		if (!pSymbolCar->IsIdentical(Gura_Symbol(if_)) &&
 							!pSymbolCar->IsIdentical(Gura_Symbol(elsif))) {
 			pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
-			return nullptr;
+			return false;
 		}
 	}
-	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	return true;
 }
 #endif
 
 // else ():trailer {block}
 //Gura_DeclareFunctionAlias(else_, "else")
-Gura_DeclareFastFunctionAlias(else_, "else")
+Gura_DeclareStatementAlias(else_, "else")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
@@ -786,17 +786,17 @@ Gura_ImplementFunction(else_)
 	return pExprBlock->Exec(*pEnvBlock);
 }
 #else
-Gura_ImplementFastFunction(else_)
+Gura_ImplementStatement(else_)
 {
 	// dummy
 	return Value::Nil;
 }
 
-Gura_ImplementFastFunctionGenerator(else_)
+Gura_ImplementStatementValidator(else_)
 {
 	if (pExprLister != nullptr && !pExprLister->GetExprOwner().empty()) {
 		pParser->SetError(ERR_SyntaxError, "no condition necessary");
-		return nullptr;
+		return false;
 	}
 	if (pExprLeader != nullptr) {
 		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
@@ -805,10 +805,10 @@ Gura_ImplementFastFunctionGenerator(else_)
 			!pSymbolCar->IsIdentical(Gura_Symbol(try_)) &&
 			!pSymbolCar->IsIdentical(Gura_Symbol(catch_))) {
 			pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
-			return nullptr;
+			return false;
 		}
 	}
-	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	return true;
 }
 #endif
 
@@ -914,7 +914,7 @@ Gura_ImplementFunction(default_)
 //-----------------------------------------------------------------------------
 // try ():leader {block}
 //Gura_DeclareFunctionAlias(try_, "try")
-Gura_DeclareFastFunctionAlias(try_, "try")
+Gura_DeclareStatementAlias(try_, "try")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
@@ -941,7 +941,7 @@ Gura_ImplementFunction(try_)
 	return result;
 }
 #else
-Gura_ImplementFastFunction(try_)
+Gura_ImplementStatement(try_)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
@@ -1000,15 +1000,15 @@ Gura_ImplementFastFunction(try_)
 	return result;
 }
 
-Gura_ImplementFastFunctionGenerator(try_)
+Gura_ImplementStatementValidator(try_)
 {
-	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	return true;
 }
 #endif
 
 // catch (errors*:error):leader:trailer {block}
 //Gura_DeclareFunctionAlias(catch_, "catch")
-Gura_DeclareFastFunctionAlias(catch_, "catch")
+Gura_DeclareStatementAlias(catch_, "catch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
@@ -1052,29 +1052,29 @@ Gura_ImplementFunction(catch_)
 	return pFuncBlock->Eval(*pEnvBlock, *pArgSub);
 }
 #else
-Gura_ImplementFastFunction(catch_)
+Gura_ImplementStatement(catch_)
 {
 	// dummy
 	return Value::Nil;
 }
 
-Gura_ImplementFastFunctionGenerator(catch_)
+Gura_ImplementStatementValidator(catch_)
 {
 	if (pExprLeader != nullptr) {
 		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
 		if (!pSymbolCar->IsIdentical(Gura_Symbol(try_)) &&
 					!pSymbolCar->IsIdentical(Gura_Symbol(catch_))) {
 			pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
-			return nullptr;
+			return false;
 		}
 	}
-	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	return true;
 }
 #endif
 
 // finally ():trailer:finalizer {block}
 //Gura_DeclareFunctionAlias(finally_, "finally")
-Gura_DeclareFastFunctionAlias(finally_, "finally")
+Gura_DeclareStatementAlias(finally_, "finally")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
 	DeclareBlock(OCCUR_Once);
@@ -1093,13 +1093,13 @@ Gura_ImplementFunction(finally_)
 	return pExprBlock->Exec(*pEnvBlock);
 }
 #else
-Gura_ImplementFastFunction(finally_)
+Gura_ImplementStatement(finally_)
 {
 	// dummy
 	return Value::Nil;
 }
 
-Gura_ImplementFastFunctionGenerator(finally_)
+Gura_ImplementStatementValidator(finally_)
 {
 	if (pExprLeader != nullptr) {
 		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
@@ -1107,10 +1107,10 @@ Gura_ImplementFastFunctionGenerator(finally_)
 					!pSymbolCar->IsIdentical(Gura_Symbol(catch_)) &&
 					!pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
 			pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
-			return nullptr;
+			return false;
 		}
 	}
-	return new ExprEx(pExprCar, pExprLister, pExprBlock);
+	return true;
 }
 #endif
 

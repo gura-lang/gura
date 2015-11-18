@@ -933,7 +933,7 @@ Expr_Caller *Parser::CreateCaller(
 		const Function *pFunc = env.LookupFunction(pSymbol, ENVREF_Escalate);
 		if (pFunc != nullptr) {
 			AutoPtr<Expr_Caller> pExpr(
-				pFunc->GenerateSpecificExpr(
+				pFunc->GenerateStatement(
 					this, pExprCar, pExprLister, pExprBlock, pExprLeader));
 			if (env.IsSignalled()) return nullptr;
 			if (!pExpr.IsNull()) return pExpr.release();
