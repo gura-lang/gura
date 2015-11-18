@@ -981,6 +981,10 @@ Gura_ImplementStatement(try_)
 			result = pFuncBlock->Eval(*pEnvBlock, *pArgSub);
 			break;
 		}
+		if (pExpr == nullptr) {
+			sig.ResumeError();
+			return Value::Nil;
+		}
 	} else {
 		for ( ; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 			const Symbol *pSymbolCar = pExpr->GetSymbolCar();
@@ -1002,6 +1006,14 @@ Gura_ImplementStatement(try_)
 
 Gura_ImplementStatementValidator(try_)
 {
+	if (pExprLeader != nullptr) {
+		pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
+		return false;
+	}
+	if (pExprLister != nullptr && !pExprLister->GetExprOwner().empty()) {
+		pParser->SetError(ERR_SyntaxError, "no argument necessary");
+		return false;
+	}
 	return true;
 }
 #endif
