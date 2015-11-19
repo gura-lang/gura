@@ -920,7 +920,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 	} else {
 		_cntCol++;
 	}
-	return pExpr;
+	return (pExpr == nullptr || !pExpr->Validate(env))? nullptr : pExpr;
 }
 
 Expr_Caller *Parser::CreateCaller(
