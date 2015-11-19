@@ -739,24 +739,14 @@ Gura_ImplementStatement(elsif_)
 
 Gura_ImplementStatementValidator(elsif_)
 {
-#if 0
-	if (pExprLister == nullptr || pExprLister->GetExprOwner().empty()) {
-		pParser->SetError(ERR_SyntaxError, "missing condition");
+	if (_pExprLister.IsNull() || _pExprLister->GetExprOwner().empty()) {
+		env.SetError(ERR_SyntaxError, "missing condition");
 		return false;
 	}
-	if (pExprLister->GetExprOwner().size() > 1) {
-		pParser->SetError(ERR_SyntaxError, "too many conditions");
+	if (_pExprLister->GetExprOwner().size() > 1) {
+		env.SetError(ERR_SyntaxError, "too many conditions");
 		return false;
 	}
-	if (pExprLeader != nullptr) {
-		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
-		if (!pSymbolCar->IsIdentical(Gura_Symbol(if_)) &&
-							!pSymbolCar->IsIdentical(Gura_Symbol(elsif))) {
-			pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
-			return false;
-		}
-	}
-#endif
 	return true;
 }
 #endif
@@ -792,22 +782,10 @@ Gura_ImplementStatement(else_)
 
 Gura_ImplementStatementValidator(else_)
 {
-#if 0
-	if (pExprLister != nullptr && !pExprLister->GetExprOwner().empty()) {
-		pParser->SetError(ERR_SyntaxError, "no condition necessary");
+	if (!_pExprLister.IsNull() && !_pExprLister->GetExprOwner().empty()) {
+		env.SetError(ERR_SyntaxError, "no arguments necessary");
 		return false;
 	}
-	if (pExprLeader != nullptr) {
-		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
-		if (!pSymbolCar->IsIdentical(Gura_Symbol(if_)) &&
-			!pSymbolCar->IsIdentical(Gura_Symbol(elsif)) &&
-			!pSymbolCar->IsIdentical(Gura_Symbol(try_)) &&
-			!pSymbolCar->IsIdentical(Gura_Symbol(catch_))) {
-			pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
-			return false;
-		}
-	}
-#endif
 	return true;
 }
 #endif
@@ -1006,16 +984,10 @@ Gura_ImplementStatement(try_)
 
 Gura_ImplementStatementValidator(try_)
 {
-#if 0
-	if (pExprLeader != nullptr) {
-		pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
+	if (!_pExprLister.IsNull() && !_pExprLister->GetExprOwner().empty()) {
+		env.SetError(ERR_SyntaxError, "no arguments necessary");
 		return false;
 	}
-	if (pExprLister != nullptr && !pExprLister->GetExprOwner().empty()) {
-		pParser->SetError(ERR_SyntaxError, "no argument necessary");
-		return false;
-	}
-#endif
 	return true;
 }
 #endif
@@ -1074,16 +1046,6 @@ Gura_ImplementStatement(catch_)
 
 Gura_ImplementStatementValidator(catch_)
 {
-#if 0
-	if (pExprLeader != nullptr) {
-		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
-		if (!pSymbolCar->IsIdentical(Gura_Symbol(try_)) &&
-					!pSymbolCar->IsIdentical(Gura_Symbol(catch_))) {
-			pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
-			return false;
-		}
-	}
-#endif
 	return true;
 }
 #endif
@@ -1117,17 +1079,10 @@ Gura_ImplementStatement(finally_)
 
 Gura_ImplementStatementValidator(finally_)
 {
-#if 0
-	if (pExprLeader != nullptr) {
-		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
-		if (!pSymbolCar->IsIdentical(Gura_Symbol(try_)) &&
-					!pSymbolCar->IsIdentical(Gura_Symbol(catch_)) &&
-					!pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
-			pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
-			return false;
-		}
+	if (!_pExprLister.IsNull() && !_pExprLister->GetExprOwner().empty()) {
+		env.SetError(ERR_SyntaxError, "no arguments necessary");
+		return false;
 	}
-#endif
 	return true;
 }
 #endif
