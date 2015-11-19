@@ -996,6 +996,7 @@ Gura_ImplementStatement(try_)
 		}
 	}
 	if (sig.IsError()) return Value::Nil;
+	// evaluate finally() statement
 	ULong sigType = sig.GetType();
 	Value valueSig = sig.GetValue();
 	sig.ClearSignal();
