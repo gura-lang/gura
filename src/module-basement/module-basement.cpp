@@ -686,6 +686,7 @@ Gura_ImplementStatement(if_)
 
 Gura_ImplementStatementValidator(if_)
 {
+#if 0
 	if (pExprLeader != nullptr) {
 		pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
 		return false;
@@ -698,6 +699,7 @@ Gura_ImplementStatementValidator(if_)
 		pParser->SetError(ERR_SyntaxError, "too many conditions");
 		return false;
 	}
+#endif
 	return true;
 }
 #endif
@@ -743,6 +745,7 @@ Gura_ImplementStatement(elsif_)
 
 Gura_ImplementStatementValidator(elsif_)
 {
+#if 0
 	if (pExprLister == nullptr || pExprLister->GetExprOwner().empty()) {
 		pParser->SetError(ERR_SyntaxError, "missing condition");
 		return false;
@@ -759,6 +762,7 @@ Gura_ImplementStatementValidator(elsif_)
 			return false;
 		}
 	}
+#endif
 	return true;
 }
 #endif
@@ -794,6 +798,7 @@ Gura_ImplementStatement(else_)
 
 Gura_ImplementStatementValidator(else_)
 {
+#if 0
 	if (pExprLister != nullptr && !pExprLister->GetExprOwner().empty()) {
 		pParser->SetError(ERR_SyntaxError, "no condition necessary");
 		return false;
@@ -808,6 +813,7 @@ Gura_ImplementStatementValidator(else_)
 			return false;
 		}
 	}
+#endif
 	return true;
 }
 #endif
@@ -1006,6 +1012,7 @@ Gura_ImplementStatement(try_)
 
 Gura_ImplementStatementValidator(try_)
 {
+#if 0
 	if (pExprLeader != nullptr) {
 		pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
 		return false;
@@ -1014,6 +1021,7 @@ Gura_ImplementStatementValidator(try_)
 		pParser->SetError(ERR_SyntaxError, "no argument necessary");
 		return false;
 	}
+#endif
 	return true;
 }
 #endif
@@ -1072,6 +1080,7 @@ Gura_ImplementStatement(catch_)
 
 Gura_ImplementStatementValidator(catch_)
 {
+#if 0
 	if (pExprLeader != nullptr) {
 		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
 		if (!pSymbolCar->IsIdentical(Gura_Symbol(try_)) &&
@@ -1080,6 +1089,7 @@ Gura_ImplementStatementValidator(catch_)
 			return false;
 		}
 	}
+#endif
 	return true;
 }
 #endif
@@ -1113,6 +1123,7 @@ Gura_ImplementStatement(finally_)
 
 Gura_ImplementStatementValidator(finally_)
 {
+#if 0
 	if (pExprLeader != nullptr) {
 		const Symbol *pSymbolCar = pExprLeader->GetSymbolCar();
 		if (!pSymbolCar->IsIdentical(Gura_Symbol(try_)) &&
@@ -1122,6 +1133,7 @@ Gura_ImplementStatementValidator(finally_)
 			return false;
 		}
 	}
+#endif
 	return true;
 }
 #endif

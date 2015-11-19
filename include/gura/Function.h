@@ -41,18 +41,15 @@ public: \
 		inline Expr_Statement(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) : \
 			Expr_Caller(pExprCar, pExprLister, pExprBlock) {} \
 		virtual Value DoExec(Environment &env) const; \
+		virtual bool DoValidate(Environment &env) const; \
 	}; \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
 	virtual Expr_Caller *GenerateStatement(Parser *pParser, Expr *pExprCar, \
 		Expr_Lister *pExprLister, Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const; \
-private: \
-	bool ValidateStatement(Parser *pParser, Expr *pExprCar, \
-		Expr_Lister *pExprLister, Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const; \
 }; \
 Expr_Caller *Func_##name::GenerateStatement(Parser *pParser, Expr *pExprCar, \
 	Expr_Lister *pExprLister, Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const { \
-	if (!ValidateStatement(pParser, pExprCar, pExprLister, pExprBlock, pExprLeader)) return nullptr; \
 	return new Expr_Statement(pExprCar, pExprLister, pExprBlock); \
 } \
 Func_##name::Func_##name(Environment &env, const char *name) : \
@@ -141,8 +138,7 @@ Expr *Func_##name::MathDiff(Environment &env, const Expr *pExprArg, const Symbol
 Value Func_##name::Expr_Statement::DoExec(Environment &env) const
 
 #define Gura_ImplementStatementValidator(name) \
-bool Func_##name::ValidateStatement(Parser *pParser, Expr *pExprCar, \
-	   Expr_Lister *pExprLister, Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const
+bool Func_##name::Expr_Statement::DoValidate(Environment &env) const
 
 #define Gura_Function(name) Func_##name
 

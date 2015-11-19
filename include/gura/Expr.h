@@ -175,6 +175,13 @@ public:
 		virtual bool Visit(Expr *pExpr);
 		inline bool GetFoundFlag() const { return _foundFlag; }
 	};
+	class GURA_DLLDECLARE ExprVisitor_Validate : public ExprVisitor {
+	private:
+		Environment &_env;
+	public:
+		inline ExprVisitor_Validate(Environment &env) : _env(env) {}
+		virtual bool Visit(Expr *pExpr);
+	};
 private:
 	ExprType _exprType;
 	int _cntRef;	// const_cast is used to update this value
@@ -223,6 +230,7 @@ public:
 	virtual Expr *Clone() const = 0;
 	virtual Callable *LookupCallable(Environment &env) const;
 	bool SearchBar() const;
+	bool Validate(Environment &env) const;
 private:
 	virtual Value DoExec(Environment &env) const = 0;
 	virtual Value DoAssign(Environment &env, Value &valueAssigned,
@@ -263,6 +271,7 @@ public:
 	bool IsConstNegNumber() const;
 	bool IsUnaryOp(OpType opType) const;
 	bool IsBinaryOp(OpType opType) const;
+	virtual bool DoValidate(Environment &env) const;
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;

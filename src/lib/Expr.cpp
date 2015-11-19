@@ -286,6 +286,18 @@ bool Expr::SearchBar() const
 	return visitor.GetFoundFlag();
 }
 
+bool Expr::Validate(Environment &env) const
+{
+	ExprVisitor_Validate visitor(env);
+	const_cast<Expr *>(this)->Accept(visitor);
+	return !env.IsSignalled();
+}
+
+bool Expr::DoValidate(Environment &env) const
+{
+	return true;
+}
+
 bool Expr::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
 {
 	return false;
@@ -410,6 +422,14 @@ bool Expr::ExprVisitor_SearchBar::Visit(Expr *pExpr)
 		return false;
 	}
 	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Expr::ExprVisitor_Validate
+//-----------------------------------------------------------------------------
+bool Expr::ExprVisitor_Validate::Visit(Expr *pExpr)
+{
+	return pExpr->DoValidate(_env);
 }
 
 //-----------------------------------------------------------------------------
