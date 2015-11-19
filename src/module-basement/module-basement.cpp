@@ -694,6 +694,19 @@ Gura_ImplementStatementValidator(if_)
 		env.SetError(ERR_SyntaxError, "too many conditions");
 		return false;
 	}
+	//if (_pExprBlock.IsNull()) {
+	//	env.SetError(ERR_SyntaxError, "missing block");
+	//	return false;
+	//}
+	for (const Expr_Caller *pExpr = GetTrailer(); pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
+		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
+		if (!(pSymbolCar->IsIdentical(Gura_Symbol(elsif)) ||
+			  pSymbolCar->IsIdentical(Gura_Symbol(else_)))) {
+			env.SetError(ERR_SyntaxError, "invalid trailer for if-elsif-else statement");
+			return false;
+		}
+		if (!pExpr->DoValidate(env)) return false;
+	}
 	return true;
 }
 #endif
@@ -987,6 +1000,16 @@ Gura_ImplementStatementValidator(try_)
 	if (!_pExprLister.IsNull() && !_pExprLister->GetExprOwner().empty()) {
 		env.SetError(ERR_SyntaxError, "no arguments necessary");
 		return false;
+	}
+	for (const Expr_Caller *pExpr = GetTrailer(); pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
+		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
+		if (!(pSymbolCar->IsIdentical(Gura_Symbol(catch_)) ||
+			  pSymbolCar->IsIdentical(Gura_Symbol(else_)) ||
+			  pSymbolCar->IsIdentical(Gura_Symbol(finally)))) {
+			env.SetError(ERR_SyntaxError, "invalid trailer for try-catch-else-finally statement");
+			return false;
+		}
+		if (!pExpr->DoValidate(env)) return false;
 	}
 	return true;
 }
