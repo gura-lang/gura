@@ -694,10 +694,10 @@ Gura_ImplementStatementValidator(if_)
 		env.SetError(ERR_SyntaxError, "too many conditions");
 		return false;
 	}
-	//if (_pExprBlock.IsNull()) {
-	//	env.SetError(ERR_SyntaxError, "missing block");
-	//	return false;
-	//}
+	if (_pExprBlock.IsNull()) {
+		env.SetError(ERR_SyntaxError, "missing block");
+		return false;
+	}
 	for (const Expr_Caller *pExpr = GetTrailer(); pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
 		if (!(pSymbolCar->IsIdentical(Gura_Symbol(elsif)) ||

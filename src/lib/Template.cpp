@@ -349,7 +349,7 @@ bool Template::Parser::ParseStream(Environment &env,
 		pExprBlockRoot->GetExprOwner().push_back(pExpr);
 		str.clear();
 	}
-	return true;
+	return pExprBlockRoot->Validate(env);
 }
 
 bool Template::Parser::CreateTmplScript(Environment &env,
@@ -368,7 +368,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 		strTmplScript++;
 		AutoPtr<ExprOwner> pExprOwnerForInit(new ExprOwner());
 		do {
-			Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop);
+			Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop, false);
 			// Appends "this.init_" before the script string while parsing
 			// so that it generates an expression "this.init_foo()" from the directive "${=foo()}".
 			if (!parser.ParseString(env, *pExprOwnerForInit, "this.init_", false)) return false;
@@ -376,7 +376,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 		} while (0);
 		do {
 			ExprOwner &exprOwner = pExprTmplScript->GetExprOwner();
-			Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop);
+			Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop, false);
 			// Appends "this." before the script string while parsing
 			// so that it generates an expression "this.foo()" from the directive "${=foo()}".
 			if (!parser.ParseString(env, exprOwner, "this.", false)) return false;
@@ -422,7 +422,7 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 	} else {
 		// Parsing a normal script other than template directive.
 		AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
-		Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop);
+		Gura::Parser parser(sig, pSourceName->GetString(), cntLineTop, false);
 		if (!parser.ParseString(env, *pExprOwnerPart, strTmplScript, true)) return false;
 		ExprOwner::iterator ppExpr = pExprOwnerPart->begin();
 		//::printf("[%s], [%s], [%s]\n", strIndent, strTmplScript, strPost);
