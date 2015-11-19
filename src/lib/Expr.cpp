@@ -429,7 +429,9 @@ bool Expr::ExprVisitor_SearchBar::Visit(Expr *pExpr)
 //-----------------------------------------------------------------------------
 bool Expr::ExprVisitor_Validate::Visit(Expr *pExpr)
 {
-	return pExpr->DoValidate(_env);
+	if (pExpr->DoValidate(_env)) return true;
+	_env.GetSignal().AddExprCause(pExpr);
+	return false;
 }
 
 //-----------------------------------------------------------------------------

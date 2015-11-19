@@ -686,20 +686,14 @@ Gura_ImplementStatement(if_)
 
 Gura_ImplementStatementValidator(if_)
 {
-#if 0
-	if (pExprLeader != nullptr) {
-		pParser->SetError(ERR_SyntaxError, "invalid combination of leader-trailer statement");
+	if (_pExprLister.IsNull() || _pExprLister->GetExprOwner().empty()) {
+		env.SetError(ERR_SyntaxError, "missing condition");
 		return false;
 	}
-	if (pExprLister == nullptr || pExprLister->GetExprOwner().empty()) {
-		pParser->SetError(ERR_SyntaxError, "missing condition");
+	if (_pExprLister->GetExprOwner().size() > 1) {
+		env.SetError(ERR_SyntaxError, "too many conditions");
 		return false;
 	}
-	if (pExprLister->GetExprOwner().size() > 1) {
-		pParser->SetError(ERR_SyntaxError, "too many conditions");
-		return false;
-	}
-#endif
 	return true;
 }
 #endif
