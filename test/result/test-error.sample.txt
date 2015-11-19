@@ -86,4 +86,26 @@ TypeError: not enough arguments
 expected error occurs
 expected error occurs
 expected error occurs
+
+======== #10 try-catch-else-finally ========
+
+---
+0 .. 3
+else
+finally
+return value: return by else
+---
+1 .. 1
+else
+finally
+return value: return by else
+---
+2 .. 4
+else
+finally
+return value: return by else
+---
+catch: IndexError: index is out of range
+finally
+return value: return by catch
 ValueError detected: ValueError: unhandled error

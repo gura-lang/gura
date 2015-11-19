@@ -202,7 +202,7 @@ testcase('version check') {
 	sys.required_version(major, minor, patch)
 	try {
 		sys.required_version(major + 1, minor, patch)
-	} catch {
+	} catch {|e|
 		println('expected error occurs')
 	}
 	try {
@@ -216,6 +216,28 @@ testcase('version check') {
 		println('expected error occurs')
 	}
 		
+}
+testcase('try-catch-else-finally') {
+	f(n:number) = {
+		println('---')
+		x = [3, 1, 4]
+		try {
+			println(n, ' .. ', x[n])
+		} catch {|e|
+			println('catch: ', e.text)
+			return('return by catch')
+		} else {|e|
+			println('else')
+			return('return by else')
+		} finally {
+			println('finally')
+		}
+		'end of function'
+	}
+	println('return value: ', f(0))
+	println('return value: ', f(1))
+	println('return value: ', f(2))
+	println('return value: ', f(3))
 }
 try {
 	raise(error.ValueError, 'unhandled error')

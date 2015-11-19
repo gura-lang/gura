@@ -947,6 +947,7 @@ Gura_ImplementStatement(try_)
 	Value result = GetBlock()->Exec(*pEnvBlock);
 	const Expr_Caller *pExpr = GetTrailer();
 	if (sig.IsError()) {
+		// evaluate catch() statement
 		sig.SuspendError();
 		for ( ; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 			const Symbol *pSymbolCar = pExpr->GetSymbolCar();
@@ -985,6 +986,7 @@ Gura_ImplementStatement(try_)
 			return Value::Nil;
 		}
 	} else {
+		// evaluate else() statement
 		for ( ; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 			const Symbol *pSymbolCar = pExpr->GetSymbolCar();
 			if (pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
@@ -993,13 +995,18 @@ Gura_ImplementStatement(try_)
 			}
 		}
 	}
+	if (sig.IsError()) return Value::Nil;
+	ULong sigType = sig.GetType();
+	Value valueSig = sig.GetValue();
+	sig.ClearSignal();
 	for ( ; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
 		if (pSymbolCar->IsIdentical(Gura_Symbol(finally))) {
-			
+			pExpr->GetBlock()->Exec(*pEnvBlock);
 			break;
 		}
 	}
+	sig.SetSignal(sigType, valueSig);
 	return result;
 }
 
