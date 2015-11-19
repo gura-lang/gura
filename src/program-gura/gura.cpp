@@ -194,7 +194,7 @@ void ReadEvalPrintLoop(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
-	Parser parser(SRCNAME_interactive);
+	Parser parser(sig, SRCNAME_interactive);
 	Stream *pConsole = env.GetConsole();
 	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
 	for (;;) {
