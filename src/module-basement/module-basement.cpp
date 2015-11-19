@@ -760,6 +760,10 @@ Gura_ImplementStatementValidator(elsif_)
 		env.SetError(ERR_SyntaxError, "too many conditions");
 		return false;
 	}
+	if (_pExprBlock.IsNull()) {
+		env.SetError(ERR_SyntaxError, "missing block");
+		return false;
+	}
 	return true;
 }
 #endif
@@ -797,6 +801,10 @@ Gura_ImplementStatementValidator(else_)
 {
 	if (!_pExprLister.IsNull() && !_pExprLister->GetExprOwner().empty()) {
 		env.SetError(ERR_SyntaxError, "no arguments necessary");
+		return false;
+	}
+	if (_pExprBlock.IsNull()) {
+		env.SetError(ERR_SyntaxError, "missing block");
 		return false;
 	}
 	return true;
@@ -1001,6 +1009,10 @@ Gura_ImplementStatementValidator(try_)
 		env.SetError(ERR_SyntaxError, "no arguments necessary");
 		return false;
 	}
+	if (_pExprBlock.IsNull()) {
+		env.SetError(ERR_SyntaxError, "missing block");
+		return false;
+	}
 	for (const Expr_Caller *pExpr = GetTrailer(); pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
 		if (!(pSymbolCar->IsIdentical(Gura_Symbol(catch_)) ||
@@ -1069,6 +1081,10 @@ Gura_ImplementStatement(catch_)
 
 Gura_ImplementStatementValidator(catch_)
 {
+	if (_pExprBlock.IsNull()) {
+		env.SetError(ERR_SyntaxError, "missing block");
+		return false;
+	}
 	return true;
 }
 #endif
@@ -1104,6 +1120,10 @@ Gura_ImplementStatementValidator(finally_)
 {
 	if (!_pExprLister.IsNull() && !_pExprLister->GetExprOwner().empty()) {
 		env.SetError(ERR_SyntaxError, "no arguments necessary");
+		return false;
+	}
+	if (_pExprBlock.IsNull()) {
+		env.SetError(ERR_SyntaxError, "missing block");
 		return false;
 	}
 	return true;
