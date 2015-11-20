@@ -181,17 +181,17 @@ Gura_ImplementFunction(test)
 #endif
 
 
-// freetype.sysfontpath(name?:string):map
+// freetype.sysfontpath(name:string):map
 Gura_DeclareFunction(sysfontpath)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "name", VTYPE_string);
 }
 
 Gura_ImplementFunction(sysfontpath)
 {
-	const char *name = arg.Is_string(0)? arg.GetString(0) : "";
-	return Value(OAL::JoinPathName(GetSysFontPathName().c_str(), name));
+	const char *name = arg.GetString(0);
+	return Value(GetSysFontPathName(name));
 }
 
 //-----------------------------------------------------------------------------
@@ -613,18 +613,33 @@ Gura_ModuleTerminate()
 // utility functions
 //-----------------------------------------------------------------------------
 #if defined(GURA_ON_MSWIN)
-String GetSysFontPathName()
+String GetSysFontPathName(const char *name)
 {
 	char pathName[MAX_PATH];
 	if (SUCCEEDED(::SHGetFolderPath(nullptr, CSIDL_FONTS, nullptr, 0, pathName))) {
-		return String(pathName);
+		return OAL::JoinPathName(pathName, name);
 	}
-	return String("");
+	return String(name);
+}
+#elif defined(GURA_ON_DARWIN)
+String GetSysFontPathName(const char *name)
+{
+	String pathName;
+	pathName = OAL::JoinPathName("/System/Library/Fonts", name);
+	if (OAL::DoesExist(pathName.c_str())) return pathName;
+	pathName = OAL::JoinPathName("/Library/Fonts", name);
+	if (OAL::DoesExist(pathName.c_str())) return pathName;
+	return String(name);
+}
+#elif defined(GURA_ON_LINUX)
+String GetSysFontPathName(const char *name)
+{
+	return String(name);
 }
 #else
-String GetSysFontPathName()
+String GetSysFontPathName(const char *name)
 {
-	return String("");
+	return String(name);
 }
 #endif
 

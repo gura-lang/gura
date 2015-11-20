@@ -114,7 +114,7 @@ private:
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
-String GetSysFontPathName();
+String GetSysFontPathName(const char *name);
 void SetError_Freetype(Signal &sig, FT_Error err);
 
 Gura_EndModuleHeader(freetype)

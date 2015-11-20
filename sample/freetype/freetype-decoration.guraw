@@ -6,6 +6,7 @@ import(freetype, ft)
 scope {
 	img = image(`rgb, 700, 480, `white)
 	font = ft.font(ft.Face(ft.sysfontpath('msgothic.ttc'), 1))
+	//font = ft.font(ft.Face(ft.sysfontpath('Songti.ttc'), 1))
 	font.height = 32
 	font.color = `black
 	repeat (10) {|i|
