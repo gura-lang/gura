@@ -7,11 +7,12 @@ if (sys.argv.len() < 2) {
 	sys.exit(1)
 }
 gif.content(sys.argv[1], `rgba) {|g|
-	//imgs = g.images::resize(300)
-	imgs = g.images
+	ratio = 480 / g.images:*width.max()
+	imgs = g.images::resize(ratio):ratio
+	//imgs = g.images
 	imgs:*delayTime:public = g.images:*gif:*GraphicControl:*DelayTime * 10
-	imgs:*xOffset:public = g.images:*gif:*ImageDescriptor:*ImageLeftPosition
-	imgs:*yOffset:public = g.images:*gif:*ImageDescriptor:*ImageTopPosition
+	imgs:*xOffset:public = g.images:*gif:*ImageDescriptor:*ImageLeftPosition * ratio
+	imgs:*yOffset:public = g.images:*gif:*ImageDescriptor:*ImageTopPosition * ratio
 }
 createHatchImage(width:number, height:number, wdHatch:number, htHatch:number) = {
 	colors = [color(`gray), color(`white)]
@@ -32,7 +33,7 @@ imgHatch = createHatchImage(wdScreen, htScreen, 8, 8)
 sdl.Init(sdl.INIT_EVERYTHING)
 window = sdl.CreateWindow(
 		path.filename(sys.argv[0]),
-		sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED, wdScreen, htScreen, 0)
+		sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED, wdScreen + 32, htScreen + 32, 0)
 renderer = sdl.CreateRenderer(window, -1, 0)
 
 imgIter = imgs.cycle()
