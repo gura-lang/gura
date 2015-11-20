@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(sdl)
+import(sdl2, sdl)
 import(gif)
 
 if (sys.argv.len() < 2) {
@@ -8,7 +8,7 @@ if (sys.argv.len() < 2) {
 }
 gif.content(sys.argv[1], `rgba) {|g|
 	imgs = g.images::resize(300)
-	imgs:*delayTime:public = g.images:*gif:*GraphicControl:*DelayTime / 100
+	imgs:*delayTime:public = g.images:*gif:*GraphicControl:*DelayTime * 10
 }
 createHatchImage(width:number, height:number, wdHatch:number, htHatch:number) = {
 	colors = [color(`gray), color(`white)]
@@ -21,26 +21,44 @@ createHatchImage(width:number, height:number, wdHatch:number, htHatch:number) = 
 	img
 }
 
-imgHatch = createHatchImage(imgs[0].width, imgs[0].height, 8, 8)
+bgColor = color(`green)
+wdScreen = imgs:*width.max()
+htScreen = imgs:*height.max()
+imgHatch = createHatchImage(wdScreen, htScreen, 8, 8)
 
 sdl.Init(sdl.INIT_EVERYTHING)
-screen = sdl.SetVideoMode(imgs[0].width, imgs[0].height, 16, sdl.SWSURFACE)
+window = sdl.CreateWindow(
+		path.filename(sys.argv[0]),
+		sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED, wdScreen, htScreen, 0)
+renderer = sdl.CreateRenderer(window, -1, 0)
+
 imgIter = imgs.cycle()
-tickPrev = os.clock()
 delayTime = 0
-sdl.AddTimer(5) {
-	if (os.clock() - tickPrev > delayTime) {
-		sdl.BlitSurface(imgHatch, nil, screen, nil)
-		img = imgIter.next()
-		sdl.BlitSurface(img, nil, screen, sdl.Rect(0, screen.h - img.height, 0, 0))
-		screen.UpdateRect()
-		delayTime:extern = img.delayTime
-		tickPrev = os.clock()
-	}
-	true
-}
+sdl.SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, 255)
+sdl.RenderClear(renderer)
+sdl.RenderPresent(renderer)
+timePrev = sdl.GetTicks()
 repeat {
-	event = sdl.WaitEvent()
-	if (event.type == sdl.QUIT || \
-		(event.type == sdl.KEYDOWN && event.sym == sdl.K_ESCAPE)) { break }
+	event = sdl.WaitEventTimeout(delayTime)
+	timeCur = sdl.GetTicks()
+	if (timeCur < timePrev || timeCur > timePrev + delayTime) {
+		timePrev = timeCur
+		sdl.SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, 255)
+		sdl.RenderClear(renderer)
+		img = imgIter.next()
+		sdl.CreateTextureFromSurface(renderer, img) {|texture|
+			x = 0
+			y = htScreen - img.height
+			sdl.RenderCopy(renderer, texture, nil, sdl.Rect(x, y, img.width, img.height))
+		}
+		sdl.RenderPresent(renderer)
+		delayTime = img.delayTime
+	}
+	if (!event) {
+		// nothing to do
+	} elsif (event.type == sdl.QUIT) {
+		break
+	} elsif (event.type == sdl.KEYDOWN) {
+		(event.sym == sdl.K_ESCAPE) && break
+	}
 }
