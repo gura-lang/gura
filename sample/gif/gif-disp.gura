@@ -7,8 +7,11 @@ if (sys.argv.len() < 2) {
 	sys.exit(1)
 }
 gif.content(sys.argv[1], `rgba) {|g|
-	imgs = g.images::resize(300)
+	//imgs = g.images::resize(300)
+	imgs = g.images
 	imgs:*delayTime:public = g.images:*gif:*GraphicControl:*DelayTime * 10
+	imgs:*xOffset:public = g.images:*gif:*ImageDescriptor:*ImageLeftPosition
+	imgs:*yOffset:public = g.images:*gif:*ImageDescriptor:*ImageTopPosition
 }
 createHatchImage(width:number, height:number, wdHatch:number, htHatch:number) = {
 	colors = [color(`gray), color(`white)]
@@ -47,9 +50,8 @@ repeat {
 		sdl.RenderClear(renderer)
 		img = imgIter.next()
 		sdl.CreateTextureFromSurface(renderer, img) {|texture|
-			x = 0
-			y = htScreen - img.height
-			sdl.RenderCopy(renderer, texture, nil, sdl.Rect(x, y, img.width, img.height))
+			sdl.RenderCopy(renderer, texture, nil,
+						   sdl.Rect(img.xOffset, img.yOffset, img.width, img.height))
 		}
 		sdl.RenderPresent(renderer)
 		delayTime = img.delayTime
