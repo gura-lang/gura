@@ -1,11 +1,10 @@
 #!/usr/bin/env gura
-import(sdl)
 import(gif)
 
 if (sys.argv.len() < 2) {
 	sys.stderr.print(R'''
-	usage: gif-header.gura file
 	Print header information in GIF file
+	usage: gif-header.gura file
 	''')
 	sys.exit(1)
 }
