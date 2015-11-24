@@ -1931,8 +1931,6 @@ bool Iterator_repeat::DoNext(Environment &env, Value &value)
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			if (_cnt >= 0 && _idx >= _cnt) return false;
-			//AutoPtr<Argument> _pArg(new Argument(_pFuncBlock.get()));
-			//if (!_pArg->StoreValue(env, Value(static_cast<Number>(_idx)))) return false;
 			if (!_pArg->UpdateValue(env, 0, Value(static_cast<Number>(_idx)))) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
@@ -2004,8 +2002,6 @@ bool Iterator_while::DoNext(Environment &env, Value &value)
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			if (!_pExpr->Exec(*_pEnv).GetBoolean()) return false;
-			//AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			//if (!pArg->StoreValue(env, Value(static_cast<Number>(_idx)))) return false;
 			if (!_pArg->UpdateValue(env, 0, Value(static_cast<Number>(_idx)))) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
@@ -2092,8 +2088,6 @@ bool Iterator_for::DoNext(Environment &env, Value &value)
 				ppExprLeft++;
 			}
 			if (_doneFlag) return false;
-			//AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			//if (!pArg->StoreValue(env, Value(static_cast<Number>(_idx)))) return false;
 			if (!_pArg->UpdateValue(env, 0, Value(static_cast<Number>(_idx)))) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;
@@ -2191,8 +2185,6 @@ bool Iterator_cross::DoNext(Environment &env, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			if (_doneFlag) return false;
 			_valListArg[0] = Value(_idx);
-			//AutoPtr<Argument> pArg(new Argument(_pFuncBlock.get()));
-			//if (!pArg->StoreValues(env, _valListArg)) return false;
 			if (!_pArg->UpdateValues(env, _valListArg)) return false;
 			value = _pFuncBlock->Eval(*_pEnv, *_pArg);
 			_idx++;

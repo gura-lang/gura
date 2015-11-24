@@ -281,19 +281,12 @@ Environment *Argument::PrepareEnvironment(Environment &env) const
 	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)? &env : &_pFunc->GetEnvScope();
 	EnvType envType = (_pFunc->GetType() == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
 	AutoPtr<Environment> pEnvLocal(pEnvOuter->Derive(envType));
-	//if (_pFunc->GetType() != FUNCTYPE_Block) {
-	//	Value valueThis(_valueThis);
-	//	valueThis.AddFlags(VFLAG_Privileged);
-	//	pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
-	//}
 	AssignValuesToEnvironment(*pEnvLocal);
 	const Symbol *pSymbolDict = _pFunc->GetSymbolDict();
 	if (pSymbolDict != nullptr) {
 		pEnvLocal->AssignValue(pSymbolDict,
 			   Value(new Object_dict(env, GetValueDictArg().Reference(), false)), EXTRA_Public);
 	}
-	//pEnvLocal->AssignValue(Gura_Symbol(__arg__),
-	//			Value(new Object_argument(env, Reference())), EXTRA_Public);
 	pEnvLocal->SetArgument(Reference());
 	const Function::BlockInfo &blockInfo = _pFunc->GetBlockInfo();
 	if (blockInfo.pSymbol == nullptr) return pEnvLocal.release();
