@@ -1,16 +1,11 @@
 #!/usr/bin/env gura
 import(http)
 
-try {
-	import(calil_auth)
-} catch {
-	sys.stderr.printf('Create a script file %s and define appkey variable in it.\n',
-			path.join(sys.localdir, 'module', 'calil_auth.gura'))
-	sys.exit(1)
-}
+//print('Application Key: ')
+//appkey = sys.stdin.readline().chop()
 ['xml', 'json'].each {|fmt|
 	uri = 'http://api.calil.jp/library?' + [
-		'appkey=' + calil_auth.appkey
+		//'appkey=' + appkey
 		'pref=神奈川県'
 		'format=' + fmt
 	].join('&')
