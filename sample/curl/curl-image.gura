@@ -1,0 +1,8 @@
+#!/usr/bin/env gura
+import(jpeg)
+import(show)
+import(curl)
+
+src = 'http://raw.githubusercontent.com/gura-lang/gura/master/sample/resource/flower.jpg'
+println('connecting: ', src)
+image(src).show()

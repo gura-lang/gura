@@ -3,6 +3,7 @@ import(http)
 
 path.exists('proxy_setting.gura') && import(proxy_setting)
 
+println('connectiong to www.nifty.com')
 http.client('www.nifty.com') {|c|
 	resp = c.get('/',
 		'Accept'			=> 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
@@ -16,7 +17,10 @@ http.client('www.nifty.com') {|c|
 	fieldNames = resp.field_names
 	printf('%-*s %s\n', fieldNames:*len().max(), fieldNames, resp[fieldNames])
 	resp.body.copyto('nifty.html')
+	println('created: nifty.html')
 }
+println()
+println('connectiong to www.asahi.com')
 http.client('www.asahi.com') {|c|
 	resp = c.get('/',
 		'Accept'			=> 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
@@ -30,4 +34,5 @@ http.client('www.asahi.com') {|c|
 	fieldNames = resp.field_names
 	printf('%-*s %s\n', fieldNames:*len().max(), fieldNames, resp[fieldNames])
 	resp.body.copyto('asahi.html')
+	println('created: asahi.html')
 }
