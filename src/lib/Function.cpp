@@ -291,11 +291,10 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 Value Function::ReturnValue(Environment &env, Argument &arg, const Value &result) const
 {
 	Signal &sig = env.GetSignal();
-	if (!arg.IsBlockSpecified()) return result;
 	if (sig.IsSignalled()) return Value::Nil;
+	if (!arg.IsBlockSpecified()) return result;
 	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
-	const Function *pFuncBlock =
-					arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
+	const Function *pFuncBlock = arg.GetBlockFunc(*pEnvBlock, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
 	AutoPtr<Argument> pArgSub(new Argument(pFuncBlock));
 	if (!pArgSub->StoreValue(env, result)) return Value::Nil;
