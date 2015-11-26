@@ -943,35 +943,6 @@ void Environment::Frame::AssignValue(const Symbol *pSymbol, const Value &value, 
 
 ValueEx *Environment::Frame::LookupValue(Environment &env, const Symbol *pSymbol)
 {
-#if 0
-	if (pSymbol->IsIdentical(Gura_Symbol(__arg__))) {
-		if (_pArg.IsNull()) return nullptr;
-		if (_pValueMap.get() == nullptr) {
-			_pValueMap.reset(new ValueMap());
-		} else {
-			ValueMap::iterator iter = _pValueMap->find(pSymbol);
-			if (iter != _pValueMap->end()) return &iter->second;
-		}
-		ValueEx valueEx(new Object_argument(env, _pArg->Reference()),
-						VFLAG_FundOwner, EXTRA_Public);
-		std::pair<ValueMap::iterator, bool> rtn =
-			_pValueMap->insert(ValueMap::value_type(pSymbol, valueEx));
-		return &rtn.first->second;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(this_)) &&
-			   !_pArg.IsNull() && _pArg->GetFunction()->GetType() != FUNCTYPE_Block) {
-		if (_pValueMap.get() == nullptr) {
-			_pValueMap.reset(new ValueMap());
-		} else {
-			ValueMap::iterator iter = _pValueMap->find(pSymbol);
-			if (iter != _pValueMap->end()) return &iter->second;
-		}
-		Value value(_pArg->GetValueThis());
-		value.AddFlags(VFLAG_Privileged);
-		std::pair<ValueMap::iterator, bool> rtn =
-			_pValueMap->insert(ValueMap::value_type(pSymbol, ValueEx(value, EXTRA_Public)));
-		return &rtn.first->second;
-	}
-#endif
 	if (pSymbol->IsIdentical(Gura_Symbol(__arg__))) {
 		if (_valueEx_arg.IsInvalid() && !_pArg.IsNull()) {
 			_valueEx_arg = ValueEx(new Object_argument(env, _pArg->Reference()),
