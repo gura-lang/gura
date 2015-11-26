@@ -681,8 +681,14 @@ Gura_ImplementStatementValidator(if_)
 	}
 	for (const Expr_Caller *pExpr = GetTrailer(); pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
-		if (!(pSymbolCar->IsIdentical(Gura_Symbol(elsif)) ||
-			  pSymbolCar->IsIdentical(Gura_Symbol(else_)))) {
+		if (pSymbolCar->IsIdentical(Gura_Symbol(elsif))) {
+			// nothing to do
+		} else if (pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
+			if (pExpr->GetTrailer() != nullptr) {
+				env.SetError(ERR_SyntaxError, "trailer after else would never be evaluated");
+				return false;
+			}
+		} else {
 			env.SetError(ERR_SyntaxError, "invalid trailer for if-elsif-else statement");
 			return false;
 		}
@@ -960,9 +966,17 @@ Gura_ImplementStatementValidator(try_)
 	}
 	for (const Expr_Caller *pExpr = GetTrailer(); pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
-		if (!(pSymbolCar->IsIdentical(Gura_Symbol(catch_)) ||
-			  pSymbolCar->IsIdentical(Gura_Symbol(else_)) ||
-			  pSymbolCar->IsIdentical(Gura_Symbol(finally)))) {
+		if (pSymbolCar->IsIdentical(Gura_Symbol(catch_))) {
+			// nothing to do
+		} else if (pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
+			// nothing to do
+		} else if (pSymbolCar->IsIdentical(Gura_Symbol(finally))) {
+			if (pExpr->GetTrailer() != nullptr) {
+				env.SetError(ERR_SyntaxError,
+							 "trailer after finally would never be evaluated");
+				return false;
+			}
+		} else {
 			env.SetError(ERR_SyntaxError, "invalid trailer for try-catch-else-finally statement");
 			return false;
 		}
