@@ -812,7 +812,7 @@ Gura_ImplementStatementValidator(else_)
 #endif
 
 // end (dummy*):void:symbol_func:trailer:end_marker
-Gura_DeclareFunction(end)
+Gura_DeclareStatement(end)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc | FLAG_Trailer | FLAG_EndMarker);
 	DeclareArg(env, "dummy", VTYPE_any, OCCUR_ZeroOrMore);
@@ -821,12 +821,17 @@ Gura_DeclareFunction(end)
 		"Specify an end of a sequence.\n"
 		"\n"
 		"This function is supposed to be used as a block terminator\n"
-		"in an embedded script of a template\n");
+		"in an embedded script of a template.\n");
 }
 
-Gura_ImplementFunction(end)
+Gura_ImplementStatement(end)
 {
 	return Value::Nil;
+}
+
+Gura_ImplementStatementValidator(end)
+{
+	return true;
 }
 
 // switch {block}
