@@ -653,14 +653,13 @@ Gura_ImplementStatement(if_)
 	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
 	for (const Expr_Caller *pExpr = this; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
-		if (pSymbolCar->IsIdentical(Gura_Symbol(if_)) ||
-							pSymbolCar->IsIdentical(Gura_Symbol(elsif))) {
+		if (pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
+			return pExpr->GetBlock()->Exec(*pEnvBlock);
+		} else { // 'if' or 'elsif'
 			const Expr *pExprCond = pExpr->GetExprOwner().front();
 			Value rtn = pExprCond->Exec(*pEnvBlock);
 			if (env.IsSignalled()) return Value::Nil;
 			if (rtn.GetBoolean()) return pExpr->GetBlock()->Exec(*pEnvBlock);
-		} else {
-			return pExpr->GetBlock()->Exec(*pEnvBlock);
 		}
 	}
 	return Value::Nil;
