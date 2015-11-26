@@ -632,7 +632,6 @@ Gura_ImplementFunction(return_)
 // Branch Sequence
 //-----------------------------------------------------------------------------
 // if (`cond):leader {block}
-//Gura_DeclareFunctionAlias(if_, "if")
 Gura_DeclareStatementAlias(if_, "if")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
@@ -649,21 +648,6 @@ Gura_DeclareStatementAlias(if_, "if")
 		"If no trailer exists, the function returns `nil` value.\n");
 }
 
-#if 0
-Gura_ImplementFunction(if_)
-{
-	Signal &sig = env.GetSignal();
-	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
-	Value value = arg.GetExpr(0)->Exec(*pEnvBlock);
-	if (value.GetBoolean()) {
-		arg.QuitTrailer();
-		const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
-		if (sig.IsSignalled()) return Value::Nil;
-		return pExprBlock->Exec(*pEnvBlock);
-	}
-	return Value::Nil;
-}
-#else
 Gura_ImplementStatement(if_)
 {
 	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
@@ -709,10 +693,8 @@ Gura_ImplementStatementValidator(if_)
 	}
 	return true;
 }
-#endif
 
 // elsif (`cond):leader:trailer {block}
-//Gura_DeclareFunctionAlias(elsif_, "elsif")
 Gura_DeclareStatementAlias(elsif_, "elsif")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
@@ -729,21 +711,6 @@ Gura_DeclareStatementAlias(elsif_, "elsif")
 		"If no trailer exists, the function returns `nil` value.\n");
 }
 
-#if 0
-Gura_ImplementFunction(elsif_)
-{
-	Signal &sig = env.GetSignal();
-	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
-	Value value = arg.GetExpr(0)->Exec(*pEnvBlock);
-	if (value.GetBoolean()) {
-		const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
-		if (sig.IsSignalled()) return Value::Nil;
-		arg.QuitTrailer();
-		return pExprBlock->Exec(*pEnvBlock);
-	}
-	return Value::Nil;
-}
-#else
 Gura_ImplementStatement(elsif_)
 {
 	// dummy
@@ -766,31 +733,17 @@ Gura_ImplementStatementValidator(elsif_)
 	}
 	return true;
 }
-#endif
 
 // else ():trailer {block}
-//Gura_DeclareFunctionAlias(else_, "else")
 Gura_DeclareStatementAlias(else_, "else")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Specify an \"else\" block within a statement of `if-elsif-else` or `try-catch-else`.\n");
+		"Specify an \"else\" block within a statement of `if-elsif-else` or `try-catch-else-finally`.\n");
 }
 
-#if 0
-Gura_ImplementFunction(else_)
-{
-	Signal &sig = env.GetSignal();
-	// this function works as a terminater of if-else and try-catch
-	if (sig.IsErrorSuspended()) return Value::Nil;
-	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
-	const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
-	if (sig.IsSignalled()) return Value::Nil;
-	return pExprBlock->Exec(*pEnvBlock);
-}
-#else
 Gura_ImplementStatement(else_)
 {
 	// dummy
@@ -809,7 +762,6 @@ Gura_ImplementStatementValidator(else_)
 	}
 	return true;
 }
-#endif
 
 // end (dummy*):void:symbol_func:trailer:end_marker
 Gura_DeclareStatement(end)
@@ -917,34 +869,17 @@ Gura_ImplementFunction(default_)
 // Exception Handling
 //-----------------------------------------------------------------------------
 // try ():leader {block}
-//Gura_DeclareFunctionAlias(try_, "try")
 Gura_DeclareStatementAlias(try_, "try")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Specify a try block of a statement of try-catch-else.\n"
+		"Specify a try block of a statement of try-catch-else-finally.\n"
 		"It catches signals that occur in the block and executes a corresponding\n"
 		"`catch()` or `else()` function that follow after it.");
 }
 
-#if 0
-Gura_ImplementFunction(try_)
-{
-	Signal &sig = env.GetSignal();
-	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
-	const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
-	if (sig.IsSignalled()) return Value::Nil;
-	Value result = pExprBlock->Exec(*pEnvBlock);
-	if (sig.IsError()) {
-		sig.SuspendError();
-	} else {
-		//arg.FinalizeTrailer();
-	}
-	return result;
-}
-#else
 Gura_ImplementStatement(try_)
 {
 	Signal &sig = env.GetSignal();
@@ -1038,10 +973,8 @@ Gura_ImplementStatementValidator(try_)
 	}
 	return true;
 }
-#endif
 
 // catch (errors*:error):leader:trailer {block}
-//Gura_DeclareFunctionAlias(catch_, "catch")
 Gura_DeclareStatementAlias(catch_, "catch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
@@ -1049,7 +982,7 @@ Gura_DeclareStatementAlias(catch_, "catch")
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Specify an catch block of a statement of try-catch-else.\n"
+		"Specify an catch block of a statement of try-catch-else-finally.\n"
 		"It can take multiple numbers of arguments of error objects to handle.\n"
 		"If there's no error objects specified, it handles all the errors that are\n"
 		"not handled in the preceding `catch()` function calls.\n"
@@ -1057,35 +990,6 @@ Gura_DeclareStatementAlias(catch_, "catch")
 		"`error` is an error object that contains information of the handled error.");
 }
 
-#if 0
-Gura_ImplementFunction(catch_)
-{
-	Signal &sig = env.GetSignal();
-	if (!sig.IsErrorSuspended()) return Value::Nil;
-	bool handleFlag = false;
-	if (arg.GetList(0).empty()) {
-		handleFlag = true;
-	} else {
-		foreach_const (ValueList, pValue, arg.GetList(0)) {
-			if (pValue->GetErrorType() == sig.GetError().GetType()) {
-				handleFlag = true;
-				break;
-			}
-		}
-	}
-	if (!handleFlag) return Value::Nil;
-	//arg.FinalizeTrailer();
-	arg.QuitTrailer();
-	Object_error *pObj = new Object_error(env, sig.GetError());
-	sig.ClearSignal(); // clear even the suspended state
-	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
-	if (sig.IsSignalled()) return Value::Nil;
-	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
-	AutoPtr<Argument> pArgSub(new Argument(pFuncBlock));
-	if (!pArgSub->StoreValue(env, Value(pObj))) return Value::Nil;
-	return pFuncBlock->Eval(*pEnvBlock, *pArgSub);
-}
-#else
 Gura_ImplementStatement(catch_)
 {
 	// dummy
@@ -1100,10 +1004,8 @@ Gura_ImplementStatementValidator(catch_)
 	}
 	return true;
 }
-#endif
 
 // finally ():trailer:finalizer {block}
-//Gura_DeclareFunctionAlias(finally_, "finally")
 Gura_DeclareStatementAlias(finally_, "finally")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
@@ -1113,16 +1015,6 @@ Gura_DeclareStatementAlias(finally_, "finally")
 		"");
 }
 
-#if 0
-Gura_ImplementFunction(finally_)
-{
-	Signal &sig = env.GetSignal();
-	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
-	const Expr_Block *pExprBlock = arg.GetBlockCooked(*pEnvBlock);
-	if (sig.IsSignalled()) return Value::Nil;
-	return pExprBlock->Exec(*pEnvBlock);
-}
-#else
 Gura_ImplementStatement(finally_)
 {
 	// dummy
@@ -1141,7 +1033,6 @@ Gura_ImplementStatementValidator(finally_)
 	}
 	return true;
 }
-#endif
 
 // raise(error:error, msg:string => "error", value?)
 Gura_DeclareFunction(raise)
