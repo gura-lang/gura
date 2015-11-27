@@ -285,8 +285,9 @@ void Argument::AssignSlotValuesToEnvironment(Environment &env) const
 
 Environment *Argument::PrepareEnvironment(Environment &env)
 {
-#if 0
+#if 1
 	if (!GetFlag(FLAG_Closure) && !_pEnvPrepared.IsNull()) {
+		_pEnvPrepared->InvalidateValueThis(); // update "this" value
 		AssignSlotValuesToEnvironment(*_pEnvPrepared);
 		return _pEnvPrepared->Reference();
 	}

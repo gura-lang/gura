@@ -221,6 +221,9 @@ public:
 		}
 		inline void SetArgument(Argument *pArg) { _pArgWeak = pArg; }
 		inline Argument *GetArgument() { return _pArgWeak; }
+		inline void InvalidateValueThis() {
+			_valueEx_this = ValueEx(VTYPE_undefined, VFLAG_None, EXTRA_None);
+		}
 		void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra);
 		ValueEx *LookupValue(Environment &env, const Symbol *pSymbol);
 		void RemoveValue(const Symbol *pSymbol);
@@ -294,6 +297,7 @@ public:
 	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();		}
 	inline void SetArgument(Argument *pArg)		{ GetTopFrame()->SetArgument(pArg);			}
 	inline Argument *GetArgument()				{ return GetTopFrame()->GetArgument();		}
+	inline void InvalidateValueThis()			{ GetTopFrame()->InvalidateValueThis();		}
 	inline Option &GetOption()					{ return GetGlobal()->GetOption();			}
 	inline Operator *GetOperator(OpType opType) { return GetGlobal()->GetOperator(opType);	}
 	inline const Operator *GetOperator(OpType opType) const
