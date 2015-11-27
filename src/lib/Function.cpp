@@ -270,7 +270,8 @@ Value Function::Eval(Environment &env, Argument &arg) const
 {
 	Value value = DoEval(env, arg);
 	if (arg.IsResultVoid()) return Value::Undefined;
-	if (value.Is_function() && IsCustom() && !GetFlag(FLAG_Closure)) {
+	if (value.Is_function() && IsCustom() &&
+					GetType() != FUNCTYPE_Block && !GetFlag(FLAG_Closure)) {
 		env.SetError(ERR_ValueError,
 					 "function without :closure attribute can't return a function object");
 		return Value::Nil;
