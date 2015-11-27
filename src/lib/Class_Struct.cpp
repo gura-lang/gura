@@ -141,7 +141,7 @@ Value Class_Struct::Constructor::DoEval(Environment &env, Argument &arg) const
 		pObjThis = _pClassToConstruct->CreateDescendant(env, _pClassToConstruct);
 		valueRtn.InitAsObject(pObjThis);
 	}
-	arg.AssignValuesToEnvironment(*pObjThis);
+	arg.AssignSlotValuesToEnvironment(*pObjThis);
 	return ReturnValue(env, arg, valueRtn);
 }
 

@@ -279,7 +279,7 @@ public:
 	inline MapMode GetMapMode() const { return _mapMode; }
 	inline size_t CountSlot() const { return _slots.size(); }
 	bool IsInfiniteMap() const;
-	void AssignValuesToEnvironment(Environment &env) const;
+	void AssignSlotValuesToEnvironment(Environment &env) const;
 	Environment *PrepareEnvironment(Environment &env);
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	inline const Expr_Block *GetBlock() const { return _pExprBlock.get(); }

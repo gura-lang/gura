@@ -274,7 +274,7 @@ void Argument::GetValues(ValueList &valList) const
 	}
 }
 
-void Argument::AssignValuesToEnvironment(Environment &env) const
+void Argument::AssignSlotValuesToEnvironment(Environment &env) const
 {
 	foreach_const (Slots, pSlot, _slots) {
 		const Declaration &decl = pSlot->GetDeclaration();
@@ -287,7 +287,7 @@ Environment *Argument::PrepareEnvironment(Environment &env)
 {
 #if 0
 	if (!_pEnvPrepared.IsNull()) {
-		AssignValuesToEnvironment(*_pEnvPrepared);
+		AssignSlotValuesToEnvironment(*_pEnvPrepared);
 		return _pEnvPrepared->Reference();
 	}
 #endif
@@ -297,7 +297,7 @@ Environment *Argument::PrepareEnvironment(Environment &env)
 	//AutoPtr<Environment> pEnvLocal(pEnvOuter->Derive(envType));
 	_pEnvPrepared.reset(pEnvOuter->Derive(envType));
 	_pEnvPrepared->SetArgument(this);
-	AssignValuesToEnvironment(*_pEnvPrepared);
+	AssignSlotValuesToEnvironment(*_pEnvPrepared);
 	const Symbol *pSymbolDict = _pFunc->GetSymbolDict();
 	if (pSymbolDict != nullptr) {
 		_pEnvPrepared->AssignValue(pSymbolDict,
