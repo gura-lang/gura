@@ -32,6 +32,14 @@ Argument::Argument(const Function *pFunc, const CallerInfo &callerInfo) :
 	InitializeSlot(pFunc);
 }
 
+Argument::~Argument()
+{
+	if (!_pEnvPrepared.IsNull()) {
+		// invalidate the weak reference associated in the prepared environment
+		_pEnvPrepared->SetArgument(nullptr);
+	}
+}
+
 void Argument::InitializeSlot(const Function *pFunc)
 {
 	Environment &env = pFunc->GetEnvScope();
@@ -275,40 +283,47 @@ void Argument::AssignValuesToEnvironment(Environment &env) const
 	}
 }
 
-Environment *Argument::PrepareEnvironment(Environment &env) const
+Environment *Argument::PrepareEnvironment(Environment &env)
 {
+#if 0
+	if (!_pEnvPrepared.IsNull()) {
+		AssignValuesToEnvironment(*_pEnvPrepared);
+		return _pEnvPrepared->Reference();
+	}
+#endif
 	Signal &sig = env.GetSignal();
 	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)? &env : &_pFunc->GetEnvScope();
 	EnvType envType = (_pFunc->GetType() == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
-	AutoPtr<Environment> pEnvLocal(pEnvOuter->Derive(envType));
-	AssignValuesToEnvironment(*pEnvLocal);
+	//AutoPtr<Environment> pEnvLocal(pEnvOuter->Derive(envType));
+	_pEnvPrepared.reset(pEnvOuter->Derive(envType));
+	_pEnvPrepared->SetArgument(this);
+	AssignValuesToEnvironment(*_pEnvPrepared);
 	const Symbol *pSymbolDict = _pFunc->GetSymbolDict();
 	if (pSymbolDict != nullptr) {
-		pEnvLocal->AssignValue(pSymbolDict,
+		_pEnvPrepared->AssignValue(pSymbolDict,
 			   Value(new Object_dict(env, GetValueDictArg().Reference(), false)), EXTRA_Public);
 	}
-	pEnvLocal->SetArgument(Reference());
 	const Function::BlockInfo &blockInfo = _pFunc->GetBlockInfo();
-	if (blockInfo.pSymbol == nullptr) return pEnvLocal.release();
+	if (blockInfo.pSymbol == nullptr) return _pEnvPrepared->Reference();
 	const Expr_Block *pExprBlock = GetBlockCooked(env);
 	if (sig.IsSignalled()) return nullptr;
 	if (pExprBlock == nullptr) {
 		// set nil value to the variable with a symbol specified by blockInfo.pSymbol
-		pEnvLocal->AssignValue(blockInfo.pSymbol, Value::Nil, EXTRA_Public);
+		_pEnvPrepared->AssignValue(blockInfo.pSymbol, Value::Nil, EXTRA_Public);
 	} else if (blockInfo.quoteFlag) {
 		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprBlock));
-		pEnvLocal->AssignValue(blockInfo.pSymbol, Value(pObj), EXTRA_Public);
+		_pEnvPrepared->AssignValue(blockInfo.pSymbol, Value(pObj), EXTRA_Public);
 	} else {
 		Environment *pEnv = (blockInfo.blockScope == Function::BLKSCOPE_Inside)?
-			pEnvLocal.get() : &env;
+			_pEnvPrepared.get() : &env;
 		FunctionType funcType = (blockInfo.blockScope == Function::BLKSCOPE_SameAsFunc)?
 			FUNCTYPE_Function : FUNCTYPE_Block;
 		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(
 			*pEnv, blockInfo.pSymbol, pExprBlock, funcType);
 		if (pFuncBlock == nullptr) return nullptr;
-		pEnvLocal->AssignFunction(pFuncBlock);
+		_pEnvPrepared->AssignFunction(pFuncBlock);
 	}
-	return pEnvLocal.release();
+	return _pEnvPrepared->Reference();
 }
 
 bool Argument::IsInfiniteMap() const

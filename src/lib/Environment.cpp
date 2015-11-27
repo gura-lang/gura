@@ -867,7 +867,7 @@ void Environment::Global::UnregisterSeparatedModule(const char *pathName)
 // Environment::Frame
 //-----------------------------------------------------------------------------
 Environment::Frame::Frame(const Frame &frame) :
-	_cntRef(1), _envType(frame._envType), _pGlobal(frame._pGlobal),
+	_cntRef(1), _envType(frame._envType), _pGlobal(frame._pGlobal), _pArgWeak(nullptr),
 	_valueEx_arg(VTYPE_undefined, VFLAG_None, EXTRA_None),
 	_valueEx_this(VTYPE_undefined, VFLAG_None, EXTRA_None)
 {
@@ -880,7 +880,7 @@ Environment::Frame::Frame(const Frame &frame) :
 }
 
 Environment::Frame::Frame(EnvType envType, Global *pGlobal) :
-	_cntRef(1), _envType(envType), _pGlobal(pGlobal),
+	_cntRef(1), _envType(envType), _pGlobal(pGlobal), _pArgWeak(nullptr),
 	_valueEx_arg(VTYPE_undefined, VFLAG_None, EXTRA_None),
 	_valueEx_this(VTYPE_undefined, VFLAG_None, EXTRA_None)
 {
@@ -944,15 +944,15 @@ void Environment::Frame::AssignValue(const Symbol *pSymbol, const Value &value, 
 ValueEx *Environment::Frame::LookupValue(Environment &env, const Symbol *pSymbol)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(__arg__))) {
-		if (_valueEx_arg.IsInvalid() && !_pArg.IsNull()) {
-			_valueEx_arg = ValueEx(new Object_argument(env, _pArg->Reference()),
+		if (_valueEx_arg.IsInvalid() && _pArgWeak != nullptr) {
+			_valueEx_arg = ValueEx(new Object_argument(env, _pArgWeak->Reference()),
 								   VFLAG_FundOwner, EXTRA_Public);
 		}
 		return _valueEx_arg.IsValid()? &_valueEx_arg : nullptr;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(this_))) {
-		if (_valueEx_this.IsInvalid() && !_pArg.IsNull() &&
-							_pArg->GetFunction()->GetType() != FUNCTYPE_Block) {
-			_valueEx_this = ValueEx(_pArg->GetValueThis(), EXTRA_Public);
+		if (_valueEx_this.IsInvalid() && _pArgWeak != nullptr &&
+							_pArgWeak->GetFunction()->GetType() != FUNCTYPE_Block) {
+			_valueEx_this = ValueEx(_pArgWeak->GetValueThis(), EXTRA_Public);
 			_valueEx_this.AddFlags(VFLAG_Privileged);
 		}
 		return _valueEx_this.IsValid()? &_valueEx_this : nullptr;

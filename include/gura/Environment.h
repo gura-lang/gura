@@ -178,7 +178,7 @@ public:
 		AutoPtr<ValueMap> _pValueMap;
 		std::unique_ptr<ValueTypeMap> _pValueTypeMap;
 		std::unique_ptr<SymbolSet> _pSymbolsPublic;
-		AutoPtr<Argument> _pArg;
+		Argument *_pArgWeak;
 		ValueEx _valueEx_arg;
 		ValueEx _valueEx_this;
 	public:
@@ -219,8 +219,8 @@ public:
 		inline bool IsSymbolPublic(const Symbol *pSymbol) const {
 			return _pSymbolsPublic.get() != nullptr && _pSymbolsPublic->IsSet(pSymbol);
 		}
-		inline void SetArgument(Argument *pArg) { _pArg.reset(pArg); }
-		inline Argument *GetArgument() { return _pArg.get(); }
+		inline void SetArgument(Argument *pArg) { _pArgWeak = pArg; }
+		inline Argument *GetArgument() { return _pArgWeak; }
 		void AssignValue(const Symbol *pSymbol, const Value &value, ULong extra);
 		ValueEx *LookupValue(Environment &env, const Symbol *pSymbol);
 		void RemoveValue(const Symbol *pSymbol);

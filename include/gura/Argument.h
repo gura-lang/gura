@@ -103,6 +103,7 @@ private:
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
 	Slots _slots;
 	Slots::iterator _pSlotCur;
+	AutoPtr<Environment> _pEnvPrepared;
 public:
 	Gura_DeclareReferenceAccessor(Argument);
 public:
@@ -116,8 +117,8 @@ public:
 	Argument(const Function *pFunc);
 	Argument(const Function *pFunc, const CallerInfo &callerInfo);
 protected:
+	~Argument();
 	void InitializeSlot(const Function *pFunc);
-	inline ~Argument() {}
 public:
 	inline Function *GetFunction() const { return _pFunc.get(); }
 	inline bool IsAttrEmpty() const { return GetAttrs().empty(); }
@@ -279,7 +280,7 @@ public:
 	inline size_t CountSlot() const { return _slots.size(); }
 	bool IsInfiniteMap() const;
 	void AssignValuesToEnvironment(Environment &env) const;
-	Environment *PrepareEnvironment(Environment &env) const;
+	Environment *PrepareEnvironment(Environment &env);
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	inline const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
 	const Expr_Block *GetBlockCooked(Environment &env) const;
