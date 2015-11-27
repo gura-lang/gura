@@ -208,6 +208,7 @@ void Object_function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 // function(`args*) {block}
 Gura_DeclareFunction(function)
 {
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 	if (::strcmp(GetName(), "function") == 0) {
 		SetClassToConstruct(env.LookupClass(VTYPE_function));

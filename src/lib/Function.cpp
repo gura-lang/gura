@@ -266,6 +266,18 @@ Value Function::DoEval(Environment &env, Argument &arg) const
 	return Value::Nil;
 }
 
+Value Function::Eval(Environment &env, Argument &arg) const
+{
+	Value value = DoEval(env, arg);
+	if (arg.IsResultVoid()) return Value::Undefined;
+	if (value.Is_function() && IsCustom() && !GetFlag(FLAG_Closure)) {
+		env.SetError(ERR_ValueError,
+					 "function without :closure attribute can't return a function object");
+		return Value::Nil;
+	}
+	return value;
+}
+
 Value Function::EvalAuto(Environment &env, Argument &arg) const
 {
 	Argument::MapMode mapMode = arg.GetMapMode();

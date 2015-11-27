@@ -338,7 +338,7 @@ testcase {
 }
 testcase {
 	println('test of closure')
-	newCounter(n:number):map = {
+	newCounter(n:number):map:closure = {
 		function() { n += 1}
 	}
 	cnt = newCounter(2)
@@ -393,7 +393,7 @@ testcase {
 	}
 }
 testcase {
-	f(x) = {
+	f(x):closure = {
 		g(y) = x + y
 	}
 	g = f(2)

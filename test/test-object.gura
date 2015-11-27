@@ -271,7 +271,7 @@ testcase {
 		__init__() = {
 			this.prop = 'property'
 		}
-		__getprop__(symbol:symbol) = {
+		__getprop__(symbol:symbol):closure = {
 			function(args*) {
 				symbol.tostring() + ' OK (' + args.join(',') + ') ' + this.prop
 			}
@@ -312,6 +312,7 @@ testcase {
 	classref(`string) {|ref|
 		ref.len2() = this.len() * 2
 		ref.len3() = this.len() * 3
+		nil
 	}
 	tester(`'hello world'.len())
 	tester(`'hello world'.len2())
@@ -353,7 +354,7 @@ testcase {
 }
 testcase {
 	A = class {
-		__getprop__(symbol:symbol) = {
+		__getprop__(symbol:symbol):closure = {
 			function { println('symbol-' + symbol.tostring()) }
 		}
 	}

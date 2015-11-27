@@ -94,6 +94,7 @@ void Symbol::Initialize()
 			const Symbol *pSymbol;
 			ULong flag;
 		} tbl[] = {
+			{ Gura_Symbol(closure),			FLAG_Closure		},
 			{ Gura_Symbol(cut_extra_args),	FLAG_CutExtraArgs	},
 			{ Gura_Symbol(dynamic_scope),	FLAG_DynamicScope	},
 			{ Gura_Symbol(end_marker),		FLAG_EndMarker		},
@@ -439,6 +440,8 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(children);
 	Gura_RealizeSymbol(chop);
 	Gura_RealizeSymbol(clang);
+	Gura_RealizeSymbol(close);
+	Gura_RealizeSymbol(closure);
 	Gura_RealizeSymbol(codec);
 	Gura_RealizeSymbol(codecs);
 	Gura_RealizeSymbol(color);

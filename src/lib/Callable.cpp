@@ -14,6 +14,7 @@ bool CallerInfo::UpdateByAttrSymbol(const Symbol *pSymbol)
 {
 	/*
 	const ULong flagsAcceptable =
+		FLAG_Closure |
 		FLAG_CutExtraArgs |
 		FLAG_DynamicScope |
 		FLAG_EndMarker |

@@ -100,26 +100,27 @@ typedef std::deque<Number, Allocator<Number> >	NumberDeque;
 //-----------------------------------------------------------------------------
 enum {
 	FLAG_None			= 0,
-	FLAG_CutExtraArgs	= (1 << 0),		// :cut_extra_args
-	FLAG_DynamicScope	= (1 << 1),		// :dynamic_scope
-	FLAG_EndMarker		= (1 << 2),		// :end_marker
-	FLAG_Finalizer		= (1 << 3),		// :finalizer
-	FLAG_Flat			= (1 << 4),		// :flat
-	FLAG_Fork			= (1 << 5),		// :fork
-	FLAG_Leader			= (1 << 6),		// :leader
-	FLAG_ListVar		= (1 << 7),		// :listvar
-	FLAG_Map			= (1 << 8),		// :map
-	FLAG_Nil			= (1 << 9),		// :nil
-	FLAG_NoCast			= (1 << 10),	// :nocast
-	FLAG_NoMap			= (1 << 11),	// :nomap
-	FLAG_NoNamed		= (1 << 12),	// :nonamed
-	FLAG_Private		= (1 << 13),	// :private
-	FLAG_Privileged		= (1 << 14),	// :privileged
-	FLAG_Public			= (1 << 15),	// :public
-	FLAG_Read			= (1 << 16),	// :r
-	FLAG_SymbolFunc		= (1 << 17),	// :symbol_func
-	FLAG_Trailer		= (1 << 18),	// :trailer
-	FLAG_Write			= (1 << 19),	// :w
+	FLAG_Closure		= (1 << 0),		// :closure
+	FLAG_CutExtraArgs	= (1 << 1),		// :cut_extra_args
+	FLAG_DynamicScope	= (1 << 2),		// :dynamic_scope
+	FLAG_EndMarker		= (1 << 3),		// :end_marker
+	FLAG_Finalizer		= (1 << 4),		// :finalizer
+	FLAG_Flat			= (1 << 5),		// :flat
+	FLAG_Fork			= (1 << 6),		// :fork
+	FLAG_Leader			= (1 << 7),		// :leader
+	FLAG_ListVar		= (1 << 8),		// :listvar
+	FLAG_Map			= (1 << 9),		// :map
+	FLAG_Nil			= (1 << 10),	// :nil
+	FLAG_NoCast			= (1 << 11),	// :nocast
+	FLAG_NoMap			= (1 << 12),	// :nomap
+	FLAG_NoNamed		= (1 << 13),	// :nonamed
+	FLAG_Private		= (1 << 14),	// :private
+	FLAG_Privileged		= (1 << 15),	// :privileged
+	FLAG_Public			= (1 << 16),	// :public
+	FLAG_Read			= (1 << 17),	// :r
+	FLAG_SymbolFunc		= (1 << 18),	// :symbol_func
+	FLAG_Trailer		= (1 << 19),	// :trailer
+	FLAG_Write			= (1 << 20),	// :w
 };
 
 //-----------------------------------------------------------------------------

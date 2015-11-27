@@ -281,6 +281,8 @@ public:
 	Gura_DeclareSymbol(children);
 	Gura_DeclareSymbol(chop);
 	Gura_DeclareSymbol(clang);
+	Gura_DeclareSymbol(close);
+	Gura_DeclareSymbol(closure);
 	Gura_DeclareSymbol(codec);
 	Gura_DeclareSymbol(codecs);
 	Gura_DeclareSymbol(color);
