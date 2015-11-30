@@ -2456,6 +2456,8 @@ void Expr_Caller::Accept(ExprVisitor &visitor)
 	if (visitor.Visit(this)) {
 		GetCar()->Accept(visitor);
 		GetExprOwner().Accept(visitor);
+		if (!_pExprBlock.IsNull()) _pExprBlock->Accept(visitor);
+		if (!_pExprTrailer.IsNull()) _pExprTrailer->Accept(visitor);
 	}
 }
 
