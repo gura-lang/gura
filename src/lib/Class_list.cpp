@@ -505,9 +505,9 @@ bool Object_list::Comparator_Custom::
 //-----------------------------------------------------------------------------
 // list(value+)
 // xlist(value+)
-Gura_DeclareFunctionBegin(list_xlist)
+Gura_DeclareFunction_CustomBegin(list_xlist)
 	bool _acceptInvalidFlag;
-Gura_DeclareFunctionEnd(list_xlist)
+Gura_DeclareFunction_CustomEnd(list_xlist)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
@@ -557,9 +557,9 @@ Gura_ImplementFunction(list_xlist)
 
 // set(iter+:iterator):[and,xor,or]
 // xset(iter+:iterator):[and,xor,or]
-Gura_DeclareFunctionBegin(set_xset)
+Gura_DeclareFunction_CustomBegin(set_xset)
 	bool _acceptInvalidFlag;
-Gura_DeclareFunctionEnd(set_xset)
+Gura_DeclareFunction_CustomEnd(set_xset)
 {
 	_acceptInvalidFlag = (::strcmp(GetName(), "set") == 0);
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);

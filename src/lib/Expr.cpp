@@ -286,14 +286,14 @@ bool Expr::SearchBar() const
 	return visitor.GetFoundFlag();
 }
 
-bool Expr::Validate(Environment &env) const
+bool Expr::Prepare(Environment &env) const
 {
-	ExprVisitor_Validate visitor(env);
+	ExprVisitor_Prepare visitor(env);
 	const_cast<Expr *>(this)->Accept(visitor);
 	return !env.IsSignalled();
 }
 
-bool Expr::DoValidate(Environment &env) const
+bool Expr::DoPrepare(Environment &env)
 {
 	return true;
 }
@@ -425,11 +425,11 @@ bool Expr::ExprVisitor_SearchBar::Visit(Expr *pExpr)
 }
 
 //-----------------------------------------------------------------------------
-// Expr::ExprVisitor_Validate
+// Expr::ExprVisitor_Prepare
 //-----------------------------------------------------------------------------
-bool Expr::ExprVisitor_Validate::Visit(Expr *pExpr)
+bool Expr::ExprVisitor_Prepare::Visit(Expr *pExpr)
 {
-	if (pExpr->DoValidate(_env)) return true;
+	if (pExpr->DoPrepare(_env)) return true;
 	_env.GetSignal().AddExprCause(pExpr);
 	return false;
 }

@@ -236,11 +236,11 @@ private:
 	ElemTypeToIndexMap _elemTypeToIndexMap;
 	CharConverter _charConverter;
 	String _strIndent;
-	bool _enableValidatorFlag;
+	bool _enablePreparatorFlag;
 	static const ElemTypeInfo _elemTypeInfoTbl[];
 public:
 	Parser(Signal &sig, const String &sourceName,
-		   int cntLineStart = 0, bool enableValidatorFlag = true);
+		   int cntLineStart = 0, bool enablePreparatorFlag = true);
 	~Parser();
 	void Reset();
 	void InitStack();

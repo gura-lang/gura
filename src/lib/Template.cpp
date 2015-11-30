@@ -349,7 +349,7 @@ bool Template::Parser::ParseStream(Environment &env,
 		pExprBlockRoot->GetExprOwner().push_back(pExpr);
 		str.clear();
 	}
-	return pExprBlockRoot->Validate(env);
+	return pExprBlockRoot->Prepare(env);
 }
 
 bool Template::Parser::CreateTmplScript(Environment &env,

@@ -175,11 +175,11 @@ public:
 		virtual bool Visit(Expr *pExpr);
 		inline bool GetFoundFlag() const { return _foundFlag; }
 	};
-	class GURA_DLLDECLARE ExprVisitor_Validate : public ExprVisitor {
+	class GURA_DLLDECLARE ExprVisitor_Prepare : public ExprVisitor {
 	private:
 		Environment &_env;
 	public:
-		inline ExprVisitor_Validate(Environment &env) : _env(env) {}
+		inline ExprVisitor_Prepare(Environment &env) : _env(env) {}
 		virtual bool Visit(Expr *pExpr);
 	};
 private:
@@ -230,7 +230,7 @@ public:
 	virtual Expr *Clone() const = 0;
 	virtual Callable *LookupCallable(Environment &env) const;
 	bool SearchBar() const;
-	bool Validate(Environment &env) const;
+	bool Prepare(Environment &env) const;
 private:
 	virtual Value DoExec(Environment &env) const = 0;
 	virtual Value DoAssign(Environment &env, Value &valueAssigned,
@@ -271,7 +271,7 @@ public:
 	bool IsConstNegNumber() const;
 	bool IsUnaryOp(OpType opType) const;
 	bool IsBinaryOp(OpType opType) const;
-	virtual bool DoValidate(Environment &env) const;
+	virtual bool DoPrepare(Environment &env);
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
@@ -864,6 +864,7 @@ public:
 	}
 	inline Expr_Block *GetBlock() { return _pExprBlock.get(); }
 	inline const Expr_Block *GetBlock() const { return _pExprBlock.get(); }
+	inline Expr_Caller *GetTrailer() { return _pExprTrailer.get(); }
 	inline const Expr_Caller *GetTrailer() const { return _pExprTrailer.get(); }
 	inline Expr_Caller *GetLastTrailer() {
 		return (_pExprTrailer.IsNull())? this : _pExprTrailer->GetLastTrailer();

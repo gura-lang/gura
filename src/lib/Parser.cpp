@@ -10,11 +10,11 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-Parser::Parser(Signal &sig, const String &sourceName, int cntLineStart, bool enableValidatorFlag) :
+Parser::Parser(Signal &sig, const String &sourceName, int cntLineStart, bool enablePreparatorFlag) :
 	_sig(sig), _stat(STAT_BOF), _lineHeadFlag(true),
 	_appearShebangFlag(false), _blockParamFlag(false),
 	_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0),
-	_pSourceName(new StringShared(sourceName)), _enableValidatorFlag(enableValidatorFlag)
+	_pSourceName(new StringShared(sourceName)), _enablePreparatorFlag(enablePreparatorFlag)
 {
 	InitStack();
 	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
@@ -920,7 +920,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 	} else {
 		_cntCol++;
 	}
-	if (pExpr == nullptr || !_enableValidatorFlag || pExpr->Validate(env)) return pExpr;
+	if (pExpr == nullptr || !_enablePreparatorFlag || pExpr->Prepare(env)) return pExpr;
 	Expr::Delete(pExpr);
 	return nullptr;
 }

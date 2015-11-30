@@ -632,7 +632,16 @@ Gura_ImplementFunction(return_)
 // Branch Sequence
 //-----------------------------------------------------------------------------
 // if (`cond):leader {block}
-Gura_DeclareStatementAlias(if_, "if")
+Gura_DeclareStatementAlias_CustomBegin(if_, "if")
+	typedef std::pair<const Expr *, const Expr *> ExprPair;
+	typedef std::vector<ExprPair> ExprPairList;
+	ExprPairList _exprPairsIf;
+	const Expr *_pExprElse;
+	inline Expr_Statement(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) :
+		Expr_Caller(pExprCar, pExprLister, pExprBlock), _pExprElse(nullptr) {}
+	inline Expr_Statement(const Expr_Statement &expr) :
+		Expr_Caller(expr), _exprPairsIf(expr._exprPairsIf), _pExprElse(expr._pExprElse) {}
+Gura_DeclareStatementAlias_CustomEnd(if_, "if")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -651,6 +660,7 @@ Gura_DeclareStatementAlias(if_, "if")
 Gura_ImplementStatement(if_)
 {
 	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_block));
+#if 1
 	for (const Expr_Caller *pExpr = this; pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
 		if (pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
@@ -662,10 +672,20 @@ Gura_ImplementStatement(if_)
 			if (rtn.GetBoolean()) return pExpr->GetBlock()->Exec(*pEnvBlock);
 		}
 	}
+#else
+	foreach_const (ExprPairList, pExprPairIf, _exprPairsIf) {
+		const Expr *pExprCond = pExprPairIf->first;
+		const Expr *pExprBlock = pExprPairIf->second;
+		Value rtn = pExprCond->Exec(*pEnvBlock);
+		if (env.IsSignalled()) return Value::Nil;
+		if (rtn.GetBoolean()) return pExprBlock->Exec(*pEnvBlock);
+	}
+	if (_pExprElse != nullptr) return _pExprElse->Exec(*pEnvBlock);
+#endif
 	return Value::Nil;
 }
 
-Gura_ImplementStatementValidator(if_)
+Gura_ImplementStatementPreparator(if_)
 {
 	if (_pExprLister.IsNull() || _pExprLister->GetExprOwner().empty()) {
 		env.SetError(ERR_SyntaxError, "missing condition");
@@ -679,20 +699,23 @@ Gura_ImplementStatementValidator(if_)
 		env.SetError(ERR_SyntaxError, "missing block");
 		return false;
 	}
-	for (const Expr_Caller *pExpr = GetTrailer(); pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
+	_exprPairsIf.push_back(ExprPair(GetExprOwner().front(), GetBlock()));
+	for (Expr_Caller *pExpr = GetTrailer(); pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
 		if (pSymbolCar->IsIdentical(Gura_Symbol(elsif))) {
-			// nothing to do
+			if (!pExpr->DoPrepare(env)) return false;
+			_exprPairsIf.push_back(ExprPair(pExpr->GetExprOwner().front(), pExpr->GetBlock()));
 		} else if (pSymbolCar->IsIdentical(Gura_Symbol(else_))) {
+			if (!pExpr->DoPrepare(env)) return false;
 			if (pExpr->GetTrailer() != nullptr) {
 				env.SetError(ERR_SyntaxError, "trailer after else would never be evaluated");
 				return false;
 			}
+			_pExprElse = pExpr->GetBlock();
 		} else {
 			env.SetError(ERR_SyntaxError, "invalid trailer for if-elsif-else statement");
 			return false;
 		}
-		if (!pExpr->DoValidate(env)) return false;
 	}
 	return true;
 }
@@ -720,7 +743,7 @@ Gura_ImplementStatement(elsif_)
 	return Value::Nil;
 }
 
-Gura_ImplementStatementValidator(elsif_)
+Gura_ImplementStatementPreparator(elsif_)
 {
 	if (_pExprLister.IsNull() || _pExprLister->GetExprOwner().empty()) {
 		env.SetError(ERR_SyntaxError, "missing condition");
@@ -753,7 +776,7 @@ Gura_ImplementStatement(else_)
 	return Value::Nil;
 }
 
-Gura_ImplementStatementValidator(else_)
+Gura_ImplementStatementPreparator(else_)
 {
 	if (!_pExprLister.IsNull() && !_pExprLister->GetExprOwner().empty()) {
 		env.SetError(ERR_SyntaxError, "no arguments necessary");
@@ -784,7 +807,7 @@ Gura_ImplementStatement(end)
 	return Value::Nil;
 }
 
-Gura_ImplementStatementValidator(end)
+Gura_ImplementStatementPreparator(end)
 {
 	return true;
 }
@@ -954,7 +977,7 @@ Gura_ImplementStatement(try_)
 	return result;
 }
 
-Gura_ImplementStatementValidator(try_)
+Gura_ImplementStatementPreparator(try_)
 {
 	if (!_pExprLister.IsNull() && !_pExprLister->GetExprOwner().empty()) {
 		env.SetError(ERR_SyntaxError, "no arguments necessary");
@@ -964,7 +987,7 @@ Gura_ImplementStatementValidator(try_)
 		env.SetError(ERR_SyntaxError, "missing block");
 		return false;
 	}
-	for (const Expr_Caller *pExpr = GetTrailer(); pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
+	for (Expr_Caller *pExpr = GetTrailer(); pExpr != nullptr; pExpr = pExpr->GetTrailer()) {
 		const Symbol *pSymbolCar = pExpr->GetSymbolCar();
 		if (pSymbolCar->IsIdentical(Gura_Symbol(catch_))) {
 			// nothing to do
@@ -980,7 +1003,7 @@ Gura_ImplementStatementValidator(try_)
 			env.SetError(ERR_SyntaxError, "invalid trailer for try-catch-else-finally statement");
 			return false;
 		}
-		if (!pExpr->DoValidate(env)) return false;
+		if (!pExpr->DoPrepare(env)) return false;
 	}
 	return true;
 }
@@ -1007,7 +1030,7 @@ Gura_ImplementStatement(catch_)
 	return Value::Nil;
 }
 
-Gura_ImplementStatementValidator(catch_)
+Gura_ImplementStatementPreparator(catch_)
 {
 	if (_pExprBlock.IsNull()) {
 		env.SetError(ERR_SyntaxError, "missing block");
@@ -1032,7 +1055,7 @@ Gura_ImplementStatement(finally_)
 	return Value::Nil;
 }
 
-Gura_ImplementStatementValidator(finally_)
+Gura_ImplementStatementPreparator(finally_)
 {
 	if (!_pExprLister.IsNull() && !_pExprLister->GetExprOwner().empty()) {
 		env.SetError(ERR_SyntaxError, "no arguments necessary");

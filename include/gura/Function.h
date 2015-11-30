@@ -11,43 +11,49 @@
 #include "Help.h"
 
 // DeclareFunction
-#define Gura_DeclareFunctionBegin(name) \
-class Func_##name : public Function {
+#define Gura_DeclareFunctionAlias_CustomBegin(name, nameAlias)	\
+class Func_##name : public Function { \
+public:
 
-#define Gura_DeclareFunctionEnd(name) \
-public: \
-	Func_##name(Environment &env, const char *name = #name); \
+#define Gura_DeclareFunctionAlias_CustomEnd(name, nameAlias)	\
+	Func_##name(Environment &env, const char *name = nameAlias); \
 	virtual Value DoEval(Environment &env, Argument &arg) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
 #define Gura_DeclareFunctionAlias(name, nameAlias) \
-class Func_##name : public Function { \
-public: \
-	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Argument &arg) const; \
-}; \
-Func_##name::Func_##name(Environment &env, const char *name) : \
-					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
+Gura_DeclareFunctionAlias_CustomBegin(name, nameAlias) \
+Gura_DeclareFunctionAlias_CustomEnd(name, nameAlias)
 
-#define Gura_DeclareFunction(name) Gura_DeclareFunctionAlias(name, #name)
+#define Gura_DeclareFunction_CustomBegin(name) \
+Gura_DeclareFunctionAlias_CustomBegin(name, #name)
 
-#define Gura_DeclareStatementAlias(name, nameAlias) \
+#define Gura_DeclareFunction_CustomEnd(name) \
+Gura_DeclareFunctionAlias_CustomEnd(name, #name)
+
+#define Gura_DeclareFunction(name) \
+Gura_DeclareFunctionAlias(name, #name)
+
+#define Gura_DeclareStatementAlias_CustomBegin(name, nameAlias)	\
 class Func_##name : public Function { \
 public: \
 	class Expr_Statement : public Expr_Caller { \
-	public: \
-		inline Expr_Statement(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) : \
-			Expr_Caller(pExprCar, pExprLister, pExprBlock) {} \
+	public:
+
+#define Gura_DeclareStatementAlias_CustomEnd(name, nameAlias) \
+		virtual Expr *Clone() const; \
 		virtual Value DoExec(Environment &env) const; \
-		virtual bool DoValidate(Environment &env) const; \
+		virtual bool DoPrepare(Environment &env); \
 	}; \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
 	virtual Expr_Caller *GenerateStatement(Parser *pParser, Expr *pExprCar, \
 		Expr_Lister *pExprLister, Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const; \
 }; \
+Expr *Func_##name::Expr_Statement::Clone() const { \
+	return new Expr_Statement(*this); \
+} \
 Expr_Caller *Func_##name::GenerateStatement(Parser *pParser, Expr *pExprCar, \
 	Expr_Lister *pExprLister, Expr_Block *pExprBlock, const Expr_Caller *pExprLeader) const { \
 	return new Expr_Statement(pExprCar, pExprLister, pExprBlock); \
@@ -55,7 +61,21 @@ Expr_Caller *Func_##name::GenerateStatement(Parser *pParser, Expr *pExprCar, \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
-#define Gura_DeclareStatement(name) Gura_DeclareStatementAlias(name, #name)
+#define Gura_DeclareStatementAlias(name, nameAlias) \
+Gura_DeclareStatementAlias_CustomBegin(name, nameAlias)	\
+	inline Expr_Statement(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) : \
+		Expr_Caller(pExprCar, pExprLister, pExprBlock) {} \
+	inline Expr_Statement(const Expr_Statement &expr) : Expr_Caller(expr) {} \
+Gura_DeclareStatementAlias_CustomEnd(name, nameAlias)
+
+#define Gura_DeclareStatement_CustomBegin(name) \
+Gura_DeclareStatementAlias_CustomBegin(name, #name)
+
+#define Gura_DeclareStatement_CustomEnd(name) \
+Gura_DeclareStatementAlias_CustomEnd(name, #name)
+
+#define Gura_DeclareStatement(name) \
+Gura_DeclareStatementAlias(name, #name)
 
 // DeclareFunctionWithMathDiff
 #define Gura_DeclareFunctionWithMathDiffAlias(name, nameAlias) \
@@ -70,21 +90,6 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 
 #define Gura_DeclareFunctionWithMathDiff(name) \
 Gura_DeclareFunctionWithMathDiffAlias(name, #name)
-
-#if 0
-// DeclareFunctionTrailer
-#define Gura_DeclareFunctionTrailerAlias(name, nameAlias) \
-class Func_##name : public Function { \
-public: \
-	Func_##name(Environment &env, const char *name = nameAlias); \
-	virtual Value DoEval(Environment &env, Argument &arg) const; \
-}; \
-Func_##name::Func_##name(Environment &env, const char *name) : \
-					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
-
-#define Gura_DeclareFunctionTrailer(name) \
-Gura_DeclareFunctionTrailerAlias(name, #name)
-#endif
 
 // DeclareMethod
 #define Gura_DeclareMethodAlias(className, name, nameAlias) \
@@ -137,8 +142,8 @@ Expr *Func_##name::MathDiff(Environment &env, const Expr *pExprArg, const Symbol
 #define Gura_ImplementStatement(name) \
 Value Func_##name::Expr_Statement::DoExec(Environment &env) const
 
-#define Gura_ImplementStatementValidator(name) \
-bool Func_##name::Expr_Statement::DoValidate(Environment &env) const
+#define Gura_ImplementStatementPreparator(name) \
+bool Func_##name::Expr_Statement::DoPrepare(Environment &env)
 
 #define Gura_Function(name) Func_##name
 
