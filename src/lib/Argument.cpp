@@ -267,7 +267,7 @@ bool Argument::Complete(Environment &env)
 	return true;
 }
 
-void Argument::GetValues(ValueList &valList) const
+void Argument::GetSlotValues(ValueList &valList) const
 {
 	valList.reserve(valList.size() + _slots.size());
 	foreach_const (Slots, pSlot, _slots) {

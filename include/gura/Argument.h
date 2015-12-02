@@ -193,7 +193,7 @@ public:
 	bool IsSet(const Symbol *pSymbol) const;
 	bool Complete(Environment &env);
 	inline const Value &GetValue(size_t idxArg) const	{ return _slots[idxArg].GetValue();				}
-	void GetValues(ValueList &valList) const;
+	void GetSlotValues(ValueList &valList) const;
 	inline bool IsType(size_t idxArg, ValueType valType) const
 														{ return GetValue(idxArg).IsType(valType); 		}
 	// invalid types
