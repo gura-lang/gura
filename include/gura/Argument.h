@@ -24,6 +24,11 @@ public:
 		MAPMODE_ToList,
 		MAPMODE_ToIter,
 	};
+	enum SlotStat {
+		SLOTSTAT_Invalid,
+		SLOTSTAT_Valid,
+		SLOTSTAT_ValidAssigned,
+	};
 public:
 	class GURA_DLLDECLARE Iterator_VarLength : public Iterator {
 	private:
@@ -45,35 +50,36 @@ public:
 		AutoPtr<Declaration> _pDecl;
 		Value _value;
 		AutoPtr<Iterator> _pIteratorMap;
-		bool _valueExistFlag;
+		SlotStat _slotStat;
 	public:
 		inline Slot(Declaration *pDecl) :
 			_pDecl(pDecl),
 			_value(Value::Undefined),
-			_valueExistFlag(false) {}
+			_slotStat(SLOTSTAT_Invalid) {}
 		inline Slot(Declaration *pDecl, const Value &value,
-					Iterator *pIteratorMap, bool valueExistFlag) :
+					Iterator *pIteratorMap, SlotStat slotStat) :
 			_pDecl(pDecl),
 			_value(value),
 			_pIteratorMap(pIteratorMap),
-			_valueExistFlag(valueExistFlag) {}
+			_slotStat(slotStat) {}
 		inline Slot(const Slot &slot) :
 			_pDecl(slot._pDecl->Reference()),
 			_value(slot._value),
 			_pIteratorMap(Iterator::Reference(slot._pIteratorMap.get())),
-			_valueExistFlag(slot._valueExistFlag) {}
+			_slotStat(slot._slotStat) {}
 		inline void operator=(const Slot &slot) {
 			_pDecl.reset(slot._pDecl->Reference());
 			_value = slot._value;
 			_pIteratorMap.reset(Iterator::Reference(slot._pIteratorMap.get()));
-			_valueExistFlag = slot._valueExistFlag;
+			_slotStat = slot._slotStat;
 		}
 		inline const Declaration &GetDeclaration() const { return *_pDecl; }
 		inline const Value &GetValue() const { return _value; }
 		inline void SetIteratorMap(Iterator *pIteratorMap) { _pIteratorMap.reset(pIteratorMap); }
 		inline Iterator *GetIteratorMap() { return _pIteratorMap.get(); }
 		inline const Iterator *GetIteratorMap() const { return _pIteratorMap.get(); }
-		inline bool GetValueExistFlag() const { return _valueExistFlag; }
+		inline SlotStat GetSlotStat() const { return _slotStat; }
+		inline void SetSlotStat(SlotStat slotStat) { _slotStat = slotStat; }
 		inline bool NextMap(Environment &env) {
 			return _pIteratorMap.IsNull() ||
 				(_pIteratorMap->Next(env, _value) &&
@@ -279,7 +285,7 @@ public:
 	inline MapMode GetMapMode() const { return _mapMode; }
 	inline size_t CountSlot() const { return _slots.size(); }
 	bool IsInfiniteMap() const;
-	void AssignSlotValuesToEnvironment(Environment &env) const;
+	void AssignSlotValuesToEnvironment(Environment &env);
 	Environment *PrepareEnvironment(Environment &env);
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	inline const Expr_Block *GetBlock() const { return _pExprBlock.get(); }

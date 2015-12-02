@@ -50,7 +50,8 @@ void Argument::InitializeSlot(const Function *pFunc)
 		if (pDecl->IsVariableLength()) {
 			Value value;
 			AutoPtr<Iterator> pIterator(new Iterator_VarLength(pDecl, value.InitAsList(env)));
-			_slots.push_back(Slot(pDecl->Reference(), value, pIterator.release(), false));
+			_slots.push_back(Slot(pDecl->Reference(), value,
+								  pIterator.release(), SLOTSTAT_Invalid));
 		} else {
 			_slots.push_back(Slot(pDecl->Reference()));
 		}
@@ -214,7 +215,7 @@ bool Argument::Complete(Environment &env)
 	for ( ; _pSlotCur != _slots.end(); _pSlotCur++) {
 		const Declaration &decl = _pSlotCur->GetDeclaration();
 		const Expr *pExprDefault = decl.GetExprDefault();
-		if (_pSlotCur->GetValueExistFlag()) {
+		if (_pSlotCur->GetSlotStat() != SLOTSTAT_Invalid) {
 			// nothing to do
 		} else if (pExprDefault == nullptr) {
 			if (decl.GetOccurPattern() != OCCUR_ZeroOrOnce &&
@@ -274,9 +275,11 @@ void Argument::GetValues(ValueList &valList) const
 	}
 }
 
-void Argument::AssignSlotValuesToEnvironment(Environment &env) const
+void Argument::AssignSlotValuesToEnvironment(Environment &env)
 {
-	foreach_const (Slots, pSlot, _slots) {
+	foreach (Slots, pSlot, _slots) {
+		//if (pSlot->GetSlotStat() == SLOTSTAT_ValidAssigned) continue;
+		pSlot->SetSlotStat(SLOTSTAT_ValidAssigned);
 		const Declaration &decl = pSlot->GetDeclaration();
 		const Value &value = pSlot->GetValue();
 		env.AssignValue(decl.GetSymbol(), value, EXTRA_Public);
@@ -295,7 +298,6 @@ Environment *Argument::PrepareEnvironment(Environment &env)
 	Signal &sig = env.GetSignal();
 	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)? &env : &_pFunc->GetEnvScope();
 	EnvType envType = (_pFunc->GetType() == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
-	//AutoPtr<Environment> pEnvLocal(pEnvOuter->Derive(envType));
 	_pEnvPrepared.reset(pEnvOuter->Derive(envType));
 	_pEnvPrepared->SetArgument(this);
 	AssignSlotValuesToEnvironment(*_pEnvPrepared);
@@ -484,7 +486,7 @@ bool Argument::Slot::StoreValue(Environment &env, const Value &value, bool mapFl
 			env.SetError(ERR_ValueError, "argument confliction");
 			return false;
 		}
-		_valueExistFlag = true;
+		_slotStat = SLOTSTAT_Valid;
 		return true;
 	}
 	Value valueCasted = value;
@@ -498,7 +500,7 @@ bool Argument::Slot::StoreValue(Environment &env, const Value &value, bool mapFl
 			env.SetError(ERR_ValueError, "argument confliction");
 			return false;
 		}
-		_valueExistFlag = true;
+		_slotStat = SLOTSTAT_Valid;
 		return true;
 	}
 	return false;
@@ -513,7 +515,7 @@ bool Argument::Slot::UpdateValue(Environment &env, const Value &value)
 	} else {
 		_value = valueCasted;
 	}
-	_valueExistFlag = true;
+	_slotStat = SLOTSTAT_Valid;
 	return true;
 }
 
