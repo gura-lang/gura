@@ -278,8 +278,11 @@ void Argument::GetValues(ValueList &valList) const
 void Argument::AssignSlotValuesToEnvironment(Environment &env)
 {
 	foreach (Slots, pSlot, _slots) {
-		//if (pSlot->GetSlotStat() == SLOTSTAT_ValidAssigned) continue;
-		pSlot->SetSlotStat(SLOTSTAT_ValidAssigned);
+		//if (pSlot->GetSlotStat() == SLOTSTAT_ValidAssigned) {
+		//	::printf("check\n");
+		//	continue;
+		//}
+		//pSlot->SetSlotStat(SLOTSTAT_ValidAssigned);
 		const Declaration &decl = pSlot->GetDeclaration();
 		const Value &value = pSlot->GetValue();
 		env.AssignValue(decl.GetSymbol(), value, EXTRA_Public);

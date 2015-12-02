@@ -81,9 +81,10 @@ public:
 		inline SlotStat GetSlotStat() const { return _slotStat; }
 		inline void SetSlotStat(SlotStat slotStat) { _slotStat = slotStat; }
 		inline bool NextMap(Environment &env) {
-			return _pIteratorMap.IsNull() ||
-				(_pIteratorMap->Next(env, _value) &&
-				 (_pDecl->IsVariableLength() || _pDecl->ValidateAndCast(env, _value)));
+			if (_pIteratorMap.IsNull()) return true;
+			_slotStat = SLOTSTAT_Valid;
+			return (_pIteratorMap->Next(env, _value) &&
+					(_pDecl->IsVariableLength() || _pDecl->ValidateAndCast(env, _value)));
 		}
 		bool StoreValue(Environment &env, const Value &value, bool mapFlag, MapMode *pMapMode);
 		bool UpdateValue(Environment &env, const Value &value);
