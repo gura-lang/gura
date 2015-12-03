@@ -566,6 +566,9 @@ public:
 	}
 public:
 	inline ValueMap() : _cntRef(1) {}
+	inline ValueMap(size_t n) :
+		std::unordered_map<const Symbol *, ValueEx, Symbol::Hasher,
+		Symbol::EqualTo>(n), _cntRef(1) {}
 private:
 	inline ~ValueMap() {}
 public:

@@ -871,7 +871,7 @@ Environment::Frame::Frame(const Frame &frame) :
 	_valueEx_arg(VTYPE_undefined, VFLAG_None, EXTRA_None),
 	_valueEx_this(VTYPE_undefined, VFLAG_None, EXTRA_None)
 {
-	if (frame._pValueMap.get() != nullptr) {
+	if (!frame._pValueMap.IsNull()) {
 		_pValueMap.reset(new ValueMap(*frame._pValueMap));
 	}
 	if (frame._pValueTypeMap.get() != nullptr) {
@@ -896,7 +896,7 @@ void Environment::Frame::Delete(Frame *pFrame)
 #if 0
 	EnvType envType = pFrame->GetEnvType();
 	if (envType != ENVTYPE_root && envType != ENVTYPE_class &&
-										pFrame->_pValueMap.get() != nullptr) {
+										!pFrame->_pValueMap.IsNull()) {
 		const ValueMap &valueMap = *pFrame->_pValueMap;
 		EnvironmentSet envSet;
 		foreach_const (ValueMap, iter, valueMap) {
@@ -930,7 +930,7 @@ void Environment::Frame::AssignValue(const Symbol *pSymbol, const Value &value, 
 	} else if (pSymbol->IsIdentical(Gura_Symbol(this_))) {
 		_valueEx_this = ValueEx(value, extra);
 	} else {
-		if (_pValueMap.get() == nullptr) _pValueMap.reset(new ValueMap());
+		if (_pValueMap.IsNull()) _pValueMap.reset(new ValueMap());
 		ValueMap::iterator iter = _pValueMap->find(pSymbol);
 		if (iter == _pValueMap->end()) {
 			(*_pValueMap)[pSymbol] = ValueEx(value, extra);
@@ -957,7 +957,7 @@ ValueEx *Environment::Frame::LookupValue(Environment &env, const Symbol *pSymbol
 		}
 		return _valueEx_this.IsValid()? &_valueEx_this : nullptr;
 	} else {
-		if (_pValueMap.get() == nullptr) return nullptr;
+		if (_pValueMap.IsNull()) return nullptr;
 		ValueMap::iterator iter = _pValueMap->find(pSymbol);
 		return (iter == _pValueMap->end())? nullptr : &iter->second;
 	}
@@ -965,7 +965,7 @@ ValueEx *Environment::Frame::LookupValue(Environment &env, const Symbol *pSymbol
 
 void Environment::Frame::RemoveValue(const Symbol *pSymbol)
 {
-	if (_pValueMap.get() == nullptr) return;
+	if (_pValueMap.IsNull()) return;
 	_pValueMap->erase(pSymbol);
 }
 
@@ -993,7 +993,7 @@ SymbolSet &Environment::Frame::PrepareSymbolsPublic()
 void Environment::Frame::DbgPrint() const
 {
 	::printf("%p %-10s\n", this, GetEnvTypeName(GetEnvType()));
-	if (_pValueMap.get() == nullptr) {
+	if (_pValueMap.IsNull()) {
 		::printf(" [Values] .. null\n");
 	} else {
 		::printf(" [Values] .. %p\n", _pValueMap.get());

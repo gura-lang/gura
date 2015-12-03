@@ -208,7 +208,7 @@ public:
 		inline Global *GetGlobal() { return _pGlobal; }
 		inline Global *GetGlobal() const { return _pGlobal; }
 		inline const ValueMap &GetValueMap() const {
-			return (_pValueMap.get() == nullptr)? ValueMap::Empty : *_pValueMap;
+			return _pValueMap.IsNull()? ValueMap::Empty : *_pValueMap;
 		}
 		inline const ValueTypeMap &GetValueTypeMap() const {
 			return (_pValueTypeMap.get() == nullptr)? ValueTypeMap::Empty : *_pValueTypeMap;
