@@ -8,10 +8,10 @@
 #include "Common.h"
 
 #define GURA_VERSION_MAJOR	0
-#define GURA_VERSION_MINOR	6
-#define GURA_VERSION_PATCH	3
+#define GURA_VERSION_MINOR	7
+#define GURA_VERSION_PATCH	0
 
-#define GURA_VERSION	"0.6.3"
+#define GURA_VERSION	"0.7.0"
 
 #define GURA_COPYRIGHT	"Copyright (C) 2011-2015 ypsitau"
 

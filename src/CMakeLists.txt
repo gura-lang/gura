@@ -15,8 +15,8 @@ project(gura)
 # Needs to modify content of include/gura/Version.h as well.
 
 set(GURA_VERSION_MAJOR		0)
-set(GURA_VERSION_MINOR		6)
-set(GURA_VERSION_PATCH		3)
+set(GURA_VERSION_MINOR		7)
+set(GURA_VERSION_PATCH		0)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set(CMAKE_INSTALL_PREFIX	/Applications/Gura.app/Contents/Resources)
