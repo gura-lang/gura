@@ -701,7 +701,7 @@ In that case, the inner function can access variables in the outer function.
 A function can also return a `function` instance that it creates as its result.
 The environment of the outer function will be held in the inner function.
 
-    f() = {
+    f():closure = {
         x = 3
         g() = {
             println('x = ', x)
@@ -711,6 +711,9 @@ The environment of the outer function will be held in the inner function.
     
     h = f()
     h()
+
+Make sure that a function that returns a `function` instance
+must be declared with `:closure` attribute.
 
 
 ## Leader-trailer Relationship
