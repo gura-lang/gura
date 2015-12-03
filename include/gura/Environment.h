@@ -219,7 +219,7 @@ public:
 		inline bool IsSymbolPublic(const Symbol *pSymbol) const {
 			return _pSymbolsPublic.get() != nullptr && _pSymbolsPublic->IsSet(pSymbol);
 		}
-		inline void SetArgument(Argument *pArg) { _pArgWeak = pArg; }
+		inline void SetAssocArgument(Argument *pArg) { _pArgWeak = pArg; }
 		inline Argument *GetArgument() { return _pArgWeak; }
 		inline void InvalidateValueThis() {
 			_valueEx_this = ValueEx(VTYPE_undefined, VFLAG_None, EXTRA_None);
@@ -295,7 +295,7 @@ public:
 	inline bool IsType(EnvType envType) const	{ return GetTopFrame()->IsType(envType);	}
 	inline Global *GetGlobal()					{ return GetTopFrame()->GetGlobal();		}
 	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();		}
-	inline void SetArgument(Argument *pArg)		{ GetTopFrame()->SetArgument(pArg);			}
+	inline void SetAssocArgument(Argument *pArg){ GetTopFrame()->SetAssocArgument(pArg);	}
 	inline Argument *GetArgument()				{ return GetTopFrame()->GetArgument();		}
 	inline void InvalidateValueThis()			{ GetTopFrame()->InvalidateValueThis();		}
 	inline Option &GetOption()					{ return GetGlobal()->GetOption();			}

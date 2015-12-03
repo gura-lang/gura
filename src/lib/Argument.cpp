@@ -36,7 +36,7 @@ Argument::~Argument()
 {
 	if (!_pEnvPrepared.IsNull()) {
 		// invalidate the weak reference associated in the prepared environment
-		_pEnvPrepared->SetArgument(nullptr);
+		_pEnvPrepared->SetAssocArgument(nullptr);
 	}
 }
 
@@ -302,7 +302,7 @@ Environment *Argument::PrepareEnvironment(Environment &env)
 	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)? &env : &_pFunc->GetEnvScope();
 	EnvType envType = (_pFunc->GetType() == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
 	_pEnvPrepared.reset(pEnvOuter->Derive(envType));
-	_pEnvPrepared->SetArgument(this);
+	_pEnvPrepared->SetAssocArgument(this);
 	AssignSlotValuesToEnvironment(*_pEnvPrepared);
 	const Symbol *pSymbolDict = _pFunc->GetSymbolDict();
 	if (pSymbolDict != nullptr) {
