@@ -168,6 +168,35 @@ Available command line options are listed below:
 </table>
 
 
+## System Directory
+
+The distribution package contains the interpreter executable as well as other various files
+such as Gura modules and dynamic-loaded libraries.
+When installed, they are stored in directories that are relative to
+where the interpreter executable is located.
+
+For Windows, they are stored in the following directories:
+
+    [install directory] -+- bin
+                         +- module
+                         +- include
+                         +- lib
+
+For Linux, they are as below:
+
+    [install directory] -+- bin    
+                         +- include
+                            +- gura
+                         +- lib
+                            +- gura
+                         +- share
+                            +- gura
+
+As the interpreter searches these files in directories that are relative to its own location,
+they are relocatable.
+This feature makes it easier to install different versions of Gura in a certain system.
+
+
 ## Working Directory
 
 When the interpret is launched, it creates a working directory if it's not exist,
