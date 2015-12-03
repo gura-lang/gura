@@ -184,7 +184,7 @@ For Windows, they are stored in the following directories:
 
 For Linux, they are as below:
 
-    [install directory] -+- bin    
+    [install directory] -+- bin
                          +- include
                             +- gura
                          +- lib

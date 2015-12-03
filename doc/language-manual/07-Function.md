@@ -588,6 +588,7 @@ and you can use `args#isset()` method to check if an attribute is set.
 <tr><td><code>:public</code></td><td></td></tr>
 <tr><td><code>:private</code></td><td></td></tr>
 <tr><td><code>:nonamed</code></td><td></td></tr>
+<tr><td><code>:closure</code></td><td></td></tr>
 </table>
 
 
