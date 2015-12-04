@@ -87,6 +87,13 @@ public:
 	static const LessThan LessThanCase;
 	static const LessThan LessThanIgnoreCase;
 public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "Value");
+	}
+	inline static void operator delete(void *pv) {
+		MemoryPool::Deallocate(pv);
+	}
+public:
 	Value(const Value &value);
 	~Value();
 	// VTYPE_nil
@@ -469,28 +476,6 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ValueEx
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueEx : public Value {
-private:
-	ULong _extra;
-public:
-	inline ValueEx(ULong extra = 0) : _extra(extra) {}
-	inline ValueEx(const Value &value, ULong extra = 0) : Value(value), _extra(extra) {}
-	inline ValueEx(const ValueEx &valueEx) : Value(valueEx), _extra(valueEx._extra) {}
-	inline ValueEx(Object *pObj, UShort valFlags, ULong extra) :
-		Value(pObj, valFlags), _extra(extra) {}
-	inline ValueEx(ValueType valType, UShort valFlags, ULong extra) :
-		Value(valType, valFlags), _extra(extra) {}
-	inline ULong GetExtra() const { return _extra; }
-	inline ValueEx &operator=(const ValueEx &valueEx) {
-		Value::operator=(valueEx);
-		_extra = valueEx._extra;
-		return *this;
-	}
-};
-
-//-----------------------------------------------------------------------------
 // ValueList
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ValueList : public std::vector<Value, Allocator<Value> > {
@@ -545,37 +530,6 @@ public:
 // ValuePtrList
 //-----------------------------------------------------------------------------
 typedef std::vector<const Value *, Allocator<const Value *> > ValuePtrList;
-
-//-----------------------------------------------------------------------------
-// ValueExMap
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueExMap : public std::unordered_map<
-	const Symbol *, ValueEx, Symbol::Hasher, Symbol::EqualTo> {
-public:
-	static const ValueExMap Empty;
-private:
-	int _cntRef;
-public:
-	Gura_DeclareReferenceAccessor(ValueExMap);
-public:
-	inline static void *operator new(size_t size) {
-		return MemoryPool::Allocate(size, "ValueExMap");
-	}
-	inline static void operator delete(void *pv) {
-		MemoryPool::Deallocate(pv);
-	}
-public:
-	inline ValueExMap() : _cntRef(1) {}
-	inline ValueExMap(size_t n) :
-		std::unordered_map<const Symbol *, ValueEx, Symbol::Hasher,
-		Symbol::EqualTo>(n), _cntRef(1) {}
-private:
-	inline ~ValueExMap() {}
-public:
-	inline bool IsSet(const Symbol *pSymbol) const {
-		return find(pSymbol) != const_cast<ValueExMap *>(this)->end();
-	}
-};
 
 //-----------------------------------------------------------------------------
 // ValueDeque
@@ -647,6 +601,66 @@ private:
 public:
 	inline ValueVisitor_Flatten(ValueList &valList) : _valList(valList) {}
 	virtual bool Visit(const Value &value);
+};
+
+//-----------------------------------------------------------------------------
+// ValueEx
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE ValueEx : public Value {
+private:
+	ULong _extra;
+public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "ValueEx");
+	}
+	inline static void operator delete(void *pv) {
+		MemoryPool::Deallocate(pv);
+	}
+public:
+	inline ValueEx(ULong extra = 0) : _extra(extra) {}
+	inline ValueEx(const Value &value, ULong extra = 0) : Value(value), _extra(extra) {}
+	inline ValueEx(const ValueEx &valueEx) : Value(valueEx), _extra(valueEx._extra) {}
+	inline ValueEx(Object *pObj, UShort valFlags, ULong extra) :
+		Value(pObj, valFlags), _extra(extra) {}
+	inline ValueEx(ValueType valType, UShort valFlags, ULong extra) :
+		Value(valType, valFlags), _extra(extra) {}
+	inline ULong GetExtra() const { return _extra; }
+	inline ValueEx &operator=(const ValueEx &valueEx) {
+		Value::operator=(valueEx);
+		_extra = valueEx._extra;
+		return *this;
+	}
+};
+
+//-----------------------------------------------------------------------------
+// ValueExMap
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE ValueExMap : public std::unordered_map<
+	const Symbol *, ValueEx, Symbol::Hasher, Symbol::EqualTo> {
+public:
+	static const ValueExMap Empty;
+private:
+	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(ValueExMap);
+public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "ValueExMap");
+	}
+	inline static void operator delete(void *pv) {
+		MemoryPool::Deallocate(pv);
+	}
+public:
+	inline ValueExMap() : _cntRef(1) {}
+	inline ValueExMap(size_t n) :
+		std::unordered_map<const Symbol *, ValueEx, Symbol::Hasher,
+		Symbol::EqualTo>(n), _cntRef(1) {}
+private:
+	inline ~ValueExMap() {}
+public:
+	inline bool IsSet(const Symbol *pSymbol) const {
+		return find(pSymbol) != const_cast<ValueExMap *>(this)->end();
+	}
 };
 
 inline const char *GetNumberFormat() { return "%g"; }
