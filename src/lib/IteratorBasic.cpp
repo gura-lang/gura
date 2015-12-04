@@ -494,15 +494,11 @@ bool Iterator_UnaryOperatorMap::DoNext(Environment &env, Value &value)
 	Signal &sig = env.GetSignal();
 	Value valueArg;
 	if (!_pIterator->Next(env, valueArg)) return false;
-#if 1
 	if (_valTypePrev != valueArg.GetValueType()) {
 		_valTypePrev = valueArg.GetValueType();
 		_pOperatorEntry = _pOperator->Lookup(_valTypePrev, _suffixFlag);
 	}
 	value = _pOperatorEntry->DoEval(env, valueArg);
-#else
-	value = _pOperator->EvalUnary(*_pEnv, valueArg, _suffixFlag);
-#endif
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -566,7 +562,6 @@ bool Iterator_BinaryOperatorMap::DoNext(Environment &env, Value &value)
 	Value valueLeft, valueRight;
 	if (!_pIteratorLeft->Next(env, valueLeft) ||
 			!_pIteratorRight->Next(env, valueRight)) return false;
-#if 1
 	if (_valTypeLeftPrev != valueLeft.GetValueType() ||
 				_valTypeRightPrev != valueRight.GetValueType()) {
 		_valTypeLeftPrev = valueLeft.GetValueType();
@@ -574,9 +569,6 @@ bool Iterator_BinaryOperatorMap::DoNext(Environment &env, Value &value)
 		_pOperatorEntry = _pOperator->Lookup(_valTypeLeftPrev, _valTypeRightPrev);
 	}
 	value = _pOperatorEntry->DoEval(env, valueLeft, valueRight);
-#else
-	value = _pOperator->EvalBinary(*_pEnv, valueLeft, valueRight);
-#endif
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -632,7 +624,6 @@ bool Iterator_MemberMap::DoNext(Environment &env, Value &value)
 	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(
 			env, Function::Reference(value.GetFunction()), valueThisEach);
-		//pObj->SetValueThis(valueThisEach);
 		value = Value(pObj);
 	}
 	return true;
@@ -686,7 +677,6 @@ bool Iterator_MethodMap::DoNext(Environment &env, Value &value)
 {
 	Value valueThis;
 	if (!_pIteratorThis->Next(env, valueThis)) return false;
-	//value = _pExprCaller->EvalEach(*_pEnv, valueThis, nullptr, nullptr);
 	if (_valTypePrev != valueThis.GetValueType()) {
 		_pCallable.reset(
 			valueThis.GetCallable(_pExprSelector->GetSymbol(), _pExprSelector->GetAttrs()));
@@ -750,8 +740,6 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Value &value)
 		if (!pArg->Complete(*_pEnv)) return false;
 		value = _pFunc->Eval(*_pEnv, *pArg);
 		if (sig.IsSignalled()) return false;
-		//sig.SetError(ERR_TypeError, "invalid structure of arguments");
-		//return false;
 	}
 	return true;
 }
