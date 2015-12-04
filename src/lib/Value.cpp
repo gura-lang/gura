@@ -989,9 +989,9 @@ bool ValueList::Deserialize(Environment &env, Stream &stream)
 }
 
 //-----------------------------------------------------------------------------
-// ValueMap
+// ValueExMap
 //-----------------------------------------------------------------------------
-const ValueMap ValueMap::Empty;
+const ValueExMap ValueExMap::Empty;
 
 //-----------------------------------------------------------------------------
 // ValueDict

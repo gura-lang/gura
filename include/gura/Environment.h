@@ -175,7 +175,7 @@ public:
 		int _cntRef;
 		EnvType _envType;
 		Global *_pGlobal;
-		AutoPtr<ValueMap> _pValueMap;
+		AutoPtr<ValueExMap> _pValueExMap;
 		std::unique_ptr<ValueTypeMap> _pValueTypeMap;
 		std::unique_ptr<SymbolSet> _pSymbolsPublic;
 		Argument *_pArgWeak;
@@ -207,8 +207,8 @@ public:
 		inline bool IsType(EnvType envType) const { return _envType == envType; }
 		inline Global *GetGlobal() { return _pGlobal; }
 		inline Global *GetGlobal() const { return _pGlobal; }
-		inline const ValueMap &GetValueMap() const {
-			return _pValueMap.IsNull()? ValueMap::Empty : *_pValueMap;
+		inline const ValueExMap &GetValueExMap() const {
+			return _pValueExMap.IsNull()? ValueExMap::Empty : *_pValueExMap;
 		}
 		inline const ValueTypeMap &GetValueTypeMap() const {
 			return (_pValueTypeMap.get() == nullptr)? ValueTypeMap::Empty : *_pValueTypeMap;

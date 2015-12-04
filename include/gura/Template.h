@@ -35,7 +35,7 @@ private:
 	AutoPtr<Template> _pTemplateSuper;
 	AutoPtr<ExprOwner> _pExprOwnerForInit;
 	AutoPtr<FunctionCustom> _pFuncForBody;
-	AutoPtr<ValueMap> _pValueMap;
+	AutoPtr<ValueExMap> _pValueExMap;
 	SimpleStream *_pStreamDst;
 	char _chLast;
 public:
@@ -67,8 +67,8 @@ public:
 	inline ExprOwner &GetExprOwnerForInit() { return *_pExprOwnerForInit; }
 	inline FunctionCustom *GetFuncForBody() { return _pFuncForBody.get(); }
 	inline const FunctionCustom *GetFuncForBody() const { return _pFuncForBody.get(); }
-	inline ValueMap &GetValueMap() { return *_pValueMap; }
-	inline const ValueMap &GetValueMap() const { return *_pValueMap; }
+	inline ValueExMap &GetValueExMap() { return *_pValueExMap; }
+	inline const ValueExMap &GetValueExMap() const { return *_pValueExMap; }
 	inline void SetStreamDst(SimpleStream *pStreamDst) { _pStreamDst = pStreamDst; }
 	inline SimpleStream *GetStreamDst() { return _pStreamDst; }
 	inline void ClearLastChar()  { _chLast = '\0'; }

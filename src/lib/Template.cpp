@@ -9,7 +9,7 @@ namespace Gura {
 // Template
 //-----------------------------------------------------------------------------
 Template::Template() : _cntRef(1), _pExprOwnerForInit(new ExprOwner()),
-				   _pValueMap(new ValueMap()), _pStreamDst(nullptr), _chLast('\0')
+				   _pValueExMap(new ValueExMap()), _pStreamDst(nullptr), _chLast('\0')
 {
 }
 
@@ -63,7 +63,7 @@ bool Template::Prepare(Environment &env)
 	AutoPtr<Environment> pEnvBlock(env.Derive(ENVTYPE_local));
 	pEnvBlock->AssignValue(Gura_Symbol(this_),
 				Value(new Object_template(env, Reference())), EXTRA_Public);
-	_pValueMap->clear();
+	_pValueExMap->clear();
 	_pExprOwnerForInit->Exec(*pEnvBlock);
 	return !sig.IsSignalled();
 }
@@ -72,9 +72,9 @@ const ValueEx *Template::LookupValue(const Symbol *pSymbol) const
 {
 	for (const Template *pTemplate = this; pTemplate != nullptr;
 							pTemplate = pTemplate->GetTemplateSuper()) {
-		const ValueMap &valueMap = pTemplate->GetValueMap();
-		ValueMap::const_iterator iter = valueMap.find(pSymbol);
-		if (iter != valueMap.end()) return &iter->second;
+		const ValueExMap &valueExMap = pTemplate->GetValueExMap();
+		ValueExMap::const_iterator iter = valueExMap.find(pSymbol);
+		if (iter != valueExMap.end()) return &iter->second;
 	}
 	return nullptr;
 }

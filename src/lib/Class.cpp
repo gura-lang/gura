@@ -116,7 +116,7 @@ bool Object::DirProp(Environment &env, SymbolSet &symbols)
 	foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
 		const Frame *pFrame = *ppFrame;
 		if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_object)) {
-			foreach_const (ValueMap, iter, pFrame->GetValueMap()) {
+			foreach_const (ValueExMap, iter, pFrame->GetValueExMap()) {
 				symbols.insert(iter->first);
 			}
 		}
@@ -455,13 +455,13 @@ bool Class::DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag)
 		foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
 			const Frame *pFrame = *ppFrame;
 			if (pFrame->IsType(ENVTYPE_class) || pFrame->IsType(ENVTYPE_object)) {
-				foreach_const (ValueMap, iter, pFrame->GetValueMap()) {
+				foreach_const (ValueExMap, iter, pFrame->GetValueExMap()) {
 					symbols.insert(iter->first);
 				}
 			}
 		}
 	} else {
-		foreach_const (ValueMap, iter, GetTopFrame()->GetValueMap()) {
+		foreach_const (ValueExMap, iter, GetTopFrame()->GetValueExMap()) {
 			symbols.insert(iter->first);
 		}
 	}

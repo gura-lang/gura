@@ -2193,7 +2193,7 @@ Gura_ImplementFunction(dir)
 			symbolList.push_back(pSymbol);
 		}
 	} else {
-		foreach_const (ValueMap, iter, env.GetBottomFrame()->GetValueMap()) {
+		foreach_const (ValueExMap, iter, env.GetBottomFrame()->GetValueExMap()) {
 			const Symbol *pSymbol = iter->first;
 			symbolList.push_back(pSymbol);
 		}

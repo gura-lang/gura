@@ -573,7 +573,7 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 	} else if (pSymbolsToMixIn->IsSet(Symbol::Ast)) {
 		// import(hoge) {*}
 		//GetFrameOwner().DbgPrint();
-		foreach_const (ValueMap, iter, pModule->GetTopFrame()->GetValueMap()) {
+		foreach_const (ValueExMap, iter, pModule->GetTopFrame()->GetValueExMap()) {
 			const Symbol *pSymbol = iter->first;
 			const ValueEx &valueEx = iter->second;
 			if (pSymbol->IsPrivateName()) {
@@ -868,8 +868,8 @@ Environment::Frame::Frame(const Frame &frame) :
 	_valueEx_arg(VTYPE_undefined, VFLAG_None, EXTRA_None),
 	_valueEx_this(VTYPE_undefined, VFLAG_None, EXTRA_None)
 {
-	if (!frame._pValueMap.IsNull()) {
-		_pValueMap.reset(new ValueMap(*frame._pValueMap));
+	if (!frame._pValueExMap.IsNull()) {
+		_pValueExMap.reset(new ValueExMap(*frame._pValueExMap));
 	}
 	if (frame._pValueTypeMap.get() != nullptr) {
 		_pValueTypeMap.reset(new ValueTypeMap(*frame._pValueTypeMap));
@@ -893,10 +893,10 @@ void Environment::Frame::Delete(Frame *pFrame)
 #if 0
 	EnvType envType = pFrame->GetEnvType();
 	if (envType != ENVTYPE_root && envType != ENVTYPE_class &&
-										!pFrame->_pValueMap.IsNull()) {
-		const ValueMap &valueMap = *pFrame->_pValueMap;
+										!pFrame->_pValueExMap.IsNull()) {
+		const ValueExMap &valueExMap = *pFrame->_pValueExMap;
 		EnvironmentSet envSet;
-		foreach_const (ValueMap, iter, valueMap) {
+		foreach_const (ValueExMap, iter, valueExMap) {
 			const Value &value = iter->second;
 			if (value.IsObject()) {
 				//value.GetObject()->GatherFollower(pFrame, envSet);
@@ -927,10 +927,10 @@ void Environment::Frame::AssignValue(const Symbol *pSymbol, const Value &value, 
 	} else if (pSymbol->IsIdentical(Gura_Symbol(this_))) {
 		_valueEx_this = ValueEx(value, extra);
 	} else {
-		if (_pValueMap.IsNull()) _pValueMap.reset(new ValueMap());
-		ValueMap::iterator iter = _pValueMap->find(pSymbol);
-		if (iter == _pValueMap->end()) {
-			(*_pValueMap)[pSymbol] = ValueEx(value, extra);
+		if (_pValueExMap.IsNull()) _pValueExMap.reset(new ValueExMap());
+		ValueExMap::iterator iter = _pValueExMap->find(pSymbol);
+		if (iter == _pValueExMap->end()) {
+			(*_pValueExMap)[pSymbol] = ValueEx(value, extra);
 		} else {
 			if ((iter->second.GetExtra() & EXTRA_Public) != 0) extra |= EXTRA_Public;
 			iter->second = ValueEx(value, extra);
@@ -954,16 +954,16 @@ ValueEx *Environment::Frame::LookupValue(Environment &env, const Symbol *pSymbol
 		}
 		return _valueEx_this.IsValid()? &_valueEx_this : nullptr;
 	} else {
-		if (_pValueMap.IsNull()) return nullptr;
-		ValueMap::iterator iter = _pValueMap->find(pSymbol);
-		return (iter == _pValueMap->end())? nullptr : &iter->second;
+		if (_pValueExMap.IsNull()) return nullptr;
+		ValueExMap::iterator iter = _pValueExMap->find(pSymbol);
+		return (iter == _pValueExMap->end())? nullptr : &iter->second;
 	}
 }
 
 void Environment::Frame::RemoveValue(const Symbol *pSymbol)
 {
-	if (_pValueMap.IsNull()) return;
-	_pValueMap->erase(pSymbol);
+	if (_pValueExMap.IsNull()) return;
+	_pValueExMap->erase(pSymbol);
 }
 
 void Environment::Frame::AssignValueType(ValueTypeInfo *pValueTypeInfo)
@@ -990,12 +990,12 @@ SymbolSet &Environment::Frame::PrepareSymbolsPublic()
 void Environment::Frame::DbgPrint() const
 {
 	::printf("%p %-10s\n", this, GetEnvTypeName(GetEnvType()));
-	if (_pValueMap.IsNull()) {
+	if (_pValueExMap.IsNull()) {
 		::printf(" [Values] .. null\n");
 	} else {
-		::printf(" [Values] .. %p\n", _pValueMap.get());
-		if (!_pValueMap->empty()) {
-			foreach_const (ValueMap, iter, *_pValueMap) {
+		::printf(" [Values] .. %p\n", _pValueExMap.get());
+		if (!_pValueExMap->empty()) {
+			foreach_const (ValueExMap, iter, *_pValueExMap) {
 				::printf(" %s", iter->first->GetName());
 			}
 			::printf("\n");

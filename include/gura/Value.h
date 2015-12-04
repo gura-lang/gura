@@ -547,33 +547,33 @@ public:
 typedef std::vector<const Value *, Allocator<const Value *> > ValuePtrList;
 
 //-----------------------------------------------------------------------------
-// ValueMap
+// ValueExMap
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueMap : public std::unordered_map<
+class GURA_DLLDECLARE ValueExMap : public std::unordered_map<
 	const Symbol *, ValueEx, Symbol::Hasher, Symbol::EqualTo> {
 public:
-	static const ValueMap Empty;
+	static const ValueExMap Empty;
 private:
 	int _cntRef;
 public:
-	Gura_DeclareReferenceAccessor(ValueMap);
+	Gura_DeclareReferenceAccessor(ValueExMap);
 public:
 	inline static void *operator new(size_t size) {
-		return MemoryPool::Allocate(size, "ValueMap");
+		return MemoryPool::Allocate(size, "ValueExMap");
 	}
 	inline static void operator delete(void *pv) {
 		MemoryPool::Deallocate(pv);
 	}
 public:
-	inline ValueMap() : _cntRef(1) {}
-	inline ValueMap(size_t n) :
+	inline ValueExMap() : _cntRef(1) {}
+	inline ValueExMap(size_t n) :
 		std::unordered_map<const Symbol *, ValueEx, Symbol::Hasher,
 		Symbol::EqualTo>(n), _cntRef(1) {}
 private:
-	inline ~ValueMap() {}
+	inline ~ValueExMap() {}
 public:
 	inline bool IsSet(const Symbol *pSymbol) const {
-		return find(pSymbol) != const_cast<ValueMap *>(this)->end();
+		return find(pSymbol) != const_cast<ValueExMap *>(this)->end();
 	}
 };
 

@@ -56,7 +56,7 @@ Expr *Module::MakeExpr() const
 
 bool Module::DirProp(Environment &env, SymbolSet &symbols)
 {
-	foreach_const (ValueMap, iter, GetTopFrame()->GetValueMap()) {
+	foreach_const (ValueExMap, iter, GetTopFrame()->GetValueExMap()) {
 		symbols.insert(iter->first);
 	}
 	return DoDirProp(env, symbols);

@@ -448,12 +448,12 @@ Gura_ImplementMethod(template_, init_block)
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
 	pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_DynamicScope);
-	ValueMap &valueMap = pTemplate->GetValueMap();
-	if (valueMap.find(pSymbol) != valueMap.end()) {
+	ValueExMap &valueExMap = pTemplate->GetValueExMap();
+	if (valueExMap.find(pSymbol) != valueExMap.end()) {
 		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
 		return Value::Nil;
 	}
-	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
+	valueExMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
 	return Value::Nil;
 }
 
@@ -498,12 +498,12 @@ Gura_ImplementMethod(template_, init_define)
 	}
 	CallerInfo callerInfo(*pExprOwnerArg, nullptr, nullptr, nullptr);
 	if (!pFunc->CustomDeclare(env, callerInfo, SymbolSet::Empty)) return Value::Nil;
-	ValueMap &valueMap = pTemplate->GetValueMap();
-	if (valueMap.find(pSymbol) != valueMap.end()) {
+	ValueExMap &valueExMap = pTemplate->GetValueExMap();
+	if (valueExMap.find(pSymbol) != valueExMap.end()) {
 		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
 		return Value::Nil;
 	}
-	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
+	valueExMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
 	return Value::Nil;
 }
 
