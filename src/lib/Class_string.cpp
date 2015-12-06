@@ -913,7 +913,8 @@ Gura_DeclareMethod(string, width)
 		"Returns the width of the string.\n"
 		"\n"
 		"This method takes into account the character width based on the specification\n"
-		"of East Asian Width. A kanji-character occupies two characters in width.\n");
+		"of East Asian Width.\n"
+		"For example, a kanji-character of Japanese occupies two characters in width.\n");
 }
 
 Gura_ImplementMethod(string, width)
@@ -927,7 +928,7 @@ Gura_DeclareMethod(string, zentohan)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts zenkaku to hankaku characters");
+		"Converts zenkaku to hankaku characters.");
 }
 
 Gura_ImplementMethod(string, zentohan)

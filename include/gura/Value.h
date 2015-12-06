@@ -478,7 +478,12 @@ public:
 //-----------------------------------------------------------------------------
 // ValueList
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueList : public std::vector<Value, Allocator<Value> > {
+class GURA_DLLDECLARE ValueList : std::vector<Value, Allocator<Value> > {
+public:
+	typedef std::vector<Value, Allocator<Value> >::iterator iterator;
+	typedef std::vector<Value, Allocator<Value> >::const_iterator const_iterator;
+	typedef std::vector<Value, Allocator<Value> >::reverse_iterator reverse_iterator;
+	typedef std::vector<Value, Allocator<Value> >::const_reverse_iterator const_reverse_iterator;
 public:
 	static const ValueList Empty;
 public:
@@ -505,6 +510,7 @@ public:
 		push_back(value1), push_back(value2), push_back(value3);
 	}
 	ValueList(const ValueList &valList);
+public:
 	bool IsFlat() const;
 	bool DoesContain(Environment &env, const Value &value) const;
 	bool DoesContainIterator() const;
@@ -524,6 +530,65 @@ public:
 					const ValueList &valList1, const ValueList &valList2);
 	bool Serialize(Environment &env, Stream &stream) const;
 	bool Deserialize(Environment &env, Stream &stream);
+public:
+	// functions inherited from super class
+	inline void clear() {
+		std::vector<Value, Allocator<Value> >::clear();
+	}
+	inline void push_back(const Value &value) {
+		std::vector<Value, Allocator<Value> >::push_back(value);		
+	}
+	inline void insert(iterator i, const Value &value) {
+		std::vector<Value, Allocator<Value> >::insert(i, value);
+	}
+	inline iterator begin() {
+		return std::vector<Value, Allocator<Value> >::begin();
+	}
+	inline iterator end() {
+		return std::vector<Value, Allocator<Value> >::end();
+	}
+	inline const_iterator begin() const {
+		return std::vector<Value, Allocator<Value> >::begin();
+	}
+	inline const_iterator end() const {
+		return std::vector<Value, Allocator<Value> >::end();
+	}
+	inline reverse_iterator rbegin() {
+		return std::vector<Value, Allocator<Value> >::rbegin();
+	}
+	inline reverse_iterator rend() {
+		return std::vector<Value, Allocator<Value> >::rend();
+	}
+	inline const_reverse_iterator rbegin() const {
+		return std::vector<Value, Allocator<Value> >::rbegin();
+	}
+	inline const_reverse_iterator rend() const {
+		return std::vector<Value, Allocator<Value> >::rend();
+	}
+	inline size_t size() const {
+		return std::vector<Value, Allocator<Value> >::size();
+	}
+	inline void reserve(size_t n) {
+		return std::vector<Value, Allocator<Value> >::reserve(n);
+	}
+	inline Value &operator[](size_t i) {
+		return std::vector<Value, Allocator<Value> >::operator[](i);
+	}
+	inline const Value &operator[](size_t i) const {
+		return std::vector<Value, Allocator<Value> >::operator[](i);
+	}
+	inline bool empty() const {
+		return std::vector<Value, Allocator<Value> >::empty();
+	}
+	inline void erase(iterator i) {
+		std::vector<Value, Allocator<Value> >::erase(i);
+	}
+	inline const Value &front() const {
+		return std::vector<Value, Allocator<Value> >::front();
+	}
+	inline const Value &back() const {
+		return std::vector<Value, Allocator<Value> >::back();
+	}
 };
 
 //-----------------------------------------------------------------------------
