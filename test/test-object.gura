@@ -818,5 +818,10 @@ testcase('object#__call__()') {
 	tester(`'hello'.__call__(`len))
 	[1..10].__call__(`each) {|x| println(x)}
 }
+testcase('struct with implicit-mapping') {
+	Card = struct(suit:symbol, rank:number):map
+	cards = Card(`spade, 1..13)
+	println(cards::suit, ' ', cards::rank)
+}
 
 println('<<end of script>>')

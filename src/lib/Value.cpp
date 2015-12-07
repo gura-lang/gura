@@ -773,7 +773,7 @@ bool Value::LessThan::operator()(const Value &value1, const Value &value2) const
 //-----------------------------------------------------------------------------
 const ValueList ValueList::Empty;
 
-ValueList::ValueList(const ValueList &valList)
+ValueList::ValueList(const ValueList &valList) : _valType(VTYPE_undefined)
 {
 	reserve(valList.size());
 	foreach_const (ValueList, pValue, valList) {

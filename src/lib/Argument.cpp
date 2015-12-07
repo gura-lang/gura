@@ -278,6 +278,15 @@ void Argument::GetSlotValues(ValueList &valList) const
 void Argument::AssignSlotValuesToEnvironment(Environment &env)
 {
 	foreach (Slots, pSlot, _slots) {
+		const Declaration &decl = pSlot->GetDeclaration();
+		const Value &value = pSlot->GetValue();
+		env.AssignValue(decl.GetSymbol(), value, EXTRA_Public);
+	}
+}
+
+void Argument::AssignSlotValuesToEnvironmentFast(Environment &env)
+{
+	foreach (Slots, pSlot, _slots) {
 		if (pSlot->GetSlotStat() == SLOTSTAT_ValidAssigned) continue;
 		pSlot->SetSlotStat(SLOTSTAT_ValidAssigned);
 		const Declaration &decl = pSlot->GetDeclaration();
@@ -288,19 +297,17 @@ void Argument::AssignSlotValuesToEnvironment(Environment &env)
 
 Environment *Argument::PrepareEnvironment(Environment &env)
 {
-#if 1
 	if (!GetFlag(FLAG_Closure) && !_pEnvPrepared.IsNull()) {
 		_pEnvPrepared->InvalidateValueThis(); // update "this" value
-		AssignSlotValuesToEnvironment(*_pEnvPrepared);
+		AssignSlotValuesToEnvironmentFast(*_pEnvPrepared);
 		return _pEnvPrepared->Reference();
 	}
-#endif
 	Signal &sig = env.GetSignal();
 	Environment *pEnvOuter = GetFlag(FLAG_DynamicScope)? &env : &_pFunc->GetEnvScope();
 	EnvType envType = (_pFunc->GetType() == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
 	_pEnvPrepared.reset(pEnvOuter->Derive(envType));
 	_pEnvPrepared->SetAssocArgument(this);
-	AssignSlotValuesToEnvironment(*_pEnvPrepared);
+	AssignSlotValuesToEnvironmentFast(*_pEnvPrepared);
 	const Symbol *pSymbolDict = _pFunc->GetSymbolDict();
 	if (pSymbolDict != nullptr) {
 		_pEnvPrepared->AssignValue(pSymbolDict,

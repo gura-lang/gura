@@ -287,6 +287,7 @@ public:
 	inline size_t CountSlot() const { return _slots.size(); }
 	bool IsInfiniteMap() const;
 	void AssignSlotValuesToEnvironment(Environment &env);
+	void AssignSlotValuesToEnvironmentFast(Environment &env);
 	Environment *PrepareEnvironment(Environment &env);
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	inline const Expr_Block *GetBlock() const { return _pExprBlock.get(); }

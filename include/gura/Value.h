@@ -493,23 +493,29 @@ public:
 	inline static void operator delete(void *pv) {
 		MemoryPool::Deallocate(pv);
 	}
+private:
+	ValueType _valType;
 public:
-	inline ValueList() {}
-	inline ValueList(size_t n) : std::vector<Value, Allocator<Value> >(n) {}
-	inline ValueList(size_t n, const Value &value) : std::vector<Value, Allocator<Value> >(n, value) {}
-	inline ValueList(const Value &value) {
+	inline ValueList() : _valType(VTYPE_undefined) {}
+	inline ValueList(size_t n) :
+		std::vector<Value, Allocator<Value> >(n), _valType(VTYPE_undefined) {}
+	inline ValueList(size_t n, const Value &value) :
+		std::vector<Value, Allocator<Value> >(n, value), _valType(VTYPE_undefined) {}
+	inline ValueList(const Value &value) : _valType(VTYPE_undefined) {
 		reserve(1);
 		push_back(value);
 	}
-	inline ValueList(const Value &value1, const Value &value2) {
+	inline ValueList(const Value &value1, const Value &value2) : _valType(VTYPE_undefined) {
 		reserve(2);
 		push_back(value1), push_back(value2);
 	}
-	inline ValueList(const Value &value1, const Value &value2, const Value &value3) {
+	inline ValueList(const Value &value1, const Value &value2, const Value &value3) :
+												_valType(VTYPE_undefined) {
 		reserve(3);
 		push_back(value1), push_back(value2), push_back(value3);
 	}
 	ValueList(const ValueList &valList);
+	inline ValueType GetValueType() const { return _valType; }
 public:
 	bool IsFlat() const;
 	bool DoesContain(Environment &env, const Value &value) const;
