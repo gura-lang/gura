@@ -366,4 +366,20 @@ Takeshi: 21
 8
 9
 10
+
+======== #38 struct with implicit-mapping ========
+
+spade 1
+spade 2
+spade 3
+spade 4
+spade 5
+spade 6
+spade 7
+spade 8
+spade 9
+spade 10
+spade 11
+spade 12
+spade 13
 <<end of script>>
