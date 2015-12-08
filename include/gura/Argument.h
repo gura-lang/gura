@@ -285,6 +285,7 @@ public:
 	}
 	inline MapMode GetMapMode() const { return _mapMode; }
 	inline size_t CountSlot() const { return _slots.size(); }
+	inline Slot *FindSlotBySymbol(const Symbol *pSymbol) { return _slots.FindBySymbol(pSymbol); }
 	bool IsInfiniteMap() const;
 	void AssignSlotValuesToEnvironment(Environment &env);
 	void AssignSlotValuesToEnvironmentFast(Environment &env);

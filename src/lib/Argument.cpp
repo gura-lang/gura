@@ -280,7 +280,7 @@ void Argument::AssignSlotValuesToEnvironment(Environment &env)
 	foreach (Slots, pSlot, _slots) {
 		const Declaration &decl = pSlot->GetDeclaration();
 		const Value &value = pSlot->GetValue();
-		env.AssignValue(decl.GetSymbol(), value, EXTRA_Public);
+		env.AssignValue(decl.GetSymbol(), value, EXTRA_Public | EXTRA_Argument);
 	}
 }
 
@@ -291,7 +291,7 @@ void Argument::AssignSlotValuesToEnvironmentFast(Environment &env)
 		pSlot->SetSlotStat(SLOTSTAT_ValidAssigned);
 		const Declaration &decl = pSlot->GetDeclaration();
 		const Value &value = pSlot->GetValue();
-		env.AssignValue(decl.GetSymbol(), value, EXTRA_Public);
+		env.AssignValue(decl.GetSymbol(), value, EXTRA_Public | EXTRA_Argument);
 	}
 }
 

@@ -932,8 +932,16 @@ void Environment::Frame::AssignValue(const Symbol *pSymbol, const Value &value, 
 		if (iter == _pValueExMap->end()) {
 			(*_pValueExMap)[pSymbol] = ValueEx(value, extra);
 		} else {
-			if ((iter->second.GetExtra() & EXTRA_Public) != 0) extra |= EXTRA_Public;
-			iter->second = ValueEx(value, extra);
+			ULong extraDst = iter->second.GetExtra();
+			iter->second = ValueEx(value, extra | extraDst);
+			if ((extraDst & EXTRA_Argument) && _pArgWeak != nullptr) {
+				Argument::Slot *pSlot = _pArgWeak->FindSlotBySymbol(pSymbol);
+				if (pSlot != nullptr) {
+					// Clear 'assigned' status so that its value is restored
+					// when the next loop of implicit mapping begins.
+					pSlot->SetSlotStat(Argument::SLOTSTAT_Valid);
+				}
+			}
 		}
 	}
 }

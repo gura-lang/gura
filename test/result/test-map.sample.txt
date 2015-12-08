@@ -212,3 +212,10 @@ ident([nil, nil, 3]):xreduce .. 3
 ident([nil, nil, 3, 5]):xreduce .. 5
 ident([nil, nil, 3, 5, 3]):xreduce .. 3
 ident([nil, nil, 3, 5, 3, nil]):xreduce .. 3
+
+======== #11 argument initialization problem ========
+
+a = 1, b = 3, c = 4
+a = 2, b = 3, c = 4
+a = 3, b = 3, c = 4
+a = 4, b = 3, c = 4

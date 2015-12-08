@@ -151,3 +151,11 @@ testcase {
 	tester(`ident([nil, nil, 3, 5, 3]):xreduce)
 	tester(`ident([nil, nil, 3, 5, 3, nil]):xreduce)
 }
+testcase('argument initialization problem') {
+	f(a, b, c):map:void = {
+		printf('a = %s, b = %s, c = %s\n', a, b, c)
+		b = 99
+		c = 99
+	}
+	f(1..4, 3, 4)
+}
