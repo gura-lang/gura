@@ -3,13 +3,13 @@
 
 resolve(n:number, from:number, to:number, via:number) = {
 	if (n == 1) {
-		printf('%d => %d\n', from, to)
 		bars[to].Place(bars[from].Remove())
+		PrintMovement(from, to)
 		PrintStage()
 	} else {
 		resolve(n - 1, from, via, to)
-		printf('%d => %d\n', from, to)
 		bars[to].Place(bars[from].Remove())
+		PrintMovement(from, to)
 		PrintStage()
 		resolve(n - 1, via, to, from)
 	}
@@ -30,19 +30,27 @@ Bar = struct(disks[]:string) {
 	}
 }
 
+PrintMovement(from:number, to:number) = {
+	println()
+	printf('%s => %s\n', barNames[from], barNames[to])
+}
+
 PrintStage() = {
 	repeat(nDisks) {|i|
 		println(bars[0..2]:*GetLine(i).join(' '))
 	}
+	println(plates.join(' '))
 }
 
 if (sys.argv.len() < 2) {
 	sys.stderr.println('usage: gura hanoi.gura num_of_disks')
 	sys.exit(1)
 }
+barNames = '[' + ['A', 'B', 'C'] + ']'
 nDisks = int(sys.argv[1])
 disks = [(((nDisks - 1)..0) * ' ') + (((1..nDisks) * 2 - 1) * '@') + (((nDisks - 1)..0) * ' ')]
 blank = ((nDisks - 1) * ' ') + '|' + ((nDisks - 1) * ' ')
+plates = ((nDisks - 2) * '-') + barNames + ((nDisks - 2) * '-')
 bars = [Bar(disks), Bar([]), Bar([])]
 PrintStage()
 resolve(nDisks, 0, 2, 1)
