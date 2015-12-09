@@ -476,14 +476,19 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// ValueListBase
+//-----------------------------------------------------------------------------
+typedef std::vector<Value, Allocator<Value> > ValueListBase;
+
+//-----------------------------------------------------------------------------
 // ValueList
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueList : std::vector<Value, Allocator<Value> > {
+class GURA_DLLDECLARE ValueList : ValueListBase {
 public:
-	typedef std::vector<Value, Allocator<Value> >::iterator iterator;
-	typedef std::vector<Value, Allocator<Value> >::const_iterator const_iterator;
-	typedef std::vector<Value, Allocator<Value> >::reverse_iterator reverse_iterator;
-	typedef std::vector<Value, Allocator<Value> >::const_reverse_iterator const_reverse_iterator;
+	typedef ValueListBase::iterator iterator;
+	typedef ValueListBase::const_iterator const_iterator;
+	typedef ValueListBase::reverse_iterator reverse_iterator;
+	typedef ValueListBase::const_reverse_iterator const_reverse_iterator;
 public:
 	static const ValueList Empty;
 public:
@@ -498,9 +503,9 @@ private:
 public:
 	inline ValueList() : _valType(VTYPE_undefined) {}
 	inline ValueList(size_t n) :
-		std::vector<Value, Allocator<Value> >(n), _valType(VTYPE_undefined) {}
+		ValueListBase(n), _valType(VTYPE_undefined) {}
 	inline ValueList(size_t n, const Value &value) :
-		std::vector<Value, Allocator<Value> >(n, value), _valType(VTYPE_undefined) {}
+		ValueListBase(n, value), _valType(VTYPE_undefined) {}
 	inline ValueList(const Value &value) : _valType(VTYPE_undefined) {
 		reserve(1);
 		push_back(value);
@@ -539,61 +544,61 @@ public:
 public:
 	// functions inherited from super class
 	inline void clear() {
-		std::vector<Value, Allocator<Value> >::clear();
+		ValueListBase::clear();
 	}
 	inline void push_back(const Value &value) {
-		std::vector<Value, Allocator<Value> >::push_back(value);		
+		ValueListBase::push_back(value);		
 	}
 	inline void insert(iterator i, const Value &value) {
-		std::vector<Value, Allocator<Value> >::insert(i, value);
+		ValueListBase::insert(i, value);
 	}
 	inline iterator begin() {
-		return std::vector<Value, Allocator<Value> >::begin();
+		return ValueListBase::begin();
 	}
 	inline iterator end() {
-		return std::vector<Value, Allocator<Value> >::end();
+		return ValueListBase::end();
 	}
 	inline const_iterator begin() const {
-		return std::vector<Value, Allocator<Value> >::begin();
+		return ValueListBase::begin();
 	}
 	inline const_iterator end() const {
-		return std::vector<Value, Allocator<Value> >::end();
+		return ValueListBase::end();
 	}
 	inline reverse_iterator rbegin() {
-		return std::vector<Value, Allocator<Value> >::rbegin();
+		return ValueListBase::rbegin();
 	}
 	inline reverse_iterator rend() {
-		return std::vector<Value, Allocator<Value> >::rend();
+		return ValueListBase::rend();
 	}
 	inline const_reverse_iterator rbegin() const {
-		return std::vector<Value, Allocator<Value> >::rbegin();
+		return ValueListBase::rbegin();
 	}
 	inline const_reverse_iterator rend() const {
-		return std::vector<Value, Allocator<Value> >::rend();
+		return ValueListBase::rend();
 	}
 	inline size_t size() const {
-		return std::vector<Value, Allocator<Value> >::size();
+		return ValueListBase::size();
 	}
 	inline void reserve(size_t n) {
-		return std::vector<Value, Allocator<Value> >::reserve(n);
+		return ValueListBase::reserve(n);
 	}
 	inline Value &operator[](size_t i) {
-		return std::vector<Value, Allocator<Value> >::operator[](i);
+		return ValueListBase::operator[](i);
 	}
 	inline const Value &operator[](size_t i) const {
-		return std::vector<Value, Allocator<Value> >::operator[](i);
+		return ValueListBase::operator[](i);
 	}
 	inline bool empty() const {
-		return std::vector<Value, Allocator<Value> >::empty();
+		return ValueListBase::empty();
 	}
 	inline void erase(iterator i) {
-		std::vector<Value, Allocator<Value> >::erase(i);
+		ValueListBase::erase(i);
 	}
 	inline const Value &front() const {
-		return std::vector<Value, Allocator<Value> >::front();
+		return ValueListBase::front();
 	}
 	inline const Value &back() const {
-		return std::vector<Value, Allocator<Value> >::back();
+		return ValueListBase::back();
 	}
 };
 
