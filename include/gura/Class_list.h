@@ -55,7 +55,7 @@ public:
 	class IteratorReverse : public Iterator {
 	private:
 		AutoPtr<Object_list> _pObj;
-		ValueList::reverse_iterator _pValue;
+		ValueList::const_reverse_iterator _pValue;
 	public:
 		inline IteratorReverse(Object_list *pObj) :
 			Iterator(false), _pObj(pObj), _pValue(pObj->GetList().rbegin()) {}
@@ -69,7 +69,7 @@ public:
 	private:
 		AutoPtr<Object_list> _pObj;
 		int _cnt;
-		ValueList::iterator _pValue;
+		ValueList::const_iterator _pValue;
 	public:
 		inline IteratorCycle(Object_list *pObj, int cnt) :
 			Iterator(cnt < 0), _pObj(pObj), _cnt(cnt), _pValue(pObj->GetList().begin()) {}
@@ -85,8 +85,8 @@ public:
 		int _cnt;
 		bool _stickyFlagTop, _stickyFlagBtm;
 		bool _forwardFlag;
-		ValueList::iterator _pValueFwd;
-		ValueList::reverse_iterator _pValueBwd;
+		ValueList::const_iterator _pValueFwd;
+		ValueList::const_reverse_iterator _pValueBwd;
 	public:
 		inline IteratorPingpong(Object_list *pObj, int cnt, bool stickyFlagTop, bool stickyFlagBtm) :
 			Iterator(cnt < 0), _pObj(pObj), _cnt(cnt),

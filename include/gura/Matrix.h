@@ -13,7 +13,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Matrix {
 public:
-	class Elements : public ValueList {
+	class Elements : public ValueListBase {
 	private:
 		int _cntRef;
 	public:
@@ -27,7 +27,7 @@ public:
 		}
 	public:
 		inline Elements() : _cntRef(1) {}
-		inline Elements(const Elements &elements) : ValueList(elements), _cntRef(1) {}
+		inline Elements(const Elements &elements) : ValueListBase(elements), _cntRef(1) {}
 	private:
 		inline ~Elements() {}
 	};
@@ -121,10 +121,10 @@ public:
 	inline const Elements &GetElements() const { return *_pElements; }
 	//inline ValueList &GetList() { return *_pElements; }
 	//inline const ValueList &GetList() const { return *_pElements; }
-	inline ValueList::iterator GetPointer(size_t iRow, size_t iCol) {
+	inline Elements::iterator GetPointer(size_t iRow, size_t iCol) {
 		return GetElements().begin() + _iColOff + iCol + (_iRowOff + iRow) * _nFold;
 	}
-	inline ValueList::const_iterator GetPointer(size_t iRow, size_t iCol) const {
+	inline Elements::const_iterator GetPointer(size_t iRow, size_t iCol) const {
 		return GetElements().begin() + _iColOff + iCol + (_iRowOff + iRow) * _nFold;
 	}
 	inline const Value &GetElement(size_t iRow, size_t iCol) const {

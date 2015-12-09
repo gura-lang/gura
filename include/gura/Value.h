@@ -552,23 +552,11 @@ public:
 	inline void insert(iterator i, const Value &value) {
 		ValueListBase::insert(i, value);
 	}
-	inline iterator begin() {
-		return ValueListBase::begin();
-	}
-	inline iterator end() {
-		return ValueListBase::end();
-	}
 	inline const_iterator begin() const {
 		return ValueListBase::begin();
 	}
 	inline const_iterator end() const {
 		return ValueListBase::end();
-	}
-	inline reverse_iterator rbegin() {
-		return ValueListBase::rbegin();
-	}
-	inline reverse_iterator rend() {
-		return ValueListBase::rend();
 	}
 	inline const_reverse_iterator rbegin() const {
 		return ValueListBase::rbegin();
@@ -581,9 +569,6 @@ public:
 	}
 	inline void reserve(size_t n) {
 		return ValueListBase::reserve(n);
-	}
-	inline Value &operator[](size_t i) {
-		return ValueListBase::operator[](i);
 	}
 	inline const Value &operator[](size_t i) const {
 		return ValueListBase::operator[](i);
@@ -600,6 +585,23 @@ public:
 	inline const Value &back() const {
 		return ValueListBase::back();
 	}
+#if 1
+	inline iterator begin() {
+		return ValueListBase::begin();
+	}
+	inline iterator end() {
+		return ValueListBase::end();
+	}
+	inline reverse_iterator rbegin() {
+		return ValueListBase::rbegin();
+	}
+	inline reverse_iterator rend() {
+		return ValueListBase::rend();
+	}
+	inline Value &operator[](size_t i) {
+		return ValueListBase::operator[](i);
+	}
+#endif
 };
 
 //-----------------------------------------------------------------------------
