@@ -59,22 +59,22 @@ Matrix *Matrix::CreateRotation(double rad, bool transFlag, double xTrans, double
 	int sizeMat = transFlag? 3 : 2;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
 	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
-	ValueList &valList = pMat->GetElements();
+	Elements &elements = pMat->GetElements();
 	// row-1
-	valList.push_back(Value(numCos));
-	valList.push_back(Value(-numSin));
+	elements.push_back(Value(numCos));
+	elements.push_back(Value(-numSin));
 	if (transFlag) {
-		valList.push_back(Value(xTrans));
+		elements.push_back(Value(xTrans));
 	}
 	// row-2
-	valList.push_back(Value(numSin));
-	valList.push_back(Value(numCos));
+	elements.push_back(Value(numSin));
+	elements.push_back(Value(numCos));
 	if (transFlag) {
-		valList.push_back(Value(yTrans));
+		elements.push_back(Value(yTrans));
 		// row-3
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::One);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::One);
 	}
 	return pMat.release();
 }
@@ -84,32 +84,32 @@ Matrix *Matrix::CreateRotationX(double rad, bool transFlag, double xTrans, doubl
 	int sizeMat = transFlag? 4 : 3;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
 	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
-	ValueList &valList = pMat->GetElements();
+	Elements &elements = pMat->GetElements();
 	// row-1
-	valList.push_back(Value::One);
-	valList.push_back(Value::Zero);
-	valList.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
 	if (transFlag) {
-		valList.push_back(Value(xTrans));
+		elements.push_back(Value(xTrans));
 	}
 	// row-2
-	valList.push_back(Value::Zero);
-	valList.push_back(Value(numCos));
-	valList.push_back(Value(-numSin));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(numCos));
+	elements.push_back(Value(-numSin));
 	if (transFlag) {
-		valList.push_back(Value(yTrans));
+		elements.push_back(Value(yTrans));
 	}
 	// row-3
-	valList.push_back(Value::Zero);
-	valList.push_back(Value(numSin));
-	valList.push_back(Value(numCos));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(numSin));
+	elements.push_back(Value(numCos));
 	if (transFlag) {
-		valList.push_back(Value(zTrans));
+		elements.push_back(Value(zTrans));
 		// row-4
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::One);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::One);
 	}
 	return pMat.release();
 }
@@ -119,32 +119,32 @@ Matrix *Matrix::CreateRotationY(double rad, bool transFlag, double xTrans, doubl
 	int sizeMat = transFlag? 4 : 3;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
 	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
-	ValueList &valList = pMat->GetElements();
+	Elements &elements = pMat->GetElements();
 	// row-1
-	valList.push_back(Value(numCos));
-	valList.push_back(Value::Zero);
-	valList.push_back(Value(numSin));
+	elements.push_back(Value(numCos));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(numSin));
 	if (transFlag) {
-		valList.push_back(Value(xTrans));
+		elements.push_back(Value(xTrans));
 	}
 	// row-2
-	valList.push_back(Value::Zero);
-	valList.push_back(Value::One);
-	valList.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	elements.push_back(Value::Zero);
 	if (transFlag) {
-		valList.push_back(Value(yTrans));
+		elements.push_back(Value(yTrans));
 	}
 	// row-3
-	valList.push_back(Value(-numSin));
-	valList.push_back(Value::Zero);
-	valList.push_back(Value(numCos));
+	elements.push_back(Value(-numSin));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(numCos));
 	if (transFlag) {
-		valList.push_back(Value(zTrans));
+		elements.push_back(Value(zTrans));
 		// row-4
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::One);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::One);
 	}
 	return pMat.release();
 }
@@ -154,32 +154,32 @@ Matrix *Matrix::CreateRotationZ(double rad, bool transFlag, double xTrans, doubl
 	int sizeMat = transFlag? 4 : 3;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
 	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
-	ValueList &valList = pMat->GetElements();
+	Elements &elements = pMat->GetElements();
 	// row-1
-	valList.push_back(Value(numCos));
-	valList.push_back(Value(-numSin));
-	valList.push_back(Value::Zero);
+	elements.push_back(Value(numCos));
+	elements.push_back(Value(-numSin));
+	elements.push_back(Value::Zero);
 	if (transFlag) {
-		valList.push_back(Value(xTrans));
+		elements.push_back(Value(xTrans));
 	}
 	// row-2
-	valList.push_back(Value(numSin));
-	valList.push_back(Value(numCos));
-	valList.push_back(Value::Zero);
+	elements.push_back(Value(numSin));
+	elements.push_back(Value(numCos));
+	elements.push_back(Value::Zero);
 	if (transFlag) {
-		valList.push_back(Value(yTrans));
+		elements.push_back(Value(yTrans));
 	}
 	// row-3
-	valList.push_back(Value::Zero);
-	valList.push_back(Value::Zero);
-	valList.push_back(Value::One);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
 	if (transFlag) {
-		valList.push_back(Value(zTrans));
+		elements.push_back(Value(zTrans));
 		// row-4
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::Zero);
-		valList.push_back(Value::One);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::Zero);
+		elements.push_back(Value::One);
 	}
 	return pMat.release();
 }
@@ -340,14 +340,14 @@ Value Matrix::RoundOff(Environment &env, Number threshold)
 {
 	size_t nRows = GetRows(), nCols = GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valList = pMatRtn->GetElements();
+	Elements &elements = pMatRtn->GetElements();
 	foreach_const (ValueList, pValue, GetElements()) {
 		if (pValue->Is_number()) {
 			Number num = pValue->GetNumber();
 			if (num < threshold) num = 0;
-			valList.push_back(Value(num));
+			elements.push_back(Value(num));
 		} else {
-			valList.push_back(*pValue);
+			elements.push_back(*pValue);
 		}
 	}
 	return Value(new Object_matrix(env, pMatRtn.release()));
@@ -358,12 +358,12 @@ Value Matrix::Transpose(Environment &env)
 	size_t nRows = GetRows(), nCols = GetCols();
 	size_t nFold = GetFold();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nCols, nRows));
-	ValueList &valList = pMatRtn->GetElements();
+	Elements &elements = pMatRtn->GetElements();
 	for (size_t iCol = 0; iCol < nCols; iCol++) {
 		ValueList::const_iterator pValueElem = GetPointer(0, iCol);
 		size_t offset = 0;
 		for (size_t iRow = 0; iRow < nRows; iRow++, offset += nFold) {
-			valList.push_back(*(pValueElem + offset));
+			elements.push_back(*(pValueElem + offset));
 		}
 	}
 	return Value(new Object_matrix(env, pMatRtn.release()));
@@ -396,11 +396,11 @@ Value Matrix::Invert(Environment &env)
 			return Value::Nil;
 		}
 		AutoPtr<Matrix> pMatRtn(new Matrix(nCols, nRows));
-		ValueList &valList = pMatRtn->GetElements();
+		Elements &elements = pMatRtn->GetElements();
 		size_t offset = nCols;
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			for (size_t iCol = 0; iCol < nCols; iCol++, offset++) {
-				valList.push_back(mat[offset]);
+				elements.push_back(mat[offset]);
 			}
 			offset += nCols;
 		}
@@ -423,11 +423,11 @@ Value Matrix::Invert(Environment &env)
 			return Value::Nil;
 		}
 		AutoPtr<Matrix> pMatRtn(new Matrix(nCols, nRows));
-		ValueList &valList = pMatRtn->GetElements();
+		Elements &elements = pMatRtn->GetElements();
 		size_t offset = nCols;
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			for (size_t iCol = 0; iCol < nCols; iCol++, offset++) {
-				valList.push_back(mat[offset]);
+				elements.push_back(mat[offset]);
 			}
 			offset += nCols;
 		}
@@ -479,20 +479,20 @@ Value Matrix::Neg(Environment &env, const Matrix *pMat)
 	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valList = pMatRtn->GetElements();
+	Elements &elements = pMatRtn->GetElements();
 	ValueType valType = CheckValueType(*pMat);
 	if (valType == VTYPE_number) {
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valList.push_back(Value(-pValueElem->GetNumber()));
+				elements.push_back(Value(-pValueElem->GetNumber()));
 			}
 		}
 	} else if (valType == VTYPE_complex) {
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valList.push_back(Value(-pValueElem->GetComplex()));
+				elements.push_back(Value(-pValueElem->GetComplex()));
 			}
 		}
 	} else {
@@ -501,7 +501,7 @@ Value Matrix::Neg(Environment &env, const Matrix *pMat)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valList.push_back(pOperator->EvalUnary(env, *pValueElem, suffixFlag));
+				elements.push_back(pOperator->EvalUnary(env, *pValueElem, suffixFlag));
 				if (sig.IsSignalled()) return Value::Nil;
 			}
 		}
@@ -519,7 +519,7 @@ Value Matrix::AddSub(Environment &env, OpType opType,
 		return Value::Nil;
 	}
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valList = pMatRtn->GetElements();
+	Elements &elements = pMatRtn->GetElements();
 	ValueType valType1 = CheckValueType(*pMat1);
 	ValueType valType2 = CheckValueType(*pMat2);
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -530,7 +530,7 @@ Value Matrix::AddSub(Environment &env, OpType opType,
 				Number num = (opType == OPTYPE_Add)?
 						pValueElem1->GetNumber() + pValueElem2->GetNumber() :
 						pValueElem1->GetNumber() - pValueElem2->GetNumber();
-				valList.push_back(Value(num));
+				elements.push_back(Value(num));
 			}
 		}
 	} else if ((valType1 == VTYPE_complex || valType1 == VTYPE_number) &&
@@ -542,7 +542,7 @@ Value Matrix::AddSub(Environment &env, OpType opType,
 				Complex num = (opType == OPTYPE_Add)?
 						pValueElem1->GetComplex() + pValueElem2->GetComplex() :
 						pValueElem1->GetComplex() - pValueElem2->GetComplex();
-				valList.push_back(Value(num));
+				elements.push_back(Value(num));
 			}
 		}
 	} else {
@@ -551,7 +551,7 @@ Value Matrix::AddSub(Environment &env, OpType opType,
 			ValueList::const_iterator pValueElem1 = pMat1->GetPointer(iRow, 0);
 			ValueList::const_iterator pValueElem2 = pMat2->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem1++, pValueElem2++) {
-				valList.push_back(pOperator->EvalBinary(env, *pValueElem1, *pValueElem2));
+				elements.push_back(pOperator->EvalBinary(env, *pValueElem1, *pValueElem2));
 				if (sig.IsSignalled()) return Value::Nil;
 			}
 		}
@@ -570,7 +570,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
 		return Value::Nil;
 	}
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valList = pMatRtn->GetElements();
+	Elements &elements = pMatRtn->GetElements();
 	ValueType valType1 = CheckValueType(*pMat1);
 	ValueType valType2 = CheckValueType(*pMat2);
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -585,7 +585,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
 					numAccum += pValueElem1->GetNumber() *
 										(pValueElem2 + offset)->GetNumber();
 				}
-				valList.push_back(Value(numAccum));
+				elements.push_back(Value(numAccum));
 			}
 		}
 	} else if ((valType1 == VTYPE_complex || valType1 == VTYPE_number) &&
@@ -601,7 +601,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
 					numAccum += pValueElem1->GetComplex() *
 										(pValueElem2 + offset)->GetComplex();
 				}
-				valList.push_back(Value(numAccum));
+				elements.push_back(Value(numAccum));
 			}
 		}
 	} else {
@@ -625,7 +625,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
 						if (sig.IsSignalled()) return Value::Nil;
 					} while (0);
 				}
-				valList.push_back(valueAccum);
+				elements.push_back(valueAccum);
 			}
 		}
 	}
@@ -696,7 +696,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const Value &value)
 	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valListResult = pMatRtn->GetElements();
+	Elements &elementsResult = pMatRtn->GetElements();
 	ValueType valType1 = CheckValueType(*pMat);
 	ValueType valType2 = value.GetValueType();
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -704,7 +704,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const Value &value)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valListResult.push_back(Value(pValueElem->GetNumber() * num));
+				elementsResult.push_back(Value(pValueElem->GetNumber() * num));
 			}
 		}
 	} else if ((valType1 == VTYPE_complex || valType1 == VTYPE_number) &&
@@ -713,7 +713,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const Value &value)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valListResult.push_back(Value(pValueElem->GetComplex() * num));
+				elementsResult.push_back(Value(pValueElem->GetComplex() * num));
 			}
 		}
 	} else {
@@ -723,11 +723,11 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const Value &value)
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
 				Value resultElem = pOperator->EvalBinary(env, *pValueElem, value);
 				if (sig.IsSignalled()) return Value::Nil;
-				valListResult.push_back(resultElem);
+				elementsResult.push_back(resultElem);
 			}
 		}
 	}
-	if (valListResult.size() == 1) return valListResult.front();
+	if (elementsResult.size() == 1) return elementsResult.front();
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
@@ -800,7 +800,7 @@ Value Matrix::Mul(Environment &env, const Value &value, const Matrix *pMat)
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	//size_t nFold = pMat->GetFold();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valListResult = pMatRtn->GetElements();
+	Elements &elementsResult = pMatRtn->GetElements();
 	ValueType valType1 = value.GetValueType();
 	ValueType valType2 = CheckValueType(*pMat);
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -808,7 +808,7 @@ Value Matrix::Mul(Environment &env, const Value &value, const Matrix *pMat)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valListResult.push_back(Value(num * pValueElem->GetNumber()));
+				elementsResult.push_back(Value(num * pValueElem->GetNumber()));
 			}
 		}
 	} else if ((valType1 == VTYPE_complex || valType1 == VTYPE_number) &&
@@ -817,7 +817,7 @@ Value Matrix::Mul(Environment &env, const Value &value, const Matrix *pMat)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valListResult.push_back(Value(num * pValueElem->GetComplex()));
+				elementsResult.push_back(Value(num * pValueElem->GetComplex()));
 			}
 		}
 	} else {
@@ -827,11 +827,11 @@ Value Matrix::Mul(Environment &env, const Value &value, const Matrix *pMat)
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
 				Value resultElem = pOperator->EvalBinary(env, value, *pValueElem);
 				if (sig.IsSignalled()) return Value::Nil;
-				valListResult.push_back(resultElem);
+				elementsResult.push_back(resultElem);
 			}
 		}
 	}
-	if (valListResult.size() == 1) return valListResult.front();
+	if (elementsResult.size() == 1) return elementsResult.front();
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
@@ -840,7 +840,7 @@ Value Matrix::Div(Environment &env, const Matrix *pMat, const Value &value)
 	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valList = pMatRtn->GetElements();
+	Elements &elements = pMatRtn->GetElements();
 	ValueType valType1 = CheckValueType(*pMat);
 	ValueType valType2 = value.GetValueType();
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -852,7 +852,7 @@ Value Matrix::Div(Environment &env, const Matrix *pMat, const Value &value)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valList.push_back(Value(pValueElem->GetNumber() / num));
+				elements.push_back(Value(pValueElem->GetNumber() / num));
 			}
 		}
 	} else if ((valType1 == VTYPE_complex || valType1 == VTYPE_number) &&
@@ -865,7 +865,7 @@ Value Matrix::Div(Environment &env, const Matrix *pMat, const Value &value)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valList.push_back(Value(pValueElem->GetComplex() / num));
+				elements.push_back(Value(pValueElem->GetComplex() / num));
 			}
 		}
 	} else {
@@ -873,7 +873,7 @@ Value Matrix::Div(Environment &env, const Matrix *pMat, const Value &value)
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valList.push_back(pOperator->EvalBinary(env, *pValueElem, value));
+				elements.push_back(pOperator->EvalBinary(env, *pValueElem, value));
 				if (sig.IsSignalled()) return Value::Nil;
 			}
 		}
