@@ -23,7 +23,7 @@ Matrix::Matrix(size_t nRows, size_t nCols) :
 	_nRows(nRows), _nCols(nCols), _nFold(nCols), _indexForColFlag(false)
 {
 	size_t nElems = _nRows * _nCols;
-	GetList().reserve(nElems);
+	GetElements().reserve(nElems);
 }
 
 Matrix::Matrix(size_t nRows, size_t nCols, const Value &valueElem) :
@@ -32,8 +32,8 @@ Matrix::Matrix(size_t nRows, size_t nCols, const Value &valueElem) :
 	_nRows(nRows), _nCols(nCols), _nFold(nCols), _indexForColFlag(false)
 {
 	size_t nElems = _nRows * _nCols;
-	GetList().reserve(nElems);
-	for (size_t i = 0; i < nElems; i++) GetList().push_back(valueElem);
+	GetElements().reserve(nElems);
+	for (size_t i = 0; i < nElems; i++) GetElements().push_back(valueElem);
 }
 
 Matrix::Matrix(Elements *pElements,
@@ -59,7 +59,7 @@ Matrix *Matrix::CreateRotation(double rad, bool transFlag, double xTrans, double
 	int sizeMat = transFlag? 3 : 2;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
 	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
-	ValueList &valList = pMat->GetList();
+	ValueList &valList = pMat->GetElements();
 	// row-1
 	valList.push_back(Value(numCos));
 	valList.push_back(Value(-numSin));
@@ -84,7 +84,7 @@ Matrix *Matrix::CreateRotationX(double rad, bool transFlag, double xTrans, doubl
 	int sizeMat = transFlag? 4 : 3;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
 	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
-	ValueList &valList = pMat->GetList();
+	ValueList &valList = pMat->GetElements();
 	// row-1
 	valList.push_back(Value::One);
 	valList.push_back(Value::Zero);
@@ -119,7 +119,7 @@ Matrix *Matrix::CreateRotationY(double rad, bool transFlag, double xTrans, doubl
 	int sizeMat = transFlag? 4 : 3;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
 	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
-	ValueList &valList = pMat->GetList();
+	ValueList &valList = pMat->GetElements();
 	// row-1
 	valList.push_back(Value(numCos));
 	valList.push_back(Value::Zero);
@@ -154,7 +154,7 @@ Matrix *Matrix::CreateRotationZ(double rad, bool transFlag, double xTrans, doubl
 	int sizeMat = transFlag? 4 : 3;
 	Number numCos = ::cos(rad), numSin = ::sin(rad);
 	AutoPtr<Matrix> pMat(new Matrix(sizeMat, sizeMat));
-	ValueList &valList = pMat->GetList();
+	ValueList &valList = pMat->GetElements();
 	// row-1
 	valList.push_back(Value(numCos));
 	valList.push_back(Value(-numSin));
@@ -248,7 +248,7 @@ void Matrix::ToList(Environment &env, ValueList &valList, bool transposeFlag, bo
 
 Value Matrix::GetSub(Environment &env, size_t iRow, size_t iCol, size_t nRows, size_t nCols)
 {
-	AutoPtr<Matrix> pMat(new Matrix(Elements::Reference(GetElements()),
+	AutoPtr<Matrix> pMat(new Matrix(GetElements().Reference(),
 								iRow, iCol, nRows, nCols, _nFold, false));
 	return Value(new Object_matrix(env, pMat.release()));
 }
@@ -340,8 +340,8 @@ Value Matrix::RoundOff(Environment &env, Number threshold)
 {
 	size_t nRows = GetRows(), nCols = GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valList = pMatRtn->GetList();
-	foreach_const (ValueList, pValue, GetList()) {
+	ValueList &valList = pMatRtn->GetElements();
+	foreach_const (ValueList, pValue, GetElements()) {
 		if (pValue->Is_number()) {
 			Number num = pValue->GetNumber();
 			if (num < threshold) num = 0;
@@ -358,7 +358,7 @@ Value Matrix::Transpose(Environment &env)
 	size_t nRows = GetRows(), nCols = GetCols();
 	size_t nFold = GetFold();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nCols, nRows));
-	ValueList &valList = pMatRtn->GetList();
+	ValueList &valList = pMatRtn->GetElements();
 	for (size_t iCol = 0; iCol < nCols; iCol++) {
 		ValueList::const_iterator pValueElem = GetPointer(0, iCol);
 		size_t offset = 0;
@@ -396,7 +396,7 @@ Value Matrix::Invert(Environment &env)
 			return Value::Nil;
 		}
 		AutoPtr<Matrix> pMatRtn(new Matrix(nCols, nRows));
-		ValueList &valList = pMatRtn->GetList();
+		ValueList &valList = pMatRtn->GetElements();
 		size_t offset = nCols;
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			for (size_t iCol = 0; iCol < nCols; iCol++, offset++) {
@@ -423,7 +423,7 @@ Value Matrix::Invert(Environment &env)
 			return Value::Nil;
 		}
 		AutoPtr<Matrix> pMatRtn(new Matrix(nCols, nRows));
-		ValueList &valList = pMatRtn->GetList();
+		ValueList &valList = pMatRtn->GetElements();
 		size_t offset = nCols;
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			for (size_t iCol = 0; iCol < nCols; iCol++, offset++) {
@@ -479,7 +479,7 @@ Value Matrix::Neg(Environment &env, const Matrix *pMat)
 	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valList = pMatRtn->GetList();
+	ValueList &valList = pMatRtn->GetElements();
 	ValueType valType = CheckValueType(*pMat);
 	if (valType == VTYPE_number) {
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
@@ -519,7 +519,7 @@ Value Matrix::AddSub(Environment &env, OpType opType,
 		return Value::Nil;
 	}
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valList = pMatRtn->GetList();
+	ValueList &valList = pMatRtn->GetElements();
 	ValueType valType1 = CheckValueType(*pMat1);
 	ValueType valType2 = CheckValueType(*pMat2);
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -570,7 +570,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
 		return Value::Nil;
 	}
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valList = pMatRtn->GetList();
+	ValueList &valList = pMatRtn->GetElements();
 	ValueType valType1 = CheckValueType(*pMat1);
 	ValueType valType2 = CheckValueType(*pMat2);
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -696,7 +696,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const Value &value)
 	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valListResult = pMatRtn->GetList();
+	ValueList &valListResult = pMatRtn->GetElements();
 	ValueType valType1 = CheckValueType(*pMat);
 	ValueType valType2 = value.GetValueType();
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -800,7 +800,7 @@ Value Matrix::Mul(Environment &env, const Value &value, const Matrix *pMat)
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	//size_t nFold = pMat->GetFold();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valListResult = pMatRtn->GetList();
+	ValueList &valListResult = pMatRtn->GetElements();
 	ValueType valType1 = value.GetValueType();
 	ValueType valType2 = CheckValueType(*pMat);
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -840,7 +840,7 @@ Value Matrix::Div(Environment &env, const Matrix *pMat, const Value &value)
 	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	ValueList &valList = pMatRtn->GetList();
+	ValueList &valList = pMatRtn->GetElements();
 	ValueType valType1 = CheckValueType(*pMat);
 	ValueType valType2 = value.GetValueType();
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -898,7 +898,7 @@ ValueType Matrix::CheckValueType(const ValueList &valList)
 
 ValueType Matrix::CheckValueType(const Matrix &mat)
 {
-	return CheckValueType(mat.GetElements()->GetList());
+	return CheckValueType(mat.GetElements());
 }
 
 void Matrix::SetError_MatrixSizeMismatch(Signal &sig)

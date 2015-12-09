@@ -13,10 +13,9 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Matrix {
 public:
-	class Elements {
+	class Elements : public ValueList {
 	private:
 		int _cntRef;
-		ValueList _valList;
 	public:
 		Gura_DeclareReferenceAccessor(Elements);
 	public:
@@ -28,13 +27,9 @@ public:
 		}
 	public:
 		inline Elements() : _cntRef(1) {}
-		inline Elements(const Elements &elements) :
-							_cntRef(1), _valList(elements._valList) {}
+		inline Elements(const Elements &elements) : ValueList(elements), _cntRef(1) {}
 	private:
 		inline ~Elements() {}
-	public:
-		inline ValueList &GetList() { return _valList; }
-		inline const ValueList &GetList() const { return _valList; }
 	};
 	class IteratorEach : public Iterator {
 	private:
@@ -122,15 +117,15 @@ public:
 	inline size_t GetCols() const { return _nCols; }
 	inline size_t GetFold() const { return _nFold; }
 	inline bool GetIndexForColFlag() const { return _indexForColFlag; }
-	inline Elements *GetElements() { return _pElements.get(); }
-	inline const Elements *GetElements() const { return _pElements.get(); }
-	inline ValueList &GetList() { return _pElements->GetList(); }
-	inline const ValueList &GetList() const { return _pElements->GetList(); }
+	inline Elements &GetElements() { return *_pElements; }
+	inline const Elements &GetElements() const { return *_pElements; }
+	//inline ValueList &GetList() { return *_pElements; }
+	//inline const ValueList &GetList() const { return *_pElements; }
 	inline ValueList::iterator GetPointer(size_t iRow, size_t iCol) {
-		return GetList().begin() + _iColOff + iCol + (_iRowOff + iRow) * _nFold;
+		return GetElements().begin() + _iColOff + iCol + (_iRowOff + iRow) * _nFold;
 	}
 	inline ValueList::const_iterator GetPointer(size_t iRow, size_t iCol) const {
-		return GetList().begin() + _iColOff + iCol + (_iRowOff + iRow) * _nFold;
+		return GetElements().begin() + _iColOff + iCol + (_iRowOff + iRow) * _nFold;
 	}
 	inline const Value &GetElement(size_t iRow, size_t iCol) const {
 		return *GetPointer(iRow, iCol);

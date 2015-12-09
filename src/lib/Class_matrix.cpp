@@ -35,7 +35,7 @@ Value Object_matrix::EmptyIndexGet(Environment &env)
 		return Value::Nil;
 	}
 	AutoPtr<Matrix> pMat(new Matrix(
-				Matrix::Elements::Reference(_pMat->GetElements()),
+				 _pMat->GetElements().Reference(),
 				_pMat->GetRowOff(), _pMat->GetColOff(),
 				_pMat->GetRows(), _pMat->GetCols(), _pMat->GetFold(), true));
 	return Value(new Object_matrix(env, pMat.release()));
@@ -224,7 +224,7 @@ Gura_ImplementFunction(MatrixInit)
 		return Value::Nil;
 	}
 	AutoPtr<Matrix> pMat(new Matrix(nRows, nCols));
-	ValueList &valListDst = pMat->GetList();
+	ValueList &valListDst = pMat->GetElements();
 	foreach_const (ValueList, pValue, valList) {
 		if (pValue->Is_list()) {
 			foreach_const (ValueList, pValueElem, pValue->GetList()) {
@@ -812,7 +812,7 @@ bool Class_matrix::Serialize(Environment &env, Stream &stream, const Value &valu
 	Signal &sig = GetSignal();
 	Object_matrix *pObj = Object_matrix::GetObject(value);
 	Matrix *pMat = pObj->GetMatrix();
-	if (!pMat->GetList().Serialize(env, stream)) return false;
+	if (!pMat->GetElements().Serialize(env, stream)) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetRowOff()))) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetColOff()))) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetRows()))) return false;
@@ -826,7 +826,7 @@ bool Class_matrix::Deserialize(Environment &env, Stream &stream, Value &value) c
 {
 	Signal &sig = GetSignal();
 	AutoPtr<Matrix::Elements> pElements(new Matrix::Elements());
-	if (!pElements->GetList().Deserialize(env, stream)) return false;
+	if (!pElements->Deserialize(env, stream)) return false;
 	ULong iRowOff = 0, iColOff = 0;
 	ULong nRows = 0, nCols = 0;
 	ULong nFold = 0;
@@ -837,7 +837,7 @@ bool Class_matrix::Deserialize(Environment &env, Stream &stream, Value &value) c
 	if (!stream.DeserializePackedULong(sig, nCols)) return false;
 	if (!stream.DeserializePackedULong(sig, nFold)) return false;
 	if (!stream.DeserializeBoolean(sig, indexForColFlag)) return false;
-	ULong nElems = static_cast<ULong>(pElements->GetList().size());
+	ULong nElems = static_cast<ULong>(pElements->size());
 	//::printf("%d %d %d %d %d %d\n", nElems, iRowOff, iColOff, nRows, nCols, nFold);
 	if (nFold * nRows > nElems || iColOff + nCols > nFold) {
 		sig.SetError(ERR_ValueError, "invalid parameter for matrix");
