@@ -341,7 +341,7 @@ Value Matrix::RoundOff(Environment &env, Number threshold)
 	size_t nRows = GetRows(), nCols = GetCols();
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	Elements &elements = pMatRtn->GetElements();
-	foreach_const (ValueList, pValue, GetElements()) {
+	foreach_const (Elements, pValue, GetElements()) {
 		if (pValue->Is_number()) {
 			Number num = pValue->GetNumber();
 			if (num < threshold) num = 0;
