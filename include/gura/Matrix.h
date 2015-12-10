@@ -13,7 +13,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Matrix {
 public:
-	class Elements : public ValueListBase {
+	class Elements : public ValueList {
 	private:
 		int _cntRef;
 	public:
@@ -27,7 +27,7 @@ public:
 		}
 	public:
 		inline Elements() : _cntRef(1) {}
-		inline Elements(const Elements &elements) : ValueListBase(elements), _cntRef(1) {}
+		inline Elements(const Elements &elements) : ValueList(elements), _cntRef(1) {}
 	private:
 		inline ~Elements() {}
 	};

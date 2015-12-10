@@ -812,7 +812,7 @@ bool Class_matrix::Serialize(Environment &env, Stream &stream, const Value &valu
 	Signal &sig = GetSignal();
 	Object_matrix *pObj = Object_matrix::GetObject(value);
 	Matrix *pMat = pObj->GetMatrix();
-	//if (!pMat->GetElements().Serialize(env, stream)) return false;
+	if (!pMat->GetElements().Serialize(env, stream)) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetRowOff()))) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetColOff()))) return false;
 	if (!stream.SerializePackedULong(sig, static_cast<ULong>(pMat->GetRows()))) return false;
@@ -826,7 +826,7 @@ bool Class_matrix::Deserialize(Environment &env, Stream &stream, Value &value) c
 {
 	Signal &sig = GetSignal();
 	AutoPtr<Matrix::Elements> pElements(new Matrix::Elements());
-	//if (!pElements->Deserialize(env, stream)) return false;
+	if (!pElements->Deserialize(env, stream)) return false;
 	ULong iRowOff = 0, iColOff = 0;
 	ULong nRows = 0, nCols = 0;
 	ULong nFold = 0;

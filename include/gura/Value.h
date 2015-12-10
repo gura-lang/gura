@@ -483,12 +483,7 @@ typedef std::vector<Value, Allocator<Value> > ValueListBase;
 //-----------------------------------------------------------------------------
 // ValueList
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ValueList : ValueListBase {
-public:
-	typedef ValueListBase::iterator iterator;
-	typedef ValueListBase::const_iterator const_iterator;
-	typedef ValueListBase::reverse_iterator reverse_iterator;
-	typedef ValueListBase::const_reverse_iterator const_reverse_iterator;
+class GURA_DLLDECLARE ValueList : public ValueListBase {
 public:
 	static const ValueList Empty;
 public:
@@ -498,29 +493,25 @@ public:
 	inline static void operator delete(void *pv) {
 		MemoryPool::Deallocate(pv);
 	}
-private:
-	ValueType _valType;
 public:
-	inline ValueList() : _valType(VTYPE_undefined) {}
+	inline ValueList() {}
 	inline ValueList(size_t n) :
-		ValueListBase(n), _valType(VTYPE_undefined) {}
+		ValueListBase(n) {}
 	inline ValueList(size_t n, const Value &value) :
-		ValueListBase(n, value), _valType(VTYPE_undefined) {}
-	inline ValueList(const Value &value) : _valType(VTYPE_undefined) {
+		ValueListBase(n, value) {}
+	inline ValueList(const Value &value) {
 		reserve(1);
 		push_back(value);
 	}
-	inline ValueList(const Value &value1, const Value &value2) : _valType(VTYPE_undefined) {
+	inline ValueList(const Value &value1, const Value &value2) {
 		reserve(2);
 		push_back(value1), push_back(value2);
 	}
-	inline ValueList(const Value &value1, const Value &value2, const Value &value3) :
-												_valType(VTYPE_undefined) {
+	inline ValueList(const Value &value1, const Value &value2, const Value &value3) {
 		reserve(3);
 		push_back(value1), push_back(value2), push_back(value3);
 	}
 	ValueList(const ValueList &valList);
-	inline ValueType GetValueType() const { return _valType; }
 public:
 	bool IsFlat() const;
 	bool DoesContain(Environment &env, const Value &value) const;
@@ -541,65 +532,91 @@ public:
 					const ValueList &valList1, const ValueList &valList2);
 	bool Serialize(Environment &env, Stream &stream) const;
 	bool Deserialize(Environment &env, Stream &stream);
+};
+
+//-----------------------------------------------------------------------------
+// ValueListTyped
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE ValueListTyped : ValueList {
 public:
+	typedef ValueList::iterator iterator;
+	typedef ValueList::const_iterator const_iterator;
+	typedef ValueList::reverse_iterator reverse_iterator;
+	typedef ValueList::const_reverse_iterator const_reverse_iterator;
+public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "ValueListTyped");
+	}
+	inline static void operator delete(void *pv) {
+		MemoryPool::Deallocate(pv);
+	}
+private:
+	ValueType _valType;
+public:
+	inline ValueListTyped() : _valType(VTYPE_undefined) {}
+	inline ValueListTyped(size_t n) :
+		ValueList(n), _valType(VTYPE_undefined) {}
+	inline ValueListTyped(size_t n, const Value &value) :
+		ValueList(n, value), _valType(VTYPE_undefined) {}
+	inline ValueType GetValueType() const { return _valType; }
 	// functions inherited from super class
 	inline void clear() {
-		ValueListBase::clear();
+		ValueList::clear();
 	}
 	inline void push_back(const Value &value) {
-		ValueListBase::push_back(value);		
+		ValueList::push_back(value);		
 	}
 	inline void insert(iterator i, const Value &value) {
-		ValueListBase::insert(i, value);
+		ValueList::insert(i, value);
 	}
 	inline const_iterator begin() const {
-		return ValueListBase::begin();
+		return ValueList::begin();
 	}
 	inline const_iterator end() const {
-		return ValueListBase::end();
+		return ValueList::end();
 	}
 	inline const_reverse_iterator rbegin() const {
-		return ValueListBase::rbegin();
+		return ValueList::rbegin();
 	}
 	inline const_reverse_iterator rend() const {
-		return ValueListBase::rend();
+		return ValueList::rend();
 	}
 	inline size_t size() const {
-		return ValueListBase::size();
+		return ValueList::size();
 	}
 	inline void reserve(size_t n) {
-		return ValueListBase::reserve(n);
+		return ValueList::reserve(n);
 	}
 	inline const Value &operator[](size_t i) const {
-		return ValueListBase::operator[](i);
+		return ValueList::operator[](i);
 	}
 	inline bool empty() const {
-		return ValueListBase::empty();
+		return ValueList::empty();
 	}
 	inline void erase(iterator i) {
-		ValueListBase::erase(i);
+		ValueList::erase(i);
 	}
 	inline const Value &front() const {
-		return ValueListBase::front();
+		return ValueList::front();
 	}
 	inline const Value &back() const {
-		return ValueListBase::back();
+		return ValueList::back();
 	}
 #if 1
 	inline iterator begin() {
-		return ValueListBase::begin();
+		return ValueList::begin();
 	}
 	inline iterator end() {
-		return ValueListBase::end();
+		return ValueList::end();
 	}
 	inline reverse_iterator rbegin() {
-		return ValueListBase::rbegin();
+		return ValueList::rbegin();
 	}
 	inline reverse_iterator rend() {
-		return ValueListBase::rend();
+		return ValueList::rend();
 	}
 	inline Value &operator[](size_t i) {
-		return ValueListBase::operator[](i);
+		return ValueList::operator[](i);
 	}
 #endif
 };
