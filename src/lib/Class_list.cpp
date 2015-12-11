@@ -93,6 +93,7 @@ bool Object_list::ValidateAndCast(Environment &env, const Declaration *pDecl, bo
 			pDecl->SetError_ArgumentType(env, *pValue);
 			return false;
 		}
+		UpdateValueType(*pValue);
 	}
 	return true;
 }
