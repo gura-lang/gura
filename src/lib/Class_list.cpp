@@ -60,7 +60,8 @@ void Object_list::IndexSet(Environment &env, const Value &valueIdx, const Value 
 		sig.SetError(ERR_IndexError, "index is out of range");
 		return;
 	}
-	GetList()[idx] = value;
+	_valList[idx] = value;
+	UpdateValueType(value);
 }
 
 Iterator *Object_list::CreateIterator(Signal &sig)
