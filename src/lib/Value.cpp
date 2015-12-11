@@ -953,14 +953,27 @@ void ValueList::PrintlnEach(Environment &env, Stream *pStream) const
 	}
 }
 
-bool ValueList::ToStringList(Signal &sig, StringList &strList) const
+void ValueList::ToStringList(StringList &strList) const
 {
 	foreach_const (ValueList, pValue, *this) {
 		String str = pValue->ToString(false);
-		if (sig.IsSignalled()) return false;
 		strList.push_back(str);
 	}
-	return true;
+}
+
+// no elements ... VTYPE_undefined
+// mixed type .... VTYPE_any
+// single type ... that type
+ValueType ValueList::GetValueTypeOfElements() const
+{
+	ValueList::const_iterator pValue = begin();
+	if (pValue == end()) return VTYPE_undefined;
+	ValueType valTypeRtn = pValue->GetValueType();
+	pValue++;
+	for ( ; pValue != end(); pValue++) {
+		if (valTypeRtn != pValue->GetValueType()) return VTYPE_any;
+	}
+	return valTypeRtn;
 }
 
 bool ValueList::Serialize(Environment &env, Stream &stream) const

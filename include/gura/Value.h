@@ -527,7 +527,8 @@ public:
 	void PrintEach(Environment &env, Stream *pStream) const;
 	void PrintfEach(Environment &env, Stream *pStream, const char *format) const;
 	void PrintlnEach(Environment &env, Stream *pStream) const;
-	bool ToStringList(Signal &sig, StringList &strList) const;
+	void ToStringList(StringList &strList) const;
+	ValueType GetValueTypeOfElements() const;
 	static bool AssumeSameLength(Signal &sig,
 					const ValueList &valList1, const ValueList &valList2);
 	bool Serialize(Environment &env, Stream &stream) const;

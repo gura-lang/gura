@@ -192,21 +192,27 @@ public:
 	};
 private:
 	ValueList _valList;
+	ValueType _valType;
 public:
-	inline Object_list(Class *pClass) : Object(pClass) {}
-	inline Object_list(Environment &env) : Object(env.LookupClass(VTYPE_list)) {}
-	inline Object_list(Environment &env, size_t n) : Object(env.LookupClass(VTYPE_list)) {
+	inline Object_list(Class *pClass) :
+		Object(pClass), _valType(VTYPE_undefined) {}
+	inline Object_list(Environment &env) :
+		Object(env.LookupClass(VTYPE_list)), _valType(VTYPE_undefined) {}
+	inline Object_list(Environment &env, size_t n) :
+		Object(env.LookupClass(VTYPE_list)), _valType(VTYPE_undefined) {
 		_valList.reserve(n);
 	}
 	inline Object_list(Environment &env, size_t n, const Value &value) :
-						Object(env.LookupClass(VTYPE_list)), _valList(n, value) {}
+		Object(env.LookupClass(VTYPE_list)), _valList(n, value), _valType(value.GetValueType()) {}
 	inline Object_list(Environment &env, const ValueList &valList) :
-						Object(env.LookupClass(VTYPE_list)), _valList(valList) {}
+		Object(env.LookupClass(VTYPE_list)),
+		_valList(valList), _valType(valList.GetValueTypeOfElements()) {}
 	inline Object_list(const Object_list &obj) :
-									Object(obj), _valList(obj._valList) {}
+		Object(obj), _valList(obj._valList), _valType(obj._valType) {}
 	virtual Object *Clone() const;
 	inline ValueList &GetList() { return _valList; }
 	inline const ValueList &GetList() const { return _valList; }
+	inline ValueType GetValueType() const { return _valType; }
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal &sig);

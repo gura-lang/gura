@@ -96,7 +96,6 @@ Gura_DeclareFunction(dir)
 
 Gura_ImplementFunction(dir)
 {
-	Signal &sig = env.GetSignal();
 	bool addSepFlag = true;
 	bool statFlag = arg.IsSet(Gura_Symbol(stat));
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
@@ -104,7 +103,7 @@ Gura_ImplementFunction(dir)
 	bool dirFlag = arg.IsSet(Gura_Symbol(dir)) || !arg.IsSet(Gura_Symbol(file));
 	int depthMax = 0;
 	StringList patterns;
-	if (!arg.GetList(1).ToStringList(sig, patterns)) return Value::Nil;
+	arg.GetList(1).ToStringList(patterns);
 	AutoPtr<Directory> pDirectory;
 	if (arg.Is_directory(0)) {
 		pDirectory.reset(Directory::Reference(Object_directory::GetObject(arg, 0)->GetDirectory()));
@@ -370,7 +369,6 @@ Gura_DeclareFunction(walk)
 
 Gura_ImplementFunction(walk)
 {
-	Signal &sig = env.GetSignal();
 	bool addSepFlag = true;
 	bool statFlag = arg.IsSet(Gura_Symbol(stat));
 	bool ignoreCaseFlag = OAL::IgnoreCaseInPathNameFlag;
@@ -378,7 +376,7 @@ Gura_ImplementFunction(walk)
 	bool dirFlag = arg.IsSet(Gura_Symbol(dir)) || !arg.IsSet(Gura_Symbol(file));
 	int depthMax = arg.Is_number(1)? arg.GetInt(1) : -1;
 	StringList patterns;
-	if (!arg.GetList(2).ToStringList(sig, patterns)) return Value::Nil;
+	arg.GetList(2).ToStringList(patterns);
 	AutoPtr<Directory> pDirectory;
 	if (arg.Is_directory(0)) {
 		pDirectory.reset(Directory::Reference(Object_directory::GetObject(arg, 0)->GetDirectory()));
