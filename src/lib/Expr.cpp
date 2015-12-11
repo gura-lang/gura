@@ -2026,6 +2026,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 		if (sig.IsSignalled()) return Value::Nil;
 	} else {
 		ValueList valIdxList;
+		valIdxList.reserve(exprList.size());
 		foreach_const (ExprList, ppExpr, exprList) {
 			Value value = (*ppExpr)->Exec(env);
 			if (sig.IsSignalled()) {
