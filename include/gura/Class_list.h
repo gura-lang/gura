@@ -213,6 +213,14 @@ public:
 	inline ValueList &GetList() { return _valList; }
 	inline const ValueList &GetList() const { return _valList; }
 	inline ValueType GetValueType() const { return _valType; }
+	inline void UpdateValueType(const Value &value) {
+		ValueType valTypeAdded = value.GetValueType();
+		if (_valType == VTYPE_undefined) {
+			_valType = valTypeAdded;
+		} else if (_valType != valTypeAdded) {
+			_valType = VTYPE_any;
+		}
+	}
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal &sig);
