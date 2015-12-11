@@ -309,7 +309,7 @@ ErrorType Value::GetErrorType() const
 	return dynamic_cast<Object_error *>(GetObject())->GetError().GetType();
 }
 
-ValueList &Value::GetList() const
+const ValueList &Value::GetList() const
 {
 	return dynamic_cast<Object_list *>(GetObject())->GetList();
 }

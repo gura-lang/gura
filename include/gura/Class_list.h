@@ -213,6 +213,14 @@ public:
 	inline ValueList &GetList() { return _valList; }
 	inline const ValueList &GetList() const { return _valList; }
 	inline ValueType GetValueType() const { return _valType; }
+	inline void Add(const Value &value) {
+		_valList.push_back(value);
+		UpdateValueType(value);
+	}
+	inline void AddUndefined() {
+		_valList.push_back(Value::Undefined);
+		_valType = VTYPE_any;
+	}
 	inline void UpdateValueType(const Value &value) {
 		ValueType valTypeAdded = value.GetValueType();
 		if (_valType == VTYPE_undefined) {
@@ -225,6 +233,7 @@ public:
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal &sig);
 	virtual String ToString(bool exprFlag);
+	bool ValidateAndCast(Environment &env, const Declaration *pDecl, bool listElemFlag);
 	Object_list *SortRank(Signal &sig, const Value &valDirective,
 					const ValueList *pValListKey, bool rankFlag, bool stableFlag);
 };

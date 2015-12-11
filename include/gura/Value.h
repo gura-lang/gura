@@ -25,6 +25,7 @@ class Fundamental;
 class Module;
 class Class;
 class Object;
+class Object_list;
 class ValueList;
 class ValueDict;
 class ValueVisitor;
@@ -400,7 +401,8 @@ public:
 	// VTYPE_binary
 	Binary &GetBinary() const;
 	// VTYPE_list
-	ValueList &GetList() const;
+	const ValueList &GetList() const;
+	Object_list *GetObjList() const			{ return (Object_list *)_u.pFund;				}
 	// VTYPE_dict
 	ValueDict &GetDict() const;
 	// VTYPE_stream

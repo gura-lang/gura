@@ -107,12 +107,13 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 		env.LookupClass(VTYPE_list)->CastFrom(env, value, this);
 		if (sig.IsSignalled()) return false;
 		if (value.Is_list()) {
-			foreach (ValueList, pValue, value.GetList()) {
-				if (!ValidateAndCast(env, *pValue, true)) {
-					SetError_ArgumentType(env, *pValue);
-					return false;
-				}
-			}
+			if (!value.GetObjList()->ValidateAndCast(env, this, true)) return false;
+			//foreach (ValueList, pValue, value.GetList()) {
+			//	if (!ValidateAndCast(env, *pValue, true)) {
+			//		SetError_ArgumentType(env, *pValue);
+			//		return false;
+			//	}
+			//}
 		} else if (value.IsValid() || !IsOptional()) {
 			SetError_ArgumentMustBeList(env, value);
 			return false;

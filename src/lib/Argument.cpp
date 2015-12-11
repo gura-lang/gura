@@ -480,7 +480,7 @@ bool Argument::Slot::StoreValue(Environment &env, const Value &value, bool mapFl
 			*pMapMode = value.Is_iterator()? MAPMODE_ToIter : MAPMODE_ToList;
 		}
 		if (_pDecl->IsVariableLength()) {
-			_value.GetList().push_back(Value::Undefined);
+			_value.GetObjList()->AddUndefined();
 			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
 			if (pIterator.IsNull()) return false;
 			dynamic_cast<Iterator_VarLength *>(_pIteratorMap.get())->
@@ -499,7 +499,7 @@ bool Argument::Slot::StoreValue(Environment &env, const Value &value, bool mapFl
 	Value valueCasted = value;
 	if (_pDecl->ValidateAndCast(env, valueCasted)) {
 		if (_pDecl->IsVariableLength()) {
-			_value.GetList().push_back(valueCasted);
+			_value.GetObjList()->Add(valueCasted);
 			dynamic_cast<Iterator_VarLength *>(_pIteratorMap.get())->AddIterator(nullptr);
 		} else if (_value.IsUndefined()) {
 			_value = valueCasted;
