@@ -73,9 +73,10 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 		}
 		if (pAttrFront != nullptr) {
 			Value rtn;
-			ValueList &valList = rtn.InitAsList(env, pAttrFront->size());
+			Object_list *pObjList = rtn.Init_AsList(env, pAttrFront->size());
+			pObjList->Reserve(pAttrFront->size());
 			foreach_const (SymbolList, ppSymbol, *pAttrFront) {
-				valList.push_back(Value(*ppSymbol));
+				pObjList->Add(Value(*ppSymbol));
 			}
 			return rtn;
 		}
@@ -99,20 +100,21 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			return Value::Nil;
 		}
 		Value rtn;
-		ValueList &valList = rtn.InitAsList(env);
+		Object_list *pObjList = rtn.Init_AsList(env);
+		pObjList->Reserve(pAttrs->size() + 8);
 		foreach_const (SymbolSet, ppSymbol, *pAttrs) {
-			valList.push_back(Value(*ppSymbol));
+			pObjList->Add(Value(*ppSymbol));
 		}
 		ULong flag = 1;
 		const Symbol *pSymbol = nullptr;
 		for ( ; flags != 0; flags >>= 1, flag <<= 1) {
 			if ((flags & 1) != 0 && (pSymbol = Symbol::FromFlag(flag)) != nullptr) {
-				valList.push_back(Value(pSymbol));
+				pObjList->Add(Value(pSymbol));
 			}
 		}
 		if (resultMode != RSLTMODE_Normal &&
 			(pSymbol = Symbol::FromResultMode(resultMode)) != nullptr) {
-			valList.push_back(Value(pSymbol));
+			pObjList->Add(Value(pSymbol));
 		}
 		return rtn;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(attrsopt))) {
@@ -126,9 +128,10 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 		}
 		if (pAttrsOpt == nullptr) {
 			Value rtn;
-			ValueList &valList = rtn.InitAsList(env, pAttrsOpt->size());
+			Object_list *pObjList = rtn.Init_AsList(env, pAttrsOpt->size());
+			pObjList->Reserve(pAttrsOpt->size());
 			foreach_const (SymbolSet, ppSymbol, *pAttrsOpt) {
-				valList.push_back(Value(*ppSymbol));
+				pObjList->Add(Value(*ppSymbol));
 			}
 			return rtn;
 		}

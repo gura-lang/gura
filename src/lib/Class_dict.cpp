@@ -186,9 +186,10 @@ bool Object_dict::IteratorItems::DoNext(Environment &env, Value &value)
 		return false;
 	}
 	if (_pCur == _pObj->GetDict().end()) return false;
-	ValueList &valList = value.InitAsList(*_pObj);
-	valList.push_back(_pCur->first);
-	valList.push_back(_pCur->second);
+	Object_list *pObjList = value.Init_AsList(*_pObj);
+	pObjList->Reserve(2);
+	pObjList->Add(_pCur->first);
+	pObjList->Add(_pCur->second);
 	_pCur++;
 	return true;
 }

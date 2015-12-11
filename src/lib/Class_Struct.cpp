@@ -75,14 +75,14 @@ Gura_ImplementMethod(Struct, tolist)
 {
 	Object_Struct *pThis = Object_Struct::GetObjectThis(arg);
 	Value result;
-	ValueList &valList = result.InitAsList(env);
+	Object_list *pObjList = result.Init_AsList(env);
 	const DeclarationList &declList = pThis->GetDeclList();
 	foreach_const (DeclarationList, ppDecl, declList) {
 		const Value *pValue = pThis->LookupValue((*ppDecl)->GetSymbol(), ENVREF_NoEscalate);
 		if (pValue == nullptr) {
-			valList.push_back(Value::Nil);
+			pObjList->Add(Value::Nil);
 		} else {
-			valList.push_back(*pValue);
+			pObjList->Add(*pValue);
 		}
 	}
 	return result;

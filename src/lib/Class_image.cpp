@@ -980,9 +980,10 @@ Gura_ImplementMethod(image, size)
 {
 	Object_image *pThis = Object_image::GetObjectThis(arg);
 	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.push_back(static_cast<int>(pThis->GetImage()->GetWidth()));
-	valList.push_back(static_cast<int>(pThis->GetImage()->GetHeight()));
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(2);
+	pObjList->Add(static_cast<int>(pThis->GetImage()->GetWidth()));
+	pObjList->Add(static_cast<int>(pThis->GetImage()->GetHeight()));
 	return result;
 }
 

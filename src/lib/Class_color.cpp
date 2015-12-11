@@ -226,13 +226,13 @@ void Class_color::Prepare(Environment &env)
 	Gura_AssignMethod(color, tolist);
 	do {
 		Value value;
-		ValueList &valList = value.InitAsList(env);
+		Object_list *pObjList = value.Init_AsList(env);
 		size_t cnt = 0;
 		const Color::ElementEntry *elementEntries = Color::GetElementEntries(&cnt);
-		valList.reserve(cnt);
+		pObjList->Reserve(cnt);
 		for (size_t i = 0; i < cnt; i++) {
 			const Color::ElementEntry &elementEntry = elementEntries[i];
-			valList.push_back(Value(elementEntry.name));
+			pObjList->Add(Value(elementEntry.name));
 		}
 		Gura_AssignClassValue(names, value);
 	} while (0);

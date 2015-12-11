@@ -194,6 +194,7 @@ public:
 	bool Complete(Environment &env);
 	inline const Value &GetValue(size_t idxArg) const	{ return _slots[idxArg].GetValue();				}
 	void GetSlotValues(ValueList &valList) const;
+	void GetSlotValues(Object_list *pObjList) const;
 	inline bool IsType(size_t idxArg, ValueType valType) const
 														{ return GetValue(idxArg).IsType(valType); 		}
 	// invalid types

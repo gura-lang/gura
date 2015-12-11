@@ -213,9 +213,14 @@ public:
 	inline ValueList &GetList() { return _valList; }
 	inline const ValueList &GetList() const { return _valList; }
 	inline ValueType GetValueType() const { return _valType; }
+	inline size_t Size() const { return _valList.size(); }
+	inline void Reserve(size_t n) { _valList.reserve(n); }
 	inline void Add(const Value &value) {
 		_valList.push_back(value);
 		UpdateValueType(value);
+	}
+	inline void AddFast(const Value &value) {
+		_valList.push_back(value);
 	}
 	inline void AddUndefined() {
 		_valList.push_back(Value::Undefined);

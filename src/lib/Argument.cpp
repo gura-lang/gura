@@ -276,6 +276,14 @@ void Argument::GetSlotValues(ValueList &valList) const
 	}
 }
 
+void Argument::GetSlotValues(Object_list *pObjList) const
+{
+	pObjList->Reserve(pObjList->Size() + _slots.size());
+	foreach_const (Slots, pSlot, _slots) {
+		pObjList->Add(pSlot->GetValue());
+	}
+}
+
 void Argument::AssignSlotValuesToEnvironment(Environment &env)
 {
 	foreach (Slots, pSlot, _slots) {
