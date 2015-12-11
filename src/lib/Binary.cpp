@@ -260,7 +260,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 	} stat = STAT_Format;
 	ValueList::const_iterator pValueArg = valListArg.begin();
 	Value result;
-	ValueList &valList = result.InitAsList(env);
+	Object_list *pObjList = result.Init_AsList(env);
 	bool bigEndianFlag = IsBigEndian();
 	int nRepeat = 1;
 	String encoding;
@@ -326,7 +326,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			str[1] = '\0';
 			for (int i = 0; i < nRepeat; i++, pByte++) {
 				str[0] = *pByte;
-				valList.push_back(Value(str));
+				pObjList->Add(Value(str));
 			}
 			nRepeat = 1;
 		} else if (ch == 'b') {
@@ -334,7 +334,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte++) {
 				char num = *pByte;
-				valList.push_back(Value(num));
+				pObjList->Add(Value(num));
 			}
 			nRepeat = 1;
 		} else if (ch == 'B') {
@@ -342,7 +342,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte++) {
 				UChar num = *pByte;
-				valList.push_back(Value(num));
+				pObjList->Add(Value(num));
 			}
 			nRepeat = 1;
 		} else if (ch == 'h') {
@@ -350,7 +350,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			if (!UnpackForward(sig, offset, 2 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 2) {
 				short num = static_cast<short>(UnpackUShort(pByte, bigEndianFlag));
-				valList.push_back(Value(num));
+				pObjList->Add(Value(num));
 			}
 			nRepeat = 1;
 		} else if (ch == 'H') {
@@ -358,7 +358,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			if (!UnpackForward(sig, offset, 2 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 2) {
 				UShort num = UnpackUShort(pByte, bigEndianFlag);
-				valList.push_back(Value(num));
+				pObjList->Add(Value(num));
 			}
 			nRepeat = 1;
 		} else if (ch == 'i') {
@@ -366,7 +366,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 4) {
 				int num = static_cast<int>(UnpackULong(pByte, bigEndianFlag));
-				valList.push_back(Value(num));
+				pObjList->Add(Value(num));
 			}
 			nRepeat = 1;
 		} else if (ch == 'I') {
@@ -374,7 +374,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 4) {
 				UInt num = static_cast<UInt>(UnpackULong(pByte, bigEndianFlag));
-				valList.push_back(Value(num));
+				pObjList->Add(Value(num));
 			}
 			nRepeat = 1;
 		} else if (ch == 'l') {
@@ -382,7 +382,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 4) {
 				long num = static_cast<long>(UnpackULong(pByte, bigEndianFlag));
-				valList.push_back(Value(num));
+				pObjList->Add(Value(num));
 			}
 			nRepeat = 1;
 		} else if (ch == 'L') {
@@ -390,7 +390,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 4) {
 				ULong num = static_cast<ULong>(UnpackULong(pByte, bigEndianFlag));
-				valList.push_back(Value(num));
+				pObjList->Add(Value(num));
 			}
 			nRepeat = 1;
 		} else if (ch == 'q') {
@@ -398,7 +398,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 8) {
 				Int64 num = static_cast<Int64>(UnpackUInt64(pByte, bigEndianFlag));
-				valList.push_back(Value(static_cast<Number>(num)));
+				pObjList->Add(Value(static_cast<Number>(num)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'Q') {
@@ -406,7 +406,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += 8) {
 				UInt64 num = static_cast<UInt64>(UnpackUInt64(pByte, bigEndianFlag));
-				valList.push_back(Value(static_cast<Number>(num)));
+				pObjList->Add(Value(static_cast<Number>(num)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'f') {
@@ -416,7 +416,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			for (int i = 0; i < nRepeat; i++) {
 				for (int j = 0; j < 4; j++, pByte++) buff[j] = *pByte;
 				float num = *(reinterpret_cast<float *>(buff));
-				valList.push_back(Value(static_cast<Number>(num)));
+				pObjList->Add(Value(static_cast<Number>(num)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'd') {
@@ -426,7 +426,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			for (int i = 0; i < nRepeat; i++) {
 				for (int j = 0; j < 8; j++, pByte++) buff[j] = *pByte;
 				double num = *(reinterpret_cast<double *>(buff));
-				valList.push_back(Value(static_cast<Number>(num)));
+				pObjList->Add(Value(static_cast<Number>(num)));
 			}
 			nRepeat = 1;
 		} else if (ch == 's') {
@@ -448,7 +448,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 			}
 			// flush unprocessed characters
 			if (pCodec->GetDecoder()->Flush(chConv)) while (pCodec->GetDecoder()->FollowChar(chConv)) ;
-			valList.push_back(Value(str));
+			pObjList->Add(Value(str));
 			nRepeat = 1;
 		} else if (ch == 'p') {
 			//iterator pByte = begin() + offset;
