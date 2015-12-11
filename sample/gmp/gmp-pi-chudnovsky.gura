@@ -35,7 +35,7 @@ main() = {
 	pi = gmp.sqrt(pi);
 	pi *= C * PQT.Q;
 	pi /= (PQT.T + A * PQT.Q) * 12;
-	println(pi)
+	println(pi.tostring().mid(2).fold(10).fold(5):*join(' '))
 }
 
 main()
