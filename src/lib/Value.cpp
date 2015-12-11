@@ -542,6 +542,35 @@ ValueList &Value::InitAsList(Environment &env, size_t n, const Value &value)
 	return pObj->GetList();
 }
 
+Object_list *Value::Init_AsList(Environment &env)
+{
+	Object_list *pObj = new Object_list(env);
+	InitAsObject(pObj);
+	return pObj;
+}
+
+Object_list *Value::Init_AsList(Environment &env, size_t n)
+{
+	Object_list *pObj = new Object_list(env, n);
+	InitAsObject(pObj);
+	return pObj;
+}
+
+Object_list *Value::Init_AsList(Environment &env, const ValueList &valList)
+{
+	Object_list *pObj = new Object_list(env, valList);
+	InitAsObject(pObj);
+	return pObj;
+}
+
+Object_list *Value::Init_AsList(Environment &env, size_t n, const Value &value)
+{
+	Object_list *pObj = (n == 0)?
+		new Object_list(env) : new Object_list(env, n, value);
+	InitAsObject(pObj);
+	return pObj;
+}
+
 ValueDict &Value::InitAsDict(Environment &env, bool ignoreCaseFlag)
 {
 	Object_dict *pObj = new Object_dict(env, new ValueDict(ignoreCaseFlag), true);

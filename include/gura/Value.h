@@ -436,6 +436,10 @@ public:
 	ValueList &InitAsList(Environment &env, size_t n);
 	ValueList &InitAsList(Environment &env, const ValueList &valList);
 	ValueList &InitAsList(Environment &env, size_t n, const Value &value);
+	Object_list *Init_AsList(Environment &env);
+	Object_list *Init_AsList(Environment &env, size_t n);
+	Object_list *Init_AsList(Environment &env, const ValueList &valList);
+	Object_list *Init_AsList(Environment &env, size_t n, const Value &value);
 	ValueDict &InitAsDict(Environment &env, bool ignoreCaseFlag);
 	bool CastType(Environment &env, ValueType valType, Value &valueCasted) const;
 public:
