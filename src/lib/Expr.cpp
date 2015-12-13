@@ -2088,16 +2088,14 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
 	if (exprList.empty()) {
 		valueCar.EmptyIndexSet(env, valueAssigned);
 		if (sig.IsSignalled()) return Value::Nil;
-		return valueAssigned;
-	}
-	if (exprList.size() == 1) {
-		// obj[idx] = v / obj[idx] = [v, v, ..]
+	} else if (exprList.size() == 1) {
 		Value valueIdx = exprList.front()->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
 		if (valueIdx.Is_list() || valueIdx.Is_iterator()) {
 			Iterator *pIteratorIdx = valueIdx.CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Nil;
 			if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
+				// obj[idx] = [v, v, ..]
 				Iterator *pIterator = valueAssigned.CreateIterator(sig);
 				if (sig.IsSignalled()) return Value::Nil;
 				Value valueIdxEach, valueEach;
@@ -2107,12 +2105,14 @@ Value Expr_Indexer::DoAssign(Environment &env, Value &valueAssigned,
 					if (sig.IsSignalled()) break;
 				}
 			} else {
+				// obj[idx] = v
 				Value valueIdxEach;
 				while (pIteratorIdx->Next(env, valueIdxEach)) {
 					valueCar.IndexSet(env, valueIdxEach, valueAssigned);
 				}
 			}
 		} else {
+			// obj[idx] = v
 			valueCar.IndexSet(env, valueIdx, valueAssigned);
 		}
 	} else if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
