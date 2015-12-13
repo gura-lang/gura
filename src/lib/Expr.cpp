@@ -2021,6 +2021,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 	if (sig.IsSignalled()) return Value::Nil;
 	const ExprList &exprList = GetExprOwner();
 	Value result;
+#if 0
 	if (exprList.empty()) {
 		result = valueCar.EmptyIndexGet(env);
 		if (sig.IsSignalled()) return Value::Nil;
@@ -2074,6 +2075,84 @@ Value Expr_Indexer::DoExec(Environment &env) const
 			}
 		}
 	}
+#else
+	if (exprList.empty()) {
+		// obj[]
+		result = valueCar.EmptyIndexGet(env);
+		if (sig.IsSignalled()) return Value::Nil;
+	} else if (exprList.size() == 1) {
+		// obj[idx]
+		const Expr *pExpr = exprList.front();
+		Value valueIdx = pExpr->Exec(env);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(pExpr);
+			return Value::Nil;
+		}
+		if (valueIdx.Is_list() || valueIdx.Is_iterator()) {
+			ValueList &valListDst = result.InitAsList(env);
+			AutoPtr<Iterator> pIteratorIdx(valueIdx.CreateIterator(sig));
+			if (sig.IsSignalled()) return Value::Nil;
+			Value valueIdxEach;
+			while (pIteratorIdx->Next(env, valueIdxEach)) {
+				Value value = valueCar.IndexGet(env, valueIdxEach);
+				if (sig.IsSignalled()) {
+					if (sig.GetError().GetType() == ERR_IndexError &&
+						pIteratorIdx->IsInfinite()) {
+						sig.ClearSignal();
+					}
+					break;
+				}
+				valListDst.push_back(value);
+			}
+			if (sig.IsSignalled()) return Value::Nil;
+		} else {
+			result = valueCar.IndexGet(env, valueIdx);
+			if (sig.IsSignalled()) return Value::Nil;
+		}
+	} else {
+		// obj[idx, idx, ..]
+		ValueList valIdxList;
+		valIdxList.reserve(exprList.size());
+		foreach_const (ExprList, ppExpr, exprList) {
+			const Expr *pExpr = *ppExpr;
+			Value valueIdx = pExpr->Exec(env);
+			if (sig.IsSignalled()) {
+				sig.AddExprCause(pExpr);
+				return Value::Nil;
+			}
+			if (valueIdx.Is_list()) {
+				ValueVisitor_Flatten visitor(valIdxList);
+				valueIdx.Accept(visitor);
+			} else {
+				valIdxList.push_back(valueIdx);
+			}
+		}
+		ValueList &valListDst = result.InitAsList(env);
+		foreach_const (ValueList, pValueIdx, valIdxList) {
+			if (pValueIdx->Is_list() || pValueIdx->Is_iterator()) {
+				AutoPtr<Iterator> pIteratorIdx(pValueIdx->CreateIterator(sig));
+				if (sig.IsSignalled()) break;
+				Value valueIdxEach;
+				while (pIteratorIdx->Next(env, valueIdxEach)) {
+					Value value = valueCar.IndexGet(env, valueIdxEach);
+					if (sig.IsSignalled()) {
+						if (sig.GetError().GetType() == ERR_IndexError &&
+							pIteratorIdx->IsInfinite()) {
+							sig.ClearSignal();
+						}
+						break;
+					}
+					valListDst.push_back(value);
+				}
+				if (sig.IsSignalled()) return Value::Nil;
+			} else {
+				Value value = valueCar.IndexGet(env, *pValueIdx);
+				if (sig.IsSignalled()) break;
+				valListDst.push_back(value);
+			}
+		}
+	}
+#endif
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
