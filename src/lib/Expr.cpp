@@ -1780,13 +1780,14 @@ Value Expr_Block::DoExec(Environment &env) const
 	Signal &sig = env.GetSignal();
 	Value result;
 	if (env.IsType(ENVTYPE_lister)) {
-		ValueList &valList = result.InitAsList(env);
-		valList.reserve(GetExprOwner().size());
+		Object_list *pObjList = result.Init_AsList(env);
+		pObjList->Reserve(GetExprOwner().size());
 		foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
 			Value value = (*ppExpr)->Exec(env, true);
 			if (sig.IsSignalled()) return Value::Nil;
-			valList.push_back(value);
+			pObjList->AddFast(value);
 		}
+		pObjList->DetermineValueType();
 	} else {
 		foreach_const (ExprList, ppExpr, GetExprOwner()) {
 			result = (*ppExpr)->Exec(env, true);
@@ -1889,8 +1890,8 @@ Value Expr_Lister::DoExec(Environment &env) const
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
 	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.reserve(GetExprOwner().size());
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(GetExprOwner().size());
 	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		Value value = pExpr->Exec(env);
@@ -1904,13 +1905,14 @@ Value Expr_Lister::DoExec(Environment &env) const
 			}
 			Value value;
 			while (pIterator->Next(env, value)) {
-				valList.push_back(value);
+				pObjList->AddFast(value);
 			}
 			if (sig.IsSignalled()) return Value::Nil;
 		} else {
-			valList.push_back(value);
+			pObjList->AddFast(value);
 		}
 	}
+	pObjList->DetermineValueType();
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
