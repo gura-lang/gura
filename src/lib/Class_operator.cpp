@@ -229,7 +229,7 @@ Gura_ImplementMethod(operator_, entries)
 	Signal &sig = env.GetSignal();
 	Object_operator *pThis = Object_operator::GetObjectThis(arg);
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
+	Object_list *pObjList = rtn.Init_AsList(env);
 	if (arg.IsInvalid(0) || arg.GetSymbol(0)->IsIdentical(Gura_Symbol(binary))) {
 		OpType opType = pThis->GetBinaryOpType();
 		if (opType == OPTYPE_None) {
@@ -245,7 +245,7 @@ Gura_ImplementMethod(operator_, entries)
 			ValueType valTypeRight = Operator::ExtractValueTypeRight(key);
 			Expr *pExprLeft = ValueTypePool::GetInstance()->Lookup(valTypeLeft)->MakeExpr();
 			Expr *pExprRight = ValueTypePool::GetInstance()->Lookup(valTypeRight)->MakeExpr();
-			valList.push_back(Value::CreateList(env,
+			pObjList->Add(Value::CreateList(env,
 				Value(new Object_expr(env, pExprLeft)), Value(new Object_expr(env, pExprRight))));
 		}
 	} else if (arg.GetSymbol(0)->IsIdentical(Gura_Symbol(unary))) {
@@ -261,7 +261,7 @@ Gura_ImplementMethod(operator_, entries)
 			Operator::Key key = iter->first;
 			ValueType valType = Operator::ExtractValueType(key);
 			Expr *pExpr = ValueTypePool::GetInstance()->Lookup(valType)->MakeExpr();
-			valList.push_back(Value(new Object_expr(env, pExpr)));
+			pObjList->Add(Value(new Object_expr(env, pExpr)));
 		}
 	} else {
 		sig.SetError(ERR_ValueError, "invalid symbol: %s", arg.GetSymbol(0)->GetName());

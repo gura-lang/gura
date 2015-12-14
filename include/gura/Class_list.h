@@ -213,6 +213,7 @@ public:
 	inline ValueList &GetList() { return _valList; }
 	inline ValueList &_GetList() { return _valList; }
 	inline const ValueList &GetList() const { return _valList; }
+	inline void SetValueType(ValueType valType) { _valType = valType; }
 	inline ValueType GetValueType() const { return _valType; }
 	inline size_t Size() const { return _valList.size(); }
 	inline void Reserve(size_t n) { _valList.reserve(n); }
@@ -235,7 +236,7 @@ public:
 			_valType = VTYPE_any;
 		}
 	}
-	inline void UpdateValueType() {
+	inline void DetermineValueType() {
 		_valType = _valList.GetValueTypeOfElements();
 	}
 	inline bool Serialize(Environment &env, Stream &stream) const {
