@@ -211,6 +211,7 @@ public:
 		Object(obj), _valList(obj._valList), _valType(obj._valType) {}
 	virtual Object *Clone() const;
 	inline ValueList &GetList() { return _valList; }
+	inline ValueList &_GetList() { return _valList; }
 	inline const ValueList &GetList() const { return _valList; }
 	inline ValueType GetValueType() const { return _valType; }
 	inline size_t Size() const { return _valList.size(); }
@@ -233,6 +234,9 @@ public:
 		} else if (_valType != valTypeAdded) {
 			_valType = VTYPE_any;
 		}
+	}
+	inline void UpdateValueType() {
+		_valType = _valList.GetValueTypeOfElements();
 	}
 	inline bool Serialize(Environment &env, Stream &stream) const {
 		return _valList.Serialize(env, stream);
