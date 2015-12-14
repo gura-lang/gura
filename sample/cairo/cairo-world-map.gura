@@ -238,7 +238,7 @@ scope {
 	img.cairo {|cr|
 		draw_world_map(cr, img.width, img.height, FILL | STROKE)
 	}
-	img.pngwrite(fileName)
+	img.write@png(fileName)
 	println(fileName, ' was created')
 }
 /*
