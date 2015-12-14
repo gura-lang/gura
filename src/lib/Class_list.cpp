@@ -167,7 +167,7 @@ Object_list *Object_list::SortRank(Signal &sig, const Value &valDirective,
 		}
 	}
 	Value result;
-	ValueList &valListResult = result.InitAsList(env);
+	Object_list *pObjListResult = result.Init_AsList(env);
 	if (rankFlag) {
 		foreach_const (ValueList, pValue, valList) {
 			ValuePtrList::iterator ppValue = valPtrList.begin();
@@ -181,17 +181,17 @@ Object_list *Object_list::SortRank(Signal &sig, const Value &valDirective,
 				return nullptr;
 			} else {
 				int idx = static_cast<int>(ppValue - valPtrList.begin());
-				valListResult.push_back(Value(idx));
+				pObjListResult->Add(Value(idx));
 			}
 		}
 	} else if (pValListKey == nullptr) {
 		foreach_const (ValuePtrList, ppValue, valPtrList) {
-			valListResult.push_back(**ppValue);
+			pObjListResult->Add(**ppValue);
 		}
 	} else {
 		foreach_const (ValuePtrList, ppValueKey, valPtrList) {
 			const Value *pValueKey = *ppValueKey;
-			valListResult.push_back(*valuePtrMap[pValueKey]);
+			pObjListResult->Add(*valuePtrMap[pValueKey]);
 		}
 	}
 	return Object_list::Reference(Object_list::GetObject(result));
@@ -426,17 +426,17 @@ Iterator *Object_list::IteratorPermutation::GetSource()
 bool Object_list::IteratorPermutation::DoNext(Environment &env, Value &value)
 {
 	if (!_validFlag) return false;
-	ValueList &valList = value.InitAsList(*_pObj);
+	Object_list *pObjList = value.Init_AsList(*_pObj);
 	ValueList &valListSrc = _pObj->GetList();
 	if (_cnt < 0) {
 		foreach (IndexList, pIndex, _indexList) {
-			valList.push_back(valListSrc[*pIndex]);
+			pObjList->Add(valListSrc[*pIndex]);
 		}
 		_validFlag = std::next_permutation(_indexList.begin(), _indexList.end());
 	} else {
 		IndexList::iterator pIndex = _indexList.begin();
 		for (int i = 0; i < _cnt; pIndex++, i++) {
-			valList.push_back(valListSrc[*pIndex]);
+			pObjList->Add(valListSrc[*pIndex]);
 		}
 		_validFlag = std::next_partial_permutation(
 				_indexList.begin(), _indexList.begin() + _cnt, _indexList.end());
@@ -478,11 +478,11 @@ Iterator *Object_list::IteratorCombination::GetSource()
 bool Object_list::IteratorCombination::DoNext(Environment &env, Value &value)
 {
 	if (!_validFlag) return false;
-	ValueList &valList = value.InitAsList(*_pObj);
+	Object_list *pObjList = value.Init_AsList(*_pObj);
 	ValueList &valListSrc = _pObj->GetList();
 	IndexList::iterator pIndex = _indexList.begin();
 	for (int i = 0; i < _cnt; pIndex++, i++) {
-		valList.push_back(valListSrc[*pIndex]);
+		pObjList->Add(valListSrc[*pIndex]);
 	}
 	// the following function is implemented in combination.hpp
 	_validFlag = boost::next_combination(
@@ -543,7 +543,7 @@ Gura_ImplementFunction(list_xlist)
 {
 	Signal &sig = env.GetSignal();
 	Value result;
-	ValueList &valList = result.InitAsList(env);
+	Object_list *pObjList = result.Init_AsList(env);
 	foreach_const (ValueList, pValueArg, arg.GetList(0)) {
 		if (pValueArg->Is_list() || pValueArg->Is_iterator()) {
 			AutoPtr<Iterator> pIterator(pValueArg->CreateIterator(sig));
@@ -555,12 +555,12 @@ Gura_ImplementFunction(list_xlist)
 			Value value;
 			while (pIterator->Next(env, value)) {
 				if (_acceptInvalidFlag || value.IsValid()) {
-					valList.push_back(value);
+					pObjList->Add(value);
 				}
 			}
 			if (sig.IsSignalled()) return Value::Nil;
 		} else if (_acceptInvalidFlag || pValueArg->IsValid()) {
-			valList.push_back(*pValueArg);
+			pObjList->Add(*pValueArg);
 		} else {
 			// nothing to do
 		}
@@ -600,7 +600,7 @@ Gura_ImplementFunction(set_xset)
 {
 	Signal &sig = env.GetSignal();
 	Value result;
-	ValueList &valList = result.InitAsList(env);
+	Object_list *pObjList = result.Init_AsList(env);
 	if (arg.IsSet(Gura_Symbol(and))) {			// AND combination
 		ValueList valList1, valList2;
 		ValueList::const_reverse_iterator pValueArg = arg.GetList(0).rbegin();
@@ -633,7 +633,7 @@ Gura_ImplementFunction(set_xset)
 			pValListWork->clear();
 		}
 		foreach_const (ValueList, pValue, *pValListAnd) {
-			valList.push_back(*pValue);
+			pObjList->Add(*pValue);
 		}
 	} else if (arg.IsSet(Gura_Symbol(xor))) {	// XOR combination
 		ValueList valList1, valList2;
@@ -674,7 +674,7 @@ Gura_ImplementFunction(set_xset)
 		}
 		foreach_const (ValueList, pValue, valListOr) {
 			if (!pValListAnd->DoesContain(env, *pValue)) {
-				valList.push_back(*pValue);
+				pObjList->Add(*pValue);
 			}
 			if (sig.IsSignalled()) return Value::Nil;
 		}
@@ -684,8 +684,8 @@ Gura_ImplementFunction(set_xset)
 			for (Iterator *pIterator = pValue->GetIterator();
 												pIterator->Next(env, value); ) {
 				if ((_acceptInvalidFlag || value.IsValid()) &&
-											!valList.DoesContain(env, value)) {
-					valList.push_back(value);
+							!pObjList->GetList().DoesContain(env, value)) {
+					pObjList->Add(value);
 				}
 				if (sig.IsSignalled()) return Value::Nil;
 			}
@@ -722,7 +722,7 @@ Gura_ImplementFunction(ListInit)
 	const Value &valueFunc = arg.GetValue(0);
 	Value result;
 	if (pExprBlock == nullptr) {
-		result.InitAsList(env);
+		result.Init_AsList(env);
 	} else if (valueFunc.Is_function()) {
 		const Function *pFunc = valueFunc.GetFunction();
 		size_t cntArgs = pFunc->GetDeclOwner().size();
@@ -731,7 +731,7 @@ Gura_ImplementFunction(ListInit)
 			return Value::Nil;
 		}
 		AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
-		ValueList &valList = result.InitAsList(env);
+		Object_list *pObjList = result.Init_AsList(env);
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 			Value value = (*ppExpr)->Exec(*pEnvLister);
 			if (sig.IsSignalled()) {
@@ -746,7 +746,7 @@ Gura_ImplementFunction(ListInit)
 			if (!pArgSub->StoreValues(env, value.GetList())) return Value::Nil;
 			Value valueElem = pFunc->Eval(env, *pArgSub);
 			if (sig.IsSignalled()) return Value::Nil;
-			valList.push_back(valueElem);
+			pObjList->Add(valueElem);
 		}
 	} else {
 		AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
@@ -788,9 +788,9 @@ Gura_ImplementClassMethod(list, zip)
 	}
 	if (!listFlag && !iteratorFlag) {
 		Value result;
-		ValueList &valList = result.InitAsList(env);
+		Object_list *pObjList = result.Init_AsList(env);
 		foreach_const (ValueList, pValue, arg.GetList(0)) {
-			valList.push_back(*pValue);
+			pObjList->Add(*pValue);
 		}
 		return ReturnValue(env, arg, result);
 	}
@@ -2147,7 +2147,7 @@ bool Class_list::CastFrom(Environment &env, Value &value, const Declaration *pDe
 {
 	Signal &sig = GetSignal();
 	if (value.IsType(VTYPE_nil)) {
-		value.InitAsList(env);
+		value.Init_AsList(env);
 		return true;
 	} else if (value.Is_iterator()) {
 		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
@@ -2177,8 +2177,8 @@ bool Class_list::Serialize(Environment &env, Stream &stream, const Value &value)
 
 bool Class_list::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
-	ValueList &valList = value.InitAsList(env);
-	return valList.Deserialize(env, stream);
+	Object_list *pObjList = value.Init_AsList(env);
+	return pObjList->Deserialize(env, stream);
 }
 
 Object *Class_list::CreateDescendant(Environment &env, Class *pClass)

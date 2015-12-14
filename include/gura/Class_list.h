@@ -234,6 +234,12 @@ public:
 			_valType = VTYPE_any;
 		}
 	}
+	inline bool Serialize(Environment &env, Stream &stream) const {
+		return _valList.Serialize(env, stream);
+	}
+	inline bool Deserialize(Environment &env, Stream &stream) {
+		return _valList.Deserialize(env, stream);
+	}
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal &sig);
