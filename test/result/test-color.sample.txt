@@ -46,8 +46,8 @@ palette(`websafe).each():*html().join(',') .. #000000,#330000,#660000,#990000,#c
 
 ======== #5 ========
 
-expected error occurs: SyntaxError: invalid argument
-expected error occurs: SyntaxError: invalid argument
+color * [1] .. SyntaxError: invalid argument
+color * [1, 2] .. SyntaxError: invalid argument
 color * [1, 2, 3] .. <color:#010203,a:ff>
 color * [1, 2, 3, 4] .. <color:#010203,a:04>
 color * [1, 2, 3, 4, 5] .. <color:#010203,a:04>

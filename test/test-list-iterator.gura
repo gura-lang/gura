@@ -819,7 +819,16 @@ testcase('iterable#joinb') {
 	}
 }
 testcase('indexing') {
-	x = [0..99]
+	x = [0..9]
+	tester(`x[0])
+	tester(`x[9])
+	tester(`x[10])
+	tester(`x[-1])
+	tester(`x[-2])
+	tester(`x[-3])
+	tester(`x[-4])
+	tester(`x[-10])
+	tester(`x[-11])
 	tester(`x[[]])
 	tester(`x[[], []])
 	tester(`x[[], [], []])

@@ -18,7 +18,7 @@ d['apple', 'orange', 'grape'] .. [100, 80, 120]
 d['Apple', 'Orange', 'Grape'] .. [100, 80, 120]
 expected error occurs: KeyError: duplicated key ''Apple''
 d['apple', 'orange', 'grape'] .. [100, 80, 120]
-expected error occurs: KeyError: dictionary doesn't have a key ''Apple''
+d['Apple', 'Orange', 'Grape'] .. KeyError: dictionary doesn't have a key ''Apple''
 
 ======== #4 iterator indexing ========
 

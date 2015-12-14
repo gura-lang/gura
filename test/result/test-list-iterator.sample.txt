@@ -766,6 +766,15 @@ expected error occured: ValueError: invalid value type
 
 ======== #50 indexing ========
 
+x[0] .. 0
+x[9] .. 9
+x[10] .. IndexError: index is out of range
+x[-1] .. 9
+x[-2] .. 8
+x[-3] .. 7
+x[-4] .. 6
+x[-10] .. 0
+x[-11] .. IndexError: index is out of range
 x[[]] .. []
 x[[], []] .. []
 x[[], [], []] .. []

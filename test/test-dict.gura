@@ -29,11 +29,7 @@ testcase('ignore case') {
 	}
 	d = dict() { 'apple' => 100, 'orange' => 80, 'grape' => 120 }
 	tester(`d['apple', 'orange', 'grape'])
-	try {
-		tester(`d['Apple', 'Orange', 'Grape'])
-	} catch {|e|
-		println('expected error occurs: ', e.text)
-	}
+	tester(`d['Apple', 'Orange', 'Grape'])
 }
 testcase('iterator indexing') {
 	d = %{}

@@ -2,7 +2,16 @@
 sys.stdout.addcr(false)
 
 print_func(func:function) = printf('%s = %s\n', func, func.expr)
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, test.eval()):nomap
+
+tester(test:expr):map:dynamic_scope = {
+	printf('%s .. ', test)
+	try {
+		printf('%s\n', test.eval()):nomap
+	} catch {|e|
+		println(e.text)
+	}
+}
+
 I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
 
 _idxTestCase = 0

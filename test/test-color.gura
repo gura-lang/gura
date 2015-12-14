@@ -52,23 +52,11 @@ testcase {
 	tester(`palette(`websafe).each():*html().join(','))
 }
 testcase {
-	try {
-		tester(`(color * [1]))
-	} catch {|e|
-		println('expected error occurs: ', e.text)
-	}
-	try {
-		tester(`(color * [1, 2]))
-	} catch {|e|
-		println('expected error occurs: ', e.text)
-	}
+	tester(`(color * [1]))
+	tester(`(color * [1, 2]))
 	tester(`(color * [1, 2, 3]))
 	tester(`(color * [1, 2, 3, 4]))
-	try {
-		tester(`(color * [1, 2, 3, 4, 5]))
-	} catch {|e|
-		println('expected error occurs: ', e.text)
-	}
+	tester(`(color * [1, 2, 3, 4, 5]))
 	tester(`(color * [[1, 2, 3], [4, 5, 6], [7, 8, 9], [13, 14, 15, 16]]))
 }
 testcase {
