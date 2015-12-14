@@ -775,15 +775,15 @@ bool ValueListToRectangle(Signal &sig, cairo_rectangle_int_t &rectangle, const V
 Matrix *CairoToMatrix(const cairo_matrix_t &matrix)
 {
 	Matrix *pMat = new Matrix(3, 3);
-	pMat->GetList().push_back(Value(matrix.xx));
-	pMat->GetList().push_back(Value(matrix.xy));
-	pMat->GetList().push_back(Value(matrix.x0));
-	pMat->GetList().push_back(Value(matrix.yx));
-	pMat->GetList().push_back(Value(matrix.yy));
-	pMat->GetList().push_back(Value(matrix.y0));
-	pMat->GetList().push_back(Value(0.));
-	pMat->GetList().push_back(Value(0.));
-	pMat->GetList().push_back(Value(1.));
+	pMat->GetElements().push_back(Value(matrix.xx));
+	pMat->GetElements().push_back(Value(matrix.xy));
+	pMat->GetElements().push_back(Value(matrix.x0));
+	pMat->GetElements().push_back(Value(matrix.yx));
+	pMat->GetElements().push_back(Value(matrix.yy));
+	pMat->GetElements().push_back(Value(matrix.y0));
+	pMat->GetElements().push_back(Value(0.));
+	pMat->GetElements().push_back(Value(0.));
+	pMat->GetElements().push_back(Value(1.));
 	return pMat;
 }
 

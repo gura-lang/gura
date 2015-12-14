@@ -127,7 +127,7 @@ wxHtmlOpeningStatus wx_HtmlWindow::OnOpeningURL(wxHtmlURLType type, const wxStri
 	valList.push_back(Value(url.ToUTF8()));
 	Value rtn = _pObj->EvalMethod(*_pObj, pFunc, valList);
 	if (!CheckMethodResult(_pObj->GetSignal(), rtn, VTYPE_list)) return wxHTML_OPEN;
-	ValueList &valListRtn = rtn.GetList();
+	const ValueList &valListRtn = rtn.GetList();
 	if (valListRtn.size() != 2) {
 		_pObj->GetSignal().SetError(ERR_ValueError, "a list of two elements is expected");
 		return wxHTML_OPEN;

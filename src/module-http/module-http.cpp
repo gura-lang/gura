@@ -2430,21 +2430,21 @@ Gura_DeclareFunction(addproxy)
 Gura_ImplementFunction(addproxy)
 {
 	Signal &sig = env.GetSignal();
-	ValueList *pValList = nullptr;
+	Object_list *pObjList = nullptr;
 	Value *pValue = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), ENVREF_NoEscalate);
 	if (pValue == nullptr || !pValue->Is_list()) {
 		Value value;
-		pValList = &value.InitAsList(env);
+		pObjList = value.Init_AsList(env);
 		_pEnvThis->AssignValue(Gura_UserSymbol(proxies), value, EXTRA_Public);
 	} else {
-		pValList = &pValue->GetList();
+		pObjList = pValue->GetObjList();
 	}
 	const Function *pFuncCriteria = arg.GetBlockFunc(env, GetSymbolForBlock());
 	Value value(new Object_proxy(arg.GetString(0), arg.GetShort(1),
 				arg.Is_string(2)? arg.GetString(2) : "",
 				arg.Is_string(3)? arg.GetString(3) : "",
 				Function::Reference(pFuncCriteria)));
-	pValList->push_back(value);
+	pObjList->Add(value);
 	return Value::Nil;
 }
 
