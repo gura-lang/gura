@@ -280,6 +280,17 @@ public:
 	static bool PutNestIndent(Signal &sig, SimpleStream &stream,
 							  int nestLevel, const char *strIndent);
 	static ScriptStyle SymbolToScriptStyle(const Symbol *pSymbol);
+public:
+	static Expr_Caller *CreateCaller(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol);
+	static Expr_Caller *CreateCaller(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+									 Expr *pExprArg1);
+	static Expr_Caller *CreateCaller(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+									 Expr *pExprArg1, Expr *pExprArg2);
+	static Expr_Caller *CreateCaller(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+									 Expr *pExprArg1, Expr *pExprArg2, Expr *pExprArg3);
+	static Expr_Caller *CreateCaller(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+									 Expr *pExprArg1, Expr *pExprArg2, Expr *pExprArg3,
+									 Expr *pExprArg4);
 };
 
 //-----------------------------------------------------------------------------
@@ -829,15 +840,6 @@ public:
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
-	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol);
-	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
-						Expr *pExprArg1);
-	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
-						Expr *pExprArg1, Expr *pExprArg2);
-	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
-						Expr *pExprArg1, Expr *pExprArg2, Expr *pExprArg3);
-	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
-						Expr *pExprArg1, Expr *pExprArg2, Expr *pExprArg3, Expr *pExprArg4);
 	void UpdateCallerInfo();
 	bool AddAttr(const Symbol *pSymbol);
 	void AddAttrs(const SymbolSet &symbolSet);

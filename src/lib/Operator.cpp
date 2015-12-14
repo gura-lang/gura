@@ -1069,7 +1069,7 @@ Expr *Operator_Pow::MathDiffBinary(Environment &env,
 			Operator_Mul::MathOptimize(
 				env,
 				pExprDiff2.release(),
-				Expr_Caller::Create(
+				Expr::CreateCaller(
 					Gura_Symbol(math), Gura_Symbol(log), pExprLeft->Clone())),
 			Operator_Pow::MathOptimize(
 				env, pExprLeft->Clone(), pExprRight->Clone())));

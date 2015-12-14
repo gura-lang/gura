@@ -168,7 +168,7 @@ Gura_ImplementMathDiff(acos)
 	return new Expr_BinaryOp(
 		env.GetOperator(OPTYPE_Div),
 		new Expr_Value(-1),
-		Expr_Caller::Create(
+		Expr::CreateCaller(
 			Gura_Symbol(math), Gura_Symbol(sqrt),
 			new Expr_BinaryOp(
 				env.GetOperator(OPTYPE_Sub),
@@ -211,7 +211,7 @@ Gura_ImplementMathDiff(asin)
 	return new Expr_BinaryOp(
 		env.GetOperator(OPTYPE_Div),
 		new Expr_Value(1),
-		Expr_Caller::Create(
+		Expr::CreateCaller(
 			Gura_Symbol(math), Gura_Symbol(sqrt),
 			new Expr_BinaryOp(
 				env.GetOperator(OPTYPE_Sub),
@@ -347,7 +347,7 @@ Gura_ImplementMathDiff(cos)
 	// cos(x)' = -sin(x)
 	return new Expr_UnaryOp(
 		env.GetOperator(OPTYPE_Neg),
-		Expr_Caller::Create(
+		Expr::CreateCaller(
 			Gura_Symbol(math), Gura_Symbol(sin),
 			pExprArg->Clone()),
 		false);
@@ -406,7 +406,7 @@ Gura_ImplementFunction(exp)
 Gura_ImplementMathDiff(exp)
 {
 	// exp(x)' = exp(x)
-	return Expr_Caller::Create(
+	return Expr::CreateCaller(
 		Gura_Symbol(math), Gura_Symbol(exp),
 		pExprArg->Clone());
 }
@@ -534,7 +534,7 @@ Gura_ImplementMathDiff(log10)
 		new Expr_BinaryOp(
 			env.GetOperator(OPTYPE_Mul),
 			pExprArg->Clone(),
-			Expr_Caller::Create(
+			Expr::CreateCaller(
 				Gura_Symbol(math), Gura_Symbol(log),
 				new Expr_Value(10))));
 }
@@ -570,7 +570,7 @@ Gura_ImplementFunction(sin)
 Gura_ImplementMathDiff(sin)
 {
 	// sin(x)' = cos(x)
-	return Expr_Caller::Create(
+	return Expr::CreateCaller(
 		Gura_Symbol(math), Gura_Symbol(cos),
 		pExprArg->Clone());
 }
@@ -638,7 +638,7 @@ Gura_ImplementMathDiff(sqrt)
 		new Expr_BinaryOp(
 			env.GetOperator(OPTYPE_Mul),
 			new Expr_Value(2),
-			Expr_Caller::Create(
+			Expr::CreateCaller(
 				Gura_Symbol(math), Gura_Symbol(sqrt),
 				pExprArg->Clone())));
 }
@@ -679,7 +679,7 @@ Gura_ImplementMathDiff(tan)
 		new Expr_Value(1),
 		new Expr_BinaryOp(
 			env.GetOperator(OPTYPE_Pow),
-			Expr_Caller::Create(
+			Expr::CreateCaller(
 				Gura_Symbol(math), Gura_Symbol(cos),
 				pExprArg->Clone()),
 			new Expr_Value(2)));
