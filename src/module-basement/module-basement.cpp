@@ -380,12 +380,13 @@ bool Func_dim_Sub(Environment &env, const Function *pFuncBlock, ValueList &valLi
 	} else {
 		for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
 			Value result;
-			ValueList &valList = result.InitAsList(env);
+			Object_list *pObjList = result.Init_AsList(env);
 			valListParent.push_back(result);
-			if (!Func_dim_Sub(env, pFuncBlock, valList,
+			if (!Func_dim_Sub(env, pFuncBlock, pObjList->_GetList(),
 									cntList, pCnt + 1, idxList, pIdx + 1)) {
 				return false;
 			}
+			pObjList->DetermineValueType();
 		}
 	}
 	return true;
@@ -405,11 +406,12 @@ Gura_ImplementFunction(dim)
 		idxList.push_back(0);
 	}
 	Value result;
-	ValueList &valList = result.InitAsList(env);
-	if (!Func_dim_Sub(*pEnvBlock, pFuncBlock, valList,
+	Object_list *pObjList = result.Init_AsList(env);
+	if (!Func_dim_Sub(*pEnvBlock, pFuncBlock, pObjList->_GetList(),
 						cntList, cntList.begin(), idxList, idxList.begin())) {
 		return Value::Nil;
 	}
+	pObjList->DetermineValueType();
 	return result;
 }
 
@@ -2200,12 +2202,13 @@ Gura_ImplementFunction(dir)
 	}
 	if (sortFlag) symbolList.SortByName();
 	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.reserve(symbolList.size());
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(symbolList.size());
 	foreach_const (SymbolList, ppSymbol, symbolList) {
 		const Symbol *pSymbol = *ppSymbol;
-		valList.push_back(Value(pSymbol));
+		pObjList->AddFast(Value(pSymbol));
 	}
+	pObjList->SetValueType(VTYPE_symbol);
 	return result;
 }
 
@@ -2246,12 +2249,13 @@ Gura_ImplementFunction(dirtype)
 	}
 	if (sortFlag) symbolList.SortByName();
 	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.reserve(symbolList.size());
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(symbolList.size());
 	foreach_const (SymbolList, ppSymbol, symbolList) {
 		const Symbol *pSymbol = *ppSymbol;
-		valList.push_back(Value(pSymbol));
+		pObjList->AddFast(Value(pSymbol));
 	}
+	pObjList->SetValueType(VTYPE_symbol);
 	return result;
 }
 

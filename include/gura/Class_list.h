@@ -213,7 +213,9 @@ public:
 	inline ValueList &GetList() { return _valList; }
 	inline ValueList &_GetList() { return _valList; }
 	inline const ValueList &GetList() const { return _valList; }
-	inline void SetValueType(ValueType valType) { _valType = valType; }
+	inline void SetValueType(ValueType valType) {
+		_valType = _valList.empty()? VTYPE_undefined : valType;
+	}
 	inline ValueType GetValueType() const { return _valType; }
 	inline size_t Size() const { return _valList.size(); }
 	inline bool Empty() const { return _valList.empty(); }
