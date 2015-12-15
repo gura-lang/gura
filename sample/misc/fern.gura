@@ -1,0 +1,42 @@
+#!/usr/bin/env gura
+// original code: http://qiita.com/noc06140728/items/8b8f06cfc312b8492df4
+import(show)
+
+N = 20
+xm = 0
+ym = 0.5
+h = 0.6
+
+width = 500
+height = 500
+
+W1x(x, y) = 0.836 * x + 0.044 * y
+W1y(x, y) = -0.044 * x + 0.836 * y + 0.169
+W2x(x, y) = -0.141 * x + 0.302 * y
+W2y(x, y) = 0.302 * x + 0.141 * y + 0.127
+W3x(x, y) = 0.141 * x - 0.302 * y
+W3y(x, y) = 0.302 * x + 0.141 * y + 0.169
+W4x(x, y) = 0
+W4y(x, y) = 0.175337 * y
+
+f(k, x, y) = {
+	if (0 < k) {
+		f(k - 1, W1x(x, y), W1y(x, y))
+		if (rand() < 0.3) {
+			f(k - 1, W2x(x, y), W2y(x, y))
+		}
+		if (rand() < 0.3) {
+			f(k - 1, W3x(x, y), W3y(x, y))
+		}
+		if (rand() < 0.3) {
+			f(k - 1, W4x(x, y), W4y(x, y))
+		}
+	} else {
+		s = 490
+		img.putpixel(int(x * s + width * 0.5), int(height - y * s), `green)
+	}
+}
+	
+img = image(`rgba, width, height, `white)
+f(N, 0, 0)
+img.show()
