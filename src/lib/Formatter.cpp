@@ -258,12 +258,12 @@ Value Formatter::FormatIterator(Environment &env,
 {
 	Signal &sig = env.GetSignal();
 	Value result;
-	ValueList &valListResult = result.InitAsList(env);
+	Object_list *pObjListResult = result.Init_AsList(env);
 	ValueList valList;
 	while (iterOwner.Next(env, valList)) {
 		String str = FormatValueList(sig, format, valList);
 		if (sig.IsSignalled()) return Value::Nil;
-		valListResult.push_back(Value(str));
+		pObjListResult->Add(Value(str));
 	}
 	if (sig.IsSignalled()) return Value::Nil;
 	return result;

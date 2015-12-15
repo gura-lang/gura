@@ -159,6 +159,7 @@ class Expr_Caller;
 class CustomClass;
 class CustomFunction;
 class Object_dict;
+class Object_list;
 class Callable;
 class Iterator;
 class IteratorOwner;
@@ -337,7 +338,7 @@ private:
 	ResultMode _resultMode;
 	ULong _flags;
 	Value _valueResult;
-	ValueList *_pValList;
+	Object_list *_pObjList;
 	size_t _cntAdded;
 public:
 	ResultComposer(Environment &env, ValueType valTypeResult,
@@ -353,7 +354,7 @@ private:
 	inline void Initialize(Environment &env) {
 		if (_resultMode == RSLTMODE_List || _resultMode == RSLTMODE_XList ||
 			_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) {
-			_pValList = &_valueResult.InitAsList(env);
+			_pObjList = _valueResult.Init_AsList(env);
 		}
 	}
 };
