@@ -495,10 +495,12 @@ Value FindString(Environment &env, const char *str, const char *sub, int start,
 				valListOrg.push_back(Value(static_cast<Number>(p - str)));
 			}
 			Value result;
-			ValueList &valList = result.InitAsList(env);
+			Object_list *pObjList = result.Init_AsList(env);
+			pObjList->Reserve(valListOrg.size());
 			foreach_reverse (ValueList, pValue, valListOrg) {
-				valList.push_back(*pValue);
+				pObjList->AddFast(*pValue);
 			}
+			pObjList->SetValueType(VTYPE_number);
 			return result;
 		} else {
 			const char *pLast = nullptr;
@@ -513,10 +515,11 @@ Value FindString(Environment &env, const char *str, const char *sub, int start,
 		//if (attrs.IsSet(Gura_Symbol(list))) {
 		if (listFlag) {
 			Value result;
-			ValueList &valList = result.InitAsList(env);
+			Object_list *pObjList = result.Init_AsList(env);
 			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
-				valList.push_back(Value(static_cast<Number>(p - str)));
+				pObjList->AddFast(Value(static_cast<Number>(p - str)));
 			}
+			pObjList->SetValueType(VTYPE_number);
 			return result;
 		} else {
 			return (p == nullptr)? Value::Nil :
