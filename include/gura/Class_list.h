@@ -216,6 +216,7 @@ public:
 	inline void SetValueType(ValueType valType) { _valType = valType; }
 	inline ValueType GetValueType() const { return _valType; }
 	inline size_t Size() const { return _valList.size(); }
+	inline bool Empty() const { return _valList.empty(); }
 	inline void Reserve(size_t n) { _valList.reserve(n); }
 	inline void Clear() {
 		_valList.clear();

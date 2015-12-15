@@ -1501,8 +1501,12 @@ Iterator *Iterator_Zipv::GetSource()
 
 bool Iterator_Zipv::DoNext(Environment &env, Value &value)
 {
-	ValueList &valList = value.InitAsList(env);
-	return _iterOwner.Next(env, valList);
+	Object_list *pObjList = value.Init_AsList(env);
+	if (_iterOwner.Next(env, pObjList->_GetList())) {
+		pObjList->DetermineValueType();
+		return true;
+	}
+	return false;
 }
 
 String Iterator_Zipv::ToString() const
@@ -1643,36 +1647,36 @@ bool Iterator_Fold::DoNext(Environment &env, Value &value)
 	if (_doneFlag) return false;
 	Value valueElem;
 	Value valueNext;
-	ValueList &valList = valueNext.InitAsList(env);
-	valList.reserve(_cnt);
+	Object_list *pObjList = valueNext.Init_AsList(env);
+	pObjList->Reserve(_cnt);
 	if (_cntStep < _cnt) {
 		foreach (ValueList, pValue, _valListRemain) {
-			valList.push_back(*pValue);
+			pObjList->Add(*pValue);
 		}
 		_valListRemain.clear();
 		bool newElemFlag = false;
-		while (valList.size() < _cnt) {
+		while (pObjList->Size() < _cnt) {
 			if (!_pIterator->Next(env, valueElem)) {
 				_doneFlag = true;
 				break;
 			}
 			newElemFlag = true;
-			valList.push_back(valueElem);
+			pObjList->Add(valueElem);
 		}
 		if (!newElemFlag || sig.IsSignalled()) return false;
-		if (valList.size() > _cntStep) {
-			for (ValueList::iterator pValue = valList.begin() + _cntStep;
-			 						pValue != valList.end(); pValue++) {
+		if (pObjList->Size() > _cntStep) {
+			for (ValueList::const_iterator pValue = pObjList->GetList().begin() + _cntStep;
+								 pValue != pObjList->GetList().end(); pValue++) {
 				_valListRemain.push_back(*pValue);
 			}
 		}
 	} else {
-		while (valList.size() < _cnt) {
+		while (pObjList->Size() < _cnt) {
 			if (!_pIterator->Next(env, valueElem)) {
 				_doneFlag = true;
 				break;
 			}
-			valList.push_back(valueElem);
+			pObjList->Add(valueElem);
 		}
 		if (sig.IsSignalled()) return false;
 		for (size_t n = _cntStep - _cnt; n > 0; n--) {
@@ -1683,7 +1687,7 @@ bool Iterator_Fold::DoNext(Environment &env, Value &value)
 		}
 		if (sig.IsSignalled()) return false;
 	}
-	if (valList.empty() || (_neatFlag && valList.size() < _cnt)) {
+	if (pObjList->Empty() || (_neatFlag && pObjList->Size() < _cnt)) {
 		return false;
 	} else if (_listItemFlag) {
 		value = valueNext;
