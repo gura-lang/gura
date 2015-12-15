@@ -1924,14 +1924,14 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 	const ExprList &exprList = GetExprOwner();
 	if (valueAssigned.Is_list() || valueAssigned.Is_iterator()) {
 		// [a, b, ..] = [v, v, ..]
-		ValueList *pValList = nullptr;
+		Object_list *pObjList = nullptr;
 		ExprList::const_iterator ppExpr = exprList.begin();
 		AutoPtr<Iterator> pIterator(valueAssigned.CreateIterator(sig));
 		if (pIterator.IsNull()) return Value::Nil;
 		Value valueElem;
 		while (pIterator->Next(env, valueElem)) {
-			if (pValList != nullptr) {
-				pValList->push_back(valueElem);
+			if (pObjList != nullptr) {
+				pObjList->Add(valueElem);
 				continue;
 			}
 			if (ppExpr == exprList.end()) break;
@@ -1951,10 +1951,10 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 			}
 			if (occurPattern == OCCUR_ZeroOrMore || occurPattern == OCCUR_OnceOrMore) {
 				Value value;
-				pValList = &value.InitAsList(env);
+				pObjList = value.Init_AsList(env);
 				pExpr->Assign(env, value, pSymbolsAssignable, escalateFlag);
 				if (sig.IsSignalled()) return Value::Nil;
-				pValList->push_back(valueElem);
+				pObjList->Add(valueElem);
 			} else {
 				pExpr->Assign(env, valueElem, pSymbolsAssignable, escalateFlag);
 				if (sig.IsSignalled()) return Value::Nil;
@@ -1973,7 +1973,7 @@ Value Expr_Lister::DoAssign(Environment &env, Value &valueAssigned,
 			}
 			if (occurPattern == OCCUR_ZeroOrMore) {
 				Value value;
-				pValList = &value.InitAsList(env);
+				pObjList = value.Init_AsList(env);
 				pExpr->Assign(env, value, pSymbolsAssignable, escalateFlag);
 				if (sig.IsSignalled()) return Value::Nil;
 			} else if (occurPattern == OCCUR_Once || occurPattern == OCCUR_OnceOrMore) {
@@ -2124,7 +2124,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 			if (sig.IsSignalled()) return Value::Nil;
 		} else {
 			// obj[idx, idx, ..]
-			ValueList &valListDst = result.InitAsList(env);
+			Object_list *pObjListDst = result.Init_AsList(env);
 			foreach_const (ValueList, pValueIdx, valIdxList) {
 				if (pValueIdx->Is_list() || pValueIdx->Is_iterator()) {
 					AutoPtr<Iterator> pIteratorIdx(pValueIdx->CreateIterator(sig));
@@ -2139,13 +2139,13 @@ Value Expr_Indexer::DoExec(Environment &env) const
 							}
 							break;
 						}
-						valListDst.push_back(value);
+						pObjListDst->Add(value);
 					}
 					if (sig.IsSignalled()) return Value::Nil;
 				} else {
 					Value value = valueCar.IndexGet(env, *pValueIdx);
 					if (sig.IsSignalled()) break;
-					valListDst.push_back(value);
+					pObjListDst->Add(value);
 				}
 			}
 		}
@@ -2164,7 +2164,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 			return Value::Nil;
 		}
 		if (valueIdx.Is_list() || valueIdx.Is_iterator()) {
-			ValueList &valListDst = result.InitAsList(env);
+			Object_list *pObjListDst = result.Init_AsList(env);
 			AutoPtr<Iterator> pIteratorIdx(valueIdx.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Nil;
 			Value valueIdxEach;
@@ -2177,7 +2177,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 					}
 					break;
 				}
-				valListDst.push_back(value);
+				pObjListDst->Add(value);
 			}
 			if (sig.IsSignalled()) return Value::Nil;
 		} else {
@@ -2202,7 +2202,7 @@ Value Expr_Indexer::DoExec(Environment &env) const
 				valIdxList.push_back(valueIdx);
 			}
 		}
-		ValueList &valListDst = result.InitAsList(env);
+		Object_list *pObjListDst = result.Init_AsList(env);
 		foreach_const (ValueList, pValueIdx, valIdxList) {
 			if (pValueIdx->Is_list() || pValueIdx->Is_iterator()) {
 				AutoPtr<Iterator> pIteratorIdx(pValueIdx->CreateIterator(sig));
@@ -2217,13 +2217,13 @@ Value Expr_Indexer::DoExec(Environment &env) const
 						}
 						break;
 					}
-					valListDst.push_back(value);
+					pObjListDst->Add(value);
 				}
 				if (sig.IsSignalled()) return Value::Nil;
 			} else {
 				Value value = valueCar.IndexGet(env, *pValueIdx);
 				if (sig.IsSignalled()) break;
-				valListDst.push_back(value);
+				pObjListDst->Add(value);
 			}
 		}
 	}
