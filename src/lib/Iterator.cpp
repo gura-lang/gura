@@ -72,25 +72,25 @@ Value Iterator::ToList(Environment &env, bool alwaysListFlag, bool excludeNilFla
 		return Value::Nil;
 	}
 	Value result;
-	ValueList *pValList = nullptr;
+	Object_list *pObjList = nullptr;
 	size_t cnt = 0;
 	Value value;
 	if (alwaysListFlag) {
-		pValList = &result.InitAsList(env);
+		pObjList = result.Init_AsList(env);
 	}
 	while (Next(env, value)) {
-		if (pValList == nullptr && !value.IsUndefined()) {
-			pValList = &result.InitAsList(env, cnt, Value::Nil);
+		if (pObjList == nullptr && !value.IsUndefined()) {
+			pObjList = result.Init_AsList(env, cnt, Value::Nil);
 		}
 		if (value.IsValid()) {
-			if (pValList == nullptr) {
-				pValList = &result.InitAsList(env, cnt, Value::Nil);
+			if (pObjList == nullptr) {
+				pObjList = result.Init_AsList(env, cnt, Value::Nil);
 			}
-			pValList->push_back(value);
+			pObjList->Add(value);
 		} else if (excludeNilFlag) {
 			// nothing to do
-		} else if (pValList != nullptr) {
-			pValList->push_back(value);
+		} else if (pObjList != nullptr) {
+			pObjList->Add(value);
 		}
 		cnt++;
 	}
@@ -172,8 +172,8 @@ Value Iterator::MinMax(Environment &env, bool maxFlag, const SymbolSet &attrs)
 		result.SetNumber(idxHit);
 	} else if (attrs.IsSet(Gura_Symbol(indices))) {
 		int idxHit = GetIndexCur();
-		ValueList &resultList = result.InitAsList(env);
-		resultList.push_back(Value(idxHit));
+		Object_list *pObjListResult = result.Init_AsList(env);
+		pObjListResult->Add(Value(idxHit));
 		Value value;
 		while (Next(env, value)) {
 			int cmp = Value::Compare(env, valueHit, value);
@@ -182,11 +182,11 @@ Value Iterator::MinMax(Environment &env, bool maxFlag, const SymbolSet &attrs)
 			if (cmp > 0) {
 				int idxHit = GetIndexCur();
 				valueHit = value;
-				resultList.clear();
-				resultList.push_back(Value(idxHit));
+				pObjListResult->Clear();
+				pObjListResult->Add(Value(idxHit));
 			} else if (cmp == 0) {
 				int idxHit = GetIndexCur();
-				resultList.push_back(Value(static_cast<Number>(idxHit)));
+				pObjListResult->Add(Value(static_cast<Number>(idxHit)));
 			}
 		}
 		if (sig.IsSignalled()) return Value::Nil;

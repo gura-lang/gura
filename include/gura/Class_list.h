@@ -217,6 +217,10 @@ public:
 	inline ValueType GetValueType() const { return _valType; }
 	inline size_t Size() const { return _valList.size(); }
 	inline void Reserve(size_t n) { _valList.reserve(n); }
+	inline void Clear() {
+		_valList.clear();
+		_valType = VTYPE_undefined;
+	}
 	inline void Add(const Value &value) {
 		_valList.push_back(value);
 		UpdateValueType(value);
