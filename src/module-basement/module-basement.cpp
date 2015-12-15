@@ -2277,10 +2277,7 @@ Gura_ModuleEntry()
 	Gura_AssignValueEx("true",	Value(true));
 	Gura_AssignValueEx("false",	Value(false));
 	Gura_AssignValueEx("*",		Value(new Object_iterator(env, new Iterator_SequenceInf(0))));
-	do {
-		Object_environment *pObj = new Object_environment(env);
-		Gura_AssignValue(root, Value(pObj));
-	} while (0);
+	Gura_AssignValue(root,		Value(new Object_environment(env)));
 	// Formatting and Printing of Text
 	Gura_AssignFunction(format);
 	Gura_AssignFunction(print);
