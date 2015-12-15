@@ -214,11 +214,11 @@ void Matrix::ToList(Environment &env, ValueList &valList, bool transposeFlag, bo
 			for (size_t iCol = 0; iCol < _nCols; iCol++) {
 				Elements::const_iterator pValueElem = GetPointer(0, iCol);
 				Value valueCol;
-				ValueList &valListCol = valueCol.InitAsList(env);
+				Object_list *pObjListCol = valueCol.Init_AsList(env);
 				valList.push_back(valueCol);
 				size_t offset = 0;
 				for (size_t iRow = 0; iRow < _nRows; iRow++, offset += GetFold()) {
-					valListCol.push_back(*(pValueElem + offset));
+					pObjListCol->Add(*(pValueElem + offset));
 				}
 			}
 		}
@@ -236,10 +236,10 @@ void Matrix::ToList(Environment &env, ValueList &valList, bool transposeFlag, bo
 			for (size_t iRow = 0; iRow < _nRows; iRow++) {
 				Elements::const_iterator pValueElem = GetPointer(iRow, 0);
 				Value valueRow;
-				ValueList &valListRow = valueRow.InitAsList(env);
+				Object_list *pObjListRow = valueRow.Init_AsList(env);
 				valList.push_back(valueRow);
 				for (size_t iCol = 0; iCol < _nCols; iCol++, pValueElem++) {
-					valListRow.push_back(*pValueElem);
+					pObjListRow->Add(*pValueElem);
 				}
 			}
 		}
@@ -309,11 +309,11 @@ Value Matrix::GetRow(Environment &env, size_t iRow) const
 		return false;
 	}
 	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.reserve(GetCols());
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(GetCols());
 	Elements::const_iterator pValueElem = GetPointer(iRow, 0);
 	for (size_t iCol = 0; iCol < GetCols(); iCol++, pValueElem++) {
-		valList.push_back(*pValueElem);
+		pObjList->Add(*pValueElem);
 	}
 	return result;
 }
@@ -326,12 +326,12 @@ Value Matrix::GetCol(Environment &env, size_t iCol) const
 		return false;
 	}
 	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.reserve(GetRows());
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(GetRows());
 	Elements::const_iterator pValueElem = GetPointer(0, iCol);
 	size_t offset = 0;
 	for (size_t iRow = 0; iRow < GetRows(); iRow++, offset += GetFold()) {
-		valList.push_back(*(pValueElem + offset));
+		pObjList->Add(*(pValueElem + offset));
 	}
 	return result;
 }
@@ -641,8 +641,8 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const ValueList &valList
 		return Value::Nil;
 	}
 	Value result;
-	ValueList &valListResult = result.InitAsList(env);
-	valListResult.reserve(nRows);
+	Object_list *pObjListResult = result.Init_AsList(env);
+	pObjListResult->Reserve(nRows);
 	ValueType valType1 = CheckValueType(*pMat);
 	ValueType valType2 = CheckValueType(valList);
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -653,7 +653,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const ValueList &valList
 				numAccum += pValueElem->GetNumber() * pValue->GetNumber();
 				pValueElem++;
 			}
-			valListResult.push_back(Value(numAccum));
+			pObjListResult->Add(Value(numAccum));
 		}
 	} else if ((valType1 == VTYPE_complex || valType1 == VTYPE_number) &&
 				(valType2 == VTYPE_complex || valType2 == VTYPE_number)) {
@@ -664,7 +664,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const ValueList &valList
 				numAccum += pValueElem->GetComplex() * pValue->GetComplex();
 				pValueElem++;
 			}
-			valListResult.push_back(Value(numAccum));
+			pObjListResult->Add(Value(numAccum));
 		}
 	} else {
 		const Operator *pOperatorMul = env.GetOperator(OPTYPE_Mul);
@@ -684,10 +684,10 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const ValueList &valList
 				} while (0);
 				pValueElem++;
 			}
-			valListResult.push_back(valueAccum);
+			pObjListResult->Add(valueAccum);
 		}
 	}
-	if (valListResult.size() == 1) return valListResult.front();
+	if (pObjListResult->Size() == 1) return pObjListResult->GetList().front();
 	return result;
 }
 
@@ -741,8 +741,8 @@ Value Matrix::Mul(Environment &env, const ValueList &valList, const Matrix *pMat
 		return Value::Nil;
 	}
 	Value result;
-	ValueList &valListResult = result.InitAsList(env);
-	valListResult.reserve(nCols);
+	Object_list *pObjListResult = result.Init_AsList(env);
+	pObjListResult->Reserve(nCols);
 	ValueType valType1 = CheckValueType(valList);
 	ValueType valType2 = CheckValueType(*pMat);
 	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
@@ -754,7 +754,7 @@ Value Matrix::Mul(Environment &env, const ValueList &valList, const Matrix *pMat
 				numAccum += (pValueElem + offset)->GetNumber() * pValue->GetNumber();
 				offset += nFold;
 			}
-			valListResult.push_back(Value(numAccum));
+			pObjListResult->Add(Value(numAccum));
 		}
 	} else if ((valType1 == VTYPE_complex || valType1 == VTYPE_number) &&
 				(valType2 == VTYPE_complex || valType2 == VTYPE_number)) {
@@ -766,7 +766,7 @@ Value Matrix::Mul(Environment &env, const ValueList &valList, const Matrix *pMat
 				numAccum += (pValueElem + offset)->GetComplex() * pValue->GetComplex();
 				offset += nFold;
 			}
-			valListResult.push_back(Value(numAccum));
+			pObjListResult->Add(Value(numAccum));
 		}
 	} else {
 		const Operator *pOperatorMul = env.GetOperator(OPTYPE_Mul);
@@ -787,10 +787,10 @@ Value Matrix::Mul(Environment &env, const ValueList &valList, const Matrix *pMat
 				} while (0);
 				offset += nFold;
 			}
-			valListResult.push_back(valueAccum);
+			pObjListResult->Add(valueAccum);
 		}
 	}
-	if (valListResult.size() == 1) return valListResult.front();
+	if (pObjListResult->Size() == 1) return pObjListResult->GetList().front();
 	return result;
 }
 
