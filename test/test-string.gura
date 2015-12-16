@@ -500,3 +500,9 @@ testcase('isalnum, isalpha, isdigit, isspace') {
 			   str.isalnum(), str.isalpha(), str.isdigit(), str.isspace())
 	}
 }
+testcase('Substitution cipher') {
+	C = 'PXFR}QIVTMSZCNDKUWAGJB{LHYEO'
+	P = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ{}'
+	Q = 'V}ZZDEIJWPO{DWZR'
+	println(P[C.find(Q.each())].join())
+}
