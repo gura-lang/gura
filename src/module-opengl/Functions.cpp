@@ -66,9 +66,9 @@ Gura_ImplementFunction(__glAreTexturesResident)
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
 	if (_rtn == 0) return Value::Nil;
 	Value _rtnVal;
-	ValueList &valList = _rtnVal.InitAsList(env, n);
+	Object_list *pObjList = _rtnVal.Init_AsList(env, n);
 	for (GLsizei i = 0; i < n; i++) {
-		valList.push_back(residences[i] != 0);
+		pObjList->Add(residences[i] != 0);
 	}
 	return ReturnValue(env, arg, _rtnVal);
 }
@@ -2136,9 +2136,9 @@ Gura_ImplementFunction(__glGetBooleanv)
 	GLboolean *params = _params->GetPointer();
 	glGetBooleanv(pname, params);
 	Value _rtnVal;
-	ValueList &valList = _rtnVal.InitAsList(env, n);
+	Object_list *pObjList = _rtnVal.Init_AsList(env, n);
 	for (GLsizei i = 0; i < n; i++) {
-		valList.push_back(params[i] != 0);
+		pObjList->Add(params[i] != 0);
 	}
 	return ReturnValue(env, arg, _rtnVal);
 }

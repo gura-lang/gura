@@ -981,10 +981,10 @@ bool Iterator_RegEnumValue::DoNext(Environment &env, Value &value)
 		if (dwErrCode != ERROR_NO_MORE_ITEMS) SetError(sig, dwErrCode);
 		return false;
 	}
-	ValueList &valList = value.InitAsList(env);
+	Object_list *pObjList = value.Init_AsList(env);
 	Value valueWk(OAL::FromNativeString(valueName));
-	valList.push_back(valueWk);
-	valList.push_back(RegDataToValue(env, sig, dwType, lpData, cbData));
+	pObjList->Add(valueWk);
+	pObjList->Add(RegDataToValue(env, sig, dwType, lpData, cbData));
 	::LocalFree(lpData);
 	if (sig.IsSignalled()) return false;
 	_dwIndex++;
@@ -1274,12 +1274,12 @@ Value RegDataToValue(Environment &env, Signal &sig,
 	} else if (dwType == REG_LINK) {
 		sig.SetError(ERR_ValueError, "cantnot convert from registry value REG_LINK");
 	} else if (dwType == REG_MULTI_SZ) {
-		ValueList &valList = result.InitAsList(env);
+		Object_list *pObjList = result.Init_AsList(env);
 		size_t bytesSum = 0;
 		while (bytesSum + 1 < static_cast<size_t>(cbData)) {
 			Value value(OAL::FromNativeString(
 								reinterpret_cast<const char *>(lpData)));
-			valList.push_back(value);
+			pObjList->Add(value);
 			size_t bytes = ::strlen(reinterpret_cast<const char *>(lpData)) + 1;
 			lpData += bytes;
 			bytesSum += bytes;

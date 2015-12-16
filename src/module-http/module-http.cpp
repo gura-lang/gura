@@ -591,12 +591,12 @@ Value Header::GetField(Environment &env,
 {
 	StringList *pStringList = nullptr;
 	Value value;
-	ValueList &valList = value.InitAsList(env);
+	Object_list *pObjList = value.Init_AsList(env);
 	if (GetField(fieldName, &pStringList)) {
-		valList.reserve(pStringList->size());
+		pObjList->Reserve(pStringList->size());
 		foreach_const (StringList, pStr, *pStringList) {
 			Value valueItem(*pStr);
-			valList.push_back(valueItem);
+			pObjList->Add(valueItem);
 		}
 	} else if (signalFlag) {
 		sig.SetError(ERR_KeyError, "no field name %s", fieldName);
@@ -608,11 +608,11 @@ Value Header::GetField(Environment &env,
 Value Header::GetFieldNames(Environment &env, Signal &sig) const
 {
 	Value valueRtn;
-	ValueList &valListRtn = valueRtn.InitAsList(env);
-	valListRtn.reserve(_dict.size());
+	Object_list *pObjListRtn = valueRtn.Init_AsList(env);
+	pObjListRtn->Reserve(_dict.size());
 	foreach_const(Dict, iter, _dict) {
 		const String &fieldName = iter->first;
-		valListRtn.push_back(Value(fieldName));
+		pObjListRtn->Add(Value(fieldName));
 	}
 	return valueRtn;
 }
@@ -1911,11 +1911,11 @@ Value Object_server::DoGetProp(Environment &env, const Symbol *pSymbol,
 	Value value;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(sessions))) {
 		Value rtn;
-		ValueList &valList = rtn.InitAsList(env);
-		valList.reserve(_sessionList.size());
+		Object_list *pObjList = rtn.Init_AsList(env);
+		pObjList->Reserve(_sessionList.size());
 		foreach (SessionList, ppObjSession, _sessionList) {
 			Object_session *pObjSession = *ppObjSession;
-			valList.push_back(Value(Object_session::Reference(pObjSession)));
+			pObjList->Add(Value(Object_session::Reference(pObjSession)));
 		}
 		return rtn;
 	}

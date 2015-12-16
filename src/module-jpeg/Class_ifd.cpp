@@ -134,14 +134,14 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 						valueCooked = Value(pSymbol);
 					}
 				} else if (count == 2) {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
-					valList.push_back(Value(Gura_UnpackUShort(pValueRaw->SHORT.num)));
-					valList.push_back(Value(Gura_UnpackUShort(pValueRaw->SHORT.second)));
+					Object_list *pObjList = value.Init_AsList(env);
+					pObjList->Reserve(count);
+					pObjList->Add(Value(Gura_UnpackUShort(pValueRaw->SHORT.num)));
+					pObjList->Add(Value(Gura_UnpackUShort(pValueRaw->SHORT.second)));
 					valueCooked = value;
 				} else {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
+					Object_list *pObjList = value.Init_AsList(env);
+					pObjList->Reserve(count);
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_SHORT * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
@@ -149,7 +149,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SHORT) {
 						SHORT_T *pShort = reinterpret_cast<SHORT_T *>(buff + offset);
-						valList.push_back(Value(Gura_UnpackUShort(pShort->num)));
+						pObjList->Add(Value(Gura_UnpackUShort(pShort->num)));
 					}
 					valueCooked = value;
 				}
@@ -159,8 +159,8 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 				if (count == 1) {
 					value = Value(Gura_UnpackULong(pValueRaw->LONG.num));
 				} else {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
+					Object_list *pObjList = value.Init_AsList(env);
+					pObjList->Reserve(count);
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_LONG * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
@@ -168,7 +168,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_LONG) {
 						LONG_T *pLong = reinterpret_cast<LONG_T *>(buff + offset);
-						valList.push_back(Value(Gura_UnpackULong(pLong->num)));
+						pObjList->Add(Value(Gura_UnpackULong(pLong->num)));
 					}
 				}
 				valueCooked = value;
@@ -185,8 +185,8 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 					value = RationalToValue(sig, *pRational);
 					if (value.IsInvalid()) return nullptr;
 				} else {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
+					Object_list *pObjList = value.Init_AsList(env);
+					pObjList->Reserve(count);
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_RATIONAL * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
@@ -196,7 +196,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 						RATIONAL_T *pRational = reinterpret_cast<RATIONAL_T *>(buff + offset);
 						Value valueItem = RationalToValue(sig, *pRational);
 						if (valueItem.IsInvalid()) return nullptr;
-						valList.push_back(valueItem);
+						pObjList->Add(valueItem);
 					}
 				}
 				valueCooked = value;
@@ -220,8 +220,8 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 				if (count == 1) {
 					value = Value(Gura_UnpackLong(pValueRaw->SLONG.num));
 				} else {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
+					Object_list *pObjList = value.Init_AsList(env);
+					pObjList->Reserve(count);
 					size_t offset = Gura_UnpackLong(pValueRaw->SLONG.num);
 					if (offset + UNITSIZE_SLONG * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
@@ -229,7 +229,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 					}
 					for (unsigned int i = 0; i < count; i++, offset += UNITSIZE_SLONG) {
 						SLONG_T *pLong = reinterpret_cast<SLONG_T *>(buff + offset);
-						valList.push_back(Value(Gura_UnpackULong(pLong->num)));
+						pObjList->Add(Value(Gura_UnpackULong(pLong->num)));
 					}
 				}
 				valueCooked = value;
@@ -246,8 +246,8 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 					value = SRationalToValue(sig, *pRational);
 					if (value.IsInvalid()) return nullptr;
 				} else {
-					ValueList &valList = value.InitAsList(env);
-					valList.reserve(count);
+					Object_list *pObjList = value.Init_AsList(env);
+					pObjList->Reserve(count);
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_SRATIONAL * count >= bytesAPP1 - 1) {
 						SetError_InvalidFormat(sig);
@@ -257,7 +257,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 						SRATIONAL_T *pRational = reinterpret_cast<SRATIONAL_T *>(buff + offset);
 						Value valueItem = SRationalToValue(sig, *pRational);
 						if (valueItem.IsInvalid()) return nullptr;
-						valList.push_back(valueItem);
+						pObjList->Add(valueItem);
 					}
 				}
 				valueCooked = value;

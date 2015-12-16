@@ -2373,8 +2373,8 @@ Gura_ModuleEntry()
 	// value assignment
 	do {
 		Value value;
-		ValueList &valList = value.InitAsList(env);
-		valList.reserve(ArraySizeOf(g_controllerInfos));
+		Object_list *pObjList = value.Init_AsList(env);
+		pObjList->Reserve(ArraySizeOf(g_controllerInfos));
 		Class *pClass = Gura_UserClass(controller);
 		for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
 			UChar controller = static_cast<UChar>(i);
@@ -2382,22 +2382,22 @@ Gura_ModuleEntry()
 			if (controllerInfo.name == nullptr) continue;
 			controllerInfo.pSymbol = Symbol::Add(controllerInfo.name);
 			Value value(new Object_controller(env, controller));
-			valList.push_back(value);
+			pObjList->Add(value);
 			pClass->AssignValue(controllerInfo.pSymbol, value, EXTRA_Public);
 		}
 		Gura_AssignValue(controllers, value);
 	} while (0);
 	do {
 		Value value;
-		ValueList &valList = value.InitAsList(env);
-		valList.reserve(ArraySizeOf(g_programInfos));
+		Object_list *pObjList = value.Init_AsList(env);
+		pObjList->Reserve(ArraySizeOf(g_programInfos));
 		Class *pClass = Gura_UserClass(program);
 		for (size_t i = 0; i < ArraySizeOf(g_programInfos); i++) {
 			UChar program = static_cast<UChar>(i);
 			ProgramInfo &programInfo = g_programInfos[i];
 			programInfo.pSymbol = Symbol::Add(programInfo.name);
 			Value value(new Object_program(env, program));
-			valList.push_back(value);
+			pObjList->Add(value);
 			pClass->AssignValue(programInfo.pSymbol, value, EXTRA_Public);
 		}
 		Gura_AssignValue(programs, value);

@@ -949,12 +949,12 @@ Gura_DeclareFunction(bezier)
 Gura_ImplementFunction(bezier)
 {
 	Value result;
-	ValueList &valList = result.InitAsList(env);
+	Object_list *pObjList = result.Init_AsList(env);
 	foreach_const (ValueList, pValue, arg.GetList(0)) {
 		Function *pFunc = new Func_BezierPrototype(env, pValue->GetList());
 		pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 		pFunc->DeclareArg(env, "t", VTYPE_number);
-		valList.push_back(Value(new Object_function(env, pFunc)));
+		pObjList->Add(Value(new Object_function(env, pFunc)));
 	}
 	return result;
 }
@@ -1095,18 +1095,18 @@ Gura_ImplementFunction(cross_product)
 		return CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
 	} else if (valList1.size() == 3) {
 		Value result;
-		ValueList &valList = result.InitAsList(env);
-		valList.reserve(3);
+		Object_list *pObjList = result.Init_AsList(env);
+		pObjList->Reserve(3);
 		Value value;
 		value = CalcCrossElem(env, valList1[1], valList1[2], valList2[1], valList2[2]);
 		if (sig.IsSignalled()) return Value::Nil;
-		valList.push_back(value);
+		pObjList->Add(value);
 		value = CalcCrossElem(env, valList1[2], valList1[0], valList2[2], valList2[0]);
 		if (sig.IsSignalled()) return Value::Nil;
-		valList.push_back(value);
+		pObjList->Add(value);
 		value = CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
 		if (sig.IsSignalled()) return Value::Nil;
-		valList.push_back(value);
+		pObjList->Add(value);
 		return result;
 	} else {
 		sig.SetError(ERR_ValueError,
