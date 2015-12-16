@@ -291,11 +291,11 @@ Gura_ImplementFunction(__glutInit)
 	}
 	glutInit(&argc, _argv);
 	Value _rtnVal;
-	ValueList &valList = _rtnVal.InitAsList(env);
+	Object_list *pObjList = _rtnVal.Init_AsList(env);
 	if (argc > 0) {
-		valList.reserve(argc);
+		pObjList->Reserve(argc);
 		for (int i = 0; i < argc; i++) {
-			valList.push_back(Value(_argv[i]));
+			pObjList->Add(Value(_argv[i]));
 			::free(_argv[i]);
 		}
 		delete[] _argv;

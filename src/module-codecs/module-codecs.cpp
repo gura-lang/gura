@@ -20,12 +20,12 @@ Gura_DeclareFunction(dir)
 Gura_ImplementFunction(dir)
 {
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
+	Object_list *pObjList = rtn.Init_AsList(env);
 	const CodecFactory::List *pList = CodecFactory::GetList();
 	if (pList != nullptr) {
 		foreach_const (CodecFactory::List, ppFactory, *pList) {
 			CodecFactory *pFactory = *ppFactory;
-			valList.push_back(Value(pFactory->GetEncoding()));
+			pObjList->Add(Value(pFactory->GetEncoding()));
 		}
 	}
 	return rtn;

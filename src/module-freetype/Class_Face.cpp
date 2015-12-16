@@ -256,10 +256,10 @@ Gura_ImplementMethod(Face, Get_Advances)
 		return Value::Nil;
 	}
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
-	valList.reserve(count);
+	Object_list *pObjList = rtn.Init_AsList(env);
+	pObjList->Reserve(count);
 	for (FT_UInt i = 0; i < count; i++) {
-		valList.push_back(static_cast<double>(advances[i]) / (1 << 16));
+		pObjList->Add(static_cast<double>(advances[i]) / (1 << 16));
 	}
 	return rtn;
 }

@@ -628,10 +628,10 @@ Gura_ImplementMethod(context, get_dash)
 		return Value::Nil;
 	}
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
-	valList.reserve(num_dashes);
+	Object_list *pObjList = rtn.Init_AsList(env);
+	pObjList->Reserve(num_dashes);
 	for (int i = 0; i < num_dashes; i++) {
-		valList.push_back(Value(dashes[num_dashes]));
+		pObjList->Add(Value(dashes[num_dashes]));
 	}
 	delete[] dashes;
 	return Value::CreateList(env, rtn, Value(offset));
@@ -1155,11 +1155,11 @@ Gura_ImplementMethod(context, copy_clip_rectangle_list)
 		return Value::Nil;
 	}
 	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.reserve(rectangle_list->num_rectangles);
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(rectangle_list->num_rectangles);
 	for (int i = 0; i < rectangle_list->num_rectangles; i++) {
 		cairo_rectangle_t &rectangle = rectangle_list->rectangles[i];
-		valList.push_back(RectangleToValue(env, rectangle));
+		pObjList->Add(RectangleToValue(env, rectangle));
 	}
 	::cairo_rectangle_list_destroy(rectangle_list);
 	return result;
