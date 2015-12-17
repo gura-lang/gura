@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_Pen, GetDashes)
 	wxDash *dashes;
 	int rtn = pThis->GetEntity()->GetDashes(&dashes);
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(rtn);
 	for (int i = 0; i < rtn; i++) {
 		pObjList->Add(Value(dashes[i]));

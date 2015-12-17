@@ -260,7 +260,7 @@ Value Binary::Unpack(Environment &env, size_t &offset,
 	} stat = STAT_Format;
 	ValueList::const_iterator pValueArg = valListArg.begin();
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	bool bigEndianFlag = IsBigEndian();
 	int nRepeat = 1;
 	String encoding;

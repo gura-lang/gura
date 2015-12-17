@@ -50,7 +50,7 @@ void Argument::InitializeSlot(const Function *pFunc)
 		if (pDecl->IsVariableLength()) {
 			Value value;
 			AutoPtr<Iterator> pIterator(new Iterator_VarLength(
-											pDecl, value.Init_AsList(env)->GetList()));
+											pDecl, value.InitAsList(env)->GetList()));
 			_slots.push_back(Slot(pDecl->Reference(), value,
 								  pIterator.release(), SLOTSTAT_Invalid));
 		} else {

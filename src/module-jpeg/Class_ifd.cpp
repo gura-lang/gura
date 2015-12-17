@@ -134,13 +134,13 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 						valueCooked = Value(pSymbol);
 					}
 				} else if (count == 2) {
-					Object_list *pObjList = value.Init_AsList(env);
+					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
 					pObjList->Add(Value(Gura_UnpackUShort(pValueRaw->SHORT.num)));
 					pObjList->Add(Value(Gura_UnpackUShort(pValueRaw->SHORT.second)));
 					valueCooked = value;
 				} else {
-					Object_list *pObjList = value.Init_AsList(env);
+					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_SHORT * count >= bytesAPP1 - 1) {
@@ -159,7 +159,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 				if (count == 1) {
 					value = Value(Gura_UnpackULong(pValueRaw->LONG.num));
 				} else {
-					Object_list *pObjList = value.Init_AsList(env);
+					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_LONG * count >= bytesAPP1 - 1) {
@@ -185,7 +185,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 					value = RationalToValue(sig, *pRational);
 					if (value.IsInvalid()) return nullptr;
 				} else {
-					Object_list *pObjList = value.Init_AsList(env);
+					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_RATIONAL * count >= bytesAPP1 - 1) {
@@ -220,7 +220,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 				if (count == 1) {
 					value = Value(Gura_UnpackLong(pValueRaw->SLONG.num));
 				} else {
-					Object_list *pObjList = value.Init_AsList(env);
+					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
 					size_t offset = Gura_UnpackLong(pValueRaw->SLONG.num);
 					if (offset + UNITSIZE_SLONG * count >= bytesAPP1 - 1) {
@@ -246,7 +246,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal &sig, const Symbol *pSymbolOfIFD
 					value = SRationalToValue(sig, *pRational);
 					if (value.IsInvalid()) return nullptr;
 				} else {
-					Object_list *pObjList = value.Init_AsList(env);
+					Object_list *pObjList = value.InitAsList(env);
 					pObjList->Reserve(count);
 					size_t offset = Gura_UnpackULong(pValueRaw->LONG.num);
 					if (offset + UNITSIZE_SRATIONAL * count >= bytesAPP1 - 1) {

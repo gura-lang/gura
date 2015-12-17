@@ -386,7 +386,7 @@ public:
 		if (decl.IsType(VTYPE_list)) {
 			AutoPtr<Array<T_Elem> > pArray(
 				Object_array<T_Elem>::GetObject(value)->GetArray()->Reference());
-			Object_list *pObjList = value.Init_AsList(env);
+			Object_list *pObjList = value.InitAsList(env);
 			pObjList->Reserve(pArray->GetSize());
 			CopyArrayToList(pArray.get(), pObjList->_GetList());
 			pObjList->SetValueType(VTYPE_number);

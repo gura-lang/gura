@@ -2373,7 +2373,7 @@ Gura_ModuleEntry()
 	// value assignment
 	do {
 		Value value;
-		Object_list *pObjList = value.Init_AsList(env);
+		Object_list *pObjList = value.InitAsList(env);
 		pObjList->Reserve(ArraySizeOf(g_controllerInfos));
 		Class *pClass = Gura_UserClass(controller);
 		for (size_t i = 0; i < ArraySizeOf(g_controllerInfos); i++) {
@@ -2389,7 +2389,7 @@ Gura_ModuleEntry()
 	} while (0);
 	do {
 		Value value;
-		Object_list *pObjList = value.Init_AsList(env);
+		Object_list *pObjList = value.InitAsList(env);
 		pObjList->Reserve(ArraySizeOf(g_programInfos));
 		Class *pClass = Gura_UserClass(program);
 		for (size_t i = 0; i < ArraySizeOf(g_programInfos); i++) {

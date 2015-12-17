@@ -122,7 +122,7 @@ Value Object_interp::ConvFromTclObj(Environment &env, Signal &sig, Tcl_Obj *objP
 		int length;
 		::Tcl_ListObjLength(_interp, objPtr, &length);
 		Value result;
-		Object_list *pObjList = result.Init_AsList(env);
+		Object_list *pObjList = result.InitAsList(env);
 		pObjList->Reserve(length);
 		for (int i = 0; i < length; i++) {
 			Tcl_Obj *objElemPtr;

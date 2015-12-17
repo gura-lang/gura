@@ -3914,7 +3914,7 @@ Gura_ImplementDescendantCreator(wx_Grid)
 Value GridCellCoordsArrayToValue(Environment &env, const wxGridCellCoordsArray &array)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(array.GetCount());
 	for (size_t i = 0; i < array.GetCount(); i++) {
 		const wxGridCellCoords &coords = array.Item(i);

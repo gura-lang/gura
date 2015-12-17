@@ -256,7 +256,7 @@ Gura_ImplementMethod(Face, Get_Advances)
 		return Value::Nil;
 	}
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(count);
 	for (FT_UInt i = 0; i < count; i++) {
 		pObjList->Add(static_cast<double>(advances[i]) / (1 << 16));

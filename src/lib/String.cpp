@@ -495,7 +495,7 @@ Value FindString(Environment &env, const char *str, const char *sub, int start,
 				valListOrg.push_back(Value(static_cast<Number>(p - str)));
 			}
 			Value result;
-			Object_list *pObjList = result.Init_AsList(env);
+			Object_list *pObjList = result.InitAsList(env);
 			pObjList->Reserve(valListOrg.size());
 			foreach_reverse (ValueList, pValue, valListOrg) {
 				pObjList->AddFast(*pValue);
@@ -515,7 +515,7 @@ Value FindString(Environment &env, const char *str, const char *sub, int start,
 		//if (attrs.IsSet(Gura_Symbol(list))) {
 		if (listFlag) {
 			Value result;
-			Object_list *pObjList = result.Init_AsList(env);
+			Object_list *pObjList = result.InitAsList(env);
 			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
 				pObjList->AddFast(Value(static_cast<Number>(p - str)));
 			}

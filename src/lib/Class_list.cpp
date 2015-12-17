@@ -167,7 +167,7 @@ Object_list *Object_list::SortRank(Signal &sig, const Value &valDirective,
 		}
 	}
 	Value result;
-	Object_list *pObjListResult = result.Init_AsList(env);
+	Object_list *pObjListResult = result.InitAsList(env);
 	if (rankFlag) {
 		foreach_const (ValueList, pValue, valList) {
 			ValuePtrList::iterator ppValue = valPtrList.begin();
@@ -426,7 +426,7 @@ Iterator *Object_list::IteratorPermutation::GetSource()
 bool Object_list::IteratorPermutation::DoNext(Environment &env, Value &value)
 {
 	if (!_validFlag) return false;
-	Object_list *pObjList = value.Init_AsList(*_pObj);
+	Object_list *pObjList = value.InitAsList(*_pObj);
 	ValueList &valListSrc = _pObj->GetList();
 	if (_cnt < 0) {
 		foreach (IndexList, pIndex, _indexList) {
@@ -478,7 +478,7 @@ Iterator *Object_list::IteratorCombination::GetSource()
 bool Object_list::IteratorCombination::DoNext(Environment &env, Value &value)
 {
 	if (!_validFlag) return false;
-	Object_list *pObjList = value.Init_AsList(*_pObj);
+	Object_list *pObjList = value.InitAsList(*_pObj);
 	ValueList &valListSrc = _pObj->GetList();
 	IndexList::iterator pIndex = _indexList.begin();
 	for (int i = 0; i < _cnt; pIndex++, i++) {
@@ -543,7 +543,7 @@ Gura_ImplementFunction(list_xlist)
 {
 	Signal &sig = env.GetSignal();
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	foreach_const (ValueList, pValueArg, arg.GetList(0)) {
 		if (pValueArg->Is_list() || pValueArg->Is_iterator()) {
 			AutoPtr<Iterator> pIterator(pValueArg->CreateIterator(sig));
@@ -600,7 +600,7 @@ Gura_ImplementFunction(set_xset)
 {
 	Signal &sig = env.GetSignal();
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	if (arg.IsSet(Gura_Symbol(and))) {			// AND combination
 		ValueList valList1, valList2;
 		ValueList::const_reverse_iterator pValueArg = arg.GetList(0).rbegin();
@@ -722,7 +722,7 @@ Gura_ImplementFunction(ListInit)
 	const Value &valueFunc = arg.GetValue(0);
 	Value result;
 	if (pExprBlock == nullptr) {
-		result.Init_AsList(env);
+		result.InitAsList(env);
 	} else if (valueFunc.Is_function()) {
 		const Function *pFunc = valueFunc.GetFunction();
 		size_t cntArgs = pFunc->GetDeclOwner().size();
@@ -731,7 +731,7 @@ Gura_ImplementFunction(ListInit)
 			return Value::Nil;
 		}
 		AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
-		Object_list *pObjList = result.Init_AsList(env);
+		Object_list *pObjList = result.InitAsList(env);
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 			Value value = (*ppExpr)->Exec(*pEnvLister);
 			if (sig.IsSignalled()) {
@@ -788,7 +788,7 @@ Gura_ImplementClassMethod(list, zip)
 	}
 	if (!listFlag && !iteratorFlag) {
 		Value result;
-		Object_list *pObjList = result.Init_AsList(env);
+		Object_list *pObjList = result.InitAsList(env);
 		foreach_const (ValueList, pValue, arg.GetList(0)) {
 			pObjList->Add(*pValue);
 		}
@@ -2147,7 +2147,7 @@ bool Class_list::CastFrom(Environment &env, Value &value, const Declaration *pDe
 {
 	Signal &sig = GetSignal();
 	if (value.IsType(VTYPE_nil)) {
-		value.Init_AsList(env);
+		value.InitAsList(env);
 		return true;
 	} else if (value.Is_iterator()) {
 		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
@@ -2177,7 +2177,7 @@ bool Class_list::Serialize(Environment &env, Stream &stream, const Value &value)
 
 bool Class_list::Deserialize(Environment &env, Stream &stream, Value &value) const
 {
-	Object_list *pObjList = value.Init_AsList(env);
+	Object_list *pObjList = value.InitAsList(env);
 	return pObjList->Deserialize(env, stream);
 }
 

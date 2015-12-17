@@ -1063,7 +1063,7 @@ Gura_ImplementMethod(wx_Window, GetChildren)
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindowList &rtn = pThis->GetEntity()->GetChildren();
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(rtn.size());
 	foreach (wxWindowList, ppWindow, rtn) {
 		wxWindow *pWindow = *ppWindow;

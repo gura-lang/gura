@@ -354,7 +354,7 @@ private:
 	inline void Initialize(Environment &env) {
 		if (_resultMode == RSLTMODE_List || _resultMode == RSLTMODE_XList ||
 			_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) {
-			_pObjList = _valueResult.Init_AsList(env);
+			_pObjList = _valueResult.InitAsList(env);
 		}
 	}
 };

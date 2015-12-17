@@ -946,7 +946,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetSelections)
 	wxArrayTreeItemIds selection;
 	unsigned int rtn = pThis->GetEntity()->GetSelections(selection);
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(selection.size());
 	foreach (wxArrayTreeItemIds, pTreeItemId, selection) {
 		pObjList->Add(Value(new Object_wx_TreeItemId(

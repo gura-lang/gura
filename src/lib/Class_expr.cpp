@@ -73,7 +73,7 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 		}
 		if (pAttrFront != nullptr) {
 			Value rtn;
-			Object_list *pObjList = rtn.Init_AsList(env, pAttrFront->size());
+			Object_list *pObjList = rtn.InitAsList(env, pAttrFront->size());
 			pObjList->Reserve(pAttrFront->size());
 			foreach_const (SymbolList, ppSymbol, *pAttrFront) {
 				pObjList->Add(Value(*ppSymbol));
@@ -100,7 +100,7 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 			return Value::Nil;
 		}
 		Value rtn;
-		Object_list *pObjList = rtn.Init_AsList(env);
+		Object_list *pObjList = rtn.InitAsList(env);
 		pObjList->Reserve(pAttrs->size() + 8);
 		foreach_const (SymbolSet, ppSymbol, *pAttrs) {
 			pObjList->Add(Value(*ppSymbol));
@@ -128,7 +128,7 @@ Value Object_expr::DoGetProp(Environment &env, const Symbol *pSymbol,
 		}
 		if (pAttrsOpt == nullptr) {
 			Value rtn;
-			Object_list *pObjList = rtn.Init_AsList(env, pAttrsOpt->size());
+			Object_list *pObjList = rtn.InitAsList(env, pAttrsOpt->size());
 			pObjList->Reserve(pAttrsOpt->size());
 			foreach_const (SymbolSet, ppSymbol, *pAttrsOpt) {
 				pObjList->Add(Value(*ppSymbol));

@@ -79,7 +79,7 @@ bool Object_mysql::IteratorQuery::DoNext(Environment &env, Value &value)
 	unsigned int nFields = ::mysql_num_fields(_pRes);
 	MYSQL_ROW row = ::mysql_fetch_row(_pRes);
 	if (row == nullptr) return false;
-	Object_list *pObjList = value.Init_AsList(env);
+	Object_list *pObjList = value.InitAsList(env);
 	
 	for (unsigned int i = 0; i < nFields; i++) {
 		pObjList->Add(Value(env, row[i]));

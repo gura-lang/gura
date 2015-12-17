@@ -184,7 +184,7 @@ bool wx_DataViewListModel::RowsReordered(unsigned int* new_order)
 	if (_pObj->GeSignal().IsSignalled()) return false;
 	Value v;
 	do {
-		Object_list *pObjList = v.Init_AsList(env);
+		Object_list *pObjList = v.InitAsList(env);
 		pObjList->Reserve(nRows);
 		for (size_t iRow = 0; iRow < nRows; iRow++) pObjList->Add(Value(new_order[iRow]));
 	} while (0);

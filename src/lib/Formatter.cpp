@@ -258,7 +258,7 @@ Value Formatter::FormatIterator(Environment &env,
 {
 	Signal &sig = env.GetSignal();
 	Value result;
-	Object_list *pObjListResult = result.Init_AsList(env);
+	Object_list *pObjListResult = result.InitAsList(env);
 	ValueList valList;
 	while (iterOwner.Next(env, valList)) {
 		String str = FormatValueList(sig, format, valList);

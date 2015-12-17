@@ -949,7 +949,7 @@ Gura_DeclareFunction(bezier)
 Gura_ImplementFunction(bezier)
 {
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	foreach_const (ValueList, pValue, arg.GetList(0)) {
 		Function *pFunc = new Func_BezierPrototype(env, pValue->GetList());
 		pFunc->SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -1095,7 +1095,7 @@ Gura_ImplementFunction(cross_product)
 		return CalcCrossElem(env, valList1[0], valList1[1], valList2[0], valList2[1]);
 	} else if (valList1.size() == 3) {
 		Value result;
-		Object_list *pObjList = result.Init_AsList(env);
+		Object_list *pObjList = result.InitAsList(env);
 		pObjList->Reserve(3);
 		Value value;
 		value = CalcCrossElem(env, valList1[1], valList1[2], valList2[1], valList2[2]);

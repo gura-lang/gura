@@ -291,7 +291,7 @@ Gura_ImplementFunction(__glutInit)
 	}
 	glutInit(&argc, _argv);
 	Value _rtnVal;
-	Object_list *pObjList = _rtnVal.Init_AsList(env);
+	Object_list *pObjList = _rtnVal.InitAsList(env);
 	if (argc > 0) {
 		pObjList->Reserve(argc);
 		for (int i = 0; i < argc; i++) {

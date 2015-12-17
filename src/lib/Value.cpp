@@ -513,28 +513,28 @@ void Value::_SetObject(Object *pObj)
 	_valFlags = VFLAG_FundOwner;
 }
 
-Object_list *Value::Init_AsList(Environment &env)
+Object_list *Value::InitAsList(Environment &env)
 {
 	Object_list *pObj = new Object_list(env);
 	InitAsObject(pObj);
 	return pObj;
 }
 
-Object_list *Value::Init_AsList(Environment &env, size_t n)
+Object_list *Value::InitAsList(Environment &env, size_t n)
 {
 	Object_list *pObj = new Object_list(env, n);
 	InitAsObject(pObj);
 	return pObj;
 }
 
-Object_list *Value::Init_AsList(Environment &env, const ValueList &valList)
+Object_list *Value::InitAsList(Environment &env, const ValueList &valList)
 {
 	Object_list *pObj = new Object_list(env, valList);
 	InitAsObject(pObj);
 	return pObj;
 }
 
-Object_list *Value::Init_AsList(Environment &env, size_t n, const Value &value)
+Object_list *Value::InitAsList(Environment &env, size_t n, const Value &value)
 {
 	Object_list *pObj = (n == 0)?
 		new Object_list(env) : new Object_list(env, n, value);
@@ -560,14 +560,14 @@ bool Value::CastType(Environment &env, ValueType valType, Value &valueCasted) co
 Value Value::CreateList(Environment &env)
 {
 	Value rtn;
-	rtn.Init_AsList(env);
+	rtn.InitAsList(env);
 	return rtn;
 }
 
 Value Value::CreateList(Environment &env, const Value &v1)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(1);
 	pObjList->Add(v1);
 	return rtn;
@@ -576,7 +576,7 @@ Value Value::CreateList(Environment &env, const Value &v1)
 Value Value::CreateList(Environment &env, const Value &v1, const Value &v2)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(2);
 	pObjList->Add(v1);
 	pObjList->Add(v2);
@@ -587,7 +587,7 @@ Value Value::CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(3);
 	pObjList->Add(v1);
 	pObjList->Add(v2);
@@ -599,7 +599,7 @@ Value Value::CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(4);
 	pObjList->Add(v1);
 	pObjList->Add(v2);
@@ -612,7 +612,7 @@ Value Value::CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4, const Value &v5)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(5);
 	pObjList->Add(v1);
 	pObjList->Add(v2);
@@ -626,7 +626,7 @@ Value Value::CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4, const Value &v5, const Value &v6)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(6);
 	pObjList->Add(v1);
 	pObjList->Add(v2);
@@ -641,7 +641,7 @@ template<typename T>
 Value CreateListTmpl(Environment &env, T buff, size_t n)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env, n);
+	Object_list *pObjList = rtn.InitAsList(env, n);
 	pObjList->Reserve(n);
 	T p = buff;
 	for (size_t i = 0; i < n; i++, p++) pObjList->Add(Value(*p));

@@ -156,7 +156,7 @@ bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[])
 	}
 	do {
 		Value value;
-		Object_list *pObjList = value.Init_AsList(env);
+		Object_list *pObjList = value.InitAsList(env);
 		if (argc >= 2 && argv != nullptr) {
 			pObjList->Reserve(argc - 1);
 			pObjList->Add(Value(OAL::MakeAbsPathName(
@@ -176,7 +176,7 @@ bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[])
 	do {
 		Option &opt = env.GetOption();
 		Value value;
-		Object_list *pObjList = value.Init_AsList(env);
+		Object_list *pObjList = value.InitAsList(env);
 		do {
 			String dirName, fileName;
 			PathMgr::SplitFileName(fileNameScript.c_str(), &dirName, &fileName);

@@ -100,7 +100,7 @@ Value Object_db::GetColumnNames(Signal &sig, const char *sql)
 		return Value::Nil;
 	}
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	int nCols = ::sqlite3_column_count(pStmt);
 	pObjList->Reserve(nCols);
 	for (int iCol = 0; iCol < nCols; iCol++) {
@@ -125,7 +125,7 @@ int Object_db::Callback(void *user, int argc, char **argv, char **azColName)
 	Environment &env = pCallbackInfo->GetEnv();
 	ResultComposer &resultComposer = pCallbackInfo->GetResultComposer();
 	Value value;
-	Object_list *pObjList = value.Init_AsList(env);
+	Object_list *pObjList = value.InitAsList(env);
 	pObjList->Reserve(argc);
 	for (int i = 0; i < argc; i++) {
 		pObjList->Add(Value(argv[i]));
@@ -157,7 +157,7 @@ bool Object_db::IteratorQuery::DoNext(Environment &env, Value &value)
 	if (::sqlite3_step(_pStmt) != SQLITE_ROW) {
 		return false;
 	}
-	Object_list *pObjList = value.Init_AsList(env);
+	Object_list *pObjList = value.InitAsList(env);
 	int nCols = ::sqlite3_column_count(_pStmt);
 	pObjList->Reserve(nCols);
 	for (int iCol = 0; iCol < nCols; iCol++) {

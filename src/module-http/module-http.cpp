@@ -591,7 +591,7 @@ Value Header::GetField(Environment &env,
 {
 	StringList *pStringList = nullptr;
 	Value value;
-	Object_list *pObjList = value.Init_AsList(env);
+	Object_list *pObjList = value.InitAsList(env);
 	if (GetField(fieldName, &pStringList)) {
 		pObjList->Reserve(pStringList->size());
 		foreach_const (StringList, pStr, *pStringList) {
@@ -608,7 +608,7 @@ Value Header::GetField(Environment &env,
 Value Header::GetFieldNames(Environment &env, Signal &sig) const
 {
 	Value valueRtn;
-	Object_list *pObjListRtn = valueRtn.Init_AsList(env);
+	Object_list *pObjListRtn = valueRtn.InitAsList(env);
 	pObjListRtn->Reserve(_dict.size());
 	foreach_const(Dict, iter, _dict) {
 		const String &fieldName = iter->first;
@@ -1911,7 +1911,7 @@ Value Object_server::DoGetProp(Environment &env, const Symbol *pSymbol,
 	Value value;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(sessions))) {
 		Value rtn;
-		Object_list *pObjList = rtn.Init_AsList(env);
+		Object_list *pObjList = rtn.InitAsList(env);
 		pObjList->Reserve(_sessionList.size());
 		foreach (SessionList, ppObjSession, _sessionList) {
 			Object_session *pObjSession = *ppObjSession;
@@ -2434,7 +2434,7 @@ Gura_ImplementFunction(addproxy)
 	Value *pValue = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), ENVREF_NoEscalate);
 	if (pValue == nullptr || !pValue->Is_list()) {
 		Value value;
-		pObjList = value.Init_AsList(env);
+		pObjList = value.InitAsList(env);
 		_pEnvThis->AssignValue(Gura_UserSymbol(proxies), value, EXTRA_Public);
 	} else {
 		pObjList = pValue->GetObjList();

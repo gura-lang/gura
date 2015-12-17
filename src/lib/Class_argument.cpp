@@ -29,7 +29,7 @@ Value Object_argument::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_function(env, _pArg->GetFunction()->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(values))) {
 		Value rtn;
-		_pArg->GetSlotValues(rtn.Init_AsList(env));
+		_pArg->GetSlotValues(rtn.InitAsList(env));
 		return rtn;
 	}
 	evaluatedFlag = false;

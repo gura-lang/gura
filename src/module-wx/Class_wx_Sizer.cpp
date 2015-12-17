@@ -1058,7 +1058,7 @@ Gura_ImplementDescendantCreator(wx_Sizer)
 Value SizerItemListToValue(Environment &env, const wxSizerItemList &list)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(list.GetCount());
 	foreach_const (wxSizerItemList, ppSizerItem, list) {
 		wxSizerItem *pSizerItem = *ppSizerItem;

@@ -981,7 +981,7 @@ bool Iterator_RegEnumValue::DoNext(Environment &env, Value &value)
 		if (dwErrCode != ERROR_NO_MORE_ITEMS) SetError(sig, dwErrCode);
 		return false;
 	}
-	Object_list *pObjList = value.Init_AsList(env);
+	Object_list *pObjList = value.InitAsList(env);
 	Value valueWk(OAL::FromNativeString(valueName));
 	pObjList->Add(valueWk);
 	pObjList->Add(RegDataToValue(env, sig, dwType, lpData, cbData));
@@ -1274,7 +1274,7 @@ Value RegDataToValue(Environment &env, Signal &sig,
 	} else if (dwType == REG_LINK) {
 		sig.SetError(ERR_ValueError, "cantnot convert from registry value REG_LINK");
 	} else if (dwType == REG_MULTI_SZ) {
-		Object_list *pObjList = result.Init_AsList(env);
+		Object_list *pObjList = result.InitAsList(env);
 		size_t bytesSum = 0;
 		while (bytesSum + 1 < static_cast<size_t>(cbData)) {
 			Value value(OAL::FromNativeString(

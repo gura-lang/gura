@@ -5530,7 +5530,7 @@ Gura_ImplementFunction(__PeekEvents)
 		return Value::Nil;
 	}
 	Value _rtnVal;
-	Object_list *_pObjList = _rtnVal.Init_AsList(env, _rtn);
+	Object_list *_pObjList = _rtnVal.InitAsList(env, _rtn);
 	_pObjList->Reserve(_rtn);
 	for (int i = 0; i < _rtn; i++) {
 		_pObjList->Add(Value(new Object_Event(events[i])));
@@ -5564,7 +5564,7 @@ Gura_ImplementFunction(__GetEvents)
 		return Value::Nil;
 	}
 	Value _rtnVal;
-	Object_list *_pObjList = _rtnVal.Init_AsList(env, _rtn);
+	Object_list *_pObjList = _rtnVal.InitAsList(env, _rtn);
 	_pObjList->Reserve(_rtn);
 	for (int i = 0; i < _rtn; i++) {
 		_pObjList->Add(Value(new Object_Event(events[i])));
@@ -5925,7 +5925,7 @@ Gura_ImplementFunction(__GetKeyboardState)
 	int numkeys = 0;
 	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
 	Value _rtnVal;
-	Object_list *_pObjList = _rtnVal.Init_AsList(env, numkeys);
+	Object_list *_pObjList = _rtnVal.InitAsList(env, numkeys);
 	_pObjList->Reserve(numkeys);
 	for (int i = 0; i < numkeys; i++) {
 		_pObjList->Add(Value(_keystate[i] != 0));

@@ -300,7 +300,7 @@ Gura_ImplementFunction(split)
 		PathMgr::SplitFileName(arg.GetString(0), &first, &second);
 	}
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Add(Value(first));
 	pObjList->Add(Value(second));
 	return result;
@@ -323,7 +323,7 @@ Gura_ImplementFunction(splitext)
 	const char *pathName = arg.GetString(0);
 	const char *p = PathMgr::SeekExtName(pathName);
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	size_t lenLeft = p - pathName;
 	pObjList->Add(Value(pathName, lenLeft));
 	pObjList->Add(Value((*p == '.')? p + 1 : p));

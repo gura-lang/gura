@@ -295,7 +295,7 @@ Value Function::EvalAuto(Environment &env, Argument &arg) const
 	if (resultComposer.CountAdded() == 0 &&
 			!arg.IsResultVoid() && !arg.IsResultReduce() && !arg.IsResultXReduce()) {
 		Value valueResult;
-		valueResult.Init_AsList(env);
+		valueResult.InitAsList(env);
 		return valueResult;
 	}
 	return resultComposer.GetValueResult();
@@ -595,7 +595,7 @@ bool ResultComposer::StoreValue(Environment &env, const Value &value)
 		_pObjList->Add(value);
 	} else if (value.IsValid()) {
 		if (_pObjList == nullptr) {
-			_pObjList = _valueResult.Init_AsList(env, _cntAdded, Value::Nil);
+			_pObjList = _valueResult.InitAsList(env, _cntAdded, Value::Nil);
 		}
 		if (!(_resultMode == RSLTMODE_Set || _resultMode == RSLTMODE_XSet) ||
 			!_pObjList->GetList().DoesContain(env, value)) {

@@ -76,15 +76,15 @@ Value Iterator::ToList(Environment &env, bool alwaysListFlag, bool excludeNilFla
 	size_t cnt = 0;
 	Value value;
 	if (alwaysListFlag) {
-		pObjList = result.Init_AsList(env);
+		pObjList = result.InitAsList(env);
 	}
 	while (Next(env, value)) {
 		if (pObjList == nullptr && !value.IsUndefined()) {
-			pObjList = result.Init_AsList(env, cnt, Value::Nil);
+			pObjList = result.InitAsList(env, cnt, Value::Nil);
 		}
 		if (value.IsValid()) {
 			if (pObjList == nullptr) {
-				pObjList = result.Init_AsList(env, cnt, Value::Nil);
+				pObjList = result.InitAsList(env, cnt, Value::Nil);
 			}
 			pObjList->Add(value);
 		} else if (excludeNilFlag) {
@@ -172,7 +172,7 @@ Value Iterator::MinMax(Environment &env, bool maxFlag, const SymbolSet &attrs)
 		result.SetNumber(idxHit);
 	} else if (attrs.IsSet(Gura_Symbol(indices))) {
 		int idxHit = GetIndexCur();
-		Object_list *pObjListResult = result.Init_AsList(env);
+		Object_list *pObjListResult = result.InitAsList(env);
 		pObjListResult->Add(Value(idxHit));
 		Value value;
 		while (Next(env, value)) {

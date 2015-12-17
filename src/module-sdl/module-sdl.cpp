@@ -2493,7 +2493,7 @@ Gura_ImplementFunction(ListModes)
 	SDL_Rect **modes = ::SDL_ListModes(format, flags);
 	if (modes == nullptr) return Value::Nil;
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	if (modes == reinterpret_cast<SDL_Rect **>(-1)) {
 		// nothing to do
 	} else {
@@ -2619,11 +2619,11 @@ Gura_ImplementFunction(GetGammaRamp)
 	int rtn = ::SDL_GetGammaRamp(redtable, greentable, bluetable);
 	if (rtn < 0) return Value::Nil;
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(3);
 	do {
 		Value valElem;
-		Object_list *pObjListElem = valElem.Init_AsList(env);
+		Object_list *pObjListElem = valElem.InitAsList(env);
 		pObjList->Add(valElem);
 		pObjListElem->Reserve(256);
 		for (int i = 0; i < 256; i++) {
@@ -2632,7 +2632,7 @@ Gura_ImplementFunction(GetGammaRamp)
 	} while (0);
 	do {
 		Value valElem;
-		Object_list *pObjListElem = valElem.Init_AsList(env);
+		Object_list *pObjListElem = valElem.InitAsList(env);
 		pObjList->Add(valElem);
 		pObjListElem->Reserve(256);
 		for (int i = 0; i < 256; i++) {
@@ -2641,7 +2641,7 @@ Gura_ImplementFunction(GetGammaRamp)
 	} while (0);
 	do {
 		Value valElem;
-		Object_list *pObjListElem = valElem.Init_AsList(env);
+		Object_list *pObjListElem = valElem.InitAsList(env);
 		pObjList->Add(valElem);
 		pObjListElem->Reserve(256);
 		for (int i = 0; i < 256; i++) {
@@ -3295,7 +3295,7 @@ Gura_ImplementFunction(PeekEvents)
 		return Value::Nil;
 	}
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(numevents);
 	for (int i = 0; i < numevents; i++) {
 		pObjList->Add(Object_Event::CreateValue(events[i]));
@@ -3332,7 +3332,7 @@ Gura_ImplementFunction(GetEvents)
 		return Value::Nil;
 	}
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(numevents);
 	for (int i = 0; i < numevents; i++) {
 		pObjList->Add(Object_Event::CreateValue(events[i]));

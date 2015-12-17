@@ -3483,7 +3483,7 @@ wxArrayInt *CreateArrayInt(const ValueList &valList)
 Value ArrayIntToValue(Environment &env, const wxArrayInt &array)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(array.GetCount());
 	for (size_t i = 0; i < array.GetCount(); i++) {
 		pObjList->Add(Value(array.Item(i)));
@@ -3494,7 +3494,7 @@ Value ArrayIntToValue(Environment &env, const wxArrayInt &array)
 Value ArrayStringToValue(Environment &env, const wxArrayString &array)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(array.GetCount());
 	for (size_t i = 0; i < array.GetCount(); i++) {
 		pObjList->Add(Value(array.Item(i).ToUTF8()));
@@ -3505,7 +3505,7 @@ Value ArrayStringToValue(Environment &env, const wxArrayString &array)
 Value ArrayStringToValue(Environment &env, const wxString *array, int n)
 {
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(n);
 	for (int i = 0; i < n; i++) {
 		pObjList->Add(Value(array[i].ToUTF8()));

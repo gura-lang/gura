@@ -229,7 +229,7 @@ Gura_ImplementMethod(operator_, entries)
 	Signal &sig = env.GetSignal();
 	Object_operator *pThis = Object_operator::GetObjectThis(arg);
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	if (arg.IsInvalid(0) || arg.GetSymbol(0)->IsIdentical(Gura_Symbol(binary))) {
 		OpType opType = pThis->GetBinaryOpType();
 		if (opType == OPTYPE_None) {

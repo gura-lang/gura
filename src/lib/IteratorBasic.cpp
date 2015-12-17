@@ -1501,7 +1501,7 @@ Iterator *Iterator_Zipv::GetSource()
 
 bool Iterator_Zipv::DoNext(Environment &env, Value &value)
 {
-	Object_list *pObjList = value.Init_AsList(env);
+	Object_list *pObjList = value.InitAsList(env);
 	if (_iterOwner.Next(env, pObjList->_GetList())) {
 		pObjList->DetermineValueType();
 		return true;
@@ -1647,7 +1647,7 @@ bool Iterator_Fold::DoNext(Environment &env, Value &value)
 	if (_doneFlag) return false;
 	Value valueElem;
 	Value valueNext;
-	Object_list *pObjList = valueNext.Init_AsList(env);
+	Object_list *pObjList = valueNext.InitAsList(env);
 	pObjList->Reserve(_cnt);
 	if (_cntStep < _cnt) {
 		foreach (ValueList, pValue, _valListRemain) {

@@ -628,7 +628,7 @@ Gura_ImplementMethod(context, get_dash)
 		return Value::Nil;
 	}
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	pObjList->Reserve(num_dashes);
 	for (int i = 0; i < num_dashes; i++) {
 		pObjList->Add(Value(dashes[num_dashes]));
@@ -1155,7 +1155,7 @@ Gura_ImplementMethod(context, copy_clip_rectangle_list)
 		return Value::Nil;
 	}
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(rectangle_list->num_rectangles);
 	for (int i = 0; i < rectangle_list->num_rectangles; i++) {
 		cairo_rectangle_t &rectangle = rectangle_list->rectangles[i];

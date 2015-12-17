@@ -228,7 +228,7 @@ void Object_Tesselator::_CB_combine(GLdouble coords[3], void *vertex_data[4],
 	if (!pArg->StoreValue(env, Value::CreateList(env, coords, 3))) return;
 	do {
 		Value value;
-		Object_list *pObjList = value.Init_AsList(env, 4);
+		Object_list *pObjList = value.InitAsList(env, 4);
 		for (int i = 0; i < 4; i++) {
 			pObjList->Add(reinterpret_cast<VertexPack *>(vertex_data[i])->GetVertexData());
 		}
@@ -303,7 +303,7 @@ void Object_Tesselator::_CB_combine_data(GLdouble coords[3], void *vertex_data[4
 	if (!pArg->StoreValue(env, Value::CreateList(env, coords, 3))) return;
 	do {
 		Value value;
-		Object_list *pObjList = value.Init_AsList(env, 4);
+		Object_list *pObjList = value.InitAsList(env, 4);
 		for (int i = 0; i < 4; i++) {
 			pObjList->Add(reinterpret_cast<VertexPack *>(vertex_data[i])->GetVertexData());
 		}

@@ -69,7 +69,7 @@ Gura_ImplementFunction(pdf_get_versions)
 	int num_versions = 0;
 	::cairo_pdf_get_versions(&versions, &num_versions);
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	if (num_versions > 0) {
 		pObjList->Reserve(num_versions);
 		for (int i = 0; i < num_versions; i++) {
@@ -93,7 +93,7 @@ Gura_ImplementFunction(ps_get_levels)
 	int num_levels = 0;
 	::cairo_ps_get_levels(&levels, &num_levels);
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	if (num_levels > 0) {
 		pObjList->Reserve(num_levels);
 		for (int i = 0; i < num_levels; i++) {
@@ -131,7 +131,7 @@ Gura_ImplementFunction(svg_get_versions)
 	int num_versions = 0;
 	::cairo_svg_get_versions(&versions, &num_versions);
 	Value rtn;
-	Object_list *pObjList = rtn.Init_AsList(env);
+	Object_list *pObjList = rtn.InitAsList(env);
 	if (num_versions > 0) {
 		pObjList->Reserve(num_versions);
 		for (int i = 0; i < num_versions; i++) {
@@ -736,7 +736,7 @@ const char *SurfaceTypeToName(cairo_surface_type_t surface_type)
 Value RectangleToValue(Environment &env, const cairo_rectangle_t &rectangle)
 {
 	Value value;
-	Object_list *pObjList = value.Init_AsList(env);
+	Object_list *pObjList = value.InitAsList(env);
 	pObjList->Reserve(5);
 	pObjList->Add(Value(rectangle.x));
 	pObjList->Add(Value(rectangle.y));
@@ -805,7 +805,7 @@ bool MatrixToCairo(Signal &sig, cairo_matrix_t &matrix, Matrix *pMat)
 Value CreateValueList(Environment &env, double x1, double x2)
 {
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(2);
 	pObjList->Add(Value(x1));
 	pObjList->Add(Value(x2));
@@ -815,7 +815,7 @@ Value CreateValueList(Environment &env, double x1, double x2)
 Value CreateValueList(Environment &env, double x1, double x2, double x3)
 {
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(3);
 	pObjList->Add(Value(x1));
 	pObjList->Add(Value(x2));
@@ -826,7 +826,7 @@ Value CreateValueList(Environment &env, double x1, double x2, double x3)
 Value CreateValueList(Environment &env, double x1, double x2, double x3, double x4)
 {
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(4);
 	pObjList->Add(Value(x1));
 	pObjList->Add(Value(x2));
@@ -839,7 +839,7 @@ Value CreateValueList(Environment &env,
 				double x1, double x2, double x3, double x4, double x5)
 {
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(5);
 	pObjList->Add(Value(x1));
 	pObjList->Add(Value(x2));
@@ -853,7 +853,7 @@ Value CreateValueList(Environment &env,
 				double x1, double x2, double x3, double x4, double x5, double x6)
 {
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(6);
 	pObjList->Add(Value(x1));
 	pObjList->Add(Value(x2));

@@ -214,7 +214,7 @@ void Matrix::ToList(Environment &env, ValueList &valList, bool transposeFlag, bo
 			for (size_t iCol = 0; iCol < _nCols; iCol++) {
 				Elements::const_iterator pValueElem = GetPointer(0, iCol);
 				Value valueCol;
-				Object_list *pObjListCol = valueCol.Init_AsList(env);
+				Object_list *pObjListCol = valueCol.InitAsList(env);
 				valList.push_back(valueCol);
 				size_t offset = 0;
 				for (size_t iRow = 0; iRow < _nRows; iRow++, offset += GetFold()) {
@@ -236,7 +236,7 @@ void Matrix::ToList(Environment &env, ValueList &valList, bool transposeFlag, bo
 			for (size_t iRow = 0; iRow < _nRows; iRow++) {
 				Elements::const_iterator pValueElem = GetPointer(iRow, 0);
 				Value valueRow;
-				Object_list *pObjListRow = valueRow.Init_AsList(env);
+				Object_list *pObjListRow = valueRow.InitAsList(env);
 				valList.push_back(valueRow);
 				for (size_t iCol = 0; iCol < _nCols; iCol++, pValueElem++) {
 					pObjListRow->Add(*pValueElem);
@@ -309,7 +309,7 @@ Value Matrix::GetRow(Environment &env, size_t iRow) const
 		return false;
 	}
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(GetCols());
 	Elements::const_iterator pValueElem = GetPointer(iRow, 0);
 	for (size_t iCol = 0; iCol < GetCols(); iCol++, pValueElem++) {
@@ -326,7 +326,7 @@ Value Matrix::GetCol(Environment &env, size_t iCol) const
 		return false;
 	}
 	Value result;
-	Object_list *pObjList = result.Init_AsList(env);
+	Object_list *pObjList = result.InitAsList(env);
 	pObjList->Reserve(GetRows());
 	Elements::const_iterator pValueElem = GetPointer(0, iCol);
 	size_t offset = 0;
@@ -641,7 +641,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const ValueList &valList
 		return Value::Nil;
 	}
 	Value result;
-	Object_list *pObjListResult = result.Init_AsList(env);
+	Object_list *pObjListResult = result.InitAsList(env);
 	pObjListResult->Reserve(nRows);
 	ValueType valType1 = CheckValueType(*pMat);
 	ValueType valType2 = CheckValueType(valList);
@@ -741,7 +741,7 @@ Value Matrix::Mul(Environment &env, const ValueList &valList, const Matrix *pMat
 		return Value::Nil;
 	}
 	Value result;
-	Object_list *pObjListResult = result.Init_AsList(env);
+	Object_list *pObjListResult = result.InitAsList(env);
 	pObjListResult->Reserve(nCols);
 	ValueType valType1 = CheckValueType(valList);
 	ValueType valType2 = CheckValueType(*pMat);
