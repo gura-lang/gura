@@ -941,10 +941,10 @@ Gura_ImplementDescendantCreator(wx_Menu)
 Value MenuItemListToValue(Environment &env, const wxMenuItemList &list)
 {
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
-	valList.reserve(list.GetCount());
+	Object_list *pObjList = rtn.Init_AsList(env);
+	pObjList->Reserve(list.GetCount());
 	foreach_const (wxMenuItemList, pItem, list) {
-		valList.push_back(Value(new Object_wx_MenuItem(*pItem, nullptr, OwnerFalse)));
+		pObjList->Add(Value(new Object_wx_MenuItem(*pItem, nullptr, OwnerFalse)));
 	}
 	return rtn;
 }

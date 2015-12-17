@@ -96,10 +96,10 @@ Gura_ImplementMethod(wx_DataObject, GetAllFormats)
 	Value rtn;
 	wxDataFormat *formats = new wxDataFormat[n];
 	pThis->GetEntity()->GetAllFormats(formats, dir);
-	ValueList &valList = rtn.InitAsList(env);
-	valList.reserve(n);
+	Object_list *pObjList = rtn.Init_AsList(env);
+	pObjList->Reserve(n);
 	for (size_t i = 0; i < n; i++) {
-		valList.push_back(Value(new Object_wx_DataFormat(new wxDataFormat(formats[i]), nullptr, OwnerTrue)));
+		pObjList->Add(Value(new Object_wx_DataFormat(new wxDataFormat(formats[i]), nullptr, OwnerTrue)));
 	}
 	delete[] formats;
 	return rtn;

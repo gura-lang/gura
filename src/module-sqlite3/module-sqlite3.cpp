@@ -100,10 +100,11 @@ Value Object_db::GetColumnNames(Signal &sig, const char *sql)
 		return Value::Nil;
 	}
 	Value result;
-	ValueList &valList = result.InitAsList(env);
+	Object_list *pObjList = result.Init_AsList(env);
 	int nCols = ::sqlite3_column_count(pStmt);
+	pObjList->Reserve(nCols);
 	for (int iCol = 0; iCol < nCols; iCol++) {
-		valList.push_back(Value(::sqlite3_column_name(pStmt, iCol)));
+		pObjList->Add(Value(::sqlite3_column_name(pStmt, iCol)));
 	}
 	::sqlite3_finalize(pStmt);
 	return result;
@@ -124,9 +125,10 @@ int Object_db::Callback(void *user, int argc, char **argv, char **azColName)
 	Environment &env = pCallbackInfo->GetEnv();
 	ResultComposer &resultComposer = pCallbackInfo->GetResultComposer();
 	Value value;
-	ValueList &valList = value.InitAsList(env);
+	Object_list *pObjList = value.Init_AsList(env);
+	pObjList->Reserve(argc);
 	for (int i = 0; i < argc; i++) {
-		valList.push_back(Value(argv[i]));
+		pObjList->Add(Value(argv[i]));
 	}
 	return resultComposer.StoreValue(env, value)? SQLITE_OK : SQLITE_ERROR;
 }
@@ -155,22 +157,23 @@ bool Object_db::IteratorQuery::DoNext(Environment &env, Value &value)
 	if (::sqlite3_step(_pStmt) != SQLITE_ROW) {
 		return false;
 	}
-	ValueList &valList = value.InitAsList(env);
+	Object_list *pObjList = value.Init_AsList(env);
 	int nCols = ::sqlite3_column_count(_pStmt);
+	pObjList->Reserve(nCols);
 	for (int iCol = 0; iCol < nCols; iCol++) {
 		int type = ::sqlite3_column_type(_pStmt, iCol);
 		if (type == SQLITE_INTEGER) {
-			valList.push_back(Value(static_cast<Number>(::sqlite3_column_int(_pStmt, iCol))));
+			pObjList->Add(Value(static_cast<Number>(::sqlite3_column_int(_pStmt, iCol))));
 		} else if (type == SQLITE_FLOAT) {
-			valList.push_back(Value(static_cast<Number>(::sqlite3_column_double(_pStmt, iCol))));
+			pObjList->Add(Value(static_cast<Number>(::sqlite3_column_double(_pStmt, iCol))));
 		} else if (type == SQLITE_TEXT) {
-			valList.push_back(Value(
+			pObjList->Add(Value(
 				reinterpret_cast<const char *>(::sqlite3_column_text(_pStmt, iCol))));
 		} else if (type == SQLITE_BLOB) {
 			//::sqlite3_column_blob(_pStmt, iCol);
-			valList.push_back(Value::Nil);
+			pObjList->Add(Value::Nil);
 		} else if (type == SQLITE_NULL) {
-			valList.push_back(Value::Nil);
+			pObjList->Add(Value::Nil);
 		} else {
 			sig.SetError(ERR_RuntimeError, "somthing's wrong in sqlite3");
 			return false;

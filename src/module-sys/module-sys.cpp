@@ -156,18 +156,19 @@ bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[])
 	}
 	do {
 		Value value;
-		ValueList &valList = value.InitAsList(env);
+		Object_list *pObjList = value.Init_AsList(env);
 		if (argc >= 2 && argv != nullptr) {
-			valList.push_back(Value(OAL::MakeAbsPathName(
+			pObjList->Reserve(argc - 1);
+			pObjList->Add(Value(OAL::MakeAbsPathName(
 										OAL::FileSeparator, fileNameScript.c_str())));
 			for (int i = 2; i < argc; i++) {
 				const char *arg = argv[i];
 				//if (Directory::HasWildCard(arg)) {
 				//	if (!ExpandWildCard(env, sig, valList, arg)) return false;
 				//} else {
-				//	valList.push_back(Value(arg));
+				//	pObjList->Add(Value(arg));
 				//}
-				valList.push_back(Value(OAL::FromNativeString(arg)));
+				pObjList->Add(Value(OAL::FromNativeString(arg)));
 			}
 		}
 		env.AssignValue(Symbol::Add("argv"), value, EXTRA_Public);
@@ -175,28 +176,28 @@ bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[])
 	do {
 		Option &opt = env.GetOption();
 		Value value;
-		ValueList &valList = value.InitAsList(env);
+		Object_list *pObjList = value.Init_AsList(env);
 		do {
 			String dirName, fileName;
 			PathMgr::SplitFileName(fileNameScript.c_str(), &dirName, &fileName);
 			if (!dirName.empty()) {
-				valList.push_back(Value(OAL::MakeAbsPathName(
+				pObjList->Add(Value(OAL::MakeAbsPathName(
 											OAL::FileSeparator, dirName.c_str())));
 			}
 		} while (0);
-		valList.push_back(Value("."));
+		pObjList->Add(Value("."));
 		if (opt.IsSet("import-dir")) {
 			foreach_const (StringList, pStr, opt.GetStringList("import-dir")) {
-				valList.push_back(Value(*pStr));
+				pObjList->Add(Value(*pStr));
 			}
 		}
 		StringList strList;
 		OAL::SetupModulePath(strList);
 		foreach (StringList, pStr, strList) {
-			valList.push_back(Value(*pStr));
+			pObjList->Add(Value(*pStr));
 		}
 		if (argc >= 2 && IsCompositeFile(fileNameScript.c_str())) {
-			valList.push_back(Value(OAL::MakeAbsPathName(
+			pObjList->Add(Value(OAL::MakeAbsPathName(
 										OAL::FileSeparator, fileNameScript.c_str())));
 		}
 		env.AssignValue(Symbol::Add("path"), value, EXTRA_Public);

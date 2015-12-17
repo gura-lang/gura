@@ -226,10 +226,10 @@ Gura_ImplementMethod(wx_Pen, GetDashes)
 	wxDash *dashes;
 	int rtn = pThis->GetEntity()->GetDashes(&dashes);
 	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.reserve(rtn);
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(rtn);
 	for (int i = 0; i < rtn; i++) {
-		valList.push_back(Value(dashes[i]));
+		pObjList->Add(Value(dashes[i]));
 	}
 	return ReturnValue(env, arg, result);
 }

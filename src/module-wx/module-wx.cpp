@@ -3483,10 +3483,10 @@ wxArrayInt *CreateArrayInt(const ValueList &valList)
 Value ArrayIntToValue(Environment &env, const wxArrayInt &array)
 {
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
-	valList.reserve(array.GetCount());
+	Object_list *pObjList = rtn.Init_AsList(env);
+	pObjList->Reserve(array.GetCount());
 	for (size_t i = 0; i < array.GetCount(); i++) {
-		valList.push_back(Value(array.Item(i)));
+		pObjList->Add(Value(array.Item(i)));
 	}
 	return rtn;
 }
@@ -3494,10 +3494,10 @@ Value ArrayIntToValue(Environment &env, const wxArrayInt &array)
 Value ArrayStringToValue(Environment &env, const wxArrayString &array)
 {
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
-	valList.reserve(array.GetCount());
+	Object_list *pObjList = rtn.Init_AsList(env);
+	pObjList->Reserve(array.GetCount());
 	for (size_t i = 0; i < array.GetCount(); i++) {
-		valList.push_back(Value(array.Item(i).ToUTF8()));
+		pObjList->Add(Value(array.Item(i).ToUTF8()));
 	}
 	return rtn;
 }
@@ -3505,10 +3505,10 @@ Value ArrayStringToValue(Environment &env, const wxArrayString &array)
 Value ArrayStringToValue(Environment &env, const wxString *array, int n)
 {
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
-	valList.reserve(n);
+	Object_list *pObjList = rtn.Init_AsList(env);
+	pObjList->Reserve(n);
 	for (int i = 0; i < n; i++) {
-		valList.push_back(Value(array[i].ToUTF8()));
+		pObjList->Add(Value(array[i].ToUTF8()));
 	}
 	return rtn;
 }

@@ -432,10 +432,6 @@ public:
 	void InitAsClass(Class *pClass);
 	void InitAsObject(Object *pObj);
 	void _SetObject(Object *pObj);
-	ValueList &InitAsList(Environment &env);
-	ValueList &InitAsList(Environment &env, size_t n);
-	ValueList &InitAsList(Environment &env, const ValueList &valList);
-	ValueList &InitAsList(Environment &env, size_t n, const Value &value);
 	Object_list *Init_AsList(Environment &env);
 	Object_list *Init_AsList(Environment &env, size_t n);
 	Object_list *Init_AsList(Environment &env, const ValueList &valList);

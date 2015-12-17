@@ -386,9 +386,10 @@ public:
 		if (decl.IsType(VTYPE_list)) {
 			AutoPtr<Array<T_Elem> > pArray(
 				Object_array<T_Elem>::GetObject(value)->GetArray()->Reference());
-			ValueList &valList = value.InitAsList(env);
-			valList.reserve(pArray->GetSize());
-			CopyArrayToList(pArray.get(), valList);
+			Object_list *pObjList = value.Init_AsList(env);
+			pObjList->Reserve(pArray->GetSize());
+			CopyArrayToList(pArray.get(), pObjList->_GetList());
+			pObjList->SetValueType(VTYPE_number);
 			return true;
 		} else if (decl.IsType(VTYPE_iterator)) {
 			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObject(value)->GetArray();

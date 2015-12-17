@@ -122,12 +122,12 @@ Value Object_interp::ConvFromTclObj(Environment &env, Signal &sig, Tcl_Obj *objP
 		int length;
 		::Tcl_ListObjLength(_interp, objPtr, &length);
 		Value result;
-		ValueList &valList = result.InitAsList(env);
-		valList.reserve(length);
+		Object_list *pObjList = result.Init_AsList(env);
+		pObjList->Reserve(length);
 		for (int i = 0; i < length; i++) {
 			Tcl_Obj *objElemPtr;
 			::Tcl_ListObjIndex(_interp, objPtr, i, &objElemPtr);
-			valList.push_back(ConvFromTclObj(env, sig, objElemPtr));
+			pObjList->Add(ConvFromTclObj(env, sig, objElemPtr));
 			if (sig.IsSignalled()) return Value::Nil;
 		}
 		return result;

@@ -3914,11 +3914,11 @@ Gura_ImplementDescendantCreator(wx_Grid)
 Value GridCellCoordsArrayToValue(Environment &env, const wxGridCellCoordsArray &array)
 {
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
-	valList.reserve(array.GetCount());
+	Object_list *pObjList = rtn.Init_AsList(env);
+	pObjList->Reserve(array.GetCount());
 	for (size_t i = 0; i < array.GetCount(); i++) {
 		const wxGridCellCoords &coords = array.Item(i);
-		valList.push_back(Value(new Object_wx_GridCellCoords(
+		pObjList->Add(Value(new Object_wx_GridCellCoords(
 								new wxGridCellCoords(coords), nullptr, OwnerTrue)));
 	}
 	return rtn;

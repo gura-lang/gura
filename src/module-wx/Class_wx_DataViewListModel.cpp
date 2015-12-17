@@ -184,9 +184,9 @@ bool wx_DataViewListModel::RowsReordered(unsigned int* new_order)
 	if (_pObj->GeSignal().IsSignalled()) return false;
 	Value v;
 	do {
-		ValueList &valList = v.InitAsList(env);
-		valList.reserve(nRows);
-		for (size_t iRow = 0; iRow < nRows; iRow++) valList.push_back(Value(new_order[iRow]));
+		Object_list *pObjList = v.Init_AsList(env);
+		pObjList->Reserve(nRows);
+		for (size_t iRow = 0; iRow < nRows; iRow++) pObjList->Add(Value(new_order[iRow]));
 	} while (0);
 	ValueList valListArg;
 	valListArg.reserve(1);
