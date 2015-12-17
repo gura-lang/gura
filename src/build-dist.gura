@@ -76,7 +76,8 @@ gatherFiles() = {
 		fileNames.append(lines.filter(lines:*startswith([
 			'bin-x86', 'module/', 'sample/', 'script/', 'include/'
 		]):*or()))
-		fileNames.append(path.glob('gura-doc/*.pdf'))
+		fileNames.append(path.glob('doc/language-manual/*.pdf'))
+		fileNames.append(path.glob('doc/library-reference/*.pdf'))
 		fileNames.append(path.glob('module/site/*.gura'))
 		fileNames.append(path.glob('module/site/*.gurd'))
 		fileNames.append(path.glob('guest/tcl/bin/*.dll'))
@@ -229,17 +230,12 @@ textTemplate = R"""
         <Shortcut Id="Shortcut2"
                   Name="Gura Language Manual"
                   Description="Gura Language Manual"
-                  Target="[INSTALLDIR]doc\gura-lang-j.pdf"
+                  Target="[INSTALLDIR]doc\language-manual\gura-lang-e.pdf"
                   WorkingDirectory="INSTALLDIR" />
         <Shortcut Id="Shortcut3"
                   Name="Gura Library Reference"
                   Description="Gura Library Reference"
-                  Target="[INSTALLDIR]doc\gura-lib-j.pdf"
-                  WorkingDirectory="INSTALLDIR" />
-        <Shortcut Id="Shortcut4"
-                  Name="Gura Developers Manual"
-                  Description="Gura Developers Manual"
-                  Target="[INSTALLDIR]doc\gura-dev-j.pdf"
+                  Target="[INSTALLDIR]doc\library-reference\gura-lib-e.pdf"
                   WorkingDirectory="INSTALLDIR" />
         <RemoveFolder Id="ProgramShortcutDir" On="uninstall"/>
         <RegistryValue Root="HKCU" Key="Software\Microsoft\Gura" Name="Installed" Type="integer" Value="1" KeyPath="yes"/>
