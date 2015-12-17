@@ -2493,12 +2493,12 @@ Gura_ImplementFunction(ListModes)
 	SDL_Rect **modes = ::SDL_ListModes(format, flags);
 	if (modes == nullptr) return Value::Nil;
 	Value rtn;
-	ValueList &valList = rtn.InitAsList(env);
+	Object_list *pObjList = rtn.Init_AsList(env);
 	if (modes == reinterpret_cast<SDL_Rect **>(-1)) {
 		// nothing to do
 	} else {
 		for (int i = 0; modes[i] != nullptr; i++) {
-			valList.push_back(Value(new Object_Rect(*modes[i])));
+			pObjList->Add(Value(new Object_Rect(*modes[i])));
 		}
 	}
 	return rtn;
@@ -2619,29 +2619,33 @@ Gura_ImplementFunction(GetGammaRamp)
 	int rtn = ::SDL_GetGammaRamp(redtable, greentable, bluetable);
 	if (rtn < 0) return Value::Nil;
 	Value result;
-	ValueList &valList = result.InitAsList(env);
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(3);
 	do {
 		Value valElem;
-		ValueList &valElemList = valElem.InitAsList(env);
-		valList.push_back(valElem);
+		Object_list *pObjListElem = valElem.Init_AsList(env);
+		pObjList->Add(valElem);
+		pObjListElem->Reserve(256);
 		for (int i = 0; i < 256; i++) {
-			valElemList.push_back(Value(redtable[i]));
+			pObjListElem->Add(Value(redtable[i]));
 		}
 	} while (0);
 	do {
 		Value valElem;
-		ValueList &valElemList = valElem.InitAsList(env);
-		valList.push_back(valElem);
+		Object_list *pObjListElem = valElem.Init_AsList(env);
+		pObjList->Add(valElem);
+		pObjListElem->Reserve(256);
 		for (int i = 0; i < 256; i++) {
-			valElemList.push_back(Value(greentable[i]));
+			pObjListElem->Add(Value(greentable[i]));
 		}
 	} while (0);
 	do {
 		Value valElem;
-		ValueList &valElemList = valElem.InitAsList(env);
-		valList.push_back(valElem);
+		Object_list *pObjListElem = valElem.Init_AsList(env);
+		pObjList->Add(valElem);
+		pObjListElem->Reserve(256);
 		for (int i = 0; i < 256; i++) {
-			valElemList.push_back(Value(bluetable[i]));
+			pObjListElem->Add(Value(bluetable[i]));
 		}
 	} while (0);
 	return result;
@@ -3291,9 +3295,10 @@ Gura_ImplementFunction(PeekEvents)
 		return Value::Nil;
 	}
 	Value result;
-	ValueList &valList = result.InitAsList(env);
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(numevents);
 	for (int i = 0; i < numevents; i++) {
-		valList.push_back(Object_Event::CreateValue(events[i]));
+		pObjList->Add(Object_Event::CreateValue(events[i]));
 	}
 	delete[] events;
 	return result;
@@ -3327,9 +3332,10 @@ Gura_ImplementFunction(GetEvents)
 		return Value::Nil;
 	}
 	Value result;
-	ValueList &valList = result.InitAsList(env);
+	Object_list *pObjList = result.Init_AsList(env);
+	pObjList->Reserve(numevents);
 	for (int i = 0; i < numevents; i++) {
-		valList.push_back(Object_Event::CreateValue(events[i]));
+		pObjList->Add(Object_Event::CreateValue(events[i]));
 	}
 	delete[] events;
 	return result;

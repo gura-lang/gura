@@ -150,8 +150,10 @@ Array<T_SDL> *CreateArray(const ValueList &valList)
 }
 
 void SetError_SDL(Signal &sig);
-void SetError_NotImpFunction(Signal &sig, const char *funcName);
-void SetError_NotImpMethod(Signal &sig, const char *className, const char *methodName);
+
+inline void SetError_SDL(Environment &env) {
+	SetError_SDL(env.GetSignal());
+}
 
 Gura_EndModuleHeader(sdl2)
 

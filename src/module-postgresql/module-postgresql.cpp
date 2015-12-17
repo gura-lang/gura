@@ -83,9 +83,10 @@ bool Object_postgresql::IteratorTuple::DoNext(Environment &env, Value &value)
 	//Environment &env = *_pObj;
 	if (_iTuple >= ::PQntuples(_res)) return false;
 	int nFields = ::PQnfields(_res);
-	ValueList &valList = value.InitAsList(env);
+	Object_list *pObjList = value.Init_AsList(env);
+	pObjList->Reserve(nFields);
 	for (int iField = 0; iField < nFields; iField++) {
-		valList.push_back(Value(env, ::PQgetvalue(_res, _iTuple, iField)));
+		pObjList->Add(Value(::PQgetvalue(_res, _iTuple, iField)));
 	}
 	_iTuple++;
 	return true;
