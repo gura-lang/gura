@@ -2,8 +2,5 @@
 dirs="language-manual library-reference"
 for dir in $dirs
 do
-	pushd $dir
-	./build-doc.gura html
-	./build-doc.gura pdf
-	popd
+	gura -C $dir build-doc.gura pdf html
 done
