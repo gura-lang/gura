@@ -169,8 +169,7 @@ makeDocument() = {
 	doc
 }
 
-output@tex() = {
-	doc = makeDocument()
+output@tex(doc:markdown.document) = {
 	open(fileNameTeX, 'w') {|out|
 		Renderer@tex(out, title, author, date).Render(doc)
 	}
@@ -178,14 +177,13 @@ output@tex() = {
 	sys.stderr.println(fileNameTeX, ' was created.')
 }
 
-output@pdf() = {
-	output@tex()
+output@pdf(doc:markdown.document) = {
+	output@tex(doc)
 	repeat (2) { os.exec('platex', fileNameTeX) }
 	os.exec('dvipdf', fileNameTeX.replace('.tex', '.dvi'))
 }
 
-output@html() = {
-	doc = makeDocument()
+output@html(doc:markdown.document) = {
 	println('Output directory: ', dirName@html)
 	!path.exists(dirName@html) && fs.mkdir(dirName@html)
 	fileName = path.join(dirName@html, 'index.md')
@@ -216,12 +214,13 @@ usage() = {
 
 if (sys.argv.len() < 2) {
 	usage()
-} elsif (sys.argv[1] == 'tex') {
-	output@tex()
-} elsif (sys.argv[1] == 'pdf') {
-	output@pdf()
-} elsif (sys.argv[1] == 'html') {
-	output@html()
 } else {
-	usage()
+	entries = %{
+		'tex' => output@tex
+		'pdf' => output@pdf
+		'html' => output@html
+	}
+	try { funcs = entries[sys.argv[1..]] } catch { usage() }
+	doc = makeDocument()
+	funcs.each {|func| func(doc)}
 }

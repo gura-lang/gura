@@ -32,16 +32,16 @@ and provides information about differences between two texts by lines.
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>diff.diff@line#distance</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>distance</code></td><td><code>number</code></td><td>R</td>
 <td>The distance between the texts. Zero means that they are identical each other.</td></tr>
 
-<tr><td><code>diff.diff@line#edits</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>edits</code></td><td><code>iterator</code></td><td>R</td>
 <td>An iterator that returns <code>diff.edit@line</code> instances stored in the result.</td></tr>
 
-<tr><td><code>diff.diff@line#nlines@org</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>nlines@org</code></td><td><code>number</code></td><td>R</td>
 <td>Number of lines in the "original" text.</td></tr>
 
-<tr><td><code>diff.diff@line#nlines@new</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>nlines@new</code></td><td><code>number</code></td><td>R</td>
 <td>Number of lines in the "new" text.</td></tr>
 
 </table>
@@ -63,19 +63,19 @@ The `diff.hunk@line` instance provides information about a hunk.
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>diff.hunk@line#edits</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>edits</code></td><td><code>iterator</code></td><td>R</td>
 <td>An iterator that returns <code>diff.edit@line</code> instances stored in the hunk.</td></tr>
 
-<tr><td><code>diff.hunk@line#lineno@org</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>lineno@org</code></td><td><code>number</code></td><td>R</td>
 <td>Top line number of the "original" text covered by the hunk.</td></tr>
 
-<tr><td><code>diff.hunk@line#lineno@new</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>lineno@new</code></td><td><code>number</code></td><td>R</td>
 <td>Top line number of the "new" text covered by the hunk.</td></tr>
 
-<tr><td><code>diff.hunk@line#nlines@org</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>nlines@org</code></td><td><code>number</code></td><td>R</td>
 <td>Number of lines in the "original" text covered by the hunk.</td></tr>
 
-<tr><td><code>diff.hunk@line#nlines@new</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>nlines@new</code></td><td><code>number</code></td><td>R</td>
 <td>Number of lines in the "new" text covered by the hunk.</td></tr>
 
 </table>
@@ -105,19 +105,19 @@ The `diff.edit@line` provides information about an edit operation.
 </ul>
 </td></tr>
 
-<tr><td><code>diff.edit@line#mark</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>mark</code></td><td><code>string</code></td><td>R</td>
 <td>A mark string that appears on the top of each line in Unified format.</td></tr>
 
-<tr><td><code>diff.edit@line#lineno@org</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>lineno@org</code></td><td><code>number</code></td><td>R</td>
 <td>Line number of the "original" text correspond to the edit.</td></tr>
 
-<tr><td><code>diff.edit@line#lineno@new</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>lineno@new</code></td><td><code>number</code></td><td>R</td>
 <td>Lop line number of the "new" text correspond to the edit.</td></tr>
 
-<tr><td><code>diff.edit@line#source</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>source</code></td><td><code>string</code></td><td>R</td>
 <td>A source text.</td></tr>
 
-<tr><td><code>diff.edit@line#unified</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>unified</code></td><td><code>string</code></td><td>R</td>
 <td>A composed string in Unified format.</td></tr>
 
 </table>
@@ -140,17 +140,17 @@ and provides information about differences between two texts by characters.
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>diff.diff@line#distance</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>distance</code></td><td><code>number</code></td><td>R</td>
 <td>The distance between the texts. Zero means that they are identical each other.</td></tr>
 
-<tr><td><code>diff.diff@line#edits</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>edits</code></td><td><code>iterator</code></td><td>R</td>
 <td>An iterator that returns <code>diff.edit@char</code> instances stored in the result.</td></tr>
 
-<tr><td><code>diff.diff@line#edits@org</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>edits@org</code></td><td><code>iterator</code></td><td>R</td>
 <td>An iterator that returns <code>diff.edit@char</code> instances
 that are applied to the "original" string.</td></tr>
 
-<tr><td><code>diff.diff@line#edits@new</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>edits@new</code></td><td><code>iterator</code></td><td>R</td>
 <td>An iterator that returns <code>diff.edit@char</code> instances
 that are applied to the "new" string.</td></tr>
 
