@@ -204,6 +204,7 @@ Renderer@tex = class {
 			\author{${_this.author}}
 			\date{${_this.date}}
 			\usepackage{fancyvrb}
+			\usepackage{tabulary}
 
 			\setlength{\textwidth}{145mm}
 			\setlength{\oddsidemargin}{35mm}
@@ -363,18 +364,26 @@ Renderer@tex = class {
 				item
 			}
 		}
-		alignChars = %{`left => 'l', `right => 'r', `center => 'c'}
-		alignSpecifier = alignChars.get(rows[0]::align, 'l').join('|')
-		this.out.print('\n\\vspace{3mm}\n\n')
-		this.out.printf('\\begin{tabular}{|%s|} \\hline\n', alignSpecifier)
+		//alignChars = %{`left => 'l', `right => 'r', `center => 'c'}
+		alignChars = %{`left => 'L', `right => 'R', `center => 'C'}
+		aligns = rows[0]::align
+		alignSpecifier = [
+			alignChars.get(aligns.head(aligns.len() - 1), 'L')
+			alignChars.get(aligns.last(), 'J')
+		].join('|')
+		this.out.println()
+		this.out.println(r'\vspace{3mm}')
+		this.out.println(r'\begin{center}')
+		this.out.printf('\\begin{tabulary}{\\textwidth}{|%s|} \\hline\n',
+						alignSpecifier)
 		rows.each {|cols, iRow|
 			headerFlag = false
 			cols.each {|item, iCol|
 				(iCol > 0) && this.out.print(' & ')
 				if (item.text.lower() == 'th') {
-					this.out.print(r'{\bf ')
+					this.out.print(r'\textbf{')
 					this.RenderItem(item)
-					this.out.print(r' }')
+					this.out.print(r'}')
 					headerFlag = true
 				} else {
 					this.RenderItem(item)
@@ -386,8 +395,9 @@ Renderer@tex = class {
 				this.out.println(r' \\')
 			}
 		}
-		this.out.println(r'\end{tabular}')
-		this.out.print('\n\\vspace{3mm}\n\n')
+		this.out.println(r'\end{tabulary}')
+		this.out.println(r'\end{center}')
+		this.out.println(r'\vspace{3mm}')
 	}
 	OnRenderItemPre(item:item) = true
 	OnRenderItemPost(item:item):void = nil
