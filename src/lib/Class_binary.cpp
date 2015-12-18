@@ -486,24 +486,24 @@ Gura_ImplementClassMethod(binary, pack)
 	return ReturnValue(env, arg, Value(pObjBinary.release()));
 }
 
-// binary#pointer(offset:number => 0) {block?}
+// binary#pointer(offset?:number) {block?}
 Gura_DeclareMethod(binary, pointer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "offset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a pointer instance that has an initial offset specified\n"
-		"by the argument.");
+		"Returns a `pointer` instance that has an initial offset specified\n"
+		"by the argument `offset`. If the argument is omitted, it would return a `pointer`\n"
+		"instance that points to the top of the binary.\n");
 }
 
 Gura_ImplementMethod(binary, pointer)
 {
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	Object_binary *pObjBinary = Object_binary::Reference(pThis);
-	size_t offset = arg.GetSizeT(0);
-	return ReturnValue(env, arg, Value(new Object_pointer(env, pObjBinary, offset)));
+	size_t offset = arg.Is_number(0)? arg.GetSizeT(0) : 0;
+	return ReturnValue(env, arg, Value(new Object_pointer(env, pThis->Reference(), offset)));
 }
 
 // binary#reader() {block?}

@@ -51,6 +51,29 @@ bool Object_pointer::Pack(Signal &sig,
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of functions
+//-----------------------------------------------------------------------------
+// pointer(buff:binary, offset?:number) {block?}
+Gura_DeclareFunction(pointer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "buff", VTYPE_binary, OCCUR_Once);
+	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_pointer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `pointer` instance that points to the specified `binary` instance.\n");
+}
+
+Gura_ImplementFunction(pointer)
+{
+	Object_binary *pObj = Object_binary::GetObject(arg, 0);
+	size_t offset = arg.Is_number(1)? arg.GetSizeT(1) : 0;
+	return ReturnValue(env, arg, Value(new Object_pointer(env, pObj->Reference(), offset)));
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // pointer#forward(distance:number):reduce
@@ -165,7 +188,8 @@ Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_po
 
 void Class_pointer::Prepare(Environment &env)
 {
-	Gura_AssignValue(pointer, Value(Reference()));
+	//Gura_AssignValue(pointer, Value(Reference()));
+	Gura_AssignFunction(pointer);
 	Gura_AssignMethod(pointer, forward);
 	Gura_AssignMethod(pointer, pack);
 	Gura_AssignMethod(pointer, reset);
