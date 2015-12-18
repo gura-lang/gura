@@ -605,6 +605,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(numer);
 	Gura_RealizeSymbol(o);
 	Gura_RealizeSymbol(object);
+	Gura_RealizeSymbol(offset);
 	Gura_RealizeSymbol(oneline);
 	Gura_RealizeSymbol(open);
 	Gura_RealizeSymbol(open_l);
@@ -709,6 +710,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(symbol);
 	Gura_RealizeSymbol(symbol_func);
 	Gura_RealizeSymbol(t);
+	Gura_RealizeSymbol(target);
 	Gura_RealizeSymbolAlias(template_,		"template");
 	Gura_RealizeSymbol(text);
 	Gura_RealizeSymbolAlias(this_,			"this");

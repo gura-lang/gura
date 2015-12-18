@@ -37,6 +37,9 @@ public:
 		_offset(obj._offset) {}
 	virtual ~Object_pointer();
 	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Object_binary *GetBinaryObj() { return _pObjBinary.get(); }
 	inline const Object_binary *GetBinaryObj() const { return _pObjBinary.get(); }

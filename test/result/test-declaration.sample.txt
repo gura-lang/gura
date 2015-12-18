@@ -232,7 +232,7 @@ path:module = <module:path:<integrated>>
   path.splitext(pathname:string):map
   path.stat(directory:directory):map
   path.walk(directory?:directory, maxdepth?:number, pattern*:string):flat:map:[dir,file,stat] {block?}
-pointer:class = <class:pointer>
+pointer:class = <class:pointer(buff:binary, offset?:number) {block?}>
 print(values*):map:void
 printf(format:string, values*):map:void
 println(values*):map:void
@@ -379,7 +379,7 @@ binary
   binary#hex():[carray,cstr,upper]
   binary#len()
   binary.pack(format:string, value*):static:map {block?}
-  binary#pointer(offset:number => 0) {block?}
+  binary#pointer(offset?:number) {block?}
   binary#reader() {block?}
   binary#store(offset:number, buff+:binary):map:reduce
   binary#unpack(format:string, values*:number):[nil]

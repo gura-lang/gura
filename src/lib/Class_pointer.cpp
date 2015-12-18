@@ -17,6 +17,27 @@ Object *Object_pointer::Clone() const
 	return new Object_pointer(*this);
 }
 
+bool Object_pointer::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_Symbol(binary));
+	symbols.insert(Gura_Symbol(offset));
+	return true;
+}
+
+Value Object_pointer::DoGetProp(Environment &env, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(binary))) {
+		return Value(_pObjBinary->Reference());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
+		return Value(_offset);
+	}
+	evaluatedFlag = false;
+	return Value::Nil;
+}
+
 String Object_pointer::ToString(bool exprFlag)
 {
 	char buff[64];

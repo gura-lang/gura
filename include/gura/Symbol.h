@@ -446,6 +446,7 @@ public:
 	Gura_DeclareSymbol(numer);
 	Gura_DeclareSymbol(o);
 	Gura_DeclareSymbol(object);
+	Gura_DeclareSymbol(offset);
 	Gura_DeclareSymbol(oneline);
 	Gura_DeclareSymbol(open);
 	Gura_DeclareSymbol(open_l);
@@ -550,6 +551,7 @@ public:
 	Gura_DeclareSymbol(symbol);
 	Gura_DeclareSymbol(symbol_func);
 	Gura_DeclareSymbol(t);
+	Gura_DeclareSymbol(target);
 	Gura_DeclareSymbol(template_);
 	Gura_DeclareSymbol(text);
 	Gura_DeclareSymbol(this_);
