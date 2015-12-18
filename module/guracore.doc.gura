@@ -447,41 +447,41 @@ A `datetime` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>datetime#year</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>year</code></td><td><code>number</code></td><td>R/W</td>
 <td>Chritian year.</td></tr>
 
-<tr><td><code>datetime#month</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>month</code></td><td><code>number</code></td><td>R/W</td>
 <td>Month starting from 1. Numbers from 1 to 12 correspond to January to December.</td></tr>
 
-<tr><td><code>datetime#day</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>day</code></td><td><code>number</code></td><td>R/W</td>
 <td>Day in a month starting from 1. </td></tr>
 
-<tr><td><code>datetime#hour</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>hour</code></td><td><code>number</code></td><td>R/W</td>
 <td>Hour in a day between 0 and 23.</td></tr>
 
-<tr><td><code>datetime#min</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>min</code></td><td><code>number</code></td><td>R/W</td>
 <td>Minute in an hour between 0 and 59.</td></tr>
 
-<tr><td><code>datetime#sec</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>sec</code></td><td><code>number</code></td><td>R/W</td>
 <td>Second in a minute between 0 and 59.</td></tr>
 
-<tr><td><code>datetime#usec</code></td><td><code>number</code></td><td>R/W</td>
+<tr><td><code>usec</code></td><td><code>number</code></td><td>R/W</td>
 <td>Millisecond in a second between 0 and 999.</td></tr>
 
-<tr><td><code>datetime#wday</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>wday</code></td><td><code>number</code></td><td>R</td>
 <td>Week number starting from 0. Number from 0 to 6 corresponds to Sunday to Saturday.</td></tr>
 
-<tr><td><code>datetime#week</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>week</code></td><td><code>number</code></td><td>R</td>
 <td>
 Week symbol that takes one of the followings:
 <code>`sunday</code>, <code>`monday</code>, <code>`tuesday</code>, <code>`wednesday</code>,
 <code>`thursday</code>, <code>`friday</code>, <code>`saturday</code>
 </td></tr>
 
-<tr><td><code>datetime#yday</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>yday</code></td><td><code>number</code></td><td>R</td>
 <td>Day in a year starting from 1.</td></tr>
 
-<tr><td><code>datetime#unixtime</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>unixtime</code></td><td><code>number</code></td><td>R</td>
 <td>Seconds passed from 00:00:00 on January 1st in 1970 in UTC.</td></tr>
 
 </table>
@@ -1360,6 +1360,30 @@ palette.updateby
 
 The `pointer` class provides measures to read and write content in a `binary` instance.
 
+
+### Property
+
+A `pointer` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>binary</code></td><td><code>binary</code></td><td>R</td>
+<td>A <code>binary</code> instance associated with the pointer.</td></tr>
+
+<tr><td><code>offset</code></td><td><code>number</code></td><td>R</td>
+<td>The current offset.</td></tr>
+
+</table>
+
+
+### Constructor
+
+${moddoc.reference(`en
+pointer
+)}
+
+
 ### Method
 
 ${moddoc.reference(`en
@@ -1482,9 +1506,11 @@ that takes a `stream` instance in its argument as below:
 ### Constructor
 
 ${moddoc.reference(`en
-open
 stream
 )}
+
+You can also call `open()` function that is just an alias of `stream()`
+to create a `stream` instance.
 
 ### Utility Function
 
