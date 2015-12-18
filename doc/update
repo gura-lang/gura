@@ -1,0 +1,7 @@
+#!/bin/sh
+pushd language-manual
+./build-doc.gura html
+popd
+pushd library-reference
+./build-doc.gura html
+popd
