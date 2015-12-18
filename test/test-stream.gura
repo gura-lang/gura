@@ -6,16 +6,17 @@ import(gzip)
 import(bzip2)
 import(helper.test) {*}
 
-testcase {
+testcase('readchar') {
 	src = B'''
 Hello world
 first line
 second line
 third line
+日本語
 '''
 	src.reader() {|s|
 		while (ch = s.readchar()) {
-			print(ch)
+			print('>', ch)
 		}
 	}
 }

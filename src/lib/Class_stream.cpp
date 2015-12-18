@@ -447,7 +447,9 @@ Gura_DeclareMethod(stream, peek)
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Reads specified length of data from the stream\n"
+		"and returns a `binary` instance that contains it.\n"
+		"This doesn't move the stream's current file position.\n");
 }
 
 Gura_ImplementMethod(stream, peek)
@@ -566,7 +568,9 @@ Gura_DeclareMethod(stream, read)
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Reads specified length of data from the stream\n"
+		"and returns a `binary` instance that contains it.\n"
+		"If the argument `len` is omitted, all the data available from the stream would be read.\n");
 }
 
 Gura_ImplementMethod(stream, read)
@@ -611,7 +615,8 @@ Gura_DeclareMethod(stream, readchar)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Reads one character from the stream\n"
+		"and returns a `string` instance that contains it.\n");
 }
 
 Gura_ImplementMethod(stream, readchar)
@@ -631,7 +636,11 @@ Gura_DeclareMethod(stream, readline)
 	DeclareAttr(Gura_Symbol(chop));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Reads one line from the stream\n"
+		"and returns a `string` instance that contains it.\n"
+		"\n"
+		"If the attribute `:chop` is specified, it would remove the last new line character\n"
+		"from the result.");
 }
 
 Gura_ImplementMethod(stream, readline)
@@ -696,7 +705,8 @@ Gura_DeclareMethod(stream, readtext)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Reads the whole data in the stream as a text sequence\n"
+		"and returns a `string` instance that contains it.");
 }
 
 Gura_ImplementMethod(stream, readtext)
@@ -794,7 +804,7 @@ Gura_DeclareMethod(stream, tell)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns the current file position at which read/write operation works.");
 }
 
 Gura_ImplementMethod(stream, tell)
@@ -811,7 +821,8 @@ Gura_DeclareMethod(stream, write)
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Writes binary data contained in `buff` to the stream.\n"
+		"The argument `len` limits the number of data that is to be written to the stream.\n");
 }
 
 Gura_ImplementMethod(stream, write)

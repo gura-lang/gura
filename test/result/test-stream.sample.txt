@@ -1,9 +1,10 @@
-======== #1 ========
+======== #1 readchar ========
 
-Hello world
-first line
-second line
-third line
+>H>e>l>l>o> >w>o>r>l>d>
+>f>i>r>s>t> >l>i>n>e>
+>s>e>c>o>n>d> >l>i>n>e>
+>t>h>i>r>d> >l>i>n>e>
+>日>本>語>
 
 ======== #2 ========
 
