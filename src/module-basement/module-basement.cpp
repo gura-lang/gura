@@ -382,7 +382,7 @@ bool Func_dim_Sub(Environment &env, const Function *pFuncBlock, ValueList &valLi
 			Value result;
 			Object_list *pObjList = result.InitAsList(env);
 			valListParent.push_back(result);
-			if (!Func_dim_Sub(env, pFuncBlock, pObjList->_GetList(),
+			if (!Func_dim_Sub(env, pFuncBlock, pObjList->GetListForModify(),
 									cntList, pCnt + 1, idxList, pIdx + 1)) {
 				return false;
 			}
@@ -407,7 +407,7 @@ Gura_ImplementFunction(dim)
 	}
 	Value result;
 	Object_list *pObjList = result.InitAsList(env);
-	if (!Func_dim_Sub(*pEnvBlock, pFuncBlock, pObjList->_GetList(),
+	if (!Func_dim_Sub(*pEnvBlock, pFuncBlock, pObjList->GetListForModify(),
 						cntList, cntList.begin(), idxList, idxList.begin())) {
 		return Value::Nil;
 	}

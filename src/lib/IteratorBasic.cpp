@@ -1502,7 +1502,7 @@ Iterator *Iterator_Zipv::GetSource()
 bool Iterator_Zipv::DoNext(Environment &env, Value &value)
 {
 	Object_list *pObjList = value.InitAsList(env);
-	if (_iterOwner.Next(env, pObjList->_GetList())) {
+	if (_iterOwner.Next(env, pObjList->GetListForModify())) {
 		pObjList->DetermineValueType();
 		return true;
 	}

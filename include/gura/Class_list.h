@@ -210,13 +210,12 @@ public:
 	inline Object_list(const Object_list &obj) :
 		Object(obj), _valList(obj._valList), _valType(obj._valType) {}
 	virtual Object *Clone() const;
-	inline ValueList &GetList() { return _valList; }
-	inline ValueList &_GetList() { return _valList; }
 	inline const ValueList &GetList() const { return _valList; }
-	inline void SetValueType(ValueType valType) {
-		_valType = _valList.empty()? VTYPE_undefined : valType;
+	inline ValueList &GetListForModify() { return _valList; }
+	inline void SetValueType(ValueType valType) { _valType = valType; }
+	inline ValueType GetValueType() const {
+		return _valList.empty()? VTYPE_undefined : _valType;
 	}
-	inline ValueType GetValueType() const { return _valType; }
 	inline size_t Size() const { return _valList.size(); }
 	inline bool Empty() const { return _valList.empty(); }
 	inline void Reserve(size_t n) { _valList.reserve(n); }
@@ -245,6 +244,17 @@ public:
 	}
 	inline void DetermineValueType() {
 		_valType = _valList.GetValueTypeOfElements();
+	}
+	inline void Insert(size_t idx, const Value &value) {
+		_valList.insert(_valList.begin() + idx, value);
+		UpdateValueType(value);
+	}
+	inline void Erase(size_t idx) {
+		_valList.erase(_valList.begin() + idx);
+		if (_valList.empty()) _valType = VTYPE_undefined;
+	}
+	inline void EraseFast(size_t idx) {
+		_valList.erase(_valList.begin() + idx);
 	}
 	inline bool Serialize(Environment &env, Stream &stream) const {
 		return _valList.Serialize(env, stream);

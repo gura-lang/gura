@@ -374,8 +374,10 @@ Gura_ImplementMethod(image, extract)
 		pThis->GetImage()->Extract(sig, x, y, width, height,
 					pSymbol, Object_matrix::GetObject(arg, 5)->GetMatrix());
 	} else if (arg.Is_list(5)) {
+		Object_list *pObjList = Object_list::GetObject(arg, 5);
 		pThis->GetImage()->Extract(sig, x, y, width, height,
-					pSymbol, Object_list::GetObject(arg, 5)->GetList());
+								   pSymbol, pObjList->GetListForModify());
+		pObjList->SetValueType(VTYPE_number);
 	} else {
 		sig.SetError(ERR_ValueError, "invalid object for image's destination");
 		return Value::Nil;

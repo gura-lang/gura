@@ -388,7 +388,7 @@ public:
 				Object_array<T_Elem>::GetObject(value)->GetArray()->Reference());
 			Object_list *pObjList = value.InitAsList(env);
 			pObjList->Reserve(pArray->GetSize());
-			CopyArrayToList(pArray.get(), pObjList->_GetList());
+			CopyArrayToList(pArray.get(), pObjList->GetListForModify());
 			pObjList->SetValueType(VTYPE_number);
 			return true;
 		} else if (decl.IsType(VTYPE_iterator)) {

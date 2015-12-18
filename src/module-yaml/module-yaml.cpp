@@ -192,7 +192,7 @@ Value Stocker_Mapping::GetValue()
 //-----------------------------------------------------------------------------
 void Stocker_Sequence::Stock(const Value &value)
 {
-	_pObjList->GetList().push_back(value);
+	_pObjList->Add(value);
 }
 
 Value Stocker_Sequence::GetValue()

@@ -751,7 +751,7 @@ Gura_ImplementMethod(matrix, tolist)
 	Object_matrix *pThis = Object_matrix::GetObjectThis(arg);
 	Value result;
 	Object_list *pObjList = result.InitAsList(env);
-	pThis->GetMatrix()->ToList(env, pObjList->_GetList(),
+	pThis->GetMatrix()->ToList(env, pObjList->GetListForModify(),
 		arg.IsSet(Gura_Symbol(transpose)), arg.GetFlag(FLAG_Flat));
 	pObjList->DetermineValueType();
 	return result;

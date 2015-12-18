@@ -370,7 +370,7 @@ bool Iterator_reader::DoNext(Environment &env, Value &value)
 {
 	Signal &sig = env.GetSignal();
 	Object_list *pObjList = value.InitAsList(env);
-	if (_pReader->ReadLine(env, pObjList->_GetList())) {
+	if (_pReader->ReadLine(env, pObjList->GetListForModify())) {
 		pObjList->SetValueType(VTYPE_string);
 		return true;
 	}
