@@ -676,7 +676,10 @@ Gura_DeclareFunction(chdir)
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Changes the current working directory.");
+		"Changes the current working directory to `pathname`.\n"
+		"\n"
+		"The block would be evaluated if specified, and the working directory would be changed\n"
+		"only during that evaluation period.\n");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

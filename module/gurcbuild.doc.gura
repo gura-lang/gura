@@ -1,14 +1,25 @@
 #!/usr/bin/env gura
 import(moddoc)
+import(gurcbuild)
 
 text@en = R'''
 # gurcbuild Module
 
-The `gurcbuild` module ...
+The `gurcbuild` module is prepared to help create a composite Gura file,
+which contains script and other data files.
+
+The example below would create a composite Gura file named `hello.gurc` that contains
+three files:
+
+    import(gurcbuild)
+
+    gurcbuild.build(['hello.gura', 'startimg.jpg', 'README.txt'])
+
 
 ## Module Function
 
 ${moddoc.reference(`en
+gurcbuild.build
 )}
 
 '''.embed()

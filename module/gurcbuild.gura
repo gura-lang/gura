@@ -42,4 +42,11 @@ build(pathNames[]:string, dirName?:string) = {
 		fs.remove(tgtName)
 		println(tgtName, ' was removed')
 	}
-}
+} % {`en, 'markdown', R'''
+Creates a composite Gura file from files specified by `pathNames`, which includes
+script and other data files. The fiest entry of `pathNames` must be a script file
+that is to be executed at first as a main script.
+
+The result file would be created in the directory specified by `dirName`.
+If the argument is omitted, the file would be created in the current working directory.
+'''}
