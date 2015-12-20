@@ -24,6 +24,18 @@ fs.rmdir
 
 ## fs.stat Class
 
+An instance of `fs.stat` class contains information about a file or directory
+on the file system, which includes its full path name, size, creation time and file attributes.
+A `stream` instance has a property named `stat` that is a `fs.stat` instance
+when it comes from a file or directory in a file system.
+You can also get the instance using `fs.stat()` function.
+
+### Constructor
+
+${moddoc.reference(`en
+fs.stat
+}}
+
 ### Property
 
 A `fs.stat` instance has the following properties:

@@ -37,6 +37,12 @@ it would write image data in GIF format.
 
 ## gif.content Class
 
+### Constructor
+
+${moddoc.reference(`en
+gif.content
+}}
+
 ### Property
 
 A `gif.content` instance has the following properties:
@@ -68,7 +74,6 @@ A `gif.content` instance has the following properties:
 ### Method
 
 ${moddoc.reference(`en
-gif.content
 gif.content.addimage
 gif.content.write
 )}
