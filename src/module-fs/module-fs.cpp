@@ -108,12 +108,34 @@ String Object_Stat::ToString(bool exprFlag)
 	return String("<fs.stat>");
 }
 
+// fs.stat(pathname:string) {block?}
+Gura_DeclareFunction(stat)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "pathname", VTYPE_string, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(Stat));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"");
+}
+
+Gura_ImplementFunction(stat)
+{
+	Signal &sig = env.GetSignal();
+	const char *pathName = arg.GetString(0);
+	std::unique_ptr<OAL::FileStat> pFileStat(OAL::FileStat::Generate(sig, pathName));
+	if (sig.IsSignalled()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_Stat(*pFileStat)));
+}
+
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_Stat
 //-----------------------------------------------------------------------------
 // implementation of class Stat
 Gura_ImplementUserClass(Stat)
 {
+	Gura_AssignFunction(stat);
 }
 
 //-----------------------------------------------------------------------------

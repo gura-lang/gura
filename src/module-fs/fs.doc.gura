@@ -20,6 +20,68 @@ fs.remove
 fs.rename
 fs.rmdir
 )}
+
+
+## fs.stat Class
+
+### Property
+
+A `fs.stat` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>pathname</code></td><td><code>string</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>dirname</code></td><td><code>string</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>filename</code></td><td><code>string</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>uid</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>gid</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>atime</code></td><td><code>datetime</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>mtime</code></td><td><code>datetime</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>ctime</code></td><td><code>datetime</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>isdir</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>ischr</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>isblk</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>isreg</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>isfifo</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>islnk</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>issock</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
+
 '''.embed()
 
 moddoc.register(locals(), %{`en => text@en})
