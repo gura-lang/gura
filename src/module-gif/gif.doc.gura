@@ -37,11 +37,253 @@ it would write image data in GIF format.
 
 ## gif.content Class
 
+### Property
+
+A `gif.content` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>images</code></td><td><code>image[]</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>Header</code></td><td><code>gif.Header</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>LogicalScreenDescriptor</code></td><td><code>gif.LogicalScreenDescriptor</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>CommentExtension</code></td><td><code>gif.CommentExtension</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>PlainTextExtension</code></td><td><code>gif.PlainTextExtension</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>ApplicationExtension</code></td><td><code>gif.ApplicationExtension</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
+
+### Method
+
 ${moddoc.reference(`en
 gif.content
 gif.content.addimage
 gif.content.write
 )}
+
+## gif.Header Class
+
+### Property
+
+A `gif.Header` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>Signature</code></td><td><code>binary</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>Version</code></td><td><code>binary</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
+
+## gif.LogicalScreenDescriptor Class
+
+### Property
+
+A `gif.LogicalScreenDescriptor` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>LogicalScreenWidth</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>LogicalScreenHeight</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>GlobalColorTableFlag</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>ColorResolution</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>SortFlag</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>SizeOfGlobalColorTable</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>BackgroundColorIndex</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>BackgroundColor</code></td><td><code>color</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>PixelAspectRatio</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
+
+## gif.CommentExtension Class
+
+### Property
+
+A `gif.CommentExtension` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>CommentData</code></td><td><code>binary</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
+## gif.PlainTextExtension Class
+
+### Property
+
+A `gif.PlainTextExtension` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>TextGridLeftPosition</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>TextGridTopPosition</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>TextGridWidth</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>TextGridHeight</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>CharacterCellWidth</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>CharacterCellHeight</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>TextForegroundColorIndex</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>TextBackgroundColorIndex</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>PlainTextData</code></td><td><code>binary</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
+
+## gif.ApplicationExtension Class
+
+### Property
+
+A `gif.ApplicationExtension` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>ApplicationIdentifier</code></td><td><code>binary</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>AuthenticationCode</code></td><td><code>binary</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>ApplicationData</code></td><td><code>binary</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
+
+## gif.GraphicControl Class
+
+### Property
+
+A `gif.GraphicControl` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>DisposalMethod</code></td><td><code>symbol</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>UserInputFlag</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>TransparentColorFlag</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>DelayTime</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>TransparentColorIndex</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
+
+## gif.ImageDescriptor Class
+
+### Property
+
+A `gif.ImageDescriptor` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>ImageLeftPosition</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>ImageTopPosition</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>ImageWidth</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>ImageHeight</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>LocalColorTableFlag</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>InterlaceFlag</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>SortFlag</code></td><td><code>boolean</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>SizeOfLocalColorTable</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
+
+## gif.imgprop Class
+
+### Property
+
+A `gif.imgprop` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>GraphicControl</code></td><td><code>gif.GraphicControl</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>ImageDescriptor</code></td><td><code>gif.ImageDescriptor</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
 
 ## Extension to image Class
 
@@ -51,6 +293,15 @@ ${moddoc.reference(`en
 image.read@gif
 image.write@gif
 )}
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>gif</code></td><td><code>gif.imgprop</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
 '''.embed()
 
 moddoc.register(locals(), %{`en => text@en})
