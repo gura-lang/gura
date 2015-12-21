@@ -34,7 +34,7 @@ You can also get the instance using `fs.stat()` function.
 
 ${moddoc.reference(`en
 fs.stat
-}}
+)}
 
 ### Property
 

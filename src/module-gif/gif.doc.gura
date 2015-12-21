@@ -19,6 +19,7 @@ Below is an example to create a GIF file that contains multiple images:
     g = gif.content()
     g.addimage(['cell1.png', 'cell2.png', 'cell3.png'], 10) g.write('anim.gif')
 
+
 ## Exntension to Function's Capability
 
 This module extends the capability of function `image()` and instance method `image#write()`
@@ -37,11 +38,55 @@ it would write image data in GIF format.
 
 ## gif.content Class
 
+The `gif.content` class provides properties to explain GIF information
+and methods to manipulate contents of GIF file.
+Below is a class diagram of `gif.content`:
+
+    +-------------+                         +-----------------------------+
+    | gif.content |images                   |            image            |
+    |-------------*-------------------------+-----------------------------|
+    |             |                     1.. +-----------------------------+
+    |             |
+    |             |                         +-----------------------------+
+    |             |Header                   |         gif.Header          |
+    |             *-------------------------+-----------------------------|
+    |             |                         +-----------------------------+
+    |             |
+    |             |                         +-----------------------------+
+    |             |LogicalScreenDescriptor  | gif.LogicalScreenDescriptor |
+    |             *-------------------------+-----------------------------|
+    |             |                         +-----------------------------+
+    |             |
+    |             |                         +-----------------------------+
+    |             |CommentExtension         |    gif.CommentExtension     |
+    |             *-------------------------+-----------------------------|
+    |             |                         +-----------------------------+
+    |             |
+    |             |                         +-----------------------------+
+    |             |PlainTextExntension      |   gif.PlainTextExtension    |
+    |             *-------------------------+-----------------------------|
+    |             |                         +-----------------------------+
+    |             |
+    |             |                         +-----------------------------+
+    |             |ApplicationExntension    | gif.ApplicationExtension    |
+    |             *-------------------------+-----------------------------|
+    |             |                         +-----------------------------+
+    +-------------+
+
+- A property of `gif.content` has one or more images. Multiple images are mainly
+  used for animation.
+- The property named `Header` is an instance of `gif.Header` class.
+- The property named `LogicalScreenDescriptor` is an instance of `gif.LogicalScreenDescriptor` class.
+- The property named `CommentExtension` is an instance of `gif.CommentExtension` class.
+- The property named `PlainTextExtension` is an instance of `gif.PlainTextExtension` class.
+- The property named `ApplicationExtension` is an instance of `gif.ApplicationExtension` class.
+
+
 ### Constructor
 
 ${moddoc.reference(`en
 gif.content
-}}
+)}
 
 ### Property
 
@@ -80,6 +125,9 @@ gif.content.write
 
 ## gif.Header Class
 
+A `gif.Header` instance provides information of Header structure in GIF format.
+
+
 ### Property
 
 A `gif.Header` instance has the following properties:
@@ -97,6 +145,10 @@ A `gif.Header` instance has the following properties:
 
 
 ## gif.LogicalScreenDescriptor Class
+
+A `gif.LogicalScreenDescriptor` instance provides information of
+Logical Screen Descriptor structure in GIF format.
+
 
 ### Property
 
@@ -137,6 +189,10 @@ A `gif.LogicalScreenDescriptor` instance has the following properties:
 
 ## gif.CommentExtension Class
 
+A `gif.CommentExtnsion` instance provides information of
+Comment Extension structure in GIF format.
+
+
 ### Property
 
 A `gif.CommentExtension` instance has the following properties:
@@ -150,6 +206,10 @@ A `gif.CommentExtension` instance has the following properties:
 </table>
 
 ## gif.PlainTextExtension Class
+
+A `gif.PlainTextExtnsion` instance provides information of
+Plain Text Extension structure in GIF format.
+
 
 ### Property
 
@@ -190,6 +250,10 @@ A `gif.PlainTextExtension` instance has the following properties:
 
 ## gif.ApplicationExtension Class
 
+A `gif.ApplicationExtnsion` instance provides information of
+Application Extension structure in GIF format.
+
+
 ### Property
 
 A `gif.ApplicationExtension` instance has the following properties:
@@ -210,6 +274,10 @@ A `gif.ApplicationExtension` instance has the following properties:
 
 
 ## gif.GraphicControl Class
+
+A `gif.GraphicControl` instance provides information of
+Graphi Control Extension structure in GIF format.
+
 
 ### Property
 
@@ -237,6 +305,10 @@ A `gif.GraphicControl` instance has the following properties:
 
 
 ## gif.ImageDescriptor Class
+
+A `gif.ImageDescriptor` instance provides information of
+Image Descriptor structure in GIF format.
+
 
 ### Property
 
@@ -273,6 +345,25 @@ A `gif.ImageDescriptor` instance has the following properties:
 
 
 ## gif.imgprop Class
+
+Below is a class diagram of `gif.imgprop`:
+
+    +-------------+        +-------------+                  +---------------------+
+    |    image    |gif     | gif.imgprop |GraphicControl    | gif.GraphicControl  |
+    |-------------*--------+-------------*------------------+---------------------|
+    +-------------+        |             |                  +---------------------+
+                           |             |
+                           |             |                  +---------------------+
+                           |             |ImageDescriptor   | gif.ImageDescriptor |
+                           |             *------------------+---------------------|
+                           |             |                  +---------------------+
+                           +-------------+
+
+- An `image` instance that the gif module creates from GIF file holds a `gif.imgprop`
+  instance as its property that is named `gif`.
+- The property named `GraphicControl` is an instance of `gif.GraphiControl` class.
+- The property named `ImageDescriptor` is an instance of `gif.ImageDescriptor` class.
+
 
 ### Property
 
