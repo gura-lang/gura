@@ -46,10 +46,10 @@ and its children that are `markdown.item` instances.
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>markdown.document#refs</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>refs</code></td><td><code>iterator</code></td><td>R</td>
 <td>An iterator that returns referee items as <code>markdown.item</code>.</td></tr>
 
-<tr><td><code>markdown.document#root</code></td><td><code>markdown.item</code></td><td>R</td>
+<tr><td><code>root</code></td><td><code>markdown.item</code></td><td>R</td>
 <td>The root item of the parsed Markdown document.</td></tr>
 
 </table>
@@ -114,25 +114,25 @@ Below is a table of item type:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>markdown.item#type</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>type</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>markdown.item#text</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>text</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>markdown.item#children</code></td><td><code>iterator</code></td><td>R</td>
+<tr><td><code>children</code></td><td><code>iterator</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>markdown.item#url</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>url</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>markdown.item#title</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>title</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>markdown.item#attrs</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>attrs</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>markdown.item#align</code></td><td><code>symbol</code></td><td>R</td>
+<tr><td><code>align</code></td><td><code>symbol</code></td><td>R</td>
 <td><code>none</code>, <code>left</code>, <code>center</code>, <code>right</code></td></tr>
 
 </table>
