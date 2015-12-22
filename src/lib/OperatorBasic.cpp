@@ -527,6 +527,16 @@ Gura_ImplementUnaryOperator(Inv, function)
 	return Value::Nil;
 }
 
+Gura_ImplementUnaryOperator(Inv, Class)
+{
+	const Class *pClass = value.GetClassItself();
+	const Symbol *pSymbol = env.GetLangCode();
+	const Function *pFunc = pClass->GetConstructor();
+	HelpPresenter::Present(env, pFunc->ToString().c_str(),
+						   pFunc->GetHelp(pSymbol, true));
+	return Value::Nil;
+}
+
 //-----------------------------------------------------------------------------
 // UnaryOperator(Not, *)
 //-----------------------------------------------------------------------------
@@ -1958,6 +1968,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperator(Neg, array_double);
 	Gura_AssignUnaryOperator(Inv, number);
 	Gura_AssignUnaryOperator(Inv, function);
+	Gura_AssignUnaryOperator(Inv, Class);
 	Gura_AssignUnaryOperator(Not, any);
 	Gura_AssignUnaryOperatorSuffix(SeqInf, number);
 	Gura_AssignUnaryOperatorSuffix(Question, any);
