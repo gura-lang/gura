@@ -4,7 +4,26 @@ import(moddoc)
 text@en = R'''
 # base64 Module
 
-The `base64` module provides measures to read/write text stream that is formatted in base64 format.
+The `base64` module provides measures to decode/encode data formatted in base64 format.
+
+To decode a stream that is formatted in base64, use one of the following functions:
+
+- `base64.decode()` .. Reads base64 sequence from the given stream
+  and returns a decoded data as `binary`.
+  This is convenient when the data size is expected to be small.
+- `base64.reader()` .. Creates a stream that decodes base64 sequence from the given stream.
+  `stream#reader@base64()` method is another form of this function.
+  You should use this way if the data size is expected to be large.
+
+To encode a data into base64 format, use one of the following functions:
+
+- `base64.encode()` .. Encodes the stream from the given stream
+  and returns a encoded data as `binary`.
+  This is convenient when the data size is expected to be small.
+- `base64.writer()` .. Creates a stream that encodes data from `write()` method into the given stream.
+  `stream#writer@base64()` method is another form of this function.
+  You should use this way if the data size is expected to be large.
+
 
 ## Module Function
 
