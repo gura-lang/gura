@@ -107,6 +107,7 @@ fs:module = <module:fs:<integrated>>
   fs.remove(pathname:string):map:void
   fs.rename(src:string, dst:string):map:void
   fs.rmdir(pathname:string):map:void:[tree]
+  stat:class = <class:fs.stat(pathname:string) {block?}>
 function:class = <class:function(`args*) {block}>
 help:class = <class:help>
 hex(num:number, digits?:number):map:[upper]

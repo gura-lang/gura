@@ -518,6 +518,15 @@ Gura_ImplementUnaryOperator(Inv, number)
 	return Value(static_cast<Number>(num));
 }
 
+Gura_ImplementUnaryOperator(Inv, function)
+{
+	const Function *pFunc = Object_function::GetObject(value)->GetFunction();
+	const Symbol *pSymbol = env.GetLangCode();
+	HelpPresenter::Present(env, pFunc->ToString().c_str(),
+						   pFunc->GetHelp(pSymbol, true));
+	return Value::Nil;
+}
+
 //-----------------------------------------------------------------------------
 // UnaryOperator(Not, *)
 //-----------------------------------------------------------------------------
@@ -1750,6 +1759,24 @@ Gura_ImplementBinaryOperator(Shl, number, number)
 							static_cast<ULong>(valueRight.GetNumber()));
 }
 
+Gura_ImplementBinaryOperator(Shl, stream, any)
+{
+	Signal &sig = env.GetSignal();
+	Stream &stream = valueLeft.GetStream();
+	if (!stream.CheckWritable(sig)) return Value::Nil;
+	if (valueRight.Is_binary()) {
+		const Binary &binary = valueRight.GetBinary();
+		stream.Write(sig, binary.c_str(), binary.size());
+		if (sig.IsSignalled()) return Value::Nil;
+	} else {
+		String str(valueRight.ToString(false));
+		if (sig.IsSignalled()) return Value::Nil;
+		stream.Print(sig, str.c_str());
+		if (sig.IsSignalled()) return Value::Nil;
+	}
+	return valueLeft;
+}
+
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
 Value Shl_ArrayAndArray(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
@@ -1930,6 +1957,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperator(Neg, array_float);
 	Gura_AssignUnaryOperator(Neg, array_double);
 	Gura_AssignUnaryOperator(Inv, number);
+	Gura_AssignUnaryOperator(Inv, function);
 	Gura_AssignUnaryOperator(Not, any);
 	Gura_AssignUnaryOperatorSuffix(SeqInf, number);
 	Gura_AssignUnaryOperatorSuffix(Question, any);
@@ -2038,6 +2066,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Xor, boolean, boolean);
 	AssignArrayBitOperators(Xor);
 	Gura_AssignBinaryOperator(Shl, number, number);
+	Gura_AssignBinaryOperator(Shl, stream, any);
 	AssignArrayBitOperators(Shl);
 	Gura_AssignBinaryOperator(Shr, number, number);
 	AssignArrayBitOperators(Shr);

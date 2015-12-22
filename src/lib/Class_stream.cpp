@@ -841,28 +841,6 @@ Gura_ImplementMethod(stream, write)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of operator
-//-----------------------------------------------------------------------------
-// operator <<
-Gura_ImplementBinaryOperator(Shl, stream, any)
-{
-	Signal &sig = env.GetSignal();
-	Stream &stream = valueLeft.GetStream();
-	if (!stream.CheckWritable(sig)) return Value::Nil;
-	if (valueRight.Is_binary()) {
-		const Binary &binary = valueRight.GetBinary();
-		stream.Write(sig, binary.c_str(), binary.size());
-		if (sig.IsSignalled()) return Value::Nil;
-	} else {
-		String str(valueRight.ToString(false));
-		if (sig.IsSignalled()) return Value::Nil;
-		stream.Print(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Nil;
-	}
-	return valueLeft;
-}
-
-//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_stream::Class_stream(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stream)
@@ -874,7 +852,6 @@ void Class_stream::Prepare(Environment &env)
 	Gura_AssignFunctionEx(stream, "open");
 	Gura_AssignFunction(stream);
 	Gura_AssignFunction(readlines);
-	Gura_AssignBinaryOperator(Shl, stream, any);
 	Gura_AssignMethod(stream, addcr);
 	Gura_AssignMethod(stream, close);
 	Gura_AssignMethod(stream, compare);
