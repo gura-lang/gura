@@ -84,7 +84,12 @@ Gura_DeclareFunction(pointer)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a `pointer` instance that points to the specified `binary` instance.\n");
+		"Creates a `pointer` instance that points to the specified `binary` instance.\n"
+		"\n"
+		"If the argument `offset` is specified, the initial offset of the pointer is preset to the value.\n"
+		"Otherwise, the offset is set to the top of the binary.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("p", "pointer"));
 }
 
 Gura_ImplementFunction(pointer)
@@ -104,15 +109,16 @@ Gura_DeclareMethod(pointer, forward)
 	DeclareArg(env, "distance", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Put the pointer offset forward by `distance`.\n"
+		"If a negative number is specified for the argument, the offset would be put backward.\n");
 }
 
 Gura_ImplementMethod(pointer, forward)
 {
 	Signal &sig = env.GetSignal();
 	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
-	bool exeedErrorFlag = true;
-	pThis->UnpackForward(sig, arg.GetInt(0), exeedErrorFlag);
+	bool exceedErrorFlag = true;
+	pThis->UnpackForward(sig, arg.GetInt(0), exceedErrorFlag);
 	return arg.GetValueThis();
 }
 
@@ -121,11 +127,18 @@ Gura_DeclareMethod(pointer, pack)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(stay));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Packs `values` in the argument list according to specifiers in the `format`\n"
+		"into a binary and adds it to where the pointer points.\n"
+		"The pointer offset is automatically incremented by the added length\n"
+		"unless `:stay` attribute is specified.\n"
+		"\n"
+		"This method returns a reference to the pointer instance itself.\n"
+		"\n"
+		"For detail information about packing specifiers, see the help of `binary#pack()`.\n");
 }
 
 Gura_ImplementMethod(pointer, pack)
@@ -209,7 +222,6 @@ Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_po
 
 void Class_pointer::Prepare(Environment &env)
 {
-	//Gura_AssignValue(pointer, Value(Reference()));
 	Gura_AssignFunction(pointer);
 	Gura_AssignMethod(pointer, forward);
 	Gura_AssignMethod(pointer, pack);
