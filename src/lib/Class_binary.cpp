@@ -620,7 +620,10 @@ Gura_DeclareMethod(binary, unpack)
 		"\n"
 		"You can specify encoding name embraced with \"`{`\" and \"`}`\" in the format\n"
 		"to change coding character set from UTF-8\n"
-		"while extracting a string with format character \"`s`\".\n");
+		"while extracting a string with format character \"`s`\".\n"
+		"\n"
+		"An error occurs if the binary size is smaller than the format reqeusts.\n"
+		"If the attribute `:nil` is specified, `nil` value would be returned for such a case.\n");
 }
 
 Gura_ImplementMethod(binary, unpack)
