@@ -437,8 +437,6 @@ Gura_DeclareClassMethod(binary, pack)
 		"- `d` .. A double-typed number occupying eight bytes.\n"
 		"\n"
 		"As for them, the packing size `n` means the number of values to be packed.\n"
-		"Below is an example to pack four `number` values as two-byte unsigned numbers\n"
-		"into a binary:\n"
 		"\n"
 		"Following format characters would take a `string` value from the argument list\n"
 		"and pack them into a binary sequence.\n"
@@ -472,8 +470,8 @@ Gura_DeclareClassMethod(binary, pack)
 		"that picks that number from the argument list.\n"
 		"\n"
 		"You can specify encoding name embraced with \"`{`\" and \"`}`\" in the format\n"
-		"to change coding character set while packing a string with format character \"`s`\"\n"
-		"from UTF-8.\n");
+		"to change coding character set from UTF-8\n"
+		"while packing a string with format character \"`s`\".\n");
 }
 
 Gura_ImplementClassMethod(binary, pack)
@@ -568,7 +566,61 @@ Gura_DeclareMethod(binary, unpack)
 	DeclareAttr(Gura_Symbol(nil));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Extracts values from a `binary` instance according to specifiers in the `format`.\n"
+		"\n"
+		"A specifier has a format of \"`nX`\" where `X` is a format character\n"
+		"that represents a packing format and `n` is a number of packing size.\n"
+		"The number can be omitted, and it would be treated as `1` in that case.\n"
+		"\n"
+		"Following format characters would extract an integer or float value of specified size\n"
+		"from the binary and returns a `number` value.\n"
+		"\n"
+		"- `b` .. A one-byte signed number.\n"
+		"- `B` .. A one-byte unsigned number.\n"
+		"- `h` .. A two-byte signed number.\n"
+		"- `H` .. A two-byte unsigned number.\n"
+		"- `i` .. A four-byte signed number.\n"
+		"- `I` .. A four-byte unsigned number.\n"
+		"- `l` .. A four-byte signed number.\n"
+		"- `L` .. A four-byte unsigned number.\n"
+		"- `q` .. A eight-byte signed number.\n"
+		"- `Q` .. A eight-byte unsigned number.\n"
+		"- `f` .. A float-typed number occupying four bytes.\n"
+		"- `d` .. A double-typed number occupying eight bytes.\n"
+		"\n"
+		"As for them, the packing size `n` means the number of values to be extracted.\n"
+		"\n"
+		"Following format characters would extract a string sequence from the binary\n"
+		"and returns a `string` value.\n"
+		"\n"
+		"- `s` .. Extracts a sequence of UTF-8 codes and returns `string` instance containing it.\n"
+		"         The unpacking size `n` means the size of the room in bytes\n"
+		"         where the character codes are to be unpacked.\n"
+		"- `c` .. Extracts a one-byte unsigned number and returns a `string` instance containing it.\n"
+		"         The unpacking size `n` means the number of values to be extracted.\n"
+		"\n"
+		"Following format character would not return any value.\n"
+		"\n"
+		"- `x` .. Advances the address by one byte.\n"
+		"         If the unpacking size `n` is specifies,\n"
+		"         it would advance the address by `n` bytes.\n"
+		"\n"
+		"The default byte-order for numbers of two-byte, four-byte and eight-byte\n"
+		"depends on the system the interpreter is currently running.\n"
+		"You can change it by the following specifiers:\n"
+		"\n"
+		"- `@` .. System-dependent order.\n"
+		"- `=` .. System-dependent order.\n"
+		"- `<` .. Little endian\n"
+		"- `>` .. Big endian\n"
+		"- `!` .. Big endian\n"
+		"\n"
+		"You can specify an asterisk character \"`*`\" for the number of unpacking size\n"
+		"that picks that number from the argument list.\n"
+		"\n"
+		"You can specify encoding name embraced with \"`{`\" and \"`}`\" in the format\n"
+		"to change coding character set from UTF-8\n"
+		"while extracting a string with format character \"`s`\".\n");
 }
 
 Gura_ImplementMethod(binary, unpack)
@@ -589,7 +641,10 @@ Gura_DeclareMethod(binary, unpacks)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns an iterator that extracts values from the binary instance\n"
+		"according to specifiers in `format`.\n"
+		"\n"
+		"For detailed information about specifiers, see the help of `binary#unpack()`.");
 }
 
 Gura_ImplementMethod(binary, unpacks)
