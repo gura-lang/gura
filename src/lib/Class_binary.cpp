@@ -238,7 +238,8 @@ Gura_DeclareMethod(binary, add)
 	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Adds binary data to the `binary` instance.\n"
+		"You can specify one or more binary data to be stored.\n");
 }
 
 Gura_ImplementMethod(binary, add)
@@ -365,7 +366,16 @@ Gura_DeclareMethod(binary, hex)
 	DeclareAttr(Gura_Symbol(carray));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Converts the binary into a hexadecimal string.\n"
+		"\n"
+		"In default, the result string is a sequence of joined hexadecimal values without any space.\n"
+		"You can specify the following attribute to change the format:\n"
+		"\n"
+		"- `:cstr` .. format of C string\n"
+		"- `:carray` .. format of C array\n"
+		"\n"
+		"Alphabet characters are described in lower characters\n"
+		"unless the attribute `:upper` is specified.\n");
 }
 
 Gura_ImplementMethod(binary, hex)
@@ -423,18 +433,18 @@ Gura_DeclareClassMethod(binary, pack)
 		"Following format characters would take a `number` value from the argument list\n"
 		"and pack them into a binary sequence.\n"
 		"\n"
-		"- `b` .. A one-byte signed number.\n"
-		"- `B` .. A one-byte unsigned number.\n"
-		"- `h` .. A two-byte signed number.\n"
-		"- `H` .. A two-byte unsigned number.\n"
-		"- `i` .. A four-byte signed number.\n"
-		"- `I` .. A four-byte unsigned number.\n"
-		"- `l` .. A four-byte signed number.\n"
-		"- `L` .. A four-byte unsigned number.\n"
-		"- `q` .. A eight-byte signed number.\n"
-		"- `Q` .. A eight-byte unsigned number.\n"
-		"- `f` .. A float-typed number occupying four bytes.\n"
-		"- `d` .. A double-typed number occupying eight bytes.\n"
+		"- `b` .. One-byte signed number.\n"
+		"- `B` .. One-byte unsigned number.\n"
+		"- `h` .. Two-byte signed number.\n"
+		"- `H` .. Two-byte unsigned number.\n"
+		"- `i` .. Four-byte signed number.\n"
+		"- `I` .. Four-byte unsigned number.\n"
+		"- `l` .. Four-byte signed number.\n"
+		"- `L` .. Four-byte unsigned number.\n"
+		"- `q` .. Eight-byte signed number.\n"
+		"- `Q` .. Eight-byte unsigned number.\n"
+		"- `f` .. Float-typed number occupying four bytes.\n"
+		"- `d` .. Double-typed number occupying eight bytes.\n"
 		"\n"
 		"As for them, the packing size `n` means the number of values to be packed.\n"
 		"\n"
@@ -511,7 +521,9 @@ Gura_DeclareMethod(binary, reader)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `stream` instance with which you can read data from the binary by `stream#read()` method."
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("s", "stream"));
 }
 
 Gura_ImplementMethod(binary, reader)
@@ -529,7 +541,8 @@ Gura_DeclareMethod(binary, store)
 	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Stores binary data in the `binary` instance at the specified offset.\n"
+		"You can specify one or more binary data to be stored.\n");
 }
 
 Gura_ImplementMethod(binary, store)
@@ -566,7 +579,8 @@ Gura_DeclareMethod(binary, unpack)
 	DeclareAttr(Gura_Symbol(nil));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Extracts values from a `binary` instance according to specifiers in the `format`.\n"
+		"Extracts values from a `binary` instance according to specifiers in the `format`\n"
+		"and returns a list containing the values.\n"
 		"\n"
 		"A specifier has a format of \"`nX`\" where `X` is a format character\n"
 		"that represents a packing format and `n` is a number of packing size.\n"
@@ -575,18 +589,18 @@ Gura_DeclareMethod(binary, unpack)
 		"Following format characters would extract an integer or float value of specified size\n"
 		"from the binary and returns a `number` value.\n"
 		"\n"
-		"- `b` .. A one-byte signed number.\n"
-		"- `B` .. A one-byte unsigned number.\n"
-		"- `h` .. A two-byte signed number.\n"
-		"- `H` .. A two-byte unsigned number.\n"
-		"- `i` .. A four-byte signed number.\n"
-		"- `I` .. A four-byte unsigned number.\n"
-		"- `l` .. A four-byte signed number.\n"
-		"- `L` .. A four-byte unsigned number.\n"
-		"- `q` .. A eight-byte signed number.\n"
-		"- `Q` .. A eight-byte unsigned number.\n"
-		"- `f` .. A float-typed number occupying four bytes.\n"
-		"- `d` .. A double-typed number occupying eight bytes.\n"
+		"- `b` .. One-byte signed number.\n"
+		"- `B` .. One-byte unsigned number.\n"
+		"- `h` .. Two-byte signed number.\n"
+		"- `H` .. Two-byte unsigned number.\n"
+		"- `i` .. Four-byte signed number.\n"
+		"- `I` .. Four-byte unsigned number.\n"
+		"- `l` .. Four-byte signed number.\n"
+		"- `L` .. Four-byte unsigned number.\n"
+		"- `q` .. Eight-byte signed number.\n"
+		"- `Q` .. Eight-byte unsigned number.\n"
+		"- `f` .. Float-typed number occupying four bytes.\n"
+		"- `d` .. Double-typed number occupying eight bytes.\n"
 		"\n"
 		"As for them, the packing size `n` means the number of values to be extracted.\n"
 		"\n"
@@ -647,7 +661,9 @@ Gura_DeclareMethod(binary, unpacks)
 		"Returns an iterator that extracts values from the binary instance\n"
 		"according to specifiers in `format`.\n"
 		"\n"
-		"For detailed information about specifiers, see the help of `binary#unpack()`.");
+		"For detailed information about specifiers, see the help of `binary#unpack()`.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("iter", "iterator"));
 }
 
 Gura_ImplementMethod(binary, unpacks)
@@ -667,7 +683,9 @@ Gura_DeclareMethod(binary, writer)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `stream` instance with which you can append data to the binary by `stream#write()` method."
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("s", "stream"));
 }
 
 Gura_ImplementMethod(binary, writer)
