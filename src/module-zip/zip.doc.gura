@@ -55,6 +55,40 @@ zip.writer.close
 )}
 
 
+## zip.stat Class
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>filename</code></td><td><code>string</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>comment</code></td><td><code>string</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>mtime</code></td><td><code>datetime</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>crc32</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>compression_method</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>compressed_size</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>attributes</code></td><td><code>number</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
+
 ## Thanks
 
 This module uses zlib and bzip2 library which are distributed in the following sites:

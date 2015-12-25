@@ -84,16 +84,16 @@ An instance of `re.match` class is used as a result value of
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>re.match#source</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>source</code></td><td><code>string</code></td><td>R</td>
 <td>String that has been matched.</td></tr>
 
-<tr><td><code>re.match#string</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>string</code></td><td><code>string</code></td><td>R</td>
 <td>String of the matched part.</td></tr>
 
-<tr><td><code>re.match#begin</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>begin</code></td><td><code>number</code></td><td>R</td>
 <td>Beginning position of the matched part.</td></tr>
 
-<tr><td><code>re.match#end</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>end</code></td><td><code>number</code></td><td>R</td>
 <td>Ending position of the matched part.</td></tr>
 
 </table>
@@ -147,13 +147,13 @@ that are stored in `re.match` instance.
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>re.group#string</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>string</code></td><td><code>string</code></td><td>R</td>
 <td>String of the group.</td></tr>
 
-<tr><td><code>re.group#begin</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>begin</code></td><td><code>number</code></td><td>R</td>
 <td>Beginning position of the group.</td></tr>
 
-<tr><td><code>re.group#end</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>end</code></td><td><code>number</code></td><td>R</td>
 <td>Ending position of the group.</td></tr>
 
 </table>
