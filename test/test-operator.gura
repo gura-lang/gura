@@ -1,8 +1,7 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-testcase {
-	println('script generation test')
+testcase('script generation test') {
 	x = [
 		`(-(a + b))
 		`(-(a <=> b))
@@ -35,15 +34,15 @@ testcase {
 	]
 	println(x)
 }
-testcase {
+testcase('acceptable value types') {
 	[`+, `-, `~, `!, `..].each {|op|
-		printf('%s %s\n', op, operator(op).entries(`unary)):nomap
+		printf('%s\n%s\n', op, operator(op).entries(`unary)):nomap
 	}
 	[`+, `-, `*, `/, `%, `**, `==, `!=, `>, `<, `>=, `<=, `<=>, `in, `|, `&, `^, `<<, `>>, `||, `&&, `..].each {|op|
-		printf('%s %s\n', op, operator(op).entries(`binary)):nomap
+		printf('%s\n%s\n', op, operator(op).entries(`binary)):nomap
 	}
 }
-testcase {
+testcase('operator assignment - 1') {
 	A = class {
 		__getitem__(i) = println('__getitem__ ', i)				// a[i]
 		__getitemx__() = println('__getitemx__')				// a[]
@@ -117,12 +116,12 @@ testcase {
 	a1.b
 	a1.b = 2
 }
-testcase {
+testcase('stream output operator') {
 	sys.stdout << 'hello world\n'
 	sys.stdout << 'hello world\n' << '2nd line\n' << '3rd line\n'
 	sys.stdout << b'hello world\n'
 }
-testcase {
+testcase('bitwise and/or calculation with nil') {
 	tester(`(nil | 3))
 	tester(`(3 | nil))
 	tester(`(nil | nil))
@@ -130,7 +129,7 @@ testcase {
 	tester(`(3 & nil))
 	tester(`(nil & nil))
 }
-testcase {
+testcase('"in" operator') {
 	tester(`(2 in 2))
 	tester(`(2 in 3))
 	tester(`(2 in 0..10))
@@ -150,7 +149,7 @@ testcase {
 	tester(`([0..10] in [0..5]))
 	tester(`([0..10] in [4..8]))
 }
-testcase {
+testcase('list assignment and suffix operators + and *') {
 	[a, b, c] = [1, 2, 3]
 	printf('a=%s, b=%s, c=%s\n', a, b, c):nomap
 	[a, b, c+] = [1, 2, 3, 4, 5]
@@ -160,7 +159,8 @@ testcase {
 	[a, b, c*] = [1, 2]
 	printf('a=%s, b=%s, c=%s\n', a, b, c):nomap
 }
-function {
+/*
+testcase('operator with expr') {
 	println(-`(x + 2))
 	println(`(x + 2) + `(y + 3))
 	println(`(x + 2) - `(y + 3))
@@ -172,7 +172,8 @@ function {
 	println(f(`x))
 	println(f(`(t + 2)))
 }
-testcase {
+*/
+testcase('operator assignment - 2') {
 	Fruit = class {
 		__init__(name:string) = { this.cnt = 0, this.name = name }
 		__str__() = format('name = %s, cnt = %d', this.name, this.cnt)
@@ -235,7 +236,7 @@ testcase {
 	println(fruit & 1)
 	println(fruit .. 1)
 }
-testcase {
+testcase('bitwise and/or/xor and boolean values') {
 	tester(`(false & false))
 	tester(`(false & true))
 	tester(`(true & false))
@@ -285,7 +286,7 @@ testcase {
 	tester(`(x && y && z))
 	tester(`(x ^ y ^ z))
 }
-testcase {
+testcase('operators applying arguments - 1') {
 	f(a:number, b:number, c:number, d:number):map = format('%d-%d-%d-%d', a, b, c, d)
 	print_func(f)
 	tester(`(f % [1, 2, 3, 4]))
@@ -293,7 +294,7 @@ testcase {
 	tester(`(f * [1, 2, 3, 4]))
 	tester(`(f * [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]]))
 }
-testcase {
+testcase('operators applying arguments - 2') {
 	f(a:number, b:number, c:number, d:number):map = a + b + c + d
 	print_func(f)
 	tester(`(f % [1, 2, 3, 4]))

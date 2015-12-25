@@ -1,6 +1,5 @@
-======== #1 ========
+======== #1 script generation test ========
 
-script generation test
 -(a + b)
 -(a <=> b)
 -4
@@ -30,37 +29,64 @@ func(a, b, c, d, e%, f*) = {}
 `(a:hoge).func()
 `(a[0]:hoge).func()
 
-======== #2 ========
+======== #2 acceptable value types ========
 
-+ [`number, `complex, `rational, `array@char, `array@uchar, `array@short, `array@ushort, `array@long, `array@ulong, `array@int, `array@uint, `array@float, `array@double, `matrix, `timedelta]
-- [`number, `complex, `rational, `array@char, `array@uchar, `array@short, `array@ushort, `array@long, `array@ulong, `array@int, `array@uint, `array@float, `array@double, `matrix, `timedelta]
-~ [`number, `class, `function]
-! [`any]
-.. [`number]
-+ [[`string, `any], [`number, `number], [`complex, `number], [`rational, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`pointer, `number], [`any, `string], [`string, `string], [`binary, `string], [`number, `complex], [`complex, `complex], [`number, `rational], [`rational, `rational], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double], [`string, `binary], [`binary, `binary], [`timedelta, `datetime], [`matrix, `matrix], [`datetime, `timedelta], [`timedelta, `timedelta]]
-- [[`number, `number], [`complex, `number], [`rational, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`pointer, `number], [`number, `complex], [`complex, `complex], [`number, `rational], [`rational, `rational], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double], [`color, `color], [`datetime, `datetime], [`matrix, `matrix], [`pointer, `pointer], [`datetime, `timedelta], [`timedelta, `timedelta]]
-* [[`class, `any], [`function, `any], [`matrix, `any], [`number, `number], [`string, `number], [`complex, `number], [`rational, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`binary, `number], [`timedelta, `number], [`number, `string], [`number, `complex], [`complex, `complex], [`number, `rational], [`rational, `rational], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double], [`number, `binary], [`matrix, `list], [`any, `matrix], [`list, `matrix], [`matrix, `matrix], [`number, `timedelta]]
-/ [[`matrix, `any], [`number, `number], [`complex, `number], [`rational, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`number, `complex], [`complex, `complex], [`number, `rational], [`rational, `rational], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double]]
-% [[`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double]]
-** [[`number, `number], [`complex, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`number, `complex], [`complex, `complex], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double]]
-== [[`any, `any]]
-!= [[`any, `any]]
-> [[`any, `any]]
-< [[`any, `any]]
->= [[`any, `any]]
-<= [[`any, `any]]
-<=> [[`boolean, `boolean], [`number, `number], [`rational, `number], [`symbol, `symbol], [`string, `string], [`complex, `complex], [`number, `rational], [`rational, `rational], [`binary, `binary], [`datetime, `datetime], [`list, `list], [`timedelta, `timedelta]]
-in [[`any, `any]]
-| [[`any, `nil], [`nil, `any], [`boolean, `boolean], [`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint]]
-& [[`any, `nil], [`nil, `any], [`boolean, `boolean], [`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint]]
-^ [[`boolean, `boolean], [`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint]]
-<< [[`stream, `any], [`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint]]
->> [[`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint]]
-|| [[`any, `any]]
-&& [[`any, `any]]
-.. [[`number, `number]]
++
+[`number, `complex, `rational, `array@char, `array@uchar, `array@short, `array@ushort, `array@long, `array@ulong, `array@int, `array@uint, `array@float, `array@double, `matrix, `timedelta]
+-
+[`number, `complex, `rational, `array@char, `array@uchar, `array@short, `array@ushort, `array@long, `array@ulong, `array@int, `array@uint, `array@float, `array@double, `matrix, `timedelta]
+~
+[`number, `class, `function]
+!
+[`any]
+..
+[`number]
++
+[[`string, `any], [`number, `number], [`complex, `number], [`rational, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`pointer, `number], [`any, `string], [`string, `string], [`binary, `string], [`number, `complex], [`complex, `complex], [`number, `rational], [`rational, `rational], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double], [`string, `binary], [`binary, `binary], [`timedelta, `datetime], [`matrix, `matrix], [`datetime, `timedelta], [`timedelta, `timedelta]]
+-
+[[`number, `number], [`complex, `number], [`rational, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`pointer, `number], [`number, `complex], [`complex, `complex], [`number, `rational], [`rational, `rational], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double], [`color, `color], [`datetime, `datetime], [`matrix, `matrix], [`pointer, `pointer], [`datetime, `timedelta], [`timedelta, `timedelta]]
+*
+[[`class, `any], [`function, `any], [`matrix, `any], [`number, `number], [`string, `number], [`complex, `number], [`rational, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`binary, `number], [`timedelta, `number], [`number, `string], [`number, `complex], [`complex, `complex], [`number, `rational], [`rational, `rational], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double], [`number, `binary], [`matrix, `list], [`any, `matrix], [`list, `matrix], [`matrix, `matrix], [`number, `timedelta]]
+/
+[[`matrix, `any], [`number, `number], [`complex, `number], [`rational, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`number, `complex], [`complex, `complex], [`number, `rational], [`rational, `rational], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double]]
+%
+[[`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double]]
+**
+[[`number, `number], [`complex, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`array@float, `number], [`array@double, `number], [`number, `complex], [`complex, `complex], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint], [`number, `array@float], [`array@float, `array@float], [`number, `array@double], [`array@double, `array@double]]
+==
+[[`any, `any]]
+!=
+[[`any, `any]]
+>
+[[`any, `any]]
+<
+[[`any, `any]]
+>=
+[[`any, `any]]
+<=
+[[`any, `any]]
+<=>
+[[`boolean, `boolean], [`number, `number], [`rational, `number], [`symbol, `symbol], [`string, `string], [`complex, `complex], [`number, `rational], [`rational, `rational], [`binary, `binary], [`datetime, `datetime], [`list, `list], [`timedelta, `timedelta]]
+in
+[[`any, `any]]
+|
+[[`any, `nil], [`nil, `any], [`boolean, `boolean], [`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint]]
+&
+[[`any, `nil], [`nil, `any], [`boolean, `boolean], [`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint]]
+^
+[[`boolean, `boolean], [`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint]]
+<<
+[[`stream, `any], [`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint]]
+>>
+[[`number, `number], [`array@char, `number], [`array@uchar, `number], [`array@short, `number], [`array@ushort, `number], [`array@long, `number], [`array@ulong, `number], [`array@int, `number], [`array@uint, `number], [`number, `array@char], [`array@char, `array@char], [`number, `array@uchar], [`array@uchar, `array@uchar], [`number, `array@short], [`array@short, `array@short], [`number, `array@ushort], [`array@ushort, `array@ushort], [`number, `array@long], [`array@long, `array@long], [`number, `array@ulong], [`array@ulong, `array@ulong], [`number, `array@int], [`array@int, `array@int], [`number, `array@uint], [`array@uint, `array@uint]]
+||
+[[`any, `any]]
+&&
+[[`any, `any]]
+..
+[[`number, `number]]
 
-======== #3 ========
+======== #3 operator assignment - 1 ========
 
 +A
 -A
@@ -93,7 +119,7 @@ __setitemx__ 2
 __getprop__ b
 __setprop__ b 2
 
-======== #4 ========
+======== #4 stream output operator ========
 
 hello world
 hello world
@@ -101,7 +127,7 @@ hello world
 3rd line
 hello world
 
-======== #5 ========
+======== #5 bitwise and/or calculation with nil ========
 
 nil | 3 .. 3
 3 | nil .. 3
@@ -110,7 +136,7 @@ nil & 3 .. nil
 3 & nil .. nil
 nil & nil .. nil
 
-======== #6 ========
+======== #6 "in" operator ========
 
 2 in 2 .. true
 2 in 3 .. false
@@ -131,14 +157,14 @@ nil & nil .. nil
 [0 .. 10] in [0 .. 5] .. [true, true, true, true, true, true, false, false, false, false, false]
 [0 .. 10] in [4 .. 8] .. [false, false, false, false, true, true, true, true, true, false, false]
 
-======== #7 ========
+======== #7 list assignment and suffix operators + and * ========
 
 a=1, b=2, c=3
 a=1, b=2, c=[3, 4, 5]
 a=1, b=2, c=[3, 4, 5]
 a=1, b=2, c=[]
 
-======== #8 ========
+======== #8 operator assignment - 2 ========
 
 name = apple, cnt = 0
 Fruit + number
@@ -164,7 +190,7 @@ Fruit | number
 Fruit & number
 Fruit .. number
 
-======== #9 ========
+======== #9 bitwise and/or/xor and boolean values ========
 
 false & false .. false
 false & true .. false
@@ -209,7 +235,7 @@ x || y || z .. [true, false, false, true, false, true, false, true, true, true]
 x && y && z .. [false, false, false, true, false, false, false, false, true, false]
 x ^ y ^ z .. [false, false, false, true, false, true, false, true, true, false]
 
-======== #10 ========
+======== #10 operators applying arguments - 1 ========
 
 f(a:number, b:number, c:number, d:number):map = format('%d-%d-%d-%d', a, b, c, d)
 f % [1, 2, 3, 4] .. 1-2-3-4
@@ -217,7 +243,7 @@ f % [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]] .. ['1-4-7-10', '2-5-8-11', 
 f * [1, 2, 3, 4] .. 1-2-3-4
 f * [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]] .. ['1-2-3-4', '5-6-7-8', '9-10-11-12', '13-14-15-16', '17-18-19-20']
 
-======== #11 ========
+======== #11 operators applying arguments - 2 ========
 
 f(a:number, b:number, c:number, d:number):map = a + b + c + d
 f % [1, 2, 3, 4] .. 10
