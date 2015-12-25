@@ -335,3 +335,15 @@ a = AA, b = BB
 ======== #47 declaration of constructor ========
 
 <class:A.A(a:number, b:string, c[]:boolean, d => 'hoge', dict%):map:[att1,att2,att3] {block?}>
+
+======== #48 type check for list elements (casting) ========
+
+ABCDEFG .. OK
+A1CD4FG .. OK
+1234567 .. OK
+
+======== #49 type check for list elements (inherited values) ========
+
+<A><A><A><A><A><A><A> .. OK
+<A><B><A><A><A><A><A> .. OK
+<B><B><B><B><B><B><B> .. OK
