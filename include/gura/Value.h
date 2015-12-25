@@ -423,7 +423,10 @@ public:
 	Callable *GetCallable(const Symbol *pSymbol, const SymbolSet &attrs) const;
 	ErrorType GetErrorType() const;
 	bool IsFlatList() const;
-	bool IsInstanceOf(ValueType valType) const;
+	static bool IsInstanceOf(ValueType valTypeTgt, ValueType valType);
+	inline bool IsInstanceOf(ValueType valType) const {
+		return IsInstanceOf(_valType, valType);
+	}
 	Iterator *CreateIterator(Signal &sig) const;
 	String ToString(bool exprFlag = true) const;
 	Number ToNumber(bool allowPartFlag, bool &successFlag) const;

@@ -89,6 +89,7 @@ String Object_list::ToString(bool exprFlag)
 
 bool Object_list::ValidateAndCast(Environment &env, const Declaration *pDecl, bool listElemFlag)
 {
+	
 	foreach (ValueList, pValue, _valList) {
 		if (!pDecl->ValidateAndCast(env, *pValue, true)) {
 			pDecl->SetError_ArgumentType(env, *pValue);

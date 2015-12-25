@@ -146,6 +146,20 @@ bool Value::IsFlatList() const
 	return Is_list() && GetList().IsFlat();
 }
 
+bool Value::IsInstanceOf(ValueType valTypeTgt, ValueType valType)
+{
+	if (valTypeTgt == valType) return true;
+	const ValueTypeInfo *pValueTypeInfo =
+							ValueTypePool::GetInstance()->Lookup(valTypeTgt);
+	if (pValueTypeInfo == nullptr) return false;
+	for (Class *pClass = pValueTypeInfo->GetClass(); pClass != nullptr;
+										pClass = pClass->GetClassSuper()) {
+		if (pClass->GetValueType() == valType) return true;
+	}
+	return false;
+}
+
+#if 0
 bool Value::IsInstanceOf(ValueType valType) const
 {
 	if (_valType == valType) return true;
@@ -158,6 +172,7 @@ bool Value::IsInstanceOf(ValueType valType) const
 	}
 	return false;
 }
+#endif
 
 const char *Value::GetString() const
 {

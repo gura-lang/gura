@@ -691,7 +691,7 @@ palette
   palette#updateby(image_or_palette):reduce:[align,shrink]
 pointer
   pointer#forward(distance:number):reduce
-  pointer#pack(format:string, value+):reduce:[stay]
+  pointer#pack(format:string, values+):reduce:[stay]
   pointer#reset()
   pointer#unpack(format:string, values*:number):[nil,stay]
   pointer#unpacks(format:string, values*:number)
