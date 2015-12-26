@@ -4184,7 +4184,7 @@ Gura_DeclareFunction(AudioSpec)
 												new Expr_Value(AUDIO_S16));
 	DeclareArg(env, "channels",	VTYPE_number, OCCUR_Once, FLAG_None, 0,
 												new Expr_Value(1));
-	DeclareArg(env, "samples",	VTYPE_number, OCCUR_Once, FLAG_None, 0
+	DeclareArg(env, "samples",	VTYPE_number, OCCUR_Once, FLAG_None, 0,
 												new Expr_Value(8192));
 	DeclareArg(env, "callback",	VTYPE_function, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
