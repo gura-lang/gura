@@ -106,7 +106,9 @@ Gura_DeclareMethod(reader, entry)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Seeks entry in the zip file that matches the specified name\n"
-		"and returns the stream instance.");
+		"and returns a `stream` instance associated with the entry.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("s", "stream"));
 }
 
 Gura_ImplementMethod(reader, entry)
@@ -145,7 +147,10 @@ Gura_DeclareMethod(reader, entries)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns stream instances for each entry in the ZIP file.");
+		"Creates an `iterator` instance that returns `stream` instances\n"
+		"associated with each entry in the ZIP file.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(reader, entries)
@@ -504,7 +509,9 @@ Gura_DeclareFunction(reader)
 	SetClassToConstruct(Gura_UserClass(reader));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates `zip.reader` instance from the stream.");
+		"Creates `zip.reader` instance from the specified stream.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("reader", "zip.reader"));
 }
 
 Gura_ImplementFunction(reader)
@@ -533,7 +540,9 @@ Gura_DeclareFunction(writer)
 		"\n"
 		"- `` `store``\n"
 		"- `` `deflate``\n"
-		"- `` `bzip2``\n");
+		"- `` `bzip2``\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("writer", "zip.writer"));
 }
 
 Gura_ImplementFunction(writer)
