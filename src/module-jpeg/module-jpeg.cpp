@@ -209,7 +209,7 @@ Gura_DeclareMethodAlias(image, write_jpeg, "write@jpeg")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "quality", VTYPE_number, OCCUR_Once,
-										FLAG_None, new Expr_Value(75));
+			   FLAG_None, 0, new Expr_Value(75));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Writes a JPEG image data to a stream.");

@@ -243,7 +243,7 @@ Gura_DeclareClassMethod(stream, copy)
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "bytesunit", VTYPE_number,
-					OCCUR_Once, FLAG_None, new Expr_Value(65536));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(65536));
 	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -290,7 +290,7 @@ Gura_DeclareMethod(stream, copyfrom)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "bytesunit", VTYPE_number,
-					OCCUR_Once, FLAG_None, new Expr_Value(65536));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(65536));
 	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -338,7 +338,7 @@ Gura_DeclareMethod(stream, copyto)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "bytesunit", VTYPE_number,
-					OCCUR_Once, FLAG_None, new Expr_Value(65536));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(65536));
 	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(

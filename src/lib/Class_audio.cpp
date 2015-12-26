@@ -135,7 +135,9 @@ Gura_ImplementFunction(audio)
 		}
 		pAudio.reset(new Audio(format, nChannels, nSamplesPerSec));
 	} else {
-		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, nullptr));
+		AutoPtr<Declaration> pDecl(
+			new Declaration(
+				Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, 0, nullptr));
 		pDecl->ValidateAndCast(env, valList[0]);
 		if (sig.IsSignalled()) return Value::Nil;
 		Stream &stream = valList[0].GetStream();

@@ -1700,7 +1700,7 @@ Gura_DeclareMethod(request, response)
 	DeclareArg(env, "reason", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "body", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "version", VTYPE_string,
-				OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1728,7 +1728,7 @@ Gura_DeclareMethod(request, respchunk)
 	DeclareArg(env, "code", VTYPE_string);
 	DeclareArg(env, "reason", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "version", VTYPE_string,
-				OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -2288,7 +2288,7 @@ Gura_DeclareMethod(client, request)
 	DeclareArg(env, "uri", VTYPE_string);
 	DeclareArg(env, "body", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "version", VTYPE_string,
-					OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -2316,7 +2316,7 @@ Gura_DeclareMethod(client, _request)
 	DeclareArg(env, "uri", VTYPE_string);
 	DeclareArg(env, "body", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "version", VTYPE_string,
-					OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -2454,7 +2454,7 @@ Gura_DeclareFunction(server)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "addr", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "port", VTYPE_number,
-						OCCUR_Once, FLAG_None, new Expr_Value(80));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(80));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(server));
 	AddHelp(
@@ -2481,7 +2481,7 @@ Gura_DeclareFunction(client)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "addr", VTYPE_string);
 	DeclareArg(env, "port", VTYPE_number,
-						OCCUR_Once, FLAG_None, new Expr_Value(80));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(80));
 	DeclareArg(env, "addrProxy", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "portProxy", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "useridProxy", VTYPE_string, OCCUR_ZeroOrOnce);

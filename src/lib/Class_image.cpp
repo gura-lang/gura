@@ -164,7 +164,9 @@ Gura_ImplementFunction(image)
 			}
 		}
 	} else {
-		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, nullptr));
+		AutoPtr<Declaration> pDecl(
+			new Declaration(
+				Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, 0, nullptr));
 		pDecl->ValidateAndCast(env, valList[0]);
 		if (sig.IsSignalled()) return Value::Nil;
 		Stream &stream = valList[0].GetStream();
@@ -611,9 +613,9 @@ Gura_DeclareMethod(image, paste)
 	DeclareArg(env, "src", VTYPE_image);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "a", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(255));
+	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "a", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(255));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Pastes the source image `src` onto the target image instance at the specified position.\n"

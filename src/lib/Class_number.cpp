@@ -11,7 +11,7 @@ namespace Gura {
 Gura_DeclareMethodPrimitive(number, roundoff)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None, 0,
 											new Expr_Value(RoundOffThreshold));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,

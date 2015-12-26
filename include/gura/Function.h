@@ -273,13 +273,16 @@ public:
 	bool CustomDeclare(Environment &env,
 					   const CallerInfo &callerInfo, const SymbolSet &attrsAcceptable);
 	void CopyDeclarationInfo(const Function &func);
-	Declaration *DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
-			OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
-			Expr *pExprDefault = nullptr);
-	inline Declaration *DeclareArg(Environment &env, const char *name, ValueType valType,
-			OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
-			Expr *pExprDefault = nullptr) {
-		return DeclareArg(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
+	Declaration *DeclareArg(
+		Environment &env, const Symbol *pSymbol, ValueType valType,
+		OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
+		size_t nArrayElems = 0, Expr *pExprDefault = nullptr);
+	inline Declaration *DeclareArg(
+		Environment &env, const char *name, ValueType valType,
+		OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
+		size_t nArrayElems = 0, Expr *pExprDefault = nullptr) {
+		return DeclareArg(env, Symbol::Add(name), valType,
+						  occurPattern, flags, nArrayElems, pExprDefault);
 	}
 	inline void DeclareDictArg(const Symbol *pSymbolDict) { _pSymbolDict = pSymbolDict; }
 	inline void DeclareDictArg(const char *name) { DeclareDictArg(Symbol::Add(name)); }

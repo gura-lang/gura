@@ -88,7 +88,7 @@ Gura_DeclareMethod(environment, lookup)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "escalate", VTYPE_boolean,
-						OCCUR_Once, FLAG_None, new Expr_Value(Value(true)));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(Value(true)));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Looks up a specified symbol in the environment and returns the associated value.\n"

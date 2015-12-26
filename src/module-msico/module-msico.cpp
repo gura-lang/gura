@@ -234,7 +234,7 @@ Gura_DeclareMethodAlias(image, read_msico, "read@msico")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once,
-								FLAG_None, new Expr_Value(Value(0)));
+			   FLAG_None, 0, new Expr_Value(Value(0)));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads an ICO image from a stream.");
@@ -258,7 +258,7 @@ Gura_DeclareFunction(content)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once,
-							FLAG_None, new Expr_Value(Gura_Symbol(rgba)));
+			   FLAG_None, 0, new Expr_Value(Gura_Symbol(rgba)));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(content));
 	AddHelp(

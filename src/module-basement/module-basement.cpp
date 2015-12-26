@@ -1075,7 +1075,7 @@ Gura_DeclareFunction(raise)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "error", VTYPE_error);
-	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value("error")));
+	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once, FLAG_None, 0, new Expr_Value(Value("error")));
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,

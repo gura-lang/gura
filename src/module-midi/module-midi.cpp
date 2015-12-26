@@ -1190,7 +1190,7 @@ Gura_DeclareMethod(sequence, play)
 	DeclareArg(env, "port", VTYPE_port);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "repeat", VTYPE_number, OCCUR_Once,
-								FLAG_Nil, new Expr_Value(Value(1)));
+			   FLAG_Nil, 0, new Expr_Value(Value(1)));
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 	AddHelp(
@@ -1440,7 +1440,7 @@ Gura_DeclareMethod(port, play)
 	DeclareArg(env, "sequence", VTYPE_sequence);
 	DeclareArg(env, "speed", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "repeat", VTYPE_number, OCCUR_Once,
-								FLAG_Nil, new Expr_Value(Value(1)));
+			   FLAG_Nil, 0, new Expr_Value(Value(1)));
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 	AddHelp(

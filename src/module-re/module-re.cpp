@@ -355,7 +355,7 @@ Gura_DeclareFunction(match)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "str", VTYPE_string);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(match));
@@ -565,7 +565,7 @@ Gura_DeclareMethod(pattern, match)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	LinkHelp(env.LookupClass(VTYPE_string), Symbol::Add("match"));
@@ -642,7 +642,7 @@ Gura_DeclareMethod(pattern, scan)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	LinkHelp(env.LookupClass(VTYPE_string), Symbol::Add("scan"));
@@ -698,7 +698,7 @@ Gura_DeclareMethod(string, match)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -810,7 +810,7 @@ Gura_DeclareMethod(string, scan)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -952,7 +952,7 @@ Gura_DeclareFunction(scan)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareArg(env, "str", VTYPE_string);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	LinkHelp(env.LookupClass(VTYPE_string), Symbol::Add("scan"));

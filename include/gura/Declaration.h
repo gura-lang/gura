@@ -25,6 +25,7 @@ private:
 	ValueType _valType;
 	OccurPattern _occurPattern;
 	ULong _flags;
+	size_t _nArrayElems;
 	AutoPtr<Expr> _pExprDefault;	// maybe nullptr
 public:
 	Gura_DeclareReferenceAccessor(Declaration)
@@ -39,7 +40,8 @@ public:
 	Declaration(const Declaration &decl);
 	Declaration(const Symbol *pSymbol, ValueType valType);
 	Declaration(const Symbol *pSymbol, ValueType valType,
-			OccurPattern occurPattern, ULong flags, Expr *pExprDefault);
+				OccurPattern occurPattern, ULong flags, size_t nArrayElems,
+				Expr *pExprDefault);
 private:
 	~Declaration();
 public:

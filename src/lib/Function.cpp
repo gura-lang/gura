@@ -200,11 +200,12 @@ void Function::CopyDeclarationInfo(const Function &func)
 	_pSymbolDict = func._pSymbolDict;
 }
 
-Declaration *Function::DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
-				OccurPattern occurPattern, ULong flags, Expr *pExprDefault)
+Declaration *Function::DeclareArg(
+	Environment &env, const Symbol *pSymbol, ValueType valType,
+	OccurPattern occurPattern, ULong flags, size_t nArrayElems, Expr *pExprDefault)
 {
 	Declaration *pDecl =
-			new Declaration(pSymbol, valType, occurPattern, flags, pExprDefault);
+		new Declaration(pSymbol, valType, occurPattern, flags, nArrayElems, pExprDefault);
 	GURA_ASSUME(env, !_pDeclOwner->IsVariableLength());
 	GURA_ASSUME(env, !(!(pDecl->IsOptional() || occurPattern == OCCUR_ZeroOrMore) &&
 				!_pDeclOwner->empty() && _pDeclOwner->back()->IsOptional()));

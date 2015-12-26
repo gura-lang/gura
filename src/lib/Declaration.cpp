@@ -8,23 +8,25 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Declaration
 //-----------------------------------------------------------------------------
-Declaration::Declaration(const Declaration &decl) : _cntRef(1),
-	_pSymbol(decl._pSymbol), _valType(decl._valType),
-	_occurPattern(decl._occurPattern), _flags(decl._flags),
+Declaration::Declaration(const Declaration &decl) :
+	_cntRef(1), _pSymbol(decl._pSymbol), _valType(decl._valType),
+	_occurPattern(decl._occurPattern),
+	_flags(decl._flags), _nArrayElems(decl._nArrayElems),
 	_pExprDefault(Expr::Reference(decl._pExprDefault.get()))
 {
 }
 
-Declaration::Declaration(const Symbol *pSymbol, ValueType valType) : _cntRef(1),
-	_pSymbol(pSymbol), _valType(valType),
-	_occurPattern(OCCUR_Once), _flags(0), _pExprDefault(nullptr)
+Declaration::Declaration(const Symbol *pSymbol, ValueType valType) :
+	_cntRef(1), _pSymbol(pSymbol), _valType(valType), _occurPattern(OCCUR_Once),
+	_flags(0), _nArrayElems(0), _pExprDefault(nullptr)
 {
 }
 
 Declaration::Declaration(const Symbol *pSymbol, ValueType valType,
-		OccurPattern occurPattern, ULong flags, Expr *pExprDefault) : _cntRef(1),
-	_pSymbol(pSymbol), _valType(valType),
-	_occurPattern(occurPattern), _flags(flags), _pExprDefault(pExprDefault)
+						 OccurPattern occurPattern, ULong flags, size_t nArrayElems,
+						 Expr *pExprDefault) :
+	_cntRef(1), _pSymbol(pSymbol), _valType(valType), _occurPattern(occurPattern),
+	_flags(flags), _nArrayElems(nArrayElems), _pExprDefault(pExprDefault)
 {
 }
 
@@ -36,6 +38,7 @@ Declaration::~Declaration()
 Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 {
 	ULong flags = 0;
+	size_t nArrayElems = 0;
 	OccurPattern occurPattern = OCCUR_Once;
 	ValueType valType = VTYPE_any;
 	Expr *pExprDefault = nullptr;
@@ -64,8 +67,28 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 		valType = VTYPE_quote;
 	}
 	if (pExpr->IsIndexer()) {
-		pExpr = dynamic_cast<const Expr_Indexer *>(pExpr)->GetCar();
+		const Expr_Indexer *pExprIndexer = dynamic_cast<const Expr_Indexer *>(pExpr);
+		pExpr = pExprIndexer->GetCar();
 		flags |= FLAG_ListVar;
+		const ExprOwner &exprOwner = pExprIndexer->GetExprOwner();
+		if (exprOwner.empty()) {
+			// nothing to do
+		} else if (exprOwner.size() == 1) {
+			const Expr *pExprElem = exprOwner.front();
+			if (!pExprElem->IsValue()) {
+				env.SetError(ERR_SyntaxError, "invalid format of list declaration");
+				return nullptr;
+			}
+			const Value &value = dynamic_cast<const Expr_Value *>(pExprElem)->GetValue();
+			if (!value.Is_number()) {
+				env.SetError(ERR_SyntaxError, "invalid format of list declaration");
+				return nullptr;
+			}
+			nArrayElems = value.GetSizeT();
+		} else {
+			env.SetError(ERR_SyntaxError, "invalid format of list declaration");
+			return nullptr;
+		}
 	}
 	if (!pExpr->IsIdentifier()) {
 		env.SetError(ERR_SyntaxError, "invalid argument expression");
@@ -95,7 +118,8 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 				"cannot accept a symbol %s in argument declaration", pSymbol->GetName());
 		}
 	}
-	return new Declaration(pExprIdentifier->GetSymbol(), valType, occurPattern, flags, pExprDefault);
+	return new Declaration(pExprIdentifier->GetSymbol(), valType,
+						   occurPattern, flags, nArrayElems, pExprDefault);
 }
 
 // value will be casted only when that is valid for declaration.

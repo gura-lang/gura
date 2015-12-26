@@ -167,10 +167,10 @@ Gura_DeclareFunction(datetime)
 	DeclareArg(env, "year", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "month", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "day", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "hour", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "min", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "usec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "hour", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "min", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "usec", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "minsoff", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_datetime));
@@ -236,7 +236,7 @@ Gura_DeclareMethod(datetime, format)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_any, OCCUR_Once,
-								FLAG_None, new Expr_Value(Gura_Symbol(w3c)));
+			   FLAG_None, 0, new Expr_Value(Gura_Symbol(w3c)));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string of the datetime properties based on the specified format.\n"
@@ -429,10 +429,10 @@ Gura_ImplementMethod(datetime, settzoff)
 Gura_DeclareClassMethod(datetime, time)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "hour", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "minute", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "usec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "hour", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "minute", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "usec", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,

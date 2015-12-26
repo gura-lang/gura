@@ -1166,13 +1166,13 @@ Gura_DeclareMethod(content, addimage)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_image);
 	DeclareArg(env, "delayTime", VTYPE_number, OCCUR_Once,
-						FLAG_None, new Expr_Value(10));
+			   FLAG_None, 0, new Expr_Value(10));
 	DeclareArg(env, "leftPos", VTYPE_number, OCCUR_Once,
-						FLAG_None, new Expr_Value(0));
+			   FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "topPos", VTYPE_number, OCCUR_Once,
-						FLAG_None, new Expr_Value(0));
+			   FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "disposalMethod", VTYPE_symbol, OCCUR_Once,
-						FLAG_None, new Expr_Value(Gura_UserSymbol(none)));
+			   FLAG_None, 0, new Expr_Value(Gura_UserSymbol(none)));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Adds an image to GIF information.\n"
@@ -1446,7 +1446,7 @@ Gura_DeclareFunction(content)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once,
-						FLAG_None, new Expr_Value(Gura_Symbol(rgba)));
+			   FLAG_None, 0, new Expr_Value(Gura_Symbol(rgba)));
 	SetClassToConstruct(Gura_UserClass(content));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(

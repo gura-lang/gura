@@ -1199,7 +1199,7 @@ Gura_ImplementMethod(iterator, reverse)
 Gura_DeclareMethod(iterator, roundoff)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None, 0,
 											new Expr_Value(RoundOffThreshold));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(

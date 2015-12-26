@@ -20,7 +20,7 @@ Gura_DeclareMethod(string, align)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number);
-	DeclareArg(env, "padding", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value(" ")));
+	DeclareArg(env, "padding", VTYPE_string, OCCUR_Once, FLAG_None, 0, new Expr_Value(Value(" ")));
 	DeclareAttr(Gura_Symbol(center));
 	DeclareAttr(Gura_Symbol(left));
 	DeclareAttr(Gura_Symbol(right));
@@ -318,7 +318,7 @@ Gura_DeclareMethod(string, find)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sub",	VTYPE_string);
-	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareAttr(Gura_Symbol(rev));
 	AddHelp(
@@ -531,7 +531,7 @@ Gura_ImplementMethod(string, lower)
 Gura_DeclareMethod(string, mid)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
@@ -752,7 +752,7 @@ Gura_DeclareMethod(string, startswith)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "prefix",	VTYPE_string);
-	DeclareArg(env, "pos",		VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "pos",		VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareAttr(Gura_Symbol(rest));
 	DeclareAttr(Gura_Symbol(icase));
 	AddHelp(

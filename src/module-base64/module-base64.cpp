@@ -36,7 +36,7 @@ Gura_DeclareFunction(encode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
+	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, 0, new Expr_Value(76));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -81,7 +81,7 @@ Gura_DeclareFunction(writer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
+	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, 0, new Expr_Value(76));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -128,7 +128,7 @@ Gura_ImplementMethod(stream, reader_base64)
 Gura_DeclareMethodAlias(stream, writer_base64, "writer@base64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, new Expr_Value(76));
+	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, 0, new Expr_Value(76));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,

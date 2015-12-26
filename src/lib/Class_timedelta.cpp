@@ -80,9 +80,9 @@ String Object_timedelta::ToString(bool exprFlag)
 Gura_DeclareFunction(timedelta)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "days", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "secs", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "usecs", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "days", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "secs", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "usecs", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_timedelta));
 	AddHelp(

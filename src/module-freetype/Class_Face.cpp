@@ -183,7 +183,7 @@ Gura_DeclareFunction(Face)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareArg(env, "face_index", VTYPE_number,
-						OCCUR_Once, FLAG_None, new Expr_Value(0));
+			   OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	SetClassToConstruct(Gura_UserClass(Face));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

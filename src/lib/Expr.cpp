@@ -1039,7 +1039,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 	}
 	if (valTypeCast != VTYPE_any) {
 		AutoPtr<Declaration> pDecl(
-				new Declaration(GetSymbol(), valTypeCast, OCCUR_Once, 0, nullptr));
+			new Declaration(GetSymbol(), valTypeCast, OCCUR_Once, 0, 0, nullptr));
 		pDecl->ValidateAndCast(env, valueAssigned);
 		if (sig.IsSignalled()) return Value::Nil;
 	}
