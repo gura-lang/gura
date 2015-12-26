@@ -507,3 +507,13 @@ testcase('type check for list elements (inherited values)') {
 	f([A(), B(), A(), A(), A(), A(), A()])
 	f([B(), B(), B(), B(), B(), B(), B()])
 }
+testcase('check of element size') {
+	f(a[5]) = 'OK'
+	tester(`f([1]))
+	tester(`f([1, 2]))
+	tester(`f([1, 2, 3]))
+	tester(`f([1, 2, 3, 4]))
+	tester(`f([1, 2, 3, 4, 5]))
+	tester(`f([1, 2, 3, 4, 5, 6]))
+	tester(`f([1, 2, 3, 4, 5, 6, 7]))
+}

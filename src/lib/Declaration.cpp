@@ -11,22 +11,22 @@ namespace Gura {
 Declaration::Declaration(const Declaration &decl) :
 	_cntRef(1), _pSymbol(decl._pSymbol), _valType(decl._valType),
 	_occurPattern(decl._occurPattern),
-	_flags(decl._flags), _nArrayElems(decl._nArrayElems),
+	_flags(decl._flags), _nListElems(decl._nListElems),
 	_pExprDefault(Expr::Reference(decl._pExprDefault.get()))
 {
 }
 
 Declaration::Declaration(const Symbol *pSymbol, ValueType valType) :
 	_cntRef(1), _pSymbol(pSymbol), _valType(valType), _occurPattern(OCCUR_Once),
-	_flags(0), _nArrayElems(0), _pExprDefault(nullptr)
+	_flags(0), _nListElems(0), _pExprDefault(nullptr)
 {
 }
 
 Declaration::Declaration(const Symbol *pSymbol, ValueType valType,
-						 OccurPattern occurPattern, ULong flags, size_t nArrayElems,
+						 OccurPattern occurPattern, ULong flags, size_t nListElems,
 						 Expr *pExprDefault) :
 	_cntRef(1), _pSymbol(pSymbol), _valType(valType), _occurPattern(occurPattern),
-	_flags(flags), _nArrayElems(nArrayElems), _pExprDefault(pExprDefault)
+	_flags(flags), _nListElems(nListElems), _pExprDefault(pExprDefault)
 {
 }
 
@@ -38,7 +38,7 @@ Declaration::~Declaration()
 Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 {
 	ULong flags = 0;
-	size_t nArrayElems = 0;
+	size_t nListElems = 0;
 	OccurPattern occurPattern = OCCUR_Once;
 	ValueType valType = VTYPE_any;
 	Expr *pExprDefault = nullptr;
@@ -84,7 +84,7 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 				env.SetError(ERR_SyntaxError, "invalid format of list declaration");
 				return nullptr;
 			}
-			nArrayElems = value.GetSizeT();
+			nListElems = value.GetSizeT();
 		} else {
 			env.SetError(ERR_SyntaxError, "invalid format of list declaration");
 			return nullptr;
@@ -119,7 +119,7 @@ Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
 		}
 	}
 	return new Declaration(pExprIdentifier->GetSymbol(), valType,
-						   occurPattern, flags, nArrayElems, pExprDefault);
+						   occurPattern, flags, nListElems, pExprDefault);
 }
 
 // value will be casted only when that is valid for declaration.
@@ -131,7 +131,12 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 		env.LookupClass(VTYPE_list)->CastFrom(env, value, this);
 		if (sig.IsSignalled()) return false;
 		if (value.Is_list()) {
-			if (!value.GetObjList()->ValidateAndCast(env, this, true)) return false;
+			Object_list *pObjList = value.GetObjList();
+			if (_nListElems > 0 && pObjList->Size() != _nListElems) {
+				sig.SetError(ERR_TypeError, "unmatched element size");
+				return false;
+			}
+			if (!pObjList->ValidateAndCast(env, this, true)) return false;
 		} else if (value.IsValid() || !IsOptional()) {
 			SetError_ArgumentMustBeList(env, value);
 			return false;
@@ -195,7 +200,15 @@ String Declaration::ToString() const
 		str += "`";
 	}
 	str += _pSymbol->GetName();
-	if (GetFlag(FLAG_ListVar)) str += "[]";
+	if (GetFlag(FLAG_ListVar)) {
+		str += "[";
+		if (_nListElems > 0) {
+			char buff[32];
+			::sprintf(buff, "%ld", _nListElems);
+			str += buff;
+		}
+		str += "]";
+	}
 	const Symbol *pSymbol = Symbol::FromOccurPattern(_occurPattern);
 	if (pSymbol != nullptr) str += pSymbol->GetName();
 	if (_valType != VTYPE_nil && _valType != VTYPE_undefined &&

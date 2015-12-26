@@ -347,3 +347,13 @@ A1CD4FG .. OK
 <A><A><A><A><A><A><A> .. OK
 <A><B><A><A><A><A><A> .. OK
 <B><B><B><B><B><B><B> .. OK
+
+======== #50 check of element size ========
+
+f([1]) .. TypeError: unmatched element size
+f([1, 2]) .. TypeError: unmatched element size
+f([1, 2, 3]) .. TypeError: unmatched element size
+f([1, 2, 3, 4]) .. TypeError: unmatched element size
+f([1, 2, 3, 4, 5]) .. OK
+f([1, 2, 3, 4, 5, 6]) .. TypeError: unmatched element size
+f([1, 2, 3, 4, 5, 6, 7]) .. TypeError: unmatched element size

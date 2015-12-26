@@ -202,10 +202,10 @@ void Function::CopyDeclarationInfo(const Function &func)
 
 Declaration *Function::DeclareArg(
 	Environment &env, const Symbol *pSymbol, ValueType valType,
-	OccurPattern occurPattern, ULong flags, size_t nArrayElems, Expr *pExprDefault)
+	OccurPattern occurPattern, ULong flags, size_t nListElems, Expr *pExprDefault)
 {
 	Declaration *pDecl =
-		new Declaration(pSymbol, valType, occurPattern, flags, nArrayElems, pExprDefault);
+		new Declaration(pSymbol, valType, occurPattern, flags, nListElems, pExprDefault);
 	GURA_ASSUME(env, !_pDeclOwner->IsVariableLength());
 	GURA_ASSUME(env, !(!(pDecl->IsOptional() || occurPattern == OCCUR_ZeroOrMore) &&
 				!_pDeclOwner->empty() && _pDeclOwner->back()->IsOptional()));
