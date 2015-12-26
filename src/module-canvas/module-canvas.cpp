@@ -526,11 +526,11 @@ Gura_DeclareMethod(Canvas, setfont)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number);
-	DeclareArg(env, "family", VTYPE_symbol, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "family", VTYPE_symbol, OCCUR_Once, FLAG_None, 0,
 								new Expr_Value(Gura_UserSymbol(default)));
-	DeclareArg(env, "style", VTYPE_symbol, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "style", VTYPE_symbol, OCCUR_Once, FLAG_None, 0,
 								new Expr_Value(Gura_UserSymbol(normal)));
-	DeclareArg(env, "weight", VTYPE_symbol, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "weight", VTYPE_symbol, OCCUR_Once, FLAG_None, 0,
 								new Expr_Value(Gura_UserSymbol(normal)));
 	DeclareArg(env, "facename", VTYPE_string, OCCUR_ZeroOrOnce);
 }
@@ -565,9 +565,9 @@ Gura_DeclareMethod(Canvas, setpen)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_any);
-	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None, 0,
 								new Expr_Value(1));
-	DeclareArg(env, "style", VTYPE_symbol, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "style", VTYPE_symbol, OCCUR_Once, FLAG_None, 0,
 								new Expr_Value(Gura_UserSymbol(solid)));
 }
 
@@ -585,7 +585,7 @@ Gura_DeclareMethod(Canvas, setbrush)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_any);
-	DeclareArg(env, "style", VTYPE_symbol, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "style", VTYPE_symbol, OCCUR_Once, FLAG_None, 0,
 								new Expr_Value(Gura_UserSymbol(solid)));
 }
 
