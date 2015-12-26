@@ -941,10 +941,10 @@ Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal &sig, Image *pImag
 Gura_DeclareMethod(Surface, UpdateRect)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
+	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Makes sure the given area is updated on the given screen.\n"
@@ -1026,7 +1026,7 @@ Gura_DeclareMethod(Surface, SetColors)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None, 0,
 															new Expr_Value(0));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1072,7 +1072,7 @@ Gura_DeclareMethod(Surface, SetPalette)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
 	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None, 0,
 															new Expr_Value(0));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -4178,13 +4178,13 @@ Gura_ImplementFunction(Color)
 Gura_DeclareFunction(AudioSpec)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "freq",		VTYPE_number, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "freq",		VTYPE_number, OCCUR_Once, FLAG_None, 0,
 												new Expr_Value(22050));
-	DeclareArg(env, "format",	VTYPE_number, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "format",	VTYPE_number, OCCUR_Once, FLAG_None, 0,
 												new Expr_Value(AUDIO_S16));
-	DeclareArg(env, "channels",	VTYPE_number, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "channels",	VTYPE_number, OCCUR_Once, FLAG_None, 0,
 												new Expr_Value(1));
-	DeclareArg(env, "samples",	VTYPE_number, OCCUR_Once, FLAG_None,
+	DeclareArg(env, "samples",	VTYPE_number, OCCUR_Once, FLAG_None, 0
 												new Expr_Value(8192));
 	DeclareArg(env, "callback",	VTYPE_function, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
