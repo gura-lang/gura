@@ -111,7 +111,7 @@ bool Function::CustomDeclare(Environment &env,
 				continue;
 			}
 		}
-		AutoPtr<Declaration> pDecl(Declaration::Create(env, pExpr));
+		AutoPtr<Declaration> pDecl(Declaration::CreateFromExpr(env, pExpr));
 		if (pDecl.IsNull()) return false;
 		if (_pDeclOwner->IsVariableLength()) {
 			sig.SetError(ERR_TypeError,

@@ -35,7 +35,7 @@ Declaration::~Declaration()
 	// virtual destructor
 }
 
-Declaration *Declaration::Create(Environment &env, const Expr *pExpr)
+Declaration *Declaration::CreateFromExpr(Environment &env, const Expr *pExpr)
 {
 	ULong flags = 0;
 	size_t nListElems = 0;

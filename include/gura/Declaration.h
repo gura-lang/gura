@@ -45,7 +45,7 @@ public:
 private:
 	~Declaration();
 public:
-	static Declaration *Create(Environment &env, const Expr *pExpr);
+	static Declaration *CreateFromExpr(Environment &env, const Expr *pExpr);
 	bool ValidateAndCast(Environment &env, Value &value, bool listElemFlag = false) const;
 	inline Declaration *Clone() const { return new Declaration(*this); }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
