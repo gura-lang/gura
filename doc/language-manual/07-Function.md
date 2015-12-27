@@ -622,9 +622,10 @@ to a function declaration.
 The content in the block has a format of `{lang:symbol, format:string, help:string}`
 which takes following values.
 
-- `lang:symbol` .. Specifies a symbol for the used language: `en` for English and `ja` for Japanese, etc.
-- `format:string` .. Specifies a syntax format. Only `markdown` is available so far.
-- `help:string` .. Help string formatted in a syntax specified by `format`.
+- `lang` .. Specifies a symbol of language that describes the help document:
+  `en` for English and `ja` for Japanese, etc.
+- `format` .. Specifies a syntax format. Only `'markdown'` is available so far.
+- `help` .. Help string formatted in a syntax specified by `format`.
 
 You can access the help information by following ways:
 
@@ -640,18 +641,19 @@ Below is a function example that has helps written in English and Japanese:
     add(x, y) = {
         x + y
     } % {`en, 'markdown', R'''
-    Takes two numbers and returns an added result.
-    
-    Below is an example:
 
-        ans = add(3, 4)
+    (.. help document in English ..)
+
     '''
     } % {`ja, 'markdown', R'''
-    2 つの数値をとり、加算した結果を返します。
 
-    例を以下に示します:
+    (.. help document in Japanese ..)
 
-        ans = add(3, 4)
+    '''
+    } % {`de, 'markdown', R'''
+
+    (.. help document in German ..)
+
     '''
     }
 
@@ -663,6 +665,7 @@ You can also pass a language symbol to `function.gethelp` function as below.
 
     function.gethelp(add, `en)
     function.gethelp(add, `ja)
+    function.gethelp(add, `de)
 
 
 ## Anonymous Function
