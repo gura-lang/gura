@@ -105,7 +105,9 @@ Attributes `:void` and `:reduce` have a significant effect with Implicit Mapping
 You can specify a type name by describing it as an attribute
 after an Identifier's symbol.
 
-    f(x:number) = { /* body */ }
+    f(x:number) = {
+        // any process
+    }
 
 When calling a function that has arguments with type name,
 the Interpreter first check the data type of the given value and try to cast it
@@ -116,14 +118,28 @@ it would occur an error.
 If you expect an argument to take a list,
 specify a pair of square brackets that has no content after an Identifer's symbol.
 
-    f(x[]) = { /* body */ }
+    f(x[]) = {
+        // any process
+    }
 
 A type name can be described after the bracket pair.
 
-    f(x[]:number) = { /* body */ }
+    f(x[]:number) = {
+        // any process
+    }
 
-In this case, the Interpreter checks types of all the items in the list
+In this case, the interpreter checks types of all the items in the list
 and applies casting on them if possible.
+
+You can also specify how many elements the list should contain
+by declaring the number in the square brackets.
+
+    f(x[8]) = {
+        // any process
+    }
+
+In the example above, only a list that contains eight elements could be accepted
+and an error would occur otherwise.
 
 
 ### Data Type Casting
