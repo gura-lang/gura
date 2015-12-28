@@ -27,13 +27,6 @@ Parser::~Parser()
 {
 }
 
-void Parser::Reset()
-{
-	_stat = STAT_BOF;
-	_lineHeadFlag = true;
-	InitStack();
-}
-
 void Parser::InitStack()
 {
 	_elemStack.Clear();
@@ -656,9 +649,6 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_CommentBlockEnd;
 		} else if (ch == '/') {
 			_stat = STAT_CommentBlockNest;
-		//} else if (ch == '"' || ch == '\'') {
-		//	_stringInfo.chBorder = ch;
-		//	_stat = STAT_StringInCommentBlock;
 		} else {
 			// nothing to do
 		}
@@ -719,9 +709,6 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_String: {
 		if (ch == _stringInfo.chBorder) {
-			//ElemType elemType = ElemTypeForString(_stringInfo);
-			//pExpr = FeedElement(env, Element(elemType, GetLineNo(), _token));
-			//_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 			_stat = STAT_StringPost;
 		} else if (ch == '\\') {
 			_stringInfo.statRtn = STAT_String;
@@ -874,9 +861,6 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_MStringEndSecond: {
 		if (ch == _stringInfo.chBorder) {
-			//ElemType elemType = ElemTypeForString(_stringInfo);
-			//pExpr = FeedElement(env, Element(elemType, GetLineNo(), _token));
-			//_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 			_stat = STAT_StringPost;
 		} else {
 			_token.push_back(_stringInfo.chBorder);
@@ -907,6 +891,14 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 												GetLineNo(), _token, _suffix));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
+		}
+		break;
+	}
+	case STAT_RecoverConsole: {
+		if (ch == '\n') {
+			_stat = STAT_BOF;
+			_lineHeadFlag = true;
+			InitStack();
 		}
 		break;
 	}
@@ -1093,7 +1085,7 @@ void Parser::EvalConsoleChar(Environment &env,
 			} else {
 				sig.PrintSignal(*pConsole);
 				sig.ClearSignal();
-				Reset();
+				_stat = STAT_RecoverConsole;
 			}
 		} else if (pExpr != nullptr) {
 			pExprRoot->AddExpr(pExpr);

@@ -52,6 +52,7 @@ private:
 		STAT_StringInCommentBlock, STAT_StringEscInCommentBlock,
 		STAT_MStringEndFirst, STAT_MStringEndSecond,
 		STAT_StringPost, STAT_StringSuffixed,
+		STAT_RecoverConsole,
 	};
 public:
 	enum Precedence {
@@ -242,7 +243,6 @@ public:
 	Parser(Signal &sig, const String &sourceName,
 		   int cntLineStart = 0, bool enablePreparatorFlag = true);
 	~Parser();
-	void Reset();
 	void InitStack();
 	Expr *ParseChar(Environment &env, char ch);
 	Expr_Root *ParseStream(Environment &env, Stream &stream);
