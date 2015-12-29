@@ -52,6 +52,11 @@ enum {
 	K_DELETE,
 };
 
+void Clear(Environment &env, const Symbol *pSymbol);
+void GetWinSize(Environment &env, size_t *pWidth, size_t *pHeight);
+void SetColor(Environment &env, const Symbol *pSymbolFg,
+			  const Symbol *pSymbolBg, const Expr_Block *pExprBlock);
+
 bool SymbolToNumber(Signal &sig, const Symbol *pSymbol, int *pNum);
 
 //-----------------------------------------------------------------------------
@@ -77,6 +82,12 @@ Gura_DeclareFunction(clear)
 		"- `` `bottom`` .. clears characters on the below side of the cursor.\n");
 }
 
+Gura_ImplementFunction(clear)
+{
+	Clear(env, arg.Is_symbol(0)? arg.GetSymbol(0) : nullptr);
+	return Value::Nil;
+}
+
 // conio.getwinsize()
 Gura_DeclareFunction(getwinsize)
 {
@@ -84,6 +95,14 @@ Gura_DeclareFunction(getwinsize)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns the screen size as a list `[width, height]`.");
+}
+
+Gura_ImplementFunction(getwinsize)
+{
+	size_t width, height;
+	GetWinSize(env, &width, &height);
+	return ReturnValue(env, arg,
+		Value::CreateList(env, Value(width), Value(height)));
 }
 
 // conio.setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
@@ -124,6 +143,16 @@ Gura_DeclareFunction(setcolor)
 		"\n"
 		"If `block` is specified, the color is changed before evaluating the block,\n"
 		"and then gets back to what has been set when done.\n");
+}
+
+Gura_ImplementFunction(setcolor)
+{
+	Signal &sig = env.GetSignal();
+	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
+	if (sig.IsSignalled()) return Value::Nil;
+	SetColor(env, arg.Is_symbol(0)? arg.GetSymbol(0) : nullptr,
+			 arg.Is_symbol(1)? arg.GetSymbol(1) : nullptr, pExprBlock);
+	return Value::Nil;
 }
 
 // conio.moveto(x:number, y:number):map:void {block?}
@@ -174,13 +203,13 @@ Gura_DeclareFunction(waitkey)
 }
 
 #if defined(GURA_ON_MSWIN)
-Gura_ImplementFunction(clear)
+void Clear(Environment &env, const Symbol *pSymbol)
 {
 	Signal &sig = env.GetSignal();
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
-	const Symbol *pSymbol = arg.Is_symbol(0)? arg.GetSymbol(0) : nullptr;
+	//const Symbol *pSymbol = arg.Is_symbol(0)? arg.GetSymbol(0) : nullptr;
 	COORD coordStart = { 0, 0 };
 	COORD coordHome = { 0, 0 };
 	DWORD dwConSize = 0;
@@ -215,7 +244,7 @@ Gura_ImplementFunction(clear)
 		dwConSize = width;
 	} else {
 		sig.SetError(ERR_ValueError, "invalid symbol %s", pSymbol->GetName());
-		return Value::Nil;
+		return;
 	}
 	do {
 		DWORD cCharsWritten;
@@ -225,42 +254,36 @@ Gura_ImplementFunction(clear)
 							dwConSize, coordStart, &cCharsWritten );
 		::SetConsoleCursorPosition(hConsole, coordHome);
 	} while (0);
-	return Value::Nil;
 }
 
-Gura_ImplementFunction(getwinsize)
+void GetWinSize(Environment &env, size_t *pWidth, size_t *pHeight)
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
-	return ReturnValue(env, arg,
-		Value::CreateList(env,
-				Value(csbi.srWindow.Right + 1 - csbi.srWindow.Left),
-				Value(csbi.srWindow.Bottom + 1 - csbi.srWindow.Top)));
+	*pWidth = csbi.srWindow.Right + 1 - csbi.srWindow.Left;
+	*pHeight = csbi.srWindow.Bottom + 1 - csbi.srWindow.Top;
 }
 
-Gura_ImplementFunction(setcolor)
-{
+void SetColor(Environment &env, const Symbol *pSymbolFg,
+			  const Symbol *pSymbolBg, const Expr_Block *pExprBlock)
 	Signal &sig = env.GetSignal();
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
 	int fg = csbi.wAttributes & 0x000f;
 	int bg = (csbi.wAttributes & 0x00f0) >> 4;
-	if (arg.Is_symbol(0) && !SymbolToNumber(sig, arg.GetSymbol(0), &fg)) {
-		return Value::Nil;
+	if (pSymbolFg != nullptr && !SymbolToNumber(sig, pSymbolFg, &fg)) {
+		return;
 	}
-	if (arg.Is_symbol(1) && !SymbolToNumber(sig, arg.GetSymbol(1), &bg)) {
-		return Value::Nil;
+	if (pSymbolBg != nullptr && !SymbolToNumber(sig, pSymbolBg, &bg)) {
+		return;
 	}
 	::SetConsoleTextAttribute(hConsole, fg + (bg << 4));
-	if (arg.IsBlockSpecified()) {
-		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+	if (pExprBlock != nullptr) {
 		pExprBlock->Exec(env);
 		::SetConsoleTextAttribute(hConsole, csbi.wAttributes);
 	}
-	return Value::Nil;
 }
 
 Gura_ImplementFunction(moveto)
@@ -348,10 +371,10 @@ Gura_ImplementFunction(waitkey)
 
 #elif defined(GURA_ON_LINUX) || defined(GURA_ON_DARWIN)
 
-Gura_ImplementFunction(clear)
+void Clear(Environment &env, const Symbol *pSymbol)
 {
 	Signal &sig = env.GetSignal();
-	const Symbol *pSymbol = arg.Is_symbol(0)? arg.GetSymbol(0) : nullptr;
+	//const Symbol *pSymbol = arg.Is_symbol(0)? arg.GetSymbol(0) : nullptr;
 	if (pSymbol == nullptr) {
 		::printf("\033[2J");
 		::printf("\033[H");
@@ -368,30 +391,28 @@ Gura_ImplementFunction(clear)
 		::printf("\033[K");
 	} else {
 		sig.SetError(ERR_ValueError, "invalid symbol %s", pSymbol->GetName());
-		return Value::Nil;
 	}
-	return Value::Nil;
 }
 
-Gura_ImplementFunction(getwinsize)
+void GetWinSize(Environment &env, size_t *pWidth, size_t *pHeight)
 {
 	struct winsize ws;
 	::ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
-	return ReturnValue(env, arg,
-		Value::CreateList(env, Value(ws.ws_col), Value(ws.ws_row)));
+	*pWidth = ws.ws_col, *pHeight = ws.ws_row;
 }
 
 StringList g_attrStack;
 
-Gura_ImplementFunction(setcolor)
+void SetColor(Environment &env, const Symbol *pSymbolFg,
+			  const Symbol *pSymbolBg, const Expr_Block *pExprBlock)
 {
 	Signal &sig = env.GetSignal();
 	int fg = 0, bg = 0;
 	String str;
-	if (!arg.Is_symbol(0)) {
+	if (pSymbolFg == nullptr) {
 		// nothing to do
-	} else if (!SymbolToNumber(sig, arg.GetSymbol(0), &fg)) {
-		return Value::Nil;
+	} else if (!SymbolToNumber(sig, pSymbolFg, &fg)) {
+		return;
 	} else {
 		if (fg & 8) {
 			str += "1;";
@@ -401,10 +422,10 @@ Gura_ImplementFunction(setcolor)
 		str += '3';
 		str += ('0' + (fg & 7));
 	}
-	if (!arg.Is_symbol(1)) {
+	if (pSymbolBg == nullptr) {
 		// nothing to do
-	} else if (!SymbolToNumber(sig, arg.GetSymbol(1), &bg)) {
-		return Value::Nil;
+	} else if (!SymbolToNumber(sig, pSymbolBg, &bg)) {
+		return;
 	} else {
 		if (!str.empty()) str += ';';
 		str += '4';
@@ -413,9 +434,7 @@ Gura_ImplementFunction(setcolor)
 	if (!str.empty()) {
 		::printf("\033[%sm", str.c_str());
 	}
-	if (arg.IsBlockSpecified()) {
-		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+	if (pExprBlock != nullptr) {
 		g_attrStack.push_back(str);
 		pExprBlock->Exec(env);
 		if (!g_attrStack.empty()) g_attrStack.pop_back();
@@ -428,7 +447,6 @@ Gura_ImplementFunction(setcolor)
 		if (!g_attrStack.empty()) g_attrStack.pop_back();
 		g_attrStack.push_back(str);
 	}
-	return Value::Nil;
 }
 
 Gura_ImplementFunction(moveto)
