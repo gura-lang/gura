@@ -57,6 +57,7 @@ void GetWinSize(Environment &env, size_t *pWidth, size_t *pHeight);
 void SetColor(Environment &env, const Symbol *pSymbolFg,
 			  const Symbol *pSymbolBg, const Expr_Block *pExprBlock);
 void MoveTo(Environment &env, int x, int y, const Expr_Block *pExprBlock);
+int WaitKey(Environment &env, bool raiseFlag);
 
 bool SymbolToNumber(Signal &sig, const Symbol *pSymbol, int *pNum);
 
@@ -211,6 +212,13 @@ Gura_DeclareFunction(waitkey)
 		"- `conio.K_DELETE`\n");
 }
 
+Gura_ImplementFunction(waitkey)
+{
+	int chRtn = WaitKey(env, arg.IsSet(Gura_Symbol(raise)));
+	if (env.IsSignalled()) return Value::Nil;
+	return Value(chRtn);
+}
+
 #if defined(GURA_ON_MSWIN)
 void Clear(Environment &env, const Symbol *pSymbol)
 {
@@ -308,10 +316,10 @@ void MoveTo(Environment &env, int x, int y, const Expr_Block *pExprBlock)
 	}
 }
 
-Gura_ImplementFunction(waitkey)
+int WaitKey(Environment &env, bool raiseFlag)
 {
 	Signal &sig = env.GetSignal();
-	bool raiseFlag = arg.IsSet(Gura_Symbol(raise));
+	//bool raiseFlag = arg.IsSet(Gura_Symbol(raise));
 	int chRtn = 0;
 	enum {
 		STAT_None, STAT_Special,
@@ -327,7 +335,7 @@ Gura_ImplementFunction(waitkey)
 				break;
 			} else if (raiseFlag && ch == 0x03) {
 				sig.SetSignal(SIGTYPE_Terminate, Value::Nil);
-				return Value::Nil;
+				return 0;
 			} else {
 				chRtn = ch;
 				break;
@@ -369,7 +377,7 @@ Gura_ImplementFunction(waitkey)
 			}
 		}
 	}
-	return Value(chRtn);
+	return chRtn;
 }
 
 #elif defined(GURA_ON_LINUX) || defined(GURA_ON_DARWIN)
@@ -464,10 +472,10 @@ void MoveTo(Environment &env, int x, int y, const Expr_Block *pExprBlock)
 	}
 }
 
-Gura_ImplementFunction(waitkey)
+int WaitKey(Environment &env, bool raiseFlag)
 {
 	Signal &sig = env.GetSignal();
-	bool raiseFlag = arg.IsSet(Gura_Symbol(raise));
+	//bool raiseFlag = arg.IsSet(Gura_Symbol(raise));
 	struct termios termios_org, termios_new;
 	::tcgetattr(STDIN_FILENO, &termios_org);
 	termios_new = termios_org;
@@ -491,7 +499,7 @@ Gura_ImplementFunction(waitkey)
 			} else if (raiseFlag && ch == 0x03) {
 				sig.SetSignal(SIGTYPE_Terminate, Value::Nil);
 				::tcsetattr(STDIN_FILENO, TCSANOW, &termios_org);
-				return Value::Nil;
+				return 0;
 			} else {
 				chRtn = ch;
 				break;
@@ -556,7 +564,7 @@ Gura_ImplementFunction(waitkey)
 		}
 	}
 	::tcsetattr(STDIN_FILENO, TCSANOW, &termios_org);
-	return Value(chRtn);
+	return chRtn;
 }
 
 #else
