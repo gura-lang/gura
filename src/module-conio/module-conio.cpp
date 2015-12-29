@@ -57,6 +57,7 @@ void GetWinSize(Environment &env, size_t *pWidth, size_t *pHeight);
 void SetColor(Environment &env, const Symbol *pSymbolFg,
 			  const Symbol *pSymbolBg, const Expr_Block *pExprBlock);
 void MoveTo(Environment &env, int x, int y, const Expr_Block *pExprBlock);
+bool CheckKey();
 int WaitKey(Environment &env, bool raiseFlag);
 
 bool SymbolToNumber(Signal &sig, const Symbol *pSymbol, int *pNum);
@@ -219,6 +220,46 @@ Gura_ImplementFunction(waitkey)
 	return Value(chRtn);
 }
 
+// conio.readkey():[raise]
+Gura_DeclareFunction(readkey)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(raise));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Reads a keyboard input and returns a character code number associated with the key\n"
+		"without blocking."
+		"\n"
+		"If `:raise` attribute is specified, hitting `Ctrl-C` issues a terminating signal\n"
+		"that causes the program done.\n"
+		"\n"
+		"Character code numbers of some of the special keys are defined as below:\n"
+		"\n"
+		"- `conio.K_BACKSPACE`\n"
+		"- `conio.K_TAB`\n"
+		"- `conio.K_RETURN`\n"
+		"- `conio.K_ESCAPE`\n"
+		"- `conio.K_SPACE`\n"
+		"- `conio.K_UP`\n"
+		"- `conio.K_DOWN`\n"
+		"- `conio.K_RIGHT`\n"
+		"- `conio.K_LEFT`\n"
+		"- `conio.K_INSERT`\n"
+		"- `conio.K_HOME`\n"
+		"- `conio.K_END`\n"
+		"- `conio.K_PAGEUP`\n"
+		"- `conio.K_PAGEDOWN`\n"
+		"- `conio.K_DELETE`\n");
+}
+
+Gura_ImplementFunction(readkey)
+{
+	if (!CheckKey()) return Value::Nil;
+	int chRtn = WaitKey(env, arg.IsSet(Gura_Symbol(raise)));
+	if (env.IsSignalled()) return Value::Nil;
+	return Value(chRtn);
+}
+
 #if defined(GURA_ON_MSWIN)
 void Clear(Environment &env, const Symbol *pSymbol)
 {
@@ -315,6 +356,11 @@ void MoveTo(Environment &env, int x, int y, const Expr_Block *pExprBlock)
 		pExprBlock->Exec(env);
 		::SetConsoleCursorPosition(hConsole, csbi.dwCursorPosition);
 	}
+}
+
+bool CheckKey()
+{
+	return ::_kbhit() != 0;
 }
 
 int WaitKey(Environment &env, bool raiseFlag)
@@ -473,6 +519,15 @@ void MoveTo(Environment &env, int x, int y, const Expr_Block *pExprBlock)
 	}
 }
 
+bool CheckKey()
+{
+	struct timeval tv = { 0L, 0L };
+	fd_set fds;
+	FD_ZERO(&fds);
+	FD_SET(0, &fds);
+	return ::select(1, &fds, NULL, NULL, &tv) > 0;
+}
+
 int WaitKey(Environment &env, bool raiseFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -588,6 +643,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(setcolor);
 	Gura_AssignFunction(moveto);
 	Gura_AssignFunction(waitkey);
+	Gura_AssignFunction(readkey);
 	// value assignment
 	Gura_AssignValueOf(K_CTRL_A);
 	Gura_AssignValueOf(K_CTRL_B);
