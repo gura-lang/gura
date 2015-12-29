@@ -284,6 +284,7 @@ void GetWinSize(Environment &env, size_t *pWidth, size_t *pHeight)
 
 void SetColor(Environment &env, const Symbol *pSymbolFg,
 			  const Symbol *pSymbolBg, const Expr_Block *pExprBlock)
+{
 	Signal &sig = env.GetSignal();
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
