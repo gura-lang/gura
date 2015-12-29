@@ -56,6 +56,7 @@ void Clear(Environment &env, const Symbol *pSymbol);
 void GetWinSize(Environment &env, size_t *pWidth, size_t *pHeight);
 void SetColor(Environment &env, const Symbol *pSymbolFg,
 			  const Symbol *pSymbolBg, const Expr_Block *pExprBlock);
+void MoveTo(Environment &env, int x, int y, const Expr_Block *pExprBlock);
 
 bool SymbolToNumber(Signal &sig, const Symbol *pSymbol, int *pNum);
 
@@ -169,6 +170,14 @@ Gura_DeclareFunction(moveto)
 		"\n"
 		"If `block` is specified, the cursor is moved before evaluating the block,\n"
 		"and then gets back to where it has been when done.\n");
+}
+
+Gura_ImplementFunction(moveto)
+{
+	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
+	if (env.IsSignalled()) return Value::Nil;
+	MoveTo(env, arg.GetInt(0), arg.GetInt(1), pExprBlock);
+	return Value::Nil;
 }
 
 // conio.waitkey():[raise]
@@ -286,23 +295,17 @@ void SetColor(Environment &env, const Symbol *pSymbolFg,
 	}
 }
 
-Gura_ImplementFunction(moveto)
+void MoveTo(Environment &env, int x, int y, const Expr_Block *pExprBlock)
 {
-	Signal &sig = env.GetSignal();
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
-	int x = arg.GetInt(0);
-	int y = arg.GetInt(1);
 	COORD pos = { x, y };
 	::SetConsoleCursorPosition(hConsole, pos);
-	if (arg.IsBlockSpecified()) {
-		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
+	if (pExprBlock != nullptr) {
 		pExprBlock->Exec(env);
 		::SetConsoleCursorPosition(hConsole, csbi.dwCursorPosition);
 	}
-	return Value::Nil;
 }
 
 Gura_ImplementFunction(waitkey)
@@ -370,7 +373,6 @@ Gura_ImplementFunction(waitkey)
 }
 
 #elif defined(GURA_ON_LINUX) || defined(GURA_ON_DARWIN)
-
 void Clear(Environment &env, const Symbol *pSymbol)
 {
 	Signal &sig = env.GetSignal();
@@ -449,22 +451,17 @@ void SetColor(Environment &env, const Symbol *pSymbolFg,
 	}
 }
 
-Gura_ImplementFunction(moveto)
+void MoveTo(Environment &env, int x, int y, const Expr_Block *pExprBlock)
 {
-	Signal &sig = env.GetSignal();
-	int x = arg.GetInt(0);
-	int y = arg.GetInt(1);
-	if (arg.IsBlockSpecified()) {
+	//Signal &sig = env.GetSignal();
+	if (pExprBlock == nullptr) {
+		::printf("\033[%d;%dH", y + 1, x + 1);
+	} else {
 		::printf("\033[s");
 		::printf("\033[%d;%dH", y + 1, x + 1);
-		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-		if (sig.IsSignalled()) return Value::Nil;
 		pExprBlock->Exec(env);
 		::printf("\033[u");
-	} else {
-		::printf("\033[%d;%dH", y + 1, x + 1);
 	}
-	return Value::Nil;
 }
 
 Gura_ImplementFunction(waitkey)
