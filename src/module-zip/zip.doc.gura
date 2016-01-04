@@ -7,24 +7,29 @@ text@en = R'''
 
 The `zip` module provides measures to read/write ZIP files.
 
-Below is an example to reads entries from an archive file:
+
+## zip.reader Class
+
+The `zip.reader` class provides methods to read contents and to get information
+in a ZIP file through `stream` instance.
+An instance of `stream` class created by the methods includes a property named `stat`,
+a `zip.stat` instance, which provides information such as filename and created time stamp
+that are contained in the ZIP file.
+
+Below is an example to list filenames in a ZIP file:
 
     import(zip)
     zip.reader('foo.zip') {|r|
         println(r.entries():*stat:*filename)
     }
 
-Below is an exapmple to create a ZIP archive file:
+Below is an example to print a content of a text file that is stored in a ZIP file:
 
     import(zip)
-    zip.writer('foo.zip') {|w|
-        w.add('file1.txt')
-        w.add('file2.txt')
-        w.add('file3.txt')
-        w.close()
-    }		
+    zip.reader('foo.zip') {|r|
+        print(r.entry('README.txt').readlines())
+    }
 
-## zip.reader Class
 
 ### Constructor
 
@@ -41,6 +46,19 @@ zip.reader.entries
 
 ## zip.writer Class
 
+The `zip.writer` class provides methods to add entries to a ZIP file.
+When an instance of `zip.writer` is created, a new ZIP file would be created.
+
+Below is an exapmple to create a ZIP archive file that contains three entries:
+
+    import(zip)
+    zip.writer('foo.zip') {|w|
+        w.add('file1.txt')
+        w.add('file2.txt')
+        w.add('file3.txt')
+        w.close()
+    }		
+
 ### Constructor
 
 ${moddoc.reference(`en
@@ -56,6 +74,8 @@ zip.writer.close
 
 
 ## zip.stat Class
+
+The `zip.stat` class provides information of entries in a ZIP file.
 
 ### Property
 

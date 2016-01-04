@@ -7,6 +7,17 @@ text@en = R'''
 
 The `yaml` module provides measures to read/write YAML files.
 
+## Correspondance of Data Object
+
+The below table shows how YAML data types correspond to Gura's value types each other:
+
+<table>
+<tr><th>YAML Data Type</th><th>Gura's Value Type</th></tr>
+<tr>sequence<td></td><td><code>list</code></td></tr>
+<tr>mapping<td></td><td><code>dict</code></td></tr>
+<tr>scalar<td></td><td><code>string</code></td></tr>
+</table>
+
 ## Module Function
 
 ${moddoc.reference(`en

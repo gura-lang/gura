@@ -15,7 +15,8 @@ Gura_DeclareFunction(compose)
 	DeclareArg(env, "obj", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Composes YAML text to represent the content of `obj` that consists of\n"
+		"`list`, `dict` and `string` instances.");
 }
 
 Gura_ImplementFunction(compose)
@@ -33,7 +34,8 @@ Gura_DeclareFunction(parse)
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Parses YAML text in `str` and returns a composition of\n"
+		"`list`, `dict` and `string` instances.");
 }
 
 Gura_ImplementFunction(parse)
@@ -56,7 +58,8 @@ Gura_DeclareFunction(read)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Parses YAML text from `stream` and returns a composition of\n"
+		"`list`, `dict` and `string` instances.");
 }
 
 Gura_ImplementFunction(read)
@@ -81,7 +84,8 @@ Gura_DeclareFunction(write)
 	DeclareArg(env, "obj", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Composes YAML text to represent the content of `obj` that consists of\n"
+		"`list`, `dict` and `string` instances and writes the result to `stream`.");
 }
 
 Gura_ImplementFunction(write)
