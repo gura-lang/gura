@@ -323,8 +323,8 @@ Gura_DeclareFunction(db)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Opens an sqlite3 database file.\n"
-		"If block is not specified, it returns a connection handle with an sqlite3 server.\n"
-		"If block is specified, it executes the program in the block with a connection\n"
+		"If `block` is not specified, it returns a connection handle with an sqlite3 server.\n"
+		"If `block` is specified, it executes the program in the block with a connection\n"
 		"handle as a block parameter, and returns the result afterwards. The connection\n"
 		"handle will automatically closed when the block finishes.\n"
 		"\n"
