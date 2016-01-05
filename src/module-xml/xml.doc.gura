@@ -5,13 +5,35 @@ import(xml)
 text@en = R'''
 # xml Module
 
-## Module Function
+The `xml` module provides measures to parse or compose XML documents.
 
-${moddoc.reference(`en
-xml.comment
-)}
+There are two ways to parse an XML document as follows:
+
+- Creates a `xml.document` instance from a stream that contains `xml.element` instances.
+
+- Creates a class inherited `xml.parser` and implements event handlers
+  that respond to tags, comments and texts, and then executes `xml.parser#parse()` method with it.
+
 
 ## xml.attribute Class
+
+The `xml.attribute` instance represents a name-value pair of XML's attribute
+that can be retrieved from `attrs` property in the `xml.element` instance.
+
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
+<td> </td></tr>
+
+<tr><td><code>value</code></td><td><code>string</code></td><td>R</td>
+<td> </td></tr>
+
+</table>
+
 
 ## xml.document Class
 
@@ -20,6 +42,23 @@ xml.comment
 ${moddoc.reference(`en
 xml.document
 )}
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>version</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>encoding</code></td><td><code>string</code></td><td>R</td>
+<td></td></tr>
+
+<tr><td><code>root</code></td><td><code>xml.element</code></td><td>R</td>
+<td></td></tr>
+
+</table>
+
 
 ### Method
 
@@ -36,7 +75,35 @@ xml.document.write
 
 ${moddoc.reference(`en
 xml.element
+xml.comment
 )}
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>tagname</code></td><td><code>string</code></td><td>R</td>
+<td>A tag name of this element.</td></tr>
+
+<tr><td><code>text</code></td><td><code>string</code></td><td>R</td>
+<td>The text string if the element is TEXT.
+Otherwise, this value would be <code>nil</code>.</td></tr>
+
+<tr><td><code>comment</code></td><td><code>string</code></td><td>R</td>
+<td>The comment string if the element is COMMENT.
+Otherwise, this value would be <code>nil</code>.</td></tr>
+
+<tr><td><code>children</code></td><td><code>iterator</code></td><td>R</td>
+<td>An iterator to return <code>xml.element</code> instances that represent children
+contained in this element. This value would be <code>nil</code> if the element has no children.</td></tr>
+
+<tr><td><code>attrs</code></td><td><code>iterator</code></td><td>R</td>
+<td>An iterator to return <code>xml.attribute</code> instances that represent attributes
+contained in this element. This value would be <code>nil</code> if the element has no attributes.</td></tr>
+
+</table>
+
 
 ### Method
 
@@ -46,6 +113,7 @@ xml.element.gettext
 xml.element.textize
 xml.element.write
 )}
+
 
 ## xml.parser Class
 
