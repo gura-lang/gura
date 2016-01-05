@@ -217,7 +217,8 @@ Gura_DeclareMethod(db, exec)
 	DeclareArg(env, "sql", VTYPE_string);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Executes an SQL statement and returns the result as a list.");
+		"Executes an SQL statement and creates an `list` that has\n"
+		"`list` instances containing queried result as its elements.\n");
 }
 
 Gura_ImplementMethod(db, exec)
@@ -253,7 +254,9 @@ Gura_DeclareMethod(db, query)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Executes an SQL statement and returns the result as an iterator.\n"
+		"Executes an SQL statement and creates an `iterator` that returns\n"
+		"`list` instances containing queried result as its elements.\n"
+		"\n"
 		"You should use `sqlite3.db#query()` instead of `sqlite3.db#exec()`\n"
 		"when it's likely that you get a large size of data as the result.\n");
 }
@@ -276,9 +279,9 @@ Gura_DeclareMethod(db, transaction)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Executes the block within a transaction. The process is like following:\n"
 		"\n"
-		"1. Executes a sqlit3 command 'BEGIN TRANSACTION'\n"
-		"2. Executes code in the block\n"
-		"3. Executes a sqlite3 command 'END TRANSACTION'");
+		"1. Executes a sqlit3 command 'BEGIN TRANSACTION'.\n"
+		"2. Executes code in the `block`.\n"
+		"3. Executes a sqlite3 command 'END TRANSACTION'.");
 }
 
 Gura_ImplementMethod(db, transaction)

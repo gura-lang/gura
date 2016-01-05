@@ -5,15 +5,20 @@ import(sqlite3)
 text@en = R'''
 # sqlite3 Module
 
-The `sqlite3` module provices measures to access SQLite3 database.
+The `sqlite3` module provides measures to access SQLite3 database.
 To utilize it, import the `sqlite3` module using `import` function.
-
-## Module Function
 
 ## sqlite3.db Class
 
+### Constructor
+
 ${moddoc.reference(`en
 sqlite3.db
+)}
+
+### Method
+
+${moddoc.reference(`en
 sqlite3.db.close
 sqlite3.db.exec
 sqlite3.db.getcolnames
