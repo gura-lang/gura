@@ -2,10 +2,32 @@
 import(moddoc)
 import(yaml)
 
-text@en = R'''
+text@en = R"""
 # yaml Module
 
 The `yaml` module provides measures to read/write YAML files.
+You can use this module as a measure to serialize and deserialize objects
+that consists of `list`, `dict` and `string` instances.
+
+Below is an example to reconstruct values from YAML text:
+
+    txt = '''
+    key1:
+      - item-A
+      - item-B
+      - item-C
+    key2:
+      - item-D
+      - item-E
+      - item-F
+    '''
+    x = yaml.parse(txt)
+    // x has the following value:
+    // %{
+    //   'key1' => ['item-A', 'item-B', 'item-C']
+    //   'key2' => ['item-D', 'item-E', 'item-F']
+    // }
+
 
 ## Correspondance of Data Object
 
@@ -13,9 +35,9 @@ The below table shows how YAML data types correspond to Gura's value types each 
 
 <table>
 <tr><th>YAML Data Type</th><th>Gura's Value Type</th></tr>
-<tr>sequence<td></td><td><code>list</code></td></tr>
-<tr>mapping<td></td><td><code>dict</code></td></tr>
-<tr>scalar<td></td><td><code>string</code></td></tr>
+<tr><td>sequence</td><td><code>list</code></td></tr>
+<tr><td>mapping</td><td><code>dict</code></td></tr>
+<tr><td>scalar</td><td><code>string</code></td></tr>
 </table>
 
 ## Module Function
@@ -32,6 +54,6 @@ yaml.write
 This module uses yaml library which is distributed in the following site:
 
 [http://pyyaml.org/wiki/LibYAML](http://pyyaml.org/wiki/LibYAML)
-'''.embed()
+""".embed()
 
 moddoc.register(locals(), %{`en => text@en})

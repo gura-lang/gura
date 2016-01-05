@@ -2,5 +2,5 @@
 dirs="language-manual library-reference"
 for dir in $dirs
 do
-	gura -C $dir build-doc.gura pdf html
+	gura -C $dir -I ../module build-doc.gura pdf html
 done
