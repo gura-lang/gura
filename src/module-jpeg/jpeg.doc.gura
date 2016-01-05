@@ -95,10 +95,10 @@ A `jpeg.ifd` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>jpeg.ifd#name</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
 <td></td></tr>
 
-<tr><td><code>jpeg.ifd#symbol</code></td><td><code>symbol</code></td><td>R</td>
+<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
 <td></td></tr>
 
 </table>
@@ -120,26 +120,26 @@ A `jpeg.tag` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>jpeg.tag#id</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>id</code></td><td><code>number</code></td><td>R</td>
 <td>Tag ID.</td></tr>
 
-<tr><td><code>jpeg.tag#name</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
 <td>Tag name.</td></tr>
 
-<tr><td><code>jpeg.tag#symbol</code></td><td><code>symbol</code></td><td>R</td>
+<tr><td><code>symbol</code></td><td><code>symbol</code></td><td>R</td>
 <td>Tag name as <code>symbol</code>.</td></tr>
 
-<tr><td><code>jpeg.tag#type</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>type</code></td><td><code>number</code></td><td>R</td>
 <td>Tag type.</td></tr>
 
-<tr><td><code>jpeg.tag#typename</code></td><td><code>string</code></td><td>R</td>
+<tr><td><code>typename</code></td><td><code>string</code></td><td>R</td>
 <td>Tag type name.</td></tr>
 
-<tr><td><code>jpeg.tag#value</code></td><td><code>any</code></td><td>R</td>
+<tr><td><code>value</code></td><td><code>any</code></td><td>R</td>
 <td>Tag value. When the attribute <code>:cooked</code> is specified,
 numbers in some tags are translated to human-readable symbols.</td></tr>
 
-<tr><td><code>jpeg.tag#ifd</code></td><td><code>jpeg.ifd</code></td><td>R</td>
+<tr><td><code>ifd</code></td><td><code>jpeg.ifd</code></td><td>R</td>
 <td>IFD instance. Valid only for tags <code>Exif</code>, <code>GPSInfo</code> and
 <code>Interoperability</code>.</td></tr>
 
