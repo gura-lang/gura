@@ -188,7 +188,13 @@ bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[])
 		pObjList->Add(Value("."));
 		if (opt.IsSet("import-dir")) {
 			foreach_const (StringList, pStr, opt.GetStringList("import-dir")) {
-				pObjList->Add(Value(OAL::MakeAbsPathName(OAL::FileSeparator, pStr->c_str())));
+				const String &str = *pStr;
+				if (str[0] == '.' && (str[1] == '/' || str[1] == '\\')) {
+					pObjList->Add(Value(str.c_str() + 2));
+				} else {
+					pObjList->Add(Value(OAL::MakeAbsPathName(
+											OAL::FileSeparator, str.c_str())));
+				}
 			}
 		}
 		StringList strList;
