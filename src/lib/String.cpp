@@ -476,7 +476,6 @@ String::const_iterator FindString(String::const_iterator str,
 Value FindString(Environment &env, const char *str, const char *sub, int start,
 				 bool ignoreCaseFlag, bool reverseFlag, bool listFlag)
 {
-	//bool ignoreCaseFlag = attrs.IsSet(Gura_Symbol(icase));
 	do {
 		int len = static_cast<int>(::strlen(str));
 		if (start < 0) {
@@ -485,10 +484,8 @@ Value FindString(Environment &env, const char *str, const char *sub, int start,
 		}
 		if (start > len) return Value::Nil;
 	} while (0);
-	//if (attrs.IsSet(Gura_Symbol(rev))) {
 	if (reverseFlag) {
 		const char *p = FindString(str + start, sub, ignoreCaseFlag);
-		//if (attrs.IsSet(Gura_Symbol(list))) {
 		if (listFlag) {
 			ValueList valListOrg;
 			for ( ; p != nullptr; p = FindString(p + 1, sub, ignoreCaseFlag)) {
@@ -512,7 +509,6 @@ Value FindString(Environment &env, const char *str, const char *sub, int start,
 		}
 	} else {
 		const char *p = FindString(str + start, sub, ignoreCaseFlag);
-		//if (attrs.IsSet(Gura_Symbol(list))) {
 		if (listFlag) {
 			Value result;
 			Object_list *pObjList = result.InitAsList(env);
@@ -571,9 +567,6 @@ String Capitalize(const char *str)
 		p++;
 	}
 	rtn += p;
-	//for ( ; *p != '\0'; p++) {
-	//	rtn += ('A' <= *p && *p <= 'Z')? *p - 'A' + 'a' : *p;
-	//}
 	return rtn;
 }
 
