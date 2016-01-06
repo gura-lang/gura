@@ -159,8 +159,9 @@ Available command line options are listed below:
   You can specify more than one module names for this option by separating them with comma.
   Or, you can also specify the option in multiple times to import several modules.</td></tr>
 <tr><td><code>-I dir</code></td><td>Specifies a directory in which modules are searched.
-  You can specify the option in multiple times to add several directories for module search.</td></tr>
-<tr><td><code>-c cmd</code></td><td>Runs <code>cmd</code> as a Gura script.</td></tr>
+  You can specify the option in multiple times to add several directories for module search.
+  The specified path would be converted to an absolute path unless it starts with <code>"./"</code>.</td></tr>
+<tr><td><code>-c cmd</code></td><td>Runs a Gura script described in <code>cmd</code>.</td></tr>
 <tr><td><code>-T template</code></td><td>Runs template engine to evaluate the specified template file.</td></tr>
 <tr><td><code>-C dir</code></td><td>Changes the current directory before running scripts.</td></tr>
 <tr><td><code>-d encoding</code></td><td>Specifies character encoding that the parser uses to read scripts.</td></tr>
