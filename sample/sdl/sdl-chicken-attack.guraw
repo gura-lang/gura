@@ -4,12 +4,12 @@ import(gif)
 import(bmp)
 import(jpeg)
 
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
 sdl.Init(sdl.INIT_EVERYTHING)
 [wdScreen, htScreen] = [1024, 768]
 screen = sdl.SetVideoMode(wdScreen, htScreen, 16, sdl.SWSURFACE)
 wdImage = 200
-imageBg = image(I('Winter.jpg'), `rgb).resize(wdScreen, htScreen)
+imageBg = image(I('seashore.jpg'), `rgb).resize(wdScreen, htScreen)
 imagesL = gif.content(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
 imagesR = imagesL::flip(`horz)
 imgBullet = imagesR.first().resize(64)

@@ -4,17 +4,18 @@ import(gif)
 import(jpeg)
 import(freetype)
 
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
+
 sdl.Init(sdl.INIT_EVERYTHING)
 [wdScreen, htScreen] = [800, 600]
 screen = sdl.SetVideoMode(wdScreen, htScreen, 16, sdl.SWSURFACE)
 wdImage = 200
-imageBg = image(I('Winter.jpg'), `rgb).resize(wdScreen, htScreen)
+imageBg = image(I('seashore.jpg'), `rgb).resize(wdScreen, htScreen)
 imageText = image(`rgba, wdScreen, htScreen)
 imagesL = gif.content(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
 imagesR = imagesL::flip(`horz)
 xStep = wdImage / 10
-font = freetype.font(I('Kaufmann_Bold_BT.ttf'))
+font = freetype.font(I('mplus-1p-regular.ttf'))
 font.height = 32, font.color = `white, font.mode = `alpha
 
 Chicken = class {

@@ -55,7 +55,7 @@ scope {
 	sdl.BlitSurface(sdl.CreateRGBSurfaceFrom(img), nil, screen, sdl.Rect(100, 100, 0, 0))
 }
 scope {
-	img = image(`rgba).pngread(imgfile('kangaroo.png'))
+	img = image(`rgba).read@png(imgfile('kangaroo.png'))
 	sdl.BlitSurface(img, nil, screen, sdl.Rect(70, 80, 0, 0))
 }
 screen.UpdateRect()
