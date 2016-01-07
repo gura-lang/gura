@@ -4,17 +4,15 @@ import(show)
 import(png)
 import(freetype, ft)
 
-F(filename:string) = path.join('data', filename)
+I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
 
-scope {
-	lines = (open(F('chars-cp932.txt'), 'r', 'cp932').readlines():chop):list
-	ft.font(ft.sysfontpath('msgothic.ttc')) {|font|
-		font.height = 40
-		font.color = `white
-		img = image(`rgb, font.height:pixel * 32, lines.len() * font.height:pixel, `black)
-		img.drawtext(font, 0, (1..) * font.height:pixel, lines)
-	}
-	img.write('freetype-cp932.png')
-	println('freetype-cp932.png was created')
-	img.show()
+lines = (open('data/chars-cp932.txt', 'r', 'cp932').readlines():chop):list
+ft.font(I('mplus-1p-regular.ttf')) {|font|
+	font.height = 40
+	font.color = `white
+	img = image(`rgb, font.height:pixel * 32, lines.len() * font.height:pixel, `black)
+	img.drawtext(font, 0, (1..) * font.height:pixel, lines)
 }
+img.write('freetype-cp932.png')
+println('freetype-cp932.png was created')
+img.show()
