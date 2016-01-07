@@ -3,13 +3,11 @@ import(show)
 import(freetype, ft)
 import(curl)
 
-fontName = 'http://github.com/ypsitau/gura/blob/master/sample/resource/Kaufmann_Bold_BT.ttf?raw=true'
-scope {
-	img = image(`rgb, 640, 480, `white)
-	println('downloading: ', fontName)
-	font = ft.font(fontName)
-	font.height = 64
-	font.color = `black
-	img.drawtext(font, 0, (1..4) * font.height, 'What this font looks like')
-	img.show()
-}
+fontName = 'https://github.com/gura-lang/gura/raw/master/sample/resource/mplus-1p-regular.ttf'
+img = image(`rgb, 640, 480, `white)
+println('downloading: ', fontName)
+font = ft.font(fontName)
+font.height = 64
+font.color = `black
+img.drawtext(font, 0, (1..4) * font.height, 'What this font looks like')
+img.show()

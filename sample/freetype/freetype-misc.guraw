@@ -4,22 +4,20 @@ import(show)
 import(jpeg)
 import(freetype, ft)
 
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
-scope {
-	img = image(I('seashore.jpg'))
-	//img = image(`rgb, 640, 480, `gray)
-	font = ft.font(ft.Face(ft.sysfontpath('msgothic.ttc'), 1))
-	//font = ft.font(ft.Face(ft.sysfontpath('NanumGothic.ttc'), 1))
-	font.height = 64
-	font.color = `red
-	img.drawtext(font, (0..10) * 50 - 100, (0 ..10) * 64 - 25, 'あいうえお Hello world')
-	font.color = `white
-	img.drawtext(font, 0, 200, 'ゴシック体文字重ね合わせ')
-	font.color = `gray
-	str = '重ね合わせ その2'
-	bbox = font.calcbbox(0, 260, str)
-	img.fillrect(bbox*, `white)
-	font.drawtext(img, 0, 260, str)
-	//img.write('>test.png')
-	img.show()
-}
+I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
+
+img = image(I('seashore.jpg'))
+//img = image(`rgb, 640, 480, `gray)
+font = ft.font(I('mplus-1p-regular.ttf'))
+font.height = 64
+font.color = `red
+img.drawtext(font, (0..10) * 50 - 100, (0 ..10) * 64 - 25, 'あいうえお Hello world')
+font.color = `white
+img.drawtext(font, 0, 200, 'ゴシック体文字重ね合わせ')
+font.color = `gray
+str = '重ね合わせ その2'
+bbox = font.calcbbox(0, 260, str)
+img.fillrect(bbox*, `white)
+font.drawtext(img, 0, 260, str)
+//img.write('>test.png')
+img.show()

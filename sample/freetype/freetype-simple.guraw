@@ -2,7 +2,9 @@
 import(show)
 import(freetype, ft)
 
-fileName = ft.sysfontpath('arial.ttf')
+I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
+
+fileName = I('mplus-1p-regular.ttf')
 img = image(`rgb, 640, 480, `white)
 y = 0
 ft.font(fileName) {|font|

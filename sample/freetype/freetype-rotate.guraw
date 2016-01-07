@@ -3,16 +3,16 @@
 import(show)
 import(freetype, ft)
 
-scope {
-	[wdImage, htImage] = [640, 640]
-	img = image(`rgb, wdImage, htImage, `white)
-	font = ft.font(ft.Face(ft.sysfontpath('msgothic.ttc'), 1))
-	font.height = 32
-	font.color = `black
-	font.slant = .3
-	interval(0, 360, 16):open_r {|degree|
-		font.rotate = degree
-		img.drawtext(font, wdImage / 2, htImage / 2, "あいうえお Hello world")
-	}
-	img.show()
+I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
+
+[wdImage, htImage] = [640, 640]
+img = image(`rgb, wdImage, htImage, `white)
+font = ft.font(I('mplus-1p-regular.ttf'))
+font.height = 32
+font.color = `black
+font.slant = .3
+interval(0, 360, 16):open_r {|degree|
+	font.rotate = degree
+	img.drawtext(font, wdImage / 2, htImage / 2, "あいうえお Hello world")
 }
+img.show()

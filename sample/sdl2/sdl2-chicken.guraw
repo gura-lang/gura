@@ -4,7 +4,8 @@ import(gif)
 import(jpeg)
 import(freetype)
 
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
+
 sdl.Init(sdl.INIT_EVERYTHING)
 [wdScreen, htScreen] = [640, 480]
 window = sdl.CreateWindow(path.filename(sys.argv[0]),
@@ -17,7 +18,7 @@ imagesL = gif.content(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
 htImageMax = imagesL:*height.max()
 imagesR = imagesL::flip(`horz)
 xStep = wdImage / 10
-font = freetype.font(I('Kaufmann_Bold_BT.ttf'))
+font = freetype.font(I('mplus-1p-regular.ttf'))
 font.height = 32, font.color = `white, font.mode = `alpha
 Chicken = class {
 	__init__(x:number, y:number, dir:symbol):map = {
