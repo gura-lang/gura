@@ -7,12 +7,12 @@ import(freetype)
 I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
 
 sdl.Init(sdl.INIT_EVERYTHING)
-[wdScreen, htScreen] = [640, 480]
+[wdScreen, htScreen] = [800, 600]
 window = sdl.CreateWindow(path.filename(sys.argv[0]),
 	sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED, wdScreen, htScreen, 0)
 renderer = sdl.CreateRenderer(window, -1, 0)
 wdImage = 140
-//imageBg = image(I('Winter.jpg'), `rgb).resize(wdScreen, htScreen)
+imageBg = image(I('seashore.jpg'), `rgb).resize(wdScreen, htScreen)
 imageText = image(`rgba, wdScreen, htScreen)
 imagesL = gif.content(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
 htImageMax = imagesL:*height.max()
@@ -54,11 +54,11 @@ timePrev = sdl.GetTicks()
 repeat {
 	timeCur = sdl.GetTicks()
 	if (timePrev > timeCur || timeCur > timePrev + 100) {
-		//sdl.CreateTextureFromSurface(renderer, imageBg) {|texture|
-		//	sdl.RenderCopy(renderer, texture, nil, nil)
-		//}
-		sdl.SetRenderDrawColor(renderer, 0, 64, 0, 255)
-		sdl.RenderClear(renderer)
+		sdl.CreateTextureFromSurface(renderer, imageBg) {|texture|
+			sdl.RenderCopy(renderer, texture, nil, nil)
+		}
+		//sdl.SetRenderDrawColor(renderer, 0, 64, 0, 255)
+		//sdl.RenderClear(renderer)
 		imageText.clear()
 		imageText.drawtext(font, 10, 50, 'Chickens: %d' % chickens.len())
 		sdl.CreateTextureFromSurface(renderer, imageText) {|texture|
