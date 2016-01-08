@@ -4,10 +4,8 @@ import(show)
 import(png)
 import(freetype, ft)
 
-I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
-
 lines = (open('data/chars-cp932.txt', 'r', 'cp932').readlines():chop):list
-ft.font(I('mplus-1p-regular.ttf')) {|font|
+ft.font(path.join(sys.fontdir, 'mplus-1p-regular.ttf')) {|font|
 	font.height = 40
 	font.color = `white
 	img = image(`rgb, font.height:pixel * 32, lines.len() * font.height:pixel, `black)

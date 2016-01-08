@@ -3,11 +3,9 @@
 import(show)
 import(freetype, ft)
 
-I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
-
 [wdImage, htImage] = [640, 640]
 img = image(`rgb, wdImage, htImage, `white)
-font = ft.font(I('mplus-1p-regular.ttf'))
+font = ft.font(path.join(sys.fontdir, 'mplus-1p-regular.ttf'))
 font.height = 32
 font.color = `black
 font.slant = .3

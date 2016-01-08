@@ -94,6 +94,7 @@ Gura_ModuleEntry()
 	Gura_AssignValue(libdir,		Value(OAL::GetLibraryDir()));
 	Gura_AssignValue(datadir,		Value(OAL::GetDataDir()));
 	Gura_AssignValue(moddir,		Value(OAL::GetModuleDir()));
+	Gura_AssignValue(fontdir,		Value(OAL::GetFontDir()));
 	String dirNameLocal = OAL::GetLocalDir();
 	Gura_AssignValue(localdir, Value(dirNameLocal));
 	Gura_AssignValue(

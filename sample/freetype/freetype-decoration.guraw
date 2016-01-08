@@ -3,10 +3,8 @@
 import(show)
 import(freetype, ft)
 
-I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
-
 img = image(`rgb, 700, 480, `white)
-font = ft.font(I('mplus-1p-regular.ttf'))
+font = ft.font(path.join(sys.fontdir, 'mplus-1p-regular.ttf'))
 font.height = 32
 font.color = `black
 repeat (10) {|i|

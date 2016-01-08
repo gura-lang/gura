@@ -15,7 +15,7 @@ imageText = image(`rgba, wdScreen, htScreen)
 imagesL = gif.content(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
 imagesR = imagesL::flip(`horz)
 xStep = wdImage / 10
-font = freetype.font(I('mplus-1p-regular.ttf'))
+font = freetype.font(path.join(sys.fontdir, 'mplus-1p-regular.ttf'))
 font.height = 32, font.color = `white, font.mode = `alpha
 
 Chicken = class {

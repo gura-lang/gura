@@ -936,6 +936,11 @@ String GetLibraryDir()
 	return JoinPathName(GetBaseDir().c_str(), "lib");
 }
 
+String GetFontDir()
+{
+	return JoinPathName(GetBaseDir().c_str(), "font");
+}
+
 String GetLocalDir()
 {
 	char buff[MAX_PATH];
@@ -1721,6 +1726,11 @@ String GetIncludeDir()
 String GetLibraryDir()
 {
 	return JoinPathName(GetBaseDir().c_str(), "lib");
+}
+
+String GetFontDir()
+{
+	return JoinPathName(GetDataDir().c_str(), "font");
 }
 
 String GetLocalDir()

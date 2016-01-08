@@ -8,7 +8,7 @@ I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
 
 img = image(I('seashore.jpg'))
 //img = image(`rgb, 640, 480, `gray)
-font = ft.font(I('mplus-1p-regular.ttf'))
+font = ft.font(path.join(sys.fontdir, 'mplus-1p-regular.ttf'))
 font.height = 64
 font.color = `red
 img.drawtext(font, (0..10) * 50 - 100, (0 ..10) * 64 - 25, 'あいうえお Hello world')

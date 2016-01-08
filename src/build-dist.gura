@@ -74,7 +74,7 @@ gatherFiles() = {
 		}
 		lines = readlines(buff):chop
 		fileNames.append(lines.filter(lines:*startswith([
-			'bin-x86', 'module/', 'sample/', 'script/', 'include/'
+			'bin-x86', 'font/', 'include/', 'module/', 'sample/', 'script/'
 		]):*or()))
 		fileNames.append(path.glob('doc/language-manual/*.pdf'))
 		fileNames.append(path.glob('doc/library-reference/*.pdf'))

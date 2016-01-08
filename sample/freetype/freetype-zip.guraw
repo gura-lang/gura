@@ -10,7 +10,7 @@ freetype.font(I('zippedfont.zip/Kaufmann_Bold_BT.ttf')) {|font|
 	font.color = `white
 	img.drawtext(font, 0, font.height, 'text using font in ZIP file')
 }
-freetype.font(I('Kaufmann_Bold_BT.ttf')) {|font|
+freetype.font(path.join(sys.fontdir, 'Kaufmann_Bold_BT.ttf')) {|font|
 	font.height = 32
 	font.color = `white
 	img.drawtext(font, 0, font.height * 2, 'text using font in normal file')
