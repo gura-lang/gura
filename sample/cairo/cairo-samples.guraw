@@ -7,7 +7,7 @@ import(units)
 
 [wdCanvas, htCanvas] = [256, 256]
 
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
 
 testList = @{
 	'tutorial - Stroke', function(cr:cairo.context) {
