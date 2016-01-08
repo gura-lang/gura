@@ -350,6 +350,10 @@ Gura_ModuleEntry()
 	Gura_RealizeAndPrepareUserClass(db, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(db);
+	// variable assignment
+	Gura_AssignValue(VERSION,			SQLITE_VERSION);
+	Gura_AssignValue(VERSION_NUMBER,	SQLITE_VERSION_NUMBER);
+	Gura_AssignValue(SOURCE_ID,			SQLITE_SOURCE_ID);
 	return true;
 }
 
