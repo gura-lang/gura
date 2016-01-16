@@ -319,7 +319,7 @@ Gura_DeclareMethod(image, delpalette)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Deletes a `palette` instance the image owns if it does.\n"
+		"Deletes a `palette` instance that belongs to the `image`.\n"
 		"\n"
 		"This method returns the reference to the target instance itself.\n");
 }
@@ -329,6 +329,40 @@ Gura_ImplementMethod(image, delpalette)
 	Object_image *pThis = Object_image::GetObjectThis(arg);
 	pThis->GetImage()->SetPalette(nullptr);
 	return arg.GetValueThis();
+}
+
+// image#expand(top?:number, bottom?:number, left?:number, right?:number, background?:color):map {block?}
+Gura_DeclareMethod(image, expand)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "top", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "bottom", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "left", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "right", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "background", VTYPE_color, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(image, expand)
+{
+	Signal &sig = env.GetSignal();
+	Object_image *pThis = Object_image::GetObjectThis(arg);
+	if (!pThis->GetImage()->CheckValid(sig)) return Value::Nil;
+	size_t widthOrg = pThis->GetImage()->GetWidth();
+	size_t heightOrg = pThis->GetImage()->GetHeight();
+	size_t mgnTop = arg.IsValid(0)? arg.GetSizeT(0) : 0;
+	size_t mgnBottom = arg.IsValid(1)? arg.GetSizeT(1) : 0;
+	size_t mgnLeft = arg.IsValid(2)? arg.GetSizeT(2) : 0;
+	size_t mgnRight = arg.IsValid(3)? arg.GetSizeT(3) : 0;
+	size_t width = widthOrg + mgnLeft + mgnRight;
+	size_t height = heightOrg + mgnTop + mgnBottom;
+	AutoPtr<Image> pImage(new Image(pThis->GetImage()->GetFormat()));
+	if (!pImage->AllocBuffer(sig, width, height, 0x00)) return Value::Nil;
+	pImage->Paste(mgnLeft, mgnTop, pThis->GetImage(), widthOrg, heightOrg, 0, 0, 0);
+	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
 }
 
 // image#extract(x:number, y:number, width:number, height:number, element:symbol, dst):reduce
@@ -783,7 +817,7 @@ Gura_DeclareMethod(image, resize)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an image that resizes the original image to the sprcified `width` and `height`.\n"
+		"Resizes the image to the size specified by `width` and `height` and returns the result.\n"
 		"\n"
 		"- When both `width` and `height` are specified, the image would be resized to the size.\n"
 		"- When `width` is specified and `height` is omitted or `nil`,\n"
@@ -795,8 +829,8 @@ Gura_DeclareMethod(image, resize)
 		"\n"
 		"The following attributes are acceptable:\n"
 		"\n"
-		"- `box` .. When only `width` is specified, the same value is set to `height`.\n"
-		"- `ratio` .. Treats values of `width` and `height` as magnifying ration instead of pixel size.\n"
+		"- `:box` .. When only `width` is specified, the same value is set to `height`.\n"
+		"- `:ratio` .. Treats values of `width` and `height` as magnifying ration instead of pixel size.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
@@ -949,7 +983,14 @@ Gura_DeclareMethod(image, setalpha)
 	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Replaces the alpha element of all the pixels in the image with the value specified by `a`.\n"
+		"\n"
+		"If the argument `color` is specified, alpha element of pixels\n"
+		"that match with that color would be replaced.\n"
+		"The argument `tolerance` specifies the distance\n"
+		"within which the color is determined as matched.\n"
+		"\n"
+		"This method returns the reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(image, setalpha)
@@ -1039,7 +1080,10 @@ Gura_DeclareMethod(image, thumbnail)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Resizes the image so that it fits within a rectangular area\n"
+		"specified by `width` and `height` and returns the result.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("img", "image"));
 }
 
 Gura_ImplementMethod(image, thumbnail)
@@ -1144,6 +1188,7 @@ void Class_image::Prepare(Environment &env)
 	Gura_AssignMethod(image, clear);
 	Gura_AssignMethod(image, crop);
 	Gura_AssignMethod(image, delpalette);
+	Gura_AssignMethod(image, expand);
 	Gura_AssignMethod(image, extract);
 	Gura_AssignMethod(image, fill);
 	Gura_AssignMethod(image, fillrect);
