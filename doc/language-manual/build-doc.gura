@@ -90,7 +90,6 @@ makeDocument() = {
 }
 
 output@tex(doc:markdown.document) = {
-	//doc = makeDocument()
 	doc.render@tex(title, author, date, fileNameTeX)
 	sys.stderr.println(fileNameTeX, ' was created.')
 }
