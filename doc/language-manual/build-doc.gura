@@ -98,7 +98,7 @@ output@tex(doc:markdown.document) = {
 output@pdf(doc:markdown.document) = {
 	output@tex(doc)
 	repeat (2) { os.exec('platex', fileNameTeX) }
-	os.exec('dvipdf', fileNameTeX.replace('.tex', '.dvi'))
+	os.exec('dvipdfmx', fileNameTeX.replace('.tex', '.dvi'))
 }
 
 output@html(doc:markdown.document) = {

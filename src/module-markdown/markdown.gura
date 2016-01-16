@@ -205,6 +205,7 @@ Renderer@tex = class {
 			\date{${_this.date}}
 			\usepackage{fancyvrb}
 			\usepackage{tabulary}
+			\usepackage[dvipdfmx,setpagesize=false]{hyperref}
 
 			\setlength{\textwidth}{145mm}
 			\setlength{\oddsidemargin}{35mm}
