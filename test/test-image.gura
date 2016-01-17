@@ -6,6 +6,7 @@ import(png)
 import(gif)
 import(xpm)
 import(hash)
+import(show)
 import(helper.test) {*}
 
 tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
@@ -14,7 +15,7 @@ tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height,
 		   md5.hexdigest in hexdigestExpect.split(';') || md5.hexdigest)
 }
-testcase {
+testcase('prints image with ASCII characters') {
 	charLines = nil
 	['arrow-green-u.gif', 'arrow-green-l.gif',
 	 'arrow-green-d.gif', 'arrow-green-r.gif'].each {|fileName|
@@ -28,7 +29,7 @@ testcase {
 	}
 	println(charLines)
 }
-testcase {
+testcase('GIF file that contains multiple images') {
 	tester_image(gif.content(I('chicken-anim.gif'), `rgba).images:*delpalette(),
 													format('chicken #%d', 0..), [
 		'1872079fdec22dccdc1202092a10f7d6'
@@ -39,7 +40,7 @@ testcase {
 		'603940e448ba6278a3c0c7a474eea50e'
 	])
 }
-testcase {
+testcase('image#flip and image#rotate') {
 	img = image(I('seashore.jpg'), `rgb)
 	tester_image(img.reducecolor(palette(`win256)).delpalette(), 'reducecolor',
 		 '41c6034439cdb599016da021c72dc028;47d39efa2c7503108c874c8c483d6098'):nomap
@@ -66,7 +67,7 @@ testcase {
 		'1e2611222ea534bbd21a2ab303ac7c69'
 	])
 }
-testcase {
+testcase('image written in script binary') {
 	img = image(\
 		b'\x89\x50\x4e\x47\x0d\x0a\x1a\x0a\x00\x00\x00\x0d\x49\x48\x44\x52' \
 		b'\x00\x00\x00\x10\x00\x00\x00\x10\x08\x06\x00\x00\x00\x1f\xf3\xff' \
@@ -121,7 +122,7 @@ testcase {
 	img.write@bmp(md5.init())
 	println('image written in script binary: ', md5.hexdigest == 'd8e123ea43ac83a77e489f9da0256951' || md5.hexdigest)
 }
-testcase {
+testcase('reading files in various image format') {
 	md5 = hash.md5()
 	image(I('chicken256.bmp'), `rgb).delpalette().write@bmp(md5.init())
 	println('chicken256.bmp to BMP: ', md5.hexdigest == '3224bf2c42fdb023ff99e30ba5b08544' || md5.hexdigest)
@@ -199,7 +200,7 @@ testcase('test of scan') {
 	doScan([`left_top_horz, `right_top_vert, `right_bottom_horz, `left_bottom_vert])
 	doScan([`left_top_vert, `right_top_horz, `right_bottom_vert, `left_bottom_horz])
 }
-testcase {
+testcase('image#mapcolorlevel') {
 	map = interval(128, 160, 256)
 	img = image(I('seashore.jpg'), `rgb)
 	tester_image(img.mapcolorlevel(map), 'mapcolorlevel',
@@ -227,4 +228,14 @@ testcase('image#resize') {
 		'bdd6fbb4f3eaff784351e13d35a9e944'):nomap
 	tester_image(img.resize(500), 'resize - larger',
 		'bb8ddfaf65c61218a36f35cdc8733c41'):nomap
+}
+testcase('image#expand') {
+	md5 = hash.md5()
+	img = image(I('chicken256.bmp'), `rgb)
+	img.expand(10, 20, 30, 40).write@bmp(md5.init())
+	println('expand(10, 20, 30, 40): ',
+			md5.hexdigest == '596f17b6ac10f78b7b139d8c77fddf91' || md5.hexdigest)
+	img.expand(10, 20, 30, 40, `red).write@bmp(md5.init())
+	println('expand(10, 20, 30, 40, `red): ',
+			md5.hexdigest == '9edadabde6d24a7c5ecb48b832653807' || md5.hexdigest)
 }

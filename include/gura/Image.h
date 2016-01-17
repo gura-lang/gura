@@ -256,7 +256,9 @@ public:
 	}
 	bool CheckEmpty(Signal &sig) const;
 	bool CheckValid(Signal &sig) const;
+	bool AllocBuffer(size_t width, size_t height);
 	bool AllocBuffer(size_t width, size_t height, UChar fillValue);
+	bool AllocBuffer(Signal &sig, size_t width, size_t height);
 	bool AllocBuffer(Signal &sig, size_t width, size_t height, UChar fillValue);
 	void FreeBuffer();
 	inline bool CheckCoord(int x, int y) const {

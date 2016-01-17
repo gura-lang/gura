@@ -33,7 +33,7 @@ Image *Image::Clone() const
 	return new Image(*this);
 }
 
-bool Image::AllocBuffer(size_t width, size_t height, UChar fillValue)
+bool Image::AllocBuffer(size_t width, size_t height)
 {
 	if (width == 0 || height == 0) return false;
 	_width = width, _height = height;
@@ -50,12 +50,24 @@ bool Image::AllocBuffer(size_t width, size_t height, UChar fillValue)
 #else
 	_pMemory.reset(new MemoryHeap(GetBufferSize()));
 #endif
+	return true;
+}
+
+bool Image::AllocBuffer(size_t width, size_t height, UChar fillValue)
+{
+	if (!AllocBuffer(width, height)) return false;
 	::memset(GetBuffer(), fillValue, GetBufferSize());
 	return true;
 }
 
-bool Image::AllocBuffer(Signal &sig,
-					size_t width, size_t height, UChar fillValue)
+bool Image::AllocBuffer(Signal &sig, size_t width, size_t height)
+{
+	if (AllocBuffer(width, height)) return true;
+	sig.SetError(ERR_MemoryError, "failed to allocate image buffer");
+	return false;
+}
+
+bool Image::AllocBuffer(Signal &sig, size_t width, size_t height, UChar fillValue)
 {
 	if (AllocBuffer(width, height, fillValue)) return true;
 	sig.SetError(ERR_MemoryError, "failed to allocate image buffer");

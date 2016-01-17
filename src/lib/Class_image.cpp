@@ -357,10 +357,15 @@ Gura_ImplementMethod(image, expand)
 	size_t mgnBottom = arg.IsValid(1)? arg.GetSizeT(1) : 0;
 	size_t mgnLeft = arg.IsValid(2)? arg.GetSizeT(2) : 0;
 	size_t mgnRight = arg.IsValid(3)? arg.GetSizeT(3) : 0;
-	size_t width = widthOrg + mgnLeft + mgnRight;
-	size_t height = heightOrg + mgnTop + mgnBottom;
+	size_t width = mgnLeft + widthOrg + mgnRight;
+	size_t height = mgnTop + heightOrg + mgnBottom;
 	AutoPtr<Image> pImage(new Image(pThis->GetImage()->GetFormat()));
-	if (!pImage->AllocBuffer(sig, width, height, 0x00)) return Value::Nil;
+	if (arg.Is_color(4)) {
+		if (!pImage->AllocBuffer(sig, width, height)) return Value::Nil;
+		pImage->Fill(Object_color::GetObject(arg, 4)->GetColor());
+	} else {
+		if (!pImage->AllocBuffer(sig, width, height, 0xff)) return Value::Nil;
+	}
 	pImage->Paste(mgnLeft, mgnTop, pThis->GetImage(), widthOrg, heightOrg, 0, 0, 0);
 	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
 }
