@@ -416,8 +416,10 @@ String Function::MakeFullName() const
 		str += ".";
 	} else if (_pEnvScope->IsClass()) {
 		const Class *pClass = dynamic_cast<const Class *>(_pEnvScope.get());
-		str += pClass->MakeValueTypeName();
-		str += (GetType() == FUNCTYPE_Instance)? "#" : ".";
+		if (GetClassToConstruct() != pClass) {
+			str += pClass->MakeValueTypeName();
+			str += (GetType() == FUNCTYPE_Instance)? "#" : ".";
+		}
 	} else if (_pEnvScope->IsObject()) {
 		const Object *pObject = dynamic_cast<const Object *>(_pEnvScope.get());
 		const Class *pClass = pObject->GetClass();

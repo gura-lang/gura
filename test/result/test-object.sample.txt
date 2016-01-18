@@ -382,4 +382,7 @@ spade 10
 spade 11
 spade 12
 spade 13
-<<end of script>>
+
+======== #39 prohibit method assignment to another class ========
+
+expected error: ValueError: can't assign a method to another class

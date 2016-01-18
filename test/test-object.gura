@@ -823,5 +823,10 @@ testcase('struct with implicit-mapping') {
 	cards = Card(`spade, 1..13)
 	println(cards::suit, ' ', cards::rank)
 }
-
-println('<<end of script>>')
+testcase('prohibit method assignment to another class') {
+	try {
+		string.x = list.len
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
+}

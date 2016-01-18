@@ -1029,7 +1029,11 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 		if (pFunc->IsAnonymous()) {
 			pFunc->SetSymbol(GetSymbol());
 		}
-		if (env.IsClass()) {
+		if (&env != &pFunc->GetEnvScope() && env.IsClass()) {
+			if (pFunc->GetEnvScope().IsClass()) {
+				sig.SetError(ERR_ValueError, "can't assign a method to another class");
+				return Value::Nil;
+			}
 			pFunc->SetEnvScope(env.Reference());
 		}
 		Class *pClassToConstruct = pFunc->GetClassToConstruct();
