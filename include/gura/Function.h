@@ -228,6 +228,7 @@ public:
 	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
 	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
+	inline void SetEnvScope(Environment *pEnvScope) { _pEnvScope.reset(pEnvScope); }
 	inline Environment &GetEnvScope() { return *_pEnvScope; }
 	inline Environment &GetEnvScope() const { return *const_cast<Function *>(this)->_pEnvScope; }
 	inline DeclarationOwner &GetDeclOwner() { return *_pDeclOwner; }

@@ -1,14 +1,18 @@
 #!/usr/bin/env gura
 import(moddoc)
+import(show)
 
 text@en = R'''
 # show Module
 
-The `show` module ...
+The `show` module provides a method to display the content of `image` instance.
 
-## Module Function
+## Extension to image Class
+
+This module extends the `image` class with a method described here.
 
 ${moddoc.reference(`en
+image.show
 )}
 
 '''.embed()
