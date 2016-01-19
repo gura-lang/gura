@@ -386,3 +386,7 @@ spade 13
 ======== #39 prohibit method assignment to another class ========
 
 expected error: ValueError: can't assign a method to another class
+
+======== #40 display of constructor in module ========
+
+<class:mod.A() {block?}>

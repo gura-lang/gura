@@ -830,3 +830,9 @@ testcase('prohibit method assignment to another class') {
 		println('expected error: ', e.text)
 	}
 }
+testcase('display of constructor in module') {
+	mod = module {
+		A = class { __init__() = {} }
+	}
+	println(mod.A)
+}

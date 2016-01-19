@@ -37,8 +37,10 @@ String Module::ToString(bool exprFlag)
 	String str;
 	str += "<module:";
 	str += GetName();
-	str += ":";
-	str += GetSourceName();
+	if (!_sourceName.empty()) {
+		str += ":";
+		str += _sourceName;
+	}
 	str += ">";
 	return str;
 }

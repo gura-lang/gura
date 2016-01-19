@@ -414,19 +414,23 @@ String Function::MakeFullName() const
 		const Module *pModule = dynamic_cast<const Module *>(_pEnvScope.get());
 		str += pModule->GetName();
 		str += ".";
+		str += GetName();
 	} else if (_pEnvScope->IsClass()) {
 		const Class *pClass = dynamic_cast<const Class *>(_pEnvScope.get());
+		str += pClass->MakeValueTypeName();
 		if (GetClassToConstruct() != pClass) {
-			str += pClass->MakeValueTypeName();
 			str += (GetType() == FUNCTYPE_Instance)? "#" : ".";
+			str += GetName();
 		}
 	} else if (_pEnvScope->IsObject()) {
 		const Object *pObject = dynamic_cast<const Object *>(_pEnvScope.get());
 		const Class *pClass = pObject->GetClass();
 		str += pClass->MakeValueTypeName();
 		str += "#";
+		str += GetName();
+	} else {
+		str += GetName();
 	}
-	str += GetName();
 	return str;
 }
 
