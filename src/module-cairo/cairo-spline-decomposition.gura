@@ -1,6 +1,14 @@
-point_t = struct(x:number, y:number)
+#!/usr/bin/env gura
+import(cairo)
+import(show)
 
-knots_t = struct(a:point_t, b:point_t, c:point_t, d:point_t)
+point_t = struct(x:number, y:number) {
+	Clone() = point_t(this.x, this.y)
+}
+
+knots_t = struct(a:point_t, b:point_t, c:point_t, d:point_t) {
+	Clone() = knots_t(this.a.Clone(), this.b.Clone(), this.c.Clone(), this.d.Clone())
+}
 
 knots = @(knots_t) {
     { {0, 0}, {0, 100}, {100, 100}, {100, 0} },
@@ -9,37 +17,31 @@ knots = @(knots_t) {
     { {0, 0}, {150, 100}, {-50, 100}, {100, 0} },
     { {0, 0}, {100, 200}, {0, -100}, {100, 100} },
 };
-//println(knots)
 
-_lerp_half(a:point_t, b:point_t)
-{
+_lerp_half(a:point_t, b:point_t) = {
 	point_t(.5 * (a.x + b.x), .5 * (a.y + b.y))
 }
 
-_de_casteljau(k1:knots_t, k2:knots_t)
-{
-	ab = _lerp_half(&k1.a, &k1.b);
-	bc = _lerp_half(&k1.b, &k1.c);
-	cd = _lerp_half(&k1.c, &k1.d);
-	abbc = _lerp_half(&ab, &bc);
-	bccd = _lerp_half(&bc, &cd);
-	final = _lerp_half(&abbc, &bccd);
-	k2.a = final;
-	k2.b = bccd;
-	k2.c = cd;
-	k2.d = k1.d;
+_de_casteljau(k1:knots_t) = {
+	ab = _lerp_half(k1.a, k1.b);
+	bc = _lerp_half(k1.b, k1.c);
+	cd = _lerp_half(k1.c, k1.d);
+	abbc = _lerp_half(ab, bc);
+	bccd = _lerp_half(bc, cd);
+	final = _lerp_half(abbc, bccd);
+	k2 = knots_t(final.Clone(), bccd.Clone(), cd.Clone(), k1.d.Clone())
 	k1.b = ab;
 	k1.c = abbc;
 	k1.d = final;
+	k2
 }
 
-_spline_error_squared(knots:knots_t)
-{
+_spline_error_squared(knots:knots_t) = {
 	/* Intersection point (px):
 	 *		px = p1 + u(p2 - p1)
 	 *		(p - px) ? (p2 - p1) = 0
 	 * Thus:
-	 *		u = ((p - p1) ? (p2 - p1)) / Åap2 - p1Åa2;
+	 *		u = ((p - p1) ? (p2 - p1)) / ‚Äñp2 - p1‚Äñ2;
 	 */
 	bdx = knots.b.x - knots.a.x;
 	bdy = knots.b.y - knots.a.y;
@@ -88,8 +90,7 @@ _offset_line_to(cr:cairo.context,
 		p1:point_t,
 		p2:point_t,
 		p3:point_t,
-		offset:number)
-{
+		offset:number) = {
 	dx = p1.x - p0.x;
 	dy = p1.y - p0.y;
 	v = math.hypot(dx, dy);
@@ -104,144 +105,142 @@ _offset_line_to(cr:cairo.context,
 		}
 	}
 	if (v == 0) {
-		cr.line_to(p0.x, p0.y);
-	} else
-		cr.line_to(p0.x - offset * dy / v, p0.y + offset * dx / v);
+		cr.line_to(p0.x, p0.y)
+	} else {
+		cr.line_to(p0.x - offset * dy / v, p0.y + offset * dx / v)
 	}
 }
 
 _spline_decompose_into(k1:knots_t,
 			tolerance_squared:number,
 			offset:number,
-			cr:cairo.context)
-{
+			cr:cairo.context) = {
 	if (_spline_error_squared(k1) < tolerance_squared) {
 		_offset_line_to(cr, k1.a, k1.b, k1.c, k1.d, offset);
 		return;
 	}
-	_de_casteljau(k1, k2);
+	k2 = _de_casteljau(k1);
 	_spline_decompose_into(k1, tolerance_squared, offset, cr);
 	_spline_decompose_into(k2, tolerance_squared, offset, cr);
 }
 
 _spline_decompose(knots:knots_t,
 		tolerance:number, offset:number,
-		cr:cairo.context)
-{
+		cr:cairo.context) = {
 	k = knots;
-	_spline_decompose_into (&k, tolerance * tolerance, offset, cr);
-	_offset_line_to (cr, &knots.d, &knots.c, &knots.b, &knots.a, -offset);
+	_spline_decompose_into(k, tolerance * tolerance, offset, cr);
+	_offset_line_to(cr, knots.d, knots.c, knots.b, knots.a, -offset);
 }
 
-static void
-_knots_reverse (knots_t *knots)
-{
-	point_t tmp;
-
-	tmp = knots.a;
-	knots.a = knots.d;
-	knots.d = tmp;
-
-	tmp = knots.b;
-	knots.b = knots.c;
-	knots.c = tmp;
+_knots_reverse(knots:knots_t) = {
+	[knots.a, knots.d] = [knots.d, knots.a]
+	[knots.b, knots.c] = [knots.c, knots.b]
 }
 
-static void
-thick_splines (cairo_t *cr, double offset)
-{
-	knots_t k;
+thick_splines(cr:cairo.context, offset:number) = {
+	cr.save();
+	cr.translate(15, 15);
 
-	cairo_save (cr);
-	cairo_translate (cr, 15, 15);
+	k = knots[0].Clone();
 
-	k = knots[0];
+	cr.new_path();
+	_spline_decompose(k, .1, offset, cr);
+	_knots_reverse(k);
+	_spline_decompose(k, .1, offset, cr);
+	cr.close_path();
+	cr.fill();
 
-	cairo_new_path (cr);
-	_spline_decompose (&k, .1, offset, cr);
-	_knots_reverse (&k);
-	_spline_decompose (&k, .1, offset, cr);
-	cairo_close_path (cr);
-	cairo_fill (cr);
+	cr.translate(130, 0);
 
-	cairo_translate (cr, 130, 0);
+	k = knots[1].Clone();
 
-	k = knots[1];
+	cr.new_path();
+	_spline_decompose(k, .1, offset, cr);
+	_knots_reverse(k);
+	_spline_decompose(k, .1, offset, cr);
+	cr.close_path();
+	cr.fill();
 
-	cairo_new_path (cr);
-	_spline_decompose (&k, .1, offset, cr);
-	_knots_reverse (&k);
-	_spline_decompose (&k, .1, offset, cr);
-	cairo_close_path (cr);
-	cairo_fill (cr);
+	cr.translate(130, 0);
 
-	cairo_translate (cr, 130, 0);
+	k = knots[2].Clone();
 
-	k = knots[2];
+	cr.new_path();
+	_spline_decompose(k, .1, offset, cr);
+	_knots_reverse(k);
+	_spline_decompose(k, .1, offset, cr);
+	cr.close_path();
+	cr.fill();
 
-	cairo_new_path (cr);
-	_spline_decompose (&k, .1, offset, cr);
-	_knots_reverse (&k);
-	_spline_decompose (&k, .1, offset, cr);
-	cairo_close_path (cr);
-	cairo_fill (cr);
+	cr.translate(-130 - 65, 130);
 
-	cairo_translate (cr, -130 - 65, 130);
+	k = knots[3].Clone();
 
-	k = knots[3];
+	cr.new_path();
+	_spline_decompose(k, .1, offset, cr);
+	_knots_reverse(k);
+	_spline_decompose(k, .1, offset, cr);
+	cr.close_path();
+	cr.fill();
 
-	cairo_new_path (cr);
-	_spline_decompose (&k, .1, offset, cr);
-	_knots_reverse (&k);
-	_spline_decompose (&k, .1, offset, cr);
-	cairo_close_path (cr);
-	cairo_fill (cr);
+	cr.translate(130, 0);
 
-	cairo_translate (cr, 130, 0);
+	k = knots[4].Clone();
 
-	k = knots[4];
-
-	cairo_new_path (cr);
-	_spline_decompose (&k, .1, offset, cr);
-	_knots_reverse (&k);
-	_spline_decompose (&k, .1, offset, cr);
-	cairo_close_path (cr);
-	cairo_fill (cr);
-	cairo_restore (cr);
+	cr.new_path();
+	_spline_decompose(k, .1, offset, cr);
+	_knots_reverse(k);
+	_spline_decompose(k, .1, offset, cr);
+	cr.close_path();
+	cr.fill();
+	cr.restore();
 }
 
-static void
-thin_splines (cairo_t *cr)
-{
-	cairo_save (cr);
-	cairo_translate (cr, 15, 15);
+thin_splines(cr:cairo.context) = {
+	cr.save();
+	cr.translate(15, 15);
 
-	cairo_new_path (cr);
-	_spline_decompose (&knots[0], .1, 0, cr);
-	cairo_stroke (cr);
+	cr.new_path();
+	_spline_decompose(knots[0], .1, 0, cr);
+	cr.stroke();
 
-	cairo_translate (cr, 130, 0);
+	cr.translate(130, 0);
 
-	cairo_new_path (cr);
-	_spline_decompose (&knots[1], .1, 0, cr);
-	cairo_stroke (cr);
+	cr.new_path();
+	_spline_decompose(knots[1], .1, 0, cr);
+	cr.stroke();
 
-	cairo_translate (cr, 130, 0);
+	cr.translate(130, 0);
 
-	cairo_new_path (cr);
-	_spline_decompose (&knots[2], .1, 0, cr);
-	cairo_stroke (cr);
+	cr.new_path();
+	_spline_decompose(knots[2], .1, 0, cr);
+	cr.stroke();
 
-	cairo_translate (cr, -130 - 65, 130);
+	cr.translate(-130 - 65, 130);
 
-	cairo_new_path (cr);
-	_spline_decompose (&knots[3], .1, 0, cr);
-	cairo_stroke (cr);
+	cr.new_path();
+	_spline_decompose(knots[3], .1, 0, cr);
+	cr.stroke();
 
-	cairo_translate (cr, 130, 0);
+	cr.translate(130, 0);
 
-	cairo_new_path (cr);
-	_spline_decompose (&knots[4], .1, 0, cr);
-	cairo_stroke (cr);
-	cairo_restore (cr);
+	cr.new_path();
+	_spline_decompose(knots[4], .1, 0, cr);
+	cr.stroke();
+	cr.restore();
 }
+
+draw(cr:cairo.context) = {
+	cr.set_source_rgb(1, 1, 1)
+	cr.paint()
+	cr.set_source_rgb(0, 0, 0)
+	thick_splines(cr, 5)
+	cr.set_source_rgb(1, 1, 1)
+	thin_splines(cr)
+}
+
+img = image(`rgba, 390, 260)
+img.cairo {|cr|
+	draw(cr)
+}
+img.show()
