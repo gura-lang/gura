@@ -239,47 +239,193 @@ cairo.scaled_font.create
 
 ### cairo\_font\_options\_t - How a font should be rendered
 
-### FreeType  Fonts - Font support for FreeType
+${moddoc.reference(`en
+cairo.font_options.create
+cairo.font_options.status
+cairo.font_options.merge
+cairo.font_options.hash
+cairo.font_options.equal
+cairo.font_options.set_antialias
+cairo.font_options.get_antialias
+cairo.font_options.set_subpixel_order
+cairo.font_options.get_subpixel_order
+cairo.font_options.set_hint_style
+cairo.font_options.get_hint_style
+cairo.font_options.set_hint_metrics
+cairo.font_options.get_hint_metrics
+)}
+
+
+### FreeType Fonts - Font support for FreeType
+
+${moddoc.reference(`en
+)}
+
 
 ### Win32 Fonts - Font support for Microsoft Windows
 
+${moddoc.reference(`en
+)}
+
+
 ### Quartz (CGFont) Fonts - Font support via CGFont on OS X
 
+${moddoc.reference(`en
+)}
+
+
 ### User Fonts - Font support with font data provided by the user
+
+${moddoc.reference(`en
+)}
+
 
 ## Surfaces
 
 ### cairo\_device\_t - interface to underlying rendering system
 
+${moddoc.reference(`en
+cairo.device.status
+cairo.device.finish
+cairo.device.flush
+cairo.device.get_type
+cairo.device.acquire
+cairo.device.release
+)}
+
+
 ### cairo\_surface\_t - Base class for surfaces
+
+${moddoc.reference(`en
+cairo.surface.create_similar
+cairo.surface.create_similar_image
+cairo.surface.create_for_rectangle
+cairo.surface.status
+cairo.surface.finish
+cairo.surface.flush
+cairo.surface.get_device
+cairo.surface.get_font_options
+cairo.surface.get_content
+cairo.surface.mark_dirty
+cairo.surface.mark_dirty_rectangle
+cairo.surface.set_device_offset
+cairo.surface.get_device_offset
+cairo.surface.set_fallback_resolution
+cairo.surface.get_fallback_resolution
+cairo.surface.get_type
+cairo.surface.copy_page
+cairo.surface.show_page
+cairo.surface.has_show_text_glyphs
+cairo.surface.set_mime_data
+cairo.surface.get_mime_data
+cairo.surface.supports_mime_type
+cairo.surface.map_to_image
+cairo.surface.unmap_image
+cairo.surface.write_to_png
+)}
+
 
 ### Image Surfaces - Rendering to memory buffers
 
+${moddoc.reference(`en
+cairo.image_surface.create
+cairo.image_surface.create_from_png
+cairo.image_surface.get_format
+cairo.image_surface.get_width
+cairo.image_surface.get_height
+cairo.image_surface.get_stride
+)}
+
+
 ### PDF Surfaces - Rendering PDF documents
+
+${moddoc.reference(`en
+cairo.pdf_surface.create
+cairo.pdf_surface.restrict_to_version
+cairo.pdf_surface.set_size
+)}
+
 
 ### PNG Support - Reading and writing PNG images
 
+${moddoc.reference(`en
+)}
+
+
 ### PostScript Surfaces - Rendering PostScript documents
+
+${moddoc.reference(`en
+//cairo.ps_surface.create
+//cairo.ps_surface.restrict_to_level
+//cairo.ps_surface.set_eps
+//cairo.ps_surface.get_eps
+//cairo.ps_surface.set_size
+//cairo.ps_surface.dsc_begin_setup
+//cairo.ps_surface.dsc_begin_page_setup
+//cairo.ps_surface.dsc_comment
+)}
+
 
 ### Recording Surfaces - Records all drawing operations
 
+${moddoc.reference(`en
+)}
+
+
 ### Win32 Surfaces - Microsoft Windows surface support
+
+${moddoc.reference(`en
+)}
+
 
 ### SVG Surfaces - Rendering SVG documents
 
+${moddoc.reference(`en
+cairo.svg_surface.create
+cairo.svg_surface.restrict_to_version
+)}
+
+
 ### Quartz Surfaces - Rendering to Quartz surfaces
+
+${moddoc.reference(`en
+)}
+
 
 ### XCB Surfaces - X Window System rendering using the XCB library
 
+${moddoc.reference(`en
+)}
+
+
 ### XLib Surfaces - X Window System rendering using XLib
+
+${moddoc.reference(`en
+)}
+
 
 ### XLib-XRender Backend - X Window System rendering using XLib and the X Render extension
 
+${moddoc.reference(`en
+)}
+
+
 ### Script Surfaces - Rendering to replayable scripts
+
+${moddoc.reference(`en
+)}
+
 
 ## Utilities
 
+${moddoc.reference(`en
+)}
+
+
 ### cairo\_matrix\_t - Generic matrix operations
+
+${moddoc.reference(`en
+)}
 
 
 ## Thanks
