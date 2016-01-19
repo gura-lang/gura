@@ -116,17 +116,58 @@ Parser = class {
 	addParam(longName:string, shortName?:string, help?:string, helpValue?:string, defValue?:string) = {
 		this.entries.add(Entry(`param, longName, shortName, help, helpValue, defValue))
 	} % {`en, 'markdown', R'''
+	Adds an option that comes with a value like `--foo=value`
+	where `foo` is a long name for the option.
+
+	The argument `longName` specifies a long option name
+	that follows after two hyphens in the command line.
+	This name is also used as a key when you look for a value in the dictionary `cfg` returned
+	by `argopt.Parser#parse()`.
+
+	The argument `shortName` specifies a short option name that usually consists of a single character.
+	If it exists, you can specify the option by a character followed by one hyphen like `-f value`
+	where `f` is the short name.
 	
+	The argument `help` and `helpValue` are used in a option parameter help
+	created by `argopt.Parse#formatHelp()`.
+	The string for `help` specifies a help text for the option while `helpValue` is a string
+	printed after the equal character in the option presentation.
+
+	The argument `defValue` specifies a default value that would be used
+	when the option is not specified in the command line.
 	'''}
 	addFlag(longName:string, shortName?:string, help?:string) = {
 		this.entries.add(Entry(`flag, longName, shortName, help, nil, false))
 	} % {`en, 'markdown', R'''
+	Adds an option that represents a boolean state.
+	It comes like `--foo` where `foo` is a long name for the option.
+
+	The argument `longName` specifies a long option name
+	that follows after two hyphens in the command line.
+	This name is also used as a key when you look for a value in the dictionary `cfg` returned
+	by `argopt.Parser#parse()`.
+
+	The argument `shortName` specifies a short option name that usually consists of a single character.
+	If it exists, you can specify the option by a character followed by one hyphen like `-f`
+	where `f` is the short name.
+
+	The argument `help` is used in a option parameter help
+	created by `argopt.Parse#formatHelp()`.
+	The string for `help` specifies a help text for the option.
 	'''}
 	formatHelp(longNameFlag:boolean => true, shortNameFlag:boolean => true):[linefeed] = {
 		helpIndices = this.entries:*makeHelpIndex(longNameFlag, shortNameFlag)
 		str = format('%-*s  %s%s', helpIndices:*len().max(), helpIndices,
 					this.entries:*help, cond(__arg__.isset(`linefeed), '\n', ''))
 	} % {`en, 'markdown', R'''
+	Creates an iterator of strings that contain help text for each option.
+
+	If the argument `longNameFlag` is `true`, the help text would contain long names.
+
+	If the argument `shortNameFlag` is `true`, the help text would contain short names.
+
+	In default, each string doesn't contain a line feed at the end.
+	To add a line feed, specify an attribute `:linefeed`.
 	'''}
 }
 
