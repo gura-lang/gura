@@ -23,18 +23,20 @@ Entry = struct(type:symbol, longName:string, shortName:string:nil,
 			str += '  '
 			strSep = '  '
 		}
-		if (longNameFlag &&  this.longName) {
+		if (longNameFlag && this.longName) {
 			str += strSep
 			str += '--'
 			str += this.longName
 		}
 		if (this.type == `flag) {
 			// nothing to do
-		} elsif (this.helpValue) {
-			str += '='
-			str += this.helpValue
 		} else {
-			str += '=X'
+			if (longNameFlag && this.longName) {
+				str += '='
+			} elsif (shortNameFlag && this.shortName) {
+				str += ' '
+			}
+			str += this.helpValue || 'X'
 		}
 		str
 	}
@@ -73,7 +75,6 @@ Parser = class {
 				}
 				shortName = arg.mid(1, 1)
 				if (arg.len() > 2) {
-					//value = arg.mid(2)
 					raise(error.ArgumentError, 'unknown option -' + arg.mid(1))
 				}
 				entry = this.entries.find(this.entries:*shortName == shortName)
@@ -132,6 +133,7 @@ Parser = class {
 	created by `argopt.Parse#formatHelp()`.
 	The string for `help` specifies a help text for the option while `helpValue` is a string
 	printed after the equal character in the option presentation.
+	If the argument `helpValue` is not specified, a string `X` is printed instead.
 
 	The argument `defValue` specifies a default value that would be used
 	when the option is not specified in the command line.
@@ -168,20 +170,20 @@ Parser = class {
 
 	In default, each string doesn't contain a line feed at the end.
 	To add a line feed, specify an attribute `:linefeed`.
-	'''}
-}
 
-if (__name__ == '__main__') {
-	Parser {|p|
-		p.addParam('text', 't')
-		p.addFlag('test')
-		p.addFlag('bold', 'b')
-		try {
-			[cfg, argv] = p.parse(sys.argv)
-		} catch {|e|
-			println(e.text)
-			sys.exit(1)
-		}
-	}
-	println(cfg)
+	Below is an example of showing help:
+
+	    argopt.Parser {|p|
+	        p.addParam('text', 't', 'text value', 'txt')
+	        p.addFlag('flag1', 'f', 'flag option #1')
+	        p.addFlag('flag2', 'g', 'flag option #2')
+	        println(p.formatHelp())
+	    }
+
+	The result comes as below:
+
+	    -t, --text=txt  text value
+	    -f, --flag1     flag option #1
+	    -g, --flag2     flag option #2
+	'''}
 }

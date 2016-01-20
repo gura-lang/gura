@@ -1,0 +1,29 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+import(argopt)
+
+p = argopt.Parser()
+p.addParam('text', 't', 'text value', 'txt')
+p.addFlag('flag1', 'f', 'flag option #1')
+p.addFlag('flag2', 'g', 'flag option #2')
+
+testcase('argopt.Parser#formatHelp') {
+	println('long and short name')
+	println(p.formatHelp())
+	println('short name')
+	println(p.formatHelp(false))
+	println('long name')
+	println(p.formatHelp(true, false))
+}
+testcase('argopt.Parser#parse') {
+	[cfg, argv] = p.parse(['', '--flag1'])
+	println(cfg)
+	[cfg, argv] = p.parse(['', '--flag2'])
+	println(cfg)
+	[cfg, argv] = p.parse(['', '--text=value'])
+	println(cfg)
+	[cfg, argv] = p.parse(['', '-t', 'value'])
+	println(cfg)
+	[cfg, argv] = p.parse(['', '--flag1', '--flag2', '--text=value'])
+	println(cfg)
+}

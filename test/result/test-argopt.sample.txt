@@ -1,0 +1,22 @@
+======== #1 argopt.Parser#formatHelp ========
+
+long and short name
+-t, --text=txt  text value
+-f, --flag1     flag option #1
+-g, --flag2     flag option #2
+short name
+-t txt  text value
+-f      flag option #1
+-g      flag option #2
+long name
+--text=txt  text value
+--flag1     flag option #1
+--flag2     flag option #2
+
+======== #2 argopt.Parser#parse ========
+
+%{'flag1' => true, 'flag2' => false, 'text' => nil}
+%{'flag1' => false, 'flag2' => true, 'text' => nil}
+%{'flag1' => false, 'flag2' => false, 'text' => 'value'}
+%{'flag1' => false, 'flag2' => false, 'text' => 'value'}
+%{'flag1' => true, 'flag2' => true, 'text' => 'value'}
