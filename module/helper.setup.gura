@@ -247,9 +247,9 @@ Dialog = class(wx.Dialog) {
 		#!/bin/sh
 		dirNameCur=`dirname "$0"`
 		pathNameGura="$dirNameCur/../../../Gura.app/Contents/Resources/bin/gura"
-		if [ ! -e $pathNameGura ] ; then
+		if [ ! -e "$pathNameGura" ] ; then
 			pathNameGura="/Applications/Gura.app/Contents/Resources/bin/gura"
-			if [ ! -e $pathNameGura ] ; then
+			if [ ! -e "$pathNameGura" ] ; then
 				pathNameGura=gura
 			fi
 		fi
