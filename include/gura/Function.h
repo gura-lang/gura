@@ -274,6 +274,7 @@ public:
 	bool CustomDeclare(Environment &env,
 					   const CallerInfo &callerInfo, const SymbolSet &attrsAcceptable);
 	void CopyDeclarationInfo(const Function &func);
+	void CopyHelp(const Function &func);
 	Declaration *DeclareArg(
 		Environment &env, const Symbol *pSymbol, ValueType valType,
 		OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,

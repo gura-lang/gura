@@ -390,3 +390,7 @@ expected error: ValueError: can't assign a method to another class
 ======== #40 display of constructor in module ========
 
 <class:mod.A() {block?}>
+
+======== #41 construstor's help ========
+
+help message for A's constructor

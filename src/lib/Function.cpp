@@ -200,6 +200,13 @@ void Function::CopyDeclarationInfo(const Function &func)
 	_pSymbolDict = func._pSymbolDict;
 }
 
+void Function::CopyHelp(const Function &func)
+{
+	foreach_const (HelpOwner, ppHelp, func.GetHelpOwner()) {
+		_helpOwner.push_back((*ppHelp)->Reference());
+	}
+}
+
 Declaration *Function::DeclareArg(
 	Environment &env, const Symbol *pSymbol, ValueType valType,
 	OccurPattern occurPattern, ULong flags, size_t nListElems, Expr *pExprDefault)

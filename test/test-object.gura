@@ -836,3 +836,9 @@ testcase('display of constructor in module') {
 	}
 	println(mod.A)
 }
+testcase("construstor's help") {
+	A = class {
+		__init__() = {} % {`en, 'markdown', "help message for A's constructor"}
+	}
+	println(function.gethelp(A).text)
+}
