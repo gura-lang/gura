@@ -5,6 +5,7 @@ Card = struct(suit:symbol, rank:number):map {
 	ranks:public = [1..13]
 	suitMarks:public = %{
 		`spade => '$', `heart => '@', `diamond => '#', `club => '*'
+		//`spade => '\u2660', `heart => '\u2665', `diamond => '\u2666', `club => '\u2663'
 	}
 	rankMarks:public = %{
 		1 => 'A', 2 => '2', 3 => '3', 4 => '4', 5 => '5', 6 => '6', 7 => '7',
