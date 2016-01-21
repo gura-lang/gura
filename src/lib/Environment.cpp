@@ -190,6 +190,9 @@ Function *Environment::AssignFunction(Function *pFunc, ULong extra)
 	Frame *pFrame = GetTopFrame();
 	Class *pClass = pFunc->GetClassToConstruct();
 	if (pClass == nullptr) {
+		if (IsClass()) {
+			pFunc->SetClassContainer(dynamic_cast<Class *>(this));
+		}
 		pFrame->AssignValue(pSymbol, Value(new Object_function(*this, pFunc)), extra);
 	} else {
 		pFrame->AssignValue(pSymbol, Value(pClass->Reference()), extra);

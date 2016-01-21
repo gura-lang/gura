@@ -227,7 +227,6 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
-	inline Class *GetClassToConstruct() const { return _pClassContainer; }
 	inline void SetEnvScope(Environment *pEnvScope) { _pEnvScope.reset(pEnvScope); }
 	inline Environment &GetEnvScope() { return *_pEnvScope; }
 	inline Environment &GetEnvScope() const { return *const_cast<Function *>(this)->_pEnvScope; }
@@ -271,6 +270,9 @@ public:
 	Value EvalAuto(Environment &env, Argument &arg) const;
 	void SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags);
 	void SetClassToConstruct(Class *pClassToConstruct);
+	Class *GetClassToConstruct() const;
+	void SetClassContainer(Class *pClassContainer) { _pClassContainer = pClassContainer; }
+	Class *GetClassContainer() const { return _pClassContainer; }
 	bool CustomDeclare(Environment &env,
 					   const CallerInfo &callerInfo, const SymbolSet &attrsAcceptable);
 	void CopyDeclarationInfo(const Function &func);

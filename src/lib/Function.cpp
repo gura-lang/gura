@@ -89,6 +89,12 @@ void Function::SetClassToConstruct(Class *pClassToConstruct)
 	}
 }
 
+Class *Function::GetClassToConstruct() const
+{
+	return (_pClassContainer == nullptr || _pClassContainer->GetConstructor() != this)?
+		nullptr : _pClassContainer;
+}
+
 bool Function::CustomDeclare(Environment &env,
 							 const CallerInfo &callerInfo, const SymbolSet &attrsAcceptable)
 {
