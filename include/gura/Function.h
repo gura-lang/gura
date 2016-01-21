@@ -195,7 +195,7 @@ public:
 protected:
 	int _cntRef;
 	const Symbol *_pSymbol;
-	Class *_pClassToConstruct;
+	Class *_pClassContainer;
 	AutoPtr<Environment> _pEnvScope;
 	AutoPtr<Function> _pFuncHelpLink;
 	FunctionType _funcType;
@@ -227,7 +227,7 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
-	inline Class *GetClassToConstruct() const { return _pClassToConstruct; }
+	inline Class *GetClassToConstruct() const { return _pClassContainer; }
 	inline void SetEnvScope(Environment *pEnvScope) { _pEnvScope.reset(pEnvScope); }
 	inline Environment &GetEnvScope() { return *_pEnvScope; }
 	inline Environment &GetEnvScope() const { return *const_cast<Function *>(this)->_pEnvScope; }

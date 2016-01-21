@@ -270,10 +270,10 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Argument &arg) const
 	if (pEnvLocal.IsNull()) return Value::Nil;
 	Value valueRtn(arg.GetValueThis());
 	if (!valueRtn.IsObject()) {
-		Object *pObj = _pClassToConstruct->CreateDescendant(*pEnvLocal, _pClassToConstruct);
+		Object *pObj = _pClassContainer->CreateDescendant(*pEnvLocal, _pClassContainer);
 		valueRtn.InitAsObject(pObj);
 	}
-	Class *pClassSuper = _pClassToConstruct->GetClassSuper();
+	Class *pClassSuper = _pClassContainer->GetClassSuper();
 	Function *pConstructorSuper =
 				(pClassSuper == nullptr)? nullptr : pClassSuper->GetConstructor();
 	if (pConstructorSuper != nullptr) {

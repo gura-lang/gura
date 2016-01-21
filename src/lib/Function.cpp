@@ -34,7 +34,7 @@ bool Function::IsConstructorOfStruct() const { return false; }
 Function::Function(const Function &func) :
 	_cntRef(1),
 	_pSymbol(func._pSymbol),
-	_pClassToConstruct(func._pClassToConstruct),
+	_pClassContainer(func._pClassContainer),
 	_pEnvScope(func.GetEnvScope().Clone()),
 	_funcType(func._funcType),
 	_pDeclOwner(func.GetDeclOwner().Clone()),
@@ -52,7 +52,7 @@ Function::Function(Environment &envScope, const Symbol *pSymbol,
 				   FunctionType funcType, ULong flags) :
 	_cntRef(1),
 	_pSymbol(pSymbol),
-	_pClassToConstruct(nullptr),
+	_pClassContainer(nullptr),
 	_pEnvScope(Environment::Reference(&envScope)),
 	_funcType(funcType),
 	_pDeclOwner(new DeclarationOwner()),
@@ -82,7 +82,7 @@ void Function::SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong
 void Function::SetClassToConstruct(Class *pClassToConstruct)
 {
 	if (::strcmp(GetName(), pClassToConstruct->GetName()) == 0) {
-		_pClassToConstruct = pClassToConstruct;
+		_pClassContainer = pClassToConstruct;
 		pClassToConstruct->SetConstructor(Function::Reference(this));
 	} else {
 		//::printf("%s %s\n", GetName(), pClassToConstruct->GetName());
