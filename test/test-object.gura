@@ -829,6 +829,7 @@ testcase('prohibit method assignment to another class') {
 	} catch {|e|
 		println('expected error: ', e.text)
 	}
+	nil
 }
 testcase('display of constructor in module') {
 	mod = module {
@@ -841,4 +842,9 @@ testcase("construstor's help") {
 		__init__() = {} % {`en, 'markdown', "help message for A's constructor"}
 	}
 	println(function.gethelp(A).text)
+}
+testcase('instance method assignment') {
+	A = class {}
+	A.func1() = {}
+	println(A.func1)
 }

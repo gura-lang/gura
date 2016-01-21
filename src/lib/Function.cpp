@@ -423,11 +423,18 @@ void Function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet
 String Function::MakeFullName() const
 {
 	String str;
-	if (_pEnvScope->IsModule()) {
+	if (_pClassContainer != nullptr) {
+		str += _pClassContainer->MakeValueTypeName();
+		if (_pClassContainer->GetConstructor() != this) {
+			str += (GetType() == FUNCTYPE_Instance)? "#" : ".";
+			str += GetName();
+		}
+	} else if (_pEnvScope->IsModule()) {
 		const Module *pModule = dynamic_cast<const Module *>(_pEnvScope.get());
 		str += pModule->GetName();
 		str += ".";
 		str += GetName();
+#if 0
 	} else if (_pEnvScope->IsClass()) {
 		const Class *pClass = dynamic_cast<const Class *>(_pEnvScope.get());
 		str += pClass->MakeValueTypeName();
@@ -441,6 +448,7 @@ String Function::MakeFullName() const
 		str += pClass->MakeValueTypeName();
 		str += "#";
 		str += GetName();
+#endif
 	} else {
 		str += GetName();
 	}

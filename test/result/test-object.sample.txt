@@ -394,3 +394,7 @@ expected error: ValueError: can't assign a method to another class
 ======== #41 construstor's help ========
 
 help message for A's constructor
+
+======== #42 instance method assignment ========
+
+A#func1()

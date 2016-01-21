@@ -227,11 +227,11 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline bool IsAnonymous() const { return _pSymbol->IsIdentical(Gura_Symbol(_anonymous_)); }
-	inline void SetEnvScope(Environment *pEnvScope) { _pEnvScope.reset(pEnvScope); }
 	inline Environment &GetEnvScope() { return *_pEnvScope; }
 	inline Environment &GetEnvScope() const { return *const_cast<Function *>(this)->_pEnvScope; }
 	inline DeclarationOwner &GetDeclOwner() { return *_pDeclOwner; }
 	inline const DeclarationOwner &GetDeclOwner() const { return *_pDeclOwner; }
+	inline void SetType(FunctionType funcType) { _funcType = funcType; }
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }

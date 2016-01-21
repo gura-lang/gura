@@ -1029,12 +1029,17 @@ Value Expr_Identifier::DoAssign(Environment &env, Value &valueAssigned,
 		if (pFunc->IsAnonymous()) {
 			pFunc->SetSymbol(GetSymbol());
 		}
-		if (&env != &pFunc->GetEnvScope() && env.IsClass()) {
-			if (pFunc->GetEnvScope().IsClass()) {
+		if (env.IsClass()) {
+			Class *pClassContainer = dynamic_cast<Class *>(&env);
+			if (pFunc->GetClassContainer() == nullptr) {
+				if (pFunc->GetType() == FUNCTYPE_Function) {
+					pFunc->SetType(FUNCTYPE_Instance);
+				}
+				pFunc->SetClassContainer(pClassContainer);
+			} else if (pFunc->GetClassContainer() != pClassContainer) {
 				sig.SetError(ERR_ValueError, "can't assign a method to another class");
 				return Value::Nil;
 			}
-			pFunc->SetEnvScope(env.Reference());
 		}
 		Class *pClassToConstruct = pFunc->GetClassToConstruct();
 		if (pClassToConstruct != nullptr && pClassToConstruct->IsAnonymous()) {
