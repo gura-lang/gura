@@ -211,6 +211,7 @@ Renderer@tex = class {
 			\setlength{\oddsidemargin}{35mm}
 			\addtolength{\oddsidemargin}{-1in}
 			\setlength{\parindent}{0mm}
+			\setlength{\parskip}{2mm}
 
 			\setlength{\textheight}{244mm}
 			\setlength{\headheight}{0mm}

@@ -141,12 +141,8 @@ Renderer@tex = class(markdown.Renderer@tex) {
 				this.out.printf(R'''
 				\vspace{5mm}
 				\vbox{
-				\underline{\sf %s}
-
-				\vspace{1mm}
-
+				\underline{\sf\large %s}\\
 				{\tt\small %s}}
-				\vspace{3mm}
 				''', this.EscapeText(m[1]), this.EscapeText(m[2].unescapehtml()))
 			} else {
 				println('**** error ****')
