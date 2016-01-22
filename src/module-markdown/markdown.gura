@@ -304,7 +304,7 @@ Renderer@tex = class {
 		} elsif (item.type == `code) {
 			this.out.print(r'{\tt ')
 			this.out.print(this.EscapeText(item.text))
-			this.out.print(r' }')
+			this.out.print(r'}')
 		} elsif (item.type == `entity) {
 			if (item.text == 'hellip') {
 				this.out.print(r'\textellipsis ')
@@ -317,15 +317,15 @@ Renderer@tex = class {
 			} elsif (tagName == 'code') {
 				this.out.print(r'{\tt ')
 				item.children && this.RenderItem(item.children)
-				this.out.print(r' }')
+				this.out.print(r'}')
 			} elsif (tagName == 'em') {
 				this.out.print(r'{\it ')
 				item.children && this.RenderItem(item.children)
-				this.out.print(r' }')
+				this.out.print(r'}')
 			} elsif (tagName == 'strong') {
 				this.out.print(r'{\bf ')
 				item.children && this.RenderItem(item.children)
-				this.out.print(r' }')
+				this.out.print(r'}')
 			} else {
 				item.children && this.RenderItem(item.children)
 			}

@@ -1413,7 +1413,7 @@ Gura_DeclareFunction(super)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a reference to `obj` that searches methods in a scope of the super class of its own.\n"
+		"Returns a reference to `obj` through which you can call methods of the super class.\n"
 		"\n"
 		"Example:\n"
 		"\n"
@@ -1496,7 +1496,7 @@ Gura_DeclareFunction(local)
 	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Declares symbols that is supposed to access variables in a local scope.");
+		"Declares symbols of variable that are supposed to be accessed locally in a block.");
 }
 
 Gura_ImplementFunction(local)
@@ -1525,7 +1525,7 @@ Gura_DeclareFunction(locals)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns an environment object that belongs to a specified module.\n"
-		"If module is omitted, it returns an environment object of the current scope.");
+		"If the argument `module` is omitted, it returns an `environment` object of the current scope.");
 }
 
 Gura_ImplementFunction(locals)
@@ -1790,7 +1790,7 @@ Gura_Function(istype_)::Gura_Function(istype_)(
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	char buff[1024];
-	::sprintf(buff, "Returns `true` if the type of the specified `value` is %s, and `false` otherwise.",
+	::sprintf(buff, "Returns `true` if the `value` is an instance of `%s`, and `false` otherwise.",
 		ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName().c_str());
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,

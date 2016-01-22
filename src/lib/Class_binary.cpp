@@ -265,7 +265,11 @@ Gura_DeclareClassMethod(binary, alloc)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `binary` instance that has the specified size of buffer.\n"
+		"If the argument `data`, which should have a number between 0 and 255, is specified,\n"
+		"the buffer would be initialized with the value.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("bin", "binary"));
 }
 
 Gura_ImplementClassMethod(binary, alloc)
@@ -280,13 +284,14 @@ Gura_ImplementClassMethod(binary, alloc)
 }
 
 // binary#decode(codec:codec)
-Gura_DeclareMethodPrimitive(binary, decode)
+Gura_DeclareMethod(binary, decode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "codec", VTYPE_codec);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Decodes the content of the `binary` as a sequence of string characters using `codec`\n"
+		"and returns the result in `string`.");
 }
 
 Gura_ImplementMethod(binary, decode)
@@ -309,7 +314,11 @@ Gura_DeclareMethod(binary, dump)
 	DeclareAttr(Gura_Symbol(upper));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints a dump from the content of the `binary` to the standard output.\n"
+		"If the argument `stream` is specified, the result would be output to the stream.\n"
+		"\n"
+		"In default, alphabets are printed with lower-case characters.\n"
+		"Specifying an attribute `:upper` would output them with upper-case characters instead.\n");
 }
 
 Gura_ImplementMethod(binary, dump)
@@ -330,7 +339,9 @@ Gura_DeclareMethod(binary, each)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator picking up each byte in the buffer");
+		"Returns an iterator picking up each byte in the buffer\n"
+		"\n"
+		);
 }
 
 Gura_ImplementMethod(binary, each)
@@ -405,7 +416,7 @@ Gura_DeclareMethod(binary, len)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns the length of the buffer in binary.");
+		"Returns the length of the binary in bytes.");
 }
 
 Gura_ImplementMethod(binary, len)
@@ -481,7 +492,9 @@ Gura_DeclareClassMethod(binary, pack)
 		"\n"
 		"You can specify encoding name embraced with \"`{`\" and \"`}`\" in the format\n"
 		"to change coding character set from UTF-8\n"
-		"while packing a string with format character \"`s`\".\n");
+		"while packing a string with format character \"`s`\".\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("bin", "binary"));
 }
 
 Gura_ImplementClassMethod(binary, pack)
