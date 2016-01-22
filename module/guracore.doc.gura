@@ -291,6 +291,17 @@ codec.delcr
 codec.encode
 )}
 
+### Cast Operation
+
+A function that expects a `codec` instance in its argument can also take a value of
+`string` that is recognized as a codec name.
+
+With the above casting feature, you can call a function `f(codec:codec)`
+that takes a `codec` instance in its argument as below:
+
+- ``f(codec('utf-16'))`` .. The most explicit way.
+- `f('utf-16')` .. Implicit casting: from `string` to `codec`.
+
 
 ## color Class
 
