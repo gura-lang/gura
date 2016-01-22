@@ -1289,7 +1289,7 @@ Gura_DeclareFunctionAlias(class_, "class")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a class that includes methods and properties\n"
+		"Creates a `class` that includes methods and properties\n"
 		"described in the content of the `block`.\n"
 		"The detail information on how to describe the block content for this function\n"
 		"is written in \"Gura Language Manual\".\n"
@@ -1359,15 +1359,15 @@ Gura_DeclareFunctionAlias(struct_, "struct")
 	DeclareAttr(Gura_Symbol(loose));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a function object of a constructor for a structure that\n"
-		"contains properties specified by `args`. It can optionally take block\n"
-		"which declares methods and properties just like `class` function.\n"
+		"Creates a `class` for a structure that\n"
+		"contains properties specified by `args`. It can optionally take a block\n"
+		"which declares methods and properties just like `class()` function does.\n"
 		"\n"
 		"An element in `args` is an expression that has the same format with\n"
 		"one in the argument list of a function's declaration.\n"
 		"Each variable name becomes a member name in the created instance.\n"
 		"\n"
-		"Below is an example to create a struct named `Person`:\n"
+		"Below is an example to create a structure named `Person`:\n"
 		"\n"
 		"    Person = struct(name:string, age:number)\n"
 		"    person = Person('Smith', 26)\n"
