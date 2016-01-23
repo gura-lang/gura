@@ -207,7 +207,10 @@ Gura_DeclareFunction(binary)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `binary` instance after combining `string` or `binary` specified by the arguments `buff`.\n"
+		"If no argument is specified for `buff`, an empty `binary` instance would be created.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("bin", "binary"));
 }
 
 Gura_ImplementFunction(binary)
@@ -314,11 +317,17 @@ Gura_DeclareMethod(binary, dump)
 	DeclareAttr(Gura_Symbol(upper));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints a dump from the content of the `binary` to the standard output.\n"
+		"Prints a hexadecimal dump from the content of the `binary` to the standard output.\n"
 		"If the argument `stream` is specified, the result would be output to the stream.\n"
 		"\n"
-		"In default, alphabets are printed with lower-case characters.\n"
-		"Specifying an attribute `:upper` would output them with upper-case characters instead.\n");
+		"In default, hexadecimal digit are printed with lower-case characters.\n"
+		"Specifying an attribute `:upper` would output them with upper-case characters instead.\n"
+		"\n"
+		"Example:\n"
+		"    >>> b'A quick brown fox jumps over the lazy dog.'.dump():upper\n"
+		"    41 20 71 75 69 63 6B 20 62 72 6F 77 6E 20 66 6F  A quick brown fo\n"
+		"    78 20 6A 75 6D 70 73 20 6F 76 65 72 20 74 68 65  x jumps over the\n"
+		"    20 6C 61 7A 79 20 64 6F 67 2E                     lazy dog.\n");
 }
 
 Gura_ImplementMethod(binary, dump)
@@ -339,9 +348,9 @@ Gura_DeclareMethod(binary, each)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator picking up each byte in the buffer\n"
+		"Creates an iterator that returns each byte in the buffer.\n"
 		"\n"
-		);
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(binary, each)
@@ -358,7 +367,9 @@ Gura_DeclareMethod(binary, encodeuri)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string in which non-URIC characters are percent-encoded.");
+		"Returns a string in which non-URIC characters are converted to percent-encoded string.\n"
+		"\n"
+		"For example, `b'\"Hello\"'.encodeuri()` would return `'%22Hello%22'`.\n");
 }
 
 Gura_ImplementMethod(binary, encodeuri)
@@ -517,7 +528,9 @@ Gura_DeclareMethod(binary, pointer)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a `pointer` instance that has an initial offset specified\n"
 		"by the argument `offset`. If the argument is omitted, it would return a `pointer`\n"
-		"instance that points to the top of the binary.\n");
+		"instance that points to the top of the binary.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("p", "pointer"));
 }
 
 Gura_ImplementMethod(binary, pointer)
@@ -554,8 +567,10 @@ Gura_DeclareMethod(binary, store)
 	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Stores binary data in the `binary` instance at the specified offset.\n"
-		"You can specify one or more binary data to be stored.\n");
+		"Stores binary data `buff` in the target `binary` instance at the specified offset.\n"
+		"You can specify one or more binary data to be stored.\n"
+		"\n"
+		"This method returns the target instance itself.\n");
 }
 
 Gura_ImplementMethod(binary, store)
