@@ -122,7 +122,10 @@ Gura_DeclareMethod(writer, write)
 	DeclareArg(env, "fields", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Writes values in CSV format.\n"
+		"\n"
+		"The argument `fields` take `string`, `number` or `complex` values\n"
+		"that are output in a row.\n");
 }
 
 Gura_ImplementMethod(writer, write)
@@ -151,10 +154,7 @@ Gura_DeclareFunction(parse)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that parses a text in CSV format that is contained in the specified string\n"
-		"and returns a list of columns as its each element.\n"
-
-		"Parses a text in CSV format that is contained in the string `str`\n"
-		"and creates an iterator that returns a list of columns as its each element.\n"
+		"and returns a list of fields as its each element.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
 }
@@ -174,7 +174,7 @@ Gura_DeclareFunction(read)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that parses a text in CSV format from the specified stream\n"
-		"and returns a list of columns as its each element.\n"
+		"and returns a list of fields as its each element.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
 }
@@ -224,7 +224,7 @@ Gura_DeclareMethodAlias(stream, read_csv, "read@csv")
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates an iterator that parses a text in CSV format from the specified stream\n"
-		"and returns a list of columns as its each element.\n"
+		"and returns a list of fields as its each element.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
 }
