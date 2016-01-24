@@ -6,7 +6,7 @@ text@en = R'''
 # csv Module
 
 The `csv` module provices measures to read/write CSV files.
-To utilize it, import the `csv` module using `import` function.
+To utilize it, import the `csv` module using `import()` function.
 
 Below is an example to read a CSV file that contains three fields per line:
 

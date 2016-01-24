@@ -142,14 +142,21 @@ Gura_ImplementUserClass(writer)
 //-----------------------------------------------------------------------------
 // Gura module functions: csv
 //-----------------------------------------------------------------------------
-// csv.parse(str:string):map
+// csv.parse(str:string):map {block?}
 Gura_DeclareFunction(parse)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that parses a text in CSV format that is contained in the specified string\n"
+		"and returns a list of columns as its each element.\n"
+
+		"Parses a text in CSV format that is contained in the string `str`\n"
+		"and creates an iterator that returns a list of columns as its each element.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementFunction(parse)
@@ -166,7 +173,10 @@ Gura_DeclareFunction(read)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that parses a text in CSV format from the specified stream\n"
+		"and returns a list of columns as its each element.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementFunction(read)
@@ -187,7 +197,11 @@ Gura_DeclareFunction(writer)
 	SetClassToConstruct(Gura_UserClass(writer));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `csv.writer` instance that provides methods\n"
+		"to write CSV text to the specified stream.\n"
+		"\n"
+		"The argument `format` specifies a printf-style format string\n"
+		"that is used to convert a `number` and `complex` value to a string.\n");
 }
 
 Gura_ImplementFunction(writer)
@@ -209,7 +223,10 @@ Gura_DeclareMethodAlias(stream, read_csv, "read@csv")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that parses a text in CSV format from the specified stream\n"
+		"and returns a list of columns as its each element.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(stream, read_csv)
@@ -228,7 +245,11 @@ Gura_DeclareMethodAlias(stream, writer_csv, "writer@csv")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `csv.writer` instance that provides methods\n"
+		"to write CSV text to the target stream.\n"
+		"\n"
+		"The argument `format` specifies a printf-style format string\n"
+		"that is used to convert a `number` and `complex` value to a string.\n");
 }
 
 Gura_ImplementMethod(stream, writer_csv)
