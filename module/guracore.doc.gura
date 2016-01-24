@@ -899,8 +899,10 @@ which are format handlers responsible of formatting these values.
 In general, a format handler has a format like `__format_X__(fmt:formatter)`
 where `X` is the symbol of the specifier and `fmt` is a `formatter` instance that carries
 information about the associated specifier such as minimum width and a padding character.
+The handler must return a `string` as its result.
 
-Below is a table that shows specifiers and their associated method name:
+The table below summarizes associations between specifiers
+and the method name of their format handlers:
 
 <table>
 <tr><th>Specifier</th><th>Method Name</th></tr>
@@ -915,6 +917,22 @@ Below is a table that shows specifiers and their associated method name:
 <tr><td><code>%s</code></td><td><code>__format_s__</code></td></tr>
 <tr><td><code>%c</code></td><td><code>__format_c__</code></td></tr>
 </table>
+
+This feature is supposed to be used when you want your original class's instance
+properly formatted in `printf`. Below is an example to implement a format handler
+for the specifier `%d`:
+
+    A = class {
+
+        // any implementations
+
+        __format_d__(fmt:format) = {
+            // returns a string for %d specifier.
+        }
+    }
+
+    a = A()
+    printf('%d', a) // a.__format_d__() is called
 
 
 ### Method
@@ -1070,6 +1088,7 @@ in a process of reading and writing files.
 <tr><td>PPM</td><td><code>ppm</code></td><td><code>'ppm'</code></td></tr>
 <tr><td>TIFF</td><td><code>tiff</code></td><td><code>'tiff'</code></td></tr>
 </table>
+
 
 ### Property
 
