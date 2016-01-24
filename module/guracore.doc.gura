@@ -252,7 +252,22 @@ Notice that the number `0` is treated as true in logical operations.
 
 ## codec Class
 
-The `codec` class provides measures to convert character codes.
+The `codec` class has features to decoding/encoding character codes stored in `string` and `binary`.
+Following measures are provided:
+
+- Decode ... Converts specific character codes stored in `binary` into UTF-8 code
+  and generages `string` containing the result.
+  It can also delete a CR code (`0x0d`) before a LF code (`0x0d`) at each end of line
+  so that lines in the result are joined with LF code.
+- Encode ... Converts UTF-8 character codes stored in `string` into specific codes
+  and generates `binary` containing the result.
+  It can also add a CR code (`0x0d`) before a LF code (`0x0a`) at each end of line
+  so that lines in the result are joined with CR-LF sequence.
+
+You can utilize these functions using `codec` class's methods `codec#decode()` and `codec#encode()`
+as well as using `stream` class's method to read/write text by specifying `codec` instance
+when creating its instance.
+
 
 ### Predefined Variable
 
@@ -260,19 +275,19 @@ The `codec` class provides measures to convert character codes.
 <tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
 
 <tr><td><code>codec.bom@utf8</code></td><td><code>binary</code></td>
-<td>BOM sequence of UTF-8: <code>'\xef\xbb\xbf'</code></td></tr>
+<td>BOM for UTF-8: <code>'\xef\xbb\xbf'</code></td></tr>
 
 <tr><td><code>codec.bom@utf16le</code></td><td><code>binary</code></td>
-<td>BOM sequence of UTF-16 little endian: <code>'\xff\xfe'</code></td></tr>
+<td>BOM for UTF-16 little endian: <code>'\xff\xfe'</code></td></tr>
 
 <tr><td><code>codec.bom@utf16be</code></td><td><code>binary</code></td>
-<td>BOM sequence of UTF-16 big endian: <code>'\xfe\xff'</code></td></tr>
+<td>BOM for UTF-16 big endian: <code>'\xfe\xff'</code></td></tr>
 
 <tr><td><code>codec.bom@utf32le</code></td><td><code>binary</code></td>
-<td>BOM sequence of UTF-32 little endian<code>'\xff\xfe\x00\x00'</code></td></tr>
+<td>BOM for UTF-32 little endian: <code>'\xff\xfe\x00\x00'</code></td></tr>
 
 <tr><td><code>codec.bom@utf32be</code></td><td><code>binary</code></td>
-<td>BOM sequence of UTF-32 big endian: <code>'\x00\x00\xfe\xff'</code></td></tr>
+<td>BOM for UTF-32 big endian: <code>'\x00\x00\xfe\xff'</code></td></tr>
 
 </table>
 
@@ -874,18 +889,18 @@ The `formatter` class provides information about a format specifier.
 
 The function `printf()` has the following declaration:
 
-    printf(format:string, values*)
+    printf('name: %s, age: %d\n', name, age)
 
-The argument `format` is a string containing format specifiers like `%d` and `%s`
-that correspond to instances specified by the arguments `values`.
-When a qualifier is found during the evaluation of the function,
-a format handler associated with an corresponding instance is called.
-Format handlers are instance methods named like `__format_X__()`
-where `X` is the symbol of the specifier.
-For example, the instance method `__format_d__()` is responsible to work on a spcifier `%d`.
+The first argument is a string containing format specifiers like `%s` and `%d`
+that determine the manner on how the correspoding values `name` and `age` should be formatted.
+In the formatting mechanism, when the specifiers `%s` and `%d` appear,
+it would call methods `name.__format_s__()` and `age.__format_s__()` respectively
+which are format handlers responsible of formatting these values.
+In general, a format handler has a format like `__format_X__(fmt:formatter)`
+where `X` is the symbol of the specifier and `fmt` is a `formatter` instance that carries
+information about the associated specifier such as minimum width and a padding character.
 
-The `formatter` instance is created for each specifier and passed to a method like
-`__format_X__(fmt:formatter)`. Below is a table showing specifiers and corresponding method names:
+Below is a table that shows specifiers and their associated method name:
 
 <table>
 <tr><th>Specifier</th><th>Method Name</th></tr>
@@ -900,6 +915,7 @@ The `formatter` instance is created for each specifier and passed to a method li
 <tr><td><code>%s</code></td><td><code>__format_s__</code></td></tr>
 <tr><td><code>%c</code></td><td><code>__format_c__</code></td></tr>
 </table>
+
 
 ### Method
 
@@ -1457,6 +1473,23 @@ The `stream` class provides methods to read and write data through a stream,
 an abstract structure to handle a byte sequence.
 It also provides information of the stream such as the pathname and the creation date and time.
 
+You can specify a proper `codec` when creating the `stream` instance,
+which is used to decode/encode character codes that appear in the stream. 
+Features of `codec` would affect on functions and methods that handle text data like follows:
+
+- Decode
+  - readlines()
+  - stream#readchar()
+  - stream#readline()
+  - stream#readlines()
+  - stream#readtext()
+
+- Encode
+  - operator `<<`
+  - stream#print()
+  - stream#printf()
+  - stream#println()
+
 
 ### Property
 
@@ -1503,15 +1536,17 @@ you can chain multiple operations as below:
 A function that expects a `stream` instance in its argument can also take a value of
 `string` and `binary` as below:
 
-- `string` .. Recognized as a path name from which `stream` instance is created.
-- `binary` .. Creates a `stream` instance that contains the specified binary data.
+- `string` .. Recognized the `string` as a path name from which `stream` instance is created.
+- `binary` .. Creates a `stream` instance that reads or modifies the content of the specified `binary` data.
+  If the `binary` data is a constant one, which might be created from a binary literal
+  such as `b'\x00\x12\x34\x56'`, the stream is created with read-only attribute.
 
 Using the above casting feature, you can call a function `f(stream:stream)`
 that takes a `stream` instance in its argument as below:
 
 - `f(stream('foo.txt'))` .. The most explicit way.
-- `f('foo.txt')` .. Implicit casting: from `string` to `stream`.
-- `f(b'\x00\x12\x34\x56')` .. Implicit casting: from `binary` to `stream`.
+- `f('foo.txt')` .. Implicit casting from `string` to `stream`.
+- `f(b'\x00\x12\x34\x56')` .. Implicit casting from `binary` to `stream` that reads the content.
 
 
 ### Constructor

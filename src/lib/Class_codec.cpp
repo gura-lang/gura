@@ -70,7 +70,7 @@ Gura_DeclareMethod(codec, addcr)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"The codec's encoder has a feature\n"
-		"to add a CR code (0x0d) before a LF code (0x0a)\n"
+		"to add a CR code (`0x0d`) before a LF code (`0x0a`)\n"
 		"so that the lines are joined with CR-LF codes in the encoded result.\n"
 		"This method enables or disables the feature.\n"
 		"\n"
@@ -115,7 +115,7 @@ Gura_DeclareMethod(codec, delcr)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"The codec's decoder has a feature\n"
-		"to delete a CR code (0x0d) before a LF code (0x0a)\n"
+		"to delete a CR code (`0x0d`) before a LF code (`0x0a`)\n"
 		"so that the lines are joined with LF code in the decoded result.\n"
 		"This method enables or disables the feature.\n"
 		"\n"

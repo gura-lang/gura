@@ -149,6 +149,9 @@ Gura_DeclareFunction(readlines)
 		"If attribute `:chop` is specified, it eliminates an end-of-line character that\n"
 		"appears at the end of each line.\n"
 		"\n"
+		"This function decodes character codes in the stream\n"
+		"using `codec` instance that is specified when the `stream` instance is created.\n"
+		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
 }
 
@@ -183,7 +186,7 @@ Gura_DeclareMethod(stream, addcr)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"The codec's encoder in the stream has a feature\n"
-		"to add a CR code (0x0d) before a LF code (0x0a)\n"
+		"to add a CR code (`0x0d`) before a LF code (`0x0a`)\n"
 		"so that the lines are joined with CR-LF codes in the encoded result.\n"
 		"This method enables or disables the feature.\n"
 		"\n"
@@ -388,7 +391,7 @@ Gura_DeclareMethod(stream, delcr)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"The codec's decoder in the stream has a feature\n"
-		"to delete a CR code (0x0d) before a LF code (0x0a)\n"
+		"to delete a CR code (`0x0d`) before a LF code (`0x0a`)\n"
 		"so that the lines are joined with LF code in the decoded result.\n"
 		"This method enables or disables the feature.\n"
 		"\n"
@@ -497,7 +500,10 @@ Gura_DeclareMethod(stream, print)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints out `values` to the `stream` instance.\n");
+		"Prints out `values` to the `stream` instance after converting them to strings.\n"
+		"\n"
+		"This function encodes character codes in the string\n"
+		"using `codec` instance that is specified when the `stream` instance is created.\n");
 }
 
 Gura_ImplementMethod(stream, print)
@@ -524,7 +530,11 @@ Gura_DeclareMethod(stream, printf)
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Prints out `values` to the `stream` instance according to formatter specifiers in `format`.\n"
 		"\n"
-		"Refer to the help of `printf()` function to see information about formatter specifiers.\n");
+		"Refer to the help of `printf()` function to see information about formatter specifiers.\n"
+		"\n"
+		"This function encodes character codes in the string\n"
+		"using `codec` instance that is specified when the `stream` instance is created.\n");
+;
 }
 
 Gura_ImplementMethod(stream, printf)
@@ -543,7 +553,11 @@ Gura_DeclareMethod(stream, println)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Prints out `values` and an end-of-line character to the `stream` instance.\n");
+		"Prints out `values` and an end-of-line character to the `stream` instance"
+		"after converting them to strings.\n"
+		"\n"
+		"This function encodes character codes in the string\n"
+		"using `codec` instance that is specified when the `stream` instance is created.\n");
 }
 
 Gura_ImplementMethod(stream, println)
@@ -561,16 +575,19 @@ Gura_ImplementMethod(stream, println)
 	return Value::Nil;
 }
 
-// stream#read(len?:number)
+// stream#read(len?:number) {block?}
 Gura_DeclareMethod(stream, read)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads specified length of data from the stream\n"
 		"and returns a `binary` instance that contains it.\n"
-		"If the argument `len` is omitted, all the data available from the stream would be read.\n");
+		"If the argument `len` is omitted, all the data available from the stream would be read.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("buff", "binary"));
 }
 
 Gura_ImplementMethod(stream, read)
@@ -606,17 +623,23 @@ Gura_ImplementMethod(stream, read)
 		if (sig.IsSignalled()) return Value::Nil;
 		result = Value(pObjBinary.release());
 	}
-	return result;
+	return ReturnValue(env, arg, result);
 }
 
-// stream#readchar()
+// stream#readchar() {block?}
 Gura_DeclareMethod(stream, readchar)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads one character from the stream\n"
-		"and returns a `string` instance that contains it.\n");
+		"and returns a `string` instance that contains it.\n"
+		"\n"
+		"This method decodes character codes in the stream\n"
+		"using `codec` instance that is specified when the `stream` instance is created.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("ch", "string"));
 }
 
 Gura_ImplementMethod(stream, readchar)
@@ -626,21 +649,27 @@ Gura_ImplementMethod(stream, readchar)
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	String str = stream.ReadChar(sig);
 	if (str.empty()) return Value::Nil;
-	return Value(str);
+	return ReturnValue(env, arg, Value(str));
 }
 
-// stream#readline():[chop]
+// stream#readline():[chop] {block?}
 Gura_DeclareMethod(stream, readline)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(chop));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads one line from the stream\n"
 		"and returns a `string` instance that contains it.\n"
 		"\n"
 		"If the attribute `:chop` is specified, it would remove the last new line character\n"
-		"from the result.");
+		"from the result."
+		"\n"
+		"This method decodes character codes in the stream\n"
+		"using `codec` instance that is specified when the `stream` instance is created.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("line", "string"));
 }
 
 Gura_ImplementMethod(stream, readline)
@@ -662,7 +691,7 @@ Gura_ImplementMethod(stream, readline)
 		str += ch;
 	}
 	if (str.empty()) return Value::Nil;
-	return Value(str);
+	return ReturnValue(env, arg, Value(str));
 }
 
 // stream#readlines(nlines?:number):[chop] {block?}
@@ -683,6 +712,9 @@ Gura_DeclareMethod(stream, readlines)
 		"If attribute `:chop` is specified, it eliminates an end-of-line character that\n"
 		"appears at the end of each line.\n"
 		"\n"
+		"This method decodes character codes in the stream\n"
+		"using `codec` instance that is specified when the `stream` instance is created.\n"
+		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
 }
 
@@ -699,14 +731,20 @@ Gura_ImplementMethod(stream, readlines)
 	return ReturnIterator(env, arg, pIterator);
 }
 
-// stream#readtext()
+// stream#readtext() {block?}
 Gura_DeclareMethod(stream, readtext)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads the whole data in the stream as a text sequence\n"
-		"and returns a `string` instance that contains it.");
+		"and returns a `string` instance that contains it."
+		"\n"
+		"This method decodes character codes in the stream\n"
+		"using `codec` instance that is specified when the `stream` instance is created.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("text", "string"));
 }
 
 Gura_ImplementMethod(stream, readtext)
@@ -721,7 +759,7 @@ Gura_ImplementMethod(stream, readtext)
 		if (ch < 0) break;
 		str += ch;
 	}
-	return Value(str);
+	return ReturnValue(env, arg, Value(str));
 }
 
 // stream#seek(offset:number, origin?:symbol):reduce
@@ -732,7 +770,14 @@ Gura_DeclareMethod(stream, seek)
 	DeclareArg(env, "origin", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Seeks the current file position to the offset specified by the argument `offset`.\n"
+		"\n"
+		"The argument `origin` specifies the meaning of `offset` value as follows:\n"
+		"\n"
+		"- ``set` ... `offset` is an absolute offset from the begining of the stream.\n"
+		"- ``cur` ... `offset` is a relative offset from the current position.\n"
+		"\n"
+		"This method returns the target stream instance itself.\n");
 }
 
 Gura_ImplementMethod(stream, seek)
@@ -782,7 +827,10 @@ Gura_DeclareMethod(stream, setcodec)
 	DeclareArg(env, "codec", VTYPE_codec, OCCUR_Once, FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Sets `codec` instance to the target stream.\n"
+		"If `nil` is specified for the argument, the current `codec` instance would be removed.\n"
+		"\n"
+		"This method returns the target stream instance itself.\n");
 }
 
 Gura_ImplementMethod(stream, setcodec)
