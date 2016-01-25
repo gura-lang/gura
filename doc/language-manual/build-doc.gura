@@ -6,7 +6,7 @@ dirName@html = 'html'
 
 title = 'Gura Language Manual'
 author = 'Yutaka Saito'
-date = 'December 27th, 2015'
+date = 'January 25th, 2016'
 
 fileNames = [
 	'00-Introduction.md'
@@ -101,7 +101,6 @@ output@pdf(doc:markdown.document) = {
 }
 
 output@html(doc:markdown.document) = {
-	//doc = makeDocument()
 	println('Output directory: ', dirName@html)
 	!path.exists(dirName@html) && fs.mkdir(dirName@html)
 	fileName = path.join(dirName@html, 'index.md')

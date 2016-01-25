@@ -82,10 +82,10 @@ at top of the script but after shebang if exists.
     # coding: shift_jis
     println('... string that may contain characters in Shift-JIS ...')
 
-A magic comment has a format like `coding: XXXXXX`
-where `XXXXXX` indicates what encoding the parser is to use.
+A magic comment has a format like "`coding: XXXXXX`"
+where "`XXXXXX`" indicates what encoding the parser is to use.
 It can be detected when it appears at the first or second line of a script
-and is described as a line comment that begins with `#` or `//`.
+and is described as a line comment that begins with "`#`" or "`//`".
 
 The following format is acceptable too.
 
@@ -94,7 +94,15 @@ The following format is acceptable too.
 
 This is good to make Emacs determine what character encoding it should choose for editing.
 
-Available encoding names are described in Chapter.X.
+Available encoding names are summarized below:
+
+    us-ascii, utf-8, utf-16
+    iso8859-1, iso8859-2, iso8859-3, iso8859-4, iso8859-5, iso8859-6
+    iso8859-7, iso8859-8, iso8859-9, iso8859-10, iso8859-11, iso8859-13
+    iso8859-14, iso8859-15, iso8859-16
+    big5, cp936, cp950, gb2312
+    cp932, euc-jp, iso-2022-jp, jis, ms_kanji, shift_jis
+    cp949, euc-kr
 
 
 ## Composite File

@@ -7,7 +7,7 @@ dirName@html = 'html'
 
 title = 'Gura Library Reference'
 author = 'Yutaka Saito'
-date = 'December 27th, 2015'
+date = 'January 25th, 2016'
 
 baseNames = [
 	'basement' // this must come at first
