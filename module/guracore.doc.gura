@@ -1811,6 +1811,13 @@ timedelta
 
 ## uri Class
 
+The `uri` instance analyzes a URI string and returns each part in it
+such as the scheme and path.
+A generic URI has the following format:
+
+    scheme:[//[user:password@]host:port]][/]path[?query][#fragment]
+
+
 ### Property
 
 A `uri` instance has the following properties:
@@ -1819,27 +1826,28 @@ A `uri` instance has the following properties:
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>scheme</code></td><td><code>string</code></td><td>R/W</td>
-<td></td></tr>
+<td>Scheme part in the URI.</td></tr>
 
 <tr><td><code>user</code></td><td><code>string</code></td><td>R/W</td>
-<td></td></tr>
+<td>User part in the URI.</td></tr>
 
 <tr><td><code>password</code></td><td><code>string</code></td><td>R/W</td>
-<td></td></tr>
+<td>Password part in the URI.</td></tr>
 
 <tr><td><code>host</code></td><td><code>string</code></td><td>R/W</td>
-<td></td></tr>
+<td>Host part in the URI.</td></tr>
 
 <tr><td><code>port</code></td><td><code>string</code></td><td>R/W</td>
-<td></td></tr>
+<td>Port part in the URI.</td></tr>
 
 <tr><td><code>urlpath</code></td><td><code>string</code></td><td>R/W</td>
-<td></td></tr>
+<td>URL path part in the URI, which contains the path, query and fragment part.</td></tr>
 
 <tr><td><code>misc</code></td><td><code>string</code></td><td>R/W</td>
-<td></td></tr>
+<td>Misc part in the URI.</td></tr>
 
 </table>
+
 
 ### Constructor
 
@@ -1855,6 +1863,17 @@ uri.getpath
 uri.getquery
 uri.parsequery
 )}
+
+### Cast Operation
+
+A function that expects a `uri` instance in its argument can also take a value of
+`string` that is recognized as a URI string.
+
+With the above casting feature, you can call a function `f(uri:uri)`
+that takes a `uri` instance in its argument as below:
+
+- ``f(uri('http://example.com'))`` .. The most explicit way.
+- `f('http://example.com')` .. Implicit casting: from `string` to `uri`.
 '''.embed()
 
 moddoc.register(locals(), %{`en => text@en})
