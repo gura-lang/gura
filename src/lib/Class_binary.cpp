@@ -393,11 +393,21 @@ Gura_DeclareMethod(binary, hex)
 		"In default, the result string is a sequence of joined hexadecimal values without any space.\n"
 		"You can specify the following attribute to change the format:\n"
 		"\n"
-		"- `:cstr` .. format of C string\n"
-		"- `:carray` .. format of C array\n"
+		"- `:cstr` .. Format of C string.\n"
+		"- `:carray` .. Format of C array.\n"
 		"\n"
 		"Alphabet characters are described in lower characters\n"
-		"unless the attribute `:upper` is specified.\n");
+		"unless the attribute `:upper` is specified.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"<table>\n"
+		"<tr><th>Code</th><th>Result</th></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.hex()</code></td><td><code>'0123abcd'</code></td></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.hex():upper</code></td><td><code>'0123ABCD'</code></td></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.hex():cstr</code></td><td><code>'\\\\x01\\\\x23\\\\xab\\\\xcd'</code></td></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.hex():carray</code></td><td><code>'0x01, 0x23, 0xab, 0xcd'</code></td></tr>\n"
+		"</table>\n");
 }
 
 Gura_ImplementMethod(binary, hex)
