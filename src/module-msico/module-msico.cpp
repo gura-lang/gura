@@ -128,6 +128,7 @@ bool Object_content::Write(Environment &env, Stream &stream)
 		Image *pImage = Object_image::GetObject(*pValue)->GetImage();
 		size_t width = pImage->GetWidth(), height = pImage->GetHeight();
 		int biBitCount = pImage->CalcDIBBitCount();
+		int biCompression = 0;	// 0:RGB, 1:RLE8, 2:RLE4, 3:BITFIELDS, 4:JPEG, 5:PNG
 		Image::BitmapInfoHeader bih;
 		::memset(&bih, 0x00, sizeof(bih));
 		Gura_PackULong(bih.biSize,			Image::BitmapInfoHeader::Size);
@@ -135,7 +136,7 @@ bool Object_content::Write(Environment &env, Stream &stream)
 		Gura_PackLong(bih.biHeight,			height * 2);
 		Gura_PackUShort(bih.biPlanes,		1);
 		Gura_PackUShort(bih.biBitCount,		biBitCount);
-		Gura_PackULong(bih.biCompression,	0);	// just set to zero
+		Gura_PackULong(bih.biCompression,	biCompression);
 		Gura_PackULong(bih.biSizeImage,		0);	// just set to zero
 		Gura_PackLong(bih.biXPelsPerMeter,	0);	// just set to zero
 		Gura_PackLong(bih.biYPelsPerMeter,	0);	// just set to zero

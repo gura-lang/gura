@@ -374,7 +374,7 @@ audio
 binary
   binary#add(buff+:binary):map:reduce
   binary.alloc(bytes:number, data?:number):static:map {block?}
-  binary.decode(codec:codec)
+  binary#decode(codec:codec)
   binary#dump(stream?:stream:w):void:[upper]
   binary#each() {block?}
   binary#encodeuri()
@@ -718,12 +718,12 @@ stream
   stream#print(values*):map:void
   stream#printf(format:string, values*):map:void
   stream#println(values*):map:void
-  stream#read(len?:number)
-  stream#readchar()
+  stream#read(len?:number) {block?}
+  stream#readchar() {block?}
   stream#reader@base64() {block?}
-  stream#readline():[chop]
+  stream#readline():[chop] {block?}
   stream#readlines(nlines?:number):[chop] {block?}
-  stream#readtext()
+  stream#readtext() {block?}
   stream#seek(offset:number, origin?:symbol):reduce
   stream#serialize(value):void
   stream#setcodec(codec:codec:nil):reduce
