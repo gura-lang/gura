@@ -238,16 +238,16 @@ binary.writer
 ## boolean Class
 
 The `boolean` class represents a boolean data type that is used in logical operations
-such as NOT, AND and OR.
+including NOT, AND, OR and XOR.
 
-There are only two values of pure `boolean` type: `true` and `false`.
-But other types of values can also be specified in logical operations
+The `boolean` type provides two values: `true` and `false`.
+The other types of values can also be calculated in logical operations
 according to the following general rule:
 
-- Values `false` and `nil` are evaluated as false value.
-- Other values are evaluated as true.
+- The `nil` value is evaluated as `false` value.
+- Other values are evaluated as `true`.
 
-Notice that the number `0` is treated as true in logical operations.
+Note that the number `0` is treated as `true` in logical operations.
 
 
 ## codec Class
@@ -777,6 +777,8 @@ If an attribute `:lineno` is specified, it would contain a line number.</td></tr
 
 
 ## expr Class
+
+The `expr` class provides inromation about the language's syntax expression.
 
 ### Property
 
@@ -1350,10 +1352,14 @@ matrix.transpose
 
 ## nil Class
 
+The `nil` class is the class of `nil` value that is usually used as an invalid value.
+In a logical operation, the `nil` value is recognized as `false`.
+
 
 ## number Class
 
-The `number` class provides measures to calculate numbers.
+The `number` class is a type of number values.
+A number literal would create a `number` instance.
 
 ### Method
 
