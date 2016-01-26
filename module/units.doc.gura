@@ -1,14 +1,19 @@
 #!/usr/bin/env gura
 import(moddoc)
+import(units)
 
 text@en = R'''
 # units Module
 
-The `units` module ...
+The `units` module provides functions to convert physical units into another.
 
 ## Module Function
 
 ${moddoc.reference(`en
+units.inch$mm
+units.mm$inch
+units.mm$pt
+units.pt$mm
 )}
 
 '''.embed()
