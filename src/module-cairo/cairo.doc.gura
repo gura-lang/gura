@@ -10,7 +10,9 @@ Official site of Cairo is <http://cairographics.org/>.
 
 ## Drawing
 
-### cairo\_t - The cairo drawing context
+### cairo.context - The cairo drawing context
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.context.status
@@ -67,7 +69,71 @@ cairo.context.copy_page
 cairo.context.show_page
 )}
 
+#### Types and Values
+
+`cairo.antialias`
+
+- `cairo.ANTIALIAS_DEFAULT`
+- `cairo.ANTIALIAS_NONE`
+- `cairo.ANTIALIAS_GRAY`
+- `cairo.ANTIALIAS_SUBPIXEL`
+- `cairo.ANTIALIAS_FAST`
+- `cairo.ANTIALIAS_GOOD`
+- `cairo.ANTIALIAS_BEST`
+
+`cairo.fill_fule`
+
+- `cairo.FILL_RULE_WINDING`
+- `cairo.FILL_RULE_EVEN_ODD`
+
+`cairo.line_cap`
+
+- `cairo.LINE_CAP_BUTT`
+- `cairo.LINE_CAP_ROUND`
+- `cairo.LINE_CAP_SQUARE`
+
+`cairo.line_join`
+
+- `cairo.LINE_JOIN_MITER`
+- `cairo.LINE_JOIN_ROUND`
+- `cairo.LINE_JOIN_BEVEL`
+
+`cairo.operator`
+
+- `cairo.OPERATOR_CLEAR`
+- `cairo.OPERATOR_SOURCE`
+- `cairo.OPERATOR_OVER`
+- `cairo.OPERATOR_IN`
+- `cairo.OPERATOR_OUT`
+- `cairo.OPERATOR_ATOP`
+- `cairo.OPERATOR_DEST`
+- `cairo.OPERATOR_DEST_OVER`
+- `cairo.OPERATOR_DEST_IN`
+- `cairo.OPERATOR_DEST_OUT`
+- `cairo.OPERATOR_DEST_ATOP`
+- `cairo.OPERATOR_XOR`
+- `cairo.OPERATOR_ADD`
+- `cairo.OPERATOR_SATURATE`
+- `cairo.OPERATOR_MULTIPLY`
+- `cairo.OPERATOR_SCREEN`
+- `cairo.OPERATOR_OVERLAY`
+- `cairo.OPERATOR_DARKEN`
+- `cairo.OPERATOR_LIGHTEN`
+- `cairo.OPERATOR_COLOR_DODGE`
+- `cairo.OPERATOR_COLOR_BURN`
+- `cairo.OPERATOR_HARD_LIGHT`
+- `cairo.OPERATOR_SOFT_LIGHT`
+- `cairo.OPERATOR_DIFFERENCE`
+- `cairo.OPERATOR_EXCLUSION`
+- `cairo.OPERATOR_HSL_HUE`
+- `cairo.OPERATOR_HSL_SATURATION`
+- `cairo.OPERATOR_HSL_COLOR`
+- `cairo.OPERATOR_HSL_LUMINOSITY`
+
+
 ### Paths - Creating paths and manipulating path data
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.context.copy_path
@@ -92,7 +158,13 @@ cairo.context.rel_move_to
 cairo.context.path_extents
 )}
 
-### cairo\_pattern\_t - Sources for drawing
+#### Types and Values
+
+
+
+### cairo.pattern - Sources for drawing
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.pattern.add_color_stop_rgb
@@ -131,7 +203,44 @@ cairo.pattern.get_matrix
 cairo.pattern.get_type
 )}
 
+#### Types and Values
+
+`cairo.extend`
+
+- `cairo.EXTEND_NONE`
+- `cairo.EXTEND_REPEAT`
+- `cairo.EXTEND_REFLECT`
+- `cairo.EXTEND_PAD`
+
+`cairo.filter`
+
+- `cairo.FILTER_FAST`
+- `cairo.FILTER_GOOD`
+- `cairo.FILTER_BEST`
+- `cairo.FILTER_NEAREST`
+- `cairo.FILTER_BILINEAR`
+- `cairo.FILTER_GAUSSIAN`
+
+`cairo.pattern_type`
+
+- `cairo.PATTERN_TYPE_SOLID`
+- `cairo.PATTERN_TYPE_SURFACE`
+- `cairo.PATTERN_TYPE_LINEAR`
+- `cairo.PATTERN_TYPE_RADIAL`
+- `cairo.PATTERN_TYPE_MESH`
+- `cairo.PATTERN_TYPE_RASTER_SOURCE`
+
+
 ### Regions - Representing a pixel-aligned area
+
+`cairo.region_overlap`
+
+- `cairo.REGION_OVERLAP_IN`
+- `cairo.REGION_OVERLAP_OUT`
+- `cairo.REGION_OVERLAP_PART`
+
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.region.create
@@ -154,7 +263,13 @@ cairo.region.xor
 cairo.region.xor_rectangle
 )}
 
+#### Types and Values
+
+
+
 ### Transformations - Manipulating the current transformation matrix
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.context.translate
@@ -171,6 +286,8 @@ cairo.context.device_to_user_distance
 )}
 
 ### text - Rendering text and glyphs
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.context.select_font_face
@@ -194,7 +311,13 @@ cairo.toy_font_face.get_slant
 cairo.toy_font_face.get_weight
 )}
 
+#### Types and Values
+
+
+
 ### Raster Sources - Supplying arbitary image data
+
+#### Functions
 
 ${moddoc.reference(`en
 //cairo.raster_source_pattern.create
@@ -212,14 +335,18 @@ ${moddoc.reference(`en
 
 ## Fonts
 
-### cairo\_font\_face\_t - Base class for font faces
+### cairo.font\_face - Base class for font faces
+
+#### Functions
 
 ${moddoc.reference(`en
 //cairo.font_face.status
 //cairo.font_face.get_type
 )}
 
-### cairo\_scaled\_font\_t - Font face at particular size and options
+### cairo.scaled\_font - Font face at particular size and options
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.scaled_font.create
@@ -238,6 +365,8 @@ cairo.scaled_font.create
 
 
 ### cairo\_font\_options\_t - How a font should be rendered
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.font_options.create
@@ -258,11 +387,15 @@ cairo.font_options.get_hint_metrics
 
 ### FreeType Fonts - Font support for FreeType
 
+#### Functions
+
 ${moddoc.reference(`en
 )}
 
 
 ### Win32 Fonts - Font support for Microsoft Windows
+
+#### Functions
 
 ${moddoc.reference(`en
 )}
@@ -270,11 +403,15 @@ ${moddoc.reference(`en
 
 ### Quartz (CGFont) Fonts - Font support via CGFont on OS X
 
+#### Functions
+
 ${moddoc.reference(`en
 )}
 
 
 ### User Fonts - Font support with font data provided by the user
+
+#### Functions
 
 ${moddoc.reference(`en
 )}
@@ -282,7 +419,9 @@ ${moddoc.reference(`en
 
 ## Surfaces
 
-### cairo\_device\_t - interface to underlying rendering system
+### cairo.device - interface to underlying rendering system
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.device.status
@@ -294,7 +433,9 @@ cairo.device.release
 )}
 
 
-### cairo\_surface\_t - Base class for surfaces
+### cairo.surface - Base class for surfaces
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.surface.create_similar
@@ -327,6 +468,8 @@ cairo.surface.write_to_png
 
 ### Image Surfaces - Rendering to memory buffers
 
+#### Functions
+
 ${moddoc.reference(`en
 cairo.image_surface.create
 cairo.image_surface.create_from_png
@@ -339,6 +482,8 @@ cairo.image_surface.get_stride
 
 ### PDF Surfaces - Rendering PDF documents
 
+#### Functions
+
 ${moddoc.reference(`en
 cairo.pdf_surface.create
 cairo.pdf_surface.restrict_to_version
@@ -348,11 +493,15 @@ cairo.pdf_surface.set_size
 
 ### PNG Support - Reading and writing PNG images
 
+#### Functions
+
 ${moddoc.reference(`en
 )}
 
 
 ### PostScript Surfaces - Rendering PostScript documents
+
+#### Functions
 
 ${moddoc.reference(`en
 //cairo.ps_surface.create
@@ -368,17 +517,23 @@ ${moddoc.reference(`en
 
 ### Recording Surfaces - Records all drawing operations
 
+#### Functions
+
 ${moddoc.reference(`en
 )}
 
 
 ### Win32 Surfaces - Microsoft Windows surface support
 
+#### Functions
+
 ${moddoc.reference(`en
 )}
 
 
 ### SVG Surfaces - Rendering SVG documents
+
+#### Functions
 
 ${moddoc.reference(`en
 cairo.svg_surface.create
@@ -388,11 +543,15 @@ cairo.svg_surface.restrict_to_version
 
 ### Quartz Surfaces - Rendering to Quartz surfaces
 
+#### Functions
+
 ${moddoc.reference(`en
 )}
 
 
 ### XCB Surfaces - X Window System rendering using the XCB library
+
+#### Functions
 
 ${moddoc.reference(`en
 )}
@@ -400,11 +559,15 @@ ${moddoc.reference(`en
 
 ### XLib Surfaces - X Window System rendering using XLib
 
+#### Functions
+
 ${moddoc.reference(`en
 )}
 
 
 ### XLib-XRender Backend - X Window System rendering using XLib and the X Render extension
+
+#### Functions
 
 ${moddoc.reference(`en
 )}
@@ -412,17 +575,23 @@ ${moddoc.reference(`en
 
 ### Script Surfaces - Rendering to replayable scripts
 
+#### Functions
+
 ${moddoc.reference(`en
 )}
 
 
 ## Utilities
 
+#### Functions
+
 ${moddoc.reference(`en
 )}
 
 
-### cairo\_matrix\_t - Generic matrix operations
+### cairo.matrix - Generic matrix operations
+
+#### Functions
 
 ${moddoc.reference(`en
 )}

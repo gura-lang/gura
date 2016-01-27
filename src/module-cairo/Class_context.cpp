@@ -121,7 +121,7 @@ Gura_DeclareMethod(context, save)
 	"\n"
 	"It isn't necessary to clear all saved states before a cairo_t is freed.\n"
 	"If the reference count of a cairo_t drops to zero in response to a call to `cairo.context#destroy()`,\n"
-	"any saved states will be freed along with the cairo_t.\n"
+	"any saved states will be freed along with the `cairo_t`.\n"
 	);
 }
 
@@ -169,7 +169,7 @@ Gura_DeclareMethod(context, get_target)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Gets the target surface for the cairo context as passed to cairo.context constructor.\n"
+	"Gets the target surface for the cairo context as passed to `cairo.context` constructor.\n"
 	);
 }
 
@@ -694,10 +694,10 @@ Gura_DeclareMethod(context, set_line_cap)
 	"Sets the current line cap style within the cairo context.\n"
 	"See `cairo_line_cap_t` for details about how the available line cap styles are drawn.\n"
 	"\n"
-	"As with the other stroke parameters, the current line cap style is examined by cairo.context#stroke(), cairo.context#stroke_extents(),\n"
-	"and cairo.context#stroke_to_path(), but does not have any effect during path construction.\n"
+	"As with the other stroke parameters, the current line cap style is examined by `cairo.context#stroke()`, `cairo.context#stroke_extents()`,\n"
+	"and `cairo.context#stroke_to_path()`, but does not have any effect during path construction.\n"
 	"\n"
-	"The default line cap style is cairo.LINE_CAP_BUTT.\n"
+	"The default line cap style is `cairo.LINE_CAP_BUTT`.\n"
 	);
 }
 
@@ -741,7 +741,7 @@ Gura_DeclareMethod(context, set_line_join)
 	DeclareArg(env, "line_join", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the current line join style within the cairo context.\n"
-	"See cairo_line_join_t for details about how the available line join styles are drawn.\n"
+	"See `cairo_line_join_t` for details about how the available line join styles are drawn.\n"
 	"\n"
 	"As with the other stroke parameters, the current line join style is examined by `cairo.context#stroke()`, `cairo.context#stroke_extents()`,\n"
 	"and `cairo.context#stroke_to_path()`, but does not have any effect during path construction.\n"
@@ -795,13 +795,13 @@ Gura_DeclareMethod(context, set_line_width)
 	"\n"
 	"Note: When the description above refers to user space and CTM\n"
 	"it refers to the user space and CTM in effect at the time of the stroking operation,\n"
-	"not the user space and CTM in effect at the time of the call to cairo.context#set_line_width().\n"
+	"not the user space and CTM in effect at the time of the call to `cairo.context#set_line_width()`.\n"
 	"The simplest usage makes both of these spaces identical.\n"
-	"That is, if there is no change to the CTM between a call to cairo.context#set_line_width() and the stroking operation,\n"
-	"then one can just pass user-space values to cairo.context#set_line_width() and ignore this note.\n"
+	"That is, if there is no change to the CTM between a call to `cairo.context#set_line_width()` and the stroking operation,\n"
+	"then one can just pass user-space values to `cairo.context#set_line_width()` and ignore this note.\n"
 	"\n"
-	"As with the other stroke parameters, the current line width is examined by cairo.context#stroke(), cairo.context#stroke_extents(),\n"
-	"and cairo.context#stroke_to_path(), but does not have any effect during path construction.\n"
+	"As with the other stroke parameters, the current line width is examined by `cairo.context#stroke()`, `cairo.context#stroke_extents()`,\n"
+	"and `cairo.context#stroke_to_path()`, but does not have any effect during path construction.\n"
 	"\n"
 	"The default line width value is 2.0.\n"
 	);
@@ -823,9 +823,9 @@ Gura_DeclareMethod(context, get_line_width)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"This function returns the current line width value exactly as set by cairo.context#set_line_width().\n"
-	"Note that the value is unchanged even if the CTM has changed between the calls to cairo.context#set_line_width()\n"
-	"and cairo.context#get_line_width().\n"
+	"This function returns the current line width value exactly as set by `cairo.context#set_line_width()`.\n"
+	"Note that the value is unchanged even if the CTM has changed between the calls to `cairo.context#set_line_width()`\n"
+	"and `cairo.context#get_line_width()`.\n"
 	);
 }
 
@@ -848,13 +848,13 @@ Gura_DeclareMethod(context, set_miter_limit)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the current miter limit within the cairo context.\n"
 	"\n"
-	"If the current line join style is set to cairo.LINE_JOIN_MITER\n"
-	"(see cairo_set_line_join()), the miter limit is used to determine whether the lines should be joined with a bevel instead of a miter.\n"
+	"If the current line join style is set to `cairo.LINE_JOIN_MITER`\n"
+	"(see `cairo.context#set_line_join()`), the miter limit is used to determine whether the lines should be joined with a bevel instead of a miter.\n"
 	"Cairo divides the length of the miter by the line width.\n"
 	"If the result is greater than the miter limit, the style is converted to a bevel.\n"
 	"\n"
-	"As with the other stroke parameters, the current line miter limit is examined by cairo.context#stroke(), cairo.context#stroke_extents(),\n"
-	"and cairo.context#stroke_to_path(), but does not have any effect during path construction.\n"
+	"As with the other stroke parameters, the current line miter limit is examined by `cairo.context#stroke()`, `cairo.context#stroke_extents()`,\n"
+	"and `cairo.context#stroke_to_path()`, but does not have any effect during path construction.\n"
 	"\n"
 	"The default miter limit value is 10.0, which will convert joins with interior angles less than 11 degrees to bevels instead of miters.\n"
 	"For reference, a miter limit of 2.0 makes the miter cutoff at 60 degrees, and a miter limit of 1.414 makes the cutoff at 90 degrees.\n"
@@ -901,9 +901,9 @@ Gura_DeclareMethod(context, set_operator)
 	DeclareArg(env, "op", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets the compositing operator to be used for all drawing operations.\n"
-	"See cairo_operator_t for details on the semantics of each available compositing operator.\n"
+	"See `cairo_operator_t` for details on the semantics of each available compositing operator.\n"
 	"\n"
-	"The default operator is cairo.OPERATOR_OVER.\n"
+	"The default operator is `cairo.OPERATOR_OVER`.\n"
 	);
 }
 
@@ -973,7 +973,7 @@ Gura_DeclareMethod(context, get_tolerance)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Gets the current tolerance value, as set by cairo.context#set_tolerance()."
+	"Gets the current tolerance value, as set by `cairo.context#set_tolerance()`."
 	);
 }
 
@@ -994,19 +994,19 @@ Gura_DeclareMethod(context, clip)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Establishes a new clip region by intersecting the current clip region\n"
-	"with the current path as it would be filled by cairo.context#fill()\n"
-	"and according to the current fill rule (see cairo.context#set_fill_rule()).\n"
+	"with the current path as it would be filled by `cairo.context#fill()`\n"
+	"and according to the current fill rule (see `cairo.context#set_fill_rule()`).\n"
 	"\n"
-	"After cairo.context#clip(), the current path will be cleared from the cairo context.\n"
+	"After `cairo.context#clip()`, the current path will be cleared from the cairo context.\n"
 	"\n"
 	"The current clip region affects all drawing operations\n"
 	"by effectively masking out any changes to the surface that are outside the current clip region.\n"
 	"\n"
-	"Calling cairo.context#clip() can only make the clip region smaller, never larger.\n"
+	"Calling `cairo.context#clip()` can only make the clip region smaller, never larger.\n"
 	"But the current clip is part of the graphics state,\n"
-	"so a temporary restriction of the clip region can be achieved by calling cairo.context#clip()\n"
-	"within a cairo.context#save()/cairo.context#restore() pair.\n"
-	"The only other means of increasing the size of the clip region is cairo.context#reset_clip().\n"
+	"so a temporary restriction of the clip region can be achieved by calling `cairo.context#clip()`\n"
+	"within a `cairo.context#save()`/`cairo.context#restore()` pair.\n"
+	"The only other means of increasing the size of the clip region is `cairo.context#reset_clip()`.\n"
 	);
 }
 
@@ -1027,19 +1027,19 @@ Gura_DeclareMethod(context, clip_preserve)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Establishes a new clip region by intersecting the current clip region\n"
-	"with the current path as it would be filled by cairo.context#fill()\n"
-	"and according to the current fill rule (see cairo.context#set_fill_rule())."
+	"with the current path as it would be filled by `cairo.context#fill()`\n"
+	"and according to the current fill rule (see `cairo.context#set_fill_rule()`)."
 	"\n"
-	"Unlike cairo.context#clip(), cairo.context#clip_preserve() preserves the path within the cairo context.\n"
+	"Unlike `cairo.context#clip()`, `cairo.context#clip_preserve()` preserves the path within the cairo context.\n"
 	"\n"
 	"The current clip region affects all drawing operations\n"
 	"by effectively masking out any changes to the surface that are outside the current clip region.\n"
 	"\n"
-	"Calling cairo.context#clip_preserve() can only make the clip region smaller, never larger.\n"
+	"Calling `cairo.context#clip_preserve()` can only make the clip region smaller, never larger.\n"
 	"But the current clip is part of the graphics state,\n"
-	"so a temporary restriction of the clip region can be achieved by calling cairo.context#clip_preserve()\n"
-	"within a cairo.context#save()/cairo.context#restore() pair.\n"
-	"The only other means of increasing the size of the clip region is cairo.context#reset_clip().\n"
+	"so a temporary restriction of the clip region can be achieved by calling `cairo.context#clip_preserve()`\n"
+	"within a `cairo.context#save()`/`cairo.context#restore()` pair.\n"
+	"The only other means of increasing the size of the clip region is `cairo.context#reset_clip()`.\n"
 	);
 }
 
@@ -1083,9 +1083,9 @@ Gura_DeclareMethod(context, in_clip)
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Tests whether the given point is inside the area that would be visible through the current clip,\n"
-	"i.e. the area that would be filled by a cairo.context#paint() operation.\n"
+	"i.e. the area that would be filled by a `cairo.context#paint()` operation.\n"
 	"\n"
-	"See cairo.context#clip(), and cairo.context#clip_preserve().\n"
+	"See `cairo.context#clip()`, and `cairo.context#clip_preserve()`.\n"
 	);
 }
 
@@ -1110,9 +1110,9 @@ Gura_DeclareMethod(context, reset_clip)
 	"Equivalently, if infinity is too hard to grasp,\n"
 	"one can imagine the clip region being reset to the exact bounds of the target surface.\n"
 	"\n"
-	"Note that code meant to be reusable should not call cairo_reset_clip()\n"
-	"as it will cause results unexpected by higher-level code which calls cairo.context#clip().\n"
-	"Consider using cairo.context#save() and cairo.context#restore() around cairo.context#clip()\n"
+	"Note that code meant to be reusable should not call `cairo.context#reset_clip()`\n"
+	"as it will cause results unexpected by higher-level code which calls `cairo.context#clip()`.\n"
+	"Consider using `cairo.context#save()` and `cairo.context#restore()` around `cairo.context#clip()`\n"
 	"as a more robust means of temporarily restricting the clip region.\n"
 	);
 }
@@ -1137,7 +1137,7 @@ Gura_DeclareMethod(context, copy_clip_rectangle_list)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets the current clip region as a list of rectangles in user coordinates.\n"
 	"\n"
-	"The status in the list may be cairo.STATUS_CLIP_NOT_REPRESENTABLE\n"
+	"The status in the list may be `cairo.STATUS_CLIP_NOT_REPRESENTABLE`\n"
 	"to indicate that the clip region cannot be represented as a list of user-space rectangles.\n"
 	"The status may have other values to indicate other errors.\n"
 	);
@@ -1172,8 +1172,8 @@ Gura_DeclareMethod(context, fill)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that fills the current path according to the current fill rule,\n"
 	"(each sub-path is implicitly closed before being filled).\n"
-	"After cairo.context#fill(), the current path will be cleared from the cairo context.\n"
-	"See cairo.context#set_fill_rule() and cairo.context#fill_preserve().\n"
+	"After `cairo.context#fill()`, the current path will be cleared from the cairo context.\n"
+	"See `cairo.context#set_fill_rule()` and `cairo.context#fill_preserve()`.\n"
 	);
 }
 
@@ -1195,9 +1195,9 @@ Gura_DeclareMethod(context, fill_preserve)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that fills the current path according to the current fill rule,\n"
 	"(each sub-path is implicitly closed before being filled).\n"
-	"Unlike cairo.context#fill(), cairo.context#fill_preserve() preserves the path within the cairo context.\n"
+	"Unlike `cairo.context#fill()`, `cairo.context#fill_preserve()` preserves the path within the cairo context.\n"
 	"\n"
-	"See cairo.context#set_fill_rule() and cairo.context#fill().\n"
+	"See `cairo.context#set_fill_rule()` and `cairo.context#fill()`.\n"
 	);
 }
 
@@ -1218,17 +1218,17 @@ Gura_DeclareMethod(context, fill_extents)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Computes a bounding box in user coordinates covering the area that\n"
-	"would be affected, (the \"inked\" area), by a cairo.context#fill() operation given the current path and fill parameters.\n"
+	"would be affected, (the \"inked\" area), by a `cairo.context#fill()` operation given the current path and fill parameters.\n"
 	"If the current path is empty, returns an empty rectangle ((0,0), (0,0)).\n"
 	"Surface dimensions and clipping are not taken into account.\n"
 	"\n"
-	"Contrast with cairo.context#path_extents(), which is similar,\n"
+	"Contrast with `cairo.context#path_extents()`, which is similar,\n"
 	"but returns non-zero extents for some paths with no inked area, (such as a simple line segment).\n"
 	"\n"
-	"Note that cairo.context#fill_extents() must necessarily do more work to compute the precise inked areas in light of the fill rule,\n"
-	"so cairo.context#path_extents() may be more desirable for sake of performance if the non-inked path extents are desired.\n"
+	"Note that `cairo.context#fill_extents()` must necessarily do more work to compute the precise inked areas in light of the fill rule,\n"
+	"so `cairo.context#path_extents()` may be more desirable for sake of performance if the non-inked path extents are desired.\n"
 	"\n"
-	"See cairo.context#fill(), cairo.context#set_fill_rule() and cairo.context#fill_preserve().\n"
+	"See `cairo.context#fill()`, `cairo.context#set_fill_rule()` and `cairo.context#fill_preserve()`.\n"
 	);
 }
 
@@ -1251,10 +1251,10 @@ Gura_DeclareMethod(context, in_fill)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Tests whether the given point is inside the area that would be affected by a cairo.context#fill() operation given the current path and filling parameters.\n"
+	"Tests whether the given point is inside the area that would be affected by a `cairo.context#fill()` operation given the current path and filling parameters.\n"
 	"Surface dimensions and clipping are not taken into account.\n"
 	"\n"
-	"See cairo.context#fill(), cairo.context#set_fill_rule() and cairo.context#fill_preserve().\n"
+	"See `cairo.context#fill()`, `cairo.context#set_fill_rule()` and `cairo.context#fill_preserve()`.\n"
 	);
 }
 
@@ -1367,21 +1367,21 @@ Gura_DeclareMethod(context, stroke)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that strokes the current path according to the current line width, line join, line cap, and dash settings.\n"
-	"After cairo.context#stroke(), the current path will be cleared from the cairo context.\n"
-	"See cairo.context#set_line_width(), cairo.context#set_line_join(), cairo.context#set_line_cap(), cairo.context#set_dash(), and cairo.context#stroke_preserve().\n"
+	"After `cairo.context#stroke()`, the current path will be cleared from the cairo context.\n"
+	"See `cairo.context#set_line_width()`, `cairo.context#set_line_join()`, `cairo.context#set_line_cap()`, `cairo.context#set_dash()`, and `cairo.context#stroke_preserve()`.\n"
 	"\n"
 	"Note: Degenerate segments and sub-paths are treated specially and provide a useful result.\n"
 	"These can result in two different situations:\n"
 	"\n"
 	"1. Zero-length \"on\" segments set in cairo.context#set_dash().\n"
-	"If the cap style is cairo.LINE_CAP_ROUND or cairo.LINE_CAP_SQUARE then these segments will be drawn as circular dots or squares respectively.\n"
-	"In the case of cairo.LINE_CAP_SQUARE, the orientation of the squares is determined by the direction of the underlying path.\n"
+	"If the cap style is `cairo.LINE_CAP_ROUND` or `cairo.LINE_CAP_SQUARE` then these segments will be drawn as circular dots or squares respectively.\n"
+	"In the case of `cairo.LINE_CAP_SQUARE`, the orientation of the squares is determined by the direction of the underlying path.\n"
 	"\n"
-	"2. A sub-path created by cairo.context#move_to() followed by either a cairo.context#close_path() or one or more calls to cairo.context#line_to() to the same coordinate as the cairo.context#move_to().\n"
-	"If the cap style is cairo.LINE_CAP_ROUND then these sub-paths will be drawn as circular dots.\n"
-	"Note that in the case of cairo.LINE_CAP_SQUARE a degenerate sub-path will not be drawn at all, (since the correct orientation is indeterminate).\n"
+	"2. A sub-path created by `cairo.context#move_to()` followed by either a `cairo.context#close_path()` or one or more calls to `cairo.context#line_to()` to the same coordinate as the `cairo.context#move_to()`.\n"
+	"If the cap style is `cairo.LINE_CAP_ROUND` then these sub-paths will be drawn as circular dots.\n"
+	"Note that in the case of `cairo.LINE_CAP_SQUARE` a degenerate sub-path will not be drawn at all, (since the correct orientation is indeterminate).\n"
 	"\n"
-	"In no case will a cap style of cairo.LINE_CAP_BUTT cause anything to be drawn in the case of either degenerate segments or sub-paths.\n"
+	"In no case will a cap style of `cairo.LINE_CAP_BUTT` cause anything to be drawn in the case of either degenerate segments or sub-paths.\n"
 	);
 }
 
@@ -1402,9 +1402,9 @@ Gura_DeclareMethod(context, stroke_preserve)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"A drawing operator that strokes the current path according to the current line width, line join, line cap, and dash settings.\n"
-	"Unlike cairo.context#stroke(), cairo.context#stroke_preserve() preserves the path within the cairo context.\n"
+	"Unlike `cairo.context#stroke()`, `cairo.context#stroke_preserve()` preserves the path within the cairo context.\n"
 	"\n"
-	"See cairo.context#set_line_width(), cairo.context#set_line_join(), cairo.context#set_line_cap(), cairo.context#set_dash(), and cairo.context#stroke_preserve().\n"
+	"See `cairo.context#set_line_width()`, `cairo.context#set_line_join()`, `cairo.context#set_line_cap()`, `cairo.context#set_dash()`, and `cairo.context#stroke_preserve()`.\n"
 	);
 }
 
@@ -1429,13 +1429,13 @@ Gura_DeclareMethod(context, stroke_extents)
 	"If the current path is empty, returns an empty rectangle ((0,0), (0,0)).\n"
 	"Surface dimensions and clipping are not taken into account.\n"
 	"\n"
-	"Note that if the line width is set to exactly zero, then cairo.context#stroke_extents() will return an empty rectangle.\n"
-	"Contrast with cairo.context#path_extents() which can be used to compute the non-empty bounds as the line width approaches zero.\n"
+	"Note that if the line width is set to exactly zero, then `cairo.context#stroke_extents()` will return an empty rectangle.\n"
+	"Contrast with `cairo.context#path_extents()` which can be used to compute the non-empty bounds as the line width approaches zero.\n"
 	"\n"
-	"Note that cairo.context#stroke_extents() must necessarily do more work to compute the precise inked areas in light of the stroke parameters,\n"
-	"so cairo.context#path_extents() may be more desirable for sake of performance if non-inked path extents are desired.\n"
+	"Note that `cairo.context#stroke_extents()` must necessarily do more work to compute the precise inked areas in light of the stroke parameters,\n"
+	"so `cairo.context#path_extents()` may be more desirable for sake of performance if non-inked path extents are desired.\n"
 	"\n"
-	"See cairo.context#stroke(), cairo.context#set_line_width(), cairo.context#set_line_join(), cairo.context#set_line_cap(), cairo.context#set_dash(), and cairo.context#stroke_preserve().\n"
+	"See `cairo.context#stroke()`, `cairo.context#set_line_width()`, `cairo.context#set_line_join()`, `cairo.context#set_line_cap()`, `cairo.context#set_dash()`, and `cairo.context#stroke_preserve()`.\n"
 	);
 }
 
@@ -1458,9 +1458,9 @@ Gura_DeclareMethod(context, in_stroke)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Tests whether the given point is inside the area that would be affected by a cairo.context#stroke() operation given the current path and stroking parameters.\n"
+	"Tests whether the given point is inside the area that would be affected by a `cairo.context#stroke()` operation given the current path and stroking parameters.\n"
 	"Surface dimensions and clipping are not taken into account.\n"
-	"See cairo.context#stroke(), cairo.context#set_line_width(), cairo.context#set_line_join(), cairo.context#set_line_cap(), cairo.context#_set_dash(), and cairo.context#stroke_preserve().\n"
+	"See `cairo.context#stroke()`, `cairo.context#set_line_width()`, `cairo.context#set_line_join()`, `cairo.context#set_line_cap()`, `cairo.context#_set_dash()`, and `cairo.context#stroke_preserve()`.\n"
 	);
 }
 
@@ -1482,9 +1482,9 @@ Gura_DeclareMethod(context, copy_page)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Emits the current page for backends that support multiple pages, but doesn't clear it,\n"
 	"so, the contents of the current page will be retained for the next page too.\n"
-	"Use cairo.cairo#show_page() if you want to get an empty page after the emission.\n"
+	"Use `cairo.cairo#show_page()` if you want to get an empty page after the emission.\n"
 	"\n"
-	"This is a convenience function that simply calls cairo.context#surface_copy_page() on cr's target.\n"
+	"This is a convenience function that simply calls `cairo.context#surface_copy_page()` on cr's target.\n"
 	);
 }
 
@@ -1505,9 +1505,9 @@ Gura_DeclareMethod(context, show_page)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Emits and clears the current page for backends that support multiple pages.\n"
-	"Use cairo.context#copy_page() if you don't want to clear the page.\n"
+	"Use `cairo.context#copy_page()` if you don't want to clear the page.\n"
 	"\n"
-	"This is a convenience function that simply calls cairo.context#surface_show_page() on cr's target.\n"
+	"This is a convenience function that simply calls `cairo.context#surface_show_page()` on cr's target.\n"
 	);
 }
 
@@ -1535,14 +1535,14 @@ Gura_DeclareMethod(context, copy_path)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Creates a copy of the current path and returns it to the user as a cairo.path.\n"
-	"See cairo_path_data_t for hints on how to iterate over the returned data structure.\n"
+	"Creates a copy of the current path and returns it to the user as a `cairo.path`.\n"
+	"See `cairo_path_data_t` for hints on how to iterate over the returned data structure.\n"
 	"\n"
 	"The result will have no data (data==nullptr and num_data==0), if either of the following conditions hold:\n"
 	"\n"
-	"1. If there is insufficient memory to copy the path. In this case path->status will be set to cairo.STATUS_NO_MEMORY.\n"
+	"1. If there is insufficient memory to copy the path. In this case path->status will be set to `cairo.STATUS_NO_MEMORY`.\n"
 	"\n"
-	"2. If cr is already in an error state. In this case path->status will contain the same status that would be returned by cairo.context#status().\n"
+	"2. If cr is already in an error state. In this case `path.status` will contain the same status that would be returned by `cairo.context#status()`.\n"
 	);
 }
 
@@ -1566,15 +1566,15 @@ Gura_DeclareMethod(context, copy_path_flat)
 	"Gets a flattened copy of the current path and returns it to the user as a cairo.path.\n"
 	"See cairo_path_data_t for hints on how to iterate over the returned data structure.\n"
 	"\n"
-	"This function is like cairo.context#copy_path() except that any curves in the path will be approximated with piecewise-linear approximations,\n"
+	"This function is like `cairo.context#copy_path()` except that any curves in the path will be approximated with piecewise-linear approximations,\n"
 	"(accurate to within the current tolerance value).\n"
-	"That is, the result is guaranteed to not have any elements of type cairo.PATH_CURVE_TO which will instead be replaced by a series of cairo.PATH_LINE_TO elements.\n"
+	"That is, the result is guaranteed to not have any elements of type `cairo.PATH_CURVE_TO` which will instead be replaced by a series of `cairo.PATH_LINE_TO` elements.\n"
 	"\n"
 	"The result will have no data (data==nullptr and num_data==0), if either of the following conditions hold:\n"
 	"\n"
-	"1. If there is insufficient memory to copy the path. In this case path->status will be set to cairo.STATUS_NO_MEMORY.\n"
+	"1. If there is insufficient memory to copy the path. In this case path.status will be set to `cairo.STATUS_NO_MEMORY`.\n"
 	"\n"
-	"2. If cr is already in an error state. In this case path->status will contain the same status that would be returned by cairo.context#status().\n"
+	"2. If cr is already in an error state. In this case path->status will contain the same status that would be returned by `cairo.context#status()`.\n"
 	);
 }
 
@@ -1596,8 +1596,8 @@ Gura_DeclareMethod(context, append_path)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "path", VTYPE_path);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Append the path onto the current path. The path may be either the return value from one of cairo.context#copy_path() or cairo.context#copy_path_flat() or it may be constructed manually.\n"
-	"See cairo_path_t for details on how the path data structure should be initialized, and note that path->status must be initialized to cairo.STATUS_SUCCESS.\n"
+	"Append the path onto the current path. The path may be either the return value from one of `cairo.context#copy_path()` or `cairo.context#copy_path_flat()` or it may be constructed manually.\n"
+	"See `cairo.path` for details on how the path data structure should be initialized, and note that `path.status` must be initialized to `cairo.STATUS_SUCCESS`.\n"
 	);
 }
 
