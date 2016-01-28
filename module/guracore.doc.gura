@@ -257,11 +257,11 @@ Note that the number `0` is treated as `true` in logical operations.
 The `codec` class has features to decoding/encoding character codes stored in `string` and `binary`.
 Following measures are provided:
 
-- Decode ... Converts specific character codes stored in `binary` into UTF-8 code
+- Decode .. Converts specific character codes stored in `binary` into UTF-8 code
   and generages `string` containing the result.
   It can also delete a CR code (`0x0d`) before a LF code (`0x0d`) at each end of line
   so that lines in the result are joined with LF code.
-- Encode ... Converts UTF-8 character codes stored in `string` into specific codes
+- Encode .. Converts UTF-8 character codes stored in `string` into specific codes
   and generates `binary` containing the result.
   It can also add a CR code (`0x0d`) before a LF code (`0x0a`) at each end of line
   so that lines in the result are joined with CR-LF sequence.
@@ -273,13 +273,13 @@ when creating its instance.
 The actual functions for encoding and decoding are provided by sub modules under `codecs` module.
 Each module provides following codecs:
 
-- `codecs.basic` ... `us-ascii`, `utf-8`, `utf-16`, `utf-16le`, `utf-16be`
-- `codecs.iso8859`... `iso-8859-1`, `iso-8859-2`, `iso-8859-3`, `iso-8859-4`, `iso-8859-5`,
+- `codecs.basic` .. `us-ascii`, `utf-8`, `utf-16`, `utf-16le`, `utf-16be`
+- `codecs.iso8859`.. `iso-8859-1`, `iso-8859-2`, `iso-8859-3`, `iso-8859-4`, `iso-8859-5`,
   `iso-8859-6`, `iso-8859-7`, `iso-8859-8`, `iso-8859-9`, `iso-8859-10`, `iso-8859-11`,
   `iso-8859-13`, `iso-8859-14`, `iso-8859-15`, `iso-8859-16
-- `codecs.korean` ... `cp949`, `euc-kr`
-- `codecs.chinese` ... `cp936`, `gb2312`, `gbk`, `cp950`, `big5`
-- `codecs.japanese` ... `euc-jp`, `cp932`, `shift_jis`, `ms_kanji`, `jis`, `iso-2022-jp`
+- `codecs.korean` .. `cp949`, `euc-kr`
+- `codecs.chinese` .. `cp936`, `gb2312`, `gbk`, `cp950`, `big5`
+- `codecs.japanese` .. `euc-jp`, `cp932`, `shift_jis`, `ms_kanji`, `jis`, `iso-2022-jp`
 
 Importing other codec modules would expand available codecs.
 You can call `codecs.dir()` to get a list of codec names currently available.
@@ -351,14 +351,58 @@ There are class variables as shown below:
 <td>A list of color names that can be passed to <code>color()</code> function.</td></tr>
 
 <tr><td><code>color.zero</code></td><td><code>color</code></td>
-<td>color instance created by <code>color(0, 0, 0, 0)</code></td></tr>
+<td>Color instance equivalent with <code>color(0, 0, 0, 0)</code></td></tr>
+
+<tr><td><code>color.black</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 0, 0, 255)</code></td></tr>
+
+<tr><td><code>color.maroon</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(128, 0, 0, 255)</code></td></tr>
+
+<tr><td><code>color.green</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 128, 0, 255)</code></td></tr>
+
+<tr><td><code>color.olive</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(128, 128, 0, 255)</code></td></tr>
+
+<tr><td><code>color.navy</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 0, 128, 255)</code></td></tr>
+
+<tr><td><code>color.purple</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(128, 0, 128, 255)</code></td></tr>
+
+<tr><td><code>color.teal</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 128, 128, 255)</code></td></tr>
+
+<tr><td><code>color.gray</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(128, 128, 128, 255)</code></td></tr>
+
+<tr><td><code>color.silver</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(192, 192, 192, 255)</code></td></tr>
+
+<tr><td><code>color.red</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(255, 0, 0, 255)</code></td></tr>
+
+<tr><td><code>color.lime</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 255, 0, 255)</code></td></tr>
+
+<tr><td><code>color.yellow</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(255, 255, 0, 255)</code></td></tr>
+
+<tr><td><code>color.blue</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 0, 255, 255)</code></td></tr>
+
+<tr><td><code>color.fuchsia</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(255, 0, 255, 255)</code></td></tr>
+
+<tr><td><code>color.aqua</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 255, 255, 255)</code></td></tr>
+
+<tr><td><code>color.white</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(255, 255, 255, 255)</code></td></tr>
 
 </table>
 
-There are also predefined variables that are defined with `color` instances of 16 basic colors:
-`color.black`, `color.maroon`, `color.green`, `color.olive`, `color.navy`, `color.purple`,
-`color.teal`, `color.gray`, `color.silver`, `color.red`, `color.lime`, `color.yellow`,
-`color.blue`, `color.fuchsia`, `color.aqua` and `color.white`.
 
 ### Property
 
