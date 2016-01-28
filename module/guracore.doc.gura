@@ -611,6 +611,23 @@ Below are examples to create a `dict` instance:
     dict(['first', 1, 'second', 2, 'third', 3])
 
     %{'first' => 1, 'second' => 2, 'third' => 3}
+    %{{'first', 1}, {'second', 2}, {'third', 3}}
+    %{'first', 1, 'second', 2, 'third', 3}
+
+You can specify different type of values for keys in the same dictionary.
+In this case, values of different types are just recognized as different values.
+
+
+#### Index Access
+
+You can read and write element values in a `dict` with an indexer
+by giving it a key value which type is `string`, `number` or `symbol`.
+Below is an example:
+
+    x = %{'first' => 1, 'second' => 2, 'third' => 3}
+
+    println(x['second']) // prints `2`
+    x['third'] = 33      // replaces `3` with `33`
 
 
 ### Constructor
@@ -688,22 +705,22 @@ about an error that has occured in the `try` block.
 <tr><th>Variable</th><th>Explanation</th></tr>
 
 <tr><td><code>error.ArgumentError</code></td>
-<td></td></tr>
+<td>Argument error.</td></tr>
 
 <tr><td><code>error.ArithmeticError</code></td>
-<td></td></tr>
+<td>Arithmetic error.</td></tr>
 
 <tr><td><code>error.AttributeError</code></td>
-<td></td></tr>
+<td>Invalid attribute is specified.</td></tr>
 
 <tr><td><code>error.CodecError</code></td>
-<td></td></tr>
+<td>An error that is related to codec process.</td></tr>
 
 <tr><td><code>error.CommandError</code></td>
-<td></td></tr>
+<td>An error that could happen in command line.</td></tr>
 
 <tr><td><code>error.DeclarationError</code></td>
-<td></td></tr>
+<td>An error in a function's declarations.</td></tr>
 
 <tr><td><code>error.FormatError</code></td>
 <td></td></tr>
@@ -733,31 +750,31 @@ about an error that has occured in the `try` block.
 <td></td></tr>
 
 <tr><td><code>error.NotImplementedError</code></td>
-<td></td></tr>
+<td>An error that could occur when a called function has no implemented body but an entry.</td></tr>
 
 <tr><td><code>error.OutOfRange</code></td>
-<td></td></tr>
+<td>Index number is out of range.</td></tr>
 
 <tr><td><code>error.ResourceError</code></td>
-<td></td></tr>
+<td>Resource error.</td></tr>
 
 <tr><td><code>error.RuntimeError</code></td>
-<td></td></tr>
+<td>Runtime error.</td></tr>
 
 <tr><td><code>error.SyntaxError</code></td>
-<td></td></tr>
+<td>Syntax error.</td></tr>
 
 <tr><td><code>error.SystemError</code></td>
-<td></td></tr>
+<td>System error.</td></tr>
 
 <tr><td><code>error.TypeError</code></td>
-<td></td></tr>
+<td>Type error.</td></tr>
 
 <tr><td><code>error.ValueError</code></td>
-<td></td></tr>
+<td>Invalid value is specified.</td></tr>
 
 <tr><td><code>error.ZeroDivisionError</code></td>
-<td></td></tr>
+<td>Zero-division occured in division or modulo operations.</td></tr>
 
 </table>
 
