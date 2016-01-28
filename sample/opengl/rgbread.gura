@@ -22,7 +22,7 @@ classref(`image).rgbread(stream:stream) = {
 			} else {
 				p.unpack('*B', count).each().repeater()
 			}
-		}
+		}.finite()
 	}
 	if (this.format == `rgb) {
 		repeat (hdr.height) {|y|

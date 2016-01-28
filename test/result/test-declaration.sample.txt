@@ -542,10 +542,12 @@ iterator
   iterator#each() {block?}
   iterator#filter(criteria?) {block?}
   iterator#find(criteria?):[index]
+  iterator#finite():reduce
   iterator#flat():[bfs,dfs] {block?}
   iterator#fold(n:number, nstep?:number):map:[iteritem,neat] {block?}
   iterator#format(format:string):map {block?}
   iterator#head(n:number):map {block?}
+  iterator#infinite():reduce
   iterator#isinfinite()
   iterator#join(sep?:string):map
   iterator#joinb()

@@ -104,6 +104,42 @@ Gura_ImplementMethod(iterator, delay)
 	return ReturnIterator(env, arg, pIterator);
 }
 
+// iterator#finite():reduce
+Gura_DeclareMethod(iterator, finite)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Marks the iterator as a finite one by clearing its infinite flag.\n"
+		"\n"
+		"This method returns the target instance itself.\n");
+}
+
+Gura_ImplementMethod(iterator, finite)
+{
+	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
+	pThis->GetIterator()->SetInfiniteFlag(false);
+	return arg.GetValueThis();
+}
+
+// iterator#infinite():reduce
+Gura_DeclareMethod(iterator, infinite)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Marks the iterator as an infinite one by setting its infinite flag.\n"
+		"\n"
+		"This method returns the target instance itself.\n");
+}
+
+Gura_ImplementMethod(iterator, infinite)
+{
+	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
+	pThis->GetIterator()->SetInfiniteFlag(true);
+	return arg.GetValueThis();
+}
+
 // iterator#isinfinite()
 Gura_DeclareMethod(iterator, isinfinite)
 {
@@ -1585,6 +1621,8 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignFunction(iterator);
 	// assignment of methods specific to iterator
 	Gura_AssignMethod(iterator, delay);
+	Gura_AssignMethod(iterator, finite);
+	Gura_AssignMethod(iterator, infinite);
 	Gura_AssignMethod(iterator, isinfinite);
 	Gura_AssignMethod(iterator, next);
 	Gura_AssignMethod(iterator, repeater);
