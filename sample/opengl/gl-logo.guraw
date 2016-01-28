@@ -1258,14 +1258,14 @@ scope {
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, [GL_REPEAT])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, [GL_NEAREST])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, [GL_NEAREST])
-				glTexImage2D(GL_TEXTURE_2D, 0, 3, 0, checkImage)
+				glTexImage2DFromImage(GL_TEXTURE_2D, 0, 3, 0, checkImage)
 			} elsif (event.scancode == sdl.SCANCODE_S) {
 				glEnable(GL_TEXTURE_2D)
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, [GL_REPEAT])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, [GL_REPEAT])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, [GL_NEAREST])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, [GL_NEAREST])
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, 0, brickImage)
+				glTexImage2DFromImage(GL_TEXTURE_2D, 0, 4, 0, brickImage)
 			} elsif (event.scancode == sdl.SCANCODE_D) {
 				glDisable(GL_TEXTURE_2D)
 			} elsif (event.scancode == sdl.SCANCODE_F) {
