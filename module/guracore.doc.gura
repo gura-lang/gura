@@ -1326,6 +1326,8 @@ iterator
 
 ${moddoc.reference(`en
 iterator.delay
+iterator.finite
+iterator.infinite
 iterator.isinfinite
 iterator.next
 iterator.repeater
