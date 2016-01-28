@@ -132,8 +132,7 @@ An instance of the `array` class stores multiple numeric values in a seamless bi
 which can be passed without any conversion to functions in C libraries
 that expect arrays of `char`, `short`, `int` and so on.
 
-There are several `array` classes depending on the element type they handle.
-They're listed in the the table below:
+There are several `array` classes for each element type as shown below:
 
 <table>
 <tr><th>Class Name</th><th>Element Type</th></tr>
@@ -148,6 +147,9 @@ They're listed in the the table below:
 <tr><td><code>array@float</code></td><td><code>float</code></td></tr>
 <tr><td><code>array@double</code></td><td><code>double</code></td></tr>
 </table>
+
+In the specification described here, the class name is is represented as `array@T`
+where `T` means its element type.
 
 ### Constructor
 
