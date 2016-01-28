@@ -591,12 +591,27 @@ declaration.istype
 
 ## dict Class
 
-The `dict` class provides measures to handle dictionary data.
+The `dict` class provides measures to handle dictionary data
+that can seek values by indexing with their associated keys.
+You can specify values of `string`, `number` and `symbol` as a dictionary key.
 
-You can create a `dict` instance by calling `dict()` function.
+You can create a `dict` instance by following measures:
 
-You can also use a function named `%` to create an instance
-that is an alias of `dict()` function.
+- Calls `dict()` constructor.
+- Calls a function named `%` that is an alias of `dict()` constructor.
+
+Below are examples to create a `dict` instance:
+
+    dict {'first' => 1, 'second' => 2, 'third' => 3}
+    dict {{'first', 1}, {'second', 2}, {'third', 3}}
+    dict {'first', 1, 'second', 2, 'third', 3}
+
+    dict(['first' => 1, 'second' => 2, 'third' => 3])
+    dict([['first', 1], ['second', 2], ['third', 3]])
+    dict(['first', 1, 'second', 2, 'third', 3])
+
+    %{'first' => 1, 'second' => 2, 'third' => 3}
+
 
 ### Constructor
 
