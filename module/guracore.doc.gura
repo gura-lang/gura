@@ -1960,6 +1960,48 @@ that takes a `uri` instance in its argument as below:
 
 - ``f(uri('http://example.com'))`` .. The most explicit way.
 - `f('http://example.com')` .. Implicit casting: from `string` to `uri`.
+
+
+## vertex Class
+
+The `vertex` class provides vertex information that consists of x, y, z and w values.
+
+### Property
+
+An `vertex` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>x</code></td><td><code>number</code></td><td>R/W</td>
+<td></td>
+</tr>
+
+<tr><td><code>y</code></td><td><code>number</code></td><td>R/W</td>
+<td></td>
+</tr>
+
+<tr><td><code>z</code></td><td><code>number</code></td><td>R/W</td>
+<td></td>
+</tr>
+
+<tr><td><code>w</code></td><td><code>number</code></td><td>R/W</td>
+<td></td>
+</tr>
+
+</table>
+
+### Constructor
+
+${moddoc.reference(`en
+vertex
+)}
+
+### Method
+
+${moddoc.reference(`en
+vertex.tolist
+)}
 '''.embed()
 
 moddoc.register(locals(), %{`en => text@en})
