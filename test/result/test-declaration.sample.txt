@@ -277,6 +277,7 @@ try():leader {block}
 typename(`value)
 undef(`identifier+):[raise]
 uri:class = <class:uri(str?:string):map {block?}>
+vertex:class = <class:vertex(x:number, y:number, z?:number, w?:number):map {block?}>
 while (`cond) {block}
 xlist(value+)
 xset(iter+:iterator):[and,or,xor]
@@ -803,3 +804,6 @@ uri
   uri#getpath()
   uri#getquery()
   uri.parsequery(query:string):static:map
+vertex
+  vertex#tolist():[w] {block?}
+  zero:vertex = <vertex:0,0,0,1>
