@@ -51,6 +51,7 @@ Class_template.cpp
 Class_timedelta.cpp
 Class_undefined.cpp
 Class_uri.cpp
+Class_vertex.cpp
 ClassCustom.cpp
 Codec.cpp
 Color.cpp
@@ -101,6 +102,7 @@ Uri.cpp
 Value.cpp
 ValueType.cpp
 Version.cpp
+Vertex.cpp
 ../module-basement/module-basement.cpp
 ../module-sys/module-sys.cpp
 ../module-base64/module-base64.cpp

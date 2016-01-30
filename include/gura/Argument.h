@@ -244,6 +244,7 @@ public:
 	inline bool Is_template(size_t idxArg) const		{ return GetValue(idxArg).Is_template();		}
 	inline bool Is_timedelta(size_t idxArg) const		{ return GetValue(idxArg).Is_timedelta();		}
 	inline bool Is_uri(size_t idxArg) const				{ return GetValue(idxArg).Is_uri();				}
+	inline bool Is_vertex(size_t idxArg) const			{ return GetValue(idxArg).Is_vertex();			}
 	inline bool IsInstanceOf(size_t idxArg, ValueType valType) { return GetValue(idxArg).IsInstanceOf(valType); }
 	inline Number GetNumber(size_t idxArg) const		{ return GetValue(idxArg).GetNumber();			}
 	inline int GetInt(size_t idxArg) const				{ return GetValue(idxArg).GetInt();				}

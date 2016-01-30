@@ -593,6 +593,7 @@ public:
 	Gura_DeclareSymbol(value);
 	Gura_DeclareSymbol(values);
 	Gura_DeclareSymbol(vert);
+	Gura_DeclareSymbol(vertex);
 	Gura_DeclareSymbol(void_);
 	Gura_DeclareSymbol(w);
 	Gura_DeclareSymbol(w3c);

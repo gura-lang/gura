@@ -234,6 +234,7 @@ public:
 	inline bool Is_template() const			{ return IsType(VTYPE_template);				}
 	inline bool Is_timedelta() const		{ return IsType(VTYPE_timedelta);				}
 	inline bool Is_uri() const				{ return IsType(VTYPE_uri);						}
+	inline bool Is_vertex() const			{ return IsType(VTYPE_vertex);					}
 	inline bool IsListOrIterator() const	{ return Is_list() || Is_iterator();			}
 	inline bool IsValidKey() const			{ return Is_number() || Is_string() || Is_symbol(); }
 	bool MustBe(Signal &sig, bool flag, const char *expected) const;
@@ -326,6 +327,8 @@ public:
 								{ return MustBe(sig, Is_timedelta(), 	"timedelta");		}
 	inline bool MustBe_uri(Signal &sig) const
 								{ return MustBe(sig, Is_uri(), 			"uri");				}
+	inline bool MustBe_vertex(Signal &sig) const
+								{ return MustBe(sig, Is_vertex(), 		"vertex");			}
 	// setter methods
 	inline void SetBoolean(bool flag) {
 		Gura_ReleaseValue(*this); _valType = VTYPE_boolean, _u.flag = flag;

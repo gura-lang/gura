@@ -752,6 +752,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(value);
 	Gura_RealizeSymbol(values);
 	Gura_RealizeSymbol(vert);
+	Gura_RealizeSymbol(vertex);
 	Gura_RealizeSymbolAlias(void_,			"void");
 	Gura_RealizeSymbol(w);
 	Gura_RealizeSymbol(w3c);

@@ -68,6 +68,7 @@
 #include "gura/Unicode-CP949.h"
 #include "gura/Unicode-CP950.h"
 #include "gura/Uri.h"
+#include "gura/Vertex.h"
 
 #include "gura/Class_Class.h"
 #include "gura/Class_Module.h"
@@ -111,6 +112,7 @@
 #include "gura/Class_timedelta.h"
 #include "gura/Class_undefined.h"
 #include "gura/Class_uri.h"
+#include "gura/Class_vertex.h"
 #include "gura/Class_array.h"		// uses template
 
 #endif
