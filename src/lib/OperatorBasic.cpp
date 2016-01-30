@@ -450,6 +450,12 @@ Gura_ImplementUnaryOperator(Neg, timedelta)
 	return Value(new Object_timedelta(env, TimeDelta(-td.GetDays(), -td.GetSecsRaw(), -td.GetUSecs())));
 }
 
+Gura_ImplementUnaryOperator(Neg, vertex)
+{
+	const Vertex &vertex = Object_vertex::GetObject(value)->GetVertex();
+	return Value(new Object_vertex(env, Vertex(-vertex.x, -vertex.y, -vertex.z, vertex.w)));
+}
+
 template<typename T_Elem, typename T_ElemResult>
 Value Neg_Array(Environment &env, const Value &value, ValueType valTypeResult)
 {
@@ -726,6 +732,17 @@ Gura_ImplementBinaryOperator(Add, any, string)
 	return Value(str);
 }
 
+Gura_ImplementBinaryOperator(Add, vertex, vertex)
+{
+	const Vertex &vertexL = Object_vertex::GetObject(valueLeft)->GetVertex();
+	const Vertex &vertexR = Object_vertex::GetObject(valueRight)->GetVertex();
+	return Value(new Object_vertex(env, Vertex(
+									   vertexL.x + vertexR.x,
+									   vertexL.y + vertexR.y,
+									   vertexL.z + vertexR.z,
+									   vertexL.w)));
+}
+
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
 Value Add_ArrayAndArray(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
@@ -890,6 +907,17 @@ Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 	int offset1 = static_cast<int>(pObj1->GetOffset());
 	int offset2 = static_cast<int>(pObj2->GetOffset());
 	return Value(static_cast<Number>(offset1 - offset2));
+}
+
+Gura_ImplementBinaryOperator(Sub, vertex, vertex)
+{
+	const Vertex &vertexL = Object_vertex::GetObject(valueLeft)->GetVertex();
+	const Vertex &vertexR = Object_vertex::GetObject(valueRight)->GetVertex();
+	return Value(new Object_vertex(env, Vertex(
+									   vertexL.x - vertexR.x,
+									   vertexL.y - vertexR.y,
+									   vertexL.z - vertexR.z,
+									   vertexL.w)));
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
@@ -1095,6 +1123,17 @@ Gura_ImplementBinaryOperator(Mul, number, binary)
 	return Value(new Object_binary(env, buff, true));
 }
 
+Gura_ImplementBinaryOperator(Mul, vertex, number)
+{
+	const Vertex &vertex = Object_vertex::GetObject(valueLeft)->GetVertex();
+	double num = valueRight.GetDouble();
+	return Value(new Object_vertex(env, Vertex(
+									   vertex.x * num,
+									   vertex.y * num,
+									   vertex.z * num,
+									   vertex.w)));
+}
+
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
 Value Mul_ArrayAndArray(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
@@ -1220,6 +1259,22 @@ Gura_ImplementBinaryOperator(Div, matrix, any)
 {
 	return Matrix::Div(env,
 					Object_matrix::GetObject(valueLeft)->GetMatrix(), valueRight);
+}
+
+Gura_ImplementBinaryOperator(Div, vertex, number)
+{
+	Signal &sig = env.GetSignal();
+	const Vertex &vertex = Object_vertex::GetObject(valueLeft)->GetVertex();
+	double numRight = valueRight.GetDouble();
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Nil;
+	}
+	return Value(new Object_vertex(env, Vertex(
+									   vertex.x / numRight,
+									   vertex.y / numRight,
+									   vertex.z / numRight,
+									   vertex.w)));
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
@@ -1956,6 +2011,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperator(Neg, rational);
 	Gura_AssignUnaryOperator(Neg, matrix);
 	Gura_AssignUnaryOperator(Neg, timedelta);
+	Gura_AssignUnaryOperator(Neg, vertex);
 	Gura_AssignUnaryOperator(Neg, array_char);
 	Gura_AssignUnaryOperator(Neg, array_uchar);
 	Gura_AssignUnaryOperator(Neg, array_short);
@@ -1991,6 +2047,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Add, pointer, number);
 	Gura_AssignBinaryOperator(Add, string, any);
 	Gura_AssignBinaryOperator(Add, any, string);
+	Gura_AssignBinaryOperator(Add, vertex, vertex);
 	AssignArrayOperators(Add);
 	Gura_AssignBinaryOperator(Sub, number, number);
 	Gura_AssignBinaryOperator(Sub, number, complex);
@@ -2006,6 +2063,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Sub, color, color);
 	Gura_AssignBinaryOperator(Sub, pointer, number);
 	Gura_AssignBinaryOperator(Sub, pointer, pointer);
+	Gura_AssignBinaryOperator(Sub, vertex, vertex);
 	AssignArrayOperators(Sub);
 	Gura_AssignBinaryOperator(Mul, number, number);
 	Gura_AssignBinaryOperator(Mul, number, complex);
@@ -2027,6 +2085,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Mul, number, string);
 	Gura_AssignBinaryOperator(Mul, binary, number);
 	Gura_AssignBinaryOperator(Mul, number, binary);
+	Gura_AssignBinaryOperator(Mul, vertex, number);
 	AssignArrayOperators(Mul);
 	Gura_AssignBinaryOperator(Div, number, number);
 	Gura_AssignBinaryOperator(Div, number, complex);
@@ -2036,6 +2095,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Div, rational, number);
 	Gura_AssignBinaryOperator(Div, rational, rational);
 	Gura_AssignBinaryOperator(Div, matrix, any);
+	Gura_AssignBinaryOperator(Div, vertex, number);
 	AssignArrayOperators(Div);
 	Gura_AssignBinaryOperator(Mod, number, number);
 	AssignArrayOperators(Mod);

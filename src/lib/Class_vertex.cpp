@@ -108,7 +108,7 @@ Gura_ImplementFunction(vertex)
 	double x = arg.GetDouble(0);
 	double y = arg.GetDouble(1);
 	double z = arg.Is_number(2)? arg.GetDouble(2) : 0;
-	double w = arg.Is_number(3)? arg.GetDouble(3) : 0;
+	double w = arg.Is_number(3)? arg.GetDouble(3) : 1;
 	return ReturnValue(env, arg,
 					   Value(new Object_vertex(env, Vertex(x, y, z, w))));
 }
@@ -116,11 +116,12 @@ Gura_ImplementFunction(vertex)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// vertex#tolist():[w]
+// vertex#tolist():[w] {block?}
 Gura_DeclareMethod(vertex, tolist)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(alpha));
+	DeclareAttr(Gura_Symbol(w));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

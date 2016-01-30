@@ -1,0 +1,14 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+
+testcase {
+	v1 = vertex(30, 40, 50)
+	v2 = vertex(5, 6, 7)
+	tester(`v1)
+	tester(`v2)
+	tester(`(-v1))
+	tester(`(v1 + v2))
+	tester(`(v1 - v2))
+	tester(`(v1 / 4))
+	tester(`(v1 * 4))
+}

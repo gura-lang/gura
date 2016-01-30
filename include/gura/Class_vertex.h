@@ -30,7 +30,7 @@ private:
 public:
 	inline Object_vertex(const Object_vertex &obj) : Object(obj), _vertex(obj._vertex) {}
 	inline Object_vertex(Environment &env, const Vertex &vertex = Vertex::Zero) :
-			Object(env.LookupClass(VTYPE_color)), _vertex(vertex) {}
+			Object(env.LookupClass(VTYPE_vertex)), _vertex(vertex) {}
 	inline Object_vertex(Class *pClass) : Object(pClass) {}
 	inline void SetVertex(const Vertex &vertex) { _vertex = vertex; }
 	inline Vertex &GetVertex() { return _vertex; }
