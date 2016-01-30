@@ -62,6 +62,7 @@ set cases=%cases% suffixmgr
 set cases=%cases% template
 set cases=%cases% uri
 set cases=%cases% value
+set cases=%cases% vertex
 set cases=%cases% xhtml
 set cases=%cases% xml
 set cases=%cases% xpm
