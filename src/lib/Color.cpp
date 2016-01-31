@@ -824,10 +824,25 @@ Color Color::CreateFromValues(Environment &env, const ValueList &valList)
 			Declaration::SetError_InvalidArgument(env);
 			return zero;
 		}
-		return Color(valList[0].GetUChar(),
-					 valList[1].GetUChar(),
-					 valList[2].GetUChar(),
-					 (valList.size() < 4)? 255 : valList[3].GetUChar());
+		if (!valList[1].Is_number() || !valList[2].Is_number()) {
+			Declaration::SetError_InvalidArgument(env);
+			return zero;
+		}
+		if (valList.size() < 4) {
+			return Color(valList[0].GetUChar(),
+						 valList[1].GetUChar(),
+						 valList[2].GetUChar(),
+						 255);
+		} else {
+			if (!valList[3].Is_number()) {
+				Declaration::SetError_InvalidArgument(env);
+				return zero;
+			}
+			return Color(valList[0].GetUChar(),
+						 valList[1].GetUChar(),
+						 valList[2].GetUChar(),
+						 valList[3].GetUChar());
+		}
 	}
 	Declaration::SetError_InvalidArgument(env);
 	return zero;
@@ -879,7 +894,7 @@ Color Color::CreateNamedColor(Environment &env, const char *name, UChar a)
 	const Symbol *pSymbol = Symbol::Add(name);
 	ColorMap::iterator iter = _pColorMap->find(pSymbol);
 	if (iter == _pColorMap->end()) {
-		env.SetError(ERR_ValueError, "unknown color name %s\n", pSymbol->GetName());
+		env.SetError(ERR_ValueError, "unknown color name %s", pSymbol->GetName());
 		return zero;
 	}
 	Color color = iter->second;

@@ -53,4 +53,9 @@ String Vertex::ToString() const
 	return str;
 }
 
+Vertex Vertex::CreateFromValues(Environment &env, const ValueList &valList)
+{
+	return Zero;
+}
+
 }

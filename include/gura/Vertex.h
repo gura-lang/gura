@@ -76,6 +76,7 @@ public:
 	inline Vertex(const Vertex3 &vertex) : x(vertex.x), y(vertex.y), z(vertex.z), w(1.) {}
 	inline Vertex(const Vertex &vertex) : x(vertex.x), y(vertex.y), z(vertex.z), w(vertex.w) {}
 	String ToString() const;
+	static Vertex CreateFromValues(Environment &env, const ValueList &valList);
 };
 
 }
