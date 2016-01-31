@@ -63,12 +63,12 @@ Gura_DeclareFunction(test)
 	DeclareArg(env, "num2", VTYPE_number);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"This function adds two numbers and returns the result.");
+		"This function adds two numbers and returns the result.\n");
 }
 
 Gura_ImplementFunction(test)
 {
-	return Value(args.GetNumber(0) + args.GetNumber(1));
+	return Value(arg.GetNumber(0) + arg.GetNumber(1));
 }
 
 //-----------------------------------------------------------------------------
