@@ -804,6 +804,11 @@ const Color Color::white(	255, 255, 255, 255);
 
 Color Color::CreateFromValues(Environment &env, const ValueList &valList)
 {
+	Signal &sig = env.GetSignal();
+	if (valList.empty()) {
+		Declaration::SetError_NotEnoughArguments(env);
+		return zero;
+	}
 	if (valList[0].Is_string() || valList[0].Is_symbol()) {
 		UChar a = 255;
 		if (valList.size() < 2) {
@@ -821,23 +826,18 @@ Color Color::CreateFromValues(Environment &env, const ValueList &valList)
 		return color;
 	} else if (valList[0].Is_number()) {
 		if (valList.size() < 3) {
-			Declaration::SetError_InvalidArgument(env);
+			Declaration::SetError_NotEnoughArguments(env);
 			return zero;
 		}
-		if (!valList[1].Is_number() || !valList[2].Is_number()) {
-			Declaration::SetError_InvalidArgument(env);
-			return zero;
-		}
+		if (!valList[1].MustBe_number(sig)) return zero;
+		if (!valList[2].MustBe_number(sig)) return zero;
 		if (valList.size() < 4) {
 			return Color(valList[0].GetUChar(),
 						 valList[1].GetUChar(),
 						 valList[2].GetUChar(),
 						 255);
 		} else {
-			if (!valList[3].Is_number()) {
-				Declaration::SetError_InvalidArgument(env);
-				return zero;
-			}
+			if (!valList[3].MustBe_number(sig)) return zero;
 			return Color(valList[0].GetUChar(),
 						 valList[1].GetUChar(),
 						 valList[2].GetUChar(),
