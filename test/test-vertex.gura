@@ -22,3 +22,15 @@ testcase('vertex.tolist()') {
 	tester(`v.tolist())
 	tester(`v.tolist():w)
 }
+testcase('vertex.translate()') {
+	tester(`vertex(3, 4, 5).translate(1, 2, 3))
+	tester(`vertex(3, 4, 5).translate(-3, -2, -1))
+}
+testcase('vertex.rotate@X()') {
+	tester(`vertex(3, 4, 5).rotate@x(math.pi / 2))
+	tester(`vertex(3, 4, 5).rotate@y(math.pi / 2))
+	tester(`vertex(3, 4, 5).rotate@z(math.pi / 2))
+	tester(`vertex(3, 4, 5).rotate@x(90):deg)
+	tester(`vertex(3, 4, 5).rotate@y(90):deg)
+	tester(`vertex(3, 4, 5).rotate@z(90):deg)
+}

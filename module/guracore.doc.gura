@@ -2000,7 +2000,11 @@ vertex
 ### Method
 
 ${moddoc.reference(`en
+vertex.rotate@x
+vertex.rotate@y
+vertex.rotate@z
 vertex.tolist
+vertex.translate
 )}
 '''.embed()
 
