@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
-import(stl)
+import(model.stl)
 
 testcase {
-	stl.test('cube-ascii.stl')
+	println(model.stl.test(3, 4))
 }

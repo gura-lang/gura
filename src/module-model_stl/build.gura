@@ -2,4 +2,4 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('stl', ['module-stl.cpp'])
+builder.build('model.stl', ['module-model_stl.cpp'])
