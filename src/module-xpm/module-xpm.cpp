@@ -216,7 +216,7 @@ Gura_ImplementMethod(image, xpmdata)
 		if (::strcasecmp(value.c_str(), "None") == 0) {
 			symbolNull = symbol;
 		} else {
-			Color color = Color::CreateNamedColor(sig, value.c_str(), 255);
+			Color color = Color::CreateNamedColor(env, value.c_str(), 255);
 			if (sig.IsSignalled()) return Value::Nil;
 			colorMap[symbol] = color;
 		}

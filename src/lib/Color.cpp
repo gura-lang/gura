@@ -802,7 +802,38 @@ const Color Color::fuchsia(	255,   0, 255, 255);
 const Color Color::aqua(	  0, 255, 255, 255);
 const Color Color::white(	255, 255, 255, 255);
 
-Color Color::CreateNamedColor(Signal &sig, const char *name, UChar a)
+Color Color::CreateFromValues(Environment &env, const ValueList &valList)
+{
+	if (valList[0].Is_string() || valList[0].Is_symbol()) {
+		UChar a = 255;
+		if (valList.size() < 2) {
+			// nothing to do
+		} else if (valList[1].Is_number()) {
+			a = valList[1].GetUChar();
+		} else {
+			Declaration::SetError_InvalidArgument(env);
+			return zero;
+		}
+		const char *name = valList[0].Is_string()?
+			valList[0].GetString() : valList[0].GetSymbol()->GetName();
+		Color color = CreateNamedColor(env, name, a);
+		if (env.IsSignalled()) return zero;
+		return color;
+	} else if (valList[0].Is_number()) {
+		if (valList.size() < 3) {
+			Declaration::SetError_InvalidArgument(env);
+			return zero;
+		}
+		return Color(valList[0].GetUChar(),
+					 valList[1].GetUChar(),
+					 valList[2].GetUChar(),
+					 (valList.size() < 4)? 255 : valList[3].GetUChar());
+	}
+	Declaration::SetError_InvalidArgument(env);
+	return zero;
+}
+
+Color Color::CreateNamedColor(Environment &env, const char *name, UChar a)
 {
 	if (*name == '#') {
 		name++;
@@ -817,7 +848,7 @@ Color Color::CreateNamedColor(Signal &sig, const char *name, UChar a)
 			} else if ('A' <= ch && ch <= 'F') {
 				num = (num << 4) + ch - 'A' + 10;
 			} else {
-				sig.SetError(ERR_ValueError, "invalid color name");
+				env.SetError(ERR_ValueError, "invalid color name");
 				return zero;
 			}
 		}
@@ -831,7 +862,7 @@ Color Color::CreateNamedColor(Signal &sig, const char *name, UChar a)
 			g = static_cast<UChar>((num >> 8) & 0xff);
 			b = static_cast<UChar>((num >> 0) & 0xff);
 		} else {
-			sig.SetError(ERR_ValueError, "invalid color name");
+			env.SetError(ERR_ValueError, "invalid color name");
 			return zero;
 		}
 		return Color(r, g, b, a);
@@ -848,7 +879,7 @@ Color Color::CreateNamedColor(Signal &sig, const char *name, UChar a)
 	const Symbol *pSymbol = Symbol::Add(name);
 	ColorMap::iterator iter = _pColorMap->find(pSymbol);
 	if (iter == _pColorMap->end()) {
-		sig.SetError(ERR_ValueError, "unknown color name %s\n", pSymbol->GetName());
+		env.SetError(ERR_ValueError, "unknown color name %s\n", pSymbol->GetName());
 		return zero;
 	}
 	Color color = iter->second;

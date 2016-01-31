@@ -117,6 +117,7 @@ Gura_DeclareFunction(color)
 
 Gura_ImplementFunction(color)
 {
+#if 0
 	Signal &sig = env.GetSignal();
 	const ValueList &valList = arg.GetList(0);
 	if (valList[0].Is_string() || valList[0].Is_symbol()) {
@@ -131,7 +132,7 @@ Gura_ImplementFunction(color)
 		}
 		const char *name = valList[0].Is_string()?
 			valList[0].GetString() : valList[0].GetSymbol()->GetName();
-		Color color = Color::CreateNamedColor(sig, name, a);
+		Color color = Color::CreateNamedColor(env, name, a);
 		if (sig.IsSignalled()) return Value::Nil;
 		return ReturnValue(env, arg, Value(new Object_color(env, color)));
 	} else if (valList[0].Is_number()) {
@@ -148,6 +149,10 @@ Gura_ImplementFunction(color)
 	}
 	Declaration::SetError_InvalidArgument(env);
 	return Value::Nil;
+#endif
+	Color color = Color::CreateFromValues(env, arg.GetList(0));
+	if (env.IsSignalled()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_color(env, color)));
 }
 
 //-----------------------------------------------------------------------------
@@ -258,24 +263,29 @@ void Class_color::Prepare(Environment &env)
 
 bool Class_color::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
-	Signal &sig = GetSignal();
 	if (value.Is_symbol()) {
-		Color color = Color::CreateNamedColor(sig, value.GetSymbol()->GetName(), 255);
-		if (sig.IsSignalled()) return false;
+		Color color = Color::CreateNamedColor(env, value.GetSymbol()->GetName(), 255);
+		if (env.IsSignalled()) return false;
 		value = Value(new Object_color(env, color));
 		return true;
 	} else if (value.Is_string()) {
-		Color color = Color::CreateNamedColor(sig, value.GetString(), 255);
-		if (sig.IsSignalled()) return false;
+		Color color = Color::CreateNamedColor(env, value.GetString(), 255);
+		if (env.IsSignalled()) return false;
 		value = Value(new Object_color(env, color));
 		return true;
 	} else if (value.Is_list()) {
+#if 0
 		const Function *pConstructor = GetConstructor();
 		if (pConstructor == nullptr) return false;
 		AutoPtr<Argument> pArg(new Argument(pConstructor));
 		if (!pArg->StoreValues(env, value.GetList())) return false;
 		value = pConstructor->Eval(env, *pArg);
-		return !sig.IsSignalled();
+		return !env.IsSignalled();
+#endif
+		Color color = Color::CreateFromValues(env, value.GetList());
+		if (env.IsSignalled()) return false;
+		value = Value(new Object_color(env, color));
+		return true;
 	}
 	return false;
 }
