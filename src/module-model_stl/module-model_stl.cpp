@@ -6,6 +6,80 @@
 Gura_BeginModuleBody(model_stl)
 
 //-----------------------------------------------------------------------------
+// Tokenizer
+//-----------------------------------------------------------------------------
+class Tokenizer {
+public:
+	enum Stat {
+		STAT_FileTop, STAT_LineTop, STAT_Token, STAT_SkipWhite,
+	};
+private:
+	Stat _stat;
+	String _token;
+public:
+	inline Tokenizer() : _stat(STAT_FileTop) {}
+	const String &Tokenize(Environment &env, Stream &stream);
+};
+
+const String &Tokenizer::Tokenize(Environment &env, Stream &stream)
+{
+	Signal &sig = env.GetSignal();
+	_token.clear();
+	for (;;) {
+		int chRaw = stream.GetChar(sig);
+		if (sig.IsSignalled()) break;
+		char ch = (chRaw < 0)? '\0' : static_cast<char>(static_cast<UChar>(chRaw));
+		Gura_BeginPushbackRegion();
+		switch (_stat) {
+		case STAT_FileTop: {
+			if (ch == 's') {
+				Gura_Pushback();
+				_stat = STAT_Token;
+			}
+			break;
+		}
+		case STAT_LineTop: {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (ch == '\n' || ch == '\0') {
+				// nothing to do
+			} else {
+				Gura_Pushback();
+				_stat = STAT_Token;
+			}
+			break;
+		}
+		case STAT_Token: {
+			if (ch == ' ' || ch == '\t') {
+				_stat = STAT_SkipWhite;
+				return _token;
+			} else if (ch == '\n' || ch == '\0') {
+				_stat = STAT_LineTop;
+				return _token;
+			} else {
+				_token += ch;
+			}
+			break;
+		}
+		case STAT_SkipWhite: {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (ch == '\n' || ch == '\0') {
+				_stat = STAT_LineTop;
+			} else {
+				Gura_Pushback();
+				_stat = STAT_Token;
+			}
+			break;
+		}
+		}
+		Gura_EndPushbackRegion();
+		if (ch == '\0') break;
+	}
+	return _token;
+}
+
+//-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
 // model.stl.test(stream:stream)
@@ -20,62 +94,12 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	enum {
-		STAT_FileTop, STAT_LineTop, STAT_Token, STAT_SkipWhite,
-	} stat = STAT_FileTop;
-	String token;
-	Signal &sig = env.GetSignal();
+	Tokenizer tokenizer;
 	Stream &stream = arg.GetStream(0);
 	for (;;) {
-		int chRaw = stream.GetChar(sig);
-		if (sig.IsSignalled()) break;
-		char ch = (chRaw < 0)? '\0' : static_cast<char>(static_cast<UChar>(chRaw));
-		Gura_BeginPushbackRegion();
-		switch (stat) {
-		case STAT_FileTop: {
-			if (ch == 's') {
-				Gura_Pushback();
-				stat = STAT_Token;
-			}
-			break;
-		}
-		case STAT_LineTop: {
-			if (ch == ' ' || ch == '\t') {
-				// nothing to do
-			} else if (ch == '\n' || ch == '\0') {
-				// nothing to do
-			} else {
-				Gura_Pushback();
-			}
-		}
-		case STAT_Token: {
-			if (ch == ' ' || ch == '\t') {
-				::printf("%s\n", token.c_str());
-				token.clear();
-				stat = STAT_SkipWhite;
-			} else if (ch == '\n' || ch == '\0') {
-				::printf("%s\n", token.c_str());
-				token.clear();
-				stat = STAT_LineTop;
-			} else {
-				token += ch;
-			}
-			break;
-		}
-		case STAT_SkipWhite: {
-			if (ch == ' ' || ch == '\t') {
-				// nothing to do
-			} else if (ch == '\n' || ch == '\0') {
-				stat = STAT_LineTop;
-			} else {
-				Gura_Pushback();
-				stat = STAT_Token;
-			}
-			break;
-		}
-		}
-		Gura_EndPushbackRegion();
-		if (ch == '\0') break;
+		const String &token = tokenizer.Tokenize(env, stream);
+		if (token.empty()) break;
+		::printf("%s\n", token.c_str());
 	}
 	return Value::Nil;
 }

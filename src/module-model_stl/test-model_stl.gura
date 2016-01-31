@@ -3,5 +3,5 @@ import(helper.test) {*}
 import(model.stl)
 
 testcase {
-	println(model.stl.test(3, 4))
+	model.stl.test('cube-ascii.stl')
 }
