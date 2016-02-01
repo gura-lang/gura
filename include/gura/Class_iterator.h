@@ -34,6 +34,11 @@ public:
 				Object(pClass), _pIterator(pIterator) {}
 	Object_iterator(const Object_iterator &obj);
 	virtual ~Object_iterator();
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Object *Clone() const;
 	virtual Iterator *CreateIterator(Signal &sig);
 	virtual String ToString(bool exprFlag);

@@ -45,6 +45,24 @@ void Object_iterator::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 	}
 }
 
+bool Object_iterator::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, symbols)) return false;
+	return _pIterator->DoDirProp(env, symbols);
+}
+
+Value Object_iterator::DoGetProp(Environment &env, const Symbol *pSymbol,
+								 const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return _pIterator->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
+Value Object_iterator::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
+								 const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return _pIterator->DoSetProp(env, pSymbol, value, attrs, evaluatedFlag);
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------

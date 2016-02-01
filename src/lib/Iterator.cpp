@@ -676,7 +676,24 @@ String Iterator::ToString() const
 	return String("");
 }
 
-//-----------------------------------------------------------------------------
+bool Iterator::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value Iterator::DoGetProp(Environment &env, const Symbol *pSymbol,
+					const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Nil;
+}
+
+Value Iterator::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
+						  const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Nil;
+}
+
+///-----------------------------------------------------------------------------
 // Iterator::Share
 //-----------------------------------------------------------------------------
 Iterator::Share::Share() : _doneFlag(false), _indexMin(0)

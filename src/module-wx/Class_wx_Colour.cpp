@@ -359,7 +359,7 @@ Gura_ImplementCastFrom(wx_Colour)
 		value = Value(pObj);
 		return true;
 	} else if (value.Is_string()) {
-		Color color = Color::CreateNamedColor(sig, value.GetString(), 255);
+		Color color = Color::CreateNamedColor(env, value.GetString(), 255);
 		if (sig.IsSignalled()) return false;
 		wx_Colour *pEntity = new wx_Colour(color.GetR(), color.GetG(), color.GetB(), color.GetA());
 		Object_wx_Colour *pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
