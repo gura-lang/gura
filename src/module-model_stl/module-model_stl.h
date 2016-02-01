@@ -27,7 +27,25 @@ public:
 	inline void SetVertex(size_t idx, const Vertex &vertex) { _vertexes[idx] = vertex; }
 	inline const Vertex &GetNormal() const { return _normal; }
 	inline const Vertex &GetVertex(size_t idx) const { return _vertexes[idx]; }
-	String ToString() const;
+	String ToString(const char *sep = "; ") const;
+};
+
+//-----------------------------------------------------------------------------
+// Tokenizer
+//-----------------------------------------------------------------------------
+class Tokenizer {
+public:
+	enum Stat {
+		STAT_FileTop, STAT_FileEnd, STAT_LineTop, STAT_Field, STAT_SkipWhite,
+	};
+private:
+	Stat _stat;
+	String _field;
+	TokenId _tokenIdPending;
+public:
+	inline Tokenizer() : _stat(STAT_FileTop), _tokenIdPending(TOKEN_None) {}
+	TokenId Tokenize(Environment &env, Stream &stream);
+	inline const String &GetField() const { return _field; }
 };
 
 //-----------------------------------------------------------------------------
@@ -53,8 +71,19 @@ public:
 // Iterator_facet
 //-----------------------------------------------------------------------------
 class Iterator_facet : public Iterator {
+public:
+	enum Stat {
+		STAT_solid, STAT_solid_name, STAT_solid_EOL,
+		STAT_facet, STAT_normal, STAT_normal_coords,
+		STAT_outer, STAT_loop,
+		STAT_vertex, STAT_vertex_coords,
+		STAT_endloop,
+		STAT_endfacet,
+	};
 private:
 	AutoPtr<Stream> _pStream;
+	Stat _stat;
+	Tokenizer _tokenizer;
 public:
 	Iterator_facet(Stream *pStream);
 	virtual ~Iterator_facet();
@@ -62,6 +91,8 @@ public:
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+private:
+	bool DoNextFromText(Environment &env, Value &value);
 };
 
 //-----------------------------------------------------------------------------
@@ -70,24 +101,6 @@ public:
 class Solid {
 private:
 	
-};
-
-//-----------------------------------------------------------------------------
-// Tokenizer
-//-----------------------------------------------------------------------------
-class Tokenizer {
-public:
-	enum Stat {
-		STAT_FileTop, STAT_FileEnd, STAT_LineTop, STAT_Field, STAT_SkipWhite,
-	};
-private:
-	Stat _stat;
-	String _field;
-	TokenId _tokenIdPending;
-public:
-	inline Tokenizer() : _stat(STAT_FileTop), _tokenIdPending(TOKEN_None) {}
-	TokenId Tokenize(Environment &env, Stream &stream);
-	inline const String &GetField() const { return _field; }
 };
 
 Gura_EndModuleHeader(model_stl)
