@@ -75,7 +75,6 @@ public:
 class Iterator_reader : public Iterator {
 public:
 	enum Stat {
-		STAT_solid, STAT_solid_name, STAT_solid_EOL,
 		STAT_facet, STAT_normal, STAT_normal_coords,
 		STAT_outer, STAT_loop,
 		STAT_vertex, STAT_vertex_coords,
@@ -84,6 +83,7 @@ public:
 	};
 private:
 	AutoPtr<Stream> _pStream;
+	String _solidName;
 	Stat _stat;
 	Tokenizer _tokenizer;
 public:
@@ -96,6 +96,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	bool Prepare(Environment &env);
 private:
 	bool DoNextFromText(Environment &env, Value &value);
 };

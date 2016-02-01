@@ -5,4 +5,5 @@ import(model.stl)
 testcase {
 	reader = model.stl.reader('cube-ascii.stl')
 	println(reader.solidname)
+	println(reader)
 }

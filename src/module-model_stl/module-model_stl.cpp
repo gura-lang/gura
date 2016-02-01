@@ -148,7 +148,7 @@ Gura_ImplementUserClass(facet)
 // Iterator_reader
 //-----------------------------------------------------------------------------
 Iterator_reader::Iterator_reader(Stream *pStream) :
-	Iterator(false), _pStream(pStream), _stat(STAT_solid)
+	Iterator(false), _pStream(pStream), _stat(STAT_facet)
 {
 }
 
@@ -159,6 +159,22 @@ Iterator_reader::~Iterator_reader()
 Iterator *Iterator_reader::GetSource()
 {
 	return nullptr;
+}
+
+bool Iterator_reader::Prepare(Environment &env)
+{
+	TokenId tokenId = _tokenizer.Tokenize(env, *_pStream);
+	if (tokenId != TOKEN_Field) return false;
+	const String &field = _tokenizer.GetField();
+	if (field != "solid") {
+		return false;
+	}
+	tokenId = _tokenizer.Tokenize(env, *_pStream);
+	if (tokenId == TOKEN_Field) {
+		_solidName = _tokenizer.GetField();
+		while (_tokenizer.Tokenize(env, *_pStream) == TOKEN_Field) ;
+	}
+	return true;
 }
 
 bool Iterator_reader::DoNext(Environment &env, Value &value)
@@ -177,7 +193,7 @@ Value Iterator_reader::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(solidname))) {
-		return Value("hoge");
+		return Value(_solidName);
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -204,32 +220,6 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 	for (;;) {
 		TokenId tokenId = _tokenizer.Tokenize(env, *_pStream);
 		switch (_stat) {
-		case STAT_solid: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "solid") {
-					_stat = STAT_solid_name;
-				} else {
-					// error
-				}
-			}
-			break;
-		}
-		case STAT_solid_name: {
-			if (tokenId == TOKEN_EOL) {
-				_stat = STAT_facet;
-			} else if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				_stat = STAT_solid_EOL;
-			}
-			break;
-		}
-		case STAT_solid_EOL: {
-			if (tokenId == TOKEN_EOL) {
-				_stat = STAT_facet;
-			}
-			break;
-		}
 		case STAT_facet: {
 			if (tokenId == TOKEN_Field) {
 				const String &field = _tokenizer.GetField();
@@ -388,6 +378,7 @@ Gura_DeclareFunction(reader)
 Gura_ImplementFunction(reader)
 {
 	AutoPtr<Iterator_reader> pIterator(new Iterator_reader(arg.GetStream(0).Reference()));
+	if (!pIterator->Prepare(env)) return Value::Nil;
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
