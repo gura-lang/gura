@@ -19,7 +19,7 @@ String Facet::ToString() const
 	String str;
 	str += _normal.ToString();
 	for (size_t i = 0; i < ArraySizeOf(_vertexes); i++) {
-		str += ";";
+		str += "; ";
 		str += _vertexes[i].ToString();
 	}
 	return str;
