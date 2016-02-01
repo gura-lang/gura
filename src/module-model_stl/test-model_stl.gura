@@ -3,7 +3,9 @@ import(helper.test) {*}
 import(model.stl)
 
 testcase {
-	reader = model.stl.reader('cube-ascii.stl')
+	//reader = model.stl.reader('cube-ascii.stl')
+	//reader = model.stl.reader('cube-binary.stl')
+	reader = model.stl.reader('Voyager_17.stl')
 	println(reader.solidname)
 	println(reader)
 }

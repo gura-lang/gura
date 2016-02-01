@@ -104,9 +104,11 @@ public:
 private:
 	bool _binaryFlag;
 	AutoPtr<Stream> _pStream;
-	String _solidName;
-	Stat _stat;
-	Tokenizer _tokenizer;
+	size_t _idxFacet;
+	size_t _nFacet;			// for binary
+	String _solidName;		// for text
+	Stat _stat;				// for text
+	Tokenizer _tokenizer;	// for text
 public:
 	Iterator_reader(Stream *pStream);
 	virtual ~Iterator_reader();

@@ -173,7 +173,8 @@ Gura_ImplementUserClass(facet)
 // Iterator_reader
 //-----------------------------------------------------------------------------
 Iterator_reader::Iterator_reader(Stream *pStream) :
-	Iterator(false), _binaryFlag(false), _pStream(pStream), _stat(STAT_facet)
+	Iterator(false), _binaryFlag(false), _pStream(pStream),
+	_idxFacet(0), _nFacet(0), _stat(STAT_facet)
 {
 }
 
@@ -213,6 +214,7 @@ bool Iterator_reader::Prepare(Environment &env)
 			SetError_FormatError(env);
 			return false;
 		}
+		_nFacet = *reinterpret_cast<UInt *>(buff);
 	}
 	return true;
 }
@@ -257,6 +259,7 @@ void Iterator_reader::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 
 bool Iterator_reader::DoNextFromBinary(Environment &env, Value &value)
 {
+	if (_idxFacet >= _nFacet) return false;
 	Signal &sig = env.GetSignal();
 	FacetBin facetBin;
 	size_t bytesRead = _pStream->Read(sig, &facetBin, FacetBin::Size);
@@ -271,6 +274,7 @@ bool Iterator_reader::DoNextFromBinary(Environment &env, Value &value)
 	facet.SetVertex(1, Vertex(facetBin.vertex2[0], facetBin.vertex2[1], facetBin.vertex2[2]));
 	facet.SetVertex(2, Vertex(facetBin.vertex3[0], facetBin.vertex3[1], facetBin.vertex3[2]));
 	value = Value(pObjFacet.release());
+	_idxFacet++;
 	return true;
 }
 
@@ -386,8 +390,6 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 					facet.SetVertex(nVertexes, vertex);
 					nVertexes++;
 					if (nVertexes == 3) {
-						//::printf("%s\n", facet.ToString().c_str());
-						// completed facet
 						_stat = STAT_endloop;
 						
 					}
@@ -412,6 +414,7 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 				if (field == "endfacet") {
 					_stat = STAT_facet;
 					value = Value(pObjFacet.release());
+					_idxFacet++;
 					return true;
 				} else {
 					// error
