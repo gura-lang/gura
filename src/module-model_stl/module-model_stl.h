@@ -6,6 +6,8 @@
 #include <gura.h>
 
 Gura_BeginModuleHeader(model_stl)
+
+
 //-----------------------------------------------------------------------------
 // TokenId
 //-----------------------------------------------------------------------------
@@ -68,9 +70,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Iterator_facet
+// Iterator_reader
 //-----------------------------------------------------------------------------
-class Iterator_facet : public Iterator {
+class Iterator_reader : public Iterator {
 public:
 	enum Stat {
 		STAT_solid, STAT_solid_name, STAT_solid_EOL,
@@ -85,10 +87,13 @@ private:
 	Stat _stat;
 	Tokenizer _tokenizer;
 public:
-	Iterator_facet(Stream *pStream);
-	virtual ~Iterator_facet();
+	Iterator_reader(Stream *pStream);
+	virtual ~Iterator_reader();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 private:

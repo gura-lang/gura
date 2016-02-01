@@ -4,6 +4,9 @@
 #include "stdafx.h"
 
 Gura_BeginModuleBody(model_stl)
+
+Gura_DeclareUserSymbol(solidname);
+
 //-----------------------------------------------------------------------------
 // Facet
 //-----------------------------------------------------------------------------
@@ -142,40 +145,57 @@ Gura_ImplementUserClass(facet)
 }
 
 //-----------------------------------------------------------------------------
-// Iterator_facet
+// Iterator_reader
 //-----------------------------------------------------------------------------
-Iterator_facet::Iterator_facet(Stream *pStream) :
+Iterator_reader::Iterator_reader(Stream *pStream) :
 	Iterator(false), _pStream(pStream), _stat(STAT_solid)
 {
 }
 
-Iterator_facet::~Iterator_facet()
+Iterator_reader::~Iterator_reader()
 {
 }
 
-Iterator *Iterator_facet::GetSource()
+Iterator *Iterator_reader::GetSource()
 {
 	return nullptr;
 }
 
-bool Iterator_facet::DoNext(Environment &env, Value &value)
+bool Iterator_reader::DoNext(Environment &env, Value &value)
 {
 	return DoNextFromText(env, value);
 }
 
-String Iterator_facet::ToString() const
+bool Iterator_reader::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(solidname));
+	return true;
+}
+
+Value Iterator_reader::DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(solidname))) {
+		return Value("hoge");
+	}
+	evaluatedFlag = false;
+	return Value::Nil;
+}
+
+String Iterator_reader::ToString() const
 {
 	String rtn;
-	rtn += "<iterator:model.stl.facet";
+	rtn += "<iterator:model.stl.reader";
 	rtn += ">";
 	return rtn;
 }
 
-void Iterator_facet::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void Iterator_reader::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
-bool Iterator_facet::DoNextFromText(Environment &env, Value &value)
+bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 {
 	size_t nCoords = 0;
 	size_t nVertexes = 0;
@@ -367,7 +387,7 @@ Gura_DeclareFunction(reader)
 
 Gura_ImplementFunction(reader)
 {
-	AutoPtr<Iterator_facet> pIterator(new Iterator_facet(arg.GetStream(0).Reference()));
+	AutoPtr<Iterator_reader> pIterator(new Iterator_reader(arg.GetStream(0).Reference()));
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
@@ -575,6 +595,8 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	// symbol realization
+	Gura_RealizeUserSymbol(solidname);
 	// function assignment
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(test);

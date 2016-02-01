@@ -3,5 +3,6 @@ import(helper.test) {*}
 import(model.stl)
 
 testcase {
-	println(model.stl.reader('cube-ascii.stl'))
+	reader = model.stl.reader('cube-ascii.stl')
+	println(reader.solidname)
 }
