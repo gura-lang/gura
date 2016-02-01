@@ -1,0 +1,10 @@
+#!/usr/bin/env gura
+import(moddoc)
+
+text@en = R'''
+# model.stl Module
+
+The `model.stl` module provides measures to read/write files in STL format.
+'''
+
+moddoc.register(locals(), %{`en => text@en})
