@@ -7,6 +7,11 @@
 
 Gura_BeginModuleHeader(model_stl)
 
+Gura_DeclareUserSymbol(solidname);
+Gura_DeclareUserSymbol(normal);
+Gura_DeclareUserSymbol(vertex1);
+Gura_DeclareUserSymbol(vertex2);
+Gura_DeclareUserSymbol(vertex3);
 
 //-----------------------------------------------------------------------------
 // TokenId
@@ -65,6 +70,9 @@ public:
 	Object_facet(const Object_facet &obj);
 	virtual ~Object_facet();
 	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline Facet &GetFacet() { return _facet; }
 };

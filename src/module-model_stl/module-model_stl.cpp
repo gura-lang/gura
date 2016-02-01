@@ -5,8 +5,6 @@
 
 Gura_BeginModuleBody(model_stl)
 
-Gura_DeclareUserSymbol(solidname);
-
 //-----------------------------------------------------------------------------
 // Facet
 //-----------------------------------------------------------------------------
@@ -126,6 +124,32 @@ Object *Object_facet::Clone() const
 	return new Object_facet(*this);
 }
 
+bool Object_facet::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(normal));
+	symbols.insert(Gura_UserSymbol(vertex1));
+	symbols.insert(Gura_UserSymbol(vertex2));
+	symbols.insert(Gura_UserSymbol(vertex3));
+	return true;
+}
+
+Value Object_facet::DoGetProp(Environment &env, const Symbol *pSymbol,
+							  const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
+		return Value(new Object_vertex(env, _facet.GetNormal()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex1))) {
+		return Value(new Object_vertex(env, _facet.GetVertex(0)));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex2))) {
+		return Value(new Object_vertex(env, _facet.GetVertex(1)));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex3))) {
+		return Value(new Object_vertex(env, _facet.GetVertex(2)));
+	}
+	evaluatedFlag = false;
+	return Value::Nil;
+}
+
 String Object_facet::ToString(bool exprFlag)
 {
 	String str;
@@ -203,6 +227,10 @@ String Iterator_reader::ToString() const
 {
 	String rtn;
 	rtn += "<iterator:model.stl.reader";
+	if (!_solidName.empty()) {
+		rtn += ":";
+		rtn += _solidName;
+	}
 	rtn += ">";
 	return rtn;
 }
@@ -588,6 +616,10 @@ Gura_ModuleEntry()
 {
 	// symbol realization
 	Gura_RealizeUserSymbol(solidname);
+	Gura_RealizeUserSymbol(normal);
+	Gura_RealizeUserSymbol(vertex1);
+	Gura_RealizeUserSymbol(vertex2);
+	Gura_RealizeUserSymbol(vertex3);
 	// function assignment
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(test);
