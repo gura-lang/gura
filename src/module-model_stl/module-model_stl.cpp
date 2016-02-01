@@ -6,6 +6,14 @@
 Gura_BeginModuleBody(model_stl)
 
 //-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+void SetError_FormatError(Environment &env)
+{
+	env.SetError(ERR_FormatError, "invalid format of STL file");
+}
+
+//-----------------------------------------------------------------------------
 // Facet
 //-----------------------------------------------------------------------------
 Facet::Facet(const Facet &facet) : _normal(facet._normal)
@@ -44,17 +52,6 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 		char ch = (chRaw < 0)? '\0' : static_cast<char>(static_cast<UChar>(chRaw));
 		Gura_BeginPushbackRegion();
 		switch (_stat) {
-		case STAT_FileTop: {
-			if (ch == 's') {
-				Gura_Pushback();
-				_stat = STAT_Field;
-			}
-			break;
-		}
-		case STAT_FileEnd: {
-			// nothing to do
-			break;
-		}
 		case STAT_LineTop: {
 			if (ch == ' ' || ch == '\t') {
 				// nothing to do
@@ -94,6 +91,10 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 				Gura_Pushback();
 				_stat = STAT_Field;
 			}
+			break;
+		}
+		case STAT_FileEnd: {
+			// nothing to do
 			break;
 		}
 		}
@@ -172,7 +173,7 @@ Gura_ImplementUserClass(facet)
 // Iterator_reader
 //-----------------------------------------------------------------------------
 Iterator_reader::Iterator_reader(Stream *pStream) :
-	Iterator(false), _pStream(pStream), _stat(STAT_facet)
+	Iterator(false), _binaryFlag(false), _pStream(pStream), _stat(STAT_facet)
 {
 }
 
@@ -187,23 +188,38 @@ Iterator *Iterator_reader::GetSource()
 
 bool Iterator_reader::Prepare(Environment &env)
 {
-	TokenId tokenId = _tokenizer.Tokenize(env, *_pStream);
-	if (tokenId != TOKEN_Field) return false;
-	const String &field = _tokenizer.GetField();
-	if (field != "solid") {
+	Signal &sig = env.GetSignal();
+	char buff[32];
+	size_t bytesRead = _pStream->Read(sig, buff, 6);
+	if (bytesRead < 6) {
+		SetError_FormatError(env);
 		return false;
 	}
-	tokenId = _tokenizer.Tokenize(env, *_pStream);
-	if (tokenId == TOKEN_Field) {
-		_solidName = _tokenizer.GetField();
-		while (_tokenizer.Tokenize(env, *_pStream) == TOKEN_Field) ;
+	if (::memcmp(buff, "solid ", 6) == 0) {
+		String field;
+		for (;;) {
+			int chRaw = _pStream->GetChar(sig);
+			if (sig.IsSignalled()) return false;
+			char ch = (chRaw < 0)? '\0' : static_cast<char>(static_cast<UChar>(chRaw));
+			if (ch == '\0' || ch == '\n') break;
+			field += ch;
+		}
+		_solidName = Strip(field.c_str());
+	} else {
+		_binaryFlag = true;
+		if (!_pStream->Seek(sig, 80 - 6, Stream::SeekCur)) return false;
+		size_t bytesRead = _pStream->Read(sig, buff, 4);
+		if (bytesRead < 4) {
+			SetError_FormatError(env);
+			return false;
+		}
 	}
 	return true;
 }
 
 bool Iterator_reader::DoNext(Environment &env, Value &value)
 {
-	return DoNextFromText(env, value);
+	return _binaryFlag? DoNextFromBinary(env, value) : DoNextFromText(env, value);
 }
 
 bool Iterator_reader::DoDirProp(Environment &env, SymbolSet &symbols)
@@ -237,6 +253,25 @@ String Iterator_reader::ToString() const
 
 void Iterator_reader::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
+}
+
+bool Iterator_reader::DoNextFromBinary(Environment &env, Value &value)
+{
+	Signal &sig = env.GetSignal();
+	FacetBin facetBin;
+	size_t bytesRead = _pStream->Read(sig, &facetBin, FacetBin::Size);
+	if (bytesRead < FacetBin::Size) {
+		SetError_FormatError(env);
+		return false;
+	}
+	AutoPtr<Object_facet> pObjFacet(new Object_facet());
+	Facet &facet = pObjFacet->GetFacet();
+	facet.SetNormal(Vertex(facetBin.normal[0], facetBin.normal[1], facetBin.normal[2]));
+	facet.SetVertex(0, Vertex(facetBin.vertex1[0], facetBin.vertex1[1], facetBin.vertex1[2]));
+	facet.SetVertex(1, Vertex(facetBin.vertex2[0], facetBin.vertex2[1], facetBin.vertex2[2]));
+	facet.SetVertex(2, Vertex(facetBin.vertex3[0], facetBin.vertex3[1], facetBin.vertex3[2]));
+	value = Value(pObjFacet.release());
+	return true;
 }
 
 bool Iterator_reader::DoNextFromText(Environment &env, Value &value)

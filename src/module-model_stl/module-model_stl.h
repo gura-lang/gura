@@ -21,6 +21,18 @@ enum TokenId {
 };
 
 //-----------------------------------------------------------------------------
+// FacetBin
+//-----------------------------------------------------------------------------
+struct FacetBin {
+	enum { Size = 4 * 3 * 4 + 2 };
+	float normal[3];
+	float vertex1[3];
+	float vertex2[3];
+	float vertex3[3];
+	UShort unused;
+};
+
+//-----------------------------------------------------------------------------
 // Facet
 //-----------------------------------------------------------------------------
 class Facet {
@@ -43,14 +55,14 @@ public:
 class Tokenizer {
 public:
 	enum Stat {
-		STAT_FileTop, STAT_FileEnd, STAT_LineTop, STAT_Field, STAT_SkipWhite,
+		STAT_LineTop, STAT_Field, STAT_SkipWhite, STAT_FileEnd,
 	};
 private:
 	Stat _stat;
 	String _field;
 	TokenId _tokenIdPending;
 public:
-	inline Tokenizer() : _stat(STAT_FileTop), _tokenIdPending(TOKEN_None) {}
+	inline Tokenizer() : _stat(STAT_LineTop), _tokenIdPending(TOKEN_None) {}
 	TokenId Tokenize(Environment &env, Stream &stream);
 	inline const String &GetField() const { return _field; }
 };
@@ -90,6 +102,7 @@ public:
 		STAT_endfacet,
 	};
 private:
+	bool _binaryFlag;
 	AutoPtr<Stream> _pStream;
 	String _solidName;
 	Stat _stat;
@@ -106,6 +119,7 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	bool Prepare(Environment &env);
 private:
+	bool DoNextFromBinary(Environment &env, Value &value);
 	bool DoNextFromText(Environment &env, Value &value);
 };
 
