@@ -32,3 +32,10 @@ vertex(3, 4, 5).rotate@z(math.pi / 2) .. <vertex:-4,3,5,1>
 vertex(3, 4, 5).rotate@x(90):deg .. <vertex:3,-5,4,1>
 vertex(3, 4, 5).rotate@y(90):deg .. <vertex:5,4,-3,1>
 vertex(3, 4, 5).rotate@z(90):deg .. <vertex:-4,3,5,1>
+
+======== #6 vertex.normal ========
+
+vertex.normal(vertex(1, 1, 2), vertex(0, -2, 1), vertex(3, -1, 0)) .. <vertex:4,-4,8,1>
+vertex.normal(vertex(1, 1, 2), vertex(0, -2, 1), vertex(3, -1, 0)):unit .. <vertex:0.408248,-0.408248,0.816497,1>
+vertex.normal(vertex.zero, vertex.zero, vertex.zero) .. <vertex:0,0,0,1>
+vertex.normal(vertex.zero, vertex.zero, vertex.zero):unit .. <vertex:0,0,0,1>

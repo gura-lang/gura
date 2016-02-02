@@ -805,5 +805,10 @@ uri
   uri#getquery()
   uri.parsequery(query:string):static:map
 vertex
+  vertex.normal(v1:vertex, v2:vertex, v3:vertex):static:[unit] {block?}
+  vertex#rotate@x(angle:number):[deg] {block?}
+  vertex#rotate@y(angle:number):[deg] {block?}
+  vertex#rotate@z(angle:number):[deg] {block?}
   vertex#tolist():[w] {block?}
+  vertex#translate(tx:number, ty:number, tz?:number) {block?}
   zero:vertex = <vertex:0,0,0,1>
