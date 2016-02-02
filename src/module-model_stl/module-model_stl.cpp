@@ -443,11 +443,12 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// model.stl.reader(stream:stream)
+// model.stl.reader(stream:stream) {block?}
 Gura_DeclareFunction(reader)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -472,185 +473,6 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	enum {
-		STAT_solid, STAT_solid_name, STAT_solid_EOL,
-		STAT_facet, STAT_normal, STAT_normal_coords,
-		STAT_outer, STAT_loop,
-		STAT_vertex, STAT_vertex_coords,
-		STAT_endloop,
-		STAT_endfacet,
-	} _stat = STAT_solid;
-	size_t nCoords = 0;
-	size_t nVertexes = 0;
-	Vertex vertex;
-	Tokenizer _tokenizer;
-	Stream &stream = arg.GetStream(0);
-	AutoPtr<Object_facet> pObjFacet;
-	for (;;) {
-		TokenId tokenId = _tokenizer.Tokenize(env, stream);
-		switch (_stat) {
-		case STAT_solid: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "solid") {
-					_stat = STAT_solid_name;
-				} else {
-					// error
-				}
-			}
-			break;
-		}
-		case STAT_solid_name: {
-			if (tokenId == TOKEN_EOL) {
-				_stat = STAT_facet;
-			} else if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				_stat = STAT_solid_EOL;
-			}
-			break;
-		}
-		case STAT_solid_EOL: {
-			if (tokenId == TOKEN_EOL) {
-				_stat = STAT_facet;
-			}
-			break;
-		}
-		case STAT_facet: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "facet") {
-					pObjFacet.reset(new Object_facet());
-					_stat = STAT_normal;
-				} else {
-					// error
-				}
-			}
-			break;
-		}
-		case STAT_normal: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "normal") {
-					nCoords = 0;
-					_stat = STAT_normal_coords;
-				} else {
-					// error
-				}
-			}
-			break;
-		}
-		case STAT_normal_coords: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				double num = 0;
-				char *p = nullptr;
-				num = ::strtod(field.c_str(), &p);
-				if (*p != '\0') {
-					// error
-				}
-				if (nCoords == 0) {
-					vertex.x = num;
-				} else if (nCoords == 1) {
-					vertex.y = num;
-				} else if (nCoords == 2) {
-					Facet &facet = pObjFacet->GetFacet();
-					vertex.z = num;
-					facet.SetNormal(vertex);
-					_stat = STAT_outer;
-				}
-				nCoords++;
-			}
-			break;
-		}
-		case STAT_outer: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "outer") {
-					_stat = STAT_loop;
-				} else {
-					// error
-				}
-			}
-			break;
-		}
-		case STAT_loop: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "loop") {
-					nVertexes = 0;
-					_stat = STAT_vertex;
-				} else {
-					// error
-				}
-			}
-			break;
-		}
-		case STAT_vertex: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "vertex") {
-					nCoords = 0;
-					_stat = STAT_vertex_coords;
-				} else {
-					// error
-				}
-			}
-			break;
-		}
-		case STAT_vertex_coords: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				double num = 0;
-				char *p = nullptr;
-				num = ::strtod(field.c_str(), &p);
-				if (*p != '\0') {
-					// error
-				}
-				if (nCoords == 0) {
-					vertex.x = num;
-				} else if (nCoords == 1) {
-					vertex.y = num;
-				} else if (nCoords == 2) {
-					Facet &facet = pObjFacet->GetFacet();
-					vertex.z = num;
-					nCoords = 0;
-					facet.SetVertex(nVertexes, vertex);
-					if (nVertexes == 2) {
-						::printf("%s\n", facet.ToString().c_str());
-						// completed facet
-						_stat = STAT_endloop;
-					}
-					nVertexes++;
-				}
-				nCoords++;
-			}
-			break;
-		}
-		case STAT_endloop: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "endloop") {
-					_stat = STAT_endfacet;
-				} else {
-					// error
-				}
-			}
-			break;
-		}
-		case STAT_endfacet: {
-			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "endfacet") {
-					_stat = STAT_facet;
-				} else {
-					// error
-				}
-			}
-			break;
-		}
-		}
-		if (tokenId == TOKEN_EOF) break;
-	}
 	return Value::Nil;
 }
 
