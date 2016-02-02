@@ -6724,6 +6724,22 @@ Gura_ImplementFunction(__glTranslatef)
 	return Value::Nil;
 }
 
+// opengl.glVertex
+Gura_DeclareFunctionAlias(__glVertex, "glVertex")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_vertex, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertex)
+{
+	const Vertex *v = &Object_vertex::GetObject(arg, 0)->GetVertex();
+	glVertex4d(v->x, v->y, v->z, v->w);
+}
+
 // opengl.glVertex2d
 Gura_DeclareFunctionAlias(__glVertex2d, "glVertex2d")
 {
@@ -8058,6 +8074,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glTexSubImage2DFromImage);
 	Gura_AssignFunction(__glTranslated);
 	Gura_AssignFunction(__glTranslatef);
+	Gura_AssignFunction(__glVertex);
 	Gura_AssignFunction(__glVertex2d);
 	Gura_AssignFunction(__glVertex2dv);
 	Gura_AssignFunction(__glVertex2f);

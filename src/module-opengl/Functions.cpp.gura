@@ -2213,6 +2213,13 @@ glTranslatef(x:GLfloat, y:GLfloat, z:GLfloat):void:map = `auto % {`en, 'markdown
 	'''
 }
 
+glVertex(v:vertex):void:map = R'''
+	glVertex4d(v->x, v->y, v->z, v->w);
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
+
 glVertex2d(x:GLdouble, y:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
