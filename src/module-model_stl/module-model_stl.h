@@ -46,6 +46,7 @@ public:
 	inline void SetVertex(size_t idx, const Vertex &vertex) { _vertexes[idx] = vertex; }
 	inline const Vertex &GetNormal() const { return _normal; }
 	inline const Vertex &GetVertex(size_t idx) const { return _vertexes[idx]; }
+	void UpdateNormal();
 	String ToString(const char *sep = "; ") const;
 };
 

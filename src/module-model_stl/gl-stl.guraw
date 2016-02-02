@@ -31,9 +31,6 @@ display(degree:number) = {
 	glRotated(degree, 1, 1, 0)
 	glMaterialfv(GL_FRONT_AND_BACK,
 			GL_AMBIENT_AND_DIFFUSE, [0.8, 0.2, 0.2, 1])
-	facets = model.stl.reader('cube-ascii.stl')
-	//facets = model.stl.reader('cube-binary.stl')
-	//facets = model.stl.reader('Voyager_17.stl')
 	glBegin(GL_TRIANGLES) {
 		facets.each {|facet|
 			glNormal(facet.normal)
@@ -44,11 +41,16 @@ display(degree:number) = {
 	}
 }
 
+facets = nil
+
 scope {
 	import(sdl2, sdl)
 	import(glapp)
 	degree = 0
 	[width, height] = [300, 300]
+	//facets:extern = model.stl.reader('cube-ascii.stl')
+	facets:extern = model.stl.reader('cube-binary.stl')
+	//facets:extern = model.stl.reader('Voyager_17.stl')
 	App = class(glapp.App) {
 		OnInit() = {
 		}

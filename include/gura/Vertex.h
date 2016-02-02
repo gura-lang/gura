@@ -75,6 +75,7 @@ public:
 	inline Vertex(const Vertex2 &vertex) : x(vertex.x), y(vertex.y), z(0.), w(1.) {}
 	inline Vertex(const Vertex3 &vertex) : x(vertex.x), y(vertex.y), z(vertex.z), w(1.) {}
 	inline Vertex(const Vertex &vertex) : x(vertex.x), y(vertex.y), z(vertex.z), w(vertex.w) {}
+	inline bool IsZero() const { return x == 0. && y == 0. && z == 0.; }
 	Vertex Translate(double tx, double ty, double tz) const;
 	Vertex RotateX(double rad) const;
 	Vertex RotateY(double rad) const;
