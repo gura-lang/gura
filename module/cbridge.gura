@@ -549,6 +549,11 @@ typeConvDict = %{
 			'const Color *${arg.name} = &Object_color::GetObject(arg, ${idx})->GetColor();',
 			'const Color *${arg.name} = arg.IsValid(${idx})? &Object_color::GetObject(arg, ${idx})->GetColor() : nullptr;',
 			nil)
+	'vertex' => TypeConv(
+			'vertex', 'Once', [],
+			'const Vertex *${arg.name} = &Object_vertex::GetObject(arg, ${idx})->GetVertex();',
+			'const Vertex *${arg.name} = arg.IsValid(${idx})? &Object_vertex::GetObject(arg, ${idx})->GetVertex() : nullptr;',
+			nil)
 	'datetime' => TypeConv(
 			'datetime', 'Once', [],
 			'const DateTime *${arg.name} = &Object_datetime::GetObject(arg, ${idx})->GetDateTime();',
