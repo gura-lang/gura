@@ -735,6 +735,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(u64le);
 	Gura_RealizeSymbol(u8);
 	Gura_RealizeSymbol(unary);
+	Gura_RealizeSymbol(unit);
 	Gura_RealizeSymbol(unixtime);
 	Gura_RealizeSymbol(unknown);
 	Gura_RealizeSymbol(up);

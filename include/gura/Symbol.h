@@ -576,6 +576,7 @@ public:
 	Gura_DeclareSymbol(u64le);
 	Gura_DeclareSymbol(u8);
 	Gura_DeclareSymbol(unary);
+	Gura_DeclareSymbol(unit);
 	Gura_DeclareSymbol(unixtime);
 	Gura_DeclareSymbol(unknown);
 	Gura_DeclareSymbol(up);

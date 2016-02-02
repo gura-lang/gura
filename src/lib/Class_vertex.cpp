@@ -116,6 +116,30 @@ Gura_ImplementFunction(vertex)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// vertex.normal(v1:vertex, v2:vertex, v3:vertex):[unit] {block?}
+Gura_DeclareClassMethod(vertex, normal)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "v1", VTYPE_vertex, OCCUR_Once);
+	DeclareArg(env, "v2", VTYPE_vertex, OCCUR_Once);
+	DeclareArg(env, "v3", VTYPE_vertex, OCCUR_Once);
+	DeclareAttr(Gura_Symbol(unit));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementClassMethod(vertex, normal)
+{
+	const Vertex &v1 = Object_vertex::GetObject(arg, 0)->GetVertex();
+	const Vertex &v2 = Object_vertex::GetObject(arg, 1)->GetVertex();
+	const Vertex &v3 = Object_vertex::GetObject(arg, 2)->GetVertex();
+	bool unitFlag = arg.IsSet(Gura_Symbol(unit));
+	return ReturnValue(
+		env, arg, Value(new Object_vertex(env, Vertex::CalcNormal(v1, v2, v3, unitFlag))));
+}
+
 // vertex#rotate@x(angle:number):[deg] {block?}
 Gura_DeclareMethodAlias(vertex, rotate_x, "rotate@x")
 {
@@ -257,6 +281,7 @@ Class_vertex::Class_vertex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_vert
 
 void Class_vertex::Prepare(Environment &env)
 {
+	Gura_AssignMethod(vertex, normal);
 	Gura_AssignMethod(vertex, rotate_x);
 	Gura_AssignMethod(vertex, rotate_y);
 	Gura_AssignMethod(vertex, rotate_z);

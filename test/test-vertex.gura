@@ -34,3 +34,9 @@ testcase('vertex.rotate@X()') {
 	tester(`vertex(3, 4, 5).rotate@y(90):deg)
 	tester(`vertex(3, 4, 5).rotate@z(90):deg)
 }
+testcase('vertex.normal') {
+	tester(`vertex.normal(vertex(1, 1, 2), vertex(0, -2, 1), vertex(3, -1, 0)))
+	tester(`vertex.normal(vertex(1, 1, 2), vertex(0, -2, 1), vertex(3, -1, 0)):unit)
+	tester(`vertex.normal(vertex.zero, vertex.zero, vertex.zero))
+	tester(`vertex.normal(vertex.zero, vertex.zero, vertex.zero):unit)
+}
