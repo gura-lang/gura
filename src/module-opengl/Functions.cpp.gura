@@ -1386,6 +1386,13 @@ glNewList(list:GLuint, mode:GLenum):void:map {block?} = R'''
 	'''
 }
 
+glNormal(v:vertex):void:map = R'''
+	glNormal3d(v->x, v->y, v->z);
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
+
 glNormal3b(nx:GLbyte, ny:GLbyte, nz:GLbyte):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
