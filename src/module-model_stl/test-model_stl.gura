@@ -3,9 +3,11 @@ import(helper.test) {*}
 import(model.stl)
 
 testcase {
-	//reader = model.stl.reader('cube-ascii.stl')
-	//reader = model.stl.reader('cube-binary.stl')
-	reader = model.stl.reader('Voyager_17.stl')
-	println(reader.solidname)
-	println(reader)
+	reader1 = model.stl.reader('cube-ascii.stl')
+	//reader2 = model.stl.reader('cube-binary.stl')
+	println(reader1)
+	//println(reader1, '\n', reader2)
+	//reader = model.stl.reader('Voyager_17.stl')
+	//println(reader.solidname)
+	//println(reader)
 }

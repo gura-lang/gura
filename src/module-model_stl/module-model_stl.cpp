@@ -326,8 +326,8 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 				} else if (nCoords == 2) {
 					vertex.y = num;
 				} else if (nCoords == 3) {
-					Facet &facet = pObjFacet->GetFacet();
 					vertex.z = num;
+					Facet &facet = pObjFacet->GetFacet();
 					facet.SetNormal(vertex);
 					_stat = STAT_outer;
 				}
@@ -384,14 +384,14 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 				} else if (nCoords == 2) {
 					vertex.y = num;
 				} else if (nCoords == 3) {
-					Facet &facet = pObjFacet->GetFacet();
 					vertex.z = num;
-					nCoords = 0;
+					Facet &facet = pObjFacet->GetFacet();
 					facet.SetVertex(nVertexes, vertex);
 					nVertexes++;
 					if (nVertexes == 3) {
 						_stat = STAT_endloop;
-						
+					} else {
+						_stat = STAT_vertex;
 					}
 				}
 			}

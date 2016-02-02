@@ -1,0 +1,76 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below.
+// http://www.wakayama-u.ac.jp/~tokoi/opengl/libglut.html
+
+import(glu) {*}
+import(opengl) {*}
+import(model.stl)
+
+vertex = [
+	[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]
+	[0, 0, 1], [1, 0, 1], [1, 1, 1], [0, 1, 1]
+]
+
+init(w:number, h:number) = {
+	glClearColor(1, 1, 1, 1)
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+	glEnable([GL_DEPTH_TEST, GL_CULL_FACE])
+	glEnable([GL_LIGHTING, GL_LIGHT0, GL_LIGHT1])
+	glCullFace(GL_FRONT)
+	glViewport(0, 0, w, h)
+	glMatrixMode(GL_PROJECTION)
+	glLoadIdentity()
+	gluPerspective(30, w / h, 1, 100)
+}
+
+display(degree:number) = {
+	glMatrixMode(GL_MODELVIEW)
+	glLoadIdentity()
+	gluLookAt(3, 4, 5, 0, 0, 0, 0, 1, 0)
+	glRotated(degree, 1, 1, 0)
+	glMaterialfv(GL_FRONT_AND_BACK,
+			GL_AMBIENT_AND_DIFFUSE, [0.8, 0.2, 0.2, 1])
+	facets = model.stl.reader('cube-ascii.stl')
+	//facets = model.stl.reader('cube-binary.stl')
+	//facets = model.stl.reader('Voyager_17.stl')
+	glBegin(GL_TRIANGLES) {
+		facets.each {|facet|
+			glNormal(facet.normal)
+			glVertex(facet.vertex1 / 10)
+			glVertex(facet.vertex2 / 10)
+			glVertex(facet.vertex3 / 10)
+		}
+	}
+}
+
+scope {
+	import(sdl2, sdl)
+	import(glapp)
+	degree = 0
+	[width, height] = [300, 300]
+	App = class(glapp.App) {
+		OnInit() = {
+		}
+		OnResize(width:number, height:number) = {
+		}
+		OnDraw() = {
+			init(width, height)
+			display(degree)
+			this.SwapWindow()
+		}
+		OnIdle() = {
+			if (this.CheckKeyboardState(sdl.SCANCODE_LEFT)) {
+				degree += 5
+			}
+			if (this.CheckKeyboardState(sdl.SCANCODE_RIGHT)) {
+				degree -= 5
+			}
+			init(width, height)
+			display(degree)
+			this.SwapWindow()
+		}
+	}
+	app = App()
+	app.MainLoop(nil, width, height, 0)
+}
