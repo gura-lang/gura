@@ -26,15 +26,20 @@ class GURA_DLLDECLARE Object_vertex : public Object {
 public:
 	Gura_DeclareObjectAccessor(vertex)
 private:
-	Vertex _vertex;
+	AutoPtr<VertexRef> _pVertex;
 public:
-	inline Object_vertex(const Object_vertex &obj) : Object(obj), _vertex(obj._vertex) {}
-	inline Object_vertex(Environment &env, const Vertex &vertex = Vertex::Zero) :
-			Object(env.LookupClass(VTYPE_vertex)), _vertex(vertex) {}
+	inline Object_vertex(const Object_vertex &obj) :
+		Object(obj), _pVertex(new VertexRef(obj.GetVertex())) {}
+	inline Object_vertex(Environment &env) :
+		Object(env.LookupClass(VTYPE_vertex)), _pVertex(new VertexRef()) {}
+	inline Object_vertex(Environment &env, const Vertex &vertex) :
+		Object(env.LookupClass(VTYPE_vertex)), _pVertex(new VertexRef(vertex)) {}
+	inline Object_vertex(Environment &env, VertexRef *pVertex) :
+		Object(env.LookupClass(VTYPE_vertex)), _pVertex(pVertex) {}
 	inline Object_vertex(Class *pClass) : Object(pClass) {}
-	inline void SetVertex(const Vertex &vertex) { _vertex = vertex; }
-	inline Vertex &GetVertex() { return _vertex; }
-	inline const Vertex &GetVertex() const { return _vertex; }
+	inline void SetVertexRef(VertexRef *pVertex) { _pVertex.reset(pVertex); }
+	inline VertexRef &GetVertex() { return *_pVertex; }
+	inline const VertexRef &GetVertex() const { return *_pVertex; }
 	virtual ~Object_vertex();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);

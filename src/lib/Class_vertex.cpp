@@ -32,13 +32,13 @@ Value Object_vertex::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		return Value(_vertex.x);
+		return Value(_pVertex->x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		return Value(_vertex.y);
+		return Value(_pVertex->y);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(z))) {
-		return Value(_vertex.z);
+		return Value(_pVertex->z);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(w))) {
-		return Value(_vertex.w);
+		return Value(_pVertex->w);
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -52,25 +52,25 @@ Value Object_vertex::DoSetProp(Environment &env, const Symbol *pSymbol, const Va
 		if (!value.MustBe_number(sig)) return Value::Nil;
 		evaluatedFlag = true;
 		double x = value.GetDouble();
-		_vertex.x = x;
+		_pVertex->x = x;
 		return Value(x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
 		if (!value.MustBe_number(sig)) return Value::Nil;
 		evaluatedFlag = true;
 		double y = value.GetDouble();
-		_vertex.y = y;
+		_pVertex->y = y;
 		return Value(y);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(z))) {
 		if (!value.MustBe_number(sig)) return Value::Nil;
 		evaluatedFlag = true;
 		double z = value.GetDouble();
-		_vertex.z = z;
+		_pVertex->z = z;
 		return Value(z);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(w))) {
 		if (!value.MustBe_number(sig)) return Value::Nil;
 		evaluatedFlag = true;
 		double w = value.GetDouble();
-		_vertex.w = w;
+		_pVertex->w = w;
 		return Value(w);
 	}
 	return Value::Nil;
@@ -80,7 +80,7 @@ String Object_vertex::ToString(bool exprFlag)
 {
 	String str;
 	str += "<vertex:";
-	str += _vertex.ToString();
+	str += _pVertex->ToString();
 	str += ">";
 	return str;
 }
