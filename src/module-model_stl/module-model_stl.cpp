@@ -16,7 +16,7 @@ void SetError_FormatError(Environment &env)
 //-----------------------------------------------------------------------------
 // Facet
 //-----------------------------------------------------------------------------
-Facet::Facet(const Facet &facet) : _normal(facet._normal)
+Facet::Facet(const Facet &facet) : _normal(facet._normal), _attr(facet._attr)
 {
 	for (size_t i = 0; i < ArraySizeOf(_vertexes); i++) {
 		_vertexes[i] = facet._vertexes[i];
@@ -31,11 +31,15 @@ void Facet::UpdateNormal()
 String Facet::ToString(const char *sep) const
 {
 	String str;
+	char buff[80];
 	str += _normal.ToString();
 	for (size_t i = 0; i < ArraySizeOf(_vertexes); i++) {
 		str += sep;
 		str += _vertexes[i].ToString();
 	}
+	str += sep;
+	::sprintf(buff, "%04x", _attr);
+	str += buff;
 	return str;
 }
 
@@ -151,6 +155,8 @@ Value Object_facet::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(new Object_vertex(env, _facet.GetVertex(1)));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex3))) {
 		return Value(new Object_vertex(env, _facet.GetVertex(2)));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attr))) {
+		return Value(_facet.GetAttr());
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -288,6 +294,7 @@ bool Iterator_reader::DoNextFromBinary(Environment &env, Value &value)
 	facet.SetVertex(0, Vertex(facetBin.vertex1[0], facetBin.vertex1[1], facetBin.vertex1[2]));
 	facet.SetVertex(1, Vertex(facetBin.vertex2[0], facetBin.vertex2[1], facetBin.vertex2[2]));
 	facet.SetVertex(2, Vertex(facetBin.vertex3[0], facetBin.vertex3[1], facetBin.vertex3[2]));
+	facet.SetAttr(facetBin.attr);
 	if (facetBin.normal[0] == 0. && facetBin.normal[1] == 0. && facetBin.normal[2] == 0.) {
 		facet.UpdateNormal();
 	} else {
@@ -504,6 +511,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(vertex1);
 	Gura_RealizeUserSymbol(vertex2);
 	Gura_RealizeUserSymbol(vertex3);
+	Gura_RealizeUserSymbol(attr);
 	// function assignment
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(test);

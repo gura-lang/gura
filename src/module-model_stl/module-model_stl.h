@@ -13,6 +13,7 @@ Gura_DeclareUserSymbol(normal);
 Gura_DeclareUserSymbol(vertex1);
 Gura_DeclareUserSymbol(vertex2);
 Gura_DeclareUserSymbol(vertex3);
+Gura_DeclareUserSymbol(attr);
 
 //-----------------------------------------------------------------------------
 // TokenId
@@ -30,7 +31,7 @@ struct FacetBin {
 	float vertex1[3];
 	float vertex2[3];
 	float vertex3[3];
-	UShort unused;
+	UShort attr;
 };
 
 //-----------------------------------------------------------------------------
@@ -40,13 +41,16 @@ class Facet {
 private:
 	Vertex _normal;
 	Vertex _vertexes[3];
+	UShort _attr;
 public:
-	inline Facet() {}
+	inline Facet() : _attr(0) {}
 	Facet(const Facet &facet);
 	inline void SetNormal(const Vertex &normal) { _normal = normal; }
 	inline void SetVertex(size_t idx, const Vertex &vertex) { _vertexes[idx] = vertex; }
+	inline void SetAttr(UShort attr) { _attr = attr; }
 	inline const Vertex &GetNormal() const { return _normal; }
 	inline const Vertex &GetVertex(size_t idx) const { return _vertexes[idx]; }
+	inline UShort GetAttr() const { return _attr; }
 	void UpdateNormal();
 	String ToString(const char *sep = "; ") const;
 };

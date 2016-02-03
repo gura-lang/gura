@@ -10,9 +10,7 @@ testcase {
 	//println(reader1, '\n', reader2)
 	//fileName = 'cube-ascii.stl'
 	fileName = 'Voyager_17.stl'
-	repeat (10) {
-		facets = [model.stl.reader(fileName)]
-	}
+	println(model.stl.reader(fileName):*attr)
 /*
 	model.stl.reader(fileName) {|facet|
 		printf('glNormal3d(%g, %g, %g)\n', facet.normal.x, facet.normal.y, facet.normal.z)
