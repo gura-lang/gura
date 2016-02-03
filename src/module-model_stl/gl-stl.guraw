@@ -17,12 +17,13 @@ prepare() = {
 	objList:extern = glGenLists(1)
 	fileName = 'Voyager_17.stl'
 	facets = model.stl.reader(fileName)
+	scale = .1
 	glNewList(objList, GL_COMPILE) {
 		facets.each {|facet|
 			glNormal(facet.normal)
-			glVertex(facet.vertex1 / 20)
-			glVertex(facet.vertex2 / 20)
-			glVertex(facet.vertex3 / 20)
+			glVertex(facet.vertex1 * scale)
+			glVertex(facet.vertex2 * scale)
+			glVertex(facet.vertex3 * scale)
 		}
 	}	
 }
@@ -46,7 +47,7 @@ display(degree:number) = {
 	glRotated(degree, 1, 1, 0)
 	glMaterialfv(GL_FRONT_AND_BACK,
 			GL_AMBIENT_AND_DIFFUSE, [0.8, 0.2, 0.2, 1])
-	glBegin(GL_TRIANGLES) {
+	glBegin(GL_LINES) {
 		glCallList(objList)
 	}
 	glFlush()
@@ -59,9 +60,6 @@ scope {
 	import(glapp)
 	degree = 0
 	[width, height] = [300, 300]
-	//facets:extern = model.stl.reader('cube-ascii.stl')
-	//facets:extern = model.stl.reader('cube-binary.stl')
-	//facets:extern = model.stl.reader('Voyager_17.stl')
 	App = class(glapp.App) {
 		OnInit() = {
 			prepare()
