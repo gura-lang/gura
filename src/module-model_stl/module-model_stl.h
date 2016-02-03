@@ -7,6 +7,7 @@
 
 Gura_BeginModuleHeader(model_stl)
 
+Gura_DeclareUserSymbol(header);
 Gura_DeclareUserSymbol(solidname);
 Gura_DeclareUserSymbol(normal);
 Gura_DeclareUserSymbol(vertex1);
@@ -107,7 +108,7 @@ private:
 	AutoPtr<Stream> _pStream;
 	size_t _idxFacet;
 	size_t _nFacet;			// for binary
-	String _solidName;		// for text
+	String _text;			// header for binary / solid name for text
 	Stat _stat;				// for text
 	Tokenizer _tokenizer;	// for text
 public:

@@ -16,10 +16,11 @@ objList = nil
 prepare() = {
 	objList:extern = glGenLists(1)
 	fileName = 'Voyager_17.stl'
-	facets = model.stl.reader(fileName)
+	reader = model.stl.reader(fileName)
+	println(reader.header)
 	scale = .1
 	glNewList(objList, GL_COMPILE) {
-		facets.each {|facet|
+		reader.each {|facet|
 			glNormal(facet.normal)
 			glVertex(facet.vertex1 * scale)
 			glVertex(facet.vertex2 * scale)

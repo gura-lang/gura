@@ -195,7 +195,7 @@ Iterator *Iterator_reader::GetSource()
 bool Iterator_reader::Prepare(Environment &env)
 {
 	Signal &sig = env.GetSignal();
-	char buff[32];
+	char buff[81];
 	size_t bytesRead = _pStream->Read(sig, buff, 6);
 	if (bytesRead < 6) {
 		SetError_FormatError(env);
@@ -210,11 +210,17 @@ bool Iterator_reader::Prepare(Environment &env)
 			if (ch == '\0' || ch == '\n') break;
 			field += ch;
 		}
-		_solidName = Strip(field.c_str());
+		_text = Strip(field.c_str());
 	} else {
 		_binaryFlag = true;
-		if (!_pStream->Seek(sig, 80 - 6, Stream::SeekCur)) return false;
-		size_t bytesRead = _pStream->Read(sig, buff, 4);
+		size_t bytesRead = _pStream->Read(sig, buff + 6, 80 - 6);
+		buff[80] = '\0';
+		if (bytesRead < 80 - 6) {
+			SetError_FormatError(env);
+			return false;
+		}
+		_text = buff;
+		bytesRead = _pStream->Read(sig, buff, 4);
 		if (bytesRead < 4) {
 			SetError_FormatError(env);
 			return false;
@@ -231,6 +237,7 @@ bool Iterator_reader::DoNext(Environment &env, Value &value)
 
 bool Iterator_reader::DoDirProp(Environment &env, SymbolSet &symbols)
 {
+	symbols.insert(Gura_UserSymbol(header));
 	symbols.insert(Gura_UserSymbol(solidname));
 	return true;
 }
@@ -239,8 +246,12 @@ Value Iterator_reader::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(solidname))) {
-		return Value(_solidName);
+	if (pSymbol->IsIdentical(Gura_UserSymbol(header))) {
+		if (!_binaryFlag) return Value::Nil;
+		return Value(_text);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(solidname))) {
+		if (_binaryFlag) return Value::Nil;
+		return Value(_text);
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -250,9 +261,9 @@ String Iterator_reader::ToString() const
 {
 	String rtn;
 	rtn += "<iterator:model.stl.reader";
-	if (!_solidName.empty()) {
+	if (!_text.empty()) {
 		rtn += ":";
-		rtn += _solidName;
+		rtn += _text;
 	}
 	rtn += ">";
 	return rtn;
@@ -487,6 +498,7 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	// symbol realization
+	Gura_RealizeUserSymbol(header);
 	Gura_RealizeUserSymbol(solidname);
 	Gura_RealizeUserSymbol(normal);
 	Gura_RealizeUserSymbol(vertex1);
