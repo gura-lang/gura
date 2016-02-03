@@ -3752,6 +3752,7 @@ Gura_ImplementFunction(__glNormal)
 {
 	const Vertex *v = &Object_vertex::GetObject(arg, 0)->GetVertex();
 	glNormal3d(v->x, v->y, v->z);
+	return Value::Nil;
 }
 
 // opengl.glNormal3b
@@ -6754,6 +6755,7 @@ Gura_ImplementFunction(__glVertex)
 {
 	const Vertex *v = &Object_vertex::GetObject(arg, 0)->GetVertex();
 	glVertex4d(v->x, v->y, v->z, v->w);
+	return Value::Nil;
 }
 
 // opengl.glVertex2d
