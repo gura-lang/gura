@@ -10,12 +10,17 @@ testcase {
 	//println(reader1, '\n', reader2)
 	//fileName = 'cube-ascii.stl'
 	fileName = 'Voyager_17.stl'
+	repeat (10) {
+		facets = [model.stl.reader(fileName)]
+	}
+/*
 	model.stl.reader(fileName) {|facet|
 		printf('glNormal3d(%g, %g, %g)\n', facet.normal.x, facet.normal.y, facet.normal.z)
 		printf('glVertex3d(%g, %g, %g)\n', facet.vertex1.x * ratio, facet.vertex1.y * ratio, facet.vertex1.z * ratio)
 		printf('glVertex3d(%g, %g, %g)\n', facet.vertex2.x * ratio, facet.vertex2.y * ratio, facet.vertex2.z * ratio)
 		printf('glVertex3d(%g, %g, %g)\n', facet.vertex3.x * ratio, facet.vertex3.y * ratio, facet.vertex3.z * ratio)
 	}
+*/
 	//println(reader.solidname)
 	//println(reader)
 }

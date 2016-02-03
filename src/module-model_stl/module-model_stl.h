@@ -24,7 +24,7 @@ enum TokenId {
 // FacetBin
 //-----------------------------------------------------------------------------
 struct FacetBin {
-	enum { Size = 4 * 3 * 4 + 2 };
+	enum { Size = sizeof(float) * 3 * 4 + 2 };
 	float normal[3];
 	float vertex1[3];
 	float vertex2[3];
@@ -124,14 +124,6 @@ public:
 private:
 	bool DoNextFromBinary(Environment &env, Value &value);
 	bool DoNextFromText(Environment &env, Value &value);
-};
-
-//-----------------------------------------------------------------------------
-// Solid
-//-----------------------------------------------------------------------------
-class Solid {
-private:
-	
 };
 
 Gura_EndModuleHeader(model_stl)
