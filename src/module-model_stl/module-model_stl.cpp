@@ -37,8 +37,6 @@ String Facet::ToString(const char *sep) const
 		str += sep;
 		str += _vertexes[i].ToString();
 	}
-	//str += sep;
-	//::sprintf(buff, "%04x", _attr);
 	str += buff;
 	return str;
 }

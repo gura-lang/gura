@@ -85,6 +85,35 @@ public:
 	static Vertex CreateFromValues(Environment &env, const ValueList &valList);
 };
 
+//-----------------------------------------------------------------------------
+// VertexRef
+//-----------------------------------------------------------------------------
+struct GURA_DLLDECLARE VertexRef : public Vertex {
+private:
+	int _cntRef;
+public:
+	inline static void *operator new(size_t size) {
+		return MemoryPool::Allocate(size, "VertexRef");
+	}
+	inline static void operator delete(void *pv) {
+		MemoryPool::Deallocate(pv);
+	}
+public:
+	Gura_DeclareReferenceAccessor(VertexRef)
+public:
+	inline VertexRef() : _cntRef(1) {}
+	inline VertexRef(double _x, double _y) : Vertex(_x, _y), _cntRef(1) {}
+	inline VertexRef(double _x, double _y, double _z) :
+		Vertex(_x, _y, _z), _cntRef(1) {}
+	inline VertexRef(double _x, double _y, double _z, double _w) :
+		Vertex(_x, _y, _z, _w), _cntRef(1) {}
+	inline VertexRef(const Vertex2 &vertex) : Vertex(vertex), _cntRef(1) {}
+	inline VertexRef(const Vertex3 &vertex) : Vertex(vertex), _cntRef(1) {}
+	inline VertexRef(const Vertex &vertex) : Vertex(vertex), _cntRef(1) {}
+protected:
+	inline ~VertexRef() {}
+};
+
 }
 
 #endif
