@@ -15,9 +15,11 @@ objList = nil
 
 prepare() = {
 	objList:extern = glGenLists(1)
-	fileName = 'Voyager_17.stl'
+	fileName = 'cube-ascii.stl'
+	//fileName = 'cube-binary.stl'
+	//fileName = 'Voyager_17.stl'
 	reader = model.stl.reader(fileName)
-	println(reader.header)
+	println(reader.solidname || reader.header)
 	scale = .1
 	glNewList(objList, GL_COMPILE) {
 		reader.each {|facet|
