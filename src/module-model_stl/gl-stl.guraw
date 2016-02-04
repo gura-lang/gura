@@ -12,12 +12,14 @@ objList = nil
 
 prepare() = {
 	objList:extern = glGenLists(1)
-	//fileName = 'cube-ascii.stl'
-	//fileName = 'cube-binary.stl'
-	//fileName = 'Voyager_17.stl'
-	scale = .05
+	facets = [reader]
+	xMax = max(facets:*vertex1:*x.max(), facets:*vertex2:*x.max(), facets:*vertex3:*x.max())
+	yMax = max(facets:*vertex1:*y.max(), facets:*vertex2:*y.max(), facets:*vertex3:*y.max())
+	zMax = max(facets:*vertex1:*z.max(), facets:*vertex2:*z.max(), facets:*vertex3:*z.max())
+	coordMax = max(xMax, yMax, zMax)
+	scale = 1 / coordMax
 	glNewList(objList, GL_COMPILE) {
-		reader.each {|facet|
+		facets.each {|facet|
 			glNormal(facet.normal)
 			glVertex(facet.vertex1 * scale)
 			glVertex(facet.vertex2 * scale)
@@ -41,11 +43,14 @@ init(w:number, h:number) = {
 	glLightfv(GL_LIGHT0, GL_POSITION, position)
 }
 
-display(degree:number) = {
+display(degreeH:number, degreeV:number) = {
 	glMatrixMode(GL_MODELVIEW)
 	glLoadIdentity()
-	gluLookAt(3, 4, 5, 0, 0, 0, 0, 1, 0)
-	glRotated(degree, 1, 1, 0)
+	gluLookAt(5, 0, 0,
+			  0, 0, 0,
+			  0, 0, 1)
+	glRotated(degreeH, 1, 0, 0)
+	glRotated(degreeV, 0, 1, 0)
 	glMaterialfv(GL_FRONT_AND_BACK,
 				 GL_AMBIENT_AND_DIFFUSE, [.8, .8, .8, 1])
 	glBegin(GL_TRIANGLES) {
@@ -57,7 +62,7 @@ display(degree:number) = {
 scope {
 	import(sdl2, sdl)
 	import(glapp)
-	degree = 0
+	degreeH = 0, degreeV = 0
 	[width, height] = [600, 600]
 	App = class(glapp.App) {
 		OnInit() = {
@@ -67,22 +72,30 @@ scope {
 		}
 		OnDraw() = {
 			init(width, height)
-			display(degree)
+			display(degreeH, degreeV)
 			this.SwapWindow()
 		}
 		OnIdle() = {
 			updateFlag = false
 			if (this.CheckKeyboardState(sdl.SCANCODE_LEFT)) {
 				updateFlag = true
-				degree += 5
+				degreeH += 5
 			}
 			if (this.CheckKeyboardState(sdl.SCANCODE_RIGHT)) {
 				updateFlag = true
-				degree -= 5
+				degreeH -= 5
+			}
+			if (this.CheckKeyboardState(sdl.SCANCODE_DOWN)) {
+				updateFlag = true
+				degreeV += 5
+			}
+			if (this.CheckKeyboardState(sdl.SCANCODE_UP)) {
+				updateFlag = true
+				degreeV -= 5
 			}
 			init(width, height)
 			if (updateFlag) {
-				display(degree)
+				display(degreeH, degreeV)
 				this.SwapWindow()
 			}
 		}
