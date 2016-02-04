@@ -1,0 +1,7 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+import(model.obj)
+
+testcase {
+	println(model.obj.test(3, 4))
+}
