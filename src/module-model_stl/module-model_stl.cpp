@@ -16,28 +16,42 @@ void SetError_FormatError(Environment &env)
 //-----------------------------------------------------------------------------
 // Facet
 //-----------------------------------------------------------------------------
-Facet::Facet(const Facet &facet) : _normal(facet._normal), _attr(facet._attr)
+Facet::Facet() : _pNormal(nullptr), _attr(0)
 {
-	for (size_t i = 0; i < ArraySizeOf(_vertexes); i++) {
-		_vertexes[i] = facet._vertexes[i];
+	for (size_t i = 0; i < ArraySizeOf(_pVertexes); i++) {
+		_pVertexes[i] = nullptr;
+	}
+}
+
+Facet::Facet(const Facet &facet) : _pNormal(new VertexRef(facet.GetNormal())), _attr(facet._attr)
+{
+	for (size_t i = 0; i < ArraySizeOf(_pVertexes); i++) {
+		_pVertexes[i] = new VertexRef(*facet._pVertexes[i]);
+	}
+}
+
+Facet::~Facet()
+{
+	for (size_t i = 0; i < ArraySizeOf(_pVertexes); i++) {
+		VertexRef::Delete(_pVertexes[i]);
 	}
 }
 
 void Facet::UpdateNormal()
 {
-	_normal = Vertex::CalcNormal(_vertexes[0], _vertexes[1], _vertexes[2], true);
+	_pNormal.reset(new VertexRef(
+					   Vertex::CalcNormal(*_pVertexes[0], *_pVertexes[1], *_pVertexes[2], true)));
 }
 
 String Facet::ToString(const char *sep) const
 {
 	String str;
 	char buff[80];
-	str += _normal.ToString();
-	for (size_t i = 0; i < ArraySizeOf(_vertexes); i++) {
+	str += _pNormal->ToString();
+	for (size_t i = 0; i < ArraySizeOf(_pVertexes); i++) {
 		str += sep;
-		str += _vertexes[i].ToString();
+		str += _pVertexes[i]->ToString();
 	}
-	str += buff;
 	return str;
 }
 
@@ -146,13 +160,13 @@ Value Object_facet::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
-		return Value(new Object_vertex(env, _facet.GetNormal()));
+		return Value(new Object_vertex(env, _facet.GetNormal().Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex1))) {
-		return Value(new Object_vertex(env, _facet.GetVertex(0)));
+		return Value(new Object_vertex(env, _facet.GetVertex(0).Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex2))) {
-		return Value(new Object_vertex(env, _facet.GetVertex(1)));
+		return Value(new Object_vertex(env, _facet.GetVertex(1).Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex3))) {
-		return Value(new Object_vertex(env, _facet.GetVertex(2)));
+		return Value(new Object_vertex(env, _facet.GetVertex(2).Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attr))) {
 		return Value(_facet.GetAttr());
 	}
@@ -289,14 +303,14 @@ bool Iterator_reader::DoNextFromBinary(Environment &env, Value &value)
 	}
 	AutoPtr<Object_facet> pObjFacet(new Object_facet());
 	Facet &facet = pObjFacet->GetFacet();
-	facet.SetVertex(0, Vertex(facetBin.vertex1[0], facetBin.vertex1[1], facetBin.vertex1[2]));
-	facet.SetVertex(1, Vertex(facetBin.vertex2[0], facetBin.vertex2[1], facetBin.vertex2[2]));
-	facet.SetVertex(2, Vertex(facetBin.vertex3[0], facetBin.vertex3[1], facetBin.vertex3[2]));
+	facet.SetVertex(0, new VertexRef(facetBin.vertex1[0], facetBin.vertex1[1], facetBin.vertex1[2]));
+	facet.SetVertex(1, new VertexRef(facetBin.vertex2[0], facetBin.vertex2[1], facetBin.vertex2[2]));
+	facet.SetVertex(2, new VertexRef(facetBin.vertex3[0], facetBin.vertex3[1], facetBin.vertex3[2]));
 	facet.SetAttr(facetBin.attr);
 	if (facetBin.normal[0] == 0. && facetBin.normal[1] == 0. && facetBin.normal[2] == 0.) {
 		facet.UpdateNormal();
 	} else {
-		facet.SetNormal(Vertex(facetBin.normal[0], facetBin.normal[1], facetBin.normal[2]));
+		facet.SetNormal(new VertexRef(facetBin.normal[0], facetBin.normal[1], facetBin.normal[2]));
 	}
 	value = Value(pObjFacet.release());
 	_idxFacet++;
@@ -353,7 +367,7 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 				} else if (nCoords == 3) {
 					vertex.z = num;
 					Facet &facet = pObjFacet->GetFacet();
-					facet.SetNormal(vertex);
+					facet.SetNormal(new VertexRef(vertex));
 					_stat = STAT_outer;
 				}
 			}
@@ -411,7 +425,7 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 				} else if (nCoords == 3) {
 					vertex.z = num;
 					Facet &facet = pObjFacet->GetFacet();
-					facet.SetVertex(nVertexes, vertex);
+					facet.SetVertex(nVertexes, new VertexRef(vertex));
 					nVertexes++;
 					if (nVertexes == 3) {
 						if (facet.GetNormal().IsZero()) {

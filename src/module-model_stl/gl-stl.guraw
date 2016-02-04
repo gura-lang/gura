@@ -15,18 +15,22 @@ objList = nil
 
 prepare() = {
 	objList:extern = glGenLists(1)
-	fileName = 'cube-ascii.stl'
+	//fileName = 'cube-ascii.stl'
 	//fileName = 'cube-binary.stl'
-	//fileName = 'Voyager_17.stl'
+	fileName = 'Voyager_17.stl'
 	reader = model.stl.reader(fileName)
 	println(reader.solidname || reader.header)
-	scale = .1
+	scale = .05
 	glNewList(objList, GL_COMPILE) {
 		reader.each {|facet|
 			glNormal(facet.normal)
 			glVertex(facet.vertex1 * scale)
 			glVertex(facet.vertex2 * scale)
 			glVertex(facet.vertex3 * scale)
+			//glNormal3d(facet.normal.x, facet.normal.y, facet.normal.z)
+			//glVertex3d(facet.vertex1.x * scale, facet.vertex1.y * scale, facet.vertex1.z * scale)
+			//glVertex3d(facet.vertex2.x * scale, facet.vertex2.y * scale, facet.vertex2.z * scale)
+			//glVertex3d(facet.vertex3.x * scale, facet.vertex3.y * scale, facet.vertex3.z * scale)
 		}
 	}	
 }

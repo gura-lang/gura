@@ -38,8 +38,10 @@ public:
 		Object(env.LookupClass(VTYPE_vertex)), _pVertex(pVertex) {}
 	inline Object_vertex(Class *pClass) : Object(pClass) {}
 	inline void SetVertexRef(VertexRef *pVertex) { _pVertex.reset(pVertex); }
-	inline VertexRef &GetVertex() { return *_pVertex; }
-	inline const VertexRef &GetVertex() const { return *_pVertex; }
+	inline VertexRef *GetVertexRef() { return _pVertex.get(); }
+	inline const VertexRef *GetVertexRef() const { return _pVertex.get(); }
+	inline Vertex &GetVertex() { return *_pVertex; }
+	inline const Vertex &GetVertex() const { return *_pVertex; }
 	virtual ~Object_vertex();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);

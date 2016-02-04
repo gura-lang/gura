@@ -39,17 +39,18 @@ struct FacetBin {
 //-----------------------------------------------------------------------------
 class Facet {
 private:
-	Vertex _normal;
-	Vertex _vertexes[3];
+	AutoPtr<VertexRef> _pNormal;
+	VertexRef *_pVertexes[3];
 	UShort _attr;
 public:
-	inline Facet() : _attr(0) {}
+	Facet();
 	Facet(const Facet &facet);
-	inline void SetNormal(const Vertex &normal) { _normal = normal; }
-	inline void SetVertex(size_t idx, const Vertex &vertex) { _vertexes[idx] = vertex; }
+	~Facet();
+	inline void SetNormal(VertexRef *pNormal) { _pNormal.reset(pNormal); }
+	inline void SetVertex(size_t idx, VertexRef *pVertex) { _pVertexes[idx] = pVertex; }
 	inline void SetAttr(UShort attr) { _attr = attr; }
-	inline const Vertex &GetNormal() const { return _normal; }
-	inline const Vertex &GetVertex(size_t idx) const { return _vertexes[idx]; }
+	inline const VertexRef &GetNormal() const { return *_pNormal; }
+	inline const VertexRef &GetVertex(size_t idx) const { return *_pVertexes[idx]; }
 	inline UShort GetAttr() const { return _attr; }
 	void UpdateNormal();
 	String ToString(const char *sep = "; ") const;
