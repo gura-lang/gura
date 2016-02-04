@@ -7,15 +7,14 @@ import(glu) {*}
 import(opengl) {*}
 import(model.stl)
 
+reader = nil
 objList = nil
 
 prepare() = {
 	objList:extern = glGenLists(1)
 	//fileName = 'cube-ascii.stl'
 	//fileName = 'cube-binary.stl'
-	fileName = 'Voyager_17.stl'
-	reader = model.stl.reader(fileName)
-	println(reader.solidname || reader.header)
+	//fileName = 'Voyager_17.stl'
 	scale = .05
 	glNewList(objList, GL_COMPILE) {
 		reader.each {|facet|
@@ -88,6 +87,12 @@ scope {
 			}
 		}
 	}
+	if (sys.argv.len() < 2) {
+		sys.stderr.println('usage: gura gl-stl.guraw <stl-file>')
+		sys.exit(1)
+	}
+	reader:extern = model.stl.reader(sys.argv[1])
+	println(reader.solidname || reader.header)
 	app = App()
 	app.MainLoop(nil, width, height, 0)
 }
