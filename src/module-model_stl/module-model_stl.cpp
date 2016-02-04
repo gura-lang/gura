@@ -303,14 +303,18 @@ bool Iterator_reader::DoNextFromBinary(Environment &env, Value &value)
 	}
 	AutoPtr<Object_facet> pObjFacet(new Object_facet());
 	Facet &facet = pObjFacet->GetFacet();
-	facet.SetVertex(0, new VertexRef(facetBin.vertex1[0], facetBin.vertex1[1], facetBin.vertex1[2]));
-	facet.SetVertex(1, new VertexRef(facetBin.vertex2[0], facetBin.vertex2[1], facetBin.vertex2[2]));
-	facet.SetVertex(2, new VertexRef(facetBin.vertex3[0], facetBin.vertex3[1], facetBin.vertex3[2]));
+	facet.SetVertex(0, new VertexRef(facetBin.vertex1[0],
+									 facetBin.vertex1[1], facetBin.vertex1[2]));
+	facet.SetVertex(1, new VertexRef(facetBin.vertex2[0],
+									 facetBin.vertex2[1], facetBin.vertex2[2]));
+	facet.SetVertex(2, new VertexRef(facetBin.vertex3[0],
+									 facetBin.vertex3[1], facetBin.vertex3[2]));
 	facet.SetAttr(facetBin.attr);
 	if (facetBin.normal[0] == 0. && facetBin.normal[1] == 0. && facetBin.normal[2] == 0.) {
 		facet.UpdateNormal();
 	} else {
-		facet.SetNormal(new VertexRef(facetBin.normal[0], facetBin.normal[1], facetBin.normal[2]));
+		facet.SetNormal(new VertexRef(facetBin.normal[0],
+									  facetBin.normal[1], facetBin.normal[2]));
 	}
 	value = Value(pObjFacet.release());
 	_idxFacet++;
