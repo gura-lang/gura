@@ -7,10 +7,6 @@ import(glu) {*}
 import(opengl) {*}
 import(model.stl)
 
-vertex = [
-	[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]
-	[0, 0, 1], [1, 0, 1], [1, 1, 1], [0, 1, 1]
-]
 objList = nil
 
 prepare() = {
@@ -55,8 +51,6 @@ display(degree:number) = {
 	}
 	glFlush()
 }
-
-//facets = nil
 
 scope {
 	import(sdl2, sdl)
