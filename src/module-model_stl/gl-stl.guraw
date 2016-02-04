@@ -27,10 +27,6 @@ prepare() = {
 			glVertex(facet.vertex1 * scale)
 			glVertex(facet.vertex2 * scale)
 			glVertex(facet.vertex3 * scale)
-			//glNormal3d(facet.normal.x, facet.normal.y, facet.normal.z)
-			//glVertex3d(facet.vertex1.x * scale, facet.vertex1.y * scale, facet.vertex1.z * scale)
-			//glVertex3d(facet.vertex2.x * scale, facet.vertex2.y * scale, facet.vertex2.z * scale)
-			//glVertex3d(facet.vertex3.x * scale, facet.vertex3.y * scale, facet.vertex3.z * scale)
 		}
 	}	
 }
@@ -54,7 +50,7 @@ display(degree:number) = {
 	glRotated(degree, 1, 1, 0)
 	glMaterialfv(GL_FRONT_AND_BACK,
 			GL_AMBIENT_AND_DIFFUSE, [0.8, 0.2, 0.2, 1])
-	glBegin(GL_LINES) {
+	glBegin(GL_TRIANGLES) {
 		glCallList(objList)
 	}
 	glFlush()
