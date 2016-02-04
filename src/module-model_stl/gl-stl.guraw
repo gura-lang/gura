@@ -37,6 +37,9 @@ init(w:number, h:number) = {
 	glMatrixMode(GL_PROJECTION)
 	glLoadIdentity()
 	gluPerspective(30, w / h, 1, 100)
+
+	position = @{0.0, 0.0, 0.0, 0.0}
+	glLightfv(GL_LIGHT0, GL_POSITION, position)
 }
 
 display(degree:number) = {
@@ -45,7 +48,7 @@ display(degree:number) = {
 	gluLookAt(3, 4, 5, 0, 0, 0, 0, 1, 0)
 	glRotated(degree, 1, 1, 0)
 	glMaterialfv(GL_FRONT_AND_BACK,
-			GL_AMBIENT_AND_DIFFUSE, [0.8, 0.2, 0.2, 1])
+				 GL_AMBIENT_AND_DIFFUSE, [.8, .8, .8, 1])
 	glBegin(GL_TRIANGLES) {
 		glCallList(objList)
 	}
