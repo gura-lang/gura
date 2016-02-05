@@ -101,11 +101,11 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 				_field[_iChar] = '\0';
 				return TOKEN_Field;
 			} else {
-				if (_iChar >= ArraySizeOf(_field) - 1) {
+				_field[_iChar++] = ch;
+				if (_iChar >= ArraySizeOf(_field)) {
 					SetError_FormatError(env);
 					return TOKEN_EOF;
 				}
-				_field[_iChar++] = ch;
 			}
 			break;
 		}
