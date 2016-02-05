@@ -59,13 +59,13 @@ public:
 		};
 	private:
 		Stat _stat;
-		ULong _code;
-		ULong _codeLower;
+		UInt32 _code;
+		UInt32 _codeLower;
 	public:
 		inline Decoder(bool delcrFlag) : Codec_UTF::Decoder(delcrFlag),
 				_stat(STAT_First), _code(0), _codeLower(0) {}
 		virtual Result FeedChar(char ch, char &chConv) {
-			ULong chCasted = static_cast<ULong>(static_cast<UChar>(ch));
+			UInt32 chCasted = static_cast<UInt32>(static_cast<UChar>(ch));
 			if (_stat == STAT_First) {
 				_code = (chCasted << shiftFirst);
 				_stat = STAT_Second;
@@ -86,8 +86,8 @@ public:
 			} else if (_stat == STAT_LowerSecond) {
 				_codeLower |= (chCasted << shiftSecond);
 				if (0xdc00 <= _codeLower && _codeLower <= 0xdfff) {
-					ULong codeUTF32 = 0x10000 +
-								((_code - 0xd800) << 10) + (_codeLower - 0xdc00);
+					UInt32 codeUTF32 = 0x10000 +
+						((_code - 0xd800) << 10) + (_codeLower - 0xdc00);
 					return FeedUTF32(codeUTF32, chConv);
 				} else {
 					// just ignore illegal codes
@@ -100,8 +100,8 @@ public:
 	class GURA_DLLDECLARE Encoder : public Codec_UTF::Encoder {
 	public:
 		inline Encoder(bool addcrFlag) : Codec_UTF::Encoder(addcrFlag) {}
-		virtual Result FeedUTF32(ULong codeUTF32, char &chConv) {
-			const ULong codeLF = '\n', codeCR = '\r';
+		virtual Result FeedUTF32(UInt32 codeUTF32, char &chConv) {
+			const UInt32 codeLF = '\n', codeCR = '\r';
 			if (GetAddcrFlag() && codeUTF32 == '\n') {
 				StoreChar(static_cast<char>((codeLF >> shiftSecond) & 0xff));
 				StoreChar(static_cast<char>((codeLF >> shiftFirst) & 0xff));
@@ -112,9 +112,9 @@ public:
 				chConv = static_cast<char>((codeUTF32 >> shiftFirst) & 0xff);
 			} else {
 				// surrogate pair
-				ULong code = (codeUTF32 - 0x10000) & 0xfffff;
-				ULong codeUpper = (code >> 12) + 0xd800;
-				ULong codeLower = (code & 0x3ff) + 0xdc00;
+				UInt32 code = (codeUTF32 - 0x10000) & 0xfffff;
+				UInt32 codeUpper = (code >> 12) + 0xd800;
+				UInt32 codeLower = (code & 0x3ff) + 0xdc00;
 				StoreChar(static_cast<char>((codeLower >> shiftSecond) & 0xff));
 				StoreChar(static_cast<char>((codeLower >> shiftFirst) & 0xff));
 				StoreChar(static_cast<char>((codeUpper >> shiftSecond) & 0xff));

@@ -99,7 +99,7 @@ UShort Codec::UTF16ToDBCS(const CodeRow codeRows[], int nCodeRows, UShort codeUT
 	return (iter == pMap->end())? 0x0000 : iter->second;
 }
 
-Codec::WidthProp Codec::GetWidthProp(ULong codeUTF32)
+Codec::WidthProp Codec::GetWidthProp(UInt32 codeUTF32)
 {
 	for (const WidthInfo *p = _widthInfoTbl; p->codeUTF32Ceil != 0x000000; p++) {
 		if (codeUTF32 < p->codeUTF32Ceil) return p->widthProp;
@@ -226,7 +226,7 @@ Codec::Result Codec_None::Encoder::FeedChar(char ch, char &chConv)
 //-----------------------------------------------------------------------------
 // Codec_UTF
 //-----------------------------------------------------------------------------
-Codec::Result Codec_UTF::Decoder::FeedUTF32(ULong codeUTF32, char &chConv)
+Codec::Result Codec_UTF::Decoder::FeedUTF32(UInt32 codeUTF32, char &chConv)
 {
 	_idxBuff = 0;
 	if ((codeUTF32 & ~0x7f) == 0) {
@@ -304,7 +304,7 @@ Codec::Result Codec_SBCS::Decoder::FeedChar(char ch, char &chConv)
 	return (chConv == '\0')? RESULT_Error : RESULT_Complete;
 }
 
-Codec::Result Codec_SBCS::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
+Codec::Result Codec_SBCS::Encoder::FeedUTF32(UInt32 codeUTF32, char &chConv)
 {
 	if (_pMap == nullptr) {
 		_pMap = new Map();
@@ -331,7 +331,7 @@ bool Codec_DBCS::Decoder::IsLeadByte(UChar ch)
 
 Codec::Result Codec_DBCS::Decoder::FeedChar(char ch, char &chConv)
 {
-	ULong codeUTF32 = 0x00000000;
+	UInt32 codeUTF32 = 0x00000000;
 	if (_codeDBCS == 0x0000) {
 		if (IsLeadByte(static_cast<UChar>(ch))) {
 			_codeDBCS = static_cast<UChar>(ch);
@@ -347,7 +347,7 @@ Codec::Result Codec_DBCS::Decoder::FeedChar(char ch, char &chConv)
 	return FeedUTF32(codeUTF32, chConv);
 }
 
-Codec::Result Codec_DBCS::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
+Codec::Result Codec_DBCS::Encoder::FeedUTF32(UInt32 codeUTF32, char &chConv)
 {
 	UShort codeDBCS = UTF16ToDBCS(static_cast<UShort>(codeUTF32));
 	if (codeDBCS == 0x0000) {

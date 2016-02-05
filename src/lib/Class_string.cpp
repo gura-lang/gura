@@ -1072,7 +1072,7 @@ bool Class_string::IteratorEach::DoNext(Environment &env, Value &value)
 		_pCur = NextUTF8(_str, _pCur, codeUTF8);
 		value = Value(codeUTF8);
 	} else if (_attr == ATTR_UTF32) {
-		ULong codeUTF32;
+		UInt32 codeUTF32;
 		_pCur = NextUTF32(_str, _pCur, codeUTF32);
 		value = Value(codeUTF32);
 	} else {
@@ -1272,7 +1272,7 @@ Iterator *Class_string::IteratorFoldw::GetSource()
 
 bool Class_string::IteratorFoldw::DoNext(Environment &env, Value &value)
 {
-	ULong codeUTF32 = 0;
+	UInt32 codeUTF32 = 0;
 	size_t width = 0; 
 	if (_pCur == _str.end()) return false;
 	String::const_iterator pHead = _pCur;

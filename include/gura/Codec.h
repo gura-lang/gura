@@ -53,7 +53,7 @@ public:
 		const UShort *row;
 	};
 	struct WidthInfo {
-		ULong codeUTF32Ceil;
+		UInt32 codeUTF32Ceil;
 		WidthProp widthProp;
 	};
 public:
@@ -124,7 +124,7 @@ public:
 	static void Initialize();
 	static UShort DBCSToUTF16(const CodeRow codeRows[], int nCodeRows, UShort codeDBCS);
 	static UShort UTF16ToDBCS(const CodeRow codeRows[], int nCodeRows, UShort codeUTF16, Map **ppMap);
-	static WidthProp GetWidthProp(ULong codeUTF32);
+	static WidthProp GetWidthProp(UInt32 codeUTF32);
 public:
 	static const char *EncodingFromLANG();
 };
@@ -167,18 +167,18 @@ public:
 	class GURA_DLLDECLARE Decoder : public Codec::Decoder {
 	public:
 		inline Decoder(bool delcrFlag) : Codec::Decoder(delcrFlag) {}
-		Result FeedUTF32(ULong codeUTF32, char &chConv);
+		Result FeedUTF32(UInt32 codeUTF32, char &chConv);
 	};
 	class GURA_DLLDECLARE Encoder : public Codec::Encoder {
 	protected:
 		int _cntChars;
-		ULong _codeUTF32;
+		UInt32 _codeUTF32;
 	public:
 		inline Encoder(bool addcrFlag) :
 				Codec::Encoder(addcrFlag), _cntChars(0), _codeUTF32(0x00000000) {}
-		inline ULong GetUTF32() const { return _codeUTF32; }
+		inline UInt32 GetUTF32() const { return _codeUTF32; }
 		virtual Result FeedChar(char ch, char &chConv);
-		virtual Result FeedUTF32(ULong codeUTF32, char &chConv) = 0;
+		virtual Result FeedUTF32(UInt32 codeUTF32, char &chConv) = 0;
 	};
 };
 
@@ -202,7 +202,7 @@ public:
 	public:
 		inline Encoder(bool addcrFlag, const UShort *codeTbl, Map *&pMap) :
 						Codec_UTF::Encoder(addcrFlag), _codeTbl(codeTbl), _pMap(pMap) {}
-		virtual Result FeedUTF32(ULong codeUTF32, char &chConv);
+		virtual Result FeedUTF32(UInt32 codeUTF32, char &chConv);
 	};
 };
 
@@ -225,7 +225,7 @@ public:
 	public:
 		inline Encoder(bool addcrFlag) :
 					Codec_UTF::Encoder(addcrFlag) {}
-		virtual Result FeedUTF32(ULong codeUTF32, char &chConv);
+		virtual Result FeedUTF32(UInt32 codeUTF32, char &chConv);
 		virtual UShort UTF16ToDBCS(UShort codeUTF16) = 0;
 	};
 };

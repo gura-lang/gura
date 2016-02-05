@@ -1199,7 +1199,7 @@ Gura_DeclareFunction(ord)
 Gura_ImplementFunction(ord)
 {
 	const char *str = arg.GetString(0);
-	ULong codeUTF32 = 0;
+	UInt32 codeUTF32 = 0;
 	NextUTF32(str, codeUTF32);
 	return Value(codeUTF32);
 }

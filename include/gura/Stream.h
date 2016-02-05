@@ -150,8 +150,8 @@ public:
 	bool DeserializeUShort(Signal &sig, UShort &num);
 	bool SerializeULong(Signal &sig, ULong num);
 	bool DeserializeULong(Signal &sig, ULong &num);
-	bool SerializeUInt64(Signal &sig, uint64 num);
-	bool DeserializeUInt64(Signal &sig, uint64 &num);
+	bool SerializeUInt64(Signal &sig, UInt64 num);
+	bool DeserializeUInt64(Signal &sig, UInt64 &num);
 	bool SerializeDouble(Signal &sig, double num);
 	bool DeserializeDouble(Signal &sig, double &num);
 	bool SerializeString(Signal &sig, const char *str);

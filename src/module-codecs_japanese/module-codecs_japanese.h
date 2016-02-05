@@ -82,7 +82,7 @@ public:
 	public:
 		inline Encoder(bool addcrFlag) :
 				Codec_UTF::Encoder(addcrFlag), _mode(MODE_ASCII) {}
-		virtual Result FeedUTF32(ULong codeUTF32, char &chConv);
+		virtual Result FeedUTF32(UInt32 codeUTF32, char &chConv);
 	};
 };
 

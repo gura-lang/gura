@@ -710,7 +710,7 @@ size_t Length(const char *str)
 size_t Width(const char *str)
 {
 	size_t width = 0;
-	ULong codeUTF32 = 0;
+	UInt32 codeUTF32 = 0;
 	for (const char *p = str; *p != '\0'; ) {
 		p = NextUTF32(p, codeUTF32);
 		Codec::WidthProp widthProp = Codec::GetWidthProp(codeUTF32);
@@ -728,7 +728,7 @@ size_t Width(const char *str)
 bool CheckCType(const char *str, UShort type)
 {
 	if (*str == '\0') return false;
-	ULong codeUTF32 = 0;
+	UInt32 codeUTF32 = 0;
 	for (const char *p = str; *p != '\0'; ) {
 		p = NextUTF32(p, codeUTF32);
 		if (codeUTF32 > 0x7f) return false;
@@ -807,7 +807,7 @@ const char *NextUTF8(const char *p, UInt64 &codeUTF8)
 	return p;
 }
 
-String::const_iterator NextUTF32(const String &str, String::const_iterator p, ULong &codeUTF32)
+String::const_iterator NextUTF32(const String &str, String::const_iterator p, UInt32 &codeUTF32)
 {
 	codeUTF32 = 0x00000000;
 	if (p == str.end()) {
@@ -842,7 +842,7 @@ String::const_iterator NextUTF32(const String &str, String::const_iterator p, UL
 	return p;
 }
 
-const char *NextUTF32(const char *p, ULong &codeUTF32)
+const char *NextUTF32(const char *p, UInt32 &codeUTF32)
 {
 	codeUTF32 = 0x00000000;
 	if (*p == '\0') {
@@ -893,7 +893,7 @@ void AppendUTF8(String &str, UInt64 codeUTF8)
 	}
 }
 
-void AppendUTF32(String &str, ULong codeUTF32)
+void AppendUTF32(String &str, UInt32 codeUTF32)
 {
 	int i = 0;
 	char buff[8];

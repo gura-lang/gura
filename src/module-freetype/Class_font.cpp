@@ -139,7 +139,7 @@ bool Object_font::CalcSize(Environment &env, const String &str,
 	int xMin = 0, xMax = 0, yMin = 0, yMax = 0;
 	size_t idx = 0;
 	do {
-		unsigned long codeUTF32;
+		UInt32 codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
 		if (codeUTF32 == 0x00000000) break;
 		if (LoadAndDecorateChar(env, sig, codeUTF32, idx, pFuncDeco) != 0) continue;
@@ -172,7 +172,7 @@ bool Object_font::DrawOnImage(Environment &env, Signal &sig, Image *pImage,
 	int xShifted = x << 6, yShifted = y << 6;
 	size_t idx = 0;
 	do {
-		unsigned long codeUTF32;
+		UInt32 codeUTF32;
 		p = Gura::NextUTF32(str, p, codeUTF32);
 		if (codeUTF32 == 0x00000000) break;
 		if (LoadAndDecorateChar(env, sig, codeUTF32, idx, pFuncDeco) != 0) continue;
@@ -204,7 +204,7 @@ bool Object_font::DrawOnImage(Environment &env, Signal &sig, Image *pImage,
 }
 
 FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal &sig,
-			unsigned long codeUTF32, size_t idx, const Function *pFuncDeco)
+			UInt32 codeUTF32, size_t idx, const Function *pFuncDeco)
 {
 	bool transformFlag = (pFuncDeco != nullptr);
 	FT_Matrix matrix;	// 16.16 fixed float

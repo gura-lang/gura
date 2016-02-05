@@ -135,12 +135,12 @@ Codec::Result Codec_JIS::Decoder::FeedChar(char ch, char &chConv)
 		}
 	}
 	if (GetDelcrFlag() && codeCP932 == '\r') return RESULT_None;
-	ULong codeUTF32 = CP932ToUTF16(codeCP932);
+	UInt32 codeUTF32 = CP932ToUTF16(codeCP932);
 	_codeJIS = 0x0000;
 	return FeedUTF32(codeUTF32, chConv);
 }
 
-Codec::Result Codec_JIS::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
+Codec::Result Codec_JIS::Encoder::FeedUTF32(UInt32 codeUTF32, char &chConv)
 {
 	UShort codeCP932 = UTF16ToCP932(static_cast<UShort>(codeUTF32));
 	if (codeCP932 < 0x80) {
