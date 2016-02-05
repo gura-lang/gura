@@ -15,36 +15,36 @@ void SetError_FormatError(Environment &env)
 }
 
 //-----------------------------------------------------------------------------
-// Facet
+// Face
 //-----------------------------------------------------------------------------
-Facet::Facet() : _pNormal(nullptr), _attr(0)
+Face::Face() : _pNormal(nullptr), _attr(0)
 {
 	for (size_t i = 0; i < ArraySizeOf(_pVertexes); i++) {
 		_pVertexes[i] = nullptr;
 	}
 }
 
-Facet::Facet(const Facet &facet) : _pNormal(new VertexRef(facet.GetNormal())), _attr(facet._attr)
+Face::Face(const Face &face) : _pNormal(new VertexRef(face.GetNormal())), _attr(face._attr)
 {
 	for (size_t i = 0; i < ArraySizeOf(_pVertexes); i++) {
-		_pVertexes[i] = new VertexRef(*facet._pVertexes[i]);
+		_pVertexes[i] = new VertexRef(*face._pVertexes[i]);
 	}
 }
 
-Facet::~Facet()
+Face::~Face()
 {
 	for (size_t i = 0; i < ArraySizeOf(_pVertexes); i++) {
 		VertexRef::Delete(_pVertexes[i]);
 	}
 }
 
-void Facet::UpdateNormal()
+void Face::UpdateNormal()
 {
 	_pNormal.reset(new VertexRef(
 					   Vertex::CalcNormal(*_pVertexes[0], *_pVertexes[1], *_pVertexes[2], true)));
 }
 
-String Facet::ToString(const char *sep) const
+String Face::ToString(const char *sep) const
 {
 	String str;
 	char buff[80];
@@ -134,27 +134,27 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 }
 
 //-----------------------------------------------------------------------------
-// Object_facet
+// Object_face
 //-----------------------------------------------------------------------------
-Object_facet::Object_facet() : Object(Gura_UserClass(facet))
+Object_face::Object_face() : Object(Gura_UserClass(face))
 {
 }
 
-Object_facet::Object_facet(const Object_facet &obj) :
-	Object(Gura_UserClass(facet)), _facet(obj._facet)
+Object_face::Object_face(const Object_face &obj) :
+	Object(Gura_UserClass(face)), _face(obj._face)
 {
 }
 
-Object_facet::~Object_facet()
+Object_face::~Object_face()
 {
 }
 
-Object *Object_facet::Clone() const
+Object *Object_face::Clone() const
 {
-	return new Object_facet(*this);
+	return new Object_face(*this);
 }
 
-bool Object_facet::DoDirProp(Environment &env, SymbolSet &symbols)
+bool Object_face::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	symbols.insert(Gura_UserSymbol(normal));
 	symbols.insert(Gura_UserSymbol(vertex1));
@@ -163,40 +163,40 @@ bool Object_facet::DoDirProp(Environment &env, SymbolSet &symbols)
 	return true;
 }
 
-Value Object_facet::DoGetProp(Environment &env, const Symbol *pSymbol,
+Value Object_face::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
-		return Value(new Object_vertex(env, _facet.GetNormal().Reference()));
+		return Value(new Object_vertex(env, _face.GetNormal().Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex1))) {
-		return Value(new Object_vertex(env, _facet.GetVertex(0).Reference()));
+		return Value(new Object_vertex(env, _face.GetVertex(0).Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex2))) {
-		return Value(new Object_vertex(env, _facet.GetVertex(1).Reference()));
+		return Value(new Object_vertex(env, _face.GetVertex(1).Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex3))) {
-		return Value(new Object_vertex(env, _facet.GetVertex(2).Reference()));
+		return Value(new Object_vertex(env, _face.GetVertex(2).Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attr))) {
-		return Value(_facet.GetAttr());
+		return Value(_face.GetAttr());
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
 }
 
-String Object_facet::ToString(bool exprFlag)
+String Object_face::ToString(bool exprFlag)
 {
 	String str;
-	str += "<model.stl.facet:";
-	str += _facet.ToString(":");
+	str += "<model.stl.face:";
+	str += _face.ToString(":");
 	str += ">";
 	return str;
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for facet
+// Gura interfaces for face
 //-----------------------------------------------------------------------------
 
-// implementation of class facet
-Gura_ImplementUserClass(facet)
+// implementation of class face
+Gura_ImplementUserClass(face)
 {
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementUserClass(facet)
 //-----------------------------------------------------------------------------
 Iterator_reader::Iterator_reader(Stream *pStream) :
 	Iterator(false), _binaryFlag(false), _pStream(pStream),
-	_idxFacet(0), _nFacet(0), _stat(STAT_facet)
+	_idxFace(0), _nFace(0), _stat(STAT_facet)
 {
 }
 
@@ -251,7 +251,7 @@ bool Iterator_reader::Prepare(Environment &env)
 			SetError_FormatError(env);
 			return false;
 		}
-		_nFacet = *reinterpret_cast<UInt *>(buff);
+		_nFace = *reinterpret_cast<UInt *>(buff);
 	}
 	return true;
 }
@@ -301,31 +301,31 @@ void Iterator_reader::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 
 bool Iterator_reader::DoNextFromBinary(Environment &env, Value &value)
 {
-	if (_idxFacet >= _nFacet) return false;
+	if (_idxFace >= _nFace) return false;
 	Signal &sig = env.GetSignal();
-	FacetBin facetBin;
-	size_t bytesRead = _pStream->Read(sig, &facetBin, FacetBin::Size);
-	if (bytesRead < FacetBin::Size) {
+	FaceBin faceBin;
+	size_t bytesRead = _pStream->Read(sig, &faceBin, FaceBin::Size);
+	if (bytesRead < FaceBin::Size) {
 		SetError_FormatError(env);
 		return false;
 	}
-	AutoPtr<Object_facet> pObjFacet(new Object_facet());
-	Facet &facet = pObjFacet->GetFacet();
-	facet.SetVertex(0, new VertexRef(facetBin.vertex1[0],
-									 facetBin.vertex1[1], facetBin.vertex1[2]));
-	facet.SetVertex(1, new VertexRef(facetBin.vertex2[0],
-									 facetBin.vertex2[1], facetBin.vertex2[2]));
-	facet.SetVertex(2, new VertexRef(facetBin.vertex3[0],
-									 facetBin.vertex3[1], facetBin.vertex3[2]));
-	facet.SetAttr(facetBin.attr);
-	if (facetBin.normal[0] == 0. && facetBin.normal[1] == 0. && facetBin.normal[2] == 0.) {
-		facet.UpdateNormal();
+	AutoPtr<Object_face> pObjFace(new Object_face());
+	Face &face = pObjFace->GetFace();
+	face.SetVertex(0, new VertexRef(faceBin.vertex1[0],
+									 faceBin.vertex1[1], faceBin.vertex1[2]));
+	face.SetVertex(1, new VertexRef(faceBin.vertex2[0],
+									 faceBin.vertex2[1], faceBin.vertex2[2]));
+	face.SetVertex(2, new VertexRef(faceBin.vertex3[0],
+									 faceBin.vertex3[1], faceBin.vertex3[2]));
+	face.SetAttr(faceBin.attr);
+	if (faceBin.normal[0] == 0. && faceBin.normal[1] == 0. && faceBin.normal[2] == 0.) {
+		face.UpdateNormal();
 	} else {
-		facet.SetNormal(new VertexRef(facetBin.normal[0],
-									  facetBin.normal[1], facetBin.normal[2]));
+		face.SetNormal(new VertexRef(faceBin.normal[0],
+									  faceBin.normal[1], faceBin.normal[2]));
 	}
-	value = Value(pObjFacet.release());
-	_idxFacet++;
+	value = Value(pObjFace.release());
+	_idxFace++;
 	return true;
 }
 
@@ -334,7 +334,7 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 	size_t nCoords = 0;
 	size_t nVertexes = 0;
 	Vertex vertex;
-	AutoPtr<Object_facet> pObjFacet;
+	AutoPtr<Object_face> pObjFace;
 	for (;;) {
 		TokenId tokenId = _tokenizer.Tokenize(env, *_pStream);
 		if (env.IsSignalled()) return false;
@@ -343,7 +343,7 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 			if (tokenId == TOKEN_Field) {
 				const char *field = _tokenizer.GetField();
 				if (::strcmp(field, "facet") == 0) {
-					pObjFacet.reset(new Object_facet());
+					pObjFace.reset(new Object_face());
 					_stat = STAT_normal;
 				} else {
 					// error
@@ -379,8 +379,8 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 					vertex.y = num;
 				} else if (nCoords == 3) {
 					vertex.z = num;
-					Facet &facet = pObjFacet->GetFacet();
-					facet.SetNormal(new VertexRef(vertex));
+					Face &face = pObjFace->GetFace();
+					face.SetNormal(new VertexRef(vertex));
 					_stat = STAT_outer;
 				}
 			}
@@ -437,12 +437,12 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 					vertex.y = num;
 				} else if (nCoords == 3) {
 					vertex.z = num;
-					Facet &facet = pObjFacet->GetFacet();
-					facet.SetVertex(nVertexes, new VertexRef(vertex));
+					Face &face = pObjFace->GetFace();
+					face.SetVertex(nVertexes, new VertexRef(vertex));
 					nVertexes++;
 					if (nVertexes == 3) {
-						if (facet.GetNormal().IsZero()) {
-							facet.UpdateNormal();
+						if (face.GetNormal().IsZero()) {
+							face.UpdateNormal();
 						}
 						_stat = STAT_endloop;
 					} else {
@@ -468,8 +468,8 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 				const char *field = _tokenizer.GetField();
 				if (::strcmp(field, "endfacet") == 0) {
 					_stat = STAT_facet;
-					value = Value(pObjFacet.release());
-					_idxFacet++;
+					value = Value(pObjFace.release());
+					_idxFace++;
 					return true;
 				} else {
 					// error
@@ -541,10 +541,10 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(test);
 	// class realization
-	Gura_RealizeUserClass(facet, env.LookupClass(VTYPE_object));
-	Gura_PrepareUserClass(facet);
+	Gura_RealizeUserClass(face, env.LookupClass(VTYPE_object));
+	Gura_PrepareUserClass(face);
 	// class reference assignment
-	Gura_AssignValue(facet, Value(Gura_UserClass(facet)->Reference()));
+	Gura_AssignValue(face, Value(Gura_UserClass(face)->Reference()));
 	return true;
 }
 

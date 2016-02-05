@@ -23,9 +23,9 @@ enum TokenId {
 };
 
 //-----------------------------------------------------------------------------
-// FacetBin
+// FaceBin
 //-----------------------------------------------------------------------------
-struct FacetBin {
+struct FaceBin {
 	enum { Size = sizeof(float) * 3 * 4 + 2 };
 	float normal[3];
 	float vertex1[3];
@@ -35,17 +35,17 @@ struct FacetBin {
 };
 
 //-----------------------------------------------------------------------------
-// Facet
+// Face
 //-----------------------------------------------------------------------------
-class Facet {
+class Face {
 private:
 	AutoPtr<VertexRef> _pNormal;
 	VertexRef *_pVertexes[3];
 	UShort _attr;
 public:
-	Facet();
-	Facet(const Facet &facet);
-	~Facet();
+	Face();
+	Face(const Face &face);
+	~Face();
 	inline void SetNormal(VertexRef *pNormal) { _pNormal.reset(pNormal); }
 	inline void SetVertex(size_t idx, VertexRef *pVertex) { _pVertexes[idx] = pVertex; }
 	inline void SetAttr(UShort attr) { _attr = attr; }
@@ -76,25 +76,25 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Object_facet
+// Object_face
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(facet);
+Gura_DeclareUserClass(face);
 
-class Object_facet : public Object {
+class Object_face : public Object {
 private:
-	Facet _facet;
+	Face _face;
 public:
-	Gura_DeclareObjectAccessor(facet)
+	Gura_DeclareObjectAccessor(face)
 public:
-	Object_facet();
-	Object_facet(const Object_facet &obj);
-	virtual ~Object_facet();
+	Object_face();
+	Object_face(const Object_face &obj);
+	virtual ~Object_face();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	inline Facet &GetFacet() { return _facet; }
+	inline Face &GetFace() { return _face; }
 };
 
 //-----------------------------------------------------------------------------
@@ -112,8 +112,8 @@ public:
 private:
 	bool _binaryFlag;
 	AutoPtr<Stream> _pStream;
-	size_t _idxFacet;
-	size_t _nFacet;			// for binary
+	size_t _idxFace;
+	size_t _nFace;			// for binary
 	String _text;			// header for binary / solid name for text
 	Stat _stat;				// for text
 	Tokenizer _tokenizer;	// for text

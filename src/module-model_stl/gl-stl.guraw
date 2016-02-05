@@ -12,18 +12,18 @@ objList = nil
 
 prepare() = {
 	objList:extern = glGenLists(1)
-	facets = [reader]
-	xMax = max(facets:*vertex1:*x.max(), facets:*vertex2:*x.max(), facets:*vertex3:*x.max())
-	yMax = max(facets:*vertex1:*y.max(), facets:*vertex2:*y.max(), facets:*vertex3:*y.max())
-	zMax = max(facets:*vertex1:*z.max(), facets:*vertex2:*z.max(), facets:*vertex3:*z.max())
+	faces = [reader]
+	xMax = max(faces:*vertex1:*x.max(), faces:*vertex2:*x.max(), faces:*vertex3:*x.max())
+	yMax = max(faces:*vertex1:*y.max(), faces:*vertex2:*y.max(), faces:*vertex3:*y.max())
+	zMax = max(faces:*vertex1:*z.max(), faces:*vertex2:*z.max(), faces:*vertex3:*z.max())
 	coordMax = max(xMax, yMax, zMax)
 	scale = 1 / coordMax
 	glNewList(objList, GL_COMPILE) {
-		facets.each {|facet|
-			glNormal(facet.normal)
-			glVertex(facet.vertex1 * scale)
-			glVertex(facet.vertex2 * scale)
-			glVertex(facet.vertex3 * scale)
+		faces.each {|face|
+			glNormal(face.normal)
+			glVertex(face.vertex1 * scale)
+			glVertex(face.vertex2 * scale)
+			glVertex(face.vertex3 * scale)
 		}
 	}	
 }
