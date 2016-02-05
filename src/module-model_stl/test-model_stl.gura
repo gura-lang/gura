@@ -10,13 +10,14 @@ testcase {
 	//println(reader1, '\n', reader2)
 	fileName = 'sample/cube-ascii.stl'
 	//fileName = 'Voyager_17.stl'
-	//println(model.stl.reader(fileName))
-	model.stl.reader(fileName) {|face|
-		printf('glNormal3d(%g, %g, %g)\n', face.normal.x, face.normal.y, face.normal.z)
-		printf('glVertex3d(%g, %g, %g)\n', face.vertex1.x * ratio, face.vertex1.y * ratio, face.vertex1.z * ratio)
-		printf('glVertex3d(%g, %g, %g)\n', face.vertex2.x * ratio, face.vertex2.y * ratio, face.vertex2.z * ratio)
-		printf('glVertex3d(%g, %g, %g)\n', face.vertex3.x * ratio, face.vertex3.y * ratio, face.vertex3.z * ratio)
+	model.stl.solid(fileName) {|solid|
+		println(solid.name || solid.header)
+		solid.faces.each {|face|
+			printf('glNormal3d(%g, %g, %g)\n', face.normal.x, face.normal.y, face.normal.z)
+			printf('glVertex3d(%g, %g, %g)\n', face.vertex1.x * ratio, face.vertex1.y * ratio, face.vertex1.z * ratio)
+			printf('glVertex3d(%g, %g, %g)\n', face.vertex2.x * ratio, face.vertex2.y * ratio, face.vertex2.z * ratio)
+			printf('glVertex3d(%g, %g, %g)\n', face.vertex3.x * ratio, face.vertex3.y * ratio, face.vertex3.z * ratio)
+		}
 	}
-	//println(reader.solidname)
 	//println(reader)
 }

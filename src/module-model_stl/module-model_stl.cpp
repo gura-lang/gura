@@ -194,31 +194,98 @@ String Object_face::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for face
 //-----------------------------------------------------------------------------
-
 // implementation of class face
 Gura_ImplementUserClass(face)
 {
 }
 
 //-----------------------------------------------------------------------------
-// Iterator_reader
+// Object_solid
 //-----------------------------------------------------------------------------
-Iterator_reader::Iterator_reader(Stream *pStream) :
+Object_solid::Object_solid(Iterator_faces *pIterator) :
+	Object(Gura_UserClass(solid)), _pIterator(pIterator)
+{
+}
+
+Object_solid::Object_solid(const Object_solid &obj) :
+	Object(Gura_UserClass(solid)),
+	_pIterator(dynamic_cast<Iterator_faces *>(obj._pIterator->Reference()))
+{
+}
+
+Object_solid::~Object_solid()
+{
+}
+
+Object *Object_solid::Clone() const
+{
+	return new Object_solid(*this);
+}
+
+bool Object_solid::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(header));
+	symbols.insert(Gura_UserSymbol(name));
+	symbols.insert(Gura_UserSymbol(faces));
+	return true;
+}
+
+Value Object_solid::DoGetProp(Environment &env, const Symbol *pSymbol,
+							  const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(header))) {
+		if (!_pIterator->GetBinaryFlag()) return Value::Nil;
+		return Value(_pIterator->GetText());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
+		if (_pIterator->GetBinaryFlag()) return Value::Nil;
+		return Value(_pIterator->GetText());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(faces))) {
+		return Value(new Object_iterator(env, _pIterator->Reference()));
+	}
+	evaluatedFlag = false;
+	return Value::Nil;
+}
+
+String Object_solid::ToString(bool exprFlag)
+{
+	String str;
+	str += "<model.stl.solid";
+	if (!_pIterator->GetText().empty()) {
+		str += ":";
+		str += _pIterator->GetText();
+	}
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for solid
+//-----------------------------------------------------------------------------
+// implementation of class solid
+Gura_ImplementUserClass(solid)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_faces
+//-----------------------------------------------------------------------------
+Iterator_faces::Iterator_faces(Stream *pStream) :
 	Iterator(false), _binaryFlag(false), _pStream(pStream),
 	_idxFace(0), _nFace(0), _stat(STAT_facet)
 {
 }
 
-Iterator_reader::~Iterator_reader()
+Iterator_faces::~Iterator_faces()
 {
 }
 
-Iterator *Iterator_reader::GetSource()
+Iterator *Iterator_faces::GetSource()
 {
 	return nullptr;
 }
 
-bool Iterator_reader::Prepare(Environment &env)
+bool Iterator_faces::Prepare(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	char buff[81];
@@ -256,50 +323,23 @@ bool Iterator_reader::Prepare(Environment &env)
 	return true;
 }
 
-bool Iterator_reader::DoNext(Environment &env, Value &value)
+bool Iterator_faces::DoNext(Environment &env, Value &value)
 {
 	return _binaryFlag? DoNextFromBinary(env, value) : DoNextFromText(env, value);
 }
 
-bool Iterator_reader::DoDirProp(Environment &env, SymbolSet &symbols)
-{
-	symbols.insert(Gura_UserSymbol(header));
-	symbols.insert(Gura_UserSymbol(solidname));
-	return true;
-}
-
-Value Iterator_reader::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(header))) {
-		if (!_binaryFlag) return Value::Nil;
-		return Value(_text);
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(solidname))) {
-		if (_binaryFlag) return Value::Nil;
-		return Value(_text);
-	}
-	evaluatedFlag = false;
-	return Value::Nil;
-}
-
-String Iterator_reader::ToString() const
+String Iterator_faces::ToString() const
 {
 	String rtn;
-	rtn += "<iterator:model.stl.reader";
-	if (!_text.empty()) {
-		rtn += ":";
-		rtn += _text;
-	}
-	rtn += ">";
+	rtn += "<iterator:model.stl.faces>";
 	return rtn;
 }
 
-void Iterator_reader::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void Iterator_faces::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
-bool Iterator_reader::DoNextFromBinary(Environment &env, Value &value)
+bool Iterator_faces::DoNextFromBinary(Environment &env, Value &value)
 {
 	if (_idxFace >= _nFace) return false;
 	Signal &sig = env.GetSignal();
@@ -329,7 +369,7 @@ bool Iterator_reader::DoNextFromBinary(Environment &env, Value &value)
 	return true;
 }
 
-bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
+bool Iterator_faces::DoNextFromText(Environment &env, Value &value)
 {
 	size_t nCoords = 0;
 	size_t nVertexes = 0;
@@ -486,22 +526,23 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// model.stl.reader(stream:stream) {block?}
-Gura_DeclareFunction(reader)
+// model.stl.solid(stream:stream) {block?}
+Gura_DeclareFunction(solid)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(solid));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
 }
 
-Gura_ImplementFunction(reader)
+Gura_ImplementFunction(solid)
 {
-	AutoPtr<Iterator_reader> pIterator(new Iterator_reader(arg.GetStream(0).Reference()));
+	AutoPtr<Iterator_faces> pIterator(new Iterator_faces(arg.GetStream(0).Reference()));
 	if (!pIterator->Prepare(env)) return Value::Nil;
-	return ReturnIterator(env, arg, pIterator.release());
+	return ReturnValue(env, arg, Value(new Object_solid(pIterator.release())));
 }
 
 // model.stl.test(stream:stream)
@@ -531,20 +572,23 @@ Gura_ModuleEntry()
 {
 	// symbol realization
 	Gura_RealizeUserSymbol(header);
-	Gura_RealizeUserSymbol(solidname);
+	Gura_RealizeUserSymbol(name);
+	Gura_RealizeUserSymbol(faces);
 	Gura_RealizeUserSymbol(normal);
 	Gura_RealizeUserSymbol(vertex1);
 	Gura_RealizeUserSymbol(vertex2);
 	Gura_RealizeUserSymbol(vertex3);
 	Gura_RealizeUserSymbol(attr);
-	// function assignment
-	Gura_AssignFunction(reader);
-	Gura_AssignFunction(test);
 	// class realization
 	Gura_RealizeUserClass(face, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(solid, env.LookupClass(VTYPE_object));
 	Gura_PrepareUserClass(face);
+	Gura_PrepareUserClass(solid);
 	// class reference assignment
 	Gura_AssignValue(face, Value(Gura_UserClass(face)->Reference()));
+	// function assignment
+	Gura_AssignFunction(solid);
+	//Gura_AssignFunction(test);
 	return true;
 }
 

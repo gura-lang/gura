@@ -8,7 +8,8 @@
 Gura_BeginModuleHeader(model_stl)
 
 Gura_DeclareUserSymbol(header);
-Gura_DeclareUserSymbol(solidname);
+Gura_DeclareUserSymbol(name);
+Gura_DeclareUserSymbol(faces);
 Gura_DeclareUserSymbol(normal);
 Gura_DeclareUserSymbol(vertex1);
 Gura_DeclareUserSymbol(vertex2);
@@ -98,9 +99,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Iterator_reader
+// Iterator_faces
 //-----------------------------------------------------------------------------
-class Iterator_reader : public Iterator {
+class Iterator_faces : public Iterator {
 public:
 	enum Stat {
 		STAT_facet, STAT_normal, STAT_normal_coords,
@@ -118,19 +119,39 @@ private:
 	Stat _stat;				// for text
 	Tokenizer _tokenizer;	// for text
 public:
-	Iterator_reader(Stream *pStream);
-	virtual ~Iterator_reader();
+	Iterator_faces(Stream *pStream);
+	virtual ~Iterator_faces();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
-	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	bool Prepare(Environment &env);
+	inline bool GetBinaryFlag() const { return _binaryFlag; }
+	inline const String &GetText() const { return _text; }
 private:
 	bool DoNextFromBinary(Environment &env, Value &value);
 	bool DoNextFromText(Environment &env, Value &value);
+};
+
+//-----------------------------------------------------------------------------
+// Object_solid
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(solid);
+
+class Object_solid : public Object {
+private:
+	AutoPtr<Iterator_faces> _pIterator;
+public:
+	Gura_DeclareObjectAccessor(solid)
+public:
+	Object_solid(Iterator_faces *pIterator);
+	Object_solid(const Object_solid &obj);
+	virtual ~Object_solid();
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
 };
 
 Gura_EndModuleHeader(model_stl)

@@ -7,12 +7,12 @@ import(glu) {*}
 import(opengl) {*}
 import(model.stl)
 
-reader = nil
+solid = nil
 objList = nil
 
 prepare() = {
 	objList:extern = glGenLists(1)
-	faces = [reader]
+	faces = [solid.faces]
 	xMax = max(faces:*vertex1:*x.max(), faces:*vertex2:*x.max(), faces:*vertex3:*x.max())
 	yMax = max(faces:*vertex1:*y.max(), faces:*vertex2:*y.max(), faces:*vertex3:*y.max())
 	zMax = max(faces:*vertex1:*z.max(), faces:*vertex2:*z.max(), faces:*vertex3:*z.max())
@@ -104,8 +104,8 @@ scope {
 		sys.stderr.println('usage: gura gl-stl.guraw <stl-file>')
 		sys.exit(1)
 	}
-	reader:extern = model.stl.reader(sys.argv[1])
-	println(reader.solidname || reader.header)
+	solid:extern = model.stl.solid(sys.argv[1])
+	println(solid.name || solid.header)
 	app = App()
 	app.MainLoop(nil, width, height, 0)
 }
