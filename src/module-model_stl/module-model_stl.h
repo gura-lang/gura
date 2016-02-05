@@ -154,6 +154,11 @@ public:
 	virtual String ToString(bool exprFlag);
 };
 
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+void SetError_FormatError(Environment &env);
+
 Gura_EndModuleHeader(model_stl)
 
 #endif

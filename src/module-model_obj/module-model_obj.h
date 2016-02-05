@@ -6,6 +6,38 @@
 #include <gura.h>
 
 Gura_BeginModuleHeader(model_obj)
+
+//-----------------------------------------------------------------------------
+// TokenId
+//-----------------------------------------------------------------------------
+enum TokenId {
+	TOKEN_None, TOKEN_EOL, TOKEN_EOF, TOKEN_Field,
+};
+
+//-----------------------------------------------------------------------------
+// Tokenizer
+//-----------------------------------------------------------------------------
+class Tokenizer {
+public:
+	enum Stat {
+		STAT_LineTop, STAT_Field, STAT_SkipWhite, STAT_FileEnd,
+	};
+private:
+	Stat _stat;
+	size_t _iChar;
+	char _field[128];
+	TokenId _tokenIdPending;
+public:
+	inline Tokenizer() : _stat(STAT_LineTop), _iChar(0), _tokenIdPending(TOKEN_None) {}
+	TokenId Tokenize(Environment &env, Stream &stream);
+	inline const char *GetField() const { return _field; }
+};
+
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+void SetError_FormatError(Environment &env);
+
 Gura_EndModuleHeader(model_obj)
 
 #endif

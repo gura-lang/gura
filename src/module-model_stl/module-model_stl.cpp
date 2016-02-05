@@ -7,14 +7,6 @@
 Gura_BeginModuleBody(model_stl)
 
 //-----------------------------------------------------------------------------
-// utilities
-//-----------------------------------------------------------------------------
-void SetError_FormatError(Environment &env)
-{
-	env.SetError(ERR_FormatError, "invalid format of STL file");
-}
-
-//-----------------------------------------------------------------------------
 // Face
 //-----------------------------------------------------------------------------
 Face::Face() : _pNormal(nullptr), _attr(0)
@@ -594,6 +586,14 @@ Gura_ModuleEntry()
 
 Gura_ModuleTerminate()
 {
+}
+
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+void SetError_FormatError(Environment &env)
+{
+	env.SetError(ERR_FormatError, "invalid format of STL file");
 }
 
 Gura_EndModuleBody(model_stl, stl)
