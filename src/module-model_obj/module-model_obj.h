@@ -20,7 +20,7 @@ enum TokenId {
 class Tokenizer {
 public:
 	enum Stat {
-		STAT_LineTop, STAT_Field, STAT_SkipWhite, STAT_FileEnd,
+		STAT_LineTop, STAT_SkipToNextLine, STAT_Field, STAT_SkipWhite, STAT_FileEnd,
 	};
 private:
 	Stat _stat;

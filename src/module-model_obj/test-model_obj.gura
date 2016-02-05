@@ -3,5 +3,5 @@ import(helper.test) {*}
 import(model.obj)
 
 testcase {
-	println(model.obj.test(3, 4))
+	model.obj.test('sample/cube.obj')
 }

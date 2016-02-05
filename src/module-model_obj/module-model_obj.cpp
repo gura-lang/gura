@@ -28,9 +28,19 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 				// nothing to do
 			} else if (ch == '\n' || ch == '\0') {
 				// nothing to do
+			} else if (ch == '#') {
+				_stat = STAT_SkipToNextLine;
 			} else {
 				Gura_Pushback();
 				_stat = STAT_Field;
+			}
+			break;
+		}
+		case STAT_SkipToNextLine: {
+			if (ch == '\n') {
+				_stat = STAT_LineTop;
+			} else {
+				// nothing to do
 			}
 			break;
 		}
@@ -85,20 +95,28 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// model.obj.test(num1:number, num2:number)
+// model.obj.test(stream:stream)
 Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "num1", VTYPE_number);
-	DeclareArg(env, "num2", VTYPE_number);
+	DeclareArg(env, "stream", VTYPE_stream);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"This function adds two numbers and returns the result.\n");
+		"");
 }
 
 Gura_ImplementFunction(test)
 {
-	return Value(arg.GetNumber(0) + arg.GetNumber(1));
+	Stream &stream = arg.GetStream(0);
+	Tokenizer tokenizer;
+	for (;;) {
+		TokenId tokenId = tokenizer.Tokenize(env, stream);
+		if (tokenId == TOKEN_Field) {
+			::printf("%s\n", tokenizer.GetField());
+		}
+		if (tokenId == TOKEN_EOF) break;
+	}
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
