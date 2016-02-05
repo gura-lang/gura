@@ -310,7 +310,7 @@ bool Iterator_faces::Prepare(Environment &env)
 			SetError_FormatError(env);
 			return false;
 		}
-		_nFace = *reinterpret_cast<UInt *>(buff);
+		_nFace = *reinterpret_cast<UInt32 *>(buff);
 	}
 	return true;
 }
