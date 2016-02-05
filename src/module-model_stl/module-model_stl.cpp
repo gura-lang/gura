@@ -62,7 +62,7 @@ String Facet::ToString(const char *sep) const
 TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 {
 	Signal &sig = env.GetSignal();
-	_field.clear();
+	_iChar = 0;
 	if (_tokenIdPending != TOKEN_None) {
 		TokenId tokenId = _tokenIdPending;
 		_tokenIdPending = TOKEN_None;
@@ -88,17 +88,24 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 		case STAT_Field: {
 			if (ch == ' ' || ch == '\t') {
 				_stat = STAT_SkipWhite;
+				_field[_iChar] = '\0';
 				return TOKEN_Field;
 			} else if (ch == '\n') {
 				_tokenIdPending = TOKEN_EOL;
 				_stat = STAT_LineTop;
+				_field[_iChar] = '\0';
 				return TOKEN_Field;
 			} else if (ch == '\0') {
 				_tokenIdPending = TOKEN_EOF;
 				_stat = STAT_FileEnd;
+				_field[_iChar] = '\0';
 				return TOKEN_Field;
 			} else {
-				_field += ch;
+				if (_iChar >= ArraySizeOf(_field) - 1) {
+					env.SetError(ERR_FormatError, "invalid format");
+					return TOKEN_EOF;
+				}
+				_field[_iChar++] = ch;
 			}
 			break;
 		}
@@ -330,11 +337,12 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 	AutoPtr<Object_facet> pObjFacet;
 	for (;;) {
 		TokenId tokenId = _tokenizer.Tokenize(env, *_pStream);
+		if (env.IsSignalled()) return false;
 		switch (_stat) {
 		case STAT_facet: {
 			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "facet") {
+				const char *field = _tokenizer.GetField();
+				if (::strcmp(field, "facet") == 0) {
 					pObjFacet.reset(new Object_facet());
 					_stat = STAT_normal;
 				} else {
@@ -345,8 +353,8 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 		}
 		case STAT_normal: {
 			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "normal") {
+				const char *field = _tokenizer.GetField();
+				if (::strcmp(field, "normal") == 0) {
 					nCoords = 0;
 					_stat = STAT_normal_coords;
 				} else {
@@ -357,10 +365,10 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 		}
 		case STAT_normal_coords: {
 			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
+				const char *field = _tokenizer.GetField();
 				double num = 0;
 				char *p = nullptr;
-				num = ::strtod(field.c_str(), &p);
+				num = ::strtod(field, &p);
 				if (*p != '\0') {
 					// error
 				}
@@ -380,8 +388,8 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 		}
 		case STAT_outer: {
 			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "outer") {
+				const char *field = _tokenizer.GetField();
+				if (::strcmp(field, "outer") == 0) {
 					_stat = STAT_loop;
 				} else {
 					// error
@@ -391,8 +399,8 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 		}
 		case STAT_loop: {
 			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "loop") {
+				const char *field = _tokenizer.GetField();
+				if (::strcmp(field, "loop") == 0) {
 					nVertexes = 0;
 					_stat = STAT_vertex;
 				} else {
@@ -403,8 +411,8 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 		}
 		case STAT_vertex: {
 			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "vertex") {
+				const char *field = _tokenizer.GetField();
+				if (::strcmp(field, "vertex") == 0) {
 					nCoords = 0;
 					_stat = STAT_vertex_coords;
 				} else {
@@ -415,10 +423,10 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 		}
 		case STAT_vertex_coords: {
 			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
+				const char *field = _tokenizer.GetField();
 				double num = 0;
 				char *p = nullptr;
-				num = ::strtod(field.c_str(), &p);
+				num = ::strtod(field, &p);
 				if (*p != '\0') {
 					// error
 				}
@@ -446,8 +454,8 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 		}
 		case STAT_endloop: {
 			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "endloop") {
+				const char *field = _tokenizer.GetField();
+				if (::strcmp(field, "endloop") == 0) {
 					_stat = STAT_endfacet;
 				} else {
 					// error
@@ -457,8 +465,8 @@ bool Iterator_reader::DoNextFromText(Environment &env, Value &value)
 		}
 		case STAT_endfacet: {
 			if (tokenId == TOKEN_Field) {
-				const String &field = _tokenizer.GetField();
-				if (field == "endfacet") {
+				const char *field = _tokenizer.GetField();
+				if (::strcmp(field, "endfacet") == 0) {
 					_stat = STAT_facet;
 					value = Value(pObjFacet.release());
 					_idxFacet++;

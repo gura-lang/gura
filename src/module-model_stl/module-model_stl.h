@@ -66,12 +66,13 @@ public:
 	};
 private:
 	Stat _stat;
-	String _field;
+	size_t _iChar;
+	char _field[128];
 	TokenId _tokenIdPending;
 public:
-	inline Tokenizer() : _stat(STAT_LineTop), _tokenIdPending(TOKEN_None) {}
+	inline Tokenizer() : _stat(STAT_LineTop), _iChar(0), _tokenIdPending(TOKEN_None) {}
 	TokenId Tokenize(Environment &env, Stream &stream);
-	inline const String &GetField() const { return _field; }
+	inline const char *GetField() const { return _field; }
 };
 
 //-----------------------------------------------------------------------------
