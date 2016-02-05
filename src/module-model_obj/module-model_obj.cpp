@@ -108,12 +108,57 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
+	enum {
+		STAT_keyword,
+	} stat = STAT_keyword;
 	Stream &stream = arg.GetStream(0);
 	Tokenizer tokenizer;
 	for (;;) {
 		TokenId tokenId = tokenizer.Tokenize(env, stream);
-		if (tokenId == TOKEN_Field) {
-			::printf("%s\n", tokenizer.GetField());
+		switch (stat) {
+		case STAT_keyword: {
+			if (tokenId == TOKEN_Field) {
+				const char *field = tokenizer.GetField();
+				::printf("%s\n", field);
+				if (::strcmp(field, "v") == 0) {			// v x y z w
+				} else if (::strcmp(field, "vt") == 0) {	// vt u v w
+				} else if (::strcmp(field, "vn") == 0) {	// vn i j k
+				} else if (::strcmp(field, "vp") == 0) {	// vp u v w
+				} else if (::strcmp(field, "cstype") == 0) {// cstype rat type
+				} else if (::strcmp(field, "deg") == 0) {	// deg degu degv
+				} else if (::strcmp(field, "bmat") == 0) {	// bmat u|v matrix
+				} else if (::strcmp(field, "step") == 0) {	// step stepu stepv
+				} else if (::strcmp(field, "p") == 0) {
+				} else if (::strcmp(field, "l") == 0) {
+				} else if (::strcmp(field, "f") == 0) {
+				} else if (::strcmp(field, "curv") == 0) {
+				} else if (::strcmp(field, "curv2") == 0) {
+				} else if (::strcmp(field, "surf") == 0) {
+				} else if (::strcmp(field, "parm") == 0) {
+				} else if (::strcmp(field, "trim") == 0) {
+				} else if (::strcmp(field, "hole") == 0) {
+				} else if (::strcmp(field, "scrv") == 0) {
+				} else if (::strcmp(field, "sp") == 0) {
+				} else if (::strcmp(field, "end") == 0) {
+				} else if (::strcmp(field, "con") == 0) {
+				} else if (::strcmp(field, "g") == 0) {
+				} else if (::strcmp(field, "s") == 0) {
+				} else if (::strcmp(field, "mg") == 0) {
+				} else if (::strcmp(field, "o") == 0) {
+				} else if (::strcmp(field, "bavel") == 0) {
+				} else if (::strcmp(field, "c_interp") == 0) {
+				} else if (::strcmp(field, "d_interp") == 0) {
+				} else if (::strcmp(field, "lod") == 0) {
+				} else if (::strcmp(field, "usemtl") == 0) {
+				} else if (::strcmp(field, "mtllib") == 0) {
+				} else if (::strcmp(field, "shadow_obj") == 0) {
+				} else if (::strcmp(field, "trace_obj") == 0) {
+				} else if (::strcmp(field, "ctech") == 0) {
+				} else if (::strcmp(field, "stech") == 0) {
+				}
+			}
+			break;
+		}
 		}
 		if (tokenId == TOKEN_EOF) break;
 	}
