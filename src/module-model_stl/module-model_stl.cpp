@@ -102,7 +102,7 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 				return TOKEN_Field;
 			} else {
 				if (_iChar >= ArraySizeOf(_field) - 1) {
-					env.SetError(ERR_FormatError, "invalid format");
+					SetError_FormatError(env);
 					return TOKEN_EOF;
 				}
 				_field[_iChar++] = ch;
