@@ -94,19 +94,9 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 }
 
 //-----------------------------------------------------------------------------
-// Module functions
+// Content
 //-----------------------------------------------------------------------------
-// model.obj.test(stream:stream)
-Gura_DeclareFunction(test)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(test)
+bool Content::Read(Environment &env, Stream &stream)
 {
 	enum {
 		STAT_Keyword,
@@ -151,7 +141,6 @@ Gura_ImplementFunction(test)
 		STAT_stech,
 	} stat = STAT_Keyword;
 	size_t iParam = 0;
-	Stream &stream = arg.GetStream(0);
 	Tokenizer tokenizer;
 	for (;;) {
 		TokenId tokenId = tokenizer.Tokenize(env, stream);
@@ -243,8 +232,10 @@ Gura_ImplementFunction(test)
 			}
 			break;
 		}
+		//----------------------------------------------------------------------
+		// General statement
 		case STAT_call: {
-			// geometric vertices: v x y z [w]
+			// reads another obj file: call filename.ext arg1 arg2 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
@@ -253,7 +244,7 @@ Gura_ImplementFunction(test)
 			break;
 		}
 		case STAT_csh: {
-			// geometric vertices: v x y z [w]
+			// executed UNIX command: csh command|-command
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
@@ -261,6 +252,8 @@ Gura_ImplementFunction(test)
 			}
 			break;
 		}
+		//----------------------------------------------------------------------
+		// Vertex data
 		case STAT_v: {
 			// geometric vertices: v x y z [w]
 			if (tokenId == TOKEN_EOL) {
@@ -297,6 +290,8 @@ Gura_ImplementFunction(test)
 			}
 			break;
 		}
+		//----------------------------------------------------------------------
+		// Free-form curve/surface attributes
 		case STAT_cstype: {
 			// curve or surface type: cstype [rat] type
 			if (tokenId == TOKEN_EOL) {
@@ -333,6 +328,8 @@ Gura_ImplementFunction(test)
 			}
 			break;
 		}
+		//----------------------------------------------------------------------
+		// Elements
 		case STAT_p: {
 			// point: p v1 v2 v3 ...
 			if (tokenId == TOKEN_EOL) {
@@ -387,6 +384,8 @@ Gura_ImplementFunction(test)
 			}
 			break;
 		}
+		//----------------------------------------------------------------------
+		// Parameter values and knot vectors
 		case STAT_parm: {
 			// parameter values: parm u|v p1 p2 p3 ...
 			if (tokenId == TOKEN_EOL) {
@@ -441,6 +440,8 @@ Gura_ImplementFunction(test)
 			}
 			break;
 		}
+		//----------------------------------------------------------------------
+		// Connectivity between free-form surfaces
 		case STAT_con: {
 			// connect: con surf_1 q0_1 q1_1 curv2d_1 surf_2 q0_2 q1_2 curv2d_2
 			if (tokenId == TOKEN_EOL) {
@@ -450,6 +451,8 @@ Gura_ImplementFunction(test)
 			}
 			break;
 		}
+		//----------------------------------------------------------------------
+		// Grouping
 		case STAT_g: {
 			// group name: g group_name1 group_name2 ...
 			if (tokenId == TOKEN_EOL) {
@@ -486,6 +489,8 @@ Gura_ImplementFunction(test)
 			}
 			break;
 		}
+		//----------------------------------------------------------------------
+		// Display/render attributes
 		case STAT_beval: {
 			// bevel interpolation: bevel on|off
 			if (tokenId == TOKEN_EOL) {
@@ -597,6 +602,26 @@ Gura_ImplementFunction(test)
 		}
 		if (tokenId == TOKEN_EOF) break;
 	}
+
+}
+
+//-----------------------------------------------------------------------------
+// Module functions
+//-----------------------------------------------------------------------------
+// model.obj.test(stream:stream)
+Gura_DeclareFunction(test)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(test)
+{
+	Content content;
+	content.Read(env, arg.GetStream(0));
 	return Value::Nil;
 }
 
