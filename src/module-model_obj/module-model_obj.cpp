@@ -109,7 +109,9 @@ Gura_DeclareFunction(test)
 Gura_ImplementFunction(test)
 {
 	enum {
-		STAT_keyword,
+		STAT_Keyword,
+		STAT_call,
+		STAT_csh,
 		STAT_v,
 		STAT_vt,
 		STAT_vn,
@@ -147,128 +149,448 @@ Gura_ImplementFunction(test)
 		STAT_trace_obj,
 		STAT_ctech,
 		STAT_stech,
-	} stat = STAT_keyword;
+	} stat = STAT_Keyword;
+	size_t iParam = 0;
 	Stream &stream = arg.GetStream(0);
 	Tokenizer tokenizer;
 	for (;;) {
 		TokenId tokenId = tokenizer.Tokenize(env, stream);
 		switch (stat) {
-		case STAT_keyword: {
+		case STAT_Keyword: {
 			if (tokenId == TOKEN_Field) {
 				const char *field = tokenizer.GetField();
 				::printf("%s\n", field);
-				if (::strcmp(field, "v") == 0) {
-					// geometric vertices: v x y z [w]
+				iParam = 0;
+				if (::strcmp(field, "call") == 0) {
+					stat = STAT_call;
+				} else if (::strcmp(field, "csh") == 0) {
+					stat = STAT_csh;
+				} else if (::strcmp(field, "v") == 0) {
 					stat = STAT_v;
 				} else if (::strcmp(field, "vt") == 0) {
-					// texture vertices: vt u [v] [w]
 					stat = STAT_vt;
 				} else if (::strcmp(field, "vn") == 0) {
-					// vertex normals: vn i j k
 					stat = STAT_vn;
 				} else if (::strcmp(field, "vp") == 0) {
-					// parameter space vertices: vp u v [w]
 					stat = STAT_vp;
 				} else if (::strcmp(field, "cstype") == 0) {
-					// curve or surface type: cstype [rat] type
 					stat = STAT_cstype;
 				} else if (::strcmp(field, "deg") == 0) {
-					// degree: deg degu [degv]
 					stat = STAT_deg;
 				} else if (::strcmp(field, "bmat") == 0) {
-					// basic matrix: bmat u|v matrix
 					stat = STAT_bmat;
 				} else if (::strcmp(field, "step") == 0) {
-					// step size: step stepu [stepv]
 					stat = STAT_step;
 				} else if (::strcmp(field, "p") == 0) {
-					// point: p v1 v2 v3 ...
 					stat = STAT_p;
 				} else if (::strcmp(field, "l") == 0) {
-					// line: l v1/vt1 v2/vt2 v3/vt3 ...
 					stat = STAT_l;
 				} else if (::strcmp(field, "f") == 0) {
-					// face: f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
 					stat = STAT_f;
 				} else if (::strcmp(field, "curv") == 0) {
-					// curve: curv u0 u1 v1 v2 ...
 					stat = STAT_curv;
 				} else if (::strcmp(field, "curv2") == 0) {
-					// 2D curve: curv2 vp1 vp2 vp3 ...
 					stat = STAT_curv2;
 				} else if (::strcmp(field, "surf") == 0) {
-					// surface: surf s0 s1 t0 t1 v1/vt1/vn1 v2/vt2/vn2 ...
 					stat = STAT_surf;
 				} else if (::strcmp(field, "parm") == 0) {
-					// parameter values: parm u|v p1 p2 p3 ...
 					stat = STAT_parm;
 				} else if (::strcmp(field, "trim") == 0) {
-					// outer trimming loop: trim u0 u1 curv2d u0 u1 curv2d ...
 					stat = STAT_trim;
 				} else if (::strcmp(field, "hole") == 0) {
-					// inner trimming loop: u0 u1 curv2d u0 u1 curv2d ...
 					stat = STAT_hole;
 				} else if (::strcmp(field, "scrv") == 0) {
-					// special curve: u0 u1 curv2d u0 u1 curv2d ...
 					stat = STAT_scrv;
 				} else if (::strcmp(field, "sp") == 0) {
-					// special point: vp1 vp ...
 					stat = STAT_sp;
 				} else if (::strcmp(field, "end") == 0) {
-					// end statement: end
 					stat = STAT_end;
 				} else if (::strcmp(field, "con") == 0) {
-					// connect: con surf_1 q0_1 q1_1 curv2d_1 surf_2 q0_2 q1_2 curv2d_2
 					stat = STAT_con;
 				} else if (::strcmp(field, "g") == 0) {
-					// group name: g group_name1 group_name2 ...
 					stat = STAT_g;
 				} else if (::strcmp(field, "s") == 0) {
-					// smoothing group: s group_number
 					stat = STAT_s;
 				} else if (::strcmp(field, "mg") == 0) {
-					// merging group: mg group_number res
 					stat = STAT_mg;
 				} else if (::strcmp(field, "o") == 0) {
-					// object name: o object_name
 					stat = STAT_o;
 				} else if (::strcmp(field, "bevel") == 0) {
-					// bevel interpolation: bevel on|off
 					stat = STAT_beval;
 				} else if (::strcmp(field, "c_interp") == 0) {
-					// color interpolation: c_interp on|off
 					stat = STAT_c_interp;
 				} else if (::strcmp(field, "d_interp") == 0) {
-					// dissolve interpolation: d_interp on|off
 					stat = STAT_d_interp;
 				} else if (::strcmp(field, "lod") == 0) {
-					// level of detail: lod level
 					stat = STAT_lod;
 				} else if (::strcmp(field, "usemap") == 0) {
-					// map name: usemap map_name|off
 					stat = STAT_usemap;
 				} else if (::strcmp(field, "maplib") == 0) {
-					// material library: maplib filename1 filename2 ...
 					stat = STAT_maplib;
 				} else if (::strcmp(field, "usemtl") == 0) {
-					// material name: usemtl material_name
 					stat = STAT_usemtl;
 				} else if (::strcmp(field, "mtllib") == 0) {
-					// material library: mtllib filename1 filename2 ...
 					stat = STAT_mtllib;
 				} else if (::strcmp(field, "shadow_obj") == 0) {
-					// shadow casting: shadow_obj filename
 					stat = STAT_shadow_obj;
 				} else if (::strcmp(field, "trace_obj") == 0) {
-					// ray tracing: trace_obj filename
 					stat = STAT_trace_obj;
 				} else if (::strcmp(field, "ctech") == 0) {
-					// curve approximation technique: ctech technique resolution
 					stat = STAT_ctech;
 				} else if (::strcmp(field, "stech") == 0) {
-					// surface approximation technique: stech technique resolution
 					stat = STAT_stech;
 				}
+			}
+			break;
+		}
+		case STAT_call: {
+			// geometric vertices: v x y z [w]
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_csh: {
+			// geometric vertices: v x y z [w]
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_v: {
+			// geometric vertices: v x y z [w]
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_vt: {
+			// texture vertices: vt u [v] [w]
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_vn: {
+			// vertex normals: vn i j k
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_vp: {
+			// parameter space vertices: vp u v [w]
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_cstype: {
+			// curve or surface type: cstype [rat] type
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_deg: {
+			// degree: deg degu [degv]
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_bmat: {
+			// basic matrix: bmat u|v matrix
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_step: {
+			// step size: step stepu [stepv]
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_p: {
+			// point: p v1 v2 v3 ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_l: {
+			// line: l v1/vt1 v2/vt2 v3/vt3 ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_f: {
+			// face: f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_curv: {
+			// curve: curv u0 u1 v1 v2 ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_curv2: {
+			// 2D curve: curv2 vp1 vp2 vp3 ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_surf: {
+			// surface: surf s0 s1 t0 t1 v1/vt1/vn1 v2/vt2/vn2 ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_parm: {
+			// parameter values: parm u|v p1 p2 p3 ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_trim: {
+			// outer trimming loop: trim u0 u1 curv2d u0 u1 curv2d ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_hole: {
+			// inner trimming loop: u0 u1 curv2d u0 u1 curv2d ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_scrv: {
+			// special curve: u0 u1 curv2d u0 u1 curv2d ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_sp: {
+			// special point: vp1 vp ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_end: {
+			// end statement: end
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_con: {
+			// connect: con surf_1 q0_1 q1_1 curv2d_1 surf_2 q0_2 q1_2 curv2d_2
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_g: {
+			// group name: g group_name1 group_name2 ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_s: {
+			// smoothing group: s group_number
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_mg: {
+			// merging group: mg group_number res
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_o: {
+			// object name: o object_name
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_beval: {
+			// bevel interpolation: bevel on|off
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_c_interp: {
+			// color interpolation: c_interp on|off
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_d_interp: {
+			// dissolve interpolation: d_interp on|off
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_lod: {
+			// level of detail: lod level
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_usemap: {
+			// map name: usemap map_name|off
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_maplib: {
+			// map library: maplib filename1 filename2 ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_usemtl: {
+			// material name: usemtl material_name
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_mtllib: {
+			// material library: mtllib filename1 filename2 ...
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_shadow_obj: {
+			// shadow casting: shadow_obj filename
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_trace_obj: {
+			// ray tracing: trace_obj filename
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_ctech: {
+			// curve approximation technique: ctech technique resolution
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
+			}
+			break;
+		}
+		case STAT_stech: {
+			// surface approximation technique: stech technique resolution
+			if (tokenId == TOKEN_EOL) {
+				stat = STAT_Keyword;
+			} else if (tokenId == TOKEN_Field) {
+				iParam++;
 			}
 			break;
 		}
