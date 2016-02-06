@@ -257,14 +257,16 @@ bool Content::Read(Environment &env, Stream &stream)
 		case STAT_v: {
 			// geometric vertices: v x y z [w]
 			if (tokenId == TOKEN_EOL) {
+				::printf("\n");
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				double num;
-				iParam++;
 				if (!ExtractFloat(field, &num)) {
 					SetError_FormatError(env);
 					return false;
 				}
+				::printf(" %g", num);
+				iParam++;
 			}
 			break;
 		}
@@ -349,6 +351,12 @@ bool Content::Read(Environment &env, Stream &stream)
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
+				int iV, iVt, iVn;
+				if (!ExtractTriplet(field, &iV, &iVt, &iVn) || iV == 0) {
+					SetError_FormatError(env);
+					return false;
+				}
+				::printf(" %d/%d/%d", iV, iVt, iVn);
 				iParam++;
 			}
 			break;
@@ -360,12 +368,12 @@ bool Content::Read(Environment &env, Stream &stream)
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				int iV, iVt, iVn;
-				iParam++;
 				if (!ExtractTriplet(field, &iV, &iVt, &iVn) || iV == 0) {
 					SetError_FormatError(env);
 					return false;
 				}
 				::printf(" %d/%d/%d", iV, iVt, iVn);
+				iParam++;
 			}
 			break;
 		}
