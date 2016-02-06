@@ -144,10 +144,10 @@ bool Content::Read(Environment &env, Stream &stream)
 	Tokenizer tokenizer;
 	for (;;) {
 		TokenId tokenId = tokenizer.Tokenize(env, stream);
+		const char *field = tokenizer.GetField();
 		switch (stat) {
 		case STAT_Keyword: {
 			if (tokenId == TOKEN_Field) {
-				const char *field = tokenizer.GetField();
 				::printf("%s\n", field);
 				iParam = 0;
 				if (::strcmp(field, "call") == 0) {
@@ -259,7 +259,12 @@ bool Content::Read(Environment &env, Stream &stream)
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
+				double num;
 				iParam++;
+				if (!ExtractFloat(field, &num)) {
+					SetError_FormatError(env);
+					return false;
+				}
 			}
 			break;
 		}
@@ -351,9 +356,16 @@ bool Content::Read(Environment &env, Stream &stream)
 		case STAT_f: {
 			// face: f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
 			if (tokenId == TOKEN_EOL) {
+				::printf("\n");
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
+				int iV, iVt, iVn;
 				iParam++;
+				if (!ExtractTriplet(field, &iV, &iVt, &iVn) || iV == 0) {
+					SetError_FormatError(env);
+					return false;
+				}
+				::printf(" %d/%d/%d", iV, iVt, iVn);
 			}
 			break;
 		}
@@ -603,6 +615,55 @@ bool Content::Read(Environment &env, Stream &stream)
 		if (tokenId == TOKEN_EOF) break;
 	}
 
+}
+
+bool Content::ExtractInteger(const char *field, int *pNum)
+{
+	char *p = nullptr;
+	*pNum = static_cast<int>(::strtol(field, &p, 10));
+	return *p == '\0';
+}
+
+bool Content::ExtractFloat(const char *field, double *pNum)
+{
+	char *p = nullptr;
+	*pNum = ::strtod(field, &p);
+	return *p == '\0';
+}
+
+bool Content::ExtractTriplet(const char *field, int *piV, int *piVt, int *piVn)
+{
+	*piV = *piVt = *piVn = 0;
+	char *p = const_cast<char *>(field);
+	if (*p == '/') {
+		*piV = 0;
+		p++;
+	} else if (IsDigit(*p)) {
+		*piV = static_cast<int>(::strtol(p, &p, 10));
+		if (*p == '/') p++;
+	} else {
+		return false;
+	}
+	if (*p == '\0') {
+		return true;
+	} else if (*p == '/') {
+		p++;
+	} else if (IsDigit(*p)) {
+		*piVt = static_cast<int>(::strtol(p, &p, 10));
+		if (*p == '/') p++;
+	} else {
+		return false;
+	}
+	if (*p == '\0') {
+		return true;
+	} else if (*p == '/') {
+		p++;
+	} else if (IsDigit(*p)) {
+		*piVn = static_cast<int>(::strtol(p, &p, 10));
+	} else {
+		return false;
+	}
+	return *p == '\0';
 }
 
 //-----------------------------------------------------------------------------

@@ -39,6 +39,10 @@ public:
 class Content {
 public:
 	bool Read(Environment &env, Stream &stream);
+private:
+	static bool ExtractInteger(const char *field, int *pNum);
+	static bool ExtractFloat(const char *field, double *pNum);
+	static bool ExtractTriplet(const char *field, int *piV, int *piVt, int *piVn);
 };
 
 //-----------------------------------------------------------------------------
