@@ -18,10 +18,15 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 		_tokenIdPending = TOKEN_None;
 		return tokenId;
 	}
+	bool escapeFlag = false;
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		if (sig.IsSignalled()) break;
 		char ch = (chRaw < 0)? '\0' : static_cast<char>(static_cast<UChar>(chRaw));
+		if (ch == '\\' && !escapeFlag) {
+			escapeFlag = true;
+			continue;
+		}
 		Gura_BeginPushbackRegion();
 		switch (_stat) {
 		case STAT_LineTop: {
@@ -39,7 +44,11 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 		}
 		case STAT_SkipToNextLine: {
 			if (ch == '\n') {
-				_stat = STAT_LineTop;
+				if (escapeFlag) {
+					// nothing to do
+				} else {
+					_stat = STAT_LineTop;
+				}
 			} else {
 				// nothing to do
 			}
@@ -51,8 +60,12 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 				_field[_iChar] = '\0';
 				return TOKEN_Field;
 			} else if (ch == '\n') {
-				_tokenIdPending = TOKEN_EOL;
-				_stat = STAT_LineTop;
+				if (escapeFlag) {
+					_stat = STAT_SkipWhite;
+				} else {
+					_tokenIdPending = TOKEN_EOL;
+					_stat = STAT_LineTop;
+				}
 				_field[_iChar] = '\0';
 				return TOKEN_Field;
 			} else if (ch == '\0') {
@@ -73,7 +86,11 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 			if (ch == ' ' || ch == '\t') {
 				// nothing to do
 			} else if (ch == '\n') {
-				_stat = STAT_LineTop;
+				if (escapeFlag) {
+					// nothing to do
+				} else {
+					_stat = STAT_LineTop;
+				}
 			} else if (ch == '\0') {
 				_stat = STAT_LineTop;
 			} else {
@@ -88,6 +105,7 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 		}
 		}
 		Gura_EndPushbackRegion();
+		escapeFlag = false;
 		if (ch == '\0') break;
 	}
 	return TOKEN_EOF;
@@ -98,48 +116,7 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 //-----------------------------------------------------------------------------
 bool Content::Read(Environment &env, Stream &stream)
 {
-	enum {
-		STAT_Keyword,
-		STAT_call,
-		STAT_csh,
-		STAT_v,
-		STAT_vt,
-		STAT_vn,
-		STAT_vp,
-		STAT_cstype,
-		STAT_deg,
-		STAT_bmat,
-		STAT_step,
-		STAT_p,
-		STAT_l,
-		STAT_f,
-		STAT_curv,
-		STAT_curv2,
-		STAT_surf,
-		STAT_parm,
-		STAT_trim,
-		STAT_hole,
-		STAT_scrv,
-		STAT_sp,
-		STAT_end,
-		STAT_con,
-		STAT_g,
-		STAT_s,
-		STAT_mg,
-		STAT_o,
-		STAT_beval,
-		STAT_c_interp,
-		STAT_d_interp,
-		STAT_lod,
-		STAT_usemap,
-		STAT_maplib,
-		STAT_usemtl,
-		STAT_mtllib,
-		STAT_shadow_obj,
-		STAT_trace_obj,
-		STAT_ctech,
-		STAT_stech,
-	} stat = STAT_Keyword;
+	Stat stat = STAT_Keyword;
 	size_t iParam = 0;
 	Tokenizer tokenizer;
 	for (;;) {
@@ -261,7 +238,7 @@ bool Content::Read(Environment &env, Stream &stream)
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				double num;
-				if (!ExtractFloat(field, &num)) {
+				if (!ExtractFloat(env, field, &num)) {
 					SetError_FormatError(env);
 					return false;
 				}
@@ -352,8 +329,10 @@ bool Content::Read(Environment &env, Stream &stream)
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				int iV, iVt, iVn;
-				if (!ExtractTriplet(field, &iV, &iVt, &iVn) || iV == 0) {
-					SetError_FormatError(env);
+				if (!ExtractTriplet(env, field, &iV, &iVt, &iVn)) {
+					return false;
+				} else if (iV == 0) {
+					env.SetError(ERR_FormatError, "parameter v is necessary");
 					return false;
 				}
 				::printf(" %d/%d/%d", iV, iVt, iVn);
@@ -368,8 +347,10 @@ bool Content::Read(Environment &env, Stream &stream)
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				int iV, iVt, iVn;
-				if (!ExtractTriplet(field, &iV, &iVt, &iVn) || iV == 0) {
-					SetError_FormatError(env);
+				if (!ExtractTriplet(env, field, &iV, &iVt, &iVn)) {
+					return false;
+				} else if (iV == 0) {
+					env.SetError(ERR_FormatError, "parameter v is necessary");
 					return false;
 				}
 				::printf(" %d/%d/%d", iV, iVt, iVn);
@@ -625,21 +606,25 @@ bool Content::Read(Environment &env, Stream &stream)
 
 }
 
-bool Content::ExtractInteger(const char *field, int *pNum)
+bool Content::ExtractInteger(Environment &env, const char *field, int *pNum)
 {
 	char *p = nullptr;
 	*pNum = static_cast<int>(::strtol(field, &p, 10));
-	return *p == '\0';
+	if (*p == '\0') return true;
+	env.SetError(ERR_FormatError, "invalid format of integer number");
+	return false;
 }
 
-bool Content::ExtractFloat(const char *field, double *pNum)
+bool Content::ExtractFloat(Environment &env, const char *field, double *pNum)
 {
 	char *p = nullptr;
 	*pNum = ::strtod(field, &p);
-	return *p == '\0';
+	if (*p == '\0') return true;
+	env.SetError(ERR_FormatError, "invalid format of float number");
+	return false;
 }
 
-bool Content::ExtractTriplet(const char *field, int *piV, int *piVt, int *piVn)
+bool Content::ExtractTriplet(Environment &env, const char *field, int *piV, int *piVt, int *piVn)
 {
 	*piV = *piVt = *piVn = 0;
 	char *p = const_cast<char *>(field);
@@ -650,6 +635,7 @@ bool Content::ExtractTriplet(const char *field, int *piV, int *piVt, int *piVn)
 		*piV = static_cast<int>(::strtol(p, &p, 10));
 		if (*p == '/') p++;
 	} else {
+		env.SetError(ERR_FormatError, "invalid format of triplet");
 		return false;
 	}
 	if (*p == '\0') {
@@ -660,6 +646,7 @@ bool Content::ExtractTriplet(const char *field, int *piV, int *piVt, int *piVn)
 		*piVt = static_cast<int>(::strtol(p, &p, 10));
 		if (*p == '/') p++;
 	} else {
+		env.SetError(ERR_FormatError, "invalid format of triplet");
 		return false;
 	}
 	if (*p == '\0') {
@@ -669,9 +656,12 @@ bool Content::ExtractTriplet(const char *field, int *piV, int *piVt, int *piVn)
 	} else if (IsDigit(*p)) {
 		*piVn = static_cast<int>(::strtol(p, &p, 10));
 	} else {
+		env.SetError(ERR_FormatError, "invalid format of triplet");
 		return false;
 	}
-	return *p == '\0';
+	if (*p == '\0') return true;
+	env.SetError(ERR_FormatError, "invalid format of triplet");
+	return false;
 }
 
 //-----------------------------------------------------------------------------
