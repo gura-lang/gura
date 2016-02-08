@@ -83,9 +83,10 @@ public:
 public:
 	bool Read(Environment &env, Stream &stream);
 private:
-	static bool ExtractInteger(Environment &env, const char *field, int *pNum);
 	static bool ExtractFloat(Environment &env, const char *field, double *pNum);
-	static bool ExtractTriplet(Environment &env, const char *field, int *piV, int *piVt, int *piVn);
+	static bool ExtractIndex(Environment &env, const char *field, int *pNum);
+	static bool ExtractIndexPair(Environment &env, const char *field, int *piV, int *piVt);
+	static bool ExtractIndexTriplet(Environment &env, const char *field, int *piV, int *piVt, int *piVn);
 };
 
 //-----------------------------------------------------------------------------

@@ -234,7 +234,8 @@ bool Content::Read(Environment &env, Stream &stream)
 		case STAT_v: {
 			// geometric vertices: v x y z [w]
 			if (tokenId == TOKEN_EOL) {
-				::printf("\n");
+				// complete
+				
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				double num;
@@ -242,7 +243,6 @@ bool Content::Read(Environment &env, Stream &stream)
 					SetError_FormatError(env);
 					return false;
 				}
-				::printf(" %g", num);
 				iParam++;
 			}
 			break;
@@ -250,8 +250,15 @@ bool Content::Read(Environment &env, Stream &stream)
 		case STAT_vt: {
 			// texture vertices: vt u [v] [w]
 			if (tokenId == TOKEN_EOL) {
+				// complete
+				
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
+				double num;
+				if (!ExtractFloat(env, field, &num)) {
+					SetError_FormatError(env);
+					return false;
+				}
 				iParam++;
 			}
 			break;
@@ -259,8 +266,16 @@ bool Content::Read(Environment &env, Stream &stream)
 		case STAT_vn: {
 			// vertex normals: vn i j k
 			if (tokenId == TOKEN_EOL) {
+				// complete
+				
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
+				double num;
+				if (!ExtractFloat(env, field, &num)) {
+					SetError_FormatError(env);
+					return false;
+				}
+				
 				iParam++;
 			}
 			break;
@@ -319,6 +334,13 @@ bool Content::Read(Environment &env, Stream &stream)
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
+				int iV;
+				if (!ExtractIndex(env, field, &iV)) {
+					return false;
+				} else if (iV <= 0) {
+					env.SetError(ERR_FormatError, "invalid index for vertex");
+					return false;
+				}
 				iParam++;
 			}
 			break;
@@ -326,16 +348,17 @@ bool Content::Read(Environment &env, Stream &stream)
 		case STAT_l: {
 			// line: l v1/vt1 v2/vt2 v3/vt3 ...
 			if (tokenId == TOKEN_EOL) {
+				// complete
+				
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
-				int iV, iVt, iVn;
-				if (!ExtractTriplet(env, field, &iV, &iVt, &iVn)) {
+				int iV, iVt;
+				if (!ExtractIndexPair(env, field, &iV, &iVt)) {
 					return false;
-				} else if (iV == 0) {
-					env.SetError(ERR_FormatError, "parameter v is necessary");
+				} else if (iV <= 0) {
+					env.SetError(ERR_FormatError, "invalid index for vertex");
 					return false;
 				}
-				::printf(" %d/%d/%d", iV, iVt, iVn);
 				iParam++;
 			}
 			break;
@@ -343,14 +366,15 @@ bool Content::Read(Environment &env, Stream &stream)
 		case STAT_f: {
 			// face: f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
 			if (tokenId == TOKEN_EOL) {
-				::printf("\n");
+				// complete
+				
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				int iV, iVt, iVn;
-				if (!ExtractTriplet(env, field, &iV, &iVt, &iVn)) {
+				if (!ExtractIndexTriplet(env, field, &iV, &iVt, &iVn)) {
 					return false;
-				} else if (iV == 0) {
-					env.SetError(ERR_FormatError, "parameter v is necessary");
+				} else if (iV <= 0) {
+					env.SetError(ERR_FormatError, "invalid index for vertex");
 					return false;
 				}
 				::printf(" %d/%d/%d", iV, iVt, iVn);
@@ -606,15 +630,6 @@ bool Content::Read(Environment &env, Stream &stream)
 
 }
 
-bool Content::ExtractInteger(Environment &env, const char *field, int *pNum)
-{
-	char *p = nullptr;
-	*pNum = static_cast<int>(::strtol(field, &p, 10));
-	if (*p == '\0') return true;
-	env.SetError(ERR_FormatError, "invalid format of integer number");
-	return false;
-}
-
 bool Content::ExtractFloat(Environment &env, const char *field, double *pNum)
 {
 	char *p = nullptr;
@@ -624,8 +639,59 @@ bool Content::ExtractFloat(Environment &env, const char *field, double *pNum)
 	return false;
 }
 
-bool Content::ExtractTriplet(Environment &env, const char *field, int *piV, int *piVt, int *piVn)
+bool Content::ExtractIndex(Environment &env, const char *field, int *piV)
 {
+	const char *errMsg = "invalid format of vertex index";
+	char *p = nullptr;
+	*piV = static_cast<int>(::strtol(field, &p, 10));
+	if (*p != '\0') {
+		env.SetError(ERR_FormatError, errMsg);
+		return false;
+	}
+	if (*piV < 0) {
+		env.SetError(ERR_FormatError, errMsg);
+	}
+	return true;
+}
+
+bool Content::ExtractIndexPair(Environment &env, const char *field, int *piV, int *piVt)
+{
+	const char *errMsg = "invalid format of vertex index pair";
+	*piV = *piVt = 0;
+	char *p = const_cast<char *>(field);
+	if (*p == '/') {
+		*piV = 0;
+		p++;
+	} else if (IsDigit(*p)) {
+		*piV = static_cast<int>(::strtol(p, &p, 10));
+		if (*p == '/') p++;
+	} else {
+		env.SetError(ERR_FormatError, errMsg);
+		return false;
+	}
+	if (*p == '\0') {
+		return true;
+	} else if (*p == '/') {
+		p++;
+	} else if (IsDigit(*p)) {
+		*piVt = static_cast<int>(::strtol(p, &p, 10));
+	} else {
+		env.SetError(ERR_FormatError, errMsg);
+		return false;
+	}
+	if (*p != '\0') {
+		env.SetError(ERR_FormatError, errMsg);
+		return false;
+	}
+	if (*piV < 0 || *piVt < 0) {
+		env.SetError(ERR_FormatError, errMsg);
+	}
+	return true;
+}
+
+bool Content::ExtractIndexTriplet(Environment &env, const char *field, int *piV, int *piVt, int *piVn)
+{
+	const char *errMsg = "invalid format of vertex index triplet";
 	*piV = *piVt = *piVn = 0;
 	char *p = const_cast<char *>(field);
 	if (*p == '/') {
@@ -635,7 +701,7 @@ bool Content::ExtractTriplet(Environment &env, const char *field, int *piV, int 
 		*piV = static_cast<int>(::strtol(p, &p, 10));
 		if (*p == '/') p++;
 	} else {
-		env.SetError(ERR_FormatError, "invalid format of triplet");
+		env.SetError(ERR_FormatError, errMsg);
 		return false;
 	}
 	if (*p == '\0') {
@@ -646,7 +712,7 @@ bool Content::ExtractTriplet(Environment &env, const char *field, int *piV, int 
 		*piVt = static_cast<int>(::strtol(p, &p, 10));
 		if (*p == '/') p++;
 	} else {
-		env.SetError(ERR_FormatError, "invalid format of triplet");
+		env.SetError(ERR_FormatError, errMsg);
 		return false;
 	}
 	if (*p == '\0') {
@@ -656,12 +722,17 @@ bool Content::ExtractTriplet(Environment &env, const char *field, int *piV, int 
 	} else if (IsDigit(*p)) {
 		*piVn = static_cast<int>(::strtol(p, &p, 10));
 	} else {
-		env.SetError(ERR_FormatError, "invalid format of triplet");
+		env.SetError(ERR_FormatError, errMsg);
 		return false;
 	}
-	if (*p == '\0') return true;
-	env.SetError(ERR_FormatError, "invalid format of triplet");
-	return false;
+	if (*p != '\0') {
+		env.SetError(ERR_FormatError, errMsg);
+		return false;
+	}
+	if (*piV < 0 || *piVt < 0 || *piVn < 0) {
+		env.SetError(ERR_FormatError, errMsg);
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
