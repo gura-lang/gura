@@ -38,10 +38,8 @@ public:
 //-----------------------------------------------------------------------------
 struct Vertex : public Gura::VertexRef {
 public:
-	double w;
-public:
-	inline Vertex(double _x, double _y, double _z, double _w) :
-		Gura::VertexRef(_x, _y, _z), w(_w) {}
+	inline Vertex(double _x, double _y, double _z) :
+		Gura::VertexRef(_x, _y, _z) {}
 };
 
 //-----------------------------------------------------------------------------
@@ -55,6 +53,31 @@ typedef std::vector<Vertex *> VertexList;
 class VertexOwner : public VertexList {
 public:
 	~VertexOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
+// VertexEx
+//-----------------------------------------------------------------------------
+struct VertexEx : public Gura::VertexRef {
+public:
+	double w;
+public:
+	inline VertexEx(double _x, double _y, double _z, double _w) :
+		Gura::VertexRef(_x, _y, _z), w(_w) {}
+};
+
+//-----------------------------------------------------------------------------
+// VertexExList
+//-----------------------------------------------------------------------------
+typedef std::vector<VertexEx *> VertexExList;
+
+//-----------------------------------------------------------------------------
+// VertexExOwner
+//-----------------------------------------------------------------------------
+class VertexExOwner : public VertexExList {
+public:
+	~VertexExOwner();
 	void Clear();
 };
 

@@ -128,6 +128,22 @@ void VertexOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
+// VertexExOwner
+//-----------------------------------------------------------------------------
+VertexExOwner::~VertexExOwner()
+{
+	Clear();
+}
+
+void VertexExOwner::Clear()
+{
+	foreach (VertexExOwner, ppVertexEx, *this) {
+		VertexEx::Delete(*ppVertexEx);
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
 // FaceOwner
 //-----------------------------------------------------------------------------
 FaceOwner::~FaceOwner()
