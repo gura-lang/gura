@@ -833,8 +833,8 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	Content content;
-	content.Read(env, arg.GetStream(0));
+	AutoPtr<Content> pContent(new Content());
+	pContent->Read(env, arg.GetStream(0));
 	return Value::Nil;
 }
 

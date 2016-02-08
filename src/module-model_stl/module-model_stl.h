@@ -99,9 +99,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Iterator_faces
+// Iterator_face
 //-----------------------------------------------------------------------------
-class Iterator_faces : public Iterator {
+class Iterator_face : public Iterator {
 public:
 	enum Stat {
 		STAT_facet, STAT_normal, STAT_normal_coords,
@@ -119,8 +119,8 @@ private:
 	Stat _stat;				// for text
 	Tokenizer _tokenizer;	// for text
 public:
-	Iterator_faces(Stream *pStream);
-	virtual ~Iterator_faces();
+	Iterator_face(Stream *pStream);
+	virtual ~Iterator_face();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -140,11 +140,11 @@ Gura_DeclareUserClass(solid);
 
 class Object_solid : public Object {
 private:
-	AutoPtr<Iterator_faces> _pIterator;
+	AutoPtr<Iterator_face> _pIterator;
 public:
 	Gura_DeclareObjectAccessor(solid)
 public:
-	Object_solid(Iterator_faces *pIterator);
+	Object_solid(Iterator_face *pIterator);
 	Object_solid(const Object_solid &obj);
 	virtual ~Object_solid();
 	virtual Object *Clone() const;

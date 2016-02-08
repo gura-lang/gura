@@ -194,14 +194,14 @@ Gura_ImplementUserClass(face)
 //-----------------------------------------------------------------------------
 // Object_solid
 //-----------------------------------------------------------------------------
-Object_solid::Object_solid(Iterator_faces *pIterator) :
+Object_solid::Object_solid(Iterator_face *pIterator) :
 	Object(Gura_UserClass(solid)), _pIterator(pIterator)
 {
 }
 
 Object_solid::Object_solid(const Object_solid &obj) :
 	Object(Gura_UserClass(solid)),
-	_pIterator(dynamic_cast<Iterator_faces *>(obj._pIterator->Reference()))
+	_pIterator(dynamic_cast<Iterator_face *>(obj._pIterator->Reference()))
 {
 }
 
@@ -260,24 +260,24 @@ Gura_ImplementUserClass(solid)
 }
 
 //-----------------------------------------------------------------------------
-// Iterator_faces
+// Iterator_face
 //-----------------------------------------------------------------------------
-Iterator_faces::Iterator_faces(Stream *pStream) :
+Iterator_face::Iterator_face(Stream *pStream) :
 	Iterator(false), _binaryFlag(false), _pStream(pStream),
 	_idxFace(0), _nFace(0), _stat(STAT_facet)
 {
 }
 
-Iterator_faces::~Iterator_faces()
+Iterator_face::~Iterator_face()
 {
 }
 
-Iterator *Iterator_faces::GetSource()
+Iterator *Iterator_face::GetSource()
 {
 	return nullptr;
 }
 
-bool Iterator_faces::Prepare(Environment &env)
+bool Iterator_face::Prepare(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	char buff[81];
@@ -315,23 +315,23 @@ bool Iterator_faces::Prepare(Environment &env)
 	return true;
 }
 
-bool Iterator_faces::DoNext(Environment &env, Value &value)
+bool Iterator_face::DoNext(Environment &env, Value &value)
 {
 	return _binaryFlag? DoNextFromBinary(env, value) : DoNextFromText(env, value);
 }
 
-String Iterator_faces::ToString() const
+String Iterator_face::ToString() const
 {
 	String rtn;
-	rtn += "<iterator:model.stl.faces>";
+	rtn += "<iterator:model.stl.face>";
 	return rtn;
 }
 
-void Iterator_faces::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void Iterator_face::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
-bool Iterator_faces::DoNextFromBinary(Environment &env, Value &value)
+bool Iterator_face::DoNextFromBinary(Environment &env, Value &value)
 {
 	if (_idxFace >= _nFace) return false;
 	Signal &sig = env.GetSignal();
@@ -361,7 +361,7 @@ bool Iterator_faces::DoNextFromBinary(Environment &env, Value &value)
 	return true;
 }
 
-bool Iterator_faces::DoNextFromText(Environment &env, Value &value)
+bool Iterator_face::DoNextFromText(Environment &env, Value &value)
 {
 	size_t nCoords = 0;
 	size_t nVertexes = 0;
@@ -532,7 +532,7 @@ Gura_DeclareFunction(solid)
 
 Gura_ImplementFunction(solid)
 {
-	AutoPtr<Iterator_faces> pIterator(new Iterator_faces(arg.GetStream(0).Reference()));
+	AutoPtr<Iterator_face> pIterator(new Iterator_face(arg.GetStream(0).Reference()));
 	if (!pIterator->Prepare(env)) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_solid(pIterator.release())));
 }

@@ -178,11 +178,18 @@ public:
 		STAT_stech,
 	};
 private:
+	size_t _cntRef;
 	Vertex4Owner _vs;
 	Vertex3Owner _vps;
 	Vertex3Owner _vns;
 	Vertex3Owner _vts;
 	FaceOwner _faces;
+public:
+	Gura_DeclareReferenceAccessor(Content)
+public:
+	inline Content() : _cntRef(1) {}
+protected:
+	inline ~Content() {}
 public:
 	bool Read(Environment &env, Stream &stream);
 private:
@@ -191,6 +198,18 @@ private:
 	static bool ExtractIndexPair(Environment &env, const char *field, int *piV, int *piVt);
 	static bool ExtractIndexTriplet(Environment &env, const char *field, int *piV, int *piVt, int *piVn);
 };
+
+//-----------------------------------------------------------------------------
+// Object_content
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Object_face
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Iterator_face
+//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // utilities
