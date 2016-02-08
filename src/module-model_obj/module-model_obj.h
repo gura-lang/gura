@@ -34,50 +34,50 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Vertex
+// Vertex3
 //-----------------------------------------------------------------------------
-struct Vertex : public Gura::VertexRef {
+struct Vertex3 : public Gura::VertexRef {
 public:
-	inline Vertex(double _x, double _y, double _z) :
+	inline Vertex3(double _x, double _y, double _z) :
 		Gura::VertexRef(_x, _y, _z) {}
 };
 
 //-----------------------------------------------------------------------------
-// VertexList
+// Vertex3List
 //-----------------------------------------------------------------------------
-typedef std::vector<Vertex *> VertexList;
+typedef std::vector<Vertex3 *> Vertex3List;
 
 //-----------------------------------------------------------------------------
-// VertexOwner
+// Vertex3Owner
 //-----------------------------------------------------------------------------
-class VertexOwner : public VertexList {
+class Vertex3Owner : public Vertex3List {
 public:
-	~VertexOwner();
+	~Vertex3Owner();
 	void Clear();
 };
 
 //-----------------------------------------------------------------------------
-// VertexEx
+// Vertex4
 //-----------------------------------------------------------------------------
-struct VertexEx : public Gura::VertexRef {
+struct Vertex4 : public Gura::VertexRef {
 public:
 	double w;
 public:
-	inline VertexEx(double _x, double _y, double _z, double _w) :
+	inline Vertex4(double _x, double _y, double _z, double _w) :
 		Gura::VertexRef(_x, _y, _z), w(_w) {}
 };
 
 //-----------------------------------------------------------------------------
-// VertexExList
+// Vertex4List
 //-----------------------------------------------------------------------------
-typedef std::vector<VertexEx *> VertexExList;
+typedef std::vector<Vertex4 *> Vertex4List;
 
 //-----------------------------------------------------------------------------
-// VertexExOwner
+// Vertex4Owner
 //-----------------------------------------------------------------------------
-class VertexExOwner : public VertexExList {
+class Vertex4Owner : public Vertex4List {
 public:
-	~VertexExOwner();
+	~Vertex4Owner();
 	void Clear();
 };
 
@@ -178,7 +178,11 @@ public:
 		STAT_stech,
 	};
 private:
-	FaceOwner _faceOwner;
+	Vertex4Owner _vs;
+	Vertex3Owner _vps;
+	Vertex3Owner _vns;
+	Vertex3Owner _vts;
+	FaceOwner _faces;
 public:
 	bool Read(Environment &env, Stream &stream);
 private:

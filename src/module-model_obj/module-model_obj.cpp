@@ -112,33 +112,33 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 }
 
 //-----------------------------------------------------------------------------
-// VertexOwner
+// Vertex3Owner
 //-----------------------------------------------------------------------------
-VertexOwner::~VertexOwner()
+Vertex3Owner::~Vertex3Owner()
 {
 	Clear();
 }
 
-void VertexOwner::Clear()
+void Vertex3Owner::Clear()
 {
-	foreach (VertexOwner, ppVertex, *this) {
-		Vertex::Delete(*ppVertex);
+	foreach (Vertex3Owner, ppVertex3, *this) {
+		Vertex3::Delete(*ppVertex3);
 	}
 	clear();
 }
 
 //-----------------------------------------------------------------------------
-// VertexExOwner
+// Vertex4Owner
 //-----------------------------------------------------------------------------
-VertexExOwner::~VertexExOwner()
+Vertex4Owner::~Vertex4Owner()
 {
 	Clear();
 }
 
-void VertexExOwner::Clear()
+void Vertex4Owner::Clear()
 {
-	foreach (VertexExOwner, ppVertexEx, *this) {
-		VertexEx::Delete(*ppVertexEx);
+	foreach (Vertex4Owner, ppVertex4, *this) {
+		Vertex4::Delete(*ppVertex4);
 	}
 	clear();
 }
@@ -201,7 +201,7 @@ bool Content::Read(Environment &env, Stream &stream)
 				} else if (::strcmp(field, "l") == 0) {
 					stat = STAT_l;
 				} else if (::strcmp(field, "f") == 0) {
-					_faceOwner.push_back(new Face());
+					_faces.push_back(new Face());
 					stat = STAT_f;
 				} else if (::strcmp(field, "curv") == 0) {
 					stat = STAT_curv;
@@ -288,11 +288,16 @@ bool Content::Read(Environment &env, Stream &stream)
 			// geometric vertices: v x y z [w]
 			if (tokenId == TOKEN_EOL) {
 				// complete
-				
+				if (iParam < 3) {
+					env.SetError(ERR_FormatError, "item v should haves three elements at least");
+					return false;
+				}
+				_vs.push_back(new Vertex4(numTbl[0], numTbl[1],
+										  numTbl[2], (iParam < 4)? 0 : numTbl[3]));
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				if (iParam >= 4) {
-					env.SetError(ERR_FormatError, "too many elements for vt");
+					env.SetError(ERR_FormatError, "too many elements for item v");
 					return false;
 				}
 				double num;
@@ -308,11 +313,17 @@ bool Content::Read(Environment &env, Stream &stream)
 			// texture vertices: vt u [v] [w]
 			if (tokenId == TOKEN_EOL) {
 				// complete
-				
+				if (iParam < 1) {
+					env.SetError(ERR_FormatError, "item vt should haves one element at least");
+					return false;
+				}
+				_vts.push_back(new Vertex3(numTbl[0],
+										   (iParam < 2)? 0 : numTbl[1],
+										   (iParam < 3)? 0 : numTbl[2]));
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				if (iParam >= 3) {
-					env.SetError(ERR_FormatError, "too many elements for vt");
+					env.SetError(ERR_FormatError, "too many elements for item vt");
 					return false;
 				}
 				double num;
@@ -328,11 +339,15 @@ bool Content::Read(Environment &env, Stream &stream)
 			// vertex normals: vn i j k
 			if (tokenId == TOKEN_EOL) {
 				// complete
-				
+				if (iParam < 3) {
+					env.SetError(ERR_FormatError, "item vn should haves three elements");
+					return false;
+				}
+				_vns.push_back(new Vertex3(numTbl[0], numTbl[1], numTbl[2]));
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				if (iParam >= 3) {
-					env.SetError(ERR_FormatError, "too many elements for vn");
+					env.SetError(ERR_FormatError, "too many elements for item vn");
 					return false;
 				}
 				double num;
@@ -437,7 +452,7 @@ bool Content::Read(Environment &env, Stream &stream)
 				}
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
-				Face *pFace = _faceOwner.back();
+				Face *pFace = _faces.back();
 				int iV, iVt, iVn;
 				if (!ExtractIndexTriplet(env, field, &iV, &iVt, &iVn)) {
 					return false;
