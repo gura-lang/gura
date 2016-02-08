@@ -202,10 +202,46 @@ private:
 //-----------------------------------------------------------------------------
 // Object_content
 //-----------------------------------------------------------------------------
+Gura_DeclareUserClass(content);
+
+class Object_content : public Object {
+private:
+	AutoPtr<Content> _pContent;
+public:
+	Gura_DeclareObjectAccessor(content)
+public:
+	Object_content(Content *pContent);
+	Object_content(const Object_content &obj);
+	virtual ~Object_content();
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
+};
 
 //-----------------------------------------------------------------------------
 // Object_face
 //-----------------------------------------------------------------------------
+Gura_DeclareUserClass(face);
+
+class Object_face : public Object {
+private:
+	AutoPtr<Content> _pContent;
+	size_t _iFace;
+public:
+	Gura_DeclareObjectAccessor(face)
+public:
+	Object_face(Content *pContent, size_t iFace);
+	Object_face(const Object_face &obj);
+	virtual ~Object_face();
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
+};
+
 
 //-----------------------------------------------------------------------------
 // Iterator_face

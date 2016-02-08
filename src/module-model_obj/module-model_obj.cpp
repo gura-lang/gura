@@ -819,6 +819,138 @@ bool Content::ExtractIndexTriplet(Environment &env, const char *field, int *piV,
 }
 
 //-----------------------------------------------------------------------------
+// Object_content
+//-----------------------------------------------------------------------------
+Object_content::Object_content(Content *pContent) :
+	Object(Gura_UserClass(content)), _pContent(pContent)
+{
+}
+
+Object_content::Object_content(const Object_content &obj) :
+	Object(Gura_UserClass(content)), _pContent(obj._pContent->Reference())
+{
+}
+
+Object_content::~Object_content()
+{
+}
+
+Object *Object_content::Clone() const
+{
+	return new Object_content(*this);
+}
+
+bool Object_content::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value Object_content::DoGetProp(Environment &env, const Symbol *pSymbol,
+							  const SymbolSet &attrs, bool &evaluatedFlag)
+{
+#if 0
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
+		return Value(new Object_vertex(env, _face.GetNormal().Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex1))) {
+		return Value(new Object_vertex(env, _face.GetVertex(0).Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex2))) {
+		return Value(new Object_vertex(env, _face.GetVertex(1).Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex3))) {
+		return Value(new Object_vertex(env, _face.GetVertex(2).Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attr))) {
+		return Value(_face.GetAttr());
+	}
+#endif
+	evaluatedFlag = false;
+	return Value::Nil;
+}
+
+String Object_content::ToString(bool exprFlag)
+{
+	String str;
+	str += "<model.obj.content:";
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for content
+//-----------------------------------------------------------------------------
+// implementation of class content
+Gura_ImplementUserClass(content)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Object_face
+//-----------------------------------------------------------------------------
+Object_face::Object_face(Content *pContent, size_t iFace) :
+	Object(Gura_UserClass(face)), _pContent(pContent), _iFace(iFace)
+{
+}
+
+Object_face::Object_face(const Object_face &obj) :
+	Object(Gura_UserClass(face)), _pContent(obj._pContent->Reference()), _iFace(obj._iFace)
+{
+}
+
+Object_face::~Object_face()
+{
+}
+
+Object *Object_face::Clone() const
+{
+	return new Object_face(*this);
+}
+
+bool Object_face::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value Object_face::DoGetProp(Environment &env, const Symbol *pSymbol,
+							  const SymbolSet &attrs, bool &evaluatedFlag)
+{
+#if 0
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
+		return Value(new Object_vertex(env, _face.GetNormal().Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex1))) {
+		return Value(new Object_vertex(env, _face.GetVertex(0).Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex2))) {
+		return Value(new Object_vertex(env, _face.GetVertex(1).Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex3))) {
+		return Value(new Object_vertex(env, _face.GetVertex(2).Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attr))) {
+		return Value(_face.GetAttr());
+	}
+#endif
+	evaluatedFlag = false;
+	return Value::Nil;
+}
+
+String Object_face::ToString(bool exprFlag)
+{
+	String str;
+	str += "<model.obj.face:";
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for face
+//-----------------------------------------------------------------------------
+// implementation of class face
+Gura_ImplementUserClass(face)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_face
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
 // model.obj.test(stream:stream)
@@ -848,6 +980,11 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	// class realization
+	Gura_RealizeUserClass(content, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(face, env.LookupClass(VTYPE_object));
+	Gura_PrepareUserClass(content);
+	Gura_PrepareUserClass(face);
 	// function assignment
 	Gura_AssignFunction(test);
 	return true;
