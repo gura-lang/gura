@@ -112,6 +112,22 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 }
 
 //-----------------------------------------------------------------------------
+// VertexOwner
+//-----------------------------------------------------------------------------
+VertexOwner::~VertexOwner()
+{
+	Clear();
+}
+
+void VertexOwner::Clear()
+{
+	foreach (VertexOwner, ppVertex, *this) {
+		Vertex::Delete(*ppVertex);
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
 // FaceOwner
 //-----------------------------------------------------------------------------
 FaceOwner::~FaceOwner()
