@@ -20,10 +20,10 @@ prepare() = {
 	scale = 1 / coordMax
 	glNewList(objList, GL_COMPILE) {
 		faces.each {|face|
-			glNormal(face.normal)
-			glVertex(face.vertex1 * scale)
-			glVertex(face.vertex2 * scale)
-			glVertex(face.vertex3 * scale)
+			glNormal3(face.normal)
+			glVertex3(face.vertex1 * scale)
+			glVertex3(face.vertex2 * scale)
+			glVertex3(face.vertex3 * scale)
 		}
 	}	
 }

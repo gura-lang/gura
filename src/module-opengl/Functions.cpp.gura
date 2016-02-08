@@ -1386,7 +1386,7 @@ glNewList(list:GLuint, mode:GLenum):void:map {block?} = R'''
 	'''
 }
 
-glNormal(v:vertex):void:map = R'''
+glNormal3(v:vertex):void:map = R'''
 	glNormal3d(v->x, v->y, v->z);
 	return Value::Nil;
 ''' % {`en, 'markdown',

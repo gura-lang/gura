@@ -3738,8 +3738,8 @@ Gura_ImplementFunction(__glNewList)
 	return Value::Nil;
 }
 
-// opengl.glNormal
-Gura_DeclareFunctionAlias(__glNormal, "glNormal")
+// opengl.glNormal3
+Gura_DeclareFunctionAlias(__glNormal3, "glNormal3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_vertex, OCCUR_Once, FLAG_None);
@@ -3748,7 +3748,7 @@ Gura_DeclareFunctionAlias(__glNormal, "glNormal")
 		"");
 }
 
-Gura_ImplementFunction(__glNormal)
+Gura_ImplementFunction(__glNormal3)
 {
 	const Vertex *v = &Object_vertex::GetObject(arg, 0)->GetVertex();
 	glNormal3d(v->x, v->y, v->z);
@@ -7977,7 +7977,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glMultMatrixd);
 	Gura_AssignFunction(__glMultMatrixf);
 	Gura_AssignFunction(__glNewList);
-	Gura_AssignFunction(__glNormal);
+	Gura_AssignFunction(__glNormal3);
 	Gura_AssignFunction(__glNormal3b);
 	Gura_AssignFunction(__glNormal3bv);
 	Gura_AssignFunction(__glNormal3d);
