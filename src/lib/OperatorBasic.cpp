@@ -453,7 +453,7 @@ Gura_ImplementUnaryOperator(Neg, timedelta)
 Gura_ImplementUnaryOperator(Neg, vertex)
 {
 	const Vertex &vertex = Object_vertex::GetObject(value)->GetVertex();
-	return Value(new Object_vertex(env, Vertex(-vertex.x, -vertex.y, -vertex.z, vertex.w)));
+	return Value(new Object_vertex(env, Vertex(-vertex.x, -vertex.y, -vertex.z)));
 }
 
 template<typename T_Elem, typename T_ElemResult>
@@ -739,8 +739,7 @@ Gura_ImplementBinaryOperator(Add, vertex, vertex)
 	return Value(new Object_vertex(env, Vertex(
 									   vertexL.x + vertexR.x,
 									   vertexL.y + vertexR.y,
-									   vertexL.z + vertexR.z,
-									   vertexL.w)));
+									   vertexL.z + vertexR.z)));
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
@@ -916,8 +915,7 @@ Gura_ImplementBinaryOperator(Sub, vertex, vertex)
 	return Value(new Object_vertex(env, Vertex(
 									   vertexL.x - vertexR.x,
 									   vertexL.y - vertexR.y,
-									   vertexL.z - vertexR.z,
-									   vertexL.w)));
+									   vertexL.z - vertexR.z)));
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
@@ -1130,8 +1128,7 @@ Gura_ImplementBinaryOperator(Mul, vertex, number)
 	return Value(new Object_vertex(env, Vertex(
 									   vertex.x * num,
 									   vertex.y * num,
-									   vertex.z * num,
-									   vertex.w)));
+									   vertex.z * num)));
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>
@@ -1273,8 +1270,7 @@ Gura_ImplementBinaryOperator(Div, vertex, number)
 	return Value(new Object_vertex(env, Vertex(
 									   vertex.x / numRight,
 									   vertex.y / numRight,
-									   vertex.z / numRight,
-									   vertex.w)));
+									   vertex.z / numRight)));
 }
 
 template<typename T_ElemLeft, typename T_ElemRight, typename T_ElemResult>

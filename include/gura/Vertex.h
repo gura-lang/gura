@@ -29,35 +29,11 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Vertex3
-//-----------------------------------------------------------------------------
-struct GURA_DLLDECLARE Vertex3 {
-public:
-	double x, y, z;
-public:
-	static const Vertex3 Zero;
-public:
-	inline static void *operator new(size_t size) {
-		return MemoryPool::Allocate(size, "Vertex3");
-	}
-	inline static void operator delete(void *pv) {
-		MemoryPool::Deallocate(pv);
-	}
-public:
-	inline Vertex3() : x(0), y(0), z(0) {}
-	inline Vertex3(double _x, double _y) : x(_x), y(_y), z(0) {}
-	inline Vertex3(double _x, double _y, double _z) : x(_x), y(_y), z(_z) {}
-	inline Vertex3(const Vertex2 &vertex) : x(vertex.x), y(vertex.y), z(0.) {}
-	inline Vertex3(const Vertex3 &vertex) : x(vertex.x), y(vertex.y), z(vertex.z) {}
-	String ToString() const;
-};
-
-//-----------------------------------------------------------------------------
 // Vertex
 //-----------------------------------------------------------------------------
 struct GURA_DLLDECLARE Vertex {
 public:
-	double x, y, z, w;
+	double x, y, z;
 public:
 	static const Vertex Zero;
 public:
@@ -68,13 +44,12 @@ public:
 		MemoryPool::Deallocate(pv);
 	}
 public:
-	inline Vertex() : x(0), y(0), z(0), w(1.) {}
-	inline Vertex(double _x, double _y) : x(_x), y(_y), z(0), w(1.) {}
-	inline Vertex(double _x, double _y, double _z) : x(_x), y(_y), z(_z), w(1.) {}
-	inline Vertex(double _x, double _y, double _z, double _w) : x(_x), y(_y), z(_z), w(_w) {}
-	inline Vertex(const Vertex2 &vertex) : x(vertex.x), y(vertex.y), z(0.), w(1.) {}
-	inline Vertex(const Vertex3 &vertex) : x(vertex.x), y(vertex.y), z(vertex.z), w(1.) {}
-	inline Vertex(const Vertex &vertex) : x(vertex.x), y(vertex.y), z(vertex.z), w(vertex.w) {}
+	inline Vertex() : x(0), y(0), z(0) {}
+	inline Vertex(double _x, double _y) : x(_x), y(_y), z(0) {}
+	inline Vertex(double _x, double _y, double _z) : x(_x), y(_y), z(_z) {}
+	inline Vertex(double _x, double _y, double _z, double _w) : x(_x), y(_y), z(_z) {}
+	inline Vertex(const Vertex2 &vertex) : x(vertex.x), y(vertex.y), z(0.) {}
+	inline Vertex(const Vertex &vertex) : x(vertex.x), y(vertex.y), z(vertex.z) {}
 	inline bool IsZero() const { return x == 0. && y == 0. && z == 0.; }
 	Vertex Translate(double tx, double ty, double tz) const;
 	Vertex RotateX(double rad) const;
@@ -105,10 +80,7 @@ public:
 	inline VertexRef(double _x, double _y) : Vertex(_x, _y), _cntRef(1) {}
 	inline VertexRef(double _x, double _y, double _z) :
 		Vertex(_x, _y, _z), _cntRef(1) {}
-	inline VertexRef(double _x, double _y, double _z, double _w) :
-		Vertex(_x, _y, _z, _w), _cntRef(1) {}
 	inline VertexRef(const Vertex2 &vertex) : Vertex(vertex), _cntRef(1) {}
-	inline VertexRef(const Vertex3 &vertex) : Vertex(vertex), _cntRef(1) {}
 	inline VertexRef(const Vertex &vertex) : Vertex(vertex), _cntRef(1) {}
 protected:
 	inline ~VertexRef() {}

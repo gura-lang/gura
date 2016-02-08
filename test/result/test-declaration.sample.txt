@@ -277,7 +277,7 @@ try():leader {block}
 typename(`value)
 undef(`identifier+):[raise]
 uri:class = <class:uri(str?:string):map {block?}>
-vertex:class = <class:vertex(x:number, y:number, z?:number, w?:number):map {block?}>
+vertex:class = <class:vertex(x:number, y:number, z?:number):map {block?}>
 while (`cond) {block}
 xlist(value+)
 xset(iter+:iterator):[and,or,xor]
@@ -809,6 +809,6 @@ vertex
   vertex#rotate@x(angle:number):[deg] {block?}
   vertex#rotate@y(angle:number):[deg] {block?}
   vertex#rotate@z(angle:number):[deg] {block?}
-  vertex#tolist():[w] {block?}
+  vertex#tolist() {block?}
   vertex#translate(tx:number, ty:number, tz?:number) {block?}
-  zero:vertex = <vertex:0,0,0,1>
+  zero:vertex = <vertex:0,0,0>

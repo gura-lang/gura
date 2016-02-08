@@ -4,7 +4,6 @@ import(helper.test) {*}
 testcase('constructor') {
 	tester(`vertex(30, 40))
 	tester(`vertex(30, 40, 50))
-	tester(`vertex(30, 40, 50, 8))
 }
 testcase('operator') {
 	v1 = vertex(30, 40, 50)
@@ -18,9 +17,8 @@ testcase('operator') {
 	tester(`(v1 * 4))
 }
 testcase('vertex.tolist()') {
-	v = vertex(30, 40, 50, 8)
+	v = vertex(30, 40, 50)
 	tester(`v.tolist())
-	tester(`v.tolist():w)
 }
 testcase('vertex.translate()') {
 	tester(`vertex(3, 4, 5).translate(1, 2, 3))

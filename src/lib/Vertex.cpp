@@ -20,47 +20,31 @@ String Vertex2::ToString() const
 }
 
 //-----------------------------------------------------------------------------
-// Vertex3
-//-----------------------------------------------------------------------------
-const Vertex3 Vertex3::Zero;
-
-String Vertex3::ToString() const
-{
-	String str;
-	str += NumberToString(x);
-	str += ",";
-	str += NumberToString(y);
-	str += ",";
-	str += NumberToString(z);
-	return str;
-}
-
-//-----------------------------------------------------------------------------
 // Vertex
 //-----------------------------------------------------------------------------
 const Vertex Vertex::Zero;
 
 Vertex Vertex::Translate(double tx, double ty, double tz) const
 {
-	return Vertex(x + tx, y + ty, z + tz, w);
+	return Vertex(x + tx, y + ty, z + tz);
 }
 
 Vertex Vertex::RotateX(double rad) const
 {
 	double numCos = ::cos(rad), numSin = ::sin(rad);
-	return Vertex(x, numCos * y - numSin * z, numSin * y + numCos * z, w);
+	return Vertex(x, numCos * y - numSin * z, numSin * y + numCos * z);
 }
 
 Vertex Vertex::RotateY(double rad) const
 {
 	double numCos = ::cos(rad), numSin = ::sin(rad);
-	return Vertex(numCos * x + numSin * z, y, -numSin * x + numCos * z, w);
+	return Vertex(numCos * x + numSin * z, y, -numSin * x + numCos * z);
 }
 
 Vertex Vertex::RotateZ(double rad) const
 {
 	double numCos = ::cos(rad), numSin = ::sin(rad);
-	return Vertex(numCos * x - numSin * y, numSin * x + numCos * y, z, w);
+	return Vertex(numCos * x - numSin * y, numSin * x + numCos * y, z);
 }
 
 Vertex Vertex::CalcNormal(const Vertex &v1, const Vertex &v2, const Vertex &v3, bool unitFlag)
@@ -84,8 +68,6 @@ String Vertex::ToString() const
 	str += NumberToString(y);
 	str += ",";
 	str += NumberToString(z);
-	str += ",";
-	str += NumberToString(w);
 	return str;
 }
 

@@ -23,7 +23,6 @@ bool Object_vertex::DoDirProp(Environment &env, SymbolSet &symbols)
 	symbols.insert(Gura_Symbol(x));
 	symbols.insert(Gura_Symbol(y));
 	symbols.insert(Gura_Symbol(z));
-	symbols.insert(Gura_Symbol(w));
 	return true;
 }
 
@@ -37,8 +36,6 @@ Value Object_vertex::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(_pVertex->y);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(z))) {
 		return Value(_pVertex->z);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(w))) {
-		return Value(_pVertex->w);
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -66,12 +63,6 @@ Value Object_vertex::DoSetProp(Environment &env, const Symbol *pSymbol, const Va
 		double z = value.GetDouble();
 		_pVertex->z = z;
 		return Value(z);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(w))) {
-		if (!value.MustBe_number(sig)) return Value::Nil;
-		evaluatedFlag = true;
-		double w = value.GetDouble();
-		_pVertex->w = w;
-		return Value(w);
 	}
 	return Value::Nil;
 }
@@ -88,14 +79,13 @@ String Object_vertex::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// vertex(x:number, y:number, z?:number, w?:number):map {block?}
+// vertex(x:number, y:number, z?:number):map {block?}
 Gura_DeclareFunction(vertex)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "z", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "w", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_vertex));
 	AddHelp(
@@ -108,9 +98,8 @@ Gura_ImplementFunction(vertex)
 	double x = arg.GetDouble(0);
 	double y = arg.GetDouble(1);
 	double z = arg.Is_number(2)? arg.GetDouble(2) : 0;
-	double w = arg.Is_number(3)? arg.GetDouble(3) : 1;
 	return ReturnValue(env, arg,
-					   Value(new Object_vertex(env, Vertex(x, y, z, w))));
+					   Value(new Object_vertex(env, Vertex(x, y, z))));
 }
 
 //-----------------------------------------------------------------------------
@@ -218,17 +207,14 @@ Gura_ImplementMethod(vertex, rotate_z)
 	return ReturnValue(env, arg, Value(new Object_vertex(env, vertex.RotateZ(angle))));
 }
 
-// vertex#tolist():[w] {block?}
+// vertex#tolist() {block?}
 Gura_DeclareMethod(vertex, tolist)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(w));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Creates a `list` that contains coordinate values `[x, y, z]` of the target `vertex`.\n"
-		"\n"
-		"If the attribute `:w` is specified, it would contain `w` value and come like `[x, y, z, w]`.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("list", "list"));
 }
@@ -236,15 +222,9 @@ Gura_DeclareMethod(vertex, tolist)
 Gura_ImplementMethod(vertex, tolist)
 {
 	const Vertex &vertex = Object_vertex::GetObjectThis(arg)->GetVertex();
-	if (arg.IsSet(Gura_Symbol(w))) {
-		return ReturnValue(
-			env, arg, Value::CreateList(
-				env, Value(vertex.x), Value(vertex.y), Value(vertex.z), Value(vertex.w)));
-	} else {
-		return ReturnValue(
-			env, arg, Value::CreateList(
-				env, Value(vertex.x), Value(vertex.y), Value(vertex.z)));
-	}
+	return ReturnValue(
+		env, arg, Value::CreateList(
+			env, Value(vertex.x), Value(vertex.y), Value(vertex.z)));
 }
 
 // vertex#translate(tx:number, ty:number, tz?:number) {block?}

@@ -6741,8 +6741,8 @@ Gura_ImplementFunction(__glTranslatef)
 	return Value::Nil;
 }
 
-// opengl.glVertex
-Gura_DeclareFunctionAlias(__glVertex, "glVertex")
+// opengl.glVertex3
+Gura_DeclareFunctionAlias(__glVertex3, "glVertex3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "v", VTYPE_vertex, OCCUR_Once, FLAG_None);
@@ -6751,10 +6751,29 @@ Gura_DeclareFunctionAlias(__glVertex, "glVertex")
 		"");
 }
 
-Gura_ImplementFunction(__glVertex)
+Gura_ImplementFunction(__glVertex3)
 {
 	const Vertex *v = &Object_vertex::GetObject(arg, 0)->GetVertex();
-	glVertex4d(v->x, v->y, v->z, v->w);
+	glVertex3d(v->x, v->y, v->z);
+	return Value::Nil;
+}
+
+// opengl.glVertex4
+Gura_DeclareFunctionAlias(__glVertex4, "glVertex4")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_vertex, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertex4)
+{
+	const Vertex *v = &Object_vertex::GetObject(arg, 0)->GetVertex();
+	GLdouble w = arg.GetDouble(1);
+	glVertex4d(v->x, v->y, v->z, w);
 	return Value::Nil;
 }
 
@@ -8093,7 +8112,8 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glTexSubImage2DFromImage);
 	Gura_AssignFunction(__glTranslated);
 	Gura_AssignFunction(__glTranslatef);
-	Gura_AssignFunction(__glVertex);
+	Gura_AssignFunction(__glVertex3);
+	Gura_AssignFunction(__glVertex4);
 	Gura_AssignFunction(__glVertex2d);
 	Gura_AssignFunction(__glVertex2dv);
 	Gura_AssignFunction(__glVertex2f);
