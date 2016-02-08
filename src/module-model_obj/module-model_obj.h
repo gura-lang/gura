@@ -34,6 +34,55 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// IndexTriplet
+//-----------------------------------------------------------------------------
+class IndexTriplet {
+public:
+	int iV, iVt, iVn;
+public:
+	inline IndexTriplet(int _iV, int _iVt, int _iVn) : iV(_iV), iVt(_iVt), iVn(_iVn) {}
+};
+
+//-----------------------------------------------------------------------------
+// IndexTripletList
+//-----------------------------------------------------------------------------
+typedef std::vector<IndexTriplet> IndexTripletList;
+
+//-----------------------------------------------------------------------------
+// Face
+//-----------------------------------------------------------------------------
+class Face {
+private:
+	size_t _cntRef;
+	IndexTripletList _indexTripletList;
+public:
+	Gura_DeclareReferenceAccessor(Face)
+public:
+	inline Face() : _cntRef(1) { _indexTripletList.reserve(4); }
+protected:
+	inline ~Face() {}
+public:
+	inline void AddIndexTriplet(int iV, int iVt, int iVn) {
+		_indexTripletList.push_back(IndexTriplet(iV, iVt, iVn));
+	}
+	inline const IndexTripletList &GetIndexTripletList() const { return _indexTripletList; }
+};
+
+//-----------------------------------------------------------------------------
+// FaceList
+//-----------------------------------------------------------------------------
+typedef std::vector<Face *> FaceList;
+
+//-----------------------------------------------------------------------------
+// FaceOwner
+//-----------------------------------------------------------------------------
+class FaceOwner : public FaceList {
+public:
+	~FaceOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
 // Content
 //-----------------------------------------------------------------------------
 class Content {
@@ -80,6 +129,8 @@ public:
 		STAT_ctech,
 		STAT_stech,
 	};
+private:
+	FaceOwner _faceOwner;
 public:
 	bool Read(Environment &env, Stream &stream);
 private:

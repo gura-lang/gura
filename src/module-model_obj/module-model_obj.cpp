@@ -112,6 +112,22 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 }
 
 //-----------------------------------------------------------------------------
+// FaceOwner
+//-----------------------------------------------------------------------------
+FaceOwner::~FaceOwner()
+{
+	Clear();
+}
+
+void FaceOwner::Clear()
+{
+	foreach (FaceOwner, ppFace, *this) {
+		Face::Delete(*ppFace);
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
 // Content
 //-----------------------------------------------------------------------------
 bool Content::Read(Environment &env, Stream &stream)
@@ -119,6 +135,7 @@ bool Content::Read(Environment &env, Stream &stream)
 	Stat stat = STAT_Keyword;
 	size_t iParam = 0;
 	Tokenizer tokenizer;
+	double numTbl[32];
 	for (;;) {
 		TokenId tokenId = tokenizer.Tokenize(env, stream);
 		const char *field = tokenizer.GetField();
@@ -152,6 +169,7 @@ bool Content::Read(Environment &env, Stream &stream)
 				} else if (::strcmp(field, "l") == 0) {
 					stat = STAT_l;
 				} else if (::strcmp(field, "f") == 0) {
+					_faceOwner.push_back(new Face());
 					stat = STAT_f;
 				} else if (::strcmp(field, "curv") == 0) {
 					stat = STAT_curv;
@@ -205,6 +223,9 @@ bool Content::Read(Environment &env, Stream &stream)
 					stat = STAT_ctech;
 				} else if (::strcmp(field, "stech") == 0) {
 					stat = STAT_stech;
+				} else {
+					env.SetError(ERR_FormatError, "unknown keyword '%s'", field);
+					return false;
 				}
 			}
 			break;
@@ -238,12 +259,16 @@ bool Content::Read(Environment &env, Stream &stream)
 				
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
+				if (iParam >= 4) {
+					env.SetError(ERR_FormatError, "too many elements for vt");
+					return false;
+				}
 				double num;
 				if (!ExtractFloat(env, field, &num)) {
 					SetError_FormatError(env);
 					return false;
 				}
-				iParam++;
+				numTbl[iParam++] = num;
 			}
 			break;
 		}
@@ -254,12 +279,16 @@ bool Content::Read(Environment &env, Stream &stream)
 				
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
+				if (iParam >= 3) {
+					env.SetError(ERR_FormatError, "too many elements for vt");
+					return false;
+				}
 				double num;
 				if (!ExtractFloat(env, field, &num)) {
 					SetError_FormatError(env);
 					return false;
 				}
-				iParam++;
+				numTbl[iParam++] = num;
 			}
 			break;
 		}
@@ -270,13 +299,16 @@ bool Content::Read(Environment &env, Stream &stream)
 				
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
+				if (iParam >= 3) {
+					env.SetError(ERR_FormatError, "too many elements for vn");
+					return false;
+				}
 				double num;
 				if (!ExtractFloat(env, field, &num)) {
 					SetError_FormatError(env);
 					return false;
 				}
-				
-				iParam++;
+				numTbl[iParam++] = num;
 			}
 			break;
 		}
@@ -367,9 +399,13 @@ bool Content::Read(Environment &env, Stream &stream)
 			// face: f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
 			if (tokenId == TOKEN_EOL) {
 				// complete
-				
+				if (iParam < 3) {
+					env.SetError(ERR_FormatError, "at least three index triplets must exist");
+					return false;
+				}
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
+				Face *pFace = _faceOwner.back();
 				int iV, iVt, iVn;
 				if (!ExtractIndexTriplet(env, field, &iV, &iVt, &iVn)) {
 					return false;
@@ -377,7 +413,7 @@ bool Content::Read(Environment &env, Stream &stream)
 					env.SetError(ERR_FormatError, "invalid index for vertex");
 					return false;
 				}
-				::printf(" %d/%d/%d", iV, iVt, iVn);
+				pFace->AddIndexTriplet(iV, iVt, iVn);
 				iParam++;
 			}
 			break;
