@@ -848,20 +848,10 @@ bool Object_content::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Object_content::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
-		return Value(new Object_vertex(env, _face.GetNormal().Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex1))) {
-		return Value(new Object_vertex(env, _face.GetVertex(0).Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex2))) {
-		return Value(new Object_vertex(env, _face.GetVertex(1).Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex3))) {
-		return Value(new Object_vertex(env, _face.GetVertex(2).Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attr))) {
-		return Value(_face.GetAttr());
+	if (pSymbol->IsIdentical(Gura_UserSymbol(faces))) {
+		return Value(new Object_iterator(env, new Iterator_face(_pContent->Reference())));
 	}
-#endif
 	evaluatedFlag = false;
 	return Value::Nil;
 }
@@ -949,6 +939,35 @@ Gura_ImplementUserClass(face)
 //-----------------------------------------------------------------------------
 // Iterator_face
 //-----------------------------------------------------------------------------
+Iterator_face::Iterator_face(Content *pContent) :
+	Iterator(false), _pContent(pContent), _iFace(0)
+{
+}
+
+Iterator_face::~Iterator_face()
+{
+}
+
+Iterator *Iterator_face::GetSource()
+{
+	return nullptr;
+}
+
+bool Iterator_face::DoNext(Environment &env, Value &value)
+{
+	return true;
+}
+
+String Iterator_face::ToString() const
+{
+	String rtn;
+	rtn += "<iterator:model.obj.face>";
+	return rtn;
+}
+
+void Iterator_face::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
 
 //-----------------------------------------------------------------------------
 // Module functions
@@ -980,6 +999,8 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	// symbol realization
+	Gura_RealizeUserSymbol(faces);
 	// class realization
 	Gura_RealizeUserClass(content, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(face, env.LookupClass(VTYPE_object));

@@ -7,6 +7,8 @@
 
 Gura_BeginModuleHeader(model_obj)
 
+Gura_DeclareUserSymbol(faces);
+
 //-----------------------------------------------------------------------------
 // TokenId
 //-----------------------------------------------------------------------------
@@ -192,6 +194,7 @@ protected:
 	inline ~Content() {}
 public:
 	bool Read(Environment &env, Stream &stream);
+	inline const FaceOwner &GetFaces() const { return _faces; }
 private:
 	static bool ExtractFloat(Environment &env, const char *field, double *pNum);
 	static bool ExtractIndex(Environment &env, const char *field, int *pNum);
@@ -242,10 +245,21 @@ public:
 	virtual String ToString(bool exprFlag);
 };
 
-
 //-----------------------------------------------------------------------------
 // Iterator_face
 //-----------------------------------------------------------------------------
+class Iterator_face : public Iterator {
+private:
+	AutoPtr<Content> _pContent;
+	size_t _iFace;
+public:
+	Iterator_face(Content *pContent);
+	virtual ~Iterator_face();
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
 
 //-----------------------------------------------------------------------------
 // utilities
