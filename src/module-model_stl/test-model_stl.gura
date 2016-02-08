@@ -4,10 +4,6 @@ import(model.stl)
 
 testcase {
 	ratio = 0.05
-	//reader1 = model.stl.reader('cube-ascii.stl')
-	//reader2 = model.stl.reader('cube-binary.stl')
-	//println(reader1)
-	//println(reader1, '\n', reader2)
 	fileName = 'sample/cube-ascii.stl'
 	//fileName = 'Voyager_17.stl'
 	model.stl.solid(fileName) {|solid|
@@ -19,5 +15,4 @@ testcase {
 			printf('glVertex3d(%g, %g, %g)\n', face.vertex3.x * ratio, face.vertex3.y * ratio, face.vertex3.z * ratio)
 		}
 	}
-	//println(reader)
 }
