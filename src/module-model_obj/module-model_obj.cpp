@@ -192,13 +192,13 @@ bool Content::Read(Environment &env, Stream &stream)
 	size_t iParam = 0;
 	Tokenizer tokenizer;
 	double numTbl[32];
+	StringList strList;
 	for (;;) {
 		TokenId tokenId = tokenizer.Tokenize(env, stream);
 		const char *field = tokenizer.GetField();
 		switch (stat) {
 		case STAT_Keyword: {
 			if (tokenId == TOKEN_Field) {
-				::printf("%s\n", field);
 				iParam = 0;
 				if (::strcmp(field, "call") == 0) {
 					stat = STAT_call;
@@ -292,7 +292,10 @@ bool Content::Read(Environment &env, Stream &stream)
 			// reads another obj file: call filename.ext arg1 arg2 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "call");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
+				strList.push_back(field);
 				iParam++;
 			}
 			break;
@@ -301,6 +304,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// executed UNIX command: csh command|-command
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "csh");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -398,6 +403,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// curve or surface type: cstype [rat] type
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "cstype");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -407,6 +414,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// degree: deg degu [degv]
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "deg");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -416,6 +425,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// basic matrix: bmat u|v matrix
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "bmat");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -425,6 +436,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// step size: step stepu [stepv]
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "step");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -436,6 +449,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// point: p v1 v2 v3 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "p");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				int iV;
 				if (!ExtractIndex(env, field, &iV)) {
@@ -454,6 +469,8 @@ bool Content::Read(Environment &env, Stream &stream)
 				// complete
 				
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "l");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				int iV, iVt;
 				if (!ExtractIndexPair(env, field, &iV, &iVt)) {
@@ -493,6 +510,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// curve: curv u0 u1 v1 v2 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "curv");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -502,6 +521,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// 2D curve: curv2 vp1 vp2 vp3 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "curv2");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -511,6 +532,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// surface: surf s0 s1 t0 t1 v1/vt1/vn1 v2/vt2/vn2 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "surf");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -522,6 +545,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// parameter values: parm u|v p1 p2 p3 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "parm");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -531,6 +556,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// outer trimming loop: trim u0 u1 curv2d u0 u1 curv2d ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "trim");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -540,6 +567,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// inner trimming loop: u0 u1 curv2d u0 u1 curv2d ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "hole");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -549,6 +578,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// special curve: u0 u1 curv2d u0 u1 curv2d ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "scrv");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -558,6 +589,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// special point: vp1 vp ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "sp");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -567,6 +600,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// end statement: end
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "end");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -578,6 +613,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// connect: con surf_1 q0_1 q1_1 curv2d_1 surf_2 q0_2 q1_2 curv2d_2
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "con");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -589,6 +626,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// group name: g group_name1 group_name2 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				//SetError_NotImplementedKeyword(env, "g");
+				//return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -598,6 +637,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// smoothing group: s group_number
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "s");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -607,6 +648,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// merging group: mg group_number res
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "mg");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -616,6 +659,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// object name: o object_name
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "o");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -627,6 +672,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// bevel interpolation: bevel on|off
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "beval");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -636,6 +683,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// color interpolation: c_interp on|off
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "c_interp");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -645,6 +694,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// dissolve interpolation: d_interp on|off
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "d_interp");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -654,6 +705,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// level of detail: lod level
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "lod");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -663,6 +716,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// map name: usemap map_name|off
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "usemap");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -672,6 +727,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// map library: maplib filename1 filename2 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "maplib");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -681,6 +738,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// material name: usemtl material_name
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "usemtl");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -690,6 +749,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// material library: mtllib filename1 filename2 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "mtllib");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -699,6 +760,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// shadow casting: shadow_obj filename
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "shadow_obj");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -708,6 +771,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// ray tracing: trace_obj filename
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "trace_obj");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -717,6 +782,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// curve approximation technique: ctech technique resolution
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "ctech");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -726,6 +793,8 @@ bool Content::Read(Environment &env, Stream &stream)
 			// surface approximation technique: stech technique resolution
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
+				SetError_NotImplementedKeyword(env, "stech");
+				return false;
 			} else if (tokenId == TOKEN_Field) {
 				iParam++;
 			}
@@ -1118,6 +1187,11 @@ Gura_ModuleTerminate()
 void SetError_FormatError(Environment &env)
 {
 	env.SetError(ERR_FormatError, "invalid format of OBJ file");
+}
+
+void SetError_NotImplementedKeyword(Environment &env, const char *keyword)
+{
+	env.SetError(ERR_FormatError, "not implemented keyword %s", keyword);
 }
 
 Gura_EndModuleBody(model_obj, obj)

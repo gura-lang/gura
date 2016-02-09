@@ -297,6 +297,7 @@ public:
 // utilities
 //-----------------------------------------------------------------------------
 void SetError_FormatError(Environment &env);
+void SetError_NotImplementedKeyword(Environment &env, const char *keyword);
 
 Gura_EndModuleHeader(model_obj)
 
