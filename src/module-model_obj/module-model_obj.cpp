@@ -984,7 +984,7 @@ Value Object_face::DoGetProp(Environment &env, const Symbol *pSymbol,
 String Object_face::ToString(bool exprFlag)
 {
 	String str;
-	str += "<model.obj.face:";
+	str += "<model.obj.face";
 	str += ">";
 	return str;
 }
