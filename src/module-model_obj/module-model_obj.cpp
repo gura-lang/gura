@@ -144,6 +144,30 @@ void Vertex4Owner::Clear()
 }
 
 //-----------------------------------------------------------------------------
+// Face
+//-----------------------------------------------------------------------------
+const Vertex4 *Face::GetV(const Content &content, size_t iIndexTriplet) const
+{
+	if (iIndexTriplet >= _indexTripletList.size()) return nullptr;
+	const IndexTriplet &indexTriplet = _indexTripletList[iIndexTriplet];
+	return content.GetV(indexTriplet.iV);
+}
+
+const Vertex3 *Face::GetVt(const Content &content, size_t iIndexTriplet) const
+{
+	if (iIndexTriplet >= _indexTripletList.size()) return nullptr;
+	const IndexTriplet &indexTriplet = _indexTripletList[iIndexTriplet];
+	return content.GetVt(indexTriplet.iVt);
+}
+
+const Vertex3 *Face::GetVn(const Content &content, size_t iIndexTriplet) const
+{
+	if (iIndexTriplet >= _indexTripletList.size()) return nullptr;
+	const IndexTriplet &indexTriplet = _indexTripletList[iIndexTriplet];
+	return content.GetVn(indexTriplet.iVn);
+}
+
+//-----------------------------------------------------------------------------
 // FaceOwner
 //-----------------------------------------------------------------------------
 FaceOwner::~FaceOwner()
@@ -710,7 +734,7 @@ bool Content::Read(Environment &env, Stream &stream)
 		}
 		if (tokenId == TOKEN_EOF) break;
 	}
-
+	return true;
 }
 
 bool Content::ExtractFloat(Environment &env, const char *field, double *pNum)
@@ -902,20 +926,16 @@ bool Object_face::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Object_face::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(normal))) {
-		return Value(new Object_vertex(env, _face.GetNormal().Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex1))) {
-		return Value(new Object_vertex(env, _face.GetVertex(0).Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex2))) {
-		return Value(new Object_vertex(env, _face.GetVertex(1).Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vertex3))) {
-		return Value(new Object_vertex(env, _face.GetVertex(2).Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attr))) {
-		return Value(_face.GetAttr());
+	if (pSymbol->IsIdentical(Gura_UserSymbol(v1))) {
+		//return Value(new Object_vertex(env, _face.GetV(*_pContent, 0).Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v2))) {
+		//return Value(new Object_vertex(env, _face.GetV(*_pContent, 1).Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v3))) {
+		//return Value(new Object_vertex(env, _face.GetV(*_pContent, 2).Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v4))) {
+		//return Value(new Object_vertex(env, _face.GetV(*_pContent, 3).Reference()));
 	}
-#endif
 	evaluatedFlag = false;
 	return Value::Nil;
 }
@@ -1001,6 +1021,18 @@ Gura_ModuleEntry()
 {
 	// symbol realization
 	Gura_RealizeUserSymbol(faces);
+	Gura_RealizeUserSymbol(v1);
+	Gura_RealizeUserSymbol(v2);
+	Gura_RealizeUserSymbol(v3);
+	Gura_RealizeUserSymbol(v4);
+	Gura_RealizeUserSymbol(vt1);
+	Gura_RealizeUserSymbol(vt2);
+	Gura_RealizeUserSymbol(vt3);
+	Gura_RealizeUserSymbol(vt4);
+	Gura_RealizeUserSymbol(vn1);
+	Gura_RealizeUserSymbol(vn2);
+	Gura_RealizeUserSymbol(vn3);
+	Gura_RealizeUserSymbol(vn4);
 	// class realization
 	Gura_RealizeUserClass(content, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(face, env.LookupClass(VTYPE_object));

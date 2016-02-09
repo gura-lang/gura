@@ -8,6 +8,20 @@
 Gura_BeginModuleHeader(model_obj)
 
 Gura_DeclareUserSymbol(faces);
+Gura_DeclareUserSymbol(v1);
+Gura_DeclareUserSymbol(v2);
+Gura_DeclareUserSymbol(v3);
+Gura_DeclareUserSymbol(v4);
+Gura_DeclareUserSymbol(vt1);
+Gura_DeclareUserSymbol(vt2);
+Gura_DeclareUserSymbol(vt3);
+Gura_DeclareUserSymbol(vt4);
+Gura_DeclareUserSymbol(vn1);
+Gura_DeclareUserSymbol(vn2);
+Gura_DeclareUserSymbol(vn3);
+Gura_DeclareUserSymbol(vn4);
+
+class Content;
 
 //-----------------------------------------------------------------------------
 // TokenId
@@ -116,6 +130,9 @@ public:
 		_indexTripletList.push_back(IndexTriplet(iV, iVt, iVn));
 	}
 	inline const IndexTripletList &GetIndexTripletList() const { return _indexTripletList; }
+	const Vertex4 *GetV(const Content &content, size_t iIndexTriplet) const;
+	const Vertex3 *GetVt(const Content &content, size_t iIndexTriplet) const;
+	const Vertex3 *GetVn(const Content &content, size_t iIndexTriplet) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -195,6 +212,18 @@ protected:
 public:
 	bool Read(Environment &env, Stream &stream);
 	inline const FaceOwner &GetFaces() const { return _faces; }
+	inline const Vertex4 *GetV(size_t iV) const {
+		return (iV == 0 || iV >= _vs.size() + 1)? nullptr : _vs[iV - 1];
+	}
+	inline const Vertex3 *GetVp(size_t iVp) const {
+		return (iVp == 0 || iVp >= _vps.size() + 1)? nullptr : _vps[iVp - 1];
+	}
+	inline const Vertex3 *GetVn(size_t iVn) const {
+		return (iVn == 0 || iVn >= _vns.size() + 1)? nullptr : _vns[iVn - 1];
+	}
+	inline const Vertex3 *GetVt(size_t iVt) const {
+		return (iVt == 0 || iVt >= _vts.size() + 1)? nullptr : _vts[iVt - 1];
+	}
 private:
 	static bool ExtractFloat(Environment &env, const char *field, double *pNum);
 	static bool ExtractIndex(Environment &env, const char *field, int *pNum);
