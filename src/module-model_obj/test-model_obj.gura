@@ -4,5 +4,7 @@ import(model.obj)
 
 testcase {
 	ctx = model.obj.content('sample/cube.obj')
-	println(ctx.faces)
+	ctx.faces.each {|face|
+		println(face.v1, face.v2, face.v3, face.v4)
+	}
 }
