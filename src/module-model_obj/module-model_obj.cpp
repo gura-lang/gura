@@ -926,15 +926,24 @@ bool Object_face::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Object_face::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	const Face *pFace = _pContent->GetFace(_iFace);
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(v1))) {
-		//return Value(new Object_vertex(env, _face.GetV(*_pContent, 0).Reference()));
+		const Vertex4 *pV = pFace->GetV(*_pContent, 0);
+		if (pV == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v2))) {
-		//return Value(new Object_vertex(env, _face.GetV(*_pContent, 1).Reference()));
+		const Vertex4 *pV = pFace->GetV(*_pContent, 1);
+		if (pV == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v3))) {
-		//return Value(new Object_vertex(env, _face.GetV(*_pContent, 2).Reference()));
+		const Vertex4 *pV = pFace->GetV(*_pContent, 2);
+		if (pV == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v4))) {
-		//return Value(new Object_vertex(env, _face.GetV(*_pContent, 3).Reference()));
+		const Vertex4 *pV = pFace->GetV(*_pContent, 3);
+		if (pV == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pV->Reference()));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;

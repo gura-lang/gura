@@ -212,6 +212,7 @@ protected:
 public:
 	bool Read(Environment &env, Stream &stream);
 	inline const FaceOwner &GetFaces() const { return _faces; }
+	inline const Face *GetFace(size_t iFace) const { return _faces[iFace]; }
 	inline const Vertex4 *GetV(size_t iV) const {
 		return (iV == 0 || iV >= _vs.size() + 1)? nullptr : _vs[iV - 1];
 	}
