@@ -899,13 +899,14 @@ Gura_ImplementUserClass(content)
 //-----------------------------------------------------------------------------
 // Object_face
 //-----------------------------------------------------------------------------
-Object_face::Object_face(Content *pContent, size_t iFace) :
-	Object(Gura_UserClass(face)), _pContent(pContent), _iFace(iFace)
+Object_face::Object_face(Content *pContent, Face *pFace) :
+	Object(Gura_UserClass(face)), _pContent(pContent), _pFace(pFace)
 {
 }
 
 Object_face::Object_face(const Object_face &obj) :
-	Object(Gura_UserClass(face)), _pContent(obj._pContent->Reference()), _iFace(obj._iFace)
+	Object(Gura_UserClass(face)), _pContent(obj._pContent->Reference()),
+	_pFace(obj._pFace->Reference())
 {
 }
 
@@ -926,24 +927,55 @@ bool Object_face::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Object_face::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	const Face *pFace = _pContent->GetFace(_iFace);
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(v1))) {
-		const Vertex4 *pV = pFace->GetV(*_pContent, 0);
+		const Vertex4 *pV = _pFace->GetV(*_pContent, 0);
 		if (pV == nullptr) return Value::Nil;
 		return Value(new Object_vertex(env, pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v2))) {
-		const Vertex4 *pV = pFace->GetV(*_pContent, 1);
+		const Vertex4 *pV = _pFace->GetV(*_pContent, 1);
 		if (pV == nullptr) return Value::Nil;
 		return Value(new Object_vertex(env, pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v3))) {
-		const Vertex4 *pV = pFace->GetV(*_pContent, 2);
+		const Vertex4 *pV = _pFace->GetV(*_pContent, 2);
 		if (pV == nullptr) return Value::Nil;
 		return Value(new Object_vertex(env, pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v4))) {
-		const Vertex4 *pV = pFace->GetV(*_pContent, 3);
+		const Vertex4 *pV = _pFace->GetV(*_pContent, 3);
 		if (pV == nullptr) return Value::Nil;
 		return Value(new Object_vertex(env, pV->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vt1))) {
+		const Vertex3 *pVt = _pFace->GetVt(*_pContent, 0);
+		if (pVt == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pVt->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vt2))) {
+		const Vertex3 *pVt = _pFace->GetVt(*_pContent, 1);
+		if (pVt == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pVt->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vt3))) {
+		const Vertex3 *pVt = _pFace->GetVt(*_pContent, 2);
+		if (pVt == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pVt->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vt4))) {
+		const Vertex3 *pVt = _pFace->GetVt(*_pContent, 3);
+		if (pVt == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pVt->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vn1))) {
+		const Vertex3 *pVn = _pFace->GetVn(*_pContent, 0);
+		if (pVn == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pVn->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vn2))) {
+		const Vertex3 *pVn = _pFace->GetVn(*_pContent, 1);
+		if (pVn == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pVn->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vn3))) {
+		const Vertex3 *pVn = _pFace->GetVn(*_pContent, 2);
+		if (pVn == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pVn->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vn4))) {
+		const Vertex3 *pVn = _pFace->GetVn(*_pContent, 3);
+		if (pVn == nullptr) return Value::Nil;
+		return Value(new Object_vertex(env, pVn->Reference()));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -984,6 +1016,10 @@ Iterator *Iterator_face::GetSource()
 
 bool Iterator_face::DoNext(Environment &env, Value &value)
 {
+	const Face *pFace = _pContent->GetFace(_iFace);
+	if (pFace == nullptr) return false;
+	value = Value(new Object_face(_pContent->Reference(), pFace->Reference()));
+	_iFace++;
 	return true;
 }
 
@@ -1001,6 +1037,25 @@ void Iterator_face::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
+// model.obj.content(stream:stream) {block?}
+Gura_DeclareFunction(content)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream);
+	SetClassToConstruct(Gura_UserClass(content));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(content)
+{
+	AutoPtr<Content> pContent(new Content());
+	if (!pContent->Read(env, arg.GetStream(0))) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_content(pContent.release())));
+}
+
 // model.obj.test(stream:stream)
 Gura_DeclareFunction(test)
 {
@@ -1048,6 +1103,7 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(content);
 	Gura_PrepareUserClass(face);
 	// function assignment
+	Gura_AssignFunction(content);
 	Gura_AssignFunction(test);
 	return true;
 }

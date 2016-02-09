@@ -3,5 +3,6 @@ import(helper.test) {*}
 import(model.obj)
 
 testcase {
-	model.obj.test('sample/cube.obj')
+	ctx = model.obj.content('sample/cube.obj')
+	println(ctx.faces)
 }

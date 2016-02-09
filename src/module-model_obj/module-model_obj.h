@@ -212,18 +212,20 @@ protected:
 public:
 	bool Read(Environment &env, Stream &stream);
 	inline const FaceOwner &GetFaces() const { return _faces; }
-	inline const Face *GetFace(size_t iFace) const { return _faces[iFace]; }
+	inline const Face *GetFace(size_t iFace) const {
+		return (iFace < _faces.size())? _faces[iFace] : nullptr;
+	}
 	inline const Vertex4 *GetV(size_t iV) const {
-		return (iV == 0 || iV >= _vs.size() + 1)? nullptr : _vs[iV - 1];
+		return (0 < iV && iV < _vs.size() + 1)? _vs[iV - 1] : nullptr;
 	}
 	inline const Vertex3 *GetVp(size_t iVp) const {
-		return (iVp == 0 || iVp >= _vps.size() + 1)? nullptr : _vps[iVp - 1];
+		return (0 < iVp && iVp < _vps.size() + 1)? _vps[iVp - 1] : nullptr;
 	}
 	inline const Vertex3 *GetVn(size_t iVn) const {
-		return (iVn == 0 || iVn >= _vns.size() + 1)? nullptr : _vns[iVn - 1];
+		return (0 < iVn && iVn < _vns.size() + 1)? _vns[iVn - 1] : nullptr;
 	}
 	inline const Vertex3 *GetVt(size_t iVt) const {
-		return (iVt == 0 || iVt >= _vts.size() + 1)? nullptr : _vts[iVt - 1];
+		return (0 < iVt && iVt < _vts.size() + 1)? _vts[iVt - 1] : nullptr;
 	}
 private:
 	static bool ExtractFloat(Environment &env, const char *field, double *pNum);
@@ -261,11 +263,11 @@ Gura_DeclareUserClass(face);
 class Object_face : public Object {
 private:
 	AutoPtr<Content> _pContent;
-	size_t _iFace;
+	AutoPtr<Face> _pFace;
 public:
 	Gura_DeclareObjectAccessor(face)
 public:
-	Object_face(Content *pContent, size_t iFace);
+	Object_face(Content *pContent, Face *pFace);
 	Object_face(const Object_face &obj);
 	virtual ~Object_face();
 	virtual Object *Clone() const;
