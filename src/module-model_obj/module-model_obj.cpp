@@ -160,6 +160,65 @@ void Vertex4Owner::Clear()
 }
 
 //-----------------------------------------------------------------------------
+// Point
+//-----------------------------------------------------------------------------
+const Vertex4 *Point::GetV(const Content &content, size_t iIndex) const
+{
+	if (iIndex >= _indexList.size()) return nullptr;
+	int iV = _indexList[iIndex];
+	return content.GetV(iV);
+}
+
+//-----------------------------------------------------------------------------
+// PointOwner
+//-----------------------------------------------------------------------------
+PointOwner::~PointOwner()
+{
+	Clear();
+}
+
+void PointOwner::Clear()
+{
+	foreach (PointOwner, ppPoint, *this) {
+		Point::Delete(*ppPoint);
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
+// Line
+//-----------------------------------------------------------------------------
+const Vertex4 *Line::GetV(const Content &content, size_t iIndexPair) const
+{
+	if (iIndexPair >= _indexPairList.size()) return nullptr;
+	const IndexPair &indexPair = _indexPairList[iIndexPair];
+	return content.GetV(indexPair.iV);
+}
+
+const Vertex3 *Line::GetVt(const Content &content, size_t iIndexPair) const
+{
+	if (iIndexPair >= _indexPairList.size()) return nullptr;
+	const IndexPair &indexPair = _indexPairList[iIndexPair];
+	return content.GetVt(indexPair.iVt);
+}
+
+//-----------------------------------------------------------------------------
+// LineOwner
+//-----------------------------------------------------------------------------
+LineOwner::~LineOwner()
+{
+	Clear();
+}
+
+void LineOwner::Clear()
+{
+	foreach (LineOwner, ppLine, *this) {
+		Line::Delete(*ppLine);
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
 // Face
 //-----------------------------------------------------------------------------
 const Vertex4 *Face::GetV(const Content &content, size_t iIndexTriplet) const
@@ -237,8 +296,10 @@ bool Content::Read(Environment &env, Stream &stream)
 				} else if (::strcmp(field, "step") == 0) {
 					stat = STAT_step;
 				} else if (::strcmp(field, "p") == 0) {
+					_points.push_back(new Point());
 					stat = STAT_p;
 				} else if (::strcmp(field, "l") == 0) {
+					_lines.push_back(new Line());
 					stat = STAT_l;
 				} else if (::strcmp(field, "f") == 0) {
 					_faces.push_back(new Face());
@@ -422,6 +483,16 @@ bool Content::Read(Environment &env, Stream &stream)
 				SetError_NotImplementedKeyword(env, "cstype");
 				return false;
 			} else if (tokenId == TOKEN_Field) {
+				if (::strcmp(field, "rat") == 0) {
+				} else if (::strcmp(field, "bmatrix") == 0) {
+				} else if (::strcmp(field, "bezier") == 0) {
+				} else if (::strcmp(field, "bspline") == 0) {
+				} else if (::strcmp(field, "cardinal") == 0) {
+				} else if (::strcmp(field, "taylor") == 0) {
+				} else {
+					env.SetError(ERR_FormatError, "invalid parameter for item cstype");
+					return false;
+				}
 				iParam++;
 			}
 			break;
@@ -433,7 +504,16 @@ bool Content::Read(Environment &env, Stream &stream)
 				SetError_NotImplementedKeyword(env, "deg");
 				return false;
 			} else if (tokenId == TOKEN_Field) {
-				iParam++;
+				if (iParam >= 2) {
+					env.SetError(ERR_FormatError, "too many elements for item deg");
+					return false;
+				}
+				double num;
+				if (!ExtractFloat(env, field, &num)) {
+					SetError_FormatError(env);
+					return false;
+				}
+				numTbl[iParam++] = num;
 			}
 			break;
 		}
@@ -444,6 +524,15 @@ bool Content::Read(Environment &env, Stream &stream)
 				SetError_NotImplementedKeyword(env, "bmat");
 				return false;
 			} else if (tokenId == TOKEN_Field) {
+				if (iParam == 0) {
+					if (::strcmp(field, "u") == 0) {
+					} else if (::strcmp(field, "v") == 0) {
+					} else {
+						env.SetError(ERR_FormatError, "invalid parameter for item bmat");
+					}
+				} else {
+					
+				}
 				iParam++;
 			}
 			break;
@@ -455,7 +544,16 @@ bool Content::Read(Environment &env, Stream &stream)
 				SetError_NotImplementedKeyword(env, "step");
 				return false;
 			} else if (tokenId == TOKEN_Field) {
-				iParam++;
+				if (iParam >= 2) {
+					env.SetError(ERR_FormatError, "too many elements for item step");
+					return false;
+				}
+				double num;
+				if (!ExtractFloat(env, field, &num)) {
+					SetError_FormatError(env);
+					return false;
+				}
+				numTbl[iParam++] = num;
 			}
 			break;
 		}
@@ -465,8 +563,6 @@ bool Content::Read(Environment &env, Stream &stream)
 			// point: p v1 v2 v3 ...
 			if (tokenId == TOKEN_EOL) {
 				stat = STAT_Keyword;
-				SetError_NotImplementedKeyword(env, "p");
-				return false;
 			} else if (tokenId == TOKEN_Field) {
 				int iV;
 				if (!ExtractIndex(env, field, &iV)) {
@@ -475,6 +571,14 @@ bool Content::Read(Environment &env, Stream &stream)
 					env.SetError(ERR_FormatError, "invalid index for vertex");
 					return false;
 				}
+				Point *pPoint = _points.back();
+				if (!ExtractIndex(env, field, &iV)) {
+					return false;
+				} else if (iV <= 0) {
+					env.SetError(ERR_FormatError, "invalid index for vertex");
+					return false;
+				}
+				pPoint->AddIndex(iV);
 				iParam++;
 			}
 			break;
@@ -483,11 +587,13 @@ bool Content::Read(Environment &env, Stream &stream)
 			// line: l v1/vt1 v2/vt2 v3/vt3 ...
 			if (tokenId == TOKEN_EOL) {
 				// complete
-				
+				if (iParam < 2) {
+					env.SetError(ERR_FormatError, "at least two index-pairs must exist");
+					return false;
+				}
 				stat = STAT_Keyword;
-				SetError_NotImplementedKeyword(env, "l");
-				return false;
 			} else if (tokenId == TOKEN_Field) {
+				Line *pLine = _lines.back();
 				int iV, iVt;
 				if (!ExtractIndexPair(env, field, &iV, &iVt)) {
 					return false;
@@ -495,6 +601,7 @@ bool Content::Read(Environment &env, Stream &stream)
 					env.SetError(ERR_FormatError, "invalid index for vertex");
 					return false;
 				}
+				pLine->AddIndexPair(iV, iVt);
 				iParam++;
 			}
 			break;
@@ -504,7 +611,7 @@ bool Content::Read(Environment &env, Stream &stream)
 			if (tokenId == TOKEN_EOL) {
 				// complete
 				if (iParam < 3) {
-					env.SetError(ERR_FormatError, "at least three index triplets must exist");
+					env.SetError(ERR_FormatError, "at least three index-triplets must exist");
 					return false;
 				}
 				stat = STAT_Keyword;

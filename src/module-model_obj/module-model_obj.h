@@ -101,6 +101,31 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Index
+//-----------------------------------------------------------------------------
+typedef int Index;
+
+//-----------------------------------------------------------------------------
+// IndexList
+//-----------------------------------------------------------------------------
+typedef std::vector<Index> IndexList;
+
+//-----------------------------------------------------------------------------
+// IndexPair
+//-----------------------------------------------------------------------------
+class IndexPair {
+public:
+	int iV, iVt;
+public:
+	inline IndexPair(int _iV, int _iVt) : iV(_iV), iVt(_iVt) {}
+};
+
+//-----------------------------------------------------------------------------
+// IndexPairList
+//-----------------------------------------------------------------------------
+typedef std::vector<IndexPair> IndexPairList;
+
+//-----------------------------------------------------------------------------
 // IndexTriplet
 //-----------------------------------------------------------------------------
 class IndexTriplet {
@@ -114,6 +139,77 @@ public:
 // IndexTripletList
 //-----------------------------------------------------------------------------
 typedef std::vector<IndexTriplet> IndexTripletList;
+
+//-----------------------------------------------------------------------------
+// Point
+//-----------------------------------------------------------------------------
+class Point {
+private:
+	size_t _cntRef;
+	IndexList _indexList;
+public:
+	Gura_DeclareReferenceAccessor(Point)
+public:
+	inline Point() : _cntRef(1) { _indexList.reserve(16); }
+protected:
+	inline ~Point() {}
+public:
+	inline void AddIndex(int iV) {
+		_indexList.push_back(iV);
+	}
+	inline const IndexList &GetIndexList() const { return _indexList; }
+	const Vertex4 *GetV(const Content &content, size_t iIndex) const;
+};
+
+//-----------------------------------------------------------------------------
+// PointList
+//-----------------------------------------------------------------------------
+typedef std::vector<Point *> PointList;
+
+//-----------------------------------------------------------------------------
+// PointOwner
+//-----------------------------------------------------------------------------
+class PointOwner : public PointList {
+public:
+	~PointOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
+// Line
+//-----------------------------------------------------------------------------
+class Line {
+private:
+	size_t _cntRef;
+	IndexPairList _indexPairList;
+public:
+	Gura_DeclareReferenceAccessor(Line)
+public:
+	inline Line() : _cntRef(1) { _indexPairList.reserve(16); }
+protected:
+	inline ~Line() {}
+public:
+	inline void AddIndexPair(int iV, int iVt) {
+		_indexPairList.push_back(IndexPair(iV, iVt));
+	}
+	inline const IndexPairList &GetIndexPairList() const { return _indexPairList; }
+	const Vertex4 *GetV(const Content &content, size_t iIndexPair) const;
+	const Vertex3 *GetVt(const Content &content, size_t iIndexPair) const;
+};
+
+//-----------------------------------------------------------------------------
+// LineList
+//-----------------------------------------------------------------------------
+typedef std::vector<Line *> LineList;
+
+//-----------------------------------------------------------------------------
+// LineOwner
+//-----------------------------------------------------------------------------
+class LineOwner : public LineList {
+public:
+	~LineOwner();
+	void Clear();
+};
 
 //-----------------------------------------------------------------------------
 // Face
@@ -201,11 +297,13 @@ public:
 	};
 private:
 	size_t _cntRef;
-	Vertex4Owner _vs;
-	Vertex3Owner _vps;
-	Vertex3Owner _vns;
-	Vertex3Owner _vts;
-	FaceOwner _faces;
+	Vertex4Owner	_vs;
+	Vertex3Owner	_vps;
+	Vertex3Owner	_vns;
+	Vertex3Owner	_vts;
+	PointOwner		_points;
+	LineOwner		_lines;
+	FaceOwner		_faces;
 public:
 	Gura_DeclareReferenceAccessor(Content)
 public:
