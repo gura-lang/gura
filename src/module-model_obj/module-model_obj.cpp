@@ -112,6 +112,22 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 }
 
 //-----------------------------------------------------------------------------
+// Vertex4
+//-----------------------------------------------------------------------------
+String Vertex4::ToString() const
+{
+	String str;
+	str += NumberToString(x);
+	str += ",";
+	str += NumberToString(y);
+	str += ",";
+	str += NumberToString(z);
+	str += ",";
+	str += NumberToString(w);
+	return str;
+}
+
+//-----------------------------------------------------------------------------
 // Vertex3Owner
 //-----------------------------------------------------------------------------
 Vertex3Owner::~Vertex3Owner()
@@ -912,6 +928,57 @@ bool Content::ExtractIndexTriplet(Environment &env, const char *field, int *piV,
 }
 
 //-----------------------------------------------------------------------------
+// Object_vertex4
+//-----------------------------------------------------------------------------
+Object_vertex4::Object_vertex4(Vertex4 *pVertex) :
+	Object_vertex(Gura_UserClass(vertex4))
+{
+	SetVertexRef(pVertex);
+}
+
+Object_vertex4::~Object_vertex4()
+{
+}
+
+Object *Object_vertex4::Clone() const
+{
+	return nullptr;
+}
+
+bool Object_vertex4::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value Object_vertex4::DoGetProp(Environment &env, const Symbol *pSymbol,
+							  const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(w))) {
+		return Value(GetVertex4()->w);
+	}
+	evaluatedFlag = false;
+	return Object_vertex::DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+}
+
+String Object_vertex4::ToString(bool exprFlag)
+{
+	String str;
+	str += "<model.obj.vertex4:";
+	str += GetVertex4()->ToString();
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for vertex4
+//-----------------------------------------------------------------------------
+// implementation of class vertex4
+Gura_ImplementUserClass(vertex4)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Object_content
 //-----------------------------------------------------------------------------
 Object_content::Object_content(Content *pContent) :
@@ -1000,19 +1067,19 @@ Value Object_face::DoGetProp(Environment &env, const Symbol *pSymbol,
 	if (pSymbol->IsIdentical(Gura_UserSymbol(v1))) {
 		const Vertex4 *pV = _pFace->GetV(*_pContent, 0);
 		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pV->Reference()));
+		return Value(new Object_vertex4(pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v2))) {
 		const Vertex4 *pV = _pFace->GetV(*_pContent, 1);
 		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pV->Reference()));
+		return Value(new Object_vertex4(pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v3))) {
 		const Vertex4 *pV = _pFace->GetV(*_pContent, 2);
 		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pV->Reference()));
+		return Value(new Object_vertex4(pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v4))) {
 		const Vertex4 *pV = _pFace->GetV(*_pContent, 3);
 		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex(env, pV->Reference()));
+		return Value(new Object_vertex4(pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vt1))) {
 		const Vertex3 *pVt = _pFace->GetVt(*_pContent, 0);
 		if (pVt == nullptr) return Value::Nil;
@@ -1167,8 +1234,10 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(vn3);
 	Gura_RealizeUserSymbol(vn4);
 	// class realization
+	Gura_RealizeUserClass(vertex4, env.LookupClass(VTYPE_vertex));
 	Gura_RealizeUserClass(content, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(face, env.LookupClass(VTYPE_object));
+	Gura_PrepareUserClass(vertex4);
 	Gura_PrepareUserClass(content);
 	Gura_PrepareUserClass(face);
 	// function assignment

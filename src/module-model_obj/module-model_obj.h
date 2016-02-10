@@ -79,8 +79,11 @@ struct Vertex4 : public Gura::VertexRef {
 public:
 	double w;
 public:
+	Gura_DeclareReferenceAccessor(Vertex4)
+public:
 	inline Vertex4(double _x, double _y, double _z, double _w) :
 		Gura::VertexRef(_x, _y, _z), w(_w) {}
+	String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -232,6 +235,27 @@ private:
 	static bool ExtractIndex(Environment &env, const char *field, int *pNum);
 	static bool ExtractIndexPair(Environment &env, const char *field, int *piV, int *piVt);
 	static bool ExtractIndexTriplet(Environment &env, const char *field, int *piV, int *piVt, int *piVn);
+};
+
+//-----------------------------------------------------------------------------
+// Object_vertex4
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(vertex4);
+
+class Object_vertex4 : public Object_vertex {
+public:
+	Gura_DeclareObjectAccessor(vertex4)
+public:
+	Object_vertex4(Vertex4 *pVertex);
+	virtual ~Object_vertex4();
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(bool exprFlag);
+	inline const Vertex4 *GetVertex4() const {
+		return reinterpret_cast<const Vertex4 *>(GetVertexRef());
+	}
 };
 
 //-----------------------------------------------------------------------------

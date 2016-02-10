@@ -64,7 +64,7 @@ public:
 // VertexRef
 //-----------------------------------------------------------------------------
 struct GURA_DLLDECLARE VertexRef : public Vertex {
-private:
+protected:
 	int _cntRef;
 public:
 	inline static void *operator new(size_t size) {
