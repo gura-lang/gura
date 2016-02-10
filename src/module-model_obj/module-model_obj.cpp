@@ -338,7 +338,7 @@ bool Content::Read(Environment &env, Stream &stream)
 					return false;
 				}
 				_vs.push_back(new Vertex4(numTbl[0], numTbl[1],
-										  numTbl[2], (iParam < 4)? 0 : numTbl[3]));
+										  numTbl[2], (iParam < 4)? 1. : numTbl[3]));
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				if (iParam >= 4) {
