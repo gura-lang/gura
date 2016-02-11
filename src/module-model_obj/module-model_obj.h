@@ -40,13 +40,15 @@ public:
 	};
 private:
 	Stat _stat;
+	size_t _iLine;
 	size_t _iChar;
 	char _field[128];
 	TokenId _tokenIdPending;
 public:
-	inline Tokenizer() : _stat(STAT_LineTop), _iChar(0), _tokenIdPending(TOKEN_None) {}
+	inline Tokenizer() : _stat(STAT_LineTop), _iLine(0), _iChar(0), _tokenIdPending(TOKEN_None) {}
 	TokenId Tokenize(Environment &env, Stream &stream);
 	inline const char *GetField() const { return _field; }
+	inline size_t GetLineNo() const { return _iLine + 1; }
 };
 
 //-----------------------------------------------------------------------------
@@ -332,7 +334,7 @@ private:
 	static bool ExtractFloat(Environment &env, const char *field, double *pNum);
 	static bool ExtractIndex(Environment &env, const char *field, int *pNum);
 	static bool ExtractIndexPair(Environment &env, const char *field, int *piV, int *piVt);
-	static bool ExtractIndexTriplet(Environment &env, const char *field, int *piV, int *piVt, int *piVn);
+	static bool ExtractIndexTriplet(Environment &env, const Tokenizer &tokenizer, const char *field, int *piV, int *piVt, int *piVn);
 };
 
 //-----------------------------------------------------------------------------

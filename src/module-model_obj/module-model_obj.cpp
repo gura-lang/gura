@@ -90,9 +90,11 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 					// nothing to do
 				} else {
 					_stat = STAT_LineTop;
+					return TOKEN_EOL;
 				}
 			} else if (ch == '\0') {
 				_stat = STAT_LineTop;
+				return TOKEN_EOF;
 			} else {
 				Gura_Pushback();
 				_stat = STAT_Field;
@@ -107,6 +109,7 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 		Gura_EndPushbackRegion();
 		escapeFlag = false;
 		if (ch == '\0') break;
+		if (ch == '\n') _iLine++;
 	}
 	return TOKEN_EOF;
 }
@@ -357,7 +360,8 @@ bool Content::Read(Environment &env, Stream &stream)
 				} else if (::strcmp(field, "stech") == 0) {
 					stat = STAT_stech;
 				} else {
-					env.SetError(ERR_FormatError, "unknown keyword '%s'", field);
+					env.SetError(ERR_FormatError, "%d: unknown keyword '%s'",
+								 tokenizer.GetLineNo(), field);
 					return false;
 				}
 			}
@@ -395,7 +399,9 @@ bool Content::Read(Environment &env, Stream &stream)
 			if (tokenId == TOKEN_EOL) {
 				// complete
 				if (iParam < 3) {
-					env.SetError(ERR_FormatError, "item v should haves three elements at least");
+					env.SetError(ERR_FormatError,
+								 "%d: item v should haves three elements at least",
+								 tokenizer.GetLineNo());
 					return false;
 				}
 				_vs.push_back(new Vertex4(numTbl[0], numTbl[1],
@@ -403,7 +409,8 @@ bool Content::Read(Environment &env, Stream &stream)
 				stat = STAT_Keyword;
 			} else if (tokenId == TOKEN_Field) {
 				if (iParam >= 4) {
-					env.SetError(ERR_FormatError, "too many elements for item v");
+					env.SetError(ERR_FormatError, "%d: too many elements for item v",
+								 tokenizer.GetLineNo());
 					return false;
 				}
 				double num;
@@ -618,7 +625,7 @@ bool Content::Read(Environment &env, Stream &stream)
 			} else if (tokenId == TOKEN_Field) {
 				Face *pFace = _faces.back();
 				int iV, iVt, iVn;
-				if (!ExtractIndexTriplet(env, field, &iV, &iVt, &iVn)) {
+				if (!ExtractIndexTriplet(env, tokenizer, field, &iV, &iVt, &iVn)) {
 					return false;
 				} else if (iV <= 0) {
 					env.SetError(ERR_FormatError, "invalid index for vertex");
@@ -943,6 +950,7 @@ bool Content::ExtractIndex(Environment &env, const char *field, int *piV)
 	const char *errMsg = "invalid format of vertex index";
 	char *p = nullptr;
 	*piV = static_cast<int>(::strtol(field, &p, 10));
+	while (*p == ' ' || *p == '\t') p++;
 	if (*p != '\0') {
 		env.SetError(ERR_FormatError, errMsg);
 		return false;
@@ -968,6 +976,7 @@ bool Content::ExtractIndexPair(Environment &env, const char *field, int *piV, in
 		env.SetError(ERR_FormatError, errMsg);
 		return false;
 	}
+	while (*p == ' ' || *p == '\t') p++;
 	if (*p == '\0') {
 		return true;
 	} else if (*p == '/') {
@@ -978,6 +987,7 @@ bool Content::ExtractIndexPair(Environment &env, const char *field, int *piV, in
 		env.SetError(ERR_FormatError, errMsg);
 		return false;
 	}
+	while (*p == ' ' || *p == '\t') p++;
 	if (*p != '\0') {
 		env.SetError(ERR_FormatError, errMsg);
 		return false;
@@ -988,9 +998,10 @@ bool Content::ExtractIndexPair(Environment &env, const char *field, int *piV, in
 	return true;
 }
 
-bool Content::ExtractIndexTriplet(Environment &env, const char *field, int *piV, int *piVt, int *piVn)
+bool Content::ExtractIndexTriplet(Environment &env, const Tokenizer &tokenizer,
+								  const char *field, int *piV, int *piVt, int *piVn)
 {
-	const char *errMsg = "invalid format of vertex index triplet";
+	const char *errMsg = "%d: invalid format of vertex index triplet";
 	*piV = *piVt = *piVn = 0;
 	char *p = const_cast<char *>(field);
 	if (*p == '/') {
@@ -1000,7 +1011,7 @@ bool Content::ExtractIndexTriplet(Environment &env, const char *field, int *piV,
 		*piV = static_cast<int>(::strtol(p, &p, 10));
 		if (*p == '/') p++;
 	} else {
-		env.SetError(ERR_FormatError, errMsg);
+		env.SetError(ERR_FormatError, errMsg, tokenizer.GetLineNo());
 		return false;
 	}
 	if (*p == '\0') {
@@ -1011,7 +1022,7 @@ bool Content::ExtractIndexTriplet(Environment &env, const char *field, int *piV,
 		*piVt = static_cast<int>(::strtol(p, &p, 10));
 		if (*p == '/') p++;
 	} else {
-		env.SetError(ERR_FormatError, errMsg);
+		env.SetError(ERR_FormatError, errMsg, tokenizer.GetLineNo());
 		return false;
 	}
 	if (*p == '\0') {
@@ -1021,15 +1032,15 @@ bool Content::ExtractIndexTriplet(Environment &env, const char *field, int *piV,
 	} else if (IsDigit(*p)) {
 		*piVn = static_cast<int>(::strtol(p, &p, 10));
 	} else {
-		env.SetError(ERR_FormatError, errMsg);
+		env.SetError(ERR_FormatError, errMsg, tokenizer.GetLineNo());
 		return false;
 	}
 	if (*p != '\0') {
-		env.SetError(ERR_FormatError, errMsg);
+		env.SetError(ERR_FormatError, errMsg, tokenizer.GetLineNo());
 		return false;
 	}
 	if (*piV < 0 || *piVt < 0 || *piVn < 0) {
-		env.SetError(ERR_FormatError, errMsg);
+		env.SetError(ERR_FormatError, errMsg, tokenizer.GetLineNo());
 	}
 	return true;
 }
@@ -1174,19 +1185,23 @@ Value Object_face::DoGetProp(Environment &env, const Symbol *pSymbol,
 	if (pSymbol->IsIdentical(Gura_UserSymbol(v1))) {
 		const Vertex4 *pV = _pFace->GetV(*_pContent, 0);
 		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex4(pV->Reference()));
+		//return Value(new Object_vertex4(pV->Reference()));
+		return Value(new Object_vertex(env, pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v2))) {
 		const Vertex4 *pV = _pFace->GetV(*_pContent, 1);
 		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex4(pV->Reference()));
+		//return Value(new Object_vertex4(pV->Reference()));
+		return Value(new Object_vertex(env, pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v3))) {
 		const Vertex4 *pV = _pFace->GetV(*_pContent, 2);
 		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex4(pV->Reference()));
+		//return Value(new Object_vertex4(pV->Reference()));
+		return Value(new Object_vertex(env, pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(v4))) {
 		const Vertex4 *pV = _pFace->GetV(*_pContent, 3);
 		if (pV == nullptr) return Value::Nil;
-		return Value(new Object_vertex4(pV->Reference()));
+		//return Value(new Object_vertex4(pV->Reference()));
+		return Value(new Object_vertex(env, pV->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(vt1))) {
 		const Vertex3 *pVt = _pFace->GetVt(*_pContent, 0);
 		if (pVt == nullptr) return Value::Nil;
