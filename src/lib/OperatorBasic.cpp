@@ -1983,6 +1983,20 @@ Value OperatorEntryCustom::DoEval(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
+// OperatorEntryDerived
+//-----------------------------------------------------------------------------
+Value OperatorEntryDerived::DoEval(Environment &env, const Value &value) const
+{
+	return _pOperatorEntryOrg->DoEval(env, value);
+}
+
+Value OperatorEntryDerived::DoEval(Environment &env,
+					const Value &valueLeft, const Value &valueRight) const
+{
+	return _pOperatorEntryOrg->DoEval(env, valueLeft, valueRight);
+}
+
+//-----------------------------------------------------------------------------
 // Operator assignment
 //-----------------------------------------------------------------------------
 void Operator::AssignBasicOperators(Environment &env)

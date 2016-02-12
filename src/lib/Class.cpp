@@ -658,6 +658,18 @@ bool Class::Format_c(Formatter *pFormatter,
 	return false;
 }
 
+void Class::AddOperatorEntry(OperatorEntry *pOperatorEntry)
+{
+	OpType opType = pOperatorEntry->GetOpType();
+	foreach (Operator::EntryList, ppOperatorEntry, _operatorEntryList) {
+		if ((*ppOperatorEntry)->GetOpType() == opType) {
+			_operatorEntryList.erase(ppOperatorEntry);
+			break;
+		}
+	}
+	_operatorEntryList.push_back(pOperatorEntry);
+}
+
 bool Class::BuildContent(Environment &env, const Value &valueThis,
 			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
 {

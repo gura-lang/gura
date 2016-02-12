@@ -102,6 +102,7 @@ public:
 public:
 	typedef ULong Key;
 	typedef std::map<Key, OperatorEntry *> EntryDict;
+	typedef std::vector<OperatorEntry *> EntryList;
 private:
 	OpType _opType;
 	const Symbol *_pSymbol;
@@ -523,6 +524,21 @@ private:
 public:
 	inline OperatorEntryCustom(OpType opType, ValueType valTypeL, ValueType valTypeR, Function *pFunc) :
 					OperatorEntry(opType, valTypeL, valTypeR), _pFunc(pFunc) {}
+	virtual Value DoEval(Environment &env, const Value &value) const;
+	virtual Value DoEval(Environment &env,
+				const Value &valueLeft, const Value &valueRight) const;
+};
+
+//-----------------------------------------------------------------------------
+// OperatorEntryDerived
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE OperatorEntryDerived : public OperatorEntry {
+private:
+	OperatorEntry *_pOperatorEntryOrg;
+public:
+	inline OperatorEntryDerived(OpType opType, ValueType valTypeL, ValueType valTypeR,
+								OperatorEntry *pOperatorEntryOrg) :
+			OperatorEntry(opType, valTypeL, valTypeR), _pOperatorEntryOrg(pOperatorEntryOrg) {}
 	virtual Value DoEval(Environment &env, const Value &value) const;
 	virtual Value DoEval(Environment &env,
 				const Value &valueLeft, const Value &valueRight) const;

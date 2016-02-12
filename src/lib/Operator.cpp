@@ -232,6 +232,12 @@ void Operator::Assign(Environment &env, OperatorEntry *pOperatorEntry)
 		delete iter->second;
 		iter->second = pOperatorEntry;
 	}
+	ValueType valTypeLeft = pOperatorEntry->GetValueTypeLeft();
+	ValueType valTypeRight = pOperatorEntry->GetValueTypeRight();
+	env.LookupClass(valTypeLeft)->AddOperatorEntry(pOperatorEntry);
+	if (valTypeRight != valTypeLeft && valTypeRight != VTYPE_undefined) {
+		env.LookupClass(valTypeRight)->AddOperatorEntry(pOperatorEntry);
+	}
 }
 
 void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,

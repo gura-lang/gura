@@ -10,6 +10,7 @@
 #include "Iterator.h"
 #include "Fundamental.h"
 #include "Formatter.h"
+#include "Operator.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -180,6 +181,7 @@ protected:
 	ValueType _valType;
 	const Symbol *_pSymbol;
 	AutoPtr<Function> _pConstructor;
+	Operator::EntryList _operatorEntryList;
 public:
 	Gura_DeclareReferenceAccessor(Class);
 public:
@@ -244,6 +246,7 @@ public:
 	virtual bool Format_g(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_s(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_c(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	void AddOperatorEntry(OperatorEntry *pOperatorEntry);
 	bool BuildContent(Environment &env, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = nullptr);
 	void SetError_NoConstructor() const;
