@@ -536,9 +536,10 @@ class GURA_DLLDECLARE OperatorEntryDerived : public OperatorEntry {
 private:
 	OperatorEntry *_pOperatorEntryOrg;
 public:
-	inline OperatorEntryDerived(OpType opType, ValueType valTypeL, ValueType valTypeR,
-								OperatorEntry *pOperatorEntryOrg) :
-			OperatorEntry(opType, valTypeL, valTypeR), _pOperatorEntryOrg(pOperatorEntryOrg) {}
+	inline OperatorEntryDerived(OperatorEntry *pOperatorEntryOrg,
+								ValueType valTypeL, ValueType valTypeR) :
+			OperatorEntry(pOperatorEntryOrg->GetOpType(), valTypeL, valTypeR),
+			_pOperatorEntryOrg(pOperatorEntryOrg) {}
 	virtual Value DoEval(Environment &env, const Value &value) const;
 	virtual Value DoEval(Environment &env,
 				const Value &valueLeft, const Value &valueRight) const;

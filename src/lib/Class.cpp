@@ -670,6 +670,21 @@ void Class::AddOperatorEntry(OperatorEntry *pOperatorEntry)
 	_operatorEntryList.push_back(pOperatorEntry);
 }
 
+void Class::DeriveOperators()
+{
+	Environment &env = *this;
+	ValueType valTypeSuper = _pClassSuper->GetValueType();
+	foreach_const (Operator::EntryList, ppOperatorEntryOrg, _pClassSuper->GetOperatorEntryList()) {
+		OperatorEntry *pOperatorEntryOrg = *ppOperatorEntryOrg;
+		ValueType valTypeLeft = pOperatorEntryOrg->GetValueTypeLeft();
+		ValueType valTypeRight = pOperatorEntryOrg->GetValueTypeRight();
+		if (valTypeLeft == valTypeSuper) valTypeLeft = GetValueType();
+		if (valTypeRight == valTypeSuper) valTypeRight = GetValueType();
+		Operator::Assign(env, new OperatorEntryDerived(
+							 pOperatorEntryOrg, valTypeLeft, valTypeRight));
+	}
+}
+
 bool Class::BuildContent(Environment &env, const Value &valueThis,
 			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
 {

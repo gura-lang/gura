@@ -221,6 +221,7 @@ public:
 	}
 	inline Function *GetConstructor() { return _pConstructor.get(); }
 	inline const Function *GetConstructor() const { return _pConstructor.get(); }
+	inline const Operator::EntryList &GetOperatorEntryList() const { return _operatorEntryList; }
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
 	virtual Value GetPropPrimitive(const Value &valueThis,
 			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
@@ -247,6 +248,7 @@ public:
 	virtual bool Format_s(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_c(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 	void AddOperatorEntry(OperatorEntry *pOperatorEntry);
+	void DeriveOperators();
 	bool BuildContent(Environment &env, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = nullptr);
 	void SetError_NoConstructor() const;
