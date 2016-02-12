@@ -673,14 +673,28 @@ void Class::DeriveOperators()
 {
 	Environment &env = *this;
 	ValueType valTypeSuper = _pClassSuper->GetValueType();
+	Operator::EntryList operatorEntryList;
 	foreach_const (Operator::EntryList, ppOperatorEntryOrg, _pClassSuper->GetOperatorEntryList()) {
 		OperatorEntry *pOperatorEntryOrg = *ppOperatorEntryOrg;
 		ValueType valTypeLeft = pOperatorEntryOrg->GetValueTypeLeft();
 		ValueType valTypeRight = pOperatorEntryOrg->GetValueTypeRight();
-		if (valTypeLeft == valTypeSuper) valTypeLeft = GetValueType();
-		if (valTypeRight == valTypeSuper) valTypeRight = GetValueType();
-		Operator::Assign(env, new OperatorEntryDerived(
-							 pOperatorEntryOrg, valTypeLeft, valTypeRight));
+		if (valTypeLeft == valTypeSuper && valTypeRight == valTypeSuper) {
+			operatorEntryList.push_back(new OperatorEntryDerived(
+											pOperatorEntryOrg, valTypeLeft, _valType));
+			operatorEntryList.push_back(new OperatorEntryDerived(
+											pOperatorEntryOrg, _valType, valTypeRight));
+			operatorEntryList.push_back(new OperatorEntryDerived(
+											pOperatorEntryOrg, _valType, _valType));
+		} else if (valTypeLeft == valTypeSuper) {
+			operatorEntryList.push_back(new OperatorEntryDerived(
+											pOperatorEntryOrg, _valType, valTypeRight));
+		} else if (valTypeRight == valTypeSuper) {
+			operatorEntryList.push_back(new OperatorEntryDerived(
+											pOperatorEntryOrg, valTypeLeft, _valType));
+		}
+	}
+	foreach (Operator::EntryList, ppOperatorEntry, operatorEntryList) {
+		Operator::Assign(env, *ppOperatorEntry);
 	}
 }
 

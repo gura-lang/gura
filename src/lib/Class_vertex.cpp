@@ -281,6 +281,7 @@ bool Class_vertex::CastFrom(Environment &env, Value &value, const Declaration *p
 
 Object *Class_vertex::CreateDescendant(Environment &env, Class *pClass)
 {
+	//return new Object_vertex((pClass == nullptr)? this : pClass);
 	GURA_ERROREND(env, "this function must not be called");
 	return nullptr;
 }
