@@ -660,9 +660,8 @@ bool Class::Format_c(Formatter *pFormatter,
 
 void Class::AddOperatorEntry(OperatorEntry *pOperatorEntry)
 {
-	OpType opType = pOperatorEntry->GetOpType();
 	foreach (Operator::EntryList, ppOperatorEntry, _operatorEntryList) {
-		if ((*ppOperatorEntry)->GetOpType() == opType) {
+		if ((*ppOperatorEntry)->IsIdentical(*pOperatorEntry)) {
 			_operatorEntryList.erase(ppOperatorEntry);
 			break;
 		}

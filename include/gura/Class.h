@@ -94,6 +94,7 @@ Object *Class_##name::CreateDescendant(Environment &env, Class *pClass)
 						Class_##name::_pValueTypeInfo->GetValueType()); \
 	Class_##name::_pValueTypeInfo->SetClass(pClass); \
 	pClass->Prepare(env); \
+	pClass->DeriveOperators(); \
 } while (0)
 
 #define Gura_RealizeUserClass(name, pClassBase) \
@@ -102,8 +103,10 @@ Gura_RealizeUserClassAlias(name, #name, pClassBase)
 #define Gura_RealizeAndPrepareUserClass(name, pClassBase) \
 Gura_RealizeAndPrepareUserClassAlias(name, #name, pClassBase)
 
-#define Gura_PrepareUserClass(name) \
-Gura_UserClass(name)->Prepare(env);
+#define Gura_PrepareUserClass(name) do { \
+	Gura_UserClass(name)->Prepare(env); \
+	Gura_UserClass(name)->DeriveOperators(); \
+} while (0)
 
 #define Gura_DeclareObjectAccessorEx(T) \
 inline static T *GetObject(const Value &value) { \

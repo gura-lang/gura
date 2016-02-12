@@ -43,6 +43,7 @@ Object *ClassCustom::CreateDescendant(Environment &env, Class *pClass)
 bool ClassCustom::PrepareConstructor(Environment &env)
 {
 	Signal &sig = env.GetSignal();
+	DeriveOperators();
 	Value valueThis(this, VFLAG_NoFundOwner | VFLAG_Privileged);
 	if (!_pExprContent.IsNull() &&
 					!BuildContent(env, valueThis, _pExprContent.get())) {

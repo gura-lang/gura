@@ -508,6 +508,11 @@ public:
 	inline const Operator::SymbolInfo &GetSymbolInfo() const {
 		return Operator::GetSymbolInfo(_opType);
 	}
+	inline bool IsIdentical(const OperatorEntry &operatorEntry) const {
+		return GetOpType() == operatorEntry.GetOpType() &&
+			GetValueTypeLeft() == operatorEntry.GetValueTypeLeft() &&
+			GetValueTypeRight() == operatorEntry.GetValueTypeRight();
+	}
 	virtual Value DoEval(Environment &env, const Value &value) const;
 	virtual Value DoEval(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
