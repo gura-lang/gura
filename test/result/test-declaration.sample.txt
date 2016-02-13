@@ -663,11 +663,13 @@ matrix
   matrix#roundoff(threshold:number => 1e-10) {block?}
   matrix#row(row:number):map
   matrix#rowsize()
+  matrix.scale(sx:number, sy:number, sz?:number):static:map:[deg] {block?}
   matrix#set(value)
   matrix#setcol(col:number, value)
   matrix#setrow(row:number, value)
   matrix#submat(row:number, col:number, nrows:number, ncols:number):map
   matrix#tolist():[transpose]
+  matrix.translate(tx:number, ty:number, tz?:number):static:map:[deg] {block?}
   matrix#transpose()
 monitor
 nil
