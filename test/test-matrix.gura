@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-testcase {
+testcase('matrix.rotation()') {
 	tester(`matrix.rotation(math.pi / 6))
 	tester(`matrix.rotation(30):deg)
 	tester(`matrix.rotation@x(math.pi / 6))
@@ -182,4 +182,12 @@ testcase {
 	tester(`m)
 	m.setcol(1, 1)
 	tester(`m)
+}
+testcase('matrix.scale()') {
+	tester(`matrix.scale(3, -2))
+	tester(`matrix.scale(3, -2, 5))
+}
+testcase('matrix.translate()') {
+	tester(`matrix.translate(3, -2))
+	tester(`matrix.translate(3, -2, 5))
 }

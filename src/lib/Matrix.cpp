@@ -184,6 +184,98 @@ Matrix *Matrix::CreateRotationZ(double rad, bool transFlag, double xTrans, doubl
 	return pMat.release();
 }
 
+Matrix *Matrix::CreateScale2D(double xScale, double yScale)
+{
+	AutoPtr<Matrix> pMat(new Matrix(3, 3));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value(xScale));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	// row-2
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(yScale));
+	elements.push_back(Value::Zero);
+	// row-3
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	return pMat.release();
+}
+
+Matrix *Matrix::CreateScale3D(double xScale, double yScale, double zScale)
+{
+	AutoPtr<Matrix> pMat(new Matrix(4, 4));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value(xScale));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	// row-2
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(yScale));
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	// row-3
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(zScale));
+	elements.push_back(Value::Zero);
+	// row-4
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	return pMat.release();
+}
+
+Matrix *Matrix::CreateTranslate2D(double xTrans, double yTrans)
+{
+	AutoPtr<Matrix> pMat(new Matrix(3, 3));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value::One);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(xTrans));
+	// row-2
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	elements.push_back(Value(yTrans));
+	// row-3
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	return pMat.release();
+}
+
+Matrix *Matrix::CreateTranslate3D(double xTrans, double yTrans, double zTrans)
+{
+	AutoPtr<Matrix> pMat(new Matrix(4, 4));
+	Elements &elements = pMat->GetElements();
+	// row-1
+	elements.push_back(Value::One);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(xTrans));
+	// row-2
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value(yTrans));
+	// row-3
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	elements.push_back(Value(zTrans));
+	// row-4
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::Zero);
+	elements.push_back(Value::One);
+	return pMat.release();
+}
+
 void Matrix::ToList(Environment &env, ValueList &valList, bool transposeFlag, bool flattenFlag)
 {
 	if (_nRows == 1) {

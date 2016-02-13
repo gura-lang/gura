@@ -104,6 +104,10 @@ public:
 				bool transFlag, double xTrans, double yTrans, double zTrans);
 	static Matrix *CreateRotationZ(double rad,
 				bool transFlag, double xTrans, double yTrans, double zTrans);
+	static Matrix *CreateScale2D(double xScale, double yScale);
+	static Matrix *CreateScale3D(double xScale, double yScale, double zScale);
+	static Matrix *CreateTranslate2D(double xTrans, double yTrans);
+	static Matrix *CreateTranslate3D(double xTrans, double yTrans, double zTrans);
 	void ToList(Environment &env, ValueList &valList, bool transposeFlag, bool flattenFlag);
 	inline void SetRowOff(size_t iRowOff) { _iRowOff = iRowOff; }
 	inline void SetColOff(size_t iColOff) { _iColOff = iColOff; }

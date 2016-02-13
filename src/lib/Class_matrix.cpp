@@ -631,6 +631,41 @@ Gura_ImplementMethod(matrix, rowsize)
 	return Value(static_cast<UInt>(pThis->GetMatrix()->GetRows()));
 }
 
+// matrix.scale(sx:number, sy:number, sz?:number):static:map {block?}
+Gura_DeclareClassMethod(matrix, scale)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "sx", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "sy", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "sz", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(deg));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a matrix that scales a two- or three-dimensional coordinate.\n"
+		"\n"
+		"Below is an example to create a matrix that scales a coordinate by 3, -2 and 5\n"
+		"for x, y and z element.\n"
+		"\n"
+		"    mat = matrix.scale(3, -2, 5)"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("mat", "matrix"));
+}
+
+Gura_ImplementClassMethod(matrix, scale)
+{
+	double xScale = arg.GetDouble(0);
+	double yScale = arg.GetDouble(1);
+	AutoPtr<Matrix> pMat;
+	if (arg.Is_number(2)) {
+		double zScale = arg.GetDouble(2);
+		pMat.reset(Matrix::CreateScale3D(xScale, yScale, zScale));
+	} else {
+		pMat.reset(Matrix::CreateScale2D(xScale, yScale));
+	}
+	return ReturnValue(env, arg, Value(new Object_matrix(env, pMat.release())));
+}
+
 // matrix#set(value)
 Gura_DeclareMethod(matrix, set)
 {
@@ -757,6 +792,41 @@ Gura_ImplementMethod(matrix, tolist)
 	return result;
 }
 
+// matrix.translate(tx:number, ty:number, tz?:number):static:map {block?}
+Gura_DeclareClassMethod(matrix, translate)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "tx", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "ty", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(deg));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a matrix that translates a two- or three-dimensional coordinate.\n"
+		"\n"
+		"Below is an example to create a matrix that translates a coordinate by 3, -2 and 5\n"
+		"for x, y and z element.\n"
+		"\n"
+		"    mat = matrix.translate(3, -2, 5)"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("mat", "matrix"));
+}
+
+Gura_ImplementClassMethod(matrix, translate)
+{
+	double xTrans = arg.GetDouble(0);
+	double yTrans = arg.GetDouble(1);
+	AutoPtr<Matrix> pMat;
+	if (arg.Is_number(2)) {
+		double zTrans = arg.GetDouble(2);
+		pMat.reset(Matrix::CreateTranslate3D(xTrans, yTrans, zTrans));
+	} else {
+		pMat.reset(Matrix::CreateTranslate2D(xTrans, yTrans));
+	}
+	return ReturnValue(env, arg, Value(new Object_matrix(env, pMat.release())));
+}
+
 // matrix#transpose()
 Gura_DeclareMethod(matrix, transpose)
 {
@@ -800,11 +870,13 @@ void Class_matrix::Prepare(Environment &env)
 	Gura_AssignMethod(matrix, roundoff);
 	Gura_AssignMethod(matrix, row);
 	Gura_AssignMethod(matrix, rowsize);
+	Gura_AssignMethod(matrix, scale);
 	Gura_AssignMethod(matrix, set);
 	Gura_AssignMethod(matrix, setcol);
 	Gura_AssignMethod(matrix, setrow);
 	Gura_AssignMethod(matrix, submat);
 	Gura_AssignMethod(matrix, tolist);
+	Gura_AssignMethod(matrix, translate);
 	Gura_AssignMethod(matrix, transpose);
 }
 
