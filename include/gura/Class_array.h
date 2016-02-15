@@ -82,6 +82,19 @@ public:
 			DeclareArg(env, "init", VTYPE_number, OCCUR_ZeroOrOnce);
 			SetClassToConstruct(env.LookupClass(valType));
 			DeclareBlock(OCCUR_ZeroOrOnce);
+			AddHelp(
+				Gura_Symbol(en), Help::FMT_markdown,
+				"Creates an `array@T` instance.\n"
+				"You can call this function in the following formats:\n"
+				"\n"
+				"- `array@T(len:number, init?:number)` .. Creates an `array@T` instance that has\n"
+				"  specified length of buffer. If the argument `init` is specified, the buffer would be\n"
+				"  initialized with the value.\n"
+				"- `array@T(list:list)` .. Creates an `array@T` instance initialized with\n"
+				"  numbers contained in `list`.\n"
+				"\n"
+				GURA_HELPTEXT_BLOCK_en("array", "array@T")
+			);
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			Signal &sig = env.GetSignal();
@@ -114,6 +127,18 @@ public:
 				Function(env, pSymbol, FUNCTYPE_Function, FLAG_None), _valType(valType) {
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
 			DeclareBlock(OCCUR_Once);
+			AddHelp(
+				Gura_Symbol(en), Help::FMT_markdown,
+				"Creates an `array@T` instance that is initialized with values described in `block`.\n"
+				"\n"
+				"The code below creates an `array@uchar` instance that has four elements.\n"
+				"\n"
+				"    @uchar { 0x01, 0x23, 0x45, 0x67 }\n"
+				"\n"
+				"The code below creates an `array@ushort` instance that has three elements.\n"
+				"\n"
+				"    @ushort { 0x0123, 0x4567, 0x89ab }\n"
+			);
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			Signal &sig = env.GetSignal();
