@@ -2485,8 +2485,7 @@ Gura_ImplementFunction(__glGetPixelMapusv)
 // opengl.glGetPolygonStipple
 Gura_DeclareFunctionAlias(__glGetPolygonStipple, "glGetPolygonStipple")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "mask", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2494,14 +2493,9 @@ Gura_DeclareFunctionAlias(__glGetPolygonStipple, "glGetPolygonStipple")
 
 Gura_ImplementFunction(__glGetPolygonStipple)
 {
-#if 0
-	Array<UChar> *_mask = Object_array<UChar>::GetObject(arg, 0)->GetArray();
-	GLubyte *mask = reinterpret_cast<GLubyte *>(_mask->GetPointer());
-	glGetPolygonStipple(mask);
-	return Value::Nil;
-#endif
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetPolygonStipple");
-	return Value::Nil;
+	AutoPtr<Array<UChar> > pArray(new Array<UChar>(32 * 4));
+	glGetPolygonStipple(pArray->GetPointer());
+	return Value(new Object_array<UChar>(env, VTYPE_array_uchar, pArray.release()));
 }
 
 // opengl.glGetString
@@ -4242,13 +4236,12 @@ Gura_DeclareFunctionAlias(__glPolygonStipple, "glPolygonStipple")
 
 Gura_ImplementFunction(__glPolygonStipple)
 {
-	Array<UChar> *_mask = Object_array<UChar>::GetObject(arg, 0)->GetArray();
-	GLubyte *mask = reinterpret_cast<GLubyte *>(_mask->GetPointer());
-	if (_mask->GetSize() != 32 * 4) {
+	Array<UChar> *mask = Object_array<UChar>::GetObject(arg, 0)->GetArray();
+	if (mask->GetSize() != 32 * 4) {
 		env.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
 		return Value::Nil;
 	}
-	glPolygonStipple(mask);
+	glPolygonStipple(mask->GetPointer());
 	return Value::Nil;
 }
 

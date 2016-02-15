@@ -987,7 +987,11 @@ glGetPixelMapusv(map:GLenum, values:GLushort@):void:map = `unsupport % {`en, 'ma
 
 //glGetPointerv(pname:GLenum, params:GLvoid@@):void:map = `unsupport
 
-glGetPolygonStipple(mask:GLubyte@):void:map = `unsupport % {`en, 'markdown',
+glGetPolygonStipple():map = R'''
+	AutoPtr<Array<UChar> > pArray(new Array<UChar>(32 * 4));
+	glGetPolygonStipple(pArray->GetPointer());
+	return Value(new Object_array<UChar>(env, VTYPE_array_uchar, pArray.release()));
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -1511,12 +1515,12 @@ glPolygonOffset(factor:GLfloat, units:GLfloat):void:map = `auto % {`en, 'markdow
 	'''
 }
 
-glPolygonStipple(mask:GLubyte@:const):void:map = R'''
-	if (_mask->GetSize() != 32 * 4) {
+glPolygonStipple(mask:array@uchar):void:map = R'''
+	if (mask->GetSize() != 32 * 4) {
 		env.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
 		return Value::Nil;
 	}
-	glPolygonStipple(mask);
+	glPolygonStipple(mask->GetPointer());
 	return Value::Nil;
 ''' % {`en, 'markdown',
 	R'''
