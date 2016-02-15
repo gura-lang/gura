@@ -47,7 +47,7 @@ brickImageRaw = @{
 	RD, RD, RD, RD, WT, RD, RD, RD, RD, RD, RD, RD, RD, RD, WT, RD
 }
 
-stippleRaw = @{
+stipple = @uchar {
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -95,8 +95,6 @@ brickImage = image(`rgba, 16, 16)
 cross (y in range(16), x in range(16)) {|i|
 	brickImage.putpixel(x, y, brickImageRaw[i])
 }
-
-stipple = stippleRaw.pack('%dB' % stippleRaw.len())
 
 tscp = @{
 	{
