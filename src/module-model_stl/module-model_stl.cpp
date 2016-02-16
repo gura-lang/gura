@@ -106,8 +106,10 @@ TokenId Tokenizer::Tokenize(Environment &env, Stream &stream)
 				// nothing to do
 			} else if (ch == '\n') {
 				_stat = STAT_LineTop;
+				return TOKEN_EOL;
 			} else if (ch == '\0') {
 				_stat = STAT_LineTop;
+				return TOKEN_EOF;
 			} else {
 				Gura_Pushback();
 				_stat = STAT_Field;
