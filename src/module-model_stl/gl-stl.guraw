@@ -36,8 +36,10 @@ init(w:number, h:number) = {
 	glCullFace(GL_FRONT)
 	glViewport(0, 0, w, h)
 	glMatrixMode(GL_PROJECTION)
+	//glMatrixMode(GL_MODELVIEW)
 	glLoadIdentity()
 	gluPerspective(30, w / h, 1, 100)
+	//gluOrtho2D(0, w, 0, h)
 
 	position = @{0.0, 0.0, 0.0, 0.0}
 	glLightfv(GL_LIGHT0, GL_POSITION, position)
