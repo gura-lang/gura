@@ -2945,7 +2945,7 @@ glEndQuery(target:GLenum):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glGetQueryiv(target:GLenum, pname:GLenum):map = R'''
+glGetQueryiv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -2956,7 +2956,7 @@ glGetQueryiv(target:GLenum, pname:GLenum):map = R'''
 	'''
 }
 
-glGetQueryObjectiv(id:GLuint, pname:GLenum):map = R'''
+glGetQueryObjectiv(id:GLuint, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -2967,7 +2967,7 @@ glGetQueryObjectiv(id:GLuint, pname:GLenum):map = R'''
 	'''
 }
 
-glGetQueryObjectuiv(id:GLuint, pname:GLenum):map = R'''
+glGetQueryObjectuiv(id:GLuint, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLuint> > _params(new Array<GLuint>(n));
 	GLuint *params = _params->GetPointer();
@@ -3022,7 +3022,7 @@ glUnmapBuffer(target:GLenum):GLboolean:map {block?} = `auto % {`en, 'markdown',
 	'''
 }
 
-glGetBufferParameteriv(target:GLenum, pname:GLenum):void:map = R'''
+glGetBufferParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -3238,7 +3238,7 @@ glDisableVertexAttribArray(index:GLuint):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-glGetVertexAttribdv(index:GLuint, pname:GLenum):map = R'''
+glGetVertexAttribdv(index:GLuint, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
@@ -3249,7 +3249,7 @@ glGetVertexAttribdv(index:GLuint, pname:GLenum):map = R'''
 	'''
 }
 
-glGetVertexAttribfv(index:GLuint, pname:GLenum):map = R'''
+glGetVertexAttribfv(index:GLuint, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
@@ -3260,7 +3260,7 @@ glGetVertexAttribfv(index:GLuint, pname:GLenum):map = R'''
 	'''
 }
 
-glGetVertexAttribiv(index:GLuint, pname:GLenum):map = R'''
+glGetVertexAttribiv(index:GLuint, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -3451,7 +3451,7 @@ glIsProgram(program:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 }
 */
 
-glGetShaderiv(shader:GLuint, pname:GLenum):void:map = R'''
+glGetShaderiv(shader:GLuint, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -3462,7 +3462,7 @@ glGetShaderiv(shader:GLuint, pname:GLenum):void:map = R'''
 	'''
 }
 
-glGetProgramiv(program:GLuint, pname:GLenum):void:map = R'''
+glGetProgramiv(program:GLuint, pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();

@@ -7519,7 +7519,8 @@ Gura_ImplementFunction(__glValidateProgram)
 // opengl.glGetShaderiv
 Gura_DeclareFunctionAlias(__glGetShaderiv, "glGetShaderiv")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -7541,7 +7542,8 @@ Gura_ImplementFunction(__glGetShaderiv)
 // opengl.glGetProgramiv
 Gura_DeclareFunctionAlias(__glGetProgramiv, "glGetProgramiv")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
