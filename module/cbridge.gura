@@ -29,6 +29,7 @@ Gura_ImplementFunction(__${fi.funcNameGura})
 	${if (!fi.validFlag)}
 #if 0
 	${end}
+${if (fi.tmplHead) {fi.tmplHead.render()}}
 	${for (arg in fi.args) {|idx|}}
 	${arg.tmplGetter.render()}
 	${end}
@@ -85,7 +86,7 @@ Help = struct(lang:symbol, format:string, help:string) {
 //------------------------------------------------------------------------------
 FuncInfo = class {
 	public {
-		moduleName, funcNameC, funcNameGura, args, tmplBody, resultMode, flags, helps
+		moduleName, funcNameC, funcNameGura, args, tmplHead, tmplBody, resultMode, flags, helps
 	}
 	__init__(moduleName:string, decl:expr, funcNameTranslator:function:nil):map = {
 		if (!decl.isassign()) {
@@ -97,6 +98,7 @@ FuncInfo = class {
 			sys.exit(1)
 		}
 		caller = decl.left
+		this.tmplHead = nil
 		this.tmplBody = nil
 		this.validFlag = true
 		this.helps = []
@@ -114,7 +116,17 @@ FuncInfo = class {
 		}
 		valueAssigned = exprAssigned.eval()
 		if (isstring(valueAssigned)) {
-			this.tmplBody = valueAssigned.template()
+			tmplHead = ''
+			tmplBody = ''
+			valueAssigned.eachline {|line|
+				if (line.startswith('^')) {
+					tmplHead += line.mid(1)
+				} else {
+					tmplBody += line
+				}
+			}
+			if (!tmplHead.isempty()) { this.tmplHead = tmplHead.template() }
+			this.tmplBody = tmplBody.template()
 		} elsif (valueAssigned == `auto) {
 			// nothing to do
 		} elsif (valueAssigned == `unsupport) {
