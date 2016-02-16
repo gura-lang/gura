@@ -7326,8 +7326,13 @@ Gura_DeclareFunctionAlias(__glDeleteShader, "glDeleteShader")
 Gura_ImplementFunction(__glDeleteShader)
 {
 	GLuint shader = arg.GetUInt(0);
+#if defined(GL_VERSION_2_0)
 	glDeleteShader(shader);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteShader");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glDetachShader
@@ -7345,8 +7350,13 @@ Gura_ImplementFunction(__glDetachShader)
 {
 	GLuint program = arg.GetUInt(0);
 	GLuint shader = arg.GetUInt(1);
+#if defined(GL_VERSION_2_0)
 	glDetachShader(program, shader);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glDetachShader");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glCreateShader
@@ -7363,8 +7373,13 @@ Gura_DeclareFunctionAlias(__glCreateShader, "glCreateShader")
 Gura_ImplementFunction(__glCreateShader)
 {
 	GLenum type = static_cast<GLenum>(arg.GetInt(0));
+#if defined(GL_VERSION_2_0)
 	GLuint _rtn = glCreateShader(type);
 	return ReturnValue(env, arg, Value(_rtn));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glCreateShader");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glShaderSource
@@ -7382,6 +7397,7 @@ Gura_ImplementFunction(__glShaderSource)
 {
 	GLuint shader = arg.GetUInt(0);
 	const ValueList &string = arg.GetList(1);
+#if defined(GL_VERSION_2_0)
 	GLsizei count = static_cast<GLsizei>(string.size());
 	const GLchar **_string = new const GLchar *[count];
 	//GLint *length = new GLint[count];
@@ -7394,6 +7410,10 @@ Gura_ImplementFunction(__glShaderSource)
 	delete[] _string;
 	delete[] length;
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glShaderSource");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glCompileShader
@@ -7409,8 +7429,13 @@ Gura_DeclareFunctionAlias(__glCompileShader, "glCompileShader")
 Gura_ImplementFunction(__glCompileShader)
 {
 	GLuint shader = arg.GetUInt(0);
+#if defined(GL_VERSION_2_0)
 	glCompileShader(shader);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glCompileShader");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glCreateProgram
@@ -7425,8 +7450,13 @@ Gura_DeclareFunctionAlias(__glCreateProgram, "glCreateProgram")
 
 Gura_ImplementFunction(__glCreateProgram)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint _rtn = glCreateProgram();
 	return ReturnValue(env, arg, Value(_rtn));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glCreateProgram");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glAttachShader
@@ -7444,8 +7474,13 @@ Gura_ImplementFunction(__glAttachShader)
 {
 	GLuint program = arg.GetUInt(0);
 	GLuint shader = arg.GetUInt(1);
+#if defined(GL_VERSION_2_0)
 	glAttachShader(program, shader);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glAttachShader");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glLinkProgram
@@ -7461,8 +7496,13 @@ Gura_DeclareFunctionAlias(__glLinkProgram, "glLinkProgram")
 Gura_ImplementFunction(__glLinkProgram)
 {
 	GLuint program = arg.GetUInt(0);
+#if defined(GL_VERSION_2_0)
 	glLinkProgram(program);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glLinkProgram");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glUseProgram
@@ -7478,8 +7518,13 @@ Gura_DeclareFunctionAlias(__glUseProgram, "glUseProgram")
 Gura_ImplementFunction(__glUseProgram)
 {
 	GLuint program = arg.GetUInt(0);
+#if defined(GL_VERSION_2_0)
 	glUseProgram(program);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glUseProgram");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glDeleteProgram
@@ -7495,8 +7540,13 @@ Gura_DeclareFunctionAlias(__glDeleteProgram, "glDeleteProgram")
 Gura_ImplementFunction(__glDeleteProgram)
 {
 	GLuint program = arg.GetUInt(0);
+#if defined(GL_VERSION_2_0)
 	glDeleteProgram(program);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteProgram");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glValidateProgram
@@ -7512,8 +7562,13 @@ Gura_DeclareFunctionAlias(__glValidateProgram, "glValidateProgram")
 Gura_ImplementFunction(__glValidateProgram)
 {
 	GLuint program = arg.GetUInt(0);
+#if defined(GL_VERSION_2_0)
 	glValidateProgram(program);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glValidateProgram");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glGetShaderiv
@@ -7532,11 +7587,16 @@ Gura_ImplementFunction(__glGetShaderiv)
 {
 	GLuint shader = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetShaderiv(shader, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderiv");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glGetProgramiv
@@ -7555,11 +7615,16 @@ Gura_ImplementFunction(__glGetProgramiv)
 {
 	GLuint program = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetProgramiv(program, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetProgramiv");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glGetAttachedShaders
@@ -7606,6 +7671,7 @@ Gura_ImplementFunction(__glGetShaderInfoLog)
 {
 	GLuint shader = arg.GetUInt(0);
 
+#if defined(GL_VERSION_2_0)
 	String _rtn;	
 	GLsizei bufSize = 0;
 	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &bufSize);
@@ -7617,6 +7683,10 @@ Gura_ImplementFunction(__glGetShaderInfoLog)
 		delete[] infoLog;
 	}
 	return ReturnValue(env, arg, Value(_rtn));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderInfoLog");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glGetProgramInfoLog
@@ -7634,6 +7704,7 @@ Gura_ImplementFunction(__glGetProgramInfoLog)
 {
 	GLuint program = arg.GetUInt(0);
 
+#if defined(GL_VERSION_2_0)
 	String _rtn;	
 	GLsizei bufSize = 0;
 	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &bufSize);
@@ -7645,6 +7716,10 @@ Gura_ImplementFunction(__glGetProgramInfoLog)
 		delete[] infoLog;
 	}
 	return ReturnValue(env, arg, Value(_rtn));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetProgramInfoLog");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glGetUniformLocation

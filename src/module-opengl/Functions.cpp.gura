@@ -3275,30 +3275,46 @@ glGetVertexAttribiv(index:GLuint, pname:GLenum):map {block?} = R'''
 */
 
 glDeleteShader(shader:GLuint):void:map = R'''
+#if defined(GL_VERSION_2_0)
 	glDeleteShader(shader);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteShader");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glDetachShader(program:GLuint, shader:GLuint):void:map = R'''
+#if defined(GL_VERSION_2_0)
 	glDetachShader(program, shader);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glDetachShader");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glCreateShader(type:GLenum):GLuint:map {block?} = R'''
+#if defined(GL_VERSION_2_0)
 	GLuint _rtn = glCreateShader(type);
 	return ReturnValue(env, arg, Value(_rtn));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glCreateShader");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glShaderSource(shader:GLuint, string[]:string):void:map = R'''
+#if defined(GL_VERSION_2_0)
 	GLsizei count = static_cast<GLsizei>(string.size());
 	const GLchar **_string = new const GLchar *[count];
 	//GLint *length = new GLint[count];
@@ -3311,62 +3327,101 @@ glShaderSource(shader:GLuint, string[]:string):void:map = R'''
 	delete[] _string;
 	delete[] length;
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glShaderSource");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glCompileShader(shader:GLuint):void:map = R'''
+#if defined(GL_VERSION_2_0)
 	glCompileShader(shader);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glCompileShader");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glCreateProgram():GLuint {block?} = R'''
+#if defined(GL_VERSION_2_0)
 	GLuint _rtn = glCreateProgram();
 	return ReturnValue(env, arg, Value(_rtn));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glCreateProgram");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glAttachShader(program:GLuint, shader:GLuint):void:map = R'''
+#if defined(GL_VERSION_2_0)
 	glAttachShader(program, shader);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glAttachShader");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glLinkProgram(program:GLuint):void:map = R'''
+#if defined(GL_VERSION_2_0)
 	glLinkProgram(program);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glLinkProgram");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glUseProgram(program:GLuint):void:map = R'''
+#if defined(GL_VERSION_2_0)
 	glUseProgram(program);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glUseProgram");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glDeleteProgram(program:GLuint):void:map = R'''
+#if defined(GL_VERSION_2_0)
 	glDeleteProgram(program);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteProgram");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glValidateProgram(program:GLuint):void:map = R'''
+#if defined(GL_VERSION_2_0)
 	glValidateProgram(program);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glValidateProgram");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3482,22 +3537,32 @@ glIsProgram(program:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 */
 
 glGetShaderiv(shader:GLuint, pname:GLenum):map {block?} = R'''
+#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetShaderiv(shader, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderiv");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glGetProgramiv(program:GLuint, pname:GLenum):map {block?} = R'''
+#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetProgramiv(program, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetProgramiv");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3509,6 +3574,7 @@ glGetAttachedShaders(program:GLuint, maxCount:GLsizei, count:GLsizei@, shaders:G
 }
 
 glGetShaderInfoLog(shader:GLuint):map {block?} = '''
+#if defined(GL_VERSION_2_0)
 	String _rtn;	
 	GLsizei bufSize = 0;
 	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &bufSize);
@@ -3520,12 +3586,17 @@ glGetShaderInfoLog(shader:GLuint):map {block?} = '''
 		delete[] infoLog;
 	}
 	return ReturnValue(env, arg, Value(_rtn));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderInfoLog");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glGetProgramInfoLog(program:GLuint):map {block?} = '''
+#if defined(GL_VERSION_2_0)
 	String _rtn;	
 	GLsizei bufSize = 0;
 	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &bufSize);
@@ -3537,6 +3608,10 @@ glGetProgramInfoLog(program:GLuint):map {block?} = '''
 		delete[] infoLog;
 	}
 	return ReturnValue(env, arg, Value(_rtn));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetProgramInfoLog");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
