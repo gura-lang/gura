@@ -4,6 +4,7 @@
 #include "stdafx.h"
 
 extern "C" {
+#undef UINT64_C
 #include "../dSFMT-src-2.2.1/dSFMT.h"
 }
 
