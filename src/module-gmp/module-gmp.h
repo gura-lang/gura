@@ -4,6 +4,9 @@
 #ifndef __GURA_MODULE_GMP_H__
 #define __GURA_MODULE_GMP_H__
 #include <gura.h>
+#undef _STDINT_H
+#undef _STDINT_H_
+#undef _STDINT
 #include <gmpxx.h>
 #include "Class_mpz.h"
 #include "Class_mpq.h"
