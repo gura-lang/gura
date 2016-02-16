@@ -7309,6 +7309,209 @@ Gura_ImplementFunction(__glViewport)
 	return Value::Nil;
 }
 
+// opengl.glDeleteShader
+Gura_DeclareFunctionAlias(__glDeleteShader, "glDeleteShader")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glDeleteShader)
+{
+	GLuint shader = arg.GetUInt(0);
+	glDeleteShader(shader);
+	return Value::Nil;
+}
+
+// opengl.glDetachShader
+Gura_DeclareFunctionAlias(__glDetachShader, "glDetachShader")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glDetachShader)
+{
+	GLuint program = arg.GetUInt(0);
+	GLuint shader = arg.GetUInt(1);
+	glDetachShader(program, shader);
+	return Value::Nil;
+}
+
+// opengl.glCreateShader
+Gura_DeclareFunctionAlias(__glCreateShader, "glCreateShader")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glCreateShader)
+{
+	GLenum type = static_cast<GLenum>(arg.GetInt(0));
+	GLuint _rtn = glCreateShader(type);
+	return ReturnValue(env, arg, Value(_rtn));
+}
+
+// opengl.glShaderSource
+Gura_DeclareFunctionAlias(__glShaderSource, "glShaderSource")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "string", VTYPE_string, OCCUR_Once, FLAG_ListVar);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glShaderSource)
+{
+	GLuint shader = arg.GetUInt(0);
+	const ValueList &string = arg.GetList(1);
+	GLsizei count = static_cast<GLsizei>(string.size());
+	const GLchar **_string = new const GLchar *[count];
+	//GLint *length = new GLint[count];
+	GLint *length = nullptr;
+	for (GLint i = 0; i < count; i++) {
+		_string[i] = reinterpret_cast<const GLchar *>(string[i].GetString());
+		//length[i] = static_cast<GLint>(string[i].GetStringSTL().size());
+	}
+	glShaderSource(shader, count, _string, length);
+	delete[] _string;
+	delete[] length;
+	return Value::Nil;
+}
+
+// opengl.glCompileShader
+Gura_DeclareFunctionAlias(__glCompileShader, "glCompileShader")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glCompileShader)
+{
+	GLuint shader = arg.GetUInt(0);
+	glCompileShader(shader);
+	return Value::Nil;
+}
+
+// opengl.glCreateProgram
+Gura_DeclareFunctionAlias(__glCreateProgram, "glCreateProgram")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glCreateProgram)
+{
+	GLuint _rtn = glCreateProgram();
+	return ReturnValue(env, arg, Value(_rtn));
+}
+
+// opengl.glAttachShader
+Gura_DeclareFunctionAlias(__glAttachShader, "glAttachShader")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glAttachShader)
+{
+	GLuint program = arg.GetUInt(0);
+	GLuint shader = arg.GetUInt(1);
+	glAttachShader(program, shader);
+	return Value::Nil;
+}
+
+// opengl.glLinkProgram
+Gura_DeclareFunctionAlias(__glLinkProgram, "glLinkProgram")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glLinkProgram)
+{
+	GLuint program = arg.GetUInt(0);
+	glLinkProgram(program);
+	return Value::Nil;
+}
+
+// opengl.glUseProgram
+Gura_DeclareFunctionAlias(__glUseProgram, "glUseProgram")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUseProgram)
+{
+	GLuint program = arg.GetUInt(0);
+	glUseProgram(program);
+	return Value::Nil;
+}
+
+// opengl.glDeleteProgram
+Gura_DeclareFunctionAlias(__glDeleteProgram, "glDeleteProgram")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glDeleteProgram)
+{
+	GLuint program = arg.GetUInt(0);
+	glDeleteProgram(program);
+	return Value::Nil;
+}
+
+// opengl.glValidateProgram
+Gura_DeclareFunctionAlias(__glValidateProgram, "glValidateProgram")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glValidateProgram)
+{
+	GLuint program = arg.GetUInt(0);
+	glValidateProgram(program);
+	return Value::Nil;
+}
+
 // opengl.glGetAttachedShaders
 Gura_DeclareFunctionAlias(__glGetAttachedShaders, "glGetAttachedShaders")
 {
@@ -7341,11 +7544,9 @@ Gura_ImplementFunction(__glGetAttachedShaders)
 // opengl.glGetShaderInfoLog
 Gura_DeclareFunctionAlias(__glGetShaderInfoLog, "glGetShaderInfoLog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "bufSize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "infoLog", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7353,28 +7554,27 @@ Gura_DeclareFunctionAlias(__glGetShaderInfoLog, "glGetShaderInfoLog")
 
 Gura_ImplementFunction(__glGetShaderInfoLog)
 {
-#if 0
 	GLuint shader = arg.GetUInt(0);
-	GLsizei bufSize = arg.GetInt(1);
-	AutoPtr<Array<GLsizei> > _length(CreateArrayFromList<GLsizei>(arg.GetList(2)));
-	GLsizei *length = _length->GetPointer();
-	Array<char> *_infoLog = Object_array<char>::GetObject(arg, 3)->GetArray();
-	GLchar *infoLog = reinterpret_cast<GLchar *>(_infoLog->GetPointer());
-	glGetShaderInfoLog(shader, bufSize, length, infoLog);
-	return Value::Nil;
-#endif
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderInfoLog");
-	return Value::Nil;
+
+	String _rtn;	
+	GLsizei bufSize = 0;
+	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &bufSize);
+	if (bufSize > 0) {
+		GLsizei length = 0;
+		GLchar *infoLog = new GLchar[bufSize];
+		glGetShaderInfoLog(shader, bufSize, &length, infoLog);
+		_rtn = infoLog;
+		delete[] infoLog;
+	}
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // opengl.glGetProgramInfoLog
 Gura_DeclareFunctionAlias(__glGetProgramInfoLog, "glGetProgramInfoLog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "bufSize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "infoLog", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7382,18 +7582,19 @@ Gura_DeclareFunctionAlias(__glGetProgramInfoLog, "glGetProgramInfoLog")
 
 Gura_ImplementFunction(__glGetProgramInfoLog)
 {
-#if 0
 	GLuint program = arg.GetUInt(0);
-	GLsizei bufSize = arg.GetInt(1);
-	AutoPtr<Array<GLsizei> > _length(CreateArrayFromList<GLsizei>(arg.GetList(2)));
-	GLsizei *length = _length->GetPointer();
-	Array<char> *_infoLog = Object_array<char>::GetObject(arg, 3)->GetArray();
-	GLchar *infoLog = reinterpret_cast<GLchar *>(_infoLog->GetPointer());
-	glGetProgramInfoLog(program, bufSize, length, infoLog);
-	return Value::Nil;
-#endif
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetProgramInfoLog");
-	return Value::Nil;
+
+	String _rtn;	
+	GLsizei bufSize = 0;
+	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &bufSize);
+	if (bufSize > 0) {
+		GLsizei length = 0;
+		GLchar *infoLog = new GLchar[bufSize];
+		glGetProgramInfoLog(program, bufSize, &length, infoLog);
+		_rtn = infoLog;
+		delete[] infoLog;
+	}
+	return ReturnValue(env, arg, Value(_rtn));
 }
 
 // opengl.glGetUniformLocation
@@ -8132,6 +8333,17 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glVertex4s);
 	Gura_AssignFunction(__glVertex4sv);
 	Gura_AssignFunction(__glViewport);
+	Gura_AssignFunction(__glDeleteShader);
+	Gura_AssignFunction(__glDetachShader);
+	Gura_AssignFunction(__glCreateShader);
+	Gura_AssignFunction(__glShaderSource);
+	Gura_AssignFunction(__glCompileShader);
+	Gura_AssignFunction(__glCreateProgram);
+	Gura_AssignFunction(__glAttachShader);
+	Gura_AssignFunction(__glLinkProgram);
+	Gura_AssignFunction(__glUseProgram);
+	Gura_AssignFunction(__glDeleteProgram);
+	Gura_AssignFunction(__glValidateProgram);
 	Gura_AssignFunction(__glGetAttachedShaders);
 	Gura_AssignFunction(__glGetShaderInfoLog);
 	Gura_AssignFunction(__glGetProgramInfoLog);

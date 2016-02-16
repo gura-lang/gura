@@ -3270,7 +3270,6 @@ glGetVertexAttribiv(index:GLuint, pname:GLenum):map = R'''
 //glGetVertexAttribPointerv(index:GLuint, pname:GLenum, pointer:GLvoid@@):void:map = `unsupport
 */
 
-/*
 glDeleteShader(shader:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
@@ -3289,10 +3288,11 @@ glCreateShader(type:GLenum):GLuint:map {block?} = `auto % {`en, 'markdown',
 glShaderSource(shader:GLuint, string[]:string):void:map = R'''
 	GLsizei count = static_cast<GLsizei>(string.size());
 	const GLchar **_string = new const GLchar *[count];
-	GLint *length = new GLint[count];
+	//GLint *length = new GLint[count];
+	GLint *length = nullptr;
 	for (GLint i = 0; i < count; i++) {
 		_string[i] = reinterpret_cast<const GLchar *>(string[i].GetString());
-		length[i] = static_cast<GLint>(string[i].GetStringSTL().size());
+		//length[i] = static_cast<GLint>(string[i].GetStringSTL().size());
 	}
 	glShaderSource(shader, count, _string, length);
 	delete[] _string;
@@ -3337,7 +3337,6 @@ glValidateProgram(program:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 /*
 glUniform1f(location:GLint, v0:GLfloat):void:map = `auto % {`en, 'markdown',
@@ -3446,7 +3445,9 @@ glIsProgram(program:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 	R'''
 	'''
 }
+*/
 
+/*
 glGetShaderiv(shader:GLuint, pname:GLenum):void:map = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
@@ -3475,12 +3476,36 @@ glGetAttachedShaders(program:GLuint, maxCount:GLsizei, count:GLsizei@, shaders:G
 	'''
 }
 
-glGetShaderInfoLog(shader:GLuint, bufSize:GLsizei, length:GLsizei@, infoLog:GLchar@):void:map = `unsupport % {`en, 'markdown',
+glGetShaderInfoLog(shader:GLuint):map {block?} = '''
+	String _rtn;	
+	GLsizei bufSize = 0;
+	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &bufSize);
+	if (bufSize > 0) {
+		GLsizei length = 0;
+		GLchar *infoLog = new GLchar[bufSize];
+		glGetShaderInfoLog(shader, bufSize, &length, infoLog);
+		_rtn = infoLog;
+		delete[] infoLog;
+	}
+	return ReturnValue(env, arg, Value(_rtn));
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetProgramInfoLog(program:GLuint, bufSize:GLsizei, length:GLsizei@, infoLog:GLchar@):void:map = `unsupport % {`en, 'markdown',
+glGetProgramInfoLog(program:GLuint):map {block?} = '''
+	String _rtn;	
+	GLsizei bufSize = 0;
+	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &bufSize);
+	if (bufSize > 0) {
+		GLsizei length = 0;
+		GLchar *infoLog = new GLchar[bufSize];
+		glGetProgramInfoLog(program, bufSize, &length, infoLog);
+		_rtn = infoLog;
+		delete[] infoLog;
+	}
+	return ReturnValue(env, arg, Value(_rtn));
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
