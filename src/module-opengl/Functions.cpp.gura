@@ -744,9 +744,13 @@ glGetBooleanv(pname:GLenum):map {block?} = R'''
 	GLboolean *params = _params->GetPointer();
 	glGetBooleanv(pname, params);
 	Value _rtnVal;
-	Object_list *pObjList = _rtnVal.InitAsList(env, n);
-	for (GLsizei i = 0; i < n; i++) {
-		pObjList->Add(params[i] != 0);
+	if (n == 1) {
+		_rtnVal = Value(params[0]);
+	} else {
+		Object_list *pObjList = _rtnVal.InitAsList(env, n);
+		for (GLsizei i = 0; i < n; i++) {
+			pObjList->Add(params[i] != 0);
+		}
 	}
 	return ReturnValue(env, arg, _rtnVal);
 ''' % {`en, 'markdown',
@@ -824,7 +828,7 @@ glGetDoublev(pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetDoublev(pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -840,7 +844,7 @@ glGetFloatv(pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetFloatv(pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -854,7 +858,7 @@ glGetHistogramParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetHistogramParameterfv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -867,7 +871,7 @@ glGetHistogramParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetHistogramParameteriv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -879,7 +883,7 @@ glGetIntegerv(pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetIntegerv(pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -890,7 +894,7 @@ glGetLightfv(light:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetLightfv(light, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -901,7 +905,7 @@ glGetLightiv(light:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetLightiv(light, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -927,7 +931,7 @@ glGetMaterialfv(face:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetMaterialfv(face, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -938,7 +942,7 @@ glGetMaterialiv(face:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetMaterialiv(face, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -952,7 +956,7 @@ glGetMinmaxParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetMinmaxParameterfv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -963,7 +967,7 @@ glGetMinmaxParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetMinmaxParameteriv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1015,7 +1019,7 @@ glGetTexEnvfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexEnvfv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1026,7 +1030,7 @@ glGetTexEnviv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexEnviv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1037,7 +1041,7 @@ glGetTexGendv(coord:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetTexGendv(coord, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1048,7 +1052,7 @@ glGetTexGenfv(coord:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexGenfv(coord, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1059,7 +1063,7 @@ glGetTexGeniv(coord:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexGeniv(coord, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1072,7 +1076,7 @@ glGetTexLevelParameterfv(target:GLenum, level:GLint, pname:GLenum):map {block?} 
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexLevelParameterfv(target, level, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1083,7 +1087,7 @@ glGetTexLevelParameteriv(target:GLenum, level:GLint, pname:GLenum):map {block?} 
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexLevelParameteriv(target, level, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1094,7 +1098,7 @@ glGetTexParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexParameterfv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -1105,7 +1109,7 @@ glGetTexParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexParameteriv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2946,7 +2950,7 @@ glGetQueryiv(target:GLenum, pname:GLenum):map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetQueryiv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2957,7 +2961,7 @@ glGetQueryObjectiv(id:GLuint, pname:GLenum):map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetQueryObjectiv(id, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -2968,7 +2972,7 @@ glGetQueryObjectuiv(id:GLuint, pname:GLenum):map = R'''
 	AutoPtr<Array<GLuint> > _params(new Array<GLuint>(n));
 	GLuint *params = _params->GetPointer();
 	glGetQueryObjectuiv(id, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3023,7 +3027,7 @@ glGetBufferParameteriv(target:GLenum, pname:GLenum):void:map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetBufferParameteriv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3239,7 +3243,7 @@ glGetVertexAttribdv(index:GLuint, pname:GLenum):map = R'''
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetVertexAttribdv(index, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3250,7 +3254,7 @@ glGetVertexAttribfv(index:GLuint, pname:GLenum):map = R'''
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetVertexAttribfv(index, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3261,7 +3265,7 @@ glGetVertexAttribiv(index:GLuint, pname:GLenum):map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetVertexAttribiv(index, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3447,13 +3451,12 @@ glIsProgram(program:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 }
 */
 
-/*
 glGetShaderiv(shader:GLuint, pname:GLenum):void:map = R'''
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetShaderiv(shader, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3464,12 +3467,11 @@ glGetProgramiv(program:GLuint, pname:GLenum):void:map = R'''
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetProgramiv(program, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glGetAttachedShaders(program:GLuint, maxCount:GLsizei, count:GLsizei@, shaders:GLuint@):void:map = `unsupport % {`en, 'markdown',
 	R'''

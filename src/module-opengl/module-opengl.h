@@ -20,6 +20,12 @@ bool DoGLSection(Environment &env, Signal &sig, Argument &args, Image *pImage);
 //-----------------------------------------------------------------------------
 // helper
 //-----------------------------------------------------------------------------
+template<typename T>
+Value CreateValueFromParams(Environment &env, const T params[], size_t n)
+{
+	return (n == 1)? Value(params[0]) : Value::CreateList(env, params, n);
+}
+
 size_t GetParamCount(GLenum pname);
 bool CheckParamCount(GLenum pname, size_t n);
 

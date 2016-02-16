@@ -2136,9 +2136,13 @@ Gura_ImplementFunction(__glGetBooleanv)
 	GLboolean *params = _params->GetPointer();
 	glGetBooleanv(pname, params);
 	Value _rtnVal;
-	Object_list *pObjList = _rtnVal.InitAsList(env, n);
-	for (GLsizei i = 0; i < n; i++) {
-		pObjList->Add(params[i] != 0);
+	if (n == 1) {
+		_rtnVal = Value(params[0]);
+	} else {
+		Object_list *pObjList = _rtnVal.InitAsList(env, n);
+		for (GLsizei i = 0; i < n; i++) {
+			pObjList->Add(params[i] != 0);
+		}
 	}
 	return ReturnValue(env, arg, _rtnVal);
 }
@@ -2179,7 +2183,7 @@ Gura_ImplementFunction(__glGetDoublev)
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetDoublev(pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetError
@@ -2216,7 +2220,7 @@ Gura_ImplementFunction(__glGetFloatv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetFloatv(pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetIntegerv
@@ -2237,7 +2241,7 @@ Gura_ImplementFunction(__glGetIntegerv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetIntegerv(pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetLightfv
@@ -2260,7 +2264,7 @@ Gura_ImplementFunction(__glGetLightfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetLightfv(light, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetLightiv
@@ -2283,7 +2287,7 @@ Gura_ImplementFunction(__glGetLightiv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetLightiv(light, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetMapdv
@@ -2384,7 +2388,7 @@ Gura_ImplementFunction(__glGetMaterialfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetMaterialfv(face, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetMaterialiv
@@ -2407,7 +2411,7 @@ Gura_ImplementFunction(__glGetMaterialiv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetMaterialiv(face, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetPixelMapfv
@@ -2540,7 +2544,7 @@ Gura_ImplementFunction(__glGetTexEnvfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexEnvfv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetTexEnviv
@@ -2563,7 +2567,7 @@ Gura_ImplementFunction(__glGetTexEnviv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexEnviv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetTexGendv
@@ -2586,7 +2590,7 @@ Gura_ImplementFunction(__glGetTexGendv)
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetTexGendv(coord, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetTexGenfv
@@ -2609,7 +2613,7 @@ Gura_ImplementFunction(__glGetTexGenfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexGenfv(coord, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetTexGeniv
@@ -2632,7 +2636,7 @@ Gura_ImplementFunction(__glGetTexGeniv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexGeniv(coord, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetTexLevelParameterfv
@@ -2657,7 +2661,7 @@ Gura_ImplementFunction(__glGetTexLevelParameterfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexLevelParameterfv(target, level, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetTexLevelParameteriv
@@ -2682,7 +2686,7 @@ Gura_ImplementFunction(__glGetTexLevelParameteriv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexLevelParameteriv(target, level, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetTexParameterfv
@@ -2705,7 +2709,7 @@ Gura_ImplementFunction(__glGetTexParameterfv)
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetTexParameterfv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glGetTexParameteriv
@@ -2728,7 +2732,7 @@ Gura_ImplementFunction(__glGetTexParameteriv)
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetTexParameteriv(target, pname, params);
-	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 }
 
 // opengl.glHint
@@ -7512,6 +7516,50 @@ Gura_ImplementFunction(__glValidateProgram)
 	return Value::Nil;
 }
 
+// opengl.glGetShaderiv
+Gura_DeclareFunctionAlias(__glGetShaderiv, "glGetShaderiv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetShaderiv)
+{
+	GLuint shader = arg.GetUInt(0);
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
+	glGetShaderiv(shader, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+}
+
+// opengl.glGetProgramiv
+Gura_DeclareFunctionAlias(__glGetProgramiv, "glGetProgramiv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetProgramiv)
+{
+	GLuint program = arg.GetUInt(0);
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
+	glGetProgramiv(program, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+}
+
 // opengl.glGetAttachedShaders
 Gura_DeclareFunctionAlias(__glGetAttachedShaders, "glGetAttachedShaders")
 {
@@ -8344,6 +8392,8 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glUseProgram);
 	Gura_AssignFunction(__glDeleteProgram);
 	Gura_AssignFunction(__glValidateProgram);
+	Gura_AssignFunction(__glGetShaderiv);
+	Gura_AssignFunction(__glGetProgramiv);
 	Gura_AssignFunction(__glGetAttachedShaders);
 	Gura_AssignFunction(__glGetShaderInfoLog);
 	Gura_AssignFunction(__glGetProgramInfoLog);
