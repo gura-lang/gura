@@ -3274,17 +3274,26 @@ glGetVertexAttribiv(index:GLuint, pname:GLenum):map {block?} = R'''
 //glGetVertexAttribPointerv(index:GLuint, pname:GLenum, pointer:GLvoid@@):void:map = `unsupport
 */
 
-glDeleteShader(shader:GLuint):void:map = `auto % {`en, 'markdown',
+glDeleteShader(shader:GLuint):void:map = R'''
+	glDeleteShader(shader);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDetachShader(program:GLuint, shader:GLuint):void:map = `auto % {`en, 'markdown',
+glDetachShader(program:GLuint, shader:GLuint):void:map = R'''
+	glDetachShader(program, shader);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCreateShader(type:GLenum):GLuint:map {block?} = `auto % {`en, 'markdown',
+glCreateShader(type:GLenum):GLuint:map {block?} = R'''
+	GLuint _rtn = glCreateShader(type);
+	return ReturnValue(env, arg, Value(_rtn));
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -3307,37 +3316,58 @@ glShaderSource(shader:GLuint, string[]:string):void:map = R'''
 	'''
 }
 
-glCompileShader(shader:GLuint):void:map = `auto % {`en, 'markdown',
+glCompileShader(shader:GLuint):void:map = R'''
+	glCompileShader(shader);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glCreateProgram():GLuint {block?} = `auto % {`en, 'markdown',
+glCreateProgram():GLuint {block?} = R'''
+	GLuint _rtn = glCreateProgram();
+	return ReturnValue(env, arg, Value(_rtn));
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glAttachShader(program:GLuint, shader:GLuint):void:map = `auto % {`en, 'markdown',
+glAttachShader(program:GLuint, shader:GLuint):void:map = R'''
+	glAttachShader(program, shader);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glLinkProgram(program:GLuint):void:map = `auto % {`en, 'markdown',
+glLinkProgram(program:GLuint):void:map = R'''
+	glLinkProgram(program);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUseProgram(program:GLuint):void:map = `auto % {`en, 'markdown',
+glUseProgram(program:GLuint):void:map = R'''
+	glUseProgram(program);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDeleteProgram(program:GLuint):void:map = `auto % {`en, 'markdown',
+glDeleteProgram(program:GLuint):void:map = R'''
+	glDeleteProgram(program);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glValidateProgram(program:GLuint):void:map = `auto % {`en, 'markdown',
+glValidateProgram(program:GLuint):void:map = R'''
+	glValidateProgram(program);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
