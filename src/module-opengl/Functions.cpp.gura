@@ -2902,7 +2902,7 @@ glWindowPos3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 */
 
 glGenQueries(n:GLsizei):map {block?} = R'''
-#if defined(GL_VERSION_1_5)
+^#if defined(GL_VERSION_1_5)
 	AutoPtr<Array<GLuint> > _ids(new Array<GLuint>(n));
 	GLuint *ids = _ids->GetPointer();
 	glGenQueries(n, ids);
@@ -2917,7 +2917,7 @@ glGenQueries(n:GLsizei):map {block?} = R'''
 }
 
 glDeleteQueries(ids:GLuint@:const):void:map = R'''
-#if defined(GL_VERSION_1_5)
+^#if defined(GL_VERSION_1_5)
 	GLsizei n = _ids->GetSize();
 	glDeleteQueries(n, ids);
 	return Value::Nil;
@@ -2931,7 +2931,7 @@ glDeleteQueries(ids:GLuint@:const):void:map = R'''
 }
 
 glIsQuery(id:GLuint):GLboolean:map {block?} = R'''
-#if defined(GL_VERSION_1_5)
+^#if defined(GL_VERSION_1_5)
 	GLboolean _rtn = glIsQuery(id);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
@@ -2944,7 +2944,7 @@ glIsQuery(id:GLuint):GLboolean:map {block?} = R'''
 }
 
 glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
-#if defined(GL_VERSION_1_5)
+^#if defined(GL_VERSION_1_5)
 	glBeginQuery(target, id);
 	if (arg.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
@@ -2963,7 +2963,7 @@ glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 }
 
 glEndQuery(target:GLenum):void:map = R'''
-#if defined(GL_VERSION_1_5)
+^#if defined(GL_VERSION_1_5)
 	glEndQuery(target);
 	return Value::Nil;
 #else
@@ -2976,7 +2976,7 @@ glEndQuery(target:GLenum):void:map = R'''
 }
 
 glGetQueryiv(target:GLenum, pname:GLenum):map {block?} = R'''
-#if defined(GL_VERSION_1_5)
+^#if defined(GL_VERSION_1_5)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -2992,7 +2992,7 @@ glGetQueryiv(target:GLenum, pname:GLenum):map {block?} = R'''
 }
 
 glGetQueryObjectiv(id:GLuint, pname:GLenum):map {block?} = R'''
-#if defined(GL_VERSION_1_5)
+^#if defined(GL_VERSION_1_5)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -3008,7 +3008,7 @@ glGetQueryObjectiv(id:GLuint, pname:GLenum):map {block?} = R'''
 }
 
 glGetQueryObjectuiv(id:GLuint, pname:GLenum):map {block?} = R'''
-#if defined(GL_VERSION_1_5)
+^#if defined(GL_VERSION_1_5)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLuint> > _params(new Array<GLuint>(n));
 	GLuint *params = _params->GetPointer();
@@ -3319,7 +3319,7 @@ glGetVertexAttribiv(index:GLuint, pname:GLenum):map {block?} = R'''
 */
 
 glDeleteShader(shader:GLuint):void:map = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	glDeleteShader(shader);
 	return Value::Nil;
 #else
@@ -3332,7 +3332,7 @@ glDeleteShader(shader:GLuint):void:map = R'''
 }
 
 glDetachShader(program:GLuint, shader:GLuint):void:map = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	glDetachShader(program, shader);
 	return Value::Nil;
 #else
@@ -3345,7 +3345,7 @@ glDetachShader(program:GLuint, shader:GLuint):void:map = R'''
 }
 
 glCreateShader(type:GLenum):GLuint:map {block?} = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	GLuint _rtn = glCreateShader(type);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
@@ -3358,7 +3358,7 @@ glCreateShader(type:GLenum):GLuint:map {block?} = R'''
 }
 
 glShaderSource(shader:GLuint, string[]:string):void:map = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	GLsizei count = static_cast<GLsizei>(string.size());
 	const GLchar **_string = new const GLchar *[count];
 	//GLint *length = new GLint[count];
@@ -3381,7 +3381,7 @@ glShaderSource(shader:GLuint, string[]:string):void:map = R'''
 }
 
 glCompileShader(shader:GLuint):void:map = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	glCompileShader(shader);
 	return Value::Nil;
 #else
@@ -3394,7 +3394,7 @@ glCompileShader(shader:GLuint):void:map = R'''
 }
 
 glCreateProgram():GLuint {block?} = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	GLuint _rtn = glCreateProgram();
 	return ReturnValue(env, arg, Value(_rtn));
 #else
@@ -3407,7 +3407,7 @@ glCreateProgram():GLuint {block?} = R'''
 }
 
 glAttachShader(program:GLuint, shader:GLuint):void:map = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	glAttachShader(program, shader);
 	return Value::Nil;
 #else
@@ -3420,7 +3420,7 @@ glAttachShader(program:GLuint, shader:GLuint):void:map = R'''
 }
 
 glLinkProgram(program:GLuint):void:map = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	glLinkProgram(program);
 	return Value::Nil;
 #else
@@ -3433,7 +3433,7 @@ glLinkProgram(program:GLuint):void:map = R'''
 }
 
 glUseProgram(program:GLuint):void:map = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	glUseProgram(program);
 	return Value::Nil;
 #else
@@ -3446,7 +3446,7 @@ glUseProgram(program:GLuint):void:map = R'''
 }
 
 glDeleteProgram(program:GLuint):void:map = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	glDeleteProgram(program);
 	return Value::Nil;
 #else
@@ -3459,7 +3459,7 @@ glDeleteProgram(program:GLuint):void:map = R'''
 }
 
 glValidateProgram(program:GLuint):void:map = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	glValidateProgram(program);
 	return Value::Nil;
 #else
@@ -3581,7 +3581,7 @@ glIsProgram(program:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 */
 
 glGetShaderiv(shader:GLuint, pname:GLenum):map {block?} = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -3597,7 +3597,7 @@ glGetShaderiv(shader:GLuint, pname:GLenum):map {block?} = R'''
 }
 
 glGetProgramiv(program:GLuint, pname:GLenum):map {block?} = R'''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -3618,7 +3618,7 @@ glGetAttachedShaders(program:GLuint, maxCount:GLsizei, count:GLsizei@, shaders:G
 }
 
 glGetShaderInfoLog(shader:GLuint):map {block?} = '''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	String _rtn;	
 	GLsizei bufSize = 0;
 	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &bufSize);
@@ -3640,7 +3640,7 @@ glGetShaderInfoLog(shader:GLuint):map {block?} = '''
 }
 
 glGetProgramInfoLog(program:GLuint):map {block?} = '''
-#if defined(GL_VERSION_2_0)
+^#if defined(GL_VERSION_2_0)
 	String _rtn;	
 	GLsizei bufSize = 0;
 	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &bufSize);

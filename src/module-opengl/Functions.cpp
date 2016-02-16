@@ -7326,8 +7326,8 @@ Gura_DeclareFunctionAlias(__glGenQueries, "glGenQueries")
 
 Gura_ImplementFunction(__glGenQueries)
 {
-	GLsizei n = arg.GetInt(0);
 #if defined(GL_VERSION_1_5)
+	GLsizei n = arg.GetInt(0);
 	AutoPtr<Array<GLuint> > _ids(new Array<GLuint>(n));
 	GLuint *ids = _ids->GetPointer();
 	glGenQueries(n, ids);
@@ -7350,9 +7350,9 @@ Gura_DeclareFunctionAlias(__glDeleteQueries, "glDeleteQueries")
 
 Gura_ImplementFunction(__glDeleteQueries)
 {
+#if defined(GL_VERSION_1_5)
 	Array<UInt> *_ids = Object_array<UInt>::GetObject(arg, 0)->GetArray();
 	GLuint *ids = reinterpret_cast<GLuint *>(_ids->GetPointer());
-#if defined(GL_VERSION_1_5)
 	GLsizei n = _ids->GetSize();
 	glDeleteQueries(n, ids);
 	return Value::Nil;
@@ -7375,8 +7375,8 @@ Gura_DeclareFunctionAlias(__glIsQuery, "glIsQuery")
 
 Gura_ImplementFunction(__glIsQuery)
 {
-	GLuint id = arg.GetUInt(0);
 #if defined(GL_VERSION_1_5)
+	GLuint id = arg.GetUInt(0);
 	GLboolean _rtn = glIsQuery(id);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
@@ -7399,9 +7399,9 @@ Gura_DeclareFunctionAlias(__glBeginQuery, "glBeginQuery")
 
 Gura_ImplementFunction(__glBeginQuery)
 {
+#if defined(GL_VERSION_1_5)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLuint id = arg.GetUInt(1);
-#if defined(GL_VERSION_1_5)
 	glBeginQuery(target, id);
 	if (arg.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
@@ -7428,8 +7428,8 @@ Gura_DeclareFunctionAlias(__glEndQuery, "glEndQuery")
 
 Gura_ImplementFunction(__glEndQuery)
 {
-	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 #if defined(GL_VERSION_1_5)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	glEndQuery(target);
 	return Value::Nil;
 #else
@@ -7452,9 +7452,9 @@ Gura_DeclareFunctionAlias(__glGetQueryiv, "glGetQueryiv")
 
 Gura_ImplementFunction(__glGetQueryiv)
 {
+#if defined(GL_VERSION_1_5)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
-#if defined(GL_VERSION_1_5)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -7480,9 +7480,9 @@ Gura_DeclareFunctionAlias(__glGetQueryObjectiv, "glGetQueryObjectiv")
 
 Gura_ImplementFunction(__glGetQueryObjectiv)
 {
+#if defined(GL_VERSION_1_5)
 	GLuint id = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
-#if defined(GL_VERSION_1_5)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -7508,9 +7508,9 @@ Gura_DeclareFunctionAlias(__glGetQueryObjectuiv, "glGetQueryObjectuiv")
 
 Gura_ImplementFunction(__glGetQueryObjectuiv)
 {
+#if defined(GL_VERSION_1_5)
 	GLuint id = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
-#if defined(GL_VERSION_1_5)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLuint> > _params(new Array<GLuint>(n));
 	GLuint *params = _params->GetPointer();
@@ -7534,8 +7534,8 @@ Gura_DeclareFunctionAlias(__glDeleteShader, "glDeleteShader")
 
 Gura_ImplementFunction(__glDeleteShader)
 {
-	GLuint shader = arg.GetUInt(0);
 #if defined(GL_VERSION_2_0)
+	GLuint shader = arg.GetUInt(0);
 	glDeleteShader(shader);
 	return Value::Nil;
 #else
@@ -7557,9 +7557,9 @@ Gura_DeclareFunctionAlias(__glDetachShader, "glDetachShader")
 
 Gura_ImplementFunction(__glDetachShader)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint program = arg.GetUInt(0);
 	GLuint shader = arg.GetUInt(1);
-#if defined(GL_VERSION_2_0)
 	glDetachShader(program, shader);
 	return Value::Nil;
 #else
@@ -7581,8 +7581,8 @@ Gura_DeclareFunctionAlias(__glCreateShader, "glCreateShader")
 
 Gura_ImplementFunction(__glCreateShader)
 {
-	GLenum type = static_cast<GLenum>(arg.GetInt(0));
 #if defined(GL_VERSION_2_0)
+	GLenum type = static_cast<GLenum>(arg.GetInt(0));
 	GLuint _rtn = glCreateShader(type);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
@@ -7604,9 +7604,9 @@ Gura_DeclareFunctionAlias(__glShaderSource, "glShaderSource")
 
 Gura_ImplementFunction(__glShaderSource)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint shader = arg.GetUInt(0);
 	const ValueList &string = arg.GetList(1);
-#if defined(GL_VERSION_2_0)
 	GLsizei count = static_cast<GLsizei>(string.size());
 	const GLchar **_string = new const GLchar *[count];
 	//GLint *length = new GLint[count];
@@ -7637,8 +7637,8 @@ Gura_DeclareFunctionAlias(__glCompileShader, "glCompileShader")
 
 Gura_ImplementFunction(__glCompileShader)
 {
-	GLuint shader = arg.GetUInt(0);
 #if defined(GL_VERSION_2_0)
+	GLuint shader = arg.GetUInt(0);
 	glCompileShader(shader);
 	return Value::Nil;
 #else
@@ -7681,9 +7681,9 @@ Gura_DeclareFunctionAlias(__glAttachShader, "glAttachShader")
 
 Gura_ImplementFunction(__glAttachShader)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint program = arg.GetUInt(0);
 	GLuint shader = arg.GetUInt(1);
-#if defined(GL_VERSION_2_0)
 	glAttachShader(program, shader);
 	return Value::Nil;
 #else
@@ -7704,8 +7704,8 @@ Gura_DeclareFunctionAlias(__glLinkProgram, "glLinkProgram")
 
 Gura_ImplementFunction(__glLinkProgram)
 {
-	GLuint program = arg.GetUInt(0);
 #if defined(GL_VERSION_2_0)
+	GLuint program = arg.GetUInt(0);
 	glLinkProgram(program);
 	return Value::Nil;
 #else
@@ -7726,8 +7726,8 @@ Gura_DeclareFunctionAlias(__glUseProgram, "glUseProgram")
 
 Gura_ImplementFunction(__glUseProgram)
 {
-	GLuint program = arg.GetUInt(0);
 #if defined(GL_VERSION_2_0)
+	GLuint program = arg.GetUInt(0);
 	glUseProgram(program);
 	return Value::Nil;
 #else
@@ -7748,8 +7748,8 @@ Gura_DeclareFunctionAlias(__glDeleteProgram, "glDeleteProgram")
 
 Gura_ImplementFunction(__glDeleteProgram)
 {
-	GLuint program = arg.GetUInt(0);
 #if defined(GL_VERSION_2_0)
+	GLuint program = arg.GetUInt(0);
 	glDeleteProgram(program);
 	return Value::Nil;
 #else
@@ -7770,8 +7770,8 @@ Gura_DeclareFunctionAlias(__glValidateProgram, "glValidateProgram")
 
 Gura_ImplementFunction(__glValidateProgram)
 {
-	GLuint program = arg.GetUInt(0);
 #if defined(GL_VERSION_2_0)
+	GLuint program = arg.GetUInt(0);
 	glValidateProgram(program);
 	return Value::Nil;
 #else
@@ -7794,9 +7794,9 @@ Gura_DeclareFunctionAlias(__glGetShaderiv, "glGetShaderiv")
 
 Gura_ImplementFunction(__glGetShaderiv)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint shader = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
-#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -7822,9 +7822,9 @@ Gura_DeclareFunctionAlias(__glGetProgramiv, "glGetProgramiv")
 
 Gura_ImplementFunction(__glGetProgramiv)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint program = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
-#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -7878,9 +7878,9 @@ Gura_DeclareFunctionAlias(__glGetShaderInfoLog, "glGetShaderInfoLog")
 
 Gura_ImplementFunction(__glGetShaderInfoLog)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint shader = arg.GetUInt(0);
 
-#if defined(GL_VERSION_2_0)
 	String _rtn;	
 	GLsizei bufSize = 0;
 	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &bufSize);
@@ -7911,9 +7911,9 @@ Gura_DeclareFunctionAlias(__glGetProgramInfoLog, "glGetProgramInfoLog")
 
 Gura_ImplementFunction(__glGetProgramInfoLog)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint program = arg.GetUInt(0);
 
-#if defined(GL_VERSION_2_0)
 	String _rtn;	
 	GLsizei bufSize = 0;
 	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &bufSize);
