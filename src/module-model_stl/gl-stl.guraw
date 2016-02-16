@@ -43,10 +43,10 @@ init(w:number, h:number) = {
 	glLightfv(GL_LIGHT0, GL_POSITION, position)
 }
 
-display(degreeH:number, degreeV:number) = {
+display(degreeH:number, degreeV:number, z:number) = {
 	glMatrixMode(GL_MODELVIEW)
 	glLoadIdentity()
-	gluLookAt(5, 0, 0,
+	gluLookAt(z, 0, 0,
 			  0, 0, 0,
 			  0, 0, 1)
 	glRotated(degreeH, 1, 0, 0)
@@ -62,7 +62,7 @@ display(degreeH:number, degreeV:number) = {
 scope {
 	import(sdl2, sdl)
 	import(glapp)
-	degreeH = 0, degreeV = 0
+	degreeH = 0, degreeV = 0, z = 5
 	[width, height] = [600, 600]
 	App = class(glapp.App) {
 		OnInit() = {
@@ -72,7 +72,7 @@ scope {
 		}
 		OnDraw() = {
 			init(width, height)
-			display(degreeH, degreeV)
+			display(degreeH, degreeV, z)
 			this.SwapWindow()
 		}
 		OnIdle() = {
@@ -93,9 +93,19 @@ scope {
 				updateFlag = true
 				degreeV -= 5
 			}
+			if (this.CheckKeyboardState(sdl.SCANCODE_A)) {
+				if (z > 2) {
+					updateFlag = true
+					z -= .1
+				}
+			}
+			if (this.CheckKeyboardState(sdl.SCANCODE_Z)) {
+				updateFlag = true
+				z += .1
+			}
 			init(width, height)
 			if (updateFlag) {
-				display(degreeH, degreeV)
+				display(degreeH, degreeV, z)
 				this.SwapWindow()
 			}
 		}
