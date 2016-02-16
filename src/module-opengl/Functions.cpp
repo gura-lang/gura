@@ -7313,6 +7313,215 @@ Gura_ImplementFunction(__glViewport)
 	return Value::Nil;
 }
 
+// opengl.glGenQueries
+Gura_DeclareFunctionAlias(__glGenQueries, "glGenQueries")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGenQueries)
+{
+	GLsizei n = arg.GetInt(0);
+#if defined(GL_VERSION_1_5)
+	AutoPtr<Array<GLuint> > _ids(new Array<GLuint>(n));
+	GLuint *ids = _ids->GetPointer();
+	glGenQueries(n, ids);
+	return ReturnValue(env, arg, Value::CreateList(env, ids, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGenQueries");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glDeleteQueries
+Gura_DeclareFunctionAlias(__glDeleteQueries, "glDeleteQueries")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "ids", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glDeleteQueries)
+{
+	Array<UInt> *_ids = Object_array<UInt>::GetObject(arg, 0)->GetArray();
+	GLuint *ids = reinterpret_cast<GLuint *>(_ids->GetPointer());
+#if defined(GL_VERSION_1_5)
+	GLsizei n = _ids->GetSize();
+	glDeleteQueries(n, ids);
+	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteQueries");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glIsQuery
+Gura_DeclareFunctionAlias(__glIsQuery, "glIsQuery")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glIsQuery)
+{
+	GLuint id = arg.GetUInt(0);
+#if defined(GL_VERSION_1_5)
+	GLboolean _rtn = glIsQuery(id);
+	return ReturnValue(env, arg, Value(_rtn));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glIsQuery");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glBeginQuery
+Gura_DeclareFunctionAlias(__glBeginQuery, "glBeginQuery")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glBeginQuery)
+{
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLuint id = arg.GetUInt(1);
+#if defined(GL_VERSION_1_5)
+	glBeginQuery(target, id);
+	if (arg.IsBlockSpecified()) {
+		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
+		if (env.IsSignalled()) return Value::Nil;
+		pExprBlock->Exec(env);
+		glEndQuery(target);
+	}
+	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glBeginQuery");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glEndQuery
+Gura_DeclareFunctionAlias(__glEndQuery, "glEndQuery")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glEndQuery)
+{
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+#if defined(GL_VERSION_1_5)
+	glEndQuery(target);
+	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glEndQuery");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGetQueryiv
+Gura_DeclareFunctionAlias(__glGetQueryiv, "glGetQueryiv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetQueryiv)
+{
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+#if defined(GL_VERSION_1_5)
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
+	glGetQueryiv(target, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryiv");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGetQueryObjectiv
+Gura_DeclareFunctionAlias(__glGetQueryObjectiv, "glGetQueryObjectiv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetQueryObjectiv)
+{
+	GLuint id = arg.GetUInt(0);
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+#if defined(GL_VERSION_1_5)
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
+	glGetQueryObjectiv(id, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryObjectiv");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGetQueryObjectuiv
+Gura_DeclareFunctionAlias(__glGetQueryObjectuiv, "glGetQueryObjectuiv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetQueryObjectuiv)
+{
+	GLuint id = arg.GetUInt(0);
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+#if defined(GL_VERSION_1_5)
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLuint> > _params(new Array<GLuint>(n));
+	GLuint *params = _params->GetPointer();
+	glGetQueryObjectuiv(id, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryObjectuiv");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glDeleteShader
 Gura_DeclareFunctionAlias(__glDeleteShader, "glDeleteShader")
 {
@@ -8458,6 +8667,14 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glVertex4s);
 	Gura_AssignFunction(__glVertex4sv);
 	Gura_AssignFunction(__glViewport);
+	Gura_AssignFunction(__glGenQueries);
+	Gura_AssignFunction(__glDeleteQueries);
+	Gura_AssignFunction(__glIsQuery);
+	Gura_AssignFunction(__glBeginQuery);
+	Gura_AssignFunction(__glEndQuery);
+	Gura_AssignFunction(__glGetQueryiv);
+	Gura_AssignFunction(__glGetQueryObjectiv);
+	Gura_AssignFunction(__glGetQueryObjectuiv);
 	Gura_AssignFunction(__glDeleteShader);
 	Gura_AssignFunction(__glDetachShader);
 	Gura_AssignFunction(__glCreateShader);

@@ -2901,32 +2901,50 @@ glWindowPos3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
 }
 */
 
-/*
 glGenQueries(n:GLsizei):map {block?} = R'''
+#if defined(GL_VERSION_1_5)
 	AutoPtr<Array<GLuint> > _ids(new Array<GLuint>(n));
 	GLuint *ids = _ids->GetPointer();
 	glGenQueries(n, ids);
 	return ReturnValue(env, arg, Value::CreateList(env, ids, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGenQueries");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glDeleteQueries(ids:GLuint@:const):void:map = R'''
-	GLsizei n = ids.GetSize();
+#if defined(GL_VERSION_1_5)
+	GLsizei n = _ids->GetSize();
 	glDeleteQueries(n, ids);
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteQueries");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIsQuery(id:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
+glIsQuery(id:GLuint):GLboolean:map {block?} = R'''
+#if defined(GL_VERSION_1_5)
+	GLboolean _rtn = glIsQuery(id);
+	return ReturnValue(env, arg, Value(_rtn));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glIsQuery");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
+#if defined(GL_VERSION_1_5)
 	glBeginQuery(target, id);
 	if (arg.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
@@ -2935,49 +2953,75 @@ glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 		glEndQuery(target);
 	}
 	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glBeginQuery");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glEndQuery(target:GLenum):void:map = `auto % {`en, 'markdown',
+glEndQuery(target:GLenum):void:map = R'''
+#if defined(GL_VERSION_1_5)
+	glEndQuery(target);
+	return Value::Nil;
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glEndQuery");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glGetQueryiv(target:GLenum, pname:GLenum):map {block?} = R'''
+#if defined(GL_VERSION_1_5)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetQueryiv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryiv");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glGetQueryObjectiv(id:GLuint, pname:GLenum):map {block?} = R'''
+#if defined(GL_VERSION_1_5)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetQueryObjectiv(id, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryObjectiv");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glGetQueryObjectuiv(id:GLuint, pname:GLenum):map {block?} = R'''
+#if defined(GL_VERSION_1_5)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLuint> > _params(new Array<GLuint>(n));
 	GLuint *params = _params->GetPointer();
 	glGetQueryObjectuiv(id, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryObjectuiv");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 	
 /*
 glBindBuffer(target:GLenum, buffer:GLuint):void:map = `auto % {`en, 'markdown',
