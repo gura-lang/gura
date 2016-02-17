@@ -7804,6 +7804,52 @@ Gura_ImplementFunction(__glValidateProgram)
 #endif
 }
 
+// opengl.glIsShader
+Gura_DeclareFunctionAlias(__glIsShader, "glIsShader")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glIsShader)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint shader = arg.GetUInt(0);
+	bool _rtn = glIsShader(shader);
+	return ReturnValue(env, arg, Value(_rtn));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glIsProgram
+Gura_DeclareFunctionAlias(__glIsProgram, "glIsProgram")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glIsProgram)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint program = arg.GetUInt(0);
+	bool _rtn = glIsProgram(program);
+	return ReturnValue(env, arg, Value(_rtn));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glGetShaderiv
 Gura_DeclareFunctionAlias(__glGetShaderiv, "glGetShaderiv")
 {
@@ -8711,6 +8757,8 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glUseProgram);
 	Gura_AssignFunction(__glDeleteProgram);
 	Gura_AssignFunction(__glValidateProgram);
+	Gura_AssignFunction(__glIsShader);
+	Gura_AssignFunction(__glIsProgram);
 	Gura_AssignFunction(__glGetShaderiv);
 	Gura_AssignFunction(__glGetProgramiv);
 	Gura_AssignFunction(__glGetAttachedShaders);

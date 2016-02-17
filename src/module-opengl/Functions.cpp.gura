@@ -3574,17 +3574,31 @@ glUniformMatrix4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLf
 }
 */
 
-/*
-glIsShader(shader:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
+glIsShader(shader:GLuint):GLboolean:map {block?} = R'''
+^#if defined(GL_VERSION_2_0)
+	bool _rtn = glIsShader(shader);
+	return ReturnValue(env, arg, Value(_rtn));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIsProgram(program:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
+glIsProgram(program:GLuint):GLboolean:map {block?} = R'''
+^#if defined(GL_VERSION_2_0)
+	bool _rtn = glIsProgram(program);
+	return ReturnValue(env, arg, Value(_rtn));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glGetShaderiv(shader:GLuint, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
