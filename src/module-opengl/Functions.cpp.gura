@@ -88,12 +88,18 @@ glBlendEquation(mode:GLenum):void:map = `auto % {`en, 'markdown',
 }
 */
 
-/*
-glBlendEquationSeparate(modeRGB:GLenum, modeAlpha:GLenum):void:map = `auto % {`en, 'markdown',
+glBlendEquationSeparate(modeRGB:GLenum, modeAlpha:GLenum):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glBlendEquationSeparate(modeRGB, modeAlpha);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glBlendFunc(sfactor:GLenum, dfactor:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -2908,7 +2914,7 @@ glGenQueries(n:GLsizei):map {block?} = R'''
 	glGenQueries(n, ids);
 	return ReturnValue(env, arg, Value::CreateList(env, ids, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGenQueries");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -2922,7 +2928,7 @@ glDeleteQueries(ids:GLuint@:const):void:map = R'''
 	glDeleteQueries(n, ids);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteQueries");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -2935,7 +2941,7 @@ glIsQuery(id:GLuint):GLboolean:map {block?} = R'''
 	GLboolean _rtn = glIsQuery(id);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glIsQuery");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -2954,7 +2960,7 @@ glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 	}
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glBeginQuery");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -2967,7 +2973,7 @@ glEndQuery(target:GLenum):void:map = R'''
 	glEndQuery(target);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glEndQuery");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -2983,7 +2989,7 @@ glGetQueryiv(target:GLenum, pname:GLenum):map {block?} = R'''
 	glGetQueryiv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryiv");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -2999,7 +3005,7 @@ glGetQueryObjectiv(id:GLuint, pname:GLenum):map {block?} = R'''
 	glGetQueryObjectiv(id, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryObjectiv");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3015,7 +3021,7 @@ glGetQueryObjectuiv(id:GLuint, pname:GLenum):map {block?} = R'''
 	glGetQueryObjectuiv(id, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryObjectuiv");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3323,7 +3329,7 @@ glDeleteShader(shader:GLuint):void:map = R'''
 	glDeleteShader(shader);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteShader");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3336,7 +3342,7 @@ glDetachShader(program:GLuint, shader:GLuint):void:map = R'''
 	glDetachShader(program, shader);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glDetachShader");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3349,7 +3355,7 @@ glCreateShader(type:GLenum):GLuint:map {block?} = R'''
 	GLuint _rtn = glCreateShader(type);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glCreateShader");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3372,7 +3378,7 @@ glShaderSource(shader:GLuint, string[]:string):void:map = R'''
 	delete[] length;
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glShaderSource");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3385,7 +3391,7 @@ glCompileShader(shader:GLuint):void:map = R'''
 	glCompileShader(shader);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glCompileShader");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3398,7 +3404,7 @@ glCreateProgram():GLuint {block?} = R'''
 	GLuint _rtn = glCreateProgram();
 	return ReturnValue(env, arg, Value(_rtn));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glCreateProgram");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3411,7 +3417,7 @@ glAttachShader(program:GLuint, shader:GLuint):void:map = R'''
 	glAttachShader(program, shader);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glAttachShader");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3424,7 +3430,7 @@ glLinkProgram(program:GLuint):void:map = R'''
 	glLinkProgram(program);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glLinkProgram");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3437,7 +3443,7 @@ glUseProgram(program:GLuint):void:map = R'''
 	glUseProgram(program);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glUseProgram");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3450,7 +3456,7 @@ glDeleteProgram(program:GLuint):void:map = R'''
 	glDeleteProgram(program);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteProgram");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3463,7 +3469,7 @@ glValidateProgram(program:GLuint):void:map = R'''
 	glValidateProgram(program);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glValidateProgram");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3588,7 +3594,7 @@ glGetShaderiv(shader:GLuint, pname:GLenum):map {block?} = R'''
 	glGetShaderiv(shader, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderiv");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3604,7 +3610,7 @@ glGetProgramiv(program:GLuint, pname:GLenum):map {block?} = R'''
 	glGetProgramiv(program, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetProgramiv");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3631,7 +3637,7 @@ glGetShaderInfoLog(shader:GLuint):map {block?} = '''
 	}
 	return ReturnValue(env, arg, Value(_rtn));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderInfoLog");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',
@@ -3653,7 +3659,7 @@ glGetProgramInfoLog(program:GLuint):map {block?} = '''
 	}
 	return ReturnValue(env, arg, Value(_rtn));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetProgramInfoLog");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 ''' % {`en, 'markdown',

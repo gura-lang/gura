@@ -1399,7 +1399,12 @@ GLenum GetImageFormat(Environment &env, const Image *pImage)
 
 void SetError_NotImpFunction(Environment &env, const char *funcName)
 {
-	env.SetError(ERR_RuntimeError, "not implemented function %s", funcName);
+	env.SetError(ERR_NotImplementedError, "not implemented function %s", funcName);
+}
+
+void SetError_RequiredGLVersion(Environment &env, const char *version)
+{
+	env.SetError(ERR_NotImplementedError, "available in OpenGL %s or later", version);
 }
 
 //-----------------------------------------------------------------------------

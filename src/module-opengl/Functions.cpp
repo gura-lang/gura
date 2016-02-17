@@ -170,6 +170,30 @@ Gura_ImplementFunction(__glBitmap)
 	return Value::Nil;
 }
 
+// opengl.glBlendEquationSeparate
+Gura_DeclareFunctionAlias(__glBlendEquationSeparate, "glBlendEquationSeparate")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "modeRGB", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "modeAlpha", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glBlendEquationSeparate)
+{
+#if defined(GL_VERSION_2_0)
+	GLenum modeRGB = static_cast<GLenum>(arg.GetInt(0));
+	GLenum modeAlpha = static_cast<GLenum>(arg.GetInt(1));
+	glBlendEquationSeparate(modeRGB, modeAlpha);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glBlendFunc
 Gura_DeclareFunctionAlias(__glBlendFunc, "glBlendFunc")
 {
@@ -7333,7 +7357,7 @@ Gura_ImplementFunction(__glGenQueries)
 	glGenQueries(n, ids);
 	return ReturnValue(env, arg, Value::CreateList(env, ids, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGenQueries");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 }
@@ -7357,7 +7381,7 @@ Gura_ImplementFunction(__glDeleteQueries)
 	glDeleteQueries(n, ids);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteQueries");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 }
@@ -7380,7 +7404,7 @@ Gura_ImplementFunction(__glIsQuery)
 	GLboolean _rtn = glIsQuery(id);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glIsQuery");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 }
@@ -7411,7 +7435,7 @@ Gura_ImplementFunction(__glBeginQuery)
 	}
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glBeginQuery");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 }
@@ -7433,7 +7457,7 @@ Gura_ImplementFunction(__glEndQuery)
 	glEndQuery(target);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glEndQuery");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 }
@@ -7461,7 +7485,7 @@ Gura_ImplementFunction(__glGetQueryiv)
 	glGetQueryiv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryiv");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 }
@@ -7489,7 +7513,7 @@ Gura_ImplementFunction(__glGetQueryObjectiv)
 	glGetQueryObjectiv(id, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryObjectiv");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 }
@@ -7517,7 +7541,7 @@ Gura_ImplementFunction(__glGetQueryObjectuiv)
 	glGetQueryObjectuiv(id, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetQueryObjectuiv");
+	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
 #endif
 }
@@ -7539,7 +7563,7 @@ Gura_ImplementFunction(__glDeleteShader)
 	glDeleteShader(shader);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteShader");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7563,7 +7587,7 @@ Gura_ImplementFunction(__glDetachShader)
 	glDetachShader(program, shader);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glDetachShader");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7586,7 +7610,7 @@ Gura_ImplementFunction(__glCreateShader)
 	GLuint _rtn = glCreateShader(type);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glCreateShader");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7620,7 +7644,7 @@ Gura_ImplementFunction(__glShaderSource)
 	delete[] length;
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glShaderSource");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7642,7 +7666,7 @@ Gura_ImplementFunction(__glCompileShader)
 	glCompileShader(shader);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glCompileShader");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7663,7 +7687,7 @@ Gura_ImplementFunction(__glCreateProgram)
 	GLuint _rtn = glCreateProgram();
 	return ReturnValue(env, arg, Value(_rtn));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glCreateProgram");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7687,7 +7711,7 @@ Gura_ImplementFunction(__glAttachShader)
 	glAttachShader(program, shader);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glAttachShader");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7709,7 +7733,7 @@ Gura_ImplementFunction(__glLinkProgram)
 	glLinkProgram(program);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glLinkProgram");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7731,7 +7755,7 @@ Gura_ImplementFunction(__glUseProgram)
 	glUseProgram(program);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glUseProgram");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7753,7 +7777,7 @@ Gura_ImplementFunction(__glDeleteProgram)
 	glDeleteProgram(program);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glDeleteProgram");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7775,7 +7799,7 @@ Gura_ImplementFunction(__glValidateProgram)
 	glValidateProgram(program);
 	return Value::Nil;
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glValidateProgram");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7803,7 +7827,7 @@ Gura_ImplementFunction(__glGetShaderiv)
 	glGetShaderiv(shader, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderiv");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7831,7 +7855,7 @@ Gura_ImplementFunction(__glGetProgramiv)
 	glGetProgramiv(program, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetProgramiv");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7893,7 +7917,7 @@ Gura_ImplementFunction(__glGetShaderInfoLog)
 	}
 	return ReturnValue(env, arg, Value(_rtn));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderInfoLog");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -7926,7 +7950,7 @@ Gura_ImplementFunction(__glGetProgramInfoLog)
 	}
 	return ReturnValue(env, arg, Value(_rtn));
 #else
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetProgramInfoLog");
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
 }
@@ -8340,6 +8364,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glBegin);
 	Gura_AssignFunction(__glBindTexture);
 	Gura_AssignFunction(__glBitmap);
+	Gura_AssignFunction(__glBlendEquationSeparate);
 	Gura_AssignFunction(__glBlendFunc);
 	Gura_AssignFunction(__glCallList);
 	Gura_AssignFunction(__glCallLists);

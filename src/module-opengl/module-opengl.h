@@ -31,6 +31,7 @@ bool CheckParamCount(GLenum pname, size_t n);
 
 GLenum GetImageFormat(Environment &env, const Image *pImage);
 void SetError_NotImpFunction(Environment &env, const char *funcName);
+void SetError_OpenGLVersion(Environment &env, const char *version);
 
 Gura_EndModuleHeader(opengl)
 
