@@ -490,33 +490,57 @@ glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):
 	'''
 }
 
-/*
-glCopyColorSubTable(target:GLenum, start:GLsizei, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
+glCopyColorSubTable(target:GLenum, start:GLsizei, x:GLint, y:GLint, width:GLsizei):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glCopyColorSubTable(target, start, x, y, width);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glCopyColorTable(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
+glCopyColorTable(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glCopyColorTable(target, internalformat, x, y, width);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glCopyConvolutionFilter1D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
+glCopyConvolutionFilter1D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glCopyConvolutionFilter1D(target, internalformat, x, y, width);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glCopyConvolutionFilter2D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`en, 'markdown',
+glCopyConvolutionFilter2D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glCopyConvolutionFilter2D(target, internalformat, x, y, width, height);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glCopyPixels(x:GLint, y:GLint, width:GLsizei, height:GLsizei, type:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''

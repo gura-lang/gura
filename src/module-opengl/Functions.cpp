@@ -1427,6 +1427,128 @@ Gura_ImplementFunction(__glConvolutionParameteriv)
 #endif
 }
 
+// opengl.glCopyColorSubTable
+Gura_DeclareFunctionAlias(__glCopyColorSubTable, "glCopyColorSubTable")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "start", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glCopyColorSubTable)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLsizei start = arg.GetInt(1);
+	GLint x = arg.GetInt(2);
+	GLint y = arg.GetInt(3);
+	GLsizei width = arg.GetInt(4);
+	glCopyColorSubTable(target, start, x, y, width);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glCopyColorTable
+Gura_DeclareFunctionAlias(__glCopyColorTable, "glCopyColorTable")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalformat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glCopyColorTable)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum internalformat = static_cast<GLenum>(arg.GetInt(1));
+	GLint x = arg.GetInt(2);
+	GLint y = arg.GetInt(3);
+	GLsizei width = arg.GetInt(4);
+	glCopyColorTable(target, internalformat, x, y, width);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glCopyConvolutionFilter1D
+Gura_DeclareFunctionAlias(__glCopyConvolutionFilter1D, "glCopyConvolutionFilter1D")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalformat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glCopyConvolutionFilter1D)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum internalformat = static_cast<GLenum>(arg.GetInt(1));
+	GLint x = arg.GetInt(2);
+	GLint y = arg.GetInt(3);
+	GLsizei width = arg.GetInt(4);
+	glCopyConvolutionFilter1D(target, internalformat, x, y, width);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glCopyConvolutionFilter2D
+Gura_DeclareFunctionAlias(__glCopyConvolutionFilter2D, "glCopyConvolutionFilter2D")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalformat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glCopyConvolutionFilter2D)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum internalformat = static_cast<GLenum>(arg.GetInt(1));
+	GLint x = arg.GetInt(2);
+	GLint y = arg.GetInt(3);
+	GLsizei width = arg.GetInt(4);
+	GLsizei height = arg.GetInt(5);
+	glCopyConvolutionFilter2D(target, internalformat, x, y, width, height);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glCopyPixels
 Gura_DeclareFunctionAlias(__glCopyPixels, "glCopyPixels")
 {
@@ -10740,6 +10862,10 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glConvolutionParameterfv);
 	Gura_AssignFunction(__glConvolutionParameteri);
 	Gura_AssignFunction(__glConvolutionParameteriv);
+	Gura_AssignFunction(__glCopyColorSubTable);
+	Gura_AssignFunction(__glCopyColorTable);
+	Gura_AssignFunction(__glCopyConvolutionFilter1D);
+	Gura_AssignFunction(__glCopyConvolutionFilter2D);
 	Gura_AssignFunction(__glCopyPixels);
 	Gura_AssignFunction(__glCopyTexImage1D);
 	Gura_AssignFunction(__glCopyTexImage2D);
