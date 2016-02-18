@@ -2431,244 +2431,448 @@ glMultTransposeMatrixd(m:GLdouble@matrix:const):void = `auto % {`en, 'markdown',
 
 //glGetCompressedTexImage(target:GLenum, lod:GLint, img:GLvoid@):void:map = `unsupport
 
-/*
-glActiveTexture(texture:GLenum):void:map = `auto % {`en, 'markdown',
+glActiveTexture(texture:GLenum):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glActiveTexture(texture);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glClientActiveTexture(texture:GLenum):void:map = `auto % {`en, 'markdown',
+glClientActiveTexture(texture:GLenum):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glClientActiveTexture(texture);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord1d(target:GLenum, s:GLdouble):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord1d(target:GLenum, s:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord1d(target, s);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord1dv(target:GLenum, v:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord1dv(target:GLenum, v:GLdouble@1:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord1dv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord1f(target:GLenum, s:GLfloat):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord1f(target:GLenum, s:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord1f(target, s);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord1fv(target:GLenum, v:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord1fv(target:GLenum, v:GLfloat@1:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord1fv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord1i(target:GLenum, s:GLint):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord1i(target:GLenum, s:GLint):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord1i(target, s);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord1iv(target:GLenum, v:GLint@1:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord1iv(target:GLenum, v:GLint@1:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord1iv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord1s(target:GLenum, s:GLshort):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord1s(target:GLenum, s:GLshort):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord1s(target, s);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord1sv(target:GLenum, v:GLshort@1:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord1sv(target:GLenum, v:GLshort@1:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord1sv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord2d(target:GLenum, s:GLdouble, t:GLdouble):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord2d(target:GLenum, s:GLdouble, t:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord2d(target, s, t);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord2dv(target:GLenum, v:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord2dv(target:GLenum, v:GLdouble@2:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord2dv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord2f(target:GLenum, s:GLfloat, t:GLfloat):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord2f(target:GLenum, s:GLfloat, t:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord2f(target, s, t);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord2fv(target:GLenum, v:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord2fv(target:GLenum, v:GLfloat@2:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord2fv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord2i(target:GLenum, s:GLint, t:GLint):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord2i(target:GLenum, s:GLint, t:GLint):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord2i(target, s, t);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord2iv(target:GLenum, v:GLint@2:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord2iv(target:GLenum, v:GLint@2:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord2iv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord2s(target:GLenum, s:GLshort, t:GLshort):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord2s(target:GLenum, s:GLshort, t:GLshort):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord2s(target, s, t);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord2sv(target:GLenum, v:GLshort@2:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord2sv(target:GLenum, v:GLshort@2:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord2sv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord3d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord3d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord3d(target, s, t, r);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord3dv(target:GLenum, v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord3dv(target:GLenum, v:GLdouble@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord3dv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord3f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord3f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord3f(target, s, t, r);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord3fv(target:GLenum, v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord3fv(target:GLenum, v:GLfloat@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord3fv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord3i(target:GLenum, s:GLint, t:GLint, r:GLint):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord3i(target:GLenum, s:GLint, t:GLint, r:GLint):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord3i(target, s, t, r);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord3iv(target:GLenum, v:GLint@3:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord3iv(target:GLenum, v:GLint@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord3iv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord3s(target:GLenum, s:GLshort, t:GLshort, r:GLshort):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord3s(target:GLenum, s:GLshort, t:GLshort, r:GLshort):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord3s(target, s, t, r);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord3sv(target:GLenum, v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord3sv(target:GLenum, v:GLshort@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord3sv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord4d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord4d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord4d(target, s, t, r, q);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord4dv(target:GLenum, v:GLdouble@4:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord4dv(target:GLenum, v:GLdouble@4:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord4dv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord4f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord4f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord4f(target, s, t, r, q);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord4fv(target:GLenum, v:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord4fv(target:GLenum, v:GLfloat@4:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord4fv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord4i(target:GLenum, s:GLint, t:GLint, r:GLint, q:GLint):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord4i(target:GLenum, s:GLint, t:GLint, r:GLint, q:GLint):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord4i(target, s, t, r, q);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord4iv(target:GLenum, v:GLint@4:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord4iv(target:GLenum, v:GLint@4:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord4iv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord4s(target:GLenum, s:GLshort, t:GLshort, r:GLshort, q:GLshort):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord4s(target:GLenum, s:GLshort, t:GLshort, r:GLshort, q:GLshort):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord4s(target, s, t, r, q);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glMultiTexCoord4sv(target:GLenum, v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
+glMultiTexCoord4sv(target:GLenum, v:GLshort@4:const):void:map = R'''
+^#if defined(GL_VERSION_1_3)
+	glMultiTexCoord4sv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
-
+	
 glFogCoordf(coord:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
 	glFogCoordf(coord);

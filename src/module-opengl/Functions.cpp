@@ -7433,6 +7433,946 @@ Gura_ImplementFunction(__glViewport)
 	return Value::Nil;
 }
 
+// opengl.glActiveTexture
+Gura_DeclareFunctionAlias(__glActiveTexture, "glActiveTexture")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "texture", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glActiveTexture)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum texture = static_cast<GLenum>(arg.GetInt(0));
+	glActiveTexture(texture);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glClientActiveTexture
+Gura_DeclareFunctionAlias(__glClientActiveTexture, "glClientActiveTexture")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "texture", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glClientActiveTexture)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum texture = static_cast<GLenum>(arg.GetInt(0));
+	glClientActiveTexture(texture);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord1d
+Gura_DeclareFunctionAlias(__glMultiTexCoord1d, "glMultiTexCoord1d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord1d)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLdouble s = arg.GetDouble(1);
+	glMultiTexCoord1d(target, s);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord1dv
+Gura_DeclareFunctionAlias(__glMultiTexCoord1dv, "glMultiTexCoord1dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord1dv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<double> *_v = Object_array<double>::GetObject(arg, 1)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 1) {
+		env.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Nil;
+	}
+	glMultiTexCoord1dv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord1f
+Gura_DeclareFunctionAlias(__glMultiTexCoord1f, "glMultiTexCoord1f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord1f)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLfloat s = arg.GetFloat(1);
+	glMultiTexCoord1f(target, s);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord1fv
+Gura_DeclareFunctionAlias(__glMultiTexCoord1fv, "glMultiTexCoord1fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord1fv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<float> *_v = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 1) {
+		env.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Nil;
+	}
+	glMultiTexCoord1fv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord1i
+Gura_DeclareFunctionAlias(__glMultiTexCoord1i, "glMultiTexCoord1i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord1i)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLint s = arg.GetInt(1);
+	glMultiTexCoord1i(target, s);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord1iv
+Gura_DeclareFunctionAlias(__glMultiTexCoord1iv, "glMultiTexCoord1iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord1iv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<int> *_v = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
+	if (_v->GetSize() != 1) {
+		env.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Nil;
+	}
+	glMultiTexCoord1iv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord1s
+Gura_DeclareFunctionAlias(__glMultiTexCoord1s, "glMultiTexCoord1s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord1s)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLshort s = arg.GetShort(1);
+	glMultiTexCoord1s(target, s);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord1sv
+Gura_DeclareFunctionAlias(__glMultiTexCoord1sv, "glMultiTexCoord1sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord1sv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<short> *_v = Object_array<short>::GetObject(arg, 1)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 1) {
+		env.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Nil;
+	}
+	glMultiTexCoord1sv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord2d
+Gura_DeclareFunctionAlias(__glMultiTexCoord2d, "glMultiTexCoord2d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord2d)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLdouble s = arg.GetDouble(1);
+	GLdouble t = arg.GetDouble(2);
+	glMultiTexCoord2d(target, s, t);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord2dv
+Gura_DeclareFunctionAlias(__glMultiTexCoord2dv, "glMultiTexCoord2dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord2dv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<double> *_v = Object_array<double>::GetObject(arg, 1)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord2dv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord2f
+Gura_DeclareFunctionAlias(__glMultiTexCoord2f, "glMultiTexCoord2f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord2f)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLfloat s = arg.GetFloat(1);
+	GLfloat t = arg.GetFloat(2);
+	glMultiTexCoord2f(target, s, t);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord2fv
+Gura_DeclareFunctionAlias(__glMultiTexCoord2fv, "glMultiTexCoord2fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord2fv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<float> *_v = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord2fv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord2i
+Gura_DeclareFunctionAlias(__glMultiTexCoord2i, "glMultiTexCoord2i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord2i)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLint s = arg.GetInt(1);
+	GLint t = arg.GetInt(2);
+	glMultiTexCoord2i(target, s, t);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord2iv
+Gura_DeclareFunctionAlias(__glMultiTexCoord2iv, "glMultiTexCoord2iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord2iv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<int> *_v = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord2iv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord2s
+Gura_DeclareFunctionAlias(__glMultiTexCoord2s, "glMultiTexCoord2s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord2s)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLshort s = arg.GetShort(1);
+	GLshort t = arg.GetShort(2);
+	glMultiTexCoord2s(target, s, t);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord2sv
+Gura_DeclareFunctionAlias(__glMultiTexCoord2sv, "glMultiTexCoord2sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord2sv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<short> *_v = Object_array<short>::GetObject(arg, 1)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord2sv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord3d
+Gura_DeclareFunctionAlias(__glMultiTexCoord3d, "glMultiTexCoord3d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "r", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord3d)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLdouble s = arg.GetDouble(1);
+	GLdouble t = arg.GetDouble(2);
+	GLdouble r = arg.GetDouble(3);
+	glMultiTexCoord3d(target, s, t, r);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord3dv
+Gura_DeclareFunctionAlias(__glMultiTexCoord3dv, "glMultiTexCoord3dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord3dv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<double> *_v = Object_array<double>::GetObject(arg, 1)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord3dv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord3f
+Gura_DeclareFunctionAlias(__glMultiTexCoord3f, "glMultiTexCoord3f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "r", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord3f)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLfloat s = arg.GetFloat(1);
+	GLfloat t = arg.GetFloat(2);
+	GLfloat r = arg.GetFloat(3);
+	glMultiTexCoord3f(target, s, t, r);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord3fv
+Gura_DeclareFunctionAlias(__glMultiTexCoord3fv, "glMultiTexCoord3fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord3fv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<float> *_v = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord3fv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord3i
+Gura_DeclareFunctionAlias(__glMultiTexCoord3i, "glMultiTexCoord3i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "r", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord3i)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLint s = arg.GetInt(1);
+	GLint t = arg.GetInt(2);
+	GLint r = arg.GetInt(3);
+	glMultiTexCoord3i(target, s, t, r);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord3iv
+Gura_DeclareFunctionAlias(__glMultiTexCoord3iv, "glMultiTexCoord3iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord3iv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<int> *_v = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord3iv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord3s
+Gura_DeclareFunctionAlias(__glMultiTexCoord3s, "glMultiTexCoord3s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "r", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord3s)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLshort s = arg.GetShort(1);
+	GLshort t = arg.GetShort(2);
+	GLshort r = arg.GetShort(3);
+	glMultiTexCoord3s(target, s, t, r);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord3sv
+Gura_DeclareFunctionAlias(__glMultiTexCoord3sv, "glMultiTexCoord3sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord3sv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<short> *_v = Object_array<short>::GetObject(arg, 1)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord3sv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord4d
+Gura_DeclareFunctionAlias(__glMultiTexCoord4d, "glMultiTexCoord4d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "r", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "q", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord4d)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLdouble s = arg.GetDouble(1);
+	GLdouble t = arg.GetDouble(2);
+	GLdouble r = arg.GetDouble(3);
+	GLdouble q = arg.GetDouble(4);
+	glMultiTexCoord4d(target, s, t, r, q);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord4dv
+Gura_DeclareFunctionAlias(__glMultiTexCoord4dv, "glMultiTexCoord4dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord4dv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<double> *_v = Object_array<double>::GetObject(arg, 1)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord4dv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord4f
+Gura_DeclareFunctionAlias(__glMultiTexCoord4f, "glMultiTexCoord4f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "r", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "q", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord4f)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLfloat s = arg.GetFloat(1);
+	GLfloat t = arg.GetFloat(2);
+	GLfloat r = arg.GetFloat(3);
+	GLfloat q = arg.GetFloat(4);
+	glMultiTexCoord4f(target, s, t, r, q);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord4fv
+Gura_DeclareFunctionAlias(__glMultiTexCoord4fv, "glMultiTexCoord4fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord4fv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<float> *_v = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord4fv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord4i
+Gura_DeclareFunctionAlias(__glMultiTexCoord4i, "glMultiTexCoord4i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "r", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "q", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord4i)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLint s = arg.GetInt(1);
+	GLint t = arg.GetInt(2);
+	GLint r = arg.GetInt(3);
+	GLint q = arg.GetInt(4);
+	glMultiTexCoord4i(target, s, t, r, q);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord4iv
+Gura_DeclareFunctionAlias(__glMultiTexCoord4iv, "glMultiTexCoord4iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord4iv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<int> *_v = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord4iv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord4s
+Gura_DeclareFunctionAlias(__glMultiTexCoord4s, "glMultiTexCoord4s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "s", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "t", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "r", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "q", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord4s)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLshort s = arg.GetShort(1);
+	GLshort t = arg.GetShort(2);
+	GLshort r = arg.GetShort(3);
+	GLshort q = arg.GetShort(4);
+	glMultiTexCoord4s(target, s, t, r, q);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiTexCoord4sv
+Gura_DeclareFunctionAlias(__glMultiTexCoord4sv, "glMultiTexCoord4sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiTexCoord4sv)
+{
+#if defined(GL_VERSION_1_3)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	Array<short> *_v = Object_array<short>::GetObject(arg, 1)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glMultiTexCoord4sv(target, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.3");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glFogCoordf
 Gura_DeclareFunctionAlias(__glFogCoordf, "glFogCoordf")
 {
@@ -9945,6 +10885,40 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glVertex4s);
 	Gura_AssignFunction(__glVertex4sv);
 	Gura_AssignFunction(__glViewport);
+	Gura_AssignFunction(__glActiveTexture);
+	Gura_AssignFunction(__glClientActiveTexture);
+	Gura_AssignFunction(__glMultiTexCoord1d);
+	Gura_AssignFunction(__glMultiTexCoord1dv);
+	Gura_AssignFunction(__glMultiTexCoord1f);
+	Gura_AssignFunction(__glMultiTexCoord1fv);
+	Gura_AssignFunction(__glMultiTexCoord1i);
+	Gura_AssignFunction(__glMultiTexCoord1iv);
+	Gura_AssignFunction(__glMultiTexCoord1s);
+	Gura_AssignFunction(__glMultiTexCoord1sv);
+	Gura_AssignFunction(__glMultiTexCoord2d);
+	Gura_AssignFunction(__glMultiTexCoord2dv);
+	Gura_AssignFunction(__glMultiTexCoord2f);
+	Gura_AssignFunction(__glMultiTexCoord2fv);
+	Gura_AssignFunction(__glMultiTexCoord2i);
+	Gura_AssignFunction(__glMultiTexCoord2iv);
+	Gura_AssignFunction(__glMultiTexCoord2s);
+	Gura_AssignFunction(__glMultiTexCoord2sv);
+	Gura_AssignFunction(__glMultiTexCoord3d);
+	Gura_AssignFunction(__glMultiTexCoord3dv);
+	Gura_AssignFunction(__glMultiTexCoord3f);
+	Gura_AssignFunction(__glMultiTexCoord3fv);
+	Gura_AssignFunction(__glMultiTexCoord3i);
+	Gura_AssignFunction(__glMultiTexCoord3iv);
+	Gura_AssignFunction(__glMultiTexCoord3s);
+	Gura_AssignFunction(__glMultiTexCoord3sv);
+	Gura_AssignFunction(__glMultiTexCoord4d);
+	Gura_AssignFunction(__glMultiTexCoord4dv);
+	Gura_AssignFunction(__glMultiTexCoord4f);
+	Gura_AssignFunction(__glMultiTexCoord4fv);
+	Gura_AssignFunction(__glMultiTexCoord4i);
+	Gura_AssignFunction(__glMultiTexCoord4iv);
+	Gura_AssignFunction(__glMultiTexCoord4s);
+	Gura_AssignFunction(__glMultiTexCoord4sv);
 	Gura_AssignFunction(__glFogCoordf);
 	Gura_AssignFunction(__glFogCoordfv);
 	Gura_AssignFunction(__glFogCoordd);
