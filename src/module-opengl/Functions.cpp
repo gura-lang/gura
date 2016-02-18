@@ -1197,6 +1197,102 @@ Gura_ImplementFunction(__glColorMaterial)
 	return Value::Nil;
 }
 
+// opengl.glConvolutionParameterf
+Gura_DeclareFunctionAlias(__glConvolutionParameterf, "glConvolutionParameterf")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glConvolutionParameterf)
+{
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	GLfloat params = arg.GetFloat(2);
+	glConvolutionParameterf(target, pname, params);
+	return Value::Nil;
+}
+
+// opengl.glConvolutionParameterfv
+Gura_DeclareFunctionAlias(__glConvolutionParameterfv, "glConvolutionParameterfv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glConvolutionParameterfv)
+{
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	Array<float> *_params = Object_array<float>::GetObject(arg, 2)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
+		env.SetError(ERR_ValueError,
+				"the list must have %d elements", GetParamCount(pname));
+		return Value::Nil;
+	}
+	glConvolutionParameterfv(target, pname, params);
+	return Value::Nil;
+}
+
+// opengl.glConvolutionParameteri
+Gura_DeclareFunctionAlias(__glConvolutionParameteri, "glConvolutionParameteri")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "params", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glConvolutionParameteri)
+{
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	GLint params = arg.GetInt(2);
+	glConvolutionParameteri(target, pname, params);
+	return Value::Nil;
+}
+
+// opengl.glConvolutionParameteriv
+Gura_DeclareFunctionAlias(__glConvolutionParameteriv, "glConvolutionParameteriv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glConvolutionParameteriv)
+{
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	Array<int> *_params = Object_array<int>::GetObject(arg, 2)->GetArray();
+	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
+		env.SetError(ERR_ValueError,
+				"the list must have %d elements", GetParamCount(pname));
+		return Value::Nil;
+	}
+	glConvolutionParameteriv(target, pname, params);
+	return Value::Nil;
+}
+
 // opengl.glCopyPixels
 Gura_DeclareFunctionAlias(__glCopyPixels, "glCopyPixels")
 {
@@ -7337,6 +7433,1015 @@ Gura_ImplementFunction(__glViewport)
 	return Value::Nil;
 }
 
+// opengl.glSecondaryColor3b
+Gura_DeclareFunctionAlias(__glSecondaryColor3b, "glSecondaryColor3b")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3b)
+{
+#if defined(GL_VERSION_1_4)
+	GLbyte red = arg.GetChar(0);
+	GLbyte green = arg.GetChar(1);
+	GLbyte blue = arg.GetChar(2);
+	glSecondaryColor3b(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3bv
+Gura_DeclareFunctionAlias(__glSecondaryColor3bv, "glSecondaryColor3bv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3bv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<char> *_v = Object_array<char>::GetObject(arg, 0)->GetArray();
+	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glSecondaryColor3bv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3d
+Gura_DeclareFunctionAlias(__glSecondaryColor3d, "glSecondaryColor3d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3d)
+{
+#if defined(GL_VERSION_1_4)
+	GLdouble red = arg.GetDouble(0);
+	GLdouble green = arg.GetDouble(1);
+	GLdouble blue = arg.GetDouble(2);
+	glSecondaryColor3d(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3dv
+Gura_DeclareFunctionAlias(__glSecondaryColor3dv, "glSecondaryColor3dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3dv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glSecondaryColor3dv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3f
+Gura_DeclareFunctionAlias(__glSecondaryColor3f, "glSecondaryColor3f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3f)
+{
+#if defined(GL_VERSION_1_4)
+	GLfloat red = arg.GetFloat(0);
+	GLfloat green = arg.GetFloat(1);
+	GLfloat blue = arg.GetFloat(2);
+	glSecondaryColor3f(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3fv
+Gura_DeclareFunctionAlias(__glSecondaryColor3fv, "glSecondaryColor3fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3fv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glSecondaryColor3fv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3i
+Gura_DeclareFunctionAlias(__glSecondaryColor3i, "glSecondaryColor3i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3i)
+{
+#if defined(GL_VERSION_1_4)
+	GLint red = arg.GetInt(0);
+	GLint green = arg.GetInt(1);
+	GLint blue = arg.GetInt(2);
+	glSecondaryColor3i(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3iv
+Gura_DeclareFunctionAlias(__glSecondaryColor3iv, "glSecondaryColor3iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3iv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
+	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glSecondaryColor3iv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3s
+Gura_DeclareFunctionAlias(__glSecondaryColor3s, "glSecondaryColor3s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3s)
+{
+#if defined(GL_VERSION_1_4)
+	GLshort red = arg.GetShort(0);
+	GLshort green = arg.GetShort(1);
+	GLshort blue = arg.GetShort(2);
+	glSecondaryColor3s(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3sv
+Gura_DeclareFunctionAlias(__glSecondaryColor3sv, "glSecondaryColor3sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3sv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glSecondaryColor3sv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3ub
+Gura_DeclareFunctionAlias(__glSecondaryColor3ub, "glSecondaryColor3ub")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3ub)
+{
+#if defined(GL_VERSION_1_4)
+	GLubyte red = arg.GetUChar(0);
+	GLubyte green = arg.GetUChar(1);
+	GLubyte blue = arg.GetUChar(2);
+	glSecondaryColor3ub(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3ubv
+Gura_DeclareFunctionAlias(__glSecondaryColor3ubv, "glSecondaryColor3ubv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3ubv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<UChar> *_v = Object_array<UChar>::GetObject(arg, 0)->GetArray();
+	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glSecondaryColor3ubv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3ui
+Gura_DeclareFunctionAlias(__glSecondaryColor3ui, "glSecondaryColor3ui")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3ui)
+{
+#if defined(GL_VERSION_1_4)
+	GLuint red = arg.GetUInt(0);
+	GLuint green = arg.GetUInt(1);
+	GLuint blue = arg.GetUInt(2);
+	glSecondaryColor3ui(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3uiv
+Gura_DeclareFunctionAlias(__glSecondaryColor3uiv, "glSecondaryColor3uiv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3uiv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<UInt> *_v = Object_array<UInt>::GetObject(arg, 0)->GetArray();
+	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glSecondaryColor3uiv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3us
+Gura_DeclareFunctionAlias(__glSecondaryColor3us, "glSecondaryColor3us")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3us)
+{
+#if defined(GL_VERSION_1_4)
+	GLushort red = arg.GetUShort(0);
+	GLushort green = arg.GetUShort(1);
+	GLushort blue = arg.GetUShort(2);
+	glSecondaryColor3us(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glSecondaryColor3usv
+Gura_DeclareFunctionAlias(__glSecondaryColor3usv, "glSecondaryColor3usv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_ushort, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glSecondaryColor3usv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<UShort> *_v = Object_array<UShort>::GetObject(arg, 0)->GetArray();
+	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glSecondaryColor3usv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glPointParameterf
+Gura_DeclareFunctionAlias(__glPointParameterf, "glPointParameterf")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "param", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glPointParameterf)
+{
+#if defined(GL_VERSION_1_4)
+	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
+	GLfloat param = arg.GetFloat(1);
+	glPointParameterf(pname, param);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glPointParameterfv
+Gura_DeclareFunctionAlias(__glPointParameterfv, "glPointParameterfv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glPointParameterfv)
+{
+#if defined(GL_VERSION_1_4)
+	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
+	Array<float> *_params = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
+		env.SetError(ERR_ValueError,
+				"the list must have %d elements", GetParamCount(pname));
+		return Value::Nil;
+	}
+	glPointParameterfv(pname, params);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glPointParameteri
+Gura_DeclareFunctionAlias(__glPointParameteri, "glPointParameteri")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "param", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glPointParameteri)
+{
+#if defined(GL_VERSION_1_4)
+	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
+	GLint param = arg.GetInt(1);
+	glPointParameteri(pname, param);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glPointParameteriv
+Gura_DeclareFunctionAlias(__glPointParameteriv, "glPointParameteriv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glPointParameteriv)
+{
+#if defined(GL_VERSION_1_4)
+	GLenum pname = static_cast<GLenum>(arg.GetInt(0));
+	Array<int> *_params = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
+		env.SetError(ERR_ValueError,
+				"the list must have %d elements", GetParamCount(pname));
+		return Value::Nil;
+	}
+	glPointParameteriv(pname, params);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glBlendFuncSeparate
+Gura_DeclareFunctionAlias(__glBlendFuncSeparate, "glBlendFuncSeparate")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "srcRGB", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "dstRGB", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "srcAlpha", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "dstAlpha", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glBlendFuncSeparate)
+{
+#if defined(GL_VERSION_1_4)
+	GLenum srcRGB = static_cast<GLenum>(arg.GetInt(0));
+	GLenum dstRGB = static_cast<GLenum>(arg.GetInt(1));
+	GLenum srcAlpha = static_cast<GLenum>(arg.GetInt(2));
+	GLenum dstAlpha = static_cast<GLenum>(arg.GetInt(3));
+	glBlendFuncSeparate(srcRGB, dstRGB, srcAlpha, dstAlpha);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glMultiDrawArrays
+Gura_DeclareFunctionAlias(__glMultiDrawArrays, "glMultiDrawArrays")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "first", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMultiDrawArrays)
+{
+#if defined(GL_VERSION_1_4)
+	GLenum mode = static_cast<GLenum>(arg.GetInt(0));
+	Array<int> *_first = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *first = reinterpret_cast<GLint *>(_first->GetPointer());
+	AutoPtr<Array<GLsizei> > _count(CreateArrayFromList<GLsizei>(arg.GetList(2)));
+	GLsizei *count = _count->GetPointer();
+	GLsizei primcount = _first->GetSize();
+	if (primcount != _count->GetSize()) {
+		env.SetError(ERR_ValueError, "first and count must have the same number of elements");
+		return Value::Nil;
+	}
+	glMultiDrawArrays(mode, first, count, primcount);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos2d
+Gura_DeclareFunctionAlias(__glWindowPos2d, "glWindowPos2d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos2d)
+{
+#if defined(GL_VERSION_1_4)
+	GLdouble x = arg.GetDouble(0);
+	GLdouble y = arg.GetDouble(1);
+	glWindowPos2d(x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos2dv
+Gura_DeclareFunctionAlias(__glWindowPos2dv, "glWindowPos2dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos2dv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glWindowPos2dv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos2f
+Gura_DeclareFunctionAlias(__glWindowPos2f, "glWindowPos2f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos2f)
+{
+#if defined(GL_VERSION_1_4)
+	GLfloat x = arg.GetFloat(0);
+	GLfloat y = arg.GetFloat(1);
+	glWindowPos2f(x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos2fv
+Gura_DeclareFunctionAlias(__glWindowPos2fv, "glWindowPos2fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos2fv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glWindowPos2fv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos2i
+Gura_DeclareFunctionAlias(__glWindowPos2i, "glWindowPos2i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos2i)
+{
+#if defined(GL_VERSION_1_4)
+	GLint x = arg.GetInt(0);
+	GLint y = arg.GetInt(1);
+	glWindowPos2i(x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos2iv
+Gura_DeclareFunctionAlias(__glWindowPos2iv, "glWindowPos2iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos2iv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
+	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glWindowPos2iv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos2s
+Gura_DeclareFunctionAlias(__glWindowPos2s, "glWindowPos2s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos2s)
+{
+#if defined(GL_VERSION_1_4)
+	GLshort x = arg.GetShort(0);
+	GLshort y = arg.GetShort(1);
+	glWindowPos2s(x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos2sv
+Gura_DeclareFunctionAlias(__glWindowPos2sv, "glWindowPos2sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos2sv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glWindowPos2sv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos3d
+Gura_DeclareFunctionAlias(__glWindowPos3d, "glWindowPos3d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos3d)
+{
+#if defined(GL_VERSION_1_4)
+	GLdouble x = arg.GetDouble(0);
+	GLdouble y = arg.GetDouble(1);
+	GLdouble z = arg.GetDouble(2);
+	glWindowPos3d(x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos3dv
+Gura_DeclareFunctionAlias(__glWindowPos3dv, "glWindowPos3dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos3dv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<double> *_v = Object_array<double>::GetObject(arg, 0)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glWindowPos3dv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos3f
+Gura_DeclareFunctionAlias(__glWindowPos3f, "glWindowPos3f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos3f)
+{
+#if defined(GL_VERSION_1_4)
+	GLfloat x = arg.GetFloat(0);
+	GLfloat y = arg.GetFloat(1);
+	GLfloat z = arg.GetFloat(2);
+	glWindowPos3f(x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos3fv
+Gura_DeclareFunctionAlias(__glWindowPos3fv, "glWindowPos3fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos3fv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<float> *_v = Object_array<float>::GetObject(arg, 0)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glWindowPos3fv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos3i
+Gura_DeclareFunctionAlias(__glWindowPos3i, "glWindowPos3i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos3i)
+{
+#if defined(GL_VERSION_1_4)
+	GLint x = arg.GetInt(0);
+	GLint y = arg.GetInt(1);
+	GLint z = arg.GetInt(2);
+	glWindowPos3i(x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos3iv
+Gura_DeclareFunctionAlias(__glWindowPos3iv, "glWindowPos3iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos3iv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<int> *_v = Object_array<int>::GetObject(arg, 0)->GetArray();
+	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glWindowPos3iv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos3s
+Gura_DeclareFunctionAlias(__glWindowPos3s, "glWindowPos3s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos3s)
+{
+#if defined(GL_VERSION_1_4)
+	GLshort x = arg.GetShort(0);
+	GLshort y = arg.GetShort(1);
+	GLshort z = arg.GetShort(2);
+	glWindowPos3s(x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glWindowPos3sv
+Gura_DeclareFunctionAlias(__glWindowPos3sv, "glWindowPos3sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glWindowPos3sv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<short> *_v = Object_array<short>::GetObject(arg, 0)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glWindowPos3sv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glGenQueries
 Gura_DeclareFunctionAlias(__glGenQueries, "glGenQueries")
 {
@@ -8455,6 +9560,10 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glColor4usv);
 	Gura_AssignFunction(__glColorMask);
 	Gura_AssignFunction(__glColorMaterial);
+	Gura_AssignFunction(__glConvolutionParameterf);
+	Gura_AssignFunction(__glConvolutionParameterfv);
+	Gura_AssignFunction(__glConvolutionParameteri);
+	Gura_AssignFunction(__glConvolutionParameteriv);
 	Gura_AssignFunction(__glCopyPixels);
 	Gura_AssignFunction(__glCopyTexImage1D);
 	Gura_AssignFunction(__glCopyTexImage2D);
@@ -8738,6 +9847,44 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glVertex4s);
 	Gura_AssignFunction(__glVertex4sv);
 	Gura_AssignFunction(__glViewport);
+	Gura_AssignFunction(__glSecondaryColor3b);
+	Gura_AssignFunction(__glSecondaryColor3bv);
+	Gura_AssignFunction(__glSecondaryColor3d);
+	Gura_AssignFunction(__glSecondaryColor3dv);
+	Gura_AssignFunction(__glSecondaryColor3f);
+	Gura_AssignFunction(__glSecondaryColor3fv);
+	Gura_AssignFunction(__glSecondaryColor3i);
+	Gura_AssignFunction(__glSecondaryColor3iv);
+	Gura_AssignFunction(__glSecondaryColor3s);
+	Gura_AssignFunction(__glSecondaryColor3sv);
+	Gura_AssignFunction(__glSecondaryColor3ub);
+	Gura_AssignFunction(__glSecondaryColor3ubv);
+	Gura_AssignFunction(__glSecondaryColor3ui);
+	Gura_AssignFunction(__glSecondaryColor3uiv);
+	Gura_AssignFunction(__glSecondaryColor3us);
+	Gura_AssignFunction(__glSecondaryColor3usv);
+	Gura_AssignFunction(__glPointParameterf);
+	Gura_AssignFunction(__glPointParameterfv);
+	Gura_AssignFunction(__glPointParameteri);
+	Gura_AssignFunction(__glPointParameteriv);
+	Gura_AssignFunction(__glBlendFuncSeparate);
+	Gura_AssignFunction(__glMultiDrawArrays);
+	Gura_AssignFunction(__glWindowPos2d);
+	Gura_AssignFunction(__glWindowPos2dv);
+	Gura_AssignFunction(__glWindowPos2f);
+	Gura_AssignFunction(__glWindowPos2fv);
+	Gura_AssignFunction(__glWindowPos2i);
+	Gura_AssignFunction(__glWindowPos2iv);
+	Gura_AssignFunction(__glWindowPos2s);
+	Gura_AssignFunction(__glWindowPos2sv);
+	Gura_AssignFunction(__glWindowPos3d);
+	Gura_AssignFunction(__glWindowPos3dv);
+	Gura_AssignFunction(__glWindowPos3f);
+	Gura_AssignFunction(__glWindowPos3fv);
+	Gura_AssignFunction(__glWindowPos3i);
+	Gura_AssignFunction(__glWindowPos3iv);
+	Gura_AssignFunction(__glWindowPos3s);
+	Gura_AssignFunction(__glWindowPos3sv);
 	Gura_AssignFunction(__glGenQueries);
 	Gura_AssignFunction(__glDeleteQueries);
 	Gura_AssignFunction(__glIsQuery);

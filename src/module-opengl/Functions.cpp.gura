@@ -414,33 +414,37 @@ glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):v
 
 //glConvolutionFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void:map = `unsupport
 
-/*
-glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void:map = `auto % {`en, 'markdown',
+glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void:map = R'''
+	glConvolutionParameterf(target, pname, params);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
+glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = R'''
+	glConvolutionParameterfv(target, pname, params);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glConvolutionParameteri(target:GLenum, pname:GLenum, params:GLint):void:map = `auto % {`en, 'markdown',
+glConvolutionParameteri(target:GLenum, pname:GLenum, params:GLint):void:map = R'''
+	glConvolutionParameteri(target, pname, params);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
+glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = R'''
+	glConvolutionParameteriv(target, pname, params);
+	return Value::Nil;
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 /*
 glCopyColorSubTable(target:GLenum, start:GLsizei, x:GLint, y:GLint, width:GLsizei):void:map = `auto % {`en, 'markdown',
@@ -2695,217 +2699,508 @@ glFogCoorddv(coord:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
 
 //glFogCoordPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-/*
-glSecondaryColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3b(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3bv(v:GLbyte@3:const):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3bv(v:GLbyte@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3bv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3d(red:GLdouble, green:GLdouble, blue:GLdouble):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3d(red:GLdouble, green:GLdouble, blue:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3d(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3dv(v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3dv(v:GLdouble@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3dv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3f(red:GLfloat, green:GLfloat, blue:GLfloat):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3f(red:GLfloat, green:GLfloat, blue:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3f(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3fv(v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3fv(v:GLfloat@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3fv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3i(red:GLint, green:GLint, blue:GLint):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3i(red:GLint, green:GLint, blue:GLint):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3i(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3iv(v:GLint@3:const):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3iv(v:GLint@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3iv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3s(red:GLshort, green:GLshort, blue:GLshort):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3s(red:GLshort, green:GLshort, blue:GLshort):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3s(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3sv(v:GLshort@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3sv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3ub(red:GLubyte, green:GLubyte, blue:GLubyte):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3ub(red:GLubyte, green:GLubyte, blue:GLubyte):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3ub(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3ubv(v:GLubyte@3:const):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3ubv(v:GLubyte@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3ubv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3ui(red:GLuint, green:GLuint, blue:GLuint):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3ui(red:GLuint, green:GLuint, blue:GLuint):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3ui(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3uiv(v:GLuint@3:const):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3uiv(v:GLuint@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3uiv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3us(red:GLushort, green:GLushort, blue:GLushort):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3us(red:GLushort, green:GLushort, blue:GLushort):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3us(red, green, blue);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glSecondaryColor3usv(v:GLushort@3:const):void:map = `auto % {`en, 'markdown',
+glSecondaryColor3usv(v:GLushort@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glSecondaryColor3usv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 //glSecondaryColorPointer(size:GLint, type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-/*
-glPointParameterf(pname:GLenum, param:GLfloat):void:map = `auto % {`en, 'markdown',
+glPointParameterf(pname:GLenum, param:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glPointParameterf(pname, param);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPointParameterfv(pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
+glPointParameterfv(pname:GLenum, params:GLfloat@pname:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glPointParameterfv(pname, params);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPointParameteri(pname:GLenum, param:GLint):void:map = `auto % {`en, 'markdown',
+glPointParameteri(pname:GLenum, param:GLint):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glPointParameteri(pname, param);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glPointParameteriv(pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
+glPointParameteriv(pname:GLenum, params:GLint@pname:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glPointParameteriv(pname, params);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):void:map = `auto % {`en, 'markdown',
+glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glBlendFuncSeparate(srcRGB, dstRGB, srcAlpha, dstAlpha);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
 glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void:map = R'''
-	GLsizei primcount = first.GetSize();
-	if (primcount != count.GetSize()) {
+^#if defined(GL_VERSION_1_4)
+	GLsizei primcount = _first->GetSize();
+	if (primcount != _count->GetSize()) {
 		env.SetError(ERR_ValueError, "first and count must have the same number of elements");
 		return Value::Nil;
 	}
 	glMultiDrawArrays(mode, first, count, primcount);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 //glMultiDrawElements(mode:GLenum, count:GLsizei@:const, type:GLenum, indices:GLvoid@:const@:const, primcount:GLsizei):void:map = `unsupport
 
-/*
-glWindowPos2d(x:GLdouble, y:GLdouble):void:map = `auto % {`en, 'markdown',
+glWindowPos2d(x:GLdouble, y:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos2d(x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2dv(v:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
+glWindowPos2dv(v:GLdouble@2:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos2dv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2f(x:GLfloat, y:GLfloat):void:map = `auto % {`en, 'markdown',
+glWindowPos2f(x:GLfloat, y:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos2f(x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2fv(v:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
+glWindowPos2fv(v:GLfloat@2:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos2fv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2i(x:GLint, y:GLint):void:map = `auto % {`en, 'markdown',
+glWindowPos2i(x:GLint, y:GLint):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos2i(x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2iv(v:GLint@2:const):void:map = `auto % {`en, 'markdown',
+glWindowPos2iv(v:GLint@2:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos2iv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2s(x:GLshort, y:GLshort):void:map = `auto % {`en, 'markdown',
+glWindowPos2s(x:GLshort, y:GLshort):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos2s(x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos2sv(v:GLshort@2:const):void:map = `auto % {`en, 'markdown',
+glWindowPos2sv(v:GLshort@2:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos2sv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3d(x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
+glWindowPos3d(x:GLdouble, y:GLdouble, z:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos3d(x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3dv(v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
+glWindowPos3dv(v:GLdouble@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos3dv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3f(x:GLfloat, y:GLfloat, z:GLfloat):void:map = `auto % {`en, 'markdown',
+glWindowPos3f(x:GLfloat, y:GLfloat, z:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos3f(x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3fv(v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
+glWindowPos3fv(v:GLfloat@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos3fv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3i(x:GLint, y:GLint, z:GLint):void:map = `auto % {`en, 'markdown',
+glWindowPos3i(x:GLint, y:GLint, z:GLint):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos3i(x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3iv(v:GLint@3:const):void:map = `auto % {`en, 'markdown',
+glWindowPos3iv(v:GLint@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos3iv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3s(x:GLshort, y:GLshort, z:GLshort):void:map = `auto % {`en, 'markdown',
+glWindowPos3s(x:GLshort, y:GLshort, z:GLshort):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos3s(x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glWindowPos3sv(v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
+glWindowPos3sv(v:GLshort@3:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glWindowPos3sv(v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glGenQueries(n:GLsizei):map {block?} = R'''
 ^#if defined(GL_VERSION_1_5)
