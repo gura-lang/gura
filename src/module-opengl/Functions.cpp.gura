@@ -415,32 +415,52 @@ glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):v
 //glConvolutionFilter2D(target:GLenum, internalformat:GLenum, width:GLsizei, height:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void:map = `unsupport
 
 glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_1_2)
 	glConvolutionParameterf(target, pname, params);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = R'''
+^#if defined(GL_VERSION_1_2)
 	glConvolutionParameterfv(target, pname, params);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glConvolutionParameteri(target:GLenum, pname:GLenum, params:GLint):void:map = R'''
+^#if defined(GL_VERSION_1_2)
 	glConvolutionParameteri(target, pname, params);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = R'''
+^#if defined(GL_VERSION_1_2)
 	glConvolutionParameteriv(target, pname, params);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''

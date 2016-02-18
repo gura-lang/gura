@@ -1211,11 +1211,16 @@ Gura_DeclareFunctionAlias(__glConvolutionParameterf, "glConvolutionParameterf")
 
 Gura_ImplementFunction(__glConvolutionParameterf)
 {
+#if defined(GL_VERSION_1_2)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	GLfloat params = arg.GetFloat(2);
 	glConvolutionParameterf(target, pname, params);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glConvolutionParameterfv
@@ -1232,6 +1237,7 @@ Gura_DeclareFunctionAlias(__glConvolutionParameterfv, "glConvolutionParameterfv"
 
 Gura_ImplementFunction(__glConvolutionParameterfv)
 {
+#if defined(GL_VERSION_1_2)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<float> *_params = Object_array<float>::GetObject(arg, 2)->GetArray();
@@ -1243,6 +1249,10 @@ Gura_ImplementFunction(__glConvolutionParameterfv)
 	}
 	glConvolutionParameterfv(target, pname, params);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glConvolutionParameteri
@@ -1259,11 +1269,16 @@ Gura_DeclareFunctionAlias(__glConvolutionParameteri, "glConvolutionParameteri")
 
 Gura_ImplementFunction(__glConvolutionParameteri)
 {
+#if defined(GL_VERSION_1_2)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	GLint params = arg.GetInt(2);
 	glConvolutionParameteri(target, pname, params);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glConvolutionParameteriv
@@ -1280,6 +1295,7 @@ Gura_DeclareFunctionAlias(__glConvolutionParameteriv, "glConvolutionParameteriv"
 
 Gura_ImplementFunction(__glConvolutionParameteriv)
 {
+#if defined(GL_VERSION_1_2)
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	Array<int> *_params = Object_array<int>::GetObject(arg, 2)->GetArray();
@@ -1291,6 +1307,10 @@ Gura_ImplementFunction(__glConvolutionParameteriv)
 	}
 	glConvolutionParameteriv(target, pname, params);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glCopyPixels
