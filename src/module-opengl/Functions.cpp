@@ -170,6 +170,56 @@ Gura_ImplementFunction(__glBitmap)
 	return Value::Nil;
 }
 
+// opengl.glBlendColor
+Gura_DeclareFunctionAlias(__glBlendColor, "glBlendColor")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glBlendColor)
+{
+#if defined(GL_VERSION_1_2)
+	GLclampf red = arg.GetFloat(0);
+	GLclampf green = arg.GetFloat(1);
+	GLclampf blue = arg.GetFloat(2);
+	GLclampf alpha = arg.GetFloat(3);
+	glBlendColor(red, green, blue, alpha);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glBlendEquation
+Gura_DeclareFunctionAlias(__glBlendEquation, "glBlendEquation")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glBlendEquation)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum mode = static_cast<GLenum>(arg.GetInt(0));
+	glBlendEquation(mode);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glBlendEquationSeparate
 Gura_DeclareFunctionAlias(__glBlendEquationSeparate, "glBlendEquationSeparate")
 {
@@ -10573,6 +10623,8 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glBegin);
 	Gura_AssignFunction(__glBindTexture);
 	Gura_AssignFunction(__glBitmap);
+	Gura_AssignFunction(__glBlendColor);
+	Gura_AssignFunction(__glBlendEquation);
 	Gura_AssignFunction(__glBlendEquationSeparate);
 	Gura_AssignFunction(__glBlendFunc);
 	Gura_AssignFunction(__glCallList);

@@ -74,19 +74,31 @@ glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfl
 	'''
 }
 
-/*
-glBlendColor(red:GLclampf, green:GLclampf, blue:GLclampf, alpha:GLclampf):void:map = `auto % {`en, 'markdown',
+glBlendColor(red:GLclampf, green:GLclampf, blue:GLclampf, alpha:GLclampf):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glBlendColor(red, green, blue, alpha);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 	
-/*
-glBlendEquation(mode:GLenum):void:map = `auto % {`en, 'markdown',
+glBlendEquation(mode:GLenum):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glBlendEquation(mode);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glBlendEquationSeparate(modeRGB:GLenum, modeAlpha:GLenum):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
