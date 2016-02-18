@@ -1247,6 +1247,70 @@ Gura_ImplementFunction(__glColorMaterial)
 	return Value::Nil;
 }
 
+// opengl.glColorTableParameterfv
+Gura_DeclareFunctionAlias(__glColorTableParameterfv, "glColorTableParameterfv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glColorTableParameterfv)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	Array<float> *_params = Object_array<float>::GetObject(arg, 2)->GetArray();
+	GLfloat *params = reinterpret_cast<GLfloat *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
+		env.SetError(ERR_ValueError,
+				"the list must have %d elements", GetParamCount(pname));
+		return Value::Nil;
+	}
+	glColorTableParameterfv(target, pname, params);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glColorTableParameteriv
+Gura_DeclareFunctionAlias(__glColorTableParameteriv, "glColorTableParameteriv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glColorTableParameteriv)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	Array<int> *_params = Object_array<int>::GetObject(arg, 2)->GetArray();
+	GLint *params = reinterpret_cast<GLint *>(_params->GetPointer());
+	if (!CheckParamCount(pname, _params->GetSize())) {
+		env.SetError(ERR_ValueError,
+				"the list must have %d elements", GetParamCount(pname));
+		return Value::Nil;
+	}
+	glColorTableParameteriv(target, pname, params);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glConvolutionParameterf
 Gura_DeclareFunctionAlias(__glConvolutionParameterf, "glConvolutionParameterf")
 {
@@ -10670,6 +10734,8 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glColor4usv);
 	Gura_AssignFunction(__glColorMask);
 	Gura_AssignFunction(__glColorMaterial);
+	Gura_AssignFunction(__glColorTableParameterfv);
+	Gura_AssignFunction(__glColorTableParameteriv);
 	Gura_AssignFunction(__glConvolutionParameterf);
 	Gura_AssignFunction(__glConvolutionParameterfv);
 	Gura_AssignFunction(__glConvolutionParameteri);

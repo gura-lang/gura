@@ -408,19 +408,31 @@ glColorMaterial(face:GLenum, mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 //glColorTable(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, table:GLvoid@:const):void:map = `unsupport
 
-/*
-glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = `auto % {`en, 'markdown',
+glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glColorTableParameterfv(target, pname, params);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = `auto % {`en, 'markdown',
+glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glColorTableParameteriv(target, pname, params);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 //glConvolutionFilter1D(target:GLenum, internalformat:GLenum, width:GLsizei, format:GLenum, type:GLenum, image:GLvoid@:const):void:map = `unsupport
 
