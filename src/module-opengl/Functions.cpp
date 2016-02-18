@@ -1692,6 +1692,44 @@ Gura_ImplementFunction(__glCopyTexSubImage2D)
 	return Value::Nil;
 }
 
+// opengl.glCopyTexSubImage3D
+Gura_DeclareFunctionAlias(__glCopyTexSubImage3D, "glCopyTexSubImage3D")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "level", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "zoffset", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glCopyTexSubImage3D)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLint level = arg.GetInt(1);
+	GLint xoffset = arg.GetInt(2);
+	GLint yoffset = arg.GetInt(3);
+	GLint zoffset = arg.GetInt(4);
+	GLint x = arg.GetInt(5);
+	GLint y = arg.GetInt(6);
+	GLsizei width = arg.GetInt(7);
+	GLsizei height = arg.GetInt(8);
+	glCopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glCullFace
 Gura_DeclareFunctionAlias(__glCullFace, "glCullFace")
 {
@@ -2541,6 +2579,118 @@ Gura_ImplementFunction(__glGetClipPlane)
 	return ReturnValue(env, arg, Value::CreateList(env, equation, ArraySizeOf(equation)));
 }
 
+// opengl.glGetColorTableParameterfv
+Gura_DeclareFunctionAlias(__glGetColorTableParameterfv, "glGetColorTableParameterfv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetColorTableParameterfv)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
+	glGetColorTableParameterfv(target, pname, params);
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGetColorTableParameteriv
+Gura_DeclareFunctionAlias(__glGetColorTableParameteriv, "glGetColorTableParameteriv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetColorTableParameteriv)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
+	glGetColorTableParameteriv(target, pname, params);
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGetConvolutionParameterfv
+Gura_DeclareFunctionAlias(__glGetConvolutionParameterfv, "glGetConvolutionParameterfv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetConvolutionParameterfv)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
+	glGetColorTableParameterfv(target, pname, params);
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGetConvolutionParameteriv
+Gura_DeclareFunctionAlias(__glGetConvolutionParameteriv, "glGetConvolutionParameteriv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetConvolutionParameteriv)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
+	glGetColorTableParameteriv(target, pname, params);
+	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glGetDoublev
 Gura_DeclareFunctionAlias(__glGetDoublev, "glGetDoublev")
 {
@@ -2597,6 +2747,62 @@ Gura_ImplementFunction(__glGetFloatv)
 	GLfloat *params = _params->GetPointer();
 	glGetFloatv(pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+}
+
+// opengl.glGetHistogramParameterfv
+Gura_DeclareFunctionAlias(__glGetHistogramParameterfv, "glGetHistogramParameterfv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetHistogramParameterfv)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
+	glGetHistogramParameterfv(target, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGetHistogramParameteriv
+Gura_DeclareFunctionAlias(__glGetHistogramParameteriv, "glGetHistogramParameteriv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetHistogramParameteriv)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
+	glGetHistogramParameteriv(target, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glGetIntegerv
@@ -2788,6 +2994,62 @@ Gura_ImplementFunction(__glGetMaterialiv)
 	GLint *params = _params->GetPointer();
 	glGetMaterialiv(face, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+}
+
+// opengl.glGetMinmaxParameterfv
+Gura_DeclareFunctionAlias(__glGetMinmaxParameterfv, "glGetMinmaxParameterfv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetMinmaxParameterfv)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
+	glGetMinmaxParameterfv(target, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGetMinmaxParameteriv
+Gura_DeclareFunctionAlias(__glGetMinmaxParameteriv, "glGetMinmaxParameteriv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetMinmaxParameteriv)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
+	glGetMinmaxParameteriv(target, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glGetPixelMapfv
@@ -3128,6 +3390,34 @@ Gura_ImplementFunction(__glHint)
 	GLenum mode = static_cast<GLenum>(arg.GetInt(1));
 	glHint(target, mode);
 	return Value::Nil;
+}
+
+// opengl.glHistogram
+Gura_DeclareFunctionAlias(__glHistogram, "glHistogram")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalformat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "sink", VTYPE_boolean, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glHistogram)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLsizei width = arg.GetInt(1);
+	GLenum internalformat = static_cast<GLenum>(arg.GetInt(2));
+	GLboolean sink = (arg.GetBoolean(3)? GL_TRUE : GL_FALSE);
+	glHistogram(target, width, internalformat, sink);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glIndexMask
@@ -4046,6 +4336,32 @@ Gura_ImplementFunction(__glMatrixMode)
 	GLenum mode = static_cast<GLenum>(arg.GetInt(0));
 	glMatrixMode(mode);
 	return Value::Nil;
+}
+
+// opengl.glMinmax
+Gura_DeclareFunctionAlias(__glMinmax, "glMinmax")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "internalformat", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "sink", VTYPE_boolean, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMinmax)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum internalformat = static_cast<GLenum>(arg.GetInt(1));
+	GLboolean sink = (arg.GetBoolean(2)? GL_TRUE : GL_FALSE);
+	glMinmax(target, internalformat, sink);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glMultMatrixd
@@ -5596,6 +5912,50 @@ Gura_ImplementFunction(__glRenderMode)
 	GLenum mode = static_cast<GLenum>(arg.GetInt(0));
 	GLint _rtn = glRenderMode(mode);
 	return ReturnValue(env, arg, Value(_rtn));
+}
+
+// opengl.glResetHistogram
+Gura_DeclareFunctionAlias(__glResetHistogram, "glResetHistogram")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glResetHistogram)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	glResetHistogram(target);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glResetMinmax
+Gura_DeclareFunctionAlias(__glResetMinmax, "glResetMinmax")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glResetMinmax)
+{
+#if defined(GL_VERSION_1_2)
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	glResetMinmax(target);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glRotated
@@ -9945,6 +10305,1140 @@ Gura_ImplementFunction(__glGetQueryObjectuiv)
 #endif
 }
 
+// opengl.glVertexAttrib1d
+Gura_DeclareFunctionAlias(__glVertexAttrib1d, "glVertexAttrib1d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib1d)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLdouble x = arg.GetDouble(1);
+	glVertexAttrib1d(index, x);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib1dv
+Gura_DeclareFunctionAlias(__glVertexAttrib1dv, "glVertexAttrib1dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib1dv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<double> *_v = Object_array<double>::GetObject(arg, 1)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 1) {
+		env.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Nil;
+	}
+	glVertexAttrib1dv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib1f
+Gura_DeclareFunctionAlias(__glVertexAttrib1f, "glVertexAttrib1f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib1f)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLfloat x = arg.GetFloat(1);
+	glVertexAttrib1f(index, x);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib1fv
+Gura_DeclareFunctionAlias(__glVertexAttrib1fv, "glVertexAttrib1fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib1fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<float> *_v = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 1) {
+		env.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Nil;
+	}
+	glVertexAttrib1fv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib1s
+Gura_DeclareFunctionAlias(__glVertexAttrib1s, "glVertexAttrib1s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib1s)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLshort x = arg.GetShort(1);
+	glVertexAttrib1s(index, x);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib1sv
+Gura_DeclareFunctionAlias(__glVertexAttrib1sv, "glVertexAttrib1sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib1sv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<short> *_v = Object_array<short>::GetObject(arg, 1)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 1) {
+		env.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Nil;
+	}
+	glVertexAttrib1sv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib2d
+Gura_DeclareFunctionAlias(__glVertexAttrib2d, "glVertexAttrib2d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib2d)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLdouble x = arg.GetDouble(1);
+	GLdouble y = arg.GetDouble(2);
+	glVertexAttrib2d(index, x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib2dv
+Gura_DeclareFunctionAlias(__glVertexAttrib2dv, "glVertexAttrib2dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib2dv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<double> *_v = Object_array<double>::GetObject(arg, 1)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glVertexAttrib2dv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib2f
+Gura_DeclareFunctionAlias(__glVertexAttrib2f, "glVertexAttrib2f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib2f)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLfloat x = arg.GetFloat(1);
+	GLfloat y = arg.GetFloat(2);
+	glVertexAttrib2f(index, x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib2fv
+Gura_DeclareFunctionAlias(__glVertexAttrib2fv, "glVertexAttrib2fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib2fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<float> *_v = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glVertexAttrib2fv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib2s
+Gura_DeclareFunctionAlias(__glVertexAttrib2s, "glVertexAttrib2s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib2s)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLshort x = arg.GetShort(1);
+	GLshort y = arg.GetShort(2);
+	glVertexAttrib2s(index, x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib2sv
+Gura_DeclareFunctionAlias(__glVertexAttrib2sv, "glVertexAttrib2sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib2sv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<short> *_v = Object_array<short>::GetObject(arg, 1)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 2) {
+		env.SetError(ERR_ValueError, "the list must have two elements");
+		return Value::Nil;
+	}
+	glVertexAttrib2sv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib3d
+Gura_DeclareFunctionAlias(__glVertexAttrib3d, "glVertexAttrib3d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib3d)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLdouble x = arg.GetDouble(1);
+	GLdouble y = arg.GetDouble(2);
+	GLdouble z = arg.GetDouble(3);
+	glVertexAttrib3d(index, x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib3dv
+Gura_DeclareFunctionAlias(__glVertexAttrib3dv, "glVertexAttrib3dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib3dv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<double> *_v = Object_array<double>::GetObject(arg, 1)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib3dv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib3f
+Gura_DeclareFunctionAlias(__glVertexAttrib3f, "glVertexAttrib3f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib3f)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLfloat x = arg.GetFloat(1);
+	GLfloat y = arg.GetFloat(2);
+	GLfloat z = arg.GetFloat(3);
+	glVertexAttrib3f(index, x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib3fv
+Gura_DeclareFunctionAlias(__glVertexAttrib3fv, "glVertexAttrib3fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib3fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<float> *_v = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib3fv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib3s
+Gura_DeclareFunctionAlias(__glVertexAttrib3s, "glVertexAttrib3s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib3s)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLshort x = arg.GetShort(1);
+	GLshort y = arg.GetShort(2);
+	GLshort z = arg.GetShort(3);
+	glVertexAttrib3s(index, x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib3sv
+Gura_DeclareFunctionAlias(__glVertexAttrib3sv, "glVertexAttrib3sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib3sv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<short> *_v = Object_array<short>::GetObject(arg, 1)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 3) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib3sv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4Nbv
+Gura_DeclareFunctionAlias(__glVertexAttrib4Nbv, "glVertexAttrib4Nbv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4Nbv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<char> *_v = Object_array<char>::GetObject(arg, 1)->GetArray();
+	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4Nbv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4Niv
+Gura_DeclareFunctionAlias(__glVertexAttrib4Niv, "glVertexAttrib4Niv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4Niv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<int> *_v = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4Niv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4Nsv
+Gura_DeclareFunctionAlias(__glVertexAttrib4Nsv, "glVertexAttrib4Nsv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4Nsv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<short> *_v = Object_array<short>::GetObject(arg, 1)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4Nsv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4Nub
+Gura_DeclareFunctionAlias(__glVertexAttrib4Nub, "glVertexAttrib4Nub")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4Nub)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLubyte x = arg.GetUChar(1);
+	GLubyte y = arg.GetUChar(2);
+	GLubyte z = arg.GetUChar(3);
+	GLubyte w = arg.GetUChar(4);
+	glVertexAttrib4Nub(index, x, y, z, w);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4Nubv
+Gura_DeclareFunctionAlias(__glVertexAttrib4Nubv, "glVertexAttrib4Nubv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4Nubv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<UChar> *_v = Object_array<UChar>::GetObject(arg, 1)->GetArray();
+	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4Nubv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4Nuiv
+Gura_DeclareFunctionAlias(__glVertexAttrib4Nuiv, "glVertexAttrib4Nuiv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4Nuiv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<UInt> *_v = Object_array<UInt>::GetObject(arg, 1)->GetArray();
+	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4Nuiv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4Nusv
+Gura_DeclareFunctionAlias(__glVertexAttrib4Nusv, "glVertexAttrib4Nusv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_ushort, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4Nusv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<UShort> *_v = Object_array<UShort>::GetObject(arg, 1)->GetArray();
+	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4Nusv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4bv
+Gura_DeclareFunctionAlias(__glVertexAttrib4bv, "glVertexAttrib4bv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4bv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<char> *_v = Object_array<char>::GetObject(arg, 1)->GetArray();
+	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4bv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4d
+Gura_DeclareFunctionAlias(__glVertexAttrib4d, "glVertexAttrib4d")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4d)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLdouble x = arg.GetDouble(1);
+	GLdouble y = arg.GetDouble(2);
+	GLdouble z = arg.GetDouble(3);
+	GLdouble w = arg.GetDouble(4);
+	glVertexAttrib4d(index, x, y, z, w);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4dv
+Gura_DeclareFunctionAlias(__glVertexAttrib4dv, "glVertexAttrib4dv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4dv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<double> *_v = Object_array<double>::GetObject(arg, 1)->GetArray();
+	GLdouble *v = reinterpret_cast<GLdouble *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4dv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4f
+Gura_DeclareFunctionAlias(__glVertexAttrib4f, "glVertexAttrib4f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4f)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLfloat x = arg.GetFloat(1);
+	GLfloat y = arg.GetFloat(2);
+	GLfloat z = arg.GetFloat(3);
+	GLfloat w = arg.GetFloat(4);
+	glVertexAttrib4f(index, x, y, z, w);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4fv
+Gura_DeclareFunctionAlias(__glVertexAttrib4fv, "glVertexAttrib4fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<float> *_v = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *v = reinterpret_cast<GLfloat *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have four elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4fv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4iv
+Gura_DeclareFunctionAlias(__glVertexAttrib4iv, "glVertexAttrib4iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4iv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<int> *_v = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *v = reinterpret_cast<GLint *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4iv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4s
+Gura_DeclareFunctionAlias(__glVertexAttrib4s, "glVertexAttrib4s")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "z", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4s)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	GLshort x = arg.GetShort(1);
+	GLshort y = arg.GetShort(2);
+	GLshort z = arg.GetShort(3);
+	GLshort w = arg.GetShort(4);
+	glVertexAttrib4s(index, x, y, z, w);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4sv
+Gura_DeclareFunctionAlias(__glVertexAttrib4sv, "glVertexAttrib4sv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4sv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<short> *_v = Object_array<short>::GetObject(arg, 1)->GetArray();
+	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4sv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4ubv
+Gura_DeclareFunctionAlias(__glVertexAttrib4ubv, "glVertexAttrib4ubv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4ubv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<UChar> *_v = Object_array<UChar>::GetObject(arg, 1)->GetArray();
+	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4ubv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4uiv
+Gura_DeclareFunctionAlias(__glVertexAttrib4uiv, "glVertexAttrib4uiv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4uiv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<UInt> *_v = Object_array<UInt>::GetObject(arg, 1)->GetArray();
+	GLuint *v = reinterpret_cast<GLuint *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4uiv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glVertexAttrib4usv
+Gura_DeclareFunctionAlias(__glVertexAttrib4usv, "glVertexAttrib4usv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v", VTYPE_array_ushort, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttrib4usv)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	Array<UShort> *_v = Object_array<UShort>::GetObject(arg, 1)->GetArray();
+	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
+	if (_v->GetSize() != 4) {
+		env.SetError(ERR_ValueError, "the list must have three elements");
+		return Value::Nil;
+	}
+	glVertexAttrib4usv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glEnableVertexAttribArray
+Gura_DeclareFunctionAlias(__glEnableVertexAttribArray, "glEnableVertexAttribArray")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glEnableVertexAttribArray)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	glEnableVertexAttribArray(index);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glDisableVertexAttribArray
+Gura_DeclareFunctionAlias(__glDisableVertexAttribArray, "glDisableVertexAttribArray")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glDisableVertexAttribArray)
+{
+#if defined(GL_VERSION_2_0)
+	GLuint index = arg.GetUInt(0);
+	glDisableVertexAttribArray(index);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGetVertexAttribdv
+Gura_DeclareFunctionAlias(__glGetVertexAttribdv, "glGetVertexAttribdv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetVertexAttribdv)
+{
+	GLuint index = arg.GetUInt(0);
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
+	GLdouble *params = _params->GetPointer();
+	glGetVertexAttribdv(index, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+}
+
+// opengl.glGetVertexAttribfv
+Gura_DeclareFunctionAlias(__glGetVertexAttribfv, "glGetVertexAttribfv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetVertexAttribfv)
+{
+	GLuint index = arg.GetUInt(0);
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
+	GLfloat *params = _params->GetPointer();
+	glGetVertexAttribfv(index, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+}
+
+// opengl.glGetVertexAttribiv
+Gura_DeclareFunctionAlias(__glGetVertexAttribiv, "glGetVertexAttribiv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetVertexAttribiv)
+{
+	GLuint index = arg.GetUInt(0);
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
+	glGetVertexAttribiv(index, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+}
+
 // opengl.glDeleteShader
 Gura_DeclareFunctionAlias(__glDeleteShader, "glDeleteShader")
 {
@@ -10871,6 +12365,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glCopyTexImage2D);
 	Gura_AssignFunction(__glCopyTexSubImage1D);
 	Gura_AssignFunction(__glCopyTexSubImage2D);
+	Gura_AssignFunction(__glCopyTexSubImage3D);
 	Gura_AssignFunction(__glCullFace);
 	Gura_AssignFunction(__glDeleteLists);
 	Gura_AssignFunction(__glDeleteTextures);
@@ -10914,9 +12409,15 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glGenTextures);
 	Gura_AssignFunction(__glGetBooleanv);
 	Gura_AssignFunction(__glGetClipPlane);
+	Gura_AssignFunction(__glGetColorTableParameterfv);
+	Gura_AssignFunction(__glGetColorTableParameteriv);
+	Gura_AssignFunction(__glGetConvolutionParameterfv);
+	Gura_AssignFunction(__glGetConvolutionParameteriv);
 	Gura_AssignFunction(__glGetDoublev);
 	Gura_AssignFunction(__glGetError);
 	Gura_AssignFunction(__glGetFloatv);
+	Gura_AssignFunction(__glGetHistogramParameterfv);
+	Gura_AssignFunction(__glGetHistogramParameteriv);
 	Gura_AssignFunction(__glGetIntegerv);
 	Gura_AssignFunction(__glGetLightfv);
 	Gura_AssignFunction(__glGetLightiv);
@@ -10925,6 +12426,8 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glGetMapiv);
 	Gura_AssignFunction(__glGetMaterialfv);
 	Gura_AssignFunction(__glGetMaterialiv);
+	Gura_AssignFunction(__glGetMinmaxParameterfv);
+	Gura_AssignFunction(__glGetMinmaxParameteriv);
 	Gura_AssignFunction(__glGetPixelMapfv);
 	Gura_AssignFunction(__glGetPixelMapuiv);
 	Gura_AssignFunction(__glGetPixelMapusv);
@@ -10940,6 +12443,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glGetTexParameterfv);
 	Gura_AssignFunction(__glGetTexParameteriv);
 	Gura_AssignFunction(__glHint);
+	Gura_AssignFunction(__glHistogram);
 	Gura_AssignFunction(__glIndexMask);
 	Gura_AssignFunction(__glIndexd);
 	Gura_AssignFunction(__glIndexdv);
@@ -10984,6 +12488,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glMateriali);
 	Gura_AssignFunction(__glMaterialiv);
 	Gura_AssignFunction(__glMatrixMode);
+	Gura_AssignFunction(__glMinmax);
 	Gura_AssignFunction(__glMultMatrixd);
 	Gura_AssignFunction(__glMultMatrixf);
 	Gura_AssignFunction(__glNewList);
@@ -11056,6 +12561,8 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glRects);
 	Gura_AssignFunction(__glRectsv);
 	Gura_AssignFunction(__glRenderMode);
+	Gura_AssignFunction(__glResetHistogram);
+	Gura_AssignFunction(__glResetMinmax);
 	Gura_AssignFunction(__glRotated);
 	Gura_AssignFunction(__glRotatef);
 	Gura_AssignFunction(__glScaled);
@@ -11233,6 +12740,47 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glGetQueryiv);
 	Gura_AssignFunction(__glGetQueryObjectiv);
 	Gura_AssignFunction(__glGetQueryObjectuiv);
+	Gura_AssignFunction(__glVertexAttrib1d);
+	Gura_AssignFunction(__glVertexAttrib1dv);
+	Gura_AssignFunction(__glVertexAttrib1f);
+	Gura_AssignFunction(__glVertexAttrib1fv);
+	Gura_AssignFunction(__glVertexAttrib1s);
+	Gura_AssignFunction(__glVertexAttrib1sv);
+	Gura_AssignFunction(__glVertexAttrib2d);
+	Gura_AssignFunction(__glVertexAttrib2dv);
+	Gura_AssignFunction(__glVertexAttrib2f);
+	Gura_AssignFunction(__glVertexAttrib2fv);
+	Gura_AssignFunction(__glVertexAttrib2s);
+	Gura_AssignFunction(__glVertexAttrib2sv);
+	Gura_AssignFunction(__glVertexAttrib3d);
+	Gura_AssignFunction(__glVertexAttrib3dv);
+	Gura_AssignFunction(__glVertexAttrib3f);
+	Gura_AssignFunction(__glVertexAttrib3fv);
+	Gura_AssignFunction(__glVertexAttrib3s);
+	Gura_AssignFunction(__glVertexAttrib3sv);
+	Gura_AssignFunction(__glVertexAttrib4Nbv);
+	Gura_AssignFunction(__glVertexAttrib4Niv);
+	Gura_AssignFunction(__glVertexAttrib4Nsv);
+	Gura_AssignFunction(__glVertexAttrib4Nub);
+	Gura_AssignFunction(__glVertexAttrib4Nubv);
+	Gura_AssignFunction(__glVertexAttrib4Nuiv);
+	Gura_AssignFunction(__glVertexAttrib4Nusv);
+	Gura_AssignFunction(__glVertexAttrib4bv);
+	Gura_AssignFunction(__glVertexAttrib4d);
+	Gura_AssignFunction(__glVertexAttrib4dv);
+	Gura_AssignFunction(__glVertexAttrib4f);
+	Gura_AssignFunction(__glVertexAttrib4fv);
+	Gura_AssignFunction(__glVertexAttrib4iv);
+	Gura_AssignFunction(__glVertexAttrib4s);
+	Gura_AssignFunction(__glVertexAttrib4sv);
+	Gura_AssignFunction(__glVertexAttrib4ubv);
+	Gura_AssignFunction(__glVertexAttrib4uiv);
+	Gura_AssignFunction(__glVertexAttrib4usv);
+	Gura_AssignFunction(__glEnableVertexAttribArray);
+	Gura_AssignFunction(__glDisableVertexAttribArray);
+	Gura_AssignFunction(__glGetVertexAttribdv);
+	Gura_AssignFunction(__glGetVertexAttribfv);
+	Gura_AssignFunction(__glGetVertexAttribiv);
 	Gura_AssignFunction(__glDeleteShader);
 	Gura_AssignFunction(__glDetachShader);
 	Gura_AssignFunction(__glCreateShader);

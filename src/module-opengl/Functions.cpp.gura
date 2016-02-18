@@ -567,12 +567,18 @@ glCopyTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, x:
 	'''
 }
 
-/*
-glCopyTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto % {`en, 'markdown',
+glCopyTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glCopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glCullFace(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -847,59 +853,71 @@ glGetClipPlane(plane:GLenum):map = R'''
 
 //glGetColorTable(target:GLenum, format:GLenum, type:GLenum, table:GLvoid@):void:map = `unsupport
 
-/*
 glGetColorTableParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_1_2)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetColorTableParameterfv(target, pname, params);
 	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
 glGetColorTableParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_1_2)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetColorTableParameteriv(target, pname, params);
 	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 //glGetConvolutionFilter(target:GLenum, format:GLenum, type:GLenum, image:GLvoid@):void:map = `unsupport
 
-/*
 glGetConvolutionParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_1_2)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetColorTableParameterfv(target, pname, params);
 	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
 glGetConvolutionParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_1_2)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetColorTableParameteriv(target, pname, params);
 	return ReturnValue(env, arg, Value::CreateList(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glGetDoublev(pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
@@ -930,31 +948,37 @@ glGetFloatv(pname:GLenum):map {block?} = R'''
 
 //glGetHistogram(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void:map = `unsupport
 
-/*
 glGetHistogramParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_1_2)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetHistogramParameterfv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
 glGetHistogramParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_1_2)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetHistogramParameteriv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glGetIntegerv(pname:GLenum):map {block?} = R'''
 	size_t n = GetParamCount(pname);
@@ -1028,29 +1052,37 @@ glGetMaterialiv(face:GLenum, pname:GLenum):map {block?} = R'''
 
 //glGetMinmax(target:GLenum, reset:GLboolean, format:GLenum, type:GLenum, values:GLvoid@):void:map = `unsupport
 
-/*
 glGetMinmaxParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_1_2)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetMinmaxParameterfv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glGetMinmaxParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_1_2)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetMinmaxParameteriv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glGetPixelMapfv(map:GLenum, values:GLfloat@):void:map = `unsupport % {`en, 'markdown',
 	R'''
@@ -1198,12 +1230,18 @@ glHint(target:GLenum, mode:GLenum):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-/*
-glHistogram(target:GLenum, width:GLsizei, internalformat:GLenum, sink:GLboolean):void:map = `auto % {`en, 'markdown',
+glHistogram(target:GLenum, width:GLsizei, internalformat:GLenum, sink:GLboolean):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glHistogram(target, width, internalformat, sink);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glIndexMask(mask:GLuint):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -1441,12 +1479,18 @@ glMatrixMode(mode:GLenum):void:map = `auto % {`en, 'markdown',
 	'''
 }
 
-/*
-glMinmax(target:GLenum, internalformat:GLenum, sink:GLboolean):void:map = `auto % {`en, 'markdown',
+glMinmax(target:GLenum, internalformat:GLenum, sink:GLboolean):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glMinmax(target, internalformat, sink);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glMultMatrixd(m:GLdouble@matrix:const):void = `auto % {`en, 'markdown',
 	R'''
@@ -1884,19 +1928,31 @@ glRenderMode(mode:GLenum):GLint:map {block?} = `auto % {`en, 'markdown',
 	'''
 }
 
-/*
-glResetHistogram(target:GLenum):void:map = `auto % {`en, 'markdown',
+glResetHistogram(target:GLenum):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glResetHistogram(target);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glResetMinmax(target:GLenum):void:map = `auto % {`en, 'markdown',
+glResetMinmax(target:GLenum):void:map = R'''
+^#if defined(GL_VERSION_1_2)
+	glResetMinmax(target);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.2");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glRotated(angle:GLdouble, x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
 	R'''
@@ -3686,195 +3742,498 @@ glDrawBuffers(bufs:GLenum@:const):void:map = R'''
 }
 */
 
-/*
-glVertexAttrib1d(index:GLuint, x:GLdouble):void:map = `auto % {`en, 'markdown',
+glVertexAttrib1d(index:GLuint, x:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib1d(index, x);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib1dv(index:GLuint, v:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib1dv(index:GLuint, v:GLdouble@1:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib1dv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib1f(index:GLuint, x:GLfloat):void:map = `auto % {`en, 'markdown',
+glVertexAttrib1f(index:GLuint, x:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib1f(index, x);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib1fv(index:GLuint, v:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib1fv(index:GLuint, v:GLfloat@1:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib1fv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib1s(index:GLuint, x:GLshort):void:map = `auto % {`en, 'markdown',
+glVertexAttrib1s(index:GLuint, x:GLshort):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib1s(index, x);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib1sv(index:GLuint, v:GLshort@1:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib1sv(index:GLuint, v:GLshort@1:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib1sv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2d(index:GLuint, x:GLdouble, y:GLdouble):void:map = `auto % {`en, 'markdown',
+glVertexAttrib2d(index:GLuint, x:GLdouble, y:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib2d(index, x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2dv(index:GLuint, v:GLdouble@2:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib2dv(index:GLuint, v:GLdouble@2:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib2dv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2f(index:GLuint, x:GLfloat, y:GLfloat):void:map = `auto % {`en, 'markdown',
+glVertexAttrib2f(index:GLuint, x:GLfloat, y:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib2f(index, x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2fv(index:GLuint, v:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib2fv(index:GLuint, v:GLfloat@2:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib2fv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2s(index:GLuint, x:GLshort, y:GLshort):void:map = `auto % {`en, 'markdown',
+glVertexAttrib2s(index:GLuint, x:GLshort, y:GLshort):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib2s(index, x, y);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib2sv(index:GLuint, v:GLshort@2:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib2sv(index:GLuint, v:GLshort@2:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib2sv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble):void:map = `auto % {`en, 'markdown',
+glVertexAttrib3d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib3d(index, x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3dv(index:GLuint, v:GLdouble@3:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib3dv(index:GLuint, v:GLdouble@3:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib3dv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat):void:map = `auto % {`en, 'markdown',
+glVertexAttrib3f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib3f(index, x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3fv(index:GLuint, v:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib3fv(index:GLuint, v:GLfloat@3:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib3fv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3s(index:GLuint, x:GLshort, y:GLshort, z:GLshort):void:map = `auto % {`en, 'markdown',
+glVertexAttrib3s(index:GLuint, x:GLshort, y:GLshort, z:GLshort):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib3s(index, x, y, z);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib3sv(index:GLuint, v:GLshort@3:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib3sv(index:GLuint, v:GLshort@3:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib3sv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nbv(index:GLuint, v:GLbyte@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4Nbv(index:GLuint, v:GLbyte@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4Nbv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Niv(index:GLuint, v:GLint@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4Niv(index:GLuint, v:GLint@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4Niv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nsv(index:GLuint, v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4Nsv(index:GLuint, v:GLshort@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4Nsv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nub(index:GLuint, x:GLubyte, y:GLubyte, z:GLubyte, w:GLubyte):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4Nub(index:GLuint, x:GLubyte, y:GLubyte, z:GLubyte, w:GLubyte):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4Nub(index, x, y, z, w);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nubv(index:GLuint, v:GLubyte@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4Nubv(index:GLuint, v:GLubyte@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4Nubv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nuiv(index:GLuint, v:GLuint@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4Nuiv(index:GLuint, v:GLuint@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4Nuiv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4Nusv(index:GLuint, v:GLushort@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4Nusv(index:GLuint, v:GLushort@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4Nusv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4bv(index:GLuint, v:GLbyte@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4bv(index:GLuint, v:GLbyte@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4bv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4d(index, x, y, z, w);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4dv(index:GLuint, v:GLdouble@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4dv(index:GLuint, v:GLdouble@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4dv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4f(index, x, y, z, w);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4fv(index:GLuint, v:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4fv(index:GLuint, v:GLfloat@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4fv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4iv(index:GLuint, v:GLint@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4iv(index:GLuint, v:GLint@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4iv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4s(index:GLuint, x:GLshort, y:GLshort, z:GLshort, w:GLshort):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4s(index:GLuint, x:GLshort, y:GLshort, z:GLshort, w:GLshort):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4s(index, x, y, z, w);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4sv(index:GLuint, v:GLshort@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4sv(index:GLuint, v:GLshort@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4sv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4ubv(index:GLuint, v:GLubyte@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4ubv(index:GLuint, v:GLubyte@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4ubv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4uiv(index:GLuint, v:GLuint@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4uiv(index:GLuint, v:GLuint@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4uiv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glVertexAttrib4usv(index:GLuint, v:GLushort@4:const):void:map = `auto % {`en, 'markdown',
+glVertexAttrib4usv(index:GLuint, v:GLushort@4:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glVertexAttrib4usv(index, v);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 //glVertexAttribPointer(index:GLuint, size:GLint, type:GLenum, normalized:GLboolean, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 
-glEnableVertexAttribArray(index:GLuint):void:map = `auto % {`en, 'markdown',
+glEnableVertexAttribArray(index:GLuint):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glEnableVertexAttribArray(index);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glDisableVertexAttribArray(index:GLuint):void:map = `auto % {`en, 'markdown',
+glDisableVertexAttribArray(index:GLuint):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glDisableVertexAttribArray(index);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -3913,7 +4272,6 @@ glGetVertexAttribiv(index:GLuint, pname:GLenum):map {block?} = R'''
 }
 
 //glGetVertexAttribPointerv(index:GLuint, pname:GLenum, pointer:GLvoid@@):void:map = `unsupport
-*/
 
 glDeleteShader(shader:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
