@@ -2669,33 +2669,57 @@ glMultiTexCoord4sv(target:GLenum, v:GLshort@4:const):void:map = `auto % {`en, 'm
 }
 */
 
-/*
-glFogCoordf(coord:GLfloat):void:map = `auto % {`en, 'markdown',
+glFogCoordf(coord:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glFogCoordf(coord);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glFogCoordfv(coord:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
+glFogCoordfv(coord:GLfloat@1:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glFogCoordfv(coord);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glFogCoordd(coord:GLdouble):void:map = `auto % {`en, 'markdown',
+glFogCoordd(coord:GLdouble):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glFogCoordd(coord);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
-/*
-glFogCoorddv(coord:GLdouble@1:const):void:map = `auto % {`en, 'markdown',
+glFogCoorddv(coord:GLdouble@1:const):void:map = R'''
+^#if defined(GL_VERSION_1_4)
+	glFogCoorddv(coord);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 //glFogCoordPointer(type:GLenum, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
 

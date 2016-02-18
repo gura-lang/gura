@@ -7433,6 +7433,104 @@ Gura_ImplementFunction(__glViewport)
 	return Value::Nil;
 }
 
+// opengl.glFogCoordf
+Gura_DeclareFunctionAlias(__glFogCoordf, "glFogCoordf")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glFogCoordf)
+{
+#if defined(GL_VERSION_1_4)
+	GLfloat coord = arg.GetFloat(0);
+	glFogCoordf(coord);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glFogCoordfv
+Gura_DeclareFunctionAlias(__glFogCoordfv, "glFogCoordfv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "coord", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glFogCoordfv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<float> *_coord = Object_array<float>::GetObject(arg, 0)->GetArray();
+	GLfloat *coord = reinterpret_cast<GLfloat *>(_coord->GetPointer());
+	if (_coord->GetSize() != 1) {
+		env.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Nil;
+	}
+	glFogCoordfv(coord);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glFogCoordd
+Gura_DeclareFunctionAlias(__glFogCoordd, "glFogCoordd")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glFogCoordd)
+{
+#if defined(GL_VERSION_1_4)
+	GLdouble coord = arg.GetDouble(0);
+	glFogCoordd(coord);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glFogCoorddv
+Gura_DeclareFunctionAlias(__glFogCoorddv, "glFogCoorddv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "coord", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glFogCoorddv)
+{
+#if defined(GL_VERSION_1_4)
+	Array<double> *_coord = Object_array<double>::GetObject(arg, 0)->GetArray();
+	GLdouble *coord = reinterpret_cast<GLdouble *>(_coord->GetPointer());
+	if (_coord->GetSize() != 1) {
+		env.SetError(ERR_ValueError, "the list must have one element");
+		return Value::Nil;
+	}
+	glFogCoorddv(coord);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.4");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glSecondaryColor3b
 Gura_DeclareFunctionAlias(__glSecondaryColor3b, "glSecondaryColor3b")
 {
@@ -9847,6 +9945,10 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glVertex4s);
 	Gura_AssignFunction(__glVertex4sv);
 	Gura_AssignFunction(__glViewport);
+	Gura_AssignFunction(__glFogCoordf);
+	Gura_AssignFunction(__glFogCoordfv);
+	Gura_AssignFunction(__glFogCoordd);
+	Gura_AssignFunction(__glFogCoorddv);
 	Gura_AssignFunction(__glSecondaryColor3b);
 	Gura_AssignFunction(__glSecondaryColor3bv);
 	Gura_AssignFunction(__glSecondaryColor3d);
