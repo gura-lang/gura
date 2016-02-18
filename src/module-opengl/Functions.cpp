@@ -11384,6 +11384,7 @@ Gura_DeclareFunctionAlias(__glGetVertexAttribdv, "glGetVertexAttribdv")
 
 Gura_ImplementFunction(__glGetVertexAttribdv)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint index = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
@@ -11391,6 +11392,10 @@ Gura_ImplementFunction(__glGetVertexAttribdv)
 	GLdouble *params = _params->GetPointer();
 	glGetVertexAttribdv(index, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glGetVertexAttribfv
@@ -11407,6 +11412,7 @@ Gura_DeclareFunctionAlias(__glGetVertexAttribfv, "glGetVertexAttribfv")
 
 Gura_ImplementFunction(__glGetVertexAttribfv)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint index = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
@@ -11414,6 +11420,10 @@ Gura_ImplementFunction(__glGetVertexAttribfv)
 	GLfloat *params = _params->GetPointer();
 	glGetVertexAttribfv(index, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glGetVertexAttribiv
@@ -11430,6 +11440,7 @@ Gura_DeclareFunctionAlias(__glGetVertexAttribiv, "glGetVertexAttribiv")
 
 Gura_ImplementFunction(__glGetVertexAttribiv)
 {
+#if defined(GL_VERSION_2_0)
 	GLuint index = arg.GetUInt(0);
 	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
 	size_t n = GetParamCount(pname);
@@ -11437,6 +11448,10 @@ Gura_ImplementFunction(__glGetVertexAttribiv)
 	GLint *params = _params->GetPointer();
 	glGetVertexAttribiv(index, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
 }
 
 // opengl.glDeleteShader
@@ -11690,6 +11705,514 @@ Gura_ImplementFunction(__glValidateProgram)
 #if defined(GL_VERSION_2_0)
 	GLuint program = arg.GetUInt(0);
 	glValidateProgram(program);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform1f
+Gura_DeclareFunctionAlias(__glUniform1f, "glUniform1f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v0", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform1f)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLfloat v0 = arg.GetFloat(1);
+	glUniform1f(location, v0);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform2f
+Gura_DeclareFunctionAlias(__glUniform2f, "glUniform2f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v0", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform2f)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLfloat v0 = arg.GetFloat(1);
+	GLfloat v1 = arg.GetFloat(2);
+	glUniform2f(location, v0, v1);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform3f
+Gura_DeclareFunctionAlias(__glUniform3f, "glUniform3f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v0", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform3f)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLfloat v0 = arg.GetFloat(1);
+	GLfloat v1 = arg.GetFloat(2);
+	GLfloat v2 = arg.GetFloat(3);
+	glUniform3f(location, v0, v1, v2);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform4f
+Gura_DeclareFunctionAlias(__glUniform4f, "glUniform4f")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v0", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v3", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform4f)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLfloat v0 = arg.GetFloat(1);
+	GLfloat v1 = arg.GetFloat(2);
+	GLfloat v2 = arg.GetFloat(3);
+	GLfloat v3 = arg.GetFloat(4);
+	glUniform4f(location, v0, v1, v2, v3);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform1i
+Gura_DeclareFunctionAlias(__glUniform1i, "glUniform1i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v0", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform1i)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLint v0 = arg.GetInt(1);
+	glUniform1i(location, v0);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform2i
+Gura_DeclareFunctionAlias(__glUniform2i, "glUniform2i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v0", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform2i)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLint v0 = arg.GetInt(1);
+	GLint v1 = arg.GetInt(2);
+	glUniform2i(location, v0, v1);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform3i
+Gura_DeclareFunctionAlias(__glUniform3i, "glUniform3i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v0", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform3i)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLint v0 = arg.GetInt(1);
+	GLint v1 = arg.GetInt(2);
+	GLint v2 = arg.GetInt(3);
+	glUniform3i(location, v0, v1, v2);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform4i
+Gura_DeclareFunctionAlias(__glUniform4i, "glUniform4i")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v0", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v1", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "v3", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform4i)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLint v0 = arg.GetInt(1);
+	GLint v1 = arg.GetInt(2);
+	GLint v2 = arg.GetInt(3);
+	GLint v3 = arg.GetInt(4);
+	glUniform4i(location, v0, v1, v2, v3);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform1fv
+Gura_DeclareFunctionAlias(__glUniform1fv, "glUniform1fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform1fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	Array<float> *_value = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
+	GLsizei count = _value->GetSize();
+	glUniform1fv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform2fv
+Gura_DeclareFunctionAlias(__glUniform2fv, "glUniform2fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform2fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	Array<float> *_value = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
+	GLsizei count = _value->GetSize() / 2;
+	glUniform2fv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform3fv
+Gura_DeclareFunctionAlias(__glUniform3fv, "glUniform3fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform3fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	Array<float> *_value = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
+	GLsizei count = _value->GetSize() / 3;
+	glUniform3fv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform4fv
+Gura_DeclareFunctionAlias(__glUniform4fv, "glUniform4fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform4fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	Array<float> *_value = Object_array<float>::GetObject(arg, 1)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
+	GLsizei count = _value->GetSize() / 4;
+	glUniform4fv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform1iv
+Gura_DeclareFunctionAlias(__glUniform1iv, "glUniform1iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform1iv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	Array<int> *_value = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *value = reinterpret_cast<GLint *>(_value->GetPointer());
+	GLsizei count = _value->GetSize();
+	glUniform1iv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform2iv
+Gura_DeclareFunctionAlias(__glUniform2iv, "glUniform2iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform2iv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	Array<int> *_value = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *value = reinterpret_cast<GLint *>(_value->GetPointer());
+	GLsizei count = _value->GetSize() / 2;
+	glUniform2iv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform3iv
+Gura_DeclareFunctionAlias(__glUniform3iv, "glUniform3iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform3iv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	Array<int> *_value = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *value = reinterpret_cast<GLint *>(_value->GetPointer());
+	GLsizei count = _value->GetSize() / 3;
+	glUniform3iv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniform4iv
+Gura_DeclareFunctionAlias(__glUniform4iv, "glUniform4iv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniform4iv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	Array<int> *_value = Object_array<int>::GetObject(arg, 1)->GetArray();
+	GLint *value = reinterpret_cast<GLint *>(_value->GetPointer());
+	GLsizei count = _value->GetSize() / 4;
+	glUniform4iv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniformMatrix2fv
+Gura_DeclareFunctionAlias(__glUniformMatrix2fv, "glUniformMatrix2fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniformMatrix2fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLboolean transpose = (arg.GetBoolean(1)? GL_TRUE : GL_FALSE);
+	Array<float> *_value = Object_array<float>::GetObject(arg, 2)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
+	GLsizei count = _value->GetSize() / 2;
+	glUniformMatrix2fv(location, count, transpose, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniformMatrix3fv
+Gura_DeclareFunctionAlias(__glUniformMatrix3fv, "glUniformMatrix3fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniformMatrix3fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLboolean transpose = (arg.GetBoolean(1)? GL_TRUE : GL_FALSE);
+	Array<float> *_value = Object_array<float>::GetObject(arg, 2)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
+	GLsizei count = _value->GetSize() / 3;
+	glUniformMatrix3fv(location, count, transpose, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUniformMatrix4fv
+Gura_DeclareFunctionAlias(__glUniformMatrix4fv, "glUniformMatrix4fv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUniformMatrix4fv)
+{
+#if defined(GL_VERSION_2_0)
+	GLint location = arg.GetInt(0);
+	GLboolean transpose = (arg.GetBoolean(1)? GL_TRUE : GL_FALSE);
+	Array<float> *_value = Object_array<float>::GetObject(arg, 2)->GetArray();
+	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
+	GLsizei count = _value->GetSize() / 4;
+	glUniformMatrix4fv(location, count, transpose, value);
 	return Value::Nil;
 #else
 	SetError_RequiredGLVersion(env, "2.0");
@@ -12792,6 +13315,25 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glUseProgram);
 	Gura_AssignFunction(__glDeleteProgram);
 	Gura_AssignFunction(__glValidateProgram);
+	Gura_AssignFunction(__glUniform1f);
+	Gura_AssignFunction(__glUniform2f);
+	Gura_AssignFunction(__glUniform3f);
+	Gura_AssignFunction(__glUniform4f);
+	Gura_AssignFunction(__glUniform1i);
+	Gura_AssignFunction(__glUniform2i);
+	Gura_AssignFunction(__glUniform3i);
+	Gura_AssignFunction(__glUniform4i);
+	Gura_AssignFunction(__glUniform1fv);
+	Gura_AssignFunction(__glUniform2fv);
+	Gura_AssignFunction(__glUniform3fv);
+	Gura_AssignFunction(__glUniform4fv);
+	Gura_AssignFunction(__glUniform1iv);
+	Gura_AssignFunction(__glUniform2iv);
+	Gura_AssignFunction(__glUniform3iv);
+	Gura_AssignFunction(__glUniform4iv);
+	Gura_AssignFunction(__glUniformMatrix2fv);
+	Gura_AssignFunction(__glUniformMatrix3fv);
+	Gura_AssignFunction(__glUniformMatrix4fv);
 	Gura_AssignFunction(__glIsShader);
 	Gura_AssignFunction(__glIsProgram);
 	Gura_AssignFunction(__glGetShaderiv);

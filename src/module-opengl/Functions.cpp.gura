@@ -4239,33 +4239,48 @@ glDisableVertexAttribArray(index:GLuint):void:map = R'''
 }
 
 glGetVertexAttribdv(index:GLuint, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
 	glGetVertexAttribdv(index, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glGetVertexAttribfv(index:GLuint, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
 	glGetVertexAttribfv(index, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glGetVertexAttribiv(index:GLuint, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_2_0)
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetVertexAttribiv(index, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -4426,102 +4441,263 @@ glValidateProgram(program:GLuint):void:map = R'''
 	'''
 }
 
-/*
-glUniform1f(location:GLint, v0:GLfloat):void:map = `auto % {`en, 'markdown',
+glUniform1f(location:GLint, v0:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glUniform1f(location, v0);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform2f(location:GLint, v0:GLfloat, v1:GLfloat):void:map = `auto % {`en, 'markdown',
+glUniform2f(location:GLint, v0:GLfloat, v1:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glUniform2f(location, v0, v1);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform3f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat):void:map = `auto % {`en, 'markdown',
+glUniform3f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glUniform3f(location, v0, v1, v2);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform4f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat, v3:GLfloat):void:map = `auto % {`en, 'markdown',
+glUniform4f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat, v3:GLfloat):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glUniform4f(location, v0, v1, v2, v3);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform1i(location:GLint, v0:GLint):void:map = `auto % {`en, 'markdown',
+glUniform1i(location:GLint, v0:GLint):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glUniform1i(location, v0);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform2i(location:GLint, v0:GLint, v1:GLint):void:map = `auto % {`en, 'markdown',
+glUniform2i(location:GLint, v0:GLint, v1:GLint):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glUniform2i(location, v0, v1);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform3i(location:GLint, v0:GLint, v1:GLint, v2:GLint):void:map = `auto % {`en, 'markdown',
+glUniform3i(location:GLint, v0:GLint, v1:GLint, v2:GLint):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glUniform3i(location, v0, v1, v2);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform4i(location:GLint, v0:GLint, v1:GLint, v2:GLint, v3:GLint):void:map = `auto % {`en, 'markdown',
+glUniform4i(location:GLint, v0:GLint, v1:GLint, v2:GLint, v3:GLint):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	glUniform4i(location, v0, v1, v2, v3);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform1fv(location:GLint, count:GLsizei, value:GLfloat@1:const):void:map = `auto % {`en, 'markdown',
+glUniform1fv(location:GLint, value:GLfloat@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize();
+	glUniform1fv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform2fv(location:GLint, count:GLsizei, value:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
+glUniform2fv(location:GLint, value:GLfloat@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize() / 2;
+	glUniform2fv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform3fv(location:GLint, count:GLsizei, value:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
+glUniform3fv(location:GLint, value:GLfloat@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize() / 3;
+	glUniform3fv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform4fv(location:GLint, count:GLsizei, value:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
+glUniform4fv(location:GLint, value:GLfloat@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize() / 4;
+	glUniform4fv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform1iv(location:GLint, count:GLsizei, value:GLint@1:const):void:map = `auto % {`en, 'markdown',
+glUniform1iv(location:GLint, value:GLint@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize();
+	glUniform1iv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform2iv(location:GLint, count:GLsizei, value:GLint@2:const):void:map = `auto % {`en, 'markdown',
+glUniform2iv(location:GLint, value:GLint@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize() / 2;
+	glUniform2iv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform3iv(location:GLint, count:GLsizei, value:GLint@3:const):void:map = `auto % {`en, 'markdown',
+glUniform3iv(location:GLint, value:GLint@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize() / 3;
+	glUniform3iv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniform4iv(location:GLint, count:GLsizei, value:GLint@4:const):void:map = `auto % {`en, 'markdown',
+glUniform4iv(location:GLint, value:GLint@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize() / 4;
+	glUniform4iv(location, count, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix2fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@2:const):void:map = `auto % {`en, 'markdown',
+glUniformMatrix2fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize() / 2;
+	glUniformMatrix2fv(location, count, transpose, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@3:const):void:map = `auto % {`en, 'markdown',
+glUniformMatrix3fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize() / 3;
+	glUniformMatrix3fv(location, count, transpose, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glUniformMatrix4fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@4:const):void:map = `auto % {`en, 'markdown',
+glUniformMatrix4fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+	GLsizei count = _value->GetSize() / 4;
+	glUniformMatrix4fv(location, count, transpose, value);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glIsShader(shader:GLuint):GLboolean:map {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
