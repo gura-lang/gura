@@ -19,24 +19,6 @@ keyboard(code:number, x:number, y:number) = {
 
 init() = {
 	glClearColor(1.0, 1.0, 1.0, 1.0)
-	vertShader = glCreateShader(GL_VERTEX_SHADER)
-	source = R'''
-	#version 120
-	//
-	// simple.vert
-	//
-	invariant gl_Position;
-	attribute vec2 position;
-	
-	void main(void)
-	{
-		gl_Position = vec4(position, 0.0, 1.0);
-	}
-	'''.eachline()
-	glShaderSource(vertShader, source)
-	glCompileShader(vertShader)
-	println('status = ', glGetShaderiv(vertShader, GL_COMPILE_STATUS))
-	println(glGetShaderInfoLog(vertShader))
 }
 
 main() = {
