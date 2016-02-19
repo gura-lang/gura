@@ -1,0 +1,52 @@
+#!/usr/bin/env gura
+
+// Orignal source file is written in C and is available from the site below:
+// http://marina.sys.wakayama-u.ac.jp/~tokoi/oglarticles.html
+
+import(opengl) {*}
+import(glut) {*}
+
+display() = {
+	glClear(GL_COLOR_BUFFER_BIT)
+	glFlush()
+}
+
+keyboard(code:number, x:number, y:number) = {
+	if (code == 27) {
+		sys.exit(0)
+	}
+}
+
+init() = {
+	glClearColor(1.0, 1.0, 1.0, 1.0)
+	vertShader = glCreateShader(GL_VERTEX_SHADER)
+	source = R'''
+	#version 120
+	//
+	// simple.vert
+	//
+	invariant gl_Position;
+	attribute vec2 position;
+	
+	void main(void)
+	{
+		gl_Position = vec4(position, 0.0, 1.0);
+	}
+	'''.eachline()
+	glShaderSource(vertShader, source)
+	glCompileShader(vertShader)
+	println('status = ', glGetShaderiv(vertShader, GL_COMPILE_STATUS))
+	println(glGetShaderInfoLog(vertShader))
+}
+
+main() = {
+	glutInit(sys.argv)
+	glutInitDisplayMode(GLUT_RGB)
+	glutCreateWindow(sys.argv[0])
+	glutDisplayFunc(display)
+	glutKeyboardFunc(keyboard);
+	init()
+	glutMainLoop()
+}
+
+main()
