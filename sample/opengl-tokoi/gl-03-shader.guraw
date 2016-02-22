@@ -6,6 +6,20 @@
 import(opengl) {*}
 import(glut) {*}
 
+printShaderInfoLog(shader:number) = {
+	infoLog = glGetShaderInfoLog(shader)
+	!infoLog.isempty() && sys.stderr.printf('InfoLog:\n%s\n\n', infoLog)
+}
+
+printProgramInfoLog(program:number) = {
+	infoLog = glGetProgramInfoLog(program)
+	!infoLog.isempty() && sys.stderr.printf('InfoLog:\n%s\n\n', infoLog)
+}
+
+vertShader = nil
+fragShader = nil
+gl2Program = nil
+
 display() = {
 	glClear(GL_COLOR_BUFFER_BIT)
 	glFlush()
@@ -17,26 +31,68 @@ keyboard(code:number, x:number, y:number) = {
 	}
 }
 
+src_simple_vert = R'''
+#version 120
+//
+// simple.vert
+//
+invariant gl_Position;
+attribute vec2 position;
+
+void main(void)
+{
+	gl_Position = vec4(position, 0.0, 1.0);
+}
+'''
+
+src_simple_frag = R'''
+#version 120
+//
+// simple.frag
+//
+
+void main(void)
+{
+	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+'''
+
 init() = {
 	glClearColor(1.0, 1.0, 1.0, 1.0)
-	vertShader = glCreateShader(GL_VERTEX_SHADER)
-	source = R'''
-	#version 120
-	//
-	// simple.vert
-	//
-	invariant gl_Position;
-	attribute vec2 position;
-	
-	void main(void)
-	{
-		gl_Position = vec4(position, 0.0, 1.0);
-	}
-	'''.eachline()
-	glShaderSource(vertShader, source)
+	vertShader:extern = glCreateShader(GL_VERTEX_SHADER)
+	fragShader:extern = glCreateShader(GL_FRAGMENT_SHADER)
+	glShaderSource(vertShader, src_simple_vert.eachline())
+	glShaderSource(fragShader, src_simple_frag.eachline())
 	glCompileShader(vertShader)
-	println('status = ', glGetShaderiv(vertShader, GL_COMPILE_STATUS))
-	println(glGetShaderInfoLog(vertShader))
+	compiled = (glGetShaderiv(vertShader, GL_COMPILE_STATUS) == 1)
+	printShaderInfoLog(vertShader)
+	if (!compiled) {
+		sys.stderr.println('Compile error in vertex shader.')
+		sys.exit(1)
+	}
+	glCompileShader(fragShader)
+	compiled = (glGetShaderiv(fragShader, GL_COMPILE_STATUS) == 1)
+	printShaderInfoLog(fragShader)
+	if (!compiled) {
+		sys.stderr.println('Compile error in fragment shader.')
+		sys.exit(1)
+	}
+	gl2Program = glCreateProgram()
+	glAttachShader(gl2Program, vertShader)
+	glAttachShader(gl2Program, fragShader)
+	glDeleteShader(vertShader)
+	glDeleteShader(fragShader)
+
+	glBindAttribLocation(gl2Program, 0, 'position')
+
+	glLinkProgram(gl2Program)
+	linked = (glGetProgramiv(gl2Program, GL_LINK_STATUS) == 1)
+	printProgramInfo(gl2Program)
+	if (!linked) {
+		sys.stderr.println('Link error.')
+		sys.exit(1)
+	}
+	
 }
 
 main() = {

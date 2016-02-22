@@ -5004,12 +5004,35 @@ glGetProgramInfoLog(program:GLuint):map {block?} = '''
 	'''
 }
 
-glGetUniformLocation(program:GLuint, name:GLchar@:const):GLint:map {block?} = `unsupport % {`en, 'markdown',
+glGetUniformLocation(program:GLuint, name:string):GLint:map {block?} = R'''
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	GLint _rtn = glGetUniformLocation(program, name);
+	return ReturnValue(env, arg, Value(_rtn));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glGetActiveUniform(program:GLuint, index:GLuint, bufSize:GLsizei, length:GLsizei@, size:GLint@, type:GLenum@, name:GLchar@):void:map = `unsupport % {`en, 'markdown',
+glGetActiveUniform(program:GLuint, index:GLuint):map {block?} = R'''
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	GLsizei bufSize = GL_ACTIVE_UNIFORM_MAX_LENGTH;
+	GLsizei length;
+	GLint size;
+	GLenum type;
+	GLchar name[GL_ACTIVE_UNIFORM_MAX_LENGTH];
+	glGetActiveUniform(program, index, bufSize, &length, &size, &type, name);
+	return ReturnValue(env, arg, Value::CreateList(env, Value(size), Value(type), Value(name)));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -5029,7 +5052,16 @@ glGetShaderSource(shader:GLuint, bufSize:GLsizei, length:GLsizei@, source:GLchar
 	'''
 }
 
-glBindAttribLocation(program:GLuint, index:GLuint, name:GLchar@:const):void:map = `unsupport % {`en, 'markdown',
+glBindAttribLocation(program:GLuint, index:GLuint, name:string):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	glBindAttribLocation(program, index, name);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -5039,7 +5071,16 @@ glGetActiveAttrib(program:GLuint, index:GLuint, bufSize:GLsizei, length:GLsizei@
 	'''
 }
 
-glGetAttribLocation(program:GLuint, name:GLchar@:const):GLint:map {block?} = `unsupport % {`en, 'markdown',
+glGetAttribLocation(program:GLuint, name:string):GLint:map {block?} = R'''
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	GLint _rtn = glGetAttribLocation(program, name);
+	return ReturnValue(env, arg, Value(_rtn));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }

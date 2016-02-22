@@ -12627,7 +12627,7 @@ Gura_DeclareFunctionAlias(__glGetUniformLocation, "glGetUniformLocation")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "name", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12635,28 +12635,25 @@ Gura_DeclareFunctionAlias(__glGetUniformLocation, "glGetUniformLocation")
 
 Gura_ImplementFunction(__glGetUniformLocation)
 {
-#if 0
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
 	GLuint program = arg.GetUInt(0);
-	Array<char> *_name = Object_array<char>::GetObject(arg, 1)->GetArray();
-	GLchar *name = reinterpret_cast<GLchar *>(_name->GetPointer());
+	const char *name = arg.GetString(1);
 	GLint _rtn = glGetUniformLocation(program, name);
 	return ReturnValue(env, arg, Value(_rtn));
-#endif
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetUniformLocation");
+#else
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
+#endif
 }
 
 // opengl.glGetActiveUniform
 Gura_DeclareFunctionAlias(__glGetActiveUniform, "glGetActiveUniform")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "bufSize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "size", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "name", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12664,23 +12661,21 @@ Gura_DeclareFunctionAlias(__glGetActiveUniform, "glGetActiveUniform")
 
 Gura_ImplementFunction(__glGetActiveUniform)
 {
-#if 0
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
 	GLuint program = arg.GetUInt(0);
 	GLuint index = arg.GetUInt(1);
-	GLsizei bufSize = arg.GetInt(2);
-	AutoPtr<Array<GLsizei> > _length(CreateArrayFromList<GLsizei>(arg.GetList(3)));
-	GLsizei *length = _length->GetPointer();
-	Array<int> *_size = Object_array<int>::GetObject(arg, 4)->GetArray();
-	GLint *size = reinterpret_cast<GLint *>(_size->GetPointer());
-	AutoPtr<Array<GLenum> > _type(CreateArrayFromList<GLenum>(arg.GetList(5)));
-	GLenum *type = _type->GetPointer();
-	Array<char> *_name = Object_array<char>::GetObject(arg, 6)->GetArray();
-	GLchar *name = reinterpret_cast<GLchar *>(_name->GetPointer());
-	glGetActiveUniform(program, index, bufSize, length, size, type, name);
+	GLsizei bufSize = GL_ACTIVE_UNIFORM_MAX_LENGTH;
+	GLsizei length;
+	GLint size;
+	GLenum type;
+	GLchar name[GL_ACTIVE_UNIFORM_MAX_LENGTH];
+	glGetActiveUniform(program, index, bufSize, &length, &size, &type, name);
+	return ReturnValue(env, arg, Value::CreateList(env, Value(size), Value(type), Value(name)));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetActiveUniform");
-	return Value::Nil;
 }
 
 // opengl.glGetUniformfv
@@ -12770,7 +12765,7 @@ Gura_DeclareFunctionAlias(__glBindAttribLocation, "glBindAttribLocation")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "name", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12778,16 +12773,17 @@ Gura_DeclareFunctionAlias(__glBindAttribLocation, "glBindAttribLocation")
 
 Gura_ImplementFunction(__glBindAttribLocation)
 {
-#if 0
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
 	GLuint program = arg.GetUInt(0);
 	GLuint index = arg.GetUInt(1);
-	Array<char> *_name = Object_array<char>::GetObject(arg, 2)->GetArray();
-	GLchar *name = reinterpret_cast<GLchar *>(_name->GetPointer());
+	const char *name = arg.GetString(2);
 	glBindAttribLocation(program, index, name);
 	return Value::Nil;
-#endif
-	env.SetError(ERR_NotImplementedError, "not implemented function glBindAttribLocation");
+#else
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
+#endif
 }
 
 // opengl.glGetActiveAttrib
@@ -12833,7 +12829,7 @@ Gura_DeclareFunctionAlias(__glGetAttribLocation, "glGetAttribLocation")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "name", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12841,15 +12837,16 @@ Gura_DeclareFunctionAlias(__glGetAttribLocation, "glGetAttribLocation")
 
 Gura_ImplementFunction(__glGetAttribLocation)
 {
-#if 0
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
 	GLuint program = arg.GetUInt(0);
-	Array<char> *_name = Object_array<char>::GetObject(arg, 1)->GetArray();
-	GLchar *name = reinterpret_cast<GLchar *>(_name->GetPointer());
+	const char *name = arg.GetString(1);
 	GLint _rtn = glGetAttribLocation(program, name);
 	return ReturnValue(env, arg, Value(_rtn));
-#endif
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetAttribLocation");
+#else
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
+#endif
 }
 
 // opengl.glUniformMatrix2x3fv
