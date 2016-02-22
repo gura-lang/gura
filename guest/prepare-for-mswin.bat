@@ -34,6 +34,7 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/fontconfig-2.11.tar.bz2
 %CURL% -O %GUESTURL%/freeglut-2.8.1.tar.gz
 %CURL% -O %GUESTURL%/freetype-2.5.3.tar.bz2
+%CURL% -O %GUESTURL%/glew-1.13.0.zip
 %CURL% -O %GUESTURL%/jpegsrc.v9a.tar.gz
 %CURL% -O %GUESTURL%/lpng1520.zip
 %CURL% -O %GUESTURL%/lpng1520-gurapatch.zip
@@ -138,6 +139,9 @@ rem ---------------------------------------------------------------------------
 %UNZIP% x -y freeglut-2.8.1.tar
 del freeglut-2.8.1.tar
 msbuild freeglut-2.8.1\VisualStudio\2010\freeglut.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release_Static /p:Platform=win32
+rem ---------------------------------------------------------------------------
+%UNZIP% x -y glew-1.13.0.zip
+msbuild glew-1.13.0\build\vc10\glew.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y freetype-2.5.3.tar.bz2
 %UNZIP% x -y freetype-2.5.3.tar
