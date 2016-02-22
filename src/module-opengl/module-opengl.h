@@ -8,6 +8,9 @@
 #if defined(GURA_ON_DARWIN)
 #include <OpenGL/OpenGL.h>
 #include <OpenGL/gl.h>
+#elif defined(GURA_ON_MSWIN)
+#define GLEW_STATIC
+#include <glew.h>
 #else
 #include <GL/gl.h>
 #endif
