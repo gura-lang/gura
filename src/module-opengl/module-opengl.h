@@ -16,6 +16,12 @@
 #endif
 #include "Utils.h"
 
+#if defined(__GLEW_H__)
+#define ImplementGLExtension() if (!SetupGLEW(env)) return Value::Nil
+#else
+#define ImplementGLExtension()
+#endif
+
 Gura_BeginModuleHeader(opengl)
 
 bool DoGLSection(Environment &env, Signal &sig, Argument &args, Image *pImage);
@@ -35,6 +41,10 @@ bool CheckParamCount(GLenum pname, size_t n);
 GLenum GetImageFormat(Environment &env, const Image *pImage);
 void SetError_NotImpFunction(Environment &env, const char *funcName);
 void SetError_RequiredGLVersion(Environment &env, const char *version);
+
+#if defined(__GLEW_H__)
+bool SetupGLEW(Environment &env);
+#endif
 
 Gura_EndModuleHeader(opengl)
 

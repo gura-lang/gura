@@ -90,6 +90,7 @@ glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfl
 
 glBlendColor(red:GLclampf, green:GLclampf, blue:GLclampf, alpha:GLclampf):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glBlendColor(red, green, blue, alpha);
 	return Value::Nil;
 #else
@@ -103,6 +104,7 @@ glBlendColor(red:GLclampf, green:GLclampf, blue:GLclampf, alpha:GLclampf):void:m
 	
 glBlendEquation(mode:GLenum):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glBlendEquation(mode);
 	return Value::Nil;
 #else
@@ -116,6 +118,7 @@ glBlendEquation(mode:GLenum):void:map = R'''
 
 glBlendEquationSeparate(modeRGB:GLenum, modeAlpha:GLenum):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glBlendEquationSeparate(modeRGB, modeAlpha);
 	return Value::Nil;
 #else
@@ -424,6 +427,7 @@ glColorMaterial(face:GLenum, mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glColorTableParameterfv(target, pname, params);
 	return Value::Nil;
 #else
@@ -437,6 +441,7 @@ glColorTableParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const)
 
 glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glColorTableParameteriv(target, pname, params);
 	return Value::Nil;
 #else
@@ -454,6 +459,7 @@ glColorTableParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):v
 
 glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glConvolutionParameterf(target, pname, params);
 	return Value::Nil;
 #else
@@ -467,6 +473,7 @@ glConvolutionParameterf(target:GLenum, pname:GLenum, params:GLfloat):void:map = 
 
 glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glConvolutionParameterfv(target, pname, params);
 	return Value::Nil;
 #else
@@ -480,6 +487,7 @@ glConvolutionParameterfv(target:GLenum, pname:GLenum, params:GLfloat@pname:const
 
 glConvolutionParameteri(target:GLenum, pname:GLenum, params:GLint):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glConvolutionParameteri(target, pname, params);
 	return Value::Nil;
 #else
@@ -493,6 +501,7 @@ glConvolutionParameteri(target:GLenum, pname:GLenum, params:GLint):void:map = R'
 
 glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glConvolutionParameteriv(target, pname, params);
 	return Value::Nil;
 #else
@@ -506,6 +515,7 @@ glConvolutionParameteriv(target:GLenum, pname:GLenum, params:GLint@pname:const):
 
 glCopyColorSubTable(target:GLenum, start:GLsizei, x:GLint, y:GLint, width:GLsizei):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glCopyColorSubTable(target, start, x, y, width);
 	return Value::Nil;
 #else
@@ -519,6 +529,7 @@ glCopyColorSubTable(target:GLenum, start:GLsizei, x:GLint, y:GLint, width:GLsize
 
 glCopyColorTable(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glCopyColorTable(target, internalformat, x, y, width);
 	return Value::Nil;
 #else
@@ -532,6 +543,7 @@ glCopyColorTable(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:G
 
 glCopyConvolutionFilter1D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glCopyConvolutionFilter1D(target, internalformat, x, y, width);
 	return Value::Nil;
 #else
@@ -545,6 +557,7 @@ glCopyConvolutionFilter1D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint
 
 glCopyConvolutionFilter2D(target:GLenum, internalformat:GLenum, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glCopyConvolutionFilter2D(target, internalformat, x, y, width, height);
 	return Value::Nil;
 #else
@@ -583,6 +596,7 @@ glCopyTexSubImage2D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, x:
 
 glCopyTexSubImage3D(target:GLenum, level:GLint, xoffset:GLint, yoffset:GLint, zoffset:GLint, x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glCopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 	return Value::Nil;
 #else
@@ -869,6 +883,7 @@ glGetClipPlane(plane:GLenum):map = R'''
 
 glGetColorTableParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
@@ -885,6 +900,7 @@ glGetColorTableParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 
 glGetColorTableParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -903,6 +919,7 @@ glGetColorTableParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 
 glGetConvolutionParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
@@ -919,6 +936,7 @@ glGetConvolutionParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 
 glGetConvolutionParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -964,6 +982,7 @@ glGetFloatv(pname:GLenum):map {block?} = R'''
 
 glGetHistogramParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
@@ -980,6 +999,7 @@ glGetHistogramParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 
 glGetHistogramParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -1068,6 +1088,7 @@ glGetMaterialiv(face:GLenum, pname:GLenum):map {block?} = R'''
 
 glGetMinmaxParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
@@ -1084,6 +1105,7 @@ glGetMinmaxParameterfv(target:GLenum, pname:GLenum):map {block?} = R'''
 
 glGetMinmaxParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -1246,6 +1268,7 @@ glHint(target:GLenum, mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 glHistogram(target:GLenum, width:GLsizei, internalformat:GLenum, sink:GLboolean):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glHistogram(target, width, internalformat, sink);
 	return Value::Nil;
 #else
@@ -1495,6 +1518,7 @@ glMatrixMode(mode:GLenum):void:map = `auto % {`en, 'markdown',
 
 glMinmax(target:GLenum, internalformat:GLenum, sink:GLboolean):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glMinmax(target, internalformat, sink);
 	return Value::Nil;
 #else
@@ -1944,6 +1968,7 @@ glRenderMode(mode:GLenum):GLint:map {block?} = `auto % {`en, 'markdown',
 
 glResetHistogram(target:GLenum):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glResetHistogram(target);
 	return Value::Nil;
 #else
@@ -1957,6 +1982,7 @@ glResetHistogram(target:GLenum):void:map = R'''
 
 glResetMinmax(target:GLenum):void:map = R'''
 ^#if defined(GL_VERSION_1_2)
+^	ImplementGLExtension();
 	glResetMinmax(target);
 	return Value::Nil;
 #else
@@ -2571,6 +2597,7 @@ glMultTransposeMatrixd(m:GLdouble@matrix:const):void = `auto % {`en, 'markdown',
 
 glActiveTexture(texture:GLenum):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glActiveTexture(texture);
 	return Value::Nil;
 #else
@@ -2584,6 +2611,7 @@ glActiveTexture(texture:GLenum):void:map = R'''
 
 glClientActiveTexture(texture:GLenum):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glClientActiveTexture(texture);
 	return Value::Nil;
 #else
@@ -2597,6 +2625,7 @@ glClientActiveTexture(texture:GLenum):void:map = R'''
 
 glMultiTexCoord1d(target:GLenum, s:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord1d(target, s);
 	return Value::Nil;
 #else
@@ -2610,6 +2639,7 @@ glMultiTexCoord1d(target:GLenum, s:GLdouble):void:map = R'''
 
 glMultiTexCoord1dv(target:GLenum, v:GLdouble@1:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord1dv(target, v);
 	return Value::Nil;
 #else
@@ -2623,6 +2653,7 @@ glMultiTexCoord1dv(target:GLenum, v:GLdouble@1:const):void:map = R'''
 
 glMultiTexCoord1f(target:GLenum, s:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord1f(target, s);
 	return Value::Nil;
 #else
@@ -2636,6 +2667,7 @@ glMultiTexCoord1f(target:GLenum, s:GLfloat):void:map = R'''
 
 glMultiTexCoord1fv(target:GLenum, v:GLfloat@1:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord1fv(target, v);
 	return Value::Nil;
 #else
@@ -2649,6 +2681,7 @@ glMultiTexCoord1fv(target:GLenum, v:GLfloat@1:const):void:map = R'''
 
 glMultiTexCoord1i(target:GLenum, s:GLint):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord1i(target, s);
 	return Value::Nil;
 #else
@@ -2662,6 +2695,7 @@ glMultiTexCoord1i(target:GLenum, s:GLint):void:map = R'''
 
 glMultiTexCoord1iv(target:GLenum, v:GLint@1:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord1iv(target, v);
 	return Value::Nil;
 #else
@@ -2675,6 +2709,7 @@ glMultiTexCoord1iv(target:GLenum, v:GLint@1:const):void:map = R'''
 
 glMultiTexCoord1s(target:GLenum, s:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord1s(target, s);
 	return Value::Nil;
 #else
@@ -2688,6 +2723,7 @@ glMultiTexCoord1s(target:GLenum, s:GLshort):void:map = R'''
 
 glMultiTexCoord1sv(target:GLenum, v:GLshort@1:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord1sv(target, v);
 	return Value::Nil;
 #else
@@ -2701,6 +2737,7 @@ glMultiTexCoord1sv(target:GLenum, v:GLshort@1:const):void:map = R'''
 
 glMultiTexCoord2d(target:GLenum, s:GLdouble, t:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord2d(target, s, t);
 	return Value::Nil;
 #else
@@ -2714,6 +2751,7 @@ glMultiTexCoord2d(target:GLenum, s:GLdouble, t:GLdouble):void:map = R'''
 
 glMultiTexCoord2dv(target:GLenum, v:GLdouble@2:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord2dv(target, v);
 	return Value::Nil;
 #else
@@ -2727,6 +2765,7 @@ glMultiTexCoord2dv(target:GLenum, v:GLdouble@2:const):void:map = R'''
 
 glMultiTexCoord2f(target:GLenum, s:GLfloat, t:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord2f(target, s, t);
 	return Value::Nil;
 #else
@@ -2740,6 +2779,7 @@ glMultiTexCoord2f(target:GLenum, s:GLfloat, t:GLfloat):void:map = R'''
 
 glMultiTexCoord2fv(target:GLenum, v:GLfloat@2:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord2fv(target, v);
 	return Value::Nil;
 #else
@@ -2753,6 +2793,7 @@ glMultiTexCoord2fv(target:GLenum, v:GLfloat@2:const):void:map = R'''
 
 glMultiTexCoord2i(target:GLenum, s:GLint, t:GLint):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord2i(target, s, t);
 	return Value::Nil;
 #else
@@ -2766,6 +2807,7 @@ glMultiTexCoord2i(target:GLenum, s:GLint, t:GLint):void:map = R'''
 
 glMultiTexCoord2iv(target:GLenum, v:GLint@2:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord2iv(target, v);
 	return Value::Nil;
 #else
@@ -2779,6 +2821,7 @@ glMultiTexCoord2iv(target:GLenum, v:GLint@2:const):void:map = R'''
 
 glMultiTexCoord2s(target:GLenum, s:GLshort, t:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord2s(target, s, t);
 	return Value::Nil;
 #else
@@ -2792,6 +2835,7 @@ glMultiTexCoord2s(target:GLenum, s:GLshort, t:GLshort):void:map = R'''
 
 glMultiTexCoord2sv(target:GLenum, v:GLshort@2:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord2sv(target, v);
 	return Value::Nil;
 #else
@@ -2805,6 +2849,7 @@ glMultiTexCoord2sv(target:GLenum, v:GLshort@2:const):void:map = R'''
 
 glMultiTexCoord3d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord3d(target, s, t, r);
 	return Value::Nil;
 #else
@@ -2818,6 +2863,7 @@ glMultiTexCoord3d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble):void:map = 
 
 glMultiTexCoord3dv(target:GLenum, v:GLdouble@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord3dv(target, v);
 	return Value::Nil;
 #else
@@ -2831,6 +2877,7 @@ glMultiTexCoord3dv(target:GLenum, v:GLdouble@3:const):void:map = R'''
 
 glMultiTexCoord3f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord3f(target, s, t, r);
 	return Value::Nil;
 #else
@@ -2844,6 +2891,7 @@ glMultiTexCoord3f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat):void:map = R''
 
 glMultiTexCoord3fv(target:GLenum, v:GLfloat@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord3fv(target, v);
 	return Value::Nil;
 #else
@@ -2857,6 +2905,7 @@ glMultiTexCoord3fv(target:GLenum, v:GLfloat@3:const):void:map = R'''
 
 glMultiTexCoord3i(target:GLenum, s:GLint, t:GLint, r:GLint):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord3i(target, s, t, r);
 	return Value::Nil;
 #else
@@ -2870,6 +2919,7 @@ glMultiTexCoord3i(target:GLenum, s:GLint, t:GLint, r:GLint):void:map = R'''
 
 glMultiTexCoord3iv(target:GLenum, v:GLint@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord3iv(target, v);
 	return Value::Nil;
 #else
@@ -2883,6 +2933,7 @@ glMultiTexCoord3iv(target:GLenum, v:GLint@3:const):void:map = R'''
 
 glMultiTexCoord3s(target:GLenum, s:GLshort, t:GLshort, r:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord3s(target, s, t, r);
 	return Value::Nil;
 #else
@@ -2896,6 +2947,7 @@ glMultiTexCoord3s(target:GLenum, s:GLshort, t:GLshort, r:GLshort):void:map = R''
 
 glMultiTexCoord3sv(target:GLenum, v:GLshort@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord3sv(target, v);
 	return Value::Nil;
 #else
@@ -2909,6 +2961,7 @@ glMultiTexCoord3sv(target:GLenum, v:GLshort@3:const):void:map = R'''
 
 glMultiTexCoord4d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord4d(target, s, t, r, q);
 	return Value::Nil;
 #else
@@ -2922,6 +2975,7 @@ glMultiTexCoord4d(target:GLenum, s:GLdouble, t:GLdouble, r:GLdouble, q:GLdouble)
 
 glMultiTexCoord4dv(target:GLenum, v:GLdouble@4:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord4dv(target, v);
 	return Value::Nil;
 #else
@@ -2935,6 +2989,7 @@ glMultiTexCoord4dv(target:GLenum, v:GLdouble@4:const):void:map = R'''
 
 glMultiTexCoord4f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord4f(target, s, t, r, q);
 	return Value::Nil;
 #else
@@ -2948,6 +3003,7 @@ glMultiTexCoord4f(target:GLenum, s:GLfloat, t:GLfloat, r:GLfloat, q:GLfloat):voi
 
 glMultiTexCoord4fv(target:GLenum, v:GLfloat@4:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord4fv(target, v);
 	return Value::Nil;
 #else
@@ -2961,6 +3017,7 @@ glMultiTexCoord4fv(target:GLenum, v:GLfloat@4:const):void:map = R'''
 
 glMultiTexCoord4i(target:GLenum, s:GLint, t:GLint, r:GLint, q:GLint):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord4i(target, s, t, r, q);
 	return Value::Nil;
 #else
@@ -2974,6 +3031,7 @@ glMultiTexCoord4i(target:GLenum, s:GLint, t:GLint, r:GLint, q:GLint):void:map = 
 
 glMultiTexCoord4iv(target:GLenum, v:GLint@4:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord4iv(target, v);
 	return Value::Nil;
 #else
@@ -2987,6 +3045,7 @@ glMultiTexCoord4iv(target:GLenum, v:GLint@4:const):void:map = R'''
 
 glMultiTexCoord4s(target:GLenum, s:GLshort, t:GLshort, r:GLshort, q:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord4s(target, s, t, r, q);
 	return Value::Nil;
 #else
@@ -3000,6 +3059,7 @@ glMultiTexCoord4s(target:GLenum, s:GLshort, t:GLshort, r:GLshort, q:GLshort):voi
 
 glMultiTexCoord4sv(target:GLenum, v:GLshort@4:const):void:map = R'''
 ^#if defined(GL_VERSION_1_3)
+^	ImplementGLExtension();
 	glMultiTexCoord4sv(target, v);
 	return Value::Nil;
 #else
@@ -3013,6 +3073,7 @@ glMultiTexCoord4sv(target:GLenum, v:GLshort@4:const):void:map = R'''
 	
 glFogCoordf(coord:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glFogCoordf(coord);
 	return Value::Nil;
 #else
@@ -3026,6 +3087,7 @@ glFogCoordf(coord:GLfloat):void:map = R'''
 
 glFogCoordfv(coord:GLfloat@1:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glFogCoordfv(coord);
 	return Value::Nil;
 #else
@@ -3039,6 +3101,7 @@ glFogCoordfv(coord:GLfloat@1:const):void:map = R'''
 
 glFogCoordd(coord:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glFogCoordd(coord);
 	return Value::Nil;
 #else
@@ -3052,6 +3115,7 @@ glFogCoordd(coord:GLdouble):void:map = R'''
 
 glFogCoorddv(coord:GLdouble@1:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glFogCoorddv(coord);
 	return Value::Nil;
 #else
@@ -3067,6 +3131,7 @@ glFogCoorddv(coord:GLdouble@1:const):void:map = R'''
 
 glSecondaryColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3b(red, green, blue);
 	return Value::Nil;
 #else
@@ -3080,6 +3145,7 @@ glSecondaryColor3b(red:GLbyte, green:GLbyte, blue:GLbyte):void:map = R'''
 
 glSecondaryColor3bv(v:GLbyte@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3bv(v);
 	return Value::Nil;
 #else
@@ -3093,6 +3159,7 @@ glSecondaryColor3bv(v:GLbyte@3:const):void:map = R'''
 
 glSecondaryColor3d(red:GLdouble, green:GLdouble, blue:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3d(red, green, blue);
 	return Value::Nil;
 #else
@@ -3106,6 +3173,7 @@ glSecondaryColor3d(red:GLdouble, green:GLdouble, blue:GLdouble):void:map = R'''
 
 glSecondaryColor3dv(v:GLdouble@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3dv(v);
 	return Value::Nil;
 #else
@@ -3119,6 +3187,7 @@ glSecondaryColor3dv(v:GLdouble@3:const):void:map = R'''
 
 glSecondaryColor3f(red:GLfloat, green:GLfloat, blue:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3f(red, green, blue);
 	return Value::Nil;
 #else
@@ -3132,6 +3201,7 @@ glSecondaryColor3f(red:GLfloat, green:GLfloat, blue:GLfloat):void:map = R'''
 
 glSecondaryColor3fv(v:GLfloat@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3fv(v);
 	return Value::Nil;
 #else
@@ -3145,6 +3215,7 @@ glSecondaryColor3fv(v:GLfloat@3:const):void:map = R'''
 
 glSecondaryColor3i(red:GLint, green:GLint, blue:GLint):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3i(red, green, blue);
 	return Value::Nil;
 #else
@@ -3158,6 +3229,7 @@ glSecondaryColor3i(red:GLint, green:GLint, blue:GLint):void:map = R'''
 
 glSecondaryColor3iv(v:GLint@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3iv(v);
 	return Value::Nil;
 #else
@@ -3171,6 +3243,7 @@ glSecondaryColor3iv(v:GLint@3:const):void:map = R'''
 
 glSecondaryColor3s(red:GLshort, green:GLshort, blue:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3s(red, green, blue);
 	return Value::Nil;
 #else
@@ -3184,6 +3257,7 @@ glSecondaryColor3s(red:GLshort, green:GLshort, blue:GLshort):void:map = R'''
 
 glSecondaryColor3sv(v:GLshort@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3sv(v);
 	return Value::Nil;
 #else
@@ -3197,6 +3271,7 @@ glSecondaryColor3sv(v:GLshort@3:const):void:map = R'''
 
 glSecondaryColor3ub(red:GLubyte, green:GLubyte, blue:GLubyte):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3ub(red, green, blue);
 	return Value::Nil;
 #else
@@ -3210,6 +3285,7 @@ glSecondaryColor3ub(red:GLubyte, green:GLubyte, blue:GLubyte):void:map = R'''
 
 glSecondaryColor3ubv(v:GLubyte@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3ubv(v);
 	return Value::Nil;
 #else
@@ -3223,6 +3299,7 @@ glSecondaryColor3ubv(v:GLubyte@3:const):void:map = R'''
 
 glSecondaryColor3ui(red:GLuint, green:GLuint, blue:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3ui(red, green, blue);
 	return Value::Nil;
 #else
@@ -3236,6 +3313,7 @@ glSecondaryColor3ui(red:GLuint, green:GLuint, blue:GLuint):void:map = R'''
 
 glSecondaryColor3uiv(v:GLuint@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3uiv(v);
 	return Value::Nil;
 #else
@@ -3249,6 +3327,7 @@ glSecondaryColor3uiv(v:GLuint@3:const):void:map = R'''
 
 glSecondaryColor3us(red:GLushort, green:GLushort, blue:GLushort):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3us(red, green, blue);
 	return Value::Nil;
 #else
@@ -3262,6 +3341,7 @@ glSecondaryColor3us(red:GLushort, green:GLushort, blue:GLushort):void:map = R'''
 
 glSecondaryColor3usv(v:GLushort@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glSecondaryColor3usv(v);
 	return Value::Nil;
 #else
@@ -3277,6 +3357,7 @@ glSecondaryColor3usv(v:GLushort@3:const):void:map = R'''
 
 glPointParameterf(pname:GLenum, param:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glPointParameterf(pname, param);
 	return Value::Nil;
 #else
@@ -3290,6 +3371,7 @@ glPointParameterf(pname:GLenum, param:GLfloat):void:map = R'''
 
 glPointParameterfv(pname:GLenum, params:GLfloat@pname:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glPointParameterfv(pname, params);
 	return Value::Nil;
 #else
@@ -3303,6 +3385,7 @@ glPointParameterfv(pname:GLenum, params:GLfloat@pname:const):void:map = R'''
 
 glPointParameteri(pname:GLenum, param:GLint):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glPointParameteri(pname, param);
 	return Value::Nil;
 #else
@@ -3316,6 +3399,7 @@ glPointParameteri(pname:GLenum, param:GLint):void:map = R'''
 
 glPointParameteriv(pname:GLenum, params:GLint@pname:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glPointParameteriv(pname, params);
 	return Value::Nil;
 #else
@@ -3329,6 +3413,7 @@ glPointParameteriv(pname:GLenum, params:GLint@pname:const):void:map = R'''
 
 glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLenum):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glBlendFuncSeparate(srcRGB, dstRGB, srcAlpha, dstAlpha);
 	return Value::Nil;
 #else
@@ -3342,6 +3427,7 @@ glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLen
 
 glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	GLsizei primcount = _first->GetSize();
 	if (primcount != _count->GetSize()) {
 		env.SetError(ERR_ValueError, "first and count must have the same number of elements");
@@ -3362,6 +3448,7 @@ glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void:ma
 
 glWindowPos2d(x:GLdouble, y:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos2d(x, y);
 	return Value::Nil;
 #else
@@ -3375,6 +3462,7 @@ glWindowPos2d(x:GLdouble, y:GLdouble):void:map = R'''
 
 glWindowPos2dv(v:GLdouble@2:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos2dv(v);
 	return Value::Nil;
 #else
@@ -3388,6 +3476,7 @@ glWindowPos2dv(v:GLdouble@2:const):void:map = R'''
 
 glWindowPos2f(x:GLfloat, y:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos2f(x, y);
 	return Value::Nil;
 #else
@@ -3401,6 +3490,7 @@ glWindowPos2f(x:GLfloat, y:GLfloat):void:map = R'''
 
 glWindowPos2fv(v:GLfloat@2:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos2fv(v);
 	return Value::Nil;
 #else
@@ -3414,6 +3504,7 @@ glWindowPos2fv(v:GLfloat@2:const):void:map = R'''
 
 glWindowPos2i(x:GLint, y:GLint):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos2i(x, y);
 	return Value::Nil;
 #else
@@ -3427,6 +3518,7 @@ glWindowPos2i(x:GLint, y:GLint):void:map = R'''
 
 glWindowPos2iv(v:GLint@2:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos2iv(v);
 	return Value::Nil;
 #else
@@ -3440,6 +3532,7 @@ glWindowPos2iv(v:GLint@2:const):void:map = R'''
 
 glWindowPos2s(x:GLshort, y:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos2s(x, y);
 	return Value::Nil;
 #else
@@ -3453,6 +3546,7 @@ glWindowPos2s(x:GLshort, y:GLshort):void:map = R'''
 
 glWindowPos2sv(v:GLshort@2:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos2sv(v);
 	return Value::Nil;
 #else
@@ -3466,6 +3560,7 @@ glWindowPos2sv(v:GLshort@2:const):void:map = R'''
 
 glWindowPos3d(x:GLdouble, y:GLdouble, z:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos3d(x, y, z);
 	return Value::Nil;
 #else
@@ -3479,6 +3574,7 @@ glWindowPos3d(x:GLdouble, y:GLdouble, z:GLdouble):void:map = R'''
 
 glWindowPos3dv(v:GLdouble@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos3dv(v);
 	return Value::Nil;
 #else
@@ -3492,6 +3588,7 @@ glWindowPos3dv(v:GLdouble@3:const):void:map = R'''
 
 glWindowPos3f(x:GLfloat, y:GLfloat, z:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos3f(x, y, z);
 	return Value::Nil;
 #else
@@ -3505,6 +3602,7 @@ glWindowPos3f(x:GLfloat, y:GLfloat, z:GLfloat):void:map = R'''
 
 glWindowPos3fv(v:GLfloat@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos3fv(v);
 	return Value::Nil;
 #else
@@ -3518,6 +3616,7 @@ glWindowPos3fv(v:GLfloat@3:const):void:map = R'''
 
 glWindowPos3i(x:GLint, y:GLint, z:GLint):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos3i(x, y, z);
 	return Value::Nil;
 #else
@@ -3531,6 +3630,7 @@ glWindowPos3i(x:GLint, y:GLint, z:GLint):void:map = R'''
 
 glWindowPos3iv(v:GLint@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos3iv(v);
 	return Value::Nil;
 #else
@@ -3544,6 +3644,7 @@ glWindowPos3iv(v:GLint@3:const):void:map = R'''
 
 glWindowPos3s(x:GLshort, y:GLshort, z:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos3s(x, y, z);
 	return Value::Nil;
 #else
@@ -3557,6 +3658,7 @@ glWindowPos3s(x:GLshort, y:GLshort, z:GLshort):void:map = R'''
 
 glWindowPos3sv(v:GLshort@3:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
+^	ImplementGLExtension();
 	glWindowPos3sv(v);
 	return Value::Nil;
 #else
@@ -3570,6 +3672,7 @@ glWindowPos3sv(v:GLshort@3:const):void:map = R'''
 
 glGenQueries(n:GLsizei):map {block?} = R'''
 ^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
 	AutoPtr<Array<GLuint> > _ids(new Array<GLuint>(n));
 	GLuint *ids = _ids->GetPointer();
 	glGenQueries(n, ids);
@@ -3585,6 +3688,7 @@ glGenQueries(n:GLsizei):map {block?} = R'''
 
 glDeleteQueries(ids:GLuint@:const):void:map = R'''
 ^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
 	GLsizei n = _ids->GetSize();
 	glDeleteQueries(n, ids);
 	return Value::Nil;
@@ -3599,6 +3703,7 @@ glDeleteQueries(ids:GLuint@:const):void:map = R'''
 
 glIsQuery(id:GLuint):GLboolean:map {block?} = R'''
 ^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
 	GLboolean _rtn = glIsQuery(id);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
@@ -3612,6 +3717,7 @@ glIsQuery(id:GLuint):GLboolean:map {block?} = R'''
 
 glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 ^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
 	glBeginQuery(target, id);
 	if (arg.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
@@ -3631,6 +3737,7 @@ glBeginQuery(target:GLenum, id:GLuint):void:map {block?} = R'''
 
 glEndQuery(target:GLenum):void:map = R'''
 ^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
 	glEndQuery(target);
 	return Value::Nil;
 #else
@@ -3644,6 +3751,7 @@ glEndQuery(target:GLenum):void:map = R'''
 
 glGetQueryiv(target:GLenum, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -3660,6 +3768,7 @@ glGetQueryiv(target:GLenum, pname:GLenum):map {block?} = R'''
 
 glGetQueryObjectiv(id:GLuint, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -3676,6 +3785,7 @@ glGetQueryObjectiv(id:GLuint, pname:GLenum):map {block?} = R'''
 
 glGetQueryObjectuiv(id:GLuint, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLuint> > _params(new Array<GLuint>(n));
 	GLuint *params = _params->GetPointer();
@@ -3758,6 +3868,7 @@ glDrawBuffers(bufs:GLenum@:const):void:map = R'''
 
 glVertexAttrib1d(index:GLuint, x:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib1d(index, x);
 	return Value::Nil;
 #else
@@ -3771,6 +3882,7 @@ glVertexAttrib1d(index:GLuint, x:GLdouble):void:map = R'''
 
 glVertexAttrib1dv(index:GLuint, v:GLdouble@1:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib1dv(index, v);
 	return Value::Nil;
 #else
@@ -3784,6 +3896,7 @@ glVertexAttrib1dv(index:GLuint, v:GLdouble@1:const):void:map = R'''
 
 glVertexAttrib1f(index:GLuint, x:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib1f(index, x);
 	return Value::Nil;
 #else
@@ -3797,6 +3910,7 @@ glVertexAttrib1f(index:GLuint, x:GLfloat):void:map = R'''
 
 glVertexAttrib1fv(index:GLuint, v:GLfloat@1:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib1fv(index, v);
 	return Value::Nil;
 #else
@@ -3810,6 +3924,7 @@ glVertexAttrib1fv(index:GLuint, v:GLfloat@1:const):void:map = R'''
 
 glVertexAttrib1s(index:GLuint, x:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib1s(index, x);
 	return Value::Nil;
 #else
@@ -3823,6 +3938,7 @@ glVertexAttrib1s(index:GLuint, x:GLshort):void:map = R'''
 
 glVertexAttrib1sv(index:GLuint, v:GLshort@1:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib1sv(index, v);
 	return Value::Nil;
 #else
@@ -3836,6 +3952,7 @@ glVertexAttrib1sv(index:GLuint, v:GLshort@1:const):void:map = R'''
 
 glVertexAttrib2d(index:GLuint, x:GLdouble, y:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib2d(index, x, y);
 	return Value::Nil;
 #else
@@ -3849,6 +3966,7 @@ glVertexAttrib2d(index:GLuint, x:GLdouble, y:GLdouble):void:map = R'''
 
 glVertexAttrib2dv(index:GLuint, v:GLdouble@2:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib2dv(index, v);
 	return Value::Nil;
 #else
@@ -3862,6 +3980,7 @@ glVertexAttrib2dv(index:GLuint, v:GLdouble@2:const):void:map = R'''
 
 glVertexAttrib2f(index:GLuint, x:GLfloat, y:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib2f(index, x, y);
 	return Value::Nil;
 #else
@@ -3875,6 +3994,7 @@ glVertexAttrib2f(index:GLuint, x:GLfloat, y:GLfloat):void:map = R'''
 
 glVertexAttrib2fv(index:GLuint, v:GLfloat@2:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib2fv(index, v);
 	return Value::Nil;
 #else
@@ -3888,6 +4008,7 @@ glVertexAttrib2fv(index:GLuint, v:GLfloat@2:const):void:map = R'''
 
 glVertexAttrib2s(index:GLuint, x:GLshort, y:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib2s(index, x, y);
 	return Value::Nil;
 #else
@@ -3901,6 +4022,7 @@ glVertexAttrib2s(index:GLuint, x:GLshort, y:GLshort):void:map = R'''
 
 glVertexAttrib2sv(index:GLuint, v:GLshort@2:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib2sv(index, v);
 	return Value::Nil;
 #else
@@ -3914,6 +4036,7 @@ glVertexAttrib2sv(index:GLuint, v:GLshort@2:const):void:map = R'''
 
 glVertexAttrib3d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib3d(index, x, y, z);
 	return Value::Nil;
 #else
@@ -3927,6 +4050,7 @@ glVertexAttrib3d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble):void:map = R'
 
 glVertexAttrib3dv(index:GLuint, v:GLdouble@3:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib3dv(index, v);
 	return Value::Nil;
 #else
@@ -3940,6 +4064,7 @@ glVertexAttrib3dv(index:GLuint, v:GLdouble@3:const):void:map = R'''
 
 glVertexAttrib3f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib3f(index, x, y, z);
 	return Value::Nil;
 #else
@@ -3953,6 +4078,7 @@ glVertexAttrib3f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat):void:map = R'''
 
 glVertexAttrib3fv(index:GLuint, v:GLfloat@3:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib3fv(index, v);
 	return Value::Nil;
 #else
@@ -3966,6 +4092,7 @@ glVertexAttrib3fv(index:GLuint, v:GLfloat@3:const):void:map = R'''
 
 glVertexAttrib3s(index:GLuint, x:GLshort, y:GLshort, z:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib3s(index, x, y, z);
 	return Value::Nil;
 #else
@@ -3979,6 +4106,7 @@ glVertexAttrib3s(index:GLuint, x:GLshort, y:GLshort, z:GLshort):void:map = R'''
 
 glVertexAttrib3sv(index:GLuint, v:GLshort@3:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib3sv(index, v);
 	return Value::Nil;
 #else
@@ -3992,6 +4120,7 @@ glVertexAttrib3sv(index:GLuint, v:GLshort@3:const):void:map = R'''
 
 glVertexAttrib4Nbv(index:GLuint, v:GLbyte@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4Nbv(index, v);
 	return Value::Nil;
 #else
@@ -4005,6 +4134,7 @@ glVertexAttrib4Nbv(index:GLuint, v:GLbyte@4:const):void:map = R'''
 
 glVertexAttrib4Niv(index:GLuint, v:GLint@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4Niv(index, v);
 	return Value::Nil;
 #else
@@ -4018,6 +4148,7 @@ glVertexAttrib4Niv(index:GLuint, v:GLint@4:const):void:map = R'''
 
 glVertexAttrib4Nsv(index:GLuint, v:GLshort@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4Nsv(index, v);
 	return Value::Nil;
 #else
@@ -4031,6 +4162,7 @@ glVertexAttrib4Nsv(index:GLuint, v:GLshort@4:const):void:map = R'''
 
 glVertexAttrib4Nub(index:GLuint, x:GLubyte, y:GLubyte, z:GLubyte, w:GLubyte):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4Nub(index, x, y, z, w);
 	return Value::Nil;
 #else
@@ -4044,6 +4176,7 @@ glVertexAttrib4Nub(index:GLuint, x:GLubyte, y:GLubyte, z:GLubyte, w:GLubyte):voi
 
 glVertexAttrib4Nubv(index:GLuint, v:GLubyte@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4Nubv(index, v);
 	return Value::Nil;
 #else
@@ -4057,6 +4190,7 @@ glVertexAttrib4Nubv(index:GLuint, v:GLubyte@4:const):void:map = R'''
 
 glVertexAttrib4Nuiv(index:GLuint, v:GLuint@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4Nuiv(index, v);
 	return Value::Nil;
 #else
@@ -4070,6 +4204,7 @@ glVertexAttrib4Nuiv(index:GLuint, v:GLuint@4:const):void:map = R'''
 
 glVertexAttrib4Nusv(index:GLuint, v:GLushort@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4Nusv(index, v);
 	return Value::Nil;
 #else
@@ -4083,6 +4218,7 @@ glVertexAttrib4Nusv(index:GLuint, v:GLushort@4:const):void:map = R'''
 
 glVertexAttrib4bv(index:GLuint, v:GLbyte@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4bv(index, v);
 	return Value::Nil;
 #else
@@ -4096,6 +4232,7 @@ glVertexAttrib4bv(index:GLuint, v:GLbyte@4:const):void:map = R'''
 
 glVertexAttrib4d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4d(index, x, y, z, w);
 	return Value::Nil;
 #else
@@ -4109,6 +4246,7 @@ glVertexAttrib4d(index:GLuint, x:GLdouble, y:GLdouble, z:GLdouble, w:GLdouble):v
 
 glVertexAttrib4dv(index:GLuint, v:GLdouble@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4dv(index, v);
 	return Value::Nil;
 #else
@@ -4122,6 +4260,7 @@ glVertexAttrib4dv(index:GLuint, v:GLdouble@4:const):void:map = R'''
 
 glVertexAttrib4f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4f(index, x, y, z, w);
 	return Value::Nil;
 #else
@@ -4135,6 +4274,7 @@ glVertexAttrib4f(index:GLuint, x:GLfloat, y:GLfloat, z:GLfloat, w:GLfloat):void:
 
 glVertexAttrib4fv(index:GLuint, v:GLfloat@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4fv(index, v);
 	return Value::Nil;
 #else
@@ -4148,6 +4288,7 @@ glVertexAttrib4fv(index:GLuint, v:GLfloat@4:const):void:map = R'''
 
 glVertexAttrib4iv(index:GLuint, v:GLint@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4iv(index, v);
 	return Value::Nil;
 #else
@@ -4161,6 +4302,7 @@ glVertexAttrib4iv(index:GLuint, v:GLint@4:const):void:map = R'''
 
 glVertexAttrib4s(index:GLuint, x:GLshort, y:GLshort, z:GLshort, w:GLshort):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4s(index, x, y, z, w);
 	return Value::Nil;
 #else
@@ -4174,6 +4316,7 @@ glVertexAttrib4s(index:GLuint, x:GLshort, y:GLshort, z:GLshort, w:GLshort):void:
 
 glVertexAttrib4sv(index:GLuint, v:GLshort@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4sv(index, v);
 	return Value::Nil;
 #else
@@ -4187,6 +4330,7 @@ glVertexAttrib4sv(index:GLuint, v:GLshort@4:const):void:map = R'''
 
 glVertexAttrib4ubv(index:GLuint, v:GLubyte@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4ubv(index, v);
 	return Value::Nil;
 #else
@@ -4200,6 +4344,7 @@ glVertexAttrib4ubv(index:GLuint, v:GLubyte@4:const):void:map = R'''
 
 glVertexAttrib4uiv(index:GLuint, v:GLuint@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4uiv(index, v);
 	return Value::Nil;
 #else
@@ -4213,6 +4358,7 @@ glVertexAttrib4uiv(index:GLuint, v:GLuint@4:const):void:map = R'''
 
 glVertexAttrib4usv(index:GLuint, v:GLushort@4:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glVertexAttrib4usv(index, v);
 	return Value::Nil;
 #else
@@ -4228,6 +4374,7 @@ glVertexAttrib4usv(index:GLuint, v:GLushort@4:const):void:map = R'''
 
 glEnableVertexAttribArray(index:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glEnableVertexAttribArray(index);
 	return Value::Nil;
 #else
@@ -4241,6 +4388,7 @@ glEnableVertexAttribArray(index:GLuint):void:map = R'''
 
 glDisableVertexAttribArray(index:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glDisableVertexAttribArray(index);
 	return Value::Nil;
 #else
@@ -4254,6 +4402,7 @@ glDisableVertexAttribArray(index:GLuint):void:map = R'''
 
 glGetVertexAttribdv(index:GLuint, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLdouble> > _params(new Array<GLdouble>(n));
 	GLdouble *params = _params->GetPointer();
@@ -4270,6 +4419,7 @@ glGetVertexAttribdv(index:GLuint, pname:GLenum):map {block?} = R'''
 
 glGetVertexAttribfv(index:GLuint, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLfloat> > _params(new Array<GLfloat>(n));
 	GLfloat *params = _params->GetPointer();
@@ -4286,6 +4436,7 @@ glGetVertexAttribfv(index:GLuint, pname:GLenum):map {block?} = R'''
 
 glGetVertexAttribiv(index:GLuint, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -4304,6 +4455,7 @@ glGetVertexAttribiv(index:GLuint, pname:GLenum):map {block?} = R'''
 
 glDeleteShader(shader:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glDeleteShader(shader);
 	return Value::Nil;
 #else
@@ -4317,6 +4469,7 @@ glDeleteShader(shader:GLuint):void:map = R'''
 
 glDetachShader(program:GLuint, shader:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glDetachShader(program, shader);
 	return Value::Nil;
 #else
@@ -4330,6 +4483,7 @@ glDetachShader(program:GLuint, shader:GLuint):void:map = R'''
 
 glCreateShader(type:GLenum):GLuint:map {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLuint _rtn = glCreateShader(type);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
@@ -4343,6 +4497,7 @@ glCreateShader(type:GLenum):GLuint:map {block?} = R'''
 
 glShaderSource(shader:GLuint, string[]:string):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = static_cast<GLsizei>(string.size());
 	const GLchar **_string = new const GLchar *[count];
 	//GLint *length = new GLint[count];
@@ -4366,6 +4521,7 @@ glShaderSource(shader:GLuint, string[]:string):void:map = R'''
 
 glCompileShader(shader:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glCompileShader(shader);
 	return Value::Nil;
 #else
@@ -4379,6 +4535,7 @@ glCompileShader(shader:GLuint):void:map = R'''
 
 glCreateProgram():GLuint {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLuint _rtn = glCreateProgram();
 	return ReturnValue(env, arg, Value(_rtn));
 #else
@@ -4392,6 +4549,7 @@ glCreateProgram():GLuint {block?} = R'''
 
 glAttachShader(program:GLuint, shader:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glAttachShader(program, shader);
 	return Value::Nil;
 #else
@@ -4405,6 +4563,7 @@ glAttachShader(program:GLuint, shader:GLuint):void:map = R'''
 
 glLinkProgram(program:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glLinkProgram(program);
 	return Value::Nil;
 #else
@@ -4418,6 +4577,7 @@ glLinkProgram(program:GLuint):void:map = R'''
 
 glUseProgram(program:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glUseProgram(program);
 	return Value::Nil;
 #else
@@ -4431,6 +4591,7 @@ glUseProgram(program:GLuint):void:map = R'''
 
 glDeleteProgram(program:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glDeleteProgram(program);
 	return Value::Nil;
 #else
@@ -4444,6 +4605,7 @@ glDeleteProgram(program:GLuint):void:map = R'''
 
 glValidateProgram(program:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glValidateProgram(program);
 	return Value::Nil;
 #else
@@ -4457,6 +4619,7 @@ glValidateProgram(program:GLuint):void:map = R'''
 
 glUniform1f(location:GLint, v0:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glUniform1f(location, v0);
 	return Value::Nil;
 #else
@@ -4470,6 +4633,7 @@ glUniform1f(location:GLint, v0:GLfloat):void:map = R'''
 
 glUniform2f(location:GLint, v0:GLfloat, v1:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glUniform2f(location, v0, v1);
 	return Value::Nil;
 #else
@@ -4483,6 +4647,7 @@ glUniform2f(location:GLint, v0:GLfloat, v1:GLfloat):void:map = R'''
 
 glUniform3f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glUniform3f(location, v0, v1, v2);
 	return Value::Nil;
 #else
@@ -4496,6 +4661,7 @@ glUniform3f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat):void:map = R'''
 
 glUniform4f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat, v3:GLfloat):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glUniform4f(location, v0, v1, v2, v3);
 	return Value::Nil;
 #else
@@ -4509,6 +4675,7 @@ glUniform4f(location:GLint, v0:GLfloat, v1:GLfloat, v2:GLfloat, v3:GLfloat):void
 
 glUniform1i(location:GLint, v0:GLint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glUniform1i(location, v0);
 	return Value::Nil;
 #else
@@ -4522,6 +4689,7 @@ glUniform1i(location:GLint, v0:GLint):void:map = R'''
 
 glUniform2i(location:GLint, v0:GLint, v1:GLint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glUniform2i(location, v0, v1);
 	return Value::Nil;
 #else
@@ -4535,6 +4703,7 @@ glUniform2i(location:GLint, v0:GLint, v1:GLint):void:map = R'''
 
 glUniform3i(location:GLint, v0:GLint, v1:GLint, v2:GLint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glUniform3i(location, v0, v1, v2);
 	return Value::Nil;
 #else
@@ -4548,6 +4717,7 @@ glUniform3i(location:GLint, v0:GLint, v1:GLint, v2:GLint):void:map = R'''
 
 glUniform4i(location:GLint, v0:GLint, v1:GLint, v2:GLint, v3:GLint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	glUniform4i(location, v0, v1, v2, v3);
 	return Value::Nil;
 #else
@@ -4561,6 +4731,7 @@ glUniform4i(location:GLint, v0:GLint, v1:GLint, v2:GLint, v3:GLint):void:map = R
 
 glUniform1fv(location:GLint, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize();
 	glUniform1fv(location, count, value);
 	return Value::Nil;
@@ -4575,6 +4746,7 @@ glUniform1fv(location:GLint, value:GLfloat@:const):void:map = R'''
 
 glUniform2fv(location:GLint, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize() / 2;
 	glUniform2fv(location, count, value);
 	return Value::Nil;
@@ -4589,6 +4761,7 @@ glUniform2fv(location:GLint, value:GLfloat@:const):void:map = R'''
 
 glUniform3fv(location:GLint, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize() / 3;
 	glUniform3fv(location, count, value);
 	return Value::Nil;
@@ -4603,6 +4776,7 @@ glUniform3fv(location:GLint, value:GLfloat@:const):void:map = R'''
 
 glUniform4fv(location:GLint, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize() / 4;
 	glUniform4fv(location, count, value);
 	return Value::Nil;
@@ -4617,6 +4791,7 @@ glUniform4fv(location:GLint, value:GLfloat@:const):void:map = R'''
 
 glUniform1iv(location:GLint, value:GLint@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize();
 	glUniform1iv(location, count, value);
 	return Value::Nil;
@@ -4631,6 +4806,7 @@ glUniform1iv(location:GLint, value:GLint@:const):void:map = R'''
 
 glUniform2iv(location:GLint, value:GLint@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize() / 2;
 	glUniform2iv(location, count, value);
 	return Value::Nil;
@@ -4645,6 +4821,7 @@ glUniform2iv(location:GLint, value:GLint@:const):void:map = R'''
 
 glUniform3iv(location:GLint, value:GLint@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize() / 3;
 	glUniform3iv(location, count, value);
 	return Value::Nil;
@@ -4659,6 +4836,7 @@ glUniform3iv(location:GLint, value:GLint@:const):void:map = R'''
 
 glUniform4iv(location:GLint, value:GLint@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize() / 4;
 	glUniform4iv(location, count, value);
 	return Value::Nil;
@@ -4673,6 +4851,7 @@ glUniform4iv(location:GLint, value:GLint@:const):void:map = R'''
 
 glUniformMatrix2fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize() / 2;
 	glUniformMatrix2fv(location, count, transpose, value);
 	return Value::Nil;
@@ -4687,6 +4866,7 @@ glUniformMatrix2fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):vo
 
 glUniformMatrix3fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize() / 3;
 	glUniformMatrix3fv(location, count, transpose, value);
 	return Value::Nil;
@@ -4701,6 +4881,7 @@ glUniformMatrix3fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):vo
 
 glUniformMatrix4fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	GLsizei count = _value->GetSize() / 4;
 	glUniformMatrix4fv(location, count, transpose, value);
 	return Value::Nil;
@@ -4715,6 +4896,7 @@ glUniformMatrix4fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):vo
 
 glIsShader(shader:GLuint):GLboolean:map {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	bool _rtn = glIsShader(shader);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
@@ -4728,6 +4910,7 @@ glIsShader(shader:GLuint):GLboolean:map {block?} = R'''
 
 glIsProgram(program:GLuint):GLboolean:map {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	bool _rtn = glIsProgram(program);
 	return ReturnValue(env, arg, Value(_rtn));
 #else
@@ -4741,6 +4924,7 @@ glIsProgram(program:GLuint):GLboolean:map {block?} = R'''
 
 glGetShaderiv(shader:GLuint, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -4757,6 +4941,7 @@ glGetShaderiv(shader:GLuint, pname:GLenum):map {block?} = R'''
 
 glGetProgramiv(program:GLuint, pname:GLenum):map {block?} = R'''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
@@ -4778,6 +4963,7 @@ glGetAttachedShaders(program:GLuint, maxCount:GLsizei, count:GLsizei@, shaders:G
 
 glGetShaderInfoLog(shader:GLuint):map {block?} = '''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	String _rtn;	
 	GLsizei bufSize = 0;
 	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &bufSize);
@@ -4800,6 +4986,7 @@ glGetShaderInfoLog(shader:GLuint):map {block?} = '''
 
 glGetProgramInfoLog(program:GLuint):map {block?} = '''
 ^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
 	String _rtn;	
 	GLsizei bufSize = 0;
 	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &bufSize);

@@ -1407,6 +1407,19 @@ void SetError_RequiredGLVersion(Environment &env, const char *version)
 	env.SetError(ERR_NotImplementedError, "available in OpenGL %s or later", version);
 }
 
+#if defined(__GLEW_H__)
+bool SetupGLEW(Environment &env)
+{
+	static bool setupFlag = false;
+	if (setupFlag) return true;
+	setupFlag = true;
+	GLenum err = glewInit();
+	if (err == GLEW_OK) return true;
+	env.SetError(ERR_RuntimeError, "%s", glewGetErrorString(err));
+	return false;
+}
+#endif
+
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image
 // These method are available after importing opengl module.
