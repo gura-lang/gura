@@ -19,10 +19,7 @@ Gura_DeclareFunctionAlias(__glewInit, "glewInit")
 Gura_ImplementFunction(__glewInit)
 {
 #if defined(__GLEW_H__)
-	GLenum err = glewInit();
-	if (err != GLEW_OK) {
-		env.SetError(ERR_RuntimeError, "%s", glewGetErrorString(err));
-	}
+	SetupGLEW(env);
 #endif
 	return Value::Nil;
 }
