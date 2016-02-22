@@ -3,6 +3,20 @@ import(cbridge_glcmn)
 
 cbridge_glcmn.Implement {
 
+glewInit():void = R'''
+^#if defined(__GLEW_H__)
+	GLenum err = glewInit();
+	if (err != GLEW_OK) {
+		env.SetError(ERR_RuntimeError, "%s", glewGetErrorString(err));
+	}
+#endif
+	return Value::Nil;
+''' % {`en, 'markdown',
+	R'''
+	Initializes the extension entry points.
+	'''
+}
+	
 glAccum(op:GLenum, value:GLfloat):void:map = `auto % {`en, 'markdown',
 	R'''
 	operate on the accumulation buffer

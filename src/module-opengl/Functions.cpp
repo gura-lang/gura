@@ -7,6 +7,26 @@ typedef char GLchar;
 
 Gura_BeginModuleScope(opengl)
 
+// opengl.glewInit
+Gura_DeclareFunctionAlias(__glewInit, "glewInit")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Initializes the extension entry points.\n");
+}
+
+Gura_ImplementFunction(__glewInit)
+{
+#if defined(__GLEW_H__)
+	GLenum err = glewInit();
+	if (err != GLEW_OK) {
+		env.SetError(ERR_RuntimeError, "%s", glewGetErrorString(err));
+	}
+#endif
+	return Value::Nil;
+}
+
 // opengl.glAccum
 Gura_DeclareFunctionAlias(__glAccum, "glAccum")
 {
@@ -12819,6 +12839,7 @@ Gura_ImplementFunction(__glUniformMatrix4x3fv)
 
 void AssignFunctions(Environment &env)
 {
+	Gura_AssignFunction(__glewInit);
 	Gura_AssignFunction(__glAccum);
 	Gura_AssignFunction(__glAlphaFunc);
 	Gura_AssignFunction(__glAreTexturesResident);
