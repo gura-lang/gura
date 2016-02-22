@@ -87,7 +87,7 @@ init() = {
 
 	glLinkProgram(gl2Program)
 	linked = (glGetProgramiv(gl2Program, GL_LINK_STATUS) == 1)
-	printProgramInfo(gl2Program)
+	printProgramInfoLog(gl2Program)
 	if (!linked) {
 		sys.stderr.println('Link error.')
 		sys.exit(1)
