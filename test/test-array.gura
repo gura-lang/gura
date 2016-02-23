@@ -6,8 +6,8 @@ funcs = [
 	array@uchar
 	array@short
 	array@ushort
-	array@long
-	array@ulong
+	array@int32
+	array@uint32
 	array@float
 	array@double
 ]
@@ -43,9 +43,9 @@ testcase('cast from list') {
 	PrintArray('%2d', x)
 	x:array@ushort = [0..29]
 	PrintArray('%2d', x)
-	x:array@long = [0..29]
+	x:array@int32 = [0..29]
 	PrintArray('%2d', x)
-	x:array@ulong = [0..29]
+	x:array@uint32 = [0..29]
 	PrintArray('%2d', x)
 	x:array@float = [0..29]
 	PrintArray('%2d', x)
@@ -114,8 +114,8 @@ testcase('initializer') {
 		@uchar
 		@short
 		@ushort
-		@long
-		@ulong
+		@int32
+		@uint32
 		@float
 		@double
 	]

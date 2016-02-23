@@ -41,9 +41,9 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 	if (col != 0) stream.Printf(sig, "\n");
 }
 
-template<> void Array<char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+template<> void Array<Char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<char, UChar>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetSize());
+	DumpInteger<Char, UChar>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetSize());
 }
 
 template<> void Array<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
@@ -51,9 +51,9 @@ template<> void Array<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) 
 	DumpInteger<UChar, UChar>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetSize());
 }
 
-template<> void Array<short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+template<> void Array<Short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<short, UShort>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetSize());
+	DumpInteger<Short, UShort>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetSize());
 }
 
 template<> void Array<UShort>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
@@ -61,24 +61,24 @@ template<> void Array<UShort>::Dump(Signal &sig, Stream &stream, bool upperFlag)
 	DumpInteger<UShort, UShort>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetSize());
 }
 
-template<> void Array<long>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+template<> void Array<Int32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<long, ULong>(sig, stream, upperFlag? "%08lX" : "%08lx", 8, GetPointer(), GetSize());
+	DumpInteger<Int32, UInt32>(sig, stream, upperFlag? "%08X" : "%08x", 8, GetPointer(), GetSize());
 }
 
-template<> void Array<ULong>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+template<> void Array<UInt32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<ULong, ULong>(sig, stream, upperFlag? "%08lX" : "%08lx", 8, GetPointer(), GetSize());
+	DumpInteger<UInt32, UInt32>(sig, stream, upperFlag? "%08X" : "%08x", 8, GetPointer(), GetSize());
 }
 
-template<> void Array<int>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+template<> void Array<Int64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<int, ULong>(sig, stream, upperFlag? "%08lX" : "%08lx", 8, GetPointer(), GetSize());
+	DumpInteger<Int64, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4, GetPointer(), GetSize());
 }
 
-template<> void Array<UInt>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+template<> void Array<UInt64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<UInt, ULong>(sig, stream, upperFlag? "%08lX" : "%08lx", 8, GetPointer(), GetSize());
+	DumpInteger<UInt64, UInt64>(sig, stream, upperFlag? "%16llX" : "%16llx", 4, GetPointer(), GetSize());
 }
 
 template<> void Array<float>::Dump(Signal &sig, Stream &stream, bool upperFlag) const

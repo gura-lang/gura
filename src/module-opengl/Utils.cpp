@@ -38,13 +38,13 @@ const void *GetArrayPointer(Environment &env, GLenum type, const Value &value)
 		//	return nullptr;
 		//}
 		p = Object_array<UShort>::GetObject(value)->GetArray()->GetPointer();
-	} else if (value.IsType(VTYPE_array_long)) {
+	} else if (value.IsType(VTYPE_array_int32)) {
 		//if (type != GL_INT) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
 		p = Object_array<long>::GetObject(value)->GetArray()->GetPointer();
-	} else if (value.IsType(VTYPE_array_ulong)) {
+	} else if (value.IsType(VTYPE_array_uint32)) {
 		//if (type != GL_UNSIGNED_INT &&
 		//	type != GL_UNSIGNED_INT_8_8_8_8 &&
 		//	type != GL_UNSIGNED_INT_8_8_8_8_REV &&

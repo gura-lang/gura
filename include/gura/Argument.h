@@ -256,6 +256,8 @@ public:
 	inline UShort GetUShort(size_t idxArg) const		{ return GetValue(idxArg).GetUShort();			}
 	inline long GetLong(size_t idxArg) const			{ return GetValue(idxArg).GetLong();			}
 	inline ULong GetULong(size_t idxArg) const			{ return GetValue(idxArg).GetULong();			}
+	inline Int32 GetInt32(size_t idxArg) const			{ return GetValue(idxArg).GetInt32();			}
+	inline UInt32 GetUInt32(size_t idxArg) const		{ return GetValue(idxArg).GetUInt32();			}
 	inline Int64 GetInt64(size_t idxArg) const			{ return GetValue(idxArg).GetInt64();			}
 	inline UInt64 GetUInt64(size_t idxArg) const		{ return GetValue(idxArg).GetUInt64();			}
 	inline float GetFloat(size_t idxArg) const			{ return GetValue(idxArg).GetFloat();			}

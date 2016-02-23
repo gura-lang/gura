@@ -378,6 +378,8 @@ public:
 						static_cast<long>(static_cast<ULong>(num));
 	}
 	inline ULong GetULong() const			{ return static_cast<ULong>(GetNumber());		}
+	inline Int32 GetInt32() const			{ return static_cast<Int32>(GetNumber());		}
+	inline UInt32 GetUInt32() const			{ return static_cast<UInt32>(GetNumber());		}
 	inline Int64 GetInt64() const			{ return static_cast<Int64>(GetNumber());		}
 	inline UInt64 GetUInt64() const			{ return static_cast<UInt64>(GetNumber());		}
 	inline float GetFloat() const			{ return static_cast<float>(GetNumber());		}

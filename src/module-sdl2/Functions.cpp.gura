@@ -1558,8 +1558,8 @@ SDL_CreateRGBSurfaceFrom(pixels:any, width:int, height:int, depth:int, pitch:int
 		_pixels = Object_array<UChar>::GetObject(pixels)->GetArray()->GetPointer();
 	} else if (pixels.IsType(VTYPE_array_ushort)) {
 		_pixels = Object_array<UShort>::GetObject(pixels)->GetArray()->GetPointer();
-	} else if (pixels.IsType(VTYPE_array_ulong)) {
-		_pixels = Object_array<ULong>::GetObject(pixels)->GetArray()->GetPointer();
+	} else if (pixels.IsType(VTYPE_array_uint32)) {
+		_pixels = Object_array<UInt32>::GetObject(pixels)->GetArray()->GetPointer();
 	} else {
 		Declaration::SetError_InvalidArgument(env);
 		return Value::Nil;
@@ -3605,7 +3605,7 @@ cbridge.AddTypeConvs {
 			''')
 	'Sint32' => TypeConv(
 			'number', 'Once', [],
-			'Sint32 ${arg.name} = arg.GetLong(${idx});',
+			'Sint32 ${arg.name} = arg.GetInt32(${idx});',
 			nil,
 			R'''
 			Sint32 _rtn = ${fi.MakeCaller()};
@@ -3637,7 +3637,7 @@ cbridge.AddTypeConvs {
 			''')
 	'Uint32' => TypeConv(
 			'number', 'Once', [],
-			'Uint32 ${arg.name} = arg.GetULong(${idx});',
+			'Uint32 ${arg.name} = arg.GetUInt32(${idx});',
 			nil,
 			R'''
 			Uint32 _rtn = ${fi.MakeCaller()};

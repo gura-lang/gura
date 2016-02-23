@@ -57,7 +57,7 @@ Gura_DeclareFunctionAlias(__Init, "Init")
 
 Gura_ImplementFunction(__Init)
 {
-	Uint32 flags = arg.GetULong(0);
+	Uint32 flags = arg.GetUInt32(0);
 	int _rtn = SDL_Init(flags);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -97,7 +97,7 @@ Gura_DeclareFunctionAlias(__InitSubSystem, "InitSubSystem")
 
 Gura_ImplementFunction(__InitSubSystem)
 {
-	Uint32 flags = arg.GetULong(0);
+	Uint32 flags = arg.GetUInt32(0);
 	int _rtn = SDL_InitSubSystem(flags);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -162,7 +162,7 @@ Gura_DeclareFunctionAlias(__QuitSubSystem, "QuitSubSystem")
 
 Gura_ImplementFunction(__QuitSubSystem)
 {
-	Uint32 flags = arg.GetULong(0);
+	Uint32 flags = arg.GetUInt32(0);
 	SDL_QuitSubSystem(flags);
 	return Value::Nil;
 }
@@ -218,7 +218,7 @@ Gura_DeclareFunctionAlias(__WasInit, "WasInit")
 
 Gura_ImplementFunction(__WasInit)
 {
-	Uint32 flags = arg.GetULong(0);
+	Uint32 flags = arg.GetUInt32(0);
 	Uint32 _rtn = SDL_WasInit(flags);
 	return ReturnValue(env, arg, Value(_rtn));
 }
@@ -976,7 +976,7 @@ Gura_ImplementFunction(__CreateWindow)
 	int y = arg.GetInt(2);
 	int w = arg.GetInt(3);
 	int h = arg.GetInt(4);
-	Uint32 flags = arg.GetULong(5);
+	Uint32 flags = arg.GetUInt32(5);
 	SDL_Window *_rtn = SDL_CreateWindow(title, x, y, w, h, flags);
 	Value _rtnVal;
 	if (_rtn != nullptr) {
@@ -1005,7 +1005,7 @@ Gura_ImplementFunction(__CreateWindowAndRenderer)
 {
 	int width = arg.GetInt(0);
 	int height = arg.GetInt(1);
-	Uint32 window_flags = arg.GetULong(2);
+	Uint32 window_flags = arg.GetUInt32(2);
 	SDL_Window *window = nullptr;
 	SDL_Renderer *renderer = nullptr;
 	int _rtn = SDL_CreateWindowAndRenderer(width, height, window_flags, &window, &renderer);
@@ -1771,7 +1771,7 @@ Gura_DeclareFunctionAlias(__GetWindowFromID, "GetWindowFromID")
 
 Gura_ImplementFunction(__GetWindowFromID)
 {
-	Uint32 id = arg.GetULong(0);
+	Uint32 id = arg.GetUInt32(0);
 	SDL_Window *_rtn = SDL_GetWindowFromID(id);
 	Value _rtnVal;
 	if (_rtn != nullptr) {
@@ -2221,7 +2221,7 @@ Gura_DeclareFunctionAlias(__SetWindowFullscreen, "SetWindowFullscreen")
 Gura_ImplementFunction(__SetWindowFullscreen)
 {
 	SDL_Window *window = Object_Window::GetObject(arg, 0)->GetEntity();
-	Uint32 flags = arg.GetULong(1);
+	Uint32 flags = arg.GetUInt32(1);
 	int _rtn = SDL_SetWindowFullscreen(window, flags);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -2461,7 +2461,7 @@ Gura_DeclareFunctionAlias(__ShowSimpleMessageBox, "ShowSimpleMessageBox")
 
 Gura_ImplementFunction(__ShowSimpleMessageBox)
 {
-	Uint32 flags = arg.GetULong(0);
+	Uint32 flags = arg.GetUInt32(0);
 	const char *title = arg.GetString(1);
 	const char *message = arg.GetString(2);
 	SDL_Window *window = Object_Window::GetObject(arg, 3)->GetEntity();
@@ -2589,7 +2589,7 @@ Gura_ImplementFunction(__CreateRenderer)
 {
 	SDL_Window *window = Object_Window::GetObject(arg, 0)->GetEntity();
 	int index = arg.GetInt(1);
-	Uint32 flags = arg.GetULong(2);
+	Uint32 flags = arg.GetUInt32(2);
 	SDL_Renderer *_rtn = SDL_CreateRenderer(window, index, flags);
 	Value _rtnVal;
 	if (_rtn != nullptr) {
@@ -2644,7 +2644,7 @@ Gura_DeclareFunctionAlias(__CreateTexture, "CreateTexture")
 Gura_ImplementFunction(__CreateTexture)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
-	Uint32 format = arg.GetULong(1);
+	Uint32 format = arg.GetUInt32(1);
 	int access = arg.GetInt(2);
 	int w = arg.GetInt(3);
 	int h = arg.GetInt(4);
@@ -3842,7 +3842,7 @@ Gura_DeclareFunctionAlias(__AllocFormat, "AllocFormat")
 
 Gura_ImplementFunction(__AllocFormat)
 {
-	Uint32 pixel_format = arg.GetULong(0);
+	Uint32 pixel_format = arg.GetUInt32(0);
 	SDL_PixelFormat *_rtn = SDL_AllocFormat(pixel_format);
 	Value _rtnVal;
 	if (_rtn != nullptr) {
@@ -3945,7 +3945,7 @@ Gura_DeclareFunctionAlias(__GetPixelFormatName, "GetPixelFormatName")
 
 Gura_ImplementFunction(__GetPixelFormatName)
 {
-	Uint32 format = arg.GetULong(0);
+	Uint32 format = arg.GetUInt32(0);
 	const char *_rtn = SDL_GetPixelFormatName(format);
 	Value _rtnVal;
 	if (_rtn != nullptr) {
@@ -3971,7 +3971,7 @@ Gura_DeclareFunctionAlias(__GetRGB, "GetRGB")
 
 Gura_ImplementFunction(__GetRGB)
 {
-	Uint32 pixel = arg.GetULong(0);
+	Uint32 pixel = arg.GetUInt32(0);
 	const SDL_PixelFormat *format = Object_PixelFormat::GetObject(arg, 1)->GetEntity();
 	Uint8 r = 0;
 	Uint8 g = 0;
@@ -3994,7 +3994,7 @@ Gura_DeclareFunctionAlias(__GetRGBA, "GetRGBA")
 
 Gura_ImplementFunction(__GetRGBA)
 {
-	Uint32 pixel = arg.GetULong(0);
+	Uint32 pixel = arg.GetUInt32(0);
 	const SDL_PixelFormat *format = Object_PixelFormat::GetObject(arg, 1)->GetEntity();
 	Uint8 r = 0;
 	Uint8 g = 0;
@@ -4073,10 +4073,10 @@ Gura_DeclareFunctionAlias(__MasksToPixelFormatEnum, "MasksToPixelFormatEnum")
 Gura_ImplementFunction(__MasksToPixelFormatEnum)
 {
 	int bpp = arg.GetInt(0);
-	Uint32 Rmask = arg.GetULong(1);
-	Uint32 Gmask = arg.GetULong(2);
-	Uint32 Bmask = arg.GetULong(3);
-	Uint32 Amask = arg.GetULong(4);
+	Uint32 Rmask = arg.GetUInt32(1);
+	Uint32 Gmask = arg.GetUInt32(2);
+	Uint32 Bmask = arg.GetUInt32(3);
+	Uint32 Amask = arg.GetUInt32(4);
 	Uint32 _rtn = SDL_MasksToPixelFormatEnum(bpp, Rmask, Gmask, Bmask, Amask);
 	return ReturnValue(env, arg, Value(_rtn));
 }
@@ -4094,7 +4094,7 @@ Gura_DeclareFunctionAlias(__PixelFormatEnumToMasks, "PixelFormatEnumToMasks")
 
 Gura_ImplementFunction(__PixelFormatEnumToMasks)
 {
-	Uint32 format = arg.GetULong(0);
+	Uint32 format = arg.GetUInt32(0);
 	int bpp = 0;
 	Uint32 Rmask = 0;
 	Uint32 Gmask = 0;
@@ -4422,8 +4422,8 @@ Gura_ImplementFunction(__ConvertPixels)
 #if 0
 	int width = arg.GetInt(0);
 	int height = arg.GetInt(1);
-	Uint32 src_format = arg.GetULong(2);
-	Uint32 dst_format = arg.GetULong(3);
+	Uint32 src_format = arg.GetUInt32(2);
+	Uint32 dst_format = arg.GetUInt32(3);
 	SDL_ConvertPixels(width, height, src_format, dst_format);
 	return Value::Nil;
 #endif
@@ -4448,7 +4448,7 @@ Gura_ImplementFunction(__ConvertSurface)
 {
 	SDL_Surface *src = Object_Surface::GetObject(arg, 0)->GetEntity();
 	const SDL_PixelFormat *fmt = Object_PixelFormat::GetObject(arg, 1)->GetEntity();
-	Uint32 flags = arg.GetULong(2);
+	Uint32 flags = arg.GetUInt32(2);
 	SDL_Surface *_rtn = SDL_ConvertSurface(src, fmt, flags);
 	Value _rtnVal;
 	if (_rtn != nullptr) {
@@ -4476,8 +4476,8 @@ Gura_DeclareFunctionAlias(__ConvertSurfaceFormat, "ConvertSurfaceFormat")
 Gura_ImplementFunction(__ConvertSurfaceFormat)
 {
 	SDL_Surface *src = Object_Surface::GetObject(arg, 0)->GetEntity();
-	Uint32 pixel_format = arg.GetULong(1);
-	Uint32 flags = arg.GetULong(2);
+	Uint32 pixel_format = arg.GetUInt32(1);
+	Uint32 flags = arg.GetUInt32(2);
 	SDL_Surface *_rtn = SDL_ConvertSurfaceFormat(src, pixel_format, flags);
 	Value _rtnVal;
 	if (_rtn != nullptr) {
@@ -4509,14 +4509,14 @@ Gura_DeclareFunctionAlias(__CreateRGBSurface, "CreateRGBSurface")
 
 Gura_ImplementFunction(__CreateRGBSurface)
 {
-	Uint32 flags = arg.GetULong(0);
+	Uint32 flags = arg.GetUInt32(0);
 	int width = arg.GetInt(1);
 	int height = arg.GetInt(2);
 	int depth = arg.GetInt(3);
-	Uint32 Rmask = arg.GetULong(4);
-	Uint32 Gmask = arg.GetULong(5);
-	Uint32 Bmask = arg.GetULong(6);
-	Uint32 Amask = arg.GetULong(7);
+	Uint32 Rmask = arg.GetUInt32(4);
+	Uint32 Gmask = arg.GetUInt32(5);
+	Uint32 Bmask = arg.GetUInt32(6);
+	Uint32 Amask = arg.GetUInt32(7);
 	SDL_Surface *_rtn = SDL_CreateRGBSurface(flags, width, height, depth, Rmask, Gmask, Bmask, Amask);
 	Value _rtnVal;
 	if (_rtn != nullptr) {
@@ -4554,17 +4554,17 @@ Gura_ImplementFunction(__CreateRGBSurfaceFrom)
 	int height = arg.GetInt(2);
 	int depth = arg.GetInt(3);
 	int pitch = arg.GetInt(4);
-	Uint32 Rmask = arg.GetULong(5);
-	Uint32 Gmask = arg.GetULong(6);
-	Uint32 Bmask = arg.GetULong(7);
-	Uint32 Amask = arg.GetULong(8);
+	Uint32 Rmask = arg.GetUInt32(5);
+	Uint32 Gmask = arg.GetUInt32(6);
+	Uint32 Bmask = arg.GetUInt32(7);
+	Uint32 Amask = arg.GetUInt32(8);
 	void *_pixels = nullptr;
 	if (pixels.IsType(VTYPE_array_uchar)) {
 		_pixels = Object_array<UChar>::GetObject(pixels)->GetArray()->GetPointer();
 	} else if (pixels.IsType(VTYPE_array_ushort)) {
 		_pixels = Object_array<UShort>::GetObject(pixels)->GetArray()->GetPointer();
-	} else if (pixels.IsType(VTYPE_array_ulong)) {
-		_pixels = Object_array<ULong>::GetObject(pixels)->GetArray()->GetPointer();
+	} else if (pixels.IsType(VTYPE_array_uint32)) {
+		_pixels = Object_array<UInt32>::GetObject(pixels)->GetArray()->GetPointer();
 	} else {
 		Declaration::SetError_InvalidArgument(env);
 		return Value::Nil;
@@ -4614,7 +4614,7 @@ Gura_ImplementFunction(__FillRect)
 {
 	SDL_Surface *dst = Object_Surface::GetObject(arg, 0)->GetEntity();
 	const SDL_Rect *rect = arg.IsValid(1)? Object_Rect::GetObject(arg, 1)->GetEntity() : nullptr;
-	Uint32 color = arg.GetULong(2);
+	Uint32 color = arg.GetUInt32(2);
 	int _rtn = SDL_FillRect(dst, rect, color);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -4640,7 +4640,7 @@ Gura_ImplementFunction(__FillRects)
 	SDL_Surface *dst = Object_Surface::GetObject(arg, 0)->GetEntity();
 	AutoPtr<Array<SDL_Rect> > _rects(CreateArray<SDL_Rect, Object_Rect>(arg.GetList(1)));
 	Array<SDL_Rect> &rects = *_rects;
-	Uint32 color = arg.GetULong(2);
+	Uint32 color = arg.GetUInt32(2);
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_FillRects(dst, rects, count, color);
 	if (_rtn < 0) {
@@ -4997,7 +4997,7 @@ Gura_ImplementFunction(__SetColorKey)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(arg, 0)->GetEntity();
 	int flag = arg.GetInt(1);
-	Uint32 key = arg.GetULong(2);
+	Uint32 key = arg.GetUInt32(2);
 	int _rtn = SDL_SetColorKey(surface, flag, key);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -5249,7 +5249,7 @@ Gura_DeclareFunctionAlias(__EventState, "EventState")
 
 Gura_ImplementFunction(__EventState)
 {
-	Uint32 type = arg.GetULong(0);
+	Uint32 type = arg.GetUInt32(0);
 	int state = arg.GetInt(1);
 	Uint8 _rtn = SDL_EventState(type, state);
 	return ReturnValue(env, arg, Value(_rtn));
@@ -5286,7 +5286,7 @@ Gura_DeclareFunctionAlias(__FlushEvent, "FlushEvent")
 
 Gura_ImplementFunction(__FlushEvent)
 {
-	Uint32 type = arg.GetULong(0);
+	Uint32 type = arg.GetUInt32(0);
 	SDL_FlushEvent(type);
 	return Value::Nil;
 }
@@ -5304,8 +5304,8 @@ Gura_DeclareFunctionAlias(__FlushEvents, "FlushEvents")
 
 Gura_ImplementFunction(__FlushEvents)
 {
-	Uint32 minType = arg.GetULong(0);
-	Uint32 maxType = arg.GetULong(1);
+	Uint32 minType = arg.GetUInt32(0);
+	Uint32 maxType = arg.GetUInt32(1);
 	SDL_FlushEvents(minType, maxType);
 	return Value::Nil;
 }
@@ -5429,7 +5429,7 @@ Gura_DeclareFunctionAlias(__HasEvent, "HasEvent")
 
 Gura_ImplementFunction(__HasEvent)
 {
-	Uint32 type = arg.GetULong(0);
+	Uint32 type = arg.GetUInt32(0);
 	SDL_bool _rtn = SDL_HasEvent(type);
 	return ReturnValue(env, arg, Value(_rtn != SDL_FALSE));
 }
@@ -5448,8 +5448,8 @@ Gura_DeclareFunctionAlias(__HasEvents, "HasEvents")
 
 Gura_ImplementFunction(__HasEvents)
 {
-	Uint32 minType = arg.GetULong(0);
-	Uint32 maxType = arg.GetULong(1);
+	Uint32 minType = arg.GetUInt32(0);
+	Uint32 maxType = arg.GetUInt32(1);
 	SDL_bool _rtn = SDL_HasEvents(minType, maxType);
 	return ReturnValue(env, arg, Value(_rtn != SDL_FALSE));
 }
@@ -5520,8 +5520,8 @@ Gura_DeclareFunctionAlias(__PeekEvents, "PeekEvents")
 Gura_ImplementFunction(__PeekEvents)
 {
 	int numevents = arg.GetInt(0);
-	Uint32 minType = arg.GetULong(1);
-	Uint32 maxType = arg.GetULong(2);
+	Uint32 minType = arg.GetUInt32(1);
+	Uint32 maxType = arg.GetUInt32(2);
 	AutoPtr<Array<SDL_Event> > _events(new Array<SDL_Event>(numevents));
 	Array<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
@@ -5554,8 +5554,8 @@ Gura_DeclareFunctionAlias(__GetEvents, "GetEvents")
 Gura_ImplementFunction(__GetEvents)
 {
 	int numevents = arg.GetInt(0);
-	Uint32 minType = arg.GetULong(1);
-	Uint32 maxType = arg.GetULong(2);
+	Uint32 minType = arg.GetUInt32(1);
+	Uint32 maxType = arg.GetUInt32(2);
 	AutoPtr<Array<SDL_Event> > _events(new Array<SDL_Event>(numevents));
 	Array<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
@@ -7811,7 +7811,7 @@ Gura_ImplementFunction(__HapticRumblePlay)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(arg, 0)->GetEntity();
 	float strength = arg.GetFloat(1);
-	Uint32 length = arg.GetULong(2);
+	Uint32 length = arg.GetUInt32(2);
 	int _rtn = SDL_HapticRumblePlay(haptic, strength, length);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -7879,7 +7879,7 @@ Gura_ImplementFunction(__HapticRunEffect)
 {
 	SDL_Haptic *haptic = Object_Haptic::GetObject(arg, 0)->GetEntity();
 	int effect = arg.GetInt(1);
-	Uint32 iterations = arg.GetULong(2);
+	Uint32 iterations = arg.GetUInt32(2);
 	int _rtn = SDL_HapticRunEffect(haptic, effect, iterations);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -9596,7 +9596,7 @@ Gura_DeclareFunctionAlias(__AddTimer, "AddTimer")
 Gura_ImplementFunction(__AddTimer)
 {
 #if 0
-	Uint32 interval = arg.GetULong(0);
+	Uint32 interval = arg.GetUInt32(0);
 	SDL_AddTimer(interval);
 	return Value::Nil;
 #endif
@@ -9616,7 +9616,7 @@ Gura_DeclareFunctionAlias(__Delay, "Delay")
 
 Gura_ImplementFunction(__Delay)
 {
-	Uint32 ms = arg.GetULong(0);
+	Uint32 ms = arg.GetUInt32(0);
 	SDL_Delay(ms);
 	return Value::Nil;
 }
@@ -9701,8 +9701,8 @@ Gura_DeclareFunctionAlias(__TICKS_PASSED, "TICKS_PASSED")
 
 Gura_ImplementFunction(__TICKS_PASSED)
 {
-	Uint32 A = arg.GetULong(0);
-	Uint32 B = arg.GetULong(1);
+	Uint32 A = arg.GetUInt32(0);
+	Uint32 B = arg.GetUInt32(1);
 	bool _rtn = SDL_TICKS_PASSED(A, B);
 	return ReturnValue(env, arg, Value(_rtn));
 }
@@ -10677,7 +10677,7 @@ Gura_DeclareFunctionAlias(__MostSignificantBitIndex32, "MostSignificantBitIndex3
 Gura_ImplementFunction(__MostSignificantBitIndex32)
 {
 #if 0
-	Uint32 x = arg.GetULong(0);
+	Uint32 x = arg.GetUInt32(0);
 	SDL_MostSignificantBitIndex32(x);
 	return Value::Nil;
 #endif

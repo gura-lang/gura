@@ -7,12 +7,14 @@
 @double() {block}
 @float() {block}
 @int() {block}
-@long() {block}
+@int32() {block}
+@int64() {block}
 @rem:nil = nil
 @short() {block}
 @uchar() {block}
 @uint() {block}
-@ulong() {block}
+@uint32() {block}
+@uint64() {block}
 @ushort() {block}
 __name__:string = __main__
 argument:class = <class:argument>
@@ -20,11 +22,13 @@ array@char:class = <class:array@char(arg, init?:number) {block?}>
 array@double:class = <class:array@double(arg, init?:number) {block?}>
 array@float:class = <class:array@float(arg, init?:number) {block?}>
 array@int:class = <class:array@int(arg, init?:number) {block?}>
-array@long:class = <class:array@long(arg, init?:number) {block?}>
+array@int32:class = <class:array@int32(arg, init?:number) {block?}>
+array@int64:class = <class:array@int64(arg, init?:number) {block?}>
 array@short:class = <class:array@short(arg, init?:number) {block?}>
 array@uchar:class = <class:array@uchar(arg, init?:number) {block?}>
 array@uint:class = <class:array@uint(arg, init?:number) {block?}>
-array@ulong:class = <class:array@ulong(arg, init?:number) {block?}>
+array@uint32:class = <class:array@uint32(arg, init?:number) {block?}>
+array@uint64:class = <class:array@uint64(arg, init?:number) {block?}>
 array@ushort:class = <class:array@ushort(arg, init?:number) {block?}>
 audio:class = <class:audio(args+):map {block?}>
 base64:module = <module:base64:<integrated>>
@@ -318,14 +322,22 @@ array@int
   array@int#offset(n:number):map {block?}
   array@int#paste(offset:number, src:array@int):map
   array@int#tail(n:number):map {block?}
-array@long
-  array@long#dump(stream?:stream):void:[upper]
-  array@long#each() {block?}
-  array@long#fill(value:number):map:void
-  array@long#head(n:number):map {block?}
-  array@long#offset(n:number):map {block?}
-  array@long#paste(offset:number, src:array@long):map
-  array@long#tail(n:number):map {block?}
+array@int32
+  array@int32#dump(stream?:stream):void:[upper]
+  array@int32#each() {block?}
+  array@int32#fill(value:number):map:void
+  array@int32#head(n:number):map {block?}
+  array@int32#offset(n:number):map {block?}
+  array@int32#paste(offset:number, src:array@int32):map
+  array@int32#tail(n:number):map {block?}
+array@int64
+  array@int64#dump(stream?:stream):void:[upper]
+  array@int64#each() {block?}
+  array@int64#fill(value:number):map:void
+  array@int64#head(n:number):map {block?}
+  array@int64#offset(n:number):map {block?}
+  array@int64#paste(offset:number, src:array@int64):map
+  array@int64#tail(n:number):map {block?}
 array@short
   array@short#dump(stream?:stream):void:[upper]
   array@short#each() {block?}
@@ -350,14 +362,22 @@ array@uint
   array@uint#offset(n:number):map {block?}
   array@uint#paste(offset:number, src:array@uint):map
   array@uint#tail(n:number):map {block?}
-array@ulong
-  array@ulong#dump(stream?:stream):void:[upper]
-  array@ulong#each() {block?}
-  array@ulong#fill(value:number):map:void
-  array@ulong#head(n:number):map {block?}
-  array@ulong#offset(n:number):map {block?}
-  array@ulong#paste(offset:number, src:array@ulong):map
-  array@ulong#tail(n:number):map {block?}
+array@uint32
+  array@uint32#dump(stream?:stream):void:[upper]
+  array@uint32#each() {block?}
+  array@uint32#fill(value:number):map:void
+  array@uint32#head(n:number):map {block?}
+  array@uint32#offset(n:number):map {block?}
+  array@uint32#paste(offset:number, src:array@uint32):map
+  array@uint32#tail(n:number):map {block?}
+array@uint64
+  array@uint64#dump(stream?:stream):void:[upper]
+  array@uint64#each() {block?}
+  array@uint64#fill(value:number):map:void
+  array@uint64#head(n:number):map {block?}
+  array@uint64#offset(n:number):map {block?}
+  array@uint64#paste(offset:number, src:array@uint64):map
+  array@uint64#tail(n:number):map {block?}
 array@ushort
   array@ushort#dump(stream?:stream):void:[upper]
   array@ushort#each() {block?}

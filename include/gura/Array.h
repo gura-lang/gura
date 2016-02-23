@@ -65,14 +65,14 @@ private:
 	inline ~Array() {}
 };
 
-template<> GURA_DLLDECLARE void Array<char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<Char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 template<> GURA_DLLDECLARE void Array<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<Short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 template<> GURA_DLLDECLARE void Array<UShort>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<long>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<ULong>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<int>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<UInt>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<Int32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<UInt32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<Int64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void Array<UInt64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 template<> GURA_DLLDECLARE void Array<float>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 template<> GURA_DLLDECLARE void Array<double>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 
