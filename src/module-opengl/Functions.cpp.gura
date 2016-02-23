@@ -5047,7 +5047,24 @@ glGetUniformiv(program:GLuint, location:GLint, params:GLint@):void:map = `unsupp
 	'''
 }
 
-glGetShaderSource(shader:GLuint, bufSize:GLsizei, length:GLsizei@, source:GLchar@):void:map = `unsupport % {`en, 'markdown',
+glGetShaderSource(shader:GLuint):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	String _rtn;
+	GLsizei bufSize = 0;
+	glGetShaderiv(shader, GL_SHADER_SOURCE_LENGTH, &bufSize);
+	if (bufSize > 0) {
+		GLchar *source = new GLchar[bufSize];
+		glGetShaderSource(shader, bufSize, nullptr, source);
+		_rtn = source;
+		delete[] source;
+	}
+	return ReturnValue(env, arg, Value(_rtn));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -5066,7 +5083,26 @@ glBindAttribLocation(program:GLuint, index:GLuint, name:string):void:map = R'''
 	'''
 }
 
-glGetActiveAttrib(program:GLuint, index:GLuint, bufSize:GLsizei, length:GLsizei@, size:GLint@, type:GLenum@, name:GLchar@):void:map = `unsupport % {`en, 'markdown',
+glGetActiveAttrib(program:GLuint, index:GLuint):map = R'''
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	GLint size = 0;
+	GLenum type;
+	String _name;
+	GLsizei bufSize = 0;
+	glGetProgramiv(program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &bufSize);
+	if (bufSize > 0) {
+		GLchar *name = new GLchar[bufSize];
+		glGetActiveAttrib(program, index, bufSize, nullptr, &size, &type, name);
+		_name = name;
+		delete[] name;
+	}
+	return ReturnValue(env, arg, Value::CreateList(env, Value(size), Value(type), Value(_name)));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -5085,22 +5121,47 @@ glGetAttribLocation(program:GLuint, name:string):GLint:map {block?} = R'''
 	'''
 }
 
-/*
-glStencilFuncSeparate(face:GLenum, func:GLenum, ref:GLint, mask:GLuint):void:map = `auto % {`en, 'markdown',
+glStencilFuncSeparate(face:GLenum, func:GLenum, ref:GLint, mask:GLuint):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	glStencilFuncSeparate(face, func, ref, mask);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glStencilOpSeparate(face:GLenum, fail:GLenum, zfail:GLenum, zpass:GLenum):void:map = `auto % {`en, 'markdown',
+glStencilOpSeparate(face:GLenum, fail:GLenum, zfail:GLenum, zpass:GLenum):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	glStencilOpSeparate(face, fail, zfail, zpass);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glStencilMaskSeparate(face:GLenum, mask:GLuint):void:map = `auto % {`en, 'markdown',
+glStencilMaskSeparate(face:GLenum, mask:GLuint):void:map = R'''
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	glStencilMaskSeparate(face, mask);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glUniformMatrix2x3fv(location:GLint, count:GLsizei, transpose:GLboolean, value:GLfloat@:const):void:map = `unsupport % {`en, 'markdown',
 	R'''

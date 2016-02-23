@@ -12735,9 +12735,6 @@ Gura_DeclareFunctionAlias(__glGetShaderSource, "glGetShaderSource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "shader", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "bufSize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "source", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12745,18 +12742,23 @@ Gura_DeclareFunctionAlias(__glGetShaderSource, "glGetShaderSource")
 
 Gura_ImplementFunction(__glGetShaderSource)
 {
-#if 0
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
 	GLuint shader = arg.GetUInt(0);
-	GLsizei bufSize = arg.GetInt(1);
-	AutoPtr<Array<GLsizei> > _length(CreateArrayFromList<GLsizei>(arg.GetList(2)));
-	GLsizei *length = _length->GetPointer();
-	Array<char> *_source = Object_array<char>::GetObject(arg, 3)->GetArray();
-	GLchar *source = reinterpret_cast<GLchar *>(_source->GetPointer());
-	glGetShaderSource(shader, bufSize, length, source);
+	String _rtn;
+	GLsizei bufSize = 0;
+	glGetShaderiv(shader, GL_SHADER_SOURCE_LENGTH, &bufSize);
+	if (bufSize > 0) {
+		GLchar *source = new GLchar[bufSize];
+		glGetShaderSource(shader, bufSize, nullptr, source);
+		_rtn = source;
+		delete[] source;
+	}
+	return ReturnValue(env, arg, Value(_rtn));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetShaderSource");
-	return Value::Nil;
 }
 
 // opengl.glBindAttribLocation
@@ -12789,14 +12791,9 @@ Gura_ImplementFunction(__glBindAttribLocation)
 // opengl.glGetActiveAttrib
 Gura_DeclareFunctionAlias(__glGetActiveAttrib, "glGetActiveAttrib")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "bufSize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "size", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "name", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12804,23 +12801,26 @@ Gura_DeclareFunctionAlias(__glGetActiveAttrib, "glGetActiveAttrib")
 
 Gura_ImplementFunction(__glGetActiveAttrib)
 {
-#if 0
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
 	GLuint program = arg.GetUInt(0);
 	GLuint index = arg.GetUInt(1);
-	GLsizei bufSize = arg.GetInt(2);
-	AutoPtr<Array<GLsizei> > _length(CreateArrayFromList<GLsizei>(arg.GetList(3)));
-	GLsizei *length = _length->GetPointer();
-	Array<int> *_size = Object_array<int>::GetObject(arg, 4)->GetArray();
-	GLint *size = reinterpret_cast<GLint *>(_size->GetPointer());
-	AutoPtr<Array<GLenum> > _type(CreateArrayFromList<GLenum>(arg.GetList(5)));
-	GLenum *type = _type->GetPointer();
-	Array<char> *_name = Object_array<char>::GetObject(arg, 6)->GetArray();
-	GLchar *name = reinterpret_cast<GLchar *>(_name->GetPointer());
-	glGetActiveAttrib(program, index, bufSize, length, size, type, name);
+	GLint size = 0;
+	GLenum type;
+	String _name;
+	GLsizei bufSize = 0;
+	glGetProgramiv(program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &bufSize);
+	if (bufSize > 0) {
+		GLchar *name = new GLchar[bufSize];
+		glGetActiveAttrib(program, index, bufSize, nullptr, &size, &type, name);
+		_name = name;
+		delete[] name;
+	}
+	return ReturnValue(env, arg, Value::CreateList(env, Value(size), Value(type), Value(_name)));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
 #endif
-	env.SetError(ERR_NotImplementedError, "not implemented function glGetActiveAttrib");
-	return Value::Nil;
 }
 
 // opengl.glGetAttribLocation
@@ -12843,6 +12843,89 @@ Gura_ImplementFunction(__glGetAttribLocation)
 	const char *name = arg.GetString(1);
 	GLint _rtn = glGetAttribLocation(program, name);
 	return ReturnValue(env, arg, Value(_rtn));
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glStencilFuncSeparate
+Gura_DeclareFunctionAlias(__glStencilFuncSeparate, "glStencilFuncSeparate")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "func", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "ref", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glStencilFuncSeparate)
+{
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
+	GLenum face = static_cast<GLenum>(arg.GetInt(0));
+	GLenum func = static_cast<GLenum>(arg.GetInt(1));
+	GLint ref = arg.GetInt(2);
+	GLuint mask = arg.GetUInt(3);
+	glStencilFuncSeparate(face, func, ref, mask);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glStencilOpSeparate
+Gura_DeclareFunctionAlias(__glStencilOpSeparate, "glStencilOpSeparate")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "fail", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "zfail", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "zpass", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glStencilOpSeparate)
+{
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
+	GLenum face = static_cast<GLenum>(arg.GetInt(0));
+	GLenum fail = static_cast<GLenum>(arg.GetInt(1));
+	GLenum zfail = static_cast<GLenum>(arg.GetInt(2));
+	GLenum zpass = static_cast<GLenum>(arg.GetInt(3));
+	glStencilOpSeparate(face, fail, zfail, zpass);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glStencilMaskSeparate
+Gura_DeclareFunctionAlias(__glStencilMaskSeparate, "glStencilMaskSeparate")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glStencilMaskSeparate)
+{
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
+	GLenum face = static_cast<GLenum>(arg.GetInt(0));
+	GLuint mask = arg.GetUInt(1);
+	glStencilMaskSeparate(face, mask);
+	return Value::Nil;
 #else
 	SetError_RequiredGLVersion(env, "2.0");
 	return Value::Nil;
@@ -13551,6 +13634,9 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glBindAttribLocation);
 	Gura_AssignFunction(__glGetActiveAttrib);
 	Gura_AssignFunction(__glGetAttribLocation);
+	Gura_AssignFunction(__glStencilFuncSeparate);
+	Gura_AssignFunction(__glStencilOpSeparate);
+	Gura_AssignFunction(__glStencilMaskSeparate);
 	Gura_AssignFunction(__glUniformMatrix2x3fv);
 	Gura_AssignFunction(__glUniformMatrix3x2fv);
 	Gura_AssignFunction(__glUniformMatrix2x4fv);
