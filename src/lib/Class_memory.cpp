@@ -11,7 +11,7 @@ Gura_DeclareMethodAlias(memory, array_##name, "array@" #name) \
 	DeclareBlock(OCCUR_ZeroOrOnce); \
 	AddHelp( \
 		Gura_Symbol(en), Help::FMT_markdown, \
-		""); \
+		"Creates an `array@" #name "` instance that accesses the content of the target `memory` instance."); \
 } \
 \
 Gura_ImplementMethod(memory, array_##name) \
