@@ -96,6 +96,7 @@
 #include "gura/Class_iterator.h"
 #include "gura/Class_list.h"
 #include "gura/Class_matrix.h"
+#include "gura/Class_memory.h"
 #include "gura/Class_monitor.h"
 #include "gura/Class_nil.h"
 #include "gura/Class_number.h"

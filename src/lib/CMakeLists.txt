@@ -34,6 +34,7 @@ Class_image.cpp
 Class_iterator.cpp
 Class_list.cpp
 Class_matrix.cpp
+Class_memory.cpp
 Class_monitor.cpp
 Class_nil.cpp
 Class_number.cpp

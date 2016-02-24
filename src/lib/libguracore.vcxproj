@@ -214,6 +214,7 @@
     <ClCompile Include="Class_iterator.cpp" />
     <ClCompile Include="Class_list.cpp" />
     <ClCompile Include="Class_matrix.cpp" />
+    <ClCompile Include="Class_memory.cpp" />
     <ClCompile Include="Class_monitor.cpp" />
     <ClCompile Include="Class_nil.cpp" />
     <ClCompile Include="Class_number.cpp" />
@@ -341,6 +342,7 @@
     <ClInclude Include="..\..\include\gura\Class_iterator.h" />
     <ClInclude Include="..\..\include\gura\Class_list.h" />
     <ClInclude Include="..\..\include\gura\Class_matrix.h" />
+    <ClInclude Include="..\..\include\gura\Class_memory.h" />
     <ClInclude Include="..\..\include\gura\Class_monitor.h" />
     <ClInclude Include="..\..\include\gura\Class_nil.h" />
     <ClInclude Include="..\..\include\gura\Class_number.h" />
