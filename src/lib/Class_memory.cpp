@@ -3,6 +3,26 @@
 //=============================================================================
 #include "stdafx.h"
 
+// memory#array@T():map {block?}
+#define ImplementArrayConstructor(name, T) \
+Gura_DeclareMethodAlias(memory, array_##name, "array@" #name) \
+{ \
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map); \
+	DeclareBlock(OCCUR_ZeroOrOnce); \
+	AddHelp( \
+		Gura_Symbol(en), Help::FMT_markdown, \
+		""); \
+} \
+\
+Gura_ImplementMethod(memory, array_##name) \
+{ \
+	Memory *pMemory = Object_memory::GetObjectThis(arg)->GetMemory(); \
+	size_t cnt = pMemory->GetSize() / sizeof(T); \
+	AutoPtr<Array<T> > pArray(new Array<T>(pMemory->Reference(), cnt)); \
+	return ReturnValue(env, arg, Value(new Object_array<T>( \
+										   env, VTYPE_array_##name, pArray.release()))); \
+}
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -94,6 +114,18 @@ Gura_ImplementFunction(memory)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+ImplementArrayConstructor(char, Char)
+ImplementArrayConstructor(uchar, UChar)
+ImplementArrayConstructor(short, Short)
+ImplementArrayConstructor(ushort, UShort)
+ImplementArrayConstructor(int, Int)
+ImplementArrayConstructor(uint, UInt)
+ImplementArrayConstructor(int32, Int32)
+ImplementArrayConstructor(uint32, UInt32)
+ImplementArrayConstructor(int64, Int64)
+ImplementArrayConstructor(uint64, UInt64)
+ImplementArrayConstructor(float, float)
+ImplementArrayConstructor(double, double)
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -105,24 +137,27 @@ Class_memory::Class_memory(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_memo
 void Class_memory::Prepare(Environment &env)
 {
 	Gura_AssignFunction(memory);
+	Gura_AssignMethod(memory, array_char);
+	Gura_AssignMethod(memory, array_uchar);
+	Gura_AssignMethod(memory, array_short);
+	Gura_AssignMethod(memory, array_ushort);
+	Gura_AssignMethod(memory, array_int);
+	Gura_AssignMethod(memory, array_uint);
+	Gura_AssignMethod(memory, array_int32);
+	Gura_AssignMethod(memory, array_uint32);
+	Gura_AssignMethod(memory, array_int64);
+	Gura_AssignMethod(memory, array_uint64);
+	Gura_AssignMethod(memory, array_float);
+	Gura_AssignMethod(memory, array_double);
 }
 
 bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
-#if 0
-	Signal &sig = GetSignal();
-	size_t nChannels = 1;
-	size_t nSamplesPerSec = 10000;
-	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
-	if (value.Is_stream()) {
-		AutoPtr<Memory> pMemory(new Memory(Memory::FORMAT_None, nChannels, nSamplesPerSec));
-		pMemory->Read(env, value.GetStream(), nullptr);
-		value = Value::Nil; // delete stream instance
-		if (sig.IsSignalled()) return false;
-		value = Value(new Object_memory(env, pMemory.release()));
+	if (value.Is_array_char()) {
+		Memory *pMemory = Object_array<Char>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
 		return true;
 	}
-#endif
 	return false;
 }
 

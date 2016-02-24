@@ -217,6 +217,18 @@ public:
 	inline bool IsGenericObject(size_t idxArg) const	{ return GetValue(idxArg).IsGenericObject();	}
 	inline bool IsStruct(size_t idxArg) const			{ return GetValue(idxArg).IsStruct();			}
 	inline bool Is_argument(size_t idxArg) const		{ return GetValue(idxArg).Is_argument();		}
+	inline bool Is_array_char(size_t idxArg) const		{ return GetValue(idxArg).Is_array_char();		}
+	inline bool Is_array_uchar(size_t idxArg) const		{ return GetValue(idxArg).Is_array_uchar();		}
+	inline bool Is_array_short(size_t idxArg) const		{ return GetValue(idxArg).Is_array_short();		}
+	inline bool Is_array_ushort(size_t idxArg) const	{ return GetValue(idxArg).Is_array_ushort();	}
+	inline bool Is_array_int(size_t idxArg) const		{ return GetValue(idxArg).Is_array_int();		}
+	inline bool Is_array_uint(size_t idxArg) const		{ return GetValue(idxArg).Is_array_uint();		}
+	inline bool Is_array_int32(size_t idxArg) const		{ return GetValue(idxArg).Is_array_int32();		}
+	inline bool Is_array_uint32(size_t idxArg) const	{ return GetValue(idxArg).Is_array_uint32();	}
+	inline bool Is_array_int64(size_t idxArg) const		{ return GetValue(idxArg).Is_array_int64();		}
+	inline bool Is_array_uint64(size_t idxArg) const	{ return GetValue(idxArg).Is_array_uint64();	}
+	inline bool Is_array_float(size_t idxArg) const		{ return GetValue(idxArg).Is_array_float();		}
+	inline bool Is_array_double(size_t idxArg) const	{ return GetValue(idxArg).Is_array_double();	}
 	inline bool Is_audio(size_t idxArg) const			{ return GetValue(idxArg).Is_audio();			}
 	inline bool Is_binary(size_t idxArg) const			{ return GetValue(idxArg).Is_binary();			}
 	inline bool Is_codec(size_t idxArg) const			{ return GetValue(idxArg).Is_codec();			}
@@ -235,6 +247,7 @@ public:
 	inline bool Is_iterator(size_t idxArg) const		{ return GetValue(idxArg).Is_iterator();		}
 	inline bool Is_list(size_t idxArg) const			{ return GetValue(idxArg).Is_list();			}
 	inline bool Is_matrix(size_t idxArg) const			{ return GetValue(idxArg).Is_matrix();			}
+	inline bool Is_memory(size_t idxArg) const			{ return GetValue(idxArg).Is_memory();			}
 	inline bool Is_operator(size_t idxArg) const		{ return GetValue(idxArg).Is_operator();		}
 	inline bool Is_palette(size_t idxArg) const			{ return GetValue(idxArg).Is_palette();			}
 	inline bool Is_pointer(size_t idxArg) const			{ return GetValue(idxArg).Is_pointer();			}
