@@ -10283,7 +10283,7 @@ Gura_ImplementFunction(__glIsQuery)
 	ImplementGLExtension();
 	GLuint id = arg.GetUInt(0);
 	GLboolean _rtn = glIsQuery(id);
-	return ReturnValue(env, arg, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn == GL_TRUE));
 #else
 	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
@@ -10426,6 +10426,184 @@ Gura_ImplementFunction(__glGetQueryObjectuiv)
 	GLuint *params = _params->GetPointer();
 	glGetQueryObjectuiv(id, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glBindBuffer
+Gura_DeclareFunctionAlias(__glBindBuffer, "glBindBuffer")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glBindBuffer)
+{
+#if defined(GL_VERSION_1_5)
+	ImplementGLExtension();
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLuint buffer = arg.GetUInt(1);
+	glBindBuffer(target, buffer);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glDeleteBuffers
+Gura_DeclareFunctionAlias(__glDeleteBuffers, "glDeleteBuffers")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "buffers", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glDeleteBuffers)
+{
+#if defined(GL_VERSION_1_5)
+	ImplementGLExtension();
+	Array<UInt> *_buffers = Object_array<UInt>::GetObject(arg, 0)->GetArray();
+	GLuint *buffers = reinterpret_cast<GLuint *>(_buffers->GetPointer());
+	GLsizei n = _buffers->GetSize();
+	glDeleteBuffers(n, buffers);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGenBuffers
+Gura_DeclareFunctionAlias(__glGenBuffers, "glGenBuffers")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGenBuffers)
+{
+#if defined(GL_VERSION_1_5)
+	ImplementGLExtension();
+	GLsizei n = arg.GetInt(0);
+	AutoPtr<Array<GLuint> > _buffers(new Array<GLuint>(n));
+	GLuint *buffers = _buffers->GetPointer();
+	glGenBuffers(n, buffers);
+	return Value::CreateList(env, buffers, n);
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glIsBuffer
+Gura_DeclareFunctionAlias(__glIsBuffer, "glIsBuffer")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glIsBuffer)
+{
+#if defined(GL_VERSION_1_5)
+	ImplementGLExtension();
+	GLuint buffer = arg.GetUInt(0);
+	GLboolean _rtn = glIsBuffer(buffer);
+	return ReturnValue(env, arg, Value(_rtn == GL_TRUE));
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glUnmapBuffer
+Gura_DeclareFunctionAlias(__glUnmapBuffer, "glUnmapBuffer")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glUnmapBuffer)
+{
+#if defined(GL_VERSION_1_5)
+	ImplementGLExtension();
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLboolean _rtn = glUnmapBuffer(target);
+	return ReturnValue(env, arg, Value(_rtn == GL_TRUE));
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glGetBufferParameteriv
+Gura_DeclareFunctionAlias(__glGetBufferParameteriv, "glGetBufferParameteriv")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glGetBufferParameteriv)
+{
+#if defined(GL_VERSION_1_5)
+	ImplementGLExtension();
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum pname = static_cast<GLenum>(arg.GetInt(1));
+	size_t n = GetParamCount(pname);
+	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
+	GLint *params = _params->GetPointer();
+	glGetBufferParameteriv(target, pname, params);
+	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+}
+
+// opengl.glDrawBuffers
+Gura_DeclareFunctionAlias(__glDrawBuffers, "glDrawBuffers")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "bufs", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glDrawBuffers)
+{
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
+	AutoPtr<Array<GLenum> > _bufs(CreateArrayFromList<GLenum>(arg.GetList(0)));
+	GLenum *bufs = _bufs->GetPointer();
+	GLsizei n = _bufs->GetSize();
+	glDrawBuffers(n, bufs);
+	return Value::Nil;
 #else
 	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
@@ -13548,6 +13726,13 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glGetQueryiv);
 	Gura_AssignFunction(__glGetQueryObjectiv);
 	Gura_AssignFunction(__glGetQueryObjectuiv);
+	Gura_AssignFunction(__glBindBuffer);
+	Gura_AssignFunction(__glDeleteBuffers);
+	Gura_AssignFunction(__glGenBuffers);
+	Gura_AssignFunction(__glIsBuffer);
+	Gura_AssignFunction(__glUnmapBuffer);
+	Gura_AssignFunction(__glGetBufferParameteriv);
+	Gura_AssignFunction(__glDrawBuffers);
 	Gura_AssignFunction(__glVertexAttrib1d);
 	Gura_AssignFunction(__glVertexAttrib1dv);
 	Gura_AssignFunction(__glVertexAttrib1f);

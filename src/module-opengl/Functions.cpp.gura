@@ -3702,7 +3702,7 @@ glIsQuery(id:GLuint):GLboolean:map {block?} = R'''
 ^#if defined(GL_VERSION_1_5)
 ^	ImplementGLExtension();
 	GLboolean _rtn = glIsQuery(id);
-	return ReturnValue(env, arg, Value(_rtn));
+	return ReturnValue(env, arg, Value(_rtn == GL_TRUE));
 #else
 	SetError_RequiredGLVersion(env, "1.5");
 	return Value::Nil;
@@ -3797,32 +3797,61 @@ glGetQueryObjectuiv(id:GLuint, pname:GLenum):map {block?} = R'''
 	'''
 }
 	
-/*
-glBindBuffer(target:GLenum, buffer:GLuint):void:map = `auto % {`en, 'markdown',
+glBindBuffer(target:GLenum, buffer:GLuint):void:map = R'''
+^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
+	glBindBuffer(target, buffer);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glDeleteBuffers(buffers:GLuint@:const):void:map = R'''
-	GLsizei n = buffers.GetSize();
+^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
+	GLsizei n = _buffers->GetSize();
 	glDeleteBuffers(n, buffers);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glGenBuffers(n:GLsizei):map {block?} = R'''
+^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
 	AutoPtr<Array<GLuint> > _buffers(new Array<GLuint>(n));
 	GLuint *buffers = _buffers->GetPointer();
 	glGenBuffers(n, buffers);
 	return Value::CreateList(env, buffers, n);
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
-glIsBuffer(buffer:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
+glIsBuffer(buffer:GLuint):GLboolean:map {block?} = R'''
+^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
+	GLboolean _rtn = glIsBuffer(buffer);
+	return ReturnValue(env, arg, Value(_rtn == GL_TRUE));
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
@@ -3835,17 +3864,32 @@ glIsBuffer(buffer:GLuint):GLboolean:map {block?} = `auto % {`en, 'markdown',
 
 //glMapBuffer(target:GLenum, access:GLenum):GLvoid {block?}@
 
-glUnmapBuffer(target:GLenum):GLboolean:map {block?} = `auto % {`en, 'markdown',
+glUnmapBuffer(target:GLenum):GLboolean:map {block?} = R'''
+^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
+	GLboolean _rtn = glUnmapBuffer(target);
+	return ReturnValue(env, arg, Value(_rtn == GL_TRUE));
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
 	R'''
 	'''
 }
 
 glGetBufferParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
 	size_t n = GetParamCount(pname);
 	AutoPtr<Array<GLint> > _params(new Array<GLint>(n));
 	GLint *params = _params->GetPointer();
 	glGetBufferParameteriv(target, pname, params);
 	return ReturnValue(env, arg, CreateValueFromParams(env, params, n));
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
@@ -3854,14 +3898,19 @@ glGetBufferParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 //glGetBufferPointerv(target:GLenum, pname:GLenum, params:GLvoid@@):void:map = `unsupport
 
 glDrawBuffers(bufs:GLenum@:const):void:map = R'''
-	GLsizei n = bufs.GetSize();
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	GLsizei n = _bufs->GetSize();
 	glDrawBuffers(n, bufs);
 	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
 ''' % {`en, 'markdown',
 	R'''
 	'''
 }
-*/
 
 glVertexAttrib1d(index:GLuint, x:GLdouble):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
