@@ -578,6 +578,11 @@ typeConvDict = %{
 			'const Binary *${arg.name} = &Object_binary::GetObject(arg, ${idx})->GetBinary();',
 			'const Binary *${arg.name} = arg.IsValid(${idx})? &Object_binary::GetObject(arg, ${idx})->GetBinary() : nullptr;',
 			nil)
+	'memory' => TypeConv(
+			'memory', 'Once', [],
+			'Memory *${arg.name} = Object_memory::GetObject(arg, ${idx})->GetMemory();',
+			'Memory *${arg.name} = arg.IsValid(${idx})? Object_memory::GetObject(arg, ${idx})->GetMemory() : nullptr;',
+			nil)
 	'boolean' => TypeConv(
 			'boolean', 'Once', [],
 			'bool ${arg.name} = arg.GetBoolean(${idx});',

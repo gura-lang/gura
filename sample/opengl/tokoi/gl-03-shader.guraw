@@ -92,7 +92,11 @@ init() = {
 		sys.stderr.println('Link error.')
 		sys.exit(1)
 	}
-	
+
+	[buffer] = glGenBuffers(1)
+	println(buffer)
+	glBindBuffer(GL_ARRAY_BUFFER, buffer)
+	glBufferData(GL_ARRAY_BUFFER, 4 * 2 * 4, nil, GL_STATIC_DRAW)
 }
 
 main() = {

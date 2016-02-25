@@ -10532,6 +10532,39 @@ Gura_ImplementFunction(__glIsBuffer)
 #endif
 }
 
+// opengl.glBufferData
+Gura_DeclareFunctionAlias(__glBufferData, "glBufferData")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "data", VTYPE_memory, OCCUR_Once, FLAG_Nil);
+	DeclareArg(env, "usage", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glBufferData)
+{
+#if defined(GL_VERSION_1_5)
+	ImplementGLExtension();
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLsizei size = arg.GetLong(1);
+	Memory *data = arg.IsValid(2)? Object_memory::GetObject(arg, 2)->GetMemory() : nullptr;
+	GLenum usage = static_cast<GLenum>(arg.GetInt(3));
+	if (data != nullptr && data->GetSize() < size) {
+		env.SetError(ERR_ValueError, "allocated memory for data is smaller than the specified size");
+		return Value::Nil;
+	}
+	glBufferData(target, size, (data == nullptr)? nullptr : data->GetPointer(), usage);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glMapBuffer
 Gura_DeclareFunctionAlias(__glMapBuffer, "glMapBuffer")
 {
@@ -13758,6 +13791,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glDeleteBuffers);
 	Gura_AssignFunction(__glGenBuffers);
 	Gura_AssignFunction(__glIsBuffer);
+	Gura_AssignFunction(__glBufferData);
 	Gura_AssignFunction(__glMapBuffer);
 	Gura_AssignFunction(__glUnmapBuffer);
 	Gura_AssignFunction(__glGetBufferParameteriv);

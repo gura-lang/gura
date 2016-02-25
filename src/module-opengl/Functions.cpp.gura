@@ -3856,7 +3856,23 @@ glIsBuffer(buffer:GLuint):GLboolean:map {block?} = R'''
 	'''
 }
 
-//glBufferData(target:GLenum, size:GLsizeiptr, data:GLvoid@:const, usage:GLenum):void:map = `unsupport
+glBufferData(target:GLenum, size:GLsizeiptr, data:memory:nil, usage:GLenum):void:map = R'''
+^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
+	if (data != nullptr && data->GetSize() < size) {
+		env.SetError(ERR_ValueError, "allocated memory for data is smaller than the specified size");
+		return Value::Nil;
+	}
+	glBufferData(target, size, (data == nullptr)? nullptr : data->GetPointer(), usage);
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 //glBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@:const):void:map = `unsupport
 

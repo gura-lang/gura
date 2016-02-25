@@ -71,6 +71,14 @@ cbridge.AddTypeConvs {
 			GLsizei _rtn = ${fi.MakeCaller()};
 			return ReturnValue(env, arg, Value(_rtn));
 			''')
+	'GLsizeiptr' => TypeConv(
+			'number', 'Once', [],
+			'GLsizei ${arg.name} = arg.GetLong(${idx});',
+			nil,
+			R'''
+			GLsizeiptr _rtn = ${fi.MakeCaller()};
+			return ReturnValue(env, arg, Value(_rtn));
+			''')
 	'GLubyte' => TypeConv(
 			'number', 'Once', [],
 			'GLubyte ${arg.name} = arg.GetUChar(${idx});',
