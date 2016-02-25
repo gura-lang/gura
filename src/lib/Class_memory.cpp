@@ -157,6 +157,50 @@ bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *p
 		Memory *pMemory = Object_array<Char>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, pMemory->Reference()));
 		return true;
+	} else if (value.Is_array_uchar()) {
+		Memory *pMemory = Object_array<UChar>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
+	} else if (value.Is_array_short()) {
+		Memory *pMemory = Object_array<Short>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
+	} else if (value.Is_array_ushort()) {
+		Memory *pMemory = Object_array<UShort>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
+	} else if (value.Is_array_int()) {
+		Memory *pMemory = Object_array<Int>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
+	} else if (value.Is_array_uint()) {
+		Memory *pMemory = Object_array<UInt>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
+	} else if (value.Is_array_int32()) {
+		Memory *pMemory = Object_array<Int32>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
+	} else if (value.Is_array_uint32()) {
+		Memory *pMemory = Object_array<UInt32>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
+	} else if (value.Is_array_int64()) {
+		Memory *pMemory = Object_array<Int64>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
+	} else if (value.Is_array_uint64()) {
+		Memory *pMemory = Object_array<UInt64>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
+	} else if (value.Is_array_float()) {
+		Memory *pMemory = Object_array<float>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
+	} else if (value.Is_array_double()) {
+		Memory *pMemory = Object_array<double>::GetObject(value)->GetArray()->GetMemory();
+		value = Value(new Object_memory(env, pMemory->Reference()));
+		return true;
 	}
 	return false;
 }
