@@ -191,6 +191,7 @@ math:module = <module:math:<integrated>>
   math.tanh(num):map
 matrix:class = <class:matrix(nrows:number, ncols:number, value?) {block?}>
 max(values+):map
+memory:class = <class:memory(bytes:number):map {block?}>
 min(values+):map
 module() {block}
 monitor:class = <class:monitor() {block?}>
@@ -691,6 +692,19 @@ matrix
   matrix#tolist():[transpose]
   matrix.translate(tx:number, ty:number, tz?:number):static:map:[deg] {block?}
   matrix#transpose()
+memory
+  memory#array@char():map {block?}
+  memory#array@double():map {block?}
+  memory#array@float():map {block?}
+  memory#array@int():map {block?}
+  memory#array@int32():map {block?}
+  memory#array@int64():map {block?}
+  memory#array@short():map {block?}
+  memory#array@uchar():map {block?}
+  memory#array@uint():map {block?}
+  memory#array@uint32():map {block?}
+  memory#array@uint64():map {block?}
+  memory#array@ushort():map {block?}
 monitor
 nil
 number
