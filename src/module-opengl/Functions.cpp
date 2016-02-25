@@ -10532,6 +10532,34 @@ Gura_ImplementFunction(__glIsBuffer)
 #endif
 }
 
+// opengl.glMapBuffer
+Gura_DeclareFunctionAlias(__glMapBuffer, "glMapBuffer")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "access", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glMapBuffer)
+{
+#if defined(GL_VERSION_1_5)
+	ImplementGLExtension();
+	GLenum target = static_cast<GLenum>(arg.GetInt(0));
+	GLenum access = static_cast<GLenum>(arg.GetInt(1));
+	GLsizei bufSize = 0;
+	glGetBufferParameteriv(target, GL_BUFFER_SIZE, &bufSize);
+	void *_rtn = glMapBuffer(target, access);
+	return ReturnValue(env, arg, Value(new Object_memory(env, new Memory(bufSize, _rtn))));
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glUnmapBuffer
 Gura_DeclareFunctionAlias(__glUnmapBuffer, "glUnmapBuffer")
 {
@@ -13730,6 +13758,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glDeleteBuffers);
 	Gura_AssignFunction(__glGenBuffers);
 	Gura_AssignFunction(__glIsBuffer);
+	Gura_AssignFunction(__glMapBuffer);
 	Gura_AssignFunction(__glUnmapBuffer);
 	Gura_AssignFunction(__glGetBufferParameteriv);
 	Gura_AssignFunction(__glDrawBuffers);

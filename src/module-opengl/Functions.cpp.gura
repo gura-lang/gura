@@ -3862,7 +3862,21 @@ glIsBuffer(buffer:GLuint):GLboolean:map {block?} = R'''
 
 //glGetBufferSubData(target:GLenum, offset:GLintptr, size:GLsizeiptr, data:GLvoid@):void:map = `unsupport
 
-//glMapBuffer(target:GLenum, access:GLenum):GLvoid {block?}@
+glMapBuffer(target:GLenum, access:GLenum):map {block?} = R'''
+^#if defined(GL_VERSION_1_5)
+^	ImplementGLExtension();
+	GLsizei bufSize = 0;
+	glGetBufferParameteriv(target, GL_BUFFER_SIZE, &bufSize);
+	void *_rtn = glMapBuffer(target, access);
+	return ReturnValue(env, arg, Value(new Object_memory(env, new Memory(bufSize, _rtn))));
+#else
+	SetError_RequiredGLVersion(env, "1.5");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 glUnmapBuffer(target:GLenum):GLboolean:map {block?} = R'''
 ^#if defined(GL_VERSION_1_5)

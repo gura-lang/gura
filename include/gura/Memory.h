@@ -19,6 +19,8 @@ public:
 	Gura_DeclareReferenceAccessor(Memory);
 public:
 	inline Memory() : _cntRef(1), _bytes(0), _buff(nullptr) {}
+	inline Memory(size_t bytes, void *buff) : _cntRef(1),
+		_bytes(bytes), _buff(reinterpret_cast<char *>(buff)) {}
 protected:
 	virtual ~Memory();
 public:
