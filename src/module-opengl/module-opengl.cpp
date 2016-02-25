@@ -19,7 +19,7 @@ static ParamInfoDict *_pParamInfoDict = nullptr;
 size_t GetParamCount(GLenum pname)
 {
 	ParamInfoDict::iterator iter = _pParamInfoDict->find(pname);
-	if (iter == _pParamInfoDict->end()) return 16;
+	if (iter == _pParamInfoDict->end()) return 1;
 	return iter->second;
 }
 
@@ -1377,6 +1377,33 @@ void PrepareParamInfoDict()
 #endif
 #if defined(GL_ZOOM_Y)
 		{ GL_ZOOM_Y,								 1 },
+#endif
+#if defined(GL_BUFFER_ACCESS)
+		{ GL_BUFFER_ACCESS,							 1 },
+#endif
+#if defined(GL_BUFFER_ACCESS_FLAGS)
+		{ GL_BUFFER_ACCESS_FLAGS,					 1 },
+#endif
+#if defined(GL_BUFFER_IMMUTABLE_STORAGE)
+		{ GL_BUFFER_IMMUTABLE_STORAGE,				 1 },
+#endif
+#if defined(GL_BUFFER_MAPPED)
+		{ GL_BUFFER_MAPPED,							 1 },
+#endif
+#if defined(GL_BUFFER_MAP_LENGTH)
+		{ GL_BUFFER_MAP_LENGTH,						 1 },
+#endif
+#if defined(GL_BUFFER_MAP_OFFSET)
+		{ GL_BUFFER_MAP_OFFSET,						 1 },
+#endif
+#if defined(GL_BUFFER_SIZE)
+		{ GL_BUFFER_SIZE,							 1 },
+#endif
+#if defined(GL_BUFFER_STORAGE_FLAGS)
+		{ GL_BUFFER_STORAGE_FLAGS,					 1 },
+#endif
+#if defined(GL_BUFFER_USAGE)
+		{ GL_BUFFER_USAGE,							 1 },
 #endif
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {

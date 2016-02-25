@@ -97,6 +97,8 @@ init() = {
 	println(buffer)
 	glBindBuffer(GL_ARRAY_BUFFER, buffer)
 	glBufferData(GL_ARRAY_BUFFER, 4 * 2 * 4, nil, GL_STATIC_DRAW)
+	n = glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE)
+	println(n)
 }
 
 main() = {
