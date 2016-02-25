@@ -8,14 +8,23 @@ funcs = [
 	array@ushort
 	array@int32
 	array@uint32
-	//array@int64
-	//array@uint64
+	array@int64
+	array@uint64
 	array@float
 	array@double
 ]
 
 PrintArray(fmt:string, array) = println(format(fmt, array.each()).join(' '))
 
+/*
+testcase {
+	f(m:memory) = {
+		println(m)
+	}
+	f(array@char([1..100]))
+}
+sys.exit()
+*/
 testcase('construct') {
 	funcs.each {|func|
 		println(func)

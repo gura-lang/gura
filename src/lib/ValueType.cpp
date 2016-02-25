@@ -222,15 +222,15 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(Struct		)->SetClass(new Class_Struct(pClass));
 	Gura_VTYPEInfo(argument		)->SetClass(new Class_argument(pClass));
 	Gura_VTYPEInfo(array_char	)->SetClass(
-		new Class_array<char>(pClass, VTYPE_array_char, "char"));
+		new Class_array<Char>(pClass, VTYPE_array_char, "char"));
 	Gura_VTYPEInfo(array_uchar	)->SetClass(
 		new Class_array<UChar>(pClass, VTYPE_array_uchar, "uchar"));
 	Gura_VTYPEInfo(array_short	)->SetClass(
-		new Class_array<short>(pClass, VTYPE_array_short, "short"));
+		new Class_array<Short>(pClass, VTYPE_array_short, "short"));
 	Gura_VTYPEInfo(array_ushort	)->SetClass(
 		new Class_array<UShort>(pClass, VTYPE_array_ushort, "ushort"));
 	Gura_VTYPEInfo(array_int	)->SetClass(
-		new Class_array<int>(pClass, VTYPE_array_int, "int"));
+		new Class_array<Int>(pClass, VTYPE_array_int, "int"));
 	Gura_VTYPEInfo(array_uint	)->SetClass(
 		new Class_array<UInt>(pClass, VTYPE_array_uint, "uint"));
 	Gura_VTYPEInfo(array_uint32	)->SetClass(
