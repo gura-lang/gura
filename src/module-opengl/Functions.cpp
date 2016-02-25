@@ -11728,6 +11728,40 @@ Gura_ImplementFunction(__glVertexAttrib4usv)
 #endif
 }
 
+// opengl.glVertexAttribPointer
+Gura_DeclareFunctionAlias(__glVertexAttribPointer, "glVertexAttribPointer")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "size", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "normalized", VTYPE_boolean, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pointer", VTYPE_memory, OCCUR_Once, FLAG_Nil);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(__glVertexAttribPointer)
+{
+#if defined(GL_VERSION_2_0)
+	ImplementGLExtension();
+	GLuint index = arg.GetUInt(0);
+	GLint size = arg.GetInt(1);
+	GLenum type = static_cast<GLenum>(arg.GetInt(2));
+	GLboolean normalized = (arg.GetBoolean(3)? GL_TRUE : GL_FALSE);
+	GLsizei stride = arg.GetInt(4);
+	Memory *pointer = arg.IsValid(5)? Object_memory::GetObject(arg, 5)->GetMemory() : nullptr;
+	glVertexAttribPointer(index, size, type, normalized, stride,
+						(pointer == nullptr)? nullptr : pointer->GetPointer());
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+}
+
 // opengl.glEnableVertexAttribArray
 Gura_DeclareFunctionAlias(__glEnableVertexAttribArray, "glEnableVertexAttribArray")
 {
@@ -13832,6 +13866,7 @@ void AssignFunctions(Environment &env)
 	Gura_AssignFunction(__glVertexAttrib4ubv);
 	Gura_AssignFunction(__glVertexAttrib4uiv);
 	Gura_AssignFunction(__glVertexAttrib4usv);
+	Gura_AssignFunction(__glVertexAttribPointer);
 	Gura_AssignFunction(__glEnableVertexAttribArray);
 	Gura_AssignFunction(__glDisableVertexAttribArray);
 	Gura_AssignFunction(__glGetVertexAttribdv);

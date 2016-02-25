@@ -4446,7 +4446,20 @@ glVertexAttrib4usv(index:GLuint, v:GLushort@4:const):void:map = R'''
 	'''
 }
 
-//glVertexAttribPointer(index:GLuint, size:GLint, type:GLenum, normalized:GLboolean, stride:GLsizei, pointer:GLvoid@:const):void:map = `unsupport
+glVertexAttribPointer(index:GLuint, size:GLint, type:GLenum, normalized:GLboolean, stride:GLsizei, pointer:memory:nil):void = R'''
+^#if defined(GL_VERSION_2_0)
+^	ImplementGLExtension();
+	glVertexAttribPointer(index, size, type, normalized, stride,
+						(pointer == nullptr)? nullptr : pointer->GetPointer());
+	return Value::Nil;
+#else
+	SetError_RequiredGLVersion(env, "2.0");
+	return Value::Nil;
+#endif
+''' % {`en, 'markdown',
+	R'''
+	'''
+}
 
 glEnableVertexAttribArray(index:GLuint):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
