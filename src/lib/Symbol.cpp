@@ -427,6 +427,8 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(bright_red);
 	Gura_RealizeSymbol(bright_white);
 	Gura_RealizeSymbol(bright_yellow);
+	Gura_RealizeSymbol(byte);
+	Gura_RealizeSymbol(bytes);
 	Gura_RealizeSymbol(bytespersample);
 	Gura_RealizeSymbol(c);
 	Gura_RealizeSymbol(car);
@@ -468,6 +470,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbolAlias(default_,		"default");
 	Gura_RealizeSymbol(deg);
 	Gura_RealizeSymbol(denom);
+	Gura_RealizeSymbol(depth);
 	Gura_RealizeSymbol(descend);
 	Gura_RealizeSymbol(dfs);
 	Gura_RealizeSymbol(dict);
@@ -685,6 +688,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(siblings);
 	Gura_RealizeSymbol(sin);
 	Gura_RealizeSymbol(single);
+	Gura_RealizeSymbol(size);
 	Gura_RealizeSymbol(sort);
 	Gura_RealizeSymbol(source);
 	Gura_RealizeSymbol(space);

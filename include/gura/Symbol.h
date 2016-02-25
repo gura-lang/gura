@@ -268,6 +268,8 @@ public:
 	Gura_DeclareSymbol(bright_red);
 	Gura_DeclareSymbol(bright_white);
 	Gura_DeclareSymbol(bright_yellow);
+	Gura_DeclareSymbol(byte);
+	Gura_DeclareSymbol(bytes);
 	Gura_DeclareSymbol(bytespersample);
 	Gura_DeclareSymbol(c);
 	Gura_DeclareSymbol(car);
@@ -309,6 +311,7 @@ public:
 	Gura_DeclareSymbol(default_);
 	Gura_DeclareSymbol(deg);
 	Gura_DeclareSymbol(denom);
+	Gura_DeclareSymbol(depth);
 	Gura_DeclareSymbol(descend);
 	Gura_DeclareSymbol(dfs);
 	Gura_DeclareSymbol(dict);
@@ -526,6 +529,7 @@ public:
 	Gura_DeclareSymbol(siblings);
 	Gura_DeclareSymbol(sin);
 	Gura_DeclareSymbol(single);
+	Gura_DeclareSymbol(size);
 	Gura_DeclareSymbol(sort);
 	Gura_DeclareSymbol(source);
 	Gura_DeclareSymbol(space);

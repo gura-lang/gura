@@ -16,15 +16,6 @@ funcs = [
 
 PrintArray(fmt:string, array) = println(format(fmt, array.each()).join(' '))
 
-/*
-testcase {
-	f(m:memory) = {
-		println(m)
-	}
-	f(array@char([1..100]))
-}
-sys.exit()
-*/
 testcase('construct') {
 	funcs.each {|func|
 		println(func)
@@ -224,5 +215,15 @@ testcase('operator') {
 			println('error')
 		}
 		println()
+	}
+}
+testcase('cast to memory') {
+	f(m:memory) = {
+		printf('%dbytes\n', m.size)
+		m.array@uchar().dump()
+	}
+	funcs.each {|func|
+		println(func)
+		f(func([0..15]))
 	}
 }

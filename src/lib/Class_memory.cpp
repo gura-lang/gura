@@ -46,26 +46,17 @@ Object *Object_memory::Clone() const
 bool Object_memory::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_Symbol(size));
 	return true;
 }
 
 Value Object_memory::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		return Value(Audio::FormatToSymbol(_pAudio->GetFormat()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(channels))) {
-		return Value(static_cast<UInt>(_pAudio->GetChannels()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(samples))) {
-		return Value(static_cast<UInt>(_pAudio->GetSamples()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(samplespersec))) {
-		return Value(static_cast<UInt>(_pAudio->GetSamplesPerSec()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(bytespersample))) {
-		return Value(static_cast<UInt>(_pAudio->GetBytesPerSample()));
+	if (pSymbol->IsIdentical(Gura_Symbol(size))) {
+		return Value(_pMemory->GetSize());
 	}
-#endif
 	evaluatedFlag = false;
 	return Value::Nil;
 }
