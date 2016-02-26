@@ -1521,8 +1521,8 @@ A `pointer` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>binary</code></td><td><code>binary</code></td><td>R</td>
-<td>A <code>binary</code> instance associated with the pointer.</td></tr>
+<tr><td><code>target</code></td><td><code>binary</code></td><td>R</td>
+<td>An instance that is associated with the pointer.</td></tr>
 
 <tr><td><code>offset</code></td><td><code>number</code></td><td>R</td>
 <td>The current offset.</td></tr>
