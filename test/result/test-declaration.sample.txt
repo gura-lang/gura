@@ -238,7 +238,7 @@ path:module = <module:path:<integrated>>
   path.splitext(pathname:string):map
   path.stat(directory:directory):map
   path.walk(directory?:directory, maxdepth?:number, pattern*:string):flat:map:[dir,file,stat] {block?}
-pointer:class = <class:pointer(buff:binary, offset?:number) {block?}>
+pointer:class = <class:pointer>
 print(values*):map:void
 printf(format:string, values*):map:void
 println(values*):map:void

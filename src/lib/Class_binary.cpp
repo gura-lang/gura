@@ -547,7 +547,7 @@ Gura_ImplementMethod(binary, pointer)
 {
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	size_t offset = arg.Is_number(0)? arg.GetSizeT(0) : 0;
-	return ReturnValue(env, arg, Value(new Object_pointer(env, pThis->Reference(), offset)));
+	return ReturnValue(env, arg, Value(new Object_pointer(env, new PointerBinary(offset, pThis->Reference()))));
 }
 
 // binary#reader() {block?}

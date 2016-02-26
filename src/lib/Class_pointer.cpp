@@ -30,9 +30,9 @@ Value Object_pointer::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(binary))) {
-		return Value(_pObjBinary->Reference());
+		return Value(GetPointer()->GetTarget()->Reference());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
-		return Value(_offset);
+		return Value(GetPointer()->GetOffset());
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -41,10 +41,11 @@ Value Object_pointer::DoGetProp(Environment &env, const Symbol *pSymbol,
 String Object_pointer::ToString(bool exprFlag)
 {
 	char buff[64];
-	::sprintf(buff, "<pointer:%d>", static_cast<int>(_offset));
+	::sprintf(buff, "<pointer:%d>", static_cast<int>(GetPointer()->GetOffset()));
 	return String(buff);
 }
 
+#if 0
 bool Object_pointer::UnpackForward(Signal &sig, int distance, bool exceedErrorFlag)
 {
 	return _pObjBinary->GetBinary().UnpackForward(sig, _offset, distance, exceedErrorFlag);
@@ -70,10 +71,12 @@ bool Object_pointer::Pack(Signal &sig,
 	if (forwardFlag) _offset = offset;
 	return true;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
+#if 0
 // pointer(buff:binary, offset?:number) {block?}
 Gura_DeclareFunction(pointer)
 {
@@ -98,6 +101,7 @@ Gura_ImplementFunction(pointer)
 	size_t offset = arg.Is_number(1)? arg.GetSizeT(1) : 0;
 	return ReturnValue(env, arg, Value(new Object_pointer(env, pObj->Reference(), offset)));
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of methods
@@ -115,10 +119,9 @@ Gura_DeclareMethod(pointer, forward)
 
 Gura_ImplementMethod(pointer, forward)
 {
-	Signal &sig = env.GetSignal();
-	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	bool exceedErrorFlag = true;
-	pThis->UnpackForward(sig, arg.GetInt(0), exceedErrorFlag);
+	pPointer->UnpackForward(env, arg.GetInt(0), exceedErrorFlag);
 	return arg.GetValueThis();
 }
 
@@ -143,14 +146,13 @@ Gura_DeclareMethod(pointer, pack)
 
 Gura_ImplementMethod(pointer, pack)
 {
-	Signal &sig = env.GetSignal();
-	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
-	if (!pThis->IsWritable()) {
-		sig.SetError(ERR_ValueError, "not a writable binary");
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	if (!pPointer->IsWritable()) {
+		env.SetError(ERR_ValueError, "not a writable binary");
 		return Value::Nil;
 	}
 	bool forwardFlag = !arg.IsSet(Gura_Symbol(stay));
-	pThis->Pack(sig, forwardFlag, arg.GetString(0), arg.GetList(1));
+	pPointer->Pack(env, forwardFlag, arg.GetString(0), arg.GetList(1));
 	return arg.GetValueThis();
 }
 
@@ -165,8 +167,8 @@ Gura_DeclareMethod(pointer, reset)
 
 Gura_ImplementMethod(pointer, reset)
 {
-	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
-	pThis->Reset();
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	pPointer->Reset();
 	return Value::Nil;
 }
 
@@ -185,12 +187,11 @@ Gura_DeclareMethod(pointer, unpack)
 
 Gura_ImplementMethod(pointer, unpack)
 {
-	Signal &sig = env.GetSignal();
-	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	bool forwardFlag = !arg.IsSet(Gura_Symbol(stay));
 	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil));
-	return pThis->Unpack(sig, forwardFlag,
-					arg.GetString(0), arg.GetList(1), exceedErrorFlag);
+	return pPointer->Unpack(env, forwardFlag,
+							arg.GetString(0), arg.GetList(1), exceedErrorFlag);
 }
 
 // pointer#unpacks(format:string, values*:number)
@@ -206,10 +207,15 @@ Gura_DeclareMethod(pointer, unpacks)
 
 Gura_ImplementMethod(pointer, unpacks)
 {
+#if 0
 	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
 	Object_binary *pObj = Object_binary::Reference(pThis->GetBinaryObj());
 	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj,
 						arg.GetString(0), arg.GetList(1), pThis->GetOffset());
+	return ReturnIterator(env, arg, pIterator);
+#endif
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	Iterator *pIterator = pPointer->CreateUnpackIterator(arg.GetString(0), arg.GetList(1));
 	return ReturnIterator(env, arg, pIterator);
 }
 
@@ -222,7 +228,8 @@ Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_po
 
 void Class_pointer::Prepare(Environment &env)
 {
-	Gura_AssignFunction(pointer);
+	//Gura_AssignFunction(pointer);
+	Gura_AssignValue(pointer, Value(Reference()));
 	Gura_AssignMethod(pointer, forward);
 	Gura_AssignMethod(pointer, pack);
 	Gura_AssignMethod(pointer, reset);

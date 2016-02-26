@@ -792,7 +792,7 @@ Gura_ImplementBinaryOperator(Add, pointer, number)
 	Signal &sig = env.GetSignal();
 	Object_pointer *pObj = dynamic_cast<Object_pointer *>(
 						Object_pointer::GetObject(valueLeft)->Clone());
-	pObj->UnpackForward(sig,
+	pObj->GetPointer()->UnpackForward(env,
 						static_cast<int>(valueRight.GetNumber()), true);
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(pObj);
@@ -964,17 +964,17 @@ Gura_ImplementBinaryOperator(Sub, color, color)
 
 Gura_ImplementBinaryOperator(Sub, pointer, number)
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<Object_pointer> pObj(dynamic_cast<Object_pointer *>(
 						Object_pointer::GetObject(valueLeft)->Clone()));
-	pObj->UnpackForward(sig,
+	pObj->GetPointer()->UnpackForward(env,
 						-static_cast<int>(valueRight.GetNumber()), true);
-	if (sig.IsSignalled()) return Value::Nil;
+	if (env.IsSignalled()) return Value::Nil;
 	return Value(pObj.release());
 }
 
 Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 {
+#if 0
 	Signal &sig = env.GetSignal();
 	const Object_pointer *pObj1 = Object_pointer::GetObject(valueLeft);
 	const Object_pointer *pObj2 = Object_pointer::GetObject(valueRight);
@@ -985,6 +985,17 @@ Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 	}
 	int offset1 = static_cast<int>(pObj1->GetOffset());
 	int offset2 = static_cast<int>(pObj2->GetOffset());
+	return Value(static_cast<Number>(offset1 - offset2));
+#endif
+	const Pointer *pPtr1 = Object_pointer::GetObject(valueLeft)->GetPointer();
+	const Pointer *pPtr2 = Object_pointer::GetObject(valueRight)->GetPointer();
+	if (pPtr1->GetTarget() != pPtr2->GetTarget()) {
+		env.SetError(ERR_ValueError,
+			"cannot calculate difference between pointers of different binaries");
+		return Value::Nil;
+	}
+	int offset1 = static_cast<int>(pPtr1->GetOffset());
+	int offset2 = static_cast<int>(pPtr2->GetOffset());
 	return Value(static_cast<Number>(offset1 - offset2));
 }
 
