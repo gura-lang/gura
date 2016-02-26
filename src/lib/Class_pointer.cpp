@@ -45,64 +45,6 @@ String Object_pointer::ToString(bool exprFlag)
 	return String(buff);
 }
 
-#if 0
-bool Object_pointer::UnpackForward(Signal &sig, int distance, bool exceedErrorFlag)
-{
-	return _pObjBinary->GetBinary().UnpackForward(sig, _offset, distance, exceedErrorFlag);
-}
-
-Value Object_pointer::Unpack(Signal &sig, bool forwardFlag,
-		const char *format, const ValueList &valListArg, bool exceedErrorFlag)
-{
-	Environment &env = *this;
-	size_t offset = _offset;
-	Value value = _pObjBinary->GetBinary().Unpack(env, offset,
-											format, valListArg, exceedErrorFlag);
-	if (forwardFlag) _offset = offset;
-	return value;
-}
-
-bool Object_pointer::Pack(Signal &sig,
-				bool forwardFlag, const char *format, const ValueList &valListArg)
-{
-	Environment &env = *this;
-	size_t offset = _offset;
-	if (!_pObjBinary->GetBinary().Pack(env, offset, format, valListArg)) return false;
-	if (forwardFlag) _offset = offset;
-	return true;
-}
-#endif
-
-//-----------------------------------------------------------------------------
-// Implementation of functions
-//-----------------------------------------------------------------------------
-#if 0
-// pointer(buff:binary, offset?:number) {block?}
-Gura_DeclareFunction(pointer)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "buff", VTYPE_binary, OCCUR_Once);
-	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_pointer));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a `pointer` instance that points to the specified `binary` instance.\n"
-		"\n"
-		"If the argument `offset` is specified, the initial offset of the pointer is preset to the value.\n"
-		"Otherwise, the offset is set to the top of the binary.\n"
-		"\n"
-		GURA_HELPTEXT_BLOCK_en("p", "pointer"));
-}
-
-Gura_ImplementFunction(pointer)
-{
-	Object_binary *pObj = Object_binary::GetObject(arg, 0);
-	size_t offset = arg.Is_number(1)? arg.GetSizeT(1) : 0;
-	return ReturnValue(env, arg, Value(new Object_pointer(env, pObj->Reference(), offset)));
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
@@ -207,13 +149,6 @@ Gura_DeclareMethod(pointer, unpacks)
 
 Gura_ImplementMethod(pointer, unpacks)
 {
-#if 0
-	Object_pointer *pThis = Object_pointer::GetObjectThis(arg);
-	Object_binary *pObj = Object_binary::Reference(pThis->GetBinaryObj());
-	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj,
-						arg.GetString(0), arg.GetList(1), pThis->GetOffset());
-	return ReturnIterator(env, arg, pIterator);
-#endif
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	Iterator *pIterator = pPointer->CreateUnpackIterator(arg.GetString(0), arg.GetList(1));
 	return ReturnIterator(env, arg, pIterator);
