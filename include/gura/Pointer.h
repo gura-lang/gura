@@ -4,7 +4,10 @@
 #ifndef __GURA_POINTER_H__
 #define __GURA_POINTER_H__
 
-#include "Common.h"
+#include "Environment.h"
+#include "Signal.h"
+#include "Value.h"
+
 #include "Class_binary.h"
 
 namespace Gura {
@@ -12,7 +15,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Pointer
 //-----------------------------------------------------------------------------
-class Pointer {
+class GURA_DLLDECLARE Pointer {
 protected:
 	int _cntRef;
 	size_t _offset;
@@ -25,17 +28,17 @@ public:
 	inline void Reset() { _offset = 0; }
 public:
 	virtual bool IsWritable() const = 0;
-	virtual bool Pack(Signal &sig, bool forwardFlag,
+	virtual bool Pack(Environment &env, bool forwardFlag,
 					  const char *format, const ValueList &valListArg) = 0;
-	virtual Value Unpack(Signal &sig, bool forwardFlag,
+	virtual Value Unpack(Environment &env, bool forwardFlag,
 						 const char *format, const ValueList &valListArg, bool exeedErrorFlag) = 0;
-	virtual bool UnpackForward(Signal &sig, int distance, bool exceedErrorFlag) = 0;
+	virtual bool UnpackForward(Environment &env, int distance, bool exceedErrorFlag) = 0;
 };
 
 //-----------------------------------------------------------------------------
 // PointerBinary
 //-----------------------------------------------------------------------------
-class PointerBinary : public Pointer {
+class GURA_DLLDECLARE PointerBinary : public Pointer {
 protected:
 	AutoPtr<Object_binary> _pObjBinary;
 public:
@@ -46,7 +49,12 @@ public:
 	inline Binary &GetBinary() { return _pObjBinary->GetBinary(); }
 	inline const Binary &GetBinary() const { return _pObjBinary->GetBinary(); }
 public:
-
+	virtual bool IsWritable() const;
+	virtual bool Pack(Environment &env, bool forwardFlag,
+					  const char *format, const ValueList &valListArg);
+	virtual Value Unpack(Environment &env, bool forwardFlag,
+						 const char *format, const ValueList &valListArg, bool exeedErrorFlag);
+	virtual bool UnpackForward(Environment &env, int distance, bool exceedErrorFlag);
 };
 
 }
