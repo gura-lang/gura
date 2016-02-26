@@ -5,6 +5,7 @@
 #define __GURA_CLASS_POINTER_H__
 
 #include "Class_binary.h"
+#include "Pointer.h"
 
 namespace Gura {
 
