@@ -8,8 +8,6 @@
 #include "Signal.h"
 #include "Value.h"
 
-#include "Class_binary.h"
-
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -36,31 +34,6 @@ public:
 						 const char *format, const ValueList &valListArg, bool exeedErrorFlag) = 0;
 	virtual Iterator *CreateUnpackIterator(const char *format, const ValueList &valList) = 0;
 	virtual bool UnpackForward(Environment &env, int distance, bool exceedErrorFlag) = 0;
-};
-
-//-----------------------------------------------------------------------------
-// PointerBinary
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE PointerBinary : public Pointer {
-protected:
-	AutoPtr<Object_binary> _pObjBinary;
-public:
-	PointerBinary(size_t offset, Object_binary *pObjBinary);
-	PointerBinary(const PointerBinary &ptr);
-	inline Object_binary *GetBinaryObj() { return _pObjBinary.get(); }
-	inline const Object_binary *GetBinaryObj() const { return _pObjBinary.get(); }
-	inline Binary &GetBinary() { return _pObjBinary->GetBinary(); }
-	inline const Binary &GetBinary() const { return _pObjBinary->GetBinary(); }
-public:
-	virtual Pointer *Clone() const;
-	virtual Object *GetTarget() const;
-	virtual bool IsWritable() const;
-	virtual bool Pack(Environment &env, bool forwardFlag,
-					  const char *format, const ValueList &valListArg);
-	virtual Value Unpack(Environment &env, bool forwardFlag,
-						 const char *format, const ValueList &valListArg, bool exeedErrorFlag);
-	virtual Iterator *CreateUnpackIterator(const char *format, const ValueList &valList);
-	virtual bool UnpackForward(Environment &env, int distance, bool exceedErrorFlag);
 };
 
 }

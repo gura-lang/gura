@@ -26,7 +26,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_binary : public Object {
 public:
-	class IteratorByte : public Iterator {
+	class GURA_DLLDECLARE IteratorByte : public Iterator {
 	private:
 		AutoPtr<Object_binary> _pObj;
 		int _cnt;
@@ -38,7 +38,7 @@ public:
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class IteratorUnpack : public Iterator {
+	class GURA_DLLDECLARE IteratorUnpack : public Iterator {
 	private:
 		AutoPtr<Object_binary> _pObj;
 		String _format;
@@ -51,6 +51,27 @@ public:
 		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
+	class GURA_DLLDECLARE PointerEx : public Pointer {
+	protected:
+		AutoPtr<Object_binary> _pObjBinary;
+	public:
+		PointerEx(size_t offset, Object_binary *pObjBinary);
+		PointerEx(const PointerEx &ptr);
+		inline Object_binary *GetBinaryObj() { return _pObjBinary.get(); }
+		inline const Object_binary *GetBinaryObj() const { return _pObjBinary.get(); }
+		inline Binary &GetBinary() { return _pObjBinary->GetBinary(); }
+		inline const Binary &GetBinary() const { return _pObjBinary->GetBinary(); }
+	public:
+		virtual Pointer *Clone() const;
+		virtual Object *GetTarget() const;
+		virtual bool IsWritable() const;
+		virtual bool Pack(Environment &env, bool forwardFlag,
+						  const char *format, const ValueList &valListArg);
+		virtual Value Unpack(Environment &env, bool forwardFlag,
+							 const char *format, const ValueList &valListArg, bool exeedErrorFlag);
+		virtual Iterator *CreateUnpackIterator(const char *format, const ValueList &valList);
+		virtual bool UnpackForward(Environment &env, int distance, bool exceedErrorFlag);
 	};
 public:
 	Gura_DeclareObjectAccessor(binary)

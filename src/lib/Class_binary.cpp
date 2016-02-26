@@ -196,6 +196,65 @@ void Object_binary::IteratorUnpack::GatherFollower(Environment::Frame *pFrame, E
 }
 
 //-----------------------------------------------------------------------------
+// Object_binary::PointerEx
+//-----------------------------------------------------------------------------
+Object_binary::PointerEx::PointerEx(size_t offset, Object_binary *pObjBinary) :
+	Pointer(offset), _pObjBinary(pObjBinary)
+{
+}
+
+Object_binary::PointerEx::PointerEx(const PointerEx &ptr) :
+	Pointer(ptr.GetOffset()), _pObjBinary(dynamic_cast<Object_binary *>(ptr._pObjBinary->Reference()))
+{
+}
+
+Pointer *Object_binary::PointerEx::Clone() const
+{
+	return new PointerEx(*this);
+}
+
+Object *Object_binary::PointerEx::GetTarget() const
+{
+	return _pObjBinary.get();
+}
+
+bool Object_binary::PointerEx::IsWritable() const
+{
+	return _pObjBinary->IsWritable();
+}
+
+bool Object_binary::PointerEx::Pack(Environment &env, bool forwardFlag,
+					  const char *format, const ValueList &valListArg)
+{
+	size_t offset = _offset;
+	if (!_pObjBinary->GetBinary().Pack(env, offset, format, valListArg)) return false;
+	if (forwardFlag) _offset = offset;
+	return true;
+}
+
+Value Object_binary::PointerEx::Unpack(Environment &env, bool forwardFlag,
+						 const char *format, const ValueList &valListArg, bool exceedErrorFlag)
+{
+	size_t offset = _offset;
+	Value value = _pObjBinary->GetBinary().Unpack(env, offset,
+											format, valListArg, exceedErrorFlag);
+	if (forwardFlag) _offset = offset;
+	return value;
+}
+
+Iterator *Object_binary::PointerEx::CreateUnpackIterator(const char *format, const ValueList &valList)
+{
+	Object_binary *pObj = dynamic_cast<Object_binary *>(_pObjBinary->Reference());
+	return new Object_binary::IteratorUnpack(pObj, format, valList, GetOffset());
+}
+
+bool Object_binary::PointerEx::UnpackForward(Environment &env, int distance, bool exceedErrorFlag)
+{
+	Signal &sig = env.GetSignal();
+	return _pObjBinary->GetBinary().UnpackForward(sig, _offset, distance, exceedErrorFlag);
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
 // binary(buff*) {block?}
@@ -547,7 +606,8 @@ Gura_ImplementMethod(binary, pointer)
 {
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	size_t offset = arg.Is_number(0)? arg.GetSizeT(0) : 0;
-	return ReturnValue(env, arg, Value(new Object_pointer(env, new PointerBinary(offset, pThis->Reference()))));
+	Pointer *pPointer = new Object_binary::PointerEx(offset, pThis->Reference());
+	return ReturnValue(env, arg, Value(new Object_pointer(env, pPointer)));
 }
 
 // binary#reader() {block?}
