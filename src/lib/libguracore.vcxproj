@@ -263,6 +263,7 @@
     <ClCompile Include="Operator.cpp" />
     <ClCompile Include="OperatorBasic.cpp" />
     <ClCompile Include="Option.cpp" />
+    <ClCompile Include="Packer.cpp" />
     <ClCompile Include="Palette.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="PathMgr.cpp" />
@@ -389,6 +390,7 @@
     <ClInclude Include="..\..\include\gura\Operator.h" />
     <ClInclude Include="..\..\include\gura\Option.h" />
     <ClInclude Include="..\..\include\gura\PackedNumber.h" />
+    <ClInclude Include="..\..\include\gura\Packer.h" />
     <ClInclude Include="..\..\include\gura\Palette.h" />
     <ClInclude Include="..\..\include\gura\Parser.h" />
     <ClInclude Include="..\..\include\gura\PathMgr.h" />

@@ -82,6 +82,7 @@ OAL.cpp
 Operator.cpp
 OperatorBasic.cpp
 Option.cpp
+Packer.cpp
 Palette.cpp
 Parser.cpp
 PathMgr.cpp

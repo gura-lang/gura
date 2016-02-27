@@ -26,8 +26,8 @@ public:
 				const char *format, const ValueList &valListArg);
 	Value Unpack(Environment &env, size_t &offset,
 				const char *format, const ValueList &valListArg, bool exceedErrorFlag);
-	bool PackForward(Signal &sig, size_t offset, size_t bytes);
-	bool UnpackForward(Signal &sig,size_t &offset, int distance, bool exceedErrorFlag);
+	bool PackForward(Signal &sig, size_t &offset, size_t bytes);
+	bool UnpackForward(Signal &sig,size_t &offset, size_t bytes, bool exceedErrorFlag);
 	static void PackUShort(iterator pByte, bool bigEndianFlag, UShort num);
 	static void PackULong(iterator pByte, bool bigEndianFlag, ULong num);
 	static void PackUInt64(iterator pByte, bool bigEndianFlag, UInt64 num);

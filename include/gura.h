@@ -54,6 +54,7 @@
 #include "gura/Operator.h"
 #include "gura/Option.h"
 #include "gura/PackedNumber.h"
+#include "gura/Packer.h"
 #include "gura/Palette.h"
 #include "gura/Parser.h"
 #include "gura/PathMgr.h"
