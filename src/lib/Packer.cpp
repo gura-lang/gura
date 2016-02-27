@@ -561,8 +561,8 @@ void Packer::PackUInt64(UChar *pByte, bool bigEndianFlag, UInt64 num)
 
 UShort Packer::UnpackUShort(const UChar *pByte, bool bigEndianFlag)
 {
-	UChar byte0 = static_cast<UChar>(*(pByte + 0));
-	UChar byte1 = static_cast<UChar>(*(pByte + 1));
+	UChar byte0 = *(pByte + 0);
+	UChar byte1 = *(pByte + 1);
 	if (bigEndianFlag) {
 		return (static_cast<UShort>(byte0) << 8) + byte1;
 	} else {
@@ -572,10 +572,10 @@ UShort Packer::UnpackUShort(const UChar *pByte, bool bigEndianFlag)
 
 UInt32 Packer::UnpackUInt32(const UChar *pByte, bool bigEndianFlag)
 {
-	UChar byte0 = static_cast<UChar>(*(pByte + 0));
-	UChar byte1 = static_cast<UChar>(*(pByte + 1));
-	UChar byte2 = static_cast<UChar>(*(pByte + 2));
-	UChar byte3 = static_cast<UChar>(*(pByte + 3));
+	UChar byte0 = *(pByte + 0);
+	UChar byte1 = *(pByte + 1);
+	UChar byte2 = *(pByte + 2);
+	UChar byte3 = *(pByte + 3);
 	if (bigEndianFlag) {
 		return (static_cast<ULong>(byte0) << 24) +
 				(static_cast<ULong>(byte1) << 16) +
@@ -591,14 +591,14 @@ UInt32 Packer::UnpackUInt32(const UChar *pByte, bool bigEndianFlag)
 
 UInt64 Packer::UnpackUInt64(const UChar *pByte, bool bigEndianFlag)
 {
-	UChar byte0 = static_cast<UChar>(*(pByte + 0));
-	UChar byte1 = static_cast<UChar>(*(pByte + 1));
-	UChar byte2 = static_cast<UChar>(*(pByte + 2));
-	UChar byte3 = static_cast<UChar>(*(pByte + 3));
-	UChar byte4 = static_cast<UChar>(*(pByte + 4));
-	UChar byte5 = static_cast<UChar>(*(pByte + 5));
-	UChar byte6 = static_cast<UChar>(*(pByte + 6));
-	UChar byte7 = static_cast<UChar>(*(pByte + 7));
+	UChar byte0 = *(pByte + 0);
+	UChar byte1 = *(pByte + 1);
+	UChar byte2 = *(pByte + 2);
+	UChar byte3 = *(pByte + 3);
+	UChar byte4 = *(pByte + 4);
+	UChar byte5 = *(pByte + 5);
+	UChar byte6 = *(pByte + 6);
+	UChar byte7 = *(pByte + 7);
 	if (bigEndianFlag) {
 		return (static_cast<UInt64>(byte0) << 56) +
 				(static_cast<UInt64>(byte1) << 48) +
