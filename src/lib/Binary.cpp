@@ -6,6 +6,567 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
+// Packer
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Packer {
+public:
+	bool Pack(Environment &env, size_t &offset,
+			  const char *format, const ValueList &valListArg);
+	Value Unpack(Environment &env, size_t &offset,
+				 const char *format, const ValueList &valListArg, bool exceedErrorFlag);
+private:
+	static bool CheckString(Signal &sig,
+							const ValueList &valList, ValueList::const_iterator pValue);
+	static bool CheckNumber(Signal &sig,
+							const ValueList &valList, ValueList::const_iterator pValue);
+	static bool CheckNumber(Signal &sig, const ValueList &valList,
+							ValueList::const_iterator pValue, Number numMin, Number numMax);
+};
+
+//-----------------------------------------------------------------------------
+// Packer
+//-----------------------------------------------------------------------------
+bool Packer::Pack(Environment &env, size_t &offset,
+				  const char *format, const ValueList &valListArg)
+{
+	Signal &sig = env.GetSignal();
+	enum {
+		STAT_Format,
+		STAT_Repeat,
+		STAT_Encoding,
+	} stat = STAT_Format;
+	ValueList::const_iterator pValueArg = valListArg.begin();
+	bool bigEndianFlag = IsBigEndian();
+	int nRepeat = 1;
+	String encoding;
+	AutoPtr<Codec> pCodec(Codec::CreateCodecNone(false, false));
+	for (const char *p = format; *p != '\0'; ) {
+		char ch = *p;
+		bool eatNextFlag = true;
+		if (stat == STAT_Repeat) {
+			if (IsDigit(ch)) {
+				nRepeat = nRepeat * 10 + (ch - '0');
+			} else {
+				eatNextFlag = false;
+				stat = STAT_Format;
+			}
+		} else if (stat == STAT_Encoding) {
+			if (ch == '}') {
+				if (encoding.empty()) {
+					pCodec.reset(Codec::CreateCodecNone(false, false));
+				} else {
+					pCodec.reset(Codec::CreateCodec(sig, encoding.c_str(), false, false));
+					if (sig.IsSignalled()) return false;
+				}
+				stat = STAT_Format;
+			} else {
+				encoding.push_back(ch);
+			}
+		} else if (IsDigit(ch)) {
+			nRepeat = 0;
+			eatNextFlag = false;
+			stat = STAT_Repeat;
+		} else if (ch == '*') {
+			if (pValueArg == valListArg.end()) {
+				sig.SetError(ERR_ValueError, "not enough arguments");
+				return false;
+			}
+			if (!pValueArg->Is_number()) {
+				sig.SetError(ERR_ValueError,
+								"repeat specifier requires a number value");
+				return false;
+			}
+			nRepeat = pValueArg->GetInt();
+			pValueArg++;
+		} else if (ch == '{') {
+			encoding.clear();
+			stat = STAT_Encoding;
+		} else if (ch == '@') {
+			bigEndianFlag = IsBigEndian();
+		} else if (ch == '=') {
+			bigEndianFlag = IsBigEndian();
+		} else if (ch == '<') {
+			bigEndianFlag = false;
+		} else if (ch == '>') {
+			bigEndianFlag = true;
+		} else if (ch == '!') {
+			bigEndianFlag = true;
+		} else if (ch == 'x') {
+#if 0
+			if (!PackForward(sig, offset, nRepeat)) return false;
+#endif
+			offset += nRepeat;
+			nRepeat = 1;
+		} else if (ch == 'c') {
+#if 0
+			if (!PackForward(sig, offset, nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += nRepeat;
+			for (int i = 0; i < nRepeat; i++, pByte++, pValueArg++) {
+				if (!CheckString(sig, valListArg, pValueArg)) return false;
+				*pByte = pValueArg->GetString()[0];
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'b') {
+#if 0
+			if (!PackForward(sig, offset, nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += nRepeat;
+			for (int i = 0; i < nRepeat; i++, pByte++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, -128, 127)) return false;
+				*pByte = pValueArg->GetChar();
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'B') {
+#if 0
+			if (!PackForward(sig, offset, nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += nRepeat;
+			for (int i = 0; i < nRepeat; i++, pByte++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, 0, 255)) return false;
+				*pByte = pValueArg->GetUChar();
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'h') {
+#if 0
+			if (!PackForward(sig, offset, 2 * nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += 2 * nRepeat;
+			for (int i = 0; i < nRepeat; i++, pByte += 2, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, -32768, 32767)) return false;
+				UShort num = pValueArg->GetShort();
+				PackUShort(pByte, bigEndianFlag, num);
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'H') {
+#if 0
+			if (!PackForward(sig, offset, 2 * nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += 2 * nRepeat;
+			for (int i = 0; i < nRepeat; i++, pByte += 2, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, 0, 65535)) return false;
+				UShort num = pValueArg->GetUShort();
+				PackUShort(pByte, bigEndianFlag, num);
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'i') {
+#if 0
+			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += 4 * nRepeat;
+			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, -2147483648., 2147483647.)) return false;
+				ULong num = pValueArg->GetInt();
+				PackULong(pByte, bigEndianFlag, num);
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'I') {
+#if 0
+			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += 4 * nRepeat;
+			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, 0, 4294967295.)) return false;
+				ULong num = pValueArg->GetUInt();
+				PackULong(pByte, bigEndianFlag, num);
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'l') {
+#if 0
+			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += 4 * nRepeat;
+			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, -2147483648., 2147483647.)) return false;
+				ULong num = pValueArg->GetLong();
+				PackULong(pByte, bigEndianFlag, num);
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'L') {
+#if 0
+			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += 4 * nRepeat;
+			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, 0, 4294967295.)) return false;
+				ULong num = pValueArg->GetULong();
+				PackULong(pByte, bigEndianFlag, num);
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'q') {
+#if 0
+			if (!PackForward(sig, offset, 8 * nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += 8 * nRepeat;
+			for (int i = 0; i < nRepeat; i++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				Int64 num = static_cast<Int64>(pValueArg->GetNumber());
+				PackUInt64(pByte, bigEndianFlag, num);
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'Q') {
+#if 0
+			if (!PackForward(sig, offset, 8 * nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += 8 * nRepeat;
+			for (int i = 0; i < nRepeat; i++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				UInt64 num = static_cast<UInt64>(pValueArg->GetNumber());
+				PackUInt64(pByte, bigEndianFlag, num);
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'f') {
+#if 0
+			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += 4 * nRepeat;
+			for (int i = 0; i < nRepeat; i++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				float num = static_cast<float>(pValueArg->GetNumber());
+				UChar *buff = reinterpret_cast<UChar *>(&num);
+				for (int j = 0; j < 4; j++, pByte++) *pByte = buff[j];
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 'd') {
+#if 0
+			if (!PackForward(sig, offset, 8 * nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += 8 * nRepeat;
+			for (int i = 0; i < nRepeat; i++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				double num = static_cast<double>(pValueArg->GetNumber());
+				UChar *buff = reinterpret_cast<UChar *>(&num);
+				for (int j = 0; j < 8; j++, pByte++) *pByte = buff[j];
+			}
+#endif
+			nRepeat = 1;
+		} else if (ch == 's') {
+#if 0
+			if (!PackForward(sig, offset, nRepeat)) return false;
+			iterator pByte = begin() + offset;
+			offset += nRepeat;
+			if (!CheckString(sig, valListArg, pValueArg)) return false;
+			const char *p = pValueArg->GetString();
+			int nPacked = 0;
+			char chConv;
+			for ( ; nPacked < nRepeat && *p != '\0'; p++) {
+				Codec::Result result = pCodec->GetEncoder()->FeedChar(*p, chConv);
+				if (result == Codec::RESULT_Error) {
+					sig.SetError(ERR_CodecError,
+						"encoding error. specify a proper coding name by {coding}");
+					return false;
+				} else if (result == Codec::RESULT_Complete) {
+					*pByte++ = chConv, nPacked++;
+					while (pCodec->GetEncoder()->FollowChar(chConv) && nPacked < nRepeat) {
+						*pByte++ = chConv, nPacked++;
+					}
+				}
+			}
+			for ( ; nPacked < nRepeat; nPacked++, pByte++) {
+				*pByte = '\0';
+			}
+			pValueArg++;
+#endif
+			nRepeat = 1;
+		} else if (ch == 'p') {
+			sig.SetError(ERR_ValueError, "sorry, not implemented yet");
+			return false;
+		} else if (ch == 'P') {
+			sig.SetError(ERR_ValueError, "sorry, not implemented yet");
+			return false;
+		} else if (IsWhite(ch)) {
+			// just ignore white characters
+		} else {
+			sig.SetError(ERR_ValueError, "invalid character in format");
+			return false;
+		}
+		if (eatNextFlag) p++;
+	}
+	return true;
+}
+
+Value Packer::Unpack(Environment &env, size_t &offset,
+					 const char *format, const ValueList &valListArg, bool exceedErrorFlag)
+{
+#if 0
+	Signal &sig = env.GetSignal();
+	enum {
+		STAT_Format,
+		STAT_Repeat,
+		STAT_Encoding,
+	} stat = STAT_Format;
+	ValueList::const_iterator pValueArg = valListArg.begin();
+	Value result;
+	Object_list *pObjList = result.InitAsList(env);
+	bool bigEndianFlag = IsBigEndian();
+	int nRepeat = 1;
+	String encoding;
+	AutoPtr<Codec> pCodec(Codec::CreateCodecNone(false, false));
+	for (const char *p = format; *p != '\0'; ) {
+		char ch = *p;
+		bool eatNextFlag = true;
+		if (stat == STAT_Repeat) {
+			if (IsDigit(ch)) {
+				nRepeat = nRepeat * 10 + (ch - '0');
+			} else {
+				eatNextFlag = false;
+				stat = STAT_Format;
+			}
+		} else if (stat == STAT_Encoding) {
+			if (ch == '}') {
+				if (encoding.empty()) {
+					pCodec.reset(Codec::CreateCodecNone(false, false));
+				} else {
+					pCodec.reset(Codec::CreateCodec(sig, encoding.c_str(), false, false));
+					if (sig.IsSignalled()) return Value::Nil;
+				}
+				stat = STAT_Format;
+			} else {
+				encoding.push_back(ch);
+			}
+		} else if (IsDigit(ch)) {
+			nRepeat = 0;
+			eatNextFlag = false;
+			stat = STAT_Repeat;
+		} else if (ch == '*') {
+			if (pValueArg == valListArg.end()) {
+				sig.SetError(ERR_ValueError, "not enough arguments");
+				return false;
+			}
+			if (!pValueArg->Is_number()) {
+				sig.SetError(ERR_ValueError,
+								"repeat specifier requires a number value");
+				return false;
+			}
+			nRepeat = pValueArg->GetInt();
+			pValueArg++;
+		} else if (ch == '{') {
+			encoding.clear();
+			stat = STAT_Encoding;
+		} else if (ch == '@') {
+			bigEndianFlag = IsBigEndian();
+		} else if (ch == '=') {
+			bigEndianFlag = IsBigEndian();
+		} else if (ch == '<') {
+			bigEndianFlag = false;
+		} else if (ch == '>') {
+			bigEndianFlag = true;
+		} else if (ch == '!') {
+			bigEndianFlag = true;
+		} else if (ch == 'x') {
+			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
+			nRepeat = 1;
+		} else if (ch == 'c') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
+			char str[2];
+			str[1] = '\0';
+			for (int i = 0; i < nRepeat; i++, pByte++) {
+				str[0] = *pByte;
+				pObjList->Add(Value(str));
+			}
+			nRepeat = 1;
+		} else if (ch == 'b') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
+			for (int i = 0; i < nRepeat; i++, pByte++) {
+				char num = *pByte;
+				pObjList->Add(Value(num));
+			}
+			nRepeat = 1;
+		} else if (ch == 'B') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
+			for (int i = 0; i < nRepeat; i++, pByte++) {
+				UChar num = *pByte;
+				pObjList->Add(Value(num));
+			}
+			nRepeat = 1;
+		} else if (ch == 'h') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, 2 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			for (int i = 0; i < nRepeat; i++, pByte += 2) {
+				short num = static_cast<short>(UnpackUShort(pByte, bigEndianFlag));
+				pObjList->Add(Value(num));
+			}
+			nRepeat = 1;
+		} else if (ch == 'H') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, 2 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			for (int i = 0; i < nRepeat; i++, pByte += 2) {
+				UShort num = UnpackUShort(pByte, bigEndianFlag);
+				pObjList->Add(Value(num));
+			}
+			nRepeat = 1;
+		} else if (ch == 'i') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			for (int i = 0; i < nRepeat; i++, pByte += 4) {
+				int num = static_cast<int>(UnpackULong(pByte, bigEndianFlag));
+				pObjList->Add(Value(num));
+			}
+			nRepeat = 1;
+		} else if (ch == 'I') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			for (int i = 0; i < nRepeat; i++, pByte += 4) {
+				UInt num = static_cast<UInt>(UnpackULong(pByte, bigEndianFlag));
+				pObjList->Add(Value(num));
+			}
+			nRepeat = 1;
+		} else if (ch == 'l') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			for (int i = 0; i < nRepeat; i++, pByte += 4) {
+				long num = static_cast<long>(UnpackULong(pByte, bigEndianFlag));
+				pObjList->Add(Value(num));
+			}
+			nRepeat = 1;
+		} else if (ch == 'L') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			for (int i = 0; i < nRepeat; i++, pByte += 4) {
+				ULong num = static_cast<ULong>(UnpackULong(pByte, bigEndianFlag));
+				pObjList->Add(Value(num));
+			}
+			nRepeat = 1;
+		} else if (ch == 'q') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			for (int i = 0; i < nRepeat; i++, pByte += 8) {
+				Int64 num = static_cast<Int64>(UnpackUInt64(pByte, bigEndianFlag));
+				pObjList->Add(Value(static_cast<Number>(num)));
+			}
+			nRepeat = 1;
+		} else if (ch == 'Q') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			for (int i = 0; i < nRepeat; i++, pByte += 8) {
+				UInt64 num = static_cast<UInt64>(UnpackUInt64(pByte, bigEndianFlag));
+				pObjList->Add(Value(static_cast<Number>(num)));
+			}
+			nRepeat = 1;
+		} else if (ch == 'f') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			char buff[4];
+			for (int i = 0; i < nRepeat; i++) {
+				for (int j = 0; j < 4; j++, pByte++) buff[j] = *pByte;
+				float num = *(reinterpret_cast<float *>(buff));
+				pObjList->Add(Value(static_cast<Number>(num)));
+			}
+			nRepeat = 1;
+		} else if (ch == 'd') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, 8 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			char buff[8];
+			for (int i = 0; i < nRepeat; i++) {
+				for (int j = 0; j < 8; j++, pByte++) buff[j] = *pByte;
+				double num = *(reinterpret_cast<double *>(buff));
+				pObjList->Add(Value(static_cast<Number>(num)));
+			}
+			nRepeat = 1;
+		} else if (ch == 's') {
+			iterator pByte = begin() + offset;
+			if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
+			String str;
+			//str.reserve(nRepeat);
+			char chConv;
+			for (int nUnpacked = 0; nUnpacked < nRepeat; nUnpacked++, pByte++) {
+				Codec::Result result = pCodec->GetDecoder()->FeedChar(*pByte, chConv);
+				if (result == Codec::RESULT_Error) {
+					sig.SetError(ERR_CodecError,
+						"decoding error. specify a proper coding name by {coding}");
+					return false;
+				} else if (result == Codec::RESULT_Complete) {
+					str.push_back(chConv);
+					while (pCodec->GetDecoder()->FollowChar(chConv)) str.push_back(chConv);
+				}
+			}
+			// flush unprocessed characters
+			if (pCodec->GetDecoder()->Flush(chConv)) while (pCodec->GetDecoder()->FollowChar(chConv)) ;
+			pObjList->Add(Value(str));
+			nRepeat = 1;
+		} else if (ch == 'p') {
+			//iterator pByte = begin() + offset;
+			//if (!UnpackForward(sig, offset, nRepeat, exceedErrorFlag)) return Value::Nil;
+			//for (int i = 0; i < nRepeat; i++, pByte++) {
+			//}
+			//nRepeat = 1;
+			sig.SetError(ERR_ValueError, "sorry, not implemented yet");
+			return Value::Nil;
+		} else if (ch == 'P') {
+			//iterator pByte = begin() + offset;
+			//if (!UnpackForward(sig, offset, 4 * nRepeat, exceedErrorFlag)) return Value::Nil;
+			//for (int i = 0; i < nRepeat; i++, pByte += 4) {
+			//}
+			//nRepeat = 1;
+			sig.SetError(ERR_ValueError, "sorry, not implemented yet");
+			return Value::Nil;
+		} else if (IsWhite(ch)) {
+			// just ignore white characters
+		} else {
+			sig.SetError(ERR_ValueError, "invalid character in format");
+			return Value::Nil;
+		}
+		if (eatNextFlag) p++;
+	}
+	return result;
+#endif
+	return Value::Nil;
+}
+
+bool Packer::CheckString(Signal &sig,
+				const ValueList &valList, ValueList::const_iterator pValue)
+{
+	if (pValue == valList.end()) {
+		sig.SetError(ERR_ValueError, "not enough arguments");
+		return false;
+	} else if (!pValue->Is_string()) {
+		sig.SetError(ERR_ValueError, "string value is expected");
+		return false;
+	}
+	return true;
+}
+
+bool Packer::CheckNumber(Signal &sig,
+				const ValueList &valList, ValueList::const_iterator pValue)
+{
+	if (pValue == valList.end()) {
+		sig.SetError(ERR_ValueError, "not enough arguments");
+		return false;
+	} else if (!pValue->Is_number()) {
+		sig.SetError(ERR_ValueError, "number value is expected");
+		return false;
+	}
+	return true;
+}
+
+bool Packer::CheckNumber(Signal &sig, const ValueList &valList,
+				ValueList::const_iterator pValue, Number numMin, Number numMax)
+{
+	if (!CheckNumber(sig, valList, pValue)) return false;
+	Number num = pValue->GetNumber();
+	if (num < numMin || num > numMax) {
+		sig.SetError(ERR_ValueError, "number is out of range");
+		return false;
+	}
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // Binary
 //-----------------------------------------------------------------------------
 bool Binary::Pack(Environment &env, size_t &offset,
