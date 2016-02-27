@@ -75,10 +75,12 @@ bool Binary::Pack(Environment &env, size_t &offset,
 			bigEndianFlag = true;
 		} else if (ch == 'x') {
 			if (!PackForward(sig, offset, nRepeat)) return false;
+			offset += nRepeat;
 			nRepeat = 1;
 		} else if (ch == 'c') {
 			if (!PackForward(sig, offset, nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte++, pValueArg++) {
 				if (!CheckString(sig, valListArg, pValueArg)) return false;
 				*pByte = pValueArg->GetString()[0];
@@ -87,6 +89,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'b') {
 			if (!PackForward(sig, offset, nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte++, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg, -128, 127)) return false;
 				*pByte = pValueArg->GetChar();
@@ -95,6 +98,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'B') {
 			if (!PackForward(sig, offset, nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte++, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg, 0, 255)) return false;
 				*pByte = pValueArg->GetUChar();
@@ -103,6 +107,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'h') {
 			if (!PackForward(sig, offset, 2 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += 2 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 2, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg, -32768, 32767)) return false;
 				UShort num = pValueArg->GetShort();
@@ -112,6 +117,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'H') {
 			if (!PackForward(sig, offset, 2 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += 2 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 2, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg, 0, 65535)) return false;
 				UShort num = pValueArg->GetUShort();
@@ -121,6 +127,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'i') {
 			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += 4 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg, -2147483648., 2147483647.)) return false;
 				ULong num = pValueArg->GetInt();
@@ -130,6 +137,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'I') {
 			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += 4 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg, 0, 4294967295.)) return false;
 				ULong num = pValueArg->GetUInt();
@@ -139,6 +147,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'l') {
 			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += 4 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg, -2147483648., 2147483647.)) return false;
 				ULong num = pValueArg->GetLong();
@@ -148,6 +157,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'L') {
 			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += 4 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg, 0, 4294967295.)) return false;
 				ULong num = pValueArg->GetULong();
@@ -157,6 +167,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'q') {
 			if (!PackForward(sig, offset, 8 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += 8 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
 				Int64 num = static_cast<Int64>(pValueArg->GetNumber());
@@ -166,6 +177,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'Q') {
 			if (!PackForward(sig, offset, 8 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += 8 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
 				UInt64 num = static_cast<UInt64>(pValueArg->GetNumber());
@@ -175,6 +187,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'f') {
 			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += 4 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
 				float num = static_cast<float>(pValueArg->GetNumber());
@@ -185,6 +198,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 'd') {
 			if (!PackForward(sig, offset, 8 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += 8 * nRepeat;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
 				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
 				double num = static_cast<double>(pValueArg->GetNumber());
@@ -195,6 +209,7 @@ bool Binary::Pack(Environment &env, size_t &offset,
 		} else if (ch == 's') {
 			if (!PackForward(sig, offset, nRepeat)) return false;
 			iterator pByte = begin() + offset;
+			offset += nRepeat;
 			if (!CheckString(sig, valListArg, pValueArg)) return false;
 			const char *p = pValueArg->GetString();
 			int nPacked = 0;
@@ -467,7 +482,7 @@ bool Binary::PackForward(Signal &sig, size_t &offset, size_t bytes)
 	if (offset + bytes > size()) {
 		append(offset + bytes - size(), '\0');
 	}
-	offset += bytes;
+	//offset += bytes;
 	return true;
 }
 
