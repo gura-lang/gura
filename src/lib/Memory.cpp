@@ -18,7 +18,9 @@ Memory::~Memory()
 //-----------------------------------------------------------------------------
 bool Memory::PackerEx::PackAt(Signal &sig, size_t offset, size_t bytes)
 {
-	return true;
+	if (offset + bytes <= _memory.GetSize()) return true;
+	sig.SetError(ERR_IndexError, "pointer exceeds the range of memory");
+	return false;
 }
 
 void Memory::PackerEx::PackBuffer(size_t offset, const UChar *buff, size_t bytes)
