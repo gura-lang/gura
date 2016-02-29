@@ -42,22 +42,6 @@ public:
 						const ValueList &valListArg, bool exceedErrorFlag) {
 		return PackerEx(*this).Unpack(env, offset, format, valListArg, exceedErrorFlag);
 	}
-#if 0
-	bool PackForward(Signal &sig, size_t &offset, size_t bytes);
-	bool UnpackForward(Signal &sig,size_t &offset, size_t bytes, bool exceedErrorFlag);
-	static void PackUShort(iterator pByte, bool bigEndianFlag, UShort num);
-	static void PackULong(iterator pByte, bool bigEndianFlag, ULong num);
-	static void PackUInt64(iterator pByte, bool bigEndianFlag, UInt64 num);
-	static UShort UnpackUShort(iterator pByte, bool bigEndianFlag);
-	static ULong UnpackULong(iterator pByte, bool bigEndianFlag);
-	static UInt64 UnpackUInt64(iterator pByte, bool bigEndianFlag);
-	static bool CheckString(Signal &sig,
-				const ValueList &valList, ValueList::const_iterator pValue);
-	static bool CheckNumber(Signal &sig,
-				const ValueList &valList, ValueList::const_iterator pValue);
-	static bool CheckNumber(Signal &sig, const ValueList &valList,
-				ValueList::const_iterator pValue, Number numMin, Number numMax);
-#endif
 };
 
 }
