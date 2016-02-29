@@ -266,7 +266,7 @@ public:
 			}
 			size_t offsetBase = pArray->GetOffsetBase();
 			AutoPtr<Array<T_Elem> > pArrayRtn(
-				new Array<T_Elem>(pArray->GetMemory()->Reference(), n, offsetBase));
+				new Array<T_Elem>(pArray->GetMemory().Reference(), n, offsetBase));
 			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
 			return ReturnValue(env, arg, value);
 		}
@@ -303,7 +303,7 @@ public:
 			size_t cnt = pArray->GetSize() - n;
 			size_t offsetBase = pArray->GetOffsetBase() + n;
 			AutoPtr<Array<T_Elem> > pArrayRtn(
-				new Array<T_Elem>(pArray->GetMemory()->Reference(), cnt, offsetBase));
+				new Array<T_Elem>(pArray->GetMemory().Reference(), cnt, offsetBase));
 			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
 			return ReturnValue(env, arg, value);
 		}
@@ -366,7 +366,7 @@ public:
 			}
 			size_t offsetBase = pArray->GetOffsetBase() + pArray->GetSize() - n;
 			AutoPtr<Array<T_Elem> > pArrayRtn(
-				new Array<T_Elem>(pArray->GetMemory()->Reference(), n, offsetBase));
+				new Array<T_Elem>(pArray->GetMemory().Reference(), n, offsetBase));
 			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
 			return ReturnValue(env, arg, value);
 		}

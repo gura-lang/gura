@@ -705,6 +705,7 @@ memory
   memory#array@uint32():map {block?}
   memory#array@uint64():map {block?}
   memory#array@ushort():map {block?}
+  memory#pointer(offset?:number) {block?}
 monitor
 nil
 number

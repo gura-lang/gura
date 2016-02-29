@@ -29,8 +29,8 @@ public:
 		_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _cnt(cnt), _offsetBase(offsetBase) {}
 	inline Array(Memory *pMemory, size_t cnt, size_t offsetBase = 0) : _cntRef(1),
 		_pMemory(pMemory), _cnt(cnt), _offsetBase(offsetBase) {}
-	inline Memory *GetMemory() { return _pMemory.get(); }
-	inline const Memory *GetMemory() const { return _pMemory.get(); }
+	inline Memory &GetMemory() { return *_pMemory; }
+	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline T_Elem *GetPointer() {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offsetBase;
 	}

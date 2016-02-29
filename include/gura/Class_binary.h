@@ -46,7 +46,7 @@ public:
 		size_t _offset;
 	public:
 		IteratorUnpack(Object_binary *pObj, const char *format,
-										const ValueList &valListArg, size_t offset);
+					   const ValueList &valListArg, size_t offset);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;
