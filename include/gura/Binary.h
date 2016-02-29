@@ -7,10 +7,22 @@
 #include "Common.h"
 #include "Signal.h"
 #include "Value.h"
+#include "Packer.h"
 
 namespace Gura {
 
 class GURA_DLLDECLARE Binary : public String {
+public:
+	class GURA_DLLDECLARE PackerEx : public Packer {
+	private:
+		Binary &_buff;
+	public:
+		inline PackerEx(Binary &buff) : _buff(buff) {}
+		virtual bool PackAt(Signal &sig, size_t offset, size_t bytes);
+		virtual void PackBuffer(size_t offset, const UChar *buff, size_t bytes);
+		virtual const UChar *UnpackAt(Signal &sig, size_t offset,
+									  size_t bytes, bool exceedErrorFlag);
+	};
 public:
 	inline Binary() {}
 	inline Binary(const Binary &binary) : String(binary) {}
@@ -22,10 +34,15 @@ public:
 		return *this;
 	}
 public:
-	bool Pack(Environment &env, size_t &offset,
-				const char *format, const ValueList &valListArg);
-	Value Unpack(Environment &env, size_t &offset,
-				const char *format, const ValueList &valListArg, bool exceedErrorFlag);
+	inline bool Pack(Environment &env, size_t &offset,
+					 const char *format, const ValueList &valListArg) {
+		return PackerEx(*this).Pack(env, offset, format, valListArg);
+	}
+	inline Value Unpack(Environment &env, size_t &offset, const char *format,
+						const ValueList &valListArg, bool exceedErrorFlag) {
+		return PackerEx(*this).Unpack(env, offset, format, valListArg, exceedErrorFlag);
+	}
+#if 0
 	bool PackForward(Signal &sig, size_t &offset, size_t bytes);
 	bool UnpackForward(Signal &sig,size_t &offset, size_t bytes, bool exceedErrorFlag);
 	static void PackUShort(iterator pByte, bool bigEndianFlag, UShort num);
@@ -40,6 +57,7 @@ public:
 				const ValueList &valList, ValueList::const_iterator pValue);
 	static bool CheckNumber(Signal &sig, const ValueList &valList,
 				ValueList::const_iterator pValue, Number numMin, Number numMax);
+#endif
 };
 
 }

@@ -792,8 +792,7 @@ Gura_ImplementBinaryOperator(Add, pointer, number)
 	Signal &sig = env.GetSignal();
 	Object_pointer *pObj = dynamic_cast<Object_pointer *>(
 						Object_pointer::GetObject(valueLeft)->Clone());
-	pObj->GetPointer()->UnpackForward(env,
-						static_cast<int>(valueRight.GetNumber()), true);
+	pObj->GetPointer()->Advance(env, valueRight.GetInt(), true);
 	if (sig.IsSignalled()) return Value::Nil;
 	return Value(pObj);
 }
@@ -966,8 +965,7 @@ Gura_ImplementBinaryOperator(Sub, pointer, number)
 {
 	AutoPtr<Object_pointer> pObj(dynamic_cast<Object_pointer *>(
 						Object_pointer::GetObject(valueLeft)->Clone()));
-	pObj->GetPointer()->UnpackForward(env,
-						-static_cast<int>(valueRight.GetNumber()), true);
+	pObj->GetPointer()->Advance(env, -valueRight.GetInt(), true);
 	if (env.IsSignalled()) return Value::Nil;
 	return Value(pObj.release());
 }

@@ -65,13 +65,13 @@ public:
 	public:
 		virtual Pointer *Clone() const;
 		virtual Object *GetTarget() const;
+		virtual size_t GetSize() const;
 		virtual bool IsWritable() const;
 		virtual bool Pack(Environment &env, bool forwardFlag,
 						  const char *format, const ValueList &valListArg);
 		virtual Value Unpack(Environment &env, bool forwardFlag,
 							 const char *format, const ValueList &valListArg, bool exeedErrorFlag);
 		virtual Iterator *CreateUnpackIterator(const char *format, const ValueList &valList);
-		virtual bool UnpackForward(Environment &env, int distance, bool exceedErrorFlag);
 	};
 public:
 	Gura_DeclareObjectAccessor(binary)

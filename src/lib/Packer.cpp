@@ -5,32 +5,6 @@
 
 namespace Gura {
 
-class GURA_DLLDECLARE PackerBinary : public Packer {
-private:
-	Binary &_buff;
-public:
-	inline PackerBinary(Binary &buff) : _buff(buff) {}
-	virtual bool PackAt(Signal &sig, size_t offset, size_t bytes);
-	virtual void PackBuffer(size_t offset, const UChar *buff, size_t bytes);
-	virtual const UChar *UnpackAt(Signal &sig, size_t offset,
-								  size_t bytes, bool exceedErrorFlag);
-};
-
-bool PackerBinary::PackAt(Signal &sig, size_t offset, size_t bytes)
-{
-	return false;
-}
-
-void PackerBinary::PackBuffer(size_t offset, const UChar *buff, size_t bytes)
-{
-}
-
-const UChar *PackerBinary::UnpackAt(Signal &sig, size_t offset,
-									size_t bytes, bool exceedErrorFlag)
-{
-	return nullptr;
-}
-
 //-----------------------------------------------------------------------------
 // Packer
 //-----------------------------------------------------------------------------

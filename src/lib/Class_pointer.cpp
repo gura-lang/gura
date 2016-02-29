@@ -63,7 +63,7 @@ Gura_ImplementMethod(pointer, forward)
 {
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	bool exceedErrorFlag = true;
-	pPointer->UnpackForward(env, arg.GetInt(0), exceedErrorFlag);
+	pPointer->Advance(env, arg.GetInt(0), exceedErrorFlag);
 	return arg.GetValueThis();
 }
 

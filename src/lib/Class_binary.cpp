@@ -218,6 +218,11 @@ Object *Object_binary::PointerEx::GetTarget() const
 	return _pObjBinary.get();
 }
 
+size_t Object_binary::PointerEx::GetSize() const
+{
+	return _pObjBinary->GetBinary().size();
+}
+
 bool Object_binary::PointerEx::IsWritable() const
 {
 	return _pObjBinary->IsWritable();
@@ -246,12 +251,6 @@ Iterator *Object_binary::PointerEx::CreateUnpackIterator(const char *format, con
 {
 	Object_binary *pObj = dynamic_cast<Object_binary *>(_pObjBinary->Reference());
 	return new Object_binary::IteratorUnpack(pObj, format, valList, GetOffset());
-}
-
-bool Object_binary::PointerEx::UnpackForward(Environment &env, int distance, bool exceedErrorFlag)
-{
-	Signal &sig = env.GetSignal();
-	return _pObjBinary->GetBinary().UnpackForward(sig, _offset, distance, exceedErrorFlag);
 }
 
 //-----------------------------------------------------------------------------

@@ -4,6 +4,7 @@
 #ifndef __GURA_MEMORY_H__
 #define __GURA_MEMORY_H__
 #include "Common.h"
+#include "Packer.h"
 
 namespace Gura {
 
@@ -11,6 +12,17 @@ namespace Gura {
 // Memory
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Memory {
+public:
+	class GURA_DLLDECLARE PackerEx : public Packer {
+	private:
+		Memory &_memory;
+	public:
+		inline PackerEx(Memory &memory) : _memory(memory) {}
+		virtual bool PackAt(Signal &sig, size_t offset, size_t bytes);
+		virtual void PackBuffer(size_t offset, const UChar *buff, size_t bytes);
+		virtual const UChar *UnpackAt(Signal &sig, size_t offset,
+									  size_t bytes, bool exceedErrorFlag);
+	};
 protected:
 	int _cntRef;
 	size_t _bytes;
@@ -27,6 +39,15 @@ public:
 	inline size_t GetSize() const { return _bytes; }
 	inline char *GetPointer(size_t offset = 0) { return _buff + offset; }
 	inline const char *GetPointer(size_t offset = 0) const { return _buff + offset; }
+public:
+	inline bool Pack(Environment &env, size_t &offset,
+					 const char *format, const ValueList &valListArg) {
+		return PackerEx(*this).Pack(env, offset, format, valListArg);
+	}
+	inline Value Unpack(Environment &env, size_t &offset, const char *format,
+						const ValueList &valListArg, bool exceedErrorFlag) {
+		return PackerEx(*this).Unpack(env, offset, format, valListArg, exceedErrorFlag);
+	}
 private:
 	inline Memory(const Memory &memory) {}
 };

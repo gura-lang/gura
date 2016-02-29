@@ -14,6 +14,33 @@ Memory::~Memory()
 }
 
 //-----------------------------------------------------------------------------
+// Memory::PackerEx
+//-----------------------------------------------------------------------------
+bool Memory::PackerEx::PackAt(Signal &sig, size_t offset, size_t bytes)
+{
+	return true;
+}
+
+void Memory::PackerEx::PackBuffer(size_t offset, const UChar *buff, size_t bytes)
+{
+	if (offset >= _memory.GetSize()) return;
+	size_t bytesToCopy = ChooseMin(_memory.GetSize() - offset, bytes);
+	::memcpy(_memory.GetPointer(offset), buff, bytesToCopy);
+}
+
+const UChar *Memory::PackerEx::UnpackAt(Signal &sig, size_t offset,
+									size_t bytes, bool exceedErrorFlag)
+{
+	if (offset + bytes <= _memory.GetSize()) {
+		return reinterpret_cast<const UChar *>(_memory.GetPointer(offset));
+	}
+	if (exceedErrorFlag) {
+		sig.SetError(ERR_IndexError, "pointer exceeds the range of memory");
+	}
+	return nullptr;
+}
+
+//-----------------------------------------------------------------------------
 // MemoryOwner
 //-----------------------------------------------------------------------------
 MemoryOwner::~MemoryOwner()
