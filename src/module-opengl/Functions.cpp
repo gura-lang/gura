@@ -10551,7 +10551,7 @@ Gura_ImplementFunction(__glBufferData)
 	ImplementGLExtension();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
 	GLsizei size = arg.GetLong(1);
-	Memory *data = arg.IsValid(2)? Object_memory::GetObject(arg, 2)->GetMemory() : nullptr;
+	Memory *data = arg.IsValid(2)? &Object_memory::GetObject(arg, 2)->GetMemory() : nullptr;
 	GLenum usage = static_cast<GLenum>(arg.GetInt(3));
 	if (data != nullptr && data->GetSize() < size) {
 		env.SetError(ERR_ValueError, "allocated memory for data is smaller than the specified size");
@@ -11752,7 +11752,7 @@ Gura_ImplementFunction(__glVertexAttribPointer)
 	GLenum type = static_cast<GLenum>(arg.GetInt(2));
 	GLboolean normalized = (arg.GetBoolean(3)? GL_TRUE : GL_FALSE);
 	GLsizei stride = arg.GetInt(4);
-	Memory *pointer = arg.IsValid(5)? Object_memory::GetObject(arg, 5)->GetMemory() : nullptr;
+	Memory *pointer = arg.IsValid(5)? &Object_memory::GetObject(arg, 5)->GetMemory() : nullptr;
 	glVertexAttribPointer(index, size, type, normalized, stride,
 						(pointer == nullptr)? nullptr : pointer->GetPointer());
 	return Value::Nil;
