@@ -1437,6 +1437,35 @@ matrix.transpose
 )}
 
 
+## memory Class
+
+An instance of the `memory` class represents a memory that is stored in `array` instances.
+
+### Constructor
+
+${moddoc.reference(`en
+memory
+)}
+
+### Method
+
+${moddoc.reference(`en
+memory.array@char
+memory.array@uchar
+memory.array@short
+memory.array@ushort
+memory.array@int
+memory.array@uint
+memory.array@int32
+memory.array@uint32
+memory.array@int64
+memory.array@uint64
+memory.array@float
+memory.array@double
+memory.pointer
+)}
+
+
 ## nil Class
 
 The `nil` class is the class of `nil` value that is usually used as an invalid value.
@@ -1511,7 +1540,7 @@ palette.updateby
 
 ## pointer Class
 
-The `pointer` class provides measures to read and write content in a `binary` instance.
+The `pointer` class provides measures to read and write content in a `binary` and `memory` instance.
 
 
 ### Property
@@ -1528,13 +1557,6 @@ A `pointer` instance has the following properties:
 <td>The current offset.</td></tr>
 
 </table>
-
-
-### Constructor
-
-${moddoc.reference(`en
-pointer
-)}
 
 
 ### Method
