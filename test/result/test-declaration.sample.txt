@@ -401,7 +401,6 @@ binary
   binary#each() {block?}
   binary#encodeuri()
   binary#hex():[carray,cstr,upper]
-  binary#len()
   binary#pointer(offset?:number) {block?}
   binary#reader() {block?}
   binary#store(offset:number, buff+:binary):map:reduce
@@ -702,6 +701,7 @@ memory
   memory#array@uint32():map {block?}
   memory#array@uint64():map {block?}
   memory#array@ushort():map {block?}
+  memory#dump(stream?:stream:w):void:[upper]
   memory#pointer(offset?:number) {block?}
 monitor
 nil
@@ -729,6 +729,7 @@ palette
   palette#shrink():reduce:[align]
   palette#updateby(image_or_palette):reduce:[align,shrink]
 pointer
+  pointer#dump(stream?:stream:w):void:[upper]
   pointer#forward(distance:number):reduce
   pointer#pack(format:string, values+):reduce:[stay]
   pointer#reset()

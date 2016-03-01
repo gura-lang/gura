@@ -1,0 +1,6 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+
+testcase('memory#size') {
+	tester(`memory(1000).size)
+}

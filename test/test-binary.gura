@@ -285,5 +285,7 @@ testcase('binary.alloc') {
 	binary.alloc(32) {|buff| buff.dump()}
 	binary.alloc(100) {|buff| buff.dump()}
 	binary.alloc(32, 0..260) {|buff| buff.dump()}
-	nil
+}
+testcase('binary#size') {
+	tester(`b'abcdefghijiklmnopqrstuvwxyz'.size)
 }

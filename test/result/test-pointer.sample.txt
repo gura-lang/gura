@@ -1,7 +1,25 @@
-======== #1 operator on pointer ========
+======== #1 operator on pointer - 1 ========
 
-p1 + 0 .. <pointer:0>
-p1 + 1 .. <pointer:1>
-p1 + 2 .. <pointer:2>
-p1 + 100 .. <pointer:100>
+p + 0 .. <pointer:0>
+p + 1 .. <pointer:1>
+p + 2 .. <pointer:2>
+p + 100 .. <pointer:100>
+<pointer:100>
+p.pack('b', 22) .. <pointer:101>
+<pointer:104>
+p + 0 .. <pointer:0>
+p + 1 .. <pointer:1>
+p + 2 .. <pointer:2>
+p + 100 .. <pointer:100>
+<pointer:100>
+p.pack('b', 22) .. IndexError: pointer exceeds the range of memory
+<pointer:103>
+
+======== #2 operator on pointer - 2 ========
+
+p1 - p2 .. 7
+p1 - p2 .. -7
+p1 - p2 .. ValueError: cannot calculate difference between pointers of different binaries
+p1 - p2 .. ValueError: cannot calculate difference between pointers of different binaries
+p1 - p2 .. ValueError: cannot calculate difference between pointers of different binaries
 p1 - p2 .. ValueError: cannot calculate difference between pointers of different binaries
