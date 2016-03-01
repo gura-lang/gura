@@ -1,6 +1,10 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
+testcase {
+	
+}
+sys.exit()
 testcase('operator on pointer') {
 	b1 = b'first'
 	b2 = b'second'

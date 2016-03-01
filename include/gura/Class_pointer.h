@@ -16,6 +16,7 @@ class GURA_DLLDECLARE Class_pointer : public Class {
 public:
 	Class_pointer(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
+	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
 };
 

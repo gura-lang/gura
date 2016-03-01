@@ -307,6 +307,22 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignMethod(pointer, unpacks);
 }
 
+bool Class_pointer::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+{
+	if (value.Is_binary()) {
+		Object_binary *pObj = Object_binary::GetObject(value);
+		Pointer *pPointer = new Object_binary::PointerEx(0, pObj->Reference());
+		value = Value(new Object_pointer(env, pPointer));
+		return true;
+	} else if (value.Is_memory()) {
+		Object_memory *pObj = Object_memory::GetObject(value);
+		Pointer *pPointer = new Object_memory::PointerEx(0, pObj->Reference());
+		value = Value(new Object_pointer(env, pPointer));
+		return true;
+	}
+	return false;
+}
+
 Object *Class_pointer::CreateDescendant(Environment &env, Class *pClass)
 {
 	return nullptr;
