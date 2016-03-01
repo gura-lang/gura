@@ -3,7 +3,7 @@ sys.stdout.addcr(false)
 
 print_func(func:function) = printf('%s = %s\n', func, func.expr)
 
-tester(test:expr):map:dynamic_scope = {
+tester(test:expr):map:dynamic_scope:void = {
 	printf('%s .. ', test)
 	try {
 		printf('%s\n', test.eval()):nomap
@@ -15,7 +15,7 @@ tester(test:expr):map:dynamic_scope = {
 I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
 
 _idxTestCase = 0
-testcase(title?:string) {`block} = {
+testcase(title?:string):void {`block} = {
 	(_idxTestCase > 0) && println()
 	_idxTestCase += 1
 	printf('======== #%d', _idxTestCase)
