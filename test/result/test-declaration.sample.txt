@@ -402,12 +402,9 @@ binary
   binary#encodeuri()
   binary#hex():[carray,cstr,upper]
   binary#len()
-  binary.pack(format:string, value*):static:map {block?}
   binary#pointer(offset?:number) {block?}
   binary#reader() {block?}
   binary#store(offset:number, buff+:binary):map:reduce
-  binary#unpack(format:string, values*:number):[nil]
-  binary#unpacks(format:string, values*:number) {block?}
   binary#writer() {block?}
 boolean
 codec
@@ -736,7 +733,7 @@ pointer
   pointer#pack(format:string, values+):reduce:[stay]
   pointer#reset()
   pointer#unpack(format:string, values*:number):[nil,stay]
-  pointer#unpacks(format:string, values*:number)
+  pointer#unpacks(format:string, values*:number) {block?}
 quote
 rational
   rational.reduce()
