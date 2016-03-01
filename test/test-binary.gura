@@ -37,9 +37,10 @@ testcase {
 	println([0..0xff].fold(16):*pack('16B'):*encodeuri())
 }
 testcase {
-	buff = binary.pack('8i', 1, 2, 3, 4, 5, 6, 7, 8)
-	buff.unpacks('ii') {|nums| println(nums[0], ' ', nums[1])}
-	println(buff.unpacks('ii'):list {|nums| nums[0] + nums[1]})
+	buff = binary()
+	buff.pointer().pack('8i', 1, 2, 3, 4, 5, 6, 7, 8)
+	buff.pointer().unpacks('ii') {|nums| println(nums[0], ' ', nums[1])}
+	println(buff.pointer().unpacks('ii'):list {|nums| nums[0] + nums[1]})
 }
 testcase {
 	buff = binary()
@@ -48,7 +49,8 @@ testcase {
 	buff.add([b'abc', b'def']).dump()
 }
 testcase {
-	buff = binary.pack('32B', [0..31]*)
+	buff = binary()
+	buff.pointer().pack('32B', [0..31]*)
 	buff.dump()
 	println('----')
 	stream = buff.reader()
@@ -89,10 +91,10 @@ testcase {
 }
 testcase {
 	values = [0..255]
-	binary.pack('256B', values*).dump()
-	binary.pack('248B', values*).dump()
-	binary.pack('128B', values*).dump():upper
-	binary.pack('127B', values*).dump()
+	binary {|buff| buff.pointer().pack('256B', values*), buff.dump() }
+	binary {|buff| buff.pointer().pack('248B', values*), buff.dump() }
+	binary {|buff| buff.pointer().pack('128B', values*), buff.dump():upper }
+	binary {|buff| buff.pointer().pack('127B', values*), buff.dump() }
 }
 testcase {
 	buff = binary()
@@ -126,21 +128,22 @@ testcase {
 		p.pack('<H', 0x1111 * i)
 	}
 	dump(buff)
-	println(buff.unpacks('<H'):*format('%04x').join(' '))
+	println(buff.pointer().unpacks('<H'):*format('%04x').join(' '))
 	println(buff.pointer(8).unpacks('<H'):*format('%04x').join(' '))
 }
 
 testcase {
 	pack_tester(fmt:string, text:string) = {
 		printf('format: %s\n', fmt)
-		buff = binary.pack(fmt, text)
+		buff = binary()
+		buff.pointer().pack(fmt, text)
 		tochar(num:number):map = {
 			if (0x20 <= num && num < 0x7f) { chr(num) } else { '.' }
 		}
 		buff.each().fold(16) {|line|
 			printf('%-48s %s\n', format('%02x', line).join(' '), tochar(line).join())
 		}
-		printf('unpacked: %s\n', buff.unpack(fmt)[0])
+		printf('unpacked: %s\n', buff.pointer().unpack(fmt)[0])
 		println()
 	}
 	text = 'あい構うえお漢字の試験'
@@ -174,10 +177,10 @@ testcase {
 	buff.store(72, buffEx)
 	dump(buff)
 	println()
-	buff.add(binary.pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1))
+	buff.add(binary().pointer().pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1).target)
 	dump(buff)
 	println()
-	buff.store(16, binary.pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1))
+	buff.store(16, binary().pointer().pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1).target)
 	dump(buff)
 	println()
 }
@@ -185,84 +188,84 @@ testcase {
 	scope {
 		line1 = [-128, -32768, -2147483648, -2147483648, -2147483648, -2147483648]
 		dump(buff = line1.pack('bhilfd'))
-		line2 = buff.unpack('bhilfd')
+		line2 = buff.pointer().unpack('bhilfd')
 		printf('unpacked: 0x%02x 0x%04x 0x%08x 0x%08x %f %f\n' % line2)
 	}
 	scope {
 		line1 = [127, 32767, 2147483647, 2147483647, 2147483647, 2147483647]
 		dump(buff = line1.pack('bhilfd'))
-		line2 = buff.unpack('bhilfd')
+		line2 = buff.pointer().unpack('bhilfd')
 		printf('unpacked: 0x%02x 0x%04x 0x%08x 0x%08x %f %f\n' % line2)
 	}
 	scope {
 		line1 = [0xff, 0xffff, 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff]
 		dump(buff = line1.pack('BHILfd'))
-		line2 = buff.unpack('BHILfd')
+		line2 = buff.pointer().unpack('BHILfd')
 		printf('unpacked: 0x%02x 0x%04x 0x%08x 0x%08x %f %f\n' % line2)
 	}
 	for (i in range(-124, 128, 8)) {
 		line1 = [i, 0x0101 * i, 0x01010101 * i, 0x01010101 * i, i, i]
 		dump(buff = line1.pack('bhilfd'))
-		line2 = buff.unpack('bhilfd')
+		line2 = buff.pointer().unpack('bhilfd')
 		printf('unpacked: 0x%02x 0x%04x 0x%08x 0x%08x %f %f\n' % line2)
 	}
 	for (i in range(0, 256, 8)) {
 		line1 = [i, 0x0101 * i, 0x01010101 * i, 0x01010101 * i, i, i]
 		dump(buff = line1.pack('BHILfd'))
-		line2 = buff.unpack('BHILfd')
+		line2 = buff.pointer().unpack('BHILfd')
 		printf('unpacked: 0x%02x 0x%04x 0x%08x 0x%08x %f %f\n' % line2)
 	}
 }
 testcase {
 	buff = b'\x12\x34\x56\x78\x12\x34\x56\x78'
-	println('%04x %04x %08x' % buff.unpack('<hhl'))
-	println('%04x %04x %08x' % buff.unpack('>hhl'))
-	dump(binary.pack('8b', 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77))
+	println('%04x %04x %08x' % buff.pointer().unpack('<hhl'))
+	println('%04x %04x %08x' % buff.pointer().unpack('>hhl'))
+	dump(binary().pointer().pack('8b', 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77).target)
 	println()
-	dump(buff = binary.pack('16B',
+	dump(buff = binary().pointer().pack('16B',
 		0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77,
-		0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff))
+		0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff).target)
 	unpack(buff, 'B', '%02x')
 	println()
-	dump(buff = binary.pack('*B', 16,
+	dump(buff = binary().pointer().pack('*B', 16,
 		0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77,
-		0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff))
+		0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff).target)
 	unpack(buff, 'B', '%02x')
 	println()
-	dump(buff = binary.pack('<8H',
-		0x0123, 0x4567, 0x89ab, 0xcdef, 0x0000, 0x1111, 0x2222, 0x3333))
+	dump(buff = binary().pointer().pack('<8H',
+		0x0123, 0x4567, 0x89ab, 0xcdef, 0x0000, 0x1111, 0x2222, 0x3333).target)
 	unpack(buff, '<H', '%04x')
 	unpack(buff, '>H', '%04x')
 	println()
-	dump(buff = binary.pack('>8H',
-		0x0123, 0x4567, 0x89ab, 0xcdef, 0x0000, 0x1111, 0x2222, 0x3333))
+	dump(buff = binary().pointer().pack('>8H',
+		0x0123, 0x4567, 0x89ab, 0xcdef, 0x0000, 0x1111, 0x2222, 0x3333).target)
 	println()
-	dump(buff = binary.pack('<8I', 0x01234567, 0x89abcdef, 0, 1, 2, 3, 4, 5))
+	dump(buff = binary().pointer().pack('<8I', 0x01234567, 0x89abcdef, 0, 1, 2, 3, 4, 5).target)
 	unpack(buff, '<I', '%08x')
 	unpack(buff, '>I', '%08x')
 	println()
-	dump(buff = binary.pack('>8I', 0x01234567, 0x89abcdef, 0, 1, 2, 3, 4, 5))
+	dump(buff = binary().pointer().pack('>8I', 0x01234567, 0x89abcdef, 0, 1, 2, 3, 4, 5).target)
 	println()
-	dump(buff = binary.pack('5f', 0, 1, 2, 3, 3.141592653))
+	dump(buff = binary().pointer().pack('5f', 0, 1, 2, 3, 3.141592653).target)
 	unpack(buff, 'f', '%g')
 	println()
-	dump(buff = binary.pack('5d', 0, 1, 2, 3, 3.141592653))
+	dump(buff = binary().pointer().pack('5d', 0, 1, 2, 3, 3.141592653).target)
 	unpack(buff, 'd', '%g')
 	println()
-	dump(buff = binary.pack('20s', 'Hello World'))
+	dump(buff = binary().pointer().pack('20s', 'Hello World').target)
 	unpack(buff, '20s', '\'%s\'')
 	println()
-	dump(buff = binary.pack('20s', 'The quick brown fox jumps over the lazy dog'))
+	dump(buff = binary().pointer().pack('20s', 'The quick brown fox jumps over the lazy dog').target)
 	unpack(buff, '20s', '\'%s\'')
 	println()
-	dump(buff = binary.pack('48s', 'The quick brown fox jumps over the lazy dog'))
+	dump(buff = binary().pointer().pack('48s', 'The quick brown fox jumps over the lazy dog').target)
 	unpack(buff, '8s', '\'%s\'')
 }
 testcase {
 	values = [0..255]
-	buff = binary.pack('256B', values*)
-	println(buff.unpack('*B', 32).join(','))
-	println(hex(buff.unpack('*i*B', 4, 32)).join(','))
+	buff = binary().pointer().pack('256B', values*).target
+	println(buff.pointer().unpack('*B', 32).join(','))
+	println(hex(buff.pointer().unpack('*i*B', 4, 32)).join(','))
 	p = buff.pointer()
 	println(hex(p.unpack('*B', 32)).join(','))
 	println(hex(p.unpack('*B', 32)).join(','))

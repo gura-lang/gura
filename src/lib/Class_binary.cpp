@@ -504,6 +504,7 @@ Gura_ImplementMethod(binary, len)
 	return Value(static_cast<UInt>(pThis->GetBinary().size()));
 }
 
+#if 0
 // binary.pack(format:string, value*):map {block?}
 Gura_DeclareClassMethod(binary, pack)
 {
@@ -585,6 +586,7 @@ Gura_ImplementClassMethod(binary, pack)
 	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, arg, Value(pObjBinary.release()));
 }
+#endif
 
 // binary#pointer(offset?:number) {block?}
 Gura_DeclareMethod(binary, pointer)
@@ -667,6 +669,7 @@ Gura_ImplementMethod(binary, store)
 	return arg.GetValueThis();
 }
 
+#if 0
 // binary#unpack(format:string, values*:number):[nil]
 Gura_DeclareMethod(binary, unpack)
 {
@@ -772,6 +775,7 @@ Gura_ImplementMethod(binary, unpacks)
 							arg.GetString(0), arg.GetList(1), offset);
 	return ReturnIterator(env, arg, pIterator);
 }
+#endif
 
 // binary#writer() {block?}
 Gura_DeclareMethod(binary, writer)
@@ -810,12 +814,12 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, encodeuri);
 	Gura_AssignMethod(binary, hex);
 	Gura_AssignMethod(binary, len);
-	Gura_AssignMethod(binary, pack);
+	//Gura_AssignMethod(binary, pack);
 	Gura_AssignMethod(binary, pointer);
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, store);
-	Gura_AssignMethod(binary, unpack);
-	Gura_AssignMethod(binary, unpacks);
+	//Gura_AssignMethod(binary, unpack);
+	//Gura_AssignMethod(binary, unpacks);
 	Gura_AssignMethod(binary, writer);
 }
 
