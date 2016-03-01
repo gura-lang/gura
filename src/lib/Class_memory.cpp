@@ -113,7 +113,12 @@ Object *Object_memory::PointerEx::GetTarget() const
 	return _pObjMemory.get();
 }
 
-size_t Object_memory::PointerEx::GetSize() const
+const UChar *Object_memory::PointerEx::GetPointerC() const
+{
+	return reinterpret_cast<const UChar *>(_pObjMemory->GetMemory().GetPointer(_offset));
+}
+
+size_t Object_memory::PointerEx::GetEntireSize() const
 {
 	return _pObjMemory->GetMemory().GetSize();
 }

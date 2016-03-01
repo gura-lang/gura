@@ -25,11 +25,16 @@ public:
 	inline void SetOffset(size_t offset) { _offset = offset; }
 	inline size_t GetOffset() const { return _offset; }
 	inline void Reset() { _offset = 0; }
+	inline size_t GetSize() const {
+		size_t bytesEntire = GetEntireSize();
+		return (_offset < bytesEntire)? bytesEntire - _offset : 0;
+	}
 	bool Advance(Environment &env, int distance);
 public:
 	virtual Pointer *Clone() const = 0;
 	virtual Object *GetTarget() const = 0;
-	virtual size_t GetSize() const = 0;
+	virtual const UChar *GetPointerC() const = 0;
+	virtual size_t GetEntireSize() const = 0;
 	virtual bool IsWritable() const = 0;
 	virtual bool Pack(Environment &env, bool forwardFlag,
 					  const char *format, const ValueList &valListArg) = 0;

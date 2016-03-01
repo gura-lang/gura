@@ -37,8 +37,10 @@ protected:
 	virtual ~Memory();
 public:
 	inline size_t GetSize() const { return _bytes; }
-	inline char *GetPointer(size_t offset = 0) { return _buff + offset; }
-	inline const char *GetPointer(size_t offset = 0) const { return _buff + offset; }
+	inline char *GetPointer() { return _buff; }
+	inline char *GetPointer(size_t offset) { return _buff + offset; }
+	inline const char *GetPointer() const { return _buff; }
+	inline const char *GetPointer(size_t offset) const { return _buff + offset; }
 public:
 	inline bool Pack(Environment &env, size_t &offset,
 					 const char *format, const ValueList &valListArg) {

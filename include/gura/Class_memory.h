@@ -50,7 +50,8 @@ public:
 	public:
 		virtual Pointer *Clone() const;
 		virtual Object *GetTarget() const;
-		virtual size_t GetSize() const;
+		virtual const UChar *GetPointerC() const;
+		virtual size_t GetEntireSize() const;
 		virtual bool IsWritable() const;
 		virtual bool Pack(Environment &env, bool forwardFlag,
 						  const char *format, const ValueList &valListArg);

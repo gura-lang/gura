@@ -218,7 +218,12 @@ Object *Object_binary::PointerEx::GetTarget() const
 	return _pObjBinary.get();
 }
 
-size_t Object_binary::PointerEx::GetSize() const
+const UChar *Object_binary::PointerEx::GetPointerC() const
+{
+	return reinterpret_cast<const UChar *>(_pObjBinary->GetBinary().data() + _offset);
+}
+
+size_t Object_binary::PointerEx::GetEntireSize() const
 {
 	return _pObjBinary->GetBinary().size();
 }
