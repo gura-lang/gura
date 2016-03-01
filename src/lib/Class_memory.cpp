@@ -211,6 +211,38 @@ ImplementArrayConstructor(uint64, UInt64)
 ImplementArrayConstructor(float, float)
 ImplementArrayConstructor(double, double)
 
+// memory#dump(stream?:stream:w):void:[upper]
+Gura_DeclareMethod(memory, dump)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareAttr(Gura_Symbol(upper));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Prints a hexadecimal dump from the content of the `memory` to the standard output.\n"
+		"If the argument `stream` is specified, the result would be output to the stream.\n"
+		"\n"
+		"In default, hexadecimal digit are printed with lower-case characters.\n"
+		"Specifying an attribute `:upper` would output them with upper-case characters instead.\n"
+		"\n"
+		"Example:\n"
+		"    >>> b'A quick brown fox jumps over the lazy dog.'.dump():upper\n"
+		"    41 20 71 75 69 63 6B 20 62 72 6F 77 6E 20 66 6F  A quick brown fo\n"
+		"    78 20 6A 75 6D 70 73 20 6F 76 65 72 20 74 68 65  x jumps over the\n"
+		"    20 6C 61 7A 79 20 64 6F 67 2E                     lazy dog.\n");
+}
+
+Gura_ImplementMethod(memory, dump)
+{
+	Signal &sig = env.GetSignal();
+	Stream *pStream = arg.IsInstanceOf(0, VTYPE_stream)?
+								&arg.GetStream(0) : env.GetConsole();
+	Object_memory *pThis = Object_memory::GetObjectThis(arg);
+	const Memory &memory = pThis->GetMemory();
+	pStream->Dump(sig, memory.GetPointer(), memory.GetSize(), arg.IsSet(Gura_Symbol(upper)));
+	return Value::Nil;
+}
+
 // memory#pointer(offset?:number) {block?}
 Gura_DeclareMethod(memory, pointer)
 {
@@ -256,6 +288,7 @@ void Class_memory::Prepare(Environment &env)
 	Gura_AssignMethod(memory, array_uint64);
 	Gura_AssignMethod(memory, array_float);
 	Gura_AssignMethod(memory, array_double);
+	Gura_AssignMethod(memory, dump);
 	Gura_AssignMethod(memory, pointer);
 }
 

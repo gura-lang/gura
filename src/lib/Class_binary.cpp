@@ -26,6 +26,7 @@ Object *Object_binary::Clone() const
 bool Object_binary::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_Symbol(size));
 	symbols.insert(Gura_Symbol(writable));
 	return true;
 }
@@ -33,10 +34,13 @@ bool Object_binary::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Object_binary::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
-		evaluatedFlag = true;
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(size))) {
+		return Value(GetBinary().size());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
 		return Value(_writableFlag);
 	}
+	evaluatedFlag = false;
 	return Value::Nil;
 }
 
@@ -494,6 +498,7 @@ Gura_ImplementMethod(binary, hex)
 	return Value(rtn);
 }
 
+#if 0
 // binary#len()
 Gura_DeclareMethod(binary, len)
 {
@@ -508,6 +513,7 @@ Gura_ImplementMethod(binary, len)
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	return Value(static_cast<UInt>(pThis->GetBinary().size()));
 }
+#endif
 
 // binary#pointer(offset?:number) {block?}
 Gura_DeclareMethod(binary, pointer)
@@ -626,7 +632,7 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, each);
 	Gura_AssignMethod(binary, encodeuri);
 	Gura_AssignMethod(binary, hex);
-	Gura_AssignMethod(binary, len);
+	//Gura_AssignMethod(binary, len);
 	Gura_AssignMethod(binary, pointer);
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, store);

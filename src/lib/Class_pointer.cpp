@@ -62,6 +62,37 @@ String Object_pointer::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// pointer#dump(stream?:stream:w):void:[upper]
+Gura_DeclareMethod(pointer, dump)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareAttr(Gura_Symbol(upper));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Prints a hexadecimal dump from the content of the `pointer` to the standard output.\n"
+		"If the argument `stream` is specified, the result would be output to the stream.\n"
+		"\n"
+		"In default, hexadecimal digit are printed with lower-case characters.\n"
+		"Specifying an attribute `:upper` would output them with upper-case characters instead.\n"
+		"\n"
+		"Example:\n"
+		"    >>> b'A quick brown fox jumps over the lazy dog.'.pointer().dump():upper\n"
+		"    41 20 71 75 69 63 6B 20 62 72 6F 77 6E 20 66 6F  A quick brown fo\n"
+		"    78 20 6A 75 6D 70 73 20 6F 76 65 72 20 74 68 65  x jumps over the\n"
+		"    20 6C 61 7A 79 20 64 6F 67 2E                     lazy dog.\n");
+}
+
+Gura_ImplementMethod(pointer, dump)
+{
+	Signal &sig = env.GetSignal();
+	Stream *pStream = arg.IsInstanceOf(0, VTYPE_stream)?
+								&arg.GetStream(0) : env.GetConsole();
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	pStream->Dump(sig, pPointer->GetPointerC(), pPointer->GetSize(), arg.IsSet(Gura_Symbol(upper)));
+	return Value::Nil;
+}
+
 // pointer#forward(distance:number):reduce
 Gura_DeclareMethod(pointer, forward)
 {
@@ -300,6 +331,7 @@ void Class_pointer::Prepare(Environment &env)
 {
 	//Gura_AssignFunction(pointer);
 	Gura_AssignValue(pointer, Value(Reference()));
+	Gura_AssignMethod(pointer, dump);
 	Gura_AssignMethod(pointer, forward);
 	Gura_AssignMethod(pointer, pack);
 	Gura_AssignMethod(pointer, reset);
