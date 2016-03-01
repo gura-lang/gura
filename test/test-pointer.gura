@@ -1,0 +1,14 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+
+testcase('operator on pointer') {
+	b1 = b'first'
+	b2 = b'second'
+	p1 = b1.pointer()
+	p2 = b2.pointer()
+	tester(`(p1 + 0))
+	tester(`(p1 + 1))
+	tester(`(p1 + 2))
+	tester(`(p1 + 100))
+	tester(`(p1 - p2))
+}

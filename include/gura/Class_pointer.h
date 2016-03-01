@@ -32,7 +32,7 @@ public:
 	inline Object_pointer(Environment &env, Pointer *pPointer) :
 		Object(env.LookupClass(VTYPE_pointer)), _pPointer(pPointer) {}
 	inline Object_pointer(const Object_pointer &obj) :
-		Object(obj), _pPointer(obj.GetPointer()->Reference()) {}
+		Object(obj), _pPointer(obj.GetPointer()->Clone()) {}
 	virtual ~Object_pointer();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
