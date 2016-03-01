@@ -27,7 +27,7 @@ void Binary::PackerEx::PackBuffer(size_t offset, const UChar *buff, size_t bytes
 }
 
 const UChar *Binary::PackerEx::UnpackAt(Signal &sig, size_t offset,
-									size_t bytes, bool exceedErrorFlag)
+										size_t bytes, bool exceedErrorFlag)
 {
 	if (offset + bytes <= _buff.size()) {
 		return reinterpret_cast<const UChar *>(_buff.data() + offset);

@@ -24,7 +24,7 @@ public:
 	virtual ~Pointer();
 	inline size_t GetOffset() const { return _offset; }
 	inline void Reset() { _offset = 0; }
-	bool Advance(Environment &env, int distance, bool exceedErrorFlag);
+	bool Advance(Environment &env, int distance);
 public:
 	virtual Pointer *Clone() const = 0;
 	virtual Object *GetTarget() const = 0;

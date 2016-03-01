@@ -31,7 +31,7 @@ void Memory::PackerEx::PackBuffer(size_t offset, const UChar *buff, size_t bytes
 }
 
 const UChar *Memory::PackerEx::UnpackAt(Signal &sig, size_t offset,
-									size_t bytes, bool exceedErrorFlag)
+										size_t bytes, bool exceedErrorFlag)
 {
 	if (offset + bytes <= _memory.GetSize()) {
 		return reinterpret_cast<const UChar *>(_memory.GetPointer(offset));

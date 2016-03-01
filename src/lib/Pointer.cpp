@@ -16,22 +16,17 @@ Pointer::~Pointer()
 {
 }
 
-bool Pointer::Advance(Environment &env, int distance, bool exceedErrorFlag)
+bool Pointer::Advance(Environment &env, int distance)
 {
-	if (distance < 0) {
-		if (_offset >= static_cast<size_t>(-distance)) {
-			_offset += distance;
-			return true;
-		}
-	} else {
-		if (_offset + distance <= GetSize()) {
-			_offset += distance;
-			return true;
-		}
+	if (distance >= 0) {
+		_offset += distance;
+		return true;
 	}
-	if (exceedErrorFlag) {
-		env.SetError(ERR_IndexError, "pointer exceeds the range of binary");
+	if (_offset >= static_cast<size_t>(-distance)) {
+		_offset += distance;
+		return true;
 	}
+	env.SetError(ERR_IndexError, "pointer offset becomes negative");
 	return false;
 }
 

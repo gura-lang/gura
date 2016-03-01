@@ -234,12 +234,9 @@ binary.each
 binary.encodeuri
 binary.hex
 binary.len
-binary.pack
 binary.pointer
 binary.reader
 binary.store
-binary.unpack
-binary.unpacks
 binary.writer
 )}
 
@@ -1550,8 +1547,9 @@ A `pointer` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
-<tr><td><code>target</code></td><td><code>binary</code></td><td>R</td>
-<td>An instance that is associated with the pointer.</td></tr>
+<tr><td><code>target</code></td><td><code>any</code></td><td>R</td>
+<td>An instance that is associated with the pointer.
+Currently, this can be an instance of `binary` or `memory`.</td></tr>
 
 <tr><td><code>offset</code></td><td><code>number</code></td><td>R</td>
 <td>The current offset.</td></tr>

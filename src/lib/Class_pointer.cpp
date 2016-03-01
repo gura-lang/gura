@@ -56,14 +56,16 @@ Gura_DeclareMethod(pointer, forward)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Put the pointer offset forward by `distance`.\n"
-		"If a negative number is specified for the argument, the offset would be put backward.\n");
+		"If a negative number is specified for the argument, the offset would be put backward.\n"
+		"\n"
+		"An error would occur when the pointer's offset becomes a negative value\n"
+		"while it would be no error when the offset exceeds the target maximum range.\n");
 }
 
 Gura_ImplementMethod(pointer, forward)
 {
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
-	bool exceedErrorFlag = true;
-	pPointer->Advance(env, arg.GetInt(0), exceedErrorFlag);
+	if (!pPointer->Advance(env, arg.GetInt(0))) return Value::Nil;
 	return arg.GetValueThis();
 }
 
