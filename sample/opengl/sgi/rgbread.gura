@@ -4,7 +4,7 @@ classref(`image).rgbread(stream:stream) = {
 	ImageHeader = struct(imagic:number, type:number, dim:number,
 						width:number, height:number, nElems:number)
 	buff = stream.read()
-	hdr = ImageHeader * buff.unpack('>HHHHHH')
+	hdr = ImageHeader * buff.pointer().unpack('>HHHHHH')
 	this.allocbuff(hdr.width, hdr.height)
 	p = buff.pointer(512)
 	n = hdr.height * hdr.nElems
