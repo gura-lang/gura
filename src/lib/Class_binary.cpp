@@ -504,90 +504,6 @@ Gura_ImplementMethod(binary, len)
 	return Value(static_cast<UInt>(pThis->GetBinary().size()));
 }
 
-#if 0
-// binary.pack(format:string, value*):map {block?}
-Gura_DeclareClassMethod(binary, pack)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates a `binary` instance that has packed `values` in the argument list\n"
-		"according to specifiers in the `format`.\n"
-		"\n"
-		"A specifier has a format of \"`nX`\" where `X` is a format character\n"
-		"that represents a packing format and `n` is a number of packing size.\n"
-		"The number can be omitted, and it would be treated as `1` in that case.\n"
-		"\n"
-		"Following format characters would take a `number` value from the argument list\n"
-		"and pack them into a binary sequence.\n"
-		"\n"
-		"- `b` .. One-byte signed number.\n"
-		"- `B` .. One-byte unsigned number.\n"
-		"- `h` .. Two-byte signed number.\n"
-		"- `H` .. Two-byte unsigned number.\n"
-		"- `i` .. Four-byte signed number.\n"
-		"- `I` .. Four-byte unsigned number.\n"
-		"- `l` .. Four-byte signed number.\n"
-		"- `L` .. Four-byte unsigned number.\n"
-		"- `q` .. Eight-byte signed number.\n"
-		"- `Q` .. Eight-byte unsigned number.\n"
-		"- `f` .. Float-typed number occupying four bytes.\n"
-		"- `d` .. Double-typed number occupying eight bytes.\n"
-		"\n"
-		"As for them, the packing size `n` means the number of values to be packed.\n"
-		"\n"
-		"Following format characters would take a `string` value from the argument list\n"
-		"and pack them into a binary sequence.\n"
-		"\n"
-		"- `s` .. Packs a sequence of UTF-8 codes in the string.\n"
-		"         The packing size `n` means the size of the room in bytes\n"
-		"         where the character codes are to be packed.\n"
-		"         Only the sequence within the allocated room would be packed.\n"
-		"         If the string length is smaller than the room,\n"
-		"         the lacking part would be filled with zero.\n"
-		"- `c` .. Picks the first byte of the string and packs it as a one-byte unsigned number.\n"
-		"         The packing size `n` means the number of values to be packed.\n"
-		"\n"
-		"Following format character would take no value from the argument list.\n"
-		"\n"
-		"- `x` .. Fills the binary with zero.\n"
-		"         The packing size `n` means the size of the room in bytes\n"
-		"         to be filled with zero.\n"
-		"\n"
-		"The default byte-order for numbers of two-byte, four-byte and eight-byte\n"
-		"depends on the system the interpreter is currently running.\n"
-		"You can change it by the following specifiers:\n"
-		"\n"
-		"- `@` .. System-dependent order.\n"
-		"- `=` .. System-dependent order.\n"
-		"- `<` .. Little endian\n"
-		"- `>` .. Big endian\n"
-		"- `!` .. Big endian\n"
-		"\n"
-		"You can specify an asterisk character \"`*`\" for the number of packing size\n"
-		"that picks that number from the argument list.\n"
-		"\n"
-		"You can specify encoding name embraced with \"`{`\" and \"`}`\" in the format\n"
-		"to change coding character set from UTF-8\n"
-		"while packing a string with format character \"`s`\".\n"
-		"\n"
-		GURA_HELPTEXT_BLOCK_en("bin", "binary"));
-}
-
-Gura_ImplementClassMethod(binary, pack)
-{
-	Signal &sig = env.GetSignal();
-	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
-	size_t offset = 0;
-	pObjBinary->GetBinary().Pack(env, offset, arg.GetString(0), arg.GetList(1));
-	if (sig.IsSignalled()) return Value::Nil;
-	return ReturnValue(env, arg, Value(pObjBinary.release()));
-}
-#endif
-
 // binary#pointer(offset?:number) {block?}
 Gura_DeclareMethod(binary, pointer)
 {
@@ -669,114 +585,6 @@ Gura_ImplementMethod(binary, store)
 	return arg.GetValueThis();
 }
 
-#if 0
-// binary#unpack(format:string, values*:number):[nil]
-Gura_DeclareMethod(binary, unpack)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
-	DeclareAttr(Gura_Symbol(nil));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Extracts values from a `binary` instance according to specifiers in the `format`\n"
-		"and returns a list containing the values.\n"
-		"\n"
-		"A specifier has a format of \"`nX`\" where `X` is a format character\n"
-		"that represents a packing format and `n` is a number of packing size.\n"
-		"The number can be omitted, and it would be treated as `1` in that case.\n"
-		"\n"
-		"Following format characters would extract an integer or float value of specified size\n"
-		"from the binary and returns a `number` value.\n"
-		"\n"
-		"- `b` .. One-byte signed number.\n"
-		"- `B` .. One-byte unsigned number.\n"
-		"- `h` .. Two-byte signed number.\n"
-		"- `H` .. Two-byte unsigned number.\n"
-		"- `i` .. Four-byte signed number.\n"
-		"- `I` .. Four-byte unsigned number.\n"
-		"- `l` .. Four-byte signed number.\n"
-		"- `L` .. Four-byte unsigned number.\n"
-		"- `q` .. Eight-byte signed number.\n"
-		"- `Q` .. Eight-byte unsigned number.\n"
-		"- `f` .. Float-typed number occupying four bytes.\n"
-		"- `d` .. Double-typed number occupying eight bytes.\n"
-		"\n"
-		"As for them, the packing size `n` means the number of values to be extracted.\n"
-		"\n"
-		"Following format characters would extract a string sequence from the binary\n"
-		"and returns a `string` value.\n"
-		"\n"
-		"- `s` .. Extracts a sequence of UTF-8 codes and returns `string` instance containing it.\n"
-		"         The unpacking size `n` means the size of the room in bytes\n"
-		"         where the character codes are to be unpacked.\n"
-		"- `c` .. Extracts a one-byte unsigned number and returns a `string` instance containing it.\n"
-		"         The unpacking size `n` means the number of values to be extracted.\n"
-		"\n"
-		"Following format character would not return any value.\n"
-		"\n"
-		"- `x` .. Advances the address by one byte.\n"
-		"         If the unpacking size `n` is specifies,\n"
-		"         it would advance the address by `n` bytes.\n"
-		"\n"
-		"The default byte-order for numbers of two-byte, four-byte and eight-byte\n"
-		"depends on the system the interpreter is currently running.\n"
-		"You can change it by the following specifiers:\n"
-		"\n"
-		"- `@` .. System-dependent order.\n"
-		"- `=` .. System-dependent order.\n"
-		"- `<` .. Little endian\n"
-		"- `>` .. Big endian\n"
-		"- `!` .. Big endian\n"
-		"\n"
-		"You can specify an asterisk character \"`*`\" for the number of unpacking size\n"
-		"that picks that number from the argument list.\n"
-		"\n"
-		"You can specify encoding name embraced with \"`{`\" and \"`}`\" in the format\n"
-		"to change coding character set from UTF-8\n"
-		"while extracting a string with format character \"`s`\".\n"
-		"\n"
-		"An error occurs if the binary size is smaller than the format reqeusts.\n"
-		"If the attribute `:nil` is specified, `nil` value would be returned for such a case.\n");
-}
-
-Gura_ImplementMethod(binary, unpack)
-{
-	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	size_t offset = 0;
-	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil));
-	return pThis->GetBinary().Unpack(env, offset,
-						arg.GetString(0), arg.GetList(1), exceedErrorFlag);
-}
-
-// binary#unpacks(format:string, values*:number) {block?}
-Gura_DeclareMethod(binary, unpacks)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an iterator that extracts values from the binary instance\n"
-		"according to specifiers in `format`.\n"
-		"\n"
-		"For detailed information about specifiers, see the help of `binary#unpack()`.\n"
-		"\n"
-		GURA_HELPTEXT_BLOCK_en("iter", "iterator"));
-}
-
-Gura_ImplementMethod(binary, unpacks)
-{
-	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	Object_binary *pObj = Object_binary::Reference(pThis);
-	size_t offset = 0;
-	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj,
-							arg.GetString(0), arg.GetList(1), offset);
-	return ReturnIterator(env, arg, pIterator);
-}
-#endif
-
 // binary#writer() {block?}
 Gura_DeclareMethod(binary, writer)
 {
@@ -814,12 +622,9 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, encodeuri);
 	Gura_AssignMethod(binary, hex);
 	Gura_AssignMethod(binary, len);
-	//Gura_AssignMethod(binary, pack);
 	Gura_AssignMethod(binary, pointer);
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, store);
-	//Gura_AssignMethod(binary, unpack);
-	//Gura_AssignMethod(binary, unpacks);
 	Gura_AssignMethod(binary, writer);
 }
 
