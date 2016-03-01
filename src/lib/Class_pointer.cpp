@@ -38,6 +38,20 @@ Value Object_pointer::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Nil;
 }
 
+Value Object_pointer::DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	Signal &sig = GetSignal();
+	if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
+		if (!value.MustBe_number(sig)) return Value::Nil;
+		evaluatedFlag = true;
+		size_t offset = value.GetSizeT();
+		GetPointer()->SetOffset(offset);
+		return Value(offset);
+	}
+	return Value::Nil;
+}
+
 String Object_pointer::ToString(bool exprFlag)
 {
 	char buff[64];

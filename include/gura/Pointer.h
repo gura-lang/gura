@@ -22,6 +22,7 @@ public:
 public:
 	Pointer(size_t offset);
 	virtual ~Pointer();
+	inline void SetOffset(size_t offset) { _offset = offset; }
 	inline size_t GetOffset() const { return _offset; }
 	inline void Reset() { _offset = 0; }
 	bool Advance(Environment &env, int distance);

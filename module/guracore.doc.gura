@@ -1551,7 +1551,7 @@ A `pointer` instance has the following properties:
 <td>An instance that is associated with the pointer.
 Currently, this can be an instance of `binary` or `memory`.</td></tr>
 
-<tr><td><code>offset</code></td><td><code>number</code></td><td>R</td>
+<tr><td><code>offset</code></td><td><code>number</code></td><td>R/W</td>
 <td>The current offset.</td></tr>
 
 </table>
