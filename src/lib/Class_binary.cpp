@@ -182,6 +182,43 @@ Object_binary::PointerEx::PointerEx(const PointerEx &ptr) :
 {
 }
 
+bool Object_binary::PointerEx::PackPrepare(Signal &sig, size_t bytes)
+{
+	return true;
+}
+
+void Object_binary::PointerEx::PackBuffer(const UChar *buff, size_t bytes)
+{
+	if (buff != nullptr) {
+		Binary &binary = _pObjBinary->GetBinary();
+		if (_offset < binary.size()) {
+			size_t bytesToCopy = ChooseMin(binary.size() - _offset, bytes);
+			std::copy(buff, buff + bytesToCopy, binary.begin() + _offset);
+			buff += bytesToCopy;
+			bytes -= bytesToCopy;
+		} else if (_offset > binary.size()) {
+			binary.append(_offset - binary.size(), '\0');
+		}
+		binary.append(buff, buff + bytes);
+	}
+	_offset += bytes;
+}
+
+const UChar *Object_binary::PointerEx::UnpackPrepare(
+	Signal &sig, size_t bytes, bool exceedErrorFlag)
+{
+	Binary &binary = _pObjBinary->GetBinary();
+	if (_offset + bytes <= binary.size()) {
+		const UChar *p = reinterpret_cast<const UChar *>(binary.data() + _offset);
+		_offset += bytes;
+		return p;
+	}
+	if (exceedErrorFlag) {
+		sig.SetError(ERR_IndexError, "pointer exceeds the range of binary");
+	}
+	return nullptr;
+}
+
 Pointer *Object_binary::PointerEx::Clone() const
 {
 	return new PointerEx(*this);
@@ -207,6 +244,7 @@ bool Object_binary::PointerEx::IsWritable() const
 	return _pObjBinary->IsWritable();
 }
 
+#if 0
 bool Object_binary::PointerEx::Pack(Environment &env, bool forwardFlag,
 					  const char *format, const ValueList &valListArg)
 {
@@ -224,6 +262,7 @@ Value Object_binary::PointerEx::Unpack(Environment &env, bool forwardFlag,
 	if (forwardFlag) _offset = offset;
 	return value;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of functions

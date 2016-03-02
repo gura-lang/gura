@@ -30,6 +30,24 @@ bool Pointer::Advance(Environment &env, int distance)
 	return false;
 }
 
+bool Pointer::Pack(Environment &env, bool forwardFlag,
+				   const char *format, const ValueList &valListArg)
+{
+	size_t offset = _offset;
+	if (!DoPack(env, format, valListArg)) return false;
+	if (!forwardFlag) _offset = offset;
+	return true;
+}
+
+Value Pointer::Unpack(Environment &env, bool forwardFlag,
+					  const char *format, const ValueList &valListArg, bool exceedErrorFlag)
+{
+	size_t offset = _offset;
+	Value value = DoUnpack(env, format, valListArg, exceedErrorFlag);
+	if (!forwardFlag) _offset = offset;
+	return value;
+}
+
 //-----------------------------------------------------------------------------
 // Pointer::IteratorUnpack
 //-----------------------------------------------------------------------------

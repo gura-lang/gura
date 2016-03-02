@@ -73,6 +73,38 @@ Object_memory::PointerEx::PointerEx(const PointerEx &ptr) :
 {
 }
 
+bool Object_memory::PointerEx::PackPrepare(Signal &sig, size_t bytes)
+{
+	Memory &memory = _pObjMemory->GetMemory();
+	if (_offset + bytes <= memory.GetSize()) return true;
+	sig.SetError(ERR_IndexError, "pointer exceeds the range of memory");
+	return false;
+}
+
+void Object_memory::PointerEx::PackBuffer(const UChar *buff, size_t bytes)
+{
+	Memory &memory = _pObjMemory->GetMemory();
+	if (_offset >= memory.GetSize()) return;
+	size_t bytesToCopy = ChooseMin(memory.GetSize() - _offset, bytes);
+	if (buff != nullptr) ::memcpy(memory.GetPointer(_offset), buff, bytesToCopy);
+	_offset += bytesToCopy;
+}
+
+const UChar *Object_memory::PointerEx::UnpackPrepare(
+	Signal &sig, size_t bytes, bool exceedErrorFlag)
+{
+	Memory &memory = _pObjMemory->GetMemory();
+	if (_offset + bytes <= memory.GetSize()) {
+		const UChar *p = reinterpret_cast<const UChar *>(memory.GetPointer(_offset));
+		_offset += bytes;
+		return p;
+	}
+	if (exceedErrorFlag) {
+		sig.SetError(ERR_IndexError, "pointer exceeds the range of memory");
+	}
+	return nullptr;
+}
+
 Pointer *Object_memory::PointerEx::Clone() const
 {
 	return new PointerEx(*this);
@@ -98,6 +130,7 @@ bool Object_memory::PointerEx::IsWritable() const
 	return true;
 }
 
+#if 0
 bool Object_memory::PointerEx::Pack(Environment &env, bool forwardFlag,
 					  const char *format, const ValueList &valListArg)
 {
@@ -115,6 +148,7 @@ Value Object_memory::PointerEx::Unpack(Environment &env, bool forwardFlag,
 	if (forwardFlag) _offset = offset;
 	return value;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of functions

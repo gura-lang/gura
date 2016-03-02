@@ -12,6 +12,7 @@ namespace Gura {
 // Memory
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Memory {
+#if 0
 public:
 	class GURA_DLLDECLARE PackerEx : public Packer {
 	private:
@@ -23,6 +24,7 @@ public:
 		virtual const UChar *UnpackPrepare(Signal &sig, size_t offset,
 										   size_t bytes, bool exceedErrorFlag);
 	};
+#endif
 protected:
 	int _cntRef;
 	size_t _bytes;

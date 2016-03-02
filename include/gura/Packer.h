@@ -15,14 +15,13 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Packer {
 public:
-	bool DoPack(Environment &env, size_t &offset,
-			  const char *format, const ValueList &valListArg);
-	Value DoUnpack(Environment &env, size_t &offset,
-				 const char *format, const ValueList &valListArg, bool exceedErrorFlag);
-	virtual bool PackPrepare(Signal &sig, size_t offset, size_t bytes) = 0;
-	virtual void PackBuffer(size_t offset, const UChar *buff, size_t bytes) = 0;
-	virtual const UChar *UnpackPrepare(Signal &sig, size_t offset,
-								  size_t bytes, bool exceedErrorFlag) = 0;
+	bool DoPack(Environment &env, const char *format, const ValueList &valListArg);
+	Value DoUnpack(Environment &env, const char *format,
+				   const ValueList &valListArg, bool exceedErrorFlag);
+public:
+	virtual bool PackPrepare(Signal &sig, size_t bytes) = 0;
+	virtual void PackBuffer(const UChar *buff, size_t bytes) = 0;
+	virtual const UChar *UnpackPrepare(Signal &sig, size_t bytes, bool exceedErrorFlag) = 0;
 private:
 	static bool CheckString(Signal &sig,
 							const ValueList &valList, ValueList::const_iterator pValue);
@@ -31,29 +30,32 @@ private:
 	static bool CheckNumber(Signal &sig, const ValueList &valList,
 							ValueList::const_iterator pValue, Number numMin, Number numMax);
 private:
-	inline void PackChar(size_t offset, Char num) {
-		PackUChar(offset, static_cast<UChar>(num));
+	inline void PackForward(size_t bytes) {
+		PackBuffer(nullptr, bytes);
 	}
-	inline void PackUChar(size_t offset, UChar num) {
-		PackBuffer(offset, &num, sizeof(UChar));
+	inline void PackChar(Char num) {
+		PackUChar(static_cast<UChar>(num));
 	}
-	inline void PackShort(size_t offset, bool bigEndianFlag, Short num) {
-		PackUShort(offset, bigEndianFlag, static_cast<UShort>(num));
+	inline void PackUChar(UChar num) {
+		PackBuffer(&num, sizeof(UChar));
 	}
-	void PackUShort(size_t offset, bool bigEndianFlag, UShort num);
-	inline void PackInt32(size_t offset, bool bigEndianFlag, Int32 num) {
-		PackUInt32(offset, bigEndianFlag, static_cast<UInt32>(num));
+	inline void PackShort(Short num, bool bigEndianFlag) {
+		PackUShort(static_cast<UShort>(num), bigEndianFlag);
 	}
-	void PackUInt32(size_t offset, bool bigEndianFlag, UInt32 num);
-	inline void PackInt64(size_t offset, bool bigEndianFlag, Int64 num) {
-		PackUInt64(offset, bigEndianFlag, static_cast<UInt64>(num));
+	void PackUShort(UShort num, bool bigEndianFlag);
+	inline void PackInt32(Int32 num, bool bigEndianFlag) {
+		PackUInt32(static_cast<UInt32>(num), bigEndianFlag);
 	}
-	void PackUInt64(size_t offset, bool bigEndianFlag, UInt64 num);
-	inline void PackFloat(size_t offset, bool bigEndianFlag, float num) {
-		PackUInt32(offset, bigEndianFlag, *reinterpret_cast<UInt32 *>(&num));
+	void PackUInt32(UInt32 num, bool bigEndianFlag);
+	inline void PackInt64(Int64 num, bool bigEndianFlag) {
+		PackUInt64(static_cast<UInt64>(num), bigEndianFlag);
 	}
-	inline void PackDouble(size_t offset, bool bigEndianFlag, double num) {
-		PackUInt64(offset, bigEndianFlag, *reinterpret_cast<UInt64 *>(&num));
+	void PackUInt64(UInt64 num, bool bigEndianFlag);
+	inline void PackFloat(float num, bool bigEndianFlag) {
+		PackUInt32(*reinterpret_cast<UInt32 *>(&num), bigEndianFlag);
+	}
+	inline void PackDouble(double num, bool bigEndianFlag) {
+		PackUInt64(*reinterpret_cast<UInt64 *>(&num), bigEndianFlag);
 	}
 private:
 	inline static Char UnpackChar(const UChar *pByte) {

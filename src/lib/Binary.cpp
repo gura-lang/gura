@@ -5,6 +5,7 @@
 
 namespace Gura {
 
+#if 0
 //-----------------------------------------------------------------------------
 // Binary::PackerEx
 //-----------------------------------------------------------------------------
@@ -37,5 +38,6 @@ const UChar *Binary::PackerEx::UnpackPrepare(Signal &sig, size_t offset,
 	}
 	return nullptr;
 }
+#endif
 
 }

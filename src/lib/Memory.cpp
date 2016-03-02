@@ -13,6 +13,7 @@ Memory::~Memory()
 	// virtual destructor
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Memory::PackerEx
 //-----------------------------------------------------------------------------
@@ -41,6 +42,7 @@ const UChar *Memory::PackerEx::UnpackPrepare(Signal &sig, size_t offset,
 	}
 	return nullptr;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // MemoryOwner
