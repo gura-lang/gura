@@ -498,23 +498,6 @@ Gura_ImplementMethod(binary, hex)
 	return Value(rtn);
 }
 
-#if 0
-// binary#len()
-Gura_DeclareMethod(binary, len)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns the length of the binary in bytes.");
-}
-
-Gura_ImplementMethod(binary, len)
-{
-	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	return Value(static_cast<UInt>(pThis->GetBinary().size()));
-}
-#endif
-
 // binary#pointer(offset?:number) {block?}
 Gura_DeclareMethod(binary, pointer)
 {
@@ -632,7 +615,6 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, each);
 	Gura_AssignMethod(binary, encodeuri);
 	Gura_AssignMethod(binary, hex);
-	//Gura_AssignMethod(binary, len);
 	Gura_AssignMethod(binary, pointer);
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, store);

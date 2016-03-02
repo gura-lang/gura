@@ -30,3 +30,25 @@ testcase('operator on pointer - 2') {
 	f(b1, m2)
 	f(m1, b2)
 }
+testcase('pointer#size') {
+	m = memory(100)
+	p = m.pointer()
+	tester(`p.size)
+	tester(`(p + 20).size)
+	tester(`(p + 40).size)
+	tester(`(p + 60).size)
+	tester(`(p + 80).size)
+	tester(`(p + 100).size)
+	tester(`(p + 120).size)
+}
+testcase('pointer#offset') {
+	m = memory(100)
+	p = m.pointer()
+	tester(`p.offset)
+	tester(`(p + 20).offset)
+	tester(`(p + 40).offset)
+	tester(`(p + 60).offset)
+	tester(`(p + 80).offset)
+	tester(`(p + 100).offset)
+	tester(`(p + 120).offset)
+}

@@ -212,6 +212,9 @@ A `binary` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
+<tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
+<td>Returns the binary size in bytes.</td></tr>
+
 <tr><td><code>writable</code></td><td><code>boolean</code></td><td>R</td>
 <td>Indicates if the content of the binary object is writable.</td></tr>
 
@@ -233,7 +236,6 @@ binary.dump
 binary.each
 binary.encodeuri
 binary.hex
-binary.len
 binary.pointer
 binary.reader
 binary.store
@@ -1438,6 +1440,19 @@ matrix.transpose
 
 An instance of the `memory` class represents a memory that is stored in `array` instances.
 
+### Property
+
+A `memory` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
+<td>Returns the memory size in bytes.</td></tr>
+
+</table>
+
+
 ### Constructor
 
 ${moddoc.reference(`en
@@ -1459,6 +1474,7 @@ memory.array@int64
 memory.array@uint64
 memory.array@float
 memory.array@double
+memory.dump
 memory.pointer
 )}
 
@@ -1547,12 +1563,15 @@ A `pointer` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
+<tr><td><code>offset</code></td><td><code>number</code></td><td>R/W</td>
+<td>The current offset.</td></tr>
+
+<tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
+<td>Returns the size of data accessible from the current offset.</td></tr>
+
 <tr><td><code>target</code></td><td><code>any</code></td><td>R</td>
 <td>An instance that is associated with the pointer.
 Currently, this can be an instance of `binary` or `memory`.</td></tr>
-
-<tr><td><code>offset</code></td><td><code>number</code></td><td>R/W</td>
-<td>The current offset.</td></tr>
 
 </table>
 
@@ -1560,6 +1579,7 @@ Currently, this can be an instance of `binary` or `memory`.</td></tr>
 ### Method
 
 ${moddoc.reference(`en
+pointer.dump
 pointer.forward
 pointer.pack
 pointer.reset

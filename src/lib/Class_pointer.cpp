@@ -20,8 +20,9 @@ Object *Object_pointer::Clone() const
 bool Object_pointer::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(target));
 	symbols.insert(Gura_Symbol(offset));
+	symbols.insert(Gura_Symbol(size));
+	symbols.insert(Gura_Symbol(target));
 	return true;
 }
 
@@ -29,10 +30,12 @@ Value Object_pointer::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(target))) {
-		return Value(GetPointer()->GetTarget()->Reference());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(offset))) {
 		return Value(GetPointer()->GetOffset());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(size))) {
+		return Value(GetPointer()->GetSize());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(target))) {
+		return Value(GetPointer()->GetTarget()->Reference());
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
