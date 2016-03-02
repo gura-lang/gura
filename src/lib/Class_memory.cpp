@@ -60,38 +60,6 @@ String Object_memory::ToString(bool exprFlag)
 	return rtn;
 }
 
-#if 0
-//-----------------------------------------------------------------------------
-// Object_memory::IteratorUnpack
-//-----------------------------------------------------------------------------
-Object_memory::IteratorUnpack::IteratorUnpack(Object_memory *pObj,
-				const char *format, const ValueList &valListArg, size_t offset) :
-		Iterator(false), _pObj(pObj), _format(format), _valListArg(valListArg),
-		_offset(offset)
-{
-}
-
-Iterator *Object_memory::IteratorUnpack::GetSource()
-{
-	return nullptr;
-}
-
-bool Object_memory::IteratorUnpack::DoNext(Environment &env, Value &value)
-{
-	value = _pObj->GetMemory().Unpack(env, _offset, _format.c_str(), _valListArg, false);
-	return value.IsValid();
-}
-
-String Object_memory::IteratorUnpack::ToString() const
-{
-	return String("memory#unpacks");
-}
-
-void Object_memory::IteratorUnpack::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Object_memory::PointerEx
 //-----------------------------------------------------------------------------
@@ -148,14 +116,6 @@ Value Object_memory::PointerEx::Unpack(Environment &env, bool forwardFlag,
 	if (forwardFlag) _offset = offset;
 	return value;
 }
-
-#if 0
-Iterator *Object_memory::PointerEx::CreateUnpackIterator(const char *format, const ValueList &valList)
-{
-	Object_memory *pObj = dynamic_cast<Object_memory *>(_pObjMemory->Reference());
-	return new Object_memory::IteratorUnpack(pObj, format, valList, GetOffset());
-}
-#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of functions

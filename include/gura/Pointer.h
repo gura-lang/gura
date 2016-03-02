@@ -55,7 +55,6 @@ public:
 					  const char *format, const ValueList &valListArg) = 0;
 	virtual Value Unpack(Environment &env, bool forwardFlag,
 						 const char *format, const ValueList &valListArg, bool exeedErrorFlag) = 0;
-	//virtual Iterator *CreateUnpackIterator(const char *format, const ValueList &valList) = 0;
 };
 
 }

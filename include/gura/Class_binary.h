@@ -38,22 +38,6 @@ public:
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-#if 0
-	class GURA_DLLDECLARE IteratorUnpack : public Iterator {
-	private:
-		AutoPtr<Object_binary> _pObj;
-		String _format;
-		ValueList _valListArg;
-		size_t _offset;
-	public:
-		IteratorUnpack(Object_binary *pObj, const char *format,
-					   const ValueList &valListArg, size_t offset);
-		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Value &value);
-		virtual String ToString() const;
-		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	};
-#endif
 	class GURA_DLLDECLARE PointerEx : public Pointer {
 	protected:
 		AutoPtr<Object_binary> _pObjBinary;
@@ -74,7 +58,6 @@ public:
 						  const char *format, const ValueList &valListArg);
 		virtual Value Unpack(Environment &env, bool forwardFlag,
 							 const char *format, const ValueList &valListArg, bool exeedErrorFlag);
-		//virtual Iterator *CreateUnpackIterator(const char *format, const ValueList &valList);
 	};
 public:
 	Gura_DeclareObjectAccessor(binary)

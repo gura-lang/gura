@@ -169,38 +169,6 @@ void Object_binary::IteratorByte::GatherFollower(Environment::Frame *pFrame, Env
 {
 }
 
-#if 0
-//-----------------------------------------------------------------------------
-// Object_binary::IteratorUnpack
-//-----------------------------------------------------------------------------
-Object_binary::IteratorUnpack::IteratorUnpack(Object_binary *pObj,
-				const char *format, const ValueList &valListArg, size_t offset) :
-		Iterator(false), _pObj(pObj), _format(format), _valListArg(valListArg),
-		_offset(offset)
-{
-}
-
-Iterator *Object_binary::IteratorUnpack::GetSource()
-{
-	return nullptr;
-}
-
-bool Object_binary::IteratorUnpack::DoNext(Environment &env, Value &value)
-{
-	value = _pObj->GetBinary().Unpack(env, _offset, _format.c_str(), _valListArg, false);
-	return value.IsValid();
-}
-
-String Object_binary::IteratorUnpack::ToString() const
-{
-	return String("binary#unpacks");
-}
-
-void Object_binary::IteratorUnpack::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Object_binary::PointerEx
 //-----------------------------------------------------------------------------
@@ -257,14 +225,6 @@ Value Object_binary::PointerEx::Unpack(Environment &env, bool forwardFlag,
 	if (forwardFlag) _offset = offset;
 	return value;
 }
-
-#if 0
-Iterator *Object_binary::PointerEx::CreateUnpackIterator(const char *format, const ValueList &valList)
-{
-	Object_binary *pObj = dynamic_cast<Object_binary *>(_pObjBinary->Reference());
-	return new Object_binary::IteratorUnpack(pObj, format, valList, GetOffset());
-}
-#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of functions
