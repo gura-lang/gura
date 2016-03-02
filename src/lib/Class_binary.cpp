@@ -169,6 +169,7 @@ void Object_binary::IteratorByte::GatherFollower(Environment::Frame *pFrame, Env
 {
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Object_binary::IteratorUnpack
 //-----------------------------------------------------------------------------
@@ -198,6 +199,7 @@ String Object_binary::IteratorUnpack::ToString() const
 void Object_binary::IteratorUnpack::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Object_binary::PointerEx
@@ -256,11 +258,13 @@ Value Object_binary::PointerEx::Unpack(Environment &env, bool forwardFlag,
 	return value;
 }
 
+#if 0
 Iterator *Object_binary::PointerEx::CreateUnpackIterator(const char *format, const ValueList &valList)
 {
 	Object_binary *pObj = dynamic_cast<Object_binary *>(_pObjBinary->Reference());
 	return new Object_binary::IteratorUnpack(pObj, format, valList, GetOffset());
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of functions

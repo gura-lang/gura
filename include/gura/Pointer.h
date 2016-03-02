@@ -14,6 +14,19 @@ namespace Gura {
 // Pointer
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Pointer {
+public:
+	class GURA_DLLDECLARE IteratorUnpack : public Iterator {
+	private:
+		AutoPtr<Pointer> _pPointer;
+		String _format;
+		ValueList _valListArg;
+	public:
+		IteratorUnpack(Pointer *pPointer, const char *format, const ValueList &valListArg);
+		virtual Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Value &value);
+		virtual String ToString() const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
 protected:
 	int _cntRef;
 	size_t _offset;
@@ -21,7 +34,9 @@ public:
 	Gura_DeclareReferenceAccessor(Pointer)
 public:
 	Pointer(size_t offset);
+protected:
 	virtual ~Pointer();
+public:
 	inline void SetOffset(size_t offset) { _offset = offset; }
 	inline size_t GetOffset() const { return _offset; }
 	inline void Reset() { _offset = 0; }
@@ -40,7 +55,7 @@ public:
 					  const char *format, const ValueList &valListArg) = 0;
 	virtual Value Unpack(Environment &env, bool forwardFlag,
 						 const char *format, const ValueList &valListArg, bool exeedErrorFlag) = 0;
-	virtual Iterator *CreateUnpackIterator(const char *format, const ValueList &valList) = 0;
+	//virtual Iterator *CreateUnpackIterator(const char *format, const ValueList &valList) = 0;
 };
 
 }

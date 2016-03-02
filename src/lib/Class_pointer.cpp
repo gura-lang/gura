@@ -319,7 +319,9 @@ Gura_DeclareMethod(pointer, unpacks)
 Gura_ImplementMethod(pointer, unpacks)
 {
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
-	Iterator *pIterator = pPointer->CreateUnpackIterator(arg.GetString(0), arg.GetList(1));
+	//Iterator *pIterator = pPointer->CreateUnpackIterator(arg.GetString(0), arg.GetList(1));
+	Iterator *pIterator = new Pointer::IteratorUnpack(
+		pPointer->Clone(), arg.GetString(0), arg.GetList(1));
 	return ReturnIterator(env, arg, pIterator);
 }
 

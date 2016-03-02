@@ -60,6 +60,7 @@ String Object_memory::ToString(bool exprFlag)
 	return rtn;
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Object_memory::IteratorUnpack
 //-----------------------------------------------------------------------------
@@ -89,6 +90,7 @@ String Object_memory::IteratorUnpack::ToString() const
 void Object_memory::IteratorUnpack::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Object_memory::PointerEx
@@ -147,11 +149,13 @@ Value Object_memory::PointerEx::Unpack(Environment &env, bool forwardFlag,
 	return value;
 }
 
+#if 0
 Iterator *Object_memory::PointerEx::CreateUnpackIterator(const char *format, const ValueList &valList)
 {
 	Object_memory *pObj = dynamic_cast<Object_memory *>(_pObjMemory->Reference());
 	return new Object_memory::IteratorUnpack(pObj, format, valList, GetOffset());
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of functions
