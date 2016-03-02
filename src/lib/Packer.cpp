@@ -483,51 +483,81 @@ bool Packer::PutDouble(Environment &env, double num, bool bigEndianFlag)
 
 bool Packer::GetChar(Environment &env, Char *pNum)
 {
+	const UChar *pByte = UnpackPrepare(env, sizeof(Char), true);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackChar(pByte);
 	return true;
 }
 
 bool Packer::GetUChar(Environment &env, UChar *pNum)
 {
+	const UChar *pByte = UnpackPrepare(env, sizeof(UChar), true);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackUChar(pByte);
 	return true;
 }
 
 bool Packer::GetShort(Environment &env, Short *pNum, bool bigEndianFlag)
 {
+	const UChar *pByte = UnpackPrepare(env, sizeof(Short), true);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackShort(pByte, bigEndianFlag);
 	return true;
 }
 
 bool Packer::GetUShort(Environment &env, UShort *pNum, bool bigEndianFlag)
 {
+	const UChar *pByte = UnpackPrepare(env, sizeof(UShort), true);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackUShort(pByte, bigEndianFlag);
 	return true;
 }
 
 bool Packer::GetInt32(Environment &env, Int32 *pNum, bool bigEndianFlag)
 {
+	const UChar *pByte = UnpackPrepare(env, sizeof(Int32), true);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackInt32(pByte, bigEndianFlag);
 	return true;
 }
 
 bool Packer::GetUInt32(Environment &env, UInt32 *pNum, bool bigEndianFlag)
 {
+	const UChar *pByte = UnpackPrepare(env, sizeof(UInt32), true);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackUInt32(pByte, bigEndianFlag);
 	return true;
 }
 
 bool Packer::GetInt64(Environment &env, Int64 *pNum, bool bigEndianFlag)
 {
+	const UChar *pByte = UnpackPrepare(env, sizeof(Int64), true);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackInt64(pByte, bigEndianFlag);
 	return true;
 }
 
 bool Packer::GetUInt64(Environment &env, UInt64 *pNum, bool bigEndianFlag)
 {
+	const UChar *pByte = UnpackPrepare(env, sizeof(UInt64), true);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackUInt64(pByte, bigEndianFlag);
 	return true;
 }
 
 bool Packer::GetFloat(Environment &env, float *pNum, bool bigEndianFlag)
 {
+	const UChar *pByte = UnpackPrepare(env, sizeof(float), true);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackFloat(pByte, bigEndianFlag);
 	return true;
 }
 
 bool Packer::GetDouble(Environment &env, double *pNum, bool bigEndianFlag)
 {
+	const UChar *pByte = UnpackPrepare(env, sizeof(double), true);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackDouble(pByte, bigEndianFlag);
 	return true;
 }
 
