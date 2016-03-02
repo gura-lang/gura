@@ -413,43 +413,71 @@ Value Packer::Unpack(Environment &env, const char *format,
 
 bool Packer::PutChar(Environment &env, Char num)
 {
-	//if (!PackPrepare(env, sizeof(Char))) return false;
+	if (!PackPrepare(env, sizeof(Char))) return false;
 	PackChar(num);
 	return true;
 }
 
 bool Packer::PutUChar(Environment &env, UChar num)
 {
+	if (!PackPrepare(env, sizeof(UChar))) return false;
+	PackUChar(num);
 	return true;
 }
 
 bool Packer::PutShort(Environment &env, Short num, bool bigEndianFlag)
 {
+	if (!PackPrepare(env, sizeof(Short))) return false;
+	PackShort(num, bigEndianFlag);
 	return true;
 }
 
 bool Packer::PutUShort(Environment &env, UShort num, bool bigEndianFlag)
 {
+	if (!PackPrepare(env, sizeof(UShort))) return false;
+	PackUShort(num, bigEndianFlag);
 	return true;
 }
 
 bool Packer::PutInt32(Environment &env, Int32 num, bool bigEndianFlag)
 {
+	if (!PackPrepare(env, sizeof(Int32))) return false;
+	PackInt32(num, bigEndianFlag);
 	return true;
 }
 
 bool Packer::PutUInt32(Environment &env, UInt32 num, bool bigEndianFlag)
 {
+	if (!PackPrepare(env, sizeof(UInt32))) return false;
+	PackUInt32(num, bigEndianFlag);
 	return true;
 }
 
 bool Packer::PutInt64(Environment &env, Int64 num, bool bigEndianFlag)
 {
+	if (!PackPrepare(env, sizeof(Int64))) return false;
+	PackInt64(num, bigEndianFlag);
 	return true;
 }
 
 bool Packer::PutUInt64(Environment &env, UInt64 num, bool bigEndianFlag)
 {
+	if (!PackPrepare(env, sizeof(UInt64))) return false;
+	PackUInt64(num, bigEndianFlag);
+	return true;
+}
+
+bool Packer::PutFloat(Environment &env, float num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(float))) return false;
+	PackFloat(num, bigEndianFlag);
+	return true;
+}
+
+bool Packer::PutDouble(Environment &env, double num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(double))) return false;
+	PackDouble(num, bigEndianFlag);
 	return true;
 }
 
@@ -489,6 +517,16 @@ bool Packer::GetInt64(Environment &env, Int64 *pNum, bool bigEndianFlag)
 }
 
 bool Packer::GetUInt64(Environment &env, UInt64 *pNum, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::GetFloat(Environment &env, float *pNum, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::GetDouble(Environment &env, double *pNum, bool bigEndianFlag)
 {
 	return true;
 }

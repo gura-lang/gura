@@ -25,6 +25,8 @@ public:
 	bool PutUInt32(Environment &env, UInt32 num, bool bigEndianFlag);
 	bool PutInt64(Environment &env, Int64 num, bool bigEndianFlag);
 	bool PutUInt64(Environment &env, UInt64 num, bool bigEndianFlag);
+	bool PutFloat(Environment &env, float num, bool bigEndianFlag);
+	bool PutDouble(Environment &env, double num, bool bigEndianFlag);
 	bool GetChar(Environment &env, Char *pNum);
 	bool GetUChar(Environment &env, UChar *pNum);
 	bool GetShort(Environment &env, Short *pNum, bool bigEndianFlag);
@@ -33,6 +35,8 @@ public:
 	bool GetUInt32(Environment &env, UInt32 *pNum, bool bigEndianFlag);
 	bool GetInt64(Environment &env, Int64 *pNum, bool bigEndianFlag);
 	bool GetUInt64(Environment &env, UInt64 *pNum, bool bigEndianFlag);
+	bool GetFloat(Environment &env, float *pNum, bool bigEndianFlag);
+	bool GetDouble(Environment &env, double *pNum, bool bigEndianFlag);
 public:
 	virtual bool PackPrepare(Environment &env, size_t bytes) = 0;
 	virtual void PackBuffer(const UChar *buff, size_t bytes) = 0;
