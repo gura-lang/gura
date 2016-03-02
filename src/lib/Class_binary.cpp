@@ -187,6 +187,7 @@ bool Object_binary::PointerEx::PackPrepare(Environment &env, size_t bytes)
 
 void Object_binary::PointerEx::PackBuffer(const UChar *buff, size_t bytes)
 {
+	size_t offsetNext = _offset + bytes;
 	if (buff != nullptr) {
 		Binary &binary = _pObjBinary->GetBinary();
 		if (_offset < binary.size()) {
@@ -199,7 +200,7 @@ void Object_binary::PointerEx::PackBuffer(const UChar *buff, size_t bytes)
 		}
 		binary.append(buff, buff + bytes);
 	}
-	_offset += bytes;
+	_offset = offsetNext;
 }
 
 const UChar *Object_binary::PointerEx::UnpackPrepare(

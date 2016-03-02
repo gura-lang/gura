@@ -117,6 +117,23 @@ Gura_ImplementMethod(pointer, forward)
 	return arg.GetValueThis();
 }
 
+// pointer#get@char()
+Gura_DeclareMethodAlias(pointer, get_char, "get@char")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(pointer, get_char)
+{
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	Char num;
+	if (!pPointer->GetChar(env, &num)) return Value::Nil;
+	return Value(num);
+}
+
 // pointer#pack(format:string, value+):reduce:[stay]
 Gura_DeclareMethod(pointer, pack)
 {
@@ -206,13 +223,30 @@ Gura_ImplementMethod(pointer, pack)
 	return arg.GetValueThis();
 }
 
+// pointer#put@char(n:number):reduce:map
+Gura_DeclareMethodAlias(pointer, put_char, "put@char")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(pointer, put_char)
+{
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	pPointer->PutChar(env, arg.GetChar(0));
+	return arg.GetValueThis();
+}
+
 // pointer#reset()
 Gura_DeclareMethod(pointer, reset)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Resets pointer offset to its beginning.");
 }
 
 Gura_ImplementMethod(pointer, reset)
@@ -342,7 +376,9 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignValue(pointer, Value(Reference()));
 	Gura_AssignMethod(pointer, dump);
 	Gura_AssignMethod(pointer, forward);
+	Gura_AssignMethod(pointer, get_char);
 	Gura_AssignMethod(pointer, pack);
+	Gura_AssignMethod(pointer, put_char);
 	Gura_AssignMethod(pointer, reset);
 	Gura_AssignMethod(pointer, unpack);
 	Gura_AssignMethod(pointer, unpacks);
