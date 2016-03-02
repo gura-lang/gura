@@ -12,19 +12,6 @@
 namespace Gura {
 
 class GURA_DLLDECLARE Binary : public String {
-#if 0
-public:
-	class GURA_DLLDECLARE PackerEx : public Packer {
-	private:
-		Binary &_buff;
-	public:
-		inline PackerEx(Binary &buff) : _buff(buff) {}
-		virtual bool PackPrepare(Signal &sig, size_t offset, size_t bytes);
-		virtual void PackBuffer(size_t offset, const UChar *buff, size_t bytes);
-		virtual const UChar *UnpackPrepare(Signal &sig, size_t offset,
-									  size_t bytes, bool exceedErrorFlag);
-	};
-#endif
 public:
 	inline Binary() {}
 	inline Binary(const Binary &binary) : String(binary) {}

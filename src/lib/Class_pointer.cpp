@@ -199,7 +199,7 @@ Gura_ImplementMethod(pointer, pack)
 		return Value::Nil;
 	}
 	bool forwardFlag = !arg.IsSet(Gura_Symbol(stay));
-	pPointer->Pack(env, forwardFlag, arg.GetString(0), arg.GetList(1));
+	pPointer->Pack(env, arg.GetString(0), arg.GetList(1), forwardFlag);
 	return arg.GetValueThis();
 }
 
@@ -295,8 +295,7 @@ Gura_ImplementMethod(pointer, unpack)
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	bool forwardFlag = !arg.IsSet(Gura_Symbol(stay));
 	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil));
-	return pPointer->Unpack(env, forwardFlag,
-							arg.GetString(0), arg.GetList(1), exceedErrorFlag);
+	return pPointer->Unpack(env, arg.GetString(0), arg.GetList(1), forwardFlag, exceedErrorFlag);
 }
 
 // pointer#unpacks(format:string, values*:number) {block?}

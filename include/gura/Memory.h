@@ -12,19 +12,6 @@ namespace Gura {
 // Memory
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Memory {
-#if 0
-public:
-	class GURA_DLLDECLARE PackerEx : public Packer {
-	private:
-		Memory &_memory;
-	public:
-		inline PackerEx(Memory &memory) : _memory(memory) {}
-		virtual bool PackPrepare(Signal &sig, size_t offset, size_t bytes);
-		virtual void PackBuffer(size_t offset, const UChar *buff, size_t bytes);
-		virtual const UChar *UnpackPrepare(Signal &sig, size_t offset,
-										   size_t bytes, bool exceedErrorFlag);
-	};
-#endif
 protected:
 	int _cntRef;
 	size_t _bytes;

@@ -45,10 +45,10 @@ public:
 		return (_offset < bytesEntire)? bytesEntire - _offset : 0;
 	}
 	bool Advance(Environment &env, int distance);
-	bool Pack(Environment &env, bool forwardFlag,
-			  const char *format, const ValueList &valListArg);
-	Value Unpack(Environment &env, bool forwardFlag,
-				 const char *format, const ValueList &valListArg, bool exeedErrorFlag);
+	bool Pack(Environment &env, const char *format,
+			  const ValueList &valListArg, bool forwardFlag);
+	Value Unpack(Environment &env, const char *format,
+				 const ValueList &valListArg, bool forwardFlag, bool exeedErrorFlag);
 public:
 	virtual Pointer *Clone() const = 0;
 	virtual Object *GetTarget() const = 0;

@@ -244,26 +244,6 @@ bool Object_binary::PointerEx::IsWritable() const
 	return _pObjBinary->IsWritable();
 }
 
-#if 0
-bool Object_binary::PointerEx::Pack(Environment &env, bool forwardFlag,
-					  const char *format, const ValueList &valListArg)
-{
-	size_t offset = _offset;
-	if (!Binary::PackerEx(_pObjBinary->GetBinary()).DoPack(env, offset, format, valListArg)) return false;
-	if (forwardFlag) _offset = offset;
-	return true;
-}
-
-Value Object_binary::PointerEx::Unpack(Environment &env, bool forwardFlag,
-						 const char *format, const ValueList &valListArg, bool exceedErrorFlag)
-{
-	size_t offset = _offset;
-	Value value = Binary::PackerEx(_pObjBinary->GetBinary()).DoUnpack(env, offset, format, valListArg, exceedErrorFlag);
-	if (forwardFlag) _offset = offset;
-	return value;
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
