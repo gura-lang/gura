@@ -5,7 +5,6 @@
 #define __GURA_PACKER_H__
 
 #include "Common.h"
-#include "Signal.h"
 #include "Value.h"
 
 namespace Gura {
@@ -18,16 +17,32 @@ public:
 	bool Pack(Environment &env, const char *format, const ValueList &valListArg);
 	Value Unpack(Environment &env, const char *format,
 				 const ValueList &valListArg, bool exceedErrorFlag);
+	bool PutChar(Environment &env, Char num);
+	bool PutUChar(Environment &env, UChar num);
+	bool PutShort(Environment &env, Short num, bool bigEndianFlag);
+	bool PutUShort(Environment &env, UShort num, bool bigEndianFlag);
+	bool PutInt32(Environment &env, Int32 num, bool bigEndianFlag);
+	bool PutUInt32(Environment &env, UInt32 num, bool bigEndianFlag);
+	bool PutInt64(Environment &env, Int64 num, bool bigEndianFlag);
+	bool PutUInt64(Environment &env, UInt64 num, bool bigEndianFlag);
+	bool GetChar(Environment &env, Char *pNum);
+	bool GetUChar(Environment &env, UChar *pNum);
+	bool GetShort(Environment &env, Short *pNum, bool bigEndianFlag);
+	bool GetUShort(Environment &env, UShort *pNum, bool bigEndianFlag);
+	bool GetInt32(Environment &env, Int32 *pNum, bool bigEndianFlag);
+	bool GetUInt32(Environment &env, UInt32 *pNum, bool bigEndianFlag);
+	bool GetInt64(Environment &env, Int64 *pNum, bool bigEndianFlag);
+	bool GetUInt64(Environment &env, UInt64 *pNum, bool bigEndianFlag);
 public:
-	virtual bool PackPrepare(Signal &sig, size_t bytes) = 0;
+	virtual bool PackPrepare(Environment &env, size_t bytes) = 0;
 	virtual void PackBuffer(const UChar *buff, size_t bytes) = 0;
-	virtual const UChar *UnpackPrepare(Signal &sig, size_t bytes, bool exceedErrorFlag) = 0;
+	virtual const UChar *UnpackPrepare(Environment &env, size_t bytes, bool exceedErrorFlag) = 0;
 private:
-	static bool CheckString(Signal &sig,
+	static bool CheckString(Environment &env,
 							const ValueList &valList, ValueList::const_iterator pValue);
-	static bool CheckNumber(Signal &sig,
+	static bool CheckNumber(Environment &env,
 							const ValueList &valList, ValueList::const_iterator pValue);
-	static bool CheckNumber(Signal &sig, const ValueList &valList,
+	static bool CheckNumber(Environment &env, const ValueList &valList,
 							ValueList::const_iterator pValue, Number numMin, Number numMax);
 private:
 	inline void PackForward(size_t bytes) {

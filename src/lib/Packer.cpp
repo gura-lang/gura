@@ -73,103 +73,103 @@ bool Packer::Pack(Environment &env, const char *format, const ValueList &valList
 		} else if (ch == '!') {
 			bigEndianFlag = true;
 		} else if (ch == 'x') {
-			if (!PackPrepare(sig, nRepeat)) return false;
+			if (!PackPrepare(env, nRepeat)) return false;
 			PackForward(nRepeat);
 			nRepeat = 1;
 		} else if (ch == 'c') {
-			if (!PackPrepare(sig, nRepeat)) return false;
+			if (!PackPrepare(env, nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckString(sig, valListArg, pValueArg)) return false;
+				if (!CheckString(env, valListArg, pValueArg)) return false;
 				PackChar(pValueArg->GetString()[0]);
 			}
 			nRepeat = 1;
 		} else if (ch == 'b') {
-			if (!PackPrepare(sig, nRepeat)) return false;
+			if (!PackPrepare(env, nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg, -128, 127)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg, -128, 127)) return false;
 				PackChar(pValueArg->GetChar());
 			}
 			nRepeat = 1;
 		} else if (ch == 'B') {
-			if (!PackPrepare(sig, nRepeat)) return false;
+			if (!PackPrepare(env, nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg, 0, 255)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg, 0, 255)) return false;
 				PackUChar(pValueArg->GetUChar());
 			}
 			nRepeat = 1;
 		} else if (ch == 'h') {
-			if (!PackPrepare(sig, sizeof(Short) * nRepeat)) return false;
+			if (!PackPrepare(env, sizeof(Short) * nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg, -32768, 32767)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg, -32768, 32767)) return false;
 				PackShort(pValueArg->GetShort(), bigEndianFlag);
 			}
 			nRepeat = 1;
 		} else if (ch == 'H') {
-			if (!PackPrepare(sig, sizeof(UShort) * nRepeat)) return false;
+			if (!PackPrepare(env, sizeof(UShort) * nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg, 0, 65535)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg, 0, 65535)) return false;
 				PackUShort(pValueArg->GetUShort(), bigEndianFlag);
 			}
 			nRepeat = 1;
 		} else if (ch == 'i') {
-			if (!PackPrepare(sig, sizeof(Int32) * nRepeat)) return false;
+			if (!PackPrepare(env, sizeof(Int32) * nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg, -2147483648., 2147483647.)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg, -2147483648., 2147483647.)) return false;
 				PackInt32(pValueArg->GetInt32(), bigEndianFlag);
 			}
 			nRepeat = 1;
 		} else if (ch == 'I') {
-			if (!PackPrepare(sig, sizeof(UInt32) * nRepeat)) return false;
+			if (!PackPrepare(env, sizeof(UInt32) * nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg, 0, 4294967295.)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg, 0, 4294967295.)) return false;
 				PackUInt32(pValueArg->GetUInt32(), bigEndianFlag);
 			}
 			nRepeat = 1;
 		} else if (ch == 'l') {
-			if (!PackPrepare(sig, sizeof(Int32) * nRepeat)) return false;
+			if (!PackPrepare(env, sizeof(Int32) * nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg, -2147483648., 2147483647.)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg, -2147483648., 2147483647.)) return false;
 				PackInt32(pValueArg->GetInt32(), bigEndianFlag);
 			}
 			nRepeat = 1;
 		} else if (ch == 'L') {
-			if (!PackPrepare(sig, sizeof(UInt32) * nRepeat)) return false;
+			if (!PackPrepare(env, sizeof(UInt32) * nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg, 0, 4294967295.)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg, 0, 4294967295.)) return false;
 				PackUInt32(pValueArg->GetUInt32(), bigEndianFlag);
 			}
 			nRepeat = 1;
 		} else if (ch == 'q') {
-			if (!PackPrepare(sig, sizeof(Int64) * nRepeat)) return false;
+			if (!PackPrepare(env, sizeof(Int64) * nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg)) return false;
 				PackInt64(pValueArg->GetInt64(), bigEndianFlag);
 			}
 			nRepeat = 1;
 		} else if (ch == 'Q') {
-			if (!PackPrepare(sig, sizeof(UInt64) * nRepeat)) return false;
+			if (!PackPrepare(env, sizeof(UInt64) * nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg)) return false;
 				PackUInt64(pValueArg->GetUInt64(), bigEndianFlag);
 			}
 			nRepeat = 1;
 		} else if (ch == 'f') {
-			if (!PackPrepare(sig, sizeof(float) * nRepeat)) return false;
+			if (!PackPrepare(env, sizeof(float) * nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg)) return false;
 				PackFloat(pValueArg->GetFloat(), bigEndianFlag);
 			}
 			nRepeat = 1;
 		} else if (ch == 'd') {
-			if (!PackPrepare(sig, sizeof(double) * nRepeat)) return false;
+			if (!PackPrepare(env, sizeof(double) * nRepeat)) return false;
 			for (int i = 0; i < nRepeat; i++, pValueArg++) {
-				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				if (!CheckNumber(env, valListArg, pValueArg)) return false;
 				PackDouble(pValueArg->GetDouble(), bigEndianFlag);
 			}
 			nRepeat = 1;
 		} else if (ch == 's') {
-			if (!PackPrepare(sig, nRepeat)) return false;
-			if (!CheckString(sig, valListArg, pValueArg)) return false;
+			if (!PackPrepare(env, nRepeat)) return false;
+			if (!CheckString(env, valListArg, pValueArg)) return false;
 			const char *p = pValueArg->GetString();
 			int nPacked = 0;
 			char chConv;
@@ -276,11 +276,11 @@ Value Packer::Unpack(Environment &env, const char *format,
 		} else if (ch == '!') {
 			bigEndianFlag = true;
 		} else if (ch == 'x') {
-			const UChar *pByte = UnpackPrepare(sig, nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			nRepeat = 1;
 		} else if (ch == 'c') {
-			const UChar *pByte = UnpackPrepare(sig, nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			char str[2];
 			str[1] = '\0';
@@ -290,91 +290,91 @@ Value Packer::Unpack(Environment &env, const char *format,
 			}
 			nRepeat = 1;
 		} else if (ch == 'b') {
-			const UChar *pByte = UnpackPrepare(sig, nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte++) {
 				pObjList->Add(Value(UnpackChar(pByte)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'B') {
-			const UChar *pByte = UnpackPrepare(sig, nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte++) {
 				pObjList->Add(Value(UnpackUChar(pByte)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'h') {
-			const UChar *pByte = UnpackPrepare(sig, sizeof(Short) * nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, sizeof(Short) * nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += sizeof(Short)) {
 				pObjList->Add(Value(UnpackShort(pByte, bigEndianFlag)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'H') {
-			const UChar *pByte = UnpackPrepare(sig, sizeof(UShort) * nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, sizeof(UShort) * nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += sizeof(UShort)) {
 				pObjList->Add(Value(UnpackUShort(pByte, bigEndianFlag)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'i') {
-			const UChar *pByte = UnpackPrepare(sig, sizeof(Int32) * nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, sizeof(Int32) * nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += sizeof(Int32)) {
 				pObjList->Add(Value(UnpackInt32(pByte, bigEndianFlag)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'I') {
-			const UChar *pByte = UnpackPrepare(sig, sizeof(UInt32) * nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, sizeof(UInt32) * nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += sizeof(UInt32)) {
 				pObjList->Add(Value(UnpackUInt32(pByte, bigEndianFlag)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'l') {
-			const UChar *pByte = UnpackPrepare(sig, sizeof(Int32) * nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, sizeof(Int32) * nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += sizeof(Int32)) {
 				pObjList->Add(Value(UnpackInt32(pByte, bigEndianFlag)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'L') {
-			const UChar *pByte = UnpackPrepare(sig, sizeof(UInt32) * nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, sizeof(UInt32) * nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += sizeof(UInt32)) {
 				pObjList->Add(Value(UnpackUInt32(pByte, bigEndianFlag)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'q') {
-			const UChar *pByte = UnpackPrepare(sig, sizeof(Int64) * nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, sizeof(Int64) * nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += sizeof(Int64)) {
 				pObjList->Add(Value(UnpackInt64(pByte, bigEndianFlag)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'Q') {
-			const UChar *pByte = UnpackPrepare(sig, sizeof(UInt64) * nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, sizeof(UInt64) * nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += sizeof(UInt64)) {
 				pObjList->Add(Value(UnpackUInt64(pByte, bigEndianFlag)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'f') {
-			const UChar *pByte = UnpackPrepare(sig, sizeof(float) * nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, sizeof(float) * nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += sizeof(float)) {
 				pObjList->Add(Value(UnpackFloat(pByte, bigEndianFlag)));
 			}
 			nRepeat = 1;
 		} else if (ch == 'd') {
-			const UChar *pByte = UnpackPrepare(sig, sizeof(double) * nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, sizeof(double) * nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			for (int i = 0; i < nRepeat; i++, pByte += sizeof(double)) {
 				pObjList->Add(Value(UnpackDouble(pByte, bigEndianFlag)));
 			}
 			nRepeat = 1;
 		} else if (ch == 's') {
-			const UChar *pByte = UnpackPrepare(sig, nRepeat, exceedErrorFlag);
+			const UChar *pByte = UnpackPrepare(env, nRepeat, exceedErrorFlag);
 			if (pByte == nullptr) return Value::Nil;
 			String str;
 			str.reserve(nRepeat);
@@ -411,39 +411,121 @@ Value Packer::Unpack(Environment &env, const char *format,
 	return result;
 }
 
-bool Packer::CheckString(Signal &sig,
+bool Packer::PutChar(Environment &env, Char num)
+{
+	//if (!PackPrepare(env, sizeof(Char))) return false;
+	PackChar(num);
+	return true;
+}
+
+bool Packer::PutUChar(Environment &env, UChar num)
+{
+	return true;
+}
+
+bool Packer::PutShort(Environment &env, Short num, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::PutUShort(Environment &env, UShort num, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::PutInt32(Environment &env, Int32 num, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::PutUInt32(Environment &env, UInt32 num, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::PutInt64(Environment &env, Int64 num, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::PutUInt64(Environment &env, UInt64 num, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::GetChar(Environment &env, Char *pNum)
+{
+	return true;
+}
+
+bool Packer::GetUChar(Environment &env, UChar *pNum)
+{
+	return true;
+}
+
+bool Packer::GetShort(Environment &env, Short *pNum, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::GetUShort(Environment &env, UShort *pNum, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::GetInt32(Environment &env, Int32 *pNum, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::GetUInt32(Environment &env, UInt32 *pNum, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::GetInt64(Environment &env, Int64 *pNum, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::GetUInt64(Environment &env, UInt64 *pNum, bool bigEndianFlag)
+{
+	return true;
+}
+
+bool Packer::CheckString(Environment &env,
 				const ValueList &valList, ValueList::const_iterator pValue)
 {
 	if (pValue == valList.end()) {
-		sig.SetError(ERR_ValueError, "not enough arguments");
+		env.SetError(ERR_ValueError, "not enough arguments");
 		return false;
 	} else if (!pValue->Is_string()) {
-		sig.SetError(ERR_ValueError, "string value is expected");
+		env.SetError(ERR_ValueError, "string value is expected");
 		return false;
 	}
 	return true;
 }
 
-bool Packer::CheckNumber(Signal &sig,
+bool Packer::CheckNumber(Environment &env,
 				const ValueList &valList, ValueList::const_iterator pValue)
 {
 	if (pValue == valList.end()) {
-		sig.SetError(ERR_ValueError, "not enough arguments");
+		env.SetError(ERR_ValueError, "not enough arguments");
 		return false;
 	} else if (!pValue->Is_number()) {
-		sig.SetError(ERR_ValueError, "number value is expected");
+		env.SetError(ERR_ValueError, "number value is expected");
 		return false;
 	}
 	return true;
 }
 
-bool Packer::CheckNumber(Signal &sig, const ValueList &valList,
+bool Packer::CheckNumber(Environment &env, const ValueList &valList,
 				ValueList::const_iterator pValue, Number numMin, Number numMax)
 {
-	if (!CheckNumber(sig, valList, pValue)) return false;
+	if (!CheckNumber(env, valList, pValue)) return false;
 	Number num = pValue->GetNumber();
 	if (num < numMin || num > numMax) {
-		sig.SetError(ERR_ValueError, "number is out of range");
+		env.SetError(ERR_ValueError, "number is out of range");
 		return false;
 	}
 	return true;

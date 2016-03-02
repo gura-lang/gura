@@ -49,19 +49,15 @@ public:
 		inline Binary &GetBinary() { return _pObjBinary->GetBinary(); }
 		inline const Binary &GetBinary() const { return _pObjBinary->GetBinary(); }
 	public:
-		virtual bool PackPrepare(Signal &sig, size_t bytes);
+		virtual bool PackPrepare(Environment &env, size_t bytes);
 		virtual void PackBuffer(const UChar *buff, size_t bytes);
-		virtual const UChar *UnpackPrepare(Signal &sig, size_t bytes, bool exceedErrorFlag);
+		virtual const UChar *UnpackPrepare(Environment &env, size_t bytes, bool exceedErrorFlag);
 	public:
 		virtual Pointer *Clone() const;
 		virtual Object *GetTarget() const;
 		virtual const UChar *GetPointerC() const;
 		virtual size_t GetEntireSize() const;
 		virtual bool IsWritable() const;
-		//virtual bool Pack(Environment &env, bool forwardFlag,
-		//				  const char *format, const ValueList &valListArg);
-		//virtual Value Unpack(Environment &env, bool forwardFlag,
-		//					 const char *format, const ValueList &valListArg, bool exeedErrorFlag);
 	};
 public:
 	Gura_DeclareObjectAccessor(binary)

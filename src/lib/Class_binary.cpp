@@ -46,22 +46,21 @@ Value Object_binary::DoGetProp(Environment &env, const Symbol *pSymbol,
 
 Value Object_binary::IndexGet(Environment &env, const Value &valueIdx)
 {
-	Signal &sig = GetSignal();
 	if (!valueIdx.Is_number()) {
-		sig.SetError(ERR_IndexError, "index must be a number for binary");
+		env.SetError(ERR_IndexError, "index must be a number for binary");
 		return Value::Nil;
 	}
 	int idx = valueIdx.GetInt();
 	int len = static_cast<int>(_binary.size());
 	if (idx >= 0) {
 		if (idx >= len) {
-			sig.SetError(ERR_IndexError, "index is out of range");
+			env.SetError(ERR_IndexError, "index is out of range");
 			return Value::Nil;
 		}
 		return Value(static_cast<UChar>(_binary[idx]));
 	} else {
 		if (-idx > len) {
-			sig.SetError(ERR_IndexError, "index is out of range");
+			env.SetError(ERR_IndexError, "index is out of range");
 			return Value::Nil;
 		}
 		return Value(static_cast<UChar>(_binary[len + idx]));
@@ -70,35 +69,34 @@ Value Object_binary::IndexGet(Environment &env, const Value &valueIdx)
 
 void Object_binary::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
-	Signal &sig = GetSignal();
 	if (!IsWritable()) {
-		sig.SetError(ERR_ValueError, "not a writable binary");
+		env.SetError(ERR_ValueError, "not a writable binary");
 		return;
 	}
 	if (!valueIdx.Is_number()) {
-		sig.SetError(ERR_IndexError, "index must be a number for binary");
+		env.SetError(ERR_IndexError, "index must be a number for binary");
 		return;
 	}
 	if (!value.Is_number()) {
-		sig.SetError(ERR_IndexError, "value must be a number for binary");
+		env.SetError(ERR_IndexError, "value must be a number for binary");
 		return;
 	}
 	int idx = valueIdx.GetInt();
 	long data = value.GetLong();
 	if (data < 0 || data > 255) {
-		sig.SetError(ERR_IndexError, "value must be between 0 and 255");
+		env.SetError(ERR_IndexError, "value must be between 0 and 255");
 		return;
 	}
 	int len = static_cast<int>(_binary.size());
 	if (idx >= 0) {
 		if (idx >= len) {
-			sig.SetError(ERR_IndexError, "index is out of range");
+			env.SetError(ERR_IndexError, "index is out of range");
 			return;
 		}
 		_binary[idx] = static_cast<UChar>(data);
 	} else {
 		if (-idx > len) {
-			sig.SetError(ERR_IndexError, "index is out of range");
+			env.SetError(ERR_IndexError, "index is out of range");
 			return;
 		}
 		_binary[len + idx] = static_cast<UChar>(data);
@@ -182,7 +180,7 @@ Object_binary::PointerEx::PointerEx(const PointerEx &ptr) :
 {
 }
 
-bool Object_binary::PointerEx::PackPrepare(Signal &sig, size_t bytes)
+bool Object_binary::PointerEx::PackPrepare(Environment &env, size_t bytes)
 {
 	return true;
 }
@@ -205,7 +203,7 @@ void Object_binary::PointerEx::PackBuffer(const UChar *buff, size_t bytes)
 }
 
 const UChar *Object_binary::PointerEx::UnpackPrepare(
-	Signal &sig, size_t bytes, bool exceedErrorFlag)
+	Environment &env, size_t bytes, bool exceedErrorFlag)
 {
 	Binary &binary = _pObjBinary->GetBinary();
 	if (_offset + bytes <= binary.size()) {
@@ -214,7 +212,7 @@ const UChar *Object_binary::PointerEx::UnpackPrepare(
 		return p;
 	}
 	if (exceedErrorFlag) {
-		sig.SetError(ERR_IndexError, "pointer exceeds the range of binary");
+		env.SetError(ERR_IndexError, "pointer exceeds the range of binary");
 	}
 	return nullptr;
 }
@@ -264,7 +262,6 @@ Gura_DeclareFunction(binary)
 
 Gura_ImplementFunction(binary)
 {
-	Signal &sig = env.GetSignal();
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	Binary &binary = pObjBinary->GetBinary();
 	foreach_const (ValueList, pValue, arg.GetList(0)) {
@@ -273,7 +270,7 @@ Gura_ImplementFunction(binary)
 		} else if (pValue->Is_binary()) {
 			binary += pValue->GetBinary();
 		} else {
-			sig.SetError(ERR_ValueError, "string or binary is expected");
+			env.SetError(ERR_ValueError, "string or binary is expected");
 			return Value::Nil;
 		}
 	}
@@ -296,10 +293,9 @@ Gura_DeclareMethod(binary, add)
 
 Gura_ImplementMethod(binary, add)
 {
-	Signal &sig = env.GetSignal();
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	if (!pThis->IsWritable()) {
-		sig.SetError(ERR_ValueError, "not a writable binary");
+		env.SetError(ERR_ValueError, "not a writable binary");
 		return Value::Nil;
 	}
 	foreach_const (ValueList, pValue, arg.GetList(0)) {
@@ -538,10 +534,9 @@ Gura_DeclareMethod(binary, store)
 
 Gura_ImplementMethod(binary, store)
 {
-	Signal &sig = env.GetSignal();
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	if (!pThis->IsWritable()) {
-		sig.SetError(ERR_ValueError, "not a writable binary");
+		env.SetError(ERR_ValueError, "not a writable binary");
 		return Value::Nil;
 	}
 	size_t offset = arg.GetSizeT(0);
