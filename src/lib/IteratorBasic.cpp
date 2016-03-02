@@ -1465,10 +1465,10 @@ bool Iterator_Pack::DoNext(Environment &env, Value &value)
 	AutoPtr<Object_binary::PointerEx> pPointer(
 		new Object_binary::PointerEx(0, pObjBinary->Reference()));
 	if (valueSrc.Is_list()) {
-		if (!pPointer->Pack(env, _format.c_str(), valueSrc.GetList(), true)) return false;
+		if (!pPointer->Pack(env, _format.c_str(), valueSrc.GetList())) return false;
 	} else {
 		ValueList valList(valueSrc);
-		if (!pPointer->Pack(env, _format.c_str(), valList, true)) return false;
+		if (!pPointer->Pack(env, _format.c_str(), valList)) return false;
 	}
 	value = Value(pObjBinary.release());
 	return true;

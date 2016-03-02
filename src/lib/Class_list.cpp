@@ -1627,7 +1627,7 @@ Gura_ImplementMethod(list, pack)
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	AutoPtr<Object_binary::PointerEx> pPointer(
 		new Object_binary::PointerEx(0, pObjBinary->Reference()));
-	if (!pPointer->Pack(env, arg.GetString(0), pThis->GetList(), true)) return Value::Nil;
+	if (!pPointer->Pack(env, arg.GetString(0), pThis->GetList())) return Value::Nil;
 	return Value(pObjBinary.release());
 }
 

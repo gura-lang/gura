@@ -30,21 +30,20 @@ bool Pointer::Advance(Environment &env, int distance)
 	return false;
 }
 
-bool Pointer::Pack(Environment &env, const char *format,
-				   const ValueList &valListArg, bool forwardFlag)
+bool Pointer::PackStay(Environment &env, const char *format, const ValueList &valListArg)
 {
 	size_t offset = _offset;
-	if (!DoPack(env, format, valListArg)) return false;
-	if (!forwardFlag) _offset = offset;
+	if (!Pack(env, format, valListArg)) return false;
+	_offset = offset;
 	return true;
 }
 
-Value Pointer::Unpack(Environment &env, const char *format,
-					  const ValueList &valListArg, bool forwardFlag, bool exceedErrorFlag)
+Value Pointer::UnpackStay(Environment &env, const char *format,
+					  const ValueList &valListArg, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	Value value = DoUnpack(env, format, valListArg, exceedErrorFlag);
-	if (!forwardFlag) _offset = offset;
+	Value value = Unpack(env, format, valListArg, exceedErrorFlag);
+	_offset = offset;
 	return value;
 }
 
@@ -64,7 +63,7 @@ Iterator *Pointer::IteratorUnpack::GetSource()
 
 bool Pointer::IteratorUnpack::DoNext(Environment &env, Value &value)
 {
-	value = _pPointer->Unpack(env, _format.c_str(), _valListArg, true, false);
+	value = _pPointer->Unpack(env, _format.c_str(), _valListArg, false);
 	return value.IsValid();
 }
 

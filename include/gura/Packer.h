@@ -15,9 +15,9 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Packer {
 public:
-	bool DoPack(Environment &env, const char *format, const ValueList &valListArg);
-	Value DoUnpack(Environment &env, const char *format,
-				   const ValueList &valListArg, bool exceedErrorFlag);
+	bool Pack(Environment &env, const char *format, const ValueList &valListArg);
+	Value Unpack(Environment &env, const char *format,
+				 const ValueList &valListArg, bool exceedErrorFlag);
 public:
 	virtual bool PackPrepare(Signal &sig, size_t bytes) = 0;
 	virtual void PackBuffer(const UChar *buff, size_t bytes) = 0;

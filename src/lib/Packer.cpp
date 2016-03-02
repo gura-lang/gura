@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Packer
 //-----------------------------------------------------------------------------
-bool Packer::DoPack(Environment &env, const char *format, const ValueList &valListArg)
+bool Packer::Pack(Environment &env, const char *format, const ValueList &valListArg)
 {
 	Signal &sig = env.GetSignal();
 	enum {
@@ -208,8 +208,8 @@ bool Packer::DoPack(Environment &env, const char *format, const ValueList &valLi
 	return true;
 }
 
-Value Packer::DoUnpack(Environment &env, const char *format,
-					   const ValueList &valListArg, bool exceedErrorFlag)
+Value Packer::Unpack(Environment &env, const char *format,
+					 const ValueList &valListArg, bool exceedErrorFlag)
 {
 	Signal &sig = env.GetSignal();
 	enum {
