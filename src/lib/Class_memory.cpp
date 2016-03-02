@@ -102,8 +102,7 @@ bool Object_memory::PointerEx::Pack(Environment &env, bool forwardFlag,
 					  const char *format, const ValueList &valListArg)
 {
 	size_t offset = _offset;
-	if (!Memory::PackerEx(_pObjMemory->GetMemory()).Pack(env, offset, format, valListArg)) return false;
-	//if (!_pObjMemory->GetMemory().Pack(env, offset, format, valListArg)) return false;
+	if (!Memory::PackerEx(_pObjMemory->GetMemory()).DoPack(env, offset, format, valListArg)) return false;
 	if (forwardFlag) _offset = offset;
 	return true;
 }
@@ -112,9 +111,7 @@ Value Object_memory::PointerEx::Unpack(Environment &env, bool forwardFlag,
 						 const char *format, const ValueList &valListArg, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	//Value value = _pObjMemory->GetMemory().Unpack(env, offset,
-	//					format, valListArg, exceedErrorFlag);
-	Value value = Memory::PackerEx(_pObjMemory->GetMemory()).Unpack(env, offset, format, valListArg, exceedErrorFlag);
+	Value value = Memory::PackerEx(_pObjMemory->GetMemory()).DoUnpack(env, offset, format, valListArg, exceedErrorFlag);
 	if (forwardFlag) _offset = offset;
 	return value;
 }

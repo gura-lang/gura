@@ -8,7 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Binary::PackerEx
 //-----------------------------------------------------------------------------
-bool Binary::PackerEx::PackAt(Signal &sig, size_t offset, size_t bytes)
+bool Binary::PackerEx::PackPrepare(Signal &sig, size_t offset, size_t bytes)
 {
 	return true;
 }
@@ -26,7 +26,7 @@ void Binary::PackerEx::PackBuffer(size_t offset, const UChar *buff, size_t bytes
 	_buff.append(buff, buff + bytes);
 }
 
-const UChar *Binary::PackerEx::UnpackAt(Signal &sig, size_t offset,
+const UChar *Binary::PackerEx::UnpackPrepare(Signal &sig, size_t offset,
 										size_t bytes, bool exceedErrorFlag)
 {
 	if (offset + bytes <= _buff.size()) {

@@ -18,9 +18,9 @@ public:
 		Binary &_buff;
 	public:
 		inline PackerEx(Binary &buff) : _buff(buff) {}
-		virtual bool PackAt(Signal &sig, size_t offset, size_t bytes);
+		virtual bool PackPrepare(Signal &sig, size_t offset, size_t bytes);
 		virtual void PackBuffer(size_t offset, const UChar *buff, size_t bytes);
-		virtual const UChar *UnpackAt(Signal &sig, size_t offset,
+		virtual const UChar *UnpackPrepare(Signal &sig, size_t offset,
 									  size_t bytes, bool exceedErrorFlag);
 	};
 public:
@@ -33,17 +33,6 @@ public:
 		String::operator=(binary);
 		return *this;
 	}
-#if 0
-public:
-	inline bool Pack(Environment &env, size_t &offset,
-					 const char *format, const ValueList &valListArg) {
-		return PackerEx(*this).Pack(env, offset, format, valListArg);
-	}
-	inline Value Unpack(Environment &env, size_t &offset, const char *format,
-						const ValueList &valListArg, bool exceedErrorFlag) {
-		return PackerEx(*this).Unpack(env, offset, format, valListArg, exceedErrorFlag);
-	}
-#endif
 };
 
 }

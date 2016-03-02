@@ -15,13 +15,13 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Packer {
 public:
-	bool Pack(Environment &env, size_t &offset,
+	bool DoPack(Environment &env, size_t &offset,
 			  const char *format, const ValueList &valListArg);
-	Value Unpack(Environment &env, size_t &offset,
+	Value DoUnpack(Environment &env, size_t &offset,
 				 const char *format, const ValueList &valListArg, bool exceedErrorFlag);
-	virtual bool PackAt(Signal &sig, size_t offset, size_t bytes) = 0;
+	virtual bool PackPrepare(Signal &sig, size_t offset, size_t bytes) = 0;
 	virtual void PackBuffer(size_t offset, const UChar *buff, size_t bytes) = 0;
-	virtual const UChar *UnpackAt(Signal &sig, size_t offset,
+	virtual const UChar *UnpackPrepare(Signal &sig, size_t offset,
 								  size_t bytes, bool exceedErrorFlag) = 0;
 private:
 	static bool CheckString(Signal &sig,

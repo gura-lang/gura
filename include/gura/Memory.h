@@ -18,10 +18,10 @@ public:
 		Memory &_memory;
 	public:
 		inline PackerEx(Memory &memory) : _memory(memory) {}
-		virtual bool PackAt(Signal &sig, size_t offset, size_t bytes);
+		virtual bool PackPrepare(Signal &sig, size_t offset, size_t bytes);
 		virtual void PackBuffer(size_t offset, const UChar *buff, size_t bytes);
-		virtual const UChar *UnpackAt(Signal &sig, size_t offset,
-									  size_t bytes, bool exceedErrorFlag);
+		virtual const UChar *UnpackPrepare(Signal &sig, size_t offset,
+										   size_t bytes, bool exceedErrorFlag);
 	};
 protected:
 	int _cntRef;
@@ -41,17 +41,6 @@ public:
 	inline char *GetPointer(size_t offset) { return _buff + offset; }
 	inline const char *GetPointer() const { return _buff; }
 	inline const char *GetPointer(size_t offset) const { return _buff + offset; }
-#if 0
-public:
-	inline bool Pack(Environment &env, size_t &offset,
-					 const char *format, const ValueList &valListArg) {
-		return PackerEx(*this).Pack(env, offset, format, valListArg);
-	}
-	inline Value Unpack(Environment &env, size_t &offset, const char *format,
-						const ValueList &valListArg, bool exceedErrorFlag) {
-		return PackerEx(*this).Unpack(env, offset, format, valListArg, exceedErrorFlag);
-	}
-#endif
 private:
 	inline Memory(const Memory &memory) {}
 };
