@@ -33,6 +33,7 @@ public:
 		String::operator=(binary);
 		return *this;
 	}
+#if 0
 public:
 	inline bool Pack(Environment &env, size_t &offset,
 					 const char *format, const ValueList &valListArg) {
@@ -42,6 +43,7 @@ public:
 						const ValueList &valListArg, bool exceedErrorFlag) {
 		return PackerEx(*this).Unpack(env, offset, format, valListArg, exceedErrorFlag);
 	}
+#endif
 };
 
 }

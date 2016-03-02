@@ -211,7 +211,8 @@ bool Object_binary::PointerEx::Pack(Environment &env, bool forwardFlag,
 					  const char *format, const ValueList &valListArg)
 {
 	size_t offset = _offset;
-	if (!_pObjBinary->GetBinary().Pack(env, offset, format, valListArg)) return false;
+	if (!Binary::PackerEx(_pObjBinary->GetBinary()).Pack(env, offset, format, valListArg)) return false;
+	//if (!_pObjBinary->GetBinary().Pack(env, offset, format, valListArg)) return false;
 	if (forwardFlag) _offset = offset;
 	return true;
 }
@@ -220,8 +221,9 @@ Value Object_binary::PointerEx::Unpack(Environment &env, bool forwardFlag,
 						 const char *format, const ValueList &valListArg, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	Value value = _pObjBinary->GetBinary().Unpack(env, offset,
-											format, valListArg, exceedErrorFlag);
+	//Value value = _pObjBinary->GetBinary().Unpack(env, offset,
+	//										format, valListArg, exceedErrorFlag);
+	Value value = Binary::PackerEx(_pObjBinary->GetBinary()).Unpack(env, offset, format, valListArg, exceedErrorFlag);
 	if (forwardFlag) _offset = offset;
 	return value;
 }

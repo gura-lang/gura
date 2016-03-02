@@ -41,6 +41,7 @@ public:
 	inline char *GetPointer(size_t offset) { return _buff + offset; }
 	inline const char *GetPointer() const { return _buff; }
 	inline const char *GetPointer(size_t offset) const { return _buff + offset; }
+#if 0
 public:
 	inline bool Pack(Environment &env, size_t &offset,
 					 const char *format, const ValueList &valListArg) {
@@ -50,6 +51,7 @@ public:
 						const ValueList &valListArg, bool exceedErrorFlag) {
 		return PackerEx(*this).Unpack(env, offset, format, valListArg, exceedErrorFlag);
 	}
+#endif
 private:
 	inline Memory(const Memory &memory) {}
 };

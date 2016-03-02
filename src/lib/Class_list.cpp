@@ -1626,9 +1626,12 @@ Gura_ImplementMethod(list, pack)
 	Signal &sig = env.GetSignal();
 	Object_list *pThis = Object_list::GetObjectThis(arg);
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
-	size_t offset = 0;
-	pObjBinary->GetBinary().Pack(env, offset, arg.GetString(0), pThis->GetList());
-	if (sig.IsSignalled()) return Value::Nil;
+	//size_t offset = 0;
+	//pObjBinary->GetBinary().Pack(env, offset, arg.GetString(0), pThis->GetList());
+	//if (sig.IsSignalled()) return Value::Nil;
+	AutoPtr<Object_binary::PointerEx> pPointer(
+		new Object_binary::PointerEx(0, pObjBinary->Reference()));
+	if (!pPointer->Pack(env, true, arg.GetString(0), pThis->GetList())) return Value::Nil;
 	return Value(pObjBinary.release());
 }
 

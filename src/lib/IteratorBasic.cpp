@@ -1459,18 +1459,22 @@ Iterator *Iterator_Pack::GetSource()
 
 bool Iterator_Pack::DoNext(Environment &env, Value &value)
 {
-	Signal &sig = env.GetSignal();
+	//Signal &sig = env.GetSignal();
 	Value valueSrc;
 	if (!_pIterator->Next(env, valueSrc)) return false;
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
-	size_t offset = 0;
+	AutoPtr<Object_binary::PointerEx> pPointer(
+		new Object_binary::PointerEx(0, pObjBinary->Reference()));
+	//size_t offset = 0;
 	if (valueSrc.Is_list()) {
-		pObjBinary->GetBinary().Pack(env, offset, _format.c_str(), valueSrc.GetList());
+		//pObjBinary->GetBinary().Pack(env, offset, _format.c_str(), valueSrc.GetList());
+		if (!pPointer->Pack(env, true, _format.c_str(), valueSrc.GetList())) return false;
 	} else {
 		ValueList valList(valueSrc);
-		pObjBinary->GetBinary().Pack(env, offset, _format.c_str(), valList);
+		//pObjBinary->GetBinary().Pack(env, offset, _format.c_str(), valList);
+		if (!pPointer->Pack(env, true, _format.c_str(), valList)) return false;
 	}
-	if (sig.IsSignalled()) return false;
+	//if (sig.IsSignalled()) return false;
 	value = Value(pObjBinary.release());
 	return true;
 }
