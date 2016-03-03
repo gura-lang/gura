@@ -481,7 +481,7 @@ bool Packer::PutDouble(Environment &env, double num, bool bigEndianFlag)
 	return true;
 }
 
-bool Packer::GetChar(Environment &env, Char *pNum)
+bool Packer::GetChar(Environment &env, Char *pNum, bool exceedErrorFlag)
 {
 	const UChar *pByte = UnpackPrepare(env, sizeof(Char), true);
 	if (pByte == nullptr) return false;
@@ -489,7 +489,7 @@ bool Packer::GetChar(Environment &env, Char *pNum)
 	return true;
 }
 
-bool Packer::GetUChar(Environment &env, UChar *pNum)
+bool Packer::GetUChar(Environment &env, UChar *pNum, bool exceedErrorFlag)
 {
 	const UChar *pByte = UnpackPrepare(env, sizeof(UChar), true);
 	if (pByte == nullptr) return false;
@@ -497,65 +497,65 @@ bool Packer::GetUChar(Environment &env, UChar *pNum)
 	return true;
 }
 
-bool Packer::GetShort(Environment &env, Short *pNum, bool bigEndianFlag)
+bool Packer::GetShort(Environment &env, Short *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
-	const UChar *pByte = UnpackPrepare(env, sizeof(Short), true);
+	const UChar *pByte = UnpackPrepare(env, sizeof(Short), exceedErrorFlag);
 	if (pByte == nullptr) return false;
 	*pNum = UnpackShort(pByte, bigEndianFlag);
 	return true;
 }
 
-bool Packer::GetUShort(Environment &env, UShort *pNum, bool bigEndianFlag)
+bool Packer::GetUShort(Environment &env, UShort *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
-	const UChar *pByte = UnpackPrepare(env, sizeof(UShort), true);
+	const UChar *pByte = UnpackPrepare(env, sizeof(UShort), exceedErrorFlag);
 	if (pByte == nullptr) return false;
 	*pNum = UnpackUShort(pByte, bigEndianFlag);
 	return true;
 }
 
-bool Packer::GetInt32(Environment &env, Int32 *pNum, bool bigEndianFlag)
+bool Packer::GetInt32(Environment &env, Int32 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
-	const UChar *pByte = UnpackPrepare(env, sizeof(Int32), true);
+	const UChar *pByte = UnpackPrepare(env, sizeof(Int32), exceedErrorFlag);
 	if (pByte == nullptr) return false;
 	*pNum = UnpackInt32(pByte, bigEndianFlag);
 	return true;
 }
 
-bool Packer::GetUInt32(Environment &env, UInt32 *pNum, bool bigEndianFlag)
+bool Packer::GetUInt32(Environment &env, UInt32 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
-	const UChar *pByte = UnpackPrepare(env, sizeof(UInt32), true);
+	const UChar *pByte = UnpackPrepare(env, sizeof(UInt32), exceedErrorFlag);
 	if (pByte == nullptr) return false;
 	*pNum = UnpackUInt32(pByte, bigEndianFlag);
 	return true;
 }
 
-bool Packer::GetInt64(Environment &env, Int64 *pNum, bool bigEndianFlag)
+bool Packer::GetInt64(Environment &env, Int64 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
-	const UChar *pByte = UnpackPrepare(env, sizeof(Int64), true);
+	const UChar *pByte = UnpackPrepare(env, sizeof(Int64), exceedErrorFlag);
 	if (pByte == nullptr) return false;
 	*pNum = UnpackInt64(pByte, bigEndianFlag);
 	return true;
 }
 
-bool Packer::GetUInt64(Environment &env, UInt64 *pNum, bool bigEndianFlag)
+bool Packer::GetUInt64(Environment &env, UInt64 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
-	const UChar *pByte = UnpackPrepare(env, sizeof(UInt64), true);
+	const UChar *pByte = UnpackPrepare(env, sizeof(UInt64), exceedErrorFlag);
 	if (pByte == nullptr) return false;
 	*pNum = UnpackUInt64(pByte, bigEndianFlag);
 	return true;
 }
 
-bool Packer::GetFloat(Environment &env, float *pNum, bool bigEndianFlag)
+bool Packer::GetFloat(Environment &env, float *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
-	const UChar *pByte = UnpackPrepare(env, sizeof(float), true);
+	const UChar *pByte = UnpackPrepare(env, sizeof(float), exceedErrorFlag);
 	if (pByte == nullptr) return false;
 	*pNum = UnpackFloat(pByte, bigEndianFlag);
 	return true;
 }
 
-bool Packer::GetDouble(Environment &env, double *pNum, bool bigEndianFlag)
+bool Packer::GetDouble(Environment &env, double *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
-	const UChar *pByte = UnpackPrepare(env, sizeof(double), true);
+	const UChar *pByte = UnpackPrepare(env, sizeof(double), exceedErrorFlag);
 	if (pByte == nullptr) return false;
 	*pNum = UnpackDouble(pByte, bigEndianFlag);
 	return true;

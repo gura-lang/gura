@@ -329,6 +329,7 @@ Gura_ImplementMethod(pointer, unpacks)
 Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
 { \
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
+	DeclareAttr(Gura_Symbol(nil)); \
 	DeclareAttr(Gura_Symbol(stay)); \
 	AddHelp( \
 		Gura_Symbol(en), Help::FMT_markdown, \
@@ -336,11 +337,12 @@ Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
 } \
 Gura_ImplementMethod(pointer, get_##type) \
 { \
+	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil)); \
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
 	Type num; \
 	if (!(arg.IsSet(Gura_Symbol(stay))? \
-		  pPointer->Get##Type##Stay(env, &num) : \
-		  pPointer->Get##Type(env, &num))) return Value::Nil;	\
+		  pPointer->Get##Type##Stay(env, &num, exceedErrorFlag) : \
+		  pPointer->Get##Type(env, &num, exceedErrorFlag))) return Value::Nil; \
 	return Value(num); \
 } \
 Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \
@@ -365,6 +367,7 @@ Gura_ImplementMethod(pointer, put_##type) \
 Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
 { \
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
+	DeclareAttr(Gura_Symbol(nil)); \
 	DeclareAttr(Gura_Symbol(stay)); \
 	AddHelp( \
 		Gura_Symbol(en), Help::FMT_markdown, \
@@ -372,12 +375,13 @@ Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
 } \
 Gura_ImplementMethod(pointer, get_##type) \
 { \
+	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil)); \
 	bool bigEndianFlag = false; \
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
 	Type num; \
 	if (!(arg.IsSet(Gura_Symbol(stay))? \
-		  pPointer->Get##Type##Stay(env, &num, bigEndianFlag) : \
-		  pPointer->Get##Type(env, &num, bigEndianFlag))) return Value::Nil;	\
+		  pPointer->Get##Type##Stay(env, &num, bigEndianFlag, exceedErrorFlag) : \
+		  pPointer->Get##Type(env, &num, bigEndianFlag, exceedErrorFlag))) return Value::Nil; \
 	return Value(num); \
 } \
 Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \

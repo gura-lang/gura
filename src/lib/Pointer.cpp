@@ -50,161 +50,161 @@ Value Pointer::UnpackStay(Environment &env, const char *format,
 bool Pointer::PutCharStay(Environment &env, Char num)
 {
 	size_t offset = _offset;
-	if (!PutChar(env, num)) return false;
+	bool rtn = PutChar(env, num);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
 bool Pointer::PutUCharStay(Environment &env, UChar num)
 {
 	size_t offset = _offset;
-	if (!PutUChar(env, num)) return false;
+	bool rtn = PutUChar(env, num);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
 bool Pointer::PutShortStay(Environment &env, Short num, bool bigEndianFlag)
 {
 	size_t offset = _offset;
-	if (!PutShort(env, num, bigEndianFlag)) return false;
+	bool rtn = PutShort(env, num, bigEndianFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
 bool Pointer::PutUShortStay(Environment &env, UShort num, bool bigEndianFlag)
 {
 	size_t offset = _offset;
-	if (!PutUShort(env, num, bigEndianFlag)) return false;
+	bool rtn = PutUShort(env, num, bigEndianFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
 bool Pointer::PutInt32Stay(Environment &env, Int32 num, bool bigEndianFlag)
 {
 	size_t offset = _offset;
-	if (!PutInt32(env, num, bigEndianFlag)) return false;
+	bool rtn = PutInt32(env, num, bigEndianFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
 bool Pointer::PutUInt32Stay(Environment &env, UInt32 num, bool bigEndianFlag)
 {
 	size_t offset = _offset;
-	if (!PutUInt32(env, num, bigEndianFlag)) return false;
+	bool rtn = PutUInt32(env, num, bigEndianFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
 bool Pointer::PutInt64Stay(Environment &env, Int64 num, bool bigEndianFlag)
 {
 	size_t offset = _offset;
-	if (!PutInt64(env, num, bigEndianFlag)) return false;
+	bool rtn = PutInt64(env, num, bigEndianFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
 bool Pointer::PutUInt64Stay(Environment &env, UInt64 num, bool bigEndianFlag)
 {
 	size_t offset = _offset;
-	if (!PutUInt64(env, num, bigEndianFlag)) return false;
+	bool rtn = PutUInt64(env, num, bigEndianFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
 bool Pointer::PutFloatStay(Environment &env, float num, bool bigEndianFlag)
 {
 	size_t offset = _offset;
-	if (!PutFloat(env, num, bigEndianFlag)) return false;
+	bool rtn = PutFloat(env, num, bigEndianFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
 bool Pointer::PutDoubleStay(Environment &env, double num, bool bigEndianFlag)
 {
 	size_t offset = _offset;
-	if (!PutDouble(env, num, bigEndianFlag)) return false;
+	bool rtn = PutDouble(env, num, bigEndianFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
-bool Pointer::GetCharStay(Environment &env, Char *pNum)
+bool Pointer::GetCharStay(Environment &env, Char *pNum, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	if (!GetChar(env, pNum)) return false;
+	bool rtn = GetChar(env, pNum, exceedErrorFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
-bool Pointer::GetUCharStay(Environment &env, UChar *pNum)
+bool Pointer::GetUCharStay(Environment &env, UChar *pNum, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	if (!GetUChar(env, pNum)) return false;
+	bool rtn = GetUChar(env, pNum, exceedErrorFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
-bool Pointer::GetShortStay(Environment &env, Short *pNum, bool bigEndianFlag)
+bool Pointer::GetShortStay(Environment &env, Short *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	if (!GetShort(env, pNum, bigEndianFlag)) return false;
+	bool rtn = GetShort(env, pNum, bigEndianFlag, exceedErrorFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
-bool Pointer::GetUShortStay(Environment &env, UShort *pNum, bool bigEndianFlag)
+bool Pointer::GetUShortStay(Environment &env, UShort *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	if (!GetUShort(env, pNum, bigEndianFlag)) return false;
+	bool rtn = GetUShort(env, pNum, bigEndianFlag, exceedErrorFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
-bool Pointer::GetInt32Stay(Environment &env, Int32 *pNum, bool bigEndianFlag)
+bool Pointer::GetInt32Stay(Environment &env, Int32 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	if (!GetInt32(env, pNum, bigEndianFlag)) return false;
+	bool rtn = GetInt32(env, pNum, bigEndianFlag, exceedErrorFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
-bool Pointer::GetUInt32Stay(Environment &env, UInt32 *pNum, bool bigEndianFlag)
+bool Pointer::GetUInt32Stay(Environment &env, UInt32 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	if (!GetUInt32(env, pNum, bigEndianFlag)) return false;
+	bool rtn = GetUInt32(env, pNum, bigEndianFlag, exceedErrorFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
-bool Pointer::GetInt64Stay(Environment &env, Int64 *pNum, bool bigEndianFlag)
+bool Pointer::GetInt64Stay(Environment &env, Int64 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	if (!GetInt64(env, pNum, bigEndianFlag)) return false;
+	bool rtn = GetInt64(env, pNum, bigEndianFlag, exceedErrorFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
-bool Pointer::GetUInt64Stay(Environment &env, UInt64 *pNum, bool bigEndianFlag)
+bool Pointer::GetUInt64Stay(Environment &env, UInt64 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	if (!GetUInt64(env, pNum, bigEndianFlag)) return false;
+	bool rtn = GetUInt64(env, pNum, bigEndianFlag, exceedErrorFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
-bool Pointer::GetFloatStay(Environment &env, float *pNum, bool bigEndianFlag)
+bool Pointer::GetFloatStay(Environment &env, float *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	if (!GetFloat(env, pNum, bigEndianFlag)) return false;
+	bool rtn = GetFloat(env, pNum, bigEndianFlag, exceedErrorFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
-bool Pointer::GetDoubleStay(Environment &env, double *pNum, bool bigEndianFlag)
+bool Pointer::GetDoubleStay(Environment &env, double *pNum, bool bigEndianFlag, bool exceedErrorFlag)
 {
 	size_t offset = _offset;
-	if (!GetDouble(env, pNum, bigEndianFlag)) return false;
+	bool rtn = GetDouble(env, pNum, bigEndianFlag, exceedErrorFlag);
 	_offset = offset;
-	return true;
+	return rtn;
 }
 
 //-----------------------------------------------------------------------------

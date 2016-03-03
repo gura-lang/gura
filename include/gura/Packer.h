@@ -27,16 +27,16 @@ public:
 	bool PutUInt64(Environment &env, UInt64 num, bool bigEndianFlag);
 	bool PutFloat(Environment &env, float num, bool bigEndianFlag);
 	bool PutDouble(Environment &env, double num, bool bigEndianFlag);
-	bool GetChar(Environment &env, Char *pNum);
-	bool GetUChar(Environment &env, UChar *pNum);
-	bool GetShort(Environment &env, Short *pNum, bool bigEndianFlag);
-	bool GetUShort(Environment &env, UShort *pNum, bool bigEndianFlag);
-	bool GetInt32(Environment &env, Int32 *pNum, bool bigEndianFlag);
-	bool GetUInt32(Environment &env, UInt32 *pNum, bool bigEndianFlag);
-	bool GetInt64(Environment &env, Int64 *pNum, bool bigEndianFlag);
-	bool GetUInt64(Environment &env, UInt64 *pNum, bool bigEndianFlag);
-	bool GetFloat(Environment &env, float *pNum, bool bigEndianFlag);
-	bool GetDouble(Environment &env, double *pNum, bool bigEndianFlag);
+	bool GetChar(Environment &env, Char *pNum, bool exceedErrorFlag);
+	bool GetUChar(Environment &env, UChar *pNum, bool exceedErrorFlag);
+	bool GetShort(Environment &env, Short *pNum, bool bigEndianFlag, bool exceedErrorFlag);
+	bool GetUShort(Environment &env, UShort *pNum, bool bigEndianFlag, bool exceedErrorFlag);
+	bool GetInt32(Environment &env, Int32 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
+	bool GetUInt32(Environment &env, UInt32 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
+	bool GetInt64(Environment &env, Int64 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
+	bool GetUInt64(Environment &env, UInt64 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
+	bool GetFloat(Environment &env, float *pNum, bool bigEndianFlag, bool exceedErrorFlag);
+	bool GetDouble(Environment &env, double *pNum, bool bigEndianFlag, bool exceedErrorFlag);
 public:
 	virtual bool PackPrepare(Environment &env, size_t bytes) = 0;
 	virtual void PackBuffer(const UChar *buff, size_t bytes) = 0;
