@@ -48,6 +48,26 @@ public:
 	bool PackStay(Environment &env, const char *format, const ValueList &valListArg);
 	Value UnpackStay(Environment &env, const char *format,
 				 const ValueList &valListArg, bool exeedErrorFlag);
+	bool PutCharStay(Environment &env, Char num);
+	bool PutUCharStay(Environment &env, UChar num);
+	bool PutShortStay(Environment &env, Short num, bool bigEndianFlag);
+	bool PutUShortStay(Environment &env, UShort num, bool bigEndianFlag);
+	bool PutInt32Stay(Environment &env, Int32 num, bool bigEndianFlag);
+	bool PutUInt32Stay(Environment &env, UInt32 num, bool bigEndianFlag);
+	bool PutInt64Stay(Environment &env, Int64 num, bool bigEndianFlag);
+	bool PutUInt64Stay(Environment &env, UInt64 num, bool bigEndianFlag);
+	bool PutFloatStay(Environment &env, float num, bool bigEndianFlag);
+	bool PutDoubleStay(Environment &env, double num, bool bigEndianFlag);
+	bool GetCharStay(Environment &env, Char *pNum);
+	bool GetUCharStay(Environment &env, UChar *pNum);
+	bool GetShortStay(Environment &env, Short *pNum, bool bigEndianFlag);
+	bool GetUShortStay(Environment &env, UShort *pNum, bool bigEndianFlag);
+	bool GetInt32Stay(Environment &env, Int32 *pNum, bool bigEndianFlag);
+	bool GetUInt32Stay(Environment &env, UInt32 *pNum, bool bigEndianFlag);
+	bool GetInt64Stay(Environment &env, Int64 *pNum, bool bigEndianFlag);
+	bool GetUInt64Stay(Environment &env, UInt64 *pNum, bool bigEndianFlag);
+	bool GetFloatStay(Environment &env, float *pNum, bool bigEndianFlag);
+	bool GetDoubleStay(Environment &env, double *pNum, bool bigEndianFlag);
 public:
 	virtual Pointer *Clone() const = 0;
 	virtual Object *GetTarget() const = 0;
