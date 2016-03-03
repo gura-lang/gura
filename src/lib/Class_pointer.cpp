@@ -117,23 +117,6 @@ Gura_ImplementMethod(pointer, forward)
 	return arg.GetValueThis();
 }
 
-// pointer#get@char()
-Gura_DeclareMethodAlias(pointer, get_char, "get@char")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(pointer, get_char)
-{
-	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
-	Char num;
-	if (!pPointer->GetChar(env, &num)) return Value::Nil;
-	return Value(num);
-}
-
 // pointer#pack(format:string, value+):reduce:[stay]
 Gura_DeclareMethod(pointer, pack)
 {
@@ -215,28 +198,9 @@ Gura_ImplementMethod(pointer, pack)
 		env.SetError(ERR_ValueError, "not a writable binary");
 		return Value::Nil;
 	}
-	if (arg.IsSet(Gura_Symbol(stay))) {
-		pPointer->PackStay(env, arg.GetString(0), arg.GetList(1));
-	} else {
-		pPointer->Pack(env, arg.GetString(0), arg.GetList(1));
-	}
-	return arg.GetValueThis();
-}
-
-// pointer#put@char(n:number):reduce:map
-Gura_DeclareMethodAlias(pointer, put_char, "put@char")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "n", VTYPE_number);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementMethod(pointer, put_char)
-{
-	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
-	pPointer->PutChar(env, arg.GetChar(0));
+	if (!(arg.IsSet(Gura_Symbol(stay))?
+		  pPointer->PackStay(env, arg.GetString(0), arg.GetList(1)) :
+		  pPointer->Pack(env, arg.GetString(0), arg.GetList(1)))) return Value::Nil;
 	return arg.GetValueThis();
 }
 
@@ -331,11 +295,9 @@ Gura_ImplementMethod(pointer, unpack)
 {
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil));
-	if (arg.IsSet(Gura_Symbol(stay))) {
-		return pPointer->UnpackStay(env, arg.GetString(0), arg.GetList(1), exceedErrorFlag);
-	} else {
-		return pPointer->Unpack(env, arg.GetString(0), arg.GetList(1), exceedErrorFlag);
-	}
+	return arg.IsSet(Gura_Symbol(stay))?
+		pPointer->UnpackStay(env, arg.GetString(0), arg.GetList(1), exceedErrorFlag) :
+		pPointer->Unpack(env, arg.GetString(0), arg.GetList(1), exceedErrorFlag);
 }
 
 // pointer#unpacks(format:string, values*:number) {block?}
@@ -363,6 +325,91 @@ Gura_ImplementMethod(pointer, unpacks)
 	return ReturnIterator(env, arg, pIterator);
 }
 
+#define ImplementGetPutMethod1(type, Type) \
+Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
+{ \
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
+	DeclareAttr(Gura_Symbol(stay)); \
+	AddHelp( \
+		Gura_Symbol(en), Help::FMT_markdown, \
+		""); \
+} \
+Gura_ImplementMethod(pointer, get_##type) \
+{ \
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
+	Type num; \
+	if (!(arg.IsSet(Gura_Symbol(stay))? \
+		  pPointer->Get##Type##Stay(env, &num) : \
+		  pPointer->Get##Type(env, &num))) return Value::Nil;	\
+	return Value(num); \
+} \
+Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \
+{ \
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map); \
+	DeclareArg(env, "n", VTYPE_number); \
+	DeclareAttr(Gura_Symbol(stay)); \
+	AddHelp( \
+		Gura_Symbol(en), Help::FMT_markdown, \
+		""); \
+} \
+Gura_ImplementMethod(pointer, put_##type) \
+{ \
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
+	if (!(arg.IsSet(Gura_Symbol(stay))? \
+		  pPointer->Put##Type##Stay(env, arg.Get##Type(0)) : \
+		  pPointer->Put##Type(env, arg.Get##Type(0)))) return Value::Nil; \
+	return arg.GetValueThis(); \
+}
+
+#define ImplementGetPutMethod2(type, Type) \
+Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
+{ \
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
+	DeclareAttr(Gura_Symbol(stay)); \
+	AddHelp( \
+		Gura_Symbol(en), Help::FMT_markdown, \
+		""); \
+} \
+Gura_ImplementMethod(pointer, get_##type) \
+{ \
+	bool bigEndianFlag = false; \
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
+	Type num; \
+	if (!(arg.IsSet(Gura_Symbol(stay))? \
+		  pPointer->Get##Type##Stay(env, &num, bigEndianFlag) : \
+		  pPointer->Get##Type(env, &num, bigEndianFlag))) return Value::Nil;	\
+	return Value(num); \
+} \
+Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \
+{ \
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map); \
+	DeclareArg(env, "n", VTYPE_number); \
+	DeclareAttr(Gura_Symbol(stay)); \
+	AddHelp( \
+		Gura_Symbol(en), Help::FMT_markdown, \
+		""); \
+} \
+Gura_ImplementMethod(pointer, put_##type) \
+{ \
+	bool bigEndianFlag = false; \
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
+	if (!(arg.IsSet(Gura_Symbol(stay))? \
+		  pPointer->Put##Type##Stay(env, arg.Get##Type(0), bigEndianFlag) : \
+		  pPointer->Put##Type(env, arg.Get##Type(0), bigEndianFlag))) return Value::Nil; \
+	return arg.GetValueThis(); \
+}
+
+ImplementGetPutMethod1(char, Char)
+ImplementGetPutMethod1(uchar, UChar)
+ImplementGetPutMethod2(short, Short)
+ImplementGetPutMethod2(ushort, UShort)
+ImplementGetPutMethod2(int32, Int32)
+ImplementGetPutMethod2(uint32, UInt32)
+ImplementGetPutMethod2(int64, Int64)
+ImplementGetPutMethod2(uint64, UInt64)
+ImplementGetPutMethod2(float, Float)
+ImplementGetPutMethod2(double, Double)
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -376,12 +423,30 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignValue(pointer, Value(Reference()));
 	Gura_AssignMethod(pointer, dump);
 	Gura_AssignMethod(pointer, forward);
-	Gura_AssignMethod(pointer, get_char);
 	Gura_AssignMethod(pointer, pack);
-	Gura_AssignMethod(pointer, put_char);
 	Gura_AssignMethod(pointer, reset);
 	Gura_AssignMethod(pointer, unpack);
 	Gura_AssignMethod(pointer, unpacks);
+	Gura_AssignMethod(pointer, get_char);
+	Gura_AssignMethod(pointer, get_uchar);
+	Gura_AssignMethod(pointer, get_short);
+	Gura_AssignMethod(pointer, get_ushort);
+	Gura_AssignMethod(pointer, get_int32);
+	Gura_AssignMethod(pointer, get_uint32);
+	Gura_AssignMethod(pointer, get_int64);
+	Gura_AssignMethod(pointer, get_uint64);
+	Gura_AssignMethod(pointer, get_float);
+	Gura_AssignMethod(pointer, get_double);
+	Gura_AssignMethod(pointer, put_char);
+	Gura_AssignMethod(pointer, put_uchar);
+	Gura_AssignMethod(pointer, put_short);
+	Gura_AssignMethod(pointer, put_ushort);
+	Gura_AssignMethod(pointer, put_int32);
+	Gura_AssignMethod(pointer, put_uint32);
+	Gura_AssignMethod(pointer, put_int64);
+	Gura_AssignMethod(pointer, put_uint64);
+	Gura_AssignMethod(pointer, put_float);
+	Gura_AssignMethod(pointer, put_double);
 }
 
 bool Class_pointer::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

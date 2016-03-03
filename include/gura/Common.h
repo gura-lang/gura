@@ -68,6 +68,8 @@ typedef uint8_t				UChar;		// unsigned 8bit
 typedef uint16_t			UShort;		// unsigned 16bit
 typedef uint32_t			UInt32;		// unsigned 32bit
 typedef uint64_t			UInt64;		// unsigned 64bit
+typedef float				Float;
+typedef double				Double;
 
 typedef std::vector<char, Allocator<char> >		CharList;
 typedef std::vector<short, Allocator<short> >	ShortList;
