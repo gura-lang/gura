@@ -52,3 +52,21 @@ testcase('pointer#offset') {
 	tester(`(p + 100).offset)
 	tester(`(p + 120).offset)
 }
+testcase('pointer#get@*()') {
+	buff = binary()
+	buff.pointer().pack('256B', [0..255]*)
+	p = buff.pointer()
+	while (n = p.get@char():nil) {printf('%4d', n)}, println()
+	p = buff.pointer()
+	while (n = p.get@uchar():nil) {printf('%4d', n)}, println()
+	p = buff.pointer()
+	while (n = p.get@short():nil) {printf('%6d', n)}, println()
+	p = buff.pointer()
+	while (n = p.get@ushort():nil) {printf('%6d', n)}, println()
+	p = buff.pointer()
+	while (n = p.get@int32():nil) {printf('%11d', n)}, println()
+	p = buff.pointer()
+	while (n = p.get@uint32():nil) {printf('%11u', n)}, println()
+	//p = buff.pointer()
+	//while (n = p.get@int64():nil) {printf('%16lld', n)}, println()
+}
