@@ -74,3 +74,11 @@ testcase('not-writable binary') {
 	tester(`b''.pointer().put@char(0))
 	tester(`b''.pointer().pack('b', 0))
 }
+testcase('pointer() constructor') {
+	b = binary()
+	pointer(b).pack('4i', 0, 1, 2, 3)
+	b.dump()
+	m = memory(16)
+	pointer(m).pack('4i', 0, 1, 2, 3)
+	m.dump()
+}

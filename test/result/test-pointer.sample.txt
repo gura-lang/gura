@@ -281,3 +281,8 @@ p.get@uint32():nil
 
 b''.pointer().put@char(0) .. ValueError: not a writable binary
 b''.pointer().pack('b', 0) .. ValueError: not a writable binary
+
+======== #7 pointer() constructor ========
+
+00 00 00 00 01 00 00 00 02 00 00 00 03 00 00 00  ................
+00 00 00 00 01 00 00 00 02 00 00 00 03 00 00 00  ................
