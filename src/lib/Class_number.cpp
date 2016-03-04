@@ -96,7 +96,7 @@ bool Class_number::Format_d(Formatter *pFormatter, Formatter::Flags &flags, cons
 	Signal &sig = GetSignal();
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_d(flags,
-						static_cast<int>(value.GetNumber()), buff, sizeof(buff)));
+						value.GetInt64(), buff, sizeof(buff)));
 }
 
 bool Class_number::Format_u(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
@@ -104,7 +104,7 @@ bool Class_number::Format_u(Formatter *pFormatter, Formatter::Flags &flags, cons
 	Signal &sig = GetSignal();
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_u(flags,
-						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
+						value.GetUInt64(), buff, sizeof(buff)));
 }
 
 bool Class_number::Format_b(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
@@ -112,7 +112,7 @@ bool Class_number::Format_b(Formatter *pFormatter, Formatter::Flags &flags, cons
 	Signal &sig = GetSignal();
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_b(flags,
-						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
+						value.GetUInt64(), buff, sizeof(buff)));
 }
 
 bool Class_number::Format_o(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
@@ -120,7 +120,7 @@ bool Class_number::Format_o(Formatter *pFormatter, Formatter::Flags &flags, cons
 	Signal &sig = GetSignal();
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_o(flags,
-						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
+						value.GetUInt64(), buff, sizeof(buff)));
 }
 
 bool Class_number::Format_x(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
@@ -128,7 +128,7 @@ bool Class_number::Format_x(Formatter *pFormatter, Formatter::Flags &flags, cons
 	Signal &sig = GetSignal();
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_x(flags,
-						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
+						value.GetUInt64(), buff, sizeof(buff)));
 }
 
 bool Class_number::Format_e(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
@@ -161,7 +161,7 @@ bool Class_number::Format_g(Formatter *pFormatter, Formatter::Flags &flags, cons
 bool Class_number::Format_c(Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	Signal &sig = GetSignal();
-	return pFormatter->PutChar(sig, static_cast<char>(value.GetNumber()));
+	return pFormatter->PutChar(sig, value.GetChar());
 }
 
 }

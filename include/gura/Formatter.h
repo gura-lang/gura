@@ -86,11 +86,11 @@ public:
 	static String FormatValueList(Signal &sig, const char *format, const ValueList &valList);
 	static Value FormatIterator(Environment &env,
 							const char *format, IteratorOwner &iterOwner);
-	static const char *Format_d(const Flags &flags, int value, char *buff, size_t size);
-	static const char *Format_u(const Flags &flags, UInt value, char *buff, size_t size);
-	static const char *Format_b(const Flags &flags, UInt value, char *buff, size_t size);
-	static const char *Format_o(const Flags &flags, UInt value, char *buff, size_t size);
-	static const char *Format_x(const Flags &flags, UInt value, char *buff, size_t size);
+	static const char *Format_d(const Flags &flags, Int64 value, char *buff, size_t size);
+	static const char *Format_u(const Flags &flags, UInt64 value, char *buff, size_t size);
+	static const char *Format_b(const Flags &flags, UInt64 value, char *buff, size_t size);
+	static const char *Format_o(const Flags &flags, UInt64 value, char *buff, size_t size);
+	static const char *Format_x(const Flags &flags, UInt64 value, char *buff, size_t size);
 	static const char *Format_e(const Flags &flags, double value, char *buff, size_t size);
 	static const char *Format_f(const Flags &flags, double value, char *buff, size_t size);
 	static const char *Format_g(const Flags &flags, double value, char *buff, size_t size);

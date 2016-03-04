@@ -269,7 +269,7 @@ Value Formatter::FormatIterator(Environment &env,
 	return result;
 }
 
-const char *Formatter::Format_d(const Flags &flags, int value, char *buff, size_t size)
+const char *Formatter::Format_d(const Flags &flags, Int64 value, char *buff, size_t size)
 {
 	char *p = buff + size - 1;
 	*p = '\0';
@@ -303,7 +303,7 @@ const char *Formatter::Format_d(const Flags &flags, int value, char *buff, size_
 		}
 	} else {
 		int nCols = 0;
-		UInt valueNeg = -value;
+		UInt64 valueNeg = -value;
 		for ( ; valueNeg != 0; valueNeg /= 10, nCols++) {
 			p--;
 			*p = (valueNeg % 10) + '0';
@@ -322,7 +322,7 @@ const char *Formatter::Format_d(const Flags &flags, int value, char *buff, size_
 	return p;
 }
 
-const char *Formatter::Format_u(const Flags &flags, UInt value, char *buff, size_t size)
+const char *Formatter::Format_u(const Flags &flags, UInt64 value, char *buff, size_t size)
 {
 	char *p = buff + size - 1;
 	*p = '\0';
@@ -351,7 +351,7 @@ const char *Formatter::Format_u(const Flags &flags, UInt value, char *buff, size
 	return p;
 }
 
-const char *Formatter::Format_b(const Flags &flags, UInt value, char *buff, size_t size)
+const char *Formatter::Format_b(const Flags &flags, UInt64 value, char *buff, size_t size)
 {
 	char *p = buff + size - 1;
 	*p = '\0';
@@ -385,7 +385,7 @@ const char *Formatter::Format_b(const Flags &flags, UInt value, char *buff, size
 	return p;
 }
 
-const char *Formatter::Format_o(const Flags &flags, UInt value, char *buff, size_t size)
+const char *Formatter::Format_o(const Flags &flags, UInt64 value, char *buff, size_t size)
 {
 	char *p = buff + size - 1;
 	*p = '\0';
@@ -417,7 +417,7 @@ const char *Formatter::Format_o(const Flags &flags, UInt value, char *buff, size
 	return p;
 }
 
-const char *Formatter::Format_x(const Flags &flags, UInt value, char *buff, size_t size)
+const char *Formatter::Format_x(const Flags &flags, UInt64 value, char *buff, size_t size)
 {
 	char *p = buff + size - 1;
 	*p = '\0';
