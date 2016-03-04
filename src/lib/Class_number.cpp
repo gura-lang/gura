@@ -37,6 +37,19 @@ void Class_number::Prepare(Environment &env)
 {
 	// class assignment
 	Gura_AssignValue(number, Value(Reference()));
+	// value assignment
+	Gura_AssignClassValueEx("max@char", Value(127));
+	Gura_AssignClassValueEx("min@char", Value(-128));
+	Gura_AssignClassValueEx("max@uchar", Value(255));
+	Gura_AssignClassValueEx("min@uchar", Value(0));
+	Gura_AssignClassValueEx("max@short", Value(32767));
+	Gura_AssignClassValueEx("min@short", Value(-32768));
+	Gura_AssignClassValueEx("max@ushort", Value(65535));
+	Gura_AssignClassValueEx("min@ushort", Value(0));
+	Gura_AssignClassValueEx("max@int32", Value(2147483647));
+	Gura_AssignClassValueEx("min@int32", Value(-2147483648));
+	Gura_AssignClassValueEx("max@uint32", Value(4294967295));
+	Gura_AssignClassValueEx("min@uint32", Value(0));
 	// method assignment
 	Gura_AssignMethod(number, roundoff);	// primitive method
 }

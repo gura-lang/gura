@@ -1,0 +1,14 @@
+======== #1 min-max ========
+
+min@char .. -128
+max@char .. 127
+min@uchar .. 0
+max@uchar .. 255
+min@short .. -32768
+max@short .. 32767
+min@ushort .. 0
+max@ushort .. 65535
+min@int32 .. -2147483648
+max@int32 .. 2147483647
+min@uint32 .. 0
+max@uint32 .. 4294967295

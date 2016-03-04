@@ -706,6 +706,18 @@ memory
 monitor
 nil
 number
+  max@char:number = 127
+  max@int32:number = 2147483647
+  max@short:number = 32767
+  max@uchar:number = 255
+  max@uint32:number = 4294967295
+  max@ushort:number = 65535
+  min@char:number = -128
+  min@int32:number = -2.14748e+09
+  min@short:number = -32768
+  min@uchar:number = 0
+  min@uint32:number = 0
+  min@ushort:number = 0
   number.roundoff(threshold:number => 1e-10)
 object
   object#__call__(symbol:symbol, `args*):map:nonamed {block?}
@@ -731,7 +743,27 @@ palette
 pointer
   pointer#dump(stream?:stream:w):void:[upper]
   pointer#forward(distance:number):reduce
+  pointer#get@char():[nil,stay]
+  pointer#get@double():[nil,stay]
+  pointer#get@float():[nil,stay]
+  pointer#get@int32():[nil,stay]
+  pointer#get@int64():[nil,stay]
+  pointer#get@short():[nil,stay]
+  pointer#get@uchar():[nil,stay]
+  pointer#get@uint32():[nil,stay]
+  pointer#get@uint64():[nil,stay]
+  pointer#get@ushort():[nil,stay]
   pointer#pack(format:string, values+):reduce:[stay]
+  pointer#put@char(n:number):map:reduce:[stay]
+  pointer#put@double(n:number):map:reduce:[stay]
+  pointer#put@float(n:number):map:reduce:[stay]
+  pointer#put@int32(n:number):map:reduce:[stay]
+  pointer#put@int64(n:number):map:reduce:[stay]
+  pointer#put@short(n:number):map:reduce:[stay]
+  pointer#put@uchar(n:number):map:reduce:[stay]
+  pointer#put@uint32(n:number):map:reduce:[stay]
+  pointer#put@uint64(n:number):map:reduce:[stay]
+  pointer#put@ushort(n:number):map:reduce:[stay]
   pointer#reset()
   pointer#unpack(format:string, values*:number):[nil,stay]
   pointer#unpacks(format:string, values*:number) {block?}
