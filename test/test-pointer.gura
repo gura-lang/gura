@@ -70,3 +70,7 @@ testcase('pointer#get@*()') {
 	//f(`p.get@int64():nil)
 	//f(`p.get@uint64():nil)
 }
+testcase('not-writable binary') {
+	tester(`b''.pointer().put@char(0))
+	tester(`b''.pointer().pack('b', 0))
+}

@@ -276,3 +276,8 @@ p.get@uint32():nil
 00000000d3d2d1d0 00000000d7d6d5d4 00000000dbdad9d8 00000000dfdedddc
 00000000e3e2e1e0 00000000e7e6e5e4 00000000ebeae9e8 00000000efeeedec
 00000000f3f2f1f0 00000000f7f6f5f4 00000000fbfaf9f8 00000000fffefdfc
+
+======== #6 not-writable binary ========
+
+b''.pointer().put@char(0) .. ValueError: not a writable binary
+b''.pointer().pack('b', 0) .. ValueError: not a writable binary

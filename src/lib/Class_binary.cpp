@@ -182,6 +182,10 @@ Object_binary::PointerEx::PointerEx(const PointerEx &ptr) :
 
 bool Object_binary::PointerEx::PackPrepare(Environment &env, size_t bytes)
 {
+	if (!_pObjBinary->IsWritable()) {
+		env.SetError(ERR_ValueError, "not a writable binary");
+		return false;
+	}
 	return true;
 }
 
