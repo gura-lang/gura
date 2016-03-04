@@ -1576,6 +1576,13 @@ Currently, this can be an instance of `binary` or `memory`.</td></tr>
 </table>
 
 
+### Constructor
+
+${moddoc.reference(`en
+pointer
+)}
+
+
 ### Method
 
 ${moddoc.reference(`en

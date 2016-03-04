@@ -63,6 +63,27 @@ String Object_pointer::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of functions
+//-----------------------------------------------------------------------------
+// pointer(ptr:pointer):map {block?}
+Gura_DeclareFunction(pointer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "ptr", VTYPE_pointer, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_pointer));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementFunction(pointer)
+{
+	Pointer *pPointer = Object_pointer::GetObject(arg, 0)->GetPointer();
+	return ReturnValue(env, arg, Value(new Object_pointer(env, pPointer->Clone())));
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // pointer#copyfrom(src:pointer, bytes?:number):map:reduce
@@ -463,8 +484,7 @@ Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_po
 
 void Class_pointer::Prepare(Environment &env)
 {
-	//Gura_AssignFunction(pointer);
-	Gura_AssignValue(pointer, Value(Reference()));
+	Gura_AssignFunction(pointer);
 	Gura_AssignMethod(pointer, copyfrom);
 	Gura_AssignMethod(pointer, copyto);
 	Gura_AssignMethod(pointer, dump);

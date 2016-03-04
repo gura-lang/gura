@@ -339,7 +339,7 @@ Gura_ImplementMethod(stream, copyfrom)
 Gura_DeclareMethod(stream, copyto)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "bytesunit", VTYPE_number,
 			   OCCUR_Once, FLAG_None, 0, new Expr_Value(65536));
 	DeclareAttr(Gura_Symbol(finalize));
@@ -443,11 +443,11 @@ Gura_ImplementMethod(stream, flush)
 	return Value::Nil;
 }
 
-// stream#peek(len:number)
+// stream#peek(bytes:number)
 Gura_DeclareMethod(stream, peek)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads specified length of data from the stream\n"
@@ -461,14 +461,14 @@ Gura_ImplementMethod(stream, peek)
 	Stream &stream = Object_stream::GetObjectThis(arg)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	Value result;
-	size_t len = static_cast<size_t>(arg.GetNumber(0));
-	char *buff = new char [len];
-	size_t lenRead = stream.Peek(sig, buff, len);
-	if (lenRead == 0) {
+	size_t bytes = static_cast<size_t>(arg.GetNumber(0));
+	char *buff = new char [bytes];
+	size_t bytesRead = stream.Peek(sig, buff, bytes);
+	if (bytesRead == 0) {
 		delete [] buff;
 		return Value::Nil;
 	}
-	result = Value(new Object_binary(env, Binary(buff, lenRead), true));
+	result = Value(new Object_binary(env, Binary(buff, bytesRead), true));
 	delete [] buff;
 	return result;
 }
@@ -575,17 +575,17 @@ Gura_ImplementMethod(stream, println)
 	return Value::Nil;
 }
 
-// stream#read(len?:number) {block?}
+// stream#read(bytes?:number) {block?}
 Gura_DeclareMethod(stream, read)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads specified length of data from the stream\n"
 		"and returns a `binary` instance that contains it.\n"
-		"If the argument `len` is omitted, all the data available from the stream would be read.\n"
+		"If the argument `bytes` is omitted, all the data available from the stream would be read.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("buff", "binary"));
 }
@@ -597,14 +597,14 @@ Gura_ImplementMethod(stream, read)
 	if (!stream.CheckReadable(sig)) return Value::Nil;
 	Value result;
 	if (arg.Is_number(0)) {
-		size_t len = static_cast<size_t>(arg.GetNumber(0));
-		char *buff = new char [len];
-		size_t lenRead = stream.Read(sig, buff, len);
-		if (lenRead == 0) {
+		size_t bytes = static_cast<size_t>(arg.GetNumber(0));
+		char *buff = new char [bytes];
+		size_t bytesRead = stream.Read(sig, buff, bytes);
+		if (bytesRead == 0) {
 			delete [] buff;
 			return Value::Nil;
 		}
-		result = Value(new Object_binary(env, Binary(buff, lenRead), true));
+		result = Value(new Object_binary(env, Binary(buff, bytesRead), true));
 		delete [] buff;
 	} else if (stream.IsInfinite()) {
 		sig.SetError(ERR_IOError, "specify a reading size for infinite stream");
@@ -615,11 +615,11 @@ Gura_ImplementMethod(stream, read)
 		Binary &buff = pObjBinary->GetBinary();
 		AutoPtr<Memory> pMemory(new MemoryHeap(bytesBuff));
 		char *buffSeg = reinterpret_cast<char *>(pMemory->GetPointer());
-		size_t lenRead = stream.Read(sig, buffSeg, bytesBuff);
-		if (lenRead == 0) return Value::Nil;
+		size_t bytesRead = stream.Read(sig, buffSeg, bytesBuff);
+		if (bytesRead == 0) return Value::Nil;
 		do {
-			buff.append(buffSeg, lenRead);
-		} while ((lenRead = stream.Read(sig, buffSeg, bytesBuff)) > 0);
+			buff.append(buffSeg, bytesRead);
+		} while ((bytesRead = stream.Read(sig, buffSeg, bytesBuff)) > 0);
 		if (sig.IsSignalled()) return Value::Nil;
 		result = Value(pObjBinary.release());
 	}
@@ -861,16 +861,16 @@ Gura_ImplementMethod(stream, tell)
 	return Value(static_cast<ULong>(stream.Tell()));
 }
 
-// stream#write(buff:binary, len?:number):reduce
+// stream#write(ptr:pointer, bytes?:number):reduce
 Gura_DeclareMethod(stream, write)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "buff", VTYPE_binary);
-	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "ptr", VTYPE_pointer);
+	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Writes binary data contained in `buff` to the stream.\n"
-		"The argument `len` limits the number of data that is to be written to the stream.\n");
+		"Writes binary data pointer by `ptr` to the stream.\n"
+		"The argument `bytes` limits the number of data that is to be written to the stream.\n");
 }
 
 Gura_ImplementMethod(stream, write)
@@ -878,13 +878,9 @@ Gura_ImplementMethod(stream, write)
 	Signal &sig = env.GetSignal();
 	Stream &stream = Object_stream::GetObjectThis(arg)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Nil;
-	const Binary &binary = arg.GetBinary(0);
-	size_t len = arg.Is_number(1)? arg.GetSizeT(1) : binary.size();
-	if (len > binary.size()) {
-		sig.SetError(ERR_MemoryError, "too large length");
-		return Value::Nil;
-	}
-	stream.Write(sig, binary.c_str(), binary.size());
+	Pointer *pPointer = Object_pointer::GetObject(arg, 0)->GetPointer();
+	size_t bytes = arg.Is_number(1)? arg.GetSizeT(1) : pPointer->GetSize();
+	stream.Write(sig, pPointer->GetPointerC(), bytes);
 	return arg.GetValueThis();
 }
 

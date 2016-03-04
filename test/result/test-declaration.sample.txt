@@ -741,6 +741,8 @@ palette
   palette#shrink():reduce:[align]
   palette#updateby(image_or_palette):reduce:[align,shrink]
 pointer
+  pointer#copyfrom(src:pointer, bytes?:number):map:reduce
+  pointer#copyto(dst:pointer, bytes?:number):map:reduce
   pointer#dump(stream?:stream:w):void:[upper]
   pointer#forward(distance:number):reduce
   pointer#get@char():[nil,stay]
@@ -764,7 +766,7 @@ pointer
   pointer#put@uint32(n:number):map:reduce:[stay]
   pointer#put@uint64(n:number):map:reduce:[stay]
   pointer#put@ushort(n:number):map:reduce:[stay]
-  pointer#reset()
+  pointer#reset():void
   pointer#unpack(format:string, values*:number):[nil,stay]
   pointer#unpacks(format:string, values*:number) {block?}
 quote
@@ -780,15 +782,15 @@ stream
   stream#compare(stream:stream:r):map
   stream.copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):static:map:void:[finalize] {block?}
   stream#copyfrom(src:stream:r, bytesunit:number => 65536):map:reduce:[finalize] {block?}
-  stream#copyto(stream:stream:w, bytesunit:number => 65536):map:reduce:[finalize] {block?}
+  stream#copyto(dst:stream:w, bytesunit:number => 65536):map:reduce:[finalize] {block?}
   stream#delcr(flag?:boolean):reduce
   stream#deserialize()
   stream#flush():void
-  stream#peek(len?:number)
+  stream#peek(bytes?:number)
   stream#print(values*):map:void
   stream#printf(format:string, values*):map:void
   stream#println(values*):map:void
-  stream#read(len?:number) {block?}
+  stream#read(bytes?:number) {block?}
   stream#readchar() {block?}
   stream#reader@base64() {block?}
   stream#readline():[chop] {block?}
@@ -798,7 +800,7 @@ stream
   stream#serialize(value):void
   stream#setcodec(codec:codec:nil):reduce
   stream#tell()
-  stream#write(buff:binary, len?:number):reduce
+  stream#write(buff:binary, bytes?:number):reduce
   stream#writer@base64(linelen:number:nil => 76) {block?}
 string
   string#align(width:number, padding:string => ' '):map:[center,left,right]
