@@ -50,7 +50,7 @@ public:
 		inline const Binary &GetBinary() const { return _pObjBinary->GetBinary(); }
 	public:
 		virtual bool PackPrepare(Environment &env, size_t bytes);
-		virtual void PackBuffer(const UChar *buff, size_t bytes);
+		virtual void PackBuffer(const void *buff, size_t bytes);
 		virtual const UChar *UnpackPrepare(Environment &env, size_t bytes, bool exceedErrorFlag);
 	public:
 		virtual Pointer *Clone() const;

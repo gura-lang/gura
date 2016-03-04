@@ -1579,12 +1579,34 @@ Currently, this can be an instance of `binary` or `memory`.</td></tr>
 ### Method
 
 ${moddoc.reference(`en
+pointer.copyto
+pointer.copyfrom
 pointer.dump
 pointer.forward
 pointer.pack
 pointer.reset
 pointer.unpack
 pointer.unpacks
+pointer.get@char
+pointer.get@uchar
+pointer.get@short
+pointer.get@ushort
+pointer.get@int32
+pointer.get@uint32
+pointer.get@int64
+pointer.get@uint64
+pointer.get@float
+pointer.get@double
+pointer.put@char
+pointer.put@uchar
+pointer.put@short
+pointer.put@ushort
+pointer.put@int32
+pointer.put@uint32
+pointer.put@int64
+pointer.put@uint64
+pointer.put@float
+pointer.put@double
 )}
 
 

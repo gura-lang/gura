@@ -65,6 +65,46 @@ String Object_pointer::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// pointer#copyfrom(src:pointer, bytes?:number):map:reduce
+Gura_DeclareMethod(pointer, copyfrom)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_pointer, OCCUR_Once);
+	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Copies data from `src` to the target pointer.\n");
+}
+
+Gura_ImplementMethod(pointer, copyfrom)
+{
+	Pointer *pPointerDst = Object_pointer::GetObjectThis(arg)->GetPointer();
+	Pointer *pPointerSrc = Object_pointer::GetObject(arg, 0)->GetPointer();
+	size_t bytes = arg.IsValid(1)? arg.GetSizeT(1) : pPointerSrc->GetSize();
+	pPointerDst->PutBuffer(env, pPointerSrc->GetPointerC(), bytes);
+	return arg.GetValueThis();
+}
+
+// pointer#copyto(dst:pointer, bytes?:number):map:reduce
+Gura_DeclareMethod(pointer, copyto)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "dst", VTYPE_pointer, OCCUR_Once);
+	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Copies data from the target pointer to `dst`.\n");
+}
+
+Gura_ImplementMethod(pointer, copyto)
+{
+	Pointer *pPointerSrc = Object_pointer::GetObjectThis(arg)->GetPointer();
+	Pointer *pPointerDst = Object_pointer::GetObject(arg, 0)->GetPointer();
+	size_t bytes = arg.IsValid(1)? arg.GetSizeT(1) : pPointerSrc->GetSize();
+	pPointerDst->PutBuffer(env, pPointerSrc->GetPointerC(), bytes);
+	return arg.GetValueThis();
+}
+
 // pointer#dump(stream?:stream:w):void:[upper]
 Gura_DeclareMethod(pointer, dump)
 {
@@ -204,10 +244,10 @@ Gura_ImplementMethod(pointer, pack)
 	return arg.GetValueThis();
 }
 
-// pointer#reset()
+// pointer#reset():void
 Gura_DeclareMethod(pointer, reset)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Resets pointer offset to its beginning.");
@@ -425,6 +465,8 @@ void Class_pointer::Prepare(Environment &env)
 {
 	//Gura_AssignFunction(pointer);
 	Gura_AssignValue(pointer, Value(Reference()));
+	Gura_AssignMethod(pointer, copyfrom);
+	Gura_AssignMethod(pointer, copyto);
 	Gura_AssignMethod(pointer, dump);
 	Gura_AssignMethod(pointer, forward);
 	Gura_AssignMethod(pointer, pack);

@@ -481,6 +481,13 @@ bool Packer::PutDouble(Environment &env, double num, bool bigEndianFlag)
 	return true;
 }
 
+bool Packer::PutBuffer(Environment &env, const void *buff, size_t bytes)
+{
+	if (!PackPrepare(env, bytes)) return false;
+	PackBuffer(buff, bytes);
+	return true;
+}
+
 bool Packer::GetChar(Environment &env, Char *pNum, bool exceedErrorFlag)
 {
 	const UChar *pByte = UnpackPrepare(env, sizeof(Char), exceedErrorFlag);

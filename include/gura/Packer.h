@@ -27,6 +27,7 @@ public:
 	bool PutUInt64(Environment &env, UInt64 num, bool bigEndianFlag);
 	bool PutFloat(Environment &env, float num, bool bigEndianFlag);
 	bool PutDouble(Environment &env, double num, bool bigEndianFlag);
+	bool PutBuffer(Environment &env, const void *buff, size_t bytes);
 	bool GetChar(Environment &env, Char *pNum, bool exceedErrorFlag);
 	bool GetUChar(Environment &env, UChar *pNum, bool exceedErrorFlag);
 	bool GetShort(Environment &env, Short *pNum, bool bigEndianFlag, bool exceedErrorFlag);
@@ -39,7 +40,7 @@ public:
 	bool GetDouble(Environment &env, double *pNum, bool bigEndianFlag, bool exceedErrorFlag);
 public:
 	virtual bool PackPrepare(Environment &env, size_t bytes) = 0;
-	virtual void PackBuffer(const UChar *buff, size_t bytes) = 0;
+	virtual void PackBuffer(const void *buff, size_t bytes) = 0;
 	virtual const UChar *UnpackPrepare(Environment &env, size_t bytes, bool exceedErrorFlag) = 0;
 private:
 	static bool CheckString(Environment &env,

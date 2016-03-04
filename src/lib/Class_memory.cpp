@@ -81,7 +81,7 @@ bool Object_memory::PointerEx::PackPrepare(Environment &env, size_t bytes)
 	return false;
 }
 
-void Object_memory::PointerEx::PackBuffer(const UChar *buff, size_t bytes)
+void Object_memory::PointerEx::PackBuffer(const void *buff, size_t bytes)
 {
 	Memory &memory = _pObjMemory->GetMemory();
 	if (_offset >= memory.GetSize()) return;

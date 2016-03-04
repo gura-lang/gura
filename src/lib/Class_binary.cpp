@@ -185,20 +185,21 @@ bool Object_binary::PointerEx::PackPrepare(Environment &env, size_t bytes)
 	return true;
 }
 
-void Object_binary::PointerEx::PackBuffer(const UChar *buff, size_t bytes)
+void Object_binary::PointerEx::PackBuffer(const void *buff, size_t bytes)
 {
 	size_t offsetNext = _offset + bytes;
 	if (buff != nullptr) {
 		Binary &binary = _pObjBinary->GetBinary();
+		const UChar *buffp = reinterpret_cast<const UChar *>(buff);
 		if (_offset < binary.size()) {
 			size_t bytesToCopy = ChooseMin(binary.size() - _offset, bytes);
-			std::copy(buff, buff + bytesToCopy, binary.begin() + _offset);
-			buff += bytesToCopy;
+			std::copy(buffp, buffp + bytesToCopy, binary.begin() + _offset);
+			buffp += bytesToCopy;
 			bytes -= bytesToCopy;
 		} else if (_offset > binary.size()) {
 			binary.append(_offset - binary.size(), '\0');
 		}
-		binary.append(buff, buff + bytes);
+		binary.append(buffp, buffp + bytes);
 	}
 	_offset = offsetNext;
 }
