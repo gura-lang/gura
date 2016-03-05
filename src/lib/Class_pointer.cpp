@@ -126,11 +126,12 @@ Gura_ImplementMethod(pointer, copyto)
 	return arg.GetValueThis();
 }
 
-// pointer#dump(stream?:stream:w):reduce:[upper]
+// pointer#dump(stream?:stream:w, bytes?:number):reduce:[upper]
 Gura_DeclareMethod(pointer, dump)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(upper));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -153,7 +154,8 @@ Gura_ImplementMethod(pointer, dump)
 	Stream *pStream = arg.IsInstanceOf(0, VTYPE_stream)?
 								&arg.GetStream(0) : env.GetConsole();
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
-	pStream->Dump(sig, pPointer->GetPointerC(), pPointer->GetSize(), arg.IsSet(Gura_Symbol(upper)));
+	size_t bytes = arg.IsValid(1)? arg.GetSizeT(1) : pPointer->GetSize();
+	pStream->Dump(sig, pPointer->GetPointerC(), bytes, arg.IsSet(Gura_Symbol(upper)));
 	return arg.GetValueThis();
 }
 
@@ -176,6 +178,60 @@ Gura_ImplementMethod(pointer, forward)
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	if (!pPointer->Advance(env, arg.GetInt(0))) return Value::Nil;
 	return arg.GetValueThis();
+}
+
+// pointer#hex(bytes?:number):[upper,cstr,carray]
+Gura_DeclareMethod(pointer, hex)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(upper));
+	DeclareAttr(Gura_Symbol(cstr));
+	DeclareAttr(Gura_Symbol(carray));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Converts the binary data into a hexadecimal string.\n"
+		"\n"
+		"In default, the result string is a sequence of joined hexadecimal values without any space.\n"
+		"You can specify the following attribute to change the format:\n"
+		"\n"
+		"- `:cstr` .. Format of C string.\n"
+		"- `:carray` .. Format of C array.\n"
+		"\n"
+		"Alphabet characters are described in lower characters\n"
+		"unless the attribute `:upper` is specified.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"<table>\n"
+		"<tr><th>Code</th><th>Result</th></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.pointer().hex()</code></td><td><code>'0123abcd'</code></td></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.pointer().hex():upper</code></td><td><code>'0123ABCD'</code></td></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.pointer().hex():cstr</code></td><td><code>'\\\\x01\\\\x23\\\\xab\\\\xcd'</code></td></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.pointer().hex():carray</code></td><td><code>'0x01, 0x23, 0xab, 0xcd'</code></td></tr>\n"
+		"</table>\n");
+}
+
+Gura_ImplementMethod(pointer, hex)
+{
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	String rtn;
+	bool upperFlag = arg.IsSet(Gura_Symbol(upper));
+	const char *sep = arg.IsSet(Gura_Symbol(carray))? ", " : nullptr;
+	const char *format =
+		arg.IsSet(Gura_Symbol(cstr))? (upperFlag? "\\x%02X" : "\\x%02x") :
+		arg.IsSet(Gura_Symbol(carray))? (upperFlag? "0x%02X" : "0x%02x") :
+		(upperFlag? "%02X" : "%02x");
+	const UChar *pTop = pPointer->GetPointerC();
+	size_t bytes = pPointer->GetSize();
+	if (arg.IsValid(0)) bytes = ChooseMin(bytes, arg.GetSizeT(0));
+	for (const UChar *p = pTop; bytes > 0; p++, bytes--) {
+		if (sep != nullptr && p != pTop) rtn += sep;
+		char buff[32];
+		::sprintf(buff, format, *p);
+		rtn += buff;
+	}
+	return Value(rtn);
 }
 
 // pointer#pack(format:string, value+):reduce:[stay]
@@ -506,6 +562,7 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignMethod(pointer, copyto);
 	Gura_AssignMethod(pointer, dump);
 	Gura_AssignMethod(pointer, forward);
+	Gura_AssignMethod(pointer, hex);
 	Gura_AssignMethod(pointer, pack);
 	Gura_AssignMethod(pointer, reset);
 	Gura_AssignMethod(pointer, seek);

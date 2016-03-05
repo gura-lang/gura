@@ -286,3 +286,12 @@ b''.pointer().pack('b', 0) .. ValueError: not a writable binary
 
 00 00 00 00 01 00 00 00 02 00 00 00 03 00 00 00  ................
 00 00 00 00 01 00 00 00 02 00 00 00 03 00 00 00  ................
+
+======== #8 pointer#hex() ========
+
+p.hex(16) .. a0a1a2a3a4a5a6a7a8a9aaabacadaeaf
+p.hex(16):upper .. A0A1A2A3A4A5A6A7A8A9AAABACADAEAF
+p.hex(16):cstr .. \xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf
+p.hex(16):cstr:upper .. \xA0\xA1\xA2\xA3\xA4\xA5\xA6\xA7\xA8\xA9\xAA\xAB\xAC\xAD\xAE\xAF
+p.hex(16):carray .. 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf
+p.hex(16):carray:upper .. 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF

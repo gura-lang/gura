@@ -406,58 +406,6 @@ Gura_ImplementMethod(binary, encodeuri)
 	return Value(EncodeURI(binary.data(), binary.size()));
 }
 
-// binary#hex():[upper,cstr,carray]
-Gura_DeclareMethod(binary, hex)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(upper));
-	DeclareAttr(Gura_Symbol(cstr));
-	DeclareAttr(Gura_Symbol(carray));
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Converts the binary into a hexadecimal string.\n"
-		"\n"
-		"In default, the result string is a sequence of joined hexadecimal values without any space.\n"
-		"You can specify the following attribute to change the format:\n"
-		"\n"
-		"- `:cstr` .. Format of C string.\n"
-		"- `:carray` .. Format of C array.\n"
-		"\n"
-		"Alphabet characters are described in lower characters\n"
-		"unless the attribute `:upper` is specified.\n"
-		"\n"
-		"Example:\n"
-		"\n"
-		"<table>\n"
-		"<tr><th>Code</th><th>Result</th></tr>\n"
-		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.hex()</code></td><td><code>'0123abcd'</code></td></tr>\n"
-		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.hex():upper</code></td><td><code>'0123ABCD'</code></td></tr>\n"
-		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.hex():cstr</code></td><td><code>'\\\\x01\\\\x23\\\\xab\\\\xcd'</code></td></tr>\n"
-		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.hex():carray</code></td><td><code>'0x01, 0x23, 0xab, 0xcd'</code></td></tr>\n"
-		"</table>\n");
-}
-
-Gura_ImplementMethod(binary, hex)
-{
-	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	String rtn;
-	bool upperFlag = arg.IsSet(Gura_Symbol(upper));
-	const char *sep = arg.IsSet(Gura_Symbol(carray))? ", " : nullptr;
-	const char *format =
-		arg.IsSet(Gura_Symbol(cstr))? (upperFlag? "\\x%02X" : "\\x%02x") :
-		arg.IsSet(Gura_Symbol(carray))? (upperFlag? "0x%02X" : "0x%02x") :
-		(upperFlag? "%02X" : "%02x");
-	const Binary &buff = pThis->GetBinary();
-	foreach_const (Binary, p, buff) {
-		UChar ch = static_cast<UChar>(*p);
-		if (sep != nullptr && p != buff.begin()) rtn += sep;
-		char buff[32];
-		::sprintf(buff, format, ch);
-		rtn += buff;
-	}
-	return Value(rtn);
-}
-
 // binary#pointer(offset?:number):map {block?}
 Gura_DeclareMethod(binary, pointer)
 {
@@ -534,7 +482,6 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, dump);
 	Gura_AssignMethod(binary, each);
 	Gura_AssignMethod(binary, encodeuri);
-	Gura_AssignMethod(binary, hex);
 	Gura_AssignMethod(binary, pointer);
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, writer);

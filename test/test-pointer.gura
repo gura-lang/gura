@@ -82,3 +82,14 @@ testcase('pointer() constructor') {
 	pointer(m).pack('4i', 0, 1, 2, 3)
 	m.dump()
 }
+testcase('pointer#hex()') {
+	buff = binary()
+	buff.pointer().pack('256B', [0..255]*)
+	p = buff.pointer(0xa0)
+	tester(`p.hex(16))
+	tester(`p.hex(16):upper)
+	tester(`p.hex(16):cstr)
+	tester(`p.hex(16):cstr:upper)
+	tester(`p.hex(16):carray)
+	tester(`p.hex(16):carray:upper)
+}
