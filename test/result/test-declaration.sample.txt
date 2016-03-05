@@ -395,7 +395,6 @@ audio
   audio#store(channel:number, offset:number, data:iterator):reduce
 binary
   binary.alloc(bytes:number, data?:number):static:map {block?}
-  binary#decode(codec:codec)
   binary#dump(stream?:stream:w):void:[upper]
   binary#each() {block?}
   binary#encodeuri()
@@ -740,6 +739,7 @@ palette
 pointer
   pointer#copyfrom(src:pointer, bytes?:number):map:reduce
   pointer#copyto(dst:pointer, bytes?:number):map:reduce
+  pointer#decode(codec:codec, bytes?:number) {block?}
   pointer#dump(stream?:stream:w, bytes?:number):reduce:[upper]
   pointer#forward(distance:number):reduce
   pointer#get@char():[nil,stay]

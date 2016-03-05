@@ -313,29 +313,6 @@ Gura_ImplementClassMethod(binary, alloc)
 	return ReturnValue(env, arg, Value(pObjBinary.release()));
 }
 
-// binary#decode(codec:codec)
-Gura_DeclareMethod(binary, decode)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "codec", VTYPE_codec);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Decodes the content of the `binary` as a sequence of string characters using `codec`\n"
-		"and returns the result in `string`.");
-}
-
-Gura_ImplementMethod(binary, decode)
-{
-	Signal &sig = env.GetSignal();
-	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	Codec *pCodec = Object_codec::GetObject(arg, 0)->GetCodec();
-	String str;
-	if (!pCodec->GetDecoder()->Decode(sig, str, pThis->GetBinary())) {
-		return Value::Nil;
-	}
-	return Value(str);
-}
-
 // binary#dump(stream?:stream:w):void:[upper]
 Gura_DeclareMethod(binary, dump)
 {
@@ -478,7 +455,6 @@ void Class_binary::Prepare(Environment &env)
 {
 	Gura_AssignFunction(binary);
 	Gura_AssignMethod(binary, alloc);
-	Gura_AssignMethod(binary, decode);
 	Gura_AssignMethod(binary, dump);
 	Gura_AssignMethod(binary, each);
 	Gura_AssignMethod(binary, encodeuri);

@@ -126,6 +126,34 @@ Gura_ImplementMethod(pointer, copyto)
 	return arg.GetValueThis();
 }
 
+// pointer#decode(codec:codec, bytes?:number) {block?}
+Gura_DeclareMethod(pointer, decode)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "codec", VTYPE_codec);
+	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Decodes the content of the `pointer` as a sequence of string characters using `codec`\n"
+		"and returns the result in `string`.");
+}
+
+Gura_ImplementMethod(pointer, decode)
+{
+	Signal &sig = env.GetSignal();
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	Codec *pCodec = Object_codec::GetObject(arg, 0)->GetCodec();
+	String str;
+	size_t bytes = pPointer->GetSize();
+	if (arg.IsValid(1)) bytes = ChooseMin(bytes, arg.GetSizeT(1));
+	const char *p = reinterpret_cast<const char *>(pPointer->GetPointerC());
+	if (!pCodec->GetDecoder()->Decode(sig, str, p, bytes)) {
+		return Value::Nil;
+	}
+	return ReturnValue(env, arg, Value(str));
+}
+
 // pointer#dump(stream?:stream:w, bytes?:number):reduce:[upper]
 Gura_DeclareMethod(pointer, dump)
 {
@@ -560,6 +588,7 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignFunction(pointer);
 	Gura_AssignMethod(pointer, copyfrom);
 	Gura_AssignMethod(pointer, copyto);
+	Gura_AssignMethod(pointer, decode);
 	Gura_AssignMethod(pointer, dump);
 	Gura_AssignMethod(pointer, forward);
 	Gura_AssignMethod(pointer, hex);
