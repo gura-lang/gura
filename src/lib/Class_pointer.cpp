@@ -146,7 +146,10 @@ Gura_ImplementMethod(pointer, decode)
 	Codec *pCodec = Object_codec::GetObject(arg, 0)->GetCodec();
 	String str;
 	size_t bytes = pPointer->GetSize();
-	if (arg.IsValid(1)) bytes = ChooseMin(bytes, arg.GetSizeT(1));
+	if (arg.IsValid(1) && (bytes = arg.GetSizeT(1)) > pPointer->GetSize()) {
+		env.SetError(ERR_OutOfRangeError, "out of range");
+		return Value::Nil;
+	}
 	const char *p = reinterpret_cast<const char *>(pPointer->GetPointerC());
 	if (!pCodec->GetDecoder()->Decode(sig, str, p, bytes)) {
 		return Value::Nil;
@@ -205,7 +208,10 @@ Gura_ImplementMethod(pointer, encodeuri)
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	const char *p = reinterpret_cast<const char *>(pPointer->GetPointerC());
 	size_t bytes = pPointer->GetSize();
-	if (arg.IsValid(0)) bytes = ChooseMin(bytes, arg.GetSizeT(0));
+	if (arg.IsValid(0) && (bytes = arg.GetSizeT(0)) > pPointer->GetSize()) {
+		env.SetError(ERR_OutOfRangeError, "out of range");
+		return Value::Nil;
+	}
 	return ReturnValue(env, arg, Value(EncodeURI(p, bytes)));
 }
 
@@ -274,7 +280,10 @@ Gura_ImplementMethod(pointer, hex)
 		(upperFlag? "%02X" : "%02x");
 	const UChar *pTop = pPointer->GetPointerC();
 	size_t bytes = pPointer->GetSize();
-	if (arg.IsValid(0)) bytes = ChooseMin(bytes, arg.GetSizeT(0));
+	if (arg.IsValid(0) && (bytes = arg.GetSizeT(0)) > pPointer->GetSize()) {
+		env.SetError(ERR_OutOfRangeError, "out of range");
+		return Value::Nil;
+	}
 	for (const UChar *p = pTop; bytes > 0; p++, bytes--) {
 		if (sep != nullptr && p != pTop) rtn += sep;
 		char buff[32];
