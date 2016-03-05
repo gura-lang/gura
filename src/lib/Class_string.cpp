@@ -15,7 +15,7 @@ Gura_ImplementSuffixMgrForString($)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// string#align(width:number, padding:string => ' '):map:[center,left,right]
+// string#align(width:number, padding:string => ' '):map:[center,left,right] {block?}
 Gura_DeclareMethod(string, align)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -24,6 +24,7 @@ Gura_DeclareMethod(string, align)
 	DeclareAttr(Gura_Symbol(center));
 	DeclareAttr(Gura_Symbol(left));
 	DeclareAttr(Gura_Symbol(right));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Align the string to the left, right or center within the specified `width`\n"
@@ -61,13 +62,14 @@ Gura_ImplementMethod(string, align)
 	} else {
 		str = Center(arg.GetValueThis().GetString(), width, padding);
 	}
-	return Value(str);
+	return ReturnValue(env, arg, Value(str));
 }
 
-// string#binary()
+// string#binary() {block?}
 Gura_DeclareMethodPrimitive(string, binary)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Converts the string into `binary` instance.");
@@ -76,13 +78,14 @@ Gura_DeclareMethodPrimitive(string, binary)
 Gura_ImplementMethod(string, binary)
 {
 	const char *str = arg.GetValueThis().GetString();
-	return Value(new Object_binary(env, str, ::strlen(str), true));
+	return ReturnValue(env, arg, Value(new Object_binary(env, str, ::strlen(str), true)));
 }
 
-// string#capitalize()
+// string#capitalize() {block?}
 Gura_DeclareMethod(string, capitalize)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string that capitalizes the first character.\n");
@@ -90,16 +93,17 @@ Gura_DeclareMethod(string, capitalize)
 
 Gura_ImplementMethod(string, capitalize)
 {
-	return Value(Capitalize(arg.GetValueThis().GetString()));
+	return ReturnValue(env, arg, Value(Capitalize(arg.GetValueThis().GetString())));
 }
 
-// string#chop(suffix*:string):[eol,icase]
+// string#chop(suffix*:string):[eol,icase] {block?}
 Gura_DeclareMethod(string, chop)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "suffix", VTYPE_string, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(eol));
 	DeclareAttr(Gura_Symbol(icase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string that removes a last character.\n"
@@ -121,15 +125,16 @@ Gura_ImplementMethod(string, chop)
 	foreach_const (ValueList, pValue, valList) {
 		const char *p1 = rtn.c_str();
 		const char *p2 = EndsWith(p1, pValue->GetString(), arg.IsSet(Gura_Symbol(icase)));
-		if (p2 != nullptr) return Value(String(p1, p2));
+		if (p2 != nullptr) return ReturnValue(env, arg, Value(String(p1, p2)));
 	}
-	return Value(rtn);
+	return ReturnValue(env, arg, Value(rtn));
 }
 
-// string#decodeuri()
+// string#decodeuri() {block?}
 Gura_DeclareMethod(string, decodeuri)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string in which percent-encoded characters are decoded.");
@@ -137,7 +142,7 @@ Gura_DeclareMethod(string, decodeuri)
 
 Gura_ImplementMethod(string, decodeuri)
 {
-	return Value(DecodeURI(arg.GetValueThis().GetString()));
+	return ReturnValue(env, arg, Value(DecodeURI(arg.GetValueThis().GetString())));
 }
 
 // string#each():[utf8,utf32] {block?}
@@ -228,11 +233,12 @@ Gura_ImplementMethod(string, embed)
 	}
 }
 
-// string#encode(codec:codec)
+// string#encode(codec:codec) {block?}
 Gura_DeclareMethodPrimitive(string, encode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "codec", VTYPE_codec);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Encodes the string with the given `codec` and return the result as a `binary`.\n");
@@ -246,13 +252,14 @@ Gura_ImplementMethod(string, encode)
 	if (!pCodec->GetEncoder()->Encode(sig, buff, arg.GetValueThis().GetString())) {
 		return Value::Nil;
 	}
-	return Value(new Object_binary(env, buff, true));
+	return ReturnValue(env, arg, Value(new Object_binary(env, buff, true)));
 }
 
-// string#encodeuri()
+// string#encodeuri() {block?}
 Gura_DeclareMethod(string, encodeuri)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string in which non-URIC characters are percent-encoded.\n");
@@ -260,7 +267,7 @@ Gura_DeclareMethod(string, encodeuri)
 
 Gura_ImplementMethod(string, encodeuri)
 {
-	return Value(EncodeURI(arg.GetValueThis().GetString()));
+	return ReturnValue(env, arg, Value(EncodeURI(arg.GetValueThis().GetString())));
 }
 
 // string#endswith(suffix:string, endpos?:number):map:[rest,icase]
@@ -297,11 +304,12 @@ Gura_ImplementMethod(string, endswith)
 	return rtn != nullptr;
 }
 
-// string#escapehtml():[quote]
+// string#escapehtml():[quote] {block?}
 Gura_DeclareMethod(string, escapehtml)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(quote));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string that converts characters into escape sequences.");
@@ -310,7 +318,7 @@ Gura_DeclareMethod(string, escapehtml)
 Gura_ImplementMethod(string, escapehtml)
 {
 	bool quoteFlag = arg.IsSet(Gura_Symbol(quote));
-	return Value(EscapeHtml(arg.GetValueThis().GetString(), quoteFlag));
+	return ReturnValue(env, arg, Value(EscapeHtml(arg.GetValueThis().GetString(), quoteFlag)));
 }
 
 // string#find(sub:string, pos?:number => 0):map:[icase,rev]
@@ -527,12 +535,13 @@ Gura_ImplementMethod(string, lower)
 	return Value(Lower(arg.GetValueThis().GetString()));
 }
 
-// string#mid(pos:number => 0, len?:number):map
+// string#mid(pos:number => 0, len?:number):map {block?}
 Gura_DeclareMethod(string, mid)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Extracts the specified length of string from the position `pos` and returns the result.\n"
@@ -548,8 +557,8 @@ Gura_DeclareMethod(string, mid)
 
 Gura_ImplementMethod(string, mid)
 {
-	return Value(Middle(arg.GetValueThis().GetString(), arg.GetInt(0),
-						arg.Is_number(1)? arg.GetInt(1) : -1));
+	return ReturnValue(env, arg, Value(Middle(arg.GetValueThis().GetString(), arg.GetInt(0),
+											  arg.Is_number(1)? arg.GetInt(1) : -1)));
 }
 
 // string#print(stream?:stream:w):void
@@ -697,11 +706,12 @@ Gura_ImplementMethod(string, replaces)
 	return ReturnValues(env, arg, valListArg);
 }
 
-// string#right(len?:number):map
+// string#right(len?:number):map {block?}
 Gura_DeclareMethod(string, right)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Extracts the specified length of string from right of the source string.\n"
@@ -712,7 +722,7 @@ Gura_DeclareMethod(string, right)
 Gura_ImplementMethod(string, right)
 {
 	if (!arg.Is_number(0)) return arg.GetValueThis();
-	return Value(Right(arg.GetValueThis().GetString(), arg.GetSizeT(0)));
+	return ReturnValue(env, arg, Value(Right(arg.GetValueThis().GetString(), arg.GetSizeT(0))));
 }
 
 // string#split(sep?:string, count?:number):[icase] {block?}
@@ -778,13 +788,14 @@ Gura_ImplementMethod(string, startswith)
 	return rtn != nullptr;
 }
 
-// string#strip():[both,left,right]
+// string#strip():[both,left,right] {block?}
 Gura_DeclareMethod(string, strip)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(both));
 	DeclareAttr(Gura_Symbol(left));
 	DeclareAttr(Gura_Symbol(right));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string that removes space characters on the left, the right or the both sides\n"
@@ -807,8 +818,8 @@ Gura_ImplementMethod(string, strip)
 	} else if (!arg.IsSet(Gura_Symbol(left)) && arg.IsSet(Gura_Symbol(right))) {
 		stripLeftFlag = false;
 	}
-	return Value(Strip(arg.GetValueThis().GetString(), stripLeftFlag, stripRightFlag));
-	//return Value(Strip(arg.GetValueThis().GetString(), arg.GetAttrs()));
+	return ReturnValue(env, arg,
+					   Value(Strip(arg.GetValueThis().GetString(), stripLeftFlag, stripRightFlag)));
 }
 
 // string#template():[noindent,lasteol] {block?}
@@ -835,10 +846,11 @@ Gura_ImplementMethod(string, template_)
 					Value(new Object_template(env, pTemplate.release())));
 }
 
-// string#tosymbol()
+// string#tosymbol() {block?}
 Gura_DeclareMethod(string, tosymbol)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Convers the string into a symbol.\n");
@@ -846,7 +858,7 @@ Gura_DeclareMethod(string, tosymbol)
 
 Gura_ImplementMethod(string, tosymbol)
 {
-	return Value(Symbol::Add(arg.GetValueThis().GetString()));
+	return ReturnValue(env, arg, Value(Symbol::Add(arg.GetValueThis().GetString())));
 }
 
 // string.translator():void {block}
@@ -877,10 +889,11 @@ Gura_ImplementClassMethod(string, translator)
 	return Value::Nil;
 }
 
-// string#unescapehtml()
+// string#unescapehtml() {block?}
 Gura_DeclareMethod(string, unescapehtml)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Converts escape sequences into readable characters.");
@@ -888,13 +901,14 @@ Gura_DeclareMethod(string, unescapehtml)
 
 Gura_ImplementMethod(string, unescapehtml)
 {
-	return Value(UnescapeHtml(arg.GetValueThis().GetString()));
+	return ReturnValue(env, arg, Value(UnescapeHtml(arg.GetValueThis().GetString())));
 }
 
-// string#upper()
+// string#upper() {block?}
 Gura_DeclareMethod(string, upper)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Converts lower-case to upper-case characters.\n");
@@ -902,7 +916,7 @@ Gura_DeclareMethod(string, upper)
 
 Gura_ImplementMethod(string, upper)
 {
-	return Value(Upper(arg.GetValueThis().GetString()));
+	return ReturnValue(env, arg, Value(Upper(arg.GetValueThis().GetString())));
 }
 
 // string#width()
@@ -923,10 +937,11 @@ Gura_ImplementMethod(string, width)
 	return Value(static_cast<UInt>(Width(arg.GetValueThis().GetString())));
 }
 
-// string#zentohan()
+// string#zentohan() {block?}
 Gura_DeclareMethod(string, zentohan)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Converts zenkaku to hankaku characters.");
@@ -934,7 +949,7 @@ Gura_DeclareMethod(string, zentohan)
 
 Gura_ImplementMethod(string, zentohan)
 {
-	return Value(ZenToHan(arg.GetValueThis().GetString()));
+	return ReturnValue(env, arg, Value(ZenToHan(arg.GetValueThis().GetString())));
 }
 
 //-----------------------------------------------------------------------------
