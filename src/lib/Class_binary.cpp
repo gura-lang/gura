@@ -286,30 +286,6 @@ Gura_ImplementFunction(binary)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// binary#add(buff+:binary):map:reduce
-Gura_DeclareMethod(binary, add)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Adds binary data to the `binary` instance.\n"
-		"You can specify one or more binary data to be stored.\n");
-}
-
-Gura_ImplementMethod(binary, add)
-{
-	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	if (!pThis->IsWritable()) {
-		env.SetError(ERR_ValueError, "not a writable binary");
-		return Value::Nil;
-	}
-	foreach_const (ValueList, pValue, arg.GetList(0)) {
-		pThis->GetBinary() += pValue->GetBinary();
-	}
-	return arg.GetValueThis();
-}
-
 // binary.alloc(bytes:number, data?:number):map {block?}
 Gura_DeclareClassMethod(binary, alloc)
 {
@@ -553,7 +529,6 @@ Class_binary::Class_binary(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_bina
 void Class_binary::Prepare(Environment &env)
 {
 	Gura_AssignFunction(binary);
-	Gura_AssignMethod(binary, add);
 	Gura_AssignMethod(binary, alloc);
 	Gura_AssignMethod(binary, decode);
 	Gura_AssignMethod(binary, dump);

@@ -238,7 +238,7 @@ path:module = <module:path:<integrated>>
   path.splitext(pathname:string):map
   path.stat(directory:directory):map
   path.walk(directory?:directory, maxdepth?:number, pattern*:string):flat:map:[dir,file,stat] {block?}
-pointer:class = <class:pointer>
+pointer:class = <class:pointer(ptr:pointer):map {block?}>
 print(values*):map:void
 printf(format:string, values*):map:void
 println(values*):map:void
@@ -394,16 +394,14 @@ audio
   audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):map:reduce
   audio#store(channel:number, offset:number, data:iterator):reduce
 binary
-  binary#add(buff+:binary):map:reduce
   binary.alloc(bytes:number, data?:number):static:map {block?}
   binary#decode(codec:codec)
   binary#dump(stream?:stream:w):void:[upper]
   binary#each() {block?}
   binary#encodeuri()
   binary#hex():[carray,cstr,upper]
-  binary#pointer(offset?:number) {block?}
+  binary#pointer(offset?:number):map {block?}
   binary#reader() {block?}
-  binary#store(offset:number, buff+:binary):map:reduce
   binary#writer() {block?}
 boolean
 codec
@@ -743,7 +741,7 @@ palette
 pointer
   pointer#copyfrom(src:pointer, bytes?:number):map:reduce
   pointer#copyto(dst:pointer, bytes?:number):map:reduce
-  pointer#dump(stream?:stream:w):void:[upper]
+  pointer#dump(stream?:stream:w):reduce:[upper]
   pointer#forward(distance:number):reduce
   pointer#get@char():[nil,stay]
   pointer#get@double():[nil,stay]
@@ -766,9 +764,10 @@ pointer
   pointer#put@uint32(n:number):map:reduce:[stay]
   pointer#put@uint64(n:number):map:reduce:[stay]
   pointer#put@ushort(n:number):map:reduce:[stay]
-  pointer#reset():void
+  pointer#reset():reduce
+  pointer#seek():reduce
   pointer#unpack(format:string, values*:number):[nil,stay]
-  pointer#unpacks(format:string, values*:number) {block?}
+  pointer#unpacks(format:string, values*:number):map {block?}
 quote
 rational
   rational.reduce()
@@ -800,7 +799,7 @@ stream
   stream#serialize(value):void
   stream#setcodec(codec:codec:nil):reduce
   stream#tell()
-  stream#write(buff:binary, bytes?:number):reduce
+  stream#write(ptr:pointer, bytes?:number):reduce
   stream#writer@base64(linelen:number:nil => 76) {block?}
 string
   string#align(width:number, padding:string => ' '):map:[center,left,right]

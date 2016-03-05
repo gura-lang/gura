@@ -229,7 +229,6 @@ binary
 ### Method
 
 ${moddoc.reference(`en
-binary.add
 binary.alloc
 binary.decode
 binary.dump

@@ -45,8 +45,8 @@ testcase {
 testcase {
 	buff = binary()
 	buff.pointer([0, 8, 16])::copyfrom(b'xx'), buff.dump()
-	buff.add(b'abc', b'def').dump()
-	buff.add([b'abc', b'def']).dump()
+	buff.writer().write(b'abc').write(b'def'), buff.dump()
+	buff.writer().write(b'abc').write(b'def'), buff.dump()
 }
 testcase {
 	buff = binary()
@@ -165,7 +165,7 @@ testcase {
 	dump(buff)
 	println()
 	buffEx = b'\x00\x11\x22\x33\x44\x55\x66\x77\x88\x99\xaa\xbb\xcc\xdd\xee\xff'
-	buff.add(buffEx)
+	buff.writer().write(buffEx)
 	dump(buff)
 	println()
 	buff.pointer(16).copyfrom(buffEx)
@@ -177,7 +177,7 @@ testcase {
 	buff.pointer(72).copyfrom(buffEx)
 	dump(buff)
 	println()
-	buff.add(binary().pointer().pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1).target)
+	buff.writer().write(binary().pointer().pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1).target)
 	dump(buff)
 	println()
 	buff.pointer(16).copyfrom(binary().pointer().pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1).reset())
