@@ -397,7 +397,6 @@ binary
   binary.alloc(bytes:number, data?:number):static:map {block?}
   binary#dump(stream?:stream:w):void:[upper]
   binary#each() {block?}
-  binary#encodeuri()
   binary#pointer(offset?:number):map {block?}
   binary#reader() {block?}
   binary#writer() {block?}
@@ -741,6 +740,7 @@ pointer
   pointer#copyto(dst:pointer, bytes?:number):map:reduce
   pointer#decode(codec:codec, bytes?:number) {block?}
   pointer#dump(stream?:stream:w, bytes?:number):reduce:[upper]
+  pointer#encodeuri(bytes?:number) {block?}
   pointer#forward(distance:number):reduce
   pointer#get@char():[nil,stay]
   pointer#get@double():[nil,stay]
@@ -802,18 +802,18 @@ stream
   stream#write(ptr:pointer, bytes?:number):reduce
   stream#writer@base64(linelen:number:nil => 76) {block?}
 string
-  string#align(width:number, padding:string => ' '):map:[center,left,right]
-  string.binary()
-  string#capitalize()
-  string#chop(suffix*:string):[eol,icase]
-  string#decodeuri()
+  string#align(width:number, padding:string => ' '):map:[center,left,right] {block?}
+  string.binary() {block?}
+  string#capitalize() {block?}
+  string#chop(suffix*:string):[eol,icase] {block?}
+  string#decodeuri() {block?}
   string#each():map:[utf32,utf8] {block?}
   string#eachline(nlines?:number):[chop] {block?}
   string#embed(dst?:stream:w):[lasteol,noindent]
-  string.encode(codec:codec)
-  string#encodeuri()
+  string.encode(codec:codec) {block?}
+  string#encodeuri() {block?}
   string#endswith(suffix:string, endpos?:number):map:[icase,rest]
-  string#escapehtml():[quote]
+  string#escapehtml():[quote] {block?}
   string#find(sub:string, pos:number => 0):map:[icase,rev]
   string#fold(len:number, step?:number):[neat] {block?}
   string#foldw(width:number):[padding] {block?}
@@ -826,23 +826,23 @@ string
   string#left(len?:number):map
   string#len()
   string#lower()
-  string#mid(pos:number => 0, len?:number):map
+  string#mid(pos:number => 0, len?:number):map {block?}
   string.print(stream?:stream:w):void
   string.println(stream?:stream:w):void
   string#reader() {block?}
   string#replace(match:string, sub:string, count?:number):map:[icase] {block?}
   string#replaces(map[]:string, count?:number):map:[icase] {block?}
-  string#right(len?:number):map
+  string#right(len?:number):map {block?}
   string#split(sep?:string, count?:number):[icase] {block?}
   string#startswith(prefix:string, pos:number => 0):map:[icase,rest]
-  string#strip():[both,left,right]
+  string#strip():[both,left,right] {block?}
   string#template():[lasteol,noindent] {block?}
-  string#tosymbol()
+  string#tosymbol() {block?}
   string.translator():static:void {block}
-  string#unescapehtml()
-  string#upper()
+  string#unescapehtml() {block?}
+  string#upper() {block?}
   string#width()
-  string#zentohan()
+  string#zentohan() {block?}
 struct
   struct#tolist()
 suffixmgr

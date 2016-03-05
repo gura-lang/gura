@@ -187,6 +187,28 @@ Gura_ImplementMethod(pointer, dump)
 	return arg.GetValueThis();
 }
 
+// pointer#encodeuri(bytes?:number) {block?}
+Gura_DeclareMethod(pointer, encodeuri)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string in which non-URIC characters are converted to percent-encoded string.\n"
+		"\n"
+		"For example, `b'\"Hello\"'.encodeuri()` would return `'%22Hello%22'`.\n");
+}
+
+Gura_ImplementMethod(pointer, encodeuri)
+{
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	const char *p = reinterpret_cast<const char *>(pPointer->GetPointerC());
+	size_t bytes = pPointer->GetSize();
+	if (arg.IsValid(0)) bytes = ChooseMin(bytes, arg.GetSizeT(0));
+	return ReturnValue(env, arg, Value(EncodeURI(p, bytes)));
+}
+
 // pointer#forward(distance:number):reduce
 Gura_DeclareMethod(pointer, forward)
 {
@@ -590,6 +612,7 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignMethod(pointer, copyto);
 	Gura_AssignMethod(pointer, decode);
 	Gura_AssignMethod(pointer, dump);
+	Gura_AssignMethod(pointer, encodeuri);
 	Gura_AssignMethod(pointer, forward);
 	Gura_AssignMethod(pointer, hex);
 	Gura_AssignMethod(pointer, pack);

@@ -365,24 +365,6 @@ Gura_ImplementMethod(binary, each)
 	return ReturnIterator(env, arg, pIterator);
 }
 
-// binary#encodeuri()
-Gura_DeclareMethod(binary, encodeuri)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string in which non-URIC characters are converted to percent-encoded string.\n"
-		"\n"
-		"For example, `b'\"Hello\"'.encodeuri()` would return `'%22Hello%22'`.\n");
-}
-
-Gura_ImplementMethod(binary, encodeuri)
-{
-	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	const Binary &binary = pThis->GetBinary();
-	return Value(EncodeURI(binary.data(), binary.size()));
-}
-
 // binary#pointer(offset?:number):map {block?}
 Gura_DeclareMethod(binary, pointer)
 {
@@ -457,7 +439,6 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, alloc);
 	Gura_AssignMethod(binary, dump);
 	Gura_AssignMethod(binary, each);
-	Gura_AssignMethod(binary, encodeuri);
 	Gura_AssignMethod(binary, pointer);
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, writer);

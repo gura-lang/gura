@@ -34,7 +34,7 @@ testcase {
 	buff.dump()
 }
 testcase {
-	println([0..0xff].fold(16):*pack('16B'):*encodeuri())
+	println([0..0xff].fold(16):*pack('16B'):*pointer():*encodeuri())
 }
 testcase {
 	buff = binary()
