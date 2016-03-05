@@ -482,10 +482,10 @@ Gura_ImplementMethod(binary, hex)
 	return Value(rtn);
 }
 
-// binary#pointer(offset?:number) {block?}
+// binary#pointer(offset?:number):map {block?}
 Gura_DeclareMethod(binary, pointer)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
@@ -522,44 +522,6 @@ Gura_ImplementMethod(binary, reader)
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
 	Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), false);
 	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
-}
-
-// binary#store(offset:number, buff+:binary):map:reduce
-Gura_DeclareMethod(binary, store)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "offset", VTYPE_number);
-	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Stores binary data `buff` in the target `binary` instance at the specified offset.\n"
-		"You can specify one or more binary data to be stored.\n"
-		"\n"
-		"This method returns the target instance itself.\n");
-}
-
-Gura_ImplementMethod(binary, store)
-{
-	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	if (!pThis->IsWritable()) {
-		env.SetError(ERR_ValueError, "not a writable binary");
-		return Value::Nil;
-	}
-	size_t offset = arg.GetSizeT(0);
-	Binary &binary = pThis->GetBinary();
-	if (offset > binary.size()) {
-		binary.append(offset - binary.size(), '\0');
-	}
-	foreach_const (ValueList, pValue, arg.GetList(1)) {
-		size_t sizeEach = pValue->GetBinary().size();
-		if (offset >= binary.size()) {
-			binary += pValue->GetBinary();
-		} else {
-			binary.replace(offset, sizeEach, pValue->GetBinary());
-		}
-		offset += sizeEach;
-	}
-	return arg.GetValueThis();
 }
 
 // binary#writer() {block?}
@@ -600,7 +562,6 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, hex);
 	Gura_AssignMethod(binary, pointer);
 	Gura_AssignMethod(binary, reader);
-	Gura_AssignMethod(binary, store);
 	Gura_AssignMethod(binary, writer);
 }
 

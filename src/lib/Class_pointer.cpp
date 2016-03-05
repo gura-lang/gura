@@ -126,10 +126,10 @@ Gura_ImplementMethod(pointer, copyto)
 	return arg.GetValueThis();
 }
 
-// pointer#dump(stream?:stream:w):void:[upper]
+// pointer#dump(stream?:stream:w):reduce:[upper]
 Gura_DeclareMethod(pointer, dump)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareAttr(Gura_Symbol(upper));
 	AddHelp(
@@ -154,7 +154,7 @@ Gura_ImplementMethod(pointer, dump)
 								&arg.GetStream(0) : env.GetConsole();
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	pStream->Dump(sig, pPointer->GetPointerC(), pPointer->GetSize(), arg.IsSet(Gura_Symbol(upper)));
-	return Value::Nil;
+	return arg.GetValueThis();
 }
 
 // pointer#forward(distance:number):reduce
@@ -265,10 +265,10 @@ Gura_ImplementMethod(pointer, pack)
 	return arg.GetValueThis();
 }
 
-// pointer#reset():void
+// pointer#reset():reduce
 Gura_DeclareMethod(pointer, reset)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Resets pointer offset to its beginning.");
@@ -278,7 +278,24 @@ Gura_ImplementMethod(pointer, reset)
 {
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	pPointer->Reset();
-	return Value::Nil;
+	return arg.GetValueThis();
+}
+
+// pointer#seek(offset:number):reduce
+Gura_DeclareMethod(pointer, seek)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Moves the pointer to the specified `offset`.");
+}
+
+Gura_ImplementMethod(pointer, seek)
+{
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	size_t offset = arg.GetSizeT(0);
+	pPointer->SetOffset(offset);
+	return arg.GetValueThis();
 }
 
 // pointer#unpack(format:string, values*:number):[nil,stay]
@@ -361,10 +378,10 @@ Gura_ImplementMethod(pointer, unpack)
 		pPointer->Unpack(env, arg.GetString(0), arg.GetList(1), exceedErrorFlag);
 }
 
-// pointer#unpacks(format:string, values*:number) {block?}
+// pointer#unpacks(format:string, values*:number):map {block?}
 Gura_DeclareMethod(pointer, unpacks)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -491,6 +508,7 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignMethod(pointer, forward);
 	Gura_AssignMethod(pointer, pack);
 	Gura_AssignMethod(pointer, reset);
+	Gura_AssignMethod(pointer, seek);
 	Gura_AssignMethod(pointer, unpack);
 	Gura_AssignMethod(pointer, unpacks);
 	Gura_AssignMethod(pointer, get_char);

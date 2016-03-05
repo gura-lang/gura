@@ -238,7 +238,6 @@ binary.encodeuri
 binary.hex
 binary.pointer
 binary.reader
-binary.store
 binary.writer
 )}
 
