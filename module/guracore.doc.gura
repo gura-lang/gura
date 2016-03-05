@@ -230,11 +230,8 @@ binary
 
 ${moddoc.reference(`en
 binary.alloc
-binary.decode
 binary.dump
 binary.each
-binary.encodeuri
-binary.hex
 binary.pointer
 binary.reader
 binary.writer
@@ -1584,10 +1581,13 @@ pointer
 ### Method
 
 ${moddoc.reference(`en
-pointer.copyto
 pointer.copyfrom
+pointer.copyto
+pointer.decode
 pointer.dump
+pointer.encodeuri
 pointer.forward
+pointer.hex
 pointer.pack
 pointer.reset
 pointer.unpack
