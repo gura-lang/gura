@@ -47,7 +47,7 @@ void Class_number::Prepare(Environment &env)
 	Gura_AssignClassValueEx("max@ushort", Value(65535));
 	Gura_AssignClassValueEx("min@ushort", Value(0));
 	Gura_AssignClassValueEx("max@int32", Value(2147483647));
-	Gura_AssignClassValueEx("min@int32", Value(-2147483648));
+	Gura_AssignClassValueEx("min@int32", Value(-2147483648.));
 	Gura_AssignClassValueEx("max@uint32", Value(4294967295));
 	Gura_AssignClassValueEx("min@uint32", Value(0));
 	// method assignment
