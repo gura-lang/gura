@@ -93,3 +93,18 @@ testcase('pointer#hex()') {
 	tester(`p.hex(16):carray)
 	tester(`p.hex(16):carray:upper)
 }
+testcase('pointer#each@T()') {
+	buff = b'\x01\x23\x45\x67\x89\xab\xcd\ef\xfe\xdc\xba\x98\x76\x54\x32\x10'
+	tester(`buff.p.each@char():list)
+	tester(`buff.p.each@uchar():list)
+	tester(`buff.p.each@short():list)
+	tester(`buff.p.each@ushort():list)
+	tester(`buff.p.each@int32():list)
+	tester(`buff.p.each@uint32():list)
+	tester(`buff.p.each@char():be:list)
+	tester(`buff.p.each@uchar():be:list)
+	tester(`buff.p.each@short():be:list)
+	tester(`buff.p.each@ushort():be:list)
+	tester(`buff.p.each@int32():be:list)
+	tester(`buff.p.each@uint32():be:list)
+}

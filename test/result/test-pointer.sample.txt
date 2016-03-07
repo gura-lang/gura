@@ -295,3 +295,18 @@ p.hex(16):cstr .. \xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\x
 p.hex(16):cstr:upper .. \xA0\xA1\xA2\xA3\xA4\xA5\xA6\xA7\xA8\xA9\xAA\xAB\xAC\xAD\xAE\xAF
 p.hex(16):carray .. 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf
 p.hex(16):carray:upper .. 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF
+
+======== #9 pointer#each@T() ========
+
+buff.p.each@char():list .. [1, 35, 69, 103, -119, -85, -51, 101, 102, -2, -36, -70, -104, 118, 84, 50, 16]
+buff.p.each@uchar():list .. [1, 35, 69, 103, 137, 171, 205, 101, 102, 254, 220, 186, 152, 118, 84, 50, 16]
+buff.p.each@short():list .. [8961, 26437, -21623, 26061, -410, -17700, 30360, 12884]
+buff.p.each@ushort():list .. [8961, 26437, 43913, 26061, 65126, 47836, 30360, 12884]
+buff.p.each@int32():list .. [1732584193, 1707977609, -1159922074, 844396184]
+buff.p.each@uint32():list .. [1732584193, 1707977609, 3135045222, 844396184]
+buff.p.each@char():be:list .. [1, 35, 69, 103, -119, -85, -51, 101, 102, -2, -36, -70, -104, 118, 84, 50, 16]
+buff.p.each@uchar():be:list .. [1, 35, 69, 103, 137, 171, 205, 101, 102, 254, 220, 186, 152, 118, 84, 50, 16]
+buff.p.each@short():be:list .. [291, 17767, -30293, -12955, 26366, -9030, -26506, 21554]
+buff.p.each@ushort():be:list .. [291, 17767, 35243, 52581, 26366, 56506, 39030, 21554]
+buff.p.each@int32():be:list .. [19088743, -1985229467, 1727978682, -1737075662]
+buff.p.each@uint32():be:list .. [19088743, 2309737829, 1727978682, 2557891634]
