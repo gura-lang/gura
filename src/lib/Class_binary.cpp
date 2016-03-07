@@ -26,6 +26,7 @@ Object *Object_binary::Clone() const
 bool Object_binary::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_Symbol(p));
 	symbols.insert(Gura_Symbol(size));
 	symbols.insert(Gura_Symbol(writable));
 	return true;
@@ -35,7 +36,10 @@ Value Object_binary::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(size))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(p))) {
+		Pointer *pPointer = new PointerEx(0, Reference());
+		return Value(new Object_pointer(env, pPointer));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(size))) {
 		return Value(GetBinary().size());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
 		return Value(_writableFlag);

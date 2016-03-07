@@ -106,7 +106,7 @@ testcase {
 		println('-' * 32)
 		buff = binary()
 		base64.writer(buff, linelen).write(buffSrc).close()
-		print(buff.pointer().decode('us-ascii').replace('\r', ''))
+		print(buff.p.decode('us-ascii').replace('\r', ''))
 		!linelen && println()
 		buffDec = base64.reader(buff).read()
 		println(cond(buffSrc == buffDec, 'OK', '*NG*'))

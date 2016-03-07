@@ -32,7 +32,7 @@ testcase('operator on pointer - 2') {
 }
 testcase('pointer#size') {
 	m = memory(100)
-	p = m.pointer()
+	p = m.p
 	tester(`p.size)
 	tester(`(p + 20).size)
 	tester(`(p + 40).size)
@@ -43,7 +43,7 @@ testcase('pointer#size') {
 }
 testcase('pointer#offset') {
 	m = memory(100)
-	p = m.pointer()
+	p = m.p
 	tester(`p.offset)
 	tester(`(p + 20).offset)
 	tester(`(p + 40).offset)
@@ -55,12 +55,12 @@ testcase('pointer#offset') {
 testcase('pointer#get@*()') {
 	f(expr:expr) = {
 		println(expr)
-		p = buff.pointer()
+		p = buff.p
 		x = while (n = expr.eval()):iter {format('%016x', n)}.fold(4):*join(' ')
 		println(x)
 	}
 	buff = binary()
-	buff.pointer().pack('256B', [0..255]*)
+	buff.p.pack('256B', [0..255]*)
 	f(`p.get@char():nil)
 	f(`p.get@uchar():nil)
 	f(`p.get@short():nil)
@@ -71,8 +71,8 @@ testcase('pointer#get@*()') {
 	//f(`p.get@uint64():nil)
 }
 testcase('not-writable binary') {
-	tester(`b''.pointer().put@char(0))
-	tester(`b''.pointer().pack('b', 0))
+	tester(`b''.p.put@char(0))
+	tester(`b''.p.pack('b', 0))
 }
 testcase('pointer() constructor') {
 	b = binary()
@@ -84,7 +84,7 @@ testcase('pointer() constructor') {
 }
 testcase('pointer#hex()') {
 	buff = binary()
-	buff.pointer().pack('256B', [0..255]*)
+	buff.p.pack('256B', [0..255]*)
 	p = buff.pointer(0xa0)
 	tester(`p.hex(16))
 	tester(`p.hex(16):upper)

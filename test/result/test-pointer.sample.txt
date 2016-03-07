@@ -279,8 +279,8 @@ p.get@uint32():nil
 
 ======== #6 not-writable binary ========
 
-b''.pointer().put@char(0) .. ValueError: not a writable binary
-b''.pointer().pack('b', 0) .. ValueError: not a writable binary
+b''.p.put@char(0) .. ValueError: not a writable binary
+b''.p.pack('b', 0) .. ValueError: not a writable binary
 
 ======== #7 pointer() constructor ========
 
