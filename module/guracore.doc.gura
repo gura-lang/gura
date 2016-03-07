@@ -212,6 +212,10 @@ A `binary` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
+<tr><td><code>p</code></td><td><code>pointer</code></td><td>R</td>
+<td>Returns a <code>pointer</code> instance that accesses the binary.
+This result is equivalent to that of calling the method <code>binary#pointer()</code></td>.</tr>
+
 <tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
 <td>Returns the binary size in bytes.</td></tr>
 
@@ -231,7 +235,6 @@ binary
 ${moddoc.reference(`en
 binary.alloc
 binary.dump
-binary.each
 binary.pointer
 binary.reader
 binary.writer
@@ -1442,6 +1445,10 @@ A `memory` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
+<tr><td><code>p</code></td><td><code>pointer</code></td><td>R</td>
+<td>Returns a <code>pointer</code> instance that accesses the memory.
+This result is equivalent to that of calling the method <code>memory#pointer()</code></td>.</tr>
+
 <tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
 <td>Returns the memory size in bytes.</td></tr>
 
@@ -1613,6 +1620,18 @@ pointer.put@uint64
 pointer.put@float
 pointer.put@double
 )}
+
+
+### Cast Operation
+
+A function that expects a `pointer` instance in its argument can also take a value of
+`binary` and `memory`.
+
+With the above casting feature, you can call a function `f(p:pointer)`
+that takes a `pointer` instance in its argument as below:
+
+- `b = b'\x01\x23\x45\x67\x89\xab'), f(b)`
+- `m = memory(32), f(m)`
 
 
 ## rational Class
