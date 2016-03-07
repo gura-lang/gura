@@ -240,6 +240,7 @@ public:
 	Gura_DeclareSymbol(backward);
 	Gura_DeclareSymbol(basic);
 	Gura_DeclareSymbol(bcc);
+	Gura_DeclareSymbol(be);
 	Gura_DeclareSymbol(begin);
 	Gura_DeclareSymbol(bfs);
 	Gura_DeclareSymbol(bg);
@@ -389,6 +390,7 @@ public:
 	Gura_DeclareSymbol(last_index);
 	Gura_DeclareSymbol(langcode);
 	Gura_DeclareSymbol(lasteol);
+	Gura_DeclareSymbol(le);
 	Gura_DeclareSymbol(leader);
 	Gura_DeclareSymbol(left);
 	Gura_DeclareSymbol(left_bottom);

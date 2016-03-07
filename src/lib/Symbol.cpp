@@ -399,6 +399,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(backward);
 	Gura_RealizeSymbol(basic);
 	Gura_RealizeSymbol(bcc);
+	Gura_RealizeSymbol(be);
 	Gura_RealizeSymbol(begin);
 	Gura_RealizeSymbol(bfs);
 	Gura_RealizeSymbol(bg);
@@ -548,6 +549,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(last_index);
 	Gura_RealizeSymbol(langcode);
 	Gura_RealizeSymbol(lasteol);
+	Gura_RealizeSymbol(le);
 	Gura_RealizeSymbol(leader);
 	Gura_RealizeSymbol(left);
 	Gura_RealizeSymbol(left_bottom);

@@ -522,13 +522,14 @@ Gura_ImplementMethod(pointer, unpacks)
 Gura_DeclareMethodAlias(pointer, each_##type, "each@" #type) \
 { \
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
+	DeclareAttr(Gura_Symbol(be)); \
 	AddHelp( \
 		Gura_Symbol(en), Help::FMT_markdown, \
 		""); \
 } \
 Gura_ImplementMethod(pointer, each_##type) \
 { \
-	bool bigEndianFlag = false; \
+	bool bigEndianFlag = arg.IsSet(Gura_Symbol(be)); \
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
 	AutoPtr<Iterator> pIterator(new Pointer::IteratorEach<Type>(pPointer->Reference(), bigEndianFlag)); \
 	return ReturnIterator(env, arg, pIterator.release()); \
@@ -536,6 +537,7 @@ Gura_ImplementMethod(pointer, each_##type) \
 Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
 { \
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
+	DeclareAttr(Gura_Symbol(be)); \
 	DeclareAttr(Gura_Symbol(nil)); \
 	DeclareAttr(Gura_Symbol(stay)); \
 	AddHelp( \
@@ -545,7 +547,7 @@ Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
 Gura_ImplementMethod(pointer, get_##type) \
 { \
 	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil)); \
-	bool bigEndianFlag = false; \
+	bool bigEndianFlag = arg.IsSet(Gura_Symbol(be)); \
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
 	Type num; \
 	if (!(arg.IsSet(Gura_Symbol(stay))? \
@@ -557,6 +559,7 @@ Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \
 { \
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map); \
 	DeclareArg(env, "n", VTYPE_number); \
+	DeclareAttr(Gura_Symbol(be)); \
 	DeclareAttr(Gura_Symbol(stay)); \
 	AddHelp( \
 		Gura_Symbol(en), Help::FMT_markdown, \
@@ -564,7 +567,7 @@ Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \
 } \
 Gura_ImplementMethod(pointer, put_##type) \
 { \
-	bool bigEndianFlag = false; \
+	bool bigEndianFlag = arg.IsSet(Gura_Symbol(be)); \
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
 	if (!(arg.IsSet(Gura_Symbol(stay))? \
 		  pPointer->PutStay<Type>(env, arg.Get##Type(0), bigEndianFlag) : \
