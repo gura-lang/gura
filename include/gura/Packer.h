@@ -63,31 +63,7 @@ public:
 				 const ValueList &valListArg, bool exceedErrorFlag);
 	template<typename T> bool Put(Environment &env, T num, bool bigEndianFlag);
 	template<typename T> bool Get(Environment &env, T *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-#if 0
-	bool PutChar(Environment &env, Char num);
-	bool PutUChar(Environment &env, UChar num);
-	bool PutShort(Environment &env, Short num, bool bigEndianFlag);
-	bool PutUShort(Environment &env, UShort num, bool bigEndianFlag);
-	bool PutInt32(Environment &env, Int32 num, bool bigEndianFlag);
-	bool PutUInt32(Environment &env, UInt32 num, bool bigEndianFlag);
-	bool PutInt64(Environment &env, Int64 num, bool bigEndianFlag);
-	bool PutUInt64(Environment &env, UInt64 num, bool bigEndianFlag);
-	bool PutFloat(Environment &env, float num, bool bigEndianFlag);
-	bool PutDouble(Environment &env, double num, bool bigEndianFlag);
-#endif
 	bool PutBuffer(Environment &env, const void *buff, size_t bytes);
-#if 0
-	bool GetChar(Environment &env, Char *pNum, bool exceedErrorFlag);
-	bool GetUChar(Environment &env, UChar *pNum, bool exceedErrorFlag);
-	bool GetShort(Environment &env, Short *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-	bool GetUShort(Environment &env, UShort *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-	bool GetInt32(Environment &env, Int32 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-	bool GetUInt32(Environment &env, UInt32 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-	bool GetInt64(Environment &env, Int64 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-	bool GetUInt64(Environment &env, UInt64 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-	bool GetFloat(Environment &env, float *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-	bool GetDouble(Environment &env, double *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-#endif
 public:
 	virtual bool PackPrepare(Environment &env, size_t bytes) = 0;
 	virtual void PackBuffer(const void *buff, size_t bytes) = 0;
