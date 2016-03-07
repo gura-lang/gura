@@ -8,6 +8,14 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Packer
 //-----------------------------------------------------------------------------
+Packer::Packer() : _cntRef(1)
+{
+}
+
+Packer::~Packer()
+{
+}
+
 bool Packer::Pack(Environment &env, const char *format, const ValueList &valListArg)
 {
 	Signal &sig = env.GetSignal();
@@ -891,6 +899,35 @@ UInt64 Packer::UnpackUInt64(const UChar *pByte, bool bigEndianFlag)
 				(static_cast<UInt64>(byte1) << 8) +
 				byte0;
 	}
+}
+
+//-----------------------------------------------------------------------------
+// Packer::IteratorUnpack
+//-----------------------------------------------------------------------------
+Packer::IteratorUnpack::IteratorUnpack(Packer *pPacker,
+				const char *format, const ValueList &valListArg) :
+		Iterator(false), _pPacker(pPacker), _format(format), _valListArg(valListArg)
+{
+}
+
+Iterator *Packer::IteratorUnpack::GetSource()
+{
+	return nullptr;
+}
+
+bool Packer::IteratorUnpack::DoNext(Environment &env, Value &value)
+{
+	value = _pPacker->Unpack(env, _format.c_str(), _valListArg, false);
+	return value.IsValid();
+}
+
+String Packer::IteratorUnpack::ToString() const
+{
+	return String("packer.unpacks");
+}
+
+void Packer::IteratorUnpack::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
 }
 
 }

@@ -13,6 +13,50 @@ namespace Gura {
 // Packer
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Packer {
+protected:
+	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(Packer)
+public:
+	class GURA_DLLDECLARE IteratorUnpack : public Iterator {
+	private:
+		AutoPtr<Packer> _pPacker;
+		String _format;
+		ValueList _valListArg;
+	public:
+		IteratorUnpack(Packer *pPacker, const char *format, const ValueList &valListArg);
+		virtual Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Value &value);
+		virtual String ToString() const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
+	template<typename T> class GURA_DLLDECLARE IteratorEach : public Iterator {
+	private:
+		AutoPtr<Packer> _pPacker;
+		bool _bigEndianFlag;
+	public:
+		IteratorEach(Packer *pPacker, bool bigEndianFlag) : Iterator(false),
+							_pPacker(pPacker), _bigEndianFlag(bigEndianFlag) {
+		}
+		virtual Iterator *GetSource() {
+			return nullptr;
+		}
+		virtual bool DoNext(Environment &env, Value &value) {
+			T num;
+			if (!_pPacker->Get(env, &num, _bigEndianFlag, false)) return false;
+			value = Value(num);
+			return true;
+		}
+		virtual String ToString() const {
+			return String("packer.each");
+		}
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet) {
+		}
+	};
+public:
+	Packer();
+protected:
+	virtual ~Packer();
 public:
 	bool Pack(Environment &env, const char *format, const ValueList &valListArg);
 	Value Unpack(Environment &env, const char *format,
