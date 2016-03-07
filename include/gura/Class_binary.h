@@ -26,18 +26,6 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_binary : public Object {
 public:
-	class GURA_DLLDECLARE IteratorByte : public Iterator {
-	private:
-		AutoPtr<Object_binary> _pObj;
-		int _cnt;
-		size_t _offset;
-	public:
-		IteratorByte(Object_binary *pObj, int cntMax);
-		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Value &value);
-		virtual String ToString() const;
-		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	};
 	class GURA_DLLDECLARE PointerEx : public Pointer {
 	protected:
 		AutoPtr<Object_binary> _pObjBinary;

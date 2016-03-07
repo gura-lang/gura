@@ -396,7 +396,6 @@ audio
 binary
   binary.alloc(bytes:number, data?:number):static:map {block?}
   binary#dump(stream?:stream:w):void:[upper]
-  binary#each() {block?}
   binary#pointer(offset?:number):map {block?}
   binary#reader() {block?}
   binary#writer() {block?}

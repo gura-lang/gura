@@ -105,7 +105,7 @@ void Object_binary::IndexSet(Environment &env, const Value &valueIdx, const Valu
 
 Iterator *Object_binary::CreateIterator(Signal &sig)
 {
-	return new IteratorByte(Object_binary::Reference(this), -1);
+	return new Pointer::IteratorEach<UChar>(new PointerEx(0, Reference()), false);
 }
 
 String Object_binary::ToString(bool exprFlag)
@@ -133,38 +133,6 @@ String Object_binary::ToString(bool exprFlag)
 	}
 	str += ">";
 	return str;
-}
-
-//-----------------------------------------------------------------------------
-// Object_binary::IteratorByte
-//-----------------------------------------------------------------------------
-Object_binary::IteratorByte::IteratorByte(Object_binary *pObj, int cntMax) :
-			Iterator(false), _pObj(pObj), _cnt(cntMax), _offset(0)
-{
-}
-
-Iterator *Object_binary::IteratorByte::GetSource()
-{
-	return nullptr;
-}
-
-bool Object_binary::IteratorByte::DoNext(Environment &env, Value &value)
-{
-	const Binary &binary = _pObj->GetBinary();
-	if (_offset >= binary.size() || _cnt == 0) return false;
-	if (_cnt > 0) _cnt--;
-	value = Value(static_cast<UChar>(binary[_offset]));
-	_offset++;
-	return true;
-}
-
-String Object_binary::IteratorByte::ToString() const
-{
-	return String("binary#byte");
-}
-
-void Object_binary::IteratorByte::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
 }
 
 //-----------------------------------------------------------------------------
@@ -345,26 +313,6 @@ Gura_ImplementMethod(binary, dump)
 	return Value::Nil;
 }
 
-// binary#each() {block?}
-Gura_DeclareMethod(binary, each)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns each byte in the buffer.\n"
-		"\n"
-		GURA_HELPTEXT_ITERATOR_en());
-}
-
-Gura_ImplementMethod(binary, each)
-{
-	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	Object_binary *pObj = Object_binary::Reference(pThis);
-	Iterator *pIterator = new Object_binary::IteratorByte(pObj, -1);
-	return ReturnIterator(env, arg, pIterator);
-}
-
 // binary#pointer(offset?:number):map {block?}
 Gura_DeclareMethod(binary, pointer)
 {
@@ -438,7 +386,6 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignFunction(binary);
 	Gura_AssignMethod(binary, alloc);
 	Gura_AssignMethod(binary, dump);
-	Gura_AssignMethod(binary, each);
 	Gura_AssignMethod(binary, pointer);
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, writer);

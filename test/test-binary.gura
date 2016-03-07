@@ -7,7 +7,7 @@ dump(buff:binary) = {
 	tochar(num:number):map = {
 		if (0x20 <= num && num < 0x7f) { chr(num) } else { '.' }
 	}
-	buff.each().fold(16) {|line|
+	buff.pointer().each@uchar().fold(16) {|line|
 		printf('%-48s %s\n', format('%02x', line).join(' '), tochar(line).join())
 	}
 }
@@ -140,7 +140,7 @@ testcase {
 		tochar(num:number):map = {
 			if (0x20 <= num && num < 0x7f) { chr(num) } else { '.' }
 		}
-		buff.each().fold(16) {|line|
+		buff.pointer().each@uchar().fold(16) {|line|
 			printf('%-48s %s\n', format('%02x', line).join(' '), tochar(line).join())
 		}
 		printf('unpacked: %s\n', buff.pointer().unpack(fmt)[0])
