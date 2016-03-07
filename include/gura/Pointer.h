@@ -32,7 +32,7 @@ public:
 		AutoPtr<Pointer> _pPointer;
 		bool _bigEndianFlag;
 	public:
-		IteratorEach(Pointer *pPointer, bool bigEndianFlag) :
+		IteratorEach(Pointer *pPointer, bool bigEndianFlag) : Iterator(false),
 							_pPointer(pPointer), _bigEndianFlag(bigEndianFlag) {
 		}
 		virtual Iterator *GetSource() {

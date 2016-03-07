@@ -740,6 +740,16 @@ pointer
   pointer#copyto(dst:pointer, bytes?:number):map:reduce
   pointer#decode(codec:codec, bytes?:number) {block?}
   pointer#dump(stream?:stream:w, bytes?:number):reduce:[upper]
+  pointer#each@char()
+  pointer#each@double()
+  pointer#each@float()
+  pointer#each@int32()
+  pointer#each@int64()
+  pointer#each@short()
+  pointer#each@uchar()
+  pointer#each@uint32()
+  pointer#each@uint64()
+  pointer#each@ushort()
   pointer#encodeuri(bytes?:number) {block?}
   pointer#forward(distance:number):reduce
   pointer#get@char():[nil,stay]
