@@ -27,6 +27,29 @@ public:
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
+	template<typename T> class GURA_DLLDECLARE IteratorEach : public Iterator {
+	private:
+		AutoPtr<Pointer> _pPointer;
+		bool _bigEndianFlag;
+	public:
+		IteratorEach(Pointer *pPointer, bool bigEndianFlag) :
+							_pPointer(pPointer), _bigEndianFlag(bigEndianFlag) {
+		}
+		virtual Iterator *GetSource() {
+			return nullptr;
+		}
+		virtual bool DoNext(Environment &env, Value &value) {
+			T num;
+			if (!_pPointer->Get(env, &num, _bigEndianFlag, false)) return false;
+			value = Value(num);
+			return true;
+		}
+		virtual String ToString() const {
+			return String("pointer.each");
+		}
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet) {
+		}
+	};
 protected:
 	int _cntRef;
 	size_t _offset;
@@ -48,6 +71,19 @@ public:
 	bool PackStay(Environment &env, const char *format, const ValueList &valListArg);
 	Value UnpackStay(Environment &env, const char *format,
 				 const ValueList &valListArg, bool exeedErrorFlag);
+	template<typename T> bool PutStay(Environment &env, T num, bool bigEndianFlag) {
+		size_t offset = _offset;
+		bool rtn = Put<T>(env, num, bigEndianFlag);
+		_offset = offset;
+		return rtn;
+	}
+	template<typename T> bool GetStay(Environment &env, T *pNum, bool bigEndianFlag, bool exceedErrorFlag) {
+		size_t offset = _offset;
+		bool rtn = Get<T>(env, pNum, bigEndianFlag, exceedErrorFlag);
+		_offset = offset;
+		return rtn;
+	}
+#if 0
 	bool PutCharStay(Environment &env, Char num);
 	bool PutUCharStay(Environment &env, UChar num);
 	bool PutShortStay(Environment &env, Short num, bool bigEndianFlag);
@@ -68,6 +104,7 @@ public:
 	bool GetUInt64Stay(Environment &env, UInt64 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
 	bool GetFloatStay(Environment &env, float *pNum, bool bigEndianFlag, bool exceedErrorFlag);
 	bool GetDoubleStay(Environment &env, double *pNum, bool bigEndianFlag, bool exceedErrorFlag);
+#endif
 public:
 	virtual Pointer *Clone() const = 0;
 	virtual Object *GetTarget() const = 0;

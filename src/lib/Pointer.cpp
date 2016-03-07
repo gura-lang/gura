@@ -47,6 +47,7 @@ Value Pointer::UnpackStay(Environment &env, const char *format,
 	return value;
 }
 
+#if 0
 bool Pointer::PutCharStay(Environment &env, Char num)
 {
 	size_t offset = _offset;
@@ -206,6 +207,7 @@ bool Pointer::GetDoubleStay(Environment &env, double *pNum, bool bigEndianFlag, 
 	_offset = offset;
 	return rtn;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Pointer::IteratorUnpack

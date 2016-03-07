@@ -518,45 +518,7 @@ Gura_ImplementMethod(pointer, unpacks)
 	return ReturnIterator(env, arg, pIterator);
 }
 
-#define ImplementGetPutMethod1(type, Type) \
-Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
-{ \
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
-	DeclareAttr(Gura_Symbol(nil)); \
-	DeclareAttr(Gura_Symbol(stay)); \
-	AddHelp( \
-		Gura_Symbol(en), Help::FMT_markdown, \
-		""); \
-} \
-Gura_ImplementMethod(pointer, get_##type) \
-{ \
-	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil)); \
-	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
-	Type num; \
-	if (!(arg.IsSet(Gura_Symbol(stay))? \
-		  pPointer->Get##Type##Stay(env, &num, exceedErrorFlag) : \
-		  pPointer->Get##Type(env, &num, exceedErrorFlag))) return Value::Nil; \
-	return Value(num); \
-} \
-Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \
-{ \
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map); \
-	DeclareArg(env, "n", VTYPE_number); \
-	DeclareAttr(Gura_Symbol(stay)); \
-	AddHelp( \
-		Gura_Symbol(en), Help::FMT_markdown, \
-		""); \
-} \
-Gura_ImplementMethod(pointer, put_##type) \
-{ \
-	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
-	if (!(arg.IsSet(Gura_Symbol(stay))? \
-		  pPointer->Put##Type##Stay(env, arg.Get##Type(0)) : \
-		  pPointer->Put##Type(env, arg.Get##Type(0)))) return Value::Nil; \
-	return arg.GetValueThis(); \
-}
-
-#define ImplementGetPutMethod2(type, Type) \
+#define ImplementAccessorMethod(type, Type) \
 Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
 { \
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
@@ -573,8 +535,8 @@ Gura_ImplementMethod(pointer, get_##type) \
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
 	Type num; \
 	if (!(arg.IsSet(Gura_Symbol(stay))? \
-		  pPointer->Get##Type##Stay(env, &num, bigEndianFlag, exceedErrorFlag) : \
-		  pPointer->Get##Type(env, &num, bigEndianFlag, exceedErrorFlag))) return Value::Nil; \
+		  pPointer->GetStay<Type>(env, &num, bigEndianFlag, exceedErrorFlag) : \
+		  pPointer->Get<Type>(env, &num, bigEndianFlag, exceedErrorFlag))) return Value::Nil; \
 	return Value(num); \
 } \
 Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \
@@ -591,21 +553,21 @@ Gura_ImplementMethod(pointer, put_##type) \
 	bool bigEndianFlag = false; \
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer(); \
 	if (!(arg.IsSet(Gura_Symbol(stay))? \
-		  pPointer->Put##Type##Stay(env, arg.Get##Type(0), bigEndianFlag) : \
-		  pPointer->Put##Type(env, arg.Get##Type(0), bigEndianFlag))) return Value::Nil; \
+		  pPointer->PutStay<Type>(env, arg.Get##Type(0), bigEndianFlag) : \
+		  pPointer->Put<Type>(env, arg.Get##Type(0), bigEndianFlag))) return Value::Nil; \
 	return arg.GetValueThis(); \
-}
+} \
 
-ImplementGetPutMethod1(char, Char)
-ImplementGetPutMethod1(uchar, UChar)
-ImplementGetPutMethod2(short, Short)
-ImplementGetPutMethod2(ushort, UShort)
-ImplementGetPutMethod2(int32, Int32)
-ImplementGetPutMethod2(uint32, UInt32)
-ImplementGetPutMethod2(int64, Int64)
-ImplementGetPutMethod2(uint64, UInt64)
-ImplementGetPutMethod2(float, Float)
-ImplementGetPutMethod2(double, Double)
+ImplementAccessorMethod(char, Char)
+ImplementAccessorMethod(uchar, UChar)
+ImplementAccessorMethod(short, Short)
+ImplementAccessorMethod(ushort, UShort)
+ImplementAccessorMethod(int32, Int32)
+ImplementAccessorMethod(uint32, UInt32)
+ImplementAccessorMethod(int64, Int64)
+ImplementAccessorMethod(uint64, UInt64)
+ImplementAccessorMethod(float, Float)
+ImplementAccessorMethod(double, Double)
 
 //-----------------------------------------------------------------------------
 // Implementation of class

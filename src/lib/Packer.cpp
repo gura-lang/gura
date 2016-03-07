@@ -411,6 +411,157 @@ Value Packer::Unpack(Environment &env, const char *format,
 	return result;
 }
 
+template<> bool Packer::Put<Char>(Environment &env, Char num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(Char))) return false;
+	PackChar(num);
+	return true;
+}
+
+template<> bool Packer::Put<UChar>(Environment &env, UChar num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(UChar))) return false;
+	PackUChar(num);
+	return true;
+}
+
+template<> bool Packer::Put<Short>(Environment &env, Short num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(Short))) return false;
+	PackShort(num, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Put<UShort>(Environment &env, UShort num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(UShort))) return false;
+	PackUShort(num, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Put<Int32>(Environment &env, Int32 num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(Int32))) return false;
+	PackInt32(num, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Put<UInt32>(Environment &env, UInt32 num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(UInt32))) return false;
+	PackUInt32(num, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Put<Int64>(Environment &env, Int64 num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(Int64))) return false;
+	PackInt64(num, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Put<UInt64>(Environment &env, UInt64 num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(UInt64))) return false;
+	PackUInt64(num, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Put<Float>(Environment &env, float num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(float))) return false;
+	PackFloat(num, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Put<Double>(Environment &env, double num, bool bigEndianFlag)
+{
+	if (!PackPrepare(env, sizeof(double))) return false;
+	PackDouble(num, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Get<Char>(Environment &env, Char *pNum, bool bigEndianFlag, bool exceedErrorFlag)
+{
+	const UChar *pByte = UnpackPrepare(env, sizeof(Char), exceedErrorFlag);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackChar(pByte);
+	return true;
+}
+
+template<> bool Packer::Get<UChar>(Environment &env, UChar *pNum, bool bigEndianFlag, bool exceedErrorFlag)
+{
+	const UChar *pByte = UnpackPrepare(env, sizeof(UChar), exceedErrorFlag);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackUChar(pByte);
+	return true;
+}
+
+template<> bool Packer::Get<Short>(Environment &env, Short *pNum, bool bigEndianFlag, bool exceedErrorFlag)
+{
+	const UChar *pByte = UnpackPrepare(env, sizeof(Short), exceedErrorFlag);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackShort(pByte, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Get<UShort>(Environment &env, UShort *pNum, bool bigEndianFlag, bool exceedErrorFlag)
+{
+	const UChar *pByte = UnpackPrepare(env, sizeof(UShort), exceedErrorFlag);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackUShort(pByte, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Get<Int32>(Environment &env, Int32 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
+{
+	const UChar *pByte = UnpackPrepare(env, sizeof(Int32), exceedErrorFlag);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackInt32(pByte, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Get<UInt32>(Environment &env, UInt32 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
+{
+	const UChar *pByte = UnpackPrepare(env, sizeof(UInt32), exceedErrorFlag);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackUInt32(pByte, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Get<Int64>(Environment &env, Int64 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
+{
+	const UChar *pByte = UnpackPrepare(env, sizeof(Int64), exceedErrorFlag);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackInt64(pByte, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Get<UInt64>(Environment &env, UInt64 *pNum, bool bigEndianFlag, bool exceedErrorFlag)
+{
+	const UChar *pByte = UnpackPrepare(env, sizeof(UInt64), exceedErrorFlag);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackUInt64(pByte, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Get<Float>(Environment &env, float *pNum, bool bigEndianFlag, bool exceedErrorFlag)
+{
+	const UChar *pByte = UnpackPrepare(env, sizeof(float), exceedErrorFlag);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackFloat(pByte, bigEndianFlag);
+	return true;
+}
+
+template<> bool Packer::Get<Double>(Environment &env, double *pNum, bool bigEndianFlag, bool exceedErrorFlag)
+{
+	const UChar *pByte = UnpackPrepare(env, sizeof(double), exceedErrorFlag);
+	if (pByte == nullptr) return false;
+	*pNum = UnpackDouble(pByte, bigEndianFlag);
+	return true;
+}
+
+#if 0
 bool Packer::PutChar(Environment &env, Char num)
 {
 	if (!PackPrepare(env, sizeof(Char))) return false;
@@ -480,6 +631,7 @@ bool Packer::PutDouble(Environment &env, double num, bool bigEndianFlag)
 	PackDouble(num, bigEndianFlag);
 	return true;
 }
+#endif
 
 bool Packer::PutBuffer(Environment &env, const void *buff, size_t bytes)
 {
@@ -488,6 +640,7 @@ bool Packer::PutBuffer(Environment &env, const void *buff, size_t bytes)
 	return true;
 }
 
+#if 0
 bool Packer::GetChar(Environment &env, Char *pNum, bool exceedErrorFlag)
 {
 	const UChar *pByte = UnpackPrepare(env, sizeof(Char), exceedErrorFlag);
@@ -567,6 +720,7 @@ bool Packer::GetDouble(Environment &env, double *pNum, bool bigEndianFlag, bool 
 	*pNum = UnpackDouble(pByte, bigEndianFlag);
 	return true;
 }
+#endif
 
 bool Packer::CheckString(Environment &env,
 				const ValueList &valList, ValueList::const_iterator pValue)
