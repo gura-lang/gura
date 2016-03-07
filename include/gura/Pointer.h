@@ -14,47 +14,8 @@ namespace Gura {
 // Pointer
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Pointer : public Packer {
-public:
-	class GURA_DLLDECLARE IteratorUnpack : public Iterator {
-	private:
-		AutoPtr<Pointer> _pPointer;
-		String _format;
-		ValueList _valListArg;
-	public:
-		IteratorUnpack(Pointer *pPointer, const char *format, const ValueList &valListArg);
-		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Value &value);
-		virtual String ToString() const;
-		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	};
-	template<typename T> class GURA_DLLDECLARE IteratorEach : public Iterator {
-	private:
-		AutoPtr<Pointer> _pPointer;
-		bool _bigEndianFlag;
-	public:
-		IteratorEach(Pointer *pPointer, bool bigEndianFlag) :
-							_pPointer(pPointer), _bigEndianFlag(bigEndianFlag) {
-		}
-		virtual Iterator *GetSource() {
-			return nullptr;
-		}
-		virtual bool DoNext(Environment &env, Value &value) {
-			T num;
-			if (!_pPointer->Get(env, &num, _bigEndianFlag, false)) return false;
-			value = Value(num);
-			return true;
-		}
-		virtual String ToString() const {
-			return String("pointer.each");
-		}
-		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet) {
-		}
-	};
 protected:
-	int _cntRef;
 	size_t _offset;
-public:
-	Gura_DeclareReferenceAccessor(Pointer)
 public:
 	Pointer(size_t offset);
 protected:
