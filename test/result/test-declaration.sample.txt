@@ -238,7 +238,7 @@ path:module = <module:path:<integrated>>
   path.splitext(pathname:string):map
   path.stat(directory:directory):map
   path.walk(directory?:directory, maxdepth?:number, pattern*:string):flat:map:[dir,file,stat] {block?}
-pointer:class = <class:pointer(ptr:pointer):map {block?}>
+pointer:class = <class:pointer(org:pointer):map {block?}>
 print(values*):map:void
 printf(format:string, values*):map:void
 println(values*):map:void
@@ -739,29 +739,29 @@ pointer
   pointer#copyto(dst:pointer, bytes?:number):map:reduce
   pointer#decode(codec:codec, bytes?:number) {block?}
   pointer#dump(stream?:stream:w, bytes?:number):reduce:[upper]
-  pointer#each@char():[be]
-  pointer#each@double():[be]
-  pointer#each@float():[be]
-  pointer#each@int32():[be]
-  pointer#each@int64():[be]
-  pointer#each@short():[be]
-  pointer#each@uchar():[be]
-  pointer#each@uint32():[be]
-  pointer#each@uint64():[be]
-  pointer#each@ushort():[be]
+  pointer#each@char():[be] {block?}
+  pointer#each@double():[be] {block?}
+  pointer#each@float():[be] {block?}
+  pointer#each@int32():[be] {block?}
+  pointer#each@int64():[be] {block?}
+  pointer#each@short():[be] {block?}
+  pointer#each@uchar():[be] {block?}
+  pointer#each@uint32():[be] {block?}
+  pointer#each@uint64():[be] {block?}
+  pointer#each@ushort():[be] {block?}
   pointer#encodeuri(bytes?:number) {block?}
   pointer#forward(distance:number):reduce
-  pointer#get@char():[be,nil,stay]
-  pointer#get@double():[be,nil,stay]
-  pointer#get@float():[be,nil,stay]
-  pointer#get@int32():[be,nil,stay]
-  pointer#get@int64():[be,nil,stay]
-  pointer#get@short():[be,nil,stay]
-  pointer#get@uchar():[be,nil,stay]
-  pointer#get@uint32():[be,nil,stay]
-  pointer#get@uint64():[be,nil,stay]
-  pointer#get@ushort():[be,nil,stay]
-  pointer#hex(bytes?:number):[carray,cstr,upper]
+  pointer#get@char():[be,nil,stay] {block?}
+  pointer#get@double():[be,nil,stay] {block?}
+  pointer#get@float():[be,nil,stay] {block?}
+  pointer#get@int32():[be,nil,stay] {block?}
+  pointer#get@int64():[be,nil,stay] {block?}
+  pointer#get@short():[be,nil,stay] {block?}
+  pointer#get@uchar():[be,nil,stay] {block?}
+  pointer#get@uint32():[be,nil,stay] {block?}
+  pointer#get@uint64():[be,nil,stay] {block?}
+  pointer#get@ushort():[be,nil,stay] {block?}
+  pointer#hex(bytes?:number):[carray,cstr,upper] {block?}
   pointer#pack(format:string, values+):reduce:[stay]
   pointer#put@char(n:number):map:reduce:[be,stay]
   pointer#put@double(n:number):map:reduce:[be,stay]
@@ -775,7 +775,7 @@ pointer
   pointer#put@ushort(n:number):map:reduce:[be,stay]
   pointer#reset():reduce
   pointer#seek():reduce
-  pointer#unpack(format:string, values*:number):[nil,stay]
+  pointer#unpack(format:string, values*:number):[nil,stay] {block?}
   pointer#unpacks(format:string, values*:number):map {block?}
 quote
 rational
