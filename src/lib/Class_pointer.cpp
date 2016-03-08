@@ -65,16 +65,19 @@ String Object_pointer::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// pointer(ptr:pointer):map {block?}
+// pointer(org:pointer):map {block?}
 Gura_DeclareFunction(pointer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "ptr", VTYPE_pointer, OCCUR_Once);
+	DeclareArg(env, "org", VTYPE_pointer, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_pointer));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `pointer` instance that is cloned from the given instance `org`.\n"
+		"You can use this to cast a `binary` and `memory` instance to the `pointer`.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("ptr", "pointer"));
 }
 
 Gura_ImplementFunction(pointer)
@@ -94,7 +97,12 @@ Gura_DeclareMethod(pointer, copyfrom)
 	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Copies data from `src` to the target pointer.\n");
+		"Copies data from `src` to the target pointer.\n"
+		"\n"
+		"If the argument `bytes` is specified, it would limit the size of data to be copied.\n"
+		"Otherwise, all the data pointerd by `src` is to be copied.\n"
+		"\n"
+		"This method returns a reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(pointer, copyfrom)
@@ -114,7 +122,12 @@ Gura_DeclareMethod(pointer, copyto)
 	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Copies data from the target pointer to `dst`.\n");
+		"Copies data from the target pointer to `dst`.\n"
+		"\n"
+		"If the argument `bytes` is specified, it would limit the size of data to be copied.\n"
+		"Otherwise, all the data pointerd by the target instance is to be copied.\n"
+		"\n"
+		"This method returns a reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(pointer, copyto)
@@ -136,7 +149,12 @@ Gura_DeclareMethod(pointer, decode)
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Decodes the content of the `pointer` as a sequence of string characters using `codec`\n"
-		"and returns the result in `string`.");
+		"and returns the result in `string`.\n"
+		"\n"
+		"If the argument `bytes` is specified, it would limit the size of data to be decoded.\n"
+		"Otherwise, all the data pointerd by the target instance is to be decoded.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("str", "string"));
 }
 
 Gura_ImplementMethod(pointer, decode)
@@ -169,11 +187,14 @@ Gura_DeclareMethod(pointer, dump)
 		"Prints a hexadecimal dump from the content of the `pointer` to the standard output.\n"
 		"If the argument `stream` is specified, the result would be output to the stream.\n"
 		"\n"
+		"If the argument `bytes` is specified, it would limit the size of data to be dumped.\n"
+		"Otherwise, all the data pointerd by the target instance is to be dumped.\n"
+		"\n"
 		"In default, hexadecimal digit are printed with lower-case characters.\n"
 		"Specifying an attribute `:upper` would output them with upper-case characters instead.\n"
 		"\n"
 		"Example:\n"
-		"    >>> b'A quick brown fox jumps over the lazy dog.'.pointer().dump():upper\n"
+		"    >>> b'A quick brown fox jumps over the lazy dog.'.p.dump():upper\n"
 		"    41 20 71 75 69 63 6B 20 62 72 6F 77 6E 20 66 6F  A quick brown fo\n"
 		"    78 20 6A 75 6D 70 73 20 6F 76 65 72 20 74 68 65  x jumps over the\n"
 		"    20 6C 61 7A 79 20 64 6F 67 2E                     lazy dog.\n");
@@ -200,7 +221,9 @@ Gura_DeclareMethod(pointer, encodeuri)
 		Gura_Symbol(en), Help::FMT_markdown, 
 		"Returns a string in which non-URIC characters are converted to percent-encoded string.\n"
 		"\n"
-		"For example, `b'\"Hello\"'.encodeuri()` would return `'%22Hello%22'`.\n");
+		"For example, `b'\"Hello\"'.p.encodeuri()` would return `'%22Hello%22'`.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("str", "string"));
 }
 
 Gura_ImplementMethod(pointer, encodeuri)
@@ -226,7 +249,9 @@ Gura_DeclareMethod(pointer, forward)
 		"If a negative number is specified for the argument, the offset would be put backward.\n"
 		"\n"
 		"An error would occur when the pointer's offset becomes a negative value\n"
-		"while it would be no error when the offset exceeds the target maximum range.\n");
+		"while it would be no error when the offset exceeds the target maximum range.\n"
+		"\n"
+		"This method returns a reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(pointer, forward)
@@ -236,7 +261,7 @@ Gura_ImplementMethod(pointer, forward)
 	return arg.GetValueThis();
 }
 
-// pointer#hex(bytes?:number):[upper,cstr,carray]
+// pointer#hex(bytes?:number):[upper,cstr,carray] {block?}
 Gura_DeclareMethod(pointer, hex)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -244,6 +269,7 @@ Gura_DeclareMethod(pointer, hex)
 	DeclareAttr(Gura_Symbol(upper));
 	DeclareAttr(Gura_Symbol(cstr));
 	DeclareAttr(Gura_Symbol(carray));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Converts the binary data into a hexadecimal string.\n"
@@ -257,14 +283,16 @@ Gura_DeclareMethod(pointer, hex)
 		"Alphabet characters are described in lower characters\n"
 		"unless the attribute `:upper` is specified.\n"
 		"\n"
+		GURA_HELPTEXT_BLOCK_en("str", "string")
+		"\n"
 		"Example:\n"
 		"\n"
 		"<table>\n"
 		"<tr><th>Code</th><th>Result</th></tr>\n"
-		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.pointer().hex()</code></td><td><code>'0123abcd'</code></td></tr>\n"
-		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.pointer().hex():upper</code></td><td><code>'0123ABCD'</code></td></tr>\n"
-		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.pointer().hex():cstr</code></td><td><code>'\\\\x01\\\\x23\\\\xab\\\\xcd'</code></td></tr>\n"
-		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.pointer().hex():carray</code></td><td><code>'0x01, 0x23, 0xab, 0xcd'</code></td></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.p.hex()</code></td><td><code>'0123abcd'</code></td></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.p.hex():upper</code></td><td><code>'0123ABCD'</code></td></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.p.hex():cstr</code></td><td><code>'\\\\x01\\\\x23\\\\xab\\\\xcd'</code></td></tr>\n"
+		"<tr><td><code>b'\\x01\\x23\\xab\\xcd'.p.hex():carray</code></td><td><code>'0x01, 0x23, 0xab, 0xcd'</code></td></tr>\n"
 		"</table>\n");
 }
 
@@ -290,7 +318,7 @@ Gura_ImplementMethod(pointer, hex)
 		::sprintf(buff, format, *p);
 		rtn += buff;
 	}
-	return Value(rtn);
+	return ReturnValue(env, arg, Value(rtn));
 }
 
 // pointer#pack(format:string, value+):reduce:[stay]
@@ -307,7 +335,7 @@ Gura_DeclareMethod(pointer, pack)
 		"The pointer offset is automatically incremented by the added length\n"
 		"unless `:stay` attribute is specified.\n"
 		"\n"
-		"This method returns a reference to the pointer instance itself.\n"
+		"This method returns a reference to the target instance itself.\n"
 		"\n"
 		"A specifier has a format of \"`nX`\" where `X` is a format character\n"
 		"that represents a packing format and `n` is a number of packing size.\n"
@@ -386,7 +414,9 @@ Gura_DeclareMethod(pointer, reset)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Resets pointer offset to its beginning.");
+		"Moves the pointer position to the beginning.\n"
+		"\n"
+		"This method returns a reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(pointer, reset)
@@ -402,7 +432,9 @@ Gura_DeclareMethod(pointer, seek)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Moves the pointer to the specified `offset`.");
+		"Moves the pointer position to the specified `offset`.\n"
+		"\n"
+		"This method returns a reference to the target instance itself.\n");
 }
 
 Gura_ImplementMethod(pointer, seek)
@@ -413,7 +445,7 @@ Gura_ImplementMethod(pointer, seek)
 	return arg.GetValueThis();
 }
 
-// pointer#unpack(format:string, values*:number):[nil,stay]
+// pointer#unpack(format:string, values*:number):[nil,stay] {block?}
 Gura_DeclareMethod(pointer, unpack)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -421,6 +453,7 @@ Gura_DeclareMethod(pointer, unpack)
 	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(nil));
 	DeclareAttr(Gura_Symbol(stay));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Extracts values from data sequence pointed by the `pointer` instance according to specifiers in the `format`\n"
@@ -481,16 +514,19 @@ Gura_DeclareMethod(pointer, unpack)
 		"while extracting a string with format character \"`s`\".\n"
 		"\n"
 		"An error occurs if the binary size is smaller than the format reqeusts.\n"
-		"If the attribute `:nil` is specified, `nil` value would be returned for such a case.\n");
+		"If the attribute `:nil` is specified, `nil` value would be returned for such a case.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("list", "list"));
 }
 
 Gura_ImplementMethod(pointer, unpack)
 {
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	bool exceedErrorFlag = !arg.IsSet(Gura_Symbol(nil));
-	return arg.IsSet(Gura_Symbol(stay))?
+	Value value = arg.IsSet(Gura_Symbol(stay))?
 		pPointer->UnpackStay(env, arg.GetString(0), arg.GetList(1), exceedErrorFlag) :
 		pPointer->Unpack(env, arg.GetString(0), arg.GetList(1), exceedErrorFlag);
+	return ReturnValue(env, arg, value);
 }
 
 // pointer#unpacks(format:string, values*:number):map {block?}
@@ -523,9 +559,15 @@ Gura_DeclareMethodAlias(pointer, each_##type, "each@" #type) \
 { \
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
 	DeclareAttr(Gura_Symbol(be)); \
+	DeclareBlock(OCCUR_ZeroOrOnce); \
 	AddHelp( \
 		Gura_Symbol(en), Help::FMT_markdown, \
-		""); \
+		"Creates an iterator that extracts numbers in size of " #type " from the current pointer position.\n" \
+		"\n" \
+		"In default, it assumes the byte seqeuces are ordered in little-endian.\n" \
+		"You can specify `:be` attribute to extract them in big-endian order.\n" \
+		"\n" \
+		GURA_HELPTEXT_ITERATOR_en()); \
 } \
 Gura_ImplementMethod(pointer, each_##type) \
 { \
@@ -540,9 +582,15 @@ Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
 	DeclareAttr(Gura_Symbol(be)); \
 	DeclareAttr(Gura_Symbol(nil)); \
 	DeclareAttr(Gura_Symbol(stay)); \
+	DeclareBlock(OCCUR_ZeroOrOnce); \
 	AddHelp( \
 		Gura_Symbol(en), Help::FMT_markdown, \
-		""); \
+		"Returns an extracted number in size of " #type " from the current pointer position.\n" \
+		"\n" \
+		"In default, it assumes the byte seqeuces are ordered in little-endian.\n" \
+		"You can specify `:be` attribute to extract them in big-endian order.\n" \
+		"\n" \
+		GURA_HELPTEXT_BLOCK_en("n", "number")); \
 } \
 Gura_ImplementMethod(pointer, get_##type) \
 { \
@@ -553,7 +601,7 @@ Gura_ImplementMethod(pointer, get_##type) \
 	if (!(arg.IsSet(Gura_Symbol(stay))? \
 		  pPointer->GetStay<Type>(env, &num, bigEndianFlag, exceedErrorFlag) : \
 		  pPointer->Get<Type>(env, &num, bigEndianFlag, exceedErrorFlag))) return Value::Nil; \
-	return Value(num); \
+	return ReturnValue(env, arg, Value(num)); \
 } \
 Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \
 { \
@@ -563,7 +611,12 @@ Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \
 	DeclareAttr(Gura_Symbol(stay)); \
 	AddHelp( \
 		Gura_Symbol(en), Help::FMT_markdown, \
-		""); \
+		"Stores the specified number to the current pointer position in size of " #type ".\n" \
+		"\n" \
+		"In default, it stores the byte sequences in the order of little-endian.\n" \
+		"You can specify `:be` sttribute to store them in big-endian order.\n" \
+		"\n" \
+		"This method returns a reference to the target instance itself.\n"); \
 } \
 Gura_ImplementMethod(pointer, put_##type) \
 { \

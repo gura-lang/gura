@@ -1593,12 +1593,17 @@ pointer.copyto
 pointer.decode
 pointer.dump
 pointer.encodeuri
+pointer.each@char
+pointer.each@uchar
+pointer.each@short
+pointer.each@ushort
+pointer.each@int32
+pointer.each@uint32
+pointer.each@int64
+pointer.each@uint64
+pointer.each@float
+pointer.each@double
 pointer.forward
-pointer.hex
-pointer.pack
-pointer.reset
-pointer.unpack
-pointer.unpacks
 pointer.get@char
 pointer.get@uchar
 pointer.get@short
@@ -1609,6 +1614,8 @@ pointer.get@int64
 pointer.get@uint64
 pointer.get@float
 pointer.get@double
+pointer.hex
+pointer.pack
 pointer.put@char
 pointer.put@uchar
 pointer.put@short
@@ -1619,6 +1626,10 @@ pointer.put@int64
 pointer.put@uint64
 pointer.put@float
 pointer.put@double
+pointer.reset
+pointer.seek
+pointer.unpack
+pointer.unpacks
 )}
 
 
@@ -1630,7 +1641,7 @@ A function that expects a `pointer` instance in its argument can also take a val
 With the above casting feature, you can call a function `f(p:pointer)`
 that takes a `pointer` instance in its argument as below:
 
-- `b = b'\x01\x23\x45\x67\x89\xab'), f(b)`
+- `b = b'\x01\x23\x45\x67\x89\xab', f(b)`
 - `m = memory(32), f(m)`
 
 
