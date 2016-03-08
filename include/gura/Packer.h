@@ -90,59 +90,6 @@ private:
 	}
 	template<typename T> void Store(T num, bool bigEndianFlag);
 	template<typename T> T Extract(const UChar *pByte, bool bigEndianFlag);
-#if 0
-	inline void PackChar(Char num) {
-		PackUChar(static_cast<UChar>(num));
-	}
-	inline void PackUChar(UChar num) {
-		PackBuffer(&num, sizeof(UChar));
-	}
-	inline void PackShort(Short num, bool bigEndianFlag) {
-		PackUShort(static_cast<UShort>(num), bigEndianFlag);
-	}
-	void PackUShort(UShort num, bool bigEndianFlag);
-	inline void PackInt32(Int32 num, bool bigEndianFlag) {
-		PackUInt32(static_cast<UInt32>(num), bigEndianFlag);
-	}
-	void PackUInt32(UInt32 num, bool bigEndianFlag);
-	inline void PackInt64(Int64 num, bool bigEndianFlag) {
-		PackUInt64(static_cast<UInt64>(num), bigEndianFlag);
-	}
-	void PackUInt64(UInt64 num, bool bigEndianFlag);
-	inline void PackFloat(float num, bool bigEndianFlag) {
-		PackUInt32(*reinterpret_cast<UInt32 *>(&num), bigEndianFlag);
-	}
-	inline void PackDouble(double num, bool bigEndianFlag) {
-		PackUInt64(*reinterpret_cast<UInt64 *>(&num), bigEndianFlag);
-	}
-#endif
-private:
-#if 0
-	inline static Char UnpackChar(const UChar *pByte) {
-		return static_cast<Char>(UnpackUChar(pByte));
-	}
-	inline static UChar UnpackUChar(const UChar *pByte) { return *pByte; }
-	inline static Short UnpackShort(const UChar *pByte, bool bigEndianFlag) {
-		return static_cast<Short>(UnpackUShort(pByte, bigEndianFlag));
-	}
-	static UShort UnpackUShort(const UChar *pByte, bool bigEndianFlag);
-	inline static Int32 UnpackInt32(const UChar *pByte, bool bigEndianFlag) {
-		return static_cast<Int32>(UnpackUInt32(pByte, bigEndianFlag));
-	}
-	static UInt32 UnpackUInt32(const UChar *pByte, bool bigEndianFlag);
-	inline static Int64 UnpackInt64(const UChar *pByte, bool bigEndianFlag) {
-		return static_cast<Int64>(UnpackUInt64(pByte, bigEndianFlag));
-	}
-	static UInt64 UnpackUInt64(const UChar *pByte, bool bigEndianFlag);
-	inline static float UnpackFloat(const UChar *pByte, bool bigEndianFlag) {
-		UInt32 num = UnpackUInt32(pByte, bigEndianFlag);
-		return *reinterpret_cast<float *>(&num);
-	}
-	inline static double UnpackDouble(const UChar *pByte, bool bigEndianFlag) {
-		UInt64 num = UnpackUInt64(pByte, bigEndianFlag);
-		return *reinterpret_cast<double *>(&num);
-	}
-#endif
 };
 
 template<> void Packer::Store<Char>(Char num, bool bigEndianFlag);
@@ -166,30 +113,6 @@ template<> Int64 Packer::Extract<Int64>(const UChar *pByte, bool bigEndianFlag);
 template<> UInt64 Packer::Extract<UInt64>(const UChar *pByte, bool bigEndianFlag);
 template<> Float Packer::Extract<Float>(const UChar *pByte, bool bigEndianFlag);
 template<> Double Packer::Extract<Double>(const UChar *pByte, bool bigEndianFlag);
-
-#if 0
-template<> bool Packer::Put<Char>(Environment &env, Char num, bool bigEndianFlag);
-template<> bool Packer::Put<UChar>(Environment &env, UChar num, bool bigEndianFlag);
-template<> bool Packer::Put<Short>(Environment &env, Short num, bool bigEndianFlag);
-template<> bool Packer::Put<UShort>(Environment &env, UShort num, bool bigEndianFlag);
-template<> bool Packer::Put<Int32>(Environment &env, Int32 num, bool bigEndianFlag);
-template<> bool Packer::Put<UInt32>(Environment &env, UInt32 num, bool bigEndianFlag);
-template<> bool Packer::Put<Int64>(Environment &env, Int64 num, bool bigEndianFlag);
-template<> bool Packer::Put<UInt64>(Environment &env, UInt64 num, bool bigEndianFlag);
-template<> bool Packer::Put<Float>(Environment &env, Float num, bool bigEndianFlag);
-template<> bool Packer::Put<Double>(Environment &env, Double num, bool bigEndianFlag);
-
-template<> bool Packer::Get<Char>(Environment &env, Char *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-template<> bool Packer::Get<UChar>(Environment &env, UChar *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-template<> bool Packer::Get<Short>(Environment &env, Short *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-template<> bool Packer::Get<UShort>(Environment &env, UShort *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-template<> bool Packer::Get<Int32>(Environment &env, Int32 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-template<> bool Packer::Get<UInt32>(Environment &env, UInt32 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-template<> bool Packer::Get<Int64>(Environment &env, Int64 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-template<> bool Packer::Get<UInt64>(Environment &env, UInt64 *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-template<> bool Packer::Get<Float>(Environment &env, Float *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-template<> bool Packer::Get<Double>(Environment &env, Double *pNum, bool bigEndianFlag, bool exceedErrorFlag);
-#endif
 
 }
 
