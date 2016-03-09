@@ -47,4 +47,58 @@ Value Pointer::UnpackStay(Environment &env, const char *format,
 	return value;
 }
 
+//-----------------------------------------------------------------------------
+// Pointer::StreamEx
+//-----------------------------------------------------------------------------
+Pointer::StreamEx::StreamEx(Environment &env, Pointer *pPointer, bool seekEndFlag) :
+	Stream(env, ATTR_BwdSeekable | ATTR_Readable | (pPointer->IsWritable()? ATTR_Writable : 0)),
+	_pPointer(pPointer)
+{
+	_pPointer->SetOffset(_pPointer->GetEntireSize());
+}
+
+Pointer::StreamEx::~StreamEx()
+{
+}
+
+const char *Pointer::StreamEx::GetName() const
+{
+	return "pointer";
+}
+
+const char *Pointer::StreamEx::GetIdentifier() const
+{
+	return nullptr;
+}
+
+size_t Pointer::StreamEx::DoRead(Signal &sig, void *buff, size_t len)
+{
+	return 0;
+}
+
+size_t Pointer::StreamEx::DoWrite(Signal &sig, const void *buff, size_t len)
+{
+	return 0;
+}
+
+bool Pointer::StreamEx::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
+{
+	return false;
+}
+
+bool Pointer::StreamEx::DoFlush(Signal &sig)
+{
+	return true;
+}
+
+bool Pointer::StreamEx::DoClose(Signal &sig)
+{
+	return Stream::DoClose(sig);
+}
+
+size_t Pointer::StreamEx::DoGetSize()
+{
+	return 0;
+}
+
 }

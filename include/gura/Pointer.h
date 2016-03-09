@@ -14,6 +14,24 @@ namespace Gura {
 // Pointer
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Pointer : public Packer {
+public:
+	class GURA_DLLDECLARE StreamEx : public Stream {
+	private:
+		AutoPtr<Pointer> _pPointer;
+	public:
+		StreamEx(Environment &env, Pointer *pPointer, bool seekEndFlag);
+		virtual ~StreamEx();
+		virtual const char *GetName() const;
+		virtual const char *GetIdentifier() const;
+		virtual size_t DoRead(Signal &sig, void *buff, size_t len);
+		virtual size_t DoWrite(Signal &sig, const void *buff, size_t len);
+		virtual bool DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode);
+		virtual bool DoFlush(Signal &sig);
+		virtual bool DoClose(Signal &sig);
+		virtual size_t DoGetSize();
+		inline Pointer &GetPointer() { return *_pPointer; }
+		inline const Pointer &GetPointer() const { return *_pPointer; }
+	};
 protected:
 	size_t _offset;
 public:
