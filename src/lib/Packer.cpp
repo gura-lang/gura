@@ -426,11 +426,6 @@ bool Packer::PutBuffer(Environment &env, const void *buff, size_t bytes)
 	return true;
 }
 
-template<> void Packer::Store<UChar>(UChar num, bool bigEndianFlag)
-{
-	StoreBuffer(&num, sizeof(UChar));
-}
-
 template<> void Packer::Store<UShort>(UShort num, bool bigEndianFlag)
 {
 	UChar buff[sizeof(UShort)];
@@ -501,11 +496,6 @@ template<> void Packer::Store<UInt64>(UInt64 num, bool bigEndianFlag)
 		*pByte   = byte0;
 	}
 	StoreBuffer(buff, sizeof(UInt64));
-}
-
-template<> UChar Packer::Extract<UChar>(const UChar *pByte, bool bigEndianFlag)
-{
-	return *pByte;
 }
 
 template<> UShort Packer::Extract<UShort>(const UChar *pByte, bool bigEndianFlag)

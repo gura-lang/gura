@@ -89,7 +89,11 @@ private:
 							ValueList::const_iterator pValue, Number numMin, Number numMax);
 };
 
-template<> void Packer::Store<UChar>(UChar num, bool bigEndianFlag);
+template<> inline void Packer::Store<UChar>(UChar num, bool bigEndianFlag)
+{
+	StoreBuffer(&num, sizeof(UChar));
+}
+
 template<> void Packer::Store<UShort>(UShort num, bool bigEndianFlag);
 template<> void Packer::Store<UInt32>(UInt32 num, bool bigEndianFlag);
 template<> void Packer::Store<UInt64>(UInt64 num, bool bigEndianFlag);
@@ -124,7 +128,11 @@ template<> inline void Packer::Store<Double>(Double num, bool bigEndianFlag)
 	Store<UInt64>(*reinterpret_cast<UInt64 *>(&num), bigEndianFlag);
 }
 
-template<> UChar Packer::Extract<UChar>(const UChar *pByte, bool bigEndianFlag);
+template<> inline UChar Packer::Extract<UChar>(const UChar *pByte, bool bigEndianFlag)
+{
+	return *pByte;
+}
+
 template<> UShort Packer::Extract<UShort>(const UChar *pByte, bool bigEndianFlag);
 template<> UInt32 Packer::Extract<UInt32>(const UChar *pByte, bool bigEndianFlag);
 template<> UInt64 Packer::Extract<UInt64>(const UChar *pByte, bool bigEndianFlag);
