@@ -129,12 +129,37 @@ template<> UShort Packer::Extract<UShort>(const UChar *pByte, bool bigEndianFlag
 template<> UInt32 Packer::Extract<UInt32>(const UChar *pByte, bool bigEndianFlag);
 template<> UInt64 Packer::Extract<UInt64>(const UChar *pByte, bool bigEndianFlag);
 
-template<> Char Packer::Extract<Char>(const UChar *pByte, bool bigEndianFlag);
-template<> Short Packer::Extract<Short>(const UChar *pByte, bool bigEndianFlag);
-template<> Int32 Packer::Extract<Int32>(const UChar *pByte, bool bigEndianFlag);
-template<> Int64 Packer::Extract<Int64>(const UChar *pByte, bool bigEndianFlag);
-template<> Float Packer::Extract<Float>(const UChar *pByte, bool bigEndianFlag);
-template<> Double Packer::Extract<Double>(const UChar *pByte, bool bigEndianFlag);
+template<> inline Char Packer::Extract<Char>(const UChar *pByte, bool bigEndianFlag)
+{
+	return static_cast<Char>(Extract<UChar>(pByte, bigEndianFlag));
+}
+
+template<> inline Short Packer::Extract<Short>(const UChar *pByte, bool bigEndianFlag)
+{
+	return static_cast<Short>(Extract<UShort>(pByte, bigEndianFlag));
+}
+
+template<> inline Int32 Packer::Extract<Int32>(const UChar *pByte, bool bigEndianFlag)
+{
+	return static_cast<Int32>(Extract<UInt32>(pByte, bigEndianFlag));
+}
+
+template<> inline Int64 Packer::Extract<Int64>(const UChar *pByte, bool bigEndianFlag)
+{
+	return static_cast<Int64>(Extract<UInt64>(pByte, bigEndianFlag));
+}
+
+template<> inline Float Packer::Extract<Float>(const UChar *pByte, bool bigEndianFlag)
+{
+	UInt32 num = Extract<UInt32>(pByte, bigEndianFlag);
+	return *reinterpret_cast<Float *>(&num);
+}
+
+template<> inline Double Packer::Extract<Double>(const UChar *pByte, bool bigEndianFlag)
+{
+	UInt64 num = Extract<UInt64>(pByte, bigEndianFlag);
+	return *reinterpret_cast<Double *>(&num);
+}
 
 }
 
