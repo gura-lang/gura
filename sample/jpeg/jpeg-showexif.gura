@@ -33,6 +33,6 @@ jpeg.exif(sys.argv[1]) {|exif|
 	}
 	if (exif.thumbnail) {
 		println(exif.thumbnail)
-		println(exif.thumbnail_jpeg)
+		println(exif.thumbnail@jpeg)
 	}
 }

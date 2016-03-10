@@ -80,9 +80,10 @@ Value Object_exif::DoGetProp(Environment &env, const Symbol *pSymbol,
 					pScannerDst->StorePixel(red, green, blue, 0);
 				} while (pScannerDst->Next());
 			} else {
-				Stream_Binary stream(env,
-					Object_binary::Reference(_pObjBinaryThumbnail.get()), false);
-				if (!ImageStreamer_JPEG::ReadStream(env, sig, pObjImage->GetImage(), stream)) {
+				AutoPtr<Stream> pStream(
+					new Pointer::StreamEx(
+						env, new Object_binary::PointerEx(0, _pObjBinaryThumbnail->Reference())));
+				if (!ImageStreamer_JPEG::ReadStream(env, sig, pObjImage->GetImage(), *pStream)) {
 					return Value::Nil;
 				}
 			}

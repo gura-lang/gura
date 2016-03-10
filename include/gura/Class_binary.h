@@ -78,6 +78,7 @@ public:
 	inline bool IsWritable() const { return _writableFlag; }
 };
 
+#if 0
 //-----------------------------------------------------------------------------
 // Stream_Binary
 //-----------------------------------------------------------------------------
@@ -99,6 +100,7 @@ public:
 	inline Binary &GetBinary() { return _pObjBinary->GetBinary(); }
 	inline const Binary &GetBinary() const { return _pObjBinary->GetBinary(); }
 };
+#endif
 
 }
 

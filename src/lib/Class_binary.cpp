@@ -355,7 +355,9 @@ Gura_DeclareMethod(binary, reader)
 Gura_ImplementMethod(binary, reader)
 {
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), false);
+	//Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), false);
+	Stream *pStream = new Pointer::StreamEx(
+		env, new Object_binary::PointerEx(0, pThis->Reference()));
 	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
 }
 
@@ -374,7 +376,9 @@ Gura_DeclareMethod(binary, writer)
 Gura_ImplementMethod(binary, writer)
 {
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), true);
+	//Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), true);
+	Stream *pStream = new Pointer::StreamEx(
+		env, new Object_binary::PointerEx(pThis->GetBinary().size(), pThis->Reference()));
 	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
 }
 
@@ -420,6 +424,7 @@ Object *Class_binary::CreateDescendant(Environment &env, Class *pClass)
 	return new Object_binary((pClass == nullptr)? this : pClass);
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Stream_Binary
 //-----------------------------------------------------------------------------
@@ -498,5 +503,6 @@ size_t Stream_Binary::DoGetSize()
 {
 	return GetBinary().size();
 }
+#endif
 
 }

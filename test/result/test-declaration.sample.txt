@@ -773,10 +773,12 @@ pointer
   pointer#put@uint32(n:number):map:reduce:[be,stay]
   pointer#put@uint64(n:number):map:reduce:[be,stay]
   pointer#put@ushort(n:number):map:reduce:[be,stay]
+  pointer#reader() {block?}
   pointer#reset():reduce
   pointer#seek():reduce
   pointer#unpack(format:string, values*:number):[nil,stay] {block?}
   pointer#unpacks(format:string, values*:number):map {block?}
+  pointer#writer() {block?}
 quote
 rational
   rational.reduce()

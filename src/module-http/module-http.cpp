@@ -2238,7 +2238,9 @@ Object_response *Object_client::SendRequest(Signal &sig,
 		do {
 			Environment &env = *this;
 			Object_binary *pObjBinary = new Object_binary(env);
-			Stream_Base64Writer stream(env, new Stream_Binary(env, pObjBinary, false), 0);
+			Stream_Base64Writer stream(
+				env, new Pointer::StreamEx(
+					env, new Object_binary::PointerEx(0, pObjBinary)), 0);
 			stream.Write(sig, str.data(), str.size());
 			if (sig.IsSignalled()) return nullptr;
 			buff += pObjBinary->GetBinary();

@@ -936,11 +936,11 @@ bool Class_stream::CastFrom(Environment &env, Value &value, const Declaration *p
 		value = Value(new Object_stream(env, pStream));
 		return true;
 	} else if (value.Is_binary()) {
-		Object_binary *pObjBinary = Object_binary::Reference(Object_binary::GetObject(value));
-		bool seekEndFlag = pDecl->GetFlag(FLAG_Write);
-		Object *pObj = new Object_stream(env,
-					new Stream_Binary(env, pObjBinary, seekEndFlag));
-		value = Value(pObj);
+		Object_binary *pObj = Object_binary::GetObject(value);
+		size_t offset = pDecl->GetFlag(FLAG_Write)? pObj->GetBinary().size() : 0;
+		Stream *pStream = new Pointer::StreamEx(
+			env, new Object_binary::PointerEx(offset, pObj->Reference()));
+		value = Value(new Object_stream(env, pStream));
 		return true;
 	}
 	return false;
