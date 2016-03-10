@@ -73,18 +73,33 @@ const char *Pointer::StreamEx::GetIdentifier() const
 
 size_t Pointer::StreamEx::DoRead(Signal &sig, void *buff, size_t len)
 {
-	return 0;
+	size_t offset = _pPointer->GetOffset();
+	size_t bytesEntire = _pPointer->GetEntireSize();
+	if (offset > bytesEntire) {
+		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
+		return 0;
+	}
+	size_t bytesToCopy = ChooseMin(bytesEntire - offset, len);
+	::memcpy(buff, _pPointer->GetPointerC(), bytesToCopy);
+	_pPointer->SetOffset(offset + bytesToCopy);
+	return bytesToCopy;
 }
 
 size_t Pointer::StreamEx::DoWrite(Signal &sig, const void *buff, size_t len)
 {
-	//_pPointer->StorePrepare();
-	return 0;
+	if (!_pPointer->StorePrepare(sig, len)) return 0;
+	_pPointer->StoreBuffer(buff, len);
+	return len;
 }
 
 bool Pointer::StreamEx::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
 {
-	return false;
+	if (seekMode == SeekSet) {
+		_pPointer->SetOffset(static_cast<size_t>(offset));
+	} else if (seekMode == SeekCur) {
+		_pPointer->SetOffset(_pPointer->GetOffset() + offset);
+	}
+	return true;
 }
 
 bool Pointer::StreamEx::DoFlush(Signal &sig)
@@ -99,7 +114,7 @@ bool Pointer::StreamEx::DoClose(Signal &sig)
 
 size_t Pointer::StreamEx::DoGetSize()
 {
-	return 0;
+	return _pPointer->GetEntireSize();
 }
 
 }

@@ -408,6 +408,26 @@ Gura_ImplementMethod(pointer, pack)
 	return arg.GetValueThis();
 }
 
+// pointer#reader() {block?}
+Gura_DeclareMethod(pointer, reader)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `stream` instance with which you can read data from the memory\n"
+		"pointerd by the pointer."
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("s", "stream"));
+}
+
+Gura_ImplementMethod(pointer, reader)
+{
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	Stream *pStream = new Pointer::StreamEx(env, pPointer->Clone(), false);
+	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
+}
+
 // pointer#reset():reduce
 Gura_DeclareMethod(pointer, reset)
 {
@@ -554,6 +574,26 @@ Gura_ImplementMethod(pointer, unpacks)
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
+// pointer#writer() {block?}
+Gura_DeclareMethod(pointer, writer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `stream` instance with which you can append data to the memory\n"
+		"pointed by the pointer."
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("s", "stream"));
+}
+
+Gura_ImplementMethod(pointer, writer)
+{
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	Stream *pStream = new Pointer::StreamEx(env, pPointer->Clone(), false);
+	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
+}
+
 #define ImplementAccessorMethod(type, Type) \
 Gura_DeclareMethodAlias(pointer, each_##type, "each@" #type) \
 { \
@@ -687,10 +727,12 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignMethod(pointer, put_uint64);
 	Gura_AssignMethod(pointer, put_float);
 	Gura_AssignMethod(pointer, put_double);
+	Gura_AssignMethod(pointer, reader);
 	Gura_AssignMethod(pointer, reset);
 	Gura_AssignMethod(pointer, seek);
 	Gura_AssignMethod(pointer, unpack);
 	Gura_AssignMethod(pointer, unpacks);
+	Gura_AssignMethod(pointer, writer);
 }
 
 bool Class_pointer::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
