@@ -943,6 +943,13 @@ bool Class_stream::CastFrom(Environment &env, Value &value, const Declaration *p
 		value = Value(new Object_stream(env, pStream));
 		return true;
 	}
+	env.LookupClass(VTYPE_pointer)->CastFrom(env, value, pDecl);
+	if (value.Is_pointer()) {
+		Pointer *pPointer = Object_pointer::GetObject(value)->GetPointer();
+		Stream *pStream = new Pointer::StreamEx(env, pPointer->Clone());
+		value = Value(new Object_stream(env, pStream));
+		return true;
+	}
 	return false;
 }
 
