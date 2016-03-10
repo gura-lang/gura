@@ -50,11 +50,10 @@ Value Pointer::UnpackStay(Environment &env, const char *format,
 //-----------------------------------------------------------------------------
 // Pointer::StreamEx
 //-----------------------------------------------------------------------------
-Pointer::StreamEx::StreamEx(Environment &env, Pointer *pPointer, bool seekEndFlag) :
+Pointer::StreamEx::StreamEx(Environment &env, Pointer *pPointer) :
 	Stream(env, ATTR_BwdSeekable | ATTR_Readable | (pPointer->IsWritable()? ATTR_Writable : 0)),
 	_pPointer(pPointer)
 {
-	_pPointer->SetOffset(_pPointer->GetEntireSize());
 }
 
 Pointer::StreamEx::~StreamEx()

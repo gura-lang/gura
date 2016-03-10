@@ -19,7 +19,7 @@ public:
 	private:
 		AutoPtr<Pointer> _pPointer;
 	public:
-		StreamEx(Environment &env, Pointer *pPointer, bool seekEndFlag);
+		StreamEx(Environment &env, Pointer *pPointer);
 		virtual ~StreamEx();
 		virtual const char *GetName() const;
 		virtual const char *GetIdentifier() const;

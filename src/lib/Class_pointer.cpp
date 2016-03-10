@@ -424,7 +424,7 @@ Gura_DeclareMethod(pointer, reader)
 Gura_ImplementMethod(pointer, reader)
 {
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
-	Stream *pStream = new Pointer::StreamEx(env, pPointer->Clone(), false);
+	Stream *pStream = new Pointer::StreamEx(env, pPointer->Clone());
 	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
 }
 
@@ -590,7 +590,7 @@ Gura_DeclareMethod(pointer, writer)
 Gura_ImplementMethod(pointer, writer)
 {
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
-	Stream *pStream = new Pointer::StreamEx(env, pPointer->Clone(), false);
+	Stream *pStream = new Pointer::StreamEx(env, pPointer->Clone());
 	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
 }
 
