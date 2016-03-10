@@ -78,6 +78,7 @@ size_t Pointer::StreamEx::DoRead(Signal &sig, void *buff, size_t len)
 
 size_t Pointer::StreamEx::DoWrite(Signal &sig, const void *buff, size_t len)
 {
+	
 	return 0;
 }
 

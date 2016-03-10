@@ -152,7 +152,7 @@ Object_binary::PointerEx::PointerEx(const PointerEx &ptr) :
 {
 }
 
-bool Object_binary::PointerEx::PackPrepare(Environment &env, size_t bytes)
+bool Object_binary::PointerEx::StorePrepare(Environment &env, size_t bytes)
 {
 	if (!_pObjBinary->IsWritable()) {
 		env.SetError(ERR_ValueError, "not a writable binary");
@@ -161,7 +161,7 @@ bool Object_binary::PointerEx::PackPrepare(Environment &env, size_t bytes)
 	return true;
 }
 
-void Object_binary::PointerEx::PackBuffer(const void *buff, size_t bytes)
+void Object_binary::PointerEx::StoreBuffer(const void *buff, size_t bytes)
 {
 	size_t offsetNext = _offset + bytes;
 	if (buff != nullptr) {
@@ -180,7 +180,7 @@ void Object_binary::PointerEx::PackBuffer(const void *buff, size_t bytes)
 	_offset = offsetNext;
 }
 
-const UChar *Object_binary::PointerEx::UnpackPrepare(
+const UChar *Object_binary::PointerEx::ExtractPrepare(
 	Environment &env, size_t bytes, bool exceedErrorFlag)
 {
 	Binary &binary = _pObjBinary->GetBinary();

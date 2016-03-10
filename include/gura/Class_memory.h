@@ -34,10 +34,12 @@ public:
 		inline Memory &GetMemory() { return _pObjMemory->GetMemory(); }
 		inline const Memory &GetMemory() const { return _pObjMemory->GetMemory(); }
 	public:
-		virtual bool PackPrepare(Environment &env, size_t bytes);
-		virtual void PackBuffer(const void *buff, size_t bytes);
-		virtual const UChar *UnpackPrepare(Environment &env, size_t bytes, bool exceedErrorFlag);
+		// virtual functions for Packer
+		virtual bool StorePrepare(Environment &env, size_t bytes);
+		virtual void StoreBuffer(const void *buff, size_t bytes);
+		virtual const UChar *ExtractPrepare(Environment &env, size_t bytes, bool exceedErrorFlag);
 	public:
+		// virtual functions for Pointer
 		virtual Pointer *Clone() const;
 		virtual Object *GetTarget() const;
 		virtual const UChar *GetPointerC() const;

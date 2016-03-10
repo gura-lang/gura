@@ -62,21 +62,24 @@ public:
 	Value Unpack(Environment &env, const char *format,
 				 const ValueList &valListArg, bool exceedErrorFlag);
 	template<typename T> bool Put(Environment &env, T num, bool bigEndianFlag) {
-		if (!PackPrepare(env, sizeof(T))) return false;
+		if (!StorePrepare(env, sizeof(T))) return false;
 		Store<T>(num, bigEndianFlag);
 		return true;
 	}
 	template<typename T> bool Get(Environment &env, T *pNum, bool bigEndianFlag, bool exceedErrorFlag) {
-		const UChar *pByte = UnpackPrepare(env, sizeof(T), exceedErrorFlag);
+		const UChar *pByte = ExtractPrepare(env, sizeof(T), exceedErrorFlag);
 		if (pByte == nullptr) return false;
 		*pNum = Extract<T>(pByte, bigEndianFlag);
 		return true;
 	}
 	bool PutBuffer(Environment &env, const void *buff, size_t bytes);
 public:
-	virtual bool PackPrepare(Environment &env, size_t bytes) = 0;
-	virtual void PackBuffer(const void *buff, size_t bytes) = 0;
-	virtual const UChar *UnpackPrepare(Environment &env, size_t bytes, bool exceedErrorFlag) = 0;
+	virtual bool StorePrepare(Environment &env, size_t bytes) = 0;
+	virtual void StoreBuffer(const void *buff, size_t bytes) = 0;
+	virtual const UChar *ExtractPrepare(Environment &env, size_t bytes, bool exceedErrorFlag) = 0;
+private:
+	template<typename T> void Store(T num, bool bigEndianFlag);
+	template<typename T> T Extract(const UChar *pByte, bool bigEndianFlag);
 private:
 	static bool CheckString(Environment &env,
 							const ValueList &valList, ValueList::const_iterator pValue);
@@ -84,12 +87,6 @@ private:
 							const ValueList &valList, ValueList::const_iterator pValue);
 	static bool CheckNumber(Environment &env, const ValueList &valList,
 							ValueList::const_iterator pValue, Number numMin, Number numMax);
-private:
-	inline void PackForward(size_t bytes) {
-		PackBuffer(nullptr, bytes);
-	}
-	template<typename T> void Store(T num, bool bigEndianFlag);
-	template<typename T> T Extract(const UChar *pByte, bool bigEndianFlag);
 };
 
 template<> void Packer::Store<Char>(Char num, bool bigEndianFlag);

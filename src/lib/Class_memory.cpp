@@ -77,7 +77,7 @@ Object_memory::PointerEx::PointerEx(const PointerEx &ptr) :
 {
 }
 
-bool Object_memory::PointerEx::PackPrepare(Environment &env, size_t bytes)
+bool Object_memory::PointerEx::StorePrepare(Environment &env, size_t bytes)
 {
 	Memory &memory = _pObjMemory->GetMemory();
 	if (_offset + bytes <= memory.GetSize()) return true;
@@ -85,7 +85,7 @@ bool Object_memory::PointerEx::PackPrepare(Environment &env, size_t bytes)
 	return false;
 }
 
-void Object_memory::PointerEx::PackBuffer(const void *buff, size_t bytes)
+void Object_memory::PointerEx::StoreBuffer(const void *buff, size_t bytes)
 {
 	Memory &memory = _pObjMemory->GetMemory();
 	if (_offset >= memory.GetSize()) return;
@@ -94,7 +94,7 @@ void Object_memory::PointerEx::PackBuffer(const void *buff, size_t bytes)
 	_offset += bytesToCopy;
 }
 
-const UChar *Object_memory::PointerEx::UnpackPrepare(
+const UChar *Object_memory::PointerEx::ExtractPrepare(
 	Environment &env, size_t bytes, bool exceedErrorFlag)
 {
 	Memory &memory = _pObjMemory->GetMemory();
