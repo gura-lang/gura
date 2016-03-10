@@ -35,9 +35,9 @@ public:
 		inline const Memory &GetMemory() const { return _pObjMemory->GetMemory(); }
 	public:
 		// virtual functions for Packer
-		virtual bool StorePrepare(Environment &env, size_t bytes);
+		virtual bool StorePrepare(Signal &sig, size_t bytes);
 		virtual void StoreBuffer(const void *buff, size_t bytes);
-		virtual const UChar *ExtractPrepare(Environment &env, size_t bytes, bool exceedErrorFlag);
+		virtual const UChar *ExtractPrepare(Signal &sig, size_t bytes, bool exceedErrorFlag);
 	public:
 		// virtual functions for Pointer
 		virtual Pointer *Clone() const;

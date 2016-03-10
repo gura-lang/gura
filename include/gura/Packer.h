@@ -62,21 +62,21 @@ public:
 	Value Unpack(Environment &env, const char *format,
 				 const ValueList &valListArg, bool exceedErrorFlag);
 	template<typename T> bool Put(Environment &env, T num, bool bigEndianFlag) {
-		if (!StorePrepare(env, sizeof(T))) return false;
+		if (!StorePrepare(env.GetSignal(), sizeof(T))) return false;
 		Store<T>(num, bigEndianFlag);
 		return true;
 	}
 	template<typename T> bool Get(Environment &env, T *pNum, bool bigEndianFlag, bool exceedErrorFlag) {
-		const UChar *pByte = ExtractPrepare(env, sizeof(T), exceedErrorFlag);
+		const UChar *pByte = ExtractPrepare(env.GetSignal(), sizeof(T), exceedErrorFlag);
 		if (pByte == nullptr) return false;
 		*pNum = Extract<T>(pByte, bigEndianFlag);
 		return true;
 	}
 	bool PutBuffer(Environment &env, const void *buff, size_t bytes);
 public:
-	virtual bool StorePrepare(Environment &env, size_t bytes) = 0;
+	virtual bool StorePrepare(Signal &sig, size_t bytes) = 0;
 	virtual void StoreBuffer(const void *buff, size_t bytes) = 0;
-	virtual const UChar *ExtractPrepare(Environment &env, size_t bytes, bool exceedErrorFlag) = 0;
+	virtual const UChar *ExtractPrepare(Signal &sig, size_t bytes, bool exceedErrorFlag) = 0;
 private:
 	template<typename T> void Store(T num, bool bigEndianFlag);
 	template<typename T> T Extract(const UChar *pByte, bool bigEndianFlag);

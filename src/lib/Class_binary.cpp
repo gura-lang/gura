@@ -152,10 +152,10 @@ Object_binary::PointerEx::PointerEx(const PointerEx &ptr) :
 {
 }
 
-bool Object_binary::PointerEx::StorePrepare(Environment &env, size_t bytes)
+bool Object_binary::PointerEx::StorePrepare(Signal &sig, size_t bytes)
 {
 	if (!_pObjBinary->IsWritable()) {
-		env.SetError(ERR_ValueError, "not a writable binary");
+		sig.SetError(ERR_ValueError, "not a writable binary");
 		return false;
 	}
 	return true;
@@ -181,7 +181,7 @@ void Object_binary::PointerEx::StoreBuffer(const void *buff, size_t bytes)
 }
 
 const UChar *Object_binary::PointerEx::ExtractPrepare(
-	Environment &env, size_t bytes, bool exceedErrorFlag)
+	Signal &sig, size_t bytes, bool exceedErrorFlag)
 {
 	Binary &binary = _pObjBinary->GetBinary();
 	if (_offset + bytes <= binary.size()) {
@@ -190,7 +190,7 @@ const UChar *Object_binary::PointerEx::ExtractPrepare(
 		return p;
 	}
 	if (exceedErrorFlag) {
-		env.SetError(ERR_IndexError, "pointer exceeds the range of binary");
+		sig.SetError(ERR_IndexError, "pointer exceeds the range of binary");
 	}
 	return nullptr;
 }
