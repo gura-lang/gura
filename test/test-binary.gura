@@ -180,7 +180,7 @@ testcase {
 	buff.writer().write(binary().p.pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1).target)
 	dump(buff)
 	println()
-	buff.pointer(16).copyfrom(binary().p.pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1).reset())
+	buff.pointer(16).copyfrom(binary().p.pack('>hbbHl', 0x1234, 0x56, 0x78, 0x9abc, -1).head())
 	dump(buff)
 	println()
 }

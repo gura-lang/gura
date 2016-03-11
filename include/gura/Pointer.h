@@ -41,7 +41,6 @@ protected:
 public:
 	inline void SetOffset(size_t offset) { _offset = offset; }
 	inline size_t GetOffset() const { return _offset; }
-	inline void Reset() { _offset = 0; }
 	inline size_t GetSize() const {
 		size_t bytesEntire = GetEntireSize();
 		return (_offset < bytesEntire)? bytesEntire - _offset : 0;

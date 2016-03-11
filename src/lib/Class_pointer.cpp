@@ -261,6 +261,24 @@ Gura_ImplementMethod(pointer, forward)
 	return arg.GetValueThis();
 }
 
+// pointer#head():reduce
+Gura_DeclareMethod(pointer, head)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Moves the pointer position to the beginning.\n"
+		"\n"
+		"This method returns a reference to the target instance itself.\n");
+}
+
+Gura_ImplementMethod(pointer, head)
+{
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	pPointer->SetOffset(0);
+	return arg.GetValueThis();
+}
+
 // pointer#hex(bytes?:number):[upper,cstr,carray] {block?}
 Gura_DeclareMethod(pointer, hex)
 {
@@ -428,28 +446,11 @@ Gura_ImplementMethod(pointer, reader)
 	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
 }
 
-// pointer#reset():reduce
-Gura_DeclareMethod(pointer, reset)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Moves the pointer position to the beginning.\n"
-		"\n"
-		"This method returns a reference to the target instance itself.\n");
-}
-
-Gura_ImplementMethod(pointer, reset)
-{
-	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
-	pPointer->Reset();
-	return arg.GetValueThis();
-}
-
 // pointer#seek(offset:number):reduce
 Gura_DeclareMethod(pointer, seek)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "offset", VTYPE_number, OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Moves the pointer position to the specified `offset`.\n"
@@ -462,6 +463,24 @@ Gura_ImplementMethod(pointer, seek)
 	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
 	size_t offset = arg.GetSizeT(0);
 	pPointer->SetOffset(offset);
+	return arg.GetValueThis();
+}
+
+// pointer#tail():reduce
+Gura_DeclareMethod(pointer, tail)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Moves the pointer position to the end.\n"
+		"\n"
+		"This method returns a reference to the target instance itself.\n");
+}
+
+Gura_ImplementMethod(pointer, tail)
+{
+	Pointer *pPointer = Object_pointer::GetObjectThis(arg)->GetPointer();
+	pPointer->SetOffset(pPointer->GetEntireSize());
 	return arg.GetValueThis();
 }
 
@@ -715,6 +734,7 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignMethod(pointer, get_uint64);
 	Gura_AssignMethod(pointer, get_float);
 	Gura_AssignMethod(pointer, get_double);
+	Gura_AssignMethod(pointer, head);
 	Gura_AssignMethod(pointer, hex);
 	Gura_AssignMethod(pointer, pack);
 	Gura_AssignMethod(pointer, put_char);
@@ -728,8 +748,8 @@ void Class_pointer::Prepare(Environment &env)
 	Gura_AssignMethod(pointer, put_float);
 	Gura_AssignMethod(pointer, put_double);
 	Gura_AssignMethod(pointer, reader);
-	Gura_AssignMethod(pointer, reset);
 	Gura_AssignMethod(pointer, seek);
+	Gura_AssignMethod(pointer, tail);
 	Gura_AssignMethod(pointer, unpack);
 	Gura_AssignMethod(pointer, unpacks);
 	Gura_AssignMethod(pointer, writer);

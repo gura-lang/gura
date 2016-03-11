@@ -761,6 +761,7 @@ pointer
   pointer#get@uint32():[be,nil,stay] {block?}
   pointer#get@uint64():[be,nil,stay] {block?}
   pointer#get@ushort():[be,nil,stay] {block?}
+  pointer#head():reduce
   pointer#hex(bytes?:number):[carray,cstr,upper] {block?}
   pointer#pack(format:string, values+):reduce:[stay]
   pointer#put@char(n:number):map:reduce:[be,stay]
@@ -774,8 +775,8 @@ pointer
   pointer#put@uint64(n:number):map:reduce:[be,stay]
   pointer#put@ushort(n:number):map:reduce:[be,stay]
   pointer#reader() {block?}
-  pointer#reset():reduce
-  pointer#seek():reduce
+  pointer#seek(offset:number):reduce
+  pointer#tail():reduce
   pointer#unpack(format:string, values*:number):[nil,stay] {block?}
   pointer#unpacks(format:string, values*:number):map {block?}
   pointer#writer() {block?}

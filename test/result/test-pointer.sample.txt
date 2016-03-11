@@ -310,3 +310,14 @@ buff.p.each@short():be:list .. [291, 17767, -30293, -12955, 26366, -9030, -26506
 buff.p.each@ushort():be:list .. [291, 17767, 35243, 52581, 26366, 56506, 39030, 21554]
 buff.p.each@int32():be:list .. [19088743, -1985229467, 1727978682, -1737075662]
 buff.p.each@uint32():be:list .. [19088743, 2309737829, 1727978682, 2557891634]
+
+======== #10 pointer#head() and pointer#tail() ========
+
+<pointer:100>
+<pointer:76>
+<pointer:0>
+<pointer:78>
+<pointer:100>
+<pointer:76>
+<pointer:0>
+<pointer:78>

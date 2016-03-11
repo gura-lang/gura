@@ -108,3 +108,13 @@ testcase('pointer#each@T()') {
 	tester(`buff.p.each@int32():be:list)
 	tester(`buff.p.each@uint32():be:list)
 }
+testcase('pointer#head() and pointer#tail()') {
+	f(p:pointer) = {
+		println(p.tail())
+		p -= 24, println(p)
+		println(p.head())
+		println(p.seek(78))
+	}
+	f(binary.alloc(100))
+	f(memory(100))
+}
