@@ -532,6 +532,7 @@ public:
 	Gura_DeclareSymbol(sin);
 	Gura_DeclareSymbol(single);
 	Gura_DeclareSymbol(size);
+	Gura_DeclareSymbol(size_at_all);
 	Gura_DeclareSymbol(sort);
 	Gura_DeclareSymbol(source);
 	Gura_DeclareSymbol(space);

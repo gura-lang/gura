@@ -321,3 +321,16 @@ buff.p.each@uint32():be:list .. [19088743, 2309737829, 1727978682, 2557891634]
 <pointer:76>
 <pointer:0>
 <pointer:78>
+
+======== #11 properties ========
+
+<binary:RW:100byte>
+offset:0, size:100, size@all:100
+offset:10, size:90, size@all:100
+offset:73, size:27, size@all:100
+offset:100, size:0, size@all:100
+<memory:100bytes>
+offset:0, size:100, size@all:100
+offset:10, size:90, size@all:100
+offset:73, size:27, size@all:100
+offset:100, size:0, size@all:100

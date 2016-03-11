@@ -50,6 +50,16 @@ void Class_number::Prepare(Environment &env)
 	Gura_AssignClassValueEx("min@int32", Value(-2147483648.));
 	Gura_AssignClassValueEx("max@uint32", Value(4294967295));
 	Gura_AssignClassValueEx("min@uint32", Value(0));
+	Gura_AssignClassValueEx("size@char", Value(1));
+	Gura_AssignClassValueEx("size@uchar", Value(1));
+	Gura_AssignClassValueEx("size@short", Value(2));
+	Gura_AssignClassValueEx("size@ushort", Value(2));
+	Gura_AssignClassValueEx("size@int32", Value(4));
+	Gura_AssignClassValueEx("size@uint32", Value(4));
+	Gura_AssignClassValueEx("size@int64", Value(8));
+	Gura_AssignClassValueEx("size@uint64", Value(8));
+	Gura_AssignClassValueEx("size@float", Value(4));
+	Gura_AssignClassValueEx("size@double", Value(8));
 	// method assignment
 	Gura_AssignMethod(number, roundoff);	// primitive method
 }

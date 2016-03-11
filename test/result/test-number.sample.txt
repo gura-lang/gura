@@ -1,4 +1,4 @@
-======== #1 min-max ========
+======== #1 number.min@T, number.max@T ========
 
 min@char .. -128
 max@char .. 127
@@ -12,3 +12,16 @@ min@int32 .. -2147483648
 max@int32 .. 2147483647
 min@uint32 .. 0
 max@uint32 .. 4294967295
+
+======== #2 number.size@T ========
+
+size@char .. 1
+size@uchar .. 1
+size@short .. 2
+size@ushort .. 2
+size@int32 .. 4
+size@uint32 .. 4
+size@int64 .. 8
+size@uint64 .. 8
+size@float .. 4
+size@double .. 8

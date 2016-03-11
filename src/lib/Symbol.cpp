@@ -691,6 +691,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(sin);
 	Gura_RealizeSymbol(single);
 	Gura_RealizeSymbol(size);
+	Gura_RealizeSymbolAlias(size_at_all,	"size@all");
 	Gura_RealizeSymbol(sort);
 	Gura_RealizeSymbol(source);
 	Gura_RealizeSymbol(space);

@@ -118,3 +118,17 @@ testcase('pointer#head() and pointer#tail()') {
 	f(binary.alloc(100))
 	f(memory(100))
 }
+testcase('properties') {
+	f(p:pointer) = {
+		printf('%s\n', p.target)
+		printf('offset:%d, size:%d, size@all:%d\n', p.offset, p.size, p.size@all)
+		p += 10
+		printf('offset:%d, size:%d, size@all:%d\n', p.offset, p.size, p.size@all)
+		p += 63
+		printf('offset:%d, size:%d, size@all:%d\n', p.offset, p.size, p.size@all)
+		p.tail()
+		printf('offset:%d, size:%d, size@all:%d\n', p.offset, p.size, p.size@all)
+	}
+	f(binary.alloc(100))
+	f(memory(100))
+}

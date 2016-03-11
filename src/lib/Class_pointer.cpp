@@ -22,6 +22,7 @@ bool Object_pointer::DoDirProp(Environment &env, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(offset));
 	symbols.insert(Gura_Symbol(size));
+	symbols.insert(Gura_Symbol(size_at_all));
 	symbols.insert(Gura_Symbol(target));
 	return true;
 }
@@ -34,6 +35,8 @@ Value Object_pointer::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return Value(GetPointer()->GetOffset());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(size))) {
 		return Value(GetPointer()->GetSize());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(size_at_all))) {
+		return Value(GetPointer()->GetEntireSize());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(target))) {
 		return Value(GetPointer()->GetTarget()->Reference());
 	}

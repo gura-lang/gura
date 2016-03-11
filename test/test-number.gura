@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-testcase('min-max') {
+testcase('number.min@T, number.max@T') {
 	printf('min@char .. %d\n', number.min@char)
 	printf('max@char .. %d\n', number.max@char)
 	printf('min@uchar .. %d\n', number.min@uchar)
@@ -14,4 +14,16 @@ testcase('min-max') {
 	printf('max@int32 .. %d\n', number.max@int32)
 	printf('min@uint32 .. %d\n', number.min@uint32)
 	printf('max@uint32 .. %d\n', number.max@uint32)
+}
+testcase('number.size@T') {
+	printf('size@char .. %d\n', number.size@char)
+	printf('size@uchar .. %d\n', number.size@uchar)
+	printf('size@short .. %d\n', number.size@short)
+	printf('size@ushort .. %d\n', number.size@ushort)
+	printf('size@int32 .. %d\n', number.size@int32)
+	printf('size@uint32 .. %d\n', number.size@uint32)
+	printf('size@int64 .. %d\n', number.size@int64)
+	printf('size@uint64 .. %d\n', number.size@uint64)
+	printf('size@float .. %d\n', number.size@float)
+	printf('size@double .. %d\n', number.size@double)
 }

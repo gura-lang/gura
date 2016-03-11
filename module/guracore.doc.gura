@@ -1571,6 +1571,10 @@ A `pointer` instance has the following properties:
 <tr><td><code>size</code></td><td><code>number</code></td><td>R</td>
 <td>Returns the size of data accessible from the current offset.</td></tr>
 
+<tr><td><code>size@all</code></td><td><code>number</code></td><td>R</td>
+<td>Returns the entire size of the target binary or memory.
+This equals to <code>p.offset + p.size</code> where `p` is a `pointer` instance.</td></tr>
+
 <tr><td><code>target</code></td><td><code>any</code></td><td>R</td>
 <td>An instance that is associated with the pointer.
 Currently, this can be an instance of `binary` or `memory`.</td></tr>
