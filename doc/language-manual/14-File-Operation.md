@@ -152,7 +152,7 @@ Using this description, you can access the created instance only within the bloc
 which will be automatically destroyed at the end of the procedure.
 
 
-### Cast to Stream Instance
+### Cast from String to Stream Instance
 
 If a certain function has an argument that expects a `stream` instance,
 you can pass it a string of a pathname,
@@ -176,6 +176,21 @@ the `stream` instance would be created for writing.
 
 Attribute `:r` is also prepared
 to explicitly declara that the stream is to be opened for reading.
+
+
+### Stream Instance to Access Memory
+
+Beside `string`, an instance of class that accesses data stored in memory
+can also be casted to `stream`. These classes are `binary`, `memory` and `pointer`.
+Using this mechanism, you can read/write memory content through `stream` methods.
+
+Below is an example to cast `binary` to `stream`.
+
+    f(fd:stream) = {
+        // read/write access to content of buff through fd
+    }
+    buff = binary()
+    f(buff)
 
 
 ### Stream Instance for Standard Input/Output
