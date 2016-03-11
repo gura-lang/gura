@@ -713,6 +713,16 @@ number
   min@uint32:number = 0
   min@ushort:number = 0
   number.roundoff(threshold:number => 1e-10)
+  size@char:number = 1
+  size@double:number = 8
+  size@float:number = 4
+  size@int32:number = 4
+  size@int64:number = 8
+  size@short:number = 2
+  size@uchar:number = 1
+  size@uint32:number = 4
+  size@uint64:number = 8
+  size@ushort:number = 2
 object
   object#__call__(symbol:symbol, `args*):map:nonamed {block?}
   object#__iter__()

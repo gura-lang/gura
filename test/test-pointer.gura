@@ -1,6 +1,62 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
+/*
+testcase {
+	g(s:stream) = {
+		s.write(b'abcde' * 20)
+	}
+	h(s:stream) = {
+		while (buff = s.read(30)) {|i|
+			printf('#%d\n', i + 1)
+			buff.dump()
+		}
+	}
+	f1(p:pointer) = {
+		printf('%s\n', p.target)
+		try {
+			g(p)
+		} catch {|e|
+			println(e.text)
+		} else {
+			println(p)
+			p.dump()
+		}
+	}
+	f2(p:pointer) = {
+		printf('%s\n', p.target)
+		g(p.writer())
+		println(p)
+		p.dump()
+	}
+	f3(p:pointer) = {
+		printf('%s\n', p.target)
+		p.clone().pack('100B', [0..99]*)
+		h(p)
+	}
+	f4(p:pointer) = {
+		printf('%s\n', p.target)
+		p.clone().pack('100B', [0..99]*)
+		h(p + 32)
+	}
+	println('stream#write() with a stream that is casted from pointer')
+	f1(binary.alloc(100))
+	f1(memory(100))
+	println('stream#write() with a stream that is created by pointer#writer()')
+	f2(binary.alloc(100))
+	f2(memory(100))
+	println('writing exceeding amount of data to memory would cause an error')
+	f1(binary.alloc(80))
+	f1(memory(80))
+	println('stream#read() with a stream from a pointer')
+	f3(binary.alloc(100))
+	f3(memory(100))
+	println('stream#read() with a stream from a pointer that has offset')
+	f3(binary.alloc(100))
+	f3(memory(100))
+}
+sys.exit()
+*/
 testcase('operator on pointer - 1') {
 	f(p:pointer) = {
 		tester(`(p + 0))

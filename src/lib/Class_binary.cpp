@@ -148,7 +148,7 @@ Object_binary::PointerEx::PointerEx(size_t offset, Object_binary *pObjBinary) :
 }
 
 Object_binary::PointerEx::PointerEx(const PointerEx &ptr) :
-	Pointer(ptr.GetOffset()), _pObjBinary(dynamic_cast<Object_binary *>(ptr._pObjBinary->Reference()))
+	Pointer(ptr), _pObjBinary(dynamic_cast<Object_binary *>(ptr._pObjBinary->Reference()))
 {
 }
 

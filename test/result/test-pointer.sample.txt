@@ -12,7 +12,7 @@ p + 1 .. <pointer:1>
 p + 2 .. <pointer:2>
 p + 100 .. <pointer:100>
 <pointer:100>
-p.pack('b', 22) .. IndexError: pointer exceeds the range of memory
+p.pack('b', 22) .. OutOfRange: pointer exceeds the range of memory
 <pointer:103>
 
 ======== #2 operator on pointer - 2 ========

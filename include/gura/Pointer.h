@@ -36,6 +36,7 @@ protected:
 	size_t _offset;
 public:
 	Pointer(size_t offset);
+	Pointer(const Pointer &ptr);
 protected:
 	virtual ~Pointer();
 public:

@@ -73,7 +73,7 @@ Object_memory::PointerEx::PointerEx(size_t offset, Object_memory *pObjMemory) :
 }
 
 Object_memory::PointerEx::PointerEx(const PointerEx &ptr) :
-	Pointer(ptr.GetOffset()), _pObjMemory(dynamic_cast<Object_memory *>(ptr._pObjMemory->Reference()))
+	Pointer(ptr), _pObjMemory(dynamic_cast<Object_memory *>(ptr._pObjMemory->Reference()))
 {
 }
 
@@ -81,7 +81,7 @@ bool Object_memory::PointerEx::StorePrepare(Signal &sig, size_t bytes)
 {
 	Memory &memory = _pObjMemory->GetMemory();
 	if (_offset + bytes <= memory.GetSize()) return true;
-	sig.SetError(ERR_IndexError, "pointer exceeds the range of memory");
+	sig.SetError(ERR_OutOfRangeError, "pointer exceeds the range of memory");
 	return false;
 }
 
@@ -104,7 +104,7 @@ const UChar *Object_memory::PointerEx::ExtractPrepare(
 		return p;
 	}
 	if (exceedErrorFlag) {
-		sig.SetError(ERR_IndexError, "pointer exceeds the range of memory");
+		sig.SetError(ERR_OutOfRangeError, "pointer exceeds the range of memory");
 	}
 	return nullptr;
 }
