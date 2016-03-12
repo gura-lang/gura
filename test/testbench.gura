@@ -53,13 +53,13 @@ scriptNames.each {|scriptName|
 	println(scriptName)
 	[baseName, extName] = path.splitext(scriptName)
 	pathNameResult = path.join('result', baseName + '.result.txt')
-	pathNameSample = path.join('result', baseName + '.sample.txt')
+	pathNameExpect = path.join('result', baseName + '.expect.txt')
 	os.redirect(nil, pathNameResult) {
 		os.exec(sys.executable, scriptName)
 	}
 	if (cmd == `test) {
-		os.exec('diff', '-u', pathNameSample, pathNameResult)
+		os.exec('diff', '-u', pathNameExpect, pathNameResult)
 	} elsif (cmd == `update) {
-		stream.copy(pathNameResult, pathNameSample)
+		stream.copy(pathNameResult, pathNameExpect)
 	}
 }

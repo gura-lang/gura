@@ -82,20 +82,20 @@ if [ $# -eq 1 ]; then
 	do
 		echo "$case"
 		gura test-$case.gura > result/test-$case.result.txt
-		gura diff-result.gura $options result/test-$case.sample.txt result/test-$case.result.txt
+		gura diff-result.gura $options result/test-$case.expect.txt result/test-$case.result.txt
 	done	
 elif [ "$2" = "genscript" ]; then
 	for case in $cases
 	do
 		echo "genscript: $case"
 		gura genscript.gura --eval test-$case.gura > result/test-$case.result.txt
-		gura diff-result.gura $options result/test-$case.sample.txt result/test-$case.result.txt
+		gura diff-result.gura $options result/test-$case.expect.txt result/test-$case.result.txt
 	done	
 elif [ "$2" = "update" ]; then
 	for case in $cases
 	do
 		echo "update: $case"
-		gura test-$case.gura > result/test-$case.sample.txt
+		gura test-$case.gura > result/test-$case.expect.txt
 	done
 fi
 gura -c "printf('%s\nBuilt at %s\n', sys.executable, sys.timestamp)"

@@ -83,7 +83,7 @@ rem --------
 for %%C in (%cases%) do (
 	echo %%C
 	%PROGRAM_GURA% test-%%C.gura > result\test-%%C.result.txt
-	%PROGRAM_GURA% diff-result.gura %options% result\test-%%C.sample.txt result\test-%%C.result.txt
+	%PROGRAM_GURA% diff-result.gura %options% result\test-%%C.expect.txt result\test-%%C.result.txt
 )
 goto timestamp
 rem --------
@@ -91,14 +91,14 @@ rem --------
 for %%C in (%cases%) do (
 	echo genscript: %%C
 	%PROGRAM_GURA% genscript.gura --eval test-%%C.gura > result\test-%%C.result.txt
-	%PROGRAM_GURA% diff-result.gura %options% result\test-%%C.sample.txt result\test-%%C.result.txt
+	%PROGRAM_GURA% diff-result.gura %options% result\test-%%C.expect.txt result\test-%%C.result.txt
 )
 goto timestamp
 rem --------
 :update
 for %%C in (%cases%) do (
 	echo update: %%C
-	%PROGRAM_GURA% test-%%C.gura > result\test-%%C.sample.txt
+	%PROGRAM_GURA% test-%%C.gura > result\test-%%C.expect.txt
 )
 goto timestamp
 :timestamp
