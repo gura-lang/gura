@@ -5,16 +5,17 @@ set UNZIP="%BASEDIR%buildtools-mswin\7za920\7za.exe"
 set GNUMAKE="%BASEDIR%buildtools-mswin\UnxUtils\make.exe"
 set CURL="%BASEDIR%buildtools-mswin\curl\curl.exe"
 rem ---------------------------------------------------------------------------
-set VCVARSALL="C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-if not exist %VCVARSALL% set VCVARSALL="D:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-if not exist %VCVARSALL% set VCVARSALL="E:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-if not exist %VCVARSALL% set VCVARSALL="F:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-if not exist %VCVARSALL% set VCVARSALL="G:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-if not exist %VCVARSALL% set VCVARSALL="C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-if not exist %VCVARSALL% set VCVARSALL="D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-if not exist %VCVARSALL% set VCVARSALL="E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-if not exist %VCVARSALL% set VCVARSALL="F:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-if not exist %VCVARSALL% set VCVARSALL="G:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
+set VCVERSION=10.0
+set VCVARSALL="C:\Program Files\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
+if not exist %VCVARSALL% set VCVARSALL="D:\Program Files\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
+if not exist %VCVARSALL% set VCVARSALL="E:\Program Files\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
+if not exist %VCVARSALL% set VCVARSALL="F:\Program Files\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
+if not exist %VCVARSALL% set VCVARSALL="G:\Program Files\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
+if not exist %VCVARSALL% set VCVARSALL="C:\Program Files (x86)\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
+if not exist %VCVARSALL% set VCVARSALL="D:\Program Files (x86)\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
+if not exist %VCVARSALL% set VCVARSALL="E:\Program Files (x86)\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
+if not exist %VCVARSALL% set VCVARSALL="F:\Program Files (x86)\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
+if not exist %VCVARSALL% set VCVARSALL="G:\Program Files (x86)\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
 if not exist %VCVARSALL% goto err_vcvarsall_not_found
 call %VCVARSALL%
 rem ---------------------------------------------------------------------------
