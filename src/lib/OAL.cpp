@@ -48,7 +48,10 @@ const char FileSeparator = '\\';
 
 void Initialize()
 {
+#if _MSC_VER < 1900
+	// two-digit exponent mode is the default in VS2015 (issue 491979)
 	::_set_output_format(_TWO_DIGIT_EXPONENT);
+#endif
 }
 #elif defined(GURA_ON_DARWIN)
 const bool IgnoreCaseInPathNameFlag = true;
