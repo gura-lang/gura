@@ -1489,7 +1489,7 @@ Gura_ImplementBinaryOperator(Pow, number, number)
 
 Gura_ImplementBinaryOperator(Pow, complex, complex)
 {
-	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetComplex()));
+	return Value(std::pow<double, double>(valueLeft.GetComplex(), valueRight.GetComplex()));
 }
 
 Gura_ImplementBinaryOperator(Pow, number, complex)
