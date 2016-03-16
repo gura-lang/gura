@@ -52,7 +52,7 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/tiff-3.8.2.zip
 %CURL% -O %GUESTURL%/tiff-3.8.2-gurapatch.zip
 %CURL% -O %GUESTURL%/tk8516-src.zip
-%CURL% -O %GUESTURL%/wxWidgets-3.1.0.7z
+%CURL% -O %GUESTURL%/wxWidgets-3.0.2.7z
 %CURL% -O %GUESTURL%/yaml-0.1.5.tar.gz
 %CURL% -O %GUESTURL%/yaml-0.1.5-gurapatch.zip
 %CURL% -O %GUESTURL%/zlib127.zip
@@ -126,8 +126,8 @@ nmake -f makefile.vc install INSTALLDIR=..\..
 popd
 rem ---------------------------------------------------------------------------
 rem Building wxWidgets library using /m option doesn't produce correct results.
-%UNZIP% x -y -owxWidgets-3.1.0 wxWidgets-3.1.0.7z
-msbuild wxWidgets-3.1.0\build\msw\wx_vc10.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
+%UNZIP% x -y -owxWidgets-3.0.2 wxWidgets-3.0.2.7z
+msbuild wxWidgets-3.0.2\build\msw\wx_vc10.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y pixman-0.32.6.tar.gz
 %UNZIP% x -y pixman-0.32.6.tar
