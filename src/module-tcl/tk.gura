@@ -165,7 +165,7 @@ Widget = class {
 		this._cntChildren = 0
 	}
 	__str__() = format('<widget:%s>', this.__tclname__())
-	__getprop__(symbol:symbol) = {
+	__getprop__(symbol:symbol):closure = {
 		method = this.genDynamicMethod(symbol)
 		this.setprop!(symbol, method)
 		method
@@ -339,7 +339,7 @@ Menu = class(Widget) {
 // Canvas
 //-----------------------------------------------------------------------------
 // path cmds args opts
-genCanvasItemCreator(cmds+:string) = {
+genCanvasItemCreator(cmds+:string):closure = {
 	func(args*, opts%):map {block?} = {
 		id = tclEval(this, 'create', cmds*, args*, opts%)
 		item = CanvasItem(this, id)
@@ -354,7 +354,7 @@ Canvas = class(Widget) {
 	__init__(path:string) = {|path|
 		this._cntTags = 0
 	}
-	__getprop__(symbol:symbol) = {
+	__getprop__(symbol:symbol):closure = {
 		str = symbol.tostring()
 		if (this.itemCreatorDict.haskey(symbol)) {
 			method = genCanvasItemCreator(this.itemCreatorDict[symbol])
@@ -391,7 +391,7 @@ CanvasItem = class {
 		this._canvas = canvas
 		this._tagOrId = tagOrId
 	}
-	__getprop__(symbol:symbol) = {
+	__getprop__(symbol:symbol):closure = {
 		method = this.genDynamicMethod(symbol)
 		this.setprop!(symbol, method)
 		method
@@ -435,7 +435,7 @@ CanvasItem = class {
 //-----------------------------------------------------------------------------
 CanvasTag = class(CanvasItem) {
 	__init__(canvas:Canvas, tag) = {|canvas, tag|}
-	__getprop__(symbol:symbol) = {
+	__getprop__(symbol:symbol):closure = {
 		if (this.searchProcDict.haskey(symbol)) {
 			method = genTagMethod(this._canvas, this.searchProcDict[symbol])
 		} else {
@@ -513,7 +513,7 @@ TextTag = class {
 		this._text = text
 		this._tagName = tagName
 	}
-	__getprop__(symbol:symbol) = {
+	__getprop__(symbol:symbol):closure = {
 		method = genItemMethod(this._text, 'tag', symbol)
 		this.setprop!(symbol, method)
 		method
@@ -582,7 +582,7 @@ TreeviewItem = class {
 		this._treeview = treeview
 		this._id = id
 	}
-	__getprop__(symbol:symbol) = {
+	__getprop__(symbol:symbol):closure = {
 		method = genItemMethod(this._treeview, symbol)
 		this.setprop!(symbol, method)
 		method
@@ -638,7 +638,7 @@ TreeviewTag = class {
 		this._treeview = treeview
 		this._tagName = tagName
 	}
-	__getprop__(symbol:symbol) = {
+	__getprop__(symbol:symbol):closure = {
 		method = genItemMethod(this._treeview, 'tag', symbol)
 		this.setprop!(symbol, method)
 		method
@@ -716,7 +716,7 @@ Image = class {
 	// Tcl/Tk doesn't increment a reference counter of image objects even when
 	// they are passed to a canvas object.
 	__str__() = format('<image:%s>', this.__tclname__())
-	__getprop__(symbol:symbol) = {
+	__getprop__(symbol:symbol):closure = {
 		method = genWidgetMethod(symbol)
 		this.setprop!(symbol, method)
 		method
