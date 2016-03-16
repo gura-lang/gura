@@ -40,7 +40,7 @@ tclEval(args*, opts%) = {
 }
 
 // cmds args opts
-genFunction(cmds+:string) = {
+genFunction(cmds+:string):closure = {
 	func(args*, opts%):map = {
 		tclEval(cmds*, args*, opts%)
 	}
@@ -49,7 +49,7 @@ genFunction(cmds+:string) = {
 }
 
 // cmds path args opts
-genMethod(cmds+:string) = {
+genMethod(cmds+:string):closure = {
 	func(args*, opts%):map = {
 		tclEval(cmds*, this, args*, opts%)
 	}
@@ -58,7 +58,7 @@ genMethod(cmds+:string) = {
 }
 
 // cmds path args opts
-genCommand(cmds+:string) = {
+genCommand(cmds+:string):closure = {
 	func(args*, opts%):map {block?} = {
 		tclEval(cmds*, this, args*, opts%)
 		block && block(this)
@@ -69,7 +69,7 @@ genCommand(cmds+:string) = {
 }
 
 // cmds pathChild args opts
-genWidgetCreator(constructor:function, cmds+:string) = {
+genWidgetCreator(constructor:function, cmds+:string):closure = {
 	func(args*, opts%):map {block?} = {
 		pathChild = this.makePathChild()
 		tclEval(cmds*, pathChild, args*, opts%)
@@ -82,7 +82,7 @@ genWidgetCreator(constructor:function, cmds+:string) = {
 }
 
 // path cmds args opts
-genWidgetMethod(cmds+:string) = {
+genWidgetMethod(cmds+:string):closure = {
 	func(args*, opts%):map = {
 		tclEval(this, cmds*, args*, opts%)
 	}
@@ -91,7 +91,7 @@ genWidgetMethod(cmds+:string) = {
 }
 
 // container cmds id args opts
-genItemMethod(container, cmds+:string) = {
+genItemMethod(container, cmds+:string):closure = {
 	func(args*, opts%):map = {
 		tclEval(container, cmds*, this, args*, opts%)
 	}
@@ -100,7 +100,7 @@ genItemMethod(container, cmds+:string) = {
 }
 
 // container 'addtag' tag searchProc args opts
-genTagMethod(container, searchProc:string) = {
+genTagMethod(container, searchProc:string):closure = {
 	func(args*, opts%):map = {
 		tclEval(container, 'addtag', this, searchProc, args*, opts%)
 	}
@@ -177,7 +177,7 @@ Widget = class {
 		tclEval(this, 'cget', '-' + option)
 	}
 	__tclname__() = this._path
-	genDynamicMethod(symbol:symbol) = {
+	genDynamicMethod(symbol:symbol):closure = {
 		str = symbol.tostring()
 		if (str.startswith('wm$')) {
 			method = genMethod('wm', str.mid(3))
