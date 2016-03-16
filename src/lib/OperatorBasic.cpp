@@ -1489,7 +1489,11 @@ Gura_ImplementBinaryOperator(Pow, number, number)
 
 Gura_ImplementBinaryOperator(Pow, complex, complex)
 {
+#if defined(_MSC_VER) && _MSC_VER < 1900
+	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetComplex()));
+#else
 	return Value(std::pow<double, double>(valueLeft.GetComplex(), valueRight.GetComplex()));
+#endif
 }
 
 Gura_ImplementBinaryOperator(Pow, number, complex)
