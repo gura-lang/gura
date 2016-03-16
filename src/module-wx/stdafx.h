@@ -777,7 +777,7 @@
 #include "Class_wx_WindowUpdateLocker.h"
 #include "Class_wx_WindowDisabler.h"
 #include "Class_wx_XmlNode.h"
-#include "Class_wx_XmlProperty.h"
+#include "Class_wx_XmlAttribute.h"
 #include "Class_wx_ZipNotifier.h"
 #include "Class_wx_NativeEncodingInfo.h"
 #include "Class_wx_NativeFontInfo.h"

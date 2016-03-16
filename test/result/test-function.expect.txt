@@ -357,3 +357,7 @@ f([1, 2, 3, 4]) .. TypeError: unmatched element size
 f([1, 2, 3, 4, 5]) .. OK
 f([1, 2, 3, 4, 5, 6]) .. TypeError: unmatched element size
 f([1, 2, 3, 4, 5, 6, 7]) .. TypeError: unmatched element size
+
+======== #51 lack of closure attribute ========
+
+f() .. ValueError: function f must have :closure attribute to return a function object

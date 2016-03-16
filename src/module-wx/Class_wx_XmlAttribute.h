@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------
-// wxXmlProperty
+// wxXmlAttribute
 // extracted from xmlproperty.tex
 //----------------------------------------------------------------------------
 #ifndef __CLASS_WX_XMLPROPERTY_H__
@@ -8,39 +8,39 @@
 Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
-// Class declaration for wxXmlProperty
+// Class declaration for wxXmlAttribute
 //----------------------------------------------------------------------------
-Gura_DeclareUserClass(wx_XmlProperty);
+Gura_DeclareUserClass(wx_XmlAttribute);
 
 //----------------------------------------------------------------------------
-// Object declaration for wxXmlProperty
+// Object declaration for wxXmlAttribute
 //----------------------------------------------------------------------------
-class Object_wx_XmlProperty : public Object {
+class Object_wx_XmlAttribute : public Object {
 protected:
-	wxXmlProperty *_pEntity;
+	wxXmlAttribute *_pEntity;
 	GuraObjectObserver *_pObserver;
 	bool _ownerFlag;
 public:
-	Gura_DeclareObjectAccessor(wx_XmlProperty)
+	Gura_DeclareObjectAccessor(wx_XmlAttribute)
 public:
-	inline Object_wx_XmlProperty(wxXmlProperty *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object(Gura_UserClass(wx_XmlProperty)),
+	inline Object_wx_XmlAttribute(wxXmlAttribute *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
+				Object(Gura_UserClass(wx_XmlAttribute)),
 				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
-	inline Object_wx_XmlProperty(Class *pClass, wxXmlProperty *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
+	inline Object_wx_XmlAttribute(Class *pClass, wxXmlAttribute *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
 				Object(pClass), _pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
-	virtual ~Object_wx_XmlProperty();
+	virtual ~Object_wx_XmlAttribute();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline void SetEntity(wxXmlProperty *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) {
+	inline void SetEntity(wxXmlAttribute *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) {
 		if (_ownerFlag) delete _pEntity;
 		_pEntity = pEntity;
 		_pObserver = pObserver;
 		_ownerFlag = ownerFlag;
 	}
 	inline void InvalidateEntity() { _pEntity = nullptr, _pObserver = nullptr, _ownerFlag = false; }
-	inline wxXmlProperty *GetEntity() { return _pEntity; }
-	inline wxXmlProperty *ReleaseEntity() {
-		wxXmlProperty *pEntity = GetEntity();
+	inline wxXmlAttribute *GetEntity() { return _pEntity; }
+	inline wxXmlAttribute *ReleaseEntity() {
+		wxXmlAttribute *pEntity = GetEntity();
 		InvalidateEntity();
 		return pEntity;
 	}
@@ -49,7 +49,7 @@ public:
 	}
 	inline bool IsInvalid(Signal &sig) const {
 		if (_pEntity != nullptr) return false;
-		SetError_InvalidWxObject(sig, "wxXmlProperty");
+		SetError_InvalidWxObject(sig, "wxXmlAttribute");
 		return true;
 	}
 };

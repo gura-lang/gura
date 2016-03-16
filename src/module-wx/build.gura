@@ -514,7 +514,7 @@ srcs = [
 	'Class_wx_WindowUpdateLocker.cpp'
 	'Class_wx_WindowDisabler.cpp'
 	'Class_wx_XmlNode.cpp'
-	'Class_wx_XmlProperty.cpp'
+	'Class_wx_XmlAttribute.cpp'
 	'Class_wx_ZipNotifier.cpp'
 	'Class_wx_NativeEncodingInfo.cpp'
 	'Class_wx_NativeFontInfo.cpp'

@@ -517,3 +517,7 @@ testcase('check of element size') {
 	tester(`f([1, 2, 3, 4, 5, 6]))
 	tester(`f([1, 2, 3, 4, 5, 6, 7]))
 }
+testcase('lack of closure attribute') {
+	f() = { function {} }
+	tester(`f())
+}

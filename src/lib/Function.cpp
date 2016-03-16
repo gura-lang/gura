@@ -286,8 +286,10 @@ Value Function::Eval(Environment &env, Argument &arg) const
 	if (arg.IsResultVoid()) return Value::Undefined;
 	if (value.Is_function() && IsCustom() &&
 					GetType() != FUNCTYPE_Block && !GetFlag(FLAG_Closure)) {
-		env.SetError(ERR_ValueError,
-					 "function without :closure attribute can't return a function object");
+		env.SetError(
+			ERR_ValueError,
+			"function %s must have :closure attribute to return a function object",
+			MakeFullName().c_str());
 		return Value::Nil;
 	}
 	return value;
@@ -434,21 +436,6 @@ String Function::MakeFullName() const
 		str += pModule->GetName();
 		str += ".";
 		str += GetName();
-#if 0
-	} else if (_pEnvScope->IsClass()) {
-		const Class *pClass = dynamic_cast<const Class *>(_pEnvScope.get());
-		str += pClass->MakeValueTypeName();
-		if (GetClassToConstruct() != pClass) {
-			str += (GetType() == FUNCTYPE_Instance)? "#" : ".";
-			str += GetName();
-		}
-	} else if (_pEnvScope->IsObject()) {
-		const Object *pObject = dynamic_cast<const Object *>(_pEnvScope.get());
-		const Class *pClass = pObject->GetClass();
-		str += pClass->MakeValueTypeName();
-		str += "#";
-		str += GetName();
-#endif
 	} else {
 		str += GetName();
 	}

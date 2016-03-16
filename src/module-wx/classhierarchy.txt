@@ -566,7 +566,7 @@ wxTreeItemId
 wxWindowUpdateLocker
 wxWindowDisabler
 wxXmlNode
-wxXmlProperty
+wxXmlAttribute
 wxZipNotifier
 wxNativeEncodingInfo
 wxFileTypeInfo
