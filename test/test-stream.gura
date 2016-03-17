@@ -16,7 +16,11 @@ third line
 '''
 	src.reader() {|s|
 		while (ch = s.readchar()) {
-			print('>', ch)
+			if (ch == '\n') {
+				println()
+			} else {
+				print('[', ch, ']')
+			}
 		}
 	}
 }

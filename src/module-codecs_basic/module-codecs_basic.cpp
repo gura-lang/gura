@@ -40,23 +40,35 @@ Codec::Result Codec_UTF8::Decoder::FeedChar(char ch, char &chConv)
 	if (_cntTrails > 0) {
 		if ((_ch & 0xc0) != 0x80) return RESULT_Error;
 		_cntTrails--;
+		_buffOut[_cntTrails] = ch;
+		if (_cntTrails == 0) {
+			chConv = _buffOut[_idxBuff];
+			return RESULT_Complete;
+		}
 	} else if ((_ch & 0x80) == 0x00) {
-		// nothing to do
+		chConv = ch;
+		return RESULT_Complete;
 	} else if ((_ch & 0xe0) == 0xc0) {
-		_cntTrails = 1;
+		_idxBuff = _cntTrails = 1;
+		_buffOut[_cntTrails] = ch;
 	} else if ((_ch & 0xf0) == 0xe0) {
-		_cntTrails = 2;
+		_idxBuff = _cntTrails = 2;
+		_buffOut[_cntTrails] = ch;
 	} else if ((_ch & 0xf8) == 0xf0) {
-		_cntTrails = 3;
+		_idxBuff = _cntTrails = 3;
+		_buffOut[_cntTrails] = ch;
 	} else if ((_ch & 0xfc) == 0xf8) {
-		_cntTrails = 4;
+		_idxBuff = _cntTrails = 4;
+		_buffOut[_cntTrails] = ch;
 	} else if ((_ch & 0xfe) == 0xfc) {
-		_cntTrails = 5;
+		_idxBuff = _cntTrails = 5;
+		_buffOut[_cntTrails] = ch;
 	} else {
 		return RESULT_Error;
 	}
-	chConv = ch;
-	return RESULT_Complete;
+	//chConv = ch;
+	//return RESULT_Complete;
+	return RESULT_None;
 }
 
 Codec::Result Codec_UTF8::Encoder::FeedChar(char ch, char &chConv)
