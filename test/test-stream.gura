@@ -6,6 +6,8 @@ import(gzip)
 import(bzip2)
 import(helper.test) {*}
 
+sys.stdout.setcodec('shift_jis').addcr(false)
+
 testcase('readchar') {
 	src = B'''
 Hello world
@@ -15,6 +17,7 @@ third line
 日本語
 '''
 	src.reader() {|s|
+		s.setcodec('utf-8')
 		while (ch = s.readchar()) {
 			if (ch == '\n') {
 				println()
