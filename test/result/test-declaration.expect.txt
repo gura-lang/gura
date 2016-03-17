@@ -268,7 +268,6 @@ sys:module = <module:sys:<integrated>>
   __symbol__:symbol = sys
   sys.echo(flag:boolean)
   sys.exit(status?:number)
-  fontdir:string = /Applications/Gura.app/Contents/Resources/share/gura/0.7.0/font
   ps1:string = >>> 
   ps2:string = ... 
   sys.required_version(major:number, minor:number, patch:number)
