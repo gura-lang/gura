@@ -261,35 +261,36 @@ Codec::Result Codec_UTF::Decoder::FeedUTF32(UInt32 codeUTF32, char &chConv)
 Codec::Result Codec_UTF::Encoder::FeedChar(char ch, char &chConv)
 {
 	Codec::Result rtn = Codec::RESULT_None;
-	if ((ch & 0x80) == 0x00) {
-		rtn = FeedUTF32(static_cast<UChar>(ch), chConv);
+	UChar _ch = static_cast<UChar>(ch);
+	if ((_ch & 0x80) == 0x00) {
+		rtn = FeedUTF32(_ch, chConv);
 		_cntChars = 0;
-	} else if ((ch & 0xc0) == 0x80) {
+	} else if ((_ch & 0xc0) == 0x80) {
 		if (_cntChars == 1) {
-			_codeUTF32 = (_codeUTF32 << 6) | (ch & 0x3f);
+			_codeUTF32 = (_codeUTF32 << 6) | (_ch & 0x3f);
 			rtn = FeedUTF32(_codeUTF32, chConv);
 			_codeUTF32 = 0x00000000;
 			_cntChars = 0;
 		} else if (_cntChars > 0) {
-			_codeUTF32 = (_codeUTF32 << 6) | (ch & 0x3f);
+			_codeUTF32 = (_codeUTF32 << 6) | (_ch & 0x3f);
 			_cntChars--;
 		} else {
 			_codeUTF32 = 0x00000000;
 		}
-	} else if ((ch & 0xe0) == 0xc0) {
-		_codeUTF32 = static_cast<UChar>(ch & 0x1f);
+	} else if ((_ch & 0xe0) == 0xc0) {
+		_codeUTF32 = _ch & 0x1f;
 		_cntChars = 1;
-	} else if ((ch & 0xf0) == 0xe0) {
-		_codeUTF32 = static_cast<UChar>(ch & 0x0f);
+	} else if ((_ch & 0xf0) == 0xe0) {
+		_codeUTF32 = _ch & 0x0f;
 		_cntChars = 2;
-	} else if ((ch & 0xf8) == 0xf0) {
-		_codeUTF32 = static_cast<UChar>(ch & 0x07);
+	} else if ((_ch & 0xf8) == 0xf0) {
+		_codeUTF32 = _ch & 0x07;
 		_cntChars = 3;
-	} else if ((ch & 0xfc) == 0xf8) {
-		_codeUTF32 = static_cast<UChar>(ch & 0x03);
+	} else if ((_ch & 0xfc) == 0xf8) {
+		_codeUTF32 = _ch & 0x03;
 		_cntChars = 4;
 	} else {
-		_codeUTF32 = static_cast<UChar>(ch & 0x01);
+		_codeUTF32 = _ch & 0x01;
 		_cntChars = 5;
 	}
 	return rtn;
@@ -331,15 +332,16 @@ bool Codec_DBCS::Decoder::IsLeadByte(UChar ch)
 
 Codec::Result Codec_DBCS::Decoder::FeedChar(char ch, char &chConv)
 {
+	UChar _ch = static_cast<UChar>(ch);
 	UInt32 codeUTF32 = 0x00000000;
 	if (_codeDBCS == 0x0000) {
-		if (IsLeadByte(static_cast<UChar>(ch))) {
-			_codeDBCS = static_cast<UChar>(ch);
+		if (IsLeadByte(_ch)) {
+			_codeDBCS = _ch;
 			return RESULT_None;
 		}
-		codeUTF32 = DBCSToUTF16(static_cast<UChar>(ch));
+		codeUTF32 = DBCSToUTF16(_ch);
 	} else {
-		_codeDBCS = (_codeDBCS << 8) | static_cast<UChar>(ch);
+		_codeDBCS = (_codeDBCS << 8) | _ch;
 		codeUTF32 = DBCSToUTF16(_codeDBCS);
 		_codeDBCS = 0x0000;
 	}

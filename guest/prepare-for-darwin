@@ -20,7 +20,7 @@ files="$files libpng-1.6.12.tar.gz"
 files="$files onig-5.9.5.tar.gz"
 files="$files pixman-0.32.6.tar.gz"
 files="$files tiff-3.8.2.tar.gz"
-files="$files wxWidgets-3.1.0.tar.bz2"
+files="$files wxWidgets-3.0.2.tar.bz2"
 files="$files yaml-0.1.5.tar.gz"
 files="$files llvm-3.6.1.src.tar.xz"
 for file in $files
