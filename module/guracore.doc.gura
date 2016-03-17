@@ -1618,6 +1618,7 @@ pointer.get@int64
 pointer.get@uint64
 pointer.get@float
 pointer.get@double
+pointer.head
 pointer.hex
 pointer.pack
 pointer.put@char
@@ -1630,10 +1631,12 @@ pointer.put@int64
 pointer.put@uint64
 pointer.put@float
 pointer.put@double
-pointer.reset
+pointer.reader
 pointer.seek
+pointer.tail
 pointer.unpack
 pointer.unpacks
+pointer.writer
 )}
 
 
