@@ -355,7 +355,6 @@ Gura_DeclareMethod(binary, reader)
 Gura_ImplementMethod(binary, reader)
 {
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	//Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), false);
 	Stream *pStream = new Pointer::StreamEx(
 		env, new Object_binary::PointerEx(0, pThis->Reference()));
 	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
@@ -376,7 +375,6 @@ Gura_DeclareMethod(binary, writer)
 Gura_ImplementMethod(binary, writer)
 {
 	Object_binary *pThis = Object_binary::GetObjectThis(arg);
-	//Stream *pStream = new Stream_Binary(env, Object_binary::Reference(pThis), true);
 	Stream *pStream = new Pointer::StreamEx(
 		env, new Object_binary::PointerEx(pThis->GetBinary().size(), pThis->Reference()));
 	return ReturnValue(env, arg, Value(new Object_stream(env, pStream)));
@@ -423,86 +421,5 @@ Object *Class_binary::CreateDescendant(Environment &env, Class *pClass)
 {
 	return new Object_binary((pClass == nullptr)? this : pClass);
 }
-
-#if 0
-//-----------------------------------------------------------------------------
-// Stream_Binary
-//-----------------------------------------------------------------------------
-Stream_Binary::Stream_Binary(Environment &env, Object_binary *pObjBinary, bool seekEndFlag) :
-	Stream(env, ATTR_BwdSeekable | ATTR_Readable | (pObjBinary->IsWritable()? ATTR_Writable : 0)),
-	_pObjBinary(pObjBinary), _offset(seekEndFlag? pObjBinary->GetBinary().size() : 0)
-{
-}
-
-Stream_Binary::~Stream_Binary()
-{
-}
-
-const char *Stream_Binary::GetName() const
-{
-	return "binary";
-}
-
-const char *Stream_Binary::GetIdentifier() const
-{
-	return nullptr;
-}
-
-size_t Stream_Binary::DoRead(Signal &sig, void *buff, size_t len)
-{
-	const Binary &binary = GetBinary();
-	if (_offset > binary.size()) {
-		sig.SetError(ERR_IndexError, "out of range");
-		return 0;
-	}
-	len = ChooseMin(binary.size() - _offset, len);
-	::memcpy(buff, binary.data() + _offset, len);
-	_offset += len;
-	return len;
-}
-
-size_t Stream_Binary::DoWrite(Signal &sig, const void *buff, size_t len)
-{
-	Binary &binary = GetBinary();
-	const char *buffp = reinterpret_cast<const char *>(buff);
-	if (_offset < binary.size()) {
-		size_t lenReplace = ChooseMin(binary.size() - _offset, len);
-		binary.replace(binary.begin() + _offset, binary.begin() + _offset + lenReplace,
-													buffp, len);
-	} else {
-		if (_offset > binary.size()) {
-			binary.append(_offset - binary.size(), 0);
-		}
-		binary.append(buffp, len);
-	}
-	_offset += len;
-	return len;
-}
-
-bool Stream_Binary::DoSeek(Signal &sig, long offset, size_t offsetPrev, SeekMode seekMode)
-{
-	if (seekMode == SeekSet) {
-		_offset = static_cast<size_t>(offset);
-	} else if (seekMode == SeekCur) {
-		_offset += offset;
-	}
-	return true;
-}
-
-bool Stream_Binary::DoFlush(Signal &sig)
-{
-	return true;
-}
-
-bool Stream_Binary::DoClose(Signal &sig)
-{
-	return Stream::DoClose(sig);
-}
-
-size_t Stream_Binary::DoGetSize()
-{
-	return GetBinary().size();
-}
-#endif
 
 }
