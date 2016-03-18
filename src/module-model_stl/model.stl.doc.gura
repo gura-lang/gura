@@ -4,7 +4,7 @@ import(moddoc)
 text@en = R'''
 # model.stl Module
 
-The `model.stl` module provides measures to read/write files in STL format.
+The `model.stl` module provides measures to read/write files in STL format for 3D models.
 '''
 
 moddoc.register(locals(), %{`en => text@en})

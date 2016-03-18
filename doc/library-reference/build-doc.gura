@@ -43,6 +43,8 @@ baseNames = [
 	'math'
 	'midi'
 	'modbuild'
+	'model.obj'
+	'model.stl'
 	//'modgen'
 	'msico'
 	//'mswin'

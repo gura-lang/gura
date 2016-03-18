@@ -1,0 +1,10 @@
+#!/usr/bin/env gura
+import(moddoc)
+
+text@en = R'''
+# model.obj Module
+
+The `model.obj` module provides measures to read/write files in OBJ format for 3D models.
+'''
+
+moddoc.register(locals(), %{`en => text@en})
