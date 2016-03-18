@@ -7,7 +7,22 @@ text@en = R'''
 
 The `model.stl` module provides measures to read/write files in STL format for 3D models.
 
+Below is an example to read a STL file and to print information of faces it contains.
+
+    solid = model.stl.solid('example.stl')
+    println(solid.name || solid.header)
+    solid.faces.each {|face|
+        printf('normal:  %g, %g, %g\n', face.normal.x, face.normal.y, face.normal.z)
+        printf('vertex1: %g, %g, %g\n', face.vertex1.x, face.vertex1.y, face.vertex1.z)
+        printf('vertex2: %g, %g, %g\n', face.vertex2.x, face.vertex2.y, face.vertex2.z)
+        printf('vertex3: %g, %g, %g\n', face.vertex3.x, face.vertex3.y, face.vertex3.z)
+    }
+
+
 ## model.stl.face Class
+
+An instance of `model.stl.face` class provides properties of face
+that consists of one normal vector and three vertices.
 
 ### Property
 
@@ -15,25 +30,23 @@ The `model.stl` module provides measures to read/write files in STL format for 3
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>normal</code></td><td><code>vertex</code></td><td>R</td>
-<td></td></tr>
+<td>Normal vector.</td></tr>
 
 <tr><td><code>vertex1</code></td><td><code>vertex</code></td><td>R</td>
-<td></td></tr>
+<td>1st vertex.</td></tr>
 
 <tr><td><code>vertex2</code></td><td><code>vertex</code></td><td>R</td>
-<td></td></tr>
+<td>2nd vertex.</td></tr>
 
 <tr><td><code>vertex3</code></td><td><code>vertex</code></td><td>R</td>
-<td></td></tr>
+<td>3rd vertex.</td></tr>
 
 </table>
 
-### Method
-
-${moddoc.reference(`en
-)}
 
 ## model.stl.solid Class
+
+An instance of `model.stl.solid` class represents a top-level data in STL format.
 
 ### Property
 
@@ -41,13 +54,13 @@ ${moddoc.reference(`en
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
 <tr><td><code>header</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>This is only valid for binary format and is set to `nil` for ASCII.</td></tr>
 
 <tr><td><code>name</code></td><td><code>string</code></td><td>R</td>
-<td></td></tr>
+<td>This is only valid for ASCII format and is set to `nil` for binary.</td></tr>
 
 <tr><td><code>faces</code></td><td><code>iterator</code></td><td>R</td>
-<td><code>model.stl.face</code></td></tr>
+<td>An iterator that returns instances of <code>model.stl.face</code>.</td></tr>
 
 </table>
 
