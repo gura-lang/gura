@@ -4941,7 +4941,7 @@ glUniform4iv(location:GLint, value:GLint@:const):void:map = R'''
 glUniformMatrix2fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetSize() / 2;
+	GLsizei count = _value->GetSize() / (2 * 2);
 	glUniformMatrix2fv(location, count, transpose, value);
 	return Value::Nil;
 #else
@@ -4956,7 +4956,7 @@ glUniformMatrix2fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):vo
 glUniformMatrix3fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetSize() / 3;
+	GLsizei count = _value->GetSize() / (3 * 3);
 	glUniformMatrix3fv(location, count, transpose, value);
 	return Value::Nil;
 #else
@@ -4971,7 +4971,7 @@ glUniformMatrix3fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):vo
 glUniformMatrix4fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetSize() / 4;
+	GLsizei count = _value->GetSize() / (4 * 4);
 	glUniformMatrix4fv(location, count, transpose, value);
 	return Value::Nil;
 #else

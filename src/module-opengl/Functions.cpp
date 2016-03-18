@@ -12624,7 +12624,7 @@ Gura_ImplementFunction(__glUniformMatrix2fv)
 	GLboolean transpose = (arg.GetBoolean(1)? GL_TRUE : GL_FALSE);
 	Array<float> *_value = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
-	GLsizei count = _value->GetSize() / 2;
+	GLsizei count = _value->GetSize() / (2 * 2);
 	glUniformMatrix2fv(location, count, transpose, value);
 	return Value::Nil;
 #else
@@ -12653,7 +12653,7 @@ Gura_ImplementFunction(__glUniformMatrix3fv)
 	GLboolean transpose = (arg.GetBoolean(1)? GL_TRUE : GL_FALSE);
 	Array<float> *_value = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
-	GLsizei count = _value->GetSize() / 3;
+	GLsizei count = _value->GetSize() / (3 * 3);
 	glUniformMatrix3fv(location, count, transpose, value);
 	return Value::Nil;
 #else
@@ -12682,7 +12682,7 @@ Gura_ImplementFunction(__glUniformMatrix4fv)
 	GLboolean transpose = (arg.GetBoolean(1)? GL_TRUE : GL_FALSE);
 	Array<float> *_value = Object_array<float>::GetObject(arg, 2)->GetArray();
 	GLfloat *value = reinterpret_cast<GLfloat *>(_value->GetPointer());
-	GLsizei count = _value->GetSize() / 4;
+	GLsizei count = _value->GetSize() / (4 * 4);
 	glUniformMatrix4fv(location, count, transpose, value);
 	return Value::Nil;
 #else
