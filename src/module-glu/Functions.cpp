@@ -417,7 +417,7 @@ Gura_DeclareFunctionAlias(__gluGetNurbsProperty, "gluGetNurbsProperty")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "property", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "data", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "data", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -456,7 +456,7 @@ Gura_DeclareFunctionAlias(__gluGetTessProperty, "gluGetTessProperty")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "data", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "data", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -477,9 +477,9 @@ Gura_DeclareFunctionAlias(__gluLoadSamplingMatrices, "gluLoadSamplingMatrices")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "model", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "perspective", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "view", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "model", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "perspective", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "view", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -673,9 +673,9 @@ Gura_DeclareFunctionAlias(__gluNurbsCurve, "gluNurbsCurve")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "knots", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "knots", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "control", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "control", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "order", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -724,11 +724,11 @@ Gura_DeclareFunctionAlias(__gluNurbsSurface, "gluNurbsSurface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "sKnots", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "tKnots", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "sKnots", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "tKnots", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "sStride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "tStride", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "control", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "control", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "sOrder", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "tOrder", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -841,7 +841,7 @@ Gura_DeclareFunctionAlias(__gluPickMatrix, "gluPickMatrix")
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "delX", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "delY", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "viewport", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "viewport", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -866,12 +866,12 @@ Gura_DeclareFunctionAlias(__gluProject, "gluProject")
 	DeclareArg(env, "objX", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "objY", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "objZ", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "model", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "proj", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "view", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "winX", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "winY", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "winZ", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "model", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "proj", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "view", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "winX", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "winY", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "winZ", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -903,7 +903,7 @@ Gura_DeclareFunctionAlias(__gluPwlCurve, "gluPwlCurve")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "data", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "data", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
@@ -1239,7 +1239,7 @@ Gura_DeclareFunctionAlias(__gluTessVertex, "gluTessVertex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "location", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "location", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "vertex_data", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -1269,12 +1269,12 @@ Gura_DeclareFunctionAlias(__gluUnProject, "gluUnProject")
 	DeclareArg(env, "winX", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "winY", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "winZ", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "model", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "proj", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "view", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "objX", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "objY", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "objZ", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "model", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "proj", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "view", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "objX", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "objY", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "objZ", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

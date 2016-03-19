@@ -201,7 +201,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLbyte@:const' => TypeConv(
-			'array_char', 'Once', ['NoMap'],
+			'array_at_char', 'Once', ['NoMap'],
 			R'''
 			Array<char> *_${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
@@ -209,7 +209,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLbyte@3:const' => TypeConv(
-			'array_char', 'Once', ['NoMap'],
+			'array_at_char', 'Once', ['NoMap'],
 			R'''
 			Array<char> *_${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
@@ -220,7 +220,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLbyte@4:const' => TypeConv(
-			'array_char', 'Once', ['NoMap'],
+			'array_at_char', 'Once', ['NoMap'],
 			R'''
 			Array<char> *_${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
@@ -231,7 +231,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLbyte@pname:const' => TypeConv(
-			'array_char', 'Once', ['NoMap'],
+			'array_at_char', 'Once', ['NoMap'],
 			R'''
 			Array<char> *_${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
@@ -243,7 +243,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLchar@' => TypeConv(
-			'array_char', 'Once', ['NoMap'],
+			'array_at_char', 'Once', ['NoMap'],
 			R'''
 			Array<char> *_${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();
 			GLchar *${arg.name} = reinterpret_cast<GLchar *>(_${arg.name}->GetPointer());
@@ -251,7 +251,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLchar@:const' => TypeConv(
-			'array_char', 'Once', ['NoMap'],
+			'array_at_char', 'Once', ['NoMap'],
 			R'''
 			Array<char> *_${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();
 			GLchar *${arg.name} = reinterpret_cast<GLchar *>(_${arg.name}->GetPointer());
@@ -259,7 +259,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLubyte@:const' => TypeConv(
-			'array_uchar', 'Once', ['NoMap'],
+			'array_at_uchar', 'Once', ['NoMap'],
 			R'''
 			Array<UChar> *_${arg.name} = Object_array<UChar>::GetObject(arg, ${idx})->GetArray();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
@@ -273,7 +273,7 @@ cbridge.AddTypeConvs {
 			return ReturnValue(env, arg, Value(reinterpret_cast<const char *>(_rtn)));
 			''')
 	'GLubyte@' => TypeConv(
-			'array_uchar', 'Once', ['NoMap'],
+			'array_at_uchar', 'Once', ['NoMap'],
 			R'''
 			Array<UChar> *_${arg.name} = Object_array<UChar>::GetObject(arg, ${idx})->GetArray();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
@@ -281,7 +281,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLubyte@3:const' => TypeConv(
-			'array_uchar', 'Once', ['NoMap'],
+			'array_at_uchar', 'Once', ['NoMap'],
 			R'''
 			Array<UChar> *_${arg.name} = Object_array<UChar>::GetObject(arg, ${idx})->GetArray();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
@@ -292,7 +292,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLubyte@4:const' => TypeConv(
-			'array_uchar', 'Once', ['NoMap'],
+			'array_at_uchar', 'Once', ['NoMap'],
 			R'''
 			Array<UChar> *_${arg.name} = Object_array<UChar>::GetObject(arg, ${idx})->GetArray();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
@@ -303,7 +303,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLubyte@pname:const' => TypeConv(
-			'array_uchar', 'Once', ['NoMap'],
+			'array_at_uchar', 'Once', ['NoMap'],
 			R'''
 			Array<UChar> *_${arg.name} = Object_array<UChar>::GetObject(arg, ${idx})->GetArray();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
@@ -315,7 +315,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@:const' => TypeConv(
-			'array_short', 'Once', ['NoMap'],
+			'array_at_short', 'Once', ['NoMap'],
 			R'''
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
@@ -323,7 +323,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@1:const' => TypeConv(
-			'array_short', 'Once', ['NoMap'],
+			'array_at_short', 'Once', ['NoMap'],
 			R'''
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
@@ -334,7 +334,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@2:const' => TypeConv(
-			'array_short', 'Once', ['NoMap'],
+			'array_at_short', 'Once', ['NoMap'],
 			R'''
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
@@ -345,7 +345,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@3:const' => TypeConv(
-			'array_short', 'Once', ['NoMap'],
+			'array_at_short', 'Once', ['NoMap'],
 			R'''
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
@@ -356,7 +356,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@4:const' => TypeConv(
-			'array_short', 'Once', ['NoMap'],
+			'array_at_short', 'Once', ['NoMap'],
 			R'''
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
@@ -367,7 +367,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@pname:const' => TypeConv(
-			'array_short', 'Once', ['NoMap'],
+			'array_at_short', 'Once', ['NoMap'],
 			R'''
 			Array<short> *_${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
@@ -379,7 +379,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLushort@' => TypeConv(
-			'array_ushort', 'Once', ['NoMap'],
+			'array_at_ushort', 'Once', ['NoMap'],
 			R'''
 			Array<UShort> *_${arg.name} = Object_array<UShort>::GetObject(arg, ${idx})->GetArray();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
@@ -387,7 +387,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLushort@:const' => TypeConv(
-			'array_ushort', 'Once', ['NoMap'],
+			'array_at_ushort', 'Once', ['NoMap'],
 			R'''
 			Array<UShort> *_${arg.name} = Object_array<UShort>::GetObject(arg, ${idx})->GetArray();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
@@ -395,7 +395,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLushort@3:const' => TypeConv(
-			'array_ushort', 'Once', ['NoMap'],
+			'array_at_ushort', 'Once', ['NoMap'],
 			R'''
 			Array<UShort> *_${arg.name} = Object_array<UShort>::GetObject(arg, ${idx})->GetArray();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
@@ -406,7 +406,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLushort@4:const' => TypeConv(
-			'array_ushort', 'Once', ['NoMap'],
+			'array_at_ushort', 'Once', ['NoMap'],
 			R'''
 			Array<UShort> *_${arg.name} = Object_array<UShort>::GetObject(arg, ${idx})->GetArray();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
@@ -417,7 +417,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLushort@pname:const' => TypeConv(
-			'array_ushort', 'Once', ['NoMap'],
+			'array_at_ushort', 'Once', ['NoMap'],
 			R'''
 			Array<UShort> *_${arg.name} = Object_array<UShort>::GetObject(arg, ${idx})->GetArray();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
@@ -429,7 +429,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@' => TypeConv(
-			'array_int', 'Once', ['NoMap'],
+			'array_at_int', 'Once', ['NoMap'],
 			R'''
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -437,7 +437,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@:const' => TypeConv(
-			'array_int', 'Once', ['NoMap'],
+			'array_at_int', 'Once', ['NoMap'],
 			R'''
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -445,7 +445,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@1:const' => TypeConv(
-			'array_int', 'Once', ['NoMap'],
+			'array_at_int', 'Once', ['NoMap'],
 			R'''
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -456,7 +456,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@2:const' => TypeConv(
-			'array_int', 'Once', ['NoMap'],
+			'array_at_int', 'Once', ['NoMap'],
 			R'''
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -467,7 +467,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@3:const' => TypeConv(
-			'array_int', 'Once', ['NoMap'],
+			'array_at_int', 'Once', ['NoMap'],
 			R'''
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -478,7 +478,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@4:const' => TypeConv(
-			'array_int', 'Once', ['NoMap'],
+			'array_at_int', 'Once', ['NoMap'],
 			R'''
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -489,7 +489,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@pname:const' => TypeConv(
-			'array_int', 'Once', ['NoMap'],
+			'array_at_int', 'Once', ['NoMap'],
 			R'''
 			Array<int> *_${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -517,7 +517,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLuint@' => TypeConv(
-			'array_uint', 'Once', ['NoMap'],
+			'array_at_uint', 'Once', ['NoMap'],
 			R'''
 			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(arg, ${idx})->GetArray();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
@@ -525,7 +525,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLuint@:const' => TypeConv(
-			'array_uint', 'Once', ['NoMap'],
+			'array_at_uint', 'Once', ['NoMap'],
 			R'''
 			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(arg, ${idx})->GetArray();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
@@ -533,7 +533,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLuint@3:const' => TypeConv(
-			'array_uint', 'Once', ['NoMap'],
+			'array_at_uint', 'Once', ['NoMap'],
 			R'''
 			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(arg, ${idx})->GetArray();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
@@ -544,7 +544,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLuint@4:const' => TypeConv(
-			'array_uint', 'Once', ['NoMap'],
+			'array_at_uint', 'Once', ['NoMap'],
 			R'''
 			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(arg, ${idx})->GetArray();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
@@ -555,7 +555,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLuint@pname:const' => TypeConv(
-			'array_uint', 'Once', ['NoMap'],
+			'array_at_uint', 'Once', ['NoMap'],
 			R'''
 			Array<UInt> *_${arg.name} = Object_array<UInt>::GetObject(arg, ${idx})->GetArray();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
@@ -567,7 +567,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLfloat@' => TypeConv(
-			'array_float', 'Once', ['NoMap'],
+			'array_at_float', 'Once', ['NoMap'],
 			R'''
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
@@ -575,7 +575,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLfloat@:const' => TypeConv(
-			'array_float', 'Once', ['NoMap'],
+			'array_at_float', 'Once', ['NoMap'],
 			R'''
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
@@ -583,7 +583,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLfloat@1:const' => TypeConv(
-			'array_float', 'Once', ['NoMap'],
+			'array_at_float', 'Once', ['NoMap'],
 			R'''
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
@@ -594,7 +594,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLfloat@2:const' => TypeConv(
-			'array_float', 'Once', ['NoMap'],
+			'array_at_float', 'Once', ['NoMap'],
 			R'''
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
@@ -605,7 +605,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLfloat@3:const' => TypeConv(
-			'array_float', 'Once', ['NoMap'],
+			'array_at_float', 'Once', ['NoMap'],
 			R'''
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
@@ -616,7 +616,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLfloat@4:const' => TypeConv(
-			'array_float', 'Once', ['NoMap'],
+			'array_at_float', 'Once', ['NoMap'],
 			R'''
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
@@ -636,7 +636,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLfloat@pname:const' => TypeConv(
-			'array_float', 'Once', ['NoMap'],
+			'array_at_float', 'Once', ['NoMap'],
 			R'''
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
@@ -648,7 +648,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLclampf@:const' => TypeConv(
-			'array_float', 'Once', ['NoMap'],
+			'array_at_float', 'Once', ['NoMap'],
 			R'''
 			Array<float> *_${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();
 			GLclampf *${arg.name} = reinterpret_cast<GLclampf *>(_${arg.name}->GetPointer());
@@ -656,7 +656,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLdouble@' => TypeConv(
-			'array_double', 'Once', ['NoMap'],
+			'array_at_double', 'Once', ['NoMap'],
 			R'''
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
@@ -664,7 +664,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLdouble@:const' => TypeConv(
-			'array_double', 'Once', ['NoMap'],
+			'array_at_double', 'Once', ['NoMap'],
 			R'''
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
@@ -672,7 +672,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLdouble@1:const' => TypeConv(
-			'array_double', 'Once', ['NoMap'],
+			'array_at_double', 'Once', ['NoMap'],
 			R'''
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
@@ -683,7 +683,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLdouble@2:const' => TypeConv(
-			'array_double', 'Once', ['NoMap'],
+			'array_at_double', 'Once', ['NoMap'],
 			R'''
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
@@ -694,7 +694,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLdouble@3:const' => TypeConv(
-			'array_double', 'Once', ['NoMap'],
+			'array_at_double', 'Once', ['NoMap'],
 			R'''
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
@@ -705,7 +705,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLdouble@4:const' => TypeConv(
-			'array_double', 'Once', ['NoMap'],
+			'array_at_double', 'Once', ['NoMap'],
 			R'''
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
@@ -716,7 +716,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLdouble@4' => TypeConv(
-			'array_double', 'Once', ['NoMap'],
+			'array_at_double', 'Once', ['NoMap'],
 			R'''
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
@@ -736,7 +736,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLdouble@pname:const' => TypeConv(
-			'array_double', 'Once', ['NoMap'],
+			'array_at_double', 'Once', ['NoMap'],
 			R'''
 			Array<double> *_${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());

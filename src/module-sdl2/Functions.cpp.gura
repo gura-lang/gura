@@ -1554,11 +1554,11 @@ SDL_CreateRGBSurface(flags:Uint32, width:int, height:int, depth:int, Rmask:Uint3
 
 SDL_CreateRGBSurfaceFrom(pixels:any, width:int, height:int, depth:int, pitch:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32) {block?} = R'''
 	void *_pixels = nullptr;
-	if (pixels.IsType(VTYPE_array_uchar)) {
+	if (pixels.IsType(VTYPE_array_at_uchar)) {
 		_pixels = Object_array<UChar>::GetObject(pixels)->GetArray()->GetPointer();
-	} else if (pixels.IsType(VTYPE_array_ushort)) {
+	} else if (pixels.IsType(VTYPE_array_at_ushort)) {
 		_pixels = Object_array<UShort>::GetObject(pixels)->GetArray()->GetPointer();
-	} else if (pixels.IsType(VTYPE_array_uint32)) {
+	} else if (pixels.IsType(VTYPE_array_at_uint32)) {
 		_pixels = Object_array<UInt32>::GetObject(pixels)->GetArray()->GetPointer();
 	} else {
 		Declaration::SetError_InvalidArgument(env);

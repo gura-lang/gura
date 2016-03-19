@@ -5,13 +5,13 @@ namespace Gura {
 const void *GetArrayPointer(Environment &env, GLenum type, const Value &value)
 {
 	const void *p = nullptr;
-	if (value.IsType(VTYPE_array_char)) {
+	if (value.IsType(VTYPE_array_at_char)) {
 		//if (type != GL_BYTE) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
 		p = Object_array<char>::GetObject(value)->GetArray()->GetPointer();
-	} else if (value.IsType(VTYPE_array_uchar)) {
+	} else if (value.IsType(VTYPE_array_at_uchar)) {
 		//if (type != GL_BITMAP &&
 		//	type != GL_UNSIGNED_BYTE &&
 		//	type != GL_UNSIGNED_BYTE_3_3_2 && 
@@ -20,13 +20,13 @@ const void *GetArrayPointer(Environment &env, GLenum type, const Value &value)
 		//	return nullptr;
 		//}
 		p = Object_array<UChar>::GetObject(value)->GetArray()->GetPointer();
-	} else if (value.IsType(VTYPE_array_short)) {
+	} else if (value.IsType(VTYPE_array_at_short)) {
 		//if (type != GL_SHORT) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
 		p = Object_array<short>::GetObject(value)->GetArray()->GetPointer();
-	} else if (value.IsType(VTYPE_array_ushort)) {
+	} else if (value.IsType(VTYPE_array_at_ushort)) {
 		//if (type != GL_UNSIGNED_SHORT &&
 		//	type != GL_UNSIGNED_SHORT_5_6_5 &&
 		//	type != GL_UNSIGNED_SHORT_5_6_5_REV &&
@@ -38,13 +38,13 @@ const void *GetArrayPointer(Environment &env, GLenum type, const Value &value)
 		//	return nullptr;
 		//}
 		p = Object_array<UShort>::GetObject(value)->GetArray()->GetPointer();
-	} else if (value.IsType(VTYPE_array_int32)) {
+	} else if (value.IsType(VTYPE_array_at_int32)) {
 		//if (type != GL_INT) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
 		p = Object_array<long>::GetObject(value)->GetArray()->GetPointer();
-	} else if (value.IsType(VTYPE_array_uint32)) {
+	} else if (value.IsType(VTYPE_array_at_uint32)) {
 		//if (type != GL_UNSIGNED_INT &&
 		//	type != GL_UNSIGNED_INT_8_8_8_8 &&
 		//	type != GL_UNSIGNED_INT_8_8_8_8_REV &&
@@ -54,7 +54,7 @@ const void *GetArrayPointer(Environment &env, GLenum type, const Value &value)
 		//	return nullptr;
 		//}
 		p = Object_array<ULong>::GetObject(value)->GetArray()->GetPointer();
-	} else if (value.IsType(VTYPE_array_float)) {
+	} else if (value.IsType(VTYPE_array_at_float)) {
 		//if (type != GL_FLOAT) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;

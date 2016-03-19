@@ -67,7 +67,7 @@ Gura_DeclareFunctionAlias(__glAreTexturesResident, "glAreTexturesResident")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "textures", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "textures", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"determine if textures are loaded in texture memory\n");
@@ -160,7 +160,7 @@ Gura_DeclareFunctionAlias(__glBitmap, "glBitmap")
 	DeclareArg(env, "yorig", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "xmove", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ymove", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "bitmap", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
+	DeclareArg(env, "bitmap", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -502,7 +502,7 @@ Gura_DeclareFunctionAlias(__glClipPlane, "glClipPlane")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "plane", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "equation", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "equation", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -546,7 +546,7 @@ Gura_ImplementFunction(__glColor3b)
 Gura_DeclareFunctionAlias(__glColor3bv, "glColor3bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -589,7 +589,7 @@ Gura_ImplementFunction(__glColor3d)
 Gura_DeclareFunctionAlias(__glColor3dv, "glColor3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -632,7 +632,7 @@ Gura_ImplementFunction(__glColor3f)
 Gura_DeclareFunctionAlias(__glColor3fv, "glColor3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -675,7 +675,7 @@ Gura_ImplementFunction(__glColor3i)
 Gura_DeclareFunctionAlias(__glColor3iv, "glColor3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -718,7 +718,7 @@ Gura_ImplementFunction(__glColor3s)
 Gura_DeclareFunctionAlias(__glColor3sv, "glColor3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -761,7 +761,7 @@ Gura_ImplementFunction(__glColor3ub)
 Gura_DeclareFunctionAlias(__glColor3ubv, "glColor3ubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -804,7 +804,7 @@ Gura_ImplementFunction(__glColor3ui)
 Gura_DeclareFunctionAlias(__glColor3uiv, "glColor3uiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -847,7 +847,7 @@ Gura_ImplementFunction(__glColor3us)
 Gura_DeclareFunctionAlias(__glColor3usv, "glColor3usv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -892,7 +892,7 @@ Gura_ImplementFunction(__glColor4b)
 Gura_DeclareFunctionAlias(__glColor4bv, "glColor4bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -937,7 +937,7 @@ Gura_ImplementFunction(__glColor4d)
 Gura_DeclareFunctionAlias(__glColor4dv, "glColor4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -982,7 +982,7 @@ Gura_ImplementFunction(__glColor4f)
 Gura_DeclareFunctionAlias(__glColor4fv, "glColor4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1027,7 +1027,7 @@ Gura_ImplementFunction(__glColor4i)
 Gura_DeclareFunctionAlias(__glColor4iv, "glColor4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1072,7 +1072,7 @@ Gura_ImplementFunction(__glColor4s)
 Gura_DeclareFunctionAlias(__glColor4sv, "glColor4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1117,7 +1117,7 @@ Gura_ImplementFunction(__glColor4ub)
 Gura_DeclareFunctionAlias(__glColor4ubv, "glColor4ubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1162,7 +1162,7 @@ Gura_ImplementFunction(__glColor4ui)
 Gura_DeclareFunctionAlias(__glColor4uiv, "glColor4uiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1207,7 +1207,7 @@ Gura_ImplementFunction(__glColor4us)
 Gura_DeclareFunctionAlias(__glColor4usv, "glColor4usv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1273,7 +1273,7 @@ Gura_DeclareFunctionAlias(__glColorTableParameterfv, "glColorTableParameterfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1306,7 +1306,7 @@ Gura_DeclareFunctionAlias(__glColorTableParameteriv, "glColorTableParameteriv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1366,7 +1366,7 @@ Gura_DeclareFunctionAlias(__glConvolutionParameterfv, "glConvolutionParameterfv"
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1426,7 +1426,7 @@ Gura_DeclareFunctionAlias(__glConvolutionParameteriv, "glConvolutionParameteriv"
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -1801,7 +1801,7 @@ Gura_ImplementFunction(__glDeleteLists)
 Gura_DeclareFunctionAlias(__glDeleteTextures, "glDeleteTextures")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "textures", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "textures", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2118,7 +2118,7 @@ Gura_ImplementFunction(__glEvalCoord1d)
 Gura_DeclareFunctionAlias(__glEvalCoord1dv, "glEvalCoord1dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "u", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "u", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2157,7 +2157,7 @@ Gura_ImplementFunction(__glEvalCoord1f)
 Gura_DeclareFunctionAlias(__glEvalCoord1fv, "glEvalCoord1fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "u", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "u", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2198,7 +2198,7 @@ Gura_ImplementFunction(__glEvalCoord2d)
 Gura_DeclareFunctionAlias(__glEvalCoord2dv, "glEvalCoord2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "u", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "u", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2239,7 +2239,7 @@ Gura_ImplementFunction(__glEvalCoord2f)
 Gura_DeclareFunctionAlias(__glEvalCoord2fv, "glEvalCoord2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "u", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "u", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2344,7 +2344,7 @@ Gura_DeclareFunctionAlias(__glFeedbackBuffer, "glFeedbackBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "buffer", VTYPE_array_float, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
+	DeclareArg(env, "buffer", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2416,7 +2416,7 @@ Gura_DeclareFunctionAlias(__glFogfv, "glFogfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2460,7 +2460,7 @@ Gura_DeclareFunctionAlias(__glFogiv, "glFogiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2915,7 +2915,7 @@ Gura_DeclareFunctionAlias(__glGetMapdv, "glGetMapdv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "query", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2941,7 +2941,7 @@ Gura_DeclareFunctionAlias(__glGetMapfv, "glGetMapfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "query", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -2967,7 +2967,7 @@ Gura_DeclareFunctionAlias(__glGetMapiv, "glGetMapiv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "query", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3096,7 +3096,7 @@ Gura_DeclareFunctionAlias(__glGetPixelMapfv, "glGetPixelMapfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "values", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3120,7 +3120,7 @@ Gura_DeclareFunctionAlias(__glGetPixelMapuiv, "glGetPixelMapuiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "values", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3144,7 +3144,7 @@ Gura_DeclareFunctionAlias(__glGetPixelMapusv, "glGetPixelMapusv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_array_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "values", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3176,7 +3176,7 @@ Gura_ImplementFunction(__glGetPolygonStipple)
 {
 	AutoPtr<Array<UChar> > pArray(new Array<UChar>(32 * 4));
 	glGetPolygonStipple(pArray->GetPointer());
-	return Value(new Object_array<UChar>(env, VTYPE_array_uchar, pArray.release()));
+	return Value(new Object_array<UChar>(env, VTYPE_array_at_uchar, pArray.release()));
 }
 
 // opengl.glGetString
@@ -3498,7 +3498,7 @@ Gura_ImplementFunction(__glIndexd)
 Gura_DeclareFunctionAlias(__glIndexdv, "glIndexdv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "c", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "c", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3533,7 +3533,7 @@ Gura_ImplementFunction(__glIndexf)
 Gura_DeclareFunctionAlias(__glIndexfv, "glIndexfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "c", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "c", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3568,7 +3568,7 @@ Gura_ImplementFunction(__glIndexi)
 Gura_DeclareFunctionAlias(__glIndexiv, "glIndexiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "c", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "c", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3603,7 +3603,7 @@ Gura_ImplementFunction(__glIndexs)
 Gura_DeclareFunctionAlias(__glIndexsv, "glIndexsv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "c", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "c", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3638,7 +3638,7 @@ Gura_ImplementFunction(__glIndexub)
 Gura_DeclareFunctionAlias(__glIndexubv, "glIndexubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "c", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "c", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3745,7 +3745,7 @@ Gura_DeclareFunctionAlias(__glLightModelfv, "glLightModelfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3789,7 +3789,7 @@ Gura_DeclareFunctionAlias(__glLightModeliv, "glLightModeliv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3836,7 +3836,7 @@ Gura_DeclareFunctionAlias(__glLightfv, "glLightfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -3884,7 +3884,7 @@ Gura_DeclareFunctionAlias(__glLightiv, "glLightiv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "light", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4054,7 +4054,7 @@ Gura_DeclareFunctionAlias(__glMap1d, "glMap1d")
 	DeclareArg(env, "u2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "order", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "points", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4081,7 +4081,7 @@ Gura_DeclareFunctionAlias(__glMap1f, "glMap1f")
 	DeclareArg(env, "u2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "order", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "points", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4112,7 +4112,7 @@ Gura_DeclareFunctionAlias(__glMap2d, "glMap2d")
 	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vstride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vorder", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "points", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4147,7 +4147,7 @@ Gura_DeclareFunctionAlias(__glMap2f, "glMap2f")
 	DeclareArg(env, "v2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vstride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "vorder", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "points", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "points", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4292,7 +4292,7 @@ Gura_DeclareFunctionAlias(__glMaterialfv, "glMaterialfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4340,7 +4340,7 @@ Gura_DeclareFunctionAlias(__glMaterialiv, "glMaterialiv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "face", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4511,7 +4511,7 @@ Gura_ImplementFunction(__glNormal3b)
 Gura_DeclareFunctionAlias(__glNormal3bv, "glNormal3bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4554,7 +4554,7 @@ Gura_ImplementFunction(__glNormal3d)
 Gura_DeclareFunctionAlias(__glNormal3dv, "glNormal3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4597,7 +4597,7 @@ Gura_ImplementFunction(__glNormal3f)
 Gura_DeclareFunctionAlias(__glNormal3fv, "glNormal3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4640,7 +4640,7 @@ Gura_ImplementFunction(__glNormal3i)
 Gura_DeclareFunctionAlias(__glNormal3iv, "glNormal3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4683,7 +4683,7 @@ Gura_ImplementFunction(__glNormal3s)
 Gura_DeclareFunctionAlias(__glNormal3sv, "glNormal3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4751,7 +4751,7 @@ Gura_DeclareFunctionAlias(__glPixelMapfv, "glPixelMapfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mapsize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "values", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4773,7 +4773,7 @@ Gura_DeclareFunctionAlias(__glPixelMapuiv, "glPixelMapuiv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mapsize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "values", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4795,7 +4795,7 @@ Gura_DeclareFunctionAlias(__glPixelMapusv, "glPixelMapusv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mapsize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_array_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "values", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -4965,7 +4965,7 @@ Gura_ImplementFunction(__glPolygonOffset)
 Gura_DeclareFunctionAlias(__glPolygonStipple, "glPolygonStipple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "mask", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "mask", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5046,8 +5046,8 @@ Gura_ImplementFunction(__glPopName)
 Gura_DeclareFunctionAlias(__glPrioritizeTextures, "glPrioritizeTextures")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "textures", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "priorities", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "textures", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "priorities", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5185,7 +5185,7 @@ Gura_ImplementFunction(__glRasterPos2d)
 Gura_DeclareFunctionAlias(__glRasterPos2dv, "glRasterPos2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5226,7 +5226,7 @@ Gura_ImplementFunction(__glRasterPos2f)
 Gura_DeclareFunctionAlias(__glRasterPos2fv, "glRasterPos2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5267,7 +5267,7 @@ Gura_ImplementFunction(__glRasterPos2i)
 Gura_DeclareFunctionAlias(__glRasterPos2iv, "glRasterPos2iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5308,7 +5308,7 @@ Gura_ImplementFunction(__glRasterPos2s)
 Gura_DeclareFunctionAlias(__glRasterPos2sv, "glRasterPos2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5351,7 +5351,7 @@ Gura_ImplementFunction(__glRasterPos3d)
 Gura_DeclareFunctionAlias(__glRasterPos3dv, "glRasterPos3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5394,7 +5394,7 @@ Gura_ImplementFunction(__glRasterPos3f)
 Gura_DeclareFunctionAlias(__glRasterPos3fv, "glRasterPos3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5437,7 +5437,7 @@ Gura_ImplementFunction(__glRasterPos3i)
 Gura_DeclareFunctionAlias(__glRasterPos3iv, "glRasterPos3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5480,7 +5480,7 @@ Gura_ImplementFunction(__glRasterPos3s)
 Gura_DeclareFunctionAlias(__glRasterPos3sv, "glRasterPos3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5525,7 +5525,7 @@ Gura_ImplementFunction(__glRasterPos4d)
 Gura_DeclareFunctionAlias(__glRasterPos4dv, "glRasterPos4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5570,7 +5570,7 @@ Gura_ImplementFunction(__glRasterPos4f)
 Gura_DeclareFunctionAlias(__glRasterPos4fv, "glRasterPos4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5615,7 +5615,7 @@ Gura_ImplementFunction(__glRasterPos4i)
 Gura_DeclareFunctionAlias(__glRasterPos4iv, "glRasterPos4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5660,7 +5660,7 @@ Gura_ImplementFunction(__glRasterPos4s)
 Gura_DeclareFunctionAlias(__glRasterPos4sv, "glRasterPos4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5756,8 +5756,8 @@ Gura_ImplementFunction(__glRectd)
 Gura_DeclareFunctionAlias(__glRectdv, "glRectdv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v1", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "v2", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v1", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v2", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5808,8 +5808,8 @@ Gura_ImplementFunction(__glRectf)
 Gura_DeclareFunctionAlias(__glRectfv, "glRectfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v1", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "v2", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v1", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v2", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5860,8 +5860,8 @@ Gura_ImplementFunction(__glRecti)
 Gura_DeclareFunctionAlias(__glRectiv, "glRectiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v1", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "v2", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v1", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v2", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -5912,8 +5912,8 @@ Gura_ImplementFunction(__glRects)
 Gura_DeclareFunctionAlias(__glRectsv, "glRectsv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v1", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "v2", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v1", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v2", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6116,7 +6116,7 @@ Gura_ImplementFunction(__glScissor)
 Gura_DeclareFunctionAlias(__glSelectBuffer, "glSelectBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "buffer", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
+	DeclareArg(env, "buffer", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6230,7 +6230,7 @@ Gura_ImplementFunction(__glTexCoord1d)
 Gura_DeclareFunctionAlias(__glTexCoord1dv, "glTexCoord1dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6269,7 +6269,7 @@ Gura_ImplementFunction(__glTexCoord1f)
 Gura_DeclareFunctionAlias(__glTexCoord1fv, "glTexCoord1fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6308,7 +6308,7 @@ Gura_ImplementFunction(__glTexCoord1i)
 Gura_DeclareFunctionAlias(__glTexCoord1iv, "glTexCoord1iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6347,7 +6347,7 @@ Gura_ImplementFunction(__glTexCoord1s)
 Gura_DeclareFunctionAlias(__glTexCoord1sv, "glTexCoord1sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6388,7 +6388,7 @@ Gura_ImplementFunction(__glTexCoord2d)
 Gura_DeclareFunctionAlias(__glTexCoord2dv, "glTexCoord2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6429,7 +6429,7 @@ Gura_ImplementFunction(__glTexCoord2f)
 Gura_DeclareFunctionAlias(__glTexCoord2fv, "glTexCoord2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6470,7 +6470,7 @@ Gura_ImplementFunction(__glTexCoord2i)
 Gura_DeclareFunctionAlias(__glTexCoord2iv, "glTexCoord2iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6511,7 +6511,7 @@ Gura_ImplementFunction(__glTexCoord2s)
 Gura_DeclareFunctionAlias(__glTexCoord2sv, "glTexCoord2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6554,7 +6554,7 @@ Gura_ImplementFunction(__glTexCoord3d)
 Gura_DeclareFunctionAlias(__glTexCoord3dv, "glTexCoord3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6597,7 +6597,7 @@ Gura_ImplementFunction(__glTexCoord3f)
 Gura_DeclareFunctionAlias(__glTexCoord3fv, "glTexCoord3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6640,7 +6640,7 @@ Gura_ImplementFunction(__glTexCoord3i)
 Gura_DeclareFunctionAlias(__glTexCoord3iv, "glTexCoord3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6683,7 +6683,7 @@ Gura_ImplementFunction(__glTexCoord3s)
 Gura_DeclareFunctionAlias(__glTexCoord3sv, "glTexCoord3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6728,7 +6728,7 @@ Gura_ImplementFunction(__glTexCoord4d)
 Gura_DeclareFunctionAlias(__glTexCoord4dv, "glTexCoord4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6773,7 +6773,7 @@ Gura_ImplementFunction(__glTexCoord4f)
 Gura_DeclareFunctionAlias(__glTexCoord4fv, "glTexCoord4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6818,7 +6818,7 @@ Gura_ImplementFunction(__glTexCoord4i)
 Gura_DeclareFunctionAlias(__glTexCoord4iv, "glTexCoord4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6863,7 +6863,7 @@ Gura_ImplementFunction(__glTexCoord4s)
 Gura_DeclareFunctionAlias(__glTexCoord4sv, "glTexCoord4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6908,7 +6908,7 @@ Gura_DeclareFunctionAlias(__glTexEnvfv, "glTexEnvfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -6956,7 +6956,7 @@ Gura_DeclareFunctionAlias(__glTexEnviv, "glTexEnviv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7004,7 +7004,7 @@ Gura_DeclareFunctionAlias(__glTexGendv, "glTexGendv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7052,7 +7052,7 @@ Gura_DeclareFunctionAlias(__glTexGenfv, "glTexGenfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7100,7 +7100,7 @@ Gura_DeclareFunctionAlias(__glTexGeniv, "glTexGeniv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "coord", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7279,7 +7279,7 @@ Gura_DeclareFunctionAlias(__glTexParameterfv, "glTexParameterfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7327,7 +7327,7 @@ Gura_DeclareFunctionAlias(__glTexParameteriv, "glTexParameteriv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7576,7 +7576,7 @@ Gura_ImplementFunction(__glVertex2d)
 Gura_DeclareFunctionAlias(__glVertex2dv, "glVertex2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7617,7 +7617,7 @@ Gura_ImplementFunction(__glVertex2f)
 Gura_DeclareFunctionAlias(__glVertex2fv, "glVertex2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7658,7 +7658,7 @@ Gura_ImplementFunction(__glVertex2i)
 Gura_DeclareFunctionAlias(__glVertex2iv, "glVertex2iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7699,7 +7699,7 @@ Gura_ImplementFunction(__glVertex2s)
 Gura_DeclareFunctionAlias(__glVertex2sv, "glVertex2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7742,7 +7742,7 @@ Gura_ImplementFunction(__glVertex3d)
 Gura_DeclareFunctionAlias(__glVertex3dv, "glVertex3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7785,7 +7785,7 @@ Gura_ImplementFunction(__glVertex3f)
 Gura_DeclareFunctionAlias(__glVertex3fv, "glVertex3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7828,7 +7828,7 @@ Gura_ImplementFunction(__glVertex3i)
 Gura_DeclareFunctionAlias(__glVertex3iv, "glVertex3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7871,7 +7871,7 @@ Gura_ImplementFunction(__glVertex3s)
 Gura_DeclareFunctionAlias(__glVertex3sv, "glVertex3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7916,7 +7916,7 @@ Gura_ImplementFunction(__glVertex4d)
 Gura_DeclareFunctionAlias(__glVertex4dv, "glVertex4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -7961,7 +7961,7 @@ Gura_ImplementFunction(__glVertex4f)
 Gura_DeclareFunctionAlias(__glVertex4fv, "glVertex4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8006,7 +8006,7 @@ Gura_ImplementFunction(__glVertex4i)
 Gura_DeclareFunctionAlias(__glVertex4iv, "glVertex4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8051,7 +8051,7 @@ Gura_ImplementFunction(__glVertex4s)
 Gura_DeclareFunctionAlias(__glVertex4sv, "glVertex4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8168,7 +8168,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord1dv, "glMultiTexCoord1dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8223,7 +8223,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord1fv, "glMultiTexCoord1fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8278,7 +8278,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord1iv, "glMultiTexCoord1iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8333,7 +8333,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord1sv, "glMultiTexCoord1sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8390,7 +8390,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord2dv, "glMultiTexCoord2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8447,7 +8447,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord2fv, "glMultiTexCoord2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8504,7 +8504,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord2iv, "glMultiTexCoord2iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8561,7 +8561,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord2sv, "glMultiTexCoord2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8620,7 +8620,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord3dv, "glMultiTexCoord3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8679,7 +8679,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord3fv, "glMultiTexCoord3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8738,7 +8738,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord3iv, "glMultiTexCoord3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8797,7 +8797,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord3sv, "glMultiTexCoord3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8858,7 +8858,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord4dv, "glMultiTexCoord4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8919,7 +8919,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord4fv, "glMultiTexCoord4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -8980,7 +8980,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord4iv, "glMultiTexCoord4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9041,7 +9041,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord4sv, "glMultiTexCoord4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9093,7 +9093,7 @@ Gura_ImplementFunction(__glFogCoordf)
 Gura_DeclareFunctionAlias(__glFogCoordfv, "glFogCoordfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "coord", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "coord", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9144,7 +9144,7 @@ Gura_ImplementFunction(__glFogCoordd)
 Gura_DeclareFunctionAlias(__glFogCoorddv, "glFogCoorddv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "coord", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "coord", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9199,7 +9199,7 @@ Gura_ImplementFunction(__glSecondaryColor3b)
 Gura_DeclareFunctionAlias(__glSecondaryColor3bv, "glSecondaryColor3bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9254,7 +9254,7 @@ Gura_ImplementFunction(__glSecondaryColor3d)
 Gura_DeclareFunctionAlias(__glSecondaryColor3dv, "glSecondaryColor3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9309,7 +9309,7 @@ Gura_ImplementFunction(__glSecondaryColor3f)
 Gura_DeclareFunctionAlias(__glSecondaryColor3fv, "glSecondaryColor3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9364,7 +9364,7 @@ Gura_ImplementFunction(__glSecondaryColor3i)
 Gura_DeclareFunctionAlias(__glSecondaryColor3iv, "glSecondaryColor3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9419,7 +9419,7 @@ Gura_ImplementFunction(__glSecondaryColor3s)
 Gura_DeclareFunctionAlias(__glSecondaryColor3sv, "glSecondaryColor3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9474,7 +9474,7 @@ Gura_ImplementFunction(__glSecondaryColor3ub)
 Gura_DeclareFunctionAlias(__glSecondaryColor3ubv, "glSecondaryColor3ubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9529,7 +9529,7 @@ Gura_ImplementFunction(__glSecondaryColor3ui)
 Gura_DeclareFunctionAlias(__glSecondaryColor3uiv, "glSecondaryColor3uiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9584,7 +9584,7 @@ Gura_ImplementFunction(__glSecondaryColor3us)
 Gura_DeclareFunctionAlias(__glSecondaryColor3usv, "glSecondaryColor3usv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9638,7 +9638,7 @@ Gura_DeclareFunctionAlias(__glPointParameterfv, "glPointParameterfv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9694,7 +9694,7 @@ Gura_DeclareFunctionAlias(__glPointParameteriv, "glPointParameteriv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pname", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9754,7 +9754,7 @@ Gura_DeclareFunctionAlias(__glMultiDrawArrays, "glMultiDrawArrays")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "first", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "first", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -9812,7 +9812,7 @@ Gura_ImplementFunction(__glWindowPos2d)
 Gura_DeclareFunctionAlias(__glWindowPos2dv, "glWindowPos2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9865,7 +9865,7 @@ Gura_ImplementFunction(__glWindowPos2f)
 Gura_DeclareFunctionAlias(__glWindowPos2fv, "glWindowPos2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9918,7 +9918,7 @@ Gura_ImplementFunction(__glWindowPos2i)
 Gura_DeclareFunctionAlias(__glWindowPos2iv, "glWindowPos2iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -9971,7 +9971,7 @@ Gura_ImplementFunction(__glWindowPos2s)
 Gura_DeclareFunctionAlias(__glWindowPos2sv, "glWindowPos2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10026,7 +10026,7 @@ Gura_ImplementFunction(__glWindowPos3d)
 Gura_DeclareFunctionAlias(__glWindowPos3dv, "glWindowPos3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10081,7 +10081,7 @@ Gura_ImplementFunction(__glWindowPos3f)
 Gura_DeclareFunctionAlias(__glWindowPos3fv, "glWindowPos3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10136,7 +10136,7 @@ Gura_ImplementFunction(__glWindowPos3i)
 Gura_DeclareFunctionAlias(__glWindowPos3iv, "glWindowPos3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10191,7 +10191,7 @@ Gura_ImplementFunction(__glWindowPos3s)
 Gura_DeclareFunctionAlias(__glWindowPos3sv, "glWindowPos3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10245,7 +10245,7 @@ Gura_ImplementFunction(__glGenQueries)
 Gura_DeclareFunctionAlias(__glDeleteQueries, "glDeleteQueries")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "ids", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "ids", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10461,7 +10461,7 @@ Gura_ImplementFunction(__glBindBuffer)
 Gura_DeclareFunctionAlias(__glDeleteBuffers, "glDeleteBuffers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "buffers", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "buffers", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10701,7 +10701,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib1dv, "glVertexAttrib1dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10756,7 +10756,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib1fv, "glVertexAttrib1fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10811,7 +10811,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib1sv, "glVertexAttrib1sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10868,7 +10868,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib2dv, "glVertexAttrib2dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10925,7 +10925,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib2fv, "glVertexAttrib2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -10982,7 +10982,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib2sv, "glVertexAttrib2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11041,7 +11041,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib3dv, "glVertexAttrib3dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11100,7 +11100,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib3fv, "glVertexAttrib3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11159,7 +11159,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib3sv, "glVertexAttrib3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11189,7 +11189,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4Nbv, "glVertexAttrib4Nbv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11219,7 +11219,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4Niv, "glVertexAttrib4Niv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11249,7 +11249,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4Nsv, "glVertexAttrib4Nsv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11310,7 +11310,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4Nubv, "glVertexAttrib4Nubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11340,7 +11340,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4Nuiv, "glVertexAttrib4Nuiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11370,7 +11370,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4Nusv, "glVertexAttrib4Nusv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11400,7 +11400,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4bv, "glVertexAttrib4bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11461,7 +11461,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4dv, "glVertexAttrib4dv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_double, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11522,7 +11522,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4fv, "glVertexAttrib4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11552,7 +11552,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4iv, "glVertexAttrib4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11613,7 +11613,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4sv, "glVertexAttrib4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11643,7 +11643,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4ubv, "glVertexAttrib4ubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11673,7 +11673,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4uiv, "glVertexAttrib4uiv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -11703,7 +11703,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4usv, "glVertexAttrib4usv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12393,7 +12393,7 @@ Gura_DeclareFunctionAlias(__glUniform1fv, "glUniform1fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12420,7 +12420,7 @@ Gura_DeclareFunctionAlias(__glUniform2fv, "glUniform2fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12447,7 +12447,7 @@ Gura_DeclareFunctionAlias(__glUniform3fv, "glUniform3fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12474,7 +12474,7 @@ Gura_DeclareFunctionAlias(__glUniform4fv, "glUniform4fv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12501,7 +12501,7 @@ Gura_DeclareFunctionAlias(__glUniform1iv, "glUniform1iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12528,7 +12528,7 @@ Gura_DeclareFunctionAlias(__glUniform2iv, "glUniform2iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12555,7 +12555,7 @@ Gura_DeclareFunctionAlias(__glUniform3iv, "glUniform3iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12582,7 +12582,7 @@ Gura_DeclareFunctionAlias(__glUniform4iv, "glUniform4iv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12610,7 +12610,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix2fv, "glUniformMatrix2fv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12639,7 +12639,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix3fv, "glUniformMatrix3fv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12668,7 +12668,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix4fv, "glUniformMatrix4fv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12804,7 +12804,7 @@ Gura_DeclareFunctionAlias(__glGetAttachedShaders, "glGetAttachedShaders")
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "maxCount", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_ListVar);
-	DeclareArg(env, "shaders", VTYPE_array_uint, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "shaders", VTYPE_array_at_uint, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12957,7 +12957,7 @@ Gura_DeclareFunctionAlias(__glGetUniformfv, "glGetUniformfv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -12983,7 +12983,7 @@ Gura_DeclareFunctionAlias(__glGetUniformiv, "glGetUniformiv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "program", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "params", VTYPE_array_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "params", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -13212,7 +13212,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix2x3fv, "glUniformMatrix2x3fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -13240,7 +13240,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix3x2fv, "glUniformMatrix3x2fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -13268,7 +13268,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix2x4fv, "glUniformMatrix2x4fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -13296,7 +13296,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix4x2fv, "glUniformMatrix4x2fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -13324,7 +13324,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix3x4fv, "glUniformMatrix3x4fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -13352,7 +13352,7 @@ Gura_DeclareFunctionAlias(__glUniformMatrix4x3fv, "glUniformMatrix4x3fv")
 	DeclareArg(env, "location", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "count", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "transpose", VTYPE_boolean, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "value", VTYPE_array_float, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "value", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");

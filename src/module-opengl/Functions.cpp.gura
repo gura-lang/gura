@@ -1137,7 +1137,7 @@ glGetPixelMapusv(map:GLenum, values:GLushort@):void:map = `unsupport % {`en, 'ma
 glGetPolygonStipple():map = R'''
 	AutoPtr<Array<UChar> > pArray(new Array<UChar>(32 * 4));
 	glGetPolygonStipple(pArray->GetPointer());
-	return Value(new Object_array<UChar>(env, VTYPE_array_uchar, pArray.release()));
+	return Value(new Object_array<UChar>(env, VTYPE_array_at_uchar, pArray.release()));
 ''' % {`en, 'markdown',
 	R'''
 	'''

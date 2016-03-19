@@ -1418,6 +1418,7 @@ matrix.eachrow
 matrix.identity
 matrix.invert
 matrix.issquare
+matrix.list
 matrix.rotation
 matrix.rotation@x
 matrix.rotation@y
@@ -1429,7 +1430,6 @@ matrix.set
 matrix.setcol
 matrix.setrow
 matrix.submat
-matrix.list
 matrix.transpose
 )}
 
@@ -2113,11 +2113,11 @@ vertex
 ${moddoc.reference(`en
 vertex.cross
 vertex.inner
+vertex.list
 vertex.normal
 vertex.rotate@x
 vertex.rotate@y
 vertex.rotate@z
-vertex.list
 vertex.translate
 )}
 '''.embed()

@@ -161,7 +161,7 @@ Gura_ImplementFunction(memory)
 //-----------------------------------------------------------------------------
 // memory#array@T():map {block?}
 #define ImplementArrayConstructor(name, T) \
-Gura_DeclareMethodAlias(memory, array_##name, "array@" #name) \
+Gura_DeclareMethodAlias(memory, array_at_##name, "array@" #name) \
 { \
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map); \
 	DeclareBlock(OCCUR_ZeroOrOnce); \
@@ -170,13 +170,13 @@ Gura_DeclareMethodAlias(memory, array_##name, "array@" #name) \
 		"Creates an `array@" #name "` instance that accesses the content of the target `memory` instance."); \
 } \
 \
-Gura_ImplementMethod(memory, array_##name) \
+Gura_ImplementMethod(memory, array_at_##name) \
 { \
 	Memory &memory = Object_memory::GetObjectThis(arg)->GetMemory(); \
 	size_t cnt = memory.GetSize() / sizeof(T); \
 	AutoPtr<Array<T> > pArray(new Array<T>(memory.Reference(), cnt)); \
 	return ReturnValue(env, arg, Value(new Object_array<T>( \
-										   env, VTYPE_array_##name, pArray.release()))); \
+										   env, VTYPE_array_at_##name, pArray.release()))); \
 }
 
 ImplementArrayConstructor(char, Char)
@@ -257,69 +257,69 @@ Class_memory::Class_memory(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_memo
 void Class_memory::Prepare(Environment &env)
 {
 	Gura_AssignFunction(memory);
-	Gura_AssignMethod(memory, array_char);
-	Gura_AssignMethod(memory, array_uchar);
-	Gura_AssignMethod(memory, array_short);
-	Gura_AssignMethod(memory, array_ushort);
-	Gura_AssignMethod(memory, array_int);
-	Gura_AssignMethod(memory, array_uint);
-	Gura_AssignMethod(memory, array_int32);
-	Gura_AssignMethod(memory, array_uint32);
-	Gura_AssignMethod(memory, array_int64);
-	Gura_AssignMethod(memory, array_uint64);
-	Gura_AssignMethod(memory, array_float);
-	Gura_AssignMethod(memory, array_double);
+	Gura_AssignMethod(memory, array_at_char);
+	Gura_AssignMethod(memory, array_at_uchar);
+	Gura_AssignMethod(memory, array_at_short);
+	Gura_AssignMethod(memory, array_at_ushort);
+	Gura_AssignMethod(memory, array_at_int);
+	Gura_AssignMethod(memory, array_at_uint);
+	Gura_AssignMethod(memory, array_at_int32);
+	Gura_AssignMethod(memory, array_at_uint32);
+	Gura_AssignMethod(memory, array_at_int64);
+	Gura_AssignMethod(memory, array_at_uint64);
+	Gura_AssignMethod(memory, array_at_float);
+	Gura_AssignMethod(memory, array_at_double);
 	Gura_AssignMethod(memory, dump);
 	Gura_AssignMethod(memory, pointer);
 }
 
 bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
-	if (value.Is_array_char()) {
+	if (value.Is_array_at_char()) {
 		Memory &memory = Object_array<Char>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_uchar()) {
+	} else if (value.Is_array_at_uchar()) {
 		Memory &memory = Object_array<UChar>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_short()) {
+	} else if (value.Is_array_at_short()) {
 		Memory &memory = Object_array<Short>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_ushort()) {
+	} else if (value.Is_array_at_ushort()) {
 		Memory &memory = Object_array<UShort>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_int()) {
+	} else if (value.Is_array_at_int()) {
 		Memory &memory = Object_array<Int>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_uint()) {
+	} else if (value.Is_array_at_uint()) {
 		Memory &memory = Object_array<UInt>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_int32()) {
+	} else if (value.Is_array_at_int32()) {
 		Memory &memory = Object_array<Int32>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_uint32()) {
+	} else if (value.Is_array_at_uint32()) {
 		Memory &memory = Object_array<UInt32>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_int64()) {
+	} else if (value.Is_array_at_int64()) {
 		Memory &memory = Object_array<Int64>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_uint64()) {
+	} else if (value.Is_array_at_uint64()) {
 		Memory &memory = Object_array<UInt64>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_float()) {
+	} else if (value.Is_array_at_float()) {
 		Memory &memory = Object_array<float>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_double()) {
+	} else if (value.Is_array_at_double()) {
 		Memory &memory = Object_array<double>::GetObject(value)->GetArray()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
