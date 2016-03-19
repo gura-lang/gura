@@ -55,6 +55,9 @@ public:
 	Vertex RotateX(double rad) const;
 	Vertex RotateY(double rad) const;
 	Vertex RotateZ(double rad) const;
+	static double CalcNorm(const Vertex &v);
+	static double CalcInnerProduct(const Vertex &v1, const Vertex &v2);
+	static Vertex CalcCrossProduct(const Vertex &v1, const Vertex &v2);
 	static Vertex CalcNormal(const Vertex &v1, const Vertex &v2, const Vertex &v3, bool unitFlag);
 	String ToString() const;
 	static Vertex CreateFromValues(Environment &env, const ValueList &valList);

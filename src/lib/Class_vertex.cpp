@@ -105,10 +105,50 @@ Gura_ImplementFunction(vertex)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// vertex.normal(v1:vertex, v2:vertex, v3:vertex):[unit] {block?}
+// vertex.cross(v1:vertex, v2:vertex):map {block?}
+Gura_DeclareClassMethod(vertex, cross)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "v1", VTYPE_vertex, OCCUR_Once);
+	DeclareArg(env, "v2", VTYPE_vertex, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementClassMethod(vertex, cross)
+{
+	const Vertex &v1 = Object_vertex::GetObject(arg, 0)->GetVertex();
+	const Vertex &v2 = Object_vertex::GetObject(arg, 1)->GetVertex();
+	return ReturnValue(
+		env, arg, Value(new Object_vertex(env, Vertex::CalcCrossProduct(v1, v2))));
+}
+
+// vertex.inner(v1:vertex, v2:vertex):map {block?}
+Gura_DeclareClassMethod(vertex, inner)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "v1", VTYPE_vertex, OCCUR_Once);
+	DeclareArg(env, "v2", VTYPE_vertex, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementClassMethod(vertex, inner)
+{
+	const Vertex &v1 = Object_vertex::GetObject(arg, 0)->GetVertex();
+	const Vertex &v2 = Object_vertex::GetObject(arg, 1)->GetVertex();
+	return ReturnValue(
+		env, arg, Value(Vertex::CalcInnerProduct(v1, v2)));
+}
+
+// vertex.normal(v1:vertex, v2:vertex, v3:vertex):map:[unit] {block?}
 Gura_DeclareClassMethod(vertex, normal)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "v1", VTYPE_vertex, OCCUR_Once);
 	DeclareArg(env, "v2", VTYPE_vertex, OCCUR_Once);
 	DeclareArg(env, "v3", VTYPE_vertex, OCCUR_Once);
@@ -265,6 +305,8 @@ Class_vertex::Class_vertex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_vert
 
 void Class_vertex::Prepare(Environment &env)
 {
+	Gura_AssignMethod(vertex, cross);
+	Gura_AssignMethod(vertex, inner);
 	Gura_AssignMethod(vertex, normal);
 	Gura_AssignMethod(vertex, rotate_at_x);
 	Gura_AssignMethod(vertex, rotate_at_y);
