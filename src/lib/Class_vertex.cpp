@@ -251,8 +251,8 @@ Gura_ImplementMethod(vertex, rotate_at_z)
 	return ReturnValue(env, arg, Value(new Object_vertex(env, vertex.RotateZ(angle))));
 }
 
-// vertex#tolist() {block?}
-Gura_DeclareMethod(vertex, tolist)
+// vertex#list() {block?}
+Gura_DeclareMethod(vertex, list)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -263,7 +263,7 @@ Gura_DeclareMethod(vertex, tolist)
 		GURA_HELPTEXT_BLOCK_en("list", "list"));
 }
 
-Gura_ImplementMethod(vertex, tolist)
+Gura_ImplementMethod(vertex, list)
 {
 	const Vertex &vertex = Object_vertex::GetObjectThis(arg)->GetVertex();
 	return ReturnValue(
@@ -311,7 +311,7 @@ void Class_vertex::Prepare(Environment &env)
 	Gura_AssignMethod(vertex, rotate_at_x);
 	Gura_AssignMethod(vertex, rotate_at_y);
 	Gura_AssignMethod(vertex, rotate_at_z);
-	Gura_AssignMethod(vertex, tolist);
+	Gura_AssignMethod(vertex, list);
 	Gura_AssignMethod(vertex, translate);
 	Gura_AssignFunction(vertex);
 	Gura_AssignClassValue(zero, Value(new Object_vertex(env, Vertex::Zero)));

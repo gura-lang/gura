@@ -16,9 +16,9 @@ testcase('operator') {
 	tester(`(v1 / 4))
 	tester(`(v1 * 4))
 }
-testcase('vertex.tolist()') {
+testcase('vertex.list()') {
 	v = vertex(30, 40, 50)
-	tester(`v.tolist())
+	tester(`v.list())
 }
 testcase('vertex.translate()') {
 	tester(`vertex(3, 4, 5).translate(1, 2, 3))
