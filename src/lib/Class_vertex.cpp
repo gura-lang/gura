@@ -116,7 +116,11 @@ Gura_DeclareClassMethod(vertex, normal)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Calculates a normal vector for a face that consists of three vertices given\n"
+		"and returns it as a `vertex` instance.\n"
+		"\n"
+		"In default, it returns a vector before being regulated to have a length of one.\n"
+		"Specifying the attribute `:unit` would apply the calculation.");
 }
 
 Gura_ImplementClassMethod(vertex, normal)
@@ -130,7 +134,7 @@ Gura_ImplementClassMethod(vertex, normal)
 }
 
 // vertex#rotate@x(angle:number):[deg] {block?}
-Gura_DeclareMethodAlias(vertex, rotate_x, "rotate@x")
+Gura_DeclareMethodAlias(vertex, rotate_at_x, "rotate@x")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
@@ -147,7 +151,7 @@ Gura_DeclareMethodAlias(vertex, rotate_x, "rotate@x")
 		GURA_HELPTEXT_BLOCK_en("v", "vertex"));
 }
 
-Gura_ImplementMethod(vertex, rotate_x)
+Gura_ImplementMethod(vertex, rotate_at_x)
 {
 	const Vertex &vertex = Object_vertex::GetObjectThis(arg)->GetVertex();
 	double angle = arg.GetDouble(0);
@@ -156,7 +160,7 @@ Gura_ImplementMethod(vertex, rotate_x)
 }
 
 // vertex#rotate@y(angle:number):[deg] {block?}
-Gura_DeclareMethodAlias(vertex, rotate_y, "rotate@y")
+Gura_DeclareMethodAlias(vertex, rotate_at_y, "rotate@y")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
@@ -173,7 +177,7 @@ Gura_DeclareMethodAlias(vertex, rotate_y, "rotate@y")
 		GURA_HELPTEXT_BLOCK_en("v", "vertex"));
 }
 
-Gura_ImplementMethod(vertex, rotate_y)
+Gura_ImplementMethod(vertex, rotate_at_y)
 {
 	const Vertex &vertex = Object_vertex::GetObjectThis(arg)->GetVertex();
 	double angle = arg.GetDouble(0);
@@ -182,7 +186,7 @@ Gura_ImplementMethod(vertex, rotate_y)
 }
 
 // vertex#rotate@z(angle:number):[deg] {block?}
-Gura_DeclareMethodAlias(vertex, rotate_z, "rotate@z")
+Gura_DeclareMethodAlias(vertex, rotate_at_z, "rotate@z")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
@@ -199,7 +203,7 @@ Gura_DeclareMethodAlias(vertex, rotate_z, "rotate@z")
 		GURA_HELPTEXT_BLOCK_en("v", "vertex"));
 }
 
-Gura_ImplementMethod(vertex, rotate_z)
+Gura_ImplementMethod(vertex, rotate_at_z)
 {
 	const Vertex &vertex = Object_vertex::GetObjectThis(arg)->GetVertex();
 	double angle = arg.GetDouble(0);
@@ -262,9 +266,9 @@ Class_vertex::Class_vertex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_vert
 void Class_vertex::Prepare(Environment &env)
 {
 	Gura_AssignMethod(vertex, normal);
-	Gura_AssignMethod(vertex, rotate_x);
-	Gura_AssignMethod(vertex, rotate_y);
-	Gura_AssignMethod(vertex, rotate_z);
+	Gura_AssignMethod(vertex, rotate_at_x);
+	Gura_AssignMethod(vertex, rotate_at_y);
+	Gura_AssignMethod(vertex, rotate_at_z);
 	Gura_AssignMethod(vertex, tolist);
 	Gura_AssignMethod(vertex, translate);
 	Gura_AssignFunction(vertex);
