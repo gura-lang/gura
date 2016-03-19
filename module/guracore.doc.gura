@@ -459,7 +459,7 @@ color
 ${moddoc.reference(`en
 color.getgray
 color.html
-color.tolist
+color.list
 )}
 
 
@@ -1429,7 +1429,7 @@ matrix.set
 matrix.setcol
 matrix.setrow
 matrix.submat
-matrix.tolist
+matrix.list
 matrix.transpose
 )}
 
@@ -2111,10 +2111,13 @@ vertex
 ### Method
 
 ${moddoc.reference(`en
+vertex.cross
+vertex.inner
+vertex.normal
 vertex.rotate@x
 vertex.rotate@y
 vertex.rotate@z
-vertex.tolist
+vertex.list
 vertex.translate
 )}
 '''.embed()

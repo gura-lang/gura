@@ -756,8 +756,8 @@ Gura_ImplementMethod(matrix, submat)
 	return Value::Nil;
 }
 
-// matrix#tolist():[transpose]
-Gura_DeclareMethod(matrix, tolist)
+// matrix#list():[transpose]
+Gura_DeclareMethod(matrix, list)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(transpose));
@@ -772,16 +772,16 @@ Gura_DeclareMethod(matrix, tolist)
 		"\n"
 		"Below is an example:\n"
 		"\n"
-		"    @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist()\n"
+		"    @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.list()\n"
 		"    [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n"
 		"\n"
 		"Below is an example with `:transpose` attribute:\n"
 		"\n"
-		"    @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.tolist():transpose\n"
+		"    @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}.list():transpose\n"
 		"    [[1, 4, 7], [2, 5, 8], [3, 6, 9]]\n");
 }
 
-Gura_ImplementMethod(matrix, tolist)
+Gura_ImplementMethod(matrix, list)
 {
 	Object_matrix *pThis = Object_matrix::GetObjectThis(arg);
 	Value result;
@@ -875,7 +875,7 @@ void Class_matrix::Prepare(Environment &env)
 	Gura_AssignMethod(matrix, setcol);
 	Gura_AssignMethod(matrix, setrow);
 	Gura_AssignMethod(matrix, submat);
-	Gura_AssignMethod(matrix, tolist);
+	Gura_AssignMethod(matrix, list);
 	Gura_AssignMethod(matrix, translate);
 	Gura_AssignMethod(matrix, transpose);
 }

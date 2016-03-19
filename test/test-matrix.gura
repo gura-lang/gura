@@ -69,8 +69,8 @@ testcase {
 	tester(`a)
 	tester(`a.each():list)
 	tester(`a.each():list:transpose)
-	tester(`a.tolist())
-	tester(`a.tolist():transpose)
+	tester(`a.list())
+	tester(`a.list():transpose)
 	tester(`a.eachrow():list)
 	tester(`a.eachcol():list)
 }
@@ -126,7 +126,7 @@ testcase {
 	tester(`(a - b))
 	tester(`(a * b))
 	scope {
-		[a_list, b_list] = [a.tolist(), b.tolist()]
+		[a_list, b_list] = [a.list(), b.list()]
 		tester(`repeat (3):list {|row|
 			repeat (3):list {|col|
 				(a_list[row] * b_list::get(col)).sum()
@@ -169,10 +169,10 @@ testcase {
 	tester(`m[0][0])
 	tester(`m[1][1])
 	tester(`m[2][2])
-	tester(`m.tolist())
-	tester(`m.tolist():transpose)
-	tester(`m.tolist():flat)
-	tester(`m.tolist():transpose:flat)
+	tester(`m.list())
+	tester(`m.list():transpose)
+	tester(`m.list():flat)
+	tester(`m.list():transpose:flat)
 	m = matrix(6, 6)
 	cross (iRow in range(m.rowsize()), iCol in range(m.colsize())) {|i|
 		m[iRow][iCol] = i % 10

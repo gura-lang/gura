@@ -190,8 +190,8 @@ Gura_ImplementMethod(color, html)
 	return Value(color.GetHTML());
 }
 
-// color#tolist():[alpha]
-Gura_DeclareMethod(color, tolist)
+// color#list():[alpha]
+Gura_DeclareMethod(color, list)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(alpha));
@@ -202,7 +202,7 @@ Gura_DeclareMethod(color, tolist)
 		"Specifying `:alpha` attribute would add the alpha element to the list.");
 }
 
-Gura_ImplementMethod(color, tolist)
+Gura_ImplementMethod(color, list)
 {
 	const Color &color = Object_color::GetObjectThis(arg)->GetColor();
 	bool alphaIncludeFlag = arg.IsSet(Gura_Symbol(alpha));
@@ -228,7 +228,7 @@ void Class_color::Prepare(Environment &env)
 {
 	Gura_AssignMethod(color, getgray);
 	Gura_AssignMethod(color, html);
-	Gura_AssignMethod(color, tolist);
+	Gura_AssignMethod(color, list);
 	do {
 		Value value;
 		Object_list *pObjList = value.InitAsList(env);

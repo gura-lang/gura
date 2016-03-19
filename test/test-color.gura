@@ -87,8 +87,8 @@ testcase {
 }
 testcase {
 	plt = palette(`basic)
-	tester(`plt.each()::tolist())
-	tester(`plt.each()::tolist():alpha)
+	tester(`plt.each()::list())
+	tester(`plt.each()::list():alpha)
 }
 testcase {
 	plt = palette(`basic)
