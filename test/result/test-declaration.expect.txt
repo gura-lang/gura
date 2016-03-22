@@ -897,6 +897,7 @@ vertex
   vertex.cross (v1:vertex, v2:vertex):static:map {block?}
   vertex.inner(v1:vertex, v2:vertex):static:map {block?}
   vertex#list() {block?}
+  vertex#norm() {block?}
   vertex.normal(v1:vertex, v2:vertex, v3:vertex):static:map:[unit] {block?}
   vertex#rotate@x(angle:number):[deg] {block?}
   vertex#rotate@y(angle:number):[deg] {block?}

@@ -150,6 +150,22 @@ Gura_ImplementClassMethod(vertex, inner)
 		env, arg, Value(Vertex::CalcInnerProduct(v1, v2)));
 }
 
+// vertex#norm()
+Gura_DeclareMethod(vertex, norm)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Calculates norm of the vertex instance.");
+}
+
+Gura_ImplementMethod(vertex, norm)
+{
+	const Vertex &vertex = Object_vertex::GetObjectThis(arg)->GetVertex();
+	return Value(Vertex::CalcNorm(vertex));
+}
+
 // vertex.normal(v1:vertex, v2:vertex, v3:vertex):map:[unit] {block?}
 Gura_DeclareClassMethod(vertex, normal)
 {
@@ -165,7 +181,9 @@ Gura_DeclareClassMethod(vertex, normal)
 		"and returns it as a `vertex` instance.\n"
 		"\n"
 		"In default, it returns a vector before being regulated to have a length of one.\n"
-		"Specifying the attribute `:unit` would apply the calculation.");
+		"Specifying the attribute `:unit` would apply the calculation.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("v", "vertex"));
 }
 
 Gura_ImplementClassMethod(vertex, normal)
@@ -312,6 +330,7 @@ void Class_vertex::Prepare(Environment &env)
 {
 	Gura_AssignMethod(vertex, cross);
 	Gura_AssignMethod(vertex, inner);
+	Gura_AssignMethod(vertex, norm);
 	Gura_AssignMethod(vertex, normal);
 	Gura_AssignMethod(vertex, rotate_at_x);
 	Gura_AssignMethod(vertex, rotate_at_y);
