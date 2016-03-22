@@ -124,6 +124,11 @@ const UChar *Object_memory::PointerEx::GetPointerC() const
 	return reinterpret_cast<const UChar *>(_pObjMemory->GetMemory().GetPointer(_offset));
 }
 
+UChar *Object_memory::PointerEx::GetWritablePointerC() const
+{
+	return reinterpret_cast<UChar *>(_pObjMemory->GetMemory().GetPointer(_offset));
+}
+
 size_t Object_memory::PointerEx::GetEntireSize() const
 {
 	return _pObjMemory->GetMemory().GetSize();

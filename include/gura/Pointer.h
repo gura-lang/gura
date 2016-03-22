@@ -66,6 +66,7 @@ public:
 	virtual Pointer *Clone() const = 0;
 	virtual Object *GetTarget() const = 0;
 	virtual const UChar *GetPointerC() const = 0;
+	virtual UChar *GetWritablePointerC() const = 0;
 	virtual size_t GetEntireSize() const = 0;
 	virtual bool IsWritable() const = 0;
 };

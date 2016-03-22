@@ -210,6 +210,11 @@ const UChar *Object_binary::PointerEx::GetPointerC() const
 	return reinterpret_cast<const UChar *>(_pObjBinary->GetBinary().data() + _offset);
 }
 
+UChar *Object_binary::PointerEx::GetWritablePointerC() const
+{
+	return nullptr;
+}
+
 size_t Object_binary::PointerEx::GetEntireSize() const
 {
 	return _pObjBinary->GetBinary().size();
