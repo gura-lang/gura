@@ -90,7 +90,10 @@ Gura_DeclareFunction(vertex)
 	SetClassToConstruct(env.LookupClass(VTYPE_vertex));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates a `vertex` instance that has the given coordinates `x`, `y` and `z`.\n"
+		"The argument `z` is optional and set to zero if omitted.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("v", "vertex"));
 }
 
 Gura_ImplementFunction(vertex)
@@ -114,7 +117,8 @@ Gura_DeclareClassMethod(vertex, cross)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Calculates cross product between `v1` and `v2`\n"
+		"and returns the result as a `vertex` instance.\n");
 }
 
 Gura_ImplementClassMethod(vertex, cross)
@@ -134,7 +138,8 @@ Gura_DeclareClassMethod(vertex, inner)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Calculates inner product between `v1` and `v2`\n"
+		"and returns the result as a `number` instance.\n");
 }
 
 Gura_ImplementClassMethod(vertex, inner)
