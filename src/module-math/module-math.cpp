@@ -1031,8 +1031,8 @@ Gura_ImplementFunction(integral)
 	return Value::Nil;
 }
 
-// math.dot_product(a[], b[])
-Gura_DeclareFunction(dot_product)
+// math.inner(a[], b[])
+Gura_DeclareFunction(inner)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "a", VTYPE_any, OCCUR_Once, FLAG_ListVar);
@@ -1042,7 +1042,7 @@ Gura_DeclareFunction(dot_product)
 		"");
 }
 
-Gura_ImplementFunction(dot_product)
+Gura_ImplementFunction(inner)
 {
 	Signal &sig = env.GetSignal();
 	const ValueList &valList1 = arg.GetList(0);
@@ -1068,11 +1068,11 @@ Gura_ImplementFunction(dot_product)
 	return valueSum;
 }
 
-// math.cross_product(a[], b[])
+// math.cross(a[], b[])
 static Value CalcCrossElem(Environment &env,
 		const Value &ax, const Value &ay, const Value &bx, const Value &by);
 
-Gura_DeclareFunction(cross_product)
+Gura_DeclareFunction(cross)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "a", VTYPE_any, OCCUR_Once, FLAG_ListVar);
@@ -1082,7 +1082,7 @@ Gura_DeclareFunction(cross_product)
 		"");
 }
 
-Gura_ImplementFunction(cross_product)
+Gura_ImplementFunction(cross)
 {
 	Signal &sig = env.GetSignal();
 	const ValueList &valList1 = arg.GetList(0);
@@ -1267,8 +1267,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(diff);
 	Gura_AssignFunction(optimize);
 	Gura_AssignFunction(fft);
-	Gura_AssignFunction(dot_product);
-	Gura_AssignFunction(cross_product);
+	Gura_AssignFunction(inner);
+	Gura_AssignFunction(cross);
 	Gura_AssignFunction(covariance);
 	Gura_AssignFunction(integral);
 	Gura_AssignFunction(gcd);

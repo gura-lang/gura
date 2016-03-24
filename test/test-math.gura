@@ -31,15 +31,15 @@ testcase {
 }
 
 testcase {
-	tester(`math.cross_product([1, 2], [3, 1]))
-	tester(`math.cross_product([3, 1], [1, 2]))
-	tester(`math.cross_product([1, 2, 3], [-1, 1, 2]))
-	tester(`math.cross_product([-1, 1, 2], [1, 2, 3]))
-	tester(`math.cross_product([-1, -3], [2, 2, 3]))
-	tester(`math.cross_product([-1, -3, 2, 1], [2, 2, 3, 1]))
-	tester(`math.dot_product([-1, -3], [2, 2]))
-	tester(`math.dot_product([-1, -3, 3], [2, 2, -1]))
-	tester(`math.dot_product([-1, -3], [2, 2, 3]))
+	tester(`math.cross([1, 2], [3, 1]))
+	tester(`math.cross([3, 1], [1, 2]))
+	tester(`math.cross([1, 2, 3], [-1, 1, 2]))
+	tester(`math.cross([-1, 1, 2], [1, 2, 3]))
+	tester(`math.cross([-1, -3], [2, 2, 3]))
+	tester(`math.cross([-1, -3, 2, 1], [2, 2, 3, 1]))
+	tester(`math.inner([-1, -3], [2, 2]))
+	tester(`math.inner([-1, -3, 3], [2, 2, -1]))
+	tester(`math.inner([-1, -3], [2, 2, 3]))
 }
 testcase {
 	bezier1(nums[]:number):closure = function(t:number):map {
