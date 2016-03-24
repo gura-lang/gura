@@ -5,7 +5,13 @@ import(calendar)
 text@en = R'''
 # calendar Module
 
-The `calendar` module ...
+The `calendar` module provides a function to generate a string of calendar
+for the specified year.
+
+Below is an example to print a calendar for the year 2015.
+
+    println(calendar.calendar(2015))
+
 
 ## Module Function
 
