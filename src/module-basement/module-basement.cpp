@@ -175,8 +175,9 @@ Gura_DeclareFunction(cross)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Executes the block until it evaluates all the combinations of results from exprs\n"
-		"\"`var in iteratable`.\" You can specify one or more such exprs as arguments and\n"
+		"Executes the `block` while evaluating all the combinations of results from `expr`\n"
+		"that has format \"`var in iteratable`\".\n"
+		"You can specify one or more such `expr`s as arguments and\n"
 		"they are counted up from the one on the right side.\n"
 		"Iterators and lists are the most popular iteratables, but even any objects that\n"
 		"are cable of generating iterators can be specified as such.\n"
@@ -185,7 +186,14 @@ Gura_DeclareFunction(cross)
 		"\n"
 		"Block parameter format is `|idx:number, i0:number, i1:number, ..|`\n"
 		"where `idx` indicates an index of the whole loop\n"
-		"and each of `i0`, `i1` .. indicates an index of each corresponding iterable.\n");
+		"and each of `i0`, `i1` .. indicates an index of each corresponding iterable.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    cross (ch in ['A', 'B', 'C'], i in 1..4) {\n"
+		"        printf('%s-%d ', ch, i)\n"
+		"    }\n"
+		"    // prints \"A-1 A-2 A-3 A-4 B-1 B-2 B-3 B-4 C-1 C-2 C-3 C-4 \"\n");
 }
 
 Gura_ImplementFunction(cross)
@@ -207,14 +215,28 @@ Gura_DeclareFunctionAlias(for_, "for")
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Executes the block until any of the exprs of \"`var in iteratable`\" reach at\n"
-		"their ends. You can specify one or more such exprs as arguments.\n"
-		"Iterators and lists are the most popular iteratables, but even any objects that\n"
-		"are cable of generating iterators can be specified as such.\n"
+		"Executes the `block` while evaulating iteration command `expr` that has a format\n"
+		"\"`var in iteratable`\".\n"
+		"For `var`, an identifier or a list of identifiers is specified.\n"
+		"For `iterable`, you can spedify iterators and lists as well as any objects\n"
+		"that are cable of generating iterators.\n"
+		"\n"
+		"You can specify one or more `expr` in the argument list.\n"
+		"In such a case, it continues to repeat until the shortest iterable among them\n"
+		"reaches at its end.\n"
 		"\n"
 		REPEATER_HELP
 		"\n"
-		"Block parameter format is `|idx:number|` where `idx` indicates an index of the loop.\n");
+		"Block parameter format is `|idx:number|` where `idx` indicates an index of the loop.\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"Example:\n"
+		"\n"
+		"    for (ch in ['A', 'B', 'C'], i in 1..4) {\n"
+		"        printf('%s-%d ', ch, i)\n"
+		"    }\n"
+		"    // prints \"A-1 B-2 C-3\"\n");
 }
 
 Gura_ImplementFunction(for_)
