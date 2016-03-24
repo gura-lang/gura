@@ -30,19 +30,28 @@ Importing `gmp` module would add following suffixes:
   with variable-length digits.
 
 
-## Differential
+## Differentiation Formula
 
-You can get a differential formula from a `function` that contains a mathematical calculation
-using `function#mathdiff()` method.
+When a function is declared with a body that contains math calculation,
+you can get a differentiation formula from it using `function#mathdiff()` method.
+Assumes that you have the following function:
 
     >>> f(x) = math.sin(x ** 2)
+
+Then, you can call `function#mathdiff()` method for it like following:
+
     >>> g = f.mathdiff()
+
+The newly created function `g(x)` is one that does differential calculation of `f(x)`.
+You can examine what body it has by seeing `function#expr` property.
+
 	>>> g.expr
 	`(math.cos(x ** 2) * (2 * x))
 	
+The table below shows what differentiation formulas are obtained from original math functions:
 
 <table>
-<tr><th>Function</th><th>Derivative</th></tr>
+<tr><th>Original</th><th>Differentiation Forumula</th></tr>
 <tr><td><code>x ** 2</code></td><td><code>2 * x</code></td></tr>
 <tr><td><code>x ** 3</code></td><td><code>3 * x ** 2</code></td></tr>
 <tr><td><code>x ** 4</code></td><td><code>4 * x ** 3</code></td></tr>
