@@ -616,15 +616,13 @@ bool ImageStreamer_JPEG::IsResponsible(Signal &sig, Stream &stream)
 				stream.HasNameSuffix(".jpeg") || stream.HasNameSuffix(".jpe");
 }
 
-bool ImageStreamer_JPEG::Read(Environment &env,
-									Image *pImage, Stream &stream)
+bool ImageStreamer_JPEG::Read(Environment &env, Image *pImage, Stream &stream)
 {
 	Signal &sig = env.GetSignal();
 	return ReadStream(env, sig, pImage, stream);
 }
 
-bool ImageStreamer_JPEG::Write(Environment &env,
-									Image *pImage, Stream &stream)
+bool ImageStreamer_JPEG::Write(Environment &env, Image *pImage, Stream &stream)
 {
 	Signal &sig = env.GetSignal();
 	return WriteStream(env, sig, pImage, stream, 75);
@@ -649,7 +647,6 @@ bool ImageStreamer_JPEG::ReadStream(Environment &env, Signal &sig, Image *pImage
 		::jpeg_destroy_decompress(&cinfo);
 		return false;
 	}
-	//::memset(pThis->GetBuffer(), 0xff, pThis->GetBufferSize());
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
 					JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
 	while (cinfo.output_scanline < cinfo.output_height) {
@@ -673,8 +670,120 @@ bool ImageStreamer_JPEG::ReadStream(Environment &env, Signal &sig, Image *pImage
 	return true;
 }
 
+bool ImageStreamer_JPEG::ReadThumbnailStream(Environment &env, Signal &sig,
+											 Image *pImage, Stream &stream, size_t size)
+{
+	if (!pImage->CheckEmpty(sig)) return false;
+	ErrorMgr errMgr(sig);
+	jpeg_decompress_struct cinfo;
+	cinfo.err = ::jpeg_std_error(&errMgr.pub);
+	errMgr.pub.error_exit = ErrorMgr::error_exit; // override error handler
+	::jpeg_create_decompress(&cinfo);
+	if (::setjmp(errMgr.jmpenv)) {
+		::jpeg_destroy_decompress(&cinfo);
+		return false;
+	}
+	SourceMgr::Setup(&cinfo, &sig, &stream);
+	::jpeg_read_header(&cinfo, TRUE);
+	::jpeg_start_decompress(&cinfo);
+	size_t width = cinfo.image_width;
+	size_t height = cinfo.image_height;
+	if (width > height) {
+		if (width > size) {
+			width = size;
+			height = cinfo.image_height * size / cinfo.image_width;
+		}
+	} else {
+		if (height > size) {
+			width = cinfo.image_width * size / cinfo.image_height;
+			height = size;
+		}
+	}
+	if (!pImage->AllocBuffer(sig, width, height, 0xff)) {
+		::jpeg_destroy_decompress(&cinfo);
+		return false;
+	}
+	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
+					JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
+	UChar *pLineDst = pImage->GetPointer(0);
+	size_t bytesPerPixel = pImage->GetBytesPerPixel();
+	size_t bytesPerLineDst = pImage->GetBytesPerLine();
+	size_t accumsSize = width * sizeof(Image::Accum);
+	AutoPtr<Memory> pMemory(new MemoryHeap(accumsSize));
+	Image::Accum *accums = reinterpret_cast<Image::Accum *>(pMemory->GetPointer());
+	::memset(accums, 0x00, accumsSize);
+	size_t numerY = 0;
+	size_t yDst = 0;
+	while (cinfo.output_scanline <= cinfo.output_height) {
+		if (cinfo.output_scanline < cinfo.output_height) {
+			::jpeg_read_scanlines(&cinfo, scanlines, 1);
+			if (sig.IsSignalled()) {
+				::jpeg_finish_decompress(&cinfo);
+				::jpeg_destroy_decompress(&cinfo);
+				return false;
+			}
+			const UChar *srcp = scanlines[0];
+			Image::Accum *pAccum = accums;
+			size_t xDst = 0;
+			size_t numerX = 0;
+			for (UInt xSrc = 0; xSrc < cinfo.image_width; xSrc++) {
+				pAccum->AddRGB(srcp[0], srcp[1], srcp[2]);
+				srcp += 3;
+				numerX += width;
+				for ( ; numerX >= cinfo.image_width && xDst < width;
+					  numerX -= cinfo.image_width, xDst++) {
+					pAccum++;
+				}
+			}
+		}
+		numerY += height;
+		if (numerY >= cinfo.image_height) {
+			if (accums[0].cnt == 0) accums[0].cnt = 0; // this must not happen
+			Image::Accum *pAccum = accums;
+			Image::Accum *pAccumPrev = accums;
+			for (size_t xDst = 0; xDst < width; xDst++, pAccum++) {
+				size_t cnt = pAccum->cnt;
+				if (cnt == 0) {
+					*pAccum = *pAccumPrev;
+				} else if (cnt == 1) {
+					pAccumPrev = pAccum;
+				} else if (cnt == 2) {
+					pAccum->r >>= 1;
+					pAccum->g >>= 1;
+					pAccum->b >>= 1;
+					pAccumPrev = pAccum;
+				} else if (cnt == 4) {
+					pAccum->r >>= 2;
+					pAccum->g >>= 2;
+					pAccum->b >>= 2;
+					pAccumPrev = pAccum;
+				} else {
+					pAccum->r /= cnt;
+					pAccum->g /= cnt;
+					pAccum->b /= cnt;
+					pAccumPrev = pAccum;
+				}
+			}
+			for ( ; numerY >= cinfo.image_height && yDst < height;
+				  numerY -= cinfo.image_height, yDst++) {
+				Image::Accum *pAccum = accums;
+				UChar *pPixelDst = pLineDst;
+				for (size_t xDst = 0; xDst < width;
+					 xDst++, pAccum++, pPixelDst += bytesPerPixel) {
+					pAccum->StoreRGB(pPixelDst);
+				}
+				pLineDst += bytesPerLineDst;
+			}
+			::memset(accums, 0x00, accumsSize);
+		}
+	}
+	::jpeg_finish_decompress(&cinfo);
+	::jpeg_destroy_decompress(&cinfo);
+	return true;
+}
+
 bool ImageStreamer_JPEG::WriteStream(Environment &env, Signal &sig,
-						Image *pImage, Stream &stream, int quality)
+									 Image *pImage, Stream &stream, int quality)
 {
 	if (!pImage->CheckValid(sig)) return false;
 	ErrorMgr errMgr(sig);

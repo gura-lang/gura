@@ -374,6 +374,8 @@ public:
 	virtual bool Write(Environment &env, Image *pImage, Stream &stream);
 public:
 	static bool ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream);
+	static bool ReadThumbnailStream(Environment &env, Signal &sig,
+									Image *pImage, Stream &stream, size_t size);
 	static bool WriteStream(Environment &env, Signal &sig, Image *pImage, Stream &stream, int quality);
 };
 

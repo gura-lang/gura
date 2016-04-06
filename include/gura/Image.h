@@ -63,6 +63,19 @@ public:
 		size_t b;
 		size_t a;
 		size_t cnt;
+		inline void AddRGB(UChar _r, UChar _g, UChar _b) {
+			r += _r;
+			g += _g;
+			b += _b;
+			cnt++;
+		}
+		inline void AddRGBA(UChar _r, UChar _g, UChar _b, UChar _a) {
+			r += _r;
+			g += _g;
+			b += _b;
+			a += _a;
+			cnt++;
+		}
 		inline void AddRGB(const UChar *pPixel) {
 			r += Image::GetPixelR(pPixel);
 			g += Image::GetPixelG(pPixel);
