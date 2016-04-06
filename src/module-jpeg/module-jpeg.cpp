@@ -183,23 +183,27 @@ SymbolAssocOwner g_symbolAssocOwner;
 // Gura interfaces for Object_image
 // These methods are available after importing jpeg module.
 //-----------------------------------------------------------------------------
-// image#read@jpeg(stream:stream:r):reduce
+// image#read@jpeg(stream:stream:r, size?:number):reduce
 Gura_DeclareMethodAlias(image, read_jpeg, "read@jpeg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareArg(env, "size", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Reads a JPEG image data from a stream.");
+		"Reads a JPEG image data from the specified `stream`.");
 }
 
 Gura_ImplementMethod(image, read_jpeg)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
-	if (!ImageStreamer_JPEG::ReadStream(env, sig, pThis->GetImage(), arg.GetStream(0))) {
-		return Value::Nil;
-	}
+	bool rtn = arg.IsValid(1)?
+		ImageStreamer_JPEG::ReadThumbnailStream(
+			env, sig, pThis->GetImage(), arg.GetStream(0), arg.GetSizeT(1)) :
+		ImageStreamer_JPEG::ReadStream(
+			env, sig, pThis->GetImage(), arg.GetStream(0));
+	if (!rtn) return Value::Nil;
 	return arg.GetValueThis();
 }
 
@@ -212,7 +216,7 @@ Gura_DeclareMethodAlias(image, write_jpeg, "write@jpeg")
 			   FLAG_None, 0, new Expr_Value(75));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Writes a JPEG image data to a stream.");
+		"Writes a JPEG image data to the specified `stream`.");
 }
 
 Gura_ImplementMethod(image, write_jpeg)
@@ -714,7 +718,7 @@ bool ImageStreamer_JPEG::ReadThumbnailStream(Environment &env, Signal &sig,
 	::memset(accums, 0x00, accumsSize);
 	size_t numerY = 0;
 	size_t yDst = 0;
-	while (cinfo.output_scanline <= cinfo.output_height) {
+	for (;;) {
 		if (cinfo.output_scanline < cinfo.output_height) {
 			::jpeg_read_scanlines(&cinfo, scanlines, 1);
 			if (sig.IsSignalled()) {
@@ -776,6 +780,7 @@ bool ImageStreamer_JPEG::ReadThumbnailStream(Environment &env, Signal &sig,
 			}
 			::memset(accums, 0x00, accumsSize);
 		}
+		if (cinfo.output_scanline == cinfo.output_height) break;
 	}
 	::jpeg_finish_decompress(&cinfo);
 	::jpeg_destroy_decompress(&cinfo);
