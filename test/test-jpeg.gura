@@ -20,6 +20,8 @@ tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 testcase('decode') {
 	tester_image(image('test-jpeg/monochrome.jpg'), 'monochrome',
 				 '070802098e5d97aa0c036b45cd65f8f4')
+	tester_image(image(`rgb).read@jpeg('test-jpeg/monochrome.jpg', 100), 'monochrome shrinked',
+				 'c399a55074884d6c4afd9e902bf1977a')
 }
 testcase('EXIF') {
 	pathNames = path.glob('test-jpeg/*.jpg').sort()
