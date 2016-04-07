@@ -83,7 +83,7 @@ Value Object_exif::DoGetProp(Environment &env, const Symbol *pSymbol,
 				AutoPtr<Stream> pStream(
 					new Pointer::StreamEx(
 						env, new Object_binary::PointerEx(0, _pObjBinaryThumbnail->Reference())));
-				if (!ImageStreamer_JPEG::ReadStream(env, pObjImage->GetImage(), *pStream)) {
+				if (!ImageStreamer_JPEG::ReadStream(env, pObjImage->GetImage(), *pStream, false)) {
 					return Value::Nil;
 				}
 			}

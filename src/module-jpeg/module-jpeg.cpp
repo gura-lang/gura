@@ -183,12 +183,13 @@ SymbolAssocOwner g_symbolAssocOwner;
 // Gura interfaces for Object_image
 // These methods are available after importing jpeg module.
 //-----------------------------------------------------------------------------
-// image#read@jpeg(stream:stream:r, size?:number):reduce
+// image#read@jpeg(stream:stream:r, size?:number):reduce:[fast]
 Gura_DeclareMethodAlias(image, read_jpeg, "read@jpeg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_UserSymbol(fast));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads a JPEG image data from the specified `stream`.");
@@ -196,13 +197,14 @@ Gura_DeclareMethodAlias(image, read_jpeg, "read@jpeg")
 
 Gura_ImplementMethod(image, read_jpeg)
 {
+	bool fastFlag = arg.IsSet(Gura_UserSymbol(fast));
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
 	bool rtn = arg.IsValid(1)?
 		ImageStreamer_JPEG::ReadStreamWithScaling(
-			env, pThis->GetImage(), arg.GetStream(0), arg.GetSizeT(1)) :
+			env, pThis->GetImage(), arg.GetStream(0), fastFlag, arg.GetSizeT(1)) :
 		ImageStreamer_JPEG::ReadStream(
-			env, pThis->GetImage(), arg.GetStream(0));
+			env, pThis->GetImage(), arg.GetStream(0), fastFlag);
 	if (!rtn) return Value::Nil;
 	return arg.GetValueThis();
 }
@@ -255,6 +257,7 @@ Gura_ModuleEntry()
 {
 	// symbol realization
 	Gura_RealizeUserSymbol(endian);
+	Gura_RealizeUserSymbol(fast);
 	Gura_RealizeUserSymbol(big);
 	Gura_RealizeUserSymbol(little);
 	Gura_RealizeUserSymbol(uncompressed);
@@ -621,7 +624,7 @@ bool ImageStreamer_JPEG::IsResponsible(Signal &sig, Stream &stream)
 
 bool ImageStreamer_JPEG::Read(Environment &env, Image *pImage, Stream &stream)
 {
-	return ReadStream(env, pImage, stream);
+	return ReadStream(env, pImage, stream, false);
 }
 
 bool ImageStreamer_JPEG::Write(Environment &env, Image *pImage, Stream &stream)
@@ -629,7 +632,7 @@ bool ImageStreamer_JPEG::Write(Environment &env, Image *pImage, Stream &stream)
 	return WriteStream(env, pImage, stream, 75);
 }
 
-bool ImageStreamer_JPEG::ReadStream(Environment &env, Image *pImage, Stream &stream)
+bool ImageStreamer_JPEG::ReadStream(Environment &env, Image *pImage, Stream &stream, bool fastFlag)
 {
 	Signal &sig = env.GetSignal();
 	if (!pImage->CheckEmpty(sig)) return false;
@@ -644,16 +647,24 @@ bool ImageStreamer_JPEG::ReadStream(Environment &env, Image *pImage, Stream &str
 	}
 	SourceMgr::Setup(&cinfo, &sig, &stream);
 	::jpeg_read_header(&cinfo, TRUE);
-	::jpeg_start_decompress(&cinfo);
 	if (!pImage->AllocBuffer(sig, cinfo.image_width, cinfo.image_height, 0xff)) {
 		::jpeg_destroy_decompress(&cinfo);
 		return false;
 	}
-	return ReadScanlines(sig, pImage, cinfo);
+	if (fastFlag) {
+		// Setting equivalent to -fast option of djpeg. See line.251 in djpeg.c.
+		cinfo.two_pass_quantize = FALSE;
+		cinfo.dither_mode = JDITHER_ORDERED;
+		if (!cinfo.quantize_colors) cinfo.desired_number_of_colors = 216;
+		cinfo.dct_method = JDCT_FASTEST;
+		cinfo.do_fancy_upsampling = FALSE;
+		::jpeg_calc_output_dimensions(&cinfo);	// update parameters in the structure
+	}
+	return DoDecompress(sig, pImage, cinfo);
 }
 
 bool ImageStreamer_JPEG::ReadStreamWithScaling(
-	Environment &env, Image *pImage, Stream &stream, size_t size)
+	Environment &env, Image *pImage, Stream &stream, bool fastFlag, size_t size)
 {
 	Signal &sig = env.GetSignal();
 	if (!pImage->CheckEmpty(sig)) return false;
@@ -668,7 +679,6 @@ bool ImageStreamer_JPEG::ReadStreamWithScaling(
 	}
 	SourceMgr::Setup(&cinfo, &sig, &stream);
 	::jpeg_read_header(&cinfo, TRUE);
-	::jpeg_start_decompress(&cinfo);
 	size_t width = cinfo.image_width;
 	size_t height = cinfo.image_height;
 	bool scalingFlag = false;
@@ -691,19 +701,43 @@ bool ImageStreamer_JPEG::ReadStreamWithScaling(
 		::jpeg_destroy_decompress(&cinfo);
 		return false;
 	}
-	return scalingFlag?
-		ReadScanlinesWithScalingFine(sig, pImage, cinfo) : ReadScanlines(sig, pImage, cinfo);
+	if (!scalingFlag) return DoDecompress(sig, pImage, cinfo);
+	bool calcDimensionsFlag = false;
+#if 0
+	int scaleFactor = cinfo.image_width / width;
+	if (scaleFactor >= 2) {
+		cinfo.scale_num = 1;
+		cinfo.scale_denom = 2;
+		calcDimensionsFlag = true;
+	} else if (scaleFactor >= 4) {
+		cinfo.scale_num = 1;
+		cinfo.scale_denom = 4;
+		calcDimensionsFlag = true;
+	} else if (scaleFactor >= 8) {
+		cinfo.scale_num = 1;
+		cinfo.scale_denom = 8;
+		calcDimensionsFlag = true;
+	}
+#endif
+	if (fastFlag) {
+		// Setting equivalent to -fast option of djpeg. See line.251 in djpeg.c.
+		cinfo.two_pass_quantize = FALSE;
+		cinfo.dither_mode = JDITHER_ORDERED;
+		if (!cinfo.quantize_colors) cinfo.desired_number_of_colors = 216;
+		cinfo.dct_method = JDCT_FASTEST;
+		cinfo.do_fancy_upsampling = FALSE;
+		calcDimensionsFlag = true;
+	}
+	if (calcDimensionsFlag) {
+		::jpeg_calc_output_dimensions(&cinfo);	// update parameters in the structure
+	}
+	return DoDecompressWithScalingFine(sig, pImage, cinfo);
 }
 
-bool ImageStreamer_JPEG::ReadScanlines(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
+bool ImageStreamer_JPEG::DoDecompress(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
 {
-	if (cinfo.output_components != 1 && cinfo.output_components != 3) {
-		sig.SetError(ERR_FormatError, "number of color elements must be one or three");
-		::jpeg_finish_decompress(&cinfo);
-		::jpeg_destroy_decompress(&cinfo);
-		return false;
-	}
-	bool grayScaleFlag = (cinfo.output_components == 1);
+	::jpeg_start_decompress(&cinfo);
+	bool grayScaleFlag = (cinfo.output_components != 3);
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
 					JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
 	while (cinfo.output_scanline < cinfo.output_height) {
@@ -737,16 +771,11 @@ bool ImageStreamer_JPEG::ReadScanlines(Signal &sig, Image *pImage, jpeg_decompre
 	return true;
 }
 
-bool ImageStreamer_JPEG::ReadScanlinesWithScalingFine(
+bool ImageStreamer_JPEG::DoDecompressWithScalingFine(
 	Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
 {
-	if (cinfo.output_components != 1 && cinfo.output_components != 3) {
-		sig.SetError(ERR_FormatError, "number of color elements must be one or three");
-		::jpeg_finish_decompress(&cinfo);
-		::jpeg_destroy_decompress(&cinfo);
-		return false;
-	}
-	bool grayScaleFlag = (cinfo.output_components == 1);
+	::jpeg_start_decompress(&cinfo);
+	bool grayScaleFlag = (cinfo.output_components != 3);
 	size_t width = pImage->GetWidth();
 	size_t height = pImage->GetHeight();
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
