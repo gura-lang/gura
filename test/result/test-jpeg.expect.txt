@@ -1,4 +1,8 @@
-======== #1 ========
+======== #1 decode ========
+
+monochrome           320x407 true
+
+======== #2 EXIF ========
 
 [canon-ixus.jpg]
 endian: little
@@ -325,6 +329,9 @@ endian: big
 [0202] JPEGInterchangeFormatLength      6934
 <image:rgba:160x120>
 <binary:R:6934byte>
+
+[monochrome.jpg]
+exif doesn't exist
 
 [nikon-e950.jpg]
 endian: little
