@@ -703,7 +703,6 @@ bool ImageStreamer_JPEG::ReadStreamWithScaling(
 	}
 	if (!scalingFlag) return DoDecompress(sig, pImage, cinfo);
 	bool calcDimensionsFlag = false;
-#if 0
 	int scaleFactor = cinfo.image_width / width;
 	if (scaleFactor >= 2) {
 		cinfo.scale_num = 1;
@@ -718,7 +717,6 @@ bool ImageStreamer_JPEG::ReadStreamWithScaling(
 		cinfo.scale_denom = 8;
 		calcDimensionsFlag = true;
 	}
-#endif
 	if (fastFlag) {
 		// Setting equivalent to -fast option of djpeg. See line.251 in djpeg.c.
 		cinfo.two_pass_quantize = FALSE;
@@ -750,7 +748,7 @@ bool ImageStreamer_JPEG::DoDecompress(Signal &sig, Image *pImage, jpeg_decompres
 		const UChar *srcp = scanlines[0];
 		UChar *dstp = pImage->GetPointer(0, cinfo.output_scanline - 1);
 		if (grayScaleFlag) {
-			for (UInt i = 0; i < cinfo.image_width; i++) {
+			for (UInt i = 0; i < cinfo.output_width; i++) {
 				*(dstp + Image::OffsetR) = *srcp;
 				*(dstp + Image::OffsetG) = *srcp;
 				*(dstp + Image::OffsetB) = *srcp;
@@ -758,7 +756,7 @@ bool ImageStreamer_JPEG::DoDecompress(Signal &sig, Image *pImage, jpeg_decompres
 				dstp += pImage->GetBytesPerPixel();
 			}
 		} else {
-			for (UInt i = 0; i < cinfo.image_width; i++) {
+			for (UInt i = 0; i < cinfo.output_width; i++) {
 				*(dstp + Image::OffsetR) = *srcp++;
 				*(dstp + Image::OffsetG) = *srcp++;
 				*(dstp + Image::OffsetB) = *srcp++;
@@ -802,29 +800,29 @@ bool ImageStreamer_JPEG::DoDecompressWithScalingFine(
 			size_t xDst = 0;
 			size_t numerX = 0;
 			if (grayScaleFlag) {
-				for (UInt xSrc = 0; xSrc < cinfo.image_width; xSrc++) {
+				for (UInt xSrc = 0; xSrc < cinfo.output_width; xSrc++) {
 					pAccum->AddRGB(srcp[0], srcp[0], srcp[0]);
 					srcp += 1;
 					numerX += width;
-					for ( ; numerX >= cinfo.image_width && xDst < width;
-						  numerX -= cinfo.image_width, xDst++) {
+					for ( ; numerX >= cinfo.output_width && xDst < width;
+						  numerX -= cinfo.output_width, xDst++) {
 						pAccum++;
 					}
 				}
 			} else {
-				for (UInt xSrc = 0; xSrc < cinfo.image_width; xSrc++) {
+				for (UInt xSrc = 0; xSrc < cinfo.output_width; xSrc++) {
 					pAccum->AddRGB(srcp[0], srcp[1], srcp[2]);
 					srcp += 3;
 					numerX += width;
-					for ( ; numerX >= cinfo.image_width && xDst < width;
-						  numerX -= cinfo.image_width, xDst++) {
+					for ( ; numerX >= cinfo.output_width && xDst < width;
+						  numerX -= cinfo.output_width, xDst++) {
 						pAccum++;
 					}
 				}
 			}
 		}
 		numerY += height;
-		if (numerY >= cinfo.image_height) {
+		if (numerY >= cinfo.output_height) {
 			if (accums[0].cnt == 0) accums[0].cnt = 0; // this must not happen
 			Image::Accum *pAccum = accums;
 			Image::Accum *pAccumPrev = accums;
@@ -851,8 +849,8 @@ bool ImageStreamer_JPEG::DoDecompressWithScalingFine(
 					pAccumPrev = pAccum;
 				}
 			}
-			for ( ; numerY >= cinfo.image_height && yDst < height;
-				  numerY -= cinfo.image_height, yDst++) {
+			for ( ; numerY >= cinfo.output_height && yDst < height;
+				  numerY -= cinfo.output_height, yDst++) {
 				Image::Accum *pAccum = accums;
 				UChar *pPixelDst = pLineDst;
 				for (size_t xDst = 0; xDst < width;
