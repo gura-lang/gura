@@ -199,7 +199,7 @@ Gura_ImplementMethod(image, read_jpeg)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
 	bool rtn = arg.IsValid(1)?
-		ImageStreamer_JPEG::ReadStreamWithBoxing(
+		ImageStreamer_JPEG::ReadStreamWithScaling(
 			env, pThis->GetImage(), arg.GetStream(0), arg.GetSizeT(1)) :
 		ImageStreamer_JPEG::ReadStream(
 			env, pThis->GetImage(), arg.GetStream(0));
@@ -652,7 +652,7 @@ bool ImageStreamer_JPEG::ReadStream(Environment &env, Image *pImage, Stream &str
 	return ReadScanlines(sig, pImage, cinfo);
 }
 
-bool ImageStreamer_JPEG::ReadStreamWithBoxing(
+bool ImageStreamer_JPEG::ReadStreamWithScaling(
 	Environment &env, Image *pImage, Stream &stream, size_t size)
 {
 	Signal &sig = env.GetSignal();
@@ -671,28 +671,28 @@ bool ImageStreamer_JPEG::ReadStreamWithBoxing(
 	::jpeg_start_decompress(&cinfo);
 	size_t width = cinfo.image_width;
 	size_t height = cinfo.image_height;
-	bool boxingFlag = false;
+	bool scalingFlag = false;
 	if (width > height) {
 		if (width > size) {
 			width = size;
 			height = cinfo.image_height * size / cinfo.image_width;
 			if (height == 0) height = 1;
-			boxingFlag = true;
+			scalingFlag = true;
 		}
 	} else {
 		if (height > size) {
 			width = cinfo.image_width * size / cinfo.image_height;
 			height = size;
 			if (width == 0) width = 1;
-			boxingFlag = true;
+			scalingFlag = true;
 		}
 	}
 	if (!pImage->AllocBuffer(sig, width, height, 0xff)) {
 		::jpeg_destroy_decompress(&cinfo);
 		return false;
 	}
-	return boxingFlag?
-		ReadScanlinesWithBoxing(sig, pImage, cinfo) : ReadScanlines(sig, pImage, cinfo);
+	return scalingFlag?
+		ReadScanlinesWithScalingFine(sig, pImage, cinfo) : ReadScanlines(sig, pImage, cinfo);
 }
 
 bool ImageStreamer_JPEG::ReadScanlines(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
@@ -737,7 +737,7 @@ bool ImageStreamer_JPEG::ReadScanlines(Signal &sig, Image *pImage, jpeg_decompre
 	return true;
 }
 
-bool ImageStreamer_JPEG::ReadScanlinesWithBoxing(
+bool ImageStreamer_JPEG::ReadScanlinesWithScalingFine(
 	Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
 {
 	if (cinfo.output_components != 1 && cinfo.output_components != 3) {

@@ -374,11 +374,11 @@ public:
 	virtual bool Write(Environment &env, Image *pImage, Stream &stream);
 public:
 	static bool ReadStream(Environment &env, Image *pImage, Stream &stream);
-	static bool ReadStreamWithBoxing(Environment &env, Image *pImage, Stream &stream, size_t size);
+	static bool ReadStreamWithScaling(Environment &env, Image *pImage, Stream &stream, size_t size);
 	static bool WriteStream(Environment &env, Image *pImage, Stream &stream, int quality);
 private:
 	static bool ReadScanlines(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
-	static bool ReadScanlinesWithBoxing(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
+	static bool ReadScanlinesWithScalingFine(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
 };
 
 //-----------------------------------------------------------------------------
