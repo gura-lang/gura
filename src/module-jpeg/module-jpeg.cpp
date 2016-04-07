@@ -200,9 +200,9 @@ Gura_ImplementMethod(image, read_jpeg)
 	Object_image *pThis = Object_image::GetObjectThis(arg);
 	bool rtn = arg.IsValid(1)?
 		ImageStreamer_JPEG::ReadThumbnailStream(
-			env, sig, pThis->GetImage(), arg.GetStream(0), arg.GetSizeT(1)) :
+			env, pThis->GetImage(), arg.GetStream(0), arg.GetSizeT(1)) :
 		ImageStreamer_JPEG::ReadStream(
-			env, sig, pThis->GetImage(), arg.GetStream(0));
+			env, pThis->GetImage(), arg.GetStream(0));
 	if (!rtn) return Value::Nil;
 	return arg.GetValueThis();
 }
@@ -221,10 +221,9 @@ Gura_DeclareMethodAlias(image, write_jpeg, "write@jpeg")
 
 Gura_ImplementMethod(image, write_jpeg)
 {
-	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
-	if (!ImageStreamer_JPEG::WriteStream(env, sig,
-							pThis->GetImage(), arg.GetStream(0), arg.GetInt(1))) {
+	if (!ImageStreamer_JPEG::WriteStream(
+			env, pThis->GetImage(), arg.GetStream(0), arg.GetInt(1))) {
 		return Value::Nil;
 	}
 	return arg.GetValueThis();
@@ -622,18 +621,17 @@ bool ImageStreamer_JPEG::IsResponsible(Signal &sig, Stream &stream)
 
 bool ImageStreamer_JPEG::Read(Environment &env, Image *pImage, Stream &stream)
 {
-	Signal &sig = env.GetSignal();
-	return ReadStream(env, sig, pImage, stream);
+	return ReadStream(env, pImage, stream);
 }
 
 bool ImageStreamer_JPEG::Write(Environment &env, Image *pImage, Stream &stream)
 {
-	Signal &sig = env.GetSignal();
-	return WriteStream(env, sig, pImage, stream, 75);
+	return WriteStream(env, pImage, stream, 75);
 }
 
-bool ImageStreamer_JPEG::ReadStream(Environment &env, Signal &sig, Image *pImage, Stream &stream)
+bool ImageStreamer_JPEG::ReadStream(Environment &env, Image *pImage, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	if (!pImage->CheckEmpty(sig)) return false;
 	ErrorMgr errMgr(sig);
 	jpeg_decompress_struct cinfo;
@@ -674,9 +672,10 @@ bool ImageStreamer_JPEG::ReadStream(Environment &env, Signal &sig, Image *pImage
 	return true;
 }
 
-bool ImageStreamer_JPEG::ReadThumbnailStream(Environment &env, Signal &sig,
-											 Image *pImage, Stream &stream, size_t size)
+bool ImageStreamer_JPEG::ReadThumbnailStream(
+	Environment &env, Image *pImage, Stream &stream, size_t size)
 {
+	Signal &sig = env.GetSignal();
 	if (!pImage->CheckEmpty(sig)) return false;
 	ErrorMgr errMgr(sig);
 	jpeg_decompress_struct cinfo;
@@ -787,9 +786,9 @@ bool ImageStreamer_JPEG::ReadThumbnailStream(Environment &env, Signal &sig,
 	return true;
 }
 
-bool ImageStreamer_JPEG::WriteStream(Environment &env, Signal &sig,
-									 Image *pImage, Stream &stream, int quality)
+bool ImageStreamer_JPEG::WriteStream(Environment &env, Image *pImage, Stream &stream, int quality)
 {
+	Signal &sig = env.GetSignal();
 	if (!pImage->CheckValid(sig)) return false;
 	ErrorMgr errMgr(sig);
 	jpeg_compress_struct cinfo;

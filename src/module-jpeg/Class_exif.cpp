@@ -83,7 +83,7 @@ Value Object_exif::DoGetProp(Environment &env, const Symbol *pSymbol,
 				AutoPtr<Stream> pStream(
 					new Pointer::StreamEx(
 						env, new Object_binary::PointerEx(0, _pObjBinaryThumbnail->Reference())));
-				if (!ImageStreamer_JPEG::ReadStream(env, sig, pObjImage->GetImage(), *pStream)) {
+				if (!ImageStreamer_JPEG::ReadStream(env, pObjImage->GetImage(), *pStream)) {
 					return Value::Nil;
 				}
 			}
@@ -102,8 +102,9 @@ String Object_exif::ToString(bool exprFlag)
 	return String("<jpeg.exif>");
 }
 
-Object_exif *Object_exif::ReadStream(Environment &env, Signal &sig, Stream &stream)
+Object_exif *Object_exif::ReadStream(Environment &env, Stream &stream)
 {
+	Signal &sig = env.GetSignal();
 	AutoPtr<Memory> pMemory(new MemoryHeap(65536));
 	char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 	SHORT_BE *pShort = reinterpret_cast<SHORT_BE *>(buff);
@@ -265,15 +266,14 @@ Gura_DeclareFunction(exif)
 
 Gura_ImplementFunction(exif)
 {
-	Signal &sig = env.GetSignal();
 	Value value;
 	if (arg.Is_stream(0)) {
-		Object_exif *pObj = Object_exif::ReadStream(env, sig, arg.GetStream(0));
-		if (sig.IsSignalled()) return Value::Nil;
+		Object_exif *pObj = Object_exif::ReadStream(env, arg.GetStream(0));
+		if (env.IsSignalled()) return Value::Nil;
 		if (pObj != nullptr) {
 			value = Value(pObj);
 		} else if (arg.IsSet(Gura_Symbol(raise))) {
-			sig.SetError(ERR_FormatError, "Exif information doesn't exist");
+			env.SetError(ERR_FormatError, "Exif information doesn't exist");
 			return Value::Nil;
 		}
 	} else {
