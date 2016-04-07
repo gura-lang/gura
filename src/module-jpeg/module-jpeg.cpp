@@ -703,7 +703,7 @@ bool ImageStreamer_JPEG::ReadScanlines(Signal &sig, Image *pImage, jpeg_decompre
 		::jpeg_destroy_decompress(&cinfo);
 		return false;
 	}
-	bool monoFlag = (cinfo.output_components == 1);
+	bool grayScaleFlag = (cinfo.output_components == 1);
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
 					JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
 	while (cinfo.output_scanline < cinfo.output_height) {
@@ -715,7 +715,7 @@ bool ImageStreamer_JPEG::ReadScanlines(Signal &sig, Image *pImage, jpeg_decompre
 		}
 		const UChar *srcp = scanlines[0];
 		UChar *dstp = pImage->GetPointer(0, cinfo.output_scanline - 1);
-		if (monoFlag) {
+		if (grayScaleFlag) {
 			for (UInt i = 0; i < cinfo.image_width; i++) {
 				*(dstp + Image::OffsetR) = *srcp;
 				*(dstp + Image::OffsetG) = *srcp;
@@ -746,7 +746,7 @@ bool ImageStreamer_JPEG::ReadScanlinesWithBoxing(
 		::jpeg_destroy_decompress(&cinfo);
 		return false;
 	}
-	bool monoFlag = (cinfo.output_components == 1);
+	bool grayScaleFlag = (cinfo.output_components == 1);
 	size_t width = pImage->GetWidth();
 	size_t height = pImage->GetHeight();
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
@@ -772,7 +772,7 @@ bool ImageStreamer_JPEG::ReadScanlinesWithBoxing(
 			Image::Accum *pAccum = accums;
 			size_t xDst = 0;
 			size_t numerX = 0;
-			if (monoFlag) {
+			if (grayScaleFlag) {
 				for (UInt xSrc = 0; xSrc < cinfo.image_width; xSrc++) {
 					pAccum->AddRGB(srcp[0], srcp[0], srcp[0]);
 					srcp += 1;

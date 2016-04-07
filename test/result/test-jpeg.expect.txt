@@ -1,6 +1,7 @@
 ======== #1 decode ========
 
-monochrome           320x407 true
+grayscale            320x407 true
+grayscale shrinked    78x100 true
 
 ======== #2 EXIF ========
 
@@ -231,6 +232,9 @@ endian: little
 <image:rgba:160x120>
 <binary:R:4354byte>
 
+[grayscale.jpg]
+exif doesn't exist
+
 [kodak-dc210.jpg]
 endian: big
 = ifd0 =
@@ -329,9 +333,6 @@ endian: big
 [0202] JPEGInterchangeFormatLength      6934
 <image:rgba:160x120>
 <binary:R:6934byte>
-
-[monochrome.jpg]
-exif doesn't exist
 
 [nikon-e950.jpg]
 endian: little
