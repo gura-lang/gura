@@ -199,7 +199,7 @@ Gura_ImplementMethod(image, read_jpeg)
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
 	bool rtn = arg.IsValid(1)?
-		ImageStreamer_JPEG::ReadThumbnailStream(
+		ImageStreamer_JPEG::ReadStreamWithBoxing(
 			env, pThis->GetImage(), arg.GetStream(0), arg.GetSizeT(1)) :
 		ImageStreamer_JPEG::ReadStream(
 			env, pThis->GetImage(), arg.GetStream(0));
@@ -649,30 +649,10 @@ bool ImageStreamer_JPEG::ReadStream(Environment &env, Image *pImage, Stream &str
 		::jpeg_destroy_decompress(&cinfo);
 		return false;
 	}
-	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
-					JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
-	while (cinfo.output_scanline < cinfo.output_height) {
-		::jpeg_read_scanlines(&cinfo, scanlines, 1);
-		if (sig.IsSignalled()) {
-			::jpeg_finish_decompress(&cinfo);
-			::jpeg_destroy_decompress(&cinfo);
-			return false;
-		}
-		const UChar *srcp = scanlines[0];
-		UChar *dstp = pImage->GetPointer(0, cinfo.output_scanline - 1);
-		for (UInt i = 0; i < cinfo.image_width; i++) {
-			*(dstp + Image::OffsetR) = *srcp++;
-			*(dstp + Image::OffsetG) = *srcp++;
-			*(dstp + Image::OffsetB) = *srcp++;
-			dstp += pImage->GetBytesPerPixel();
-		}
-	}
-	::jpeg_finish_decompress(&cinfo);
-	::jpeg_destroy_decompress(&cinfo);
-	return true;
+	return ReadScanlines(sig, pImage, cinfo);
 }
 
-bool ImageStreamer_JPEG::ReadThumbnailStream(
+bool ImageStreamer_JPEG::ReadStreamWithBoxing(
 	Environment &env, Image *pImage, Stream &stream, size_t size)
 {
 	Signal &sig = env.GetSignal();
@@ -691,21 +671,84 @@ bool ImageStreamer_JPEG::ReadThumbnailStream(
 	::jpeg_start_decompress(&cinfo);
 	size_t width = cinfo.image_width;
 	size_t height = cinfo.image_height;
+	bool boxingFlag = false;
 	if (width > height) {
 		if (width > size) {
 			width = size;
 			height = cinfo.image_height * size / cinfo.image_width;
+			if (height == 0) height = 1;
+			boxingFlag = true;
 		}
 	} else {
 		if (height > size) {
 			width = cinfo.image_width * size / cinfo.image_height;
 			height = size;
+			if (width == 0) width = 1;
+			boxingFlag = true;
 		}
 	}
 	if (!pImage->AllocBuffer(sig, width, height, 0xff)) {
 		::jpeg_destroy_decompress(&cinfo);
 		return false;
 	}
+	return boxingFlag?
+		ReadScanlinesWithBoxing(sig, pImage, cinfo) : ReadScanlines(sig, pImage, cinfo);
+}
+
+bool ImageStreamer_JPEG::ReadScanlines(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
+{
+	if (cinfo.output_components != 1 && cinfo.output_components != 3) {
+		sig.SetError(ERR_FormatError, "number of color elements must be one or three");
+		::jpeg_finish_decompress(&cinfo);
+		::jpeg_destroy_decompress(&cinfo);
+		return false;
+	}
+	bool monoFlag = (cinfo.output_components == 1);
+	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
+					JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
+	while (cinfo.output_scanline < cinfo.output_height) {
+		::jpeg_read_scanlines(&cinfo, scanlines, 1);
+		if (sig.IsSignalled()) {
+			::jpeg_finish_decompress(&cinfo);
+			::jpeg_destroy_decompress(&cinfo);
+			return false;
+		}
+		const UChar *srcp = scanlines[0];
+		UChar *dstp = pImage->GetPointer(0, cinfo.output_scanline - 1);
+		if (monoFlag) {
+			for (UInt i = 0; i < cinfo.image_width; i++) {
+				*(dstp + Image::OffsetR) = *srcp;
+				*(dstp + Image::OffsetG) = *srcp;
+				*(dstp + Image::OffsetB) = *srcp;
+				srcp++;
+				dstp += pImage->GetBytesPerPixel();
+			}
+		} else {
+			for (UInt i = 0; i < cinfo.image_width; i++) {
+				*(dstp + Image::OffsetR) = *srcp++;
+				*(dstp + Image::OffsetG) = *srcp++;
+				*(dstp + Image::OffsetB) = *srcp++;
+				dstp += pImage->GetBytesPerPixel();
+			}
+		}
+	}
+	::jpeg_finish_decompress(&cinfo);
+	::jpeg_destroy_decompress(&cinfo);
+	return true;
+}
+
+bool ImageStreamer_JPEG::ReadScanlinesWithBoxing(
+	Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
+{
+	if (cinfo.output_components != 1 && cinfo.output_components != 3) {
+		sig.SetError(ERR_FormatError, "number of color elements must be one or three");
+		::jpeg_finish_decompress(&cinfo);
+		::jpeg_destroy_decompress(&cinfo);
+		return false;
+	}
+	bool monoFlag = (cinfo.output_components == 1);
+	size_t width = pImage->GetWidth();
+	size_t height = pImage->GetHeight();
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
 					JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
 	UChar *pLineDst = pImage->GetPointer(0);
@@ -729,13 +772,25 @@ bool ImageStreamer_JPEG::ReadThumbnailStream(
 			Image::Accum *pAccum = accums;
 			size_t xDst = 0;
 			size_t numerX = 0;
-			for (UInt xSrc = 0; xSrc < cinfo.image_width; xSrc++) {
-				pAccum->AddRGB(srcp[0], srcp[1], srcp[2]);
-				srcp += 3;
-				numerX += width;
-				for ( ; numerX >= cinfo.image_width && xDst < width;
-					  numerX -= cinfo.image_width, xDst++) {
-					pAccum++;
+			if (monoFlag) {
+				for (UInt xSrc = 0; xSrc < cinfo.image_width; xSrc++) {
+					pAccum->AddRGB(srcp[0], srcp[0], srcp[0]);
+					srcp += 1;
+					numerX += width;
+					for ( ; numerX >= cinfo.image_width && xDst < width;
+						  numerX -= cinfo.image_width, xDst++) {
+						pAccum++;
+					}
+				}
+			} else {
+				for (UInt xSrc = 0; xSrc < cinfo.image_width; xSrc++) {
+					pAccum->AddRGB(srcp[0], srcp[1], srcp[2]);
+					srcp += 3;
+					numerX += width;
+					for ( ; numerX >= cinfo.image_width && xDst < width;
+						  numerX -= cinfo.image_width, xDst++) {
+						pAccum++;
+					}
 				}
 			}
 		}
