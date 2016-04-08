@@ -184,7 +184,7 @@ SymbolAssocOwner g_symbolAssocOwner;
 // These methods are available after importing jpeg module.
 //-----------------------------------------------------------------------------
 // image#read@jpeg(stream:stream:r, size?:number):reduce:[fast]
-Gura_DeclareMethodAlias(image, read_jpeg, "read@jpeg")
+Gura_DeclareMethodAlias(image, read_at_jpeg, "read@jpeg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -195,7 +195,7 @@ Gura_DeclareMethodAlias(image, read_jpeg, "read@jpeg")
 		"Reads a JPEG image data from the specified `stream`.");
 }
 
-Gura_ImplementMethod(image, read_jpeg)
+Gura_ImplementMethod(image, read_at_jpeg)
 {
 	bool fastFlag = arg.IsSet(Gura_UserSymbol(fast));
 	Signal &sig = env.GetSignal();
@@ -210,7 +210,7 @@ Gura_ImplementMethod(image, read_jpeg)
 }
 
 // image#write@jpeg(stream:stream:w, quality:number => 75):reduce
-Gura_DeclareMethodAlias(image, write_jpeg, "write@jpeg")
+Gura_DeclareMethodAlias(image, write_at_jpeg, "write@jpeg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
@@ -221,7 +221,7 @@ Gura_DeclareMethodAlias(image, write_jpeg, "write@jpeg")
 		"Writes a JPEG image data to the specified `stream`.");
 }
 
-Gura_ImplementMethod(image, write_jpeg)
+Gura_ImplementMethod(image, write_at_jpeg)
 {
 	Object_image *pThis = Object_image::GetObjectThis(arg);
 	if (!ImageStreamer_JPEG::WriteStream(
@@ -283,8 +283,8 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(test);
 	// method assignment to image
-	Gura_AssignMethodTo(VTYPE_image, image, read_jpeg);
-	Gura_AssignMethodTo(VTYPE_image, image, write_jpeg);
+	Gura_AssignMethodTo(VTYPE_image, image, read_at_jpeg);
+	Gura_AssignMethodTo(VTYPE_image, image, write_at_jpeg);
 	// image streamer registration
 	ImageStreamer::Register(new ImageStreamer_JPEG());
 	do {

@@ -1385,7 +1385,7 @@ Gura_ImplementUserClass(imgprop)
 // These methods are available after importing gif module.
 //-----------------------------------------------------------------------------
 // image#read@gif(stream:stream:r):reduce
-Gura_DeclareMethodAlias(image, read_gif, "read@gif")
+Gura_DeclareMethodAlias(image, read_at_gif, "read@gif")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -1396,7 +1396,7 @@ Gura_DeclareMethodAlias(image, read_gif, "read@gif")
 		"This method returns the reference to the target instance itself.\n");
 }
 
-Gura_ImplementMethod(image, read_gif)
+Gura_ImplementMethod(image, read_at_gif)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
@@ -1410,7 +1410,7 @@ Gura_ImplementMethod(image, read_gif)
 }
 
 // image#write@gif(stream:stream:w):reduce
-Gura_DeclareMethodAlias(image, write_gif, "write@gif")
+Gura_DeclareMethodAlias(image, write_at_gif, "write@gif")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
@@ -1421,7 +1421,7 @@ Gura_DeclareMethodAlias(image, write_gif, "write@gif")
 		"This method returns the reference to the target instance itself.\n");
 }
 
-Gura_ImplementMethod(image, write_gif)
+Gura_ImplementMethod(image, write_at_gif)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
@@ -1548,8 +1548,8 @@ Gura_ModuleEntry()
 	Gura_RealizeAndPrepareUserClass(ImageDescriptor, env.LookupClass(VTYPE_object));
 	Gura_RealizeAndPrepareUserClass(imgprop, env.LookupClass(VTYPE_object));
 	// method assignment to image class
-	Gura_AssignMethodTo(VTYPE_image, image, read_gif);
-	Gura_AssignMethodTo(VTYPE_image, image, write_gif);
+	Gura_AssignMethodTo(VTYPE_image, image, read_at_gif);
+	Gura_AssignMethodTo(VTYPE_image, image, write_at_gif);
 	// function assignment
 	Gura_AssignFunction(content);
 	// image streamer registration

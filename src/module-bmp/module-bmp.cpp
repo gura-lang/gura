@@ -10,7 +10,7 @@ Gura_BeginModuleBody(bmp)
 // These methods are available after importing bmp module.
 //-----------------------------------------------------------------------------
 // image#read@bmp(stream:stream:r):reduce
-Gura_DeclareMethodAlias(image, read_bmp, "read@bmp")
+Gura_DeclareMethodAlias(image, read_at_bmp, "read@bmp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
@@ -21,7 +21,7 @@ Gura_DeclareMethodAlias(image, read_bmp, "read@bmp")
 		"This method returns the reference to the target instance itself.\n");
 }
 
-Gura_ImplementMethod(image, read_bmp)
+Gura_ImplementMethod(image, read_at_bmp)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
@@ -30,7 +30,7 @@ Gura_ImplementMethod(image, read_bmp)
 }
 
 // image#write@bmp(stream:stream:w):reduce
-Gura_DeclareMethodAlias(image, write_bmp, "write@bmp")
+Gura_DeclareMethodAlias(image, write_at_bmp, "write@bmp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
@@ -41,7 +41,7 @@ Gura_DeclareMethodAlias(image, write_bmp, "write@bmp")
 		"This method returns the reference to the target instance itself.\n");
 }
 
-Gura_ImplementMethod(image, write_bmp)
+Gura_ImplementMethod(image, write_at_bmp)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
@@ -59,8 +59,8 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
-	Gura_AssignMethodTo(VTYPE_image, image, read_bmp);
-	Gura_AssignMethodTo(VTYPE_image, image, write_bmp);
+	Gura_AssignMethodTo(VTYPE_image, image, read_at_bmp);
+	Gura_AssignMethodTo(VTYPE_image, image, write_at_bmp);
 	ImageStreamer::Register(new ImageStreamer_BMP());
 	return true;
 }
