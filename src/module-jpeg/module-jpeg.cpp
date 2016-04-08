@@ -192,7 +192,12 @@ Gura_DeclareMethodAlias(image, read_at_jpeg, "read@jpeg")
 	DeclareAttr(Gura_UserSymbol(fast));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Reads a JPEG image data from the specified `stream`.");
+		"Reads a JPEG image data from the specified `stream`.\n"
+		"\n"
+		"When the argument `size` is specified, the image would be shrinked so that\n"
+		"it is boxed within the size.\n"
+		"\n"
+		"The attribute `:fast` indicates a fast but less-qualified decompression process.\n");
 }
 
 Gura_ImplementMethod(image, read_at_jpeg)
@@ -218,7 +223,12 @@ Gura_DeclareMethodAlias(image, write_at_jpeg, "write@jpeg")
 			   FLAG_None, 0, new Expr_Value(75));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Writes a JPEG image data to the specified `stream`.");
+		"Writes a JPEG image data to the specified `stream`.\n"
+		"\n"
+		"The argument `quality` takes a number between 0 and 100\n"
+		"with which a a higher number results in a higher quality of result\n"
+		"but a less compression performance.\n"
+		"The default value for it is 75.\n");
 }
 
 Gura_ImplementMethod(image, write_at_jpeg)
