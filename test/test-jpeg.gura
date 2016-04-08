@@ -16,12 +16,25 @@ tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height,
 		   md5.hexdigest in hexdigestExpect.split(';') || md5.hexdigest)
 }
-
 testcase('decode') {
+	tester_image(image(`rgb).read@jpeg('test-jpeg/fujifilm-dx10.jpg', 512), 'scaled to 1/2',
+				 '18abada2ff72aeaa56516d3d7131453f')
+	tester_image(image(`rgb).read@jpeg('test-jpeg/fujifilm-dx10.jpg', 340), 'scaled to 1/3',
+				 '384297391e773788997d56ed4af1f026')
+	tester_image(image(`rgb).read@jpeg('test-jpeg/fujifilm-dx10.jpg', 256), 'scaled to 1/4',
+				 '0980e9c5fe8241c788ef2b3c091cdab4')
+	tester_image(image(`rgb).read@jpeg('test-jpeg/fujifilm-dx10.jpg', 170), 'scaled to 1/6',
+				 'f9ad4a62f781db54f182869d6899df7d')
+	tester_image(image(`rgb).read@jpeg('test-jpeg/fujifilm-dx10.jpg', 128), 'scaled to 1/8',
+				 '2b8c73fc7a948b1caa9529a57a0ac244')
+	tester_image(image(`rgb).read@jpeg('test-jpeg/fujifilm-dx10.jpg', 100), 'scaled to 1/10',
+				 '9de392479d54b15859538a25ec07796f')
+	tester_image(image(`rgb).read@jpeg('test-jpeg/fujifilm-dx10.jpg', 64), 'scaled to 1/16',
+				 '07bc6bd540830214126446c8911abdb2')
 	tester_image(image('test-jpeg/grayscale.jpg'), 'grayscale',
 				 '070802098e5d97aa0c036b45cd65f8f4')
 	tester_image(image(`rgb).read@jpeg('test-jpeg/grayscale.jpg', 100), 'grayscale shrinked',
-				 'c399a55074884d6c4afd9e902bf1977a')
+				 '867b37733a7b13a4c469dbe2f00bb415')
 }
 testcase('EXIF') {
 	pathNames = path.glob('test-jpeg/*.jpg').sort()

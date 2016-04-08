@@ -1,5 +1,12 @@
 ======== #1 decode ========
 
+scaled to 1/2        512x384 true
+scaled to 1/3        340x255 true
+scaled to 1/4        256x192 true
+scaled to 1/6        170x127 true
+scaled to 1/8        128x 96 true
+scaled to 1/10       100x 75 true
+scaled to 1/16        64x 48 true
 grayscale            320x407 true
 grayscale shrinked    78x100 true
 
