@@ -739,7 +739,9 @@ bool ImageStreamer_JPEG::ReadStreamWithScaling(
 	if (calcDimensionsFlag) {
 		::jpeg_calc_output_dimensions(&cinfo);	// update parameters in the structure
 	}
-	return DoDecompressWithScalingFine(sig, pImage, cinfo);
+	return fastFlag?
+		DoDecompressWithNearestNeighborScaling(sig, pImage, cinfo) :
+		DoDecompressWithBilinearScaling(sig, pImage, cinfo);
 }
 
 bool ImageStreamer_JPEG::DoDecompress(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
@@ -779,7 +781,7 @@ bool ImageStreamer_JPEG::DoDecompress(Signal &sig, Image *pImage, jpeg_decompres
 	return true;
 }
 
-bool ImageStreamer_JPEG::DoDecompressWithScalingFine(
+bool ImageStreamer_JPEG::DoDecompressWithBilinearScaling(
 	Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
 {
 	::jpeg_start_decompress(&cinfo);
@@ -878,7 +880,7 @@ bool ImageStreamer_JPEG::DoDecompressWithScalingFine(
 	return true;
 }
 
-bool ImageStreamer_JPEG::DoDecompressWithScalingFast(
+bool ImageStreamer_JPEG::DoDecompressWithNearestNeighborScaling(
 	Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
 {
 	::jpeg_start_decompress(&cinfo);
@@ -892,6 +894,17 @@ bool ImageStreamer_JPEG::DoDecompressWithScalingFast(
 	size_t bytesPerLineDst = pImage->GetBytesPerLine();
 	size_t yDst = 0;
 	size_t ySrc = 0, ySrcNext = 0;
+	AutoPtr<Memory> pMemory(new MemoryHeap(sizeof(UInt) * widthDst));
+	UInt *offsetDst = reinterpret_cast<UInt *>(pMemory->GetPointer());
+	if (grayScaleFlag) {
+		for (UInt xDst = 0; xDst < widthDst; xDst++) {
+			offsetDst[xDst] = xDst * cinfo.output_width / widthDst;
+		}
+	} else {
+		for (UInt xDst = 0; xDst < widthDst; xDst++) {
+			offsetDst[xDst] = xDst * cinfo.output_width / widthDst * 3;
+		}
+	}
 	while (cinfo.output_scanline < cinfo.output_height) {
 		::jpeg_read_scanlines(&cinfo, scanlines, 1);
 		if (sig.IsSignalled()) {
@@ -908,7 +921,7 @@ bool ImageStreamer_JPEG::DoDecompressWithScalingFast(
 		if (grayScaleFlag) {
 			UChar *pPixelDst = pLineDst;
 			for (UInt xDst = 0; xDst < widthDst; xDst++) {
-				const UChar *pPixelSrc = pLineSrc + xDst * cinfo.output_width / widthDst;
+				const UChar *pPixelSrc = pLineSrc + offsetDst[xDst];
 				*(pPixelDst + Image::OffsetR) = *pPixelSrc;
 				*(pPixelDst + Image::OffsetG) = *pPixelSrc;
 				*(pPixelDst + Image::OffsetB) = *pPixelSrc;
@@ -917,7 +930,7 @@ bool ImageStreamer_JPEG::DoDecompressWithScalingFast(
 		} else {
 			UChar *pPixelDst = pLineDst;
 			for (UInt xDst = 0; xDst < widthDst; xDst++) {
-				const UChar *pPixelSrc = pLineSrc + xDst * cinfo.output_width / widthDst * 3;
+				const UChar *pPixelSrc = pLineSrc + offsetDst[xDst];
 				*(pPixelDst + Image::OffsetR) = *(pPixelSrc + 0);
 				*(pPixelDst + Image::OffsetG) = *(pPixelSrc + 1);
 				*(pPixelDst + Image::OffsetB) = *(pPixelSrc + 2);

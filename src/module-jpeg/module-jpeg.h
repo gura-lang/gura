@@ -379,8 +379,8 @@ public:
 	static bool WriteStream(Environment &env, Image *pImage, Stream &stream, int quality);
 private:
 	static bool DoDecompress(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
-	static bool DoDecompressWithScalingFine(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
-	static bool DoDecompressWithScalingFast(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
+	static bool DoDecompressWithBilinearScaling(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
+	static bool DoDecompressWithNearestNeighborScaling(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
 };
 
 //-----------------------------------------------------------------------------
