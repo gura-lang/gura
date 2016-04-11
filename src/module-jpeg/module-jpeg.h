@@ -12,8 +12,9 @@ extern "C" {
 
 Gura_BeginModuleHeader(jpeg)
 
-Gura_DeclareUserSymbol(endian);
 Gura_DeclareUserSymbol(fast);
+Gura_DeclareUserSymbol(rough);
+Gura_DeclareUserSymbol(endian);
 Gura_DeclareUserSymbol(big);
 Gura_DeclareUserSymbol(little);
 Gura_DeclareUserSymbol(uncompressed);
@@ -375,7 +376,8 @@ public:
 	virtual bool Write(Environment &env, Image *pImage, Stream &stream);
 public:
 	static bool ReadStream(Environment &env, Image *pImage, Stream &stream, bool fastFlag);
-	static bool ReadStreamWithScaling(Environment &env, Image *pImage, Stream &stream, bool fastFlag, size_t size);
+	static bool ReadStreamWithScaling(Environment &env, Image *pImage, Stream &stream,
+									  bool fastFlag, size_t size, bool roughFlag);
 	static bool WriteStream(Environment &env, Image *pImage, Stream &stream, int quality);
 private:
 	static bool DoDecompress(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);

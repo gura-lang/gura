@@ -1,0 +1,17 @@
+#!/usr/bin/env gura
+import(jpeg)
+import(show)
+
+pathName = '../resource/flower.jpg'
+t = os.clock {
+	repeat(100) {
+		image(`rgb).read@jpeg(pathName, 100):fast
+	}
+}
+println(':fast .. ', t)
+t = os.clock {
+	repeat(100) {
+		image(`rgb).read@jpeg(pathName, 100):fast:rough
+	}
+}
+println(':fast:rough .. ', t)

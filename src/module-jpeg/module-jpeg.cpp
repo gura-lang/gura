@@ -183,13 +183,14 @@ SymbolAssocOwner g_symbolAssocOwner;
 // Gura interfaces for Object_image
 // These methods are available after importing jpeg module.
 //-----------------------------------------------------------------------------
-// image#read@jpeg(stream:stream:r, size?:number):reduce:[fast]
+// image#read@jpeg(stream:stream:r, size?:number):reduce:[fast,rough]
 Gura_DeclareMethodAlias(image, read_at_jpeg, "read@jpeg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "size", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(fast));
+	DeclareAttr(Gura_UserSymbol(rough));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads a JPEG image data from the specified `stream`.\n"
@@ -197,17 +198,22 @@ Gura_DeclareMethodAlias(image, read_at_jpeg, "read@jpeg")
 		"When the argument `size` is specified, the image would be shrinked so that\n"
 		"it is boxed within the size.\n"
 		"\n"
-		"The attribute `:fast` indicates a fast but less-qualified decompression process.\n");
+		"The attribute `:fast` indicates a fast but less-qualified decompression process.\n"
+		"\n"
+		"The attriubte `:rough` is only valid when `size` is specified and\n"
+		"makes the shrinked image with nearest neighbor method.\n"
+		"Othereise, shrinking shall be done with bilinear method.\n");
 }
 
 Gura_ImplementMethod(image, read_at_jpeg)
 {
 	bool fastFlag = arg.IsSet(Gura_UserSymbol(fast));
+	bool roughFlag = arg.IsSet(Gura_UserSymbol(rough));
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
 	bool rtn = arg.IsValid(1)?
 		ImageStreamer_JPEG::ReadStreamWithScaling(
-			env, pThis->GetImage(), arg.GetStream(0), fastFlag, arg.GetSizeT(1)) :
+			env, pThis->GetImage(), arg.GetStream(0), fastFlag, arg.GetSizeT(1), roughFlag) :
 		ImageStreamer_JPEG::ReadStream(
 			env, pThis->GetImage(), arg.GetStream(0), fastFlag);
 	if (!rtn) return Value::Nil;
@@ -266,8 +272,9 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	// symbol realization
-	Gura_RealizeUserSymbol(endian);
 	Gura_RealizeUserSymbol(fast);
+	Gura_RealizeUserSymbol(rough);
+	Gura_RealizeUserSymbol(endian);
 	Gura_RealizeUserSymbol(big);
 	Gura_RealizeUserSymbol(little);
 	Gura_RealizeUserSymbol(uncompressed);
@@ -674,7 +681,8 @@ bool ImageStreamer_JPEG::ReadStream(Environment &env, Image *pImage, Stream &str
 }
 
 bool ImageStreamer_JPEG::ReadStreamWithScaling(
-	Environment &env, Image *pImage, Stream &stream, bool fastFlag, size_t size)
+	Environment &env, Image *pImage, Stream &stream,
+	bool fastFlag, size_t size, bool roughFlag)
 {
 	Signal &sig = env.GetSignal();
 	if (!pImage->CheckEmpty(sig)) return false;
@@ -739,7 +747,7 @@ bool ImageStreamer_JPEG::ReadStreamWithScaling(
 	if (calcDimensionsFlag) {
 		::jpeg_calc_output_dimensions(&cinfo);	// update parameters in the structure
 	}
-	return fastFlag?
+	return roughFlag?
 		DoDecompressWithNearestNeighborScaling(sig, pImage, cinfo) :
 		DoDecompressWithBilinearScaling(sig, pImage, cinfo);
 }
