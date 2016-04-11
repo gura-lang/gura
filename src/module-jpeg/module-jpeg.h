@@ -380,6 +380,7 @@ public:
 private:
 	static bool DoDecompress(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
 	static bool DoDecompressWithScalingFine(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
+	static bool DoDecompressWithScalingFast(Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo);
 };
 
 //-----------------------------------------------------------------------------

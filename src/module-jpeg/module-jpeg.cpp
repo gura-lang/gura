@@ -784,14 +784,14 @@ bool ImageStreamer_JPEG::DoDecompressWithScalingFine(
 {
 	::jpeg_start_decompress(&cinfo);
 	bool grayScaleFlag = (cinfo.output_components != 3);
-	size_t width = pImage->GetWidth();
-	size_t height = pImage->GetHeight();
+	size_t widthDst = pImage->GetWidth();
+	size_t heightDst = pImage->GetHeight();
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
 					JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
 	UChar *pLineDst = pImage->GetPointer(0);
 	size_t bytesPerPixel = pImage->GetBytesPerPixel();
 	size_t bytesPerLineDst = pImage->GetBytesPerLine();
-	size_t accumsSize = width * sizeof(Image::Accum);
+	size_t accumsSize = widthDst * sizeof(Image::Accum);
 	AutoPtr<Memory> pMemory(new MemoryHeap(accumsSize));
 	Image::Accum *accums = reinterpret_cast<Image::Accum *>(pMemory->GetPointer());
 	::memset(accums, 0x00, accumsSize);
@@ -805,38 +805,38 @@ bool ImageStreamer_JPEG::DoDecompressWithScalingFine(
 				::jpeg_destroy_decompress(&cinfo);
 				return false;
 			}
-			const UChar *srcp = scanlines[0];
+			const UChar *pPixelSrc = scanlines[0];
 			Image::Accum *pAccum = accums;
 			size_t xDst = 0;
 			size_t numerX = 0;
 			if (grayScaleFlag) {
 				for (UInt xSrc = 0; xSrc < cinfo.output_width; xSrc++) {
-					pAccum->AddRGB(srcp[0], srcp[0], srcp[0]);
-					srcp += 1;
-					numerX += width;
-					for ( ; numerX >= cinfo.output_width && xDst < width;
+					pAccum->AddRGB(pPixelSrc[0], pPixelSrc[0], pPixelSrc[0]);
+					pPixelSrc += 1;
+					numerX += widthDst;
+					for ( ; numerX >= cinfo.output_width && xDst < widthDst;
 						  numerX -= cinfo.output_width, xDst++) {
 						pAccum++;
 					}
 				}
 			} else {
 				for (UInt xSrc = 0; xSrc < cinfo.output_width; xSrc++) {
-					pAccum->AddRGB(srcp[0], srcp[1], srcp[2]);
-					srcp += 3;
-					numerX += width;
-					for ( ; numerX >= cinfo.output_width && xDst < width;
+					pAccum->AddRGB(pPixelSrc[0], pPixelSrc[1], pPixelSrc[2]);
+					pPixelSrc += 3;
+					numerX += widthDst;
+					for ( ; numerX >= cinfo.output_width && xDst < widthDst;
 						  numerX -= cinfo.output_width, xDst++) {
 						pAccum++;
 					}
 				}
 			}
 		}
-		numerY += height;
+		numerY += heightDst;
 		if (numerY >= cinfo.output_height) {
 			if (accums[0].cnt == 0) accums[0].cnt = 0; // this must not happen
 			Image::Accum *pAccum = accums;
 			Image::Accum *pAccumPrev = accums;
-			for (size_t xDst = 0; xDst < width; xDst++, pAccum++) {
+			for (size_t xDst = 0; xDst < widthDst; xDst++, pAccum++) {
 				size_t cnt = pAccum->cnt;
 				if (cnt == 0) {
 					*pAccum = *pAccumPrev;
@@ -859,11 +859,11 @@ bool ImageStreamer_JPEG::DoDecompressWithScalingFine(
 					pAccumPrev = pAccum;
 				}
 			}
-			for ( ; numerY >= cinfo.output_height && yDst < height;
+			for ( ; numerY >= cinfo.output_height && yDst < heightDst;
 				  numerY -= cinfo.output_height, yDst++) {
 				Image::Accum *pAccum = accums;
 				UChar *pPixelDst = pLineDst;
-				for (size_t xDst = 0; xDst < width;
+				for (size_t xDst = 0; xDst < widthDst;
 					 xDst++, pAccum++, pPixelDst += bytesPerPixel) {
 					pAccum->StoreRGB(pPixelDst);
 				}
@@ -872,6 +872,61 @@ bool ImageStreamer_JPEG::DoDecompressWithScalingFine(
 			::memset(accums, 0x00, accumsSize);
 		}
 		if (cinfo.output_scanline == cinfo.output_height) break;
+	}
+	::jpeg_finish_decompress(&cinfo);
+	::jpeg_destroy_decompress(&cinfo);
+	return true;
+}
+
+bool ImageStreamer_JPEG::DoDecompressWithScalingFast(
+	Signal &sig, Image *pImage, jpeg_decompress_struct &cinfo)
+{
+	::jpeg_start_decompress(&cinfo);
+	bool grayScaleFlag = (cinfo.output_components != 3);
+	size_t widthDst = pImage->GetWidth();
+	size_t heightDst = pImage->GetHeight();
+	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
+					JPOOL_IMAGE, cinfo.output_width * cinfo.output_components, 1);
+	UChar *pLineDst = pImage->GetPointer(0);
+	size_t bytesPerPixelDst = pImage->GetBytesPerPixel();
+	size_t bytesPerLineDst = pImage->GetBytesPerLine();
+	size_t yDst = 0;
+	size_t ySrc = 0, ySrcNext = 0;
+	while (cinfo.output_scanline < cinfo.output_height) {
+		::jpeg_read_scanlines(&cinfo, scanlines, 1);
+		if (sig.IsSignalled()) {
+			::jpeg_finish_decompress(&cinfo);
+			::jpeg_destroy_decompress(&cinfo);
+			return false;
+		}
+		if (ySrc < ySrcNext) {
+			ySrc++;
+			continue;
+		}
+		ySrc++;
+		const UChar *pLineSrc = scanlines[0];
+		if (grayScaleFlag) {
+			UChar *pPixelDst = pLineDst;
+			for (UInt xDst = 0; xDst < widthDst; xDst++) {
+				const UChar *pPixelSrc = pLineSrc + xDst * cinfo.output_width / widthDst;
+				*(pPixelDst + Image::OffsetR) = *pPixelSrc;
+				*(pPixelDst + Image::OffsetG) = *pPixelSrc;
+				*(pPixelDst + Image::OffsetB) = *pPixelSrc;
+				pPixelDst += bytesPerPixelDst;
+			}
+		} else {
+			UChar *pPixelDst = pLineDst;
+			for (UInt xDst = 0; xDst < widthDst; xDst++) {
+				const UChar *pPixelSrc = pLineSrc + xDst * cinfo.output_width / widthDst * 3;
+				*(pPixelDst + Image::OffsetR) = *(pPixelSrc + 0);
+				*(pPixelDst + Image::OffsetG) = *(pPixelSrc + 1);
+				*(pPixelDst + Image::OffsetB) = *(pPixelSrc + 2);
+				pPixelDst += bytesPerPixelDst;
+			}
+		}
+		pLineDst += bytesPerLineDst;
+		yDst++;
+		ySrcNext = yDst * cinfo.output_height / heightDst;
 	}
 	::jpeg_finish_decompress(&cinfo);
 	::jpeg_destroy_decompress(&cinfo);
@@ -902,13 +957,13 @@ bool ImageStreamer_JPEG::WriteStream(Environment &env, Image *pImage, Stream &st
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
 					JPOOL_IMAGE, cinfo.image_width * cinfo.input_components, 1);
 	while (cinfo.next_scanline < cinfo.image_height) {
-		const UChar *srcp = pImage->GetPointer(0, cinfo.next_scanline);
-		UChar *dstp = scanlines[0];
+		const UChar *pPixelSrc = pImage->GetPointer(0, cinfo.next_scanline);
+		UChar *pPixelDst = scanlines[0];
 		for (UInt i = 0; i < cinfo.image_width; i++) {
-			*dstp++ = *(srcp + Image::OffsetR);
-			*dstp++ = *(srcp + Image::OffsetG);
-			*dstp++ = *(srcp + Image::OffsetB);
-			srcp += pImage->GetBytesPerPixel();
+			*pPixelDst++ = *(pPixelSrc + Image::OffsetR);
+			*pPixelDst++ = *(pPixelSrc + Image::OffsetG);
+			*pPixelDst++ = *(pPixelSrc + Image::OffsetB);
+			pPixelSrc += pImage->GetBytesPerPixel();
 		}
 		::jpeg_write_scanlines(&cinfo, scanlines, 1);
 	}
