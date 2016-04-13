@@ -81,8 +81,8 @@ MyCanvas = class(wx.ScrolledWindow) {
 		wx.Button(this, ID_MOVEBUTTON, 'move button', wx.Point(150, 10))
 		wx.Button(this, ID_SCROLLWIN, 'scroll win', wx.Point(250, 10))
 		test = wx.Panel(this, wx.ID_ANY, wx.Point(10, 110), wx.Size(130,50), wx.SIMPLE_BORDER | wx.TAB_TRAVERSAL)
-		test.SetBackgroundColour('WHEAT')
-		this.SetBackgroundColour('BLUE')
+		test.SetBackgroundColour('wheat')
+		this.SetBackgroundColour('blue')
 		this.SetCursor(wx.StockCursor(wx.CURSOR_IBEAM))
 		// event handler
 		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event) }
