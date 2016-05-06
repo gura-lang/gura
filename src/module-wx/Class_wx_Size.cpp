@@ -442,6 +442,7 @@ Value Object_wx_Size::DoSetProp(Environment &env, const Symbol *pSymbol, const V
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
+	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
 		if (!value.MustBe_number(sig)) return Value::Nil;
 		GetEntity()->x = value.GetInt();
@@ -451,6 +452,7 @@ Value Object_wx_Size::DoSetProp(Environment &env, const Symbol *pSymbol, const V
 		GetEntity()->y = value.GetInt();
 		return value;
 	}
+	evaluatedFlag = false;
 	return Value::Nil;
 }
 

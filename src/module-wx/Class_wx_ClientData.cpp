@@ -116,6 +116,7 @@ Value Object_wx_ClientData::DoSetProp(Environment &env, const Symbol *pSymbol, c
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(value))) {
+		evaluatedFlag = true;
 		GetEntity()->SetValue(value);
 		return value;
 	}

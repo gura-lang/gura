@@ -134,6 +134,7 @@ Value Object_wx_LanguageInfo::DoSetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	Signal &sig = GetSignal();
+	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(Language))) {
 		if (!value.MustBe_number(sig)) return Value::Nil;
 		GetEntity()->Language = value.GetInt();
@@ -157,6 +158,7 @@ Value Object_wx_LanguageInfo::DoSetProp(Environment &env, const Symbol *pSymbol,
 		return value;
 #endif
 	}
+	evaluatedFlag = false;
 	return Value::Nil;
 }
 
