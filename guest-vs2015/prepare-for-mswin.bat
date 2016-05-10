@@ -5,7 +5,7 @@ set UNZIP="%BASEDIR%buildtools-mswin\7za920\7za.exe"
 set GNUMAKE="%BASEDIR%buildtools-mswin\UnxUtils\make.exe"
 set CURL="%BASEDIR%buildtools-mswin\curl\curl.exe"
 rem ---------------------------------------------------------------------------
-set VCVERSION=10.0
+set VCVERSION=14.0
 set VCVARSALL="C:\Program Files\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
 if not exist %VCVARSALL% set VCVARSALL="D:\Program Files\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
 if not exist %VCVARSALL% set VCVARSALL="E:\Program Files\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
@@ -18,6 +18,8 @@ if not exist %VCVARSALL% set VCVARSALL="F:\Program Files (x86)\Microsoft Visual 
 if not exist %VCVARSALL% set VCVARSALL="G:\Program Files (x86)\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
 if not exist %VCVARSALL% goto err_vcvarsall_not_found
 call %VCVARSALL%
+rem add include path containing win32.mak necessary to build with vs2015
+set INCLUDE=%BASEDIR%include;%INCLUDE%
 rem ---------------------------------------------------------------------------
 if not exist buildtools-mswin git clone https://github.com/gura-lang/buildtools-mswin.git
 %UNZIP% x -y -obuildtools-mswin\curl buildtools-mswin\curl_737_1.zip
@@ -48,10 +50,10 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/SDL2-2.0.3.zip
 %CURL% -O %GUESTURL%/SDL2-2.0.3-gurapatch.zip
 %CURL% -O %GUESTURL%/sqlite-amalgamation-201409011821.zip
-%CURL% -O %GUESTURL%/tcl8516-src.zip
+%CURL% -O %GUESTURL%/tcl8519-src.zip
 %CURL% -O %GUESTURL%/tiff-3.8.2.zip
 %CURL% -O %GUESTURL%/tiff-3.8.2-gurapatch.zip
-%CURL% -O %GUESTURL%/tk8516-src.zip
+%CURL% -O %GUESTURL%/tk8519-src.zip
 %CURL% -O %GUESTURL%/wxWidgets-3.0.2.7z
 %CURL% -O %GUESTURL%/yaml-0.1.5.tar.gz
 %CURL% -O %GUESTURL%/yaml-0.1.5-gurapatch.zip
@@ -61,11 +63,13 @@ rem ---------------------------------------------------------------------------
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y -osqlite-amalgamation sqlite-amalgamation-201409011821.zip
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y zlib127.zip
 pushd zlib-1.2.7
 nmake -f win32\Makefile.msc
 popd
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y bzip2-1.0.6.tar.gz
 %UNZIP% x -y bzip2-1.0.6.tar
 del bzip2-1.0.6.tar
@@ -73,6 +77,7 @@ pushd bzip2-1.0.6
 nmake -f makefile.msc
 popd
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y jpegsrc.v9a.tar.gz
 %UNZIP% x -y jpegsrc.v9a.tar
 del jpegsrc.v9a.tar
@@ -82,23 +87,27 @@ nmake -f makefile.vc nodebug=1
 popd
 rem ---------------------------------------------------------------------------
 rem You cannot build source code in libpng-x.x.x.tar.gz properly under Windows.
+rem vs2015 ok
 %UNZIP% x -y lpng1520.zip
 %UNZIP% x -y lpng1520-gurapatch.zip
 msbuild lpng1520\projects\vstudio\vstudio.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release Library" /p:Platform=win32
 rem ---------------------------------------------------------------------------
 rem You cannot build source code in tiff-3.8.2.tar.gz properly under Windows.
+rem vs2015 ok
 %UNZIP% x -y tiff-3.8.2.zip
 %UNZIP% x -y tiff-3.8.2-gurapatch.zip
 pushd tiff-3.8.2
 nmake -f Makefile.vc lib
 popd
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y yaml-0.1.5.tar.gz
 %UNZIP% x -y yaml-0.1.5.tar
 %UNZIP% x -y yaml-0.1.5-gurapatch.zip
 del yaml-0.1.5.tar
 msbuild yaml-0.1.5\win32\vs2010\yaml.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y onig-5.9.5.tar.gz
 %UNZIP% x -y onig-5.9.5.tar
 del onig-5.9.5.tar
@@ -108,26 +117,29 @@ copy win32\config.h config.h
 nmake
 popd
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y expat-2.1.0.tar.gz
 %UNZIP% x -y expat-2.1.0.tar
 %UNZIP% x -y expat-2.1.0-gurapatch.zip
 del expat-2.1.0.tar
 msbuild expat-2.1.0\lib\expat_static.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 rem ---------------------------------------------------------------------------
-%UNZIP% x -y tcl8516-src.zip -otcl
-%UNZIP% x -y tk8516-src.zip -otcl
-pushd tcl\tcl8.5.16\win
+rem vs2015 ok
+%UNZIP% x -y tcl8519-src.zip -otcl
+%UNZIP% x -y tk8519-src.zip -otcl
+pushd tcl\tcl8.5.19\win
 nmake -f makefile.vc release
 nmake -f makefile.vc install INSTALLDIR=..\..
 popd
-pushd tcl\tk8.5.16\win
-nmake -f makefile.vc release TCLDIR=..\..\tcl8.5.16
+pushd tcl\tk8.5.19\win
+nmake -f makefile.vc release TCLDIR=..\..\tcl8.5.19
 nmake -f makefile.vc install INSTALLDIR=..\..
 popd
 rem ---------------------------------------------------------------------------
 rem Building wxWidgets library using /m option doesn't produce correct results.
+rem vs2015 ****NG****
 %UNZIP% x -y -owxWidgets-3.0.2 wxWidgets-3.0.2.7z
-msbuild wxWidgets-3.0.2\build\msw\wx_vc10.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
+msbuild wxWidgets-3.0.2\build\msw\wx_vc12.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y pixman-0.32.6.tar.gz
 %UNZIP% x -y pixman-0.32.6.tar
