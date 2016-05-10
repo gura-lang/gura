@@ -36,8 +36,10 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/expat-2.1.0-gurapatch.zip
 %CURL% -O %GUESTURL%/fontconfig-2.11.tar.bz2
 %CURL% -O %GUESTURL%/freeglut-2.8.1.tar.gz
+%CURL% -O %GUESTURL%/freeglut-2.8.1-gurapatch.zip
 %CURL% -O %GUESTURL%/freetype-2.5.3.tar.bz2
 %CURL% -O %GUESTURL%/glew-1.13.0.zip
+%CURL% -O %GUESTURL%/glew-1.13.0-gurapatch.zip
 %CURL% -O %GUESTURL%/jpegsrc.v9a.tar.gz
 %CURL% -O %GUESTURL%/lpng1520.zip
 %CURL% -O %GUESTURL%/lpng1520-gurapatch.zip
@@ -54,7 +56,7 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/tiff-3.8.2.zip
 %CURL% -O %GUESTURL%/tiff-3.8.2-gurapatch.zip
 %CURL% -O %GUESTURL%/tk8519-src.zip
-%CURL% -O %GUESTURL%/wxWidgets-3.0.2.7z
+%CURL% -O %GUESTURL%/wxWidgets-3.1.0.7z
 %CURL% -O %GUESTURL%/yaml-0.1.5.tar.gz
 %CURL% -O %GUESTURL%/yaml-0.1.5-gurapatch.zip
 %CURL% -O %GUESTURL%/zlib127.zip
@@ -137,10 +139,11 @@ nmake -f makefile.vc install INSTALLDIR=..\..
 popd
 rem ---------------------------------------------------------------------------
 rem Building wxWidgets library using /m option doesn't produce correct results.
-rem vs2015 ****NG****
-%UNZIP% x -y -owxWidgets-3.0.2 wxWidgets-3.0.2.7z
-msbuild wxWidgets-3.0.2\build\msw\wx_vc12.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
+rem vs2015 ok
+%UNZIP% x -y -owxWidgets-3.1.0 wxWidgets-3.1.0.7z
+msbuild wxWidgets-3.1.0\build\msw\wx_vc14.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y pixman-0.32.6.tar.gz
 %UNZIP% x -y pixman-0.32.6.tar
 %UNZIP% x -y pixman-0.32.6-gurapatch.zip
@@ -150,13 +153,17 @@ if not exist release mkdir release
 %GNUMAKE% -f Makefile.win32 CFG=release
 popd
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y freeglut-2.8.1.tar.gz
 %UNZIP% x -y freeglut-2.8.1.tar
+%UNZIP% x -y freeglut-2.8.1-gurapatch.zip
 del freeglut-2.8.1.tar
-msbuild freeglut-2.8.1\VisualStudio\2010\freeglut.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release_Static /p:Platform=win32
+msbuild freeglut-2.8.1\VisualStudio\2015\freeglut.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release_Static /p:Platform=win32
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y glew-1.13.0.zip
-msbuild glew-1.13.0\build\vc10\glew.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
+%UNZIP% x -y glew-1.13.0-gurapatch.zip
+msbuild glew-1.13.0\build\vc14\glew.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y freetype-2.5.3.tar.bz2
 %UNZIP% x -y freetype-2.5.3.tar
