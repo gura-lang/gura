@@ -38,19 +38,20 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/freeglut-2.8.1.tar.gz
 %CURL% -O %GUESTURL%/freeglut-2.8.1-gurapatch.zip
 %CURL% -O %GUESTURL%/freetype-2.5.3.tar.bz2
+%CURL% -O %GUESTURL%/freetype-2.5.3-gurapatch.zip
 %CURL% -O %GUESTURL%/glew-1.13.0.zip
 %CURL% -O %GUESTURL%/glew-1.13.0-gurapatch.zip
 %CURL% -O %GUESTURL%/jpegsrc.v9a.tar.gz
 %CURL% -O %GUESTURL%/lpng1520.zip
 %CURL% -O %GUESTURL%/lpng1520-gurapatch.zip
-%CURL% -O %GUESTURL%/mpir-2.6.0.tar.bz2
+%CURL% -O %GUESTURL%/mpir-2.7.2.tar.bz2
 %CURL% -O %GUESTURL%/onig-5.9.5.tar.gz
 %CURL% -O %GUESTURL%/pixman-0.32.6.tar.gz
 %CURL% -O %GUESTURL%/pixman-0.32.6-gurapatch.zip
 %CURL% -O %GUESTURL%/SDL-1.2.15.zip
-%CURL% -O %GUESTURL%/SDL-1.2.15-gurapatch.zip
-%CURL% -O %GUESTURL%/SDL2-2.0.3.zip
-%CURL% -O %GUESTURL%/SDL2-2.0.3-gurapatch.zip
+%CURL% -O %GUESTURL%/SDL-1.2.15-gurapatch-vs2015.zip
+%CURL% -O %GUESTURL%/SDL2-2.0.4.zip
+%CURL% -O %GUESTURL%/SDL2-2.0.4-gurapatch.zip
 %CURL% -O %GUESTURL%/sqlite-amalgamation-201409011821.zip
 %CURL% -O %GUESTURL%/tcl8519-src.zip
 %CURL% -O %GUESTURL%/tiff-3.8.2.zip
@@ -165,10 +166,12 @@ rem vs2015 ok
 %UNZIP% x -y glew-1.13.0-gurapatch.zip
 msbuild glew-1.13.0\build\vc14\glew.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y freetype-2.5.3.tar.bz2
 %UNZIP% x -y freetype-2.5.3.tar
+%UNZIP% x -y freetype-2.5.3-gurapatch.zip
 del freetype-2.5.3.tar
-msbuild freetype-2.5.3\builds\windows\vc2010\freetype.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
+msbuild freetype-2.5.3\builds\windows\vc2015\freetype.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y cairo-1.12.18.tar.xz
 %UNZIP% x -y cairo-1.12.18.tar
@@ -178,15 +181,17 @@ pushd cairo-1.12.18\src
 %GNUMAKE% -f Makefile.win32 CFG=release
 popd
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y SDL-1.2.15.zip
-%UNZIP% x -y SDL-1.2.15-gurapatch.zip
+%UNZIP% x -y SDL-1.2.15-gurapatch-vs2015.zip
 msbuild SDL-1.2.15\VisualC\SDL.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 copy SDL-1.2.15\VisualC\SDL\Release\SDL.dll dylib
 rem ---------------------------------------------------------------------------
-%UNZIP% x -y SDL2-2.0.3.zip
-%UNZIP% x -y SDL2-2.0.3-gurapatch.zip
-msbuild SDL2-2.0.3\VisualC\SDL_VS2010.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
-copy SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll dylib
+rem vs2015 ok
+%UNZIP% x -y SDL2-2.0.4.zip
+%UNZIP% x -y SDL2-2.0.4-gurapatch.zip
+msbuild SDL2-2.0.4\VisualC\SDL.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
+copy SDL2-2.0.4\VisualC\Win32\Release\SDL2.dll dylib
 rem ---------------------------------------------------------------------------
 mkdir deps
 mkdir deps\lib
@@ -199,13 +204,14 @@ pushd curl-7.38.0\winbuild
 nmake -f Makefile.vc mode=static WITH_ZLIB=static
 popd
 rem ---------------------------------------------------------------------------
-%UNZIP% x -y mpir-2.6.0.tar.bz2
-%UNZIP% x -y mpir-2.6.0.tar
-del mpir-2.6.0.tar
-msbuild mpir-2.6.0\build.vc10\lib_mpir_gc\lib_mpir_gc.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
-msbuild mpir-2.6.0\build.vc10\lib_mpir_cxx\lib_mpir_cxx.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
-copy mpir-2.6.0\build.vc10\lib_mpir_gc\win32\Release\mpir.lib mpir-2.6.0\lib\win32\Release
-copy mpir-2.6.0\build.vc10\lib_mpir_cxx\win32\Release\mpirxx.lib mpir-2.6.0\lib\win32\Release
+rem vs2015 ok
+%UNZIP% x -y mpir-2.7.2.tar.bz2
+%UNZIP% x -y mpir-2.7.2.tar
+del mpir-2.7.2.tar
+msbuild mpir-2.7.2\build.vc14\lib_mpir_gc\lib_mpir_gc.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
+msbuild mpir-2.7.2\build.vc14\lib_mpir_cxx\lib_mpir_cxx.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
+rem copy mpir-2.7.2\build.vc14\lib_mpir_gc\win32\Release\mpir.lib mpir-2.7.2\lib\win32\Release
+rem copy mpir-2.7.2\build.vc14\lib_mpir_cxx\win32\Release\mpirxx.lib mpir-2.7.2\lib\win32\Release
 rem ---------------------------------------------------------------------------
 goto done
 :err_vcvarsall_not_found
