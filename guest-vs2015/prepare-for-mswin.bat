@@ -30,7 +30,7 @@ if not exist buildtools-mswin git clone https://github.com/gura-lang/buildtools-
 rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/bzip2-1.0.6.tar.gz
 %CURL% -O %GUESTURL%/cairo-1.12.18.tar.xz
-%CURL% -O %GUESTURL%/cairo-1.12.18-gurapatch.zip
+%CURL% -O %GUESTURL%/cairo-1.12.18-gurapatch-vs2015.zip
 %CURL% -O %GUESTURL%/curl-7.38.0.zip
 %CURL% -O %GUESTURL%/expat-2.1.0.tar.gz
 %CURL% -O %GUESTURL%/expat-2.1.0-gurapatch.zip
@@ -173,9 +173,10 @@ rem vs2015 ok
 del freetype-2.5.3.tar
 msbuild freetype-2.5.3\builds\windows\vc2015\freetype.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 %UNZIP% x -y cairo-1.12.18.tar.xz
 %UNZIP% x -y cairo-1.12.18.tar
-%UNZIP% x -y cairo-1.12.18-gurapatch.zip
+%UNZIP% x -y cairo-1.12.18-gurapatch-vs2015.zip
 del cairo-1.12.18.tar
 pushd cairo-1.12.18\src
 %GNUMAKE% -f Makefile.win32 CFG=release
@@ -193,6 +194,7 @@ rem vs2015 ok
 msbuild SDL2-2.0.4\VisualC\SDL.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 copy SDL2-2.0.4\VisualC\Win32\Release\SDL2.dll dylib
 rem ---------------------------------------------------------------------------
+rem vs2015 ok
 mkdir deps
 mkdir deps\lib
 mkdir deps\include
