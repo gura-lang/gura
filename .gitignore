@@ -54,6 +54,8 @@ install-rpm.sh
 *.exe
 *.obj
 *.dll
+*.iobj
+*.ipdb
 *.lib
 *.pdb
 *.exp
