@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gura", "src\program-gura\gura.vcxproj", "{21F75DAE-FBEC-4B6A-814B-F41FDBB7ADE0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guraole", "src\program-guraole\guraole.vcxproj", "{086B9E0B-69C2-4A38-8945-3D5C9A820E58}"
