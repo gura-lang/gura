@@ -67,7 +67,7 @@ bool MemoryDIB::AllocBuffer(size_t width, size_t height, size_t bitsPerPixel)
 	hdr.biWidth = static_cast<int>(width);
 	hdr.biHeight = -static_cast<int>(height);
 	hdr.biPlanes = 1;
-	hdr.biBitCount = static_cast<int>(bitsPerPixel);
+	hdr.biBitCount = static_cast<WORD>(bitsPerPixel);
 	hdr.biCompression = BI_RGB;
 	hdr.biSizeImage = 0;
 	hdr.biXPelsPerMeter = 0;
