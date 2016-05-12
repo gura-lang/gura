@@ -30,7 +30,7 @@ if not exist buildtools-mswin git clone https://github.com/gura-lang/buildtools-
 rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/bzip2-1.0.6.tar.gz
 %CURL% -O %GUESTURL%/cairo-1.12.18.tar.xz
-%CURL% -O %GUESTURL%/cairo-1.12.18-gurapatch-vs2015.zip
+%CURL% -O %GUESTURL%/cairo-1.12.18-gurapatch.zip
 %CURL% -O %GUESTURL%/curl-7.38.0.zip
 %CURL% -O %GUESTURL%/expat-2.1.0.tar.gz
 %CURL% -O %GUESTURL%/expat-2.1.0-gurapatch.zip
@@ -43,7 +43,7 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/glew-1.13.0-gurapatch.zip
 %CURL% -O %GUESTURL%/jpegsrc.v9a.tar.gz
 %CURL% -O %GUESTURL%/lpng1520.zip
-%CURL% -O %GUESTURL%/lpng1520-gurapatch.zip
+%CURL% -O %GUESTURL%/lpng1520-gurapatch-vs2015.zip
 %CURL% -O %GUESTURL%/mpir-2.7.2.tar.bz2
 %CURL% -O %GUESTURL%/onig-5.9.5.tar.gz
 %CURL% -O %GUESTURL%/pixman-0.32.6.tar.gz
@@ -92,7 +92,7 @@ rem ---------------------------------------------------------------------------
 rem You cannot build source code in libpng-x.x.x.tar.gz properly under Windows.
 rem vs2015 ok
 %UNZIP% x -y lpng1520.zip
-%UNZIP% x -y lpng1520-gurapatch.zip
+%UNZIP% x -y lpng1520-gurapatch-vs2015.zip
 msbuild lpng1520\projects\vstudio\vstudio.sln /clp:DisableConsoleColor /t:Build /p:Configuration="Release Library" /p:Platform=win32
 rem ---------------------------------------------------------------------------
 rem You cannot build source code in tiff-3.8.2.tar.gz properly under Windows.
@@ -176,7 +176,7 @@ rem ---------------------------------------------------------------------------
 rem vs2015 ok
 %UNZIP% x -y cairo-1.12.18.tar.xz
 %UNZIP% x -y cairo-1.12.18.tar
-%UNZIP% x -y cairo-1.12.18-gurapatch-vs2015.zip
+%UNZIP% x -y cairo-1.12.18-gurapatch.zip
 del cairo-1.12.18.tar
 pushd cairo-1.12.18\src
 %GNUMAKE% -f Makefile.win32 CFG=release
