@@ -3,7 +3,7 @@ import(modbuild)
 
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	dirBase = path.join(builder.guestDir, 'mpir-2.6.0/lib/win32/Release')
+	dirBase = path.join(builder.guestDir, 'mpir-2.7.2/lib/win32/Release')
 	builder.incDirs.append(dirBase)
 	builder.libDirs.append(dirBase)
 	builder.libs.append('mpir.lib', 'mpirxx.lib')

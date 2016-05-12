@@ -7,6 +7,8 @@
 #undef _STDINT_H
 #undef _STDINT_H_
 #undef _STDINT
+#undef max
+#undef min
 #include <gmpxx.h>
 #include "Class_mpz.h"
 #include "Class_mpq.h"
