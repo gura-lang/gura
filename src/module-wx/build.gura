@@ -597,28 +597,28 @@ builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 	builder.precompile = 'stdafx.h'
 	srcs.append(srcs_MSW)
-	dirBase = path.join(builder.guestDir, 'wxWidgets-3.0.2')
+	dirBase = path.join(builder.guestDir, 'wxWidgets-3.1.0')
 	builder.incDirs.append(
 		path.join(dirBase, 'include')
 		path.join(dirBase, 'lib/vc_lib/mswu'))
 	builder.libDirs.append(path.join(dirBase, 'lib/vc_lib'))
 	builder.libs.append(
-		'wxbase30u.lib'
-		'wxbase30u_net.lib'
-		'wxbase30u_xml.lib'
-		'wxmsw30u_adv.lib'
-		'wxmsw30u_aui.lib'
-		'wxmsw30u_core.lib'
-		'wxmsw30u_gl.lib'
-		'wxmsw30u_html.lib'
-		'wxmsw30u_media.lib'
-		'wxmsw30u_propgrid.lib'
-		'wxmsw30u_qa.lib'
-		'wxmsw30u_ribbon.lib'
-		'wxmsw30u_richtext.lib'
-		'wxmsw30u_stc.lib'
-		'wxmsw30u_webview.lib'
-		'wxmsw30u_xrc.lib'
+		'wxbase31u.lib'
+		'wxbase31u_net.lib'
+		'wxbase31u_xml.lib'
+		'wxmsw31u_adv.lib'
+		'wxmsw31u_aui.lib'
+		'wxmsw31u_core.lib'
+		'wxmsw31u_gl.lib'
+		'wxmsw31u_html.lib'
+		'wxmsw31u_media.lib'
+		'wxmsw31u_propgrid.lib'
+		'wxmsw31u_qa.lib'
+		'wxmsw31u_ribbon.lib'
+		'wxmsw31u_richtext.lib'
+		'wxmsw31u_stc.lib'
+		'wxmsw31u_webview.lib'
+		'wxmsw31u_xrc.lib'
 		'wxexpat.lib'
 		'wxjpeg.lib'
 		'wxpng.lib'
