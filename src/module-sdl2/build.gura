@@ -7,9 +7,9 @@ builder = modbuild.Builder()
 //	true
 //}
 if (sys.platform == `mswin) {
-	dirBase = path.join(builder.guestDir, 'SDL2-2.0.3')
+	dirBase = path.join(builder.guestDir, 'SDL2-2.0.4')
 	builder.incDirs.append(path.join(dirBase, 'include'))
-	builder.libDirs.append(path.join(dirBase, 'VisualC/SDL/Win32/Release'))
+	builder.libDirs.append(path.join(dirBase, 'VisualC/Win32/Release'))
 	builder.libs.append('SDL2.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('SDL2')
