@@ -51,6 +51,7 @@ install-deb.sh
 install-rpm.sh
 *~
 *#
+*.db
 *.exe
 *.obj
 *.dll
@@ -64,6 +65,7 @@ install-rpm.sh
 *.sdf
 *.suo
 *.idb
+*.opendb
 *.opensdf
 *.vcxproj.user
 *.o
