@@ -34,7 +34,7 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/cairo-1.12.18-gurapatch.zip
 %CURL% -O %GUESTURL%/curl-7.38.0.zip
 %CURL% -O %GUESTURL%/expat-2.1.0.tar.gz
-%CURL% -O %GUESTURL%/expat-2.1.0-gurapatch.zip
+%CURL% -O %GUESTURL%/expat-2.1.0-gurapatch-vs2015.zip
 %CURL% -O %GUESTURL%/fontconfig-2.11.tar.bz2
 %CURL% -O %GUESTURL%/freeglut-2.8.1.tar.gz
 %CURL% -O %GUESTURL%/freeglut-2.8.1-gurapatch.zip
@@ -60,7 +60,7 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTURL%/tk8519-src.zip
 %CURL% -O %GUESTURL%/wxWidgets-3.1.0.7z
 %CURL% -O %GUESTURL%/yaml-0.1.5.tar.gz
-%CURL% -O %GUESTURL%/yaml-0.1.5-gurapatch.zip
+%CURL% -O %GUESTURL%/yaml-0.1.5-gurapatch-vs2015.zip
 %CURL% -O %GUESTURL%/zlib127.zip
 rem ---------------------------------------------------------------------------
 :skip_curl
@@ -107,9 +107,9 @@ rem ---------------------------------------------------------------------------
 rem vs2015 ok
 %UNZIP% x -y yaml-0.1.5.tar.gz
 %UNZIP% x -y yaml-0.1.5.tar
-%UNZIP% x -y yaml-0.1.5-gurapatch.zip
+%UNZIP% x -y yaml-0.1.5-gurapatch-vs2015.zip
 del yaml-0.1.5.tar
-msbuild yaml-0.1.5\win32\vs2010\yaml.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
+msbuild yaml-0.1.5\win32\vs2015\yaml.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration="Release" /p:Platform=win32
 rem ---------------------------------------------------------------------------
 rem vs2015 ok
 %UNZIP% x -y onig-5.9.5.tar.gz
@@ -124,7 +124,7 @@ rem ---------------------------------------------------------------------------
 rem vs2015 ok
 %UNZIP% x -y expat-2.1.0.tar.gz
 %UNZIP% x -y expat-2.1.0.tar
-%UNZIP% x -y expat-2.1.0-gurapatch.zip
+%UNZIP% x -y expat-2.1.0-gurapatch-vs2015.zip
 del expat-2.1.0.tar
 msbuild expat-2.1.0\lib\expat_static.vcxproj /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 rem ---------------------------------------------------------------------------
