@@ -18,8 +18,9 @@ if not exist %VCVARSALL% set VCVARSALL="F:\Program Files (x86)\Microsoft Visual 
 if not exist %VCVARSALL% set VCVARSALL="G:\Program Files (x86)\Microsoft Visual Studio %VCVERSION%\VC\vcvarsall.bat"
 if not exist %VCVARSALL% goto err_vcvarsall_not_found
 call %VCVARSALL%
-rem add include path containing win32.mak necessary to build with vs2015
-set INCLUDE=%BASEDIR%include;%INCLUDE%
+rem Add include path containing Win32.mak in case vs2015 doesn't include SDK
+rem that provides the file.
+set INCLUDE=%INCLUDE%;%BASEDIR%include
 rem ---------------------------------------------------------------------------
 if not exist buildtools-mswin git clone https://github.com/gura-lang/buildtools-mswin.git
 %UNZIP% x -y -obuildtools-mswin\curl buildtools-mswin\curl_737_1.zip
