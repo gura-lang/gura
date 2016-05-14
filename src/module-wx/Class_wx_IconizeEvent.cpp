@@ -65,18 +65,18 @@ Gura_ImplementFunction(IconizeEvent)
 	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
-Gura_DeclareMethod(wx_IconizeEvent, Iconized)
+Gura_DeclareMethod(wx_IconizeEvent, IsIconized)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_IconizeEvent, Iconized)
+Gura_ImplementMethod(wx_IconizeEvent, IsIconized)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_IconizeEvent *pThis = Object_wx_IconizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool rtn = pThis->GetEntity()->Iconized();
+	bool rtn = pThis->GetEntity()->IsIconized();
 	return ReturnValue(env, arg, Value(rtn));
 }
 
@@ -111,7 +111,7 @@ String Object_wx_IconizeEvent::ToString(bool exprFlag)
 Gura_ImplementUserInheritableClass(wx_IconizeEvent)
 {
 	Gura_AssignFunction(IconizeEvent);
-	Gura_AssignMethod(wx_IconizeEvent, Iconized);
+	Gura_AssignMethod(wx_IconizeEvent, IsIconized);
 }
 
 Gura_ImplementDescendantCreator(wx_IconizeEvent)

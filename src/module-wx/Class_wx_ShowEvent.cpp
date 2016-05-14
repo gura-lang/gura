@@ -106,10 +106,14 @@ Gura_DeclareMethod(wx_ShowEvent, GetShow)
 Gura_ImplementMethod(wx_ShowEvent, GetShow)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetShow();
 	return ReturnValue(env, arg, Value(rtn));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 //----------------------------------------------------------------------------

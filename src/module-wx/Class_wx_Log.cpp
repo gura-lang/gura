@@ -418,8 +418,12 @@ Gura_ImplementClassMethod(wx_Log, SetTraceMask)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
+#if 0
 	wxTraceMask mask = static_cast<wxTraceMask>(arg.GetInt(0));
 	wxLog::SetTraceMask(mask);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 

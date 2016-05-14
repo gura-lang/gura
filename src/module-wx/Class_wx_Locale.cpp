@@ -54,7 +54,7 @@ Gura_ImplementFunction(Locale)
 	wx_Locale *pEntity = nullptr;
 	if (arg.IsValid(0)) {
 		int language = arg.GetInt(0);
-		int flags = wxLOCALE_LOAD_DEFAULT | wxLOCALE_CONV_ENCODING;
+		int flags = wxLOCALE_LOAD_DEFAULT;
 		if (arg.IsValid(1)) flags = arg.GetInt(1);
 		pEntity = new wx_Locale(language, flags);
 	} else {
@@ -447,7 +447,7 @@ Gura_ImplementMethod(wx_Locale, Init)
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int language = wxLANGUAGE_DEFAULT;
 	if (arg.IsValid(0)) language = arg.GetInt(0);
-	int flags = wxLOCALE_LOAD_DEFAULT | wxLOCALE_CONV_ENCODING;
+	int flags = wxLOCALE_LOAD_DEFAULT;
 	if (arg.IsValid(1)) flags = arg.GetInt(1);
 	bool rtn = pThis->GetEntity()->Init(language, flags);
 	return ReturnValue(env, arg, Value(rtn));

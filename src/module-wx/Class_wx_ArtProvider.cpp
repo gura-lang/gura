@@ -137,8 +137,12 @@ Gura_ImplementClassMethod(wx_ArtProvider, Insert)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
+#if 0
 	wxArtProvider *provider = Object_wx_ArtProvider::GetObject(arg, 0)->GetEntity();
 	wxArtProvider::Insert(provider);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 

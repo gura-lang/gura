@@ -72,48 +72,48 @@ Gura_ImplementMethod(wx_MouseState, GetY)
 	return ReturnValue(env, arg, Value(rtn));
 }
 
-Gura_DeclareMethod(wx_MouseState, LeftDown)
+Gura_DeclareMethod(wx_MouseState, LeftIsDown)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_MouseState, LeftDown)
+Gura_ImplementMethod(wx_MouseState, LeftIsDown)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool rtn = pThis->GetEntity()->LeftDown();
+	bool rtn = pThis->GetEntity()->LeftIsDown();
 	return ReturnValue(env, arg, Value(rtn));
 }
 
-Gura_DeclareMethod(wx_MouseState, MiddleDown)
+Gura_DeclareMethod(wx_MouseState, MiddleIsDown)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_MouseState, MiddleDown)
+Gura_ImplementMethod(wx_MouseState, MiddleIsDown)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool rtn = pThis->GetEntity()->MiddleDown();
+	bool rtn = pThis->GetEntity()->MiddleIsDown();
 	return ReturnValue(env, arg, Value(rtn));
 }
 
-Gura_DeclareMethod(wx_MouseState, RightDown)
+Gura_DeclareMethod(wx_MouseState, RightIsDown)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_MouseState, RightDown)
+Gura_ImplementMethod(wx_MouseState, RightIsDown)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool rtn = pThis->GetEntity()->RightDown();
+	bool rtn = pThis->GetEntity()->RightIsDown();
 	return ReturnValue(env, arg, Value(rtn));
 }
 
@@ -372,9 +372,9 @@ Gura_ImplementUserInheritableClass(wx_MouseState)
 {
 	Gura_AssignMethod(wx_MouseState, GetX);
 	Gura_AssignMethod(wx_MouseState, GetY);
-	Gura_AssignMethod(wx_MouseState, LeftDown);
-	Gura_AssignMethod(wx_MouseState, MiddleDown);
-	Gura_AssignMethod(wx_MouseState, RightDown);
+	Gura_AssignMethod(wx_MouseState, LeftIsDown);
+	Gura_AssignMethod(wx_MouseState, MiddleIsDown);
+	Gura_AssignMethod(wx_MouseState, RightIsDown);
 	Gura_AssignMethod(wx_MouseState, ControlDown);
 	Gura_AssignMethod(wx_MouseState, ShiftDown);
 	Gura_AssignMethod(wx_MouseState, AltDown);
