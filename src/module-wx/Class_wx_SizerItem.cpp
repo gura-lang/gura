@@ -612,51 +612,51 @@ Gura_ImplementMethod(wx_SizerItem, SetRatio_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerItem, SetSizer)
+Gura_DeclareMethod(wx_SizerItem, AssignSizer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "sizer", VTYPE_wx_Sizer, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerItem, SetSizer)
+Gura_ImplementMethod(wx_SizerItem, AssignSizer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSizer *sizer = Object_wx_Sizer::GetObject(arg, 0)->GetEntity();
-	pThis->GetEntity()->SetSizer(sizer);
+	pThis->GetEntity()->AssignSizer(sizer);
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerItem, SetSpacer)
+Gura_DeclareMethod(wx_SizerItem, AssignSpacer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerItem, SetSpacer)
+Gura_ImplementMethod(wx_SizerItem, AssignSpacer)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *size = Object_wx_Size::GetObject(arg, 0)->GetEntity();
-	pThis->GetEntity()->SetSpacer(*size);
+	pThis->GetEntity()->AssignSpacer(*size);
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerItem, SetWindow)
+Gura_DeclareMethod(wx_SizerItem, AssignWindow)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "window", VTYPE_wx_Window, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerItem, SetWindow)
+Gura_ImplementMethod(wx_SizerItem, AssignWindow)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_SizerItem *pThis = Object_wx_SizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(arg, 0)->GetEntity();
-	pThis->GetEntity()->SetWindow(window);
+	pThis->GetEntity()->AssignWindow(window);
 	return Value::Nil;
 }
 
@@ -738,9 +738,9 @@ Gura_ImplementUserInheritableClass(wx_SizerItem)
 	Gura_AssignMethod(wx_SizerItem, SetRatio);
 	Gura_AssignMethod(wx_SizerItem, SetRatio_1);
 	Gura_AssignMethod(wx_SizerItem, SetRatio_2);
-	Gura_AssignMethod(wx_SizerItem, SetSizer);
-	Gura_AssignMethod(wx_SizerItem, SetSpacer);
-	Gura_AssignMethod(wx_SizerItem, SetWindow);
+	Gura_AssignMethod(wx_SizerItem, AssignSizer);
+	Gura_AssignMethod(wx_SizerItem, AssignSpacer);
+	Gura_AssignMethod(wx_SizerItem, AssignWindow);
 	Gura_AssignMethod(wx_SizerItem, Show);
 }
 

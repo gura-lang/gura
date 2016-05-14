@@ -275,10 +275,14 @@ Gura_DeclareMethod(wx_MenuItem, GetLabel)
 Gura_ImplementMethod(wx_MenuItem, GetLabel)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetLabel();
 	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareClassMethod(wx_MenuItem, GetLabelText)
@@ -307,10 +311,14 @@ Gura_DeclareClassMethod(wx_MenuItem, GetLabelFromText)
 Gura_ImplementClassMethod(wx_MenuItem, GetLabelFromText)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString text = wxString::FromUTF8(arg.GetString(0));
 	wxString rtn = wxMenuItem::GetLabelFromText(text);
 	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_MenuItem, GetMarginWidth)
@@ -376,10 +384,14 @@ Gura_DeclareMethod(wx_MenuItem, GetText)
 Gura_ImplementMethod(wx_MenuItem, GetText)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString rtn = pThis->GetEntity()->GetText();
 	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_MenuItem, GetSubMenu)
@@ -668,10 +680,14 @@ Gura_DeclareMethod(wx_MenuItem, SetText)
 Gura_ImplementMethod(wx_MenuItem, SetText)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString text = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->SetText(text);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 

@@ -934,10 +934,14 @@ Gura_DeclareMethod(wx_Sizer, SetVirtualSizeHints)
 Gura_ImplementMethod(wx_Sizer, SetVirtualSizeHints)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxWindow *window = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	pThis->GetEntity()->SetVirtualSizeHints(window);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 
