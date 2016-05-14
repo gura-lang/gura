@@ -153,54 +153,54 @@ Gura_ImplementMethod(wx_XmlNode, AddChild)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlNode, AddProperty)
+Gura_DeclareMethod(wx_XmlNode, AddAttribute)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "value", VTYPE_string, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlNode, AddProperty)
+Gura_ImplementMethod(wx_XmlNode, AddAttribute)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(arg.GetString(0));
 	wxString value = wxString::FromUTF8(arg.GetString(1));
-	pThis->GetEntity()->AddProperty(name, value);
+	pThis->GetEntity()->AddAttribute(name, value);
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlNode, AddProperty_1)
+Gura_DeclareMethod(wx_XmlNode, AddAttribute_1)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "prop", VTYPE_wx_XmlAttribute, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlNode, AddProperty_1)
+Gura_ImplementMethod(wx_XmlNode, AddAttribute_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxXmlAttribute *prop = Object_wx_XmlAttribute::GetObject(arg, 0)->GetEntity();
-	pThis->GetEntity()->AddProperty(prop);
+	pThis->GetEntity()->AddAttribute(prop);
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlNode, DeleteProperty)
+Gura_DeclareMethod(wx_XmlNode, DeleteAttribute)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_XmlNode, DeleteProperty)
+Gura_ImplementMethod(wx_XmlNode, DeleteAttribute)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(arg.GetString(0));
-	bool rtn = pThis->GetEntity()->DeleteProperty(name);
+	bool rtn = pThis->GetEntity()->DeleteAttribute(name);
 	return ReturnValue(env, arg, Value(rtn));
 }
 
@@ -352,19 +352,23 @@ Gura_ImplementMethod(wx_XmlNode, GetPropVal_1)
 }
 #endif
 
-Gura_DeclareMethod(wx_XmlNode, GetProperties)
+Gura_DeclareMethod(wx_XmlNode, GetAttributes)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_XmlNode, GetProperties)
+Gura_ImplementMethod(wx_XmlNode, GetAttributes)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	wxXmlAttribute *rtn = (wxXmlAttribute *)pThis->GetEntity()->GetProperties();
+	wxXmlAttribute *rtn = (wxXmlAttribute *)pThis->GetEntity()->GetAttributes();
 	return ReturnValue(env, arg, Value(new Object_wx_XmlAttribute(rtn, nullptr, OwnerFalse)));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_XmlNode, GetType)
@@ -382,20 +386,20 @@ Gura_ImplementMethod(wx_XmlNode, GetType)
 	return ReturnValue(env, arg, Value(rtn));
 }
 
-Gura_DeclareMethod(wx_XmlNode, HasProp)
+Gura_DeclareMethod(wx_XmlNode, HasAttribute)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "propName", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_XmlNode, HasProp)
+Gura_ImplementMethod(wx_XmlNode, HasAttribute)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString propName = wxString::FromUTF8(arg.GetString(0));
-	bool rtn = pThis->GetEntity()->HasProp(propName);
+	bool rtn = pThis->GetEntity()->HasAttribute(propName);
 	return ReturnValue(env, arg, Value(rtn));
 }
 
@@ -549,19 +553,23 @@ Gura_ImplementMethod(wx_XmlNode, SetParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlNode, SetProperties)
+Gura_DeclareMethod(wx_XmlNode, SetAttributes)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "prop", VTYPE_wx_XmlAttribute, OCCUR_Once);
+	DeclareArg(env, "attr", VTYPE_wx_XmlAttribute, OCCUR_Once, FLAG_ListVar);
 }
 
-Gura_ImplementMethod(wx_XmlNode, SetProperties)
+Gura_ImplementMethod(wx_XmlNode, SetAttributes)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxXmlAttribute *prop = Object_wx_XmlAttribute::GetObject(arg, 0)->GetEntity();
-	pThis->GetEntity()->SetProperties(prop);
+	pThis->GetEntity()->SetAttributes(prop);
+	return Value::Nil;
+#endif
+	SetError_NotImplemented(sig);
 	return Value::Nil;
 }
 
@@ -618,9 +626,9 @@ Gura_ImplementUserInheritableClass(wx_XmlNode)
 	Gura_AssignFunction(XmlNode_1);
 	Gura_AssignFunction(XmlNode_2);
 	Gura_AssignMethod(wx_XmlNode, AddChild);
-	Gura_AssignMethod(wx_XmlNode, AddProperty);
-	Gura_AssignMethod(wx_XmlNode, AddProperty_1);
-	Gura_AssignMethod(wx_XmlNode, DeleteProperty);
+	Gura_AssignMethod(wx_XmlNode, AddAttribute);
+	Gura_AssignMethod(wx_XmlNode, AddAttribute_1);
+	Gura_AssignMethod(wx_XmlNode, DeleteAttribute);
 	Gura_AssignMethod(wx_XmlNode, GetChildren);
 	Gura_AssignMethod(wx_XmlNode, GetContent);
 	Gura_AssignMethod(wx_XmlNode, GetDepth);
@@ -630,9 +638,9 @@ Gura_ImplementUserInheritableClass(wx_XmlNode)
 	Gura_AssignMethod(wx_XmlNode, GetParent);
 	//Gura_AssignMethod(wx_XmlNode, GetPropVal);
 	//Gura_AssignMethod(wx_XmlNode, GetPropVal_1);
-	Gura_AssignMethod(wx_XmlNode, GetProperties);
+	Gura_AssignMethod(wx_XmlNode, GetAttributes);
 	Gura_AssignMethod(wx_XmlNode, GetType);
-	Gura_AssignMethod(wx_XmlNode, HasProp);
+	Gura_AssignMethod(wx_XmlNode, HasAttribute);
 	Gura_AssignMethod(wx_XmlNode, InsertChild);
 	Gura_AssignMethod(wx_XmlNode, InsertChildAfter);
 	Gura_AssignMethod(wx_XmlNode, IsWhitespaceOnly);
@@ -642,7 +650,7 @@ Gura_ImplementUserInheritableClass(wx_XmlNode)
 	Gura_AssignMethod(wx_XmlNode, SetName);
 	Gura_AssignMethod(wx_XmlNode, SetNext);
 	Gura_AssignMethod(wx_XmlNode, SetParent);
-	Gura_AssignMethod(wx_XmlNode, SetProperties);
+	Gura_AssignMethod(wx_XmlNode, SetAttributes);
 	Gura_AssignMethod(wx_XmlNode, SetType);
 }
 

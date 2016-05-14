@@ -68,21 +68,24 @@ Gura_ImplementFunction(ThreadHelperEmpty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThreadHelper, Create)
+Gura_DeclareMethod(wx_ThreadHelper, CreateThread)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "kind", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "stackSize", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_ThreadHelper, Create)
+Gura_ImplementMethod(wx_ThreadHelper, CreateThread)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	unsigned stackSize = 0;
-	if (arg.IsValid(0)) stackSize = arg.GetInt(0);
-	wxThreadError rtn = pThis->GetEntity()->Create(stackSize);
+	wxThreadKind kind = wxTHREAD_JOINABLE;
+	if (arg.IsValid(0)) kind = static_cast<wxThreadKind>(arg.GetInt(0));
+	unsigned int stackSize = 0;
+	if (arg.IsValid(1)) stackSize = arg.GetInt(1);
+	wxThreadError rtn = pThis->GetEntity()->CreateThread(kind, stackSize);
 	return ReturnValue(env, arg, Value(rtn));
 }
 
@@ -151,7 +154,7 @@ Gura_ImplementUserInheritableClass(wx_ThreadHelper)
 {
 	Gura_RealizeUserSymbol(Entry);
 	Gura_AssignFunction(ThreadHelperEmpty);
-	Gura_AssignMethod(wx_ThreadHelper, Create);
+	Gura_AssignMethod(wx_ThreadHelper, CreateThread);
 	Gura_AssignMethod(wx_ThreadHelper, Entry);
 	Gura_AssignMethod(wx_ThreadHelper, GetThread);
 }
