@@ -461,10 +461,14 @@ Gura_DeclareMethod(wx_ComboCtrl, GetTextIndent)
 Gura_ImplementMethod(wx_ComboCtrl, GetTextIndent)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxCoord rtn = pThis->GetEntity()->GetTextIndent();
 	return ReturnValue(env, arg, Value(rtn));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_ComboCtrl, GetTextRect)
@@ -817,10 +821,14 @@ Gura_DeclareMethod(wx_ComboCtrl, SetTextIndent)
 Gura_ImplementMethod(wx_ComboCtrl, SetTextIndent)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int indent = arg.GetInt(0);
 	pThis->GetEntity()->SetTextIndent(indent);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 
