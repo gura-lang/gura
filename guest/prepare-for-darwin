@@ -10,7 +10,7 @@ fi
 #---------------------------------------------------------------------------
 files=""
 files="$files SDL-1.2.15.tar.gz"
-files="$files SDL2-2.0.3.tar.gz"
+files="$files SDL2-2.0.4.tar.gz"
 files="$files cairo-1.12.18.tar.xz"
 files="$files freetype-2.5.3.tar.bz2"
 files="$files fontconfig-2.11.1.tar.bz2"
@@ -20,7 +20,7 @@ files="$files libpng-1.6.12.tar.gz"
 files="$files onig-5.9.5.tar.gz"
 files="$files pixman-0.32.6.tar.gz"
 files="$files tiff-3.8.2.tar.gz"
-files="$files wxWidgets-3.0.2.tar.bz2"
+files="$files wxWidgets-3.1.0.tar.bz2"
 files="$files yaml-0.1.5.tar.gz"
 files="$files llvm-3.6.1.src.tar.xz"
 for file in $files
@@ -46,14 +46,14 @@ function setup_dylib() {
 #./configure --disable-video-x11
 #popd
 #---------------------------------------------------------------------------
-tar xfz SDL2-2.0.3.tar.gz
-pushd SDL2-2.0.3
+tar xfz SDL2-2.0.4.tar.gz
+pushd SDL2-2.0.4
 ./configure
 make $make_option
 popd
 rm -f include/SDL2
-ln -sf ../SDL2-2.0.3/include/ include/SDL2
-setup_dylib SDL2-2.0.3/build/.libs dylib
+ln -sf ../SDL2-2.0.4/include/ include/SDL2
+setup_dylib SDL2-2.0.4/build/.libs dylib
 #---------------------------------------------------------------------------
 tar xfz expat-2.1.0.tar.gz
 pushd expat-2.1.0
@@ -143,15 +143,15 @@ rm -f include/tiff
 ln -sf ../tiff-3.8.2/libtiff/ include/tiff
 ln -sf ../tiff-3.8.2/libtiff/.libs/libtiff.a lib/libtiff.a
 #---------------------------------------------------------------------------
-tar xfy wxWidgets-3.0.2.tar.bz2
-pushd wxWidgets-3.0.2
+tar xfy wxWidgets-3.1.0.tar.bz2
+pushd wxWidgets-3.1.0
 ./configure --with-macosx-version-min=10.9 --disable-shared
 make $make_option
 popd
 rm -f include/wx
 rm -f lib/wx
-ln -sf ../wxWidgets-3.0.2/include/ include/wx
-ln -sf ../wxWidgets-3.0.2/lib/ lib/wx
+ln -sf ../wxWidgets-3.1.0/include/ include/wx
+ln -sf ../wxWidgets-3.1.0/lib/ lib/wx
 #---------------------------------------------------------------------------
 tar xfz yaml-0.1.5.tar.gz
 pushd yaml-0.1.5
