@@ -14,7 +14,7 @@ private:
 	//Gura::Signal *_pSig;
 	Object_wx_SingleChoiceDialog *_pObj;
 public:
-	inline wx_SingleChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxArrayString& choices, char** clientData, long style, const wxPoint& pos) : wxSingleChoiceDialog(parent, message, caption, choices, clientData, style, pos), _pObj(nullptr) {}
+	inline wx_SingleChoiceDialog(wxWindow* parent, const wxString& message, const wxString& caption, const wxArrayString& choices, void** clientData, long style, const wxPoint& pos) : wxSingleChoiceDialog(parent, message, caption, choices, clientData, style, pos), _pObj(nullptr) {}
 	~wx_SingleChoiceDialog();
 	inline void AssocWithGura(Object_wx_SingleChoiceDialog *pObj) {
 		_pObj = pObj;
@@ -58,7 +58,7 @@ Gura_ImplementFunction(SingleChoiceDialog)
 	wxString message = wxString::FromUTF8(arg.GetString(1));
 	wxString caption = wxString::FromUTF8(arg.GetString(2));
 	std::unique_ptr<wxArrayString> choices(CreateArrayString(arg.GetList(3)));
-	char **clientData = nullptr;
+	void **clientData = nullptr;
 	long style = wxCHOICEDLG_STYLE;
 	if (arg.IsValid(4)) style = arg.GetLong(4);
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);

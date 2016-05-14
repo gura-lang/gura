@@ -101,10 +101,14 @@ Gura_DeclareMethod(wx_HtmlTag, GetBeginPos)
 Gura_ImplementMethod(wx_HtmlTag, GetBeginPos)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetBeginPos();
 	return ReturnValue(env, arg, Value(rtn));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlTag, GetEndPos1)
@@ -116,10 +120,14 @@ Gura_DeclareMethod(wx_HtmlTag, GetEndPos1)
 Gura_ImplementMethod(wx_HtmlTag, GetEndPos1)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetEndPos1();
 	return ReturnValue(env, arg, Value(rtn));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlTag, GetEndPos2)
@@ -131,10 +139,14 @@ Gura_DeclareMethod(wx_HtmlTag, GetEndPos2)
 Gura_ImplementMethod(wx_HtmlTag, GetEndPos2)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetEndPos2();
 	return ReturnValue(env, arg, Value(rtn));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_HtmlTag, GetName)

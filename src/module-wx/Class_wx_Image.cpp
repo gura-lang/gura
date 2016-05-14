@@ -19,9 +19,9 @@ public:
 	//inline wx_Image(const wxBitmap& bitmap) : wxImage(bitmap), _pObj(nullptr) {}
 	inline wx_Image(int width, int height, bool clear) : wxImage(width, height, clear), _pObj(nullptr) {}
 	//inline wx_Image(int width, int height, unsigned char* data, bool static_data) : wxImage(width, height, data, static_data), _pObj(nullptr) {}
-	inline wx_Image(const wxString& name, long type, int index) : wxImage(name, type, index), _pObj(nullptr) {}
+	inline wx_Image(const wxString& name, wxBitmapType type, int index) : wxImage(name, type, index), _pObj(nullptr) {}
 	inline wx_Image(const wxString& name, const wxString& mimetype, int index) : wxImage(name, mimetype, index), _pObj(nullptr) {}
-	inline wx_Image(wxInputStream& stream, long type, int index) : wxImage(stream, type, index), _pObj(nullptr) {}
+	inline wx_Image(wxInputStream& stream, wxBitmapType type, int index) : wxImage(stream, type, index), _pObj(nullptr) {}
 	inline wx_Image(wxInputStream& stream, const wxString& mimetype, int index) : wxImage(stream, mimetype, index), _pObj(nullptr) {}
 	inline wx_Image(const char* const* xpmData) : wxImage(xpmData), _pObj(nullptr) {}
 	~wx_Image();
@@ -207,8 +207,8 @@ Gura_ImplementFunction(Image_4)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(arg.GetString(0));
-	long type = wxBITMAP_TYPE_ANY;
-	if (arg.IsValid(1)) type = arg.GetLong(1);
+	wxBitmapType type = wxBITMAP_TYPE_ANY;
+	if (arg.IsValid(1)) type = static_cast<wxBitmapType>(arg.GetLong(1));
 	int index = -1;
 	if (arg.IsValid(2)) index = arg.GetInt(2);
 	wx_Image *pEntity = new wx_Image(name, type, index);
@@ -268,8 +268,8 @@ Gura_ImplementFunction(Image_6)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(arg, 0)->GetEntity();
-	long type = wxBITMAP_TYPE_ANY;
-	if (arg.IsValid(1)) type = arg.GetLong(1);
+	wxBitmapType type = wxBITMAP_TYPE_ANY;
+	if (arg.IsValid(1)) type = static_cast<wxBitmapType>(arg.GetLong(1));
 	int index = -1;
 	if (arg.IsValid(2)) index = arg.GetInt(2);
 	wx_Image *pEntity = new wx_Image(*stream, type, index);
@@ -641,7 +641,7 @@ Gura_ImplementClassMethod(wx_Image, FindHandler_1)
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
 	wxString extension = wxString::FromUTF8(arg.GetString(0));
-	long imageType = arg.GetLong(1);
+	wxBitmapType imageType = static_cast<wxBitmapType>(arg.GetLong(1));
 	wxImageHandler *rtn = (wxImageHandler *)wxImage::FindHandler(extension, imageType);
 	return ReturnValue(env, arg, Value(new Object_wx_ImageHandler(rtn, nullptr, OwnerFalse)));
 }
@@ -657,7 +657,7 @@ Gura_ImplementClassMethod(wx_Image, FindHandler_2)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	long imageType = arg.GetLong(0);
+	wxBitmapType imageType = static_cast<wxBitmapType>(arg.GetLong(0));
 	wxImageHandler *rtn = (wxImageHandler *)wxImage::FindHandler(imageType);
 	return ReturnValue(env, arg, Value(new Object_wx_ImageHandler(rtn, nullptr, OwnerFalse)));
 }
@@ -1202,8 +1202,8 @@ Gura_ImplementMethod(wx_Image, LoadFile)
 	Object_wx_Image *pThis = Object_wx_Image::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(arg.GetString(0));
-	long type = wxBITMAP_TYPE_ANY;
-	if (arg.IsValid(1)) type = arg.GetLong(1);
+	wxBitmapType type = wxBITMAP_TYPE_ANY;
+	if (arg.IsValid(1)) type = static_cast<wxBitmapType>(arg.GetLong(1));
 	int index = -1;
 	if (arg.IsValid(2)) index = arg.GetInt(2);
 	bool rtn = pThis->GetEntity()->LoadFile(name, type, index);
@@ -1247,7 +1247,7 @@ Gura_ImplementMethod(wx_Image, LoadFile_2)
 	Object_wx_Image *pThis = Object_wx_Image::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxInputStream *stream = Object_wx_InputStream::GetObject(arg, 0)->GetEntity();
-	long type = arg.GetLong(1);
+	wxBitmapType type = static_cast<wxBitmapType>(arg.GetLong(1));
 	int index = -1;
 	if (arg.IsValid(2)) index = arg.GetInt(2);
 	bool rtn = pThis->GetEntity()->LoadFile(*stream, type, index);
@@ -1516,7 +1516,7 @@ Gura_ImplementMethod(wx_Image, SaveFile)
 	Object_wx_Image *pThis = Object_wx_Image::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(arg.GetString(0));
-	int type = arg.GetInt(1);
+	wxBitmapType type = static_cast<wxBitmapType>(arg.GetInt(1));
 	bool rtn = pThis->GetEntity()->SaveFile(name, type);
 	return ReturnValue(env, arg, Value(rtn));
 }
@@ -1571,7 +1571,7 @@ Gura_ImplementMethod(wx_Image, SaveFile_3)
 	Object_wx_Image *pThis = Object_wx_Image::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(arg, 0)->GetEntity();
-	int type = arg.GetInt(1);
+	wxBitmapType type = static_cast<wxBitmapType>(arg.GetInt(1));
 	bool rtn = pThis->GetEntity()->SaveFile(*stream, type);
 	return ReturnValue(env, arg, Value(rtn));
 }

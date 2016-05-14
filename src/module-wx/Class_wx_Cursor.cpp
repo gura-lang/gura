@@ -19,7 +19,7 @@ public:
 #if defined(__WXMSW__)
 	inline wx_Cursor(const wxString& cursorName, wxBitmapType type, int hotSpotX, int hotSpotY) : wxCursor(cursorName, type, hotSpotX, hotSpotY), _pObj(nullptr) {}
 #endif
-	inline wx_Cursor(int cursorId) : wxCursor(cursorId), _pObj(nullptr) {}
+	inline wx_Cursor(wxStockCursor cursorId) : wxCursor(cursorId), _pObj(nullptr) {}
 	inline wx_Cursor(const wxImage& image) : wxCursor(image), _pObj(nullptr) {}
 	inline wx_Cursor(const wxCursor& cursor) : wxCursor(cursor), _pObj(nullptr) {}
 	~wx_Cursor();
@@ -177,7 +177,7 @@ Gura_ImplementFunction(StockCursor)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	int cursorId = arg.GetInt(0);
+	wxStockCursor cursorId = static_cast<wxStockCursor>(arg.GetInt(0));
 	wx_Cursor *pEntity = new wx_Cursor(cursorId);
 	Object_wx_Cursor *pObj = Object_wx_Cursor::GetObjectThis(arg);
 	if (pObj == nullptr) {

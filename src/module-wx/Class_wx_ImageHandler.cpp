@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_ImageHandler, SetType)
 	Signal &sig = env.GetSignal();
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	long type = arg.GetLong(0);
+	wxBitmapType type = static_cast<wxBitmapType>(arg.GetLong(0));
 	pThis->GetEntity()->SetType(type);
 	return Value::Nil;
 }
