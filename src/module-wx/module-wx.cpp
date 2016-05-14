@@ -3460,6 +3460,11 @@ bool CheckWxReady(Signal &sig)
 	return false;
 }
 
+void SetError_Obsolete(Signal &sig)
+{
+	sig.SetError(ERR_NotImplementedError, "obsolete function");
+}
+
 void SetError_NotImplemented(Signal &sig)
 {
 	sig.SetError(ERR_NotImplementedError, "sorry, not implemented yet");

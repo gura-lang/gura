@@ -1221,6 +1221,7 @@ Gura_ImplementFunction(SplitPath)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
+#if 0
 	wxString fullname = wxString::FromUTF8(arg.GetString(0));
 	wxString path;
 	wxString name;
@@ -1228,6 +1229,9 @@ Gura_ImplementFunction(SplitPath)
 	wxSplitPath(fullname, &path, &name, &ext);
 	return Value::CreateList(env, Value(path.ToUTF8()),
 					Value(name.ToUTF8()), Value(ext.ToUTF8()));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(TransferFileToStream)
@@ -2067,6 +2071,7 @@ Gura_ImplementFunction(GetMultipleChoices)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
+#if 0
 	wxArrayInt selections;
 	wxString message = wxString::FromUTF8(arg.GetString(0));
 	wxString caption = wxString::FromUTF8(arg.GetString(1));
@@ -2085,6 +2090,9 @@ Gura_ImplementFunction(GetMultipleChoices)
 	if (arg.IsValid(8)) height = arg.GetInt(8);
 	size_t rtn = wxGetMultipleChoices(selections, message, caption, *aChoices, parent, x, y, centre, width, height);
 	return ReturnValue(env, arg, ArrayIntToValue(env, selections));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareFunction(GetNumberFromUser)
@@ -4835,8 +4843,12 @@ Gura_ImplementFunction(Usleep)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
+#if 0
 	unsigned milliseconds = arg.GetInt(0);
 	wxUsleep(milliseconds);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 

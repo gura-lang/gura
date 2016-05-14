@@ -44,6 +44,7 @@ void SetWxReadyFlag(bool wxReadyFlag);
 bool IsWxReady();
 bool CheckWxReady(Signal &sig);
 void InitializeObjects(Environment &env);
+void SetError_Obsolete(Signal &sig);
 void SetError_NotImplemented(Signal &sig);
 void SetError_MSWOnly(Signal &sig);
 void SetError_InvalidWxObject(Signal &sig, const char *name);
