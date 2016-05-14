@@ -2367,11 +2367,15 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(LI_VERTICAL);
 	} while (0);
 	do {
+#if defined(wxLOCALE_CONV_ENCODING)
 		Gura_AssignWxValue(LOCALE_CONV_ENCODING);
+#endif
 		Gura_AssignWxValue(LOCALE_LOAD_DEFAULT);
 	} while (0);
 	do {
+#if defined(wxADJUST_MINSIZE)
 		Gura_AssignWxValue(ADJUST_MINSIZE);
+#endif
 		Gura_AssignWxValue(ALL);
 		Gura_AssignWxValue(ALWAYS_SHOW_SB);
 		Gura_AssignWxValue(CAPTION);
@@ -2396,8 +2400,12 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(SYSTEM_MENU);
 		Gura_AssignWxValue(TAB_TRAVERSAL);
 		//Gura_AssignWxValue(THICK_FRAME);
+#if defined(wxTINY_CAPTION_HORIZ)
 		Gura_AssignWxValue(TINY_CAPTION_HORIZ);
+#endif
+#if defined(wxTINY_CAPTION_VERT)
 		Gura_AssignWxValue(TINY_CAPTION_VERT);
+#endif
 		Gura_AssignWxValue(TRANSPARENT_WINDOW);
 		Gura_AssignWxValue(HSCROLL);
 		Gura_AssignWxValue(STAY_ON_TOP);
@@ -2616,7 +2624,9 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(TR_TWIST_BUTTONS);
 		Gura_AssignWxValue(TR_SINGLE);
 		Gura_AssignWxValue(TR_MULTIPLE);
+#if defined(wxTR_EXTENDED)
 		Gura_AssignWxValue(TR_EXTENDED);
+#endif
 		Gura_AssignWxValue(TR_HAS_VARIABLE_ROW_HEIGHT);
 		Gura_AssignWxValue(TR_EDIT_LABELS);
 		Gura_AssignWxValue(TR_ROW_LINES);
@@ -2664,7 +2674,9 @@ _MS(PrepareClass(ThreadHelper));
 	} while (0);
 	do { // flags for wxLocale
 		Gura_AssignWxValue(LOCALE_LOAD_DEFAULT);
+#if defined(wxLOCALE_CONV_ENCODING)
 		Gura_AssignWxValue(LOCALE_CONV_ENCODING);
+#endif
 	} while (0);
 	do { // wxLocale
 		Gura_AssignWxValue(LANGUAGE_DEFAULT);
@@ -3159,7 +3171,9 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxEvent(EVT_GRID_LABEL_RIGHT_CLICK,				EVT_GRID_LABEL_RIGHT_CLICK,		GridEvent);
 		Gura_AssignWxEvent(EVT_GRID_LABEL_LEFT_DCLICK,				EVT_GRID_LABEL_LEFT_DCLICK,		GridEvent);
 		Gura_AssignWxEvent(EVT_GRID_LABEL_RIGHT_DCLICK,				EVT_GRID_LABEL_RIGHT_DCLICK,	GridEvent);
+#if defined(wxEVT_GRID_CELL_CHANGE)
 		Gura_AssignWxEvent(EVT_GRID_CELL_CHANGE,					EVT_GRID_CELL_CHANGE,			GridEvent);
+#endif
 		Gura_AssignWxEvent(EVT_GRID_SELECT_CELL,					EVT_GRID_SELECT_CELL,			GridEvent);
 		Gura_AssignWxEvent(EVT_GRID_EDITOR_HIDDEN,					EVT_GRID_EDITOR_HIDDEN,			GridEvent);
 		Gura_AssignWxEvent(EVT_GRID_EDITOR_SHOWN,					EVT_GRID_EDITOR_SHOWN,			GridEvent);
