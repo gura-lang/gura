@@ -16,10 +16,10 @@ private:
 	//Gura::Signal *_pSig;
 	Object_wx_GLCanvas *_pObj;
 public:
-	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, id, pos, size, style, name, attribList, palette), _pObj(nullptr) {}
-	inline wx_GLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name, attribList, palette), _pObj(nullptr) {}
-	inline wx_GLCanvas(wxWindow* parent, wxGLCanvas* sharedCanvas, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedCanvas, id, pos, size, style, name, attribList, palette), _pObj(nullptr) {}
-	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, int* attribList, const wxPoint& pos, const wxSize& size, long style, const wxString& name, const wxPalette& palette) : wxGLCanvas(parent, id, attribList, pos, size, style, name, palette), _pObj(nullptr) {}
+	inline wx_GLCanvas(wxWindow* parent, wxWindowID id, const int *attribList, const wxPoint& pos, const wxSize& size, long style, const wxString& name, const wxPalette& palette) : wxGLCanvas(parent, id, attribList, pos, size, style, name, palette), _pObj(nullptr) {}
+	//inline wx_GLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name, attribList, palette), _pObj(nullptr) {}
+	//inline wx_GLCanvas(wxWindow* parent, wxGLCanvas* sharedCanvas, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name, int* attribList, const wxPalette& palette) : wxGLCanvas(parent, sharedCanvas, id, pos, size, style, name, attribList, palette), _pObj(nullptr) {}
+	//inline wx_GLCanvas(wxWindow* parent, wxWindowID id, int* attribList, const wxPoint& pos, const wxSize& size, long style, const wxString& name, const wxPalette& palette) : wxGLCanvas(parent, id, attribList, pos, size, style, name, palette), _pObj(nullptr) {}
 	~wx_GLCanvas();
 	inline void AssocWithGura(Object_wx_GLCanvas *pObj) {
 		_pObj = pObj;
@@ -47,6 +47,7 @@ Gura_DeclareFunction(GLCanvas)
 	SetClassToConstruct(Gura_UserClass(wx_GLCanvas));
 	DeclareArg(env, "parent", VTYPE_wx_Window, OCCUR_Once);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "attribList", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareArg(env, "pos", VTYPE_wx_Point, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "size", VTYPE_wx_Size, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -63,20 +64,20 @@ Gura_ImplementFunction(GLCanvas)
 	wxWindow *parent = Object_wx_Window::GetObject(arg, 0)->GetEntity();
 	wxWindowID id = -1;
 	if (arg.IsValid(1)) id = static_cast<wxWindowID>(arg.GetInt(1));
+	const int *attribList = nullptr;
+	if (arg.IsValid(2)) attribList = MakeAttribList(arg.GetList(2));
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
-	if (arg.IsValid(2)) pos = Object_wx_Point::GetObject(arg, 2)->GetEntity();
+	if (arg.IsValid(3)) pos = Object_wx_Point::GetObject(arg, 3)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
-	if (arg.IsValid(3)) size = Object_wx_Size::GetObject(arg, 3)->GetEntity();
+	if (arg.IsValid(4)) size = Object_wx_Size::GetObject(arg, 4)->GetEntity();
 	long style = 0;
-	if (arg.IsValid(4)) style = arg.GetLong(4);
+	if (arg.IsValid(5)) style = arg.GetLong(5);
 	wxString name = wxT("GLCanvas");
-	if (arg.IsValid(5)) name = wxString::FromUTF8(arg.GetString(5));
-	int *attribList = 0;
-	if (arg.IsValid(6)) attribList = MakeAttribList(arg.GetList(6));
+	if (arg.IsValid(6)) name = wxString::FromUTF8(arg.GetString(6));
 	wxPalette *palette = (wxPalette *)(&wxNullPalette);
 	if (arg.IsValid(7)) palette = Object_wx_Palette::GetObject(arg, 7)->GetEntity();
-	wx_GLCanvas *pEntity = new wx_GLCanvas(parent, id, *pos, *size, style, name, attribList, *palette);
-	//delete attribList;
+	wx_GLCanvas *pEntity = new wx_GLCanvas(parent, id, attribList, *pos, *size, style, name, *palette);
+	delete[] attribList;
 	Object_wx_GLCanvas *pObj = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_wx_GLCanvas(pEntity, pEntity, OwnerFalse);
@@ -199,12 +200,16 @@ Gura_DeclareMethod(wx_GLCanvas, GetContext)
 Gura_ImplementMethod(wx_GLCanvas, GetContext)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxGLContext *rtn = (wxGLContext *)pThis->GetEntity()->GetContext();
 	Value value;
 	if (rtn != nullptr) value = Value(new Object_wx_GLContext(rtn, nullptr, OwnerFalse));
 	return ReturnValue(env, arg, value);
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_GLCanvas, SetCurrent)
@@ -216,6 +221,7 @@ Gura_DeclareMethod(wx_GLCanvas, SetCurrent)
 Gura_ImplementMethod(wx_GLCanvas, SetCurrent)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	if (arg.IsInstanceOf(0, VTYPE_wx_GLContext)) {
@@ -229,6 +235,9 @@ Gura_ImplementMethod(wx_GLCanvas, SetCurrent)
 	} else {
 		SetError_ArgumentTypeByIndex(env, arg, 0);
 	}
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 

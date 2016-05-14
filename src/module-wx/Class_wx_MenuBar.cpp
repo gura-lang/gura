@@ -280,11 +280,15 @@ Gura_DeclareMethod(wx_MenuBar, GetLabelTop)
 Gura_ImplementMethod(wx_MenuBar, GetLabelTop)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int pos = arg.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetLabelTop(pos);
 	return ReturnValue(env, arg, Value(static_cast<const char *>(rtn.ToUTF8())));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_MenuBar, GetMenu)
@@ -506,11 +510,15 @@ Gura_DeclareMethod(wx_MenuBar, SetLabelTop)
 Gura_ImplementMethod(wx_MenuBar, SetLabelTop)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int pos = arg.GetInt(0);
 	wxString label = wxString::FromUTF8(arg.GetString(1));
 	pThis->GetEntity()->SetLabelTop(pos, label);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 

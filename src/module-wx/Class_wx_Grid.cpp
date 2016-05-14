@@ -312,6 +312,7 @@ Gura_ImplementMethod(wx_Grid, CanDragColMove)
 Gura_DeclareMethod(wx_Grid, CanDragColSize)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -320,13 +321,15 @@ Gura_ImplementMethod(wx_Grid, CanDragColSize)
 	Signal &sig = env.GetSignal();
 	Object_wx_Grid *pThis = Object_wx_Grid::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool rtn = pThis->GetEntity()->CanDragColSize();
+	int col = arg.GetInt(0);
+	bool rtn = pThis->GetEntity()->CanDragColSize(col);
 	return ReturnValue(env, arg, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Grid, CanDragRowSize)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -335,7 +338,8 @@ Gura_ImplementMethod(wx_Grid, CanDragRowSize)
 	Signal &sig = env.GetSignal();
 	Object_wx_Grid *pThis = Object_wx_Grid::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	bool rtn = pThis->GetEntity()->CanDragRowSize();
+	int row = arg.GetInt(0);
+	bool rtn = pThis->GetEntity()->CanDragRowSize(row);
 	return ReturnValue(env, arg, Value(rtn));
 }
 
@@ -1929,10 +1933,14 @@ Gura_DeclareMethod(wx_Grid, GetViewWidth)
 Gura_ImplementMethod(wx_Grid, GetViewWidth)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_Grid *pThis = Object_wx_Grid::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int rtn = pThis->GetEntity()->GetViewWidth();
 	return ReturnValue(env, arg, Value(rtn));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Grid, HideCellEditControl)
@@ -2578,6 +2586,7 @@ Gura_ImplementMethod(wx_Grid, SetCellAlignment)
 	return Value::Nil;
 }
 
+#if 0
 Gura_DeclareMethod(wx_Grid, SetCellAlignment_1)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
@@ -2597,6 +2606,7 @@ Gura_ImplementMethod(wx_Grid, SetCellAlignment_1)
 	pThis->GetEntity()->SetCellAlignment(align, row, col);
 	return Value::Nil;
 }
+#endif
 
 Gura_DeclareMethod(wx_Grid, SetCellBackgroundColour)
 {
@@ -2730,6 +2740,7 @@ Gura_ImplementMethod(wx_Grid, SetCellTextColour)
 	return Value::Nil;
 }
 
+#if 0
 Gura_DeclareMethod(wx_Grid, SetCellTextColour_1)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
@@ -2765,6 +2776,7 @@ Gura_ImplementMethod(wx_Grid, SetCellTextColour_2)
 	pThis->GetEntity()->SetCellTextColour(*colour);
 	return Value::Nil;
 }
+#endif
 
 Gura_DeclareMethod(wx_Grid, SetCellValue)
 {
@@ -2804,6 +2816,7 @@ Gura_ImplementMethod(wx_Grid, SetCellValue_1)
 	return Value::Nil;
 }
 
+#if 0
 Gura_DeclareMethod(wx_Grid, SetCellValue_2)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
@@ -2823,6 +2836,7 @@ Gura_ImplementMethod(wx_Grid, SetCellValue_2)
 	pThis->GetEntity()->SetCellValue(val, row, col);
 	return Value::Nil;
 }
+#endif
 
 Gura_DeclareMethod(wx_Grid, SetColAttr)
 {
@@ -3837,7 +3851,7 @@ Gura_ImplementUserInheritableClass(wx_Grid)
 	Gura_AssignMethod(wx_Grid, SetCellOverflow);
 	Gura_AssignMethod(wx_Grid, SetCellSize);
 	Gura_AssignMethod(wx_Grid, SetCellAlignment);
-	Gura_AssignMethod(wx_Grid, SetCellAlignment_1);
+	//Gura_AssignMethod(wx_Grid, SetCellAlignment_1);
 	Gura_AssignMethod(wx_Grid, SetCellBackgroundColour);
 	Gura_AssignMethod(wx_Grid, SetCellEditor);
 	Gura_AssignMethod(wx_Grid, SetCellFont);
@@ -3845,11 +3859,11 @@ Gura_ImplementUserInheritableClass(wx_Grid)
 	Gura_AssignMethod(wx_Grid, SetCellHighlightROPenWidth);
 	Gura_AssignMethod(wx_Grid, SetCellRenderer);
 	Gura_AssignMethod(wx_Grid, SetCellTextColour);
-	Gura_AssignMethod(wx_Grid, SetCellTextColour_1);
-	Gura_AssignMethod(wx_Grid, SetCellTextColour_2);
+	//Gura_AssignMethod(wx_Grid, SetCellTextColour_1);
+	//Gura_AssignMethod(wx_Grid, SetCellTextColour_2);
 	Gura_AssignMethod(wx_Grid, SetCellValue);
 	Gura_AssignMethod(wx_Grid, SetCellValue_1);
-	Gura_AssignMethod(wx_Grid, SetCellValue_2);
+	//Gura_AssignMethod(wx_Grid, SetCellValue_2);
 	Gura_AssignMethod(wx_Grid, SetColAttr);
 	Gura_AssignMethod(wx_Grid, SetColFormatBool);
 	Gura_AssignMethod(wx_Grid, SetColFormatNumber);
