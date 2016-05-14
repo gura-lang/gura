@@ -265,10 +265,14 @@ Gura_DeclareMethod(wx_Document, GetPrintableName)
 Gura_ImplementMethod(wx_Document, GetPrintableName)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString name = wxString::FromUTF8(arg.GetString(0));
 	pThis->GetEntity()->GetPrintableName(name);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 

@@ -140,17 +140,17 @@ Gura_ImplementMethod(wx_Validator, IsSilent)
 }
 
 
-Gura_DeclareClassMethod(wx_Validator, SetBellOnError)
+Gura_DeclareClassMethod(wx_Validator, SuppressBellOnError)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "doIt", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "suppress", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_Validator, SetBellOnError)
+Gura_ImplementMethod(wx_Validator, SuppressBellOnError)
 {
-	bool doIt = true;
-	if (arg.IsValid(0)) doIt = arg.GetBoolean(0);
-	wxValidator::SetBellOnError(doIt);
+	bool suppress = true;
+	if (arg.IsValid(0)) suppress = arg.GetBoolean(0);
+	wxValidator::SuppressBellOnError(suppress);
 	return Value::Nil;
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementUserInheritableClass(wx_Validator)
 	Gura_AssignMethod(wx_Validator, Clone);
 	Gura_AssignMethod(wx_Validator, GetWindow);
 	Gura_AssignMethod(wx_Validator, IsSilent);
-	Gura_AssignMethod(wx_Validator, SetBellOnError);
+	Gura_AssignMethod(wx_Validator, SuppressBellOnError);
 	Gura_AssignMethod(wx_Validator, SetWindow);
 	Gura_AssignMethod(wx_Validator, TransferToWindow);
 	Gura_AssignMethod(wx_Validator, TransferToWindow_1);

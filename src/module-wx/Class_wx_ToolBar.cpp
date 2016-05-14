@@ -646,12 +646,13 @@ Gura_DeclareMethod(wx_ToolBar, InsertTool)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "bitmap1", VTYPE_wx_Bitmap, OCCUR_Once);
-	DeclareArg(env, "bitmap2", VTYPE_wx_Bitmap, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "isToggle", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_Once);
+	DeclareArg(env, "bmpDisabled", VTYPE_wx_Bitmap, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "kind", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "shortHelp", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "longHelp", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "clientData", VTYPE_wx_Object, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "shortHelpString", VTYPE_string, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "longHelpString", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -662,18 +663,19 @@ Gura_ImplementMethod(wx_ToolBar, InsertTool)
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	size_t pos = arg.GetSizeT(0);
 	int toolId = arg.GetInt(1);
-	wxBitmap *bitmap1 = Object_wx_Bitmap::GetObject(arg, 2)->GetEntity();
-	wxBitmap *bitmap2 = (wxBitmap *)(&wxNullBitmap);
-	if (arg.IsValid(3)) bitmap2 = Object_wx_Bitmap::GetObject(arg, 3)->GetEntity();
-	bool isToggle = false;
-	if (arg.IsValid(4)) isToggle = arg.GetBoolean(4);
+	wxString label = wxString::FromUTF8(arg.GetString(2));
+	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(arg, 3)->GetEntity();
+	wxBitmap *bmpDisabled = (wxBitmap *)(&wxNullBitmap);
+	if (arg.IsValid(4)) bmpDisabled = Object_wx_Bitmap::GetObject(arg, 4)->GetEntity();
+	wxItemKind kind = wxITEM_NORMAL;
+	if (arg.IsValid(5)) kind = static_cast<wxItemKind>(arg.GetInt(5));
+	wxString shortHelp = wxT("");
+	if (arg.IsValid(6)) shortHelp = wxString::FromUTF8(arg.GetString(6));
+	wxString longHelp = wxT("");
+	if (arg.IsValid(7)) longHelp = wxString::FromUTF8(arg.GetString(7));
 	wxObject *clientData = nullptr;
-	if (arg.IsValid(5)) clientData = new ObjectWithValue(arg.GetValue(5));
-	wxString shortHelpString = wxT("");
-	if (arg.IsValid(6)) shortHelpString = wxString::FromUTF8(arg.GetString(6));
-	wxString longHelpString = wxT("");
-	if (arg.IsValid(7)) longHelpString = wxString::FromUTF8(arg.GetString(7));
-	wxToolBarToolBase *rtn = (wxToolBarToolBase *)pThis->GetEntity()->InsertTool(pos, toolId, *bitmap1, *bitmap2, isToggle, clientData, shortHelpString, longHelpString);
+	if (arg.IsValid(8)) clientData = new ObjectWithValue(arg.GetValue(8));
+	wxToolBarToolBase *rtn = (wxToolBarToolBase *)pThis->GetEntity()->InsertTool(pos, toolId, label, *bitmap, *bmpDisabled, kind, shortHelp, longHelp, clientData);
 	return ReturnValue(env, arg, Value(new Object_wx_ToolBarToolBase(rtn, nullptr, OwnerFalse)));
 }
 

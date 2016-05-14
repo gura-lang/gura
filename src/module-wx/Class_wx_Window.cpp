@@ -2158,10 +2158,14 @@ Gura_DeclareMethod(wx_Window, MakeModal)
 Gura_ImplementMethod(wx_Window, MakeModal)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool flag = arg.GetBoolean(0);
 	pThis->GetEntity()->MakeModal(flag);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 
@@ -3750,6 +3754,7 @@ Gura_DeclareMethod(wx_Window, SetVirtualSizeHintsWH)
 Gura_ImplementMethod(wx_Window, SetVirtualSizeHintsWH)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int minW = arg.GetInt(0);
@@ -3759,6 +3764,9 @@ Gura_ImplementMethod(wx_Window, SetVirtualSizeHintsWH)
 	int maxH = -1;
 	if (arg.IsValid(3)) maxH = arg.GetInt(3);
 	pThis->GetEntity()->SetVirtualSizeHints(minW, minH, maxW, maxH);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 
@@ -3772,6 +3780,7 @@ Gura_DeclareMethod(wx_Window, SetVirtualSizeHints)
 Gura_ImplementMethod(wx_Window, SetVirtualSizeHints)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxSize *minSize = (wxSize *)(&wxDefaultSize);
@@ -3779,6 +3788,9 @@ Gura_ImplementMethod(wx_Window, SetVirtualSizeHints)
 	wxSize *maxSize = (wxSize *)(&wxDefaultSize);
 	if (arg.IsValid(1)) maxSize = Object_wx_Size::GetObject(arg, 1)->GetEntity();
 	pThis->GetEntity()->SetVirtualSizeHints(*minSize, *maxSize);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 

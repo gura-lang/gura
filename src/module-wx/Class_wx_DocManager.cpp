@@ -49,7 +49,7 @@ Gura_ImplementFunction(DocManager)
 {
 	Signal &sig = env.GetSignal();
 	if (!CheckWxReady(sig)) return Value::Nil;
-	long flags = wxDEFAULT_DOCMAN_FLAGS;
+	long flags = 0;
 	if (arg.IsValid(0)) flags = arg.GetLong(0);
 	bool initialize = true;
 	if (arg.IsValid(1)) initialize = arg.GetBoolean(1);
@@ -460,11 +460,15 @@ Gura_DeclareMethod(wx_DocManager, MakeDefaultName)
 Gura_ImplementMethod(wx_DocManager, MakeDefaultName)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	wxString buf = wxString::FromUTF8(arg.GetString(0));
 	bool rtn = pThis->GetEntity()->MakeDefaultName(buf);
 	return ReturnValue(env, arg, Value(rtn));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_DocManager, MakeNewDocumentName)
