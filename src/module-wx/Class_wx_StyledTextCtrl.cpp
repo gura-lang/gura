@@ -7688,10 +7688,14 @@ Gura_DeclareMethod(wx_StyledTextCtrl, SetKeysUnicode)
 Gura_ImplementMethod(wx_StyledTextCtrl, SetKeysUnicode)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool keysUnicode = arg.GetBoolean(0);
 	pThis->GetEntity()->SetKeysUnicode(keysUnicode);
+	return Value::Nil;
+#endif
+	SetError_Obsolete(sig);
 	return Value::Nil;
 }
 
@@ -7703,10 +7707,14 @@ Gura_DeclareMethod(wx_StyledTextCtrl, GetKeysUnicode)
 Gura_ImplementMethod(wx_StyledTextCtrl, GetKeysUnicode)
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	bool rtn = pThis->GetEntity()->GetKeysUnicode();
 	return ReturnValue(env, arg, Value(rtn));
+#endif
+	SetError_Obsolete(sig);
+	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_StyledTextCtrl, IndicatorSetAlpha)
@@ -12230,7 +12238,9 @@ Gura_ImplementUserInheritableClass(wx_StyledTextCtrl)
 	Gura_AssignWxValue(STC_COFFEESCRIPT_GLOBALCLASS);
 	Gura_AssignWxValue(STC_COFFEESCRIPT_STRINGRAW);
 	Gura_AssignWxValue(STC_COFFEESCRIPT_TRIPLEVERBATIM);
+#if defined(wxSTC_COFFEESCRIPT_HASHQUOTEDSTRING)
 	Gura_AssignWxValue(STC_COFFEESCRIPT_HASHQUOTEDSTRING);
+#endif
 	Gura_AssignWxValue(STC_COFFEESCRIPT_COMMENTBLOCK);
 	Gura_AssignWxValue(STC_COFFEESCRIPT_VERBOSE_REGEX);
 	Gura_AssignWxValue(STC_COFFEESCRIPT_VERBOSE_REGEX_COMMENT);

@@ -415,7 +415,6 @@ Gura_DeclareMethod(wx_Slider, SetTickFreq)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_Slider, SetTickFreq)
@@ -424,8 +423,7 @@ Gura_ImplementMethod(wx_Slider, SetTickFreq)
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
 	int n = arg.GetInt(0);
-	int pos = arg.GetInt(1);
-	pThis->GetEntity()->SetTickFreq(n, pos);
+	pThis->GetEntity()->SetTickFreq(n);
 	return Value::Nil;
 }
 
