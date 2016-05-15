@@ -629,7 +629,7 @@ if (sys.platform == `mswin) {
 } elsif (sys.platform == `linux_a) {
 	builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
-		'guest/lib/wx/wx/include/gtk2-unicode-static-3.0',
+		'guest/lib/wx/wx/include/gtk2-unicode-static-3.1',
 		'guest/include/wx')
 	builder.cflags.append(
 		'-D_FILE_OFFSET_BITS=64',
@@ -637,19 +637,19 @@ if (sys.platform == `mswin) {
 		'-pthread')
 	builder.libDirs.append('guest/lib/wx')
 	builder.libs.append(		
-		'wx_gtk2u_xrc-3.0',
-		'wx_gtk2u_qa-3.0',
-		'wx_baseu_net-3.0',
-		'wx_gtk2u_html-3.0',
-		'wx_gtk2u_propgrid-3.0',
-		'wx_gtk2u_ribbon-3.0',
-		'wx_gtk2u_richtext-3.0',
-		'wx_gtk2u_stc-3.0',
-		'wx_gtk2u_adv-3.0',
-		'wx_gtk2u_aui-3.0',
-		'wx_gtk2u_core-3.0',
-		'wx_baseu_xml-3.0',
-		'wx_baseu-3.0',
+		'wx_gtk2u_xrc-3.1',
+		'wx_gtk2u_qa-3.1',
+		'wx_baseu_net-3.1',
+		'wx_gtk2u_html-3.1',
+		'wx_gtk2u_propgrid-3.1',
+		'wx_gtk2u_ribbon-3.1',
+		'wx_gtk2u_richtext-3.1',
+		'wx_gtk2u_stc-3.1',
+		'wx_gtk2u_adv-3.1',
+		'wx_gtk2u_aui-3.1',
+		'wx_gtk2u_core-3.1',
+		'wx_baseu_xml-3.1',
+		'wx_baseu-3.1',
 		'gthread-2.0',
 		'X11',
 		'SM',
@@ -668,10 +668,10 @@ if (sys.platform == `mswin) {
 		'freetype',
 		'png',
 		'expat',
-		'wxregexu-3.0',
-		'wxtiff-3.0',
-		'wxjpeg-3.0',
-		'wxscintilla-3.0',
+		'wxregexu-3.1',
+		'wxtiff-3.1',
+		'wxjpeg-3.1',
+		'wxscintilla-3.1',
 		'z',
 		'dl',
 		'm ')
@@ -680,15 +680,15 @@ if (sys.platform == `mswin) {
 	IsExist(filename:string) = {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
 	}
-	builder.debFiles = ['libwxgtk3.0-dev']
-	builder.rpmFiles = ['wxGTK3-3.0.0']
-	builder.debFilesDevel = ['libwxgtk3.0-dev']
-	builder.rpmFilesDevel = ['wxGTK3-devel-3.0.0']
+	builder.debFiles = ['libwxgtk3.1-dev']
+	builder.rpmFiles = ['wxGTK3-3.1.0']
+	builder.debFilesDevel = ['libwxgtk3.1-dev']
+	builder.rpmFilesDevel = ['wxGTK3-devel-3.1.0']
 	if (IsExist('wx-config')) {
 		cflags = scope {
 			buff = binary()
 			os.redirect(nil, buff) {
-				os.exec('wx-config', '--version=3.0', '--cppflags')
+				os.exec('wx-config', '--version=3.1', '--cppflags')
 			}
 			os.fromnative(buff).strip().split(' '):list
 		}
@@ -696,7 +696,7 @@ if (sys.platform == `mswin) {
 		ldflags = scope {
 			buff = binary()
 			os.redirect(nil, buff) {
-				os.exec('wx-config', '--version=3.0', '--libs',
+				os.exec('wx-config', '--version=3.1', '--libs',
 					'xrc,stc,richtext,ribbon,propgrid,aui,gl,html,qa,adv,core,xml,net,base')
 			}
 			str = os.fromnative(buff).replace('\n', ' ')
@@ -709,7 +709,7 @@ if (sys.platform == `mswin) {
 } elsif (sys.platform == `darwin) {
 	builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
-		'guest/lib/wx/wx/include/osx_cocoa-unicode-static-3.0',
+		'guest/lib/wx/wx/include/osx_cocoa-unicode-static-3.1',
 		'guest/include/wx')
 	builder.cflags.append(
 		'-D_FILE_OFFSET_BITS=64',
@@ -726,27 +726,27 @@ if (sys.platform == `mswin) {
 		'-framework', 'OpenGL'
 		'-framework', 'WebKit')
 	builder.libs.append(		
-		'wx_osx_cocoau_xrc-3.0',
-		'wx_osx_cocoau_webview-3.0',
-		'wx_osx_cocoau_qa-3.0',
-		'wx_osx_cocoau_stc-3.0',
-		'wx_osx_cocoau_richtext-3.0',
-		'wx_osx_cocoau_ribbon-3.0',
-		'wx_osx_cocoau_media-3.0',
-		'wx_osx_cocoau_propgrid-3.0',
-		'wx_osx_cocoau_aui-3.0',
-		'wx_osx_cocoau_gl-3.0',
-		'wx_osx_cocoau_html-3.0',
-		'wx_osx_cocoau_adv-3.0',
-		'wx_osx_cocoau_core-3.0',
-		'wx_baseu_xml-3.0',
-		'wx_baseu_net-3.0',
-		'wx_baseu-3.0',
-		'wxregexu-3.0',
-		'wxscintilla-3.0',
-		'wxtiff-3.0',
-		'wxjpeg-3.0',
-		'wxpng-3.0',
+		'wx_osx_cocoau_xrc-3.1',
+		'wx_osx_cocoau_webview-3.1',
+		'wx_osx_cocoau_qa-3.1',
+		'wx_osx_cocoau_stc-3.1',
+		'wx_osx_cocoau_richtext-3.1',
+		'wx_osx_cocoau_ribbon-3.1',
+		'wx_osx_cocoau_media-3.1',
+		'wx_osx_cocoau_propgrid-3.1',
+		'wx_osx_cocoau_aui-3.1',
+		'wx_osx_cocoau_gl-3.1',
+		'wx_osx_cocoau_html-3.1',
+		'wx_osx_cocoau_adv-3.1',
+		'wx_osx_cocoau_core-3.1',
+		'wx_baseu_xml-3.1',
+		'wx_baseu_net-3.1',
+		'wx_baseu-3.1',
+		'wxregexu-3.1',
+		'wxscintilla-3.1',
+		'wxtiff-3.1',
+		'wxjpeg-3.1',
+		'wxpng-3.1',
 		'expat',
 		'z',
 		'pthread',
