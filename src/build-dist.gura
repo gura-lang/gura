@@ -417,10 +417,6 @@ createSrcPackage() = {
 		(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
 				 '--output=' + fileNameSrcTar, 'HEAD') != 0)
 	} && sys.exit(1)
-	fs.chdir(path.join(dirNameScript, '../gura-doc')) {
-		(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefixDoc + '/',
-				 '--output=' + fileNameDocSrcZip, 'HEAD') != 0)
-	} && sys.exit(1)
 	printf('generated: %s\n', path.filename(fileNameSrcTar))
 	printf('generated: %s\n', path.filename(fileNameDocSrcZip))
 }
