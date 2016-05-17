@@ -17,44 +17,45 @@ http://www.gura-lang.org/
 
 Build for Windows
 -----------------
-1. Check if you have installed Visual Studio 2010 and applied Visual Studio 2010 Service Pack 1 on it.
-   Service Pack 1 is necessary to avoid LNK1123 error.
-
-   You can use Express version of Visual Studio 2010 as well.
+1. You need to have installed Visual Studio 2015, which is now available
+   as Visual Studio Community for FREE from
+   [Visual Studio download page](https://www.visualstudio.com/downloads).
 
 2. Clone Gura source code from GitHub repository.
 
         $ git clone https://github.com/gura-lang/gura.git
 
-   I'm afraid that would take much time as it tries to retrieve all the history.
+   I'm afraid that would take much time as it tries to retrieve all the commitment history.
    The following command could save your important time.
 
         $ git clone https://github.com/gura-lang/gura.git --depth 1
 
-3. Run a batch file `gura\src\setup-env-mswin.bat`, which downloads document
-   files and necessary packages from Gura's official site and build libraries.
+3. Run a batch file `gura\guest\prepare-for-mswin.bat`, which downloads
+   necessary library packages from Gura's official site and build them.
 
    The batch file may occur an error that says it cannot find `vcvarsall.bat`.
-   In such a case, you have to edit `gura\gura-guest\setup.bat`
+   This is likely because you have installed Visual Studio environment in a directory
+   different from the default one.
+   In such a case, you have to edit `gura\guest\prepare-for-mswin.bat`
    and modify `VCVARSALL` variable so that it points to a right directory of
    Visual Studio.
 
-4. Open `gura\gura.sln` with Visual Studio 2010, switch the configuration to
+4. Open `gura\gura.sln` with Visual Studio 2015, switch the configuration to
    `Release` and build it.
 
-5. Now, you can find an installer file named like `gura-x.x.x-win32.msi`
-   has been created in `gura\dist` directory.
+5. Now, you can find an installer file named like `gura-x.x.x-win32.msi` in `gura\dist` directory.
 
-6. Launch the install and follow instructions.
+6. Just launch the installer for the installation.
 
-7. You can find Gura folder in Start Menu. Launch `Gura Console` and try some scripts:
+7. You can find Gura folder in Start Menu. Launch `Gura Console` and try some scripts like:
 
-		>>> println(1..5)
-		1
-		2
-		3
-		4
-		5
+        >>> println(1..5)
+        1
+        2
+        3
+        4
+        5
+
 
 Build for Mac OSX
 -----------------
@@ -75,7 +76,7 @@ Build for Mac OSX
 
         $ git clone https://github.com/gura-lang/gura.git --depth 1
 
-3. Run the following commands to build guest libraries and copy their dynamic libraries
+3. Run the following commands that build guest libraries and copy their dynamic libraries
    to a specified directory.
    *You can skip this process if you just want to try Gura interpreter itself.*
 
