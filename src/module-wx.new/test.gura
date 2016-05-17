@@ -1,14 +1,35 @@
 #!/usr/bin/env gura
 import(re)
 
-dirNameBase = '../../../guest/wxWidgets-3.1.0/interface/wx'
+dirNameBase = '../../guest/wxWidgets-3.1.0/interface/wx'
 
-errorDone(pathName:string, lineNo:number, strMsg:string) = {
+ErrorDone(pathName:string, lineNo:number, strSrc:string, strMsg:string) = {
 	printf('%s:%d: %s\n', pathName, lineNo, strMsg)
+	printf('%s\n', strSrc)
 	sys.exit(1)
 }
 
-parse(pathName:string):map:void = {
+CreateClassInfo(pathName:string, lineNo:string, str:string) = {
+	fields = [str.split(':'):*strip()]
+	if (m = fields[0].match(r'^class\s+(\w+\s+)?(\w+\s*<\s*\w+\s*>)$')) {
+		// nothing to do
+	} elsif (m = fields[0].match(r'^class\s+(\w+\s+)?(\w+)$')) {
+		// nothing to do
+	} else {
+		ErrorDone(pathName, lineNo, str, 'unacceptable class syntax')
+	}
+	className = m[2]
+	println(className)
+	if (fields.len() == 2) {
+		fields[1].split(','):*strip().each {|field|
+			if (!(m = field.match(r'^public\s+(\w+)'))) {
+				println('  #private')
+			}
+		}
+	}
+}
+
+Parse(pathName:string):map:void = {
 	stat = `initial
 	lineNo = 0
 	readlines(pathName).each {|line|
@@ -17,20 +38,17 @@ parse(pathName:string):map:void = {
 		if (stat == `initial) {
 			if (m = line.match(r'^class')) {
 				str = line
-				stat = `classDecl
+				if (m = str.match('(.*);$')) {
+					// just ignore prototype declaration
+				} elsif (m = str.match('(.*){$')) {
+					CreateClassInfo(pathName, lineNo, m[1])
+				} else {
+					stat = `classDecl
+				}
 			}
 		} elsif (stat == `classDecl) {
 			if (m = line.match(r'{')) {
-				fields = str.split(':'):list
-				if (!(m = fields[0].match(r'^class\s+(\w+)'))) {
-					errorDone('unacceptable class syntax')
-				}
-				className = m[1]
-				println(className)
-				if (fields.len() == 2) {
-					fields = fields[1].split(','):*strip():list
-					println('  ', fields)
-				}
+				CreateClassInfo(pathName, lineNo, str)
 				stat = `initial
 			} else {
 				str += line
@@ -39,5 +57,5 @@ parse(pathName:string):map:void = {
 	}
 }
 
-parse(path.walk(dirNameBase))
-//parse(path.join(dirNameBase, 'button.h'))
+Parse(path.walk(dirNameBase))
+//Parse(path.join(dirNameBase, 'richtext/richtextbuffer.h'))
