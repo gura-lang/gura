@@ -3,30 +3,45 @@ import(re)
 
 dirNameBase = '../../guest/wxWidgets-3.1.0/interface/wx'
 
-ErrorDone(pathName:string, lineNo:number, strSrc:string, strMsg:string) = {
+ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
+				   className:string, classNamesParent[]:string, classInfosParent[] => [])
+
+classInfoDict = %{}
+
+WarningMessage(pathName:string, lineNo:number, strSrc:string, strMsg:string) = {
 	printf('%s:%d: %s\n', pathName, lineNo, strMsg)
-	printf('%s\n', strSrc)
+	printf('    %s\n', strSrc)
+}
+
+ErrorMessage(pathName:string, lineNo:number, strSrc:string, strMsg:string) = {
+	printf('%s:%d: %s\n', pathName, lineNo, strMsg)
+	printf('    %s\n', strSrc)
 	sys.exit(1)
 }
 
-CreateClassInfo(pathName:string, lineNo:string, str:string) = {
-	fields = [str.split(':'):*strip()]
+CreateClassInfo(pathName:string, lineNo:string, strSrc:string):void = {
+	fields = [strSrc.split(':'):*strip()]
 	if (m = fields[0].match(r'^class\s+(\w+\s+)?(\w+\s*<\s*\w+\s*>)$')) {
 		// nothing to do
 	} elsif (m = fields[0].match(r'^class\s+(\w+\s+)?(\w+)$')) {
 		// nothing to do
 	} else {
-		ErrorDone(pathName, lineNo, str, 'unacceptable class syntax')
+		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable class syntax')
 	}
 	className = m[2]
-	println(className)
 	if (fields.len() == 2) {
-		fields[1].split(','):*strip().each {|field|
-			if (!(m = field.match(r'^public\s+(\w+)'))) {
-				println('  #private')
+		classNamesParent = fields[1].split(','):*strip().each():xlist {|field|
+			if (m = field.match(r'^public\s+(\w+)')) {
+				m[1]
+			} else {
+				WarningMessage(pathName, lineNo, strSrc, 'uses private inheritance')
+				nil
 			}
 		}
+	} else {
+		classNamesParent = []
 	}
+	classInfoDict[className] = ClassInfo(pathName, lineNo, strSrc, className, classNamesParent)
 }
 
 Parse(pathName:string):map:void = {
@@ -58,4 +73,17 @@ Parse(pathName:string):map:void = {
 }
 
 Parse(path.walk(dirNameBase))
+classInfoDict.values {|classInfo|
+	classInfo.classNamesParent.each {|className|
+		try {
+			classInfoParent = classInfoDict[className]
+			classInfo.classInfosParent.add(classInfoParent)
+		} catch {
+			strMsg = format('class %s refers to undefined class %s',
+							classInfo.className, className)
+			WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc, strMsg)
+		}
+	}
+}
+//Parse(path.walk(dirNameBase).head(10))
 //Parse(path.join(dirNameBase, 'richtext/richtextbuffer.h'))
