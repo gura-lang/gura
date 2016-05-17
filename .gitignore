@@ -49,6 +49,7 @@ cmake_install.cmake
 install_manifest.txt
 install-deb.sh
 install-rpm.sh
+libguracore*.dll
 *~
 *#
 *.db

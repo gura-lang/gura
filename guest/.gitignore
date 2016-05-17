@@ -4,4 +4,3 @@
 *.zip
 *.7z
 **/
-!include/
