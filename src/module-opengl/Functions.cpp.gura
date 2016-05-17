@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-import(cbridge_glcmn)
+import(cbridge@opengl)
 
-cbridge_glcmn.Implement {
+cbridge@opengl.Implement {
 
 glewInit():void = R'''
 ^#if defined(__GLEW_H__)
@@ -5307,4 +5307,4 @@ void AssignFunctions(Environment &env)
 Gura_EndModuleScope(${renderer.moduleName})
 """.template()
 
-cbridge_glcmn.Renderer('opengl', nil).Render(tmplSource, 'Functions.cpp')
+cbridge@opengl.Renderer('opengl', nil).Render(tmplSource, 'Functions.cpp')

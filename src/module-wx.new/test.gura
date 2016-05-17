@@ -79,9 +79,9 @@ classInfoDict.values {|classInfo|
 			classInfoParent = classInfoDict[className]
 			classInfo.classInfosParent.add(classInfoParent)
 		} catch {
-			strMsg = format('class %s refers to undefined class %s',
-							classInfo.className, className)
-			WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc, strMsg)
+			WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc,
+						   format('class %s refers to undefined class %s',
+								  classInfo.className, className))
 		}
 	}
 }
