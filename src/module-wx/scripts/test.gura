@@ -1,4 +1,43 @@
 #!/usr/bin/env gura
-path.walk('../../../guest/wxWidgets-3.1.0/interface', -1).each {|pathName|
-	println(pathName)
+import(re)
+
+dirNameBase = '../../../guest/wxWidgets-3.1.0/interface/wx'
+
+errorDone(pathName:string, lineNo:number, strMsg:string) = {
+	printf('%s:%d: %s\n', pathName, lineNo, strMsg)
+	sys.exit(1)
 }
+
+parse(pathName:string):map:void = {
+	stat = `initial
+	lineNo = 0
+	readlines(pathName).each {|line|
+		lineNo += 1
+		line = line.chop()
+		if (stat == `initial) {
+			if (m = line.match(r'^class')) {
+				str = line
+				stat = `classDecl
+			}
+		} elsif (stat == `classDecl) {
+			if (m = line.match(r'{')) {
+				fields = str.split(':'):list
+				if (!(m = fields[0].match(r'^class\s+(\w+)'))) {
+					errorDone('unacceptable class syntax')
+				}
+				className = m[1]
+				println(className)
+				if (fields.len() == 2) {
+					fields = fields[1].split(','):*strip():list
+					println('  ', fields)
+				}
+				stat = `initial
+			} else {
+				str += line
+			}
+		}
+	}
+}
+
+parse(path.walk(dirNameBase))
+//parse(path.join(dirNameBase, 'button.h'))
