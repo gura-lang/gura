@@ -1,0 +1,4 @@
+#!/usr/bin/env gura
+path.walk('../../../guest/wxWidgets-3.1.0/interface', -1).each {|pathName|
+	println(pathName)
+}
