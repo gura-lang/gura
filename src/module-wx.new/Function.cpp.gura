@@ -1,0 +1,10 @@
+#!/usr/bin/env gura
+import(cbridge@wx)
+
+cbridge@wx.Implement {
+	
+Button = class(Window) {
+	SetLabel(label:string):void = `auto
+}
+
+}

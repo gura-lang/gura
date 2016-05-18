@@ -1,0 +1,18 @@
+#!/usr/bin/env gura
+import(moddoc)
+
+text@en = R'''
+# wx Module
+
+The `wx` module provides functions and methods of wxWidgets library.
+
+## Module Function
+
+## Thanks
+
+This module uses wxWidgets library which is distributed in the following site:
+
+[http://www.wxwidgets.org/](http://www.wxwidgets.org/)
+'''
+
+moddoc.register(locals(), %{`en => text@en})

@@ -1,0 +1,5 @@
+#!/usr/bin/env gura
+
+Implement() {`block} = {
+	println('Implement')
+}

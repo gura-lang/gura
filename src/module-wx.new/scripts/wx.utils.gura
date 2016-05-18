@@ -1,0 +1,31 @@
+#!/usr/bin/env gura
+import(wx)
+
+CheckGuraVersion(parent:wx.Window:nil, major:number, minor:number, patch:number) = {
+	try {
+		sys.required_version(major, minor, patch)
+	} catch {
+		msg = R'''
+		Gura %d.%d.%d or later is required.
+		Visit official site http://www.gura-lang.org/ for the latest version.
+		''' % [major, minor, patch]
+		wx.MessageDialog(parent, msg
+						 'Error', wx.OK | wx.ICON_ERROR | wx.CENTRE) {|dlg|
+			dlg.ShowModal()
+		}
+		return(false)
+	}
+	true
+}
+
+CheckGuraPlatform(parent:wx.Window:nil, platforms[]:symbol) = {
+	if (!(sys.platform in platforms)) {
+		wx.MessageDialog(
+				parent, 'Unsupported platform: ' + sys.platform,
+				'Error'$, wx.OK | wx.ICON_ERROR | wx.CENTRE) {|dlg|
+			dlg.ShowModal()
+		}
+		return(false)
+	}
+	true
+}
