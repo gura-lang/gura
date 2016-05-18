@@ -1,24 +1,21 @@
 #!/usr/bin/env gura
 import(modbuild)
+import(source)
 
 srcs = [
 	'module-wx.cpp'
-	'Class_wx_ClassInfo.cpp'
 	'Class_wx_EventFactory.cpp'
-	'Class_wx_Object.cpp'
-	'Class_wx_ObjectRefData.cpp'
-	'Class_wx_Event.cpp'
 ]
-srcs@mswin = [
-	'module-wx.rc'
-]
+srcs.append(source.srcs)
 contFlag = true
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 	builder.precompile = 'stdafx.h'
-	srcs.append(srcs@mswin)
+	srcs.append('module-wx.rc')
 	dirBase = path.join(builder.guestDir, 'wxWidgets-3.1.0')
 	builder.incDirs.append(
+		'.'
+		'class'
 		path.join(dirBase, 'include')
 		path.join(dirBase, 'lib/vc_lib/mswu'))
 	builder.libDirs.append(path.join(dirBase, 'lib/vc_lib'))
@@ -49,6 +46,8 @@ if (sys.platform == `mswin) {
 } elsif (sys.platform == `linux_a) {
 	builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
+		'.'
+		'class'
 		'guest/lib/wx/wx/include/gtk2-unicode-static-3.1',
 		'guest/include/wx')
 	builder.cflags.append(
@@ -112,6 +111,10 @@ if (sys.platform == `mswin) {
 			}
 			os.fromnative(buff).strip().split(' '):list
 		}
+		builder.incDirs.append(
+			'.'
+			'class'
+		)
 		builder.cflags.append(cflags.filter(cflags != ''))
 		ldflags = scope {
 			buff = binary()
@@ -129,6 +132,8 @@ if (sys.platform == `mswin) {
 } elsif (sys.platform == `darwin) {
 	builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
+		'.'
+		'class'
 		'guest/lib/wx/wx/include/osx_cocoa-unicode-static-3.1',
 		'guest/include/wx')
 	builder.cflags.append(
@@ -175,6 +180,6 @@ if (sys.platform == `mswin) {
 }
 if (contFlag) {
 	builder.progressFlag = true
-	builder.build('wx', srcs, ['scripts/wx.show.gura', 'scripts/wx.utils.gura'])
+	builder.build('wx', srcs, ['script/wx.show.gura', 'script/wx.utils.gura'])
 }
 builder

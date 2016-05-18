@@ -1,0 +1,8 @@
+#!/usr/bin/env gura
+
+srcs:public = path.join('class', [
+	'Class_wx_ClassInfo.cpp'
+	'Class_wx_Object.cpp'
+	'Class_wx_ObjectRefData.cpp'
+	'Class_wx_Event.cpp'
+])
