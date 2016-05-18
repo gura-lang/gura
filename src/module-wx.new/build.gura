@@ -3,6 +3,11 @@ import(modbuild)
 
 srcs = [
 	'module-wx.cpp'
+	'Class_wx_ClassInfo.cpp'
+	'Class_wx_EventFactory.cpp'
+	'Class_wx_Object.cpp'
+	'Class_wx_ObjectRefData.cpp'
+	'Class_wx_Event.cpp'
 ]
 srcs@mswin = [
 	'module-wx.rc'

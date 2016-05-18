@@ -57,6 +57,16 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	RealizeBaseClass(EventFactory);
+	PrepareClass(EventFactory);
+	RealizeBaseClass(ClassInfo);
+	RealizeBaseClass(Object);
+	RealizeBaseClass(ObjectRefData);
+	RealizeDervClass(Event,								Object);
+	PrepareClass(ClassInfo);
+	PrepareClass(Object);
+	PrepareClass(ObjectRefData);
+	PrepareClass(Event);
 }
 
 Gura_ModuleTerminate()
