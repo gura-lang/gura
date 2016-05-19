@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
 sys.path.add('../module-opengl')
-import(cbridge@opengl)
+import(cbridge_gl)
 
-cbridge@opengl.Implement {
+cbridge_gl.Implement {
 
 gluBeginCurve(nurb:GLUnurbs@):void {block?} = R'''
 	gluBeginCurve(nurb);
@@ -518,7 +518,7 @@ gluUnProject4(winX:GLdouble, winY:GLdouble, winZ:GLdouble, clipW:GLdouble, model
 }
 
 // GLU-specific type converter
-cbridge@opengl.AddTypeConvs {
+cbridge_gl.AddTypeConvs {
 	'GLUnurbs@' => TypeConv(
 			'Nurbs', 'Once', [],
 			R'''
@@ -592,4 +592,4 @@ void AssignFunctions(Environment &env)
 Gura_EndModuleScope(${renderer.moduleName})
 """.template()
 
-cbridge@opengl.Renderer('glu', nil).Render(tmplSource, 'Functions.cpp')
+cbridge_gl.Renderer('glu', nil).Render(tmplSource, 'Functions.cpp')

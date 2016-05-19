@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 sys.path.add('../module-opengl')
-import(cbridge@opengl)
+import(cbridge_gl)
 
 tmplCallbackHandler = R'''
 	if (func == nullptr) {
@@ -17,7 +17,7 @@ RenderCallbackHandler(eventName:string) = {
 	tmplCallbackHandler.render()
 }
 
-cbridge@opengl.Implement {
+cbridge_gl.Implement {
 
 glutInit(argv[]:string) {block?} = R'''
 	int argc = static_cast<int>(argv.size());
@@ -681,7 +681,7 @@ glutGameModeGet(mode:GLenum):int:map {block?} = `auto % {`en, 'markdown',
 }
 
 // GLUT-specific type converter
-cbridge@opengl.AddTypeConvs {
+cbridge_gl.AddTypeConvs {
 	'Font' => cbridge.TypeConv(
 			'Font', 'Once', [],
 			R'''
@@ -985,7 +985,7 @@ doc << [
 doc.render@html(sys.stdout)
 """.template()
 
-cbridge@opengl.Renderer('glut', nil) {|renderer|
+cbridge_gl.Renderer('glut', nil) {|renderer|
 	renderer.Render(tmplSource, 'Functions.cpp')
 	//renderer.Render(tmplMakeDoc, 'makedoc.gura')
 	//fs.chmod('a+x', 'makedoc.gura')
