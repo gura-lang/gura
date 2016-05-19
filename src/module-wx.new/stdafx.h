@@ -257,10 +257,7 @@
 #include <wx/zstream.h>
 
 #include "module-wx.h"
-#include "Class_wx_ClassInfo.h"
-#include "Class_wx_Object.h"
-#include "Class_wx_ObjectRefData.h"
-#include "Class_wx_Event.h"
+#include "class/gather.h"
 #include "Class_wx_EventFactory.h"
 #include "CArray.h"
 

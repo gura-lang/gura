@@ -1,12 +1,13 @@
 #!/usr/bin/env gura
+sys.path.add('class')
 import(modbuild)
-import(source)
+import(build_gather)
 
 srcs = [
 	'module-wx.cpp'
 	'Class_wx_EventFactory.cpp'
 ]
-srcs.append(source.srcs)
+srcs.append(build_gather.srcs)
 contFlag = true
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
@@ -15,7 +16,6 @@ if (sys.platform == `mswin) {
 	dirBase = path.join(builder.guestDir, 'wxWidgets-3.1.0')
 	builder.incDirs.append(
 		'.'
-		'class'
 		path.join(dirBase, 'include')
 		path.join(dirBase, 'lib/vc_lib/mswu'))
 	builder.libDirs.append(path.join(dirBase, 'lib/vc_lib'))
@@ -47,7 +47,6 @@ if (sys.platform == `mswin) {
 	builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
 		'.'
-		'class'
 		'guest/lib/wx/wx/include/gtk2-unicode-static-3.1',
 		'guest/include/wx')
 	builder.cflags.append(
@@ -113,7 +112,6 @@ if (sys.platform == `mswin) {
 		}
 		builder.incDirs.append(
 			'.'
-			'class'
 		)
 		builder.cflags.append(cflags.filter(cflags != ''))
 		ldflags = scope {
@@ -133,7 +131,6 @@ if (sys.platform == `mswin) {
 	builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
 		'.'
-		'class'
 		'guest/lib/wx/wx/include/osx_cocoa-unicode-static-3.1',
 		'guest/include/wx')
 	builder.cflags.append(
