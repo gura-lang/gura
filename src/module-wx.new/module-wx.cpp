@@ -16,28 +16,6 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD dwReason, LPVOID lpvReserved)
 
 #endif
 
-#undef BLACK_PEN
-#undef WHITE_PEN
-#undef BLACK_BRUSH
-#undef WHITE_BRUSH
-#undef TRANSPARENT
-#undef FR_DOWN
-#undef FR_WHOLEWORD
-#undef FR_MATCHCASE
-#undef FR_REPLACEDIALOG
-#undef FR_NOUPDOWN
-#undef FR_NOMATCHCASE
-#undef FR_NOWHOLEWORD
-
-#define RealizeBaseClass(className) \
-Gura_RealizeUserClassAlias(wx_##className, #className, env.LookupClass(VTYPE_object))
-
-#define RealizeDervClass(className, classNameParent) \
-Gura_RealizeUserClassAlias(wx_##className, #className, Gura_UserClass(wx_##classNameParent))
-
-#define PrepareClass(className) \
-Gura_PrepareUserClass(wx_##className)
-
 Gura_BeginModuleBody(wx)
 
 const bool OwnerTrue = true;
@@ -45,6 +23,7 @@ const bool OwnerFalse = false;
 
 static bool g_wxReadyFlag = false;
 
+void RegisterClasses(Environment &env);
 void RegisterFunctions(Environment &env);
 
 //-----------------------------------------------------------------------------
@@ -59,14 +38,8 @@ Gura_ModuleEntry()
 {
 	RealizeBaseClass(EventFactory);
 	PrepareClass(EventFactory);
-	RealizeBaseClass(ClassInfo);
-	RealizeBaseClass(Object);
-	RealizeBaseClass(ObjectRefData);
-	RealizeDervClass(Event,								Object);
-	PrepareClass(ClassInfo);
-	PrepareClass(Object);
-	PrepareClass(ObjectRefData);
-	PrepareClass(Event);
+	RegisterClasses(env);
+	//RegisterFunctions(env);
 }
 
 Gura_ModuleTerminate()

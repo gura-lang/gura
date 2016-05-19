@@ -13,6 +13,19 @@
 #define _MS(x)
 #endif
 
+#undef BLACK_PEN
+#undef WHITE_PEN
+#undef BLACK_BRUSH
+#undef WHITE_BRUSH
+#undef TRANSPARENT
+#undef FR_DOWN
+#undef FR_WHOLEWORD
+#undef FR_MATCHCASE
+#undef FR_REPLACEDIALOG
+#undef FR_NOUPDOWN
+#undef FR_NOMATCHCASE
+#undef FR_NOWHOLEWORD
+
 #define Gura_AssignWxValue(name) \
 Gura_AssignValue(name, Value(static_cast<double>(wx##name)))
 
@@ -30,6 +43,15 @@ Gura_AssignValue(name, Value(name))
 
 #define Gura_LookupWxMethod(pObj, name) \
 LookupFunctionCustom(*pObj, Gura_UserSymbol(name), ENVREF_Escalate)
+
+#define RealizeBaseClass(className) \
+Gura_RealizeUserClassAlias(wx_##className, #className, env.LookupClass(VTYPE_object))
+
+#define RealizeDervClass(className, classNameParent) \
+Gura_RealizeUserClassAlias(wx_##className, #className, Gura_UserClass(wx_##classNameParent))
+
+#define PrepareClass(className) \
+Gura_PrepareUserClass(wx_##className)
 
 Gura_BeginModuleHeader(wx)
 
