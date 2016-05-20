@@ -1,12 +1,81 @@
 #!/usr/bin/env gura
 import(re)
 
+tmpl@ClassesSource_gura = R'''
+#!/usr/bin/env gura
+
+srcs:public = [
+	//'Class_wx_ClassInfo.cpp'
+	//'Class_wx_Object.cpp'
+	//'Class_wx_ObjectRefData.cpp'
+	//'Class_wx_Event.cpp'
+	${classInfosAtRoot:*Gen_SourceEntry()}
+]
+'''.template()
+
+tmpl@Classes_h = R'''
+#ifndef __CLASSES_H__
+#define __CLASSES_H__
+
+//#include "Class_wx_ClassInfo.h"
+${classInfosAtRoot:*Gen_Include()}
+
+#endif
+'''.template()
+
+tmpl@Classes_cpp = R'''
+#include "stdafx.h"
+
+Gura_BeginModuleScope(wx)
+
+void RegisterClasses(Environment &env)
+{
+	//RealizeBaseClass(ClassInfo);
+	//RealizeBaseClass(Object);
+	//RealizeBaseClass(ObjectRefData);
+	//RealizeDervClass(Event, Object);
+	//PrepareClass(ClassInfo);
+	//PrepareClass(Object);
+	//PrepareClass(ObjectRefData);
+	//PrepareClass(Event);
+	${classInfosAtRoot:*Gen_RealizeClass()}
+	${classInfosAtRoot:*Gen_PrepareClass()}
+}
+
+Gura_EndModuleScope(wx)
+'''.template()
+
 dirNameBase = '../../guest/wxWidgets-3.1.0/interface/wx'
 
 ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
-				   className:string, classNamesParent[]:string, classInfosParent[] => [])
+				   className:string, classNamesParent[]:string,
+				   classInfosOfParent[] => [], classInfosOfChild[] => []) {
+	MakeClassNameShort() = this.className.sub('^wx', '')
+	Gen_SourceEntry() = {
+		str = format("'Class_wx_%s.cpp'\n", this.MakeClassNameShort())
+		str + this.classInfosOfChild:*Gen_SourceEntry().join()
+	}
+	Gen_Include() = {
+		str = format('#include "Class_wx_%s.h"\n', this.MakeClassNameShort())
+		str + this.classInfosOfChild:*Gen_Include().join()
+	}
+	Gen_RealizeClass() = {
+		str = if (this.classInfosOfParent.isempty()) {
+			format('RealizeBaseClass(%s);\n', this.MakeClassNameShort())
+		} else {
+			format('RealizeDervClass(%s, %s);\n',
+				   this.MakeClassNameShort(), this.classInfosOfParent[0].MakeClassNameShort())
+		}
+		str + this.classInfosOfChild:*Gen_RealizeClass().join()
+	}
+	Gen_PrepareClass() = {
+		str = format('PrepareClass(%s);\n', this.MakeClassNameShort())
+		str + this.classInfosOfChild:*Gen_PrepareClass().join()
+	}
+}
 
 classInfoDict = %{}
+classInfosAtRoot = []
 
 WarningMessage(pathName:string, lineNo:number, strSrc:string, strMsg:string) = {
 	printf('%s:%d: %s\n', pathName.replace(dirNameBase + path.sep_file, ''), lineNo, strMsg)
@@ -75,17 +144,28 @@ Parse(pathName:string):map:void = {
 }
 
 Parse(path.walk(dirNameBase))
+//Parse(path.walk(dirNameBase).head(10))
 classInfoDict.values {|classInfo|
-	classInfo.classNamesParent.each {|className|
-		try {
-			classInfoParent = classInfoDict[className]
-			classInfo.classInfosParent.add(classInfoParent)
-		} catch {
-			WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc,
-						   format('class %s refers to undefined class %s',
-								  classInfo.className, className))
+	if (classInfo.classNamesParent.isempty()) {
+		classInfosAtRoot.add(classInfo)
+	} else {
+		classInfo.classNamesParent.each {|className|
+			classInfoOfParent = classInfoDict.get(className)
+			if (classInfoOfParent) {
+				classInfo.classInfosOfParent.add(classInfoOfParent)
+				classInfoOfParent.classInfosOfChild.add(classInfo)
+			} else {
+				WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc,
+							   format('class %s refers to undefined class %s',
+									  classInfo.className, className))
+			}
 		}
 	}
 }
-//Parse(path.walk(dirNameBase).head(10))
-//Parse(path.join(dirNameBase, 'richtext/richtextbuffer.h'))
+//print(classInfosAtRoot:*Gen_SourceEntry())
+//print(classInfosAtRoot:*Gen_Include())
+//print(classInfosAtRoot:*Gen_RealizeClass())
+//print(classInfosAtRoot:*Gen_PrepareClass())
+tmpl@ClassesSource_gura.render('_ClassesSource.gura')
+tmpl@Classes_h.render('_Classes.h')
+tmpl@Classes_cpp.render('_Classes.cpp')
