@@ -1,6 +1,9 @@
 #!/usr/bin/env gura
 import(re)
 
+dirNameWx = '../../guest/wxWidgets-3.1.0/interface/wx'
+dirNameDst = 'tmp'
+
 tmpl@ClassesSource_gura = R'''
 #!/usr/bin/env gura
 
@@ -132,8 +135,6 @@ Gura_ImplementDescendantCreator(wx_${classNameShort})
 Gura_EndModuleScope(wx)
 '''.template()
 
-dirNameBase = '../../guest/wxWidgets-3.1.0/interface/wx'
-
 ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 				   className:string, classNamesParent[]:string,
 				   classInfosOfParent[] => [], classInfosOfChild[] => []) {
@@ -173,13 +174,13 @@ classInfoDict = %{}
 classInfosAtRoot = []
 
 WarningMessage(pathName:string, lineNo:number, strSrc:string, strMsg:string) = {
-	printf('%s:%d: %s\n', pathName.replace(dirNameBase + path.sep_file, ''), lineNo, strMsg)
+	printf('%s:%d: %s\n', pathName.replace(dirNameWx + path.sep_file, ''), lineNo, strMsg)
 	printf('    %s\n', strSrc.sub(r'\s+', ' '))
 	println()
 }
 
 ErrorMessage(pathName:string, lineNo:number, strSrc:string, strMsg:string) = {
-	printf('%s:%d: %s\n', pathName.replace(dirNameBase + path.sep_file, ''), lineNo, strMsg)
+	printf('%s:%d: %s\n', pathName.replace(dirNameWx + path.sep_file, ''), lineNo, strMsg)
 	printf('    %s\n', strSrc.sub(r'\s+', ' '))
 	println()
 	sys.exit(1)
@@ -238,8 +239,8 @@ Parse(pathName:string):map:void = {
 	}
 }
 
-Parse(path.walk(dirNameBase))
-//Parse(path.walk(dirNameBase).head(10))
+Parse(path.walk(dirNameWx))
+//Parse(path.walk(dirNameWx).head(10))
 classInfoDict.values {|classInfo|
 	if (classInfo.classNamesParent.isempty()) {
 		classInfosAtRoot.add(classInfo)
@@ -257,12 +258,8 @@ classInfoDict.values {|classInfo|
 		}
 	}
 }
-//print(classInfosAtRoot:*Gen_SourceEntry())
-//print(classInfosAtRoot:*Gen_Include())
-//print(classInfosAtRoot:*Gen_RealizeClass())
-//print(classInfosAtRoot:*Gen_PrepareClass())
-tmpl@ClassesSource_gura.render('tmp/ClassesSource.gura')
-tmpl@Classes_h.render('tmp/Classes.h')
-tmpl@Classes_cpp.render('tmp/Classes.cpp')
-classInfoDict.values():*RenderHeader('tmp')
-classInfoDict.values():*RenderSource('tmp')
+tmpl@ClassesSource_gura.render(path.join(dirNameDst, 'ClassesSource.gura'))
+tmpl@Classes_h.render(path.join(dirNameDst, 'Classes.h'))
+tmpl@Classes_cpp.render(path.join(dirNameDst, 'Classes.cpp'))
+classInfoDict.values():*RenderHeader(dirNameDst)
+classInfoDict.values():*RenderSource(dirNameDst)
