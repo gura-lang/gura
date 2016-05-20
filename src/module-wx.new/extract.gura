@@ -5,10 +5,6 @@ tmpl@ClassesSource_gura = R'''
 #!/usr/bin/env gura
 
 srcs:public = [
-	//'Class_wx_ClassInfo.cpp'
-	//'Class_wx_Object.cpp'
-	//'Class_wx_ObjectRefData.cpp'
-	//'Class_wx_Event.cpp'
 	${classInfosAtRoot:*Gen_SourceEntry()}
 ]
 '''.template()
@@ -17,7 +13,6 @@ tmpl@Classes_h = R'''
 #ifndef __CLASSES_H__
 #define __CLASSES_H__
 
-//#include "Class_wx_ClassInfo.h"
 ${classInfosAtRoot:*Gen_Include()}
 
 #endif
@@ -30,16 +25,108 @@ Gura_BeginModuleScope(wx)
 
 void RegisterClasses(Environment &env)
 {
-	//RealizeBaseClass(ClassInfo);
-	//RealizeBaseClass(Object);
-	//RealizeBaseClass(ObjectRefData);
-	//RealizeDervClass(Event, Object);
-	//PrepareClass(ClassInfo);
-	//PrepareClass(Object);
-	//PrepareClass(ObjectRefData);
-	//PrepareClass(Event);
 	${classInfosAtRoot:*Gen_RealizeClass()}
 	${classInfosAtRoot:*Gen_PrepareClass()}
+}
+
+Gura_EndModuleScope(wx)
+'''.template()
+
+tmpl@Header = R'''
+//----------------------------------------------------------------------------
+// wx${classNameShort}
+//----------------------------------------------------------------------------
+#ifndef __CLASS_WX_${classNameShort.upper()}_H__
+#define __CLASS_WX_${classNameShort.upper()}_H__
+
+Gura_BeginModuleScope(wx)
+
+//----------------------------------------------------------------------------
+// Class declaration for wx${classNameShort}
+//----------------------------------------------------------------------------
+Gura_DeclareUserClass(wx_${classNameShort});
+
+//----------------------------------------------------------------------------
+// Object declaration for wx${classNameShort}
+//----------------------------------------------------------------------------
+class Object_wx_${classNameShort} : public Object_wx_Object {
+public:
+	Gura_DeclareObjectAccessor(wx_${classNameShort})
+public:
+	inline Object_wx_${classNameShort}(wxEvent *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
+				Object_wx_Object(Gura_UserClass(wx_${classNameShort}), pEntity, pObserver, ownerFlag) {}
+	inline Object_wx_${classNameShort}(Class *pClass, wx${classNameShort} *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
+				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
+	virtual ~Object_wx_${classNameShort}();
+	virtual Object *Clone() const;
+	virtual String ToString(bool exprFlag);
+	inline wx${classNameShort} *GetEntity() {
+		return dynamic_cast<wx${classNameShort} *>(_pEntity);
+	}
+	inline wx${classNameShort} *ReleaseEntity() {
+		wx${classNameShort} *pEntity = GetEntity();
+		InvalidateEntity();
+		return pEntity;
+	}
+	inline bool IsInvalid(Signal &sig) const {
+		if (_pEntity != nullptr) return false;
+		SetError_InvalidWxObject(sig, "wx${classNameShort}");
+		return true;
+	}
+};
+
+Gura_EndModuleScope(wx)
+
+#endif
+'''.template()
+
+tmpl@Source = R'''
+//----------------------------------------------------------------------------
+// wx${classNameShort}
+//----------------------------------------------------------------------------
+#include "stdafx.h"
+
+Gura_BeginModuleScope(wx)
+
+//----------------------------------------------------------------------------
+// Gura interfaces for wx${classNameShort}
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+// Object implementation for wx${classNameShort}
+//----------------------------------------------------------------------------
+Object_wx_${classNameShort}::~Object_wx_${classNameShort}()
+{
+}
+
+Object *Object_wx_${classNameShort}::Clone() const
+{
+	return nullptr;
+}
+
+String Object_wx_${classNameShort}::ToString(bool exprFlag)
+{
+	String rtn("<wx.${classNameShort}:");
+	if (GetEntity() == nullptr) {
+		rtn += "invalid>";
+	} else {
+		char buff[64];
+		::sprintf(buff, "%p>", GetEntity());
+		rtn += buff;
+	}
+	return rtn;
+}
+
+//----------------------------------------------------------------------------
+// Class implementation for wx${classNameShort}
+//----------------------------------------------------------------------------
+Gura_ImplementUserInheritableClass(wx_${classNameShort})
+{
+}
+
+Gura_ImplementDescendantCreator(wx_${classNameShort})
+{
+	return new Object_wx_${classNameShort}((pClass == nullptr)? this : pClass, nullptr, nullptr, OwnerFalse);
 }
 
 Gura_EndModuleScope(wx)
@@ -71,6 +158,14 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 	Gen_PrepareClass() = {
 		str = format('PrepareClass(%s);\n', this.MakeClassNameShort())
 		str + this.classInfosOfChild:*Gen_PrepareClass().join()
+	}
+	RenderHeader(dirName:string):void = {
+		classNameShort = this.MakeClassNameShort()
+		tmpl@Header.render(path.join(dirName, format('Class_wx_%s.h', classNameShort)))
+	}
+	RenderSource(dirName:string) = {
+		classNameShort = this.MakeClassNameShort()
+		tmpl@Source.render(path.join(dirName, format('Class_wx_%s.cpp', classNameShort)))
 	}
 }
 
@@ -166,6 +261,8 @@ classInfoDict.values {|classInfo|
 //print(classInfosAtRoot:*Gen_Include())
 //print(classInfosAtRoot:*Gen_RealizeClass())
 //print(classInfosAtRoot:*Gen_PrepareClass())
-tmpl@ClassesSource_gura.render('_ClassesSource.gura')
-tmpl@Classes_h.render('_Classes.h')
-tmpl@Classes_cpp.render('_Classes.cpp')
+tmpl@ClassesSource_gura.render('tmp/ClassesSource.gura')
+tmpl@Classes_h.render('tmp/Classes.h')
+tmpl@Classes_cpp.render('tmp/Classes.cpp')
+classInfoDict.values():*RenderHeader('tmp')
+classInfoDict.values():*RenderSource('tmp')
