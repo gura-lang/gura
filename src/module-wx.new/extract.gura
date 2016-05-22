@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(re)
 
-dirNameWx = '../../guest/wxWidgets-3.1.0/interface/wx'
+dirNameWx = 'interface.wx'
 dirNameDst = 'tmp'
 
 tmpl@ClassesSource_gura = R'''
