@@ -5,6 +5,39 @@ dirNameWx = 'interface.wx'
 dirNameDst = 'tmp'
 //dirNameDst = 'generated'
 
+classNamesToSkip = [
+	'wxArchiveIterator'
+	'wxDDEServer'
+	'wxDebugContext'
+	'wxDialUpManager'
+	'wxHashMap'
+	'wxHashSet'
+	'wxAccessible'
+	'wxAutomationObject'
+	'wxRegConfig'
+	'wxDDEConnection'
+	'wxBufferedPaintDC'
+	'wxDDEClient'
+	'wxDataViewChoiceByIndexRenderer'
+	'wxActiveXEvent'
+	'wxDialUpEvent'
+	'wxPowerEvent'
+	'wxNumValidator'
+	'wxFloatingPointValidator'
+	'wxActiveXContainer'
+	'wxBitmapComboBox'
+	'wxSystemSettings'
+	'wxPersistentWindow'
+	'wxPixelData'
+	'wxRegKey'
+	'wxRefCounter'
+	'wxScopeGuard'
+	'wxScopedArray'
+	'wxScopedCharTypeBuffer'
+	'wxScopedPtr'
+	'wxScopedTiedPtr'
+]
+
 tmpl@ClassesSource_gura = R'''
 #!/usr/bin/env gura
 
@@ -79,7 +112,7 @@ public:
 	}
 	inline void InvalidateEntity() { _pEntity = nullptr, _pObserver = nullptr, _ownerFlag = false; }
 	inline wx${classNameShort} *GetEntity() {
-		return dynamic_cast<wx${classNameShort} *>(_pEntity);
+		return static_cast<wx${classNameShort} *>(_pEntity);
 	}
 	inline wx${classNameShort} *ReleaseEntity() {
 		wx${classNameShort} *pEntity = GetEntity();
@@ -131,7 +164,7 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline wx${classNameShort} *GetEntity() {
-		return dynamic_cast<wx${classNameShort} *>(_pEntity);
+		return static_cast<wx${classNameShort} *>(_pEntity);
 	}
 	inline wx${classNameShort} *ReleaseEntity() {
 		wx${classNameShort} *pEntity = GetEntity();
@@ -324,7 +357,10 @@ Parse(path.walk(dirNameWx))
 //Parse(path.walk(dirNameWx).head(10))
 println('-- associating class information')
 classInfoDict.values {|classInfo|
-	classInfo.className.find('<') && continue
+	if (classInfo.className.find('<') || classNamesToSkip.find(classInfo.className)) {
+		printf('-- skip generating: %s\n', classInfo.className)
+		continue
+	}
 	if (classInfo.classNamesParent.isempty()) {
 		classInfosAtRoot.add(classInfo)
 	} else {
