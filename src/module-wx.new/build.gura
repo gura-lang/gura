@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-dirName@generated = 'generated'
+dirName@generated = 'tmp'
 sys.path.add(dirName@generated)
 import(modbuild)
 import(ClassesSource)

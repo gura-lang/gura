@@ -36,12 +36,13 @@ void RegisterClasses(Environment &env)
 Gura_EndModuleScope(wx)
 '''.template()
 
-tmpl@Header = R'''
+tmpl@HeaderBase = R'''
 //----------------------------------------------------------------------------
 // wx${classNameShort}
 //----------------------------------------------------------------------------
 #ifndef __CLASS_WX_${classNameShort.upper()}_H__
 #define __CLASS_WX_${classNameShort.upper()}_H__
+#include <${pathNameWxHdr}>
 
 Gura_BeginModuleScope(wx)
 
@@ -53,14 +54,79 @@ Gura_DeclareUserClass(wx_${classNameShort});
 //----------------------------------------------------------------------------
 // Object declaration for wx${classNameShort}
 //----------------------------------------------------------------------------
-class Object_wx_${classNameShort} : public Object_wx_Object {
+class Object_wx_${classNameShort} : public Object {
+protected:
+	wx${classNameShort} *_pEntity;
+	GuraObjectObserver *_pObserver;
+	bool _ownerFlag;
 public:
 	Gura_DeclareObjectAccessor(wx_${classNameShort})
 public:
-	inline Object_wx_${classNameShort}(wxEvent *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_Object(Gura_UserClass(wx_${classNameShort}), pEntity, pObserver, ownerFlag) {}
+	inline Object_wx_${classNameShort}(wx${classNameShort} *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
+				Object(Gura_UserClass(wx_AboutDialogInfo)),
+				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	inline Object_wx_${classNameShort}(Class *pClass, wx${classNameShort} *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
+				Object(pClass),
+				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
+	virtual ~Object_wx_${classNameShort}();
+	virtual Object *Clone() const;
+	virtual String ToString(bool exprFlag);
+	inline void SetEntity(wx${classNameShort} *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) {
+		if (_ownerFlag) delete _pEntity;
+		_pEntity = pEntity;
+		_pObserver = pObserver;
+		_ownerFlag = ownerFlag;
+	}
+	inline void InvalidateEntity() { _pEntity = nullptr, _pObserver = nullptr, _ownerFlag = false; }
+	inline wx${classNameShort} *GetEntity() {
+		return dynamic_cast<wx${classNameShort} *>(_pEntity);
+	}
+	inline wx${classNameShort} *ReleaseEntity() {
+		wx${classNameShort} *pEntity = GetEntity();
+		InvalidateEntity();
+		return pEntity;
+	}
+	inline void NotifyGuraObjectDeleted() {
+		if (_pObserver != nullptr) _pObserver->GuraObjectDeleted();
+	}
+	inline bool IsInvalid(Signal &sig) const {
+		if (_pEntity != nullptr) return false;
+		SetError_InvalidWxObject(sig, "wx${classNameShort}");
+		return true;
+	}
+};
+
+Gura_EndModuleScope(wx)
+
+#endif
+'''.template()
+
+tmpl@HeaderDerv = R'''
+//----------------------------------------------------------------------------
+// wx${classNameShort}
+//----------------------------------------------------------------------------
+#ifndef __CLASS_WX_${classNameShort.upper()}_H__
+#define __CLASS_WX_${classNameShort.upper()}_H__
+#include <${pathNameWxHdr}>
+
+Gura_BeginModuleScope(wx)
+
+//----------------------------------------------------------------------------
+// Class declaration for wx${classNameShort}
+//----------------------------------------------------------------------------
+Gura_DeclareUserClass(wx_${classNameShort});
+
+//----------------------------------------------------------------------------
+// Object declaration for wx${classNameShort}
+//----------------------------------------------------------------------------
+class Object_wx_${classNameShort} : public Object_wx_${classNameShortOfParent} {
+public:
+	Gura_DeclareObjectAccessor(wx_${classNameShort})
+public:
+	inline Object_wx_${classNameShort}(wx${classNameShort} *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
+				Object_wx_${classNameShortOfParent}(Gura_UserClass(wx_${classNameShort}), pEntity, pObserver, ownerFlag) {}
+	inline Object_wx_${classNameShort}(Class *pClass, wx${classNameShort} *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
+				Object_wx_${classNameShortOfParent}(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_${classNameShort}();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
@@ -140,30 +206,39 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 				   className:string, classNamesParent[]:string,
 				   classInfosOfParent[] => [], classInfosOfChild[] => []) {
 	MakeClassNameShort() = this.className.sub('^wx', '')
-	Gen_SourceEntry() = {
-		str = format("'Class_wx_%s.cpp'\n", this.MakeClassNameShort())
-		str + this.classInfosOfChild:*Gen_SourceEntry().join()
+	IsRootClass() = this.classInfosOfParent.isempty()
+	Gen_SourceEntry(indentLevel:number => 0) = {
+		str = format("%s'Class_wx_%s.cpp'\n", '  ' * indentLevel, this.MakeClassNameShort())
+		str + this.classInfosOfChild:*Gen_SourceEntry(indentLevel + 1).join()
 	}
-	Gen_Include() = {
-		str = format('#include "Class_wx_%s.h"\n', this.MakeClassNameShort())
-		str + this.classInfosOfChild:*Gen_Include().join()
+	Gen_Include(indentLevel:number => 0) = {
+		str = format('#include %s"Class_wx_%s.h"\n', '  ' * indentLevel, this.MakeClassNameShort())
+		str + this.classInfosOfChild:*Gen_Include(indentLevel + 1).join()
 	}
-	Gen_RealizeClass() = {
-		str = if (this.classInfosOfParent.isempty()) {
+	Gen_RealizeClass(indentLevel:number => 0) = {
+		str = if (this.IsRootClass()) {
 			format('RealizeBaseClass(%s);\n', this.MakeClassNameShort())
 		} else {
-			format('RealizeDervClass(%s, %s);\n',
+			format('%sRealizeDervClass(%s, %s);\n',
+				   '  ' * indentLevel,
 				   this.MakeClassNameShort(), this.classInfosOfParent[0].MakeClassNameShort())
 		}
-		str + this.classInfosOfChild:*Gen_RealizeClass().join()
+		str + this.classInfosOfChild:*Gen_RealizeClass(indentLevel + 1).join()
 	}
-	Gen_PrepareClass() = {
-		str = format('PrepareClass(%s);\n', this.MakeClassNameShort())
-		str + this.classInfosOfChild:*Gen_PrepareClass().join()
+	Gen_PrepareClass(indentLevel:number => 0) = {
+		str = format('%sPrepareClass(%s);\n', '  ' * indentLevel, this.MakeClassNameShort())
+		str + this.classInfosOfChild:*Gen_PrepareClass(indentLevel + 1).join()
 	}
 	RenderHeader(dirName:string):void = {
 		classNameShort = this.MakeClassNameShort()
-		tmpl@Header.render(path.join(dirName, format('Class_wx_%s.h', classNameShort)))
+		pathNameWxHdr = path.join('wx', MakePathNameWx(this.pathName))
+		pathNameGuraHdr = path.join(dirName, format('Class_wx_%s.h', classNameShort))
+		if (this.IsRootClass()) {
+			tmpl@HeaderBase.render(pathNameGuraHdr)
+		} else {
+			classNameShortOfParent = this.classInfosOfParent[0].MakeClassNameShort()
+			tmpl@HeaderDerv.render(pathNameGuraHdr)
+		}
 	}
 	RenderSource(dirName:string) = {
 		classNameShort = this.MakeClassNameShort()
@@ -174,14 +249,18 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 classInfoDict = %{}
 classInfosAtRoot = []
 
+MakePathNameWx(pathName:string) = {
+	pathName.replace(dirNameWx + path.sep_file, '')
+}
+
 WarningMessage(pathName:string, lineNo:number, strSrc:string, strMsg:string) = {
-	printf('%s:%d: %s\n', pathName.replace(dirNameWx + path.sep_file, ''), lineNo, strMsg)
-	printf('    %s\n', strSrc.sub(r'\s+', ' '))
-	println()
+	printf('%s:%d: %s\n', MakePathNameWx(pathName), lineNo, strMsg)
+	//printf('    %s\n', strSrc.sub(r'\s+', ' '))
+	//println()
 }
 
 ErrorMessage(pathName:string, lineNo:number, strSrc:string, strMsg:string) = {
-	printf('%s:%d: %s\n', pathName.replace(dirNameWx + path.sep_file, ''), lineNo, strMsg)
+	printf('%s:%d: %s\n', MakePathNameWx(pathName), lineNo, strMsg)
 	printf('    %s\n', strSrc.sub(r'\s+', ' '))
 	println()
 	sys.exit(1)
@@ -245,20 +324,24 @@ Parse(path.walk(dirNameWx))
 //Parse(path.walk(dirNameWx).head(10))
 println('-- associating class information')
 classInfoDict.values {|classInfo|
+	classInfo.className.find('<') && continue
 	if (classInfo.classNamesParent.isempty()) {
 		classInfosAtRoot.add(classInfo)
 	} else {
-		classInfo.classNamesParent.each {|className|
+		classInfoOfParentTop = nil
+		classInfo.classNamesParent.each {|className, idx|
 			classInfoOfParent = classInfoDict.get(className)
 			if (classInfoOfParent) {
 				classInfo.classInfosOfParent.add(classInfoOfParent)
-				classInfoOfParent.classInfosOfChild.add(classInfo)
+				if (idx == 0) { classInfoOfParentTop = classInfoOfParent }
 			} else {
 				WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc,
 							   format('class %s refers to undefined class %s',
 									  classInfo.className, className))
+				classInfoOfParentTop = nil
 			}
 		}
+		classInfoOfParentTop && classInfoOfParentTop.classInfosOfChild.add(classInfo)
 	}
 }
 println('-- generating files')
