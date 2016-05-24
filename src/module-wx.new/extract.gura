@@ -257,8 +257,9 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		str + this.classInfosOfChild:*Gen_SourceEntry(indentLevel + 1).join()
 	}
 	Gen_Include(indentLevel:number => 0) = {
-		str = format('%s#include %s"Class_wx_%s.h"\n',
-					 cond(this.validFlag, '', '//'), '  ' * indentLevel, this.MakeClassNameShort())
+		str = format('%snclude %s"Class_wx_%s.h"\n',
+					 cond(this.validFlag, '#i', '//'), '  ' * indentLevel,
+					 this.MakeClassNameShort())
 		str + this.classInfosOfChild:*Gen_Include(indentLevel + 1).join()
 	}
 	Gen_RealizeClass(indentLevel:number => 0) = {
@@ -291,6 +292,13 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 	RenderSource(dirName:string):void = {
 		classNameShort = this.MakeClassNameShort()
 		tmpl@Source.render(path.join(dirName, format('Class_wx_%s.cpp', classNameShort)))
+	}
+	InheritValidation():void = {
+		if (this.validFlag) {
+			this.classInfosOfChild:*InheritValidation()
+		} else {
+			this.Invalidate()
+		}
 	}
 	Invalidate():void = {
 		this.validFlag = false
@@ -377,28 +385,29 @@ Parse(path.walk(dirNameWx))
 println('-- associating class information')
 classInfoDict.values {|classInfo|
 	if (classInfo.className.find('<') || classNamesToSkip.find(classInfo.className)) {
-		printf('-- skip generating: %s\n', classInfo.className)
-		continue
+		//printf('-- skip generating: %s\n', classInfo.className)
+		classInfo.validFlag = false
 	}
 	if (classInfo.classNamesParent.isempty()) {
 		classInfosAtRoot.add(classInfo)
 	} else {
-		classInfoOfParentTop = nil
 		classInfo.classNamesParent.each {|className, idx|
 			classInfoOfParent = classInfoDict.get(className)
 			if (classInfoOfParent) {
 				classInfo.classInfosOfParent.add(classInfoOfParent)
-				if (idx == 0) { classInfoOfParentTop = classInfoOfParent }
+				if (idx == 0) {
+					classInfoOfParent.classInfosOfChild.add(classInfo)
+				}
 			} else {
 				WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc,
 							   format('class %s refers to undefined class %s',
 									  classInfo.className, className))
-				classInfoOfParentTop = nil
+				classInfo.validFlag = false
 			}
 		}
-		classInfoOfParentTop && classInfoOfParentTop.classInfosOfChild.add(classInfo)
 	}
 }
+classInfosAtRoot:*InheritValidation()
 println('-- generating files')
 tmpl@ClassesSource_gura.render(path.join(dirNameDst, 'ClassesSource.gura'))
 tmpl@Classes_h.render(path.join(dirNameDst, 'Classes.h'))
