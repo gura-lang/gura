@@ -247,29 +247,34 @@ Gura_EndModuleScope(wx)
 
 ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 				   className:string, classNamesParent[]:string,
-				   classInfosOfParent[] => [], classInfosOfChild[] => []) {
+				   classInfosOfParent[] => [], classInfosOfChild[] => [],
+				   validFlag => true) {
 	MakeClassNameShort() = this.className.sub('^wx', '')
 	IsRootClass() = this.classInfosOfParent.isempty()
 	Gen_SourceEntry(indentLevel:number => 0) = {
-		str = format("%s'Class_wx_%s.cpp'\n", '  ' * indentLevel, this.MakeClassNameShort())
+		str = format("%s%s'Class_wx_%s.cpp'\n", '  ' * indentLevel,
+					 cond(this.validFlag, '', '//'), this.MakeClassNameShort())
 		str + this.classInfosOfChild:*Gen_SourceEntry(indentLevel + 1).join()
 	}
 	Gen_Include(indentLevel:number => 0) = {
-		str = format('#include %s"Class_wx_%s.h"\n', '  ' * indentLevel, this.MakeClassNameShort())
+		str = format('%s#include %s"Class_wx_%s.h"\n',
+					 cond(this.validFlag, '', '//'), '  ' * indentLevel, this.MakeClassNameShort())
 		str + this.classInfosOfChild:*Gen_Include(indentLevel + 1).join()
 	}
 	Gen_RealizeClass(indentLevel:number => 0) = {
 		str = if (this.IsRootClass()) {
-			format('RealizeBaseClass(%s);\n', this.MakeClassNameShort())
+			format('%sRealizeBaseClass(%s);\n',
+				   cond(this.validFlag, '', '//'), this.MakeClassNameShort())
 		} else {
-			format('%sRealizeDervClass(%s, %s);\n',
-				   '  ' * indentLevel,
+			format('%s%sRealizeDervClass(%s, %s);\n',
+				   '  ' * indentLevel, cond(this.validFlag, '', '//'),
 				   this.MakeClassNameShort(), this.classInfosOfParent[0].MakeClassNameShort())
 		}
 		str + this.classInfosOfChild:*Gen_RealizeClass(indentLevel + 1).join()
 	}
 	Gen_PrepareClass(indentLevel:number => 0) = {
-		str = format('%sPrepareClass(%s);\n', '  ' * indentLevel, this.MakeClassNameShort())
+		str = format('%s%sPrepareClass(%s);\n',
+					 '  ' * indentLevel, cond(this.validFlag, '', '//'), this.MakeClassNameShort())
 		str + this.classInfosOfChild:*Gen_PrepareClass(indentLevel + 1).join()
 	}
 	RenderHeader(dirName:string):void = {
@@ -283,9 +288,13 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 			tmpl@HeaderDerv.render(pathNameGuraHdr)
 		}
 	}
-	RenderSource(dirName:string) = {
+	RenderSource(dirName:string):void = {
 		classNameShort = this.MakeClassNameShort()
 		tmpl@Source.render(path.join(dirName, format('Class_wx_%s.cpp', classNameShort)))
+	}
+	Invalidate():void = {
+		this.validFlag = false
+		this.classInfosOfChild:*Invalidate()
 	}
 }
 
