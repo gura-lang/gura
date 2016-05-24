@@ -1,14 +1,14 @@
 #!/usr/bin/env gura
-sys.path.add('class')
+sys.path.add('generated')
 import(modbuild)
 import(ClassesSource)
 
 srcs = [
 	'module-wx.cpp'
 	'Class_wx_EventFactory.cpp'
-	'class/Classes.cpp'
+	'generated/Classes.cpp'
 ]
-srcs.append(path.join('class', ClassesSource.srcs))
+srcs.append(path.join('generated', ClassesSource.srcs))
 contFlag = true
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {

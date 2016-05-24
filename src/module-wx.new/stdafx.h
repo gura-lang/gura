@@ -257,7 +257,7 @@
 #include <wx/zstream.h>
 
 #include "module-wx.h"
-#include "class/Classes.h"
+#include "generated/Classes.h"
 #include "Class_wx_EventFactory.h"
 #include "CArray.h"
 
