@@ -36,6 +36,16 @@ classNamesToSkip = [
 	'wxScopedCharTypeBuffer'
 	'wxScopedPtr'
 	'wxScopedTiedPtr'
+	'wxFFileStream'
+	'wxFileStream'
+	'wxTaskBarButton'
+	'wxTaskBarJumpList'
+	'wxTaskBarJumpListItem'
+	'wxThumbBarButton'
+	'wxTaskBarJumpListCategory'
+	'wxResourceTranslationsLoader'
+	'wxVarHVScrollHelper'
+	'wxTrackable'
 ]
 
 tmpl@ClassesSource_gura = R'''
