@@ -3,6 +3,7 @@ import(re)
 
 dirNameWx = 'interface.wx'
 dirNameDst = 'tmp'
+//dirNameDst = 'generated'
 
 tmpl@ClassesSource_gura = R'''
 #!/usr/bin/env gura
@@ -239,8 +240,10 @@ Parse(pathName:string):map:void = {
 	}
 }
 
+println('-- parsing')
 Parse(path.walk(dirNameWx))
 //Parse(path.walk(dirNameWx).head(10))
+println('-- associating class information')
 classInfoDict.values {|classInfo|
 	if (classInfo.classNamesParent.isempty()) {
 		classInfosAtRoot.add(classInfo)
@@ -258,6 +261,7 @@ classInfoDict.values {|classInfo|
 		}
 	}
 }
+println('-- generating files')
 tmpl@ClassesSource_gura.render(path.join(dirNameDst, 'ClassesSource.gura'))
 tmpl@Classes_h.render(path.join(dirNameDst, 'Classes.h'))
 tmpl@Classes_cpp.render(path.join(dirNameDst, 'Classes.cpp'))
