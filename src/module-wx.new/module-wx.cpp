@@ -23,6 +23,7 @@ const bool OwnerFalse = false;
 
 static bool g_wxReadyFlag = false;
 
+void AssignConstants(Environment &env);
 void RegisterClasses(Environment &env);
 void RegisterFunctions(Environment &env);
 

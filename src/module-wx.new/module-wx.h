@@ -29,6 +29,9 @@
 #define Gura_AssignWxValue(name) \
 Gura_AssignValue(name, Value(static_cast<double>(wx##name)))
 
+#define Gura_AssignMacroValue(name) \
+Gura_AssignValue(name, Value(static_cast<double>(name)))
+
 #define Gura_AssignWxStringValue(name) \
 Gura_AssignValue(name, Value(wxString(wx##name).ToUTF8()))
 
@@ -37,9 +40,6 @@ Gura_AssignValue(name, Value(new Object_wx_##className(const_cast<wx##className 
 
 #define Gura_AssignWxObjectEx(name, className, value) \
 Gura_AssignValue(name, Value(new Object_wx_##className(const_cast<wx##className *>(value), nullptr, false)));
-
-#define Gura_AssignMacroValue(name) \
-Gura_AssignValue(name, Value(name))
 
 #define Gura_LookupWxMethod(pObj, name) \
 LookupFunctionCustom(*pObj, Gura_UserSymbol(name), ENVREF_Escalate)

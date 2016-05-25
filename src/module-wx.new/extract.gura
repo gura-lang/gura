@@ -70,8 +70,9 @@ tmpl@Classes_cpp = R'''
 
 Gura_BeginModuleScope(wx)
 
-void RegisterConstants(Environment &env)
+void AssignConstants(Environment &env)
 {
+	${enumInfoNoName.Gen_Assignment()}
 	${enumInfos:*Gen_Assignment()}
 }
 
@@ -256,8 +257,18 @@ EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		this.memberNames.add(memberName)
 	}
 	Gen_Assignment() = {
-		str = format('// %s\n', this.enumName)
-		str += format('Gura_AssignWxValue(%s);\n', this.memberNames:*sub(r'^wx', '')).join()
+		if (this.enumName.isempty()) {
+			str = format('// no-name enum\n')
+		} else {
+			str = format('// %s\n', this.enumName)
+		}
+		this.memberNames.each {|memberName|
+			if (m = memberName.match(r'^wx(.+)')) {
+				str += format('//Gura_AssignWxValue(%s);\n', m[1])
+			} else {
+				str += format('//Gura_AssignMacroValue(%s);\n', memberName)
+			}
+		}
 		str
 	}
 	Print():void = {
