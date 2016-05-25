@@ -245,6 +245,17 @@ Gura_ImplementDescendantCreator(wx_${classNameShort})
 Gura_EndModuleScope(wx)
 '''.template()
 
+EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
+				  enumName:string, memberNames[]:string => []) {
+	AddMember(memberName:string) = {
+		this.memberNames.add(memberName)
+	}
+	Print():void = {
+		println(this.enumName)
+		println('  ', this.memberNames)
+	}
+}
+
 ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 				   className:string, classNamesParent[]:string,
 				   classInfosOfParent[] => [], classInfosOfChild[] => [],
@@ -308,6 +319,8 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 
 classInfoDict = %{}
 classInfosAtRoot = []
+enumInfos = []
+enumInfoNoName = EnumInfo('', 0, '', '')
 
 MakePathNameWx(pathName:string) = {
 	pathName.replace(dirNameWx + path.sep_file, '')
@@ -324,6 +337,16 @@ ErrorMessage(pathName:string, lineNo:number, strSrc:string, strMsg:string) = {
 	printf('    %s\n', strSrc.sub(r'\s+', ' '))
 	println()
 	sys.exit(1)
+}
+
+CreateEnumInfo(pathName:string, lineNo:string, strSrc:string) = {
+	if (m = strSrc.match(r'^enum\s+(\w+)')) {
+		enumInfo = EnumInfo(pathName, lineNo, strSrc, m[1])
+		enumInfos.add(enumInfo)
+		enumInfo
+	} else {
+		enumInfo = enumInfoNoName
+	}
 }
 
 CreateClassInfo(pathName:string, lineNo:string, strSrc:string):void = {
@@ -354,9 +377,22 @@ CreateClassInfo(pathName:string, lineNo:string, strSrc:string):void = {
 Parse(pathName:string):map:void = {
 	stat = `initial
 	lineNo = 0
+	commentFlag = false
 	readlines(pathName).each {|line|
 		lineNo += 1
 		line = line.chop()
+		if (commentFlag) {
+			if (line.match(r'\*/$')) {
+				commentFlag = false
+			}
+			continue
+		}
+		if (line.match(r'^\s*/\*')) {
+			if (!line.match(r'\*/$')) {
+				commentFlag = true
+			}
+			continue
+		}
 		if (stat == `initial) {
 			if (m = line.match(r'^class')) {
 				str = line
@@ -367,13 +403,49 @@ Parse(pathName:string):map:void = {
 				} else {
 					stat = `classDecl
 				}
+			} elsif (m = line.match(r'^enum')) {
+				str = line
+				if (m = str.match('(.*);$')) {
+					ErrorMessage(pathName, lineNo, str, 'no memebers in enum')
+				} elsif (m = str.match('(.*){$')) {
+					enumInfo = CreateEnumInfo(pathName, lineNo, m[1])
+					stat = `enumList
+				} else {
+					stat = `enumDecl
+				}
 			}
 		} elsif (stat == `classDecl) {
-			if (m = line.match(r'{')) {
+			if (m = line.match(r'^(.*){')) {
+				str += m[1]
 				CreateClassInfo(pathName, lineNo, str)
 				stat = `initial
 			} else {
 				str += line
+			}
+		} elsif (stat == `enumDecl) {
+			if (m = line.match(r'^(.*){')) {
+				str += m[1]
+				enumInfo = CreateEnumInfo(pathName, lineNo, str)
+				stat = `enumList
+			} else {
+				str += line
+			}
+		} elsif (stat == `enumList) {
+			if (m = line.match(r'^\s*/\*')) {
+				// just ignore comment lines
+			} elsif (m = line.match(r'^\s*//')) {
+				// just ignore comment lines
+			} elsif (m = line.match(r'^\s+(\w+)')) {
+				memberName = m[1]
+				if (!memberName.match(r'^(wx|WX)')) {
+					ErrorMessage(pathName, lineNo, line, 'inappropriate name for enum constant')
+				}
+				enumInfo.AddMember(memberName)
+				if (line.match(r'};$')) {
+					stat = `initial
+				}
+			} elsif (m = line.match(r'};$')) {
+				stat = `initial
 			}
 		}
 	}
@@ -407,6 +479,8 @@ classInfoDict.values {|classInfo|
 		}
 	}
 }
+enumInfos:*Print()
+/*
 classInfosAtRoot:*InheritValidation()
 println('-- generating files')
 tmpl@ClassesSource_gura.render(path.join(dirNameDst, 'ClassesSource.gura'))
@@ -414,3 +488,4 @@ tmpl@Classes_h.render(path.join(dirNameDst, 'Classes.h'))
 tmpl@Classes_cpp.render(path.join(dirNameDst, 'Classes.cpp'))
 classInfoDict.values():*RenderHeader(dirNameDst)
 classInfoDict.values():*RenderSource(dirNameDst)
+*/
