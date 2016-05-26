@@ -1,14 +1,15 @@
 #!/usr/bin/env gura
-//dirName@generated = 'tmp'
-dirName@generated = 'generated'
+dirName@generated = 'tmp'
+//dirName@generated = 'generated'
 sys.path.add(dirName@generated)
 import(modbuild)
 import(ClassesSource)
 
 srcs = [
 	'module-wx.cpp'
-	'Class_wx_EventFactory.cpp'
+	path.join(dirName@generated, 'Functions.cpp')
 	path.join(dirName@generated, 'Classes.cpp')
+	'Class_wx_EventFactory.cpp'
 ]
 srcs.append(path.join(dirName@generated, ClassesSource.srcs))
 contFlag = true

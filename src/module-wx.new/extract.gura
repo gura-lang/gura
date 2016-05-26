@@ -103,6 +103,18 @@ void RegisterClasses(Environment &env)
 Gura_EndModuleScope(wx)
 '''.template()
 
+tmpl@Functions_cpp = R'''
+#include "stdafx.h"
+
+Gura_BeginModuleScope(wx)
+
+void RegisterFunctions(Environment &env)
+{
+}
+
+Gura_EndModuleScope(wx)
+'''.template()
+
 tmpl@HeaderBase = R'''
 //----------------------------------------------------------------------------
 // wx${classNameShort}
@@ -563,5 +575,6 @@ println('-- generating files')
 tmpl@ClassesSource_gura.render(path.join(dirNameDst, 'ClassesSource.gura'))
 tmpl@Classes_h.render(path.join(dirNameDst, 'Classes.h'))
 tmpl@Classes_cpp.render(path.join(dirNameDst, 'Classes.cpp'))
+tmpl@Functions_cpp.render(path.join(dirNameDst, 'Functions.cpp'))
 classInfoDict.values():*RenderHeader(dirNameDst)
 classInfoDict.values():*RenderSource(dirNameDst)

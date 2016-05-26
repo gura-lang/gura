@@ -40,7 +40,7 @@ Gura_ModuleEntry()
 	RealizeBaseClass(EventFactory);
 	PrepareClass(EventFactory);
 	RegisterClasses(env);
-	//RegisterFunctions(env);
+	RegisterFunctions(env);
 	return true;
 }
 
