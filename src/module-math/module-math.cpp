@@ -15,7 +15,8 @@ Gura_DeclareFunction(real)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a real part of a complex number.");
+		"Returns a real part of a complex number.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(real)
@@ -40,7 +41,8 @@ Gura_DeclareFunction(imag)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an imaginary part of a complex number.");
+		"Returns an imaginary part of a complex number."
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(imag)
@@ -66,7 +68,11 @@ Gura_DeclareFunction(arg)
 	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an argument value of a complex number in radian.");
+		"Returns an argument, an angle from the real-axis in the complex plane, of a complex number.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n"
+		"\n"
+		"In default, the angle value is returned in radian.\n"
+		"Specifying an attribute `:deg` would return that in degree.\n");
 }
 
 Gura_ImplementFunction(arg)
@@ -93,7 +99,8 @@ Gura_DeclareFunction(norm)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a norm value of a complex number.");
+		"Returns a norm value of a complex number.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(norm)
@@ -118,7 +125,8 @@ Gura_DeclareFunction(conj)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a conjugate of a complex number.");
+		"Returns a conjugate of a complex number."
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(conj)
@@ -144,7 +152,11 @@ Gura_DeclareFunctionWithMathDiff(acos)
 	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an inverse cosine value.");
+		"Returns an inverse cosine value.\n"
+		"The argument `num` takes a value of `number`.\n"
+		"\n"
+		"In default, the result is returned in radian.\n"
+		"Specifying an attribute `:deg` would return that in degree.\n");
 }
 
 Gura_ImplementFunction(acos)
@@ -187,7 +199,11 @@ Gura_DeclareFunctionWithMathDiff(asin)
 	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an inverse sine value.");
+		"Returns an inverse sine value.\n"
+		"The argument `num` takes a value of `number`.\n"
+		"\n"
+		"In default, the result is returned in radian.\n"
+		"Specifying an attribute `:deg` would return that in degree.\n");
 }
 
 Gura_ImplementFunction(asin)
@@ -230,7 +246,8 @@ Gura_DeclareFunctionWithMathDiff(atan)
 	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an inverse tangent value.");
+		"Returns an inverse tangent value.\n"
+		"The argument `num` takes a value of `number`.\n");
 }
 
 Gura_ImplementFunction(atan)
@@ -272,7 +289,11 @@ Gura_DeclareFunction(atan2)
 	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an inverse tangent value of a fraction of num1 and num2.");
+		"Returns an inverse tangent value of a fraction of num1 and num2.\n"
+		"The argument `num1` and `num2` take values of `number`.\n"
+		"\n"
+		"In default, the result is returned in radian.\n"
+		"Specifying an attribute `:deg` would return that in degree.\n");
 }
 
 Gura_ImplementFunction(atan2)
@@ -298,7 +319,8 @@ Gura_DeclareFunction(ceil)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a nearest integer number above or equal to the specified value.");
+		"Returns a nearest integer number above or equal to the specified value.\n"
+		"The argument `num` takes a value of `number`.\n");
 }
 
 Gura_ImplementFunction(ceil)
@@ -322,7 +344,11 @@ Gura_DeclareFunctionWithMathDiff(cos)
 	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a cosine value.");
+		"Returns a cosine value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n"
+		"\n"
+		"In default, the given argument is treated as a radian number.\n"
+		"Specifying an attribute `:deg` would treat that as a degree number.\n");
 }
 
 Gura_ImplementFunction(cos)
@@ -360,7 +386,8 @@ Gura_DeclareFunction(cosh)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a hyperbolic cosine value.");
+		"Returns a hyperbolic cosine value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(cosh)
@@ -385,7 +412,8 @@ Gura_DeclareFunctionWithMathDiff(exp)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an exponential value.");
+		"Returns an exponential value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(exp)
@@ -418,7 +446,8 @@ Gura_DeclareFunction(abs)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an absolute value.");
+		"Returns an absolute value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(abs)
@@ -443,7 +472,8 @@ Gura_DeclareFunction(floor)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a nearest integer number below or equal to the specified value.");
+		"Returns a nearest integer number below or equal to the specified value.\n"
+		"The argument `num` takes a value of `number`.\n");
 }
 
 Gura_ImplementFunction(floor)
@@ -466,7 +496,8 @@ Gura_DeclareFunctionWithMathDiff(log)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a natural logarithm value.");
+		"Returns a natural logarithm value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(log)
@@ -504,7 +535,8 @@ Gura_DeclareFunctionWithMathDiff(log10)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a decadic logarithm value.");
+		"Returns a decadic logarithm value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(log10)
@@ -547,7 +579,11 @@ Gura_DeclareFunctionWithMathDiff(sin)
 	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a sine value.");
+		"Returns a sine value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n"
+		"\n"
+		"In default, the given argument is treated as a radian number.\n"
+		"Specifying an attribute `:deg` would treat that as a degree number.\n");
 }
 
 Gura_ImplementFunction(sin)
@@ -582,7 +618,8 @@ Gura_DeclareFunction(sinh)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a hyperbolic sine value.");
+		"Returns a hyperbolic sine value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(sinh)
@@ -607,7 +644,8 @@ Gura_DeclareFunctionWithMathDiff(sqrt)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a square root value.");
+		"Returns a square root value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(sqrt)
@@ -651,7 +689,11 @@ Gura_DeclareFunctionWithMathDiff(tan)
 	DeclareAttr(Gura_Symbol(deg));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a tangent value.");
+		"Returns a tangent value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n"
+		"\n"
+		"In default, the given argument is treated as a radian number.\n"
+		"Specifying an attribute `:deg` would treat that as a degree number.\n");
 }
 
 Gura_ImplementFunction(tan)
@@ -692,7 +734,8 @@ Gura_DeclareFunction(tanh)
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a hyperbolic tangent value.");
+		"Returns a hyperbolic tangent value.\n"
+		"The argument `num` takes a value of `number` or `complex`.\n");
 }
 
 Gura_ImplementFunction(tanh)
@@ -718,7 +761,8 @@ Gura_DeclareFunction(hypot)
 	DeclareArg(env, "y", VTYPE_any);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a hyperbolic tangent value.");
+		"Returns a hyperbolic tangent value.\n"
+		"The argument `x` and `y` take values of `number`.\n");
 }
 
 Gura_ImplementFunction(hypot)
@@ -967,9 +1011,11 @@ Gura_DeclareFunction(diff)
 	DeclareArg(env, "var", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a mathematical differential expression of the given `expr`\n"
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Calculates a mathematical differential expression of the given `expr`\n"
 		"by a variable `var`.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("rtn", "expr")
 		"\n"
 		"Example: `math.diff(`(math.sin(x ** 2)), `x)`\n");
 }
@@ -990,7 +1036,10 @@ Gura_DeclareFunction(optimize)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns an optimized expression of the given argument `expr`,\n"
+		"which needs to be made up of mathematical elements.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("rtn", "expr"));
 }
 
 Gura_ImplementFunction(optimize)
@@ -1039,7 +1088,7 @@ Gura_DeclareFunction(inner)
 	DeclareArg(env, "b", VTYPE_any, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Calculates an inner product between lists `a` and `b`.");
 }
 
 Gura_ImplementFunction(inner)
@@ -1079,7 +1128,7 @@ Gura_DeclareFunction(cross)
 	DeclareArg(env, "b", VTYPE_any, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Calculates a cross product between lists `a` and `b`.");
 }
 
 Gura_ImplementFunction(cross)
