@@ -41,6 +41,7 @@ Gura_ModuleEntry()
 	PrepareClass(EventFactory);
 	RegisterClasses(env);
 	//RegisterFunctions(env);
+	return true;
 }
 
 Gura_ModuleTerminate()
