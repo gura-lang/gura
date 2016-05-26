@@ -37,6 +37,7 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	AssignConstants(env);
 	RealizeBaseClass(EventFactory);
 	PrepareClass(EventFactory);
 	RegisterClasses(env);

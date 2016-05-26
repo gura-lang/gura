@@ -2,7 +2,7 @@
 
 Gura_BeginModuleScope(wx)
 
-void AssignConstants(Environment &env);
+void AssignConstants(Environment &env)
 {
 }
 
