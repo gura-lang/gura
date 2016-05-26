@@ -7,6 +7,7 @@ import(ClassesSource)
 
 srcs = [
 	'module-wx.cpp'
+	path.join(dirName@generated, 'Constants.cpp')
 	path.join(dirName@generated, 'Functions.cpp')
 	path.join(dirName@generated, 'Classes.cpp')
 	'Class_wx_EventFactory.cpp'

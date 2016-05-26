@@ -83,7 +83,7 @@ ${classInfosAtRoot:*Gen_Include()}
 #endif
 '''.template()
 
-tmpl@Classes_cpp = R'''
+tmpl@Constants_cpp = R'''
 #include "stdafx.h"
 
 Gura_BeginModuleScope(wx)
@@ -93,6 +93,14 @@ void AssignConstants(Environment &env)
 	${enumInfoNoName.Gen_Assignment()}
 	${enumInfos:*Gen_Assignment()}
 }
+
+Gura_EndModuleScope(wx)
+'''.template()
+
+tmpl@Classes_cpp = R'''
+#include "stdafx.h"
+
+Gura_BeginModuleScope(wx)
 
 void RegisterClasses(Environment &env)
 {
@@ -471,7 +479,8 @@ Parse(pathName:string):map:void = {
 				if (m = str.match('(.*);$')) {
 					// just ignore prototype declaration
 				} elsif (m = str.match('(.*){$')) {
-					CreateClassInfo(pathName, lineNo, m[1])
+					classInfo = CreateClassInfo(pathName, lineNo, m[1])
+					stat = `classBody
 				} else {
 					stat = `classDecl
 				}
@@ -481,7 +490,7 @@ Parse(pathName:string):map:void = {
 					ErrorMessage(pathName, lineNo, str, 'no memebers in enum')
 				} elsif (m = str.match('(.*){$')) {
 					enumInfo = CreateEnumInfo(pathName, lineNo, m[1])
-					stat = `enumList
+					stat = `enumBody
 				} else {
 					stat = `enumDecl
 				}
@@ -489,8 +498,8 @@ Parse(pathName:string):map:void = {
 		} elsif (stat == `classDecl) {
 			if (m = line.match(r'^(.*){')) {
 				str += m[1]
-				CreateClassInfo(pathName, lineNo, str)
-				stat = `initial
+				classInfo = CreateClassInfo(pathName, lineNo, str)
+				stat = `classBody
 			} else {
 				str += line
 			}
@@ -498,11 +507,15 @@ Parse(pathName:string):map:void = {
 			if (m = line.match(r'^(.*){')) {
 				str += m[1]
 				enumInfo = CreateEnumInfo(pathName, lineNo, str)
-				stat = `enumList
+				stat = `enumBody
 			} else {
 				str += line
 			}
-		} elsif (stat == `enumList) {
+		} elsif (stat == `classBody) {
+			if (m = line.match(r'};$')) {
+				stat = `initial
+			}
+		} elsif (stat == `enumBody) {
 			if (m = line.match(r'^\s*/\*')) {
 				// just ignore comment lines
 			} elsif (m = line.match(r'^\s*//')) {
@@ -575,6 +588,7 @@ println('-- generating files')
 tmpl@ClassesSource_gura.render(path.join(dirNameDst, 'ClassesSource.gura'))
 tmpl@Classes_h.render(path.join(dirNameDst, 'Classes.h'))
 tmpl@Classes_cpp.render(path.join(dirNameDst, 'Classes.cpp'))
+tmpl@Constants_cpp.render(path.join(dirNameDst, 'Constants.cpp'))
 tmpl@Functions_cpp.render(path.join(dirNameDst, 'Functions.cpp'))
 classInfoDict.values():*RenderHeader(dirNameDst)
 classInfoDict.values():*RenderSource(dirNameDst)
