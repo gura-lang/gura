@@ -5,7 +5,7 @@ dirNameWx = 'interface.wx'
 dirNameDst = 'tmp'
 //dirNameDst = 'generated'
 
-supportedStatDict = %{
+supportedStatDictOfClassName = %{
 	'wxArchiveIterator'					=> `none
 	'wxDDEServer'						=> `none
 	'wxDebugContext'					=> `none
@@ -46,6 +46,24 @@ supportedStatDict = %{
 	'wxResourceTranslationsLoader'		=> `none
 	'wxVarHVScrollHelper'				=> `none
 	'wxTrackable'						=> `none
+}
+
+supportedStatDictOfPathName = %{}
+
+supportedStatDictOfEnumMemberName = %{
+	'wxAutomationInstance_UseExistingOnly'	=> `none
+	'wxAutomationInstance_CreateIfNeeded'	=> `none
+	'wxAutomationInstance_SilentIfNone'		=> `none
+	'wxNUM_VAL_DEFAULT'						=> `none
+	'wxNUM_VAL_THOUSANDS_SEPARATOR'			=> `none
+	'wxNUM_VAL_ZERO_AS_BLANK'				=> `none
+	'wxNUM_VAL_NO_TRAILING_ZEROES'			=> `none
+	'wxOleConvertVariant_Default'			=> `none
+	'wxOleConvertVariant_ReturnSafeArrays'	=> `none
+	'wxCURSOR_CROSS_REVERSE'				=> `none
+	'wxCURSOR_DOUBLE_ARROW'					=> `none
+	'wxCURSOR_BASED_ARROW_UP'				=> `none
+	'wxCURSOR_BASED_ARROW_DOWN'				=> `none
 }
 
 tmpl@ClassesSource_gura = R'''
@@ -251,11 +269,20 @@ Gura_ImplementDescendantCreator(wx_${classNameShort})
 Gura_EndModuleScope(wx)
 '''.template()
 
+EnumMemberInfo = struct(memberName:string, supportedStat:symbol => `supported) {
+	IsSupported() = {
+		this.supportedStat == `supported
+	}
+}
+
 EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
-				  enumName:string, memberNames[]:string => [],
+				  enumName:string, memberInfos[] => [],
 				  supportedStat:symbol => `supported) {
+	IsSupported() = {
+		this.supportedStat == `supported
+	}
 	AddMember(memberName:string) = {
-		this.memberNames.add(memberName)
+		this.memberInfos.add(EnumMemberInfo(memberName))
 	}
 	Gen_Assignment() = {
 		if (this.enumName.isempty()) {
@@ -263,18 +290,26 @@ EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		} else {
 			str = format('// %s\n', this.enumName)
 		}
-		this.memberNames.each {|memberName|
-			if (m = memberName.match(r'^wx(.+)')) {
-				str += format('//Gura_AssignWxValue(%s);\n', m[1])
+		if (!this.IsSupported()) {
+			str += '#if 0\n'
+		}
+		this.memberInfos.each {|memberInfo|
+			if (m = memberInfo.memberName.match(r'^wx(.+)')) {
+				str += format('%sGura_AssignWxValue(%s);\n',
+							  cond(memberInfo.IsSupported(), '', '//'), m[1])
 			} else {
-				str += format('//Gura_AssignMacroValue(%s);\n', memberName)
+				str += format('%sGura_AssignMacroValue(%s);\n',
+							  cond(memberInfo.IsSupported(), '', '//'), memberInfo.memberName)
 			}
+		}
+		if (!this.IsSupported()) {
+			str += '#endif\n'
 		}
 		str
 	}
 	Print():void = {
 		println(this.enumName)
-		println('  ', this.memberNames)
+		println('  ', this.memberInfos:*memberName)
 	}
 }
 
@@ -483,7 +518,7 @@ println('-- associating class information')
 classInfoDict.values {|classInfo|
 	if (classInfo.className.find('<')) {
 		classInfo.supportedStat = `none
-	} elsif (supportedStat = supportedStatDict.get(classInfo.className)) {
+	} elsif (supportedStat = supportedStatDictOfClassName.get(classInfo.className)) {
 		classInfo.supportedStat = supportedStat
 	}
 	if (classInfo.classNamesParent.isempty()) {
@@ -505,8 +540,25 @@ classInfoDict.values {|classInfo|
 		}
 	}
 }
-enumInfos = enumInfos.sort(`ascend, enumInfos::enumName)
 classInfosAtRoot:*InheritValidation()
+classInfoDict.values {|classInfo|
+	if ((supportedStat = supportedStatDictOfPathName.get(classInfo.pathName)) && \
+		supportedStat == `supported) {
+		continue
+	}
+	supportedStatDictOfPathName[classInfo.pathName] = classInfo.supportedStat
+}
+enumInfos = enumInfos.sort(`ascend, enumInfos::enumName):list
+enumInfos.each {|enumInfo|
+	if (supportedStat = supportedStatDictOfPathName.get(enumInfo.pathName)) {
+		enumInfo.supportedStat = supportedStat
+	}
+	enumInfo.memberInfos.each {|memberInfo|
+		if (supportedStat = supportedStatDictOfEnumMemberName.get(memberInfo.memberName)) {
+			memberInfo.supportedStat = supportedStat
+		}
+	}
+}
 println('-- generating files')
 tmpl@ClassesSource_gura.render(path.join(dirNameDst, 'ClassesSource.gura'))
 tmpl@Classes_h.render(path.join(dirNameDst, 'Classes.h'))
