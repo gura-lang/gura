@@ -8,7 +8,7 @@
 
 #define GURA_HELPTEXT_ITERATOR_en() \
 "In default, this returns an iterator as its result value.\n" \
-"Specifying the following attributes would convert it into other formats:\n" \
+"Specifying the following attributes would customize the returned value:\n" \
 "\n" \
 "- `:iter` .. An iterator. This is the default behavior.\n" \
 "- `:xiter` .. An iterator that eliminates `nil` from its elements.\n" \
@@ -16,6 +16,8 @@
 "- `:xlist` .. A list that eliminates `nil` from its elements.\n" \
 "- `:set` ..  A list that eliminates duplicated values from its elements.\n" \
 "- `:xset` .. A list that eliminates duplicated values and `nil` from its elements.\n" \
+"\n" \
+"See Chapter 11 Mapping Process in Gura Language Manual for the detail.\n" \
 "\n" \
 "If a block is specified, it would be evaluated repeatingly\n" \
 "with block parameters `|value, idx:number|` where `value` is the iterated value\n" \
