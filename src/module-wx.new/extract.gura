@@ -5,48 +5,48 @@ dirNameWx = 'interface.wx'
 dirNameDst = 'tmp'
 //dirNameDst = 'generated'
 
-classNamesToSkip = [
-	'wxArchiveIterator'
-	'wxDDEServer'
-	'wxDebugContext'
-	'wxDialUpManager'
-	'wxHashMap'
-	'wxHashSet'
-	'wxAccessible'
-	'wxAutomationObject'
-	'wxRegConfig'
-	'wxDDEConnection'
-	'wxBufferedPaintDC'
-	'wxDDEClient'
-	'wxDataViewChoiceByIndexRenderer'
-	'wxActiveXEvent'
-	'wxDialUpEvent'
-	'wxPowerEvent'
-	'wxNumValidator'
-	'wxFloatingPointValidator'
-	'wxActiveXContainer'
-	'wxBitmapComboBox'
-	'wxSystemSettings'
-	'wxPersistentWindow'
-	'wxPixelData'
-	'wxRegKey'
-	'wxRefCounter'
-	'wxScopeGuard'
-	'wxScopedArray'
-	'wxScopedCharTypeBuffer'
-	'wxScopedPtr'
-	'wxScopedTiedPtr'
-	'wxFFileStream'
-	'wxFileStream'
-	'wxTaskBarButton'
-	'wxTaskBarJumpList'
-	'wxTaskBarJumpListItem'
-	'wxThumbBarButton'
-	'wxTaskBarJumpListCategory'
-	'wxResourceTranslationsLoader'
-	'wxVarHVScrollHelper'
-	'wxTrackable'
-]
+supportedStatDict = %{
+	'wxArchiveIterator'					=> `invalid
+	'wxDDEServer'						=> `invalid
+	'wxDebugContext'					=> `invalid
+	'wxDialUpManager'					=> `invalid
+	'wxHashMap'							=> `invalid
+	'wxHashSet'							=> `invalid
+	'wxAccessible'						=> `invalid
+	'wxAutomationObject'				=> `invalid
+	'wxRegConfig'						=> `invalid
+	'wxDDEConnection'					=> `invalid
+	'wxBufferedPaintDC'					=> `invalid
+	'wxDDEClient'						=> `invalid
+	'wxDataViewChoiceByIndexRenderer'	=> `invalid
+	'wxActiveXEvent'					=> `invalid
+	'wxDialUpEvent'						=> `invalid
+	'wxPowerEvent'						=> `invalid
+	'wxNumValidator'					=> `invalid
+	'wxFloatingPointValidator'			=> `invalid
+	'wxActiveXContainer'				=> `invalid
+	'wxBitmapComboBox'					=> `invalid
+	'wxSystemSettings'					=> `invalid
+	'wxPersistentWindow'				=> `invalid
+	'wxPixelData'						=> `invalid
+	'wxRegKey'							=> `invalid
+	'wxRefCounter'						=> `invalid
+	'wxScopeGuard'						=> `invalid
+	'wxScopedArray'						=> `invalid
+	'wxScopedCharTypeBuffer'			=> `invalid
+	'wxScopedPtr'						=> `invalid
+	'wxScopedTiedPtr'					=> `invalid
+	'wxFFileStream'						=> `invalid
+	'wxFileStream'						=> `invalid
+	'wxTaskBarButton'					=> `invalid
+	'wxTaskBarJumpList'					=> `invalid
+	'wxTaskBarJumpListItem'				=> `invalid
+	'wxThumbBarButton'					=> `invalid
+	'wxTaskBarJumpListCategory'			=> `invalid
+	'wxResourceTranslationsLoader'		=> `invalid
+	'wxVarHVScrollHelper'				=> `invalid
+	'wxTrackable'						=> `invalid
+}
 
 tmpl@ClassesSource_gura = R'''
 #!/usr/bin/env gura
@@ -280,34 +280,37 @@ EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
 ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 				   className:string, classNamesParent[]:string,
 				   classInfosOfParent[] => [], classInfosOfChild[] => [],
-				   validFlag => true) {
+				   supportedStat => `valid) {
+	IsSupported() = {
+		this.supportedStat == `valid
+	}
 	MakeClassNameShort() = this.className.sub('^wx', '')
 	IsRootClass() = this.classInfosOfParent.isempty()
 	Gen_SourceEntry(indentLevel:number => 0) = {
 		str = format("%s%s'Class_wx_%s.cpp'\n", '  ' * indentLevel,
-					 cond(this.validFlag, '', '//'), this.MakeClassNameShort())
+					 cond(this.IsSupported(), '', '//'), this.MakeClassNameShort())
 		str + this.classInfosOfChild:*Gen_SourceEntry(indentLevel + 1).join()
 	}
 	Gen_Include(indentLevel:number => 0) = {
 		str = format('%snclude %s"Class_wx_%s.h"\n',
-					 cond(this.validFlag, '#i', '//'), '  ' * indentLevel,
+					 cond(this.IsSupported(), '#i', '//'), '  ' * indentLevel,
 					 this.MakeClassNameShort())
 		str + this.classInfosOfChild:*Gen_Include(indentLevel + 1).join()
 	}
 	Gen_RealizeClass(indentLevel:number => 0) = {
 		str = if (this.IsRootClass()) {
 			format('%sRealizeBaseClass(%s);\n',
-				   cond(this.validFlag, '', '//'), this.MakeClassNameShort())
+				   cond(this.IsSupported(), '', '//'), this.MakeClassNameShort())
 		} else {
 			format('%s%sRealizeDervClass(%s, %s);\n',
-				   '  ' * indentLevel, cond(this.validFlag, '', '//'),
+				   '  ' * indentLevel, cond(this.IsSupported(), '', '//'),
 				   this.MakeClassNameShort(), this.classInfosOfParent[0].MakeClassNameShort())
 		}
 		str + this.classInfosOfChild:*Gen_RealizeClass(indentLevel + 1).join()
 	}
 	Gen_PrepareClass(indentLevel:number => 0) = {
 		str = format('%s%sPrepareClass(%s);\n',
-					 '  ' * indentLevel, cond(this.validFlag, '', '//'), this.MakeClassNameShort())
+					 '  ' * indentLevel, cond(this.IsSupported(), '', '//'), this.MakeClassNameShort())
 		str + this.classInfosOfChild:*Gen_PrepareClass(indentLevel + 1).join()
 	}
 	RenderHeader(dirName:string):void = {
@@ -326,15 +329,15 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		tmpl@Source.render(path.join(dirName, format('Class_wx_%s.cpp', classNameShort)))
 	}
 	InheritValidation():void = {
-		if (this.validFlag) {
+		if (this.IsSupported()) {
 			this.classInfosOfChild:*InheritValidation()
 		} else {
-			this.Invalidate()
+			this.UpdateSupportedStat(this.supportedStat)
 		}
 	}
-	Invalidate():void = {
-		this.validFlag = false
-		this.classInfosOfChild:*Invalidate()
+	UpdateSupportedStat(supportedStat:symbol):void = {
+		this.supportedStat = supportedStat
+		this.classInfosOfChild:*UpdateSupportedStat(supportedStat)
 	}
 }
 
@@ -477,9 +480,10 @@ Parse(path.walk(dirNameWx))
 //Parse(path.walk(dirNameWx).head(10))
 println('-- associating class information')
 classInfoDict.values {|classInfo|
-	if (classInfo.className.find('<') || classNamesToSkip.find(classInfo.className)) {
-		//printf('-- skip generating: %s\n', classInfo.className)
-		classInfo.validFlag = false
+	if (classInfo.className.find('<')) {
+		classInfo.supportedStat = `invalid
+	} elsif (supportedStat = supportedStatDict.get(classInfo.className)) {
+		classInfo.supportedStat = supportedStat
 	}
 	if (classInfo.classNamesParent.isempty()) {
 		classInfosAtRoot.add(classInfo)
@@ -495,7 +499,7 @@ classInfoDict.values {|classInfo|
 				WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc,
 							   format('class %s refers to undefined class %s',
 									  classInfo.className, className))
-				classInfo.validFlag = false
+				classInfo.supportedStat = `invalid
 			}
 		}
 	}
