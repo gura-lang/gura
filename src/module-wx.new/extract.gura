@@ -512,7 +512,9 @@ Parse(pathName:string):map:void = {
 				str += line
 			}
 		} elsif (stat == `classBody) {
-			if (m = line.match(r'};$')) {
+			if (m = line.match(r'(\w+)\s*\(')) {
+				//println(line)
+			} elsif (m = line.match(r'};$')) {
 				stat = `initial
 			}
 		} elsif (stat == `enumBody) {
