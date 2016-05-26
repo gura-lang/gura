@@ -6,46 +6,46 @@ dirNameDst = 'tmp'
 //dirNameDst = 'generated'
 
 supportedStatDict = %{
-	'wxArchiveIterator'					=> `invalid
-	'wxDDEServer'						=> `invalid
-	'wxDebugContext'					=> `invalid
-	'wxDialUpManager'					=> `invalid
-	'wxHashMap'							=> `invalid
-	'wxHashSet'							=> `invalid
-	'wxAccessible'						=> `invalid
-	'wxAutomationObject'				=> `invalid
-	'wxRegConfig'						=> `invalid
-	'wxDDEConnection'					=> `invalid
-	'wxBufferedPaintDC'					=> `invalid
-	'wxDDEClient'						=> `invalid
-	'wxDataViewChoiceByIndexRenderer'	=> `invalid
-	'wxActiveXEvent'					=> `invalid
-	'wxDialUpEvent'						=> `invalid
-	'wxPowerEvent'						=> `invalid
-	'wxNumValidator'					=> `invalid
-	'wxFloatingPointValidator'			=> `invalid
-	'wxActiveXContainer'				=> `invalid
-	'wxBitmapComboBox'					=> `invalid
-	'wxSystemSettings'					=> `invalid
-	'wxPersistentWindow'				=> `invalid
-	'wxPixelData'						=> `invalid
-	'wxRegKey'							=> `invalid
-	'wxRefCounter'						=> `invalid
-	'wxScopeGuard'						=> `invalid
-	'wxScopedArray'						=> `invalid
-	'wxScopedCharTypeBuffer'			=> `invalid
-	'wxScopedPtr'						=> `invalid
-	'wxScopedTiedPtr'					=> `invalid
-	'wxFFileStream'						=> `invalid
-	'wxFileStream'						=> `invalid
-	'wxTaskBarButton'					=> `invalid
-	'wxTaskBarJumpList'					=> `invalid
-	'wxTaskBarJumpListItem'				=> `invalid
-	'wxThumbBarButton'					=> `invalid
-	'wxTaskBarJumpListCategory'			=> `invalid
-	'wxResourceTranslationsLoader'		=> `invalid
-	'wxVarHVScrollHelper'				=> `invalid
-	'wxTrackable'						=> `invalid
+	'wxArchiveIterator'					=> `none
+	'wxDDEServer'						=> `none
+	'wxDebugContext'					=> `none
+	'wxDialUpManager'					=> `none
+	'wxHashMap'							=> `none
+	'wxHashSet'							=> `none
+	'wxAccessible'						=> `none
+	'wxAutomationObject'				=> `none
+	'wxRegConfig'						=> `none
+	'wxDDEConnection'					=> `none
+	'wxBufferedPaintDC'					=> `none
+	'wxDDEClient'						=> `none
+	'wxDataViewChoiceByIndexRenderer'	=> `none
+	'wxActiveXEvent'					=> `none
+	'wxDialUpEvent'						=> `none
+	'wxPowerEvent'						=> `none
+	'wxNumValidator'					=> `none
+	'wxFloatingPointValidator'			=> `none
+	'wxActiveXContainer'				=> `none
+	'wxBitmapComboBox'					=> `none
+	'wxSystemSettings'					=> `none
+	'wxPersistentWindow'				=> `none
+	'wxPixelData'						=> `none
+	'wxRegKey'							=> `none
+	'wxRefCounter'						=> `none
+	'wxScopeGuard'						=> `none
+	'wxScopedArray'						=> `none
+	'wxScopedCharTypeBuffer'			=> `none
+	'wxScopedPtr'						=> `none
+	'wxScopedTiedPtr'					=> `none
+	'wxFFileStream'						=> `none
+	'wxFileStream'						=> `none
+	'wxTaskBarButton'					=> `none
+	'wxTaskBarJumpList'					=> `none
+	'wxTaskBarJumpListItem'				=> `none
+	'wxThumbBarButton'					=> `none
+	'wxTaskBarJumpListCategory'			=> `none
+	'wxResourceTranslationsLoader'		=> `none
+	'wxVarHVScrollHelper'				=> `none
+	'wxTrackable'						=> `none
 }
 
 tmpl@ClassesSource_gura = R'''
@@ -252,7 +252,8 @@ Gura_EndModuleScope(wx)
 '''.template()
 
 EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
-				  enumName:string, memberNames[]:string => []) {
+				  enumName:string, memberNames[]:string => [],
+				  supportedStat:symbol => `supported) {
 	AddMember(memberName:string) = {
 		this.memberNames.add(memberName)
 	}
@@ -280,9 +281,9 @@ EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
 ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 				   className:string, classNamesParent[]:string,
 				   classInfosOfParent[] => [], classInfosOfChild[] => [],
-				   supportedStat => `valid) {
+				   supportedStat:symbol => `supported) {
 	IsSupported() = {
-		this.supportedStat == `valid
+		this.supportedStat == `supported
 	}
 	MakeClassNameShort() = this.className.sub('^wx', '')
 	IsRootClass() = this.classInfosOfParent.isempty()
@@ -481,7 +482,7 @@ Parse(path.walk(dirNameWx))
 println('-- associating class information')
 classInfoDict.values {|classInfo|
 	if (classInfo.className.find('<')) {
-		classInfo.supportedStat = `invalid
+		classInfo.supportedStat = `none
 	} elsif (supportedStat = supportedStatDict.get(classInfo.className)) {
 		classInfo.supportedStat = supportedStat
 	}
@@ -499,7 +500,7 @@ classInfoDict.values {|classInfo|
 				WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc,
 							   format('class %s refers to undefined class %s',
 									  classInfo.className, className))
-				classInfo.supportedStat = `invalid
+				classInfo.supportedStat = `none
 			}
 		}
 	}
