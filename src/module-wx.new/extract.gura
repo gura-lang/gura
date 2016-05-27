@@ -335,7 +335,7 @@ EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
 ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 				   className:string, classNamesParent[]:string,
 				   classInfosOfParent[] => [], classInfosOfChild[] => [],
-				   supportedStat:symbol => `supported) {
+				   functionInfosOfMethod[] => [], supportedStat:symbol => `supported) {
 	IsSupported() = {
 		this.supportedStat == `supported
 	}
@@ -365,7 +365,8 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 	}
 	Gen_PrepareClass(indentLevel:number => 0) = {
 		str = format('%s%sPrepareClass(%s);\n',
-					 '  ' * indentLevel, cond(this.IsSupported(), '', '//'), this.MakeClassNameShort())
+					 '  ' * indentLevel, cond(this.IsSupported(), '', '//'),
+					 this.MakeClassNameShort())
 		str + this.classInfosOfChild:*Gen_PrepareClass(indentLevel + 1).join()
 	}
 	RenderHeader(dirName:string):void = {
@@ -394,7 +395,13 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		this.supportedStat = supportedStat
 		this.classInfosOfChild:*UpdateSupportedStat(supportedStat)
 	}
+	AddMethod(pathName:string, lineNo:number, strSrc:string):void = {
+		functionInfo = CreateFunctionInfo(pathName, lineNo, strSrc)
+		this.functionInfosOfMethod.add(functionInfo)
+	}
 }
+
+FunctionInfo = struct(funcName:string)
 
 classInfoDict = %{}
 classInfosAtRoot = []
@@ -428,7 +435,7 @@ CreateEnumInfo(pathName:string, lineNo:string, strSrc:string) = {
 	}
 }
 
-CreateClassInfo(pathName:string, lineNo:string, strSrc:string):void = {
+CreateClassInfo(pathName:string, lineNo:string, strSrc:string) = {
 	fields = [strSrc.split(':'):*strip()]
 	if (m = fields[0].match(r'^class\s+(\w+\s+)?(wx\w+\s*<\s*\w+\s*>)$')) {
 		// nothing to do
@@ -450,7 +457,30 @@ CreateClassInfo(pathName:string, lineNo:string, strSrc:string):void = {
 	} else {
 		classNamesParent = []
 	}
-	classInfoDict[className] = ClassInfo(pathName, lineNo, strSrc, className, classNamesParent)
+	classInfo = ClassInfo(pathName, lineNo, strSrc, className, classNamesParent)
+	classInfoDict[className] = classInfo
+	classInfo
+}
+
+cntMethods = 0
+
+CreateFunctionInfo(pathName:string, lineNo:string, strSrc:string) = {
+	if (m = strSrc.match(r'^(.*?)\((.*)\)(\s*const)?(\s*=\s*0)?\s*;?$')) {
+		funcHead = m[1].strip()
+		argList = m[2].strip()
+		funcAttr = m[3].strip()
+		pureVirtual = m[4].strip()
+	} else {
+		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function syntax')
+	}
+	/*
+	println(funcHead)
+	if (!argList.isempty()) {
+		println('  ', argList.split(','):*strip())
+	}
+	*/
+	cntMethods += 1
+	FunctionInfo('')
 }
 
 Parse(pathName:string):map:void = {
@@ -472,6 +502,9 @@ Parse(pathName:string):map:void = {
 			}
 			continue
 		}
+		line = line.sub(r'/\*.*?\*/', '')	// removed block comments
+		line = line.sub(r'//.*$', '')		// removed line comments
+		line.match(r'^\s+$') && continue	// skip blank lines
 		if (stat == `initial) {
 			if (m = line.match(r'^class')) {
 				str = line
@@ -495,33 +528,66 @@ Parse(pathName:string):map:void = {
 				}
 			}
 		} elsif (stat == `classDecl) {
+			line = line.strip()
 			if (m = line.match(r'^(.*){')) {
-				str += ' ' + m[1].strip()
+				str += ' ' + m[1]
 				classInfo = CreateClassInfo(pathName, lineNo, str)
 				stat = `classBody
 			} else {
-				str += ' ' + line.strip()
-			}
-		} elsif (stat == `enumDecl) {
-			if (m = line.match(r'^(.*){')) {
-				str += ' ' + m[1].strip()
-				enumInfo = CreateEnumInfo(pathName, lineNo, str)
-				stat = `enumBody
-			} else {
-				str += ' ' + line.strip()
+				str += ' ' + line
 			}
 		} elsif (stat == `classBody) {
+			line = line.strip()
 			if (m = line.match(r'(\w+)\s*\(')) {
-				//println(line)
+				if (m = line.match('(.*){')) {
+					classInfo.AddMethod(pathName, lineNo, m[1].strip())
+					if (line.match('}')) {
+						// nothing to do
+					} else {
+						stat = `methodBody
+					}
+				} elsif (line.match(';')) {
+					classInfo.AddMethod(pathName, lineNo, line)
+				} else {
+					lineNoTop = lineNo
+					str = line
+					stat = `methodDecl
+				}
 			} elsif (m = line.match(r'};$')) {
 				stat = `initial
 			}
+		} elsif (stat == `methodDecl) {
+			line = line.strip()
+			if (m = line.match('(.*){')) {
+				str += ' ' + m[1].strip()
+				classInfo.AddMethod(pathName, lineNoTop, str)
+				if (line.match('}')) {
+					stat = `classBody
+				} else {
+					stat = `methodBody
+				}
+			} elsif (line.match(';')) {
+				str += ' ' + line
+				classInfo.AddMethod(pathName, lineNoTop, str)
+				stat = `classBody
+			} else {
+				str += ' ' + line
+			}
+		} elsif (stat == `methodBody) {
+			if (line.match('}')) {
+				stat = `classBody
+			}
+		} elsif (stat == `enumDecl) {
+			line = line.strip()
+			if (m = line.match(r'^(.*){')) {
+				str += ' ' + m[1]
+				enumInfo = CreateEnumInfo(pathName, lineNo, str)
+				stat = `enumBody
+			} else {
+				str += ' ' + line
+			}
 		} elsif (stat == `enumBody) {
-			if (m = line.match(r'^\s*/\*')) {
-				// just ignore comment lines
-			} elsif (m = line.match(r'^\s*//')) {
-				// just ignore comment lines
-			} elsif (m = line.match(r'^\s+(\w+)')) {
+			if (m = line.match(r'^\s+(\w+)')) {
 				memberName = m[1]
 				if (!memberName.match(r'^(wx|WX)')) {
 					ErrorMessage(pathName, lineNo, line, 'inappropriate name for enum constant')
@@ -593,3 +659,5 @@ tmpl@Constants_cpp.render(path.join(dirNameDst, 'Constants.cpp'))
 tmpl@Functions_cpp.render(path.join(dirNameDst, 'Functions.cpp'))
 classInfoDict.values():*RenderHeader(dirNameDst)
 classInfoDict.values():*RenderSource(dirNameDst)
+
+println(cntMethods)
