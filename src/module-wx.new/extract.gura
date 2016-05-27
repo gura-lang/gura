@@ -274,6 +274,10 @@ String Object_wx_${classNameShort}::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wx${classNameShort}
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_${classNameShort})
@@ -473,8 +477,13 @@ CreateFunctionInfo(pathName:string, lineNo:string, strSrc:string) = {
 	} else {
 		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function syntax')
 	}
+	//println(funcHead)
+	if (m = funcHead.match(r'^(~?\w+)$')) {
+	} elsif (m = funcHead.match(r'^(.+?)([\s\*&]+)(~?\w+)$')) {
+	} else {
+		//ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function syntax')
+	}
 	/*
-	println(funcHead)
 	if (!argList.isempty()) {
 		println('  ', argList.split(','):*strip())
 	}
@@ -660,4 +669,4 @@ tmpl@Functions_cpp.render(path.join(dirNameDst, 'Functions.cpp'))
 classInfoDict.values():*RenderHeader(dirNameDst)
 classInfoDict.values():*RenderSource(dirNameDst)
 
-println(cntMethods)
+printf('-- generated %d methods\n', cntMethods)
