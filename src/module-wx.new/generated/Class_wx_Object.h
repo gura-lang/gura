@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------------
 // wxObject
-// extracted from object.tex
 //----------------------------------------------------------------------------
-#ifndef __CLASS_WX_CLASS_H__
-#define __CLASS_WX_CLASS_H__
+#ifndef __CLASS_WX_OBJECT_H__
+#define __CLASS_WX_OBJECT_H__
+#include <wx/object.h>
 
 Gura_BeginModuleScope(wx)
 
@@ -24,10 +24,11 @@ public:
 	Gura_DeclareObjectAccessor(wx_Object)
 public:
 	inline Object_wx_Object(wxObject *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object(Gura_UserClass(wx_Object)),
+				Object(Gura_UserClass(wx_AboutDialogInfo)),
 				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	inline Object_wx_Object(Class *pClass, wxObject *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object(pClass), _pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
+				Object(pClass),
+				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	virtual ~Object_wx_Object();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
@@ -38,7 +39,9 @@ public:
 		_ownerFlag = ownerFlag;
 	}
 	inline void InvalidateEntity() { _pEntity = nullptr, _pObserver = nullptr, _ownerFlag = false; }
-	inline wxObject *GetEntity() { return _pEntity; }
+	inline wxObject *GetEntity() {
+		return static_cast<wxObject *>(_pEntity);
+	}
 	inline wxObject *ReleaseEntity() {
 		wxObject *pEntity = GetEntity();
 		InvalidateEntity();
@@ -52,21 +55,6 @@ public:
 		SetError_InvalidWxObject(sig, "wxObject");
 		return true;
 	}
-};
-
-class wx_Object: public wxObject, public GuraObjectObserver {
-private:
-	Object_wx_Object *_pObj;
-public:
-	inline wx_Object() : wxObject(), _pObj(nullptr) {}
-	inline wx_Object(const wxObject& other) : wxObject(other), _pObj(nullptr) {}
-	//inline wx_Object() : wxObject(), _pObj(nullptr) {}
-	~wx_Object();
-	inline void AssocWithGura(Object_wx_Object *pObj) {
-		_pObj = pObj;
-	}
-	// virtual function of GuraObjectObserver
-	virtual void GuraObjectDeleted();
 };
 
 Gura_EndModuleScope(wx)

@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------------
 // wxClassInfo
-// extracted from clasinfo.tex
 //----------------------------------------------------------------------------
 #ifndef __CLASS_WX_CLASSINFO_H__
 #define __CLASS_WX_CLASSINFO_H__
+#include <wx/object.h>
 
 Gura_BeginModuleScope(wx)
 
@@ -24,10 +24,11 @@ public:
 	Gura_DeclareObjectAccessor(wx_ClassInfo)
 public:
 	inline Object_wx_ClassInfo(wxClassInfo *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object(Gura_UserClass(wx_ClassInfo)),
+				Object(Gura_UserClass(wx_AboutDialogInfo)),
 				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	inline Object_wx_ClassInfo(Class *pClass, wxClassInfo *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object(pClass), _pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
+				Object(pClass),
+				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	virtual ~Object_wx_ClassInfo();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
@@ -38,7 +39,9 @@ public:
 		_ownerFlag = ownerFlag;
 	}
 	inline void InvalidateEntity() { _pEntity = nullptr, _pObserver = nullptr, _ownerFlag = false; }
-	inline wxClassInfo *GetEntity() { return _pEntity; }
+	inline wxClassInfo *GetEntity() {
+		return static_cast<wxClassInfo *>(_pEntity);
+	}
 	inline wxClassInfo *ReleaseEntity() {
 		wxClassInfo *pEntity = GetEntity();
 		InvalidateEntity();

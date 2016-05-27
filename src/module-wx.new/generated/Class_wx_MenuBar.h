@@ -1,0 +1,46 @@
+//----------------------------------------------------------------------------
+// wxMenuBar
+//----------------------------------------------------------------------------
+#ifndef __CLASS_WX_MENUBAR_H__
+#define __CLASS_WX_MENUBAR_H__
+#include <wx/menu.h>
+
+Gura_BeginModuleScope(wx)
+
+//----------------------------------------------------------------------------
+// Class declaration for wxMenuBar
+//----------------------------------------------------------------------------
+Gura_DeclareUserClass(wx_MenuBar);
+
+//----------------------------------------------------------------------------
+// Object declaration for wxMenuBar
+//----------------------------------------------------------------------------
+class Object_wx_MenuBar : public Object_wx_Window {
+public:
+	Gura_DeclareObjectAccessor(wx_MenuBar)
+public:
+	inline Object_wx_MenuBar(wxMenuBar *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
+				Object_wx_Window(Gura_UserClass(wx_MenuBar), pEntity, pObserver, ownerFlag) {}
+	inline Object_wx_MenuBar(Class *pClass, wxMenuBar *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
+				Object_wx_Window(pClass, pEntity, pObserver, ownerFlag) {}
+	virtual ~Object_wx_MenuBar();
+	virtual Object *Clone() const;
+	virtual String ToString(bool exprFlag);
+	inline wxMenuBar *GetEntity() {
+		return static_cast<wxMenuBar *>(_pEntity);
+	}
+	inline wxMenuBar *ReleaseEntity() {
+		wxMenuBar *pEntity = GetEntity();
+		InvalidateEntity();
+		return pEntity;
+	}
+	inline bool IsInvalid(Signal &sig) const {
+		if (_pEntity != nullptr) return false;
+		SetError_InvalidWxObject(sig, "wxMenuBar");
+		return true;
+	}
+};
+
+Gura_EndModuleScope(wx)
+
+#endif

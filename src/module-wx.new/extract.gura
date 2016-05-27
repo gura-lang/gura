@@ -2,8 +2,7 @@
 import(re)
 
 dirNameWx = 'interface.wx'
-dirNameDst = 'tmp'
-//dirNameDst = 'generated'
+dirNameDst = 'generated'
 
 supportedStatDictOfClassName = %{
 	'wxArchiveIterator'					=> `none

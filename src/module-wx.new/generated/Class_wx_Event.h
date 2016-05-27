@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------------
 // wxEvent
-// extracted from event.tex
 //----------------------------------------------------------------------------
 #ifndef __CLASS_WX_EVENT_H__
 #define __CLASS_WX_EVENT_H__
+#include <wx/event.h>
 
 Gura_BeginModuleScope(wx)
 
@@ -27,7 +27,7 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline wxEvent *GetEntity() {
-		return dynamic_cast<wxEvent *>(_pEntity);
+		return static_cast<wxEvent *>(_pEntity);
 	}
 	inline wxEvent *ReleaseEntity() {
 		wxEvent *pEntity = GetEntity();
