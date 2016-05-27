@@ -816,6 +816,7 @@ void RegisterClasses(Environment &env)
 	RealizeBaseClass(ThreadHelper);
 	//RealizeBaseClass(ThumbBarButton);
 	RealizeBaseClass(TimeSpan);
+	RealizeBaseClass(TimerRunner);
 	RealizeBaseClass(TipProvider);
 	//RealizeBaseClass(Trackable);
 	RealizeBaseClass(Transform2D);
@@ -1662,6 +1663,7 @@ void RegisterClasses(Environment &env)
 	PrepareClass(ThreadHelper);
 	//PrepareClass(ThumbBarButton);
 	PrepareClass(TimeSpan);
+	PrepareClass(TimerRunner);
 	PrepareClass(TipProvider);
 	//PrepareClass(Trackable);
 	PrepareClass(Transform2D);

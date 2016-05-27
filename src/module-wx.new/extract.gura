@@ -459,7 +459,7 @@ Parse(pathName:string):map:void = {
 	commentFlag = false
 	readlines(pathName).each {|line|
 		lineNo += 1
-		line = line.chop()
+		line = line.strip():right
 		if (commentFlag) {
 			if (line.match(r'\*/$')) {
 				commentFlag = false
@@ -496,19 +496,19 @@ Parse(pathName:string):map:void = {
 			}
 		} elsif (stat == `classDecl) {
 			if (m = line.match(r'^(.*){')) {
-				str += m[1]
+				str += ' ' + m[1].strip()
 				classInfo = CreateClassInfo(pathName, lineNo, str)
 				stat = `classBody
 			} else {
-				str += line
+				str += ' ' + line.strip()
 			}
 		} elsif (stat == `enumDecl) {
 			if (m = line.match(r'^(.*){')) {
-				str += m[1]
+				str += ' ' + m[1].strip()
 				enumInfo = CreateEnumInfo(pathName, lineNo, str)
 				stat = `enumBody
 			} else {
-				str += line
+				str += ' ' + line.strip()
 			}
 		} elsif (stat == `classBody) {
 			if (m = line.match(r'(\w+)\s*\(')) {

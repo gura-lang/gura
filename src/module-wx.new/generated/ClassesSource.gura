@@ -813,6 +813,7 @@ srcs:public = [
 	'Class_wx_ThreadHelper.cpp'
 	//'Class_wx_ThumbBarButton.cpp'
 	'Class_wx_TimeSpan.cpp'
+	'Class_wx_TimerRunner.cpp'
 	'Class_wx_TipProvider.cpp'
 	//'Class_wx_Trackable.cpp'
 	'Class_wx_Transform2D.cpp'

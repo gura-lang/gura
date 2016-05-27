@@ -813,6 +813,7 @@
 #include "Class_wx_ThreadHelper.h"
 //nclude "Class_wx_ThumbBarButton.h"
 #include "Class_wx_TimeSpan.h"
+#include "Class_wx_TimerRunner.h"
 #include "Class_wx_TipProvider.h"
 //nclude "Class_wx_Trackable.h"
 #include "Class_wx_Transform2D.h"
