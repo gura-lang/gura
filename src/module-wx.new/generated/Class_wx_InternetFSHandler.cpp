@@ -35,6 +35,10 @@ String Object_wx_InternetFSHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxInternetFSHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_InternetFSHandler)

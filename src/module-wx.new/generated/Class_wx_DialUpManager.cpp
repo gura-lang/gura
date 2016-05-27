@@ -35,6 +35,10 @@ String Object_wx_DialUpManager::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDialUpManager
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DialUpManager)

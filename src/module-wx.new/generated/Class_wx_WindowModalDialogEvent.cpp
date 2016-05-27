@@ -35,6 +35,10 @@ String Object_wx_WindowModalDialogEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWindowModalDialogEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowModalDialogEvent)

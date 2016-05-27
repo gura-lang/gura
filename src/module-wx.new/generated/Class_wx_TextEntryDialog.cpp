@@ -35,6 +35,10 @@ String Object_wx_TextEntryDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTextEntryDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextEntryDialog)

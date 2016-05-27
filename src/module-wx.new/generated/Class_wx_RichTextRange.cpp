@@ -35,6 +35,10 @@ String Object_wx_RichTextRange::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextRange
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextRange)

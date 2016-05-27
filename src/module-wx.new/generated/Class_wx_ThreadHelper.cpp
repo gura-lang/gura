@@ -35,6 +35,10 @@ String Object_wx_ThreadHelper::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxThreadHelper
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ThreadHelper)

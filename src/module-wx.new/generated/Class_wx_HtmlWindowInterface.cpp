@@ -35,6 +35,10 @@ String Object_wx_HtmlWindowInterface::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlWindowInterface
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWindowInterface)

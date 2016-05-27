@@ -35,6 +35,10 @@ String Object_wx_HeaderCtrlSimple::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHeaderCtrlSimple
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HeaderCtrlSimple)

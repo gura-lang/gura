@@ -35,6 +35,10 @@ String Object_wx_IconizeEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxIconizeEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IconizeEvent)

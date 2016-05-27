@@ -35,6 +35,10 @@ String Object_wx_SashLayoutWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSashLayoutWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SashLayoutWindow)

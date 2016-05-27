@@ -35,6 +35,10 @@ String Object_wx_HeaderCtrlEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHeaderCtrlEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HeaderCtrlEvent)

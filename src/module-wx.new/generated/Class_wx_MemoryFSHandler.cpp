@@ -35,6 +35,10 @@ String Object_wx_MemoryFSHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMemoryFSHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryFSHandler)

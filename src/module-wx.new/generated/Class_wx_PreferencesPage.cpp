@@ -35,6 +35,10 @@ String Object_wx_PreferencesPage::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPreferencesPage
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreferencesPage)

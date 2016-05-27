@@ -35,6 +35,10 @@ String Object_wx_ZipOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxZipOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipOutputStream)

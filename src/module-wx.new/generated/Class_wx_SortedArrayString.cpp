@@ -35,6 +35,10 @@ String Object_wx_SortedArrayString::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSortedArrayString
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SortedArrayString)

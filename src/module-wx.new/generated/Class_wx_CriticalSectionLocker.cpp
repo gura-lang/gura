@@ -35,6 +35,10 @@ String Object_wx_CriticalSectionLocker::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCriticalSectionLocker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CriticalSectionLocker)

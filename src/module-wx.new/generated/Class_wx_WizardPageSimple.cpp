@@ -35,6 +35,10 @@ String Object_wx_WizardPageSimple::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWizardPageSimple
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WizardPageSimple)

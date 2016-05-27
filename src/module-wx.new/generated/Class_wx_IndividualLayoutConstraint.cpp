@@ -35,6 +35,10 @@ String Object_wx_IndividualLayoutConstraint::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxIndividualLayoutConstraint
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IndividualLayoutConstraint)

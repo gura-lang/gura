@@ -35,6 +35,10 @@ String Object_wx_ToggleButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxToggleButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToggleButton)

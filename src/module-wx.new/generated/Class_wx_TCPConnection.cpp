@@ -35,6 +35,10 @@ String Object_wx_TCPConnection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTCPConnection
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TCPConnection)

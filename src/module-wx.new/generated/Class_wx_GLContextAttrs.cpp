@@ -35,6 +35,10 @@ String Object_wx_GLContextAttrs::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGLContextAttrs
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLContextAttrs)

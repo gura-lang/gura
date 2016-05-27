@@ -35,6 +35,10 @@ String Object_wx_RichTextParagraphLayoutBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextParagraphLayoutBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextParagraphLayoutBox)

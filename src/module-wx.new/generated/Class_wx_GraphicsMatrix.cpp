@@ -35,6 +35,10 @@ String Object_wx_GraphicsMatrix::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGraphicsMatrix
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsMatrix)

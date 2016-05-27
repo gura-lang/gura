@@ -35,6 +35,10 @@ String Object_wx_PersistentObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPersistentObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentObject)

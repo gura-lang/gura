@@ -35,6 +35,10 @@ String Object_wx_WindowCreateEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWindowCreateEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowCreateEvent)

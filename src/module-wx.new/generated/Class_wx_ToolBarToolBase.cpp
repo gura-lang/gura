@@ -35,6 +35,10 @@ String Object_wx_ToolBarToolBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxToolBarToolBase
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToolBarToolBase)

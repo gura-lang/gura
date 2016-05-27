@@ -35,6 +35,10 @@ String Object_wx_TaskBarJumpListItem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTaskBarJumpListItem
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarJumpListItem)

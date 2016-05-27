@@ -35,6 +35,10 @@ String Object_wx_RichTextCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCell)

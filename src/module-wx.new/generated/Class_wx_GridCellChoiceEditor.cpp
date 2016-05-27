@@ -35,6 +35,10 @@ String Object_wx_GridCellChoiceEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridCellChoiceEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellChoiceEditor)

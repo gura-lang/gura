@@ -35,6 +35,10 @@ String Object_wx_AuiNotebookEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAuiNotebookEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiNotebookEvent)

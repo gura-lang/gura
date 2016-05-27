@@ -35,6 +35,10 @@ String Object_wx_ArchiveOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxArchiveOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveOutputStream)

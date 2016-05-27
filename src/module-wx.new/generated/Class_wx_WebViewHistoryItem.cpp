@@ -35,6 +35,10 @@ String Object_wx_WebViewHistoryItem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWebViewHistoryItem
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewHistoryItem)

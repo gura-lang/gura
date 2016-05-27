@@ -35,6 +35,10 @@ String Object_wx_PrintDialogData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPrintDialogData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintDialogData)

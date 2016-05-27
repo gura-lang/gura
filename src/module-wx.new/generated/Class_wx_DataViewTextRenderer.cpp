@@ -35,6 +35,10 @@ String Object_wx_DataViewTextRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewTextRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewTextRenderer)

@@ -35,6 +35,10 @@ String Object_wx_HtmlSelection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlSelection
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlSelection)

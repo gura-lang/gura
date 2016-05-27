@@ -35,6 +35,10 @@ String Object_wx_SpinDoubleEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSpinDoubleEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SpinDoubleEvent)

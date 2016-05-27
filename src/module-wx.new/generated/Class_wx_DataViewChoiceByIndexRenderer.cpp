@@ -35,6 +35,10 @@ String Object_wx_DataViewChoiceByIndexRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewChoiceByIndexRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewChoiceByIndexRenderer)

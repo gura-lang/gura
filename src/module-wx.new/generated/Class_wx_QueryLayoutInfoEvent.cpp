@@ -35,6 +35,10 @@ String Object_wx_QueryLayoutInfoEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxQueryLayoutInfoEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_QueryLayoutInfoEvent)

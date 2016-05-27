@@ -35,6 +35,10 @@ String Object_wx_FSInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFSInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FSInputStream)

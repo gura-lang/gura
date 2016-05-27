@@ -35,6 +35,10 @@ String Object_wx_FontPickerCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFontPickerCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontPickerCtrl)

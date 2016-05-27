@@ -35,6 +35,10 @@ String Object_wx_SpinCtrlDouble::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSpinCtrlDouble
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SpinCtrlDouble)

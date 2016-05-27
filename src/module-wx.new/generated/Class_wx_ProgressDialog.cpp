@@ -35,6 +35,10 @@ String Object_wx_ProgressDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxProgressDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProgressDialog)

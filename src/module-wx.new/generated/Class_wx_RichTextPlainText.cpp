@@ -35,6 +35,10 @@ String Object_wx_RichTextPlainText::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextPlainText
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextPlainText)

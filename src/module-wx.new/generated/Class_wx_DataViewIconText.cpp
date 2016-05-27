@@ -35,6 +35,10 @@ String Object_wx_DataViewIconText::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewIconText
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewIconText)

@@ -35,6 +35,10 @@ String Object_wx_DataViewCustomRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewCustomRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewCustomRenderer)

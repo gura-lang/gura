@@ -35,6 +35,10 @@ String Object_wx_RegionIterator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRegionIterator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegionIterator)

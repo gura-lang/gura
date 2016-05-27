@@ -35,6 +35,10 @@ String Object_wx_DCTextColourChanger::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDCTextColourChanger
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCTextColourChanger)

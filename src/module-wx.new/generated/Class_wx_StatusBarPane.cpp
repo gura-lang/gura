@@ -35,6 +35,10 @@ String Object_wx_StatusBarPane::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStatusBarPane
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StatusBarPane)

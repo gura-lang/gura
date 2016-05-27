@@ -35,6 +35,10 @@ String Object_wx_EventBlocker::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxEventBlocker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EventBlocker)

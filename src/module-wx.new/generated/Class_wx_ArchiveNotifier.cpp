@@ -35,6 +35,10 @@ String Object_wx_ArchiveNotifier::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxArchiveNotifier
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveNotifier)

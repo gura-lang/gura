@@ -35,6 +35,10 @@ String Object_wx_AuiToolBarEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAuiToolBarEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiToolBarEvent)

@@ -35,6 +35,10 @@ String Object_wx_RichTextHTMLHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextHTMLHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextHTMLHandler)

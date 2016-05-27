@@ -35,6 +35,10 @@ String Object_wx_CommandEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCommandEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CommandEvent)

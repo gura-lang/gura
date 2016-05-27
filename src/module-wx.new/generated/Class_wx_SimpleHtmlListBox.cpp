@@ -35,6 +35,10 @@ String Object_wx_SimpleHtmlListBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSimpleHtmlListBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SimpleHtmlListBox)

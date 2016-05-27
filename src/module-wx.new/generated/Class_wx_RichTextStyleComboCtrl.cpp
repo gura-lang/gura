@@ -35,6 +35,10 @@ String Object_wx_RichTextStyleComboCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextStyleComboCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleComboCtrl)

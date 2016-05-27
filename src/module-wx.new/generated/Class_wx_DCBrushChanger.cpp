@@ -35,6 +35,10 @@ String Object_wx_DCBrushChanger::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDCBrushChanger
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCBrushChanger)

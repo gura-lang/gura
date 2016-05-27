@@ -35,6 +35,10 @@ String Object_wx_CalendarEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCalendarEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CalendarEvent)

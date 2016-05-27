@@ -35,6 +35,10 @@ String Object_wx_RichTextImageBlock::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextImageBlock
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextImageBlock)

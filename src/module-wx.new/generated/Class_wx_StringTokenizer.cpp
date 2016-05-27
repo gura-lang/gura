@@ -35,6 +35,10 @@ String Object_wx_StringTokenizer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStringTokenizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringTokenizer)

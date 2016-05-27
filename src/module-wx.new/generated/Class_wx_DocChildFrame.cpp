@@ -35,6 +35,10 @@ String Object_wx_DocChildFrame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDocChildFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocChildFrame)

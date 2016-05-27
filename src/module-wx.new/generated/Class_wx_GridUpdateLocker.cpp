@@ -35,6 +35,10 @@ String Object_wx_GridUpdateLocker::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridUpdateLocker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridUpdateLocker)

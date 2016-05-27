@@ -35,6 +35,10 @@ String Object_wx_HTMLDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHTMLDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HTMLDataObject)

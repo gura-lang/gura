@@ -35,6 +35,10 @@ String Object_wx_RichTextStdRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextStdRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStdRenderer)

@@ -35,6 +35,10 @@ String Object_wx_LogFormatter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxLogFormatter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogFormatter)

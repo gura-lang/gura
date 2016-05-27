@@ -35,6 +35,10 @@ String Object_wx_MDIChildFrame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMDIChildFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MDIChildFrame)

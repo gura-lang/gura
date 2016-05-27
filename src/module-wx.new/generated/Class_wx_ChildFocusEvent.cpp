@@ -35,6 +35,10 @@ String Object_wx_ChildFocusEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxChildFocusEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ChildFocusEvent)

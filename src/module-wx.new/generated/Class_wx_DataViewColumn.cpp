@@ -35,6 +35,10 @@ String Object_wx_DataViewColumn::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewColumn
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewColumn)

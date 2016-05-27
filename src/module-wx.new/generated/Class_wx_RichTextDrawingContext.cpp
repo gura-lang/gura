@@ -35,6 +35,10 @@ String Object_wx_RichTextDrawingContext::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextDrawingContext
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextDrawingContext)

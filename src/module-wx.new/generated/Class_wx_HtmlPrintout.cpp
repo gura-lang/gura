@@ -35,6 +35,10 @@ String Object_wx_HtmlPrintout::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlPrintout
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlPrintout)

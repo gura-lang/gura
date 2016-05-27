@@ -35,6 +35,10 @@ String Object_wx_VariantDataErrorCode::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxVariantDataErrorCode
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VariantDataErrorCode)

@@ -35,6 +35,10 @@ String Object_wx_XmlResourceHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxXmlResourceHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlResourceHandler)

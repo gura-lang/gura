@@ -35,6 +35,10 @@ String Object_wx_OwnerDrawnComboBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxOwnerDrawnComboBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_OwnerDrawnComboBox)

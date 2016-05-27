@@ -35,6 +35,10 @@ String Object_wx_NavigationKeyEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxNavigationKeyEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NavigationKeyEvent)

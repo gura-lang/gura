@@ -35,6 +35,10 @@ String Object_wx_VariantDataCurrency::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxVariantDataCurrency
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VariantDataCurrency)

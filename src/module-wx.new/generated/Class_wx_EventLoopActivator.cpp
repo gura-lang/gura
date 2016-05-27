@@ -35,6 +35,10 @@ String Object_wx_EventLoopActivator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxEventLoopActivator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EventLoopActivator)

@@ -35,6 +35,10 @@ String Object_wx_NumValidator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxNumValidator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NumValidator)

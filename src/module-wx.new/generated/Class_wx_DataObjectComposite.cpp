@@ -35,6 +35,10 @@ String Object_wx_DataObjectComposite::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataObjectComposite
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataObjectComposite)

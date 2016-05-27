@@ -35,6 +35,10 @@ String Object_wx_BusyInfoFlags::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxBusyInfoFlags
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BusyInfoFlags)

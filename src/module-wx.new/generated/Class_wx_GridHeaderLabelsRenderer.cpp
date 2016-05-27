@@ -35,6 +35,10 @@ String Object_wx_GridHeaderLabelsRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridHeaderLabelsRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridHeaderLabelsRenderer)

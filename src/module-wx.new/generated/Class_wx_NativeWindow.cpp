@@ -35,6 +35,10 @@ String Object_wx_NativeWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxNativeWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NativeWindow)

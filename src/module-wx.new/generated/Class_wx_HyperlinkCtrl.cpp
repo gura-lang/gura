@@ -35,6 +35,10 @@ String Object_wx_HyperlinkCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHyperlinkCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HyperlinkCtrl)

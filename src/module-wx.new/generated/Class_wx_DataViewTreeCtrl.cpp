@@ -35,6 +35,10 @@ String Object_wx_DataViewTreeCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewTreeCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewTreeCtrl)

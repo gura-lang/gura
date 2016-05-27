@@ -35,6 +35,10 @@ String Object_wx_PageSetupDialogData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPageSetupDialogData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PageSetupDialogData)

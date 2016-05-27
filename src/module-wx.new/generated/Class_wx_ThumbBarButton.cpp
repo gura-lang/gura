@@ -35,6 +35,10 @@ String Object_wx_ThumbBarButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxThumbBarButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ThumbBarButton)

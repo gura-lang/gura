@@ -35,6 +35,10 @@ String Object_wx_RichTextContextMenuPropertiesInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextContextMenuPropertiesInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextContextMenuPropertiesInfo)

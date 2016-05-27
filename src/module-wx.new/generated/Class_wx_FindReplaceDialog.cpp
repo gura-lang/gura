@@ -35,6 +35,10 @@ String Object_wx_FindReplaceDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFindReplaceDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FindReplaceDialog)

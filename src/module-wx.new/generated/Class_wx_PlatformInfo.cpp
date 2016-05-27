@@ -35,6 +35,10 @@ String Object_wx_PlatformInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPlatformInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PlatformInfo)

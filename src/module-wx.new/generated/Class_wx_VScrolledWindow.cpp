@@ -35,6 +35,10 @@ String Object_wx_VScrolledWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxVScrolledWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VScrolledWindow)

@@ -35,6 +35,10 @@ String Object_wx_DataObjectSimple::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataObjectSimple
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataObjectSimple)

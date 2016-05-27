@@ -35,6 +35,10 @@ String Object_wx_HtmlHelpData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlHelpData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpData)

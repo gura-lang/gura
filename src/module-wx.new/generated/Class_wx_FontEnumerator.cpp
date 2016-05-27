@@ -35,6 +35,10 @@ String Object_wx_FontEnumerator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFontEnumerator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontEnumerator)

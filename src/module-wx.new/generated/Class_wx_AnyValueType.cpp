@@ -35,6 +35,10 @@ String Object_wx_AnyValueType::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAnyValueType
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AnyValueType)

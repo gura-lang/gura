@@ -35,6 +35,10 @@ String Object_wx_AffineMatrix2DBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAffineMatrix2DBase
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AffineMatrix2DBase)

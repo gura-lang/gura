@@ -35,6 +35,10 @@ String Object_wx_ItemContainer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxItemContainer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ItemContainer)

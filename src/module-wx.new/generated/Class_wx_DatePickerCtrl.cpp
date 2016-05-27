@@ -35,6 +35,10 @@ String Object_wx_DatePickerCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDatePickerCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DatePickerCtrl)

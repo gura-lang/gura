@@ -35,6 +35,10 @@ String Object_wx_ArchiveFSHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxArchiveFSHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveFSHandler)

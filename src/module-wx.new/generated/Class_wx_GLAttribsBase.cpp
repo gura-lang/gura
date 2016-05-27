@@ -35,6 +35,10 @@ String Object_wx_GLAttribsBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGLAttribsBase
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLAttribsBase)

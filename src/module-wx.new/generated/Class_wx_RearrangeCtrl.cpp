@@ -35,6 +35,10 @@ String Object_wx_RearrangeCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRearrangeCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RearrangeCtrl)

@@ -35,6 +35,10 @@ String Object_wx_ContextMenuEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxContextMenuEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ContextMenuEvent)

@@ -35,6 +35,10 @@ String Object_wx_GridCellFloatEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridCellFloatEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellFloatEditor)

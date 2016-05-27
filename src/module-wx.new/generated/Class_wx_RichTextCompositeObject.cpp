@@ -35,6 +35,10 @@ String Object_wx_RichTextCompositeObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextCompositeObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCompositeObject)

@@ -35,6 +35,10 @@ String Object_wx_AuiDefaultTabArt::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAuiDefaultTabArt
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiDefaultTabArt)

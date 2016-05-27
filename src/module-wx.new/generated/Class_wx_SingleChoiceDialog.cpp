@@ -35,6 +35,10 @@ String Object_wx_SingleChoiceDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSingleChoiceDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SingleChoiceDialog)

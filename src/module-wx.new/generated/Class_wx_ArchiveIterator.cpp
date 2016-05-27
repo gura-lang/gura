@@ -35,6 +35,10 @@ String Object_wx_ArchiveIterator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxArchiveIterator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveIterator)

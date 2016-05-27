@@ -35,6 +35,10 @@ String Object_wx_RichTextHeaderFooterData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextHeaderFooterData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextHeaderFooterData)

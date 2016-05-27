@@ -35,6 +35,10 @@ String Object_wx_BufferedInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxBufferedInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BufferedInputStream)

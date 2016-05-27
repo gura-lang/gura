@@ -35,6 +35,10 @@ String Object_wx_MultiChoiceDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMultiChoiceDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MultiChoiceDialog)

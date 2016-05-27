@@ -35,6 +35,10 @@ String Object_wx_DynamicLibraryDetails::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDynamicLibraryDetails
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DynamicLibraryDetails)

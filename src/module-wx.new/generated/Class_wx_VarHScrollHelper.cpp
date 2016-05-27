@@ -35,6 +35,10 @@ String Object_wx_VarHScrollHelper::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxVarHScrollHelper
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VarHScrollHelper)

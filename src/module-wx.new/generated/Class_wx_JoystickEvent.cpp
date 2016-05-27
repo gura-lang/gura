@@ -35,6 +35,10 @@ String Object_wx_JoystickEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxJoystickEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_JoystickEvent)

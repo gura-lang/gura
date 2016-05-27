@@ -35,6 +35,10 @@ String Object_wx_FileTypeInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFileTypeInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileTypeInfo)

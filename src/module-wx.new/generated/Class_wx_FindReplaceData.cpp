@@ -35,6 +35,10 @@ String Object_wx_FindReplaceData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFindReplaceData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FindReplaceData)

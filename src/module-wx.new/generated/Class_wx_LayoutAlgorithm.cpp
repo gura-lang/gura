@@ -35,6 +35,10 @@ String Object_wx_LayoutAlgorithm::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxLayoutAlgorithm
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LayoutAlgorithm)

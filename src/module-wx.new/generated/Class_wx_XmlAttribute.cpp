@@ -35,6 +35,10 @@ String Object_wx_XmlAttribute::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxXmlAttribute
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlAttribute)

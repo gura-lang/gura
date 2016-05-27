@@ -35,6 +35,10 @@ String Object_wx_ClipboardTextEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxClipboardTextEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClipboardTextEvent)

@@ -35,6 +35,10 @@ String Object_wx_DirFilterListCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDirFilterListCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DirFilterListCtrl)

@@ -35,6 +35,10 @@ String Object_wx_TarOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTarOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TarOutputStream)

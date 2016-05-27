@@ -35,6 +35,10 @@ String Object_wx_HtmlWordWithTabsCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlWordWithTabsCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWordWithTabsCell)

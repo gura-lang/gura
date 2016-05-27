@@ -35,6 +35,10 @@ String Object_wx_CommandLinkButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCommandLinkButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CommandLinkButton)

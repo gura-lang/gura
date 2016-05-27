@@ -35,6 +35,10 @@ String Object_wx_ConfigPathChanger::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxConfigPathChanger
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ConfigPathChanger)

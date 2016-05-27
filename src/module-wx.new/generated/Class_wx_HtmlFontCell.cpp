@@ -35,6 +35,10 @@ String Object_wx_HtmlFontCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlFontCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlFontCell)

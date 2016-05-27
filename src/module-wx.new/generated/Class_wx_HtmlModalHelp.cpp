@@ -35,6 +35,10 @@ String Object_wx_HtmlModalHelp::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlModalHelp
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlModalHelp)

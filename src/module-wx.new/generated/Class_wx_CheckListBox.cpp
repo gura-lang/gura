@@ -35,6 +35,10 @@ String Object_wx_CheckListBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCheckListBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CheckListBox)

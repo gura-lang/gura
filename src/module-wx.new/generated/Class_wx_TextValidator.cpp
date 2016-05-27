@@ -35,6 +35,10 @@ String Object_wx_TextValidator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTextValidator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextValidator)

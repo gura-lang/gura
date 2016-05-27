@@ -35,6 +35,10 @@ String Object_wx_WindowDestroyEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWindowDestroyEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowDestroyEvent)

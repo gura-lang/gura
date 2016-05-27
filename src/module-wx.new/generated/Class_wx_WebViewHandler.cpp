@@ -35,6 +35,10 @@ String Object_wx_WebViewHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWebViewHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewHandler)

@@ -35,6 +35,10 @@ String Object_wx_FileDirPickerEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFileDirPickerEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDirPickerEvent)

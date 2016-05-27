@@ -35,6 +35,10 @@ String Object_wx_ActivityIndicator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxActivityIndicator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ActivityIndicator)

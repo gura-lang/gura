@@ -35,6 +35,10 @@ String Object_wx_SystemOptions::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSystemOptions
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SystemOptions)

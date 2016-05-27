@@ -35,6 +35,10 @@ String Object_wx_IntegerValidator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxIntegerValidator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IntegerValidator)

@@ -35,6 +35,10 @@ String Object_wx_CollapsibleHeaderCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCollapsibleHeaderCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CollapsibleHeaderCtrl)

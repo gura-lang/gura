@@ -35,6 +35,10 @@ String Object_wx_WebViewFactory::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWebViewFactory
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewFactory)

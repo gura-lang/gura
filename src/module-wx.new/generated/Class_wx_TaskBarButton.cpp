@@ -35,6 +35,10 @@ String Object_wx_TaskBarButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTaskBarButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarButton)

@@ -35,6 +35,10 @@ String Object_wx_SetCursorEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSetCursorEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SetCursorEvent)

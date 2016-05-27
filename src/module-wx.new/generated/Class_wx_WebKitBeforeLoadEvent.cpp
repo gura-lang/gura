@@ -35,6 +35,10 @@ String Object_wx_WebKitBeforeLoadEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWebKitBeforeLoadEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebKitBeforeLoadEvent)

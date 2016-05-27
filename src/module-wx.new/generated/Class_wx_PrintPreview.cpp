@@ -35,6 +35,10 @@ String Object_wx_PrintPreview::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPrintPreview
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintPreview)

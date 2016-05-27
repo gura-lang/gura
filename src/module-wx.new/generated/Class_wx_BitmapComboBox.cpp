@@ -35,6 +35,10 @@ String Object_wx_BitmapComboBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxBitmapComboBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapComboBox)

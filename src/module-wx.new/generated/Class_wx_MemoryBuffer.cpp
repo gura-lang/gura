@@ -35,6 +35,10 @@ String Object_wx_MemoryBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMemoryBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryBuffer)

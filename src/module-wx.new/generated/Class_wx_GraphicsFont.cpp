@@ -35,6 +35,10 @@ String Object_wx_GraphicsFont::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGraphicsFont
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsFont)

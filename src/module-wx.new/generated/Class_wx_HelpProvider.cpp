@@ -35,6 +35,10 @@ String Object_wx_HelpProvider::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHelpProvider
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpProvider)

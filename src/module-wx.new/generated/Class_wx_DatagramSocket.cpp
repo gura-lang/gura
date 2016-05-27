@@ -35,6 +35,10 @@ String Object_wx_DatagramSocket::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDatagramSocket
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DatagramSocket)

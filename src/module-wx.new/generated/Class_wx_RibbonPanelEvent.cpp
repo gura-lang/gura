@@ -35,6 +35,10 @@ String Object_wx_RibbonPanelEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRibbonPanelEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonPanelEvent)

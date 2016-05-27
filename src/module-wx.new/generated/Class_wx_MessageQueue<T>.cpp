@@ -35,6 +35,10 @@ String Object_wx_MessageQueue<T>::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMessageQueue<T>
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageQueue<T>)

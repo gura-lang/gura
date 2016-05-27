@@ -35,6 +35,10 @@ String Object_wx_StdInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStdInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StdInputStream)

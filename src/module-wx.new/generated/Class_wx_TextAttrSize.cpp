@@ -35,6 +35,10 @@ String Object_wx_TextAttrSize::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTextAttrSize
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrSize)

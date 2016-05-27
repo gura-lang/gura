@@ -35,6 +35,10 @@ String Object_wx_WindowDisabler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWindowDisabler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowDisabler)

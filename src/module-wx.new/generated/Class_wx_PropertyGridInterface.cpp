@@ -35,6 +35,10 @@ String Object_wx_PropertyGridInterface::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPropertyGridInterface
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertyGridInterface)

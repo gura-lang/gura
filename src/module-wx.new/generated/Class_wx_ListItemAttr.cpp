@@ -35,6 +35,10 @@ String Object_wx_ListItemAttr::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxListItemAttr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListItemAttr)

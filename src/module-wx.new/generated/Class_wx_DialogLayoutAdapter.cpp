@@ -35,6 +35,10 @@ String Object_wx_DialogLayoutAdapter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDialogLayoutAdapter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DialogLayoutAdapter)

@@ -35,6 +35,10 @@ String Object_wx_PersistenceManager::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPersistenceManager
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistenceManager)

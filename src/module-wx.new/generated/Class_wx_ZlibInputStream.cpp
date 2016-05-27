@@ -35,6 +35,10 @@ String Object_wx_ZlibInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxZlibInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZlibInputStream)

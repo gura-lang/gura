@@ -35,6 +35,10 @@ String Object_wx_GridTableMessage::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridTableMessage
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridTableMessage)

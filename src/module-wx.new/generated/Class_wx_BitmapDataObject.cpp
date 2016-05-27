@@ -35,6 +35,10 @@ String Object_wx_BitmapDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxBitmapDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapDataObject)

@@ -35,6 +35,10 @@ String Object_wx_PreviewCanvas::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPreviewCanvas
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreviewCanvas)

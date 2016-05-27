@@ -35,6 +35,10 @@ String Object_wx_PaletteChangedEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPaletteChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PaletteChangedEvent)

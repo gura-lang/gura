@@ -35,6 +35,10 @@ String Object_wx_RibbonButtonBarEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRibbonButtonBarEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonButtonBarEvent)

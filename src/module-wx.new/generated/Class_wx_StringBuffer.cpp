@@ -35,6 +35,10 @@ String Object_wx_StringBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStringBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringBuffer)

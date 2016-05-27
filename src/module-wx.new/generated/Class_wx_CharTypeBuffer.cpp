@@ -35,6 +35,10 @@ String Object_wx_CharTypeBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCharTypeBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CharTypeBuffer)

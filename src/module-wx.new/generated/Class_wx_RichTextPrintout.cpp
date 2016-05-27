@@ -35,6 +35,10 @@ String Object_wx_RichTextPrintout::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextPrintout
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextPrintout)

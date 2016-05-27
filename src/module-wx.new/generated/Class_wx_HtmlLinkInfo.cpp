@@ -35,6 +35,10 @@ String Object_wx_HtmlLinkInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlLinkInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlLinkInfo)

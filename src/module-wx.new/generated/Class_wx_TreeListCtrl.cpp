@@ -35,6 +35,10 @@ String Object_wx_TreeListCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTreeListCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeListCtrl)

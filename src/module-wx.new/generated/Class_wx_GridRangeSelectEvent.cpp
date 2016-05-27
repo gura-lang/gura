@@ -35,6 +35,10 @@ String Object_wx_GridRangeSelectEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridRangeSelectEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridRangeSelectEvent)

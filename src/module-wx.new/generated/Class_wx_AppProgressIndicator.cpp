@@ -35,6 +35,10 @@ String Object_wx_AppProgressIndicator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAppProgressIndicator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AppProgressIndicator)

@@ -35,6 +35,10 @@ String Object_wx_SplitterWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSplitterWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SplitterWindow)

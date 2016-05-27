@@ -35,6 +35,10 @@ String Object_wx_SocketOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSocketOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketOutputStream)

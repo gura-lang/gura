@@ -35,6 +35,10 @@ String Object_wx_WrapperInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWrapperInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WrapperInputStream)

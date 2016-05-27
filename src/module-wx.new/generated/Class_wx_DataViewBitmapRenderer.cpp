@@ -35,6 +35,10 @@ String Object_wx_DataViewBitmapRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewBitmapRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewBitmapRenderer)

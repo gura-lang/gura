@@ -35,6 +35,10 @@ String Object_wx_QueryNewPaletteEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxQueryNewPaletteEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_QueryNewPaletteEvent)

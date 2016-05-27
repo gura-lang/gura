@@ -35,6 +35,10 @@ String Object_wx_RichTextBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextBuffer)

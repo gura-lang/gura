@@ -35,6 +35,10 @@ String Object_wx_WindowUpdateLocker::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWindowUpdateLocker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowUpdateLocker)

@@ -35,6 +35,10 @@ String Object_wx_PropertyGridIterator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPropertyGridIterator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertyGridIterator)

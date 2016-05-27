@@ -35,6 +35,10 @@ String Object_wx_DCPenChanger::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDCPenChanger
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCPenChanger)

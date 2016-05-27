@@ -35,6 +35,10 @@ String Object_wx_SettableHeaderColumn::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSettableHeaderColumn
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SettableHeaderColumn)

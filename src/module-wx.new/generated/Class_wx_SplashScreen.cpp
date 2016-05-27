@@ -35,6 +35,10 @@ String Object_wx_SplashScreen::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSplashScreen
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SplashScreen)

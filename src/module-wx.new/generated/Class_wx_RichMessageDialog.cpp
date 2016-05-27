@@ -35,6 +35,10 @@ String Object_wx_RichMessageDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichMessageDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichMessageDialog)

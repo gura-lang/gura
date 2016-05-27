@@ -35,6 +35,10 @@ String Object_wx_DDEConnection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDDEConnection
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DDEConnection)

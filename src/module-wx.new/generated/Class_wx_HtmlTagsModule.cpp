@@ -35,6 +35,10 @@ String Object_wx_HtmlTagsModule::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlTagsModule
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTagsModule)

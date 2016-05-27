@@ -35,6 +35,10 @@ String Object_wx_MessageOutputStderr::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMessageOutputStderr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageOutputStderr)

@@ -35,6 +35,10 @@ String Object_wx_GridCellAttrProvider::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridCellAttrProvider
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellAttrProvider)

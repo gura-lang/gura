@@ -35,6 +35,10 @@ String Object_wx_GLAttributes::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGLAttributes
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLAttributes)

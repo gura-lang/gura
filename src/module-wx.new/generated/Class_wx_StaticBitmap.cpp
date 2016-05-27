@@ -35,6 +35,10 @@ String Object_wx_StaticBitmap::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStaticBitmap
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticBitmap)

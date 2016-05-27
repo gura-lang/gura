@@ -35,6 +35,10 @@ String Object_wx_MouseEventsManager::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMouseEventsManager
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseEventsManager)

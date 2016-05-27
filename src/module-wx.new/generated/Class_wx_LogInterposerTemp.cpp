@@ -35,6 +35,10 @@ String Object_wx_LogInterposerTemp::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxLogInterposerTemp
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogInterposerTemp)

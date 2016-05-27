@@ -35,6 +35,10 @@ String Object_wx_GridCellAutoWrapStringRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridCellAutoWrapStringRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellAutoWrapStringRenderer)

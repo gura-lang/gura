@@ -35,6 +35,10 @@ String Object_wx_StyledTextEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStyledTextEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StyledTextEvent)

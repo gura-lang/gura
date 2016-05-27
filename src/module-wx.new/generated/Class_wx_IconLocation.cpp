@@ -35,6 +35,10 @@ String Object_wx_IconLocation::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxIconLocation
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IconLocation)

@@ -35,6 +35,10 @@ String Object_wx_GridCellNumberEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridCellNumberEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellNumberEditor)

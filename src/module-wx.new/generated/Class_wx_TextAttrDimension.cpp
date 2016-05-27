@@ -35,6 +35,10 @@ String Object_wx_TextAttrDimension::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTextAttrDimension
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrDimension)

@@ -35,6 +35,10 @@ String Object_wx_DataOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataOutputStream)

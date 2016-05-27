@@ -35,6 +35,10 @@ String Object_wx_CollapsiblePane::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCollapsiblePane
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CollapsiblePane)

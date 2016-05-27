@@ -35,6 +35,10 @@ String Object_wx_RichTextProperties::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextProperties
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextProperties)

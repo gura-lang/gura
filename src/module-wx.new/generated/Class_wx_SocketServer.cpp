@@ -35,6 +35,10 @@ String Object_wx_SocketServer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSocketServer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketServer)

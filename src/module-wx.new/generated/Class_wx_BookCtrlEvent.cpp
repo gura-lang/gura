@@ -35,6 +35,10 @@ String Object_wx_BookCtrlEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxBookCtrlEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BookCtrlEvent)

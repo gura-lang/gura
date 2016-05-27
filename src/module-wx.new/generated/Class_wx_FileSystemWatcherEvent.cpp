@@ -35,6 +35,10 @@ String Object_wx_FileSystemWatcherEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFileSystemWatcherEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileSystemWatcherEvent)

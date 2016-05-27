@@ -35,6 +35,10 @@ String Object_wx_HtmlBookRecord::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlBookRecord
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlBookRecord)

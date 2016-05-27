@@ -35,6 +35,10 @@ String Object_wx_RichTextFormattingDialogFactory::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextFormattingDialogFactory
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFormattingDialogFactory)

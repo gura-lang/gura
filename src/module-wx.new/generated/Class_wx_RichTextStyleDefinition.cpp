@@ -35,6 +35,10 @@ String Object_wx_RichTextStyleDefinition::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextStyleDefinition
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleDefinition)

@@ -35,6 +35,10 @@ String Object_wx_GridSizeEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridSizeEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridSizeEvent)

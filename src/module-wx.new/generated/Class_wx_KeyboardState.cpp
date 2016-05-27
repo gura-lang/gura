@@ -35,6 +35,10 @@ String Object_wx_KeyboardState::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxKeyboardState
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_KeyboardState)

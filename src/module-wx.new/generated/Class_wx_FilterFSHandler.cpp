@@ -35,6 +35,10 @@ String Object_wx_FilterFSHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFilterFSHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilterFSHandler)

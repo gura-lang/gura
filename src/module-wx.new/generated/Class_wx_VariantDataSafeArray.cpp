@@ -35,6 +35,10 @@ String Object_wx_VariantDataSafeArray::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxVariantDataSafeArray
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VariantDataSafeArray)

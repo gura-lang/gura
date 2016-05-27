@@ -35,6 +35,10 @@ String Object_wx_ArchiveClassFactory::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxArchiveClassFactory
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveClassFactory)

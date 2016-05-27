@@ -35,6 +35,10 @@ String Object_wx_GraphicsGradientStop::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGraphicsGradientStop
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsGradientStop)

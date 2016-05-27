@@ -35,6 +35,10 @@ String Object_wx_HtmlDCRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlDCRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlDCRenderer)

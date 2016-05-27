@@ -35,6 +35,10 @@ String Object_wx_FileCtrlEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFileCtrlEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileCtrlEvent)

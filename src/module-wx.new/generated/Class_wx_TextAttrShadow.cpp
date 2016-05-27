@@ -35,6 +35,10 @@ String Object_wx_TextAttrShadow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTextAttrShadow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrShadow)

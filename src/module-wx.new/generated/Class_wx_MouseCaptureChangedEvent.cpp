@@ -35,6 +35,10 @@ String Object_wx_MouseCaptureChangedEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMouseCaptureChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseCaptureChangedEvent)

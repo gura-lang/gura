@@ -35,6 +35,10 @@ String Object_wx_DisplayChangedEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDisplayChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DisplayChangedEvent)

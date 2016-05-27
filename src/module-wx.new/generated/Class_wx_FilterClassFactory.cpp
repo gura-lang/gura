@@ -35,6 +35,10 @@ String Object_wx_FilterClassFactory::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFilterClassFactory
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilterClassFactory)

@@ -35,6 +35,10 @@ String Object_wx_PowerResource::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPowerResource
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PowerResource)

@@ -35,6 +35,10 @@ String Object_wx_HtmlContainerCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlContainerCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlContainerCell)

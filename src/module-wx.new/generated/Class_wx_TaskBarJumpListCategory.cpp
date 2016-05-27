@@ -35,6 +35,10 @@ String Object_wx_TaskBarJumpListCategory::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTaskBarJumpListCategory
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarJumpListCategory)

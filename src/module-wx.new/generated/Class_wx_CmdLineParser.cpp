@@ -35,6 +35,10 @@ String Object_wx_CmdLineParser::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCmdLineParser
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CmdLineParser)

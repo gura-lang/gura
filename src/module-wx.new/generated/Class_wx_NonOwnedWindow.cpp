@@ -35,6 +35,10 @@ String Object_wx_NonOwnedWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxNonOwnedWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NonOwnedWindow)

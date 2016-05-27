@@ -35,6 +35,10 @@ String Object_wx_DebugReportUpload::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDebugReportUpload
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReportUpload)

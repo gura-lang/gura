@@ -35,6 +35,10 @@ String Object_wx_SplitterEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSplitterEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SplitterEvent)

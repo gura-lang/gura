@@ -35,6 +35,10 @@ String Object_wx_DocMDIParentFrame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDocMDIParentFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocMDIParentFrame)

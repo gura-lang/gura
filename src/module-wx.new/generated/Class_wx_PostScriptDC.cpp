@@ -35,6 +35,10 @@ String Object_wx_PostScriptDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPostScriptDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PostScriptDC)

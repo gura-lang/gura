@@ -35,6 +35,10 @@ String Object_wx_PreviewFrame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPreviewFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreviewFrame)

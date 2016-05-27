@@ -35,6 +35,10 @@ String Object_wx_HtmlWinParser::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlWinParser
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWinParser)

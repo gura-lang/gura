@@ -35,6 +35,10 @@ String Object_wx_CriticalSection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCriticalSection
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CriticalSection)

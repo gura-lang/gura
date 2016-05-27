@@ -35,6 +35,10 @@ String Object_wx_HScrolledWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHScrolledWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HScrolledWindow)

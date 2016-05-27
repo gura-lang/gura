@@ -35,6 +35,10 @@ String Object_wx_WeakRefDynamic<T>::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWeakRefDynamic<T>
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WeakRefDynamic<T>)

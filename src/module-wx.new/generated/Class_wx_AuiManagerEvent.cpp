@@ -35,6 +35,10 @@ String Object_wx_AuiManagerEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAuiManagerEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiManagerEvent)

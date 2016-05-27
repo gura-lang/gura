@@ -35,6 +35,10 @@ String Object_wx_MessageDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMessageDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageDialog)

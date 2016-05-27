@@ -35,6 +35,10 @@ String Object_wx_HtmlWinTagHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlWinTagHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWinTagHandler)

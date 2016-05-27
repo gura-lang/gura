@@ -35,6 +35,10 @@ String Object_wx_ClientDataContainer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxClientDataContainer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientDataContainer)

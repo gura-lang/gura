@@ -35,6 +35,10 @@ String Object_wx_ResourceTranslationsLoader::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxResourceTranslationsLoader
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ResourceTranslationsLoader)

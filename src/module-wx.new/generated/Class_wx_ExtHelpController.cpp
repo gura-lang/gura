@@ -35,6 +35,10 @@ String Object_wx_ExtHelpController::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxExtHelpController
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ExtHelpController)

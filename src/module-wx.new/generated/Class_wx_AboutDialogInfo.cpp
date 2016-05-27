@@ -35,6 +35,10 @@ String Object_wx_AboutDialogInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAboutDialogInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AboutDialogInfo)

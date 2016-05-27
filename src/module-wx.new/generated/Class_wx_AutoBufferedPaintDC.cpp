@@ -35,6 +35,10 @@ String Object_wx_AutoBufferedPaintDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAutoBufferedPaintDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AutoBufferedPaintDC)

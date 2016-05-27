@@ -35,6 +35,10 @@ String Object_wx_HtmlWordCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlWordCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWordCell)

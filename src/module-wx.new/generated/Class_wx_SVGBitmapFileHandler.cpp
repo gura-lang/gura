@@ -35,6 +35,10 @@ String Object_wx_SVGBitmapFileHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSVGBitmapFileHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SVGBitmapFileHandler)

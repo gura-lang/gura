@@ -35,6 +35,10 @@ String Object_wx_RichTextTableBlock::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextTableBlock
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextTableBlock)

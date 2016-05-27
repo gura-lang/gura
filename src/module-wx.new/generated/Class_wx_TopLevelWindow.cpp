@@ -35,6 +35,10 @@ String Object_wx_TopLevelWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTopLevelWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TopLevelWindow)

@@ -35,6 +35,10 @@ String Object_wx_DropFilesEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDropFilesEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DropFilesEvent)

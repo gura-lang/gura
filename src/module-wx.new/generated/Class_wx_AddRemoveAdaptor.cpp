@@ -35,6 +35,10 @@ String Object_wx_AddRemoveAdaptor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAddRemoveAdaptor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AddRemoveAdaptor)

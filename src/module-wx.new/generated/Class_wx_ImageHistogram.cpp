@@ -35,6 +35,10 @@ String Object_wx_ImageHistogram::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxImageHistogram
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ImageHistogram)

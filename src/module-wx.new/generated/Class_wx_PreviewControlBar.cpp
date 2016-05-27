@@ -35,6 +35,10 @@ String Object_wx_PreviewControlBar::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPreviewControlBar
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreviewControlBar)

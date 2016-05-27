@@ -35,6 +35,10 @@ String Object_wx_RibbonArtProvider::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRibbonArtProvider
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonArtProvider)

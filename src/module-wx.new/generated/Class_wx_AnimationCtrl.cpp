@@ -35,6 +35,10 @@ String Object_wx_AnimationCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAnimationCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AnimationCtrl)

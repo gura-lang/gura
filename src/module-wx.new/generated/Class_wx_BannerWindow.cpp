@@ -35,6 +35,10 @@ String Object_wx_BannerWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxBannerWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BannerWindow)

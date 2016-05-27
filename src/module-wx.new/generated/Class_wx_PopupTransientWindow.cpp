@@ -35,6 +35,10 @@ String Object_wx_PopupTransientWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPopupTransientWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PopupTransientWindow)

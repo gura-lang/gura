@@ -35,6 +35,10 @@ String Object_wx_CustomBackgroundWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCustomBackgroundWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CustomBackgroundWindow)

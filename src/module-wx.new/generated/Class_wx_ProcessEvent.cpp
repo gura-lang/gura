@@ -35,6 +35,10 @@ String Object_wx_ProcessEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxProcessEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProcessEvent)

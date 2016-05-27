@@ -35,6 +35,10 @@ String Object_wx_TextDropTarget::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTextDropTarget
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextDropTarget)

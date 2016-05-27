@@ -35,6 +35,10 @@ String Object_wx_StaticBoxSizer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStaticBoxSizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticBoxSizer)

@@ -35,6 +35,10 @@ String Object_wx_TextDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTextDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextDataObject)

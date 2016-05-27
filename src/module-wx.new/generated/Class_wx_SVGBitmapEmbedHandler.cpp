@@ -35,6 +35,10 @@ String Object_wx_SVGBitmapEmbedHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSVGBitmapEmbedHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SVGBitmapEmbedHandler)

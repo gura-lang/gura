@@ -35,6 +35,10 @@ String Object_wx_HtmlCellEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlCellEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlCellEvent)

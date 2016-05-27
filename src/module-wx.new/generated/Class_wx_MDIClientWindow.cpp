@@ -35,6 +35,10 @@ String Object_wx_MDIClientWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMDIClientWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MDIClientWindow)

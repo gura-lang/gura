@@ -35,6 +35,10 @@ String Object_wx_InitDialogEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxInitDialogEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_InitDialogEvent)

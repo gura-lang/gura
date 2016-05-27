@@ -35,6 +35,10 @@ String Object_wx_FontPickerEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFontPickerEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontPickerEvent)

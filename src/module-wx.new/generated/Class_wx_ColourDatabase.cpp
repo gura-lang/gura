@@ -35,6 +35,10 @@ String Object_wx_ColourDatabase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxColourDatabase
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourDatabase)

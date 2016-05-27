@@ -35,6 +35,10 @@ String Object_wx_AddRemoveCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAddRemoveCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AddRemoveCtrl)

@@ -35,6 +35,10 @@ String Object_wx_URLDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxURLDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_URLDataObject)

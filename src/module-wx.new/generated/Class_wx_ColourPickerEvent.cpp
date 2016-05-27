@@ -35,6 +35,10 @@ String Object_wx_ColourPickerEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxColourPickerEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourPickerEvent)

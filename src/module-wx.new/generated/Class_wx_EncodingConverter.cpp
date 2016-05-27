@@ -35,6 +35,10 @@ String Object_wx_EncodingConverter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxEncodingConverter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EncodingConverter)

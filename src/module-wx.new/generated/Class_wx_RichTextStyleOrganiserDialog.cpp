@@ -35,6 +35,10 @@ String Object_wx_RichTextStyleOrganiserDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextStyleOrganiserDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleOrganiserDialog)

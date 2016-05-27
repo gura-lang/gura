@@ -35,6 +35,10 @@ String Object_wx_CalendarDateAttr::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCalendarDateAttr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CalendarDateAttr)

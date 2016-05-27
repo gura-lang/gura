@@ -35,6 +35,10 @@ String Object_wx_PropertySheetDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPropertySheetDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertySheetDialog)

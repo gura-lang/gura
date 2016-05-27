@@ -35,6 +35,10 @@ String Object_wx_WebViewFSHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWebViewFSHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewFSHandler)

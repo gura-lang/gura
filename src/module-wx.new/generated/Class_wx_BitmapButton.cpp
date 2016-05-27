@@ -35,6 +35,10 @@ String Object_wx_BitmapButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxBitmapButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapButton)

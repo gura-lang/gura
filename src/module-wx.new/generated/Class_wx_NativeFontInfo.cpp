@@ -35,6 +35,10 @@ String Object_wx_NativeFontInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxNativeFontInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NativeFontInfo)

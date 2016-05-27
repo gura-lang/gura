@@ -35,6 +35,10 @@ String Object_wx_TextUrlEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTextUrlEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextUrlEvent)

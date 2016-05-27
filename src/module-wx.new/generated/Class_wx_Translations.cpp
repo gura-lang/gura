@@ -35,6 +35,10 @@ String Object_wx_Translations::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTranslations
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Translations)

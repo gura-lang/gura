@@ -35,6 +35,10 @@ String Object_wx_FloatingPointValidator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFloatingPointValidator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FloatingPointValidator)

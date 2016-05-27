@@ -35,6 +35,10 @@ String Object_wx_BitmapToggleButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxBitmapToggleButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapToggleButton)

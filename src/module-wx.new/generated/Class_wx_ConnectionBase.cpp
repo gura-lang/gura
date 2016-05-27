@@ -35,6 +35,10 @@ String Object_wx_ConnectionBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxConnectionBase
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ConnectionBase)

@@ -35,6 +35,10 @@ String Object_wx_FileOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFileOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileOutputStream)

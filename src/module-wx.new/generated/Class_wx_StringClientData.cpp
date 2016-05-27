@@ -35,6 +35,10 @@ String Object_wx_StringClientData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStringClientData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringClientData)

@@ -35,6 +35,10 @@ String Object_wx_DataViewCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewCtrl)

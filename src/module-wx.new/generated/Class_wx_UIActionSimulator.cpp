@@ -35,6 +35,10 @@ String Object_wx_UIActionSimulator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxUIActionSimulator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_UIActionSimulator)

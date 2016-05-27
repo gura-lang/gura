@@ -35,6 +35,10 @@ String Object_wx_HtmlRenderingStyle::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlRenderingStyle
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlRenderingStyle)

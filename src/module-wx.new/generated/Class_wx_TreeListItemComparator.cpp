@@ -35,6 +35,10 @@ String Object_wx_TreeListItemComparator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTreeListItemComparator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeListItemComparator)

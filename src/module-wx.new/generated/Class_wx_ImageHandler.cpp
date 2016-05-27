@@ -35,6 +35,10 @@ String Object_wx_ImageHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxImageHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ImageHandler)

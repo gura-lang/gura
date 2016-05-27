@@ -35,6 +35,10 @@ String Object_wx_GenericDirCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGenericDirCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GenericDirCtrl)

@@ -35,6 +35,10 @@ String Object_wx_DebugReportPreview::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDebugReportPreview
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReportPreview)

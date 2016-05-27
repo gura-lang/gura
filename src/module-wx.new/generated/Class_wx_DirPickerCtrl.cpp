@@ -35,6 +35,10 @@ String Object_wx_DirPickerCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDirPickerCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DirPickerCtrl)

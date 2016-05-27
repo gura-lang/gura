@@ -35,6 +35,10 @@ String Object_wx_RichTextSelection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextSelection
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextSelection)

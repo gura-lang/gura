@@ -35,6 +35,10 @@ String Object_wx_MessageOutputBest::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMessageOutputBest
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageOutputBest)

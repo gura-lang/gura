@@ -35,6 +35,10 @@ String Object_wx_RichTextDrawingHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextDrawingHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextDrawingHandler)

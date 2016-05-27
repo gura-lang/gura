@@ -35,6 +35,10 @@ String Object_wx_SymbolPickerDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSymbolPickerDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SymbolPickerDialog)

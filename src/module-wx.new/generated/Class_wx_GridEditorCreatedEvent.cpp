@@ -35,6 +35,10 @@ String Object_wx_GridEditorCreatedEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridEditorCreatedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridEditorCreatedEvent)

@@ -35,6 +35,10 @@ String Object_wx_GraphicsContext::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGraphicsContext
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsContext)

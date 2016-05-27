@@ -35,6 +35,10 @@ String Object_wx_DCFontChanger::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDCFontChanger
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCFontChanger)

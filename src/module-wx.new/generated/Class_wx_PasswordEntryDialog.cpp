@@ -35,6 +35,10 @@ String Object_wx_PasswordEntryDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPasswordEntryDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PasswordEntryDialog)

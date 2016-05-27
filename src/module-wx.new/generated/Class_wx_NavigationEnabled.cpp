@@ -35,6 +35,10 @@ String Object_wx_NavigationEnabled::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxNavigationEnabled
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NavigationEnabled)

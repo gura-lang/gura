@@ -35,6 +35,10 @@ String Object_wx_RendererNative::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRendererNative
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RendererNative)

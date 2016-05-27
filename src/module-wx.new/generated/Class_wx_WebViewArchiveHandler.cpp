@@ -35,6 +35,10 @@ String Object_wx_WebViewArchiveHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWebViewArchiveHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewArchiveHandler)

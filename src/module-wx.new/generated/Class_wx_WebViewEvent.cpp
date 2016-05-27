@@ -35,6 +35,10 @@ String Object_wx_WebViewEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWebViewEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewEvent)

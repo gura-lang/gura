@@ -35,6 +35,10 @@ String Object_wx_HtmlColourCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlColourCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlColourCell)

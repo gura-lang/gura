@@ -35,6 +35,10 @@ String Object_wx_ScopedCharTypeBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxScopedCharTypeBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopedCharTypeBuffer)

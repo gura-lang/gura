@@ -35,6 +35,10 @@ String Object_wx_MDIParentFrame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMDIParentFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MDIParentFrame)

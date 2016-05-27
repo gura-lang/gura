@@ -35,6 +35,10 @@ String Object_wx_PGMultiButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPGMultiButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGMultiButton)

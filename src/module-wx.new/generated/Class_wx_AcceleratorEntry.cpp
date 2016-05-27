@@ -35,6 +35,10 @@ String Object_wx_AcceleratorEntry::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAcceleratorEntry
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AcceleratorEntry)

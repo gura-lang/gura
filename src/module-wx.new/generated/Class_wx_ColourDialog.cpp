@@ -35,6 +35,10 @@ String Object_wx_ColourDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxColourDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourDialog)

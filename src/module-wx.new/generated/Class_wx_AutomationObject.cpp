@@ -35,6 +35,10 @@ String Object_wx_AutomationObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAutomationObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AutomationObject)

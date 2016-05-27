@@ -35,6 +35,10 @@ String Object_wx_UpdateUIEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxUpdateUIEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_UpdateUIEvent)

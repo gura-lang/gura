@@ -35,6 +35,10 @@ String Object_wx_SingleInstanceChecker::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSingleInstanceChecker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SingleInstanceChecker)

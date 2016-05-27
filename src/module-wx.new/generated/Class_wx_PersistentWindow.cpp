@@ -35,6 +35,10 @@ String Object_wx_PersistentWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPersistentWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentWindow)

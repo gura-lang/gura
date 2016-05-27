@@ -35,6 +35,10 @@ String Object_wx_EditableListBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxEditableListBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EditableListBox)

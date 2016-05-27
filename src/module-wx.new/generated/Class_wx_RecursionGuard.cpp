@@ -35,6 +35,10 @@ String Object_wx_RecursionGuard::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRecursionGuard
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RecursionGuard)

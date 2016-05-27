@@ -35,6 +35,10 @@ String Object_wx_CustomDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCustomDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CustomDataObject)

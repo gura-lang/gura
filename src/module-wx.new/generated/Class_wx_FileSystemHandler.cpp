@@ -35,6 +35,10 @@ String Object_wx_FileSystemHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFileSystemHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileSystemHandler)

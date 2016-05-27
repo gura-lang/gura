@@ -35,6 +35,10 @@ String Object_wx_FileDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFileDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDataObject)

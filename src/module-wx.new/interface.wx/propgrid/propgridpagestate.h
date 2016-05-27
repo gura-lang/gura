@@ -153,18 +153,8 @@ public:
     wxPGVIterator( wxPGVIteratorBase* obj ) { m_pIt = obj; }
     ~wxPGVIterator() { UnRef(); }
     void UnRef() { if (m_pIt) m_pIt->DecRef(); }
-    wxPGVIterator( const wxPGVIterator& it )
-    {
-        m_pIt = it.m_pIt;
-        m_pIt->IncRef();
-    }
-    const wxPGVIterator& operator=( const wxPGVIterator& it )
-    {
-        UnRef();
-        m_pIt = it.m_pIt;
-        m_pIt->IncRef();
-        return *this;
-    }
+    wxPGVIterator( const wxPGVIterator& it );
+    const wxPGVIterator& operator=( const wxPGVIterator& it );
     void Next() { m_pIt->Next(); }
     bool AtEnd() const { return m_pIt->m_it.AtEnd(); }
     wxPGProperty* GetProperty() const { return m_pIt->m_it.GetProperty(); }

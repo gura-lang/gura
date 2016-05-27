@@ -35,6 +35,10 @@ String Object_wx_CommandProcessor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxCommandProcessor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CommandProcessor)

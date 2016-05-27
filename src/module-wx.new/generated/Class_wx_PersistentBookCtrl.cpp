@@ -35,6 +35,10 @@ String Object_wx_PersistentBookCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPersistentBookCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentBookCtrl)

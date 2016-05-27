@@ -35,6 +35,10 @@ String Object_wx_TextAttrBorders::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTextAttrBorders
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrBorders)

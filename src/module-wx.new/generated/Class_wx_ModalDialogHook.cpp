@@ -35,6 +35,10 @@ String Object_wx_ModalDialogHook::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxModalDialogHook
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ModalDialogHook)

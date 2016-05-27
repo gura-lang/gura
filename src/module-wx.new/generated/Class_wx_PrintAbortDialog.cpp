@@ -35,6 +35,10 @@ String Object_wx_PrintAbortDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPrintAbortDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintAbortDialog)

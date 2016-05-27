@@ -35,6 +35,10 @@ String Object_wx_RichTextFontTable::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextFontTable
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFontTable)

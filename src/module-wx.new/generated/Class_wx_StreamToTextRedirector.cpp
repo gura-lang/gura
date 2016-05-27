@@ -35,6 +35,10 @@ String Object_wx_StreamToTextRedirector::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStreamToTextRedirector
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StreamToTextRedirector)

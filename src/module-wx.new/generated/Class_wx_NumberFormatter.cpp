@@ -35,6 +35,10 @@ String Object_wx_NumberFormatter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxNumberFormatter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NumberFormatter)

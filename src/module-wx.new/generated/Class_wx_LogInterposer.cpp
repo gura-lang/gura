@@ -35,6 +35,10 @@ String Object_wx_LogInterposer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxLogInterposer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogInterposer)

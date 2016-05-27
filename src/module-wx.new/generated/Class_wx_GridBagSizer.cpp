@@ -35,6 +35,10 @@ String Object_wx_GridBagSizer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridBagSizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridBagSizer)

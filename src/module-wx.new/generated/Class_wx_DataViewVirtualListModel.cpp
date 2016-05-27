@@ -35,6 +35,10 @@ String Object_wx_DataViewVirtualListModel::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewVirtualListModel
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewVirtualListModel)

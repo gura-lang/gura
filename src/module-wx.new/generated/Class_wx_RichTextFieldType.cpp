@@ -35,6 +35,10 @@ String Object_wx_RichTextFieldType::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextFieldType
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFieldType)

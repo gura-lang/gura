@@ -35,6 +35,10 @@ String Object_wx_DataViewModel::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewModel
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewModel)

@@ -35,6 +35,10 @@ String Object_wx_AuiToolBarArt::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAuiToolBarArt
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiToolBarArt)

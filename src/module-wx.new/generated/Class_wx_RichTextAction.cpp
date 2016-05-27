@@ -35,6 +35,10 @@ String Object_wx_RichTextAction::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextAction
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextAction)

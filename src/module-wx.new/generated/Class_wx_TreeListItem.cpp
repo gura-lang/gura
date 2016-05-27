@@ -35,6 +35,10 @@ String Object_wx_TreeListItem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTreeListItem
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeListItem)

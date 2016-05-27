@@ -35,6 +35,10 @@ String Object_wx_PersistentTLW::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPersistentTLW
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentTLW)

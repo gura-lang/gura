@@ -35,6 +35,10 @@ String Object_wx_DataViewModelNotifier::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewModelNotifier
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewModelNotifier)

@@ -35,6 +35,10 @@ String Object_wx_AuiTabContainer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxAuiTabContainer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiTabContainer)

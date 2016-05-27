@@ -35,6 +35,10 @@ String Object_wx_StdDialogButtonSizer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStdDialogButtonSizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StdDialogButtonSizer)

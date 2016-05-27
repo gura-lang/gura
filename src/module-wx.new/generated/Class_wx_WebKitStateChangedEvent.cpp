@@ -35,6 +35,10 @@ String Object_wx_WebKitStateChangedEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxWebKitStateChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebKitStateChangedEvent)

@@ -35,6 +35,10 @@ String Object_wx_PropagationDisabler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPropagationDisabler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropagationDisabler)

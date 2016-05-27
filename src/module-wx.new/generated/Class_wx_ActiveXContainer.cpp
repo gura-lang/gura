@@ -35,6 +35,10 @@ String Object_wx_ActiveXContainer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxActiveXContainer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ActiveXContainer)

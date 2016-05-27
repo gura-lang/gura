@@ -35,6 +35,10 @@ String Object_wx_TaskBarIconEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTaskBarIconEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarIconEvent)

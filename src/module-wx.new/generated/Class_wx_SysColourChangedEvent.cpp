@@ -35,6 +35,10 @@ String Object_wx_SysColourChangedEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSysColourChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SysColourChangedEvent)

@@ -35,6 +35,10 @@ String Object_wx_ObjectDataPtr<T>::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxObjectDataPtr<T>
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ObjectDataPtr<T>)

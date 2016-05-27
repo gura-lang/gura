@@ -35,6 +35,10 @@ String Object_wx_SizerXmlHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSizerXmlHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SizerXmlHandler)

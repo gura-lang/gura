@@ -35,6 +35,10 @@ String Object_wx_MimeTypesManager::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMimeTypesManager
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MimeTypesManager)

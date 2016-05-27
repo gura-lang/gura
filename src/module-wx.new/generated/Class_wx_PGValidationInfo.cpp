@@ -35,6 +35,10 @@ String Object_wx_PGValidationInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPGValidationInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGValidationInfo)

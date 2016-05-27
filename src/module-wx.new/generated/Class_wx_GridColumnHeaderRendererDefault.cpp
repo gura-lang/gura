@@ -35,6 +35,10 @@ String Object_wx_GridColumnHeaderRendererDefault::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGridColumnHeaderRendererDefault
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridColumnHeaderRendererDefault)

@@ -35,6 +35,10 @@ String Object_wx_PersistentTreeBookCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPersistentTreeBookCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentTreeBookCtrl)

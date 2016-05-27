@@ -35,6 +35,10 @@ String Object_wx_RichTextCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCtrl)

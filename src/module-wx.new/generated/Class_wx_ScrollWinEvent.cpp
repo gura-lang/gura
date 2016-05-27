@@ -35,6 +35,10 @@ String Object_wx_ScrollWinEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxScrollWinEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScrollWinEvent)

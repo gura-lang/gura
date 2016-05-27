@@ -35,6 +35,10 @@ String Object_wx_StyledTextCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxStyledTextCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StyledTextCtrl)

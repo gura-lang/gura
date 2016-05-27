@@ -35,6 +35,10 @@ String Object_wx_HtmlEasyPrinting::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHtmlEasyPrinting
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlEasyPrinting)

@@ -35,6 +35,10 @@ String Object_wx_TextCompleter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxTextCompleter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextCompleter)

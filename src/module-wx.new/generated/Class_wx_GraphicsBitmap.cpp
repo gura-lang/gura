@@ -35,6 +35,10 @@ String Object_wx_GraphicsBitmap::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxGraphicsBitmap
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsBitmap)

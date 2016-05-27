@@ -35,6 +35,10 @@ String Object_wx_MemoryOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxMemoryOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryOutputStream)

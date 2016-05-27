@@ -35,6 +35,10 @@ String Object_wx_PreferencesEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxPreferencesEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreferencesEditor)

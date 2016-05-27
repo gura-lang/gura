@@ -35,6 +35,10 @@ String Object_wx_DataViewItem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxDataViewItem
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewItem)

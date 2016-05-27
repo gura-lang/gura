@@ -35,6 +35,10 @@ String Object_wx_ActiveXEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxActiveXEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ActiveXEvent)

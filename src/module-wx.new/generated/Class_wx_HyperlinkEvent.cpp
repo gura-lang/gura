@@ -35,6 +35,10 @@ String Object_wx_HyperlinkEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxHyperlinkEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HyperlinkEvent)

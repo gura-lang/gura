@@ -35,6 +35,10 @@ String Object_wx_RichTextListStyleDefinition::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxRichTextListStyleDefinition
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextListStyleDefinition)

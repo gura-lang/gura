@@ -35,6 +35,10 @@ String Object_wx_FindDialogEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFindDialogEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FindDialogEvent)

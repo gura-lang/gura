@@ -35,6 +35,10 @@ String Object_wx_FileDropTarget::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxFileDropTarget
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDropTarget)

@@ -35,6 +35,10 @@ String Object_wx_SystemThemedControl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
 // Class implementation for wxSystemThemedControl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SystemThemedControl)
