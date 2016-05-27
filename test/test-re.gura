@@ -269,3 +269,12 @@ testcase('test of :multiline') {
 	tester(`re.pattern('foo.bar').match('foo\nbar'))
 	tester(`(re.pattern('foo.bar'):multiline).match('foo\nbar'))
 }
+
+testcase('longest/shortest matching') {
+	str = '<p>hoge</p>'
+	tester(`str)
+	tester(`str.match('<.+>')[0])
+	tester(`str.match('<.+?>')[0])
+	tester(`str.sub('<.+>', '**'))
+	tester(`str.sub('<.+?>', '**'))
+}

@@ -226,3 +226,11 @@ using re.match#groups()
 
 re.pattern('foo.bar').match('foo\nbar') .. nil
 (re.pattern('foo.bar'):multiline).match('foo\nbar') .. <match:0-7>
+
+======== #34 longest/shortest matching ========
+
+str .. <p>hoge</p>
+str.match('<.+>')[0] .. <p>hoge</p>
+str.match('<.+?>')[0] .. <p>
+str.sub('<.+>', '**') .. **
+str.sub('<.+?>', '**') .. **hoge**

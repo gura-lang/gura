@@ -180,6 +180,11 @@ that expects a `re.pattern` instance in its argument as below:
 
 ### Constructor
 
+In many cases, `re.pattern` instance may be implicitly created by cast operation
+when a `string` is passed to a function's argument that expects `re.pattern` type.
+If you want to customize the pattern's behaviour, such as indicating it to ignore alphabet cases,
+you can explicitly create the instance with the constructor described below.
+
 ${moddoc.reference(`en
 re.pattern
 )}
