@@ -15,17 +15,30 @@ Gura_DeclareUserClass(wx_AddRemoveCtrl);
 //----------------------------------------------------------------------------
 // Object declaration for wxAddRemoveCtrl
 //----------------------------------------------------------------------------
-class Object_wx_AddRemoveCtrl : public Object_wx_Panel {
+class Object_wx_AddRemoveCtrl : public Object {
+protected:
+	wxAddRemoveCtrl *_pEntity;
+	GuraObjectObserver *_pObserver;
+	bool _ownerFlag;
 public:
 	Gura_DeclareObjectAccessor(wx_AddRemoveCtrl)
 public:
 	inline Object_wx_AddRemoveCtrl(wxAddRemoveCtrl *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_Panel(Gura_UserClass(wx_AddRemoveCtrl), pEntity, pObserver, ownerFlag) {}
+				Object(Gura_UserClass(wx_AboutDialogInfo)),
+				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	inline Object_wx_AddRemoveCtrl(Class *pClass, wxAddRemoveCtrl *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_Panel(pClass, pEntity, pObserver, ownerFlag) {}
+				Object(pClass),
+				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	virtual ~Object_wx_AddRemoveCtrl();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
+	inline void SetEntity(wxAddRemoveCtrl *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) {
+		if (_ownerFlag) delete _pEntity;
+		_pEntity = pEntity;
+		_pObserver = pObserver;
+		_ownerFlag = ownerFlag;
+	}
+	inline void InvalidateEntity() { _pEntity = nullptr, _pObserver = nullptr, _ownerFlag = false; }
 	inline wxAddRemoveCtrl *GetEntity() {
 		return static_cast<wxAddRemoveCtrl *>(_pEntity);
 	}
@@ -33,6 +46,9 @@ public:
 		wxAddRemoveCtrl *pEntity = GetEntity();
 		InvalidateEntity();
 		return pEntity;
+	}
+	inline void NotifyGuraObjectDeleted() {
+		if (_pObserver != nullptr) _pObserver->GuraObjectDeleted();
 	}
 	inline bool IsInvalid(Signal &sig) const {
 		if (_pEntity != nullptr) return false;

@@ -38,6 +38,214 @@ String Object_wx_Any::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+Gura_DeclareMethod(wx_Any, wxAny)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, wxAny)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->wxAny();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, wxAny)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, wxAny)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->wxAny();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, wxAny)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, wxAny)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->wxAny();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, wxAny)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, wxAny)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->wxAny();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, ~wxAny)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, ~wxAny)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->~wxAny();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, As)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, As)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->As();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, CheckType)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, CheckType)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->CheckType();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, GetAs)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, GetAs)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->GetAs();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, GetAs)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, GetAs)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->GetAs();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, GetType)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, GetType)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->GetType();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, HasSameType)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, HasSameType)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->HasSameType();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, IsNull)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, IsNull)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->IsNull();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Any, MakeNull)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Any, MakeNull)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->MakeNull();
+	return Value::Nil;
+}
+
 //----------------------------------------------------------------------------
 // Class implementation for wxAny
 //----------------------------------------------------------------------------

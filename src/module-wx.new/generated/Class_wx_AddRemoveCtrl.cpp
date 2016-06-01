@@ -38,6 +38,86 @@ String Object_wx_AddRemoveCtrl::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+Gura_DeclareMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->wxAddRemoveCtrl();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->wxAddRemoveCtrl();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AddRemoveCtrl, Create)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AddRemoveCtrl, Create)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->Create();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AddRemoveCtrl, SetAdaptor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AddRemoveCtrl, SetAdaptor)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->SetAdaptor();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AddRemoveCtrl, SetButtonsToolTips)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AddRemoveCtrl, SetButtonsToolTips)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->SetButtonsToolTips();
+	return Value::Nil;
+}
+
 //----------------------------------------------------------------------------
 // Class implementation for wxAddRemoveCtrl
 //----------------------------------------------------------------------------

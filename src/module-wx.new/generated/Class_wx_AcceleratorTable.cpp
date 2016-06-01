@@ -38,6 +38,86 @@ String Object_wx_AcceleratorTable::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+Gura_DeclareMethod(wx_AcceleratorTable, wxAcceleratorTable)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->wxAcceleratorTable();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AcceleratorTable, wxAcceleratorTable)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->wxAcceleratorTable();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AcceleratorTable, wxAcceleratorTable)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->wxAcceleratorTable();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AcceleratorTable, ~wxAcceleratorTable)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AcceleratorTable, ~wxAcceleratorTable)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->~wxAcceleratorTable();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AcceleratorTable, IsOk)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AcceleratorTable, IsOk)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->IsOk();
+	return Value::Nil;
+}
+
 //----------------------------------------------------------------------------
 // Class implementation for wxAcceleratorTable
 //----------------------------------------------------------------------------

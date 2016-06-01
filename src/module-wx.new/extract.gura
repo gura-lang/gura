@@ -276,6 +276,7 @@ String Object_wx_${classNameShort}::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+${functionInfosOfMethod:*Render(true)}
 
 //----------------------------------------------------------------------------
 // Class implementation for wx${classNameShort}
@@ -290,6 +291,25 @@ Gura_ImplementDescendantCreator(wx_${classNameShort})
 }
 
 Gura_EndModuleScope(wx)
+'''.template()
+
+tmpl@Method = R'''
+${if (lineSkipFlag) {''}}
+Gura_DeclareMethod(wx_${classNameShort}, ${funcNameGura})
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_${classNameShort}, ${funcNameGura})
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_${classNameShort} *pThis = Object_wx_${classNameShort}::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//wxString developer = wxString::FromUTF8(arg.GetString(0));
+	pThis->GetEntity()->${funcNameCPP}();
+	return Value::Nil;
+}
 '''.template()
 
 EnumMemberInfo = struct(memberName:string, supportedStat:symbol => `supported) {
@@ -386,6 +406,7 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 	}
 	RenderSource(dirName:string):void = {
 		classNameShort = this.MakeClassNameShort()
+		functionInfosOfMethod = this.functionInfosOfMethod
 		tmpl@Source.render(path.join(dirName, format('Class_wx_%s.cpp', classNameShort)))
 	}
 	InheritValidation():void = {
@@ -400,12 +421,19 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		this.classInfosOfChild:*UpdateSupportedStat(supportedStat)
 	}
 	AddMethod(pathName:string, lineNo:number, strSrc:string):void = {
-		functionInfo = CreateFunctionInfo(pathName, lineNo, strSrc)
+		functionInfo = CreateFunctionInfo(this, pathName, lineNo, strSrc)
 		this.functionInfosOfMethod.add(functionInfo)
 	}
 }
 
-FunctionInfo = struct(funcName:string)
+FunctionInfo = struct(classInfo:ClassInfo, funcName:string) {
+	Render(lineSkipFlag:boolean) = {
+		classNameShort = this.classInfo.MakeClassNameShort()
+		funcNameGura = this.funcName
+		funcNameCPP = this.funcName
+		tmpl@Method.render()
+	}
+}
 
 classInfoDict = %{}
 classInfosAtRoot = []
@@ -468,7 +496,7 @@ CreateClassInfo(pathName:string, lineNo:string, strSrc:string) = {
 
 cntMethods = 0
 
-CreateFunctionInfo(pathName:string, lineNo:string, strSrc:string) = {
+CreateFunctionInfo(classInfo:ClassInfo, pathName:string, lineNo:string, strSrc:string) = {
 	if (m = strSrc.match(r'^(.*?)\((.*)\)\s*(const)?\s*(=\s*0)?\s*;?$')) {
 		funcHead = m[1].strip()
 		argList = m[2].strip()
@@ -492,6 +520,7 @@ CreateFunctionInfo(pathName:string, lineNo:string, strSrc:string) = {
 	} else {
 		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function declaration')
 	}
+	funcName = identifier
 	//printf('%s:%s:%s\n', identifier, typeList, refOperator)
 	if (!argList.isempty()) {
 		argList.split(',') {|arg|
@@ -515,7 +544,7 @@ CreateFunctionInfo(pathName:string, lineNo:string, strSrc:string) = {
 		}
 	}
 	cntMethods += 1
-	FunctionInfo('')
+	FunctionInfo(classInfo, funcName)
 }
 
 Parse(pathName:string):map:void = {
@@ -639,8 +668,8 @@ Parse(pathName:string):map:void = {
 }
 
 println('-- parsing')
-Parse(path.walk(dirNameWx))
-//Parse(path.walk(dirNameWx).head(10))
+//Parse(path.walk(dirNameWx))
+Parse(path.walk(dirNameWx).head(10))
 println('-- associating class information')
 classInfoDict.values {|classInfo|
 	if (classInfo.className.find('<')) {

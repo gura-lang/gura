@@ -15,17 +15,30 @@ Gura_DeclareUserClass(wx_Animation);
 //----------------------------------------------------------------------------
 // Object declaration for wxAnimation
 //----------------------------------------------------------------------------
-class Object_wx_Animation : public Object_wx_Object {
+class Object_wx_Animation : public Object {
+protected:
+	wxAnimation *_pEntity;
+	GuraObjectObserver *_pObserver;
+	bool _ownerFlag;
 public:
 	Gura_DeclareObjectAccessor(wx_Animation)
 public:
 	inline Object_wx_Animation(wxAnimation *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_Object(Gura_UserClass(wx_Animation), pEntity, pObserver, ownerFlag) {}
+				Object(Gura_UserClass(wx_AboutDialogInfo)),
+				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	inline Object_wx_Animation(Class *pClass, wxAnimation *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
+				Object(pClass),
+				_pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	virtual ~Object_wx_Animation();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
+	inline void SetEntity(wxAnimation *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) {
+		if (_ownerFlag) delete _pEntity;
+		_pEntity = pEntity;
+		_pObserver = pObserver;
+		_ownerFlag = ownerFlag;
+	}
+	inline void InvalidateEntity() { _pEntity = nullptr, _pObserver = nullptr, _ownerFlag = false; }
 	inline wxAnimation *GetEntity() {
 		return static_cast<wxAnimation *>(_pEntity);
 	}
@@ -33,6 +46,9 @@ public:
 		wxAnimation *pEntity = GetEntity();
 		InvalidateEntity();
 		return pEntity;
+	}
+	inline void NotifyGuraObjectDeleted() {
+		if (_pObserver != nullptr) _pObserver->GuraObjectDeleted();
 	}
 	inline bool IsInvalid(Signal &sig) const {
 		if (_pEntity != nullptr) return false;
