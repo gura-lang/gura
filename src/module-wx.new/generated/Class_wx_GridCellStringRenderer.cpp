@@ -37,12 +37,26 @@ String Object_wx_GridCellStringRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GridCellStringRenderer, wxGridCellStringRenderer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GridCellStringRenderer, wxGridCellStringRenderer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GridCellStringRenderer *pThis = Object_wx_GridCellStringRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxGridCellStringRenderer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellStringRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellStringRenderer)
 {
+	Gura_AssignMethod(wx_GridCellStringRenderer, wxGridCellStringRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellStringRenderer)

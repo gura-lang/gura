@@ -38,11 +38,13 @@ String Object_wx_Trackable::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxTrackable
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Trackable)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_Trackable)

@@ -37,12 +37,83 @@ String Object_wx_PopupWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PopupWindow, wxPopupWindow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PopupWindow, wxPopupWindow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PopupWindow *pThis = Object_wx_PopupWindow::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxPopupWindow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PopupWindow, wxPopupWindow_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PopupWindow, wxPopupWindow_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PopupWindow *pThis = Object_wx_PopupWindow::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int flags = arg.GetNumber(1)
+	//pThis->GetEntity()->wxPopupWindow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PopupWindow, Create)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PopupWindow, Create)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PopupWindow *pThis = Object_wx_PopupWindow::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int flags = arg.GetNumber(1)
+	//pThis->GetEntity()->Create();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PopupWindow, Position)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "ptOrigin", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "sizePopup", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PopupWindow, Position)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PopupWindow *pThis = Object_wx_PopupWindow::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int ptOrigin = arg.GetNumber(0)
+	//int sizePopup = arg.GetNumber(1)
+	//pThis->GetEntity()->Position();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPopupWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PopupWindow)
 {
+	Gura_AssignMethod(wx_PopupWindow, wxPopupWindow);
+	Gura_AssignMethod(wx_PopupWindow, wxPopupWindow_1);
+	Gura_AssignMethod(wx_PopupWindow, Create);
+	Gura_AssignMethod(wx_PopupWindow, Position);
 }
 
 Gura_ImplementDescendantCreator(wx_PopupWindow)

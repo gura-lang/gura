@@ -37,12 +37,75 @@ String Object_wx_PageSetupDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PageSetupDialog, wxPageSetupDialog)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PageSetupDialog, wxPageSetupDialog)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int data = arg.GetNumber(1)
+	//pThis->GetEntity()->wxPageSetupDialog();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PageSetupDialog, ~wxPageSetupDialog)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PageSetupDialog, ~wxPageSetupDialog)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxPageSetupDialog();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PageSetupDialog, GetPageSetupData)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PageSetupDialog, GetPageSetupData)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetPageSetupData();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PageSetupDialog, ShowModal)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PageSetupDialog, ShowModal)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->ShowModal();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPageSetupDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PageSetupDialog)
 {
+	Gura_AssignMethod(wx_PageSetupDialog, wxPageSetupDialog);
+	Gura_AssignMethod(wx_PageSetupDialog, ~wxPageSetupDialog);
+	Gura_AssignMethod(wx_PageSetupDialog, GetPageSetupData);
+	Gura_AssignMethod(wx_PageSetupDialog, ShowModal);
 }
 
 Gura_ImplementDescendantCreator(wx_PageSetupDialog)

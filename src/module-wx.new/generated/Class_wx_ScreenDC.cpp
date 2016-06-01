@@ -37,12 +37,75 @@ String Object_wx_ScreenDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ScreenDC, wxScreenDC)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ScreenDC, wxScreenDC)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxScreenDC();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScreenDC, EndDrawingOnTop)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ScreenDC, EndDrawingOnTop)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->EndDrawingOnTop();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int window = arg.GetNumber(0)
+	//pThis->GetEntity()->StartDrawingOnTop();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int rect = arg.GetNumber(0)
+	//pThis->GetEntity()->StartDrawingOnTop();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxScreenDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScreenDC)
 {
+	Gura_AssignMethod(wx_ScreenDC, wxScreenDC);
+	Gura_AssignMethod(wx_ScreenDC, EndDrawingOnTop);
+	Gura_AssignMethod(wx_ScreenDC, StartDrawingOnTop);
+	Gura_AssignMethod(wx_ScreenDC, StartDrawingOnTop_1);
 }
 
 Gura_ImplementDescendantCreator(wx_ScreenDC)

@@ -37,12 +37,58 @@ String Object_wx_FileDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_FileDataObject, wxFileDataObject)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_FileDataObject, wxFileDataObject)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxFileDataObject();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FileDataObject, AddFile)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_FileDataObject, AddFile)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int file = arg.GetNumber(0)
+	//pThis->GetEntity()->AddFile();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FileDataObject, GetFilenames)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_FileDataObject, GetFilenames)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetFilenames();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxFileDataObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDataObject)
 {
+	Gura_AssignMethod(wx_FileDataObject, wxFileDataObject);
+	Gura_AssignMethod(wx_FileDataObject, AddFile);
+	Gura_AssignMethod(wx_FileDataObject, GetFilenames);
 }
 
 Gura_ImplementDescendantCreator(wx_FileDataObject)

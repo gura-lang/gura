@@ -38,11 +38,13 @@ String Object_wx_BookCtrlBase::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxBookCtrlBase
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BookCtrlBase)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_BookCtrlBase)

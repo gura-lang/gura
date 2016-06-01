@@ -37,12 +37,92 @@ String Object_wx_SizerXmlHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_SizerXmlHandler, wxSizerXmlHandler)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_SizerXmlHandler, wxSizerXmlHandler)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxSizerXmlHandler();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_SizerXmlHandler, DoCreateResource)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_SizerXmlHandler, DoCreateResource)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->DoCreateResource();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_SizerXmlHandler, CanHandle)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_SizerXmlHandler, CanHandle)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int node = arg.GetNumber(0)
+	//pThis->GetEntity()->CanHandle();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_SizerXmlHandler, DoCreateSizer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_SizerXmlHandler, DoCreateSizer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int name = arg.GetNumber(0)
+	//pThis->GetEntity()->DoCreateSizer();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_SizerXmlHandler, IsSizerNode)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_SizerXmlHandler, IsSizerNode)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int node = arg.GetNumber(0)
+	//pThis->GetEntity()->IsSizerNode();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxSizerXmlHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SizerXmlHandler)
 {
+	Gura_AssignMethod(wx_SizerXmlHandler, wxSizerXmlHandler);
+	Gura_AssignMethod(wx_SizerXmlHandler, DoCreateResource);
+	Gura_AssignMethod(wx_SizerXmlHandler, CanHandle);
+	Gura_AssignMethod(wx_SizerXmlHandler, DoCreateSizer);
+	Gura_AssignMethod(wx_SizerXmlHandler, IsSizerNode);
 }
 
 Gura_ImplementDescendantCreator(wx_SizerXmlHandler)

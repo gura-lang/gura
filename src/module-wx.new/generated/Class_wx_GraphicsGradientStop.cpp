@@ -37,12 +37,94 @@ String Object_wx_GraphicsGradientStop::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GraphicsGradientStop, wxGraphicsGradientStop)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsGradientStop, wxGraphicsGradientStop)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int col = arg.GetNumber(0)
+	//int pos = arg.GetNumber(1)
+	//pThis->GetEntity()->wxGraphicsGradientStop();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GraphicsGradientStop, GetColour)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GraphicsGradientStop, GetColour)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetColour();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GraphicsGradientStop, SetColour)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsGradientStop, SetColour)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int col = arg.GetNumber(0)
+	//pThis->GetEntity()->SetColour();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GraphicsGradientStop, GetPosition)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GraphicsGradientStop, GetPosition)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetPosition();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GraphicsGradientStop, SetPosition)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GraphicsGradientStop, SetPosition)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int pos = arg.GetNumber(0)
+	//pThis->GetEntity()->SetPosition();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxGraphicsGradientStop
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsGradientStop)
 {
+	Gura_AssignMethod(wx_GraphicsGradientStop, wxGraphicsGradientStop);
+	Gura_AssignMethod(wx_GraphicsGradientStop, GetColour);
+	Gura_AssignMethod(wx_GraphicsGradientStop, SetColour);
+	Gura_AssignMethod(wx_GraphicsGradientStop, GetPosition);
+	Gura_AssignMethod(wx_GraphicsGradientStop, SetPosition);
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsGradientStop)

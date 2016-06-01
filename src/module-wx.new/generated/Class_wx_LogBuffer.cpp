@@ -37,12 +37,56 @@ String Object_wx_LogBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_LogBuffer, wxLogBuffer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_LogBuffer, wxLogBuffer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LogBuffer *pThis = Object_wx_LogBuffer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxLogBuffer();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_LogBuffer, Flush)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_LogBuffer, Flush)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LogBuffer *pThis = Object_wx_LogBuffer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Flush();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_LogBuffer, GetBuffer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_LogBuffer, GetBuffer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LogBuffer *pThis = Object_wx_LogBuffer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetBuffer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxLogBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogBuffer)
 {
+	Gura_AssignMethod(wx_LogBuffer, wxLogBuffer);
+	Gura_AssignMethod(wx_LogBuffer, Flush);
+	Gura_AssignMethod(wx_LogBuffer, GetBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_LogBuffer)

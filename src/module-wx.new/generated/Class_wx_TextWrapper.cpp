@@ -37,12 +37,79 @@ String Object_wx_TextWrapper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_TextWrapper, wxTextWrapper)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextWrapper, wxTextWrapper)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxTextWrapper();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextWrapper, Wrap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "widthMax", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextWrapper, Wrap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int win = arg.GetNumber(0)
+	//int text = arg.GetNumber(1)
+	//int widthMax = arg.GetNumber(2)
+	//pThis->GetEntity()->Wrap();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextWrapper, OnOutputLine)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "line", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextWrapper, OnOutputLine)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int line = arg.GetNumber(0)
+	//pThis->GetEntity()->OnOutputLine();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextWrapper, OnNewLine)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextWrapper, OnNewLine)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->OnNewLine();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxTextWrapper
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextWrapper)
 {
+	Gura_AssignMethod(wx_TextWrapper, wxTextWrapper);
+	Gura_AssignMethod(wx_TextWrapper, Wrap);
+	Gura_AssignMethod(wx_TextWrapper, OnOutputLine);
+	Gura_AssignMethod(wx_TextWrapper, OnNewLine);
 }
 
 Gura_ImplementDescendantCreator(wx_TextWrapper)

@@ -37,12 +37,58 @@ String Object_wx_ArchiveInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ArchiveInputStream, CloseEntry)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ArchiveInputStream, CloseEntry)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CloseEntry();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ArchiveInputStream, GetNextEntry)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ArchiveInputStream, GetNextEntry)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetNextEntry();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ArchiveInputStream, OpenEntry)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ArchiveInputStream, OpenEntry)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int entry = arg.GetNumber(0)
+	//pThis->GetEntity()->OpenEntry();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxArchiveInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveInputStream)
 {
+	Gura_AssignMethod(wx_ArchiveInputStream, CloseEntry);
+	Gura_AssignMethod(wx_ArchiveInputStream, GetNextEntry);
+	Gura_AssignMethod(wx_ArchiveInputStream, OpenEntry);
 }
 
 Gura_ImplementDescendantCreator(wx_ArchiveInputStream)

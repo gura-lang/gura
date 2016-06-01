@@ -37,12 +37,109 @@ String Object_wx_DataFormat::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_DataFormat, wxDataFormat)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataFormat, wxDataFormat)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int format = arg.GetNumber(0)
+	//pThis->GetEntity()->wxDataFormat();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataFormat, wxDataFormat_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataFormat, wxDataFormat_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int format = arg.GetNumber(0)
+	//pThis->GetEntity()->wxDataFormat();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataFormat, GetId)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataFormat, GetId)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetId();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataFormat, GetType)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataFormat, GetType)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetType();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataFormat, SetId)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataFormat, SetId)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int format = arg.GetNumber(0)
+	//pThis->GetEntity()->SetId();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataFormat, SetType)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataFormat, SetType)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int type = arg.GetNumber(0)
+	//pThis->GetEntity()->SetType();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDataFormat
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataFormat)
 {
+	Gura_AssignMethod(wx_DataFormat, wxDataFormat);
+	Gura_AssignMethod(wx_DataFormat, wxDataFormat_1);
+	Gura_AssignMethod(wx_DataFormat, GetId);
+	Gura_AssignMethod(wx_DataFormat, GetType);
+	Gura_AssignMethod(wx_DataFormat, SetId);
+	Gura_AssignMethod(wx_DataFormat, SetType);
 }
 
 Gura_ImplementDescendantCreator(wx_DataFormat)

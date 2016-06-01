@@ -37,12 +37,36 @@ String Object_wx_RegConfig::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_RegConfig, wxRegConfig)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "vendorName", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "localFilename", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "globalFilename", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RegConfig, wxRegConfig)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_RegConfig *pThis = Object_wx_RegConfig::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int appName = arg.GetNumber(0)
+	//int vendorName = arg.GetNumber(1)
+	//int localFilename = arg.GetNumber(2)
+	//int globalFilename = arg.GetNumber(3)
+	//int style = arg.GetNumber(4)
+	//pThis->GetEntity()->wxRegConfig();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxRegConfig
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegConfig)
 {
+	Gura_AssignMethod(wx_RegConfig, wxRegConfig);
 }
 
 Gura_ImplementDescendantCreator(wx_RegConfig)

@@ -37,12 +37,45 @@ String Object_wx_AuiNotebookEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_AuiNotebookEvent, wxAuiNotebookEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "win_id", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiNotebookEvent, wxAuiNotebookEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiNotebookEvent *pThis = Object_wx_AuiNotebookEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int command_type = arg.GetNumber(0)
+	//int win_id = arg.GetNumber(1)
+	//pThis->GetEntity()->wxAuiNotebookEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiNotebookEvent, Clone)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiNotebookEvent, Clone)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiNotebookEvent *pThis = Object_wx_AuiNotebookEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Clone();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxAuiNotebookEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiNotebookEvent)
 {
+	Gura_AssignMethod(wx_AuiNotebookEvent, wxAuiNotebookEvent);
+	Gura_AssignMethod(wx_AuiNotebookEvent, Clone);
 }
 
 Gura_ImplementDescendantCreator(wx_AuiNotebookEvent)

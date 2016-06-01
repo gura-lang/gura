@@ -37,12 +37,66 @@ String Object_wx_NativeWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_NativeWindow, wxNativeWindow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_NativeWindow, wxNativeWindow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_NativeWindow *pThis = Object_wx_NativeWindow::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxNativeWindow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_NativeWindow, wxNativeWindow_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "handle", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_NativeWindow, wxNativeWindow_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_NativeWindow *pThis = Object_wx_NativeWindow::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int winid = arg.GetNumber(1)
+	//int parent = arg.GetNumber(2)
+	//int winid = arg.GetNumber(3)
+	//int handle = arg.GetNumber(4)
+	//pThis->GetEntity()->wxNativeWindow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_NativeWindow, Disown)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_NativeWindow, Disown)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_NativeWindow *pThis = Object_wx_NativeWindow::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Disown();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxNativeWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NativeWindow)
 {
+	Gura_AssignMethod(wx_NativeWindow, wxNativeWindow);
+	Gura_AssignMethod(wx_NativeWindow, wxNativeWindow_1);
+	Gura_AssignMethod(wx_NativeWindow, Disown);
 }
 
 Gura_ImplementDescendantCreator(wx_NativeWindow)

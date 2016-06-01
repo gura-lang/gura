@@ -37,12 +37,26 @@ String Object_wx_DisplayChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_DisplayChangedEvent, wxDisplayChangedEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DisplayChangedEvent, wxDisplayChangedEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DisplayChangedEvent *pThis = Object_wx_DisplayChangedEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxDisplayChangedEvent();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDisplayChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DisplayChangedEvent)
 {
+	Gura_AssignMethod(wx_DisplayChangedEvent, wxDisplayChangedEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_DisplayChangedEvent)

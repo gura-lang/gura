@@ -37,12 +37,64 @@ String Object_wx_GLContext::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GLContext, wxGLContext)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "ctxAttrs", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GLContext, wxGLContext)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GLContext *pThis = Object_wx_GLContext::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int win = arg.GetNumber(0)
+	//int other = arg.GetNumber(1)
+	//int ctxAttrs = arg.GetNumber(2)
+	//pThis->GetEntity()->wxGLContext();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GLContext, IsOK)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GLContext, IsOK)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GLContext *pThis = Object_wx_GLContext::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsOK();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GLContext, SetCurrent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GLContext, SetCurrent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GLContext *pThis = Object_wx_GLContext::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int win = arg.GetNumber(0)
+	//pThis->GetEntity()->SetCurrent();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxGLContext
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLContext)
 {
+	Gura_AssignMethod(wx_GLContext, wxGLContext);
+	Gura_AssignMethod(wx_GLContext, IsOK);
+	Gura_AssignMethod(wx_GLContext, SetCurrent);
 }
 
 Gura_ImplementDescendantCreator(wx_GLContext)

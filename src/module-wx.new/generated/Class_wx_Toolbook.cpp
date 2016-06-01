@@ -37,12 +37,95 @@ String Object_wx_Toolbook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_Toolbook, wxToolbook)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Toolbook, wxToolbook)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxToolbook();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Toolbook, wxToolbook_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Toolbook, wxToolbook_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//int pos = arg.GetNumber(2)
+	//int size = arg.GetNumber(3)
+	//int style = arg.GetNumber(4)
+	//int name = arg.GetNumber(5)
+	//pThis->GetEntity()->wxToolbook();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Toolbook, Create)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Toolbook, Create)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//int pos = arg.GetNumber(2)
+	//int size = arg.GetNumber(3)
+	//int style = arg.GetNumber(4)
+	//int name = arg.GetNumber(5)
+	//pThis->GetEntity()->Create();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Toolbook, GetToolBar)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Toolbook, GetToolBar)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetToolBar();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxToolbook
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Toolbook)
 {
+	Gura_AssignMethod(wx_Toolbook, wxToolbook);
+	Gura_AssignMethod(wx_Toolbook, wxToolbook_1);
+	Gura_AssignMethod(wx_Toolbook, Create);
+	Gura_AssignMethod(wx_Toolbook, GetToolBar);
 }
 
 Gura_ImplementDescendantCreator(wx_Toolbook)

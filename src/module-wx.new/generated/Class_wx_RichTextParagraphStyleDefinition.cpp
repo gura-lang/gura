@@ -37,12 +37,75 @@ String Object_wx_RichTextParagraphStyleDefinition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_RichTextParagraphStyleDefinition, wxRichTextParagraphStyleDefinition)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, wxRichTextParagraphStyleDefinition)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int name = arg.GetNumber(0)
+	//pThis->GetEntity()->wxRichTextParagraphStyleDefinition();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_RichTextParagraphStyleDefinition, ~wxRichTextParagraphStyleDefinition)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, ~wxRichTextParagraphStyleDefinition)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxRichTextParagraphStyleDefinition();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_RichTextParagraphStyleDefinition, GetNextStyle)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, GetNextStyle)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetNextStyle();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_RichTextParagraphStyleDefinition, SetNextStyle)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, SetNextStyle)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int name = arg.GetNumber(0)
+	//pThis->GetEntity()->SetNextStyle();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxRichTextParagraphStyleDefinition
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextParagraphStyleDefinition)
 {
+	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, wxRichTextParagraphStyleDefinition);
+	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, ~wxRichTextParagraphStyleDefinition);
+	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, GetNextStyle);
+	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, SetNextStyle);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextParagraphStyleDefinition)

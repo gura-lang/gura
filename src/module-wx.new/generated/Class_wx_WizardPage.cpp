@@ -37,12 +37,109 @@ String Object_wx_WizardPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_WizardPage, wxWizardPage)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_WizardPage, wxWizardPage)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxWizardPage();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_WizardPage, wxWizardPage_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_WizardPage, wxWizardPage_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int bitmap = arg.GetNumber(1)
+	//pThis->GetEntity()->wxWizardPage();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_WizardPage, Create)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_WizardPage, Create)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int bitmap = arg.GetNumber(1)
+	//pThis->GetEntity()->Create();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_WizardPage, GetBitmap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_WizardPage, GetBitmap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetBitmap();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_WizardPage, GetNext)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_WizardPage, GetNext)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetNext();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_WizardPage, GetPrev)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_WizardPage, GetPrev)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetPrev();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxWizardPage
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WizardPage)
 {
+	Gura_AssignMethod(wx_WizardPage, wxWizardPage);
+	Gura_AssignMethod(wx_WizardPage, wxWizardPage_1);
+	Gura_AssignMethod(wx_WizardPage, Create);
+	Gura_AssignMethod(wx_WizardPage, GetBitmap);
+	Gura_AssignMethod(wx_WizardPage, GetNext);
+	Gura_AssignMethod(wx_WizardPage, GetPrev);
 }
 
 Gura_ImplementDescendantCreator(wx_WizardPage)

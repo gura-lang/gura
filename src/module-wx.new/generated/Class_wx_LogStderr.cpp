@@ -37,12 +37,28 @@ String Object_wx_LogStderr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_LogStderr, wxLogStderr)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_LogStderr, wxLogStderr)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LogStderr *pThis = Object_wx_LogStderr::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int fp = arg.GetNumber(0)
+	//pThis->GetEntity()->wxLogStderr();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxLogStderr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogStderr)
 {
+	Gura_AssignMethod(wx_LogStderr, wxLogStderr);
 }
 
 Gura_ImplementDescendantCreator(wx_LogStderr)

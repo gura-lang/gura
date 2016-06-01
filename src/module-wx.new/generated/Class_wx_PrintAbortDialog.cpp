@@ -37,12 +37,61 @@ String Object_wx_PrintAbortDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PrintAbortDialog, wxPrintAbortDialog)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "documentTitle", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PrintAbortDialog, wxPrintAbortDialog)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PrintAbortDialog *pThis = Object_wx_PrintAbortDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int documentTitle = arg.GetNumber(1)
+	//int pos = arg.GetNumber(2)
+	//int size = arg.GetNumber(3)
+	//int style = arg.GetNumber(4)
+	//int name = arg.GetNumber(5)
+	//pThis->GetEntity()->wxPrintAbortDialog();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PrintAbortDialog, SetProgress)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "currentPage", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "totalPages", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "currentCopy", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "totalCopies", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PrintAbortDialog, SetProgress)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PrintAbortDialog *pThis = Object_wx_PrintAbortDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int currentPage = arg.GetNumber(0)
+	//int totalPages = arg.GetNumber(1)
+	//int currentCopy = arg.GetNumber(2)
+	//int totalCopies = arg.GetNumber(3)
+	//pThis->GetEntity()->SetProgress();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPrintAbortDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintAbortDialog)
 {
+	Gura_AssignMethod(wx_PrintAbortDialog, wxPrintAbortDialog);
+	Gura_AssignMethod(wx_PrintAbortDialog, SetProgress);
 }
 
 Gura_ImplementDescendantCreator(wx_PrintAbortDialog)

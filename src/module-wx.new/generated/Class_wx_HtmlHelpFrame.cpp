@@ -37,12 +37,152 @@ String Object_wx_HtmlHelpFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HtmlHelpFrame, wxHtmlHelpFrame)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlHelpFrame, wxHtmlHelpFrame)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int data = arg.GetNumber(0)
+	//pThis->GetEntity()->wxHtmlHelpFrame();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlHelpFrame, wxHtmlHelpFrame_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "config", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "rootpath", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlHelpFrame, wxHtmlHelpFrame_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//int title = arg.GetNumber(2)
+	//int style = arg.GetNumber(3)
+	//int data = arg.GetNumber(4)
+	//int config = arg.GetNumber(5)
+	//int rootpath = arg.GetNumber(6)
+	//pThis->GetEntity()->wxHtmlHelpFrame();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlHelpFrame, AddToolbarButtons)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "toolBar", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlHelpFrame, AddToolbarButtons)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int toolBar = arg.GetNumber(0)
+	//int style = arg.GetNumber(1)
+	//pThis->GetEntity()->AddToolbarButtons();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlHelpFrame, Create)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "config", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "rootpath", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlHelpFrame, Create)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//int title = arg.GetNumber(2)
+	//int style = arg.GetNumber(3)
+	//int config = arg.GetNumber(4)
+	//int rootpath = arg.GetNumber(5)
+	//pThis->GetEntity()->Create();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlHelpFrame, GetController)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlHelpFrame, GetController)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetController();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlHelpFrame, SetController)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "controller", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlHelpFrame, SetController)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int controller = arg.GetNumber(0)
+	//pThis->GetEntity()->SetController();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlHelpFrame, SetTitleFormat)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlHelpFrame, SetTitleFormat)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int format = arg.GetNumber(0)
+	//pThis->GetEntity()->SetTitleFormat();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlHelpFrame
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpFrame)
 {
+	Gura_AssignMethod(wx_HtmlHelpFrame, wxHtmlHelpFrame);
+	Gura_AssignMethod(wx_HtmlHelpFrame, wxHtmlHelpFrame_1);
+	Gura_AssignMethod(wx_HtmlHelpFrame, AddToolbarButtons);
+	Gura_AssignMethod(wx_HtmlHelpFrame, Create);
+	Gura_AssignMethod(wx_HtmlHelpFrame, GetController);
+	Gura_AssignMethod(wx_HtmlHelpFrame, SetController);
+	Gura_AssignMethod(wx_HtmlHelpFrame, SetTitleFormat);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlHelpFrame)

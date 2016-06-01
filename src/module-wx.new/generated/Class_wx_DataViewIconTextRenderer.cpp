@@ -37,12 +37,47 @@ String Object_wx_DataViewIconTextRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_DataViewIconTextRenderer, GetDefaultType)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataViewIconTextRenderer, GetDefaultType)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewIconTextRenderer *pThis = Object_wx_DataViewIconTextRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetDefaultType();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewIconTextRenderer, wxDataViewIconTextRenderer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewIconTextRenderer, wxDataViewIconTextRenderer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewIconTextRenderer *pThis = Object_wx_DataViewIconTextRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int varianttype = arg.GetNumber(0)
+	//int mode = arg.GetNumber(1)
+	//int align = arg.GetNumber(2)
+	//pThis->GetEntity()->wxDataViewIconTextRenderer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewIconTextRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewIconTextRenderer)
 {
+	Gura_AssignMethod(wx_DataViewIconTextRenderer, GetDefaultType);
+	Gura_AssignMethod(wx_DataViewIconTextRenderer, wxDataViewIconTextRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewIconTextRenderer)

@@ -38,11 +38,13 @@ String Object_wx_DateTimeWorkDays::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxDateTimeWorkDays
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DateTimeWorkDays)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_DateTimeWorkDays)

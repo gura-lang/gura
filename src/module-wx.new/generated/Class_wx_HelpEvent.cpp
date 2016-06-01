@@ -38,11 +38,13 @@ String Object_wx_HelpEvent::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxHelpEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpEvent)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_HelpEvent)

@@ -37,12 +37,28 @@ String Object_wx_FileTranslationsLoader::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_FileTranslationsLoader, AddCatalogLookupPathPrefix)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "prefix", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_FileTranslationsLoader, AddCatalogLookupPathPrefix)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FileTranslationsLoader *pThis = Object_wx_FileTranslationsLoader::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int prefix = arg.GetNumber(0)
+	//pThis->GetEntity()->AddCatalogLookupPathPrefix();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxFileTranslationsLoader
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileTranslationsLoader)
 {
+	Gura_AssignMethod(wx_FileTranslationsLoader, AddCatalogLookupPathPrefix);
 }
 
 Gura_ImplementDescendantCreator(wx_FileTranslationsLoader)

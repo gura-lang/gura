@@ -37,12 +37,40 @@ String Object_wx_GridHeaderLabelsRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GridHeaderLabelsRenderer, DrawLabel)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "horizAlign", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "vertAlign", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "textOrientation", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GridHeaderLabelsRenderer, DrawLabel)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GridHeaderLabelsRenderer *pThis = Object_wx_GridHeaderLabelsRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int grid = arg.GetNumber(0)
+	//int dc = arg.GetNumber(1)
+	//int value = arg.GetNumber(2)
+	//int rect = arg.GetNumber(3)
+	//int horizAlign = arg.GetNumber(4)
+	//int vertAlign = arg.GetNumber(5)
+	//int textOrientation = arg.GetNumber(6)
+	//pThis->GetEntity()->DrawLabel();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxGridHeaderLabelsRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridHeaderLabelsRenderer)
 {
+	Gura_AssignMethod(wx_GridHeaderLabelsRenderer, DrawLabel);
 }
 
 Gura_ImplementDescendantCreator(wx_GridHeaderLabelsRenderer)

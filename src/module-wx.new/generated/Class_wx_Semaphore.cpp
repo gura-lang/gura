@@ -37,12 +37,107 @@ String Object_wx_Semaphore::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_Semaphore, wxSemaphore)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "initialcount", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "maxcount", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Semaphore, wxSemaphore)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int initialcount = arg.GetNumber(0)
+	//int maxcount = arg.GetNumber(1)
+	//pThis->GetEntity()->wxSemaphore();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Semaphore, ~wxSemaphore)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Semaphore, ~wxSemaphore)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxSemaphore();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Semaphore, Post)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Semaphore, Post)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Post();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Semaphore, TryWait)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Semaphore, TryWait)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->TryWait();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Semaphore, Wait)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Semaphore, Wait)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Wait();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Semaphore, WaitTimeout)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "timeout_millis", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Semaphore, WaitTimeout)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int timeout_millis = arg.GetNumber(0)
+	//pThis->GetEntity()->WaitTimeout();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxSemaphore
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Semaphore)
 {
+	Gura_AssignMethod(wx_Semaphore, wxSemaphore);
+	Gura_AssignMethod(wx_Semaphore, ~wxSemaphore);
+	Gura_AssignMethod(wx_Semaphore, Post);
+	Gura_AssignMethod(wx_Semaphore, TryWait);
+	Gura_AssignMethod(wx_Semaphore, Wait);
+	Gura_AssignMethod(wx_Semaphore, WaitTimeout);
 }
 
 Gura_ImplementDescendantCreator(wx_Semaphore)

@@ -37,12 +37,122 @@ String Object_wx_ScopedPtr<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ScopedPtr<T>, wxScopedPtr)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "ptr", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ScopedPtr<T>, wxScopedPtr)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int ptr = arg.GetNumber(0)
+	//pThis->GetEntity()->wxScopedPtr();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScopedPtr<T>, ~wxScopedPtr)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ScopedPtr<T>, ~wxScopedPtr)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxScopedPtr();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScopedPtr<T>, get)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ScopedPtr<T>, get)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->get();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScopedPtr<T>, unspecified_bool_type)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ScopedPtr<T>, unspecified_bool_type)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->unspecified_bool_type();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScopedPtr<T>, release)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ScopedPtr<T>, release)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->release();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScopedPtr<T>, reset)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "ptr", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ScopedPtr<T>, reset)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int ptr = arg.GetNumber(0)
+	//pThis->GetEntity()->reset();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScopedPtr<T>, swap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "ot", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ScopedPtr<T>, swap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int ot = arg.GetNumber(0)
+	//pThis->GetEntity()->swap();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxScopedPtr<T>
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopedPtr<T>)
 {
+	Gura_AssignMethod(wx_ScopedPtr<T>, wxScopedPtr);
+	Gura_AssignMethod(wx_ScopedPtr<T>, ~wxScopedPtr);
+	Gura_AssignMethod(wx_ScopedPtr<T>, get);
+	Gura_AssignMethod(wx_ScopedPtr<T>, unspecified_bool_type);
+	Gura_AssignMethod(wx_ScopedPtr<T>, release);
+	Gura_AssignMethod(wx_ScopedPtr<T>, reset);
+	Gura_AssignMethod(wx_ScopedPtr<T>, swap);
 }
 
 Gura_ImplementDescendantCreator(wx_ScopedPtr<T>)

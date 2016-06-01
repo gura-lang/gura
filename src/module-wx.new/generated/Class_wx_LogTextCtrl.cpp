@@ -37,12 +37,28 @@ String Object_wx_LogTextCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_LogTextCtrl, wxLogTextCtrl)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "pTextCtrl", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_LogTextCtrl, wxLogTextCtrl)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LogTextCtrl *pThis = Object_wx_LogTextCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int pTextCtrl = arg.GetNumber(0)
+	//pThis->GetEntity()->wxLogTextCtrl();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxLogTextCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogTextCtrl)
 {
+	Gura_AssignMethod(wx_LogTextCtrl, wxLogTextCtrl);
 }
 
 Gura_ImplementDescendantCreator(wx_LogTextCtrl)

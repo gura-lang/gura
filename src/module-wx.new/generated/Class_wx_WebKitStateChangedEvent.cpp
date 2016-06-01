@@ -37,12 +37,92 @@ String Object_wx_WebKitStateChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_WebKitStateChangedEvent, GetState)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_WebKitStateChangedEvent, GetState)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetState();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_WebKitStateChangedEvent, SetState)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_WebKitStateChangedEvent, SetState)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int state = arg.GetNumber(0)
+	//pThis->GetEntity()->SetState();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_WebKitStateChangedEvent, GetURL)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_WebKitStateChangedEvent, GetURL)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetURL();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_WebKitStateChangedEvent, SetURL)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_WebKitStateChangedEvent, SetURL)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int url = arg.GetNumber(0)
+	//pThis->GetEntity()->SetURL();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_WebKitStateChangedEvent, wxWebKitStateChangedEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_WebKitStateChangedEvent, wxWebKitStateChangedEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int win = arg.GetNumber(0)
+	//pThis->GetEntity()->wxWebKitStateChangedEvent();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxWebKitStateChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebKitStateChangedEvent)
 {
+	Gura_AssignMethod(wx_WebKitStateChangedEvent, GetState);
+	Gura_AssignMethod(wx_WebKitStateChangedEvent, SetState);
+	Gura_AssignMethod(wx_WebKitStateChangedEvent, GetURL);
+	Gura_AssignMethod(wx_WebKitStateChangedEvent, SetURL);
+	Gura_AssignMethod(wx_WebKitStateChangedEvent, wxWebKitStateChangedEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_WebKitStateChangedEvent)

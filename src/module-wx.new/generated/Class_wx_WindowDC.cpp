@@ -37,12 +37,28 @@ String Object_wx_WindowDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_WindowDC, wxWindowDC)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_WindowDC, wxWindowDC)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WindowDC *pThis = Object_wx_WindowDC::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int window = arg.GetNumber(0)
+	//pThis->GetEntity()->wxWindowDC();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxWindowDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowDC)
 {
+	Gura_AssignMethod(wx_WindowDC, wxWindowDC);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowDC)

@@ -37,12 +37,30 @@ String Object_wx_HtmlColourCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HtmlColourCell, wxHtmlColourCell)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlColourCell, wxHtmlColourCell)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlColourCell *pThis = Object_wx_HtmlColourCell::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int clr = arg.GetNumber(0)
+	//int flags = arg.GetNumber(1)
+	//pThis->GetEntity()->wxHtmlColourCell();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlColourCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlColourCell)
 {
+	Gura_AssignMethod(wx_HtmlColourCell, wxHtmlColourCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlColourCell)

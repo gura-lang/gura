@@ -37,12 +37,253 @@ String Object_wx_HTTP::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HTTP, wxHTTP)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HTTP, wxHTTP)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxHTTP();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, ~wxHTTP)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HTTP, ~wxHTTP)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxHTTP();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, Connect)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "host", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HTTP, Connect)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int host = arg.GetNumber(0)
+	//pThis->GetEntity()->Connect();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, Connect_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "host", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "port", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HTTP, Connect_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int host = arg.GetNumber(0)
+	//int port = arg.GetNumber(1)
+	//pThis->GetEntity()->Connect();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, Connect_2)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "wait", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HTTP, Connect_2)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int addr = arg.GetNumber(0)
+	//int wait = arg.GetNumber(1)
+	//pThis->GetEntity()->Connect();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, GetHeader)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "header", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HTTP, GetHeader)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int header = arg.GetNumber(0)
+	//pThis->GetEntity()->GetHeader();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, GetInputStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HTTP, GetInputStream)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int path = arg.GetNumber(0)
+	//pThis->GetEntity()->GetInputStream();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, GetResponse)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HTTP, GetResponse)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetResponse();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, SetMethod)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "method", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HTTP, SetMethod)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int method = arg.GetNumber(0)
+	//pThis->GetEntity()->SetMethod();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, SetHeader)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "header", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "h_data", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HTTP, SetHeader)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int header = arg.GetNumber(0)
+	//int h_data = arg.GetNumber(1)
+	//pThis->GetEntity()->SetHeader();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, GetCookie)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "cookie", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HTTP, GetCookie)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int cookie = arg.GetNumber(0)
+	//pThis->GetEntity()->GetCookie();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, HasCookies)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HTTP, HasCookies)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->HasCookies();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, SetPostBuffer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "contentType", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HTTP, SetPostBuffer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int contentType = arg.GetNumber(0)
+	//int data = arg.GetNumber(1)
+	//pThis->GetEntity()->SetPostBuffer();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HTTP, SetPostText)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "contentType", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HTTP, SetPostText)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int contentType = arg.GetNumber(0)
+	//int data = arg.GetNumber(1)
+	//int conv = arg.GetNumber(2)
+	//pThis->GetEntity()->SetPostText();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHTTP
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HTTP)
 {
+	Gura_AssignMethod(wx_HTTP, wxHTTP);
+	Gura_AssignMethod(wx_HTTP, ~wxHTTP);
+	Gura_AssignMethod(wx_HTTP, Connect);
+	Gura_AssignMethod(wx_HTTP, Connect_1);
+	Gura_AssignMethod(wx_HTTP, Connect_2);
+	Gura_AssignMethod(wx_HTTP, GetHeader);
+	Gura_AssignMethod(wx_HTTP, GetInputStream);
+	Gura_AssignMethod(wx_HTTP, GetResponse);
+	Gura_AssignMethod(wx_HTTP, SetMethod);
+	Gura_AssignMethod(wx_HTTP, SetHeader);
+	Gura_AssignMethod(wx_HTTP, GetCookie);
+	Gura_AssignMethod(wx_HTTP, HasCookies);
+	Gura_AssignMethod(wx_HTTP, SetPostBuffer);
+	Gura_AssignMethod(wx_HTTP, SetPostText);
 }
 
 Gura_ImplementDescendantCreator(wx_HTTP)

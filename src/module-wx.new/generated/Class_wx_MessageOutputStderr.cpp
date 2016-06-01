@@ -37,12 +37,28 @@ String Object_wx_MessageOutputStderr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_MessageOutputStderr, wxMessageOutputStderr)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MessageOutputStderr, wxMessageOutputStderr)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MessageOutputStderr *pThis = Object_wx_MessageOutputStderr::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int fp = arg.GetNumber(0)
+	//pThis->GetEntity()->wxMessageOutputStderr();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxMessageOutputStderr
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageOutputStderr)
 {
+	Gura_AssignMethod(wx_MessageOutputStderr, wxMessageOutputStderr);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageOutputStderr)

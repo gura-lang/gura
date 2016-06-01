@@ -37,12 +37,60 @@ String Object_wx_Server::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_Server, wxServer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Server, wxServer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Server *pThis = Object_wx_Server::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxServer();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Server, Create)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Server, Create)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Server *pThis = Object_wx_Server::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int service = arg.GetNumber(0)
+	//pThis->GetEntity()->Create();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Server, OnAcceptConnection)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Server, OnAcceptConnection)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Server *pThis = Object_wx_Server::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int topic = arg.GetNumber(0)
+	//pThis->GetEntity()->OnAcceptConnection();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxServer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Server)
 {
+	Gura_AssignMethod(wx_Server, wxServer);
+	Gura_AssignMethod(wx_Server, Create);
+	Gura_AssignMethod(wx_Server, OnAcceptConnection);
 }
 
 Gura_ImplementDescendantCreator(wx_Server)

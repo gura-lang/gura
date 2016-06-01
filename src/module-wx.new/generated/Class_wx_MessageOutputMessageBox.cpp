@@ -37,12 +37,26 @@ String Object_wx_MessageOutputMessageBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_MessageOutputMessageBox, wxMessageOutputMessageBox)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_MessageOutputMessageBox, wxMessageOutputMessageBox)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MessageOutputMessageBox *pThis = Object_wx_MessageOutputMessageBox::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxMessageOutputMessageBox();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxMessageOutputMessageBox
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageOutputMessageBox)
 {
+	Gura_AssignMethod(wx_MessageOutputMessageBox, wxMessageOutputMessageBox);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageOutputMessageBox)

@@ -38,11 +38,13 @@ String Object_wx_UniCharRef::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxUniCharRef
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_UniCharRef)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_UniCharRef)

@@ -37,12 +37,28 @@ String Object_wx_PaintDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PaintDC, wxPaintDC)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PaintDC, wxPaintDC)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PaintDC *pThis = Object_wx_PaintDC::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int window = arg.GetNumber(0)
+	//pThis->GetEntity()->wxPaintDC();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPaintDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PaintDC)
 {
+	Gura_AssignMethod(wx_PaintDC, wxPaintDC);
 }
 
 Gura_ImplementDescendantCreator(wx_PaintDC)

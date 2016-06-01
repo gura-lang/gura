@@ -38,11 +38,13 @@ String Object_wx_ControlWithItems::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxControlWithItems
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ControlWithItems)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_ControlWithItems)

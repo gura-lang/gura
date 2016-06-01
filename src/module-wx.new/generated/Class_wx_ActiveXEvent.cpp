@@ -37,12 +37,92 @@ String Object_wx_ActiveXEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ActiveXEvent, GetDispatchId)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ActiveXEvent, GetDispatchId)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int idx = arg.GetNumber(0)
+	//pThis->GetEntity()->GetDispatchId();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ActiveXEvent, ParamCount)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ActiveXEvent, ParamCount)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->ParamCount();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ActiveXEvent, ParamName)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ActiveXEvent, ParamName)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int idx = arg.GetNumber(0)
+	//pThis->GetEntity()->ParamName();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ActiveXEvent, ParamType)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ActiveXEvent, ParamType)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int idx = arg.GetNumber(0)
+	//pThis->GetEntity()->ParamType();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ActiveXEvent, GetNativeParameters)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ActiveXEvent, GetNativeParameters)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetNativeParameters();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxActiveXEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ActiveXEvent)
 {
+	Gura_AssignMethod(wx_ActiveXEvent, GetDispatchId);
+	Gura_AssignMethod(wx_ActiveXEvent, ParamCount);
+	Gura_AssignMethod(wx_ActiveXEvent, ParamName);
+	Gura_AssignMethod(wx_ActiveXEvent, ParamType);
+	Gura_AssignMethod(wx_ActiveXEvent, GetNativeParameters);
 }
 
 Gura_ImplementDescendantCreator(wx_ActiveXEvent)

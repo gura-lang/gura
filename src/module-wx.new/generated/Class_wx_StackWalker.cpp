@@ -37,12 +37,96 @@ String Object_wx_StackWalker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_StackWalker, wxStackWalker)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "argv0", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StackWalker, wxStackWalker)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int argv0 = arg.GetNumber(0)
+	//pThis->GetEntity()->wxStackWalker();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StackWalker, ~wxStackWalker)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StackWalker, ~wxStackWalker)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxStackWalker();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StackWalker, Walk)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "skip", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "maxDepth", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StackWalker, Walk)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int skip = arg.GetNumber(0)
+	//int maxDepth = arg.GetNumber(1)
+	//pThis->GetEntity()->Walk();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StackWalker, WalkFromException)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "maxDepth", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StackWalker, WalkFromException)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int maxDepth = arg.GetNumber(0)
+	//pThis->GetEntity()->WalkFromException();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StackWalker, OnStackFrame)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "frame", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StackWalker, OnStackFrame)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int frame = arg.GetNumber(0)
+	//pThis->GetEntity()->OnStackFrame();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxStackWalker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StackWalker)
 {
+	Gura_AssignMethod(wx_StackWalker, wxStackWalker);
+	Gura_AssignMethod(wx_StackWalker, ~wxStackWalker);
+	Gura_AssignMethod(wx_StackWalker, Walk);
+	Gura_AssignMethod(wx_StackWalker, WalkFromException);
+	Gura_AssignMethod(wx_StackWalker, OnStackFrame);
 }
 
 Gura_ImplementDescendantCreator(wx_StackWalker)

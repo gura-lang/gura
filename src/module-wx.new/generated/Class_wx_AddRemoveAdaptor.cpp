@@ -37,11 +37,9 @@ String Object_wx_AddRemoveAdaptor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-
 Gura_DeclareMethod(wx_AddRemoveAdaptor, wxAddRemoveAdaptor)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AddRemoveAdaptor, wxAddRemoveAdaptor)
@@ -49,15 +47,13 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, wxAddRemoveAdaptor)
 	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->wxAddRemoveAdaptor();
+	//pThis->GetEntity()->wxAddRemoveAdaptor();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AddRemoveAdaptor, ~wxAddRemoveAdaptor)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AddRemoveAdaptor, ~wxAddRemoveAdaptor)
@@ -65,15 +61,13 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, ~wxAddRemoveAdaptor)
 	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->~wxAddRemoveAdaptor();
+	//pThis->GetEntity()->~wxAddRemoveAdaptor();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AddRemoveAdaptor, GetItemsCtrl)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AddRemoveAdaptor, GetItemsCtrl)
@@ -81,15 +75,13 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, GetItemsCtrl)
 	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->GetItemsCtrl();
+	//pThis->GetEntity()->GetItemsCtrl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AddRemoveAdaptor, CanAdd)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AddRemoveAdaptor, CanAdd)
@@ -97,15 +89,13 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, CanAdd)
 	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->CanAdd();
+	//pThis->GetEntity()->CanAdd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AddRemoveAdaptor, CanRemove)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AddRemoveAdaptor, CanRemove)
@@ -113,15 +103,13 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, CanRemove)
 	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->CanRemove();
+	//pThis->GetEntity()->CanRemove();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AddRemoveAdaptor, OnAdd)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AddRemoveAdaptor, OnAdd)
@@ -129,15 +117,13 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, OnAdd)
 	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->OnAdd();
+	//pThis->GetEntity()->OnAdd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AddRemoveAdaptor, OnRemove)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AddRemoveAdaptor, OnRemove)
@@ -145,8 +131,7 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, OnRemove)
 	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->OnRemove();
+	//pThis->GetEntity()->OnRemove();
 	return Value::Nil;
 }
 
@@ -155,6 +140,13 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, OnRemove)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AddRemoveAdaptor)
 {
+	Gura_AssignMethod(wx_AddRemoveAdaptor, wxAddRemoveAdaptor);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, ~wxAddRemoveAdaptor);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, GetItemsCtrl);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, CanAdd);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, CanRemove);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, OnAdd);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, OnRemove);
 }
 
 Gura_ImplementDescendantCreator(wx_AddRemoveAdaptor)

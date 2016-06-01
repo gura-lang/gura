@@ -37,12 +37,30 @@ String Object_wx_MirrorDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_MirrorDC, wxMirrorDC)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mirror", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MirrorDC, wxMirrorDC)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MirrorDC *pThis = Object_wx_MirrorDC::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int dc = arg.GetNumber(0)
+	//int mirror = arg.GetNumber(1)
+	//pThis->GetEntity()->wxMirrorDC();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxMirrorDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MirrorDC)
 {
+	Gura_AssignMethod(wx_MirrorDC, wxMirrorDC);
 }
 
 Gura_ImplementDescendantCreator(wx_MirrorDC)

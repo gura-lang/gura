@@ -38,11 +38,13 @@ String Object_wx_NotificationMessage::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxNotificationMessage
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NotificationMessage)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_NotificationMessage)

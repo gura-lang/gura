@@ -37,12 +37,75 @@ String Object_wx_LayoutConstraints::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_LayoutConstraints, wxLayoutConstraints)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_LayoutConstraints, wxLayoutConstraints)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LayoutConstraints *pThis = Object_wx_LayoutConstraints::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxLayoutConstraints();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_LayoutConstraints, ~wxLayoutConstraints)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_LayoutConstraints, ~wxLayoutConstraints)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LayoutConstraints *pThis = Object_wx_LayoutConstraints::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxLayoutConstraints();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_LayoutConstraints, SatisfyConstraints)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "noChanges", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_LayoutConstraints, SatisfyConstraints)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LayoutConstraints *pThis = Object_wx_LayoutConstraints::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int win = arg.GetNumber(0)
+	//int noChanges = arg.GetNumber(1)
+	//pThis->GetEntity()->SatisfyConstraints();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_LayoutConstraints, AreSatisfied)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_LayoutConstraints, AreSatisfied)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LayoutConstraints *pThis = Object_wx_LayoutConstraints::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->AreSatisfied();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxLayoutConstraints
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LayoutConstraints)
 {
+	Gura_AssignMethod(wx_LayoutConstraints, wxLayoutConstraints);
+	Gura_AssignMethod(wx_LayoutConstraints, ~wxLayoutConstraints);
+	Gura_AssignMethod(wx_LayoutConstraints, SatisfyConstraints);
+	Gura_AssignMethod(wx_LayoutConstraints, AreSatisfied);
 }
 
 Gura_ImplementDescendantCreator(wx_LayoutConstraints)

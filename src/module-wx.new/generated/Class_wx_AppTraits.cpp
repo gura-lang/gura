@@ -37,12 +37,197 @@ String Object_wx_AppTraits::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_AppTraits, CreateConfig)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AppTraits, CreateConfig)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CreateConfig();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, CreateEventLoop)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AppTraits, CreateEventLoop)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CreateEventLoop();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, CreateFontMapper)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AppTraits, CreateFontMapper)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CreateFontMapper();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, CreateLogTarget)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AppTraits, CreateLogTarget)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CreateLogTarget();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, CreateMessageOutput)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AppTraits, CreateMessageOutput)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CreateMessageOutput();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, CreateRenderer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AppTraits, CreateRenderer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CreateRenderer();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, GetDesktopEnvironment)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AppTraits, GetDesktopEnvironment)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetDesktopEnvironment();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, GetStandardPaths)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AppTraits, GetStandardPaths)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetStandardPaths();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, GetToolkitVersion)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AppTraits, GetToolkitVersion)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int major = arg.GetNumber(0)
+	//int minor = arg.GetNumber(1)
+	//pThis->GetEntity()->GetToolkitVersion();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, HasStderr)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AppTraits, HasStderr)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->HasStderr();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, IsUsingUniversalWidgets)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AppTraits, IsUsingUniversalWidgets)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsUsingUniversalWidgets();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AppTraits, ShowAssertDialog)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AppTraits, ShowAssertDialog)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int msg = arg.GetNumber(0)
+	//pThis->GetEntity()->ShowAssertDialog();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxAppTraits
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AppTraits)
 {
+	Gura_AssignMethod(wx_AppTraits, CreateConfig);
+	Gura_AssignMethod(wx_AppTraits, CreateEventLoop);
+	Gura_AssignMethod(wx_AppTraits, CreateFontMapper);
+	Gura_AssignMethod(wx_AppTraits, CreateLogTarget);
+	Gura_AssignMethod(wx_AppTraits, CreateMessageOutput);
+	Gura_AssignMethod(wx_AppTraits, CreateRenderer);
+	Gura_AssignMethod(wx_AppTraits, GetDesktopEnvironment);
+	Gura_AssignMethod(wx_AppTraits, GetStandardPaths);
+	Gura_AssignMethod(wx_AppTraits, GetToolkitVersion);
+	Gura_AssignMethod(wx_AppTraits, HasStderr);
+	Gura_AssignMethod(wx_AppTraits, IsUsingUniversalWidgets);
+	Gura_AssignMethod(wx_AppTraits, ShowAssertDialog);
 }
 
 Gura_ImplementDescendantCreator(wx_AppTraits)

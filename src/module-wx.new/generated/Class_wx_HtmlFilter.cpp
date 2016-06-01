@@ -37,12 +37,60 @@ String Object_wx_HtmlFilter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HtmlFilter, wxHtmlFilter)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlFilter, wxHtmlFilter)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxHtmlFilter();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlFilter, CanRead)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlFilter, CanRead)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int file = arg.GetNumber(0)
+	//pThis->GetEntity()->CanRead();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlFilter, ReadFile)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlFilter, ReadFile)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int file = arg.GetNumber(0)
+	//pThis->GetEntity()->ReadFile();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlFilter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlFilter)
 {
+	Gura_AssignMethod(wx_HtmlFilter, wxHtmlFilter);
+	Gura_AssignMethod(wx_HtmlFilter, CanRead);
+	Gura_AssignMethod(wx_HtmlFilter, ReadFile);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlFilter)

@@ -38,11 +38,13 @@ String Object_wx_ULongLong::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxULongLong
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ULongLong)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_ULongLong)

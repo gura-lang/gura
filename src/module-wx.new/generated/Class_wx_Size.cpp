@@ -37,12 +37,370 @@ String Object_wx_Size::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_Size, wxSize)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Size, wxSize)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxSize();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, wxSize_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, wxSize_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int width = arg.GetNumber(0)
+	//int height = arg.GetNumber(1)
+	//pThis->GetEntity()->wxSize();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, DecBy)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, DecBy)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int pt = arg.GetNumber(0)
+	//pThis->GetEntity()->DecBy();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, DecBy_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, DecBy_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int size = arg.GetNumber(0)
+	//pThis->GetEntity()->DecBy();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, DecBy_2)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, DecBy_2)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int dx = arg.GetNumber(0)
+	//int dy = arg.GetNumber(1)
+	//pThis->GetEntity()->DecBy();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, DecBy_3)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "d", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, DecBy_3)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int d = arg.GetNumber(0)
+	//pThis->GetEntity()->DecBy();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, DecTo)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, DecTo)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int size = arg.GetNumber(0)
+	//pThis->GetEntity()->DecTo();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, DecToIfSpecified)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, DecToIfSpecified)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int size = arg.GetNumber(0)
+	//pThis->GetEntity()->DecToIfSpecified();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, GetHeight)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Size, GetHeight)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetHeight();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, GetWidth)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Size, GetWidth)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetWidth();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, IncBy)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, IncBy)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int pt = arg.GetNumber(0)
+	//pThis->GetEntity()->IncBy();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, IncBy_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, IncBy_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int size = arg.GetNumber(0)
+	//pThis->GetEntity()->IncBy();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, IncBy_2)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, IncBy_2)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int dx = arg.GetNumber(0)
+	//int dy = arg.GetNumber(1)
+	//pThis->GetEntity()->IncBy();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, IncBy_3)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "d", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, IncBy_3)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int d = arg.GetNumber(0)
+	//pThis->GetEntity()->IncBy();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, IncTo)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, IncTo)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int size = arg.GetNumber(0)
+	//pThis->GetEntity()->IncTo();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, IsFullySpecified)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Size, IsFullySpecified)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsFullySpecified();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, Scale)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "xscale", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "yscale", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, Scale)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int xscale = arg.GetNumber(0)
+	//int yscale = arg.GetNumber(1)
+	//pThis->GetEntity()->Scale();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, Set)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, Set)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int width = arg.GetNumber(0)
+	//int height = arg.GetNumber(1)
+	//pThis->GetEntity()->Set();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, SetDefaults)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "sizeDefault", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, SetDefaults)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int sizeDefault = arg.GetNumber(0)
+	//pThis->GetEntity()->SetDefaults();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, SetHeight)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, SetHeight)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int height = arg.GetNumber(0)
+	//pThis->GetEntity()->SetHeight();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Size, SetWidth)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Size, SetWidth)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int width = arg.GetNumber(0)
+	//pThis->GetEntity()->SetWidth();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxSize
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Size)
 {
+	Gura_AssignMethod(wx_Size, wxSize);
+	Gura_AssignMethod(wx_Size, wxSize_1);
+	Gura_AssignMethod(wx_Size, DecBy);
+	Gura_AssignMethod(wx_Size, DecBy_1);
+	Gura_AssignMethod(wx_Size, DecBy_2);
+	Gura_AssignMethod(wx_Size, DecBy_3);
+	Gura_AssignMethod(wx_Size, DecTo);
+	Gura_AssignMethod(wx_Size, DecToIfSpecified);
+	Gura_AssignMethod(wx_Size, GetHeight);
+	Gura_AssignMethod(wx_Size, GetWidth);
+	Gura_AssignMethod(wx_Size, IncBy);
+	Gura_AssignMethod(wx_Size, IncBy_1);
+	Gura_AssignMethod(wx_Size, IncBy_2);
+	Gura_AssignMethod(wx_Size, IncBy_3);
+	Gura_AssignMethod(wx_Size, IncTo);
+	Gura_AssignMethod(wx_Size, IsFullySpecified);
+	Gura_AssignMethod(wx_Size, Scale);
+	Gura_AssignMethod(wx_Size, Set);
+	Gura_AssignMethod(wx_Size, SetDefaults);
+	Gura_AssignMethod(wx_Size, SetHeight);
+	Gura_AssignMethod(wx_Size, SetWidth);
 }
 
 Gura_ImplementDescendantCreator(wx_Size)

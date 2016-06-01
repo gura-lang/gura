@@ -37,12 +37,58 @@ String Object_wx_IconLocation::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_IconLocation, IsOk)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IconLocation, IsOk)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsOk();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IconLocation, SetFileName)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_IconLocation, SetFileName)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int filename = arg.GetNumber(0)
+	//pThis->GetEntity()->SetFileName();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IconLocation, GetFileName)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IconLocation, GetFileName)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetFileName();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxIconLocation
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IconLocation)
 {
+	Gura_AssignMethod(wx_IconLocation, IsOk);
+	Gura_AssignMethod(wx_IconLocation, SetFileName);
+	Gura_AssignMethod(wx_IconLocation, GetFileName);
 }
 
 Gura_ImplementDescendantCreator(wx_IconLocation)

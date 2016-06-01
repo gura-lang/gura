@@ -37,12 +37,32 @@ String Object_wx_DataViewChoiceByIndexRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_DataViewChoiceByIndexRenderer, wxDataViewChoiceByIndexRenderer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewChoiceByIndexRenderer, wxDataViewChoiceByIndexRenderer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewChoiceByIndexRenderer *pThis = Object_wx_DataViewChoiceByIndexRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int choices = arg.GetNumber(0)
+	//int mode = arg.GetNumber(1)
+	//int alignment = arg.GetNumber(2)
+	//pThis->GetEntity()->wxDataViewChoiceByIndexRenderer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewChoiceByIndexRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewChoiceByIndexRenderer)
 {
+	Gura_AssignMethod(wx_DataViewChoiceByIndexRenderer, wxDataViewChoiceByIndexRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewChoiceByIndexRenderer)

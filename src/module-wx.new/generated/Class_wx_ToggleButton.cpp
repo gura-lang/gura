@@ -37,12 +37,135 @@ String Object_wx_ToggleButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ToggleButton, wxToggleButton)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ToggleButton, wxToggleButton)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxToggleButton();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ToggleButton, wxToggleButton_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ToggleButton, wxToggleButton_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//int label = arg.GetNumber(2)
+	//int pos = arg.GetNumber(3)
+	//int size = arg.GetNumber(4)
+	//int style = arg.GetNumber(5)
+	//int val = arg.GetNumber(6)
+	//int name = arg.GetNumber(7)
+	//pThis->GetEntity()->wxToggleButton();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ToggleButton, ~wxToggleButton)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ToggleButton, ~wxToggleButton)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxToggleButton();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ToggleButton, Create)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ToggleButton, Create)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//int label = arg.GetNumber(2)
+	//int pos = arg.GetNumber(3)
+	//int size = arg.GetNumber(4)
+	//int style = arg.GetNumber(5)
+	//int val = arg.GetNumber(6)
+	//int name = arg.GetNumber(7)
+	//pThis->GetEntity()->Create();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ToggleButton, GetValue)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ToggleButton, GetValue)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetValue();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ToggleButton, SetValue)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ToggleButton, SetValue)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int state = arg.GetNumber(0)
+	//pThis->GetEntity()->SetValue();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxToggleButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToggleButton)
 {
+	Gura_AssignMethod(wx_ToggleButton, wxToggleButton);
+	Gura_AssignMethod(wx_ToggleButton, wxToggleButton_1);
+	Gura_AssignMethod(wx_ToggleButton, ~wxToggleButton);
+	Gura_AssignMethod(wx_ToggleButton, Create);
+	Gura_AssignMethod(wx_ToggleButton, GetValue);
+	Gura_AssignMethod(wx_ToggleButton, SetValue);
 }
 
 Gura_ImplementDescendantCreator(wx_ToggleButton)

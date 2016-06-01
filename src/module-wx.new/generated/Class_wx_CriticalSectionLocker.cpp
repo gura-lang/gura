@@ -37,12 +37,43 @@ String Object_wx_CriticalSectionLocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_CriticalSectionLocker, wxCriticalSectionLocker)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "criticalsection", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_CriticalSectionLocker, wxCriticalSectionLocker)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CriticalSectionLocker *pThis = Object_wx_CriticalSectionLocker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int criticalsection = arg.GetNumber(0)
+	//pThis->GetEntity()->wxCriticalSectionLocker();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_CriticalSectionLocker, ~wxCriticalSectionLocker)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_CriticalSectionLocker, ~wxCriticalSectionLocker)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CriticalSectionLocker *pThis = Object_wx_CriticalSectionLocker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxCriticalSectionLocker();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxCriticalSectionLocker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CriticalSectionLocker)
 {
+	Gura_AssignMethod(wx_CriticalSectionLocker, wxCriticalSectionLocker);
+	Gura_AssignMethod(wx_CriticalSectionLocker, ~wxCriticalSectionLocker);
 }
 
 Gura_ImplementDescendantCreator(wx_CriticalSectionLocker)

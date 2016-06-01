@@ -37,12 +37,30 @@ String Object_wx_HtmlWidgetCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HtmlWidgetCell, wxHtmlWidgetCell)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlWidgetCell, wxHtmlWidgetCell)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlWidgetCell *pThis = Object_wx_HtmlWidgetCell::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int wnd = arg.GetNumber(0)
+	//int w = arg.GetNumber(1)
+	//pThis->GetEntity()->wxHtmlWidgetCell();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlWidgetCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWidgetCell)
 {
+	Gura_AssignMethod(wx_HtmlWidgetCell, wxHtmlWidgetCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWidgetCell)

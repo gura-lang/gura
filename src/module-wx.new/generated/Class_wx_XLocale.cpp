@@ -37,12 +37,90 @@ String Object_wx_XLocale::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_XLocale, wxXLocale)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_XLocale, wxXLocale)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxXLocale();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_XLocale, wxXLocale_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_XLocale, wxXLocale_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int lang = arg.GetNumber(0)
+	//pThis->GetEntity()->wxXLocale();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_XLocale, wxXLocale_2)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "loc", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_XLocale, wxXLocale_2)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int loc = arg.GetNumber(0)
+	//pThis->GetEntity()->wxXLocale();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_XLocale, GetCLocale)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_XLocale, GetCLocale)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetCLocale();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_XLocale, IsOk)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_XLocale, IsOk)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsOk();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxXLocale
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XLocale)
 {
+	Gura_AssignMethod(wx_XLocale, wxXLocale);
+	Gura_AssignMethod(wx_XLocale, wxXLocale_1);
+	Gura_AssignMethod(wx_XLocale, wxXLocale_2);
+	Gura_AssignMethod(wx_XLocale, GetCLocale);
+	Gura_AssignMethod(wx_XLocale, IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_XLocale)

@@ -37,12 +37,47 @@ String Object_wx_PowerResource::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PowerResource, Acquire)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "reason", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PowerResource, Acquire)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PowerResource *pThis = Object_wx_PowerResource::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int kind = arg.GetNumber(0)
+	//int reason = arg.GetNumber(1)
+	//pThis->GetEntity()->Acquire();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PowerResource, Release)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PowerResource, Release)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PowerResource *pThis = Object_wx_PowerResource::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int kind = arg.GetNumber(0)
+	//pThis->GetEntity()->Release();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPowerResource
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PowerResource)
 {
+	Gura_AssignMethod(wx_PowerResource, Acquire);
+	Gura_AssignMethod(wx_PowerResource, Release);
 }
 
 Gura_ImplementDescendantCreator(wx_PowerResource)

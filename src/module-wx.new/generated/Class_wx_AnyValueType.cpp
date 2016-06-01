@@ -37,11 +37,9 @@ String Object_wx_AnyValueType::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-
 Gura_DeclareMethod(wx_AnyValueType, wxAnyValueType)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AnyValueType, wxAnyValueType)
@@ -49,15 +47,13 @@ Gura_ImplementMethod(wx_AnyValueType, wxAnyValueType)
 	Signal &sig = env.GetSignal();
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->wxAnyValueType();
+	//pThis->GetEntity()->wxAnyValueType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AnyValueType, ~wxAnyValueType)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AnyValueType, ~wxAnyValueType)
@@ -65,15 +61,13 @@ Gura_ImplementMethod(wx_AnyValueType, ~wxAnyValueType)
 	Signal &sig = env.GetSignal();
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->~wxAnyValueType();
+	//pThis->GetEntity()->~wxAnyValueType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AnyValueType, CheckType)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AnyValueType, CheckType)
@@ -81,15 +75,16 @@ Gura_ImplementMethod(wx_AnyValueType, CheckType)
 	Signal &sig = env.GetSignal();
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->CheckType();
+	//pThis->GetEntity()->CheckType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AnyValueType, ConvertValue)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dstType", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dst", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AnyValueType, ConvertValue)
@@ -97,15 +92,18 @@ Gura_ImplementMethod(wx_AnyValueType, ConvertValue)
 	Signal &sig = env.GetSignal();
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->ConvertValue();
+	//int src = arg.GetNumber(0)
+	//int dstType = arg.GetNumber(1)
+	//int dst = arg.GetNumber(2)
+	//pThis->GetEntity()->ConvertValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AnyValueType, CopyBuffer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dst", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AnyValueType, CopyBuffer)
@@ -113,15 +111,16 @@ Gura_ImplementMethod(wx_AnyValueType, CopyBuffer)
 	Signal &sig = env.GetSignal();
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->CopyBuffer();
+	//int src = arg.GetNumber(0)
+	//int dst = arg.GetNumber(1)
+	//pThis->GetEntity()->CopyBuffer();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AnyValueType, DeleteValue)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AnyValueType, DeleteValue)
@@ -129,15 +128,15 @@ Gura_ImplementMethod(wx_AnyValueType, DeleteValue)
 	Signal &sig = env.GetSignal();
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->DeleteValue();
+	//int buf = arg.GetNumber(0)
+	//pThis->GetEntity()->DeleteValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AnyValueType, IsSameType)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "otherType", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AnyValueType, IsSameType)
@@ -145,8 +144,8 @@ Gura_ImplementMethod(wx_AnyValueType, IsSameType)
 	Signal &sig = env.GetSignal();
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->IsSameType();
+	//int otherType = arg.GetNumber(0)
+	//pThis->GetEntity()->IsSameType();
 	return Value::Nil;
 }
 
@@ -155,6 +154,13 @@ Gura_ImplementMethod(wx_AnyValueType, IsSameType)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AnyValueType)
 {
+	Gura_AssignMethod(wx_AnyValueType, wxAnyValueType);
+	Gura_AssignMethod(wx_AnyValueType, ~wxAnyValueType);
+	Gura_AssignMethod(wx_AnyValueType, CheckType);
+	Gura_AssignMethod(wx_AnyValueType, ConvertValue);
+	Gura_AssignMethod(wx_AnyValueType, CopyBuffer);
+	Gura_AssignMethod(wx_AnyValueType, DeleteValue);
+	Gura_AssignMethod(wx_AnyValueType, IsSameType);
 }
 
 Gura_ImplementDescendantCreator(wx_AnyValueType)

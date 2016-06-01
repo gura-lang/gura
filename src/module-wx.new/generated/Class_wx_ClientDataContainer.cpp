@@ -37,12 +37,105 @@ String Object_wx_ClientDataContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ClientDataContainer, wxClientDataContainer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ClientDataContainer, wxClientDataContainer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxClientDataContainer();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ClientDataContainer, ~wxClientDataContainer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ClientDataContainer, ~wxClientDataContainer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxClientDataContainer();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ClientDataContainer, GetClientData)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ClientDataContainer, GetClientData)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetClientData();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ClientDataContainer, GetClientObject)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ClientDataContainer, GetClientObject)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetClientObject();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ClientDataContainer, SetClientData)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ClientDataContainer, SetClientData)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int data = arg.GetNumber(0)
+	//pThis->GetEntity()->SetClientData();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ClientDataContainer, SetClientObject)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ClientDataContainer, SetClientObject)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int data = arg.GetNumber(0)
+	//pThis->GetEntity()->SetClientObject();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxClientDataContainer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientDataContainer)
 {
+	Gura_AssignMethod(wx_ClientDataContainer, wxClientDataContainer);
+	Gura_AssignMethod(wx_ClientDataContainer, ~wxClientDataContainer);
+	Gura_AssignMethod(wx_ClientDataContainer, GetClientData);
+	Gura_AssignMethod(wx_ClientDataContainer, GetClientObject);
+	Gura_AssignMethod(wx_ClientDataContainer, SetClientData);
+	Gura_AssignMethod(wx_ClientDataContainer, SetClientObject);
 }
 
 Gura_ImplementDescendantCreator(wx_ClientDataContainer)

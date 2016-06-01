@@ -37,11 +37,9 @@ String Object_wx_Animation::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-
 Gura_DeclareMethod(wx_Animation, wxAnimation)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_Animation, wxAnimation)
@@ -49,47 +47,47 @@ Gura_ImplementMethod(wx_Animation, wxAnimation)
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->wxAnimation();
+	//pThis->GetEntity()->wxAnimation();
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, wxAnimation)
+Gura_DeclareMethod(wx_Animation, wxAnimation_1)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "anim", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Animation, wxAnimation)
+Gura_ImplementMethod(wx_Animation, wxAnimation_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->wxAnimation();
+	//int anim = arg.GetNumber(0)
+	//pThis->GetEntity()->wxAnimation();
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, wxAnimation)
+Gura_DeclareMethod(wx_Animation, wxAnimation_2)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Animation, wxAnimation)
+Gura_ImplementMethod(wx_Animation, wxAnimation_2)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->wxAnimation();
+	//int name = arg.GetNumber(0)
+	//int type = arg.GetNumber(1)
+	//pThis->GetEntity()->wxAnimation();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Animation, ~wxAnimation)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_Animation, ~wxAnimation)
@@ -97,15 +95,14 @@ Gura_ImplementMethod(wx_Animation, ~wxAnimation)
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->~wxAnimation();
+	//pThis->GetEntity()->~wxAnimation();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Animation, GetDelay)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_Animation, GetDelay)
@@ -113,15 +110,15 @@ Gura_ImplementMethod(wx_Animation, GetDelay)
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->GetDelay();
+	//int i = arg.GetNumber(0)
+	//pThis->GetEntity()->GetDelay();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Animation, GetFrame)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_Animation, GetFrame)
@@ -129,15 +126,14 @@ Gura_ImplementMethod(wx_Animation, GetFrame)
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->GetFrame();
+	//int i = arg.GetNumber(0)
+	//pThis->GetEntity()->GetFrame();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Animation, GetFrameCount)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_Animation, GetFrameCount)
@@ -145,15 +141,13 @@ Gura_ImplementMethod(wx_Animation, GetFrameCount)
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->GetFrameCount();
+	//pThis->GetEntity()->GetFrameCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Animation, GetSize)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_Animation, GetSize)
@@ -161,15 +155,13 @@ Gura_ImplementMethod(wx_Animation, GetSize)
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->GetSize();
+	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Animation, IsOk)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_Animation, IsOk)
@@ -177,15 +169,15 @@ Gura_ImplementMethod(wx_Animation, IsOk)
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->IsOk();
+	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Animation, Load)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_Animation, Load)
@@ -193,15 +185,17 @@ Gura_ImplementMethod(wx_Animation, Load)
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->Load();
+	//int stream = arg.GetNumber(0)
+	//int type = arg.GetNumber(1)
+	//pThis->GetEntity()->Load();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_Animation, LoadFile)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_Animation, LoadFile)
@@ -209,8 +203,9 @@ Gura_ImplementMethod(wx_Animation, LoadFile)
 	Signal &sig = env.GetSignal();
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->LoadFile();
+	//int name = arg.GetNumber(0)
+	//int type = arg.GetNumber(1)
+	//pThis->GetEntity()->LoadFile();
 	return Value::Nil;
 }
 
@@ -219,6 +214,17 @@ Gura_ImplementMethod(wx_Animation, LoadFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Animation)
 {
+	Gura_AssignMethod(wx_Animation, wxAnimation);
+	Gura_AssignMethod(wx_Animation, wxAnimation_1);
+	Gura_AssignMethod(wx_Animation, wxAnimation_2);
+	Gura_AssignMethod(wx_Animation, ~wxAnimation);
+	Gura_AssignMethod(wx_Animation, GetDelay);
+	Gura_AssignMethod(wx_Animation, GetFrame);
+	Gura_AssignMethod(wx_Animation, GetFrameCount);
+	Gura_AssignMethod(wx_Animation, GetSize);
+	Gura_AssignMethod(wx_Animation, IsOk);
+	Gura_AssignMethod(wx_Animation, Load);
+	Gura_AssignMethod(wx_Animation, LoadFile);
 }
 
 Gura_ImplementDescendantCreator(wx_Animation)

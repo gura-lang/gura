@@ -276,13 +276,14 @@ String Object_wx_${classNameShort}::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-${functionInfosOfMethod:*Render(true)}
+${functionInfosOfMethod:&RenderImplementation(0.. > 0)}
 
 //----------------------------------------------------------------------------
 // Class implementation for wx${classNameShort}
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_${classNameShort})
 {
+	${functionInfosOfMethod:*RenderAssignment()}
 }
 
 Gura_ImplementDescendantCreator(wx_${classNameShort})
@@ -298,7 +299,7 @@ ${if (lineSkipFlag) {''}}
 Gura_DeclareMethod(wx_${classNameShort}, ${funcNameGura})
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	${if (argInfos.isempty()) { nil } else { argInfos:*RenderDeclaration() }}
 }
 
 Gura_ImplementMethod(wx_${classNameShort}, ${funcNameGura})
@@ -306,8 +307,8 @@ Gura_ImplementMethod(wx_${classNameShort}, ${funcNameGura})
 	Signal &sig = env.GetSignal();
 	Object_wx_${classNameShort} *pThis = Object_wx_${classNameShort}::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->${funcNameCPP}();
+	${if (argInfos.isempty()) { nil } else { argInfos:&RenderVariable(0..) }}
+	//pThis->GetEntity()->${funcNameCPP}();
 	return Value::Nil;
 }
 '''.template()
@@ -421,17 +422,33 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		this.classInfosOfChild:*UpdateSupportedStat(supportedStat)
 	}
 	AddMethod(pathName:string, lineNo:number, strSrc:string):void = {
-		functionInfo = CreateFunctionInfo(this, pathName, lineNo, strSrc)
-		this.functionInfosOfMethod.add(functionInfo)
+		functionInfo = CreateFunctionInfo(
+				this, this.functionInfosOfMethod, pathName, lineNo, strSrc)
 	}
 }
 
-FunctionInfo = struct(classInfo:ClassInfo, funcName:string) {
-	Render(lineSkipFlag:boolean) = {
+ArgInfo = struct(argName:string) {
+	RenderDeclaration() = {
+		format('//DeclareArg(env, "%s", VTYPE_%s, OCCUR_%s);\n',
+			   this.argName, 'number', 'Once')
+	}
+	RenderVariable(iArg:number):map = {
+		format('//%s %s = arg.%s(%s)\n', 'int', this.argName, 'GetNumber', iArg)
+	}
+}
+
+FunctionInfo = struct(classInfo:ClassInfo, funcNameCPP:string, funcNameGura:string,
+					  argInfos[]:ArgInfo => []) {
+	RenderImplementation(lineSkipFlag:boolean):map = {
 		classNameShort = this.classInfo.MakeClassNameShort()
-		funcNameGura = this.funcName
-		funcNameCPP = this.funcName
+		funcNameCPP = this.funcNameCPP
+		funcNameGura = this.funcNameGura
+		argInfos = this.argInfos
 		tmpl@Method.render()
+	}
+	RenderAssignment() = {
+		classNameShort = this.classInfo.MakeClassNameShort()
+		format('Gura_AssignMethod(wx_%s, %s);\n', classNameShort, this.funcNameGura)
 	}
 }
 
@@ -496,7 +513,8 @@ CreateClassInfo(pathName:string, lineNo:string, strSrc:string) = {
 
 cntMethods = 0
 
-CreateFunctionInfo(classInfo:ClassInfo, pathName:string, lineNo:string, strSrc:string) = {
+CreateFunctionInfo(classInfo:ClassInfo, functionInfos[],
+				   pathName:string, lineNo:string, strSrc:string) = {
 	if (m = strSrc.match(r'^(.*?)\((.*)\)\s*(const)?\s*(=\s*0)?\s*;?$')) {
 		funcHead = m[1].strip()
 		argList = m[2].strip()
@@ -520,7 +538,15 @@ CreateFunctionInfo(classInfo:ClassInfo, pathName:string, lineNo:string, strSrc:s
 	} else {
 		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function declaration')
 	}
-	funcName = identifier
+	funcNameCPP = identifier
+	funcNameGura = identifier
+	if ((functionInfos:*funcNameGura == funcNameGura).or()) {
+		repeat {|i|
+			funcNameGura = format('%s_%d', identifier, i + 1)
+			!(functionInfos:*funcNameGura == funcNameGura).or() && break
+		}
+	}
+	functionInfo = FunctionInfo(classInfo, funcNameCPP, funcNameGura)
 	//printf('%s:%s:%s\n', identifier, typeList, refOperator)
 	if (!argList.isempty()) {
 		argList.split(',') {|arg|
@@ -537,14 +563,18 @@ CreateFunctionInfo(classInfo:ClassInfo, pathName:string, lineNo:string, strSrc:s
 				refOperator = m[2].strip()
 				identifier = m[3]
 				brackets = m[4]
+				//
+				argName = identifier
+				functionInfo.argInfos.add(ArgInfo(argName))
 			} else {
 				//WarningMessage(pathName, lineNo, strSrc, 'unacceptable argument declaration')
 			}
 			//printf('  %s:%s:%s:%s\n', identifier, typeList, refOperator, brackets)
 		}
 	}
+	functionInfos.add(functionInfo)
 	cntMethods += 1
-	FunctionInfo(classInfo, funcName)
+	functionInfo
 }
 
 Parse(pathName:string):map:void = {
@@ -668,8 +698,8 @@ Parse(pathName:string):map:void = {
 }
 
 println('-- parsing')
-//Parse(path.walk(dirNameWx))
-Parse(path.walk(dirNameWx).head(10))
+Parse(path.walk(dirNameWx))
+//Parse(path.walk(dirNameWx).head(10))
 println('-- associating class information')
 classInfoDict.values {|classInfo|
 	if (classInfo.className.find('<')) {

@@ -37,12 +37,126 @@ String Object_wx_CloseEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_CloseEvent, wxCloseEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "commandEventType", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_CloseEvent, wxCloseEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int commandEventType = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//pThis->GetEntity()->wxCloseEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_CloseEvent, CanVeto)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_CloseEvent, CanVeto)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CanVeto();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_CloseEvent, GetLoggingOff)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_CloseEvent, GetLoggingOff)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetLoggingOff();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_CloseEvent, SetCanVeto)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "canVeto", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_CloseEvent, SetCanVeto)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int canVeto = arg.GetNumber(0)
+	//pThis->GetEntity()->SetCanVeto();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_CloseEvent, SetLoggingOff)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "loggingOff", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_CloseEvent, SetLoggingOff)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int loggingOff = arg.GetNumber(0)
+	//pThis->GetEntity()->SetLoggingOff();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_CloseEvent, Veto)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "veto", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_CloseEvent, Veto)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int veto = arg.GetNumber(0)
+	//pThis->GetEntity()->Veto();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_CloseEvent, GetVeto)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_CloseEvent, GetVeto)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetVeto();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxCloseEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CloseEvent)
 {
+	Gura_AssignMethod(wx_CloseEvent, wxCloseEvent);
+	Gura_AssignMethod(wx_CloseEvent, CanVeto);
+	Gura_AssignMethod(wx_CloseEvent, GetLoggingOff);
+	Gura_AssignMethod(wx_CloseEvent, SetCanVeto);
+	Gura_AssignMethod(wx_CloseEvent, SetLoggingOff);
+	Gura_AssignMethod(wx_CloseEvent, Veto);
+	Gura_AssignMethod(wx_CloseEvent, GetVeto);
 }
 
 Gura_ImplementDescendantCreator(wx_CloseEvent)

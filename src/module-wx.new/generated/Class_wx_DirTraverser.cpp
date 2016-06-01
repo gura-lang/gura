@@ -37,12 +37,62 @@ String Object_wx_DirTraverser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_DirTraverser, OnDir)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "dirname", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DirTraverser, OnDir)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DirTraverser *pThis = Object_wx_DirTraverser::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int dirname = arg.GetNumber(0)
+	//pThis->GetEntity()->OnDir();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DirTraverser, OnFile)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DirTraverser, OnFile)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DirTraverser *pThis = Object_wx_DirTraverser::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int filename = arg.GetNumber(0)
+	//pThis->GetEntity()->OnFile();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DirTraverser, OnOpenError)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "openerrorname", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DirTraverser, OnOpenError)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DirTraverser *pThis = Object_wx_DirTraverser::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int openerrorname = arg.GetNumber(0)
+	//pThis->GetEntity()->OnOpenError();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDirTraverser
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DirTraverser)
 {
+	Gura_AssignMethod(wx_DirTraverser, OnDir);
+	Gura_AssignMethod(wx_DirTraverser, OnFile);
+	Gura_AssignMethod(wx_DirTraverser, OnOpenError);
 }
 
 Gura_ImplementDescendantCreator(wx_DirTraverser)

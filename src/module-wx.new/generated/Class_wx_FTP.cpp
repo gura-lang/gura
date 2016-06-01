@@ -38,11 +38,13 @@ String Object_wx_FTP::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxFTP
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FTP)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_FTP)

@@ -37,12 +37,62 @@ String Object_wx_FocusEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_FocusEvent, wxFocusEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_FocusEvent, wxFocusEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int eventType = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//pThis->GetEntity()->wxFocusEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FocusEvent, GetWindow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_FocusEvent, GetWindow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetWindow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FocusEvent, SetWindow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_FocusEvent, SetWindow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int win = arg.GetNumber(0)
+	//pThis->GetEntity()->SetWindow();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxFocusEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FocusEvent)
 {
+	Gura_AssignMethod(wx_FocusEvent, wxFocusEvent);
+	Gura_AssignMethod(wx_FocusEvent, GetWindow);
+	Gura_AssignMethod(wx_FocusEvent, SetWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_FocusEvent)

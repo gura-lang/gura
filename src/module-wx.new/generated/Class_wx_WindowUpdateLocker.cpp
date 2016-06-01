@@ -37,12 +37,43 @@ String Object_wx_WindowUpdateLocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_WindowUpdateLocker, wxWindowUpdateLocker)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_WindowUpdateLocker, wxWindowUpdateLocker)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WindowUpdateLocker *pThis = Object_wx_WindowUpdateLocker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int win = arg.GetNumber(0)
+	//pThis->GetEntity()->wxWindowUpdateLocker();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_WindowUpdateLocker, ~wxWindowUpdateLocker)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_WindowUpdateLocker, ~wxWindowUpdateLocker)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_WindowUpdateLocker *pThis = Object_wx_WindowUpdateLocker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxWindowUpdateLocker();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxWindowUpdateLocker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowUpdateLocker)
 {
+	Gura_AssignMethod(wx_WindowUpdateLocker, wxWindowUpdateLocker);
+	Gura_AssignMethod(wx_WindowUpdateLocker, ~wxWindowUpdateLocker);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowUpdateLocker)

@@ -37,12 +37,47 @@ String Object_wx_DataViewBitmapRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_DataViewBitmapRenderer, GetDefaultType)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataViewBitmapRenderer, GetDefaultType)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewBitmapRenderer *pThis = Object_wx_DataViewBitmapRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetDefaultType();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewBitmapRenderer, wxDataViewBitmapRenderer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewBitmapRenderer, wxDataViewBitmapRenderer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewBitmapRenderer *pThis = Object_wx_DataViewBitmapRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int varianttype = arg.GetNumber(0)
+	//int mode = arg.GetNumber(1)
+	//int align = arg.GetNumber(2)
+	//pThis->GetEntity()->wxDataViewBitmapRenderer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewBitmapRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewBitmapRenderer)
 {
+	Gura_AssignMethod(wx_DataViewBitmapRenderer, GetDefaultType);
+	Gura_AssignMethod(wx_DataViewBitmapRenderer, wxDataViewBitmapRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewBitmapRenderer)

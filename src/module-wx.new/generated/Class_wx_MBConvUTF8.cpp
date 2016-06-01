@@ -38,11 +38,13 @@ String Object_wx_MBConvUTF8::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxMBConvUTF8
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MBConvUTF8)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_MBConvUTF8)

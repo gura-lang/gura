@@ -37,12 +37,145 @@ String Object_wx_PathList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PathList, wxPathList)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PathList, wxPathList)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxPathList();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PathList, wxPathList_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PathList, wxPathList_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int arr = arg.GetNumber(0)
+	//pThis->GetEntity()->wxPathList();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PathList, Add)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PathList, Add)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int path = arg.GetNumber(0)
+	//pThis->GetEntity()->Add();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PathList, Add_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PathList, Add_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int arr = arg.GetNumber(0)
+	//pThis->GetEntity()->Add();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PathList, AddEnvList)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "env_variable", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PathList, AddEnvList)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int env_variable = arg.GetNumber(0)
+	//pThis->GetEntity()->AddEnvList();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PathList, EnsureFileAccessible)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PathList, EnsureFileAccessible)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int filename = arg.GetNumber(0)
+	//pThis->GetEntity()->EnsureFileAccessible();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PathList, FindAbsoluteValidPath)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PathList, FindAbsoluteValidPath)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int file = arg.GetNumber(0)
+	//pThis->GetEntity()->FindAbsoluteValidPath();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PathList, FindValidPath)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PathList, FindValidPath)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int file = arg.GetNumber(0)
+	//pThis->GetEntity()->FindValidPath();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPathList
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PathList)
 {
+	Gura_AssignMethod(wx_PathList, wxPathList);
+	Gura_AssignMethod(wx_PathList, wxPathList_1);
+	Gura_AssignMethod(wx_PathList, Add);
+	Gura_AssignMethod(wx_PathList, Add_1);
+	Gura_AssignMethod(wx_PathList, AddEnvList);
+	Gura_AssignMethod(wx_PathList, EnsureFileAccessible);
+	Gura_AssignMethod(wx_PathList, FindAbsoluteValidPath);
+	Gura_AssignMethod(wx_PathList, FindValidPath);
 }
 
 Gura_ImplementDescendantCreator(wx_PathList)

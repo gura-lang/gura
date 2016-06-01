@@ -37,12 +37,43 @@ String Object_wx_PropagationDisabler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PropagationDisabler, wxPropagationDisabler)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PropagationDisabler, wxPropagationDisabler)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PropagationDisabler *pThis = Object_wx_PropagationDisabler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int event = arg.GetNumber(0)
+	//pThis->GetEntity()->wxPropagationDisabler();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PropagationDisabler, ~wxPropagationDisabler)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PropagationDisabler, ~wxPropagationDisabler)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PropagationDisabler *pThis = Object_wx_PropagationDisabler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxPropagationDisabler();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPropagationDisabler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropagationDisabler)
 {
+	Gura_AssignMethod(wx_PropagationDisabler, wxPropagationDisabler);
+	Gura_AssignMethod(wx_PropagationDisabler, ~wxPropagationDisabler);
 }
 
 Gura_ImplementDescendantCreator(wx_PropagationDisabler)

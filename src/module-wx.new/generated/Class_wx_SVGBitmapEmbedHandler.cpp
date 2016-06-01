@@ -37,12 +37,34 @@ String Object_wx_SVGBitmapEmbedHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_SVGBitmapEmbedHandler, ProcessBitmap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_SVGBitmapEmbedHandler, ProcessBitmap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SVGBitmapEmbedHandler *pThis = Object_wx_SVGBitmapEmbedHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int bitmap = arg.GetNumber(0)
+	//int x = arg.GetNumber(1)
+	//int y = arg.GetNumber(2)
+	//int stream = arg.GetNumber(3)
+	//pThis->GetEntity()->ProcessBitmap();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxSVGBitmapEmbedHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SVGBitmapEmbedHandler)
 {
+	Gura_AssignMethod(wx_SVGBitmapEmbedHandler, ProcessBitmap);
 }
 
 Gura_ImplementDescendantCreator(wx_SVGBitmapEmbedHandler)

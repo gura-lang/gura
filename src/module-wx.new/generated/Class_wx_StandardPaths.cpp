@@ -38,11 +38,13 @@ String Object_wx_StandardPaths::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxStandardPaths
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StandardPaths)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_StandardPaths)

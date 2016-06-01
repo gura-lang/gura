@@ -37,12 +37,79 @@ String Object_wx_MemoryOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_MemoryOutputStream, wxMemoryOutputStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "length", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MemoryOutputStream, wxMemoryOutputStream)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int data = arg.GetNumber(0)
+	//int length = arg.GetNumber(1)
+	//pThis->GetEntity()->wxMemoryOutputStream();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MemoryOutputStream, ~wxMemoryOutputStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_MemoryOutputStream, ~wxMemoryOutputStream)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxMemoryOutputStream();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MemoryOutputStream, CopyTo)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MemoryOutputStream, CopyTo)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int buffer = arg.GetNumber(0)
+	//int len = arg.GetNumber(1)
+	//pThis->GetEntity()->CopyTo();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetOutputStreamBuffer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxMemoryOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryOutputStream)
 {
+	Gura_AssignMethod(wx_MemoryOutputStream, wxMemoryOutputStream);
+	Gura_AssignMethod(wx_MemoryOutputStream, ~wxMemoryOutputStream);
+	Gura_AssignMethod(wx_MemoryOutputStream, CopyTo);
+	Gura_AssignMethod(wx_MemoryOutputStream, GetOutputStreamBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_MemoryOutputStream)

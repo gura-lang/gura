@@ -37,12 +37,26 @@ String Object_wx_GDIObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GDIObject, wxGDIObject)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GDIObject, wxGDIObject)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GDIObject *pThis = Object_wx_GDIObject::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxGDIObject();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxGDIObject
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GDIObject)
 {
+	Gura_AssignMethod(wx_GDIObject, wxGDIObject);
 }
 
 Gura_ImplementDescendantCreator(wx_GDIObject)

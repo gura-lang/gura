@@ -37,12 +37,45 @@ String Object_wx_HtmlRenderingStyle::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HtmlRenderingStyle, GetSelectedTextColour)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingStyle, GetSelectedTextColour)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingStyle *pThis = Object_wx_HtmlRenderingStyle::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int clr = arg.GetNumber(0)
+	//pThis->GetEntity()->GetSelectedTextColour();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlRenderingStyle, GetSelectedTextBgColour)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingStyle, GetSelectedTextBgColour)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingStyle *pThis = Object_wx_HtmlRenderingStyle::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int clr = arg.GetNumber(0)
+	//pThis->GetEntity()->GetSelectedTextBgColour();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlRenderingStyle
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlRenderingStyle)
 {
+	Gura_AssignMethod(wx_HtmlRenderingStyle, GetSelectedTextColour);
+	Gura_AssignMethod(wx_HtmlRenderingStyle, GetSelectedTextBgColour);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlRenderingStyle)

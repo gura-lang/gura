@@ -38,11 +38,13 @@ String Object_wx_GridColumnHeaderRenderer::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxGridColumnHeaderRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridColumnHeaderRenderer)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_GridColumnHeaderRenderer)

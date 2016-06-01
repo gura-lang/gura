@@ -37,12 +37,60 @@ String Object_wx_PowerResourceBlocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PowerResourceBlocker, wxPowerResourceBlocker)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "reason", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PowerResourceBlocker, wxPowerResourceBlocker)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PowerResourceBlocker *pThis = Object_wx_PowerResourceBlocker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int kind = arg.GetNumber(0)
+	//int reason = arg.GetNumber(1)
+	//pThis->GetEntity()->wxPowerResourceBlocker();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PowerResourceBlocker, IsInEffect)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PowerResourceBlocker, IsInEffect)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PowerResourceBlocker *pThis = Object_wx_PowerResourceBlocker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsInEffect();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PowerResourceBlocker, ~wxPowerResourceBlocker)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PowerResourceBlocker, ~wxPowerResourceBlocker)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PowerResourceBlocker *pThis = Object_wx_PowerResourceBlocker::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxPowerResourceBlocker();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPowerResourceBlocker
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PowerResourceBlocker)
 {
+	Gura_AssignMethod(wx_PowerResourceBlocker, wxPowerResourceBlocker);
+	Gura_AssignMethod(wx_PowerResourceBlocker, IsInEffect);
+	Gura_AssignMethod(wx_PowerResourceBlocker, ~wxPowerResourceBlocker);
 }
 
 Gura_ImplementDescendantCreator(wx_PowerResourceBlocker)

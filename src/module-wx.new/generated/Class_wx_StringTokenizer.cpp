@@ -37,12 +37,158 @@ String Object_wx_StringTokenizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_StringTokenizer, wxStringTokenizer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StringTokenizer, wxStringTokenizer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxStringTokenizer();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StringTokenizer, wxStringTokenizer_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "delims", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StringTokenizer, wxStringTokenizer_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int str = arg.GetNumber(0)
+	//int delims = arg.GetNumber(1)
+	//int mode = arg.GetNumber(2)
+	//pThis->GetEntity()->wxStringTokenizer();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StringTokenizer, CountTokens)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StringTokenizer, CountTokens)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CountTokens();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StringTokenizer, GetLastDelimiter)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StringTokenizer, GetLastDelimiter)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetLastDelimiter();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StringTokenizer, GetNextToken)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StringTokenizer, GetNextToken)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetNextToken();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StringTokenizer, GetPosition)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StringTokenizer, GetPosition)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetPosition();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StringTokenizer, GetString)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StringTokenizer, GetString)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetString();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StringTokenizer, HasMoreTokens)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StringTokenizer, HasMoreTokens)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->HasMoreTokens();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StringTokenizer, SetString)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "delims", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StringTokenizer, SetString)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int str = arg.GetNumber(0)
+	//int delims = arg.GetNumber(1)
+	//int mode = arg.GetNumber(2)
+	//pThis->GetEntity()->SetString();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxStringTokenizer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringTokenizer)
 {
+	Gura_AssignMethod(wx_StringTokenizer, wxStringTokenizer);
+	Gura_AssignMethod(wx_StringTokenizer, wxStringTokenizer_1);
+	Gura_AssignMethod(wx_StringTokenizer, CountTokens);
+	Gura_AssignMethod(wx_StringTokenizer, GetLastDelimiter);
+	Gura_AssignMethod(wx_StringTokenizer, GetNextToken);
+	Gura_AssignMethod(wx_StringTokenizer, GetPosition);
+	Gura_AssignMethod(wx_StringTokenizer, GetString);
+	Gura_AssignMethod(wx_StringTokenizer, HasMoreTokens);
+	Gura_AssignMethod(wx_StringTokenizer, SetString);
 }
 
 Gura_ImplementDescendantCreator(wx_StringTokenizer)

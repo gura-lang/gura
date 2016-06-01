@@ -37,12 +37,43 @@ String Object_wx_ArchiveIterator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ArchiveIterator, wxArchiveIterator)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ArchiveIterator, wxArchiveIterator)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ArchiveIterator *pThis = Object_wx_ArchiveIterator::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxArchiveIterator();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ArchiveIterator, wxArchiveIterator_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "arc", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ArchiveIterator, wxArchiveIterator_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ArchiveIterator *pThis = Object_wx_ArchiveIterator::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int arc = arg.GetNumber(0)
+	//pThis->GetEntity()->wxArchiveIterator();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxArchiveIterator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveIterator)
 {
+	Gura_AssignMethod(wx_ArchiveIterator, wxArchiveIterator);
+	Gura_AssignMethod(wx_ArchiveIterator, wxArchiveIterator_1);
 }
 
 Gura_ImplementDescendantCreator(wx_ArchiveIterator)

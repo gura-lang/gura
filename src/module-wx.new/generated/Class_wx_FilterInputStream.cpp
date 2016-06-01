@@ -37,12 +37,45 @@ String Object_wx_FilterInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_FilterInputStream, wxFilterInputStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_FilterInputStream, wxFilterInputStream)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FilterInputStream *pThis = Object_wx_FilterInputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int stream = arg.GetNumber(0)
+	//pThis->GetEntity()->wxFilterInputStream();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FilterInputStream, wxFilterInputStream_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_FilterInputStream, wxFilterInputStream_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FilterInputStream *pThis = Object_wx_FilterInputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int stream = arg.GetNumber(0)
+	//pThis->GetEntity()->wxFilterInputStream();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxFilterInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilterInputStream)
 {
+	Gura_AssignMethod(wx_FilterInputStream, wxFilterInputStream);
+	Gura_AssignMethod(wx_FilterInputStream, wxFilterInputStream_1);
 }
 
 Gura_ImplementDescendantCreator(wx_FilterInputStream)

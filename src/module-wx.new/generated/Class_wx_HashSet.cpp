@@ -37,12 +37,269 @@ String Object_wx_HashSet::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HashSet, wxHashSet)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HashSet, wxHashSet)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int size = arg.GetNumber(0)
+	//pThis->GetEntity()->wxHashSet();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, wxHashSet_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "set", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HashSet, wxHashSet_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int set = arg.GetNumber(0)
+	//pThis->GetEntity()->wxHashSet();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, begin)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HashSet, begin)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->begin();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, begin_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HashSet, begin_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->begin();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, clear)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HashSet, clear)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->clear();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, count)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HashSet, count)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int key = arg.GetNumber(0)
+	//pThis->GetEntity()->count();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, empty)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HashSet, empty)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->empty();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, end)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HashSet, end)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->end();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, end_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HashSet, end_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->end();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, erase)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HashSet, erase)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int key = arg.GetNumber(0)
+	//pThis->GetEntity()->erase();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, erase_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HashSet, erase_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int it = arg.GetNumber(0)
+	//pThis->GetEntity()->erase();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, erase_2)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HashSet, erase_2)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int it = arg.GetNumber(0)
+	//pThis->GetEntity()->erase();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, find)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HashSet, find)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int key = arg.GetNumber(0)
+	//pThis->GetEntity()->find();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, find_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HashSet, find_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int key = arg.GetNumber(0)
+	//pThis->GetEntity()->find();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, insert)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "v", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HashSet, insert)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int v = arg.GetNumber(0)
+	//pThis->GetEntity()->insert();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HashSet, size)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HashSet, size)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->size();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHashSet
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HashSet)
 {
+	Gura_AssignMethod(wx_HashSet, wxHashSet);
+	Gura_AssignMethod(wx_HashSet, wxHashSet_1);
+	Gura_AssignMethod(wx_HashSet, begin);
+	Gura_AssignMethod(wx_HashSet, begin_1);
+	Gura_AssignMethod(wx_HashSet, clear);
+	Gura_AssignMethod(wx_HashSet, count);
+	Gura_AssignMethod(wx_HashSet, empty);
+	Gura_AssignMethod(wx_HashSet, end);
+	Gura_AssignMethod(wx_HashSet, end_1);
+	Gura_AssignMethod(wx_HashSet, erase);
+	Gura_AssignMethod(wx_HashSet, erase_1);
+	Gura_AssignMethod(wx_HashSet, erase_2);
+	Gura_AssignMethod(wx_HashSet, find);
+	Gura_AssignMethod(wx_HashSet, find_1);
+	Gura_AssignMethod(wx_HashSet, insert);
+	Gura_AssignMethod(wx_HashSet, size);
 }
 
 Gura_ImplementDescendantCreator(wx_HashSet)

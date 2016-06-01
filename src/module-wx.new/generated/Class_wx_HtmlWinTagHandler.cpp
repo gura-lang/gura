@@ -37,12 +37,43 @@ String Object_wx_HtmlWinTagHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HtmlWinTagHandler, wxHtmlWinTagHandler)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlWinTagHandler, wxHtmlWinTagHandler)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlWinTagHandler *pThis = Object_wx_HtmlWinTagHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxHtmlWinTagHandler();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlWinTagHandler, SetParser)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parser", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlWinTagHandler, SetParser)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlWinTagHandler *pThis = Object_wx_HtmlWinTagHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parser = arg.GetNumber(0)
+	//pThis->GetEntity()->SetParser();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlWinTagHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWinTagHandler)
 {
+	Gura_AssignMethod(wx_HtmlWinTagHandler, wxHtmlWinTagHandler);
+	Gura_AssignMethod(wx_HtmlWinTagHandler, SetParser);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWinTagHandler)

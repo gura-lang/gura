@@ -37,12 +37,28 @@ String Object_wx_SocketInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_SocketInputStream, wxSocketInputStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_SocketInputStream, wxSocketInputStream)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SocketInputStream *pThis = Object_wx_SocketInputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int s = arg.GetNumber(0)
+	//pThis->GetEntity()->wxSocketInputStream();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxSocketInputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketInputStream)
 {
+	Gura_AssignMethod(wx_SocketInputStream, wxSocketInputStream);
 }
 
 Gura_ImplementDescendantCreator(wx_SocketInputStream)

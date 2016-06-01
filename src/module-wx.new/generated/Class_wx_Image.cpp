@@ -37,12 +37,32 @@ String Object_wx_Image::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_Image, RGBValue)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "g", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Image, RGBValue)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Image *pThis = Object_wx_Image::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int r = arg.GetNumber(0)
+	//int g = arg.GetNumber(1)
+	//int b = arg.GetNumber(2)
+	//pThis->GetEntity()->RGBValue();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxImage
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Image)
 {
+	Gura_AssignMethod(wx_Image, RGBValue);
 }
 
 Gura_ImplementDescendantCreator(wx_Image)

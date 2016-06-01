@@ -37,12 +37,105 @@ String Object_wx_Quantize::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_Quantize, wxQuantize)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Quantize, wxQuantize)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxQuantize();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Quantize, DoQuantize)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "in_rows", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "out_rows", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "desiredNoColours", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Quantize, DoQuantize)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int w = arg.GetNumber(0)
+	//int h = arg.GetNumber(1)
+	//int in_rows = arg.GetNumber(2)
+	//int out_rows = arg.GetNumber(3)
+	//int palette = arg.GetNumber(4)
+	//int desiredNoColours = arg.GetNumber(5)
+	//pThis->GetEntity()->DoQuantize();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Quantize, Quantize)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dest", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "pPalette", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "desiredNoColours", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "eightBitData", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Quantize, Quantize)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int src = arg.GetNumber(0)
+	//int dest = arg.GetNumber(1)
+	//int pPalette = arg.GetNumber(2)
+	//int desiredNoColours = arg.GetNumber(3)
+	//int eightBitData = arg.GetNumber(4)
+	//int flags = arg.GetNumber(5)
+	//pThis->GetEntity()->Quantize();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_Quantize, Quantize_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dest", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "desiredNoColours", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "eightBitData", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Quantize, Quantize_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int src = arg.GetNumber(0)
+	//int dest = arg.GetNumber(1)
+	//int desiredNoColours = arg.GetNumber(2)
+	//int eightBitData = arg.GetNumber(3)
+	//int flags = arg.GetNumber(4)
+	//pThis->GetEntity()->Quantize();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxQuantize
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Quantize)
 {
+	Gura_AssignMethod(wx_Quantize, wxQuantize);
+	Gura_AssignMethod(wx_Quantize, DoQuantize);
+	Gura_AssignMethod(wx_Quantize, Quantize);
+	Gura_AssignMethod(wx_Quantize, Quantize_1);
 }
 
 Gura_ImplementDescendantCreator(wx_Quantize)

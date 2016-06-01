@@ -37,12 +37,43 @@ String Object_wx_StdOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_StdOutputStream, wxStdOutputStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StdOutputStream, wxStdOutputStream)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StdOutputStream *pThis = Object_wx_StdOutputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int stream = arg.GetNumber(0)
+	//pThis->GetEntity()->wxStdOutputStream();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StdOutputStream, ~wxStdOutputStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StdOutputStream, ~wxStdOutputStream)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StdOutputStream *pThis = Object_wx_StdOutputStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxStdOutputStream();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxStdOutputStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StdOutputStream)
 {
+	Gura_AssignMethod(wx_StdOutputStream, wxStdOutputStream);
+	Gura_AssignMethod(wx_StdOutputStream, ~wxStdOutputStream);
 }
 
 Gura_ImplementDescendantCreator(wx_StdOutputStream)

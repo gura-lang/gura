@@ -37,12 +37,45 @@ String Object_wx_MouseCaptureChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_MouseCaptureChangedEvent, wxMouseCaptureChangedEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "windowId", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "gainedCapture", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MouseCaptureChangedEvent, wxMouseCaptureChangedEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MouseCaptureChangedEvent *pThis = Object_wx_MouseCaptureChangedEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int windowId = arg.GetNumber(0)
+	//int gainedCapture = arg.GetNumber(1)
+	//pThis->GetEntity()->wxMouseCaptureChangedEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MouseCaptureChangedEvent *pThis = Object_wx_MouseCaptureChangedEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetCapturedWindow();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxMouseCaptureChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseCaptureChangedEvent)
 {
+	Gura_AssignMethod(wx_MouseCaptureChangedEvent, wxMouseCaptureChangedEvent);
+	Gura_AssignMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_MouseCaptureChangedEvent)

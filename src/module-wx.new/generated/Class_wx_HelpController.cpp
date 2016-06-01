@@ -37,12 +37,28 @@ String Object_wx_HelpController::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HelpController, wxHelpController)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HelpController, wxHelpController)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HelpController *pThis = Object_wx_HelpController::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parentWindow = arg.GetNumber(0)
+	//pThis->GetEntity()->wxHelpController();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHelpController
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpController)
 {
+	Gura_AssignMethod(wx_HelpController, wxHelpController);
 }
 
 Gura_ImplementDescendantCreator(wx_HelpController)

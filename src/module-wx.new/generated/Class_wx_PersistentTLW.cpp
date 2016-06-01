@@ -37,12 +37,58 @@ String Object_wx_PersistentTLW::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PersistentTLW, wxPersistentTLW)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "book", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PersistentTLW, wxPersistentTLW)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PersistentTLW *pThis = Object_wx_PersistentTLW::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int book = arg.GetNumber(0)
+	//pThis->GetEntity()->wxPersistentTLW();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PersistentTLW, Save)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PersistentTLW, Save)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PersistentTLW *pThis = Object_wx_PersistentTLW::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Save();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PersistentTLW, Restore)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PersistentTLW, Restore)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PersistentTLW *pThis = Object_wx_PersistentTLW::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Restore();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPersistentTLW
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentTLW)
 {
+	Gura_AssignMethod(wx_PersistentTLW, wxPersistentTLW);
+	Gura_AssignMethod(wx_PersistentTLW, Save);
+	Gura_AssignMethod(wx_PersistentTLW, Restore);
 }
 
 Gura_ImplementDescendantCreator(wx_PersistentTLW)

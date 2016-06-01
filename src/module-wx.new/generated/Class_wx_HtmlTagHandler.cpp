@@ -37,12 +37,124 @@ String Object_wx_HtmlTagHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HtmlTagHandler, wxHtmlTagHandler)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlTagHandler, wxHtmlTagHandler)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxHtmlTagHandler();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlTagHandler, GetSupportedTags)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlTagHandler, GetSupportedTags)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetSupportedTags();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlTagHandler, HandleTag)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "tag", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlTagHandler, HandleTag)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int tag = arg.GetNumber(0)
+	//pThis->GetEntity()->HandleTag();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlTagHandler, SetParser)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parser", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlTagHandler, SetParser)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parser = arg.GetNumber(0)
+	//pThis->GetEntity()->SetParser();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlTagHandler, GetParser)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlTagHandler, GetParser)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetParser();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlTagHandler, ParseInner)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "tag", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlTagHandler, ParseInner)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int tag = arg.GetNumber(0)
+	//pThis->GetEntity()->ParseInner();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlTagHandler, ParseInnerSource)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlTagHandler, ParseInnerSource)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int source = arg.GetNumber(0)
+	//pThis->GetEntity()->ParseInnerSource();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlTagHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTagHandler)
 {
+	Gura_AssignMethod(wx_HtmlTagHandler, wxHtmlTagHandler);
+	Gura_AssignMethod(wx_HtmlTagHandler, GetSupportedTags);
+	Gura_AssignMethod(wx_HtmlTagHandler, HandleTag);
+	Gura_AssignMethod(wx_HtmlTagHandler, SetParser);
+	Gura_AssignMethod(wx_HtmlTagHandler, GetParser);
+	Gura_AssignMethod(wx_HtmlTagHandler, ParseInner);
+	Gura_AssignMethod(wx_HtmlTagHandler, ParseInnerSource);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlTagHandler)

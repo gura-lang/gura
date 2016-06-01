@@ -37,12 +37,49 @@ String Object_wx_GridCellFloatEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GridCellFloatEditor, wxGridCellFloatEditor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GridCellFloatEditor, wxGridCellFloatEditor)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GridCellFloatEditor *pThis = Object_wx_GridCellFloatEditor::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int width = arg.GetNumber(0)
+	//int precision = arg.GetNumber(1)
+	//int format = arg.GetNumber(2)
+	//pThis->GetEntity()->wxGridCellFloatEditor();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GridCellFloatEditor, SetParameters)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "params", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GridCellFloatEditor, SetParameters)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GridCellFloatEditor *pThis = Object_wx_GridCellFloatEditor::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int params = arg.GetNumber(0)
+	//pThis->GetEntity()->SetParameters();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellFloatEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellFloatEditor)
 {
+	Gura_AssignMethod(wx_GridCellFloatEditor, wxGridCellFloatEditor);
+	Gura_AssignMethod(wx_GridCellFloatEditor, SetParameters);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellFloatEditor)

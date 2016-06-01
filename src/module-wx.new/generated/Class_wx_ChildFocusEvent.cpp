@@ -37,12 +37,43 @@ String Object_wx_ChildFocusEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ChildFocusEvent, wxChildFocusEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ChildFocusEvent, wxChildFocusEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ChildFocusEvent *pThis = Object_wx_ChildFocusEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int win = arg.GetNumber(0)
+	//pThis->GetEntity()->wxChildFocusEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ChildFocusEvent, GetWindow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ChildFocusEvent, GetWindow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ChildFocusEvent *pThis = Object_wx_ChildFocusEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetWindow();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxChildFocusEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ChildFocusEvent)
 {
+	Gura_AssignMethod(wx_ChildFocusEvent, wxChildFocusEvent);
+	Gura_AssignMethod(wx_ChildFocusEvent, GetWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_ChildFocusEvent)

@@ -37,12 +37,30 @@ String Object_wx_ClipboardTextEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ClipboardTextEvent, wxClipboardTextEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ClipboardTextEvent, wxClipboardTextEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ClipboardTextEvent *pThis = Object_wx_ClipboardTextEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int commandType = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//pThis->GetEntity()->wxClipboardTextEvent();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxClipboardTextEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClipboardTextEvent)
 {
+	Gura_AssignMethod(wx_ClipboardTextEvent, wxClipboardTextEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_ClipboardTextEvent)

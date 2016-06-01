@@ -37,12 +37,36 @@ String Object_wx_ProgressDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ProgressDialog, wxProgressDialog)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "maximum", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ProgressDialog, wxProgressDialog)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ProgressDialog *pThis = Object_wx_ProgressDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int title = arg.GetNumber(0)
+	//int message = arg.GetNumber(1)
+	//int maximum = arg.GetNumber(2)
+	//int parent = arg.GetNumber(3)
+	//int style = arg.GetNumber(4)
+	//pThis->GetEntity()->wxProgressDialog();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxProgressDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProgressDialog)
 {
+	Gura_AssignMethod(wx_ProgressDialog, wxProgressDialog);
 }
 
 Gura_ImplementDescendantCreator(wx_ProgressDialog)

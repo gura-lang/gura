@@ -37,12 +37,143 @@ String Object_wx_HeaderCtrlEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int commandType = arg.GetNumber(0)
+	//int winid = arg.GetNumber(1)
+	//pThis->GetEntity()->wxHeaderCtrlEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int event = arg.GetNumber(0)
+	//pThis->GetEntity()->wxHeaderCtrlEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HeaderCtrlEvent, GetColumn)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HeaderCtrlEvent, GetColumn)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetColumn();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HeaderCtrlEvent, SetColumn)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HeaderCtrlEvent, SetColumn)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int col = arg.GetNumber(0)
+	//pThis->GetEntity()->SetColumn();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HeaderCtrlEvent, GetWidth)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HeaderCtrlEvent, GetWidth)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetWidth();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HeaderCtrlEvent, SetWidth)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HeaderCtrlEvent, SetWidth)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int width = arg.GetNumber(0)
+	//pThis->GetEntity()->SetWidth();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HeaderCtrlEvent, GetNewOrder)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HeaderCtrlEvent, GetNewOrder)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetNewOrder();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HeaderCtrlEvent, SetNewOrder)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "order", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HeaderCtrlEvent, SetNewOrder)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int order = arg.GetNumber(0)
+	//pThis->GetEntity()->SetNewOrder();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHeaderCtrlEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HeaderCtrlEvent)
 {
+	Gura_AssignMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent_1);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, GetColumn);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, SetColumn);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, GetWidth);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, SetWidth);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, GetNewOrder);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, SetNewOrder);
 }
 
 Gura_ImplementDescendantCreator(wx_HeaderCtrlEvent)

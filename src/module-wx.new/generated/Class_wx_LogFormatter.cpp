@@ -37,12 +37,64 @@ String Object_wx_LogFormatter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_LogFormatter, wxLogFormatter)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_LogFormatter, wxLogFormatter)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LogFormatter *pThis = Object_wx_LogFormatter::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxLogFormatter();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_LogFormatter, Format)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_LogFormatter, Format)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LogFormatter *pThis = Object_wx_LogFormatter::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int level = arg.GetNumber(0)
+	//int msg = arg.GetNumber(1)
+	//int info = arg.GetNumber(2)
+	//pThis->GetEntity()->Format();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_LogFormatter, FormatTime)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "time", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_LogFormatter, FormatTime)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_LogFormatter *pThis = Object_wx_LogFormatter::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int time = arg.GetNumber(0)
+	//pThis->GetEntity()->FormatTime();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxLogFormatter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogFormatter)
 {
+	Gura_AssignMethod(wx_LogFormatter, wxLogFormatter);
+	Gura_AssignMethod(wx_LogFormatter, Format);
+	Gura_AssignMethod(wx_LogFormatter, FormatTime);
 }
 
 Gura_ImplementDescendantCreator(wx_LogFormatter)

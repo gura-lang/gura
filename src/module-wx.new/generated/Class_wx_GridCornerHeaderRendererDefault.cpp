@@ -37,12 +37,32 @@ String Object_wx_GridCornerHeaderRendererDefault::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GridCornerHeaderRendererDefault, DrawBorder)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GridCornerHeaderRendererDefault, DrawBorder)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GridCornerHeaderRendererDefault *pThis = Object_wx_GridCornerHeaderRendererDefault::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int grid = arg.GetNumber(0)
+	//int dc = arg.GetNumber(1)
+	//int rect = arg.GetNumber(2)
+	//pThis->GetEntity()->DrawBorder();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCornerHeaderRendererDefault
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCornerHeaderRendererDefault)
 {
+	Gura_AssignMethod(wx_GridCornerHeaderRendererDefault, DrawBorder);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCornerHeaderRendererDefault)

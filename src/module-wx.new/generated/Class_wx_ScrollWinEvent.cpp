@@ -37,12 +37,96 @@ String Object_wx_ScrollWinEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ScrollWinEvent, wxScrollWinEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ScrollWinEvent, wxScrollWinEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int commandType = arg.GetNumber(0)
+	//int pos = arg.GetNumber(1)
+	//int orientation = arg.GetNumber(2)
+	//pThis->GetEntity()->wxScrollWinEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScrollWinEvent, GetOrientation)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ScrollWinEvent, GetOrientation)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetOrientation();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScrollWinEvent, GetPosition)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ScrollWinEvent, GetPosition)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetPosition();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScrollWinEvent, SetOrientation)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ScrollWinEvent, SetOrientation)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int orient = arg.GetNumber(0)
+	//pThis->GetEntity()->SetOrientation();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ScrollWinEvent, SetPosition)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ScrollWinEvent, SetPosition)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int pos = arg.GetNumber(0)
+	//pThis->GetEntity()->SetPosition();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxScrollWinEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScrollWinEvent)
 {
+	Gura_AssignMethod(wx_ScrollWinEvent, wxScrollWinEvent);
+	Gura_AssignMethod(wx_ScrollWinEvent, GetOrientation);
+	Gura_AssignMethod(wx_ScrollWinEvent, GetPosition);
+	Gura_AssignMethod(wx_ScrollWinEvent, SetOrientation);
+	Gura_AssignMethod(wx_ScrollWinEvent, SetPosition);
 }
 
 Gura_ImplementDescendantCreator(wx_ScrollWinEvent)

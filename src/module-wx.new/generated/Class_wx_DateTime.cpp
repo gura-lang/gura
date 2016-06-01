@@ -38,11 +38,13 @@ String Object_wx_DateTime::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxDateTime
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DateTime)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_DateTime)

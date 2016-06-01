@@ -37,12 +37,167 @@ String Object_wx_IPaddress::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_IPaddress, AnyAddress)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IPaddress, AnyAddress)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->AnyAddress();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IPaddress, BroadcastAddress)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IPaddress, BroadcastAddress)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->BroadcastAddress();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IPaddress, Hostname)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "hostname", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_IPaddress, Hostname)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int hostname = arg.GetNumber(0)
+	//pThis->GetEntity()->Hostname();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IPaddress, Hostname_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IPaddress, Hostname_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Hostname();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IPaddress, IPAddress)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IPaddress, IPAddress)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IPAddress();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IPaddress, IsLocalHost)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IPaddress, IsLocalHost)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsLocalHost();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IPaddress, LocalHost)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IPaddress, LocalHost)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->LocalHost();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IPaddress, Service)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_IPaddress, Service)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int service = arg.GetNumber(0)
+	//pThis->GetEntity()->Service();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IPaddress, Service_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_IPaddress, Service_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int service = arg.GetNumber(0)
+	//pThis->GetEntity()->Service();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IPaddress, Service_2)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IPaddress, Service_2)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Service();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxIPaddress
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IPaddress)
 {
+	Gura_AssignMethod(wx_IPaddress, AnyAddress);
+	Gura_AssignMethod(wx_IPaddress, BroadcastAddress);
+	Gura_AssignMethod(wx_IPaddress, Hostname);
+	Gura_AssignMethod(wx_IPaddress, Hostname_1);
+	Gura_AssignMethod(wx_IPaddress, IPAddress);
+	Gura_AssignMethod(wx_IPaddress, IsLocalHost);
+	Gura_AssignMethod(wx_IPaddress, LocalHost);
+	Gura_AssignMethod(wx_IPaddress, Service);
+	Gura_AssignMethod(wx_IPaddress, Service_1);
+	Gura_AssignMethod(wx_IPaddress, Service_2);
 }
 
 Gura_ImplementDescendantCreator(wx_IPaddress)

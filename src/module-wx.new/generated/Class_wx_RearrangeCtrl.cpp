@@ -37,12 +37,107 @@ String Object_wx_RearrangeCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_RearrangeCtrl, wxRearrangeCtrl)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_RearrangeCtrl, wxRearrangeCtrl)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_RearrangeCtrl *pThis = Object_wx_RearrangeCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxRearrangeCtrl();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_RearrangeCtrl, wxRearrangeCtrl_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "order", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RearrangeCtrl, wxRearrangeCtrl_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_RearrangeCtrl *pThis = Object_wx_RearrangeCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//int pos = arg.GetNumber(2)
+	//int size = arg.GetNumber(3)
+	//int order = arg.GetNumber(4)
+	//int items = arg.GetNumber(5)
+	//int style = arg.GetNumber(6)
+	//int validator = arg.GetNumber(7)
+	//int name = arg.GetNumber(8)
+	//pThis->GetEntity()->wxRearrangeCtrl();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_RearrangeCtrl, Create)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "order", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RearrangeCtrl, Create)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_RearrangeCtrl *pThis = Object_wx_RearrangeCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//int pos = arg.GetNumber(2)
+	//int size = arg.GetNumber(3)
+	//int order = arg.GetNumber(4)
+	//int items = arg.GetNumber(5)
+	//int style = arg.GetNumber(6)
+	//int validator = arg.GetNumber(7)
+	//int name = arg.GetNumber(8)
+	//pThis->GetEntity()->Create();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_RearrangeCtrl, GetList)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_RearrangeCtrl, GetList)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_RearrangeCtrl *pThis = Object_wx_RearrangeCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetList();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxRearrangeCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RearrangeCtrl)
 {
+	Gura_AssignMethod(wx_RearrangeCtrl, wxRearrangeCtrl);
+	Gura_AssignMethod(wx_RearrangeCtrl, wxRearrangeCtrl_1);
+	Gura_AssignMethod(wx_RearrangeCtrl, Create);
+	Gura_AssignMethod(wx_RearrangeCtrl, GetList);
 }
 
 Gura_ImplementDescendantCreator(wx_RearrangeCtrl)

@@ -37,12 +37,28 @@ String Object_wx_ArchiveNotifier::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ArchiveNotifier, OnEntryUpdated)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ArchiveNotifier, OnEntryUpdated)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ArchiveNotifier *pThis = Object_wx_ArchiveNotifier::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int entry = arg.GetNumber(0)
+	//pThis->GetEntity()->OnEntryUpdated();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxArchiveNotifier
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveNotifier)
 {
+	Gura_AssignMethod(wx_ArchiveNotifier, OnEntryUpdated);
 }
 
 Gura_ImplementDescendantCreator(wx_ArchiveNotifier)

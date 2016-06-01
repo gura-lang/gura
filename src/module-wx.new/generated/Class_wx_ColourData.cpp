@@ -38,11 +38,13 @@ String Object_wx_ColourData::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxColourData
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourData)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_ColourData)

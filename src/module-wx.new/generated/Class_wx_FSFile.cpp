@@ -37,12 +37,126 @@ String Object_wx_FSFile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_FSFile, wxFSFile)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mimetype", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "anchor", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "modif", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_FSFile, wxFSFile)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int stream = arg.GetNumber(0)
+	//int location = arg.GetNumber(1)
+	//int mimetype = arg.GetNumber(2)
+	//int anchor = arg.GetNumber(3)
+	//int modif = arg.GetNumber(4)
+	//pThis->GetEntity()->wxFSFile();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FSFile, DetachStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_FSFile, DetachStream)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->DetachStream();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FSFile, GetAnchor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_FSFile, GetAnchor)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetAnchor();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FSFile, GetLocation)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_FSFile, GetLocation)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetLocation();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FSFile, GetMimeType)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_FSFile, GetMimeType)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetMimeType();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FSFile, GetModificationTime)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_FSFile, GetModificationTime)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetModificationTime();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FSFile, GetStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_FSFile, GetStream)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetStream();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxFSFile
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FSFile)
 {
+	Gura_AssignMethod(wx_FSFile, wxFSFile);
+	Gura_AssignMethod(wx_FSFile, DetachStream);
+	Gura_AssignMethod(wx_FSFile, GetAnchor);
+	Gura_AssignMethod(wx_FSFile, GetLocation);
+	Gura_AssignMethod(wx_FSFile, GetMimeType);
+	Gura_AssignMethod(wx_FSFile, GetModificationTime);
+	Gura_AssignMethod(wx_FSFile, GetStream);
 }
 
 Gura_ImplementDescendantCreator(wx_FSFile)

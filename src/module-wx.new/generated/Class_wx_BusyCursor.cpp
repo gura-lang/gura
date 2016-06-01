@@ -37,12 +37,43 @@ String Object_wx_BusyCursor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_BusyCursor, wxBusyCursor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_BusyCursor, wxBusyCursor)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_BusyCursor *pThis = Object_wx_BusyCursor::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int cursor = arg.GetNumber(0)
+	//pThis->GetEntity()->wxBusyCursor();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_BusyCursor, ~wxBusyCursor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_BusyCursor, ~wxBusyCursor)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_BusyCursor *pThis = Object_wx_BusyCursor::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxBusyCursor();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxBusyCursor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BusyCursor)
 {
+	Gura_AssignMethod(wx_BusyCursor, wxBusyCursor);
+	Gura_AssignMethod(wx_BusyCursor, ~wxBusyCursor);
 }
 
 Gura_ImplementDescendantCreator(wx_BusyCursor)

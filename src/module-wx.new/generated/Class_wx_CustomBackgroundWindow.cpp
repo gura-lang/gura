@@ -37,12 +37,43 @@ String Object_wx_CustomBackgroundWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_CustomBackgroundWindow, wxCustomBackgroundWindow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_CustomBackgroundWindow, wxCustomBackgroundWindow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CustomBackgroundWindow *pThis = Object_wx_CustomBackgroundWindow::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxCustomBackgroundWindow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_CustomBackgroundWindow, SetBackgroundBitmap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_CustomBackgroundWindow, SetBackgroundBitmap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CustomBackgroundWindow *pThis = Object_wx_CustomBackgroundWindow::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int bmp = arg.GetNumber(0)
+	//pThis->GetEntity()->SetBackgroundBitmap();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxCustomBackgroundWindow
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CustomBackgroundWindow)
 {
+	Gura_AssignMethod(wx_CustomBackgroundWindow, wxCustomBackgroundWindow);
+	Gura_AssignMethod(wx_CustomBackgroundWindow, SetBackgroundBitmap);
 }
 
 Gura_ImplementDescendantCreator(wx_CustomBackgroundWindow)

@@ -37,12 +37,58 @@ String Object_wx_PersistentBookCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PersistentBookCtrl, wxPersistentBookCtrl)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "book", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PersistentBookCtrl, wxPersistentBookCtrl)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PersistentBookCtrl *pThis = Object_wx_PersistentBookCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int book = arg.GetNumber(0)
+	//pThis->GetEntity()->wxPersistentBookCtrl();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PersistentBookCtrl, Save)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PersistentBookCtrl, Save)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PersistentBookCtrl *pThis = Object_wx_PersistentBookCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Save();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PersistentBookCtrl, Restore)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PersistentBookCtrl, Restore)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PersistentBookCtrl *pThis = Object_wx_PersistentBookCtrl::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Restore();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPersistentBookCtrl
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentBookCtrl)
 {
+	Gura_AssignMethod(wx_PersistentBookCtrl, wxPersistentBookCtrl);
+	Gura_AssignMethod(wx_PersistentBookCtrl, Save);
+	Gura_AssignMethod(wx_PersistentBookCtrl, Restore);
 }
 
 Gura_ImplementDescendantCreator(wx_PersistentBookCtrl)

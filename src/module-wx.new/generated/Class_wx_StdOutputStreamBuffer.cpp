@@ -37,12 +37,43 @@ String Object_wx_StdOutputStreamBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_StdOutputStreamBuffer, wxStdOutputStreamBuffer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StdOutputStreamBuffer, wxStdOutputStreamBuffer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StdOutputStreamBuffer *pThis = Object_wx_StdOutputStreamBuffer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int stream = arg.GetNumber(0)
+	//pThis->GetEntity()->wxStdOutputStreamBuffer();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_StdOutputStreamBuffer, ~wxStdOutputStreamBuffer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StdOutputStreamBuffer, ~wxStdOutputStreamBuffer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_StdOutputStreamBuffer *pThis = Object_wx_StdOutputStreamBuffer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxStdOutputStreamBuffer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxStdOutputStreamBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StdOutputStreamBuffer)
 {
+	Gura_AssignMethod(wx_StdOutputStreamBuffer, wxStdOutputStreamBuffer);
+	Gura_AssignMethod(wx_StdOutputStreamBuffer, ~wxStdOutputStreamBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_StdOutputStreamBuffer)

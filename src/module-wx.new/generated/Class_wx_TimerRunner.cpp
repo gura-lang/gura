@@ -37,12 +37,83 @@ String Object_wx_TimerRunner::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_TimerRunner, wxTimerRunner)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TimerRunner, wxTimerRunner)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TimerRunner *pThis = Object_wx_TimerRunner::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int timer = arg.GetNumber(0)
+	//pThis->GetEntity()->wxTimerRunner();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TimerRunner, wxTimerRunner_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "milli", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "oneShot", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TimerRunner, wxTimerRunner_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TimerRunner *pThis = Object_wx_TimerRunner::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int timer = arg.GetNumber(0)
+	//int milli = arg.GetNumber(1)
+	//int oneShot = arg.GetNumber(2)
+	//pThis->GetEntity()->wxTimerRunner();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TimerRunner, Start)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "milli", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "oneShot", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TimerRunner, Start)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TimerRunner *pThis = Object_wx_TimerRunner::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int milli = arg.GetNumber(0)
+	//int oneShot = arg.GetNumber(1)
+	//pThis->GetEntity()->Start();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TimerRunner, ~wxTimerRunner)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TimerRunner, ~wxTimerRunner)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TimerRunner *pThis = Object_wx_TimerRunner::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxTimerRunner();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxTimerRunner
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TimerRunner)
 {
+	Gura_AssignMethod(wx_TimerRunner, wxTimerRunner);
+	Gura_AssignMethod(wx_TimerRunner, wxTimerRunner_1);
+	Gura_AssignMethod(wx_TimerRunner, Start);
+	Gura_AssignMethod(wx_TimerRunner, ~wxTimerRunner);
 }
 
 Gura_ImplementDescendantCreator(wx_TimerRunner)

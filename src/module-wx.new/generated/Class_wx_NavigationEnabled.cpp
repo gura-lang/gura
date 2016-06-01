@@ -37,12 +37,26 @@ String Object_wx_NavigationEnabled::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_NavigationEnabled, wxNavigationEnabled)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_NavigationEnabled, wxNavigationEnabled)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_NavigationEnabled *pThis = Object_wx_NavigationEnabled::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxNavigationEnabled();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxNavigationEnabled
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NavigationEnabled)
 {
+	Gura_AssignMethod(wx_NavigationEnabled, wxNavigationEnabled);
 }
 
 Gura_ImplementDescendantCreator(wx_NavigationEnabled)

@@ -37,12 +37,49 @@ String Object_wx_DataViewProgressRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_DataViewProgressRenderer, GetDefaultType)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataViewProgressRenderer, GetDefaultType)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewProgressRenderer *pThis = Object_wx_DataViewProgressRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetDefaultType();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewProgressRenderer, wxDataViewProgressRenderer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewProgressRenderer, wxDataViewProgressRenderer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewProgressRenderer *pThis = Object_wx_DataViewProgressRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int label = arg.GetNumber(0)
+	//int varianttype = arg.GetNumber(1)
+	//int mode = arg.GetNumber(2)
+	//int align = arg.GetNumber(3)
+	//pThis->GetEntity()->wxDataViewProgressRenderer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewProgressRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewProgressRenderer)
 {
+	Gura_AssignMethod(wx_DataViewProgressRenderer, GetDefaultType);
+	Gura_AssignMethod(wx_DataViewProgressRenderer, wxDataViewProgressRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewProgressRenderer)

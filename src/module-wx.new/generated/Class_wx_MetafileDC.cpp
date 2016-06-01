@@ -37,12 +37,58 @@ String Object_wx_MetafileDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_MetafileDC, wxMetafileDC)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MetafileDC, wxMetafileDC)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MetafileDC *pThis = Object_wx_MetafileDC::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int filename = arg.GetNumber(0)
+	//pThis->GetEntity()->wxMetafileDC();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MetafileDC, ~wxMetafileDC)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_MetafileDC, ~wxMetafileDC)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MetafileDC *pThis = Object_wx_MetafileDC::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxMetafileDC();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MetafileDC, Close)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_MetafileDC, Close)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MetafileDC *pThis = Object_wx_MetafileDC::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Close();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxMetafileDC
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MetafileDC)
 {
+	Gura_AssignMethod(wx_MetafileDC, wxMetafileDC);
+	Gura_AssignMethod(wx_MetafileDC, ~wxMetafileDC);
+	Gura_AssignMethod(wx_MetafileDC, Close);
 }
 
 Gura_ImplementDescendantCreator(wx_MetafileDC)

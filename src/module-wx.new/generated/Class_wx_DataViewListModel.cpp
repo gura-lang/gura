@@ -37,12 +37,163 @@ String Object_wx_DataViewListModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_DataViewListModel, ~wxDataViewListModel)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataViewListModel, ~wxDataViewListModel)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxDataViewListModel();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewListModel, Compare)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "item1", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "item2", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "ascending", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewListModel, Compare)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int item1 = arg.GetNumber(0)
+	//int item2 = arg.GetNumber(1)
+	//int column = arg.GetNumber(2)
+	//int ascending = arg.GetNumber(3)
+	//pThis->GetEntity()->Compare();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewListModel, GetAttrByRow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewListModel, GetAttrByRow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int row = arg.GetNumber(0)
+	//int col = arg.GetNumber(1)
+	//int attr = arg.GetNumber(2)
+	//pThis->GetEntity()->GetAttrByRow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewListModel, IsEnabledByRow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewListModel, IsEnabledByRow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int row = arg.GetNumber(0)
+	//int col = arg.GetNumber(1)
+	//pThis->GetEntity()->IsEnabledByRow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewListModel, GetCount)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataViewListModel, GetCount)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetCount();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewListModel, GetRow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewListModel, GetRow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int item = arg.GetNumber(0)
+	//pThis->GetEntity()->GetRow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewListModel, GetValueByRow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewListModel, GetValueByRow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int variant = arg.GetNumber(0)
+	//int row = arg.GetNumber(1)
+	//int col = arg.GetNumber(2)
+	//pThis->GetEntity()->GetValueByRow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewListModel, SetValueByRow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewListModel, SetValueByRow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int variant = arg.GetNumber(0)
+	//int row = arg.GetNumber(1)
+	//int col = arg.GetNumber(2)
+	//pThis->GetEntity()->SetValueByRow();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewListModel
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewListModel)
 {
+	Gura_AssignMethod(wx_DataViewListModel, ~wxDataViewListModel);
+	Gura_AssignMethod(wx_DataViewListModel, Compare);
+	Gura_AssignMethod(wx_DataViewListModel, GetAttrByRow);
+	Gura_AssignMethod(wx_DataViewListModel, IsEnabledByRow);
+	Gura_AssignMethod(wx_DataViewListModel, GetCount);
+	Gura_AssignMethod(wx_DataViewListModel, GetRow);
+	Gura_AssignMethod(wx_DataViewListModel, GetValueByRow);
+	Gura_AssignMethod(wx_DataViewListModel, SetValueByRow);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewListModel)

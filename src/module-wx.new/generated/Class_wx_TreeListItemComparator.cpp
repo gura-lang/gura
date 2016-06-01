@@ -37,12 +37,64 @@ String Object_wx_TreeListItemComparator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_TreeListItemComparator, wxTreeListItemComparator)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TreeListItemComparator, wxTreeListItemComparator)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TreeListItemComparator *pThis = Object_wx_TreeListItemComparator::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxTreeListItemComparator();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TreeListItemComparator, Compare)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "treelist", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "second", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TreeListItemComparator, Compare)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TreeListItemComparator *pThis = Object_wx_TreeListItemComparator::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int treelist = arg.GetNumber(0)
+	//int column = arg.GetNumber(1)
+	//int first = arg.GetNumber(2)
+	//int second = arg.GetNumber(3)
+	//pThis->GetEntity()->Compare();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TreeListItemComparator, ~wxTreeListItemComparator)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TreeListItemComparator, ~wxTreeListItemComparator)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TreeListItemComparator *pThis = Object_wx_TreeListItemComparator::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxTreeListItemComparator();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxTreeListItemComparator
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeListItemComparator)
 {
+	Gura_AssignMethod(wx_TreeListItemComparator, wxTreeListItemComparator);
+	Gura_AssignMethod(wx_TreeListItemComparator, Compare);
+	Gura_AssignMethod(wx_TreeListItemComparator, ~wxTreeListItemComparator);
 }
 
 Gura_ImplementDescendantCreator(wx_TreeListItemComparator)

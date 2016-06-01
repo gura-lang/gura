@@ -37,12 +37,43 @@ String Object_wx_FileStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_FileStream, wxFileStream)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "iofileName", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_FileStream, wxFileStream)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FileStream *pThis = Object_wx_FileStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int iofileName = arg.GetNumber(0)
+	//pThis->GetEntity()->wxFileStream();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_FileStream, IsOk)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_FileStream, IsOk)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_FileStream *pThis = Object_wx_FileStream::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsOk();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxFileStream
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileStream)
 {
+	Gura_AssignMethod(wx_FileStream, wxFileStream);
+	Gura_AssignMethod(wx_FileStream, IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_FileStream)

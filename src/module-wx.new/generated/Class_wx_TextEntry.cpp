@@ -37,12 +37,689 @@ String Object_wx_TextEntry::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_TextEntry, AppendText)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, AppendText)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int text = arg.GetNumber(0)
+	//pThis->GetEntity()->AppendText();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, AutoComplete)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, AutoComplete)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int choices = arg.GetNumber(0)
+	//pThis->GetEntity()->AutoComplete();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, AutoComplete_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "completer", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, AutoComplete_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int completer = arg.GetNumber(0)
+	//pThis->GetEntity()->AutoComplete();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, AutoCompleteFileNames)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, AutoCompleteFileNames)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->AutoCompleteFileNames();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, AutoCompleteDirectories)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, AutoCompleteDirectories)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->AutoCompleteDirectories();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, CanCopy)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, CanCopy)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CanCopy();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, CanCut)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, CanCut)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CanCut();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, CanPaste)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, CanPaste)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CanPaste();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, CanRedo)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, CanRedo)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CanRedo();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, CanUndo)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, CanUndo)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->CanUndo();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, ChangeValue)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, ChangeValue)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int value = arg.GetNumber(0)
+	//pThis->GetEntity()->ChangeValue();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, Clear)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, Clear)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Clear();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, Copy)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, Copy)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Copy();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, Cut)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, Cut)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Cut();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, ForceUpper)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, ForceUpper)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->ForceUpper();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, GetInsertionPoint)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, GetInsertionPoint)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetInsertionPoint();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, GetLastPosition)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, GetLastPosition)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetLastPosition();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, GetRange)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, GetRange)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int from = arg.GetNumber(0)
+	//int to = arg.GetNumber(1)
+	//pThis->GetEntity()->GetRange();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, GetSelection)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, GetSelection)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int from = arg.GetNumber(0)
+	//int to = arg.GetNumber(1)
+	//pThis->GetEntity()->GetSelection();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, GetStringSelection)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, GetStringSelection)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetStringSelection();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, GetValue)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, GetValue)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetValue();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, IsEditable)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, IsEditable)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsEditable();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, IsEmpty)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, IsEmpty)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsEmpty();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, Paste)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, Paste)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Paste();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, Redo)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, Redo)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Redo();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, Remove)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, Remove)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int from = arg.GetNumber(0)
+	//int to = arg.GetNumber(1)
+	//pThis->GetEntity()->Remove();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, Replace)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, Replace)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int from = arg.GetNumber(0)
+	//int to = arg.GetNumber(1)
+	//int value = arg.GetNumber(2)
+	//pThis->GetEntity()->Replace();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SetEditable)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "editable", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SetEditable)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int editable = arg.GetNumber(0)
+	//pThis->GetEntity()->SetEditable();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SetInsertionPoint)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SetInsertionPoint)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int pos = arg.GetNumber(0)
+	//pThis->GetEntity()->SetInsertionPoint();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SetInsertionPointEnd)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SetInsertionPointEnd)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->SetInsertionPointEnd();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SetMaxLength)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SetMaxLength)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int len = arg.GetNumber(0)
+	//pThis->GetEntity()->SetMaxLength();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SetSelection)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SetSelection)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int from = arg.GetNumber(0)
+	//int to = arg.GetNumber(1)
+	//pThis->GetEntity()->SetSelection();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SelectAll)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SelectAll)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->SelectAll();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SelectNone)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SelectNone)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->SelectNone();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SetHint)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "hint", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SetHint)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int hint = arg.GetNumber(0)
+	//pThis->GetEntity()->SetHint();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, GetHint)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, GetHint)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetHint();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SetMargins)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SetMargins)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int pt = arg.GetNumber(0)
+	//pThis->GetEntity()->SetMargins();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SetMargins_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "left", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "top", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SetMargins_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int left = arg.GetNumber(0)
+	//int top = arg.GetNumber(1)
+	//pThis->GetEntity()->SetMargins();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, GetMargins)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, GetMargins)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetMargins();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, SetValue)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, SetValue)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int value = arg.GetNumber(0)
+	//pThis->GetEntity()->SetValue();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, Undo)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_TextEntry, Undo)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Undo();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_TextEntry, WriteText)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_TextEntry, WriteText)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int text = arg.GetNumber(0)
+	//pThis->GetEntity()->WriteText();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxTextEntry
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextEntry)
 {
+	Gura_AssignMethod(wx_TextEntry, AppendText);
+	Gura_AssignMethod(wx_TextEntry, AutoComplete);
+	Gura_AssignMethod(wx_TextEntry, AutoComplete_1);
+	Gura_AssignMethod(wx_TextEntry, AutoCompleteFileNames);
+	Gura_AssignMethod(wx_TextEntry, AutoCompleteDirectories);
+	Gura_AssignMethod(wx_TextEntry, CanCopy);
+	Gura_AssignMethod(wx_TextEntry, CanCut);
+	Gura_AssignMethod(wx_TextEntry, CanPaste);
+	Gura_AssignMethod(wx_TextEntry, CanRedo);
+	Gura_AssignMethod(wx_TextEntry, CanUndo);
+	Gura_AssignMethod(wx_TextEntry, ChangeValue);
+	Gura_AssignMethod(wx_TextEntry, Clear);
+	Gura_AssignMethod(wx_TextEntry, Copy);
+	Gura_AssignMethod(wx_TextEntry, Cut);
+	Gura_AssignMethod(wx_TextEntry, ForceUpper);
+	Gura_AssignMethod(wx_TextEntry, GetInsertionPoint);
+	Gura_AssignMethod(wx_TextEntry, GetLastPosition);
+	Gura_AssignMethod(wx_TextEntry, GetRange);
+	Gura_AssignMethod(wx_TextEntry, GetSelection);
+	Gura_AssignMethod(wx_TextEntry, GetStringSelection);
+	Gura_AssignMethod(wx_TextEntry, GetValue);
+	Gura_AssignMethod(wx_TextEntry, IsEditable);
+	Gura_AssignMethod(wx_TextEntry, IsEmpty);
+	Gura_AssignMethod(wx_TextEntry, Paste);
+	Gura_AssignMethod(wx_TextEntry, Redo);
+	Gura_AssignMethod(wx_TextEntry, Remove);
+	Gura_AssignMethod(wx_TextEntry, Replace);
+	Gura_AssignMethod(wx_TextEntry, SetEditable);
+	Gura_AssignMethod(wx_TextEntry, SetInsertionPoint);
+	Gura_AssignMethod(wx_TextEntry, SetInsertionPointEnd);
+	Gura_AssignMethod(wx_TextEntry, SetMaxLength);
+	Gura_AssignMethod(wx_TextEntry, SetSelection);
+	Gura_AssignMethod(wx_TextEntry, SelectAll);
+	Gura_AssignMethod(wx_TextEntry, SelectNone);
+	Gura_AssignMethod(wx_TextEntry, SetHint);
+	Gura_AssignMethod(wx_TextEntry, GetHint);
+	Gura_AssignMethod(wx_TextEntry, SetMargins);
+	Gura_AssignMethod(wx_TextEntry, SetMargins_1);
+	Gura_AssignMethod(wx_TextEntry, GetMargins);
+	Gura_AssignMethod(wx_TextEntry, SetValue);
+	Gura_AssignMethod(wx_TextEntry, Undo);
+	Gura_AssignMethod(wx_TextEntry, WriteText);
 }
 
 Gura_ImplementDescendantCreator(wx_TextEntry)

@@ -37,12 +37,75 @@ String Object_wx_MessageDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_MessageDialog, ButtonLabel)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stockId", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, ButtonLabel)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int stockId = arg.GetNumber(0)
+	//pThis->GetEntity()->ButtonLabel();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MessageDialog, ButtonLabel_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, ButtonLabel_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int label = arg.GetNumber(0)
+	//pThis->GetEntity()->ButtonLabel();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetAsString)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetAsString)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetAsString();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetStockId)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetStockId)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetStockId();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxMessageDialog
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageDialog)
 {
+	Gura_AssignMethod(wx_MessageDialog, ButtonLabel);
+	Gura_AssignMethod(wx_MessageDialog, ButtonLabel_1);
+	Gura_AssignMethod(wx_MessageDialog, GetAsString);
+	Gura_AssignMethod(wx_MessageDialog, GetStockId);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageDialog)

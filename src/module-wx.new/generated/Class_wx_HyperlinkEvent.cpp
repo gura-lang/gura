@@ -37,12 +37,64 @@ String Object_wx_HyperlinkEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HyperlinkEvent, wxHyperlinkEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HyperlinkEvent, wxHyperlinkEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int generator = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//int url = arg.GetNumber(2)
+	//pThis->GetEntity()->wxHyperlinkEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HyperlinkEvent, GetURL)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HyperlinkEvent, GetURL)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetURL();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HyperlinkEvent, SetURL)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HyperlinkEvent, SetURL)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int url = arg.GetNumber(0)
+	//pThis->GetEntity()->SetURL();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHyperlinkEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HyperlinkEvent)
 {
+	Gura_AssignMethod(wx_HyperlinkEvent, wxHyperlinkEvent);
+	Gura_AssignMethod(wx_HyperlinkEvent, GetURL);
+	Gura_AssignMethod(wx_HyperlinkEvent, SetURL);
 }
 
 Gura_ImplementDescendantCreator(wx_HyperlinkEvent)

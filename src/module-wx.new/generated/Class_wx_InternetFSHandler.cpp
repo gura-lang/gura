@@ -37,12 +37,26 @@ String Object_wx_InternetFSHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_InternetFSHandler, wxInternetFSHandler)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_InternetFSHandler, wxInternetFSHandler)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_InternetFSHandler *pThis = Object_wx_InternetFSHandler::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxInternetFSHandler();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxInternetFSHandler
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_InternetFSHandler)
 {
+	Gura_AssignMethod(wx_InternetFSHandler, wxInternetFSHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_InternetFSHandler)

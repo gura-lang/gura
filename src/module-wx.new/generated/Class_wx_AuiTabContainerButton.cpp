@@ -38,11 +38,13 @@ String Object_wx_AuiTabContainerButton::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxAuiTabContainerButton
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiTabContainerButton)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_AuiTabContainerButton)

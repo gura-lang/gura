@@ -37,12 +37,34 @@ String Object_wx_HtmlWordWithTabsCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HtmlWordWithTabsCell, wxHtmlWordWithTabsCell)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "word", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "wordOrig", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "linepos", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlWordWithTabsCell, wxHtmlWordWithTabsCell)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlWordWithTabsCell *pThis = Object_wx_HtmlWordWithTabsCell::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int word = arg.GetNumber(0)
+	//int wordOrig = arg.GetNumber(1)
+	//int linepos = arg.GetNumber(2)
+	//int dc = arg.GetNumber(3)
+	//pThis->GetEntity()->wxHtmlWordWithTabsCell();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlWordWithTabsCell
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWordWithTabsCell)
 {
+	Gura_AssignMethod(wx_HtmlWordWithTabsCell, wxHtmlWordWithTabsCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWordWithTabsCell)

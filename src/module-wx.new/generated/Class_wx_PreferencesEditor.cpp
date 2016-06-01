@@ -37,12 +37,107 @@ String Object_wx_PreferencesEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_PreferencesEditor, wxPreferencesEditor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PreferencesEditor, wxPreferencesEditor)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int title = arg.GetNumber(0)
+	//pThis->GetEntity()->wxPreferencesEditor();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PreferencesEditor, ~wxPreferencesEditor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PreferencesEditor, ~wxPreferencesEditor)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->~wxPreferencesEditor();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PreferencesEditor, AddPage)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PreferencesEditor, AddPage)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int page = arg.GetNumber(0)
+	//pThis->GetEntity()->AddPage();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PreferencesEditor, Show)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_PreferencesEditor, Show)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int parent = arg.GetNumber(0)
+	//pThis->GetEntity()->Show();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PreferencesEditor, Dismiss)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PreferencesEditor, Dismiss)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->Dismiss();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_PreferencesEditor, ShouldApplyChangesImmediately)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_PreferencesEditor, ShouldApplyChangesImmediately)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->ShouldApplyChangesImmediately();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxPreferencesEditor
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreferencesEditor)
 {
+	Gura_AssignMethod(wx_PreferencesEditor, wxPreferencesEditor);
+	Gura_AssignMethod(wx_PreferencesEditor, ~wxPreferencesEditor);
+	Gura_AssignMethod(wx_PreferencesEditor, AddPage);
+	Gura_AssignMethod(wx_PreferencesEditor, Show);
+	Gura_AssignMethod(wx_PreferencesEditor, Dismiss);
+	Gura_AssignMethod(wx_PreferencesEditor, ShouldApplyChangesImmediately);
 }
 
 Gura_ImplementDescendantCreator(wx_PreferencesEditor)

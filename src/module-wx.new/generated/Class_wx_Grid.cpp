@@ -38,11 +38,13 @@ String Object_wx_Grid::ToString(bool exprFlag)
 // Method implementation
 //----------------------------------------------------------------------------
 
+
 //----------------------------------------------------------------------------
 // Class implementation for wxGrid
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Grid)
 {
+	
 }
 
 Gura_ImplementDescendantCreator(wx_Grid)

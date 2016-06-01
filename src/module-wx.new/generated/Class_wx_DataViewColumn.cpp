@@ -37,12 +37,110 @@ String Object_wx_DataViewColumn::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_DataViewColumn, wxDataViewColumn)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "renderer", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewColumn, wxDataViewColumn)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int title = arg.GetNumber(0)
+	//int renderer = arg.GetNumber(1)
+	//int model_column = arg.GetNumber(2)
+	//int width = arg.GetNumber(3)
+	//int align = arg.GetNumber(4)
+	//int flags = arg.GetNumber(5)
+	//pThis->GetEntity()->wxDataViewColumn();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewColumn, wxDataViewColumn_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "renderer", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DataViewColumn, wxDataViewColumn_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int bitmap = arg.GetNumber(0)
+	//int renderer = arg.GetNumber(1)
+	//int model_column = arg.GetNumber(2)
+	//int width = arg.GetNumber(3)
+	//int align = arg.GetNumber(4)
+	//int flags = arg.GetNumber(5)
+	//pThis->GetEntity()->wxDataViewColumn();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewColumn, GetModelColumn)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataViewColumn, GetModelColumn)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetModelColumn();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewColumn, GetOwner)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataViewColumn, GetOwner)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetOwner();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DataViewColumn, GetRenderer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DataViewColumn, GetRenderer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetRenderer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewColumn
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewColumn)
 {
+	Gura_AssignMethod(wx_DataViewColumn, wxDataViewColumn);
+	Gura_AssignMethod(wx_DataViewColumn, wxDataViewColumn_1);
+	Gura_AssignMethod(wx_DataViewColumn, GetModelColumn);
+	Gura_AssignMethod(wx_DataViewColumn, GetOwner);
+	Gura_AssignMethod(wx_DataViewColumn, GetRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewColumn)

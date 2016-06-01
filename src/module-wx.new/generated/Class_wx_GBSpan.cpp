@@ -37,12 +37,109 @@ String Object_wx_GBSpan::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GBSpan, wxGBSpan)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GBSpan, wxGBSpan)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxGBSpan();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GBSpan, wxGBSpan_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "rowspan", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "colspan", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GBSpan, wxGBSpan_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int rowspan = arg.GetNumber(0)
+	//int colspan = arg.GetNumber(1)
+	//pThis->GetEntity()->wxGBSpan();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GBSpan, GetColspan)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GBSpan, GetColspan)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetColspan();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GBSpan, GetRowspan)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GBSpan, GetRowspan)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetRowspan();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GBSpan, SetColspan)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "colspan", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GBSpan, SetColspan)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int colspan = arg.GetNumber(0)
+	//pThis->GetEntity()->SetColspan();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_GBSpan, SetRowspan)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "rowspan", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_GBSpan, SetRowspan)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int rowspan = arg.GetNumber(0)
+	//pThis->GetEntity()->SetRowspan();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxGBSpan
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GBSpan)
 {
+	Gura_AssignMethod(wx_GBSpan, wxGBSpan);
+	Gura_AssignMethod(wx_GBSpan, wxGBSpan_1);
+	Gura_AssignMethod(wx_GBSpan, GetColspan);
+	Gura_AssignMethod(wx_GBSpan, GetRowspan);
+	Gura_AssignMethod(wx_GBSpan, SetColspan);
+	Gura_AssignMethod(wx_GBSpan, SetRowspan);
 }
 
 Gura_ImplementDescendantCreator(wx_GBSpan)

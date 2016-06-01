@@ -37,12 +37,128 @@ String Object_wx_ConvAuto::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_ConvAuto, wxConvAuto)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ConvAuto, wxConvAuto)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int enc = arg.GetNumber(0)
+	//pThis->GetEntity()->wxConvAuto();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ConvAuto, GetBOM)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ConvAuto, GetBOM)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetBOM();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ConvAuto, GetBOMChars)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "bom", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ConvAuto, GetBOMChars)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int bom = arg.GetNumber(0)
+	//int count = arg.GetNumber(1)
+	//pThis->GetEntity()->GetBOMChars();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ConvAuto, DisableFallbackEncoding)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ConvAuto, DisableFallbackEncoding)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->DisableFallbackEncoding();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ConvAuto, GetFallbackEncoding)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ConvAuto, GetFallbackEncoding)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetFallbackEncoding();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ConvAuto, SetFallbackEncoding)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ConvAuto, SetFallbackEncoding)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int enc = arg.GetNumber(0)
+	//pThis->GetEntity()->SetFallbackEncoding();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_ConvAuto, DetectBOM)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "srcLen", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_ConvAuto, DetectBOM)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int src = arg.GetNumber(0)
+	//int srcLen = arg.GetNumber(1)
+	//pThis->GetEntity()->DetectBOM();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxConvAuto
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ConvAuto)
 {
+	Gura_AssignMethod(wx_ConvAuto, wxConvAuto);
+	Gura_AssignMethod(wx_ConvAuto, GetBOM);
+	Gura_AssignMethod(wx_ConvAuto, GetBOMChars);
+	Gura_AssignMethod(wx_ConvAuto, DisableFallbackEncoding);
+	Gura_AssignMethod(wx_ConvAuto, GetFallbackEncoding);
+	Gura_AssignMethod(wx_ConvAuto, SetFallbackEncoding);
+	Gura_AssignMethod(wx_ConvAuto, DetectBOM);
 }
 
 Gura_ImplementDescendantCreator(wx_ConvAuto)

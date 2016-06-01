@@ -37,12 +37,107 @@ String Object_wx_SetCursorEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_SetCursorEvent, wxSetCursorEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_SetCursorEvent, wxSetCursorEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int x = arg.GetNumber(0)
+	//int y = arg.GetNumber(1)
+	//pThis->GetEntity()->wxSetCursorEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_SetCursorEvent, GetCursor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_SetCursorEvent, GetCursor)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetCursor();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_SetCursorEvent, GetX)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_SetCursorEvent, GetX)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetX();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_SetCursorEvent, GetY)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_SetCursorEvent, GetY)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetY();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_SetCursorEvent, HasCursor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_SetCursorEvent, HasCursor)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->HasCursor();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_SetCursorEvent, SetCursor)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_SetCursorEvent, SetCursor)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int cursor = arg.GetNumber(0)
+	//pThis->GetEntity()->SetCursor();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxSetCursorEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SetCursorEvent)
 {
+	Gura_AssignMethod(wx_SetCursorEvent, wxSetCursorEvent);
+	Gura_AssignMethod(wx_SetCursorEvent, GetCursor);
+	Gura_AssignMethod(wx_SetCursorEvent, GetX);
+	Gura_AssignMethod(wx_SetCursorEvent, GetY);
+	Gura_AssignMethod(wx_SetCursorEvent, HasCursor);
+	Gura_AssignMethod(wx_SetCursorEvent, SetCursor);
 }
 
 Gura_ImplementDescendantCreator(wx_SetCursorEvent)

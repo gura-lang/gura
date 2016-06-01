@@ -37,12 +37,60 @@ String Object_wx_CSConv::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_CSConv, wxCSConv)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "charset", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_CSConv, wxCSConv)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CSConv *pThis = Object_wx_CSConv::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int charset = arg.GetNumber(0)
+	//pThis->GetEntity()->wxCSConv();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_CSConv, wxCSConv_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_CSConv, wxCSConv_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CSConv *pThis = Object_wx_CSConv::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int encoding = arg.GetNumber(0)
+	//pThis->GetEntity()->wxCSConv();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_CSConv, IsOk)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_CSConv, IsOk)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_CSConv *pThis = Object_wx_CSConv::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsOk();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxCSConv
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CSConv)
 {
+	Gura_AssignMethod(wx_CSConv, wxCSConv);
+	Gura_AssignMethod(wx_CSConv, wxCSConv_1);
+	Gura_AssignMethod(wx_CSConv, IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_CSConv)

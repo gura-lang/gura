@@ -37,12 +37,94 @@ String Object_wx_MoveEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_MoveEvent, wxMoveEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MoveEvent, wxMoveEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int pt = arg.GetNumber(0)
+	//int id = arg.GetNumber(1)
+	//pThis->GetEntity()->wxMoveEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MoveEvent, GetPosition)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_MoveEvent, GetPosition)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetPosition();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MoveEvent, GetRect)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_MoveEvent, GetRect)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetRect();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MoveEvent, SetRect)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MoveEvent, SetRect)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int rect = arg.GetNumber(0)
+	//pThis->GetEntity()->SetRect();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_MoveEvent, SetPosition)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MoveEvent, SetPosition)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int pos = arg.GetNumber(0)
+	//pThis->GetEntity()->SetPosition();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxMoveEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MoveEvent)
 {
+	Gura_AssignMethod(wx_MoveEvent, wxMoveEvent);
+	Gura_AssignMethod(wx_MoveEvent, GetPosition);
+	Gura_AssignMethod(wx_MoveEvent, GetRect);
+	Gura_AssignMethod(wx_MoveEvent, SetRect);
+	Gura_AssignMethod(wx_MoveEvent, SetPosition);
 }
 
 Gura_ImplementDescendantCreator(wx_MoveEvent)

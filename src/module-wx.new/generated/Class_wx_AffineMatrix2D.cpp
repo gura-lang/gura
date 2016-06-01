@@ -37,11 +37,9 @@ String Object_wx_AffineMatrix2D::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-
 Gura_DeclareMethod(wx_AffineMatrix2D, wxAffineMatrix2D)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, wxAffineMatrix2D)
@@ -49,15 +47,15 @@ Gura_ImplementMethod(wx_AffineMatrix2D, wxAffineMatrix2D)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->wxAffineMatrix2D();
+	//pThis->GetEntity()->wxAffineMatrix2D();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, Get)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "mat2D", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "tr", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Get)
@@ -65,15 +63,17 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Get)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->Get();
+	//int mat2D = arg.GetNumber(0)
+	//int tr = arg.GetNumber(1)
+	//pThis->GetEntity()->Get();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, Set)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "mat2D", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "tr", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Set)
@@ -81,15 +81,16 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Set)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->Set();
+	//int mat2D = arg.GetNumber(0)
+	//int tr = arg.GetNumber(1)
+	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, Concat)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Concat)
@@ -97,15 +98,14 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Concat)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->Concat();
+	//int t = arg.GetNumber(0)
+	//pThis->GetEntity()->Concat();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, Invert)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Invert)
@@ -113,15 +113,13 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Invert)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->Invert();
+	//pThis->GetEntity()->Invert();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, IsIdentity)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, IsIdentity)
@@ -129,15 +127,14 @@ Gura_ImplementMethod(wx_AffineMatrix2D, IsIdentity)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->IsIdentity();
+	//pThis->GetEntity()->IsIdentity();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, IsEqual)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, IsEqual)
@@ -145,15 +142,16 @@ Gura_ImplementMethod(wx_AffineMatrix2D, IsEqual)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->IsEqual();
+	//int t = arg.GetNumber(0)
+	//pThis->GetEntity()->IsEqual();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, Translate)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Translate)
@@ -161,15 +159,17 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Translate)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->Translate();
+	//int dx = arg.GetNumber(0)
+	//int dy = arg.GetNumber(1)
+	//pThis->GetEntity()->Translate();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, Scale)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "xScale", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "yScale", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Scale)
@@ -177,15 +177,16 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Scale)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->Scale();
+	//int xScale = arg.GetNumber(0)
+	//int yScale = arg.GetNumber(1)
+	//pThis->GetEntity()->Scale();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, Mirror)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Mirror)
@@ -193,15 +194,15 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Mirror)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->Mirror();
+	//int direction = arg.GetNumber(0)
+	//pThis->GetEntity()->Mirror();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, Rotate)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "cRadians", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Rotate)
@@ -209,15 +210,15 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Rotate)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->Rotate();
+	//int cRadians = arg.GetNumber(0)
+	//pThis->GetEntity()->Rotate();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, TransformPoint)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, TransformPoint)
@@ -225,31 +226,33 @@ Gura_ImplementMethod(wx_AffineMatrix2D, TransformPoint)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->TransformPoint();
+	//int p = arg.GetNumber(0)
+	//pThis->GetEntity()->TransformPoint();
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, TransformPoint)
+Gura_DeclareMethod(wx_AffineMatrix2D, TransformPoint_1)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, TransformPoint)
+Gura_ImplementMethod(wx_AffineMatrix2D, TransformPoint_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->TransformPoint();
+	//int x = arg.GetNumber(0)
+	//int y = arg.GetNumber(1)
+	//pThis->GetEntity()->TransformPoint();
 	return Value::Nil;
 }
 
 Gura_DeclareMethod(wx_AffineMatrix2D, TransformDistance)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance)
@@ -257,24 +260,26 @@ Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance)
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->TransformDistance();
+	//int p = arg.GetNumber(0)
+	//pThis->GetEntity()->TransformDistance();
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, TransformDistance)
+Gura_DeclareMethod(wx_AffineMatrix2D, TransformDistance_1)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "developer", VTYPE_string, OCCUR_Once);
+	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance)
+Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance_1)
 {
 	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//wxString developer = wxString::FromUTF8(arg.GetString(0));
-	pThis->GetEntity()->TransformDistance();
+	//int dx = arg.GetNumber(0)
+	//int dy = arg.GetNumber(1)
+	//pThis->GetEntity()->TransformDistance();
 	return Value::Nil;
 }
 
@@ -283,6 +288,21 @@ Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AffineMatrix2D)
 {
+	Gura_AssignMethod(wx_AffineMatrix2D, wxAffineMatrix2D);
+	Gura_AssignMethod(wx_AffineMatrix2D, Get);
+	Gura_AssignMethod(wx_AffineMatrix2D, Set);
+	Gura_AssignMethod(wx_AffineMatrix2D, Concat);
+	Gura_AssignMethod(wx_AffineMatrix2D, Invert);
+	Gura_AssignMethod(wx_AffineMatrix2D, IsIdentity);
+	Gura_AssignMethod(wx_AffineMatrix2D, IsEqual);
+	Gura_AssignMethod(wx_AffineMatrix2D, Translate);
+	Gura_AssignMethod(wx_AffineMatrix2D, Scale);
+	Gura_AssignMethod(wx_AffineMatrix2D, Mirror);
+	Gura_AssignMethod(wx_AffineMatrix2D, Rotate);
+	Gura_AssignMethod(wx_AffineMatrix2D, TransformPoint);
+	Gura_AssignMethod(wx_AffineMatrix2D, TransformPoint_1);
+	Gura_AssignMethod(wx_AffineMatrix2D, TransformDistance);
+	Gura_AssignMethod(wx_AffineMatrix2D, TransformDistance_1);
 }
 
 Gura_ImplementDescendantCreator(wx_AffineMatrix2D)

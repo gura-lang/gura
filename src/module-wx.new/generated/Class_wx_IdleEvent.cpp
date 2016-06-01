@@ -37,12 +37,90 @@ String Object_wx_IdleEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_IdleEvent, wxIdleEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IdleEvent, wxIdleEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxIdleEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IdleEvent, GetMode)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IdleEvent, GetMode)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetMode();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IdleEvent, MoreRequested)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_IdleEvent, MoreRequested)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->MoreRequested();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IdleEvent, RequestMore)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "needMore", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_IdleEvent, RequestMore)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int needMore = arg.GetNumber(0)
+	//pThis->GetEntity()->RequestMore();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_IdleEvent, SetMode)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_IdleEvent, SetMode)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int mode = arg.GetNumber(0)
+	//pThis->GetEntity()->SetMode();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxIdleEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IdleEvent)
 {
+	Gura_AssignMethod(wx_IdleEvent, wxIdleEvent);
+	Gura_AssignMethod(wx_IdleEvent, GetMode);
+	Gura_AssignMethod(wx_IdleEvent, MoreRequested);
+	Gura_AssignMethod(wx_IdleEvent, RequestMore);
+	Gura_AssignMethod(wx_IdleEvent, SetMode);
 }
 
 Gura_ImplementDescendantCreator(wx_IdleEvent)

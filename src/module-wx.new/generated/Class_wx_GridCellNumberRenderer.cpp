@@ -37,12 +37,26 @@ String Object_wx_GridCellNumberRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GridCellNumberRenderer, wxGridCellNumberRenderer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GridCellNumberRenderer, wxGridCellNumberRenderer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GridCellNumberRenderer *pThis = Object_wx_GridCellNumberRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxGridCellNumberRenderer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellNumberRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellNumberRenderer)
 {
+	Gura_AssignMethod(wx_GridCellNumberRenderer, wxGridCellNumberRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellNumberRenderer)

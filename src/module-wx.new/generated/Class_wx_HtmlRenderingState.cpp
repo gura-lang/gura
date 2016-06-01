@@ -37,12 +37,154 @@ String Object_wx_HtmlRenderingState::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_HtmlRenderingState, wxHtmlRenderingState)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingState, wxHtmlRenderingState)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxHtmlRenderingState();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlRenderingState, SetSelectionState)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingState, SetSelectionState)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int s = arg.GetNumber(0)
+	//pThis->GetEntity()->SetSelectionState();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlRenderingState, GetSelectionState)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingState, GetSelectionState)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetSelectionState();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlRenderingState, SetFgColour)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingState, SetFgColour)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int c = arg.GetNumber(0)
+	//pThis->GetEntity()->SetFgColour();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlRenderingState, GetFgColour)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingState, GetFgColour)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetFgColour();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlRenderingState, SetBgColour)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingState, SetBgColour)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int c = arg.GetNumber(0)
+	//pThis->GetEntity()->SetBgColour();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlRenderingState, GetBgColour)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingState, GetBgColour)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetBgColour();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlRenderingState, SetBgMode)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "m", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingState, SetBgMode)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int m = arg.GetNumber(0)
+	//pThis->GetEntity()->SetBgMode();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_HtmlRenderingState, GetBgMode)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_HtmlRenderingState, GetBgMode)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetBgMode();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxHtmlRenderingState
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlRenderingState)
 {
+	Gura_AssignMethod(wx_HtmlRenderingState, wxHtmlRenderingState);
+	Gura_AssignMethod(wx_HtmlRenderingState, SetSelectionState);
+	Gura_AssignMethod(wx_HtmlRenderingState, GetSelectionState);
+	Gura_AssignMethod(wx_HtmlRenderingState, SetFgColour);
+	Gura_AssignMethod(wx_HtmlRenderingState, GetFgColour);
+	Gura_AssignMethod(wx_HtmlRenderingState, SetBgColour);
+	Gura_AssignMethod(wx_HtmlRenderingState, GetBgColour);
+	Gura_AssignMethod(wx_HtmlRenderingState, SetBgMode);
+	Gura_AssignMethod(wx_HtmlRenderingState, GetBgMode);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlRenderingState)

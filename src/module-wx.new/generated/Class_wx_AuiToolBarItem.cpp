@@ -37,12 +37,668 @@ String Object_wx_AuiToolBarItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_AuiToolBarItem, wxAuiToolBarItem)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, wxAuiToolBarItem)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxAuiToolBarItem();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, wxAuiToolBarItem_1)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, wxAuiToolBarItem_1)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int c = arg.GetNumber(0)
+	//pThis->GetEntity()->wxAuiToolBarItem();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, Assign)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, Assign)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int c = arg.GetNumber(0)
+	//pThis->GetEntity()->Assign();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetWindow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetWindow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int w = arg.GetNumber(0)
+	//pThis->GetEntity()->SetWindow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetWindow)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetWindow)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetWindow();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetId)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "new_id", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetId)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int new_id = arg.GetNumber(0)
+	//pThis->GetEntity()->SetId();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetId)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetId)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetId();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetKind)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "new_kind", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetKind)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int new_kind = arg.GetNumber(0)
+	//pThis->GetEntity()->SetKind();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetKind)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetKind)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetKind();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetState)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "new_state", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetState)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int new_state = arg.GetNumber(0)
+	//pThis->GetEntity()->SetState();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetState)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetState)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetState();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetSizerItem)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetSizerItem)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int s = arg.GetNumber(0)
+	//pThis->GetEntity()->SetSizerItem();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetSizerItem)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetSizerItem)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetSizerItem();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetLabel)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetLabel)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int s = arg.GetNumber(0)
+	//pThis->GetEntity()->SetLabel();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetLabel)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetLabel)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetLabel();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetBitmap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetBitmap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int bmp = arg.GetNumber(0)
+	//pThis->GetEntity()->SetBitmap();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetBitmap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetBitmap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetBitmap();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetDisabledBitmap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetDisabledBitmap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int bmp = arg.GetNumber(0)
+	//pThis->GetEntity()->SetDisabledBitmap();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetDisabledBitmap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetDisabledBitmap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetDisabledBitmap();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetHoverBitmap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetHoverBitmap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int bmp = arg.GetNumber(0)
+	//pThis->GetEntity()->SetHoverBitmap();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetHoverBitmap)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetHoverBitmap)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetHoverBitmap();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetShortHelp)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetShortHelp)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int s = arg.GetNumber(0)
+	//pThis->GetEntity()->SetShortHelp();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetShortHelp)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetShortHelp)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetShortHelp();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetLongHelp)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetLongHelp)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int s = arg.GetNumber(0)
+	//pThis->GetEntity()->SetLongHelp();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetLongHelp)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetLongHelp)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetLongHelp();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetMinSize)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetMinSize)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int s = arg.GetNumber(0)
+	//pThis->GetEntity()->SetMinSize();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetMinSize)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetMinSize)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetMinSize();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetSpacerPixels)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetSpacerPixels)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int s = arg.GetNumber(0)
+	//pThis->GetEntity()->SetSpacerPixels();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetSpacerPixels)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetSpacerPixels)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetSpacerPixels();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetProportion)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetProportion)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int p = arg.GetNumber(0)
+	//pThis->GetEntity()->SetProportion();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetProportion)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetProportion)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetProportion();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetActive)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetActive)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int b = arg.GetNumber(0)
+	//pThis->GetEntity()->SetActive();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, IsActive)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, IsActive)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsActive();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetHasDropDown)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetHasDropDown)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int b = arg.GetNumber(0)
+	//pThis->GetEntity()->SetHasDropDown();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, HasDropDown)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, HasDropDown)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->HasDropDown();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetSticky)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetSticky)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int b = arg.GetNumber(0)
+	//pThis->GetEntity()->SetSticky();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, IsSticky)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, IsSticky)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsSticky();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetUserData)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "l", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetUserData)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int l = arg.GetNumber(0)
+	//pThis->GetEntity()->SetUserData();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetUserData)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetUserData)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetUserData();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, SetAlignment)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "l", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, SetAlignment)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int l = arg.GetNumber(0)
+	//pThis->GetEntity()->SetAlignment();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_AuiToolBarItem, GetAlignment)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_AuiToolBarItem, GetAlignment)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->GetAlignment();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxAuiToolBarItem
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiToolBarItem)
 {
+	Gura_AssignMethod(wx_AuiToolBarItem, wxAuiToolBarItem);
+	Gura_AssignMethod(wx_AuiToolBarItem, wxAuiToolBarItem_1);
+	Gura_AssignMethod(wx_AuiToolBarItem, Assign);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetWindow);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetWindow);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetId);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetId);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetKind);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetKind);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetState);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetState);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetSizerItem);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetSizerItem);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetLabel);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetLabel);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetBitmap);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetBitmap);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetDisabledBitmap);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetDisabledBitmap);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetHoverBitmap);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetHoverBitmap);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetShortHelp);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetShortHelp);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetLongHelp);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetLongHelp);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetMinSize);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetMinSize);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetSpacerPixels);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetSpacerPixels);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetProportion);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetProportion);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetActive);
+	Gura_AssignMethod(wx_AuiToolBarItem, IsActive);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetHasDropDown);
+	Gura_AssignMethod(wx_AuiToolBarItem, HasDropDown);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetSticky);
+	Gura_AssignMethod(wx_AuiToolBarItem, IsSticky);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetUserData);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetUserData);
+	Gura_AssignMethod(wx_AuiToolBarItem, SetAlignment);
+	Gura_AssignMethod(wx_AuiToolBarItem, GetAlignment);
 }
 
 Gura_ImplementDescendantCreator(wx_AuiToolBarItem)

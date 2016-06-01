@@ -37,12 +37,60 @@ String Object_wx_DialUpEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_DialUpEvent, wxDialUpEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "isConnected", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "isOwnEvent", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_DialUpEvent, wxDialUpEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//int isConnected = arg.GetNumber(0)
+	//int isOwnEvent = arg.GetNumber(1)
+	//pThis->GetEntity()->wxDialUpEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DialUpEvent, IsConnectedEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DialUpEvent, IsConnectedEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsConnectedEvent();
+	return Value::Nil;
+}
+
+Gura_DeclareMethod(wx_DialUpEvent, IsOwnEvent)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_DialUpEvent, IsOwnEvent)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->IsOwnEvent();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxDialUpEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DialUpEvent)
 {
+	Gura_AssignMethod(wx_DialUpEvent, wxDialUpEvent);
+	Gura_AssignMethod(wx_DialUpEvent, IsConnectedEvent);
+	Gura_AssignMethod(wx_DialUpEvent, IsOwnEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_DialUpEvent)

@@ -37,12 +37,26 @@ String Object_wx_GridCellAutoWrapStringRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_GridCellAutoWrapStringRenderer, wxGridCellAutoWrapStringRenderer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_GridCellAutoWrapStringRenderer, wxGridCellAutoWrapStringRenderer)
+{
+	Signal &sig = env.GetSignal();
+	Object_wx_GridCellAutoWrapStringRenderer *pThis = Object_wx_GridCellAutoWrapStringRenderer::GetObjectThis(arg);
+	if (pThis->IsInvalid(sig)) return Value::Nil;
+	//pThis->GetEntity()->wxGridCellAutoWrapStringRenderer();
+	return Value::Nil;
+}
 
 //----------------------------------------------------------------------------
 // Class implementation for wxGridCellAutoWrapStringRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellAutoWrapStringRenderer)
 {
+	Gura_AssignMethod(wx_GridCellAutoWrapStringRenderer, wxGridCellAutoWrapStringRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellAutoWrapStringRenderer)
