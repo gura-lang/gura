@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_RichTextPlainTextHandler, wxRichTextPlainTextHandler)
 
 Gura_ImplementMethod(wx_RichTextPlainTextHandler, wxRichTextPlainTextHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int ext = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_RichTextPlainTextHandler, CanSave)
 
 Gura_ImplementMethod(wx_RichTextPlainTextHandler, CanSave)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanSave();
 	return Value::Nil;
 }
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_RichTextPlainTextHandler, CanLoad)
 
 Gura_ImplementMethod(wx_RichTextPlainTextHandler, CanLoad)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanLoad();
 	return Value::Nil;
 }
@@ -94,9 +91,8 @@ Gura_DeclareMethod(wx_RichTextPlainTextHandler, DoLoadFile)
 
 Gura_ImplementMethod(wx_RichTextPlainTextHandler, DoLoadFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoLoadFile();
@@ -112,9 +108,8 @@ Gura_DeclareMethod(wx_RichTextPlainTextHandler, DoSaveFile)
 
 Gura_ImplementMethod(wx_RichTextPlainTextHandler, DoSaveFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoSaveFile();

@@ -50,9 +50,8 @@ Gura_DeclareMethod(wx_DCOverlay, wxDCOverlay)
 
 Gura_ImplementMethod(wx_DCOverlay, wxDCOverlay)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCOverlay *pThis = Object_wx_DCOverlay::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int overlay = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int x = arg.GetNumber(2)
@@ -72,26 +71,11 @@ Gura_DeclareMethod(wx_DCOverlay, wxDCOverlay_1)
 
 Gura_ImplementMethod(wx_DCOverlay, wxDCOverlay_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCOverlay *pThis = Object_wx_DCOverlay::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int overlay = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDCOverlay();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DCOverlay, ~wxDCOverlay)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DCOverlay, ~wxDCOverlay)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DCOverlay *pThis = Object_wx_DCOverlay::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDCOverlay();
 	return Value::Nil;
 }
 
@@ -102,9 +86,8 @@ Gura_DeclareMethod(wx_DCOverlay, Clear)
 
 Gura_ImplementMethod(wx_DCOverlay, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCOverlay *pThis = Object_wx_DCOverlay::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -116,7 +99,6 @@ Gura_ImplementUserInheritableClass(wx_DCOverlay)
 {
 	Gura_AssignMethod(wx_DCOverlay, wxDCOverlay);
 	Gura_AssignMethod(wx_DCOverlay, wxDCOverlay_1);
-	Gura_AssignMethod(wx_DCOverlay, ~wxDCOverlay);
 	Gura_AssignMethod(wx_DCOverlay, Clear);
 }
 

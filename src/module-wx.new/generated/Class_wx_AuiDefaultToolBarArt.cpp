@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, wxAuiDefaultToolBarArt)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, wxAuiDefaultToolBarArt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxAuiDefaultToolBarArt();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_AuiDefaultToolBarArt, ~wxAuiDefaultToolBarArt)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_AuiDefaultToolBarArt, ~wxAuiDefaultToolBarArt)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxAuiDefaultToolBarArt();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, Clone)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -87,9 +71,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, SetFlags)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, SetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
@@ -102,9 +85,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, GetFlags)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, GetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
@@ -117,9 +99,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, SetFont)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, SetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;
@@ -132,9 +113,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, GetFont)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, GetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFont();
 	return Value::Nil;
 }
@@ -147,9 +127,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, SetTextOrientation)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, SetTextOrientation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orientation = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextOrientation();
 	return Value::Nil;
@@ -162,9 +141,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, GetTextOrientation)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, GetTextOrientation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTextOrientation();
 	return Value::Nil;
 }
@@ -179,9 +157,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, DrawBackground)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, DrawBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -199,9 +176,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, DrawPlainBackground)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, DrawPlainBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -220,9 +196,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, DrawLabel)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, DrawLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int item = arg.GetNumber(2)
@@ -242,9 +217,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, DrawButton)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, DrawButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int item = arg.GetNumber(2)
@@ -264,9 +238,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, DrawDropDownButton)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, DrawDropDownButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int item = arg.GetNumber(2)
@@ -286,9 +259,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, DrawControlLabel)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, DrawControlLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int item = arg.GetNumber(2)
@@ -307,9 +279,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, DrawSeparator)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, DrawSeparator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -327,9 +298,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, DrawGripper)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, DrawGripper)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -348,9 +318,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, DrawOverflowButton)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, DrawOverflowButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -369,9 +338,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, GetLabelSize)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, GetLabelSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int item = arg.GetNumber(2)
@@ -389,9 +357,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, GetToolSize)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, GetToolSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int item = arg.GetNumber(2)
@@ -407,9 +374,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, GetElementSize)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, GetElementSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int element = arg.GetNumber(0)
 	//pThis->GetEntity()->GetElementSize();
 	return Value::Nil;
@@ -424,9 +390,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, SetElementSize)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, SetElementSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int element_id = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//pThis->GetEntity()->SetElementSize();
@@ -442,9 +407,8 @@ Gura_DeclareMethod(wx_AuiDefaultToolBarArt, ShowDropDown)
 
 Gura_ImplementMethod(wx_AuiDefaultToolBarArt, ShowDropDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int wnd = arg.GetNumber(0)
 	//int items = arg.GetNumber(1)
 	//pThis->GetEntity()->ShowDropDown();
@@ -457,7 +421,6 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, ShowDropDown)
 Gura_ImplementUserInheritableClass(wx_AuiDefaultToolBarArt)
 {
 	Gura_AssignMethod(wx_AuiDefaultToolBarArt, wxAuiDefaultToolBarArt);
-	Gura_AssignMethod(wx_AuiDefaultToolBarArt, ~wxAuiDefaultToolBarArt);
 	Gura_AssignMethod(wx_AuiDefaultToolBarArt, Clone);
 	Gura_AssignMethod(wx_AuiDefaultToolBarArt, SetFlags);
 	Gura_AssignMethod(wx_AuiDefaultToolBarArt, GetFlags);

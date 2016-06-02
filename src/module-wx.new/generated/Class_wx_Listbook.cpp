@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Listbook, wxListbook)
 
 Gura_ImplementMethod(wx_Listbook, wxListbook)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Listbook *pThis = Object_wx_Listbook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxListbook();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_Listbook, wxListbook_1)
 
 Gura_ImplementMethod(wx_Listbook, wxListbook_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Listbook *pThis = Object_wx_Listbook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_Listbook, Create)
 
 Gura_ImplementMethod(wx_Listbook, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Listbook *pThis = Object_wx_Listbook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -110,9 +107,8 @@ Gura_DeclareMethod(wx_Listbook, GetListView)
 
 Gura_ImplementMethod(wx_Listbook, GetListView)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Listbook *pThis = Object_wx_Listbook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetListView();
 	return Value::Nil;
 }

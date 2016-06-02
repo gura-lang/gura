@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_GridCellTextEditor, wxGridCellTextEditor)
 
 Gura_ImplementMethod(wx_GridCellTextEditor, wxGridCellTextEditor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int maxChars = arg.GetNumber(0)
 	//pThis->GetEntity()->wxGridCellTextEditor();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_GridCellTextEditor, SetParameters)
 
 Gura_ImplementMethod(wx_GridCellTextEditor, SetParameters)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int params = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParameters();
 	return Value::Nil;
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_GridCellTextEditor, SetValidator)
 
 Gura_ImplementMethod(wx_GridCellTextEditor, SetValidator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int validator = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValidator();
 	return Value::Nil;

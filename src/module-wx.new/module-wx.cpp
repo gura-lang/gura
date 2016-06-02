@@ -68,36 +68,36 @@ bool IsWxReady()
 	return g_wxReadyFlag;
 }
 
-bool CheckWxReady(Signal &sig)
+bool CheckWxReady(Environment &env)
 {
 	if (g_wxReadyFlag) return true;
-	sig.SetError(ERR_RuntimeError, "wxWidgets functions must be called after wxApp::OnInit");
+	env.SetError(ERR_RuntimeError, "wxWidgets functions must be called after wxApp::OnInit");
 	return false;
 }
 
-void SetError_Obsolete(Signal &sig)
+void SetError_Obsolete(Environment &env)
 {
-	sig.SetError(ERR_NotImplementedError, "obsolete function");
+	env.SetError(ERR_NotImplementedError, "obsolete function");
 }
 
-void SetError_NotImplemented(Signal &sig)
+void SetError_NotImplemented(Environment &env)
 {
-	sig.SetError(ERR_NotImplementedError, "sorry, not implemented yet");
+	env.SetError(ERR_NotImplementedError, "sorry, not implemented yet");
 }
 
-void SetError_MSWOnly(Signal &sig)
+void SetError_MSWOnly(Environment &env)
 {
-	sig.SetError(ERR_NotImplementedError, "this function is only implemented in MSW");
+	env.SetError(ERR_NotImplementedError, "this function is only implemented in MSW");
 }
 
-void SetError_InvalidWxObject(Signal &sig, const char *name)
+void SetError_InvalidWxObject(Environment &env, const char *name)
 {
-	sig.SetError(ERR_ValueError, "invalid wx object of %s", name);
+	env.SetError(ERR_ValueError, "invalid wx object of %s", name);
 }
 
-void SetLogError(const Signal &sig)
+void SetLogError(const Environment &env)
 {
-	//::wxLogError(wxString::FromUTF8(sig.GetError().MakeText(true).c_str()));
+	//::wxLogError(wxString::FromUTF8(env.GetError().MakeText(true).c_str()));
 }
 
 wxArrayString *CreateArrayString(const ValueList &valList)
@@ -186,27 +186,27 @@ void ConvertToWxImage(Image *pImageGura, wxImage *pImage)
 	}
 }
 
-bool CheckMethodResult(Signal &sig)
+bool CheckMethodResult(Environment &env)
 {
-	if (sig.IsSignalled()) {
-		SetLogError(sig);
+	if (env.IsSignalled()) {
+		SetLogError(env);
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return false;
 	}
 	return true;
 }
 
-bool CheckMethodResult(Signal &sig, const Value &rtn,
+bool CheckMethodResult(Environment &env, const Value &rtn,
 						ValueType valueType, bool invalidAcceptableFlag)
 {
-	if (sig.IsSignalled()) {
-		SetLogError(sig);
+	if (env.IsSignalled()) {
+		SetLogError(env);
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return false;
 	}
 	if (invalidAcceptableFlag && rtn.IsInvalid()) return true;
 	if (!rtn.IsInstanceOf(valueType)) {
-		sig.SetError(ERR_ValueError, "unexpected result type");
+		env.SetError(ERR_ValueError, "unexpected result type");
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 		return false;
 	}

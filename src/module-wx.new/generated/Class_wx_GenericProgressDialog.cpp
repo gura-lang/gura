@@ -49,29 +49,14 @@ Gura_DeclareMethod(wx_GenericProgressDialog, wxGenericProgressDialog)
 
 Gura_ImplementMethod(wx_GenericProgressDialog, wxGenericProgressDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int maximum = arg.GetNumber(2)
 	//int parent = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->wxGenericProgressDialog();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_GenericProgressDialog, ~wxGenericProgressDialog)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_GenericProgressDialog, ~wxGenericProgressDialog)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxGenericProgressDialog();
 	return Value::Nil;
 }
 
@@ -82,9 +67,8 @@ Gura_DeclareMethod(wx_GenericProgressDialog, GetValue)
 
 Gura_ImplementMethod(wx_GenericProgressDialog, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -96,9 +80,8 @@ Gura_DeclareMethod(wx_GenericProgressDialog, GetRange)
 
 Gura_ImplementMethod(wx_GenericProgressDialog, GetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRange();
 	return Value::Nil;
 }
@@ -110,9 +93,8 @@ Gura_DeclareMethod(wx_GenericProgressDialog, GetMessage)
 
 Gura_ImplementMethod(wx_GenericProgressDialog, GetMessage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMessage();
 	return Value::Nil;
 }
@@ -126,9 +108,8 @@ Gura_DeclareMethod(wx_GenericProgressDialog, Pulse)
 
 Gura_ImplementMethod(wx_GenericProgressDialog, Pulse)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int newmsg = arg.GetNumber(0)
 	//int skip = arg.GetNumber(1)
 	//pThis->GetEntity()->Pulse();
@@ -142,9 +123,8 @@ Gura_DeclareMethod(wx_GenericProgressDialog, Resume)
 
 Gura_ImplementMethod(wx_GenericProgressDialog, Resume)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Resume();
 	return Value::Nil;
 }
@@ -157,9 +137,8 @@ Gura_DeclareMethod(wx_GenericProgressDialog, SetRange)
 
 Gura_ImplementMethod(wx_GenericProgressDialog, SetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int maximum = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRange();
 	return Value::Nil;
@@ -172,9 +151,8 @@ Gura_DeclareMethod(wx_GenericProgressDialog, WasCancelled)
 
 Gura_ImplementMethod(wx_GenericProgressDialog, WasCancelled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->WasCancelled();
 	return Value::Nil;
 }
@@ -186,9 +164,8 @@ Gura_DeclareMethod(wx_GenericProgressDialog, WasSkipped)
 
 Gura_ImplementMethod(wx_GenericProgressDialog, WasSkipped)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->WasSkipped();
 	return Value::Nil;
 }
@@ -203,9 +180,8 @@ Gura_DeclareMethod(wx_GenericProgressDialog, Update)
 
 Gura_ImplementMethod(wx_GenericProgressDialog, Update)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int newmsg = arg.GetNumber(1)
 	//int skip = arg.GetNumber(2)
@@ -219,7 +195,6 @@ Gura_ImplementMethod(wx_GenericProgressDialog, Update)
 Gura_ImplementUserInheritableClass(wx_GenericProgressDialog)
 {
 	Gura_AssignMethod(wx_GenericProgressDialog, wxGenericProgressDialog);
-	Gura_AssignMethod(wx_GenericProgressDialog, ~wxGenericProgressDialog);
 	Gura_AssignMethod(wx_GenericProgressDialog, GetValue);
 	Gura_AssignMethod(wx_GenericProgressDialog, GetRange);
 	Gura_AssignMethod(wx_GenericProgressDialog, GetMessage);

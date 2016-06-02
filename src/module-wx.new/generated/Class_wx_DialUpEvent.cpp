@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_DialUpEvent, wxDialUpEvent)
 
 Gura_ImplementMethod(wx_DialUpEvent, wxDialUpEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int isConnected = arg.GetNumber(0)
 	//int isOwnEvent = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDialUpEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_DialUpEvent, IsConnectedEvent)
 
 Gura_ImplementMethod(wx_DialUpEvent, IsConnectedEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsConnectedEvent();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_DialUpEvent, IsOwnEvent)
 
 Gura_ImplementMethod(wx_DialUpEvent, IsOwnEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOwnEvent();
 	return Value::Nil;
 }

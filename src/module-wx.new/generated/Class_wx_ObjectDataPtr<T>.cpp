@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ObjectDataPtr<T>, get)
 
 Gura_ImplementMethod(wx_ObjectDataPtr<T>, get)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ObjectDataPtr<T> *pThis = Object_wx_ObjectDataPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->get();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_ObjectDataPtr<T>, reset)
 
 Gura_ImplementMethod(wx_ObjectDataPtr<T>, reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ObjectDataPtr<T> *pThis = Object_wx_ObjectDataPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->reset();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_ObjectDataPtr<T>, unspecified_bool_type)
 
 Gura_ImplementMethod(wx_ObjectDataPtr<T>, unspecified_bool_type)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ObjectDataPtr<T> *pThis = Object_wx_ObjectDataPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->unspecified_bool_type();
 	return Value::Nil;
 }

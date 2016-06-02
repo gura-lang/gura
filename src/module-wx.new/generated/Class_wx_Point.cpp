@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Point, wxPoint)
 
 Gura_ImplementMethod(wx_Point, wxPoint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point *pThis = Object_wx_Point::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPoint();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_Point, wxPoint_1)
 
 Gura_ImplementMethod(wx_Point, wxPoint_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point *pThis = Object_wx_Point::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->wxPoint();
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_Point, wxPoint_2)
 
 Gura_ImplementMethod(wx_Point, wxPoint_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point *pThis = Object_wx_Point::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPoint();
 	return Value::Nil;
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_Point, IsFullySpecified)
 
 Gura_ImplementMethod(wx_Point, IsFullySpecified)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point *pThis = Object_wx_Point::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsFullySpecified();
 	return Value::Nil;
 }
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_Point, SetDefaults)
 
 Gura_ImplementMethod(wx_Point, SetDefaults)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point *pThis = Object_wx_Point::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaults();
 	return Value::Nil;

@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_FileSystemWatcherEvent, wxFileSystemWatcherEvent)
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, wxFileSystemWatcherEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int changeType = arg.GetNumber(0)
 	//int watchid = arg.GetNumber(1)
 	//pThis->GetEntity()->wxFileSystemWatcherEvent();
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_FileSystemWatcherEvent, wxFileSystemWatcherEvent_1)
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, wxFileSystemWatcherEvent_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int changeType = arg.GetNumber(0)
 	//int warningType = arg.GetNumber(1)
 	//int errorMsg = arg.GetNumber(2)
@@ -88,9 +86,8 @@ Gura_DeclareMethod(wx_FileSystemWatcherEvent, wxFileSystemWatcherEvent_2)
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, wxFileSystemWatcherEvent_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int changeType = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//int newPath = arg.GetNumber(2)
@@ -106,9 +103,8 @@ Gura_DeclareMethod(wx_FileSystemWatcherEvent, GetPath)
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, GetPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
@@ -120,9 +116,8 @@ Gura_DeclareMethod(wx_FileSystemWatcherEvent, GetNewPath)
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, GetNewPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNewPath();
 	return Value::Nil;
 }
@@ -134,9 +129,8 @@ Gura_DeclareMethod(wx_FileSystemWatcherEvent, GetChangeType)
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, GetChangeType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetChangeType();
 	return Value::Nil;
 }
@@ -148,9 +142,8 @@ Gura_DeclareMethod(wx_FileSystemWatcherEvent, IsError)
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, IsError)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsError();
 	return Value::Nil;
 }
@@ -162,9 +155,8 @@ Gura_DeclareMethod(wx_FileSystemWatcherEvent, GetErrorDescription)
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, GetErrorDescription)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetErrorDescription();
 	return Value::Nil;
 }
@@ -176,9 +168,8 @@ Gura_DeclareMethod(wx_FileSystemWatcherEvent, GetWarningType)
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, GetWarningType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWarningType();
 	return Value::Nil;
 }
@@ -190,9 +181,8 @@ Gura_DeclareMethod(wx_FileSystemWatcherEvent, ToString)
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, ToString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ToString();
 	return Value::Nil;
 }

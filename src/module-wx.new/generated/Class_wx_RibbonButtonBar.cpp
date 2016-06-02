@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, wxRibbonButtonBar)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, wxRibbonButtonBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRibbonButtonBar();
 	return Value::Nil;
 }
@@ -63,29 +62,14 @@ Gura_DeclareMethod(wx_RibbonButtonBar, wxRibbonButtonBar_1)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, wxRibbonButtonBar_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->wxRibbonButtonBar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RibbonButtonBar, ~wxRibbonButtonBar)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RibbonButtonBar, ~wxRibbonButtonBar)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRibbonButtonBar();
 	return Value::Nil;
 }
 
@@ -101,9 +85,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, Create)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -125,9 +108,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, AddButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, AddButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
 	//int label = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -148,9 +130,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, AddDropdownButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, AddDropdownButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
 	//int label = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -170,9 +151,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, AddHybridButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, AddHybridButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
 	//int label = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -192,9 +172,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, AddToggleButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, AddToggleButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
 	//int label = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -218,9 +197,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, AddButton_1)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, AddButton_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
 	//int label = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -246,9 +224,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, InsertButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, InsertButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int button_id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -271,9 +248,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, InsertDropdownButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, InsertDropdownButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int button_id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -295,9 +271,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, InsertHybridButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, InsertHybridButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int button_id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -319,9 +294,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, InsertToggleButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, InsertToggleButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int button_id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -347,9 +321,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, InsertButton_1)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, InsertButton_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int button_id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -370,9 +343,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, GetButtonCount)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, GetButtonCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetButtonCount();
 	return Value::Nil;
 }
@@ -386,9 +358,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, SetItemClientObject)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, SetItemClientObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemClientObject();
@@ -403,9 +374,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, GetItemClientObject)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, GetItemClientObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemClientObject();
 	return Value::Nil;
@@ -420,9 +390,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, SetItemClientData)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, SetItemClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemClientData();
@@ -437,9 +406,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, GetItemClientData)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, GetItemClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemClientData();
 	return Value::Nil;
@@ -453,9 +421,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, GetItem)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, GetItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItem();
 	return Value::Nil;
@@ -469,9 +436,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, GetItemById)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, GetItemById)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemById();
 	return Value::Nil;
@@ -484,9 +450,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, GetItemId)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, GetItemId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetItemId();
 	return Value::Nil;
 }
@@ -498,9 +463,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, Realize)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, Realize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Realize();
 	return Value::Nil;
 }
@@ -512,9 +476,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, ClearButtons)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, ClearButtons)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ClearButtons();
 	return Value::Nil;
 }
@@ -527,9 +490,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, DeleteButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, DeleteButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteButton();
 	return Value::Nil;
@@ -544,9 +506,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, EnableButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, EnableButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
 	//int enable = arg.GetNumber(1)
 	//pThis->GetEntity()->EnableButton();
@@ -562,9 +523,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, ToggleButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, ToggleButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
 	//int checked = arg.GetNumber(1)
 	//pThis->GetEntity()->ToggleButton();
@@ -578,9 +538,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, GetActiveItem)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, GetActiveItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetActiveItem();
 	return Value::Nil;
 }
@@ -592,9 +551,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, GetHoveredItem)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, GetHoveredItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHoveredItem();
 	return Value::Nil;
 }
@@ -607,9 +565,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, SetShowToolTipsForDisabled)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, SetShowToolTipsForDisabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int show = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShowToolTipsForDisabled();
 	return Value::Nil;
@@ -622,9 +579,8 @@ Gura_DeclareMethod(wx_RibbonButtonBar, GetShowToolTipsForDisabled)
 
 Gura_ImplementMethod(wx_RibbonButtonBar, GetShowToolTipsForDisabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetShowToolTipsForDisabled();
 	return Value::Nil;
 }
@@ -636,7 +592,6 @@ Gura_ImplementUserInheritableClass(wx_RibbonButtonBar)
 {
 	Gura_AssignMethod(wx_RibbonButtonBar, wxRibbonButtonBar);
 	Gura_AssignMethod(wx_RibbonButtonBar, wxRibbonButtonBar_1);
-	Gura_AssignMethod(wx_RibbonButtonBar, ~wxRibbonButtonBar);
 	Gura_AssignMethod(wx_RibbonButtonBar, Create);
 	Gura_AssignMethod(wx_RibbonButtonBar, AddButton);
 	Gura_AssignMethod(wx_RibbonButtonBar, AddDropdownButton);

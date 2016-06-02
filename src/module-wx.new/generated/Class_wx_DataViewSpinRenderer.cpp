@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_DataViewSpinRenderer, wxDataViewSpinRenderer)
 
 Gura_ImplementMethod(wx_DataViewSpinRenderer, wxDataViewSpinRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewSpinRenderer *pThis = Object_wx_DataViewSpinRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
 	//int mode = arg.GetNumber(2)

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_LogStderr, wxLogStderr)
 
 Gura_ImplementMethod(wx_LogStderr, wxLogStderr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogStderr *pThis = Object_wx_LogStderr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fp = arg.GetNumber(0)
 	//pThis->GetEntity()->wxLogStderr();
 	return Value::Nil;

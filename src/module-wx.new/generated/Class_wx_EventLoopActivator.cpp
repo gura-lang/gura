@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_EventLoopActivator, wxEventLoopActivator)
 
 Gura_ImplementMethod(wx_EventLoopActivator, wxEventLoopActivator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EventLoopActivator *pThis = Object_wx_EventLoopActivator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int loop = arg.GetNumber(0)
 	//pThis->GetEntity()->wxEventLoopActivator();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_EventLoopActivator, ~wxEventLoopActivator)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_EventLoopActivator, ~wxEventLoopActivator)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_EventLoopActivator *pThis = Object_wx_EventLoopActivator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxEventLoopActivator();
 	return Value::Nil;
 }
 
@@ -73,7 +58,6 @@ Gura_ImplementMethod(wx_EventLoopActivator, ~wxEventLoopActivator)
 Gura_ImplementUserInheritableClass(wx_EventLoopActivator)
 {
 	Gura_AssignMethod(wx_EventLoopActivator, wxEventLoopActivator);
-	Gura_AssignMethod(wx_EventLoopActivator, ~wxEventLoopActivator);
 }
 
 Gura_ImplementDescendantCreator(wx_EventLoopActivator)

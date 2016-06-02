@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, wxCalculateLayoutEvent)
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, wxCalculateLayoutEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->wxCalculateLayoutEvent();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, GetFlags)
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, GetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, GetRect)
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, GetRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRect();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, SetFlags)
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, SetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_CalculateLayoutEvent, SetRect)
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, SetRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRect();
 	return Value::Nil;

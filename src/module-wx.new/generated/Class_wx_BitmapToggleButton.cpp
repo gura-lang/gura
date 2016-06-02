@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_BitmapToggleButton, wxBitmapToggleButton)
 
 Gura_ImplementMethod(wx_BitmapToggleButton, wxBitmapToggleButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxBitmapToggleButton();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_BitmapToggleButton, wxBitmapToggleButton_1)
 
 Gura_ImplementMethod(wx_BitmapToggleButton, wxBitmapToggleButton_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_BitmapToggleButton, Create)
 
 Gura_ImplementMethod(wx_BitmapToggleButton, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -118,9 +115,8 @@ Gura_DeclareMethod(wx_BitmapToggleButton, GetValue)
 
 Gura_ImplementMethod(wx_BitmapToggleButton, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -133,9 +129,8 @@ Gura_DeclareMethod(wx_BitmapToggleButton, SetValue)
 
 Gura_ImplementMethod(wx_BitmapToggleButton, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int state = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;

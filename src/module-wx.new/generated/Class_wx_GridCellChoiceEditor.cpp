@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor)
 
 Gura_ImplementMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellChoiceEditor *pThis = Object_wx_GridCellChoiceEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int count = arg.GetNumber(0)
 	//int choices = arg.GetNumber(1)
 	//int allowOthers = arg.GetNumber(2)
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor_1)
 
 Gura_ImplementMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellChoiceEditor *pThis = Object_wx_GridCellChoiceEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int choices = arg.GetNumber(0)
 	//int allowOthers = arg.GetNumber(1)
 	//pThis->GetEntity()->wxGridCellChoiceEditor();
@@ -83,9 +81,8 @@ Gura_DeclareMethod(wx_GridCellChoiceEditor, SetParameters)
 
 Gura_ImplementMethod(wx_GridCellChoiceEditor, SetParameters)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellChoiceEditor *pThis = Object_wx_GridCellChoiceEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int params = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParameters();
 	return Value::Nil;

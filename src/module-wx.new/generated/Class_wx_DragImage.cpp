@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_DragImage, wxDragImage)
 
 Gura_ImplementMethod(wx_DragImage, wxDragImage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxDragImage();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_DragImage, wxDragImage_1)
 
 Gura_ImplementMethod(wx_DragImage, wxDragImage_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//int cursor = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDragImage();
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_DragImage, wxDragImage_2)
 
 Gura_ImplementMethod(wx_DragImage, wxDragImage_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//int cursor = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDragImage();
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_DragImage, wxDragImage_3)
 
 Gura_ImplementMethod(wx_DragImage, wxDragImage_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int cursor = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDragImage();
@@ -114,9 +110,8 @@ Gura_DeclareMethod(wx_DragImage, wxDragImage_4)
 
 Gura_ImplementMethod(wx_DragImage, wxDragImage_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int treeCtrl = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDragImage();
@@ -132,9 +127,8 @@ Gura_DeclareMethod(wx_DragImage, wxDragImage_5)
 
 Gura_ImplementMethod(wx_DragImage, wxDragImage_5)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int listCtrl = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDragImage();
@@ -152,9 +146,8 @@ Gura_DeclareMethod(wx_DragImage, BeginDrag)
 
 Gura_ImplementMethod(wx_DragImage, BeginDrag)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int hotspot = arg.GetNumber(0)
 	//int window = arg.GetNumber(1)
 	//int fullScreen = arg.GetNumber(2)
@@ -173,9 +166,8 @@ Gura_DeclareMethod(wx_DragImage, BeginDrag_1)
 
 Gura_ImplementMethod(wx_DragImage, BeginDrag_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int hotspot = arg.GetNumber(0)
 	//int window = arg.GetNumber(1)
 	//int boundingWindow = arg.GetNumber(2)
@@ -192,9 +184,8 @@ Gura_DeclareMethod(wx_DragImage, DoDrawImage)
 
 Gura_ImplementMethod(wx_DragImage, DoDrawImage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//pThis->GetEntity()->DoDrawImage();
@@ -208,9 +199,8 @@ Gura_DeclareMethod(wx_DragImage, EndDrag)
 
 Gura_ImplementMethod(wx_DragImage, EndDrag)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->EndDrag();
 	return Value::Nil;
 }
@@ -223,9 +213,8 @@ Gura_DeclareMethod(wx_DragImage, GetImageRect)
 
 Gura_ImplementMethod(wx_DragImage, GetImageRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->GetImageRect();
 	return Value::Nil;
@@ -238,9 +227,8 @@ Gura_DeclareMethod(wx_DragImage, Hide)
 
 Gura_ImplementMethod(wx_DragImage, Hide)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Hide();
 	return Value::Nil;
 }
@@ -253,9 +241,8 @@ Gura_DeclareMethod(wx_DragImage, Move)
 
 Gura_ImplementMethod(wx_DragImage, Move)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->Move();
 	return Value::Nil;
@@ -268,9 +255,8 @@ Gura_DeclareMethod(wx_DragImage, Show)
 
 Gura_ImplementMethod(wx_DragImage, Show)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Show();
 	return Value::Nil;
 }
@@ -286,9 +272,8 @@ Gura_DeclareMethod(wx_DragImage, UpdateBackingFromWindow)
 
 Gura_ImplementMethod(wx_DragImage, UpdateBackingFromWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int windowDC = arg.GetNumber(0)
 	//int destDC = arg.GetNumber(1)
 	//int sourceRect = arg.GetNumber(2)

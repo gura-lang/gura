@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Frame, wxFrame)
 
 Gura_ImplementMethod(wx_Frame, wxFrame)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxFrame();
 	return Value::Nil;
 }
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_Frame, wxFrame_1)
 
 Gura_ImplementMethod(wx_Frame, wxFrame_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -79,20 +77,6 @@ Gura_ImplementMethod(wx_Frame, wxFrame_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Frame, ~wxFrame)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Frame, ~wxFrame)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxFrame();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_Frame, Centre)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -101,9 +85,8 @@ Gura_DeclareMethod(wx_Frame, Centre)
 
 Gura_ImplementMethod(wx_Frame, Centre)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//pThis->GetEntity()->Centre();
 	return Value::Nil;
@@ -123,9 +106,8 @@ Gura_DeclareMethod(wx_Frame, Create)
 
 Gura_ImplementMethod(wx_Frame, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -148,9 +130,8 @@ Gura_DeclareMethod(wx_Frame, CreateStatusBar)
 
 Gura_ImplementMethod(wx_Frame, CreateStatusBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int number = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
@@ -169,9 +150,8 @@ Gura_DeclareMethod(wx_Frame, CreateToolBar)
 
 Gura_ImplementMethod(wx_Frame, CreateToolBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int name = arg.GetNumber(2)
@@ -188,9 +168,8 @@ Gura_DeclareMethod(wx_Frame, DoGiveHelp)
 
 Gura_ImplementMethod(wx_Frame, DoGiveHelp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int show = arg.GetNumber(1)
 	//pThis->GetEntity()->DoGiveHelp();
@@ -204,9 +183,8 @@ Gura_DeclareMethod(wx_Frame, GetClientAreaOrigin)
 
 Gura_ImplementMethod(wx_Frame, GetClientAreaOrigin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetClientAreaOrigin();
 	return Value::Nil;
 }
@@ -218,9 +196,8 @@ Gura_DeclareMethod(wx_Frame, GetMenuBar)
 
 Gura_ImplementMethod(wx_Frame, GetMenuBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMenuBar();
 	return Value::Nil;
 }
@@ -232,9 +209,8 @@ Gura_DeclareMethod(wx_Frame, GetStatusBar)
 
 Gura_ImplementMethod(wx_Frame, GetStatusBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStatusBar();
 	return Value::Nil;
 }
@@ -246,9 +222,8 @@ Gura_DeclareMethod(wx_Frame, GetStatusBarPane)
 
 Gura_ImplementMethod(wx_Frame, GetStatusBarPane)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStatusBarPane();
 	return Value::Nil;
 }
@@ -260,9 +235,8 @@ Gura_DeclareMethod(wx_Frame, GetToolBar)
 
 Gura_ImplementMethod(wx_Frame, GetToolBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetToolBar();
 	return Value::Nil;
 }
@@ -278,9 +252,8 @@ Gura_DeclareMethod(wx_Frame, OnCreateStatusBar)
 
 Gura_ImplementMethod(wx_Frame, OnCreateStatusBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int number = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
@@ -299,9 +272,8 @@ Gura_DeclareMethod(wx_Frame, OnCreateToolBar)
 
 Gura_ImplementMethod(wx_Frame, OnCreateToolBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int name = arg.GetNumber(2)
@@ -317,9 +289,8 @@ Gura_DeclareMethod(wx_Frame, ProcessCommand)
 
 Gura_ImplementMethod(wx_Frame, ProcessCommand)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->ProcessCommand();
 	return Value::Nil;
@@ -333,9 +304,8 @@ Gura_DeclareMethod(wx_Frame, SetMenuBar)
 
 Gura_ImplementMethod(wx_Frame, SetMenuBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int menuBar = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMenuBar();
 	return Value::Nil;
@@ -349,9 +319,8 @@ Gura_DeclareMethod(wx_Frame, SetStatusBar)
 
 Gura_ImplementMethod(wx_Frame, SetStatusBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int statusBar = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStatusBar();
 	return Value::Nil;
@@ -365,9 +334,8 @@ Gura_DeclareMethod(wx_Frame, SetStatusBarPane)
 
 Gura_ImplementMethod(wx_Frame, SetStatusBarPane)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStatusBarPane();
 	return Value::Nil;
@@ -382,9 +350,8 @@ Gura_DeclareMethod(wx_Frame, SetStatusText)
 
 Gura_ImplementMethod(wx_Frame, SetStatusText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int number = arg.GetNumber(1)
 	//pThis->GetEntity()->SetStatusText();
@@ -400,9 +367,8 @@ Gura_DeclareMethod(wx_Frame, SetStatusWidths)
 
 Gura_ImplementMethod(wx_Frame, SetStatusWidths)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int widths_field = arg.GetNumber(1)
 	//pThis->GetEntity()->SetStatusWidths();
@@ -417,9 +383,8 @@ Gura_DeclareMethod(wx_Frame, SetToolBar)
 
 Gura_ImplementMethod(wx_Frame, SetToolBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolBar = arg.GetNumber(0)
 	//pThis->GetEntity()->SetToolBar();
 	return Value::Nil;
@@ -432,9 +397,8 @@ Gura_DeclareMethod(wx_Frame, MSWGetTaskBarButton)
 
 Gura_ImplementMethod(wx_Frame, MSWGetTaskBarButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MSWGetTaskBarButton();
 	return Value::Nil;
 }
@@ -448,9 +412,8 @@ Gura_DeclareMethod(wx_Frame, PushStatusText)
 
 Gura_ImplementMethod(wx_Frame, PushStatusText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int number = arg.GetNumber(1)
 	//pThis->GetEntity()->PushStatusText();
@@ -465,9 +428,8 @@ Gura_DeclareMethod(wx_Frame, PopStatusText)
 
 Gura_ImplementMethod(wx_Frame, PopStatusText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int number = arg.GetNumber(0)
 	//pThis->GetEntity()->PopStatusText();
 	return Value::Nil;
@@ -480,7 +442,6 @@ Gura_ImplementUserInheritableClass(wx_Frame)
 {
 	Gura_AssignMethod(wx_Frame, wxFrame);
 	Gura_AssignMethod(wx_Frame, wxFrame_1);
-	Gura_AssignMethod(wx_Frame, ~wxFrame);
 	Gura_AssignMethod(wx_Frame, Centre);
 	Gura_AssignMethod(wx_Frame, Create);
 	Gura_AssignMethod(wx_Frame, CreateStatusBar);

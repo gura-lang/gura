@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_ActiveXEvent, GetDispatchId)
 
 Gura_ImplementMethod(wx_ActiveXEvent, GetDispatchId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->GetDispatchId();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_ActiveXEvent, ParamCount)
 
 Gura_ImplementMethod(wx_ActiveXEvent, ParamCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ParamCount();
 	return Value::Nil;
 }
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_ActiveXEvent, ParamName)
 
 Gura_ImplementMethod(wx_ActiveXEvent, ParamName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->ParamName();
 	return Value::Nil;
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_ActiveXEvent, ParamType)
 
 Gura_ImplementMethod(wx_ActiveXEvent, ParamType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->ParamType();
 	return Value::Nil;
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_ActiveXEvent, GetNativeParameters)
 
 Gura_ImplementMethod(wx_ActiveXEvent, GetNativeParameters)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNativeParameters();
 	return Value::Nil;
 }

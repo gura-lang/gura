@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_TarOutputStream, wxTarOutputStream)
 
 Gura_ImplementMethod(wx_TarOutputStream, wxTarOutputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//int conv = arg.GetNumber(2)
@@ -67,27 +66,12 @@ Gura_DeclareMethod(wx_TarOutputStream, wxTarOutputStream_1)
 
 Gura_ImplementMethod(wx_TarOutputStream, wxTarOutputStream_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//int conv = arg.GetNumber(2)
 	//pThis->GetEntity()->wxTarOutputStream();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_TarOutputStream, ~wxTarOutputStream)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_TarOutputStream, ~wxTarOutputStream)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxTarOutputStream();
 	return Value::Nil;
 }
 
@@ -98,9 +82,8 @@ Gura_DeclareMethod(wx_TarOutputStream, Close)
 
 Gura_ImplementMethod(wx_TarOutputStream, Close)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Close();
 	return Value::Nil;
 }
@@ -112,9 +95,8 @@ Gura_DeclareMethod(wx_TarOutputStream, CloseEntry)
 
 Gura_ImplementMethod(wx_TarOutputStream, CloseEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CloseEntry();
 	return Value::Nil;
 }
@@ -127,9 +109,8 @@ Gura_DeclareMethod(wx_TarOutputStream, CopyArchiveMetaData)
 
 Gura_ImplementMethod(wx_TarOutputStream, CopyArchiveMetaData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int s = arg.GetNumber(0)
 	//pThis->GetEntity()->CopyArchiveMetaData();
 	return Value::Nil;
@@ -144,9 +125,8 @@ Gura_DeclareMethod(wx_TarOutputStream, CopyEntry)
 
 Gura_ImplementMethod(wx_TarOutputStream, CopyEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
 	//int inputStream = arg.GetNumber(1)
 	//pThis->GetEntity()->CopyEntry();
@@ -160,9 +140,8 @@ Gura_DeclareMethod(wx_TarOutputStream, GetBlockingFactor)
 
 Gura_ImplementMethod(wx_TarOutputStream, GetBlockingFactor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBlockingFactor();
 	return Value::Nil;
 }
@@ -175,9 +154,8 @@ Gura_DeclareMethod(wx_TarOutputStream, SetBlockingFactor)
 
 Gura_ImplementMethod(wx_TarOutputStream, SetBlockingFactor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int factor = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBlockingFactor();
 	return Value::Nil;
@@ -192,9 +170,8 @@ Gura_DeclareMethod(wx_TarOutputStream, PutNextDirEntry)
 
 Gura_ImplementMethod(wx_TarOutputStream, PutNextDirEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
 	//pThis->GetEntity()->PutNextDirEntry();
@@ -209,9 +186,8 @@ Gura_DeclareMethod(wx_TarOutputStream, PutNextEntry)
 
 Gura_ImplementMethod(wx_TarOutputStream, PutNextEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
 	//pThis->GetEntity()->PutNextEntry();
 	return Value::Nil;
@@ -227,9 +203,8 @@ Gura_DeclareMethod(wx_TarOutputStream, PutNextEntry_1)
 
 Gura_ImplementMethod(wx_TarOutputStream, PutNextEntry_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -244,7 +219,6 @@ Gura_ImplementUserInheritableClass(wx_TarOutputStream)
 {
 	Gura_AssignMethod(wx_TarOutputStream, wxTarOutputStream);
 	Gura_AssignMethod(wx_TarOutputStream, wxTarOutputStream_1);
-	Gura_AssignMethod(wx_TarOutputStream, ~wxTarOutputStream);
 	Gura_AssignMethod(wx_TarOutputStream, Close);
 	Gura_AssignMethod(wx_TarOutputStream, CloseEntry);
 	Gura_AssignMethod(wx_TarOutputStream, CopyArchiveMetaData);

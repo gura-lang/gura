@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ImageHistogram, wxImageHistogram)
 
 Gura_ImplementMethod(wx_ImageHistogram, wxImageHistogram)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageHistogram *pThis = Object_wx_ImageHistogram::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxImageHistogram();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_ImageHistogram, MakeKey)
 
 Gura_ImplementMethod(wx_ImageHistogram, MakeKey)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageHistogram *pThis = Object_wx_ImageHistogram::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//int g = arg.GetNumber(1)
 	//int b = arg.GetNumber(2)
@@ -84,9 +82,8 @@ Gura_DeclareMethod(wx_ImageHistogram, FindFirstUnusedColour)
 
 Gura_ImplementMethod(wx_ImageHistogram, FindFirstUnusedColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageHistogram *pThis = Object_wx_ImageHistogram::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//int g = arg.GetNumber(1)
 	//int b = arg.GetNumber(2)

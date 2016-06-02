@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ScopedCharTypeBuffer, wxScopedCharTypeBuffer)
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, wxScopedCharTypeBuffer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxScopedCharTypeBuffer();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_ScopedCharTypeBuffer, CreateNonOwned)
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, CreateNonOwned)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateNonOwned();
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_ScopedCharTypeBuffer, CreateOwned)
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, CreateOwned)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateOwned();
@@ -95,25 +92,10 @@ Gura_DeclareMethod(wx_ScopedCharTypeBuffer, wxScopedCharTypeBuffer_1)
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, wxScopedCharTypeBuffer_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int src = arg.GetNumber(0)
 	//pThis->GetEntity()->wxScopedCharTypeBuffer();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_ScopedCharTypeBuffer, ~wxScopedCharTypeBuffer)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ScopedCharTypeBuffer, ~wxScopedCharTypeBuffer)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxScopedCharTypeBuffer();
 	return Value::Nil;
 }
 
@@ -124,9 +106,8 @@ Gura_DeclareMethod(wx_ScopedCharTypeBuffer, release)
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, release)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->release();
 	return Value::Nil;
 }
@@ -138,9 +119,8 @@ Gura_DeclareMethod(wx_ScopedCharTypeBuffer, reset)
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->reset();
 	return Value::Nil;
 }
@@ -152,9 +132,8 @@ Gura_DeclareMethod(wx_ScopedCharTypeBuffer, data)
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, data)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->data();
 	return Value::Nil;
 }
@@ -166,9 +145,8 @@ Gura_DeclareMethod(wx_ScopedCharTypeBuffer, data_1)
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, data_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->data();
 	return Value::Nil;
 }
@@ -180,9 +158,8 @@ Gura_DeclareMethod(wx_ScopedCharTypeBuffer, length)
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, length)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->length();
 	return Value::Nil;
 }
@@ -196,7 +173,6 @@ Gura_ImplementUserInheritableClass(wx_ScopedCharTypeBuffer)
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, CreateNonOwned);
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, CreateOwned);
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, wxScopedCharTypeBuffer_1);
-	Gura_AssignMethod(wx_ScopedCharTypeBuffer, ~wxScopedCharTypeBuffer);
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, release);
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, reset);
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, data);

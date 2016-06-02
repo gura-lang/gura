@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_PGValidationInfo, GetFailureBehavior)
 
 Gura_ImplementMethod(wx_PGValidationInfo, GetFailureBehavior)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFailureBehavior();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_PGValidationInfo, GetFailureMessage)
 
 Gura_ImplementMethod(wx_PGValidationInfo, GetFailureMessage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFailureMessage();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_PGValidationInfo, GetValue)
 
 Gura_ImplementMethod(wx_PGValidationInfo, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -87,9 +84,8 @@ Gura_DeclareMethod(wx_PGValidationInfo, SetFailureBehavior)
 
 Gura_ImplementMethod(wx_PGValidationInfo, SetFailureBehavior)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int failureBehavior = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFailureBehavior();
 	return Value::Nil;
@@ -103,9 +99,8 @@ Gura_DeclareMethod(wx_PGValidationInfo, SetFailureMessage)
 
 Gura_ImplementMethod(wx_PGValidationInfo, SetFailureMessage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int message = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFailureMessage();
 	return Value::Nil;

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_DCTextColourChanger, wxDCTextColourChanger)
 
 Gura_ImplementMethod(wx_DCTextColourChanger, wxDCTextColourChanger)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCTextColourChanger *pThis = Object_wx_DCTextColourChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//pThis->GetEntity()->wxDCTextColourChanger();
 	return Value::Nil;
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_DCTextColourChanger, wxDCTextColourChanger_1)
 
 Gura_ImplementMethod(wx_DCTextColourChanger, wxDCTextColourChanger_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCTextColourChanger *pThis = Object_wx_DCTextColourChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDCTextColourChanger();
@@ -79,25 +77,10 @@ Gura_DeclareMethod(wx_DCTextColourChanger, Set)
 
 Gura_ImplementMethod(wx_DCTextColourChanger, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCTextColourChanger *pThis = Object_wx_DCTextColourChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DCTextColourChanger, ~wxDCTextColourChanger)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DCTextColourChanger, ~wxDCTextColourChanger)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DCTextColourChanger *pThis = Object_wx_DCTextColourChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDCTextColourChanger();
 	return Value::Nil;
 }
 
@@ -109,7 +92,6 @@ Gura_ImplementUserInheritableClass(wx_DCTextColourChanger)
 	Gura_AssignMethod(wx_DCTextColourChanger, wxDCTextColourChanger);
 	Gura_AssignMethod(wx_DCTextColourChanger, wxDCTextColourChanger_1);
 	Gura_AssignMethod(wx_DCTextColourChanger, Set);
-	Gura_AssignMethod(wx_DCTextColourChanger, ~wxDCTextColourChanger);
 }
 
 Gura_ImplementDescendantCreator(wx_DCTextColourChanger)

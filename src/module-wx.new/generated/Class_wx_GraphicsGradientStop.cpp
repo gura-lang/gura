@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStop, wxGraphicsGradientStop)
 
 Gura_ImplementMethod(wx_GraphicsGradientStop, wxGraphicsGradientStop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//pThis->GetEntity()->wxGraphicsGradientStop();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStop, GetColour)
 
 Gura_ImplementMethod(wx_GraphicsGradientStop, GetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStop, SetColour)
 
 Gura_ImplementMethod(wx_GraphicsGradientStop, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStop, GetPosition)
 
 Gura_ImplementMethod(wx_GraphicsGradientStop, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStop, SetPosition)
 
 Gura_ImplementMethod(wx_GraphicsGradientStop, SetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHyperlinkCtrl();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl_1)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, Create)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -118,9 +115,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, GetHoverColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, GetHoverColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHoverColour();
 	return Value::Nil;
 }
@@ -132,9 +128,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, GetNormalColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, GetNormalColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNormalColour();
 	return Value::Nil;
 }
@@ -146,9 +141,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, GetURL)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, GetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
@@ -160,9 +154,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, GetVisited)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisited)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVisited();
 	return Value::Nil;
 }
@@ -174,9 +167,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, GetVisitedColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisitedColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVisitedColour();
 	return Value::Nil;
 }
@@ -189,9 +181,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, SetHoverColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, SetHoverColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHoverColour();
 	return Value::Nil;
@@ -205,9 +196,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, SetNormalColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, SetNormalColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNormalColour();
 	return Value::Nil;
@@ -221,9 +211,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, SetURL)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, SetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;
@@ -237,9 +226,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, SetVisited)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, SetVisited)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int visited = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVisited();
 	return Value::Nil;
@@ -253,9 +241,8 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, SetVisitedColour)
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, SetVisitedColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVisitedColour();
 	return Value::Nil;

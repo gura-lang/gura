@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_AuiDockArt, wxAuiDockArt)
 
 Gura_ImplementMethod(wx_AuiDockArt, wxAuiDockArt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxAuiDockArt();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_AuiDockArt, ~wxAuiDockArt)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_AuiDockArt, ~wxAuiDockArt)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxAuiDockArt();
 	return Value::Nil;
 }
 
@@ -76,9 +61,8 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawBackground)
 
 Gura_ImplementMethod(wx_AuiDockArt, DrawBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int window = arg.GetNumber(1)
 	//int orientation = arg.GetNumber(2)
@@ -98,9 +82,8 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawBorder)
 
 Gura_ImplementMethod(wx_AuiDockArt, DrawBorder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int window = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -121,9 +104,8 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawCaption)
 
 Gura_ImplementMethod(wx_AuiDockArt, DrawCaption)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int window = arg.GetNumber(1)
 	//int text = arg.GetNumber(2)
@@ -144,9 +126,8 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawGripper)
 
 Gura_ImplementMethod(wx_AuiDockArt, DrawGripper)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int window = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -168,9 +149,8 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawPaneButton)
 
 Gura_ImplementMethod(wx_AuiDockArt, DrawPaneButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int window = arg.GetNumber(1)
 	//int button = arg.GetNumber(2)
@@ -192,9 +172,8 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawSash)
 
 Gura_ImplementMethod(wx_AuiDockArt, DrawSash)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int window = arg.GetNumber(1)
 	//int orientation = arg.GetNumber(2)
@@ -211,9 +190,8 @@ Gura_DeclareMethod(wx_AuiDockArt, GetColour)
 
 Gura_ImplementMethod(wx_AuiDockArt, GetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColour();
 	return Value::Nil;
@@ -227,9 +205,8 @@ Gura_DeclareMethod(wx_AuiDockArt, GetFont)
 
 Gura_ImplementMethod(wx_AuiDockArt, GetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFont();
 	return Value::Nil;
@@ -243,9 +220,8 @@ Gura_DeclareMethod(wx_AuiDockArt, GetMetric)
 
 Gura_ImplementMethod(wx_AuiDockArt, GetMetric)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetMetric();
 	return Value::Nil;
@@ -260,9 +236,8 @@ Gura_DeclareMethod(wx_AuiDockArt, SetColour)
 
 Gura_ImplementMethod(wx_AuiDockArt, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int colour = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColour();
@@ -278,9 +253,8 @@ Gura_DeclareMethod(wx_AuiDockArt, SetFont)
 
 Gura_ImplementMethod(wx_AuiDockArt, SetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int font = arg.GetNumber(1)
 	//pThis->GetEntity()->SetFont();
@@ -296,9 +270,8 @@ Gura_DeclareMethod(wx_AuiDockArt, SetMetric)
 
 Gura_ImplementMethod(wx_AuiDockArt, SetMetric)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int new_val = arg.GetNumber(1)
 	//pThis->GetEntity()->SetMetric();
@@ -311,7 +284,6 @@ Gura_ImplementMethod(wx_AuiDockArt, SetMetric)
 Gura_ImplementUserInheritableClass(wx_AuiDockArt)
 {
 	Gura_AssignMethod(wx_AuiDockArt, wxAuiDockArt);
-	Gura_AssignMethod(wx_AuiDockArt, ~wxAuiDockArt);
 	Gura_AssignMethod(wx_AuiDockArt, DrawBackground);
 	Gura_AssignMethod(wx_AuiDockArt, DrawBorder);
 	Gura_AssignMethod(wx_AuiDockArt, DrawCaption);

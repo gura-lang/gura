@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Button, wxButton)
 
 Gura_ImplementMethod(wx_Button, wxButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxButton();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_Button, wxButton_1)
 
 Gura_ImplementMethod(wx_Button, wxButton_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_Button, Create)
 
 Gura_ImplementMethod(wx_Button, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -118,9 +115,8 @@ Gura_DeclareMethod(wx_Button, GetAuthNeeded)
 
 Gura_ImplementMethod(wx_Button, GetAuthNeeded)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAuthNeeded();
 	return Value::Nil;
 }
@@ -132,9 +128,8 @@ Gura_DeclareMethod(wx_Button, GetDefaultSize)
 
 Gura_ImplementMethod(wx_Button, GetDefaultSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDefaultSize();
 	return Value::Nil;
 }
@@ -146,9 +141,8 @@ Gura_DeclareMethod(wx_Button, GetLabel)
 
 Gura_ImplementMethod(wx_Button, GetLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLabel();
 	return Value::Nil;
 }
@@ -161,9 +155,8 @@ Gura_DeclareMethod(wx_Button, SetAuthNeeded)
 
 Gura_ImplementMethod(wx_Button, SetAuthNeeded)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int needed = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAuthNeeded();
 	return Value::Nil;
@@ -176,9 +169,8 @@ Gura_DeclareMethod(wx_Button, SetDefault)
 
 Gura_ImplementMethod(wx_Button, SetDefault)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->SetDefault();
 	return Value::Nil;
 }
@@ -191,9 +183,8 @@ Gura_DeclareMethod(wx_Button, SetLabel)
 
 Gura_ImplementMethod(wx_Button, SetLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int label = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLabel();
 	return Value::Nil;

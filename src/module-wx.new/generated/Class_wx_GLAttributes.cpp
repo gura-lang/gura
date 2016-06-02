@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GLAttributes, RGBA)
 
 Gura_ImplementMethod(wx_GLAttributes, RGBA)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RGBA();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_GLAttributes, BufferSize)
 
 Gura_ImplementMethod(wx_GLAttributes, BufferSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->BufferSize();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_GLAttributes, Level)
 
 Gura_ImplementMethod(wx_GLAttributes, Level)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->Level();
 	return Value::Nil;
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_GLAttributes, DoubleBuffer)
 
 Gura_ImplementMethod(wx_GLAttributes, DoubleBuffer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DoubleBuffer();
 	return Value::Nil;
 }
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_GLAttributes, Stereo)
 
 Gura_ImplementMethod(wx_GLAttributes, Stereo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Stereo();
 	return Value::Nil;
 }
@@ -119,9 +114,8 @@ Gura_DeclareMethod(wx_GLAttributes, AuxBuffers)
 
 Gura_ImplementMethod(wx_GLAttributes, AuxBuffers)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->AuxBuffers();
 	return Value::Nil;
@@ -138,9 +132,8 @@ Gura_DeclareMethod(wx_GLAttributes, MinRGBA)
 
 Gura_ImplementMethod(wx_GLAttributes, MinRGBA)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mRed = arg.GetNumber(0)
 	//int mGreen = arg.GetNumber(1)
 	//int mBlue = arg.GetNumber(2)
@@ -157,9 +150,8 @@ Gura_DeclareMethod(wx_GLAttributes, Depth)
 
 Gura_ImplementMethod(wx_GLAttributes, Depth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->Depth();
 	return Value::Nil;
@@ -173,9 +165,8 @@ Gura_DeclareMethod(wx_GLAttributes, Stencil)
 
 Gura_ImplementMethod(wx_GLAttributes, Stencil)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->Stencil();
 	return Value::Nil;
@@ -192,9 +183,8 @@ Gura_DeclareMethod(wx_GLAttributes, MinAcumRGBA)
 
 Gura_ImplementMethod(wx_GLAttributes, MinAcumRGBA)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mRed = arg.GetNumber(0)
 	//int mGreen = arg.GetNumber(1)
 	//int mBlue = arg.GetNumber(2)
@@ -211,9 +201,8 @@ Gura_DeclareMethod(wx_GLAttributes, SampleBuffers)
 
 Gura_ImplementMethod(wx_GLAttributes, SampleBuffers)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->SampleBuffers();
 	return Value::Nil;
@@ -227,9 +216,8 @@ Gura_DeclareMethod(wx_GLAttributes, Samplers)
 
 Gura_ImplementMethod(wx_GLAttributes, Samplers)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->Samplers();
 	return Value::Nil;
@@ -242,9 +230,8 @@ Gura_DeclareMethod(wx_GLAttributes, FrameBuffersRGB)
 
 Gura_ImplementMethod(wx_GLAttributes, FrameBuffersRGB)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->FrameBuffersRGB();
 	return Value::Nil;
 }
@@ -256,9 +243,8 @@ Gura_DeclareMethod(wx_GLAttributes, PlatformDefaults)
 
 Gura_ImplementMethod(wx_GLAttributes, PlatformDefaults)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->PlatformDefaults();
 	return Value::Nil;
 }
@@ -270,9 +256,8 @@ Gura_DeclareMethod(wx_GLAttributes, Defaults)
 
 Gura_ImplementMethod(wx_GLAttributes, Defaults)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Defaults();
 	return Value::Nil;
 }
@@ -284,9 +269,8 @@ Gura_DeclareMethod(wx_GLAttributes, EndList)
 
 Gura_ImplementMethod(wx_GLAttributes, EndList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->EndList();
 	return Value::Nil;
 }

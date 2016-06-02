@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, wxSashLayoutWindow)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, wxSashLayoutWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSashLayoutWindow();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, wxSashLayoutWindow_1)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, wxSashLayoutWindow_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, Create)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -110,9 +107,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, GetAlignment)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, GetAlignment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAlignment();
 	return Value::Nil;
 }
@@ -124,9 +120,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, GetOrientation)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, GetOrientation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOrientation();
 	return Value::Nil;
 }
@@ -139,9 +134,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, OnCalculateLayout)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, OnCalculateLayout)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->OnCalculateLayout();
 	return Value::Nil;
@@ -155,9 +149,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, OnQueryLayoutInfo)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, OnQueryLayoutInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->OnQueryLayoutInfo();
 	return Value::Nil;
@@ -171,9 +164,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, SetAlignment)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, SetAlignment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int alignment = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAlignment();
 	return Value::Nil;
@@ -187,9 +179,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, SetDefaultSize)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, SetDefaultSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaultSize();
 	return Value::Nil;
@@ -203,9 +194,8 @@ Gura_DeclareMethod(wx_SashLayoutWindow, SetOrientation)
 
 Gura_ImplementMethod(wx_SashLayoutWindow, SetOrientation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orientation = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOrientation();
 	return Value::Nil;

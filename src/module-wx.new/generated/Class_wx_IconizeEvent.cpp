@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_IconizeEvent, wxIconizeEvent)
 
 Gura_ImplementMethod(wx_IconizeEvent, wxIconizeEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IconizeEvent *pThis = Object_wx_IconizeEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int iconized = arg.GetNumber(1)
 	//pThis->GetEntity()->wxIconizeEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_IconizeEvent, IsIconized)
 
 Gura_ImplementMethod(wx_IconizeEvent, IsIconized)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IconizeEvent *pThis = Object_wx_IconizeEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsIconized();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_IconizeEvent, Iconized)
 
 Gura_ImplementMethod(wx_IconizeEvent, Iconized)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IconizeEvent *pThis = Object_wx_IconizeEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Iconized();
 	return Value::Nil;
 }

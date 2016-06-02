@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Quantize, wxQuantize)
 
 Gura_ImplementMethod(wx_Quantize, wxQuantize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxQuantize();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_Quantize, DoQuantize)
 
 Gura_ImplementMethod(wx_Quantize, DoQuantize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int w = arg.GetNumber(0)
 	//int h = arg.GetNumber(1)
 	//int in_rows = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_Quantize, Quantize)
 
 Gura_ImplementMethod(wx_Quantize, Quantize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int src = arg.GetNumber(0)
 	//int dest = arg.GetNumber(1)
 	//int pPalette = arg.GetNumber(2)
@@ -115,9 +112,8 @@ Gura_DeclareMethod(wx_Quantize, Quantize_1)
 
 Gura_ImplementMethod(wx_Quantize, Quantize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int src = arg.GetNumber(0)
 	//int dest = arg.GetNumber(1)
 	//int desiredNoColours = arg.GetNumber(2)

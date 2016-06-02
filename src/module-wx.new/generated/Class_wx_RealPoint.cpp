@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RealPoint, wxRealPoint)
 
 Gura_ImplementMethod(wx_RealPoint, wxRealPoint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RealPoint *pThis = Object_wx_RealPoint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRealPoint();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_RealPoint, wxRealPoint_1)
 
 Gura_ImplementMethod(wx_RealPoint, wxRealPoint_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RealPoint *pThis = Object_wx_RealPoint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->wxRealPoint();
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_RealPoint, wxRealPoint_2)
 
 Gura_ImplementMethod(wx_RealPoint, wxRealPoint_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RealPoint *pThis = Object_wx_RealPoint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRealPoint();
 	return Value::Nil;

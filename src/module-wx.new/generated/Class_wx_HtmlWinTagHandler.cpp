@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HtmlWinTagHandler, wxHtmlWinTagHandler)
 
 Gura_ImplementMethod(wx_HtmlWinTagHandler, wxHtmlWinTagHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinTagHandler *pThis = Object_wx_HtmlWinTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHtmlWinTagHandler();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_HtmlWinTagHandler, SetParser)
 
 Gura_ImplementMethod(wx_HtmlWinTagHandler, SetParser)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWinTagHandler *pThis = Object_wx_HtmlWinTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parser = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParser();
 	return Value::Nil;

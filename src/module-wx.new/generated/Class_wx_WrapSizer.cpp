@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_WrapSizer, wxWrapSizer)
 
 Gura_ImplementMethod(wx_WrapSizer, wxWrapSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->wxWrapSizer();
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_WrapSizer, InformFirstDirection)
 
 Gura_ImplementMethod(wx_WrapSizer, InformFirstDirection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int availableOtherDir = arg.GetNumber(2)
@@ -82,9 +80,8 @@ Gura_DeclareMethod(wx_WrapSizer, RecalcSizes)
 
 Gura_ImplementMethod(wx_WrapSizer, RecalcSizes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RecalcSizes();
 	return Value::Nil;
 }
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_WrapSizer, CalcMin)
 
 Gura_ImplementMethod(wx_WrapSizer, CalcMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CalcMin();
 	return Value::Nil;
 }
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_WrapSizer, IsSpaceItem)
 
 Gura_ImplementMethod(wx_WrapSizer, IsSpaceItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->IsSpaceItem();
 	return Value::Nil;

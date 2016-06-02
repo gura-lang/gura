@@ -51,9 +51,8 @@ Gura_DeclareMethod(wx_GridHeaderLabelsRenderer, DrawLabel)
 
 Gura_ImplementMethod(wx_GridHeaderLabelsRenderer, DrawLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridHeaderLabelsRenderer *pThis = Object_wx_GridHeaderLabelsRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int grid = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)

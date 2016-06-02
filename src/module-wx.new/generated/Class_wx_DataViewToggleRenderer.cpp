@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_DataViewToggleRenderer, GetDefaultType)
 
 Gura_ImplementMethod(wx_DataViewToggleRenderer, GetDefaultType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewToggleRenderer *pThis = Object_wx_DataViewToggleRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDefaultType();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_DataViewToggleRenderer, wxDataViewToggleRenderer)
 
 Gura_ImplementMethod(wx_DataViewToggleRenderer, wxDataViewToggleRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewToggleRenderer *pThis = Object_wx_DataViewToggleRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int varianttype = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
 	//int align = arg.GetNumber(2)

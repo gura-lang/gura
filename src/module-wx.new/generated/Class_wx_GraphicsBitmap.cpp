@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GraphicsBitmap, wxGraphicsBitmap)
 
 Gura_ImplementMethod(wx_GraphicsBitmap, wxGraphicsBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsBitmap *pThis = Object_wx_GraphicsBitmap::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGraphicsBitmap();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_GraphicsBitmap, ConvertToImage)
 
 Gura_ImplementMethod(wx_GraphicsBitmap, ConvertToImage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsBitmap *pThis = Object_wx_GraphicsBitmap::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ConvertToImage();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_GraphicsBitmap, GetNativeBitmap)
 
 Gura_ImplementMethod(wx_GraphicsBitmap, GetNativeBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsBitmap *pThis = Object_wx_GraphicsBitmap::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNativeBitmap();
 	return Value::Nil;
 }

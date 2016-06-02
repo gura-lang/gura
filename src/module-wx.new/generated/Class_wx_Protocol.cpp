@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Protocol, Abort)
 
 Gura_ImplementMethod(wx_Protocol, Abort)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Abort();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_Protocol, GetContentType)
 
 Gura_ImplementMethod(wx_Protocol, GetContentType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetContentType();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_Protocol, GetError)
 
 Gura_ImplementMethod(wx_Protocol, GetError)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetError();
 	return Value::Nil;
 }
@@ -87,9 +84,8 @@ Gura_DeclareMethod(wx_Protocol, GetInputStream)
 
 Gura_ImplementMethod(wx_Protocol, GetInputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//pThis->GetEntity()->GetInputStream();
 	return Value::Nil;
@@ -102,9 +98,8 @@ Gura_DeclareMethod(wx_Protocol, Reconnect)
 
 Gura_ImplementMethod(wx_Protocol, Reconnect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Reconnect();
 	return Value::Nil;
 }
@@ -117,9 +112,8 @@ Gura_DeclareMethod(wx_Protocol, SetPassword)
 
 Gura_ImplementMethod(wx_Protocol, SetPassword)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int user = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPassword();
 	return Value::Nil;
@@ -133,9 +127,8 @@ Gura_DeclareMethod(wx_Protocol, SetUser)
 
 Gura_ImplementMethod(wx_Protocol, SetUser)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int user = arg.GetNumber(0)
 	//pThis->GetEntity()->SetUser();
 	return Value::Nil;
@@ -149,9 +142,8 @@ Gura_DeclareMethod(wx_Protocol, SetDefaultTimeout)
 
 Gura_ImplementMethod(wx_Protocol, SetDefaultTimeout)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int Value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaultTimeout();
 	return Value::Nil;
@@ -165,9 +157,8 @@ Gura_DeclareMethod(wx_Protocol, SetLog)
 
 Gura_ImplementMethod(wx_Protocol, SetLog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int log = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLog();
 	return Value::Nil;
@@ -180,9 +171,8 @@ Gura_DeclareMethod(wx_Protocol, GetLog)
 
 Gura_ImplementMethod(wx_Protocol, GetLog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLog();
 	return Value::Nil;
 }
@@ -194,9 +184,8 @@ Gura_DeclareMethod(wx_Protocol, DetachLog)
 
 Gura_ImplementMethod(wx_Protocol, DetachLog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DetachLog();
 	return Value::Nil;
 }
@@ -209,9 +198,8 @@ Gura_DeclareMethod(wx_Protocol, LogRequest)
 
 Gura_ImplementMethod(wx_Protocol, LogRequest)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->LogRequest();
 	return Value::Nil;
@@ -225,9 +213,8 @@ Gura_DeclareMethod(wx_Protocol, LogResponse)
 
 Gura_ImplementMethod(wx_Protocol, LogResponse)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->LogResponse();
 	return Value::Nil;

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->wxHtmlHelpWindow();
 	return Value::Nil;
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow_1)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int wxWindowID = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -94,9 +92,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, Create)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -115,9 +112,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, Display)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, Display)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//pThis->GetEntity()->Display();
 	return Value::Nil;
@@ -131,9 +127,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, Display_1)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, Display_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->Display();
 	return Value::Nil;
@@ -146,9 +141,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, DisplayContents)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, DisplayContents)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DisplayContents();
 	return Value::Nil;
 }
@@ -160,9 +154,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, DisplayIndex)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, DisplayIndex)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DisplayIndex();
 	return Value::Nil;
 }
@@ -174,9 +167,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, GetData)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, GetData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
@@ -190,9 +182,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, KeywordSearch)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, KeywordSearch)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keyword = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
 	//pThis->GetEntity()->KeywordSearch();
@@ -208,9 +199,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, ReadCustomization)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, ReadCustomization)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cfg = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadCustomization();
@@ -226,9 +216,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, UseConfig)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, UseConfig)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int config = arg.GetNumber(0)
 	//int rootpath = arg.GetNumber(1)
 	//pThis->GetEntity()->UseConfig();
@@ -244,9 +233,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, WriteCustomization)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, WriteCustomization)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cfg = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//pThis->GetEntity()->WriteCustomization();
@@ -260,9 +248,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, RefreshLists)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, RefreshLists)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RefreshLists();
 	return Value::Nil;
 }
@@ -274,9 +261,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, GetController)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, GetController)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetController();
 	return Value::Nil;
 }
@@ -289,9 +275,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, SetController)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, SetController)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int controller = arg.GetNumber(0)
 	//pThis->GetEntity()->SetController();
 	return Value::Nil;
@@ -304,9 +289,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, CreateSearch)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, CreateSearch)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CreateSearch();
 	return Value::Nil;
 }
@@ -320,9 +304,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, AddToolbarButtons)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, AddToolbarButtons)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolBar = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->AddToolbarButtons();
@@ -336,9 +319,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, CreateContents)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, CreateContents)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CreateContents();
 	return Value::Nil;
 }
@@ -350,9 +332,8 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, CreateIndex)
 
 Gura_ImplementMethod(wx_HtmlHelpWindow, CreateIndex)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CreateIndex();
 	return Value::Nil;
 }

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_StringTokenizer, wxStringTokenizer)
 
 Gura_ImplementMethod(wx_StringTokenizer, wxStringTokenizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxStringTokenizer();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_StringTokenizer, wxStringTokenizer_1)
 
 Gura_ImplementMethod(wx_StringTokenizer, wxStringTokenizer_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int delims = arg.GetNumber(1)
 	//int mode = arg.GetNumber(2)
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_StringTokenizer, CountTokens)
 
 Gura_ImplementMethod(wx_StringTokenizer, CountTokens)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CountTokens();
 	return Value::Nil;
 }
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_StringTokenizer, GetLastDelimiter)
 
 Gura_ImplementMethod(wx_StringTokenizer, GetLastDelimiter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLastDelimiter();
 	return Value::Nil;
 }
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_StringTokenizer, GetNextToken)
 
 Gura_ImplementMethod(wx_StringTokenizer, GetNextToken)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNextToken();
 	return Value::Nil;
 }
@@ -120,9 +115,8 @@ Gura_DeclareMethod(wx_StringTokenizer, GetPosition)
 
 Gura_ImplementMethod(wx_StringTokenizer, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -134,9 +128,8 @@ Gura_DeclareMethod(wx_StringTokenizer, GetString)
 
 Gura_ImplementMethod(wx_StringTokenizer, GetString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetString();
 	return Value::Nil;
 }
@@ -148,9 +141,8 @@ Gura_DeclareMethod(wx_StringTokenizer, HasMoreTokens)
 
 Gura_ImplementMethod(wx_StringTokenizer, HasMoreTokens)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasMoreTokens();
 	return Value::Nil;
 }
@@ -165,9 +157,8 @@ Gura_DeclareMethod(wx_StringTokenizer, SetString)
 
 Gura_ImplementMethod(wx_StringTokenizer, SetString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int delims = arg.GetNumber(1)
 	//int mode = arg.GetNumber(2)

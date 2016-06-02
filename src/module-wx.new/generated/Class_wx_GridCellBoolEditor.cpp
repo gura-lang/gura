@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GridCellBoolEditor, wxGridCellBoolEditor)
 
 Gura_ImplementMethod(wx_GridCellBoolEditor, wxGridCellBoolEditor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellBoolEditor *pThis = Object_wx_GridCellBoolEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGridCellBoolEditor();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_GridCellBoolEditor, IsTrueValue)
 
 Gura_ImplementMethod(wx_GridCellBoolEditor, IsTrueValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellBoolEditor *pThis = Object_wx_GridCellBoolEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->IsTrueValue();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_GridCellBoolEditor, UseStringValues)
 
 Gura_ImplementMethod(wx_GridCellBoolEditor, UseStringValues)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellBoolEditor *pThis = Object_wx_GridCellBoolEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int valueTrue = arg.GetNumber(0)
 	//int valueFalse = arg.GetNumber(1)
 	//pThis->GetEntity()->UseStringValues();

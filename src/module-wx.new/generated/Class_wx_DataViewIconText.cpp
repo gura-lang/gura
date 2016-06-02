@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_DataViewIconText, wxDataViewIconText)
 
 Gura_ImplementMethod(wx_DataViewIconText, wxDataViewIconText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int icon = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDataViewIconText();
@@ -63,9 +62,8 @@ Gura_DeclareMethod(wx_DataViewIconText, wxDataViewIconText_1)
 
 Gura_ImplementMethod(wx_DataViewIconText, wxDataViewIconText_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int other = arg.GetNumber(0)
 	//pThis->GetEntity()->wxDataViewIconText();
 	return Value::Nil;
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_DataViewIconText, GetIcon)
 
 Gura_ImplementMethod(wx_DataViewIconText, GetIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetIcon();
 	return Value::Nil;
 }
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_DataViewIconText, GetText)
 
 Gura_ImplementMethod(wx_DataViewIconText, GetText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetText();
 	return Value::Nil;
 }
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_DataViewIconText, SetIcon)
 
 Gura_ImplementMethod(wx_DataViewIconText, SetIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int icon = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIcon();
 	return Value::Nil;
@@ -123,9 +118,8 @@ Gura_DeclareMethod(wx_DataViewIconText, SetText)
 
 Gura_ImplementMethod(wx_DataViewIconText, SetText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetText();
 	return Value::Nil;

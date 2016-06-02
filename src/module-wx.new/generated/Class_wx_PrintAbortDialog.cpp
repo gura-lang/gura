@@ -50,9 +50,8 @@ Gura_DeclareMethod(wx_PrintAbortDialog, wxPrintAbortDialog)
 
 Gura_ImplementMethod(wx_PrintAbortDialog, wxPrintAbortDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PrintAbortDialog *pThis = Object_wx_PrintAbortDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int documentTitle = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -74,9 +73,8 @@ Gura_DeclareMethod(wx_PrintAbortDialog, SetProgress)
 
 Gura_ImplementMethod(wx_PrintAbortDialog, SetProgress)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PrintAbortDialog *pThis = Object_wx_PrintAbortDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int currentPage = arg.GetNumber(0)
 	//int totalPages = arg.GetNumber(1)
 	//int currentCopy = arg.GetNumber(2)

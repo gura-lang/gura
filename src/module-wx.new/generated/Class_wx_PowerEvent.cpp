@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_PowerEvent, wxPowerEvent)
 
 Gura_ImplementMethod(wx_PowerEvent, wxPowerEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPowerEvent();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_PowerEvent, wxPowerEvent_1)
 
 Gura_ImplementMethod(wx_PowerEvent, wxPowerEvent_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int evtType = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPowerEvent();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_PowerEvent, Veto)
 
 Gura_ImplementMethod(wx_PowerEvent, Veto)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Veto();
 	return Value::Nil;
 }
@@ -88,9 +85,8 @@ Gura_DeclareMethod(wx_PowerEvent, IsVetoed)
 
 Gura_ImplementMethod(wx_PowerEvent, IsVetoed)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsVetoed();
 	return Value::Nil;
 }

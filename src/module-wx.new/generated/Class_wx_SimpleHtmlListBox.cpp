@@ -53,9 +53,8 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox)
 
 Gura_ImplementMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -84,9 +83,8 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_1)
 
 Gura_ImplementMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -106,24 +104,9 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_2)
 
 Gura_ImplementMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSimpleHtmlListBox();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_SimpleHtmlListBox, ~wxSimpleHtmlListBox)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_SimpleHtmlListBox, ~wxSimpleHtmlListBox)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxSimpleHtmlListBox();
 	return Value::Nil;
 }
 
@@ -143,9 +126,8 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, Create)
 
 Gura_ImplementMethod(wx_SimpleHtmlListBox, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -174,9 +156,8 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, Create_1)
 
 Gura_ImplementMethod(wx_SimpleHtmlListBox, Create_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -197,7 +178,6 @@ Gura_ImplementUserInheritableClass(wx_SimpleHtmlListBox)
 	Gura_AssignMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox);
 	Gura_AssignMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_1);
 	Gura_AssignMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_2);
-	Gura_AssignMethod(wx_SimpleHtmlListBox, ~wxSimpleHtmlListBox);
 	Gura_AssignMethod(wx_SimpleHtmlListBox, Create);
 	Gura_AssignMethod(wx_SimpleHtmlListBox, Create_1);
 }

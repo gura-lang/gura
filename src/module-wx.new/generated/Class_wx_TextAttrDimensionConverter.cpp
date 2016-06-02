@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter)
 
 Gura_ImplementMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int scale = arg.GetNumber(1)
 	//int parentSize = arg.GetNumber(2)
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter_1
 
 Gura_ImplementMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ppi = arg.GetNumber(0)
 	//int scale = arg.GetNumber(1)
 	//int parentSize = arg.GetNumber(2)
@@ -86,9 +84,8 @@ Gura_DeclareMethod(wx_TextAttrDimensionConverter, GetPixels)
 
 Gura_ImplementMethod(wx_TextAttrDimensionConverter, GetPixels)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dim = arg.GetNumber(0)
 	//int direction = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPixels();
@@ -103,9 +100,8 @@ Gura_DeclareMethod(wx_TextAttrDimensionConverter, GetTenthsMM)
 
 Gura_ImplementMethod(wx_TextAttrDimensionConverter, GetTenthsMM)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dim = arg.GetNumber(0)
 	//pThis->GetEntity()->GetTenthsMM();
 	return Value::Nil;
@@ -119,9 +115,8 @@ Gura_DeclareMethod(wx_TextAttrDimensionConverter, ConvertTenthsMMToPixels)
 
 Gura_ImplementMethod(wx_TextAttrDimensionConverter, ConvertTenthsMMToPixels)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int units = arg.GetNumber(0)
 	//pThis->GetEntity()->ConvertTenthsMMToPixels();
 	return Value::Nil;
@@ -135,9 +130,8 @@ Gura_DeclareMethod(wx_TextAttrDimensionConverter, ConvertPixelsToTenthsMM)
 
 Gura_ImplementMethod(wx_TextAttrDimensionConverter, ConvertPixelsToTenthsMM)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixels = arg.GetNumber(0)
 	//pThis->GetEntity()->ConvertPixelsToTenthsMM();
 	return Value::Nil;

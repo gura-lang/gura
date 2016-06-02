@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStops, wxGraphicsGradientStops)
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, wxGraphicsGradientStops)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int startCol = arg.GetNumber(0)
 	//int endCol = arg.GetNumber(1)
 	//pThis->GetEntity()->wxGraphicsGradientStops();
@@ -63,9 +62,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStops, Add)
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, Add)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stop = arg.GetNumber(0)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStops, Add_1)
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, Add_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//pThis->GetEntity()->Add();
@@ -97,9 +94,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStops, Item)
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, Item)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->Item();
 	return Value::Nil;
@@ -112,9 +108,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStops, GetCount)
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, GetCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
@@ -127,9 +122,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStops, SetStartColour)
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, SetStartColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStartColour();
 	return Value::Nil;
@@ -142,9 +136,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStops, GetStartColour)
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, GetStartColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStartColour();
 	return Value::Nil;
 }
@@ -157,9 +150,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStops, SetEndColour)
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, SetEndColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEndColour();
 	return Value::Nil;
@@ -172,9 +164,8 @@ Gura_DeclareMethod(wx_GraphicsGradientStops, GetEndColour)
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, GetEndColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetEndColour();
 	return Value::Nil;
 }

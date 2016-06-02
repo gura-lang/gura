@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Translations, wxTranslations)
 
 Gura_ImplementMethod(wx_Translations, wxTranslations)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTranslations();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_Translations, Get)
 
 Gura_ImplementMethod(wx_Translations, Get)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Get();
 	return Value::Nil;
 }
@@ -73,9 +71,8 @@ Gura_DeclareMethod(wx_Translations, Set)
 
 Gura_ImplementMethod(wx_Translations, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int t = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_Translations, SetLoader)
 
 Gura_ImplementMethod(wx_Translations, SetLoader)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int loader = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLoader();
 	return Value::Nil;
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_Translations, SetLanguage)
 
 Gura_ImplementMethod(wx_Translations, SetLanguage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLanguage();
 	return Value::Nil;
@@ -121,9 +116,8 @@ Gura_DeclareMethod(wx_Translations, SetLanguage_1)
 
 Gura_ImplementMethod(wx_Translations, SetLanguage_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLanguage();
 	return Value::Nil;
@@ -137,9 +131,8 @@ Gura_DeclareMethod(wx_Translations, GetAvailableTranslations)
 
 Gura_ImplementMethod(wx_Translations, GetAvailableTranslations)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAvailableTranslations();
 	return Value::Nil;
@@ -154,9 +147,8 @@ Gura_DeclareMethod(wx_Translations, GetBestTranslation)
 
 Gura_ImplementMethod(wx_Translations, GetBestTranslation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//int msgIdLanguage = arg.GetNumber(1)
 	//pThis->GetEntity()->GetBestTranslation();
@@ -172,9 +164,8 @@ Gura_DeclareMethod(wx_Translations, GetBestTranslation_1)
 
 Gura_ImplementMethod(wx_Translations, GetBestTranslation_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//int msgIdLanguage = arg.GetNumber(1)
 	//pThis->GetEntity()->GetBestTranslation();
@@ -188,9 +179,8 @@ Gura_DeclareMethod(wx_Translations, AddStdCatalog)
 
 Gura_ImplementMethod(wx_Translations, AddStdCatalog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AddStdCatalog();
 	return Value::Nil;
 }
@@ -203,9 +193,8 @@ Gura_DeclareMethod(wx_Translations, AddCatalog)
 
 Gura_ImplementMethod(wx_Translations, AddCatalog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//pThis->GetEntity()->AddCatalog();
 	return Value::Nil;
@@ -220,9 +209,8 @@ Gura_DeclareMethod(wx_Translations, AddCatalog_1)
 
 Gura_ImplementMethod(wx_Translations, AddCatalog_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//int msgIdLanguage = arg.GetNumber(1)
 	//pThis->GetEntity()->AddCatalog();
@@ -239,9 +227,8 @@ Gura_DeclareMethod(wx_Translations, AddCatalog_2)
 
 Gura_ImplementMethod(wx_Translations, AddCatalog_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//int msgIdLanguage = arg.GetNumber(1)
 	//int msgIdCharset = arg.GetNumber(2)
@@ -257,9 +244,8 @@ Gura_DeclareMethod(wx_Translations, IsLoaded)
 
 Gura_ImplementMethod(wx_Translations, IsLoaded)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//pThis->GetEntity()->IsLoaded();
 	return Value::Nil;
@@ -274,9 +260,8 @@ Gura_DeclareMethod(wx_Translations, GetTranslatedString)
 
 Gura_ImplementMethod(wx_Translations, GetTranslatedString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int origString = arg.GetNumber(0)
 	//int domain = arg.GetNumber(1)
 	//pThis->GetEntity()->GetTranslatedString();
@@ -293,9 +278,8 @@ Gura_DeclareMethod(wx_Translations, GetTranslatedString_1)
 
 Gura_ImplementMethod(wx_Translations, GetTranslatedString_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int origString = arg.GetNumber(0)
 	//int n = arg.GetNumber(1)
 	//int domain = arg.GetNumber(2)
@@ -312,9 +296,8 @@ Gura_DeclareMethod(wx_Translations, GetHeaderValue)
 
 Gura_ImplementMethod(wx_Translations, GetHeaderValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int header = arg.GetNumber(0)
 	//int domain = arg.GetNumber(1)
 	//pThis->GetEntity()->GetHeaderValue();

@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_RibbonGalleryEvent, wxRibbonGalleryEvent)
 
 Gura_ImplementMethod(wx_RibbonGalleryEvent, wxRibbonGalleryEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGalleryEvent *pThis = Object_wx_RibbonGalleryEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
 	//int gallery = arg.GetNumber(2)
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_RibbonGalleryEvent, GetGallery)
 
 Gura_ImplementMethod(wx_RibbonGalleryEvent, GetGallery)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGalleryEvent *pThis = Object_wx_RibbonGalleryEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetGallery();
 	return Value::Nil;
 }
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_RibbonGalleryEvent, GetGalleryItem)
 
 Gura_ImplementMethod(wx_RibbonGalleryEvent, GetGalleryItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGalleryEvent *pThis = Object_wx_RibbonGalleryEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetGalleryItem();
 	return Value::Nil;
 }
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_RibbonGalleryEvent, SetGallery)
 
 Gura_ImplementMethod(wx_RibbonGalleryEvent, SetGallery)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGalleryEvent *pThis = Object_wx_RibbonGalleryEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int gallery = arg.GetNumber(0)
 	//pThis->GetEntity()->SetGallery();
 	return Value::Nil;
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_RibbonGalleryEvent, SetGalleryItem)
 
 Gura_ImplementMethod(wx_RibbonGalleryEvent, SetGalleryItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGalleryEvent *pThis = Object_wx_RibbonGalleryEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->SetGalleryItem();
 	return Value::Nil;

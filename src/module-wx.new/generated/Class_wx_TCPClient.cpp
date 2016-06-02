@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TCPClient, wxTCPClient)
 
 Gura_ImplementMethod(wx_TCPClient, wxTCPClient)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTCPClient();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_TCPClient, MakeConnection)
 
 Gura_ImplementMethod(wx_TCPClient, MakeConnection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int host = arg.GetNumber(0)
 	//int service = arg.GetNumber(1)
 	//int topic = arg.GetNumber(2)
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_TCPClient, OnMakeConnection)
 
 Gura_ImplementMethod(wx_TCPClient, OnMakeConnection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnMakeConnection();
 	return Value::Nil;
 }
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_TCPClient, ValidHost)
 
 Gura_ImplementMethod(wx_TCPClient, ValidHost)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int host = arg.GetNumber(0)
 	//pThis->GetEntity()->ValidHost();
 	return Value::Nil;

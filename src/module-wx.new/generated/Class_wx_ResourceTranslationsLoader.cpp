@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ResourceTranslationsLoader, GetResourceType)
 
 Gura_ImplementMethod(wx_ResourceTranslationsLoader, GetResourceType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ResourceTranslationsLoader *pThis = Object_wx_ResourceTranslationsLoader::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetResourceType();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_ResourceTranslationsLoader, GetModule)
 
 Gura_ImplementMethod(wx_ResourceTranslationsLoader, GetModule)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ResourceTranslationsLoader *pThis = Object_wx_ResourceTranslationsLoader::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetModule();
 	return Value::Nil;
 }

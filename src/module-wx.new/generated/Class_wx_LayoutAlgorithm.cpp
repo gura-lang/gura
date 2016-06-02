@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_LayoutAlgorithm, wxLayoutAlgorithm)
 
 Gura_ImplementMethod(wx_LayoutAlgorithm, wxLayoutAlgorithm)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxLayoutAlgorithm();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_LayoutAlgorithm, ~wxLayoutAlgorithm)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_LayoutAlgorithm, ~wxLayoutAlgorithm)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxLayoutAlgorithm();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutFrame)
 
 Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutFrame)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int frame = arg.GetNumber(0)
 	//int mainWindow = arg.GetNumber(1)
 	//pThis->GetEntity()->LayoutFrame();
@@ -92,9 +76,8 @@ Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
 
 Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int frame = arg.GetNumber(0)
 	//int rect = arg.GetNumber(1)
 	//pThis->GetEntity()->LayoutMDIFrame();
@@ -110,9 +93,8 @@ Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutWindow)
 
 Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int mainWindow = arg.GetNumber(1)
 	//pThis->GetEntity()->LayoutWindow();
@@ -125,7 +107,6 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutWindow)
 Gura_ImplementUserInheritableClass(wx_LayoutAlgorithm)
 {
 	Gura_AssignMethod(wx_LayoutAlgorithm, wxLayoutAlgorithm);
-	Gura_AssignMethod(wx_LayoutAlgorithm, ~wxLayoutAlgorithm);
 	Gura_AssignMethod(wx_LayoutAlgorithm, LayoutFrame);
 	Gura_AssignMethod(wx_LayoutAlgorithm, LayoutMDIFrame);
 	Gura_AssignMethod(wx_LayoutAlgorithm, LayoutWindow);

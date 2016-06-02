@@ -46,26 +46,11 @@ Gura_DeclareMethod(wx_AuiManager, wxAuiManager)
 
 Gura_ImplementMethod(wx_AuiManager, wxAuiManager)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int managed_wnd = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->wxAuiManager();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_AuiManager, ~wxAuiManager)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_AuiManager, ~wxAuiManager)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxAuiManager();
 	return Value::Nil;
 }
 
@@ -78,9 +63,8 @@ Gura_DeclareMethod(wx_AuiManager, AddPane)
 
 Gura_ImplementMethod(wx_AuiManager, AddPane)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int pane_info = arg.GetNumber(1)
 	//pThis->GetEntity()->AddPane();
@@ -97,9 +81,8 @@ Gura_DeclareMethod(wx_AuiManager, AddPane_1)
 
 Gura_ImplementMethod(wx_AuiManager, AddPane_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int direction = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
@@ -117,9 +100,8 @@ Gura_DeclareMethod(wx_AuiManager, AddPane_2)
 
 Gura_ImplementMethod(wx_AuiManager, AddPane_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int pane_info = arg.GetNumber(1)
 	//int drop_pos = arg.GetNumber(2)
@@ -135,9 +117,8 @@ Gura_DeclareMethod(wx_AuiManager, DetachPane)
 
 Gura_ImplementMethod(wx_AuiManager, DetachPane)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//pThis->GetEntity()->DetachPane();
 	return Value::Nil;
@@ -150,9 +131,8 @@ Gura_DeclareMethod(wx_AuiManager, GetAllPanes)
 
 Gura_ImplementMethod(wx_AuiManager, GetAllPanes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAllPanes();
 	return Value::Nil;
 }
@@ -164,9 +144,8 @@ Gura_DeclareMethod(wx_AuiManager, GetArtProvider)
 
 Gura_ImplementMethod(wx_AuiManager, GetArtProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetArtProvider();
 	return Value::Nil;
 }
@@ -180,9 +159,8 @@ Gura_DeclareMethod(wx_AuiManager, GetDockSizeConstraint)
 
 Gura_ImplementMethod(wx_AuiManager, GetDockSizeConstraint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int widthpct = arg.GetNumber(0)
 	//int heightpct = arg.GetNumber(1)
 	//pThis->GetEntity()->GetDockSizeConstraint();
@@ -196,9 +174,8 @@ Gura_DeclareMethod(wx_AuiManager, GetFlags)
 
 Gura_ImplementMethod(wx_AuiManager, GetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
@@ -210,9 +187,8 @@ Gura_DeclareMethod(wx_AuiManager, GetManagedWindow)
 
 Gura_ImplementMethod(wx_AuiManager, GetManagedWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetManagedWindow();
 	return Value::Nil;
 }
@@ -225,9 +201,8 @@ Gura_DeclareMethod(wx_AuiManager, GetManager)
 
 Gura_ImplementMethod(wx_AuiManager, GetManager)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//pThis->GetEntity()->GetManager();
 	return Value::Nil;
@@ -241,9 +216,8 @@ Gura_DeclareMethod(wx_AuiManager, GetPane)
 
 Gura_ImplementMethod(wx_AuiManager, GetPane)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPane();
 	return Value::Nil;
@@ -257,9 +231,8 @@ Gura_DeclareMethod(wx_AuiManager, GetPane_1)
 
 Gura_ImplementMethod(wx_AuiManager, GetPane_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPane();
 	return Value::Nil;
@@ -272,9 +245,8 @@ Gura_DeclareMethod(wx_AuiManager, HideHint)
 
 Gura_ImplementMethod(wx_AuiManager, HideHint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HideHint();
 	return Value::Nil;
 }
@@ -289,9 +261,8 @@ Gura_DeclareMethod(wx_AuiManager, InsertPane)
 
 Gura_ImplementMethod(wx_AuiManager, InsertPane)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int insert_location = arg.GetNumber(1)
 	//int insert_level = arg.GetNumber(2)
@@ -308,9 +279,8 @@ Gura_DeclareMethod(wx_AuiManager, LoadPaneInfo)
 
 Gura_ImplementMethod(wx_AuiManager, LoadPaneInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pane_part = arg.GetNumber(0)
 	//int pane = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadPaneInfo();
@@ -326,9 +296,8 @@ Gura_DeclareMethod(wx_AuiManager, LoadPerspective)
 
 Gura_ImplementMethod(wx_AuiManager, LoadPerspective)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int perspective = arg.GetNumber(0)
 	//int update = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadPerspective();
@@ -343,9 +312,8 @@ Gura_DeclareMethod(wx_AuiManager, SavePaneInfo)
 
 Gura_ImplementMethod(wx_AuiManager, SavePaneInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pane = arg.GetNumber(0)
 	//pThis->GetEntity()->SavePaneInfo();
 	return Value::Nil;
@@ -358,9 +326,8 @@ Gura_DeclareMethod(wx_AuiManager, SavePerspective)
 
 Gura_ImplementMethod(wx_AuiManager, SavePerspective)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->SavePerspective();
 	return Value::Nil;
 }
@@ -373,9 +340,8 @@ Gura_DeclareMethod(wx_AuiManager, SetArtProvider)
 
 Gura_ImplementMethod(wx_AuiManager, SetArtProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int art_provider = arg.GetNumber(0)
 	//pThis->GetEntity()->SetArtProvider();
 	return Value::Nil;
@@ -390,9 +356,8 @@ Gura_DeclareMethod(wx_AuiManager, SetDockSizeConstraint)
 
 Gura_ImplementMethod(wx_AuiManager, SetDockSizeConstraint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int widthpct = arg.GetNumber(0)
 	//int heightpct = arg.GetNumber(1)
 	//pThis->GetEntity()->SetDockSizeConstraint();
@@ -407,9 +372,8 @@ Gura_DeclareMethod(wx_AuiManager, SetFlags)
 
 Gura_ImplementMethod(wx_AuiManager, SetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
@@ -423,9 +387,8 @@ Gura_DeclareMethod(wx_AuiManager, SetManagedWindow)
 
 Gura_ImplementMethod(wx_AuiManager, SetManagedWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int managed_wnd = arg.GetNumber(0)
 	//pThis->GetEntity()->SetManagedWindow();
 	return Value::Nil;
@@ -439,9 +402,8 @@ Gura_DeclareMethod(wx_AuiManager, ShowHint)
 
 Gura_ImplementMethod(wx_AuiManager, ShowHint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowHint();
 	return Value::Nil;
@@ -454,9 +416,8 @@ Gura_DeclareMethod(wx_AuiManager, UnInit)
 
 Gura_ImplementMethod(wx_AuiManager, UnInit)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->UnInit();
 	return Value::Nil;
 }
@@ -468,9 +429,8 @@ Gura_DeclareMethod(wx_AuiManager, Update)
 
 Gura_ImplementMethod(wx_AuiManager, Update)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Update();
 	return Value::Nil;
 }
@@ -484,9 +444,8 @@ Gura_DeclareMethod(wx_AuiManager, ProcessDockResult)
 
 Gura_ImplementMethod(wx_AuiManager, ProcessDockResult)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int target = arg.GetNumber(0)
 	//int new_pos = arg.GetNumber(1)
 	//pThis->GetEntity()->ProcessDockResult();
@@ -499,7 +458,6 @@ Gura_ImplementMethod(wx_AuiManager, ProcessDockResult)
 Gura_ImplementUserInheritableClass(wx_AuiManager)
 {
 	Gura_AssignMethod(wx_AuiManager, wxAuiManager);
-	Gura_AssignMethod(wx_AuiManager, ~wxAuiManager);
 	Gura_AssignMethod(wx_AuiManager, AddPane);
 	Gura_AssignMethod(wx_AuiManager, AddPane_1);
 	Gura_AssignMethod(wx_AuiManager, AddPane_2);

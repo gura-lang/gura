@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_PGEditor, wxPGEditor)
 
 Gura_ImplementMethod(wx_PGEditor, wxPGEditor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPGEditor();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_PGEditor, ~wxPGEditor)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PGEditor, ~wxPGEditor)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPGEditor();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_PGEditor, GetName)
 
 Gura_ImplementMethod(wx_PGEditor, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -90,9 +74,8 @@ Gura_DeclareMethod(wx_PGEditor, CreateControls)
 
 Gura_ImplementMethod(wx_PGEditor, CreateControls)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int propgrid = arg.GetNumber(0)
 	//int property = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -110,9 +93,8 @@ Gura_DeclareMethod(wx_PGEditor, UpdateControl)
 
 Gura_ImplementMethod(wx_PGEditor, UpdateControl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int property = arg.GetNumber(0)
 	//int ctrl = arg.GetNumber(1)
 	//pThis->GetEntity()->UpdateControl();
@@ -130,9 +112,8 @@ Gura_DeclareMethod(wx_PGEditor, DrawValue)
 
 Gura_ImplementMethod(wx_PGEditor, DrawValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int rect = arg.GetNumber(1)
 	//int property = arg.GetNumber(2)
@@ -152,9 +133,8 @@ Gura_DeclareMethod(wx_PGEditor, OnEvent)
 
 Gura_ImplementMethod(wx_PGEditor, OnEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int propgrid = arg.GetNumber(0)
 	//int property = arg.GetNumber(1)
 	//int wnd_primary = arg.GetNumber(2)
@@ -173,9 +153,8 @@ Gura_DeclareMethod(wx_PGEditor, GetValueFromControl)
 
 Gura_ImplementMethod(wx_PGEditor, GetValueFromControl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int variant = arg.GetNumber(0)
 	//int property = arg.GetNumber(1)
 	//int ctrl = arg.GetNumber(2)
@@ -192,9 +171,8 @@ Gura_DeclareMethod(wx_PGEditor, SetValueToUnspecified)
 
 Gura_ImplementMethod(wx_PGEditor, SetValueToUnspecified)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int property = arg.GetNumber(0)
 	//int ctrl = arg.GetNumber(1)
 	//pThis->GetEntity()->SetValueToUnspecified();
@@ -214,9 +192,8 @@ Gura_DeclareMethod(wx_PGEditor, SetControlAppearance)
 
 Gura_ImplementMethod(wx_PGEditor, SetControlAppearance)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pg = arg.GetNumber(0)
 	//int property = arg.GetNumber(1)
 	//int ctrl = arg.GetNumber(2)
@@ -237,9 +214,8 @@ Gura_DeclareMethod(wx_PGEditor, SetControlStringValue)
 
 Gura_ImplementMethod(wx_PGEditor, SetControlStringValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int property = arg.GetNumber(0)
 	//int ctrl = arg.GetNumber(1)
 	//int txt = arg.GetNumber(2)
@@ -257,9 +233,8 @@ Gura_DeclareMethod(wx_PGEditor, SetControlIntValue)
 
 Gura_ImplementMethod(wx_PGEditor, SetControlIntValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int property = arg.GetNumber(0)
 	//int ctrl = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -277,9 +252,8 @@ Gura_DeclareMethod(wx_PGEditor, InsertItem)
 
 Gura_ImplementMethod(wx_PGEditor, InsertItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ctrl = arg.GetNumber(0)
 	//int label = arg.GetNumber(1)
 	//int index = arg.GetNumber(2)
@@ -296,9 +270,8 @@ Gura_DeclareMethod(wx_PGEditor, DeleteItem)
 
 Gura_ImplementMethod(wx_PGEditor, DeleteItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ctrl = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
 	//pThis->GetEntity()->DeleteItem();
@@ -314,9 +287,8 @@ Gura_DeclareMethod(wx_PGEditor, OnFocus)
 
 Gura_ImplementMethod(wx_PGEditor, OnFocus)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int property = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//pThis->GetEntity()->OnFocus();
@@ -330,9 +302,8 @@ Gura_DeclareMethod(wx_PGEditor, CanContainCustomImage)
 
 Gura_ImplementMethod(wx_PGEditor, CanContainCustomImage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanContainCustomImage();
 	return Value::Nil;
 }
@@ -343,7 +314,6 @@ Gura_ImplementMethod(wx_PGEditor, CanContainCustomImage)
 Gura_ImplementUserInheritableClass(wx_PGEditor)
 {
 	Gura_AssignMethod(wx_PGEditor, wxPGEditor);
-	Gura_AssignMethod(wx_PGEditor, ~wxPGEditor);
 	Gura_AssignMethod(wx_PGEditor, GetName);
 	Gura_AssignMethod(wx_PGEditor, CreateControls);
 	Gura_AssignMethod(wx_PGEditor, UpdateControl);

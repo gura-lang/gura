@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_JoystickEvent, wxJoystickEvent)
 
 Gura_ImplementMethod(wx_JoystickEvent, wxJoystickEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int state = arg.GetNumber(1)
 	//int joystick = arg.GetNumber(2)
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_JoystickEvent, ButtonDown)
 
 Gura_ImplementMethod(wx_JoystickEvent, ButtonDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
 	//pThis->GetEntity()->ButtonDown();
 	return Value::Nil;
@@ -83,9 +81,8 @@ Gura_DeclareMethod(wx_JoystickEvent, ButtonIsDown)
 
 Gura_ImplementMethod(wx_JoystickEvent, ButtonIsDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
 	//pThis->GetEntity()->ButtonIsDown();
 	return Value::Nil;
@@ -99,9 +96,8 @@ Gura_DeclareMethod(wx_JoystickEvent, ButtonUp)
 
 Gura_ImplementMethod(wx_JoystickEvent, ButtonUp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
 	//pThis->GetEntity()->ButtonUp();
 	return Value::Nil;
@@ -114,9 +110,8 @@ Gura_DeclareMethod(wx_JoystickEvent, GetButtonChange)
 
 Gura_ImplementMethod(wx_JoystickEvent, GetButtonChange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetButtonChange();
 	return Value::Nil;
 }
@@ -128,9 +123,8 @@ Gura_DeclareMethod(wx_JoystickEvent, GetButtonState)
 
 Gura_ImplementMethod(wx_JoystickEvent, GetButtonState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetButtonState();
 	return Value::Nil;
 }
@@ -142,9 +136,8 @@ Gura_DeclareMethod(wx_JoystickEvent, GetJoystick)
 
 Gura_ImplementMethod(wx_JoystickEvent, GetJoystick)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetJoystick();
 	return Value::Nil;
 }
@@ -156,9 +149,8 @@ Gura_DeclareMethod(wx_JoystickEvent, GetPosition)
 
 Gura_ImplementMethod(wx_JoystickEvent, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -170,9 +162,8 @@ Gura_DeclareMethod(wx_JoystickEvent, GetZPosition)
 
 Gura_ImplementMethod(wx_JoystickEvent, GetZPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetZPosition();
 	return Value::Nil;
 }
@@ -184,9 +175,8 @@ Gura_DeclareMethod(wx_JoystickEvent, IsButton)
 
 Gura_ImplementMethod(wx_JoystickEvent, IsButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsButton();
 	return Value::Nil;
 }
@@ -198,9 +188,8 @@ Gura_DeclareMethod(wx_JoystickEvent, IsMove)
 
 Gura_ImplementMethod(wx_JoystickEvent, IsMove)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsMove();
 	return Value::Nil;
 }
@@ -212,9 +201,8 @@ Gura_DeclareMethod(wx_JoystickEvent, IsZMove)
 
 Gura_ImplementMethod(wx_JoystickEvent, IsZMove)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsZMove();
 	return Value::Nil;
 }

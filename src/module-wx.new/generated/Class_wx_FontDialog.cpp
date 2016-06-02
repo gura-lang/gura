@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_FontDialog, wxFontDialog)
 
 Gura_ImplementMethod(wx_FontDialog, wxFontDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxFontDialog();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_FontDialog, wxFontDialog_1)
 
 Gura_ImplementMethod(wx_FontDialog, wxFontDialog_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->wxFontDialog();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_FontDialog, wxFontDialog_2)
 
 Gura_ImplementMethod(wx_FontDialog, wxFontDialog_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->wxFontDialog();
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_FontDialog, Create)
 
 Gura_ImplementMethod(wx_FontDialog, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -110,9 +106,8 @@ Gura_DeclareMethod(wx_FontDialog, Create_1)
 
 Gura_ImplementMethod(wx_FontDialog, Create_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
@@ -126,9 +121,8 @@ Gura_DeclareMethod(wx_FontDialog, GetFontData)
 
 Gura_ImplementMethod(wx_FontDialog, GetFontData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFontData();
 	return Value::Nil;
 }
@@ -140,9 +134,8 @@ Gura_DeclareMethod(wx_FontDialog, GetFontData_1)
 
 Gura_ImplementMethod(wx_FontDialog, GetFontData_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFontData();
 	return Value::Nil;
 }
@@ -154,9 +147,8 @@ Gura_DeclareMethod(wx_FontDialog, ShowModal)
 
 Gura_ImplementMethod(wx_FontDialog, ShowModal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_HtmlFontCell, wxHtmlFontCell)
 
 Gura_ImplementMethod(wx_HtmlFontCell, wxHtmlFontCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlFontCell *pThis = Object_wx_HtmlFontCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->wxHtmlFontCell();
 	return Value::Nil;

@@ -49,9 +49,8 @@ Gura_DeclareMethod(wx_ProgressDialog, wxProgressDialog)
 
 Gura_ImplementMethod(wx_ProgressDialog, wxProgressDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ProgressDialog *pThis = Object_wx_ProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int maximum = arg.GetNumber(2)

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_WebViewArchiveHandler, wxWebViewArchiveHandler)
 
 Gura_ImplementMethod(wx_WebViewArchiveHandler, wxWebViewArchiveHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewArchiveHandler *pThis = Object_wx_WebViewArchiveHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int scheme = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWebViewArchiveHandler();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_WebViewArchiveHandler, GetFile)
 
 Gura_ImplementMethod(wx_WebViewArchiveHandler, GetFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewArchiveHandler *pThis = Object_wx_WebViewArchiveHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int uri = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFile();
 	return Value::Nil;

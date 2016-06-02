@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_ScopedPtr<T>, wxScopedPtr)
 
 Gura_ImplementMethod(wx_ScopedPtr<T>, wxScopedPtr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->wxScopedPtr();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_ScopedPtr<T>, ~wxScopedPtr)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ScopedPtr<T>, ~wxScopedPtr)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxScopedPtr();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_ScopedPtr<T>, get)
 
 Gura_ImplementMethod(wx_ScopedPtr<T>, get)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->get();
 	return Value::Nil;
 }
@@ -88,9 +72,8 @@ Gura_DeclareMethod(wx_ScopedPtr<T>, unspecified_bool_type)
 
 Gura_ImplementMethod(wx_ScopedPtr<T>, unspecified_bool_type)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->unspecified_bool_type();
 	return Value::Nil;
 }
@@ -102,9 +85,8 @@ Gura_DeclareMethod(wx_ScopedPtr<T>, release)
 
 Gura_ImplementMethod(wx_ScopedPtr<T>, release)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->release();
 	return Value::Nil;
 }
@@ -117,9 +99,8 @@ Gura_DeclareMethod(wx_ScopedPtr<T>, reset)
 
 Gura_ImplementMethod(wx_ScopedPtr<T>, reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->reset();
 	return Value::Nil;
@@ -133,9 +114,8 @@ Gura_DeclareMethod(wx_ScopedPtr<T>, swap)
 
 Gura_ImplementMethod(wx_ScopedPtr<T>, swap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ot = arg.GetNumber(0)
 	//pThis->GetEntity()->swap();
 	return Value::Nil;
@@ -147,7 +127,6 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, swap)
 Gura_ImplementUserInheritableClass(wx_ScopedPtr<T>)
 {
 	Gura_AssignMethod(wx_ScopedPtr<T>, wxScopedPtr);
-	Gura_AssignMethod(wx_ScopedPtr<T>, ~wxScopedPtr);
 	Gura_AssignMethod(wx_ScopedPtr<T>, get);
 	Gura_AssignMethod(wx_ScopedPtr<T>, unspecified_bool_type);
 	Gura_AssignMethod(wx_ScopedPtr<T>, release);

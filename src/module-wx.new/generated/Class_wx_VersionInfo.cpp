@@ -50,9 +50,8 @@ Gura_DeclareMethod(wx_VersionInfo, wxVersionInfo)
 
 Gura_ImplementMethod(wx_VersionInfo, wxVersionInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int major = arg.GetNumber(1)
 	//int minor = arg.GetNumber(2)
@@ -70,9 +69,8 @@ Gura_DeclareMethod(wx_VersionInfo, GetName)
 
 Gura_ImplementMethod(wx_VersionInfo, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -84,9 +82,8 @@ Gura_DeclareMethod(wx_VersionInfo, GetMajor)
 
 Gura_ImplementMethod(wx_VersionInfo, GetMajor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMajor();
 	return Value::Nil;
 }
@@ -98,9 +95,8 @@ Gura_DeclareMethod(wx_VersionInfo, GetMinor)
 
 Gura_ImplementMethod(wx_VersionInfo, GetMinor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMinor();
 	return Value::Nil;
 }
@@ -112,9 +108,8 @@ Gura_DeclareMethod(wx_VersionInfo, GetMicro)
 
 Gura_ImplementMethod(wx_VersionInfo, GetMicro)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMicro();
 	return Value::Nil;
 }
@@ -126,9 +121,8 @@ Gura_DeclareMethod(wx_VersionInfo, ToString)
 
 Gura_ImplementMethod(wx_VersionInfo, ToString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ToString();
 	return Value::Nil;
 }
@@ -140,9 +134,8 @@ Gura_DeclareMethod(wx_VersionInfo, GetVersionString)
 
 Gura_ImplementMethod(wx_VersionInfo, GetVersionString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVersionString();
 	return Value::Nil;
 }
@@ -154,9 +147,8 @@ Gura_DeclareMethod(wx_VersionInfo, HasDescription)
 
 Gura_ImplementMethod(wx_VersionInfo, HasDescription)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasDescription();
 	return Value::Nil;
 }
@@ -168,9 +160,8 @@ Gura_DeclareMethod(wx_VersionInfo, GetDescription)
 
 Gura_ImplementMethod(wx_VersionInfo, GetDescription)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDescription();
 	return Value::Nil;
 }
@@ -182,9 +173,8 @@ Gura_DeclareMethod(wx_VersionInfo, HasCopyright)
 
 Gura_ImplementMethod(wx_VersionInfo, HasCopyright)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasCopyright();
 	return Value::Nil;
 }
@@ -196,9 +186,8 @@ Gura_DeclareMethod(wx_VersionInfo, GetCopyright)
 
 Gura_ImplementMethod(wx_VersionInfo, GetCopyright)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCopyright();
 	return Value::Nil;
 }

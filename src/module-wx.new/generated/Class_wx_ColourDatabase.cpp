@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ColourDatabase, wxColourDatabase)
 
 Gura_ImplementMethod(wx_ColourDatabase, wxColourDatabase)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxColourDatabase();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_ColourDatabase, AddColour)
 
 Gura_ImplementMethod(wx_ColourDatabase, AddColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colourName = arg.GetNumber(0)
 	//int colour = arg.GetNumber(1)
 	//pThis->GetEntity()->AddColour();
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_ColourDatabase, Find)
 
 Gura_ImplementMethod(wx_ColourDatabase, Find)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colourName = arg.GetNumber(0)
 	//pThis->GetEntity()->Find();
 	return Value::Nil;
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_ColourDatabase, FindName)
 
 Gura_ImplementMethod(wx_ColourDatabase, FindName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->FindName();
 	return Value::Nil;

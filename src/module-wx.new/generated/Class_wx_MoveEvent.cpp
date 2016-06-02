@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_MoveEvent, wxMoveEvent)
 
 Gura_ImplementMethod(wx_MoveEvent, wxMoveEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxMoveEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_MoveEvent, GetPosition)
 
 Gura_ImplementMethod(wx_MoveEvent, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_MoveEvent, GetRect)
 
 Gura_ImplementMethod(wx_MoveEvent, GetRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRect();
 	return Value::Nil;
 }
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_MoveEvent, SetRect)
 
 Gura_ImplementMethod(wx_MoveEvent, SetRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRect();
 	return Value::Nil;
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_MoveEvent, SetPosition)
 
 Gura_ImplementMethod(wx_MoveEvent, SetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;

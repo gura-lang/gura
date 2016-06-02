@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_HTMLDataObject, wxHTMLDataObject)
 
 Gura_ImplementMethod(wx_HTMLDataObject, wxHTMLDataObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HTMLDataObject *pThis = Object_wx_HTMLDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int html = arg.GetNumber(0)
 	//pThis->GetEntity()->wxHTMLDataObject();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_HTMLDataObject, GetHTML)
 
 Gura_ImplementMethod(wx_HTMLDataObject, GetHTML)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HTMLDataObject *pThis = Object_wx_HTMLDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHTML();
 	return Value::Nil;
 }
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_HTMLDataObject, SetHTML)
 
 Gura_ImplementMethod(wx_HTMLDataObject, SetHTML)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HTMLDataObject *pThis = Object_wx_HTMLDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int html = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHTML();
 	return Value::Nil;

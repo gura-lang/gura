@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TimeSpan, wxTimeSpan)
 
 Gura_ImplementMethod(wx_TimeSpan, wxTimeSpan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTimeSpan();
 	return Value::Nil;
 }
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_TimeSpan, wxTimeSpan_1)
 
 Gura_ImplementMethod(wx_TimeSpan, wxTimeSpan_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int hours = arg.GetNumber(0)
 	//int min = arg.GetNumber(1)
 	//int sec = arg.GetNumber(2)
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_TimeSpan, Abs)
 
 Gura_ImplementMethod(wx_TimeSpan, Abs)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Abs();
 	return Value::Nil;
 }
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_TimeSpan, Add)
 
 Gura_ImplementMethod(wx_TimeSpan, Add)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int diff = arg.GetNumber(0)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_TimeSpan, Add_1)
 
 Gura_ImplementMethod(wx_TimeSpan, Add_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int diff = arg.GetNumber(0)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
@@ -126,9 +121,8 @@ Gura_DeclareMethod(wx_TimeSpan, Day)
 
 Gura_ImplementMethod(wx_TimeSpan, Day)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Day();
 	return Value::Nil;
 }
@@ -141,9 +135,8 @@ Gura_DeclareMethod(wx_TimeSpan, Days)
 
 Gura_ImplementMethod(wx_TimeSpan, Days)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int days = arg.GetNumber(0)
 	//pThis->GetEntity()->Days();
 	return Value::Nil;
@@ -157,9 +150,8 @@ Gura_DeclareMethod(wx_TimeSpan, Format)
 
 Gura_ImplementMethod(wx_TimeSpan, Format)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->Format();
 	return Value::Nil;
@@ -172,9 +164,8 @@ Gura_DeclareMethod(wx_TimeSpan, GetDays)
 
 Gura_ImplementMethod(wx_TimeSpan, GetDays)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDays();
 	return Value::Nil;
 }
@@ -186,9 +177,8 @@ Gura_DeclareMethod(wx_TimeSpan, GetHours)
 
 Gura_ImplementMethod(wx_TimeSpan, GetHours)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHours();
 	return Value::Nil;
 }
@@ -200,9 +190,8 @@ Gura_DeclareMethod(wx_TimeSpan, GetMilliseconds)
 
 Gura_ImplementMethod(wx_TimeSpan, GetMilliseconds)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMilliseconds();
 	return Value::Nil;
 }
@@ -214,9 +203,8 @@ Gura_DeclareMethod(wx_TimeSpan, GetMinutes)
 
 Gura_ImplementMethod(wx_TimeSpan, GetMinutes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMinutes();
 	return Value::Nil;
 }
@@ -228,9 +216,8 @@ Gura_DeclareMethod(wx_TimeSpan, GetSeconds)
 
 Gura_ImplementMethod(wx_TimeSpan, GetSeconds)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSeconds();
 	return Value::Nil;
 }
@@ -242,9 +229,8 @@ Gura_DeclareMethod(wx_TimeSpan, GetValue)
 
 Gura_ImplementMethod(wx_TimeSpan, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -256,9 +242,8 @@ Gura_DeclareMethod(wx_TimeSpan, GetWeeks)
 
 Gura_ImplementMethod(wx_TimeSpan, GetWeeks)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWeeks();
 	return Value::Nil;
 }
@@ -270,9 +255,8 @@ Gura_DeclareMethod(wx_TimeSpan, Hour)
 
 Gura_ImplementMethod(wx_TimeSpan, Hour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Hour();
 	return Value::Nil;
 }
@@ -285,9 +269,8 @@ Gura_DeclareMethod(wx_TimeSpan, Hours)
 
 Gura_ImplementMethod(wx_TimeSpan, Hours)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int hours = arg.GetNumber(0)
 	//pThis->GetEntity()->Hours();
 	return Value::Nil;
@@ -301,9 +284,8 @@ Gura_DeclareMethod(wx_TimeSpan, IsEqualTo)
 
 Gura_ImplementMethod(wx_TimeSpan, IsEqualTo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ts = arg.GetNumber(0)
 	//pThis->GetEntity()->IsEqualTo();
 	return Value::Nil;
@@ -317,9 +299,8 @@ Gura_DeclareMethod(wx_TimeSpan, IsLongerThan)
 
 Gura_ImplementMethod(wx_TimeSpan, IsLongerThan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ts = arg.GetNumber(0)
 	//pThis->GetEntity()->IsLongerThan();
 	return Value::Nil;
@@ -332,9 +313,8 @@ Gura_DeclareMethod(wx_TimeSpan, IsNegative)
 
 Gura_ImplementMethod(wx_TimeSpan, IsNegative)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsNegative();
 	return Value::Nil;
 }
@@ -346,9 +326,8 @@ Gura_DeclareMethod(wx_TimeSpan, IsNull)
 
 Gura_ImplementMethod(wx_TimeSpan, IsNull)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsNull();
 	return Value::Nil;
 }
@@ -360,9 +339,8 @@ Gura_DeclareMethod(wx_TimeSpan, IsPositive)
 
 Gura_ImplementMethod(wx_TimeSpan, IsPositive)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsPositive();
 	return Value::Nil;
 }
@@ -375,9 +353,8 @@ Gura_DeclareMethod(wx_TimeSpan, IsShorterThan)
 
 Gura_ImplementMethod(wx_TimeSpan, IsShorterThan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ts = arg.GetNumber(0)
 	//pThis->GetEntity()->IsShorterThan();
 	return Value::Nil;
@@ -390,9 +367,8 @@ Gura_DeclareMethod(wx_TimeSpan, Millisecond)
 
 Gura_ImplementMethod(wx_TimeSpan, Millisecond)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Millisecond();
 	return Value::Nil;
 }
@@ -405,9 +381,8 @@ Gura_DeclareMethod(wx_TimeSpan, Milliseconds)
 
 Gura_ImplementMethod(wx_TimeSpan, Milliseconds)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ms = arg.GetNumber(0)
 	//pThis->GetEntity()->Milliseconds();
 	return Value::Nil;
@@ -420,9 +395,8 @@ Gura_DeclareMethod(wx_TimeSpan, Minute)
 
 Gura_ImplementMethod(wx_TimeSpan, Minute)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Minute();
 	return Value::Nil;
 }
@@ -435,9 +409,8 @@ Gura_DeclareMethod(wx_TimeSpan, Minutes)
 
 Gura_ImplementMethod(wx_TimeSpan, Minutes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int min = arg.GetNumber(0)
 	//pThis->GetEntity()->Minutes();
 	return Value::Nil;
@@ -451,9 +424,8 @@ Gura_DeclareMethod(wx_TimeSpan, Multiply)
 
 Gura_ImplementMethod(wx_TimeSpan, Multiply)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->Multiply();
 	return Value::Nil;
@@ -467,9 +439,8 @@ Gura_DeclareMethod(wx_TimeSpan, Multiply_1)
 
 Gura_ImplementMethod(wx_TimeSpan, Multiply_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->Multiply();
 	return Value::Nil;
@@ -482,9 +453,8 @@ Gura_DeclareMethod(wx_TimeSpan, Neg)
 
 Gura_ImplementMethod(wx_TimeSpan, Neg)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Neg();
 	return Value::Nil;
 }
@@ -496,9 +466,8 @@ Gura_DeclareMethod(wx_TimeSpan, Negate)
 
 Gura_ImplementMethod(wx_TimeSpan, Negate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Negate();
 	return Value::Nil;
 }
@@ -510,9 +479,8 @@ Gura_DeclareMethod(wx_TimeSpan, Second)
 
 Gura_ImplementMethod(wx_TimeSpan, Second)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Second();
 	return Value::Nil;
 }
@@ -525,9 +493,8 @@ Gura_DeclareMethod(wx_TimeSpan, Seconds)
 
 Gura_ImplementMethod(wx_TimeSpan, Seconds)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sec = arg.GetNumber(0)
 	//pThis->GetEntity()->Seconds();
 	return Value::Nil;
@@ -541,9 +508,8 @@ Gura_DeclareMethod(wx_TimeSpan, Subtract)
 
 Gura_ImplementMethod(wx_TimeSpan, Subtract)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int diff = arg.GetNumber(0)
 	//pThis->GetEntity()->Subtract();
 	return Value::Nil;
@@ -557,9 +523,8 @@ Gura_DeclareMethod(wx_TimeSpan, Subtract_1)
 
 Gura_ImplementMethod(wx_TimeSpan, Subtract_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int diff = arg.GetNumber(0)
 	//pThis->GetEntity()->Subtract();
 	return Value::Nil;
@@ -572,9 +537,8 @@ Gura_DeclareMethod(wx_TimeSpan, Week)
 
 Gura_ImplementMethod(wx_TimeSpan, Week)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Week();
 	return Value::Nil;
 }
@@ -587,9 +551,8 @@ Gura_DeclareMethod(wx_TimeSpan, Weeks)
 
 Gura_ImplementMethod(wx_TimeSpan, Weeks)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int weeks = arg.GetNumber(0)
 	//pThis->GetEntity()->Weeks();
 	return Value::Nil;

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_IdManager, ReserveId)
 
 Gura_ImplementMethod(wx_IdManager, ReserveId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IdManager *pThis = Object_wx_IdManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int count = arg.GetNumber(0)
 	//pThis->GetEntity()->ReserveId();
 	return Value::Nil;
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_IdManager, UnreserveId)
 
 Gura_ImplementMethod(wx_IdManager, UnreserveId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IdManager *pThis = Object_wx_IdManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int count = arg.GetNumber(1)
 	//pThis->GetEntity()->UnreserveId();

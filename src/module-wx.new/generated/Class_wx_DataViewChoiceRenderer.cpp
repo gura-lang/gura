@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_DataViewChoiceRenderer, wxDataViewChoiceRenderer)
 
 Gura_ImplementMethod(wx_DataViewChoiceRenderer, wxDataViewChoiceRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewChoiceRenderer *pThis = Object_wx_DataViewChoiceRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int choices = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
 	//int alignment = arg.GetNumber(2)
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_DataViewChoiceRenderer, GetChoice)
 
 Gura_ImplementMethod(wx_DataViewChoiceRenderer, GetChoice)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewChoiceRenderer *pThis = Object_wx_DataViewChoiceRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//pThis->GetEntity()->GetChoice();
 	return Value::Nil;
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_DataViewChoiceRenderer, GetChoices)
 
 Gura_ImplementMethod(wx_DataViewChoiceRenderer, GetChoices)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewChoiceRenderer *pThis = Object_wx_DataViewChoiceRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetChoices();
 	return Value::Nil;
 }

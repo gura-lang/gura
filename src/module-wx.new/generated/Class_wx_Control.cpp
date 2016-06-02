@@ -51,9 +51,8 @@ Gura_DeclareMethod(wx_Control, wxControl)
 
 Gura_ImplementMethod(wx_Control, wxControl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -72,9 +71,8 @@ Gura_DeclareMethod(wx_Control, wxControl_1)
 
 Gura_ImplementMethod(wx_Control, wxControl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxControl();
 	return Value::Nil;
 }
@@ -93,9 +91,8 @@ Gura_DeclareMethod(wx_Control, Create)
 
 Gura_ImplementMethod(wx_Control, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -115,9 +112,8 @@ Gura_DeclareMethod(wx_Control, Command)
 
 Gura_ImplementMethod(wx_Control, Command)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->Command();
 	return Value::Nil;
@@ -130,9 +126,8 @@ Gura_DeclareMethod(wx_Control, GetLabel)
 
 Gura_ImplementMethod(wx_Control, GetLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLabel();
 	return Value::Nil;
 }
@@ -144,9 +139,8 @@ Gura_DeclareMethod(wx_Control, GetLabelText)
 
 Gura_ImplementMethod(wx_Control, GetLabelText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLabelText();
 	return Value::Nil;
 }
@@ -160,9 +154,8 @@ Gura_DeclareMethod(wx_Control, GetSizeFromTextSize)
 
 Gura_ImplementMethod(wx_Control, GetSizeFromTextSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int xlen = arg.GetNumber(0)
 	//int ylen = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSizeFromTextSize();
@@ -177,9 +170,8 @@ Gura_DeclareMethod(wx_Control, GetSizeFromTextSize_1)
 
 Gura_ImplementMethod(wx_Control, GetSizeFromTextSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tsize = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSizeFromTextSize();
 	return Value::Nil;
@@ -193,9 +185,8 @@ Gura_DeclareMethod(wx_Control, SetLabel)
 
 Gura_ImplementMethod(wx_Control, SetLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int label = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLabel();
 	return Value::Nil;
@@ -209,9 +200,8 @@ Gura_DeclareMethod(wx_Control, SetLabelText)
 
 Gura_ImplementMethod(wx_Control, SetLabelText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLabelText();
 	return Value::Nil;
@@ -225,9 +215,8 @@ Gura_DeclareMethod(wx_Control, SetLabelMarkup)
 
 Gura_ImplementMethod(wx_Control, SetLabelMarkup)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int markup = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLabelMarkup();
 	return Value::Nil;
@@ -241,9 +230,8 @@ Gura_DeclareMethod(wx_Control, GetLabelText_1)
 
 Gura_ImplementMethod(wx_Control, GetLabelText_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int label = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLabelText();
 	return Value::Nil;
@@ -257,9 +245,8 @@ Gura_DeclareMethod(wx_Control, RemoveMnemonics)
 
 Gura_ImplementMethod(wx_Control, RemoveMnemonics)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveMnemonics();
 	return Value::Nil;
@@ -273,9 +260,8 @@ Gura_DeclareMethod(wx_Control, EscapeMnemonics)
 
 Gura_ImplementMethod(wx_Control, EscapeMnemonics)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//pThis->GetEntity()->EscapeMnemonics();
 	return Value::Nil;
@@ -293,9 +279,8 @@ Gura_DeclareMethod(wx_Control, Ellipsize)
 
 Gura_ImplementMethod(wx_Control, Ellipsize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int label = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int mode = arg.GetNumber(2)

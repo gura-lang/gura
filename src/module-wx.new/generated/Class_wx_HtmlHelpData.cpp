@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HtmlHelpData, wxHtmlHelpData)
 
 Gura_ImplementMethod(wx_HtmlHelpData, wxHtmlHelpData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHtmlHelpData();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_HtmlHelpData, AddBook)
 
 Gura_ImplementMethod(wx_HtmlHelpData, AddBook)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int book_url = arg.GetNumber(0)
 	//pThis->GetEntity()->AddBook();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_HtmlHelpData, FindPageById)
 
 Gura_ImplementMethod(wx_HtmlHelpData, FindPageById)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->FindPageById();
 	return Value::Nil;
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_HtmlHelpData, FindPageByName)
 
 Gura_ImplementMethod(wx_HtmlHelpData, FindPageByName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//pThis->GetEntity()->FindPageByName();
 	return Value::Nil;
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_HtmlHelpData, GetBookRecArray)
 
 Gura_ImplementMethod(wx_HtmlHelpData, GetBookRecArray)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBookRecArray();
 	return Value::Nil;
 }
@@ -120,9 +115,8 @@ Gura_DeclareMethod(wx_HtmlHelpData, GetContentsArray)
 
 Gura_ImplementMethod(wx_HtmlHelpData, GetContentsArray)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetContentsArray();
 	return Value::Nil;
 }
@@ -134,9 +128,8 @@ Gura_DeclareMethod(wx_HtmlHelpData, GetIndexArray)
 
 Gura_ImplementMethod(wx_HtmlHelpData, GetIndexArray)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetIndexArray();
 	return Value::Nil;
 }
@@ -149,9 +142,8 @@ Gura_DeclareMethod(wx_HtmlHelpData, SetTempDir)
 
 Gura_ImplementMethod(wx_HtmlHelpData, SetTempDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTempDir();
 	return Value::Nil;

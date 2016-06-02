@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_AuiNotebookEvent, wxAuiNotebookEvent)
 
 Gura_ImplementMethod(wx_AuiNotebookEvent, wxAuiNotebookEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebookEvent *pThis = Object_wx_AuiNotebookEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxAuiNotebookEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_AuiNotebookEvent, Clone)
 
 Gura_ImplementMethod(wx_AuiNotebookEvent, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiNotebookEvent *pThis = Object_wx_AuiNotebookEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }

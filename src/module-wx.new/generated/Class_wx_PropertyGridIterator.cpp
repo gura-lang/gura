@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_PropertyGridIterator, Assign)
 
 Gura_ImplementMethod(wx_PropertyGridIterator, Assign)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int it = arg.GetNumber(0)
 	//pThis->GetEntity()->Assign();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_PropertyGridIterator, AtEnd)
 
 Gura_ImplementMethod(wx_PropertyGridIterator, AtEnd)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AtEnd();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_PropertyGridIterator, GetProperty)
 
 Gura_ImplementMethod(wx_PropertyGridIterator, GetProperty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetProperty();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_PropertyGridIterator, Next)
 
 Gura_ImplementMethod(wx_PropertyGridIterator, Next)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int iterateChildren = arg.GetNumber(0)
 	//pThis->GetEntity()->Next();
 	return Value::Nil;
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_PropertyGridIterator, Prev)
 
 Gura_ImplementMethod(wx_PropertyGridIterator, Prev)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Prev();
 	return Value::Nil;
 }

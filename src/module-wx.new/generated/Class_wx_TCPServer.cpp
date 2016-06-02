@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TCPServer, wxTCPServer)
 
 Gura_ImplementMethod(wx_TCPServer, wxTCPServer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TCPServer *pThis = Object_wx_TCPServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTCPServer();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_TCPServer, Create)
 
 Gura_ImplementMethod(wx_TCPServer, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TCPServer *pThis = Object_wx_TCPServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int service = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_TCPServer, OnAcceptConnection)
 
 Gura_ImplementMethod(wx_TCPServer, OnAcceptConnection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TCPServer *pThis = Object_wx_TCPServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topic = arg.GetNumber(0)
 	//pThis->GetEntity()->OnAcceptConnection();
 	return Value::Nil;

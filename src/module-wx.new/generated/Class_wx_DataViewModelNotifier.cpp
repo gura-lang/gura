@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, wxDataViewModelNotifier)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, wxDataViewModelNotifier)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxDataViewModelNotifier();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DataViewModelNotifier, ~wxDataViewModelNotifier)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DataViewModelNotifier, ~wxDataViewModelNotifier)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDataViewModelNotifier();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, Cleared)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, Cleared)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Cleared();
 	return Value::Nil;
 }
@@ -86,9 +70,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, GetOwner)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, GetOwner)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOwner();
 	return Value::Nil;
 }
@@ -102,9 +85,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, ItemAdded)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, ItemAdded)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int item = arg.GetNumber(1)
 	//pThis->GetEntity()->ItemAdded();
@@ -119,9 +101,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, ItemChanged)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, ItemChanged)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->ItemChanged();
 	return Value::Nil;
@@ -136,9 +117,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, ItemDeleted)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, ItemDeleted)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int item = arg.GetNumber(1)
 	//pThis->GetEntity()->ItemDeleted();
@@ -154,9 +134,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, ItemsAdded)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, ItemsAdded)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int items = arg.GetNumber(1)
 	//pThis->GetEntity()->ItemsAdded();
@@ -171,9 +150,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, ItemsChanged)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, ItemsChanged)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int items = arg.GetNumber(0)
 	//pThis->GetEntity()->ItemsChanged();
 	return Value::Nil;
@@ -188,9 +166,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, ItemsDeleted)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, ItemsDeleted)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int items = arg.GetNumber(1)
 	//pThis->GetEntity()->ItemsDeleted();
@@ -204,9 +181,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, Resort)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, Resort)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Resort();
 	return Value::Nil;
 }
@@ -219,9 +195,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, SetOwner)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, SetOwner)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int owner = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOwner();
 	return Value::Nil;
@@ -236,9 +211,8 @@ Gura_DeclareMethod(wx_DataViewModelNotifier, ValueChanged)
 
 Gura_ImplementMethod(wx_DataViewModelNotifier, ValueChanged)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->ValueChanged();
@@ -251,7 +225,6 @@ Gura_ImplementMethod(wx_DataViewModelNotifier, ValueChanged)
 Gura_ImplementUserInheritableClass(wx_DataViewModelNotifier)
 {
 	Gura_AssignMethod(wx_DataViewModelNotifier, wxDataViewModelNotifier);
-	Gura_AssignMethod(wx_DataViewModelNotifier, ~wxDataViewModelNotifier);
 	Gura_AssignMethod(wx_DataViewModelNotifier, Cleared);
 	Gura_AssignMethod(wx_DataViewModelNotifier, GetOwner);
 	Gura_AssignMethod(wx_DataViewModelNotifier, ItemAdded);

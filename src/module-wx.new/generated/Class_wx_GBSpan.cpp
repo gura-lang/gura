@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GBSpan, wxGBSpan)
 
 Gura_ImplementMethod(wx_GBSpan, wxGBSpan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGBSpan();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_GBSpan, wxGBSpan_1)
 
 Gura_ImplementMethod(wx_GBSpan, wxGBSpan_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rowspan = arg.GetNumber(0)
 	//int colspan = arg.GetNumber(1)
 	//pThis->GetEntity()->wxGBSpan();
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_GBSpan, GetColspan)
 
 Gura_ImplementMethod(wx_GBSpan, GetColspan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColspan();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_GBSpan, GetRowspan)
 
 Gura_ImplementMethod(wx_GBSpan, GetRowspan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRowspan();
 	return Value::Nil;
 }
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_GBSpan, SetColspan)
 
 Gura_ImplementMethod(wx_GBSpan, SetColspan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colspan = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColspan();
 	return Value::Nil;
@@ -121,9 +116,8 @@ Gura_DeclareMethod(wx_GBSpan, SetRowspan)
 
 Gura_ImplementMethod(wx_GBSpan, SetRowspan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rowspan = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRowspan();
 	return Value::Nil;

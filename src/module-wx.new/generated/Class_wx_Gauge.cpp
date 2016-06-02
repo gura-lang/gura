@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Gauge, wxGauge)
 
 Gura_ImplementMethod(wx_Gauge, wxGauge)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGauge();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_Gauge, wxGauge_1)
 
 Gura_ImplementMethod(wx_Gauge, wxGauge_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int range = arg.GetNumber(2)
@@ -78,20 +76,6 @@ Gura_ImplementMethod(wx_Gauge, wxGauge_1)
 	//int validator = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
 	//pThis->GetEntity()->wxGauge();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Gauge, ~wxGauge)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Gauge, ~wxGauge)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxGauge();
 	return Value::Nil;
 }
 
@@ -110,9 +94,8 @@ Gura_DeclareMethod(wx_Gauge, Create)
 
 Gura_ImplementMethod(wx_Gauge, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int range = arg.GetNumber(2)
@@ -132,9 +115,8 @@ Gura_DeclareMethod(wx_Gauge, GetRange)
 
 Gura_ImplementMethod(wx_Gauge, GetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRange();
 	return Value::Nil;
 }
@@ -146,9 +128,8 @@ Gura_DeclareMethod(wx_Gauge, GetValue)
 
 Gura_ImplementMethod(wx_Gauge, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -160,9 +141,8 @@ Gura_DeclareMethod(wx_Gauge, IsVertical)
 
 Gura_ImplementMethod(wx_Gauge, IsVertical)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsVertical();
 	return Value::Nil;
 }
@@ -174,9 +154,8 @@ Gura_DeclareMethod(wx_Gauge, Pulse)
 
 Gura_ImplementMethod(wx_Gauge, Pulse)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Pulse();
 	return Value::Nil;
 }
@@ -189,9 +168,8 @@ Gura_DeclareMethod(wx_Gauge, SetRange)
 
 Gura_ImplementMethod(wx_Gauge, SetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRange();
 	return Value::Nil;
@@ -205,9 +183,8 @@ Gura_DeclareMethod(wx_Gauge, SetValue)
 
 Gura_ImplementMethod(wx_Gauge, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
@@ -220,7 +197,6 @@ Gura_ImplementUserInheritableClass(wx_Gauge)
 {
 	Gura_AssignMethod(wx_Gauge, wxGauge);
 	Gura_AssignMethod(wx_Gauge, wxGauge_1);
-	Gura_AssignMethod(wx_Gauge, ~wxGauge);
 	Gura_AssignMethod(wx_Gauge, Create);
 	Gura_AssignMethod(wx_Gauge, GetRange);
 	Gura_AssignMethod(wx_Gauge, GetValue);

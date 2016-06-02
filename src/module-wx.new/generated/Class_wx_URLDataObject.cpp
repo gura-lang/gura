@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_URLDataObject, wxURLDataObject)
 
 Gura_ImplementMethod(wx_URLDataObject, wxURLDataObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//pThis->GetEntity()->wxURLDataObject();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_URLDataObject, GetURL)
 
 Gura_ImplementMethod(wx_URLDataObject, GetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_URLDataObject, SetURL)
 
 Gura_ImplementMethod(wx_URLDataObject, SetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;

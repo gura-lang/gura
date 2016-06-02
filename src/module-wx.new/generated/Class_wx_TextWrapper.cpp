@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TextWrapper, wxTextWrapper)
 
 Gura_ImplementMethod(wx_TextWrapper, wxTextWrapper)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTextWrapper();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_TextWrapper, Wrap)
 
 Gura_ImplementMethod(wx_TextWrapper, Wrap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
 	//int widthMax = arg.GetNumber(2)
@@ -79,9 +77,8 @@ Gura_DeclareMethod(wx_TextWrapper, OnOutputLine)
 
 Gura_ImplementMethod(wx_TextWrapper, OnOutputLine)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int line = arg.GetNumber(0)
 	//pThis->GetEntity()->OnOutputLine();
 	return Value::Nil;
@@ -94,9 +91,8 @@ Gura_DeclareMethod(wx_TextWrapper, OnNewLine)
 
 Gura_ImplementMethod(wx_TextWrapper, OnNewLine)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnNewLine();
 	return Value::Nil;
 }

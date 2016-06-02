@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, wxMemoryBuffer)
 
 Gura_ImplementMethod(wx_MemoryBuffer, wxMemoryBuffer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int src = arg.GetNumber(0)
 	//pThis->GetEntity()->wxMemoryBuffer();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, wxMemoryBuffer_1)
 
 Gura_ImplementMethod(wx_MemoryBuffer, wxMemoryBuffer_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//pThis->GetEntity()->wxMemoryBuffer();
 	return Value::Nil;
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, AppendByte)
 
 Gura_ImplementMethod(wx_MemoryBuffer, AppendByte)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendByte();
 	return Value::Nil;
@@ -94,9 +91,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, AppendData)
 
 Gura_ImplementMethod(wx_MemoryBuffer, AppendData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
 	//pThis->GetEntity()->AppendData();
@@ -110,9 +106,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, Clear)
 
 Gura_ImplementMethod(wx_MemoryBuffer, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -125,9 +120,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, GetAppendBuf)
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetAppendBuf)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sizeNeeded = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAppendBuf();
 	return Value::Nil;
@@ -140,9 +134,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, GetBufSize)
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetBufSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBufSize();
 	return Value::Nil;
 }
@@ -154,9 +147,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, GetData)
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
@@ -168,9 +160,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, GetDataLen)
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetDataLen)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDataLen();
 	return Value::Nil;
 }
@@ -183,9 +174,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, GetWriteBuf)
 
 Gura_ImplementMethod(wx_MemoryBuffer, GetWriteBuf)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sizeNeeded = arg.GetNumber(0)
 	//pThis->GetEntity()->GetWriteBuf();
 	return Value::Nil;
@@ -198,9 +188,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, IsEmpty)
 
 Gura_ImplementMethod(wx_MemoryBuffer, IsEmpty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
@@ -213,9 +202,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, SetBufSize)
 
 Gura_ImplementMethod(wx_MemoryBuffer, SetBufSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBufSize();
 	return Value::Nil;
@@ -229,9 +217,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, SetDataLen)
 
 Gura_ImplementMethod(wx_MemoryBuffer, SetDataLen)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDataLen();
 	return Value::Nil;
@@ -245,9 +232,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, UngetAppendBuf)
 
 Gura_ImplementMethod(wx_MemoryBuffer, UngetAppendBuf)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sizeUsed = arg.GetNumber(0)
 	//pThis->GetEntity()->UngetAppendBuf();
 	return Value::Nil;
@@ -261,9 +247,8 @@ Gura_DeclareMethod(wx_MemoryBuffer, UngetWriteBuf)
 
 Gura_ImplementMethod(wx_MemoryBuffer, UngetWriteBuf)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sizeUsed = arg.GetNumber(0)
 	//pThis->GetEntity()->UngetWriteBuf();
 	return Value::Nil;

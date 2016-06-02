@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_RichTextCell, wxRichTextCell)
 
 Gura_ImplementMethod(wx_RichTextCell, wxRichTextCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextCell();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_RichTextCell, wxRichTextCell_1)
 
 Gura_ImplementMethod(wx_RichTextCell, wxRichTextCell_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRichTextCell();
 	return Value::Nil;
 }
@@ -81,9 +79,8 @@ Gura_DeclareMethod(wx_RichTextCell, Draw)
 
 Gura_ImplementMethod(wx_RichTextCell, Draw)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int range = arg.GetNumber(2)
@@ -109,9 +106,8 @@ Gura_DeclareMethod(wx_RichTextCell, HitTest)
 
 Gura_ImplementMethod(wx_RichTextCell, HitTest)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int pt = arg.GetNumber(2)
@@ -130,9 +126,8 @@ Gura_DeclareMethod(wx_RichTextCell, GetXMLNodeName)
 
 Gura_ImplementMethod(wx_RichTextCell, GetXMLNodeName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetXMLNodeName();
 	return Value::Nil;
 }
@@ -144,9 +139,8 @@ Gura_DeclareMethod(wx_RichTextCell, CanEditProperties)
 
 Gura_ImplementMethod(wx_RichTextCell, CanEditProperties)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanEditProperties();
 	return Value::Nil;
 }
@@ -160,9 +154,8 @@ Gura_DeclareMethod(wx_RichTextCell, EditProperties)
 
 Gura_ImplementMethod(wx_RichTextCell, EditProperties)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
 	//pThis->GetEntity()->EditProperties();
@@ -176,9 +169,8 @@ Gura_DeclareMethod(wx_RichTextCell, GetPropertiesMenuLabel)
 
 Gura_ImplementMethod(wx_RichTextCell, GetPropertiesMenuLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPropertiesMenuLabel();
 	return Value::Nil;
 }
@@ -190,9 +182,8 @@ Gura_DeclareMethod(wx_RichTextCell, GetColSpan)
 
 Gura_ImplementMethod(wx_RichTextCell, GetColSpan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColSpan();
 	return Value::Nil;
 }
@@ -205,9 +196,8 @@ Gura_DeclareMethod(wx_RichTextCell, SetColSpan)
 
 Gura_ImplementMethod(wx_RichTextCell, SetColSpan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int span = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColSpan();
 	return Value::Nil;
@@ -220,9 +210,8 @@ Gura_DeclareMethod(wx_RichTextCell, GetRowSpan)
 
 Gura_ImplementMethod(wx_RichTextCell, GetRowSpan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRowSpan();
 	return Value::Nil;
 }
@@ -235,9 +224,8 @@ Gura_DeclareMethod(wx_RichTextCell, SetRowSpan)
 
 Gura_ImplementMethod(wx_RichTextCell, SetRowSpan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int span = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRowSpan();
 	return Value::Nil;
@@ -250,9 +238,8 @@ Gura_DeclareMethod(wx_RichTextCell, Clone)
 
 Gura_ImplementMethod(wx_RichTextCell, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -265,9 +252,8 @@ Gura_DeclareMethod(wx_RichTextCell, Copy)
 
 Gura_ImplementMethod(wx_RichTextCell, Copy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;

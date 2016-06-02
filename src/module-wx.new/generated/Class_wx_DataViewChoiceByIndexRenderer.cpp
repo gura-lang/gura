@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_DataViewChoiceByIndexRenderer, wxDataViewChoiceByIndexRend
 
 Gura_ImplementMethod(wx_DataViewChoiceByIndexRenderer, wxDataViewChoiceByIndexRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewChoiceByIndexRenderer *pThis = Object_wx_DataViewChoiceByIndexRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int choices = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
 	//int alignment = arg.GetNumber(2)

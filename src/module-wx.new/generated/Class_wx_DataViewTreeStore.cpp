@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_DataViewTreeStore, wxDataViewTreeStore)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, wxDataViewTreeStore)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxDataViewTreeStore();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DataViewTreeStore, ~wxDataViewTreeStore)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DataViewTreeStore, ~wxDataViewTreeStore)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDataViewTreeStore();
 	return Value::Nil;
 }
 
@@ -77,9 +62,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, AppendContainer)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, AppendContainer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
 	//int icon = arg.GetNumber(2)
@@ -100,9 +84,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, AppendItem)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, AppendItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
 	//int icon = arg.GetNumber(2)
@@ -118,9 +101,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, DeleteAllItems)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, DeleteAllItems)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DeleteAllItems();
 	return Value::Nil;
 }
@@ -133,9 +115,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, DeleteChildren)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, DeleteChildren)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteChildren();
 	return Value::Nil;
@@ -149,9 +130,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, DeleteItem)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, DeleteItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteItem();
 	return Value::Nil;
@@ -165,9 +145,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, GetChildCount)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, GetChildCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->GetChildCount();
 	return Value::Nil;
@@ -181,9 +160,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, GetItemData)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, GetItemData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemData();
 	return Value::Nil;
@@ -197,9 +175,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, GetItemExpandedIcon)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, GetItemExpandedIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemExpandedIcon();
 	return Value::Nil;
@@ -213,9 +190,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, GetItemIcon)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, GetItemIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemIcon();
 	return Value::Nil;
@@ -229,9 +205,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, GetItemText)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, GetItemText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemText();
 	return Value::Nil;
@@ -246,9 +221,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, GetNthChild)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, GetNthChild)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//pThis->GetEntity()->GetNthChild();
@@ -268,9 +242,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, InsertContainer)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, InsertContainer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int previous = arg.GetNumber(1)
 	//int text = arg.GetNumber(2)
@@ -293,9 +266,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, InsertItem)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, InsertItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int previous = arg.GetNumber(1)
 	//int text = arg.GetNumber(2)
@@ -317,9 +289,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, PrependContainer)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, PrependContainer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
 	//int icon = arg.GetNumber(2)
@@ -340,9 +311,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, PrependItem)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, PrependItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
 	//int icon = arg.GetNumber(2)
@@ -360,9 +330,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, SetItemData)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, SetItemData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemData();
@@ -378,9 +347,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, SetItemExpandedIcon)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, SetItemExpandedIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int icon = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemExpandedIcon();
@@ -396,9 +364,8 @@ Gura_DeclareMethod(wx_DataViewTreeStore, SetItemIcon)
 
 Gura_ImplementMethod(wx_DataViewTreeStore, SetItemIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int icon = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemIcon();
@@ -411,7 +378,6 @@ Gura_ImplementMethod(wx_DataViewTreeStore, SetItemIcon)
 Gura_ImplementUserInheritableClass(wx_DataViewTreeStore)
 {
 	Gura_AssignMethod(wx_DataViewTreeStore, wxDataViewTreeStore);
-	Gura_AssignMethod(wx_DataViewTreeStore, ~wxDataViewTreeStore);
 	Gura_AssignMethod(wx_DataViewTreeStore, AppendContainer);
 	Gura_AssignMethod(wx_DataViewTreeStore, AppendItem);
 	Gura_AssignMethod(wx_DataViewTreeStore, DeleteAllItems);

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_FileInputStream, wxFileInputStream)
 
 Gura_ImplementMethod(wx_FileInputStream, wxFileInputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ifileName = arg.GetNumber(0)
 	//pThis->GetEntity()->wxFileInputStream();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_FileInputStream, wxFileInputStream_1)
 
 Gura_ImplementMethod(wx_FileInputStream, wxFileInputStream_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//pThis->GetEntity()->wxFileInputStream();
 	return Value::Nil;
@@ -77,25 +75,10 @@ Gura_DeclareMethod(wx_FileInputStream, wxFileInputStream_2)
 
 Gura_ImplementMethod(wx_FileInputStream, wxFileInputStream_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fd = arg.GetNumber(0)
 	//pThis->GetEntity()->wxFileInputStream();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_FileInputStream, ~wxFileInputStream)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_FileInputStream, ~wxFileInputStream)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxFileInputStream();
 	return Value::Nil;
 }
 
@@ -106,9 +89,8 @@ Gura_DeclareMethod(wx_FileInputStream, IsOk)
 
 Gura_ImplementMethod(wx_FileInputStream, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -120,9 +102,8 @@ Gura_DeclareMethod(wx_FileInputStream, GetFile)
 
 Gura_ImplementMethod(wx_FileInputStream, GetFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFile();
 	return Value::Nil;
 }
@@ -135,7 +116,6 @@ Gura_ImplementUserInheritableClass(wx_FileInputStream)
 	Gura_AssignMethod(wx_FileInputStream, wxFileInputStream);
 	Gura_AssignMethod(wx_FileInputStream, wxFileInputStream_1);
 	Gura_AssignMethod(wx_FileInputStream, wxFileInputStream_2);
-	Gura_AssignMethod(wx_FileInputStream, ~wxFileInputStream);
 	Gura_AssignMethod(wx_FileInputStream, IsOk);
 	Gura_AssignMethod(wx_FileInputStream, GetFile);
 }

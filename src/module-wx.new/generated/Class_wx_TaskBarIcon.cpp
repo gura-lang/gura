@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_TaskBarIcon, wxTaskBarIcon)
 
 Gura_ImplementMethod(wx_TaskBarIcon, wxTaskBarIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int iconType = arg.GetNumber(0)
 	//pThis->GetEntity()->wxTaskBarIcon();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_TaskBarIcon, ~wxTaskBarIcon)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_TaskBarIcon, ~wxTaskBarIcon)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxTaskBarIcon();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_TaskBarIcon, Destroy)
 
 Gura_ImplementMethod(wx_TaskBarIcon, Destroy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Destroy();
 	return Value::Nil;
 }
@@ -88,9 +72,8 @@ Gura_DeclareMethod(wx_TaskBarIcon, IsIconInstalled)
 
 Gura_ImplementMethod(wx_TaskBarIcon, IsIconInstalled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsIconInstalled();
 	return Value::Nil;
 }
@@ -102,9 +85,8 @@ Gura_DeclareMethod(wx_TaskBarIcon, IsOk)
 
 Gura_ImplementMethod(wx_TaskBarIcon, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -117,9 +99,8 @@ Gura_DeclareMethod(wx_TaskBarIcon, PopupMenu)
 
 Gura_ImplementMethod(wx_TaskBarIcon, PopupMenu)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int menu = arg.GetNumber(0)
 	//pThis->GetEntity()->PopupMenu();
 	return Value::Nil;
@@ -132,9 +113,8 @@ Gura_DeclareMethod(wx_TaskBarIcon, RemoveIcon)
 
 Gura_ImplementMethod(wx_TaskBarIcon, RemoveIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RemoveIcon();
 	return Value::Nil;
 }
@@ -148,9 +128,8 @@ Gura_DeclareMethod(wx_TaskBarIcon, SetIcon)
 
 Gura_ImplementMethod(wx_TaskBarIcon, SetIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int icon = arg.GetNumber(0)
 	//int tooltip = arg.GetNumber(1)
 	//pThis->GetEntity()->SetIcon();
@@ -164,9 +143,8 @@ Gura_DeclareMethod(wx_TaskBarIcon, IsAvailable)
 
 Gura_ImplementMethod(wx_TaskBarIcon, IsAvailable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsAvailable();
 	return Value::Nil;
 }
@@ -178,9 +156,8 @@ Gura_DeclareMethod(wx_TaskBarIcon, CreatePopupMenu)
 
 Gura_ImplementMethod(wx_TaskBarIcon, CreatePopupMenu)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CreatePopupMenu();
 	return Value::Nil;
 }
@@ -191,7 +168,6 @@ Gura_ImplementMethod(wx_TaskBarIcon, CreatePopupMenu)
 Gura_ImplementUserInheritableClass(wx_TaskBarIcon)
 {
 	Gura_AssignMethod(wx_TaskBarIcon, wxTaskBarIcon);
-	Gura_AssignMethod(wx_TaskBarIcon, ~wxTaskBarIcon);
 	Gura_AssignMethod(wx_TaskBarIcon, Destroy);
 	Gura_AssignMethod(wx_TaskBarIcon, IsIconInstalled);
 	Gura_AssignMethod(wx_TaskBarIcon, IsOk);

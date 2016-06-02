@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TreeListItem, wxTreeListItem)
 
 Gura_ImplementMethod(wx_TreeListItem, wxTreeListItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeListItem *pThis = Object_wx_TreeListItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTreeListItem();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_TreeListItem, IsOk)
 
 Gura_ImplementMethod(wx_TreeListItem, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeListItem *pThis = Object_wx_TreeListItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }

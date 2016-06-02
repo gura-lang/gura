@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_BufferedInputStream, wxBufferedInputStream)
 
 Gura_ImplementMethod(wx_BufferedInputStream, wxBufferedInputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BufferedInputStream *pThis = Object_wx_BufferedInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
 	//pThis->GetEntity()->wxBufferedInputStream();
@@ -64,26 +63,11 @@ Gura_DeclareMethod(wx_BufferedInputStream, wxBufferedInputStream_1)
 
 Gura_ImplementMethod(wx_BufferedInputStream, wxBufferedInputStream_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BufferedInputStream *pThis = Object_wx_BufferedInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int bufsize = arg.GetNumber(1)
 	//pThis->GetEntity()->wxBufferedInputStream();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_BufferedInputStream, ~wxBufferedInputStream)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_BufferedInputStream, ~wxBufferedInputStream)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_BufferedInputStream *pThis = Object_wx_BufferedInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxBufferedInputStream();
 	return Value::Nil;
 }
 
@@ -94,7 +78,6 @@ Gura_ImplementUserInheritableClass(wx_BufferedInputStream)
 {
 	Gura_AssignMethod(wx_BufferedInputStream, wxBufferedInputStream);
 	Gura_AssignMethod(wx_BufferedInputStream, wxBufferedInputStream_1);
-	Gura_AssignMethod(wx_BufferedInputStream, ~wxBufferedInputStream);
 }
 
 Gura_ImplementDescendantCreator(wx_BufferedInputStream)

@@ -37,20 +37,6 @@ String Object_wx_RendererNative::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RendererNative, ~wxRendererNative)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RendererNative, ~wxRendererNative)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRendererNative();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_RendererNative, DrawCheckBox)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -62,9 +48,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawCheckBox)
 
 Gura_ImplementMethod(wx_RendererNative, DrawCheckBox)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -84,9 +69,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawComboBoxDropButton)
 
 Gura_ImplementMethod(wx_RendererNative, DrawComboBoxDropButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -106,9 +90,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawDropArrow)
 
 Gura_ImplementMethod(wx_RendererNative, DrawDropArrow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -128,9 +111,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawFocusRect)
 
 Gura_ImplementMethod(wx_RendererNative, DrawFocusRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -152,9 +134,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawGauge)
 
 Gura_ImplementMethod(wx_RendererNative, DrawGauge)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -178,9 +159,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawHeaderButton)
 
 Gura_ImplementMethod(wx_RendererNative, DrawHeaderButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -204,9 +184,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawHeaderButtonContents)
 
 Gura_ImplementMethod(wx_RendererNative, DrawHeaderButtonContents)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -228,9 +207,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawItemSelectionRect)
 
 Gura_ImplementMethod(wx_RendererNative, DrawItemSelectionRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -253,9 +231,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawItemText)
 
 Gura_ImplementMethod(wx_RendererNative, DrawItemText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int text = arg.GetNumber(2)
@@ -278,9 +255,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawPushButton)
 
 Gura_ImplementMethod(wx_RendererNative, DrawPushButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -300,9 +276,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawCollapseButton)
 
 Gura_ImplementMethod(wx_RendererNative, DrawCollapseButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -320,9 +295,8 @@ Gura_DeclareMethod(wx_RendererNative, GetCollapseButtonSize)
 
 Gura_ImplementMethod(wx_RendererNative, GetCollapseButtonSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//pThis->GetEntity()->GetCollapseButtonSize();
@@ -340,9 +314,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawSplitterBorder)
 
 Gura_ImplementMethod(wx_RendererNative, DrawSplitterBorder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -364,9 +337,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawSplitterSash)
 
 Gura_ImplementMethod(wx_RendererNative, DrawSplitterSash)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -388,9 +360,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawTreeItemButton)
 
 Gura_ImplementMethod(wx_RendererNative, DrawTreeItemButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -410,9 +381,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawChoice)
 
 Gura_ImplementMethod(wx_RendererNative, DrawChoice)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -432,9 +402,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawComboBox)
 
 Gura_ImplementMethod(wx_RendererNative, DrawComboBox)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -454,9 +423,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawTextCtrl)
 
 Gura_ImplementMethod(wx_RendererNative, DrawTextCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -476,9 +444,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawRadioBitmap)
 
 Gura_ImplementMethod(wx_RendererNative, DrawRadioBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -499,9 +466,8 @@ Gura_DeclareMethod(wx_RendererNative, DrawTitleBarBitmap)
 
 Gura_ImplementMethod(wx_RendererNative, DrawTitleBarBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -518,9 +484,8 @@ Gura_DeclareMethod(wx_RendererNative, Get)
 
 Gura_ImplementMethod(wx_RendererNative, Get)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Get();
 	return Value::Nil;
 }
@@ -532,9 +497,8 @@ Gura_DeclareMethod(wx_RendererNative, GetDefault)
 
 Gura_ImplementMethod(wx_RendererNative, GetDefault)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDefault();
 	return Value::Nil;
 }
@@ -546,9 +510,8 @@ Gura_DeclareMethod(wx_RendererNative, GetGeneric)
 
 Gura_ImplementMethod(wx_RendererNative, GetGeneric)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetGeneric();
 	return Value::Nil;
 }
@@ -561,9 +524,8 @@ Gura_DeclareMethod(wx_RendererNative, GetCheckBoxSize)
 
 Gura_ImplementMethod(wx_RendererNative, GetCheckBoxSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->GetCheckBoxSize();
 	return Value::Nil;
@@ -577,9 +539,8 @@ Gura_DeclareMethod(wx_RendererNative, GetHeaderButtonHeight)
 
 Gura_ImplementMethod(wx_RendererNative, GetHeaderButtonHeight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->GetHeaderButtonHeight();
 	return Value::Nil;
@@ -593,9 +554,8 @@ Gura_DeclareMethod(wx_RendererNative, GetHeaderButtonMargin)
 
 Gura_ImplementMethod(wx_RendererNative, GetHeaderButtonMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->GetHeaderButtonMargin();
 	return Value::Nil;
@@ -609,9 +569,8 @@ Gura_DeclareMethod(wx_RendererNative, GetSplitterParams)
 
 Gura_ImplementMethod(wx_RendererNative, GetSplitterParams)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSplitterParams();
 	return Value::Nil;
@@ -624,9 +583,8 @@ Gura_DeclareMethod(wx_RendererNative, GetVersion)
 
 Gura_ImplementMethod(wx_RendererNative, GetVersion)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVersion();
 	return Value::Nil;
 }
@@ -639,9 +597,8 @@ Gura_DeclareMethod(wx_RendererNative, Load)
 
 Gura_ImplementMethod(wx_RendererNative, Load)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->Load();
 	return Value::Nil;
@@ -655,9 +612,8 @@ Gura_DeclareMethod(wx_RendererNative, Set)
 
 Gura_ImplementMethod(wx_RendererNative, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int renderer = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
@@ -668,7 +624,6 @@ Gura_ImplementMethod(wx_RendererNative, Set)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RendererNative)
 {
-	Gura_AssignMethod(wx_RendererNative, ~wxRendererNative);
 	Gura_AssignMethod(wx_RendererNative, DrawCheckBox);
 	Gura_AssignMethod(wx_RendererNative, DrawComboBoxDropButton);
 	Gura_AssignMethod(wx_RendererNative, DrawDropArrow);

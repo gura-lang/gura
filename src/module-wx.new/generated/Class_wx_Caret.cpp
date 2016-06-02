@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Caret, wxCaret)
 
 Gura_ImplementMethod(wx_Caret, wxCaret)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxCaret();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_Caret, wxCaret_1)
 
 Gura_ImplementMethod(wx_Caret, wxCaret_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_Caret, wxCaret_2)
 
 Gura_ImplementMethod(wx_Caret, wxCaret_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//pThis->GetEntity()->wxCaret();
@@ -99,9 +96,8 @@ Gura_DeclareMethod(wx_Caret, Create)
 
 Gura_ImplementMethod(wx_Caret, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
@@ -118,9 +114,8 @@ Gura_DeclareMethod(wx_Caret, Create_1)
 
 Gura_ImplementMethod(wx_Caret, Create_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
@@ -134,9 +129,8 @@ Gura_DeclareMethod(wx_Caret, GetBlinkTime)
 
 Gura_ImplementMethod(wx_Caret, GetBlinkTime)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBlinkTime();
 	return Value::Nil;
 }
@@ -150,9 +144,8 @@ Gura_DeclareMethod(wx_Caret, GetPosition)
 
 Gura_ImplementMethod(wx_Caret, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPosition();
@@ -166,9 +159,8 @@ Gura_DeclareMethod(wx_Caret, GetPosition_1)
 
 Gura_ImplementMethod(wx_Caret, GetPosition_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -182,9 +174,8 @@ Gura_DeclareMethod(wx_Caret, GetSize)
 
 Gura_ImplementMethod(wx_Caret, GetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSize();
@@ -198,9 +189,8 @@ Gura_DeclareMethod(wx_Caret, GetSize_1)
 
 Gura_ImplementMethod(wx_Caret, GetSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -212,9 +202,8 @@ Gura_DeclareMethod(wx_Caret, GetWindow)
 
 Gura_ImplementMethod(wx_Caret, GetWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }
@@ -226,9 +215,8 @@ Gura_DeclareMethod(wx_Caret, Hide)
 
 Gura_ImplementMethod(wx_Caret, Hide)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Hide();
 	return Value::Nil;
 }
@@ -240,9 +228,8 @@ Gura_DeclareMethod(wx_Caret, IsOk)
 
 Gura_ImplementMethod(wx_Caret, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -254,9 +241,8 @@ Gura_DeclareMethod(wx_Caret, IsVisible)
 
 Gura_ImplementMethod(wx_Caret, IsVisible)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsVisible();
 	return Value::Nil;
 }
@@ -270,9 +256,8 @@ Gura_DeclareMethod(wx_Caret, Move)
 
 Gura_ImplementMethod(wx_Caret, Move)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->Move();
@@ -287,9 +272,8 @@ Gura_DeclareMethod(wx_Caret, Move_1)
 
 Gura_ImplementMethod(wx_Caret, Move_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->Move();
 	return Value::Nil;
@@ -303,9 +287,8 @@ Gura_DeclareMethod(wx_Caret, SetBlinkTime)
 
 Gura_ImplementMethod(wx_Caret, SetBlinkTime)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int milliseconds = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBlinkTime();
 	return Value::Nil;
@@ -320,9 +303,8 @@ Gura_DeclareMethod(wx_Caret, SetSize)
 
 Gura_ImplementMethod(wx_Caret, SetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSize();
@@ -337,9 +319,8 @@ Gura_DeclareMethod(wx_Caret, SetSize_1)
 
 Gura_ImplementMethod(wx_Caret, SetSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
@@ -353,9 +334,8 @@ Gura_DeclareMethod(wx_Caret, Show)
 
 Gura_ImplementMethod(wx_Caret, Show)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int show = arg.GetNumber(0)
 	//pThis->GetEntity()->Show();
 	return Value::Nil;

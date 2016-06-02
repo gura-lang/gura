@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_InternetFSHandler, wxInternetFSHandler)
 
 Gura_ImplementMethod(wx_InternetFSHandler, wxInternetFSHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_InternetFSHandler *pThis = Object_wx_InternetFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxInternetFSHandler();
 	return Value::Nil;
 }

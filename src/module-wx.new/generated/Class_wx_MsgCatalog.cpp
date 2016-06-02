@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_MsgCatalog, CreateFromFile)
 
 Gura_ImplementMethod(wx_MsgCatalog, CreateFromFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MsgCatalog *pThis = Object_wx_MsgCatalog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int domain = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateFromFile();
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_MsgCatalog, CreateFromData)
 
 Gura_ImplementMethod(wx_MsgCatalog, CreateFromData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MsgCatalog *pThis = Object_wx_MsgCatalog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int domain = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateFromData();

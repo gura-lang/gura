@@ -51,9 +51,8 @@ Gura_DeclareMethod(wx_PreviewFrame, wxPreviewFrame)
 
 Gura_ImplementMethod(wx_PreviewFrame, wxPreviewFrame)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int preview = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -65,20 +64,6 @@ Gura_ImplementMethod(wx_PreviewFrame, wxPreviewFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewFrame, ~wxPreviewFrame)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PreviewFrame, ~wxPreviewFrame)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPreviewFrame();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_PreviewFrame, CreateCanvas)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -86,9 +71,8 @@ Gura_DeclareMethod(wx_PreviewFrame, CreateCanvas)
 
 Gura_ImplementMethod(wx_PreviewFrame, CreateCanvas)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CreateCanvas();
 	return Value::Nil;
 }
@@ -100,9 +84,8 @@ Gura_DeclareMethod(wx_PreviewFrame, CreateControlBar)
 
 Gura_ImplementMethod(wx_PreviewFrame, CreateControlBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CreateControlBar();
 	return Value::Nil;
 }
@@ -114,9 +97,8 @@ Gura_DeclareMethod(wx_PreviewFrame, Initialize)
 
 Gura_ImplementMethod(wx_PreviewFrame, Initialize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Initialize();
 	return Value::Nil;
 }
@@ -129,9 +111,8 @@ Gura_DeclareMethod(wx_PreviewFrame, InitializeWithModality)
 
 Gura_ImplementMethod(wx_PreviewFrame, InitializeWithModality)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int kind = arg.GetNumber(0)
 	//pThis->GetEntity()->InitializeWithModality();
 	return Value::Nil;
@@ -145,9 +126,8 @@ Gura_DeclareMethod(wx_PreviewFrame, OnCloseWindow)
 
 Gura_ImplementMethod(wx_PreviewFrame, OnCloseWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->OnCloseWindow();
 	return Value::Nil;
@@ -159,7 +139,6 @@ Gura_ImplementMethod(wx_PreviewFrame, OnCloseWindow)
 Gura_ImplementUserInheritableClass(wx_PreviewFrame)
 {
 	Gura_AssignMethod(wx_PreviewFrame, wxPreviewFrame);
-	Gura_AssignMethod(wx_PreviewFrame, ~wxPreviewFrame);
 	Gura_AssignMethod(wx_PreviewFrame, CreateCanvas);
 	Gura_AssignMethod(wx_PreviewFrame, CreateControlBar);
 	Gura_AssignMethod(wx_PreviewFrame, Initialize);

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_WindowDestroyEvent, wxWindowDestroyEvent)
 
 Gura_ImplementMethod(wx_WindowDestroyEvent, wxWindowDestroyEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowDestroyEvent *pThis = Object_wx_WindowDestroyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWindowDestroyEvent();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_WindowDestroyEvent, GetWindow)
 
 Gura_ImplementMethod(wx_WindowDestroyEvent, GetWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowDestroyEvent *pThis = Object_wx_WindowDestroyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, wxTextAttrDimension)
 
 Gura_ImplementMethod(wx_TextAttrDimension, wxTextAttrDimension)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTextAttrDimension();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, wxTextAttrDimension_1)
 
 Gura_ImplementMethod(wx_TextAttrDimension, wxTextAttrDimension_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int units = arg.GetNumber(1)
 	//pThis->GetEntity()->wxTextAttrDimension();
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, Reset)
 
 Gura_ImplementMethod(wx_TextAttrDimension, Reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, EqPartial)
 
 Gura_ImplementMethod(wx_TextAttrDimension, EqPartial)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dim = arg.GetNumber(0)
 	//int weakTest = arg.GetNumber(1)
 	//pThis->GetEntity()->EqPartial();
@@ -110,9 +106,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, Apply)
 
 Gura_ImplementMethod(wx_TextAttrDimension, Apply)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dim = arg.GetNumber(0)
 	//int compareWith = arg.GetNumber(1)
 	//pThis->GetEntity()->Apply();
@@ -129,9 +124,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, CollectCommonAttributes)
 
 Gura_ImplementMethod(wx_TextAttrDimension, CollectCommonAttributes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//int clashingAttr = arg.GetNumber(1)
 	//int absentAttr = arg.GetNumber(2)
@@ -146,9 +140,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, GetValue)
 
 Gura_ImplementMethod(wx_TextAttrDimension, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -160,9 +153,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, GetValueMM)
 
 Gura_ImplementMethod(wx_TextAttrDimension, GetValueMM)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValueMM();
 	return Value::Nil;
 }
@@ -175,9 +167,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, SetValueMM)
 
 Gura_ImplementMethod(wx_TextAttrDimension, SetValueMM)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValueMM();
 	return Value::Nil;
@@ -191,9 +182,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, SetValue)
 
 Gura_ImplementMethod(wx_TextAttrDimension, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
@@ -208,9 +198,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, SetValue_1)
 
 Gura_ImplementMethod(wx_TextAttrDimension, SetValue_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->SetValue();
@@ -226,9 +215,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, SetValue_2)
 
 Gura_ImplementMethod(wx_TextAttrDimension, SetValue_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int units = arg.GetNumber(1)
 	//pThis->GetEntity()->SetValue();
@@ -243,9 +231,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, SetValue_3)
 
 Gura_ImplementMethod(wx_TextAttrDimension, SetValue_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dim = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
@@ -258,9 +245,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, GetUnits)
 
 Gura_ImplementMethod(wx_TextAttrDimension, GetUnits)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUnits();
 	return Value::Nil;
 }
@@ -273,9 +259,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, SetUnits)
 
 Gura_ImplementMethod(wx_TextAttrDimension, SetUnits)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int units = arg.GetNumber(0)
 	//pThis->GetEntity()->SetUnits();
 	return Value::Nil;
@@ -288,9 +273,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, GetPosition)
 
 Gura_ImplementMethod(wx_TextAttrDimension, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -303,9 +287,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, SetPosition)
 
 Gura_ImplementMethod(wx_TextAttrDimension, SetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;
@@ -318,9 +301,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, IsValid)
 
 Gura_ImplementMethod(wx_TextAttrDimension, IsValid)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsValid();
 	return Value::Nil;
 }
@@ -333,9 +315,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, SetValid)
 
 Gura_ImplementMethod(wx_TextAttrDimension, SetValid)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int b = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValid();
 	return Value::Nil;
@@ -348,9 +329,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, GetFlags)
 
 Gura_ImplementMethod(wx_TextAttrDimension, GetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
@@ -363,9 +343,8 @@ Gura_DeclareMethod(wx_TextAttrDimension, SetFlags)
 
 Gura_ImplementMethod(wx_TextAttrDimension, SetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;

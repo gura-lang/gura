@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_EncodingConverter, wxEncodingConverter)
 
 Gura_ImplementMethod(wx_EncodingConverter, wxEncodingConverter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxEncodingConverter();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_EncodingConverter, CanConvert)
 
 Gura_ImplementMethod(wx_EncodingConverter, CanConvert)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int encIn = arg.GetNumber(0)
 	//int encOut = arg.GetNumber(1)
 	//pThis->GetEntity()->CanConvert();
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_EncodingConverter, Convert)
 
 Gura_ImplementMethod(wx_EncodingConverter, Convert)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int input = arg.GetNumber(0)
 	//int output = arg.GetNumber(1)
 	//pThis->GetEntity()->Convert();
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_EncodingConverter, Convert_1)
 
 Gura_ImplementMethod(wx_EncodingConverter, Convert_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int input = arg.GetNumber(0)
 	//int output = arg.GetNumber(1)
 	//pThis->GetEntity()->Convert();
@@ -114,9 +110,8 @@ Gura_DeclareMethod(wx_EncodingConverter, Convert_2)
 
 Gura_ImplementMethod(wx_EncodingConverter, Convert_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int input = arg.GetNumber(0)
 	//int output = arg.GetNumber(1)
 	//pThis->GetEntity()->Convert();
@@ -132,9 +127,8 @@ Gura_DeclareMethod(wx_EncodingConverter, Convert_3)
 
 Gura_ImplementMethod(wx_EncodingConverter, Convert_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int input = arg.GetNumber(0)
 	//int output = arg.GetNumber(1)
 	//pThis->GetEntity()->Convert();
@@ -149,9 +143,8 @@ Gura_DeclareMethod(wx_EncodingConverter, Convert_4)
 
 Gura_ImplementMethod(wx_EncodingConverter, Convert_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
@@ -165,9 +158,8 @@ Gura_DeclareMethod(wx_EncodingConverter, Convert_5)
 
 Gura_ImplementMethod(wx_EncodingConverter, Convert_5)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
@@ -181,9 +173,8 @@ Gura_DeclareMethod(wx_EncodingConverter, Convert_6)
 
 Gura_ImplementMethod(wx_EncodingConverter, Convert_6)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int input = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
@@ -197,9 +188,8 @@ Gura_DeclareMethod(wx_EncodingConverter, GetAllEquivalents)
 
 Gura_ImplementMethod(wx_EncodingConverter, GetAllEquivalents)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enc = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAllEquivalents();
 	return Value::Nil;
@@ -214,9 +204,8 @@ Gura_DeclareMethod(wx_EncodingConverter, GetPlatformEquivalents)
 
 Gura_ImplementMethod(wx_EncodingConverter, GetPlatformEquivalents)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enc = arg.GetNumber(0)
 	//int platform = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPlatformEquivalents();
@@ -233,9 +222,8 @@ Gura_DeclareMethod(wx_EncodingConverter, Init)
 
 Gura_ImplementMethod(wx_EncodingConverter, Init)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int input_enc = arg.GetNumber(0)
 	//int output_enc = arg.GetNumber(1)
 	//int method = arg.GetNumber(2)

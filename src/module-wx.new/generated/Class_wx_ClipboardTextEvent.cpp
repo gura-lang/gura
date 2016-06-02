@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_ClipboardTextEvent, wxClipboardTextEvent)
 
 Gura_ImplementMethod(wx_ClipboardTextEvent, wxClipboardTextEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ClipboardTextEvent *pThis = Object_wx_ClipboardTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxClipboardTextEvent();

@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_FindDialogEvent, wxFindDialogEvent)
 
 Gura_ImplementMethod(wx_FindDialogEvent, wxFindDialogEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxFindDialogEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_FindDialogEvent, GetDialog)
 
 Gura_ImplementMethod(wx_FindDialogEvent, GetDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDialog();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_FindDialogEvent, GetFindString)
 
 Gura_ImplementMethod(wx_FindDialogEvent, GetFindString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFindString();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_FindDialogEvent, GetFlags)
 
 Gura_ImplementMethod(wx_FindDialogEvent, GetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_FindDialogEvent, GetReplaceString)
 
 Gura_ImplementMethod(wx_FindDialogEvent, GetReplaceString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetReplaceString();
 	return Value::Nil;
 }

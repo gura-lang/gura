@@ -53,9 +53,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, wxToolBarToolBase)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, wxToolBarToolBase)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tbar = arg.GetNumber(0)
 	//int toolid = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -79,9 +78,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, wxToolBarToolBase_1)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, wxToolBarToolBase_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tbar = arg.GetNumber(0)
 	//int control = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetId)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetId();
 	return Value::Nil;
 }
@@ -110,9 +107,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetControl)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetControl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetControl();
 	return Value::Nil;
 }
@@ -124,9 +120,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetToolBar)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetToolBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetToolBar();
 	return Value::Nil;
 }
@@ -138,9 +133,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, IsStretchable)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, IsStretchable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsStretchable();
 	return Value::Nil;
 }
@@ -152,9 +146,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, IsButton)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, IsButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsButton();
 	return Value::Nil;
 }
@@ -166,9 +159,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, IsControl)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, IsControl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsControl();
 	return Value::Nil;
 }
@@ -180,9 +172,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, IsSeparator)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, IsSeparator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsSeparator();
 	return Value::Nil;
 }
@@ -194,9 +185,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, IsStretchableSpace)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, IsStretchableSpace)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsStretchableSpace();
 	return Value::Nil;
 }
@@ -208,9 +198,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetStyle)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
@@ -222,9 +211,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetKind)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetKind)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetKind();
 	return Value::Nil;
 }
@@ -236,9 +224,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, IsEnabled)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, IsEnabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEnabled();
 	return Value::Nil;
 }
@@ -250,9 +237,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, IsToggled)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, IsToggled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsToggled();
 	return Value::Nil;
 }
@@ -264,9 +250,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, CanBeToggled)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, CanBeToggled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanBeToggled();
 	return Value::Nil;
 }
@@ -278,9 +263,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetNormalBitmap)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetNormalBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNormalBitmap();
 	return Value::Nil;
 }
@@ -292,9 +276,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetDisabledBitmap)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetDisabledBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDisabledBitmap();
 	return Value::Nil;
 }
@@ -306,9 +289,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetBitmap)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
@@ -320,9 +302,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetLabel)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLabel();
 	return Value::Nil;
 }
@@ -334,9 +315,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetShortHelp)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetShortHelp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetShortHelp();
 	return Value::Nil;
 }
@@ -348,9 +328,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetLongHelp)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetLongHelp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLongHelp();
 	return Value::Nil;
 }
@@ -362,9 +341,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetClientData)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetClientData();
 	return Value::Nil;
 }
@@ -376,9 +354,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, Detach)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, Detach)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Detach();
 	return Value::Nil;
 }
@@ -391,9 +368,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, Attach)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, Attach)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tbar = arg.GetNumber(0)
 	//pThis->GetEntity()->Attach();
 	return Value::Nil;
@@ -406,9 +382,8 @@ Gura_DeclareMethod(wx_ToolBarToolBase, GetDropdownMenu)
 
 Gura_ImplementMethod(wx_ToolBarToolBase, GetDropdownMenu)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDropdownMenu();
 	return Value::Nil;
 }

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TextEntryDialog, wxTextEntryDialog)
 
 Gura_ImplementMethod(wx_TextEntryDialog, wxTextEntryDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTextEntryDialog();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_TextEntryDialog, wxTextEntryDialog_1)
 
 Gura_ImplementMethod(wx_TextEntryDialog, wxTextEntryDialog_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_TextEntryDialog, Create)
 
 Gura_ImplementMethod(wx_TextEntryDialog, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
@@ -103,20 +100,6 @@ Gura_ImplementMethod(wx_TextEntryDialog, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextEntryDialog, ~wxTextEntryDialog)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_TextEntryDialog, ~wxTextEntryDialog)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxTextEntryDialog();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_TextEntryDialog, GetValue)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -124,9 +107,8 @@ Gura_DeclareMethod(wx_TextEntryDialog, GetValue)
 
 Gura_ImplementMethod(wx_TextEntryDialog, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -139,9 +121,8 @@ Gura_DeclareMethod(wx_TextEntryDialog, SetTextValidator)
 
 Gura_ImplementMethod(wx_TextEntryDialog, SetTextValidator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int validator = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextValidator();
 	return Value::Nil;
@@ -155,9 +136,8 @@ Gura_DeclareMethod(wx_TextEntryDialog, SetTextValidator_1)
 
 Gura_ImplementMethod(wx_TextEntryDialog, SetTextValidator_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextValidator();
 	return Value::Nil;
@@ -171,9 +151,8 @@ Gura_DeclareMethod(wx_TextEntryDialog, SetMaxLength)
 
 Gura_ImplementMethod(wx_TextEntryDialog, SetMaxLength)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int len = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMaxLength();
 	return Value::Nil;
@@ -187,9 +166,8 @@ Gura_DeclareMethod(wx_TextEntryDialog, SetValue)
 
 Gura_ImplementMethod(wx_TextEntryDialog, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
@@ -202,9 +180,8 @@ Gura_DeclareMethod(wx_TextEntryDialog, ForceUpper)
 
 Gura_ImplementMethod(wx_TextEntryDialog, ForceUpper)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ForceUpper();
 	return Value::Nil;
 }
@@ -216,9 +193,8 @@ Gura_DeclareMethod(wx_TextEntryDialog, ShowModal)
 
 Gura_ImplementMethod(wx_TextEntryDialog, ShowModal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }
@@ -231,7 +207,6 @@ Gura_ImplementUserInheritableClass(wx_TextEntryDialog)
 	Gura_AssignMethod(wx_TextEntryDialog, wxTextEntryDialog);
 	Gura_AssignMethod(wx_TextEntryDialog, wxTextEntryDialog_1);
 	Gura_AssignMethod(wx_TextEntryDialog, Create);
-	Gura_AssignMethod(wx_TextEntryDialog, ~wxTextEntryDialog);
 	Gura_AssignMethod(wx_TextEntryDialog, GetValue);
 	Gura_AssignMethod(wx_TextEntryDialog, SetTextValidator);
 	Gura_AssignMethod(wx_TextEntryDialog, SetTextValidator_1);

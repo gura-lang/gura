@@ -49,9 +49,8 @@ Gura_DeclareMethod(wx_RegConfig, wxRegConfig)
 
 Gura_ImplementMethod(wx_RegConfig, wxRegConfig)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegConfig *pThis = Object_wx_RegConfig::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int appName = arg.GetNumber(0)
 	//int vendorName = arg.GetNumber(1)
 	//int localFilename = arg.GetNumber(2)

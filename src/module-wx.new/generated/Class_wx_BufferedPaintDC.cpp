@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_BufferedPaintDC, wxBufferedPaintDC)
 
 Gura_ImplementMethod(wx_BufferedPaintDC, wxBufferedPaintDC)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BufferedPaintDC *pThis = Object_wx_BufferedPaintDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
@@ -66,26 +65,11 @@ Gura_DeclareMethod(wx_BufferedPaintDC, wxBufferedPaintDC_1)
 
 Gura_ImplementMethod(wx_BufferedPaintDC, wxBufferedPaintDC_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BufferedPaintDC *pThis = Object_wx_BufferedPaintDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->wxBufferedPaintDC();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_BufferedPaintDC, ~wxBufferedPaintDC)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_BufferedPaintDC, ~wxBufferedPaintDC)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_BufferedPaintDC *pThis = Object_wx_BufferedPaintDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxBufferedPaintDC();
 	return Value::Nil;
 }
 
@@ -96,7 +80,6 @@ Gura_ImplementUserInheritableClass(wx_BufferedPaintDC)
 {
 	Gura_AssignMethod(wx_BufferedPaintDC, wxBufferedPaintDC);
 	Gura_AssignMethod(wx_BufferedPaintDC, wxBufferedPaintDC_1);
-	Gura_AssignMethod(wx_BufferedPaintDC, ~wxBufferedPaintDC);
 }
 
 Gura_ImplementDescendantCreator(wx_BufferedPaintDC)

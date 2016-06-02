@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, wxRichTextImageBlock)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, wxRichTextImageBlock)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRichTextImageBlock();
 	return Value::Nil;
 }
@@ -59,25 +58,10 @@ Gura_DeclareMethod(wx_RichTextImageBlock, wxRichTextImageBlock_1)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, wxRichTextImageBlock_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int block = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextImageBlock();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RichTextImageBlock, ~wxRichTextImageBlock)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextImageBlock, ~wxRichTextImageBlock)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRichTextImageBlock();
 	return Value::Nil;
 }
 
@@ -88,9 +72,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, Init)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, Init)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Init();
 	return Value::Nil;
 }
@@ -102,9 +85,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, Clear)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -120,9 +102,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, MakeImageBlock)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, MakeImageBlock)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int imageType = arg.GetNumber(1)
 	//int image = arg.GetNumber(2)
@@ -141,9 +122,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, MakeImageBlock_1)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, MakeImageBlock_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//int imageType = arg.GetNumber(1)
 	//int quality = arg.GetNumber(2)
@@ -160,9 +140,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, MakeImageBlockDefaultQuality)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, MakeImageBlockDefaultQuality)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//int imageType = arg.GetNumber(1)
 	//pThis->GetEntity()->MakeImageBlockDefaultQuality();
@@ -178,9 +157,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, DoMakeImageBlock)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, DoMakeImageBlock)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//int imageType = arg.GetNumber(1)
 	//pThis->GetEntity()->DoMakeImageBlock();
@@ -195,9 +173,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, Write)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, Write)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//pThis->GetEntity()->Write();
 	return Value::Nil;
@@ -211,9 +188,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, WriteHex)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, WriteHex)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//pThis->GetEntity()->WriteHex();
 	return Value::Nil;
@@ -229,9 +205,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, ReadHex)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, ReadHex)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int length = arg.GetNumber(1)
 	//int imageType = arg.GetNumber(2)
@@ -247,9 +222,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, Copy)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, Copy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int block = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
@@ -263,9 +237,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, Load)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, Load)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//pThis->GetEntity()->Load();
 	return Value::Nil;
@@ -278,9 +251,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, GetData)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, GetData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
@@ -292,9 +264,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, GetDataSize)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, GetDataSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDataSize();
 	return Value::Nil;
 }
@@ -306,9 +277,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, GetImageType)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, GetImageType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetImageType();
 	return Value::Nil;
 }
@@ -321,9 +291,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, SetData)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, SetData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//pThis->GetEntity()->SetData();
 	return Value::Nil;
@@ -337,9 +306,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, SetDataSize)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, SetDataSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDataSize();
 	return Value::Nil;
@@ -353,9 +321,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, SetImageType)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, SetImageType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int imageType = arg.GetNumber(0)
 	//pThis->GetEntity()->SetImageType();
 	return Value::Nil;
@@ -368,9 +335,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, IsOk)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -382,9 +348,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, Ok)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, Ok)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Ok();
 	return Value::Nil;
 }
@@ -396,9 +361,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, GetExtension)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, GetExtension)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetExtension();
 	return Value::Nil;
 }
@@ -412,9 +376,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, ReadBlock)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, ReadBlock)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadBlock();
@@ -430,9 +393,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, ReadBlock_1)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, ReadBlock_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadBlock();
@@ -449,9 +411,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, WriteBlock)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, WriteBlock)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int block = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -469,9 +430,8 @@ Gura_DeclareMethod(wx_RichTextImageBlock, WriteBlock_1)
 
 Gura_ImplementMethod(wx_RichTextImageBlock, WriteBlock_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int block = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -486,7 +446,6 @@ Gura_ImplementUserInheritableClass(wx_RichTextImageBlock)
 {
 	Gura_AssignMethod(wx_RichTextImageBlock, wxRichTextImageBlock);
 	Gura_AssignMethod(wx_RichTextImageBlock, wxRichTextImageBlock_1);
-	Gura_AssignMethod(wx_RichTextImageBlock, ~wxRichTextImageBlock);
 	Gura_AssignMethod(wx_RichTextImageBlock, Init);
 	Gura_AssignMethod(wx_RichTextImageBlock, Clear);
 	Gura_AssignMethod(wx_RichTextImageBlock, MakeImageBlock);

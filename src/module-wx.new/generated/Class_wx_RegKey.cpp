@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_RegKey, wxRegKey)
 
 Gura_ImplementMethod(wx_RegKey, wxRegKey)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int viewMode = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRegKey();
 	return Value::Nil;
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_RegKey, wxRegKey_1)
 
 Gura_ImplementMethod(wx_RegKey, wxRegKey_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int strKey = arg.GetNumber(0)
 	//int viewMode = arg.GetNumber(1)
 	//pThis->GetEntity()->wxRegKey();
@@ -81,9 +79,8 @@ Gura_DeclareMethod(wx_RegKey, wxRegKey_2)
 
 Gura_ImplementMethod(wx_RegKey, wxRegKey_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keyParent = arg.GetNumber(0)
 	//int strKey = arg.GetNumber(1)
 	//int viewMode = arg.GetNumber(2)
@@ -100,9 +97,8 @@ Gura_DeclareMethod(wx_RegKey, wxRegKey_3)
 
 Gura_ImplementMethod(wx_RegKey, wxRegKey_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keyParent = arg.GetNumber(0)
 	//int strKey = arg.GetNumber(1)
 	//pThis->GetEntity()->wxRegKey();

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl)
 
 Gura_ImplementMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxAddRemoveCtrl();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl_1)
 
 Gura_ImplementMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_AddRemoveCtrl, Create)
 
 Gura_ImplementMethod(wx_AddRemoveCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -111,9 +108,8 @@ Gura_DeclareMethod(wx_AddRemoveCtrl, SetAdaptor)
 
 Gura_ImplementMethod(wx_AddRemoveCtrl, SetAdaptor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int adaptor = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAdaptor();
 	return Value::Nil;
@@ -128,9 +124,8 @@ Gura_DeclareMethod(wx_AddRemoveCtrl, SetButtonsToolTips)
 
 Gura_ImplementMethod(wx_AddRemoveCtrl, SetButtonsToolTips)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int addtip = arg.GetNumber(0)
 	//int removetip = arg.GetNumber(1)
 	//pThis->GetEntity()->SetButtonsToolTips();

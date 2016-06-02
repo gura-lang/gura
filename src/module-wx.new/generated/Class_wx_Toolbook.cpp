@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Toolbook, wxToolbook)
 
 Gura_ImplementMethod(wx_Toolbook, wxToolbook)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxToolbook();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_Toolbook, wxToolbook_1)
 
 Gura_ImplementMethod(wx_Toolbook, wxToolbook_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_Toolbook, Create)
 
 Gura_ImplementMethod(wx_Toolbook, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -110,9 +107,8 @@ Gura_DeclareMethod(wx_Toolbook, GetToolBar)
 
 Gura_ImplementMethod(wx_Toolbook, GetToolBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetToolBar();
 	return Value::Nil;
 }

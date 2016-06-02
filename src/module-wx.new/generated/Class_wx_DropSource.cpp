@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_DropSource, wxDropSource)
 
 Gura_ImplementMethod(wx_DropSource, wxDropSource)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int iconCopy = arg.GetNumber(1)
 	//int iconMove = arg.GetNumber(2)
@@ -71,9 +70,8 @@ Gura_DeclareMethod(wx_DropSource, wxDropSource_1)
 
 Gura_ImplementMethod(wx_DropSource, wxDropSource_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int win = arg.GetNumber(1)
 	//int iconCopy = arg.GetNumber(2)
@@ -94,9 +92,8 @@ Gura_DeclareMethod(wx_DropSource, wxDropSource_2)
 
 Gura_ImplementMethod(wx_DropSource, wxDropSource_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int iconCopy = arg.GetNumber(1)
 	//int iconMove = arg.GetNumber(2)
@@ -117,9 +114,8 @@ Gura_DeclareMethod(wx_DropSource, wxDropSource_3)
 
 Gura_ImplementMethod(wx_DropSource, wxDropSource_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int win = arg.GetNumber(1)
 	//int iconCopy = arg.GetNumber(2)
@@ -137,9 +133,8 @@ Gura_DeclareMethod(wx_DropSource, DoDragDrop)
 
 Gura_ImplementMethod(wx_DropSource, DoDragDrop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->DoDragDrop();
 	return Value::Nil;
@@ -152,9 +147,8 @@ Gura_DeclareMethod(wx_DropSource, GetDataObject)
 
 Gura_ImplementMethod(wx_DropSource, GetDataObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDataObject();
 	return Value::Nil;
 }
@@ -167,9 +161,8 @@ Gura_DeclareMethod(wx_DropSource, GiveFeedback)
 
 Gura_ImplementMethod(wx_DropSource, GiveFeedback)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int effect = arg.GetNumber(0)
 	//pThis->GetEntity()->GiveFeedback();
 	return Value::Nil;
@@ -184,9 +177,8 @@ Gura_DeclareMethod(wx_DropSource, SetCursor)
 
 Gura_ImplementMethod(wx_DropSource, SetCursor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int res = arg.GetNumber(0)
 	//int cursor = arg.GetNumber(1)
 	//pThis->GetEntity()->SetCursor();
@@ -202,9 +194,8 @@ Gura_DeclareMethod(wx_DropSource, SetIcon)
 
 Gura_ImplementMethod(wx_DropSource, SetIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int res = arg.GetNumber(0)
 	//int icon = arg.GetNumber(1)
 	//pThis->GetEntity()->SetIcon();
@@ -219,9 +210,8 @@ Gura_DeclareMethod(wx_DropSource, SetData)
 
 Gura_ImplementMethod(wx_DropSource, SetData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetData();
 	return Value::Nil;

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GridCellCoords, wxGridCellCoords)
 
 Gura_ImplementMethod(wx_GridCellCoords, wxGridCellCoords)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGridCellCoords();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_GridCellCoords, wxGridCellCoords_1)
 
 Gura_ImplementMethod(wx_GridCellCoords, wxGridCellCoords_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->wxGridCellCoords();
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_GridCellCoords, GetRow)
 
 Gura_ImplementMethod(wx_GridCellCoords, GetRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRow();
 	return Value::Nil;
 }
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_GridCellCoords, SetRow)
 
 Gura_ImplementMethod(wx_GridCellCoords, SetRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRow();
 	return Value::Nil;
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_GridCellCoords, GetCol)
 
 Gura_ImplementMethod(wx_GridCellCoords, GetCol)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCol();
 	return Value::Nil;
 }
@@ -121,9 +116,8 @@ Gura_DeclareMethod(wx_GridCellCoords, SetCol)
 
 Gura_ImplementMethod(wx_GridCellCoords, SetCol)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCol();
 	return Value::Nil;
@@ -138,9 +132,8 @@ Gura_DeclareMethod(wx_GridCellCoords, Set)
 
 Gura_ImplementMethod(wx_GridCellCoords, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->Set();

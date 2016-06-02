@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_WebViewFSHandler, wxWebViewFSHandler)
 
 Gura_ImplementMethod(wx_WebViewFSHandler, wxWebViewFSHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewFSHandler *pThis = Object_wx_WebViewFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int scheme = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWebViewFSHandler();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_WebViewFSHandler, GetFile)
 
 Gura_ImplementMethod(wx_WebViewFSHandler, GetFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewFSHandler *pThis = Object_wx_WebViewFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int uri = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFile();
 	return Value::Nil;

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_AuiTabArt, wxAuiTabArt)
 
 Gura_ImplementMethod(wx_AuiTabArt, wxAuiTabArt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxAuiTabArt();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_AuiTabArt, Clone)
 
 Gura_ImplementMethod(wx_AuiTabArt, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_AuiTabArt, DrawBackground)
 
 Gura_ImplementMethod(wx_AuiTabArt, DrawBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -99,9 +96,8 @@ Gura_DeclareMethod(wx_AuiTabArt, DrawButton)
 
 Gura_ImplementMethod(wx_AuiTabArt, DrawButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int in_rect = arg.GetNumber(2)
@@ -128,9 +124,8 @@ Gura_DeclareMethod(wx_AuiTabArt, DrawTab)
 
 Gura_ImplementMethod(wx_AuiTabArt, DrawTab)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int page = arg.GetNumber(2)
@@ -150,9 +145,8 @@ Gura_DeclareMethod(wx_AuiTabArt, GetBestTabCtrlSize)
 
 Gura_ImplementMethod(wx_AuiTabArt, GetBestTabCtrlSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBestTabCtrlSize();
 	return Value::Nil;
 }
@@ -164,9 +158,8 @@ Gura_DeclareMethod(wx_AuiTabArt, GetIndentSize)
 
 Gura_ImplementMethod(wx_AuiTabArt, GetIndentSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetIndentSize();
 	return Value::Nil;
 }
@@ -185,9 +178,8 @@ Gura_DeclareMethod(wx_AuiTabArt, GetTabSize)
 
 Gura_ImplementMethod(wx_AuiTabArt, GetTabSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
@@ -207,9 +199,8 @@ Gura_DeclareMethod(wx_AuiTabArt, SetFlags)
 
 Gura_ImplementMethod(wx_AuiTabArt, SetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
@@ -223,9 +214,8 @@ Gura_DeclareMethod(wx_AuiTabArt, SetMeasuringFont)
 
 Gura_ImplementMethod(wx_AuiTabArt, SetMeasuringFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMeasuringFont();
 	return Value::Nil;
@@ -239,9 +229,8 @@ Gura_DeclareMethod(wx_AuiTabArt, SetNormalFont)
 
 Gura_ImplementMethod(wx_AuiTabArt, SetNormalFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNormalFont();
 	return Value::Nil;
@@ -255,9 +244,8 @@ Gura_DeclareMethod(wx_AuiTabArt, SetSelectedFont)
 
 Gura_ImplementMethod(wx_AuiTabArt, SetSelectedFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSelectedFont();
 	return Value::Nil;
@@ -271,9 +259,8 @@ Gura_DeclareMethod(wx_AuiTabArt, SetColour)
 
 Gura_ImplementMethod(wx_AuiTabArt, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -287,9 +274,8 @@ Gura_DeclareMethod(wx_AuiTabArt, SetActiveColour)
 
 Gura_ImplementMethod(wx_AuiTabArt, SetActiveColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetActiveColour();
 	return Value::Nil;
@@ -304,9 +290,8 @@ Gura_DeclareMethod(wx_AuiTabArt, SetSizingInfo)
 
 Gura_ImplementMethod(wx_AuiTabArt, SetSizingInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tab_ctrl_size = arg.GetNumber(0)
 	//int tab_count = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSizingInfo();

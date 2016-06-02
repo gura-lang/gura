@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent)
 
 Gura_ImplementMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinDoubleEvent *pThis = Object_wx_SpinDoubleEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent_1)
 
 Gura_ImplementMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinDoubleEvent *pThis = Object_wx_SpinDoubleEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->wxSpinDoubleEvent();
 	return Value::Nil;
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_SpinDoubleEvent, GetValue)
 
 Gura_ImplementMethod(wx_SpinDoubleEvent, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinDoubleEvent *pThis = Object_wx_SpinDoubleEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_SpinDoubleEvent, SetValue)
 
 Gura_ImplementMethod(wx_SpinDoubleEvent, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinDoubleEvent *pThis = Object_wx_SpinDoubleEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;

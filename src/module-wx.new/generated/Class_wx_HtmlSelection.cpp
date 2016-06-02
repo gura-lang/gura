@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HtmlSelection, wxHtmlSelection)
 
 Gura_ImplementMethod(wx_HtmlSelection, wxHtmlSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHtmlSelection();
 	return Value::Nil;
 }
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_HtmlSelection, Set)
 
 Gura_ImplementMethod(wx_HtmlSelection, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fromPos = arg.GetNumber(0)
 	//int fromCell = arg.GetNumber(1)
 	//int toPos = arg.GetNumber(2)
@@ -82,9 +80,8 @@ Gura_DeclareMethod(wx_HtmlSelection, Set_1)
 
 Gura_ImplementMethod(wx_HtmlSelection, Set_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fromCell = arg.GetNumber(0)
 	//int toCell = arg.GetNumber(1)
 	//pThis->GetEntity()->Set();
@@ -98,9 +95,8 @@ Gura_DeclareMethod(wx_HtmlSelection, GetFromCell)
 
 Gura_ImplementMethod(wx_HtmlSelection, GetFromCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFromCell();
 	return Value::Nil;
 }
@@ -112,9 +108,8 @@ Gura_DeclareMethod(wx_HtmlSelection, GetToCell)
 
 Gura_ImplementMethod(wx_HtmlSelection, GetToCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetToCell();
 	return Value::Nil;
 }
@@ -126,9 +121,8 @@ Gura_DeclareMethod(wx_HtmlSelection, GetFromPos)
 
 Gura_ImplementMethod(wx_HtmlSelection, GetFromPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFromPos();
 	return Value::Nil;
 }
@@ -140,9 +134,8 @@ Gura_DeclareMethod(wx_HtmlSelection, GetToPos)
 
 Gura_ImplementMethod(wx_HtmlSelection, GetToPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetToPos();
 	return Value::Nil;
 }
@@ -154,9 +147,8 @@ Gura_DeclareMethod(wx_HtmlSelection, ClearFromToCharacterPos)
 
 Gura_ImplementMethod(wx_HtmlSelection, ClearFromToCharacterPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ClearFromToCharacterPos();
 	return Value::Nil;
 }
@@ -168,9 +160,8 @@ Gura_DeclareMethod(wx_HtmlSelection, AreFromToCharacterPosSet)
 
 Gura_ImplementMethod(wx_HtmlSelection, AreFromToCharacterPosSet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AreFromToCharacterPosSet();
 	return Value::Nil;
 }
@@ -183,9 +174,8 @@ Gura_DeclareMethod(wx_HtmlSelection, SetFromCharacterPos)
 
 Gura_ImplementMethod(wx_HtmlSelection, SetFromCharacterPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFromCharacterPos();
 	return Value::Nil;
@@ -199,9 +189,8 @@ Gura_DeclareMethod(wx_HtmlSelection, SetToCharacterPos)
 
 Gura_ImplementMethod(wx_HtmlSelection, SetToCharacterPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetToCharacterPos();
 	return Value::Nil;
@@ -214,9 +203,8 @@ Gura_DeclareMethod(wx_HtmlSelection, GetFromCharacterPos)
 
 Gura_ImplementMethod(wx_HtmlSelection, GetFromCharacterPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFromCharacterPos();
 	return Value::Nil;
 }
@@ -228,9 +216,8 @@ Gura_DeclareMethod(wx_HtmlSelection, GetToCharacterPos)
 
 Gura_ImplementMethod(wx_HtmlSelection, GetToCharacterPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetToCharacterPos();
 	return Value::Nil;
 }
@@ -242,9 +229,8 @@ Gura_DeclareMethod(wx_HtmlSelection, IsEmpty)
 
 Gura_ImplementMethod(wx_HtmlSelection, IsEmpty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }

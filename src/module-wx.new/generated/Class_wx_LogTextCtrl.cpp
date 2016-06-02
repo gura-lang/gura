@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_LogTextCtrl, wxLogTextCtrl)
 
 Gura_ImplementMethod(wx_LogTextCtrl, wxLogTextCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogTextCtrl *pThis = Object_wx_LogTextCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pTextCtrl = arg.GetNumber(0)
 	//pThis->GetEntity()->wxLogTextCtrl();
 	return Value::Nil;

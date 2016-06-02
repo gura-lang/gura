@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_MessageOutputStderr, wxMessageOutputStderr)
 
 Gura_ImplementMethod(wx_MessageOutputStderr, wxMessageOutputStderr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MessageOutputStderr *pThis = Object_wx_MessageOutputStderr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fp = arg.GetNumber(0)
 	//pThis->GetEntity()->wxMessageOutputStderr();
 	return Value::Nil;

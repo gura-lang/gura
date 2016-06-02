@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HScrolledWindow, wxHScrolledWindow)
 
 Gura_ImplementMethod(wx_HScrolledWindow, wxHScrolledWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HScrolledWindow *pThis = Object_wx_HScrolledWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHScrolledWindow();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_HScrolledWindow, wxHScrolledWindow_1)
 
 Gura_ImplementMethod(wx_HScrolledWindow, wxHScrolledWindow_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HScrolledWindow *pThis = Object_wx_HScrolledWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_HScrolledWindow, Create)
 
 Gura_ImplementMethod(wx_HScrolledWindow, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HScrolledWindow *pThis = Object_wx_HScrolledWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)

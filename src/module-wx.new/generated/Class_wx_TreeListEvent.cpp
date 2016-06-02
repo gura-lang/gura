@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TreeListEvent, wxTreeListEvent)
 
 Gura_ImplementMethod(wx_TreeListEvent, wxTreeListEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTreeListEvent();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_TreeListEvent, GetItem)
 
 Gura_ImplementMethod(wx_TreeListEvent, GetItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetItem();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_TreeListEvent, GetOldCheckedState)
 
 Gura_ImplementMethod(wx_TreeListEvent, GetOldCheckedState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOldCheckedState();
 	return Value::Nil;
 }
@@ -86,9 +83,8 @@ Gura_DeclareMethod(wx_TreeListEvent, GetColumn)
 
 Gura_ImplementMethod(wx_TreeListEvent, GetColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColumn();
 	return Value::Nil;
 }

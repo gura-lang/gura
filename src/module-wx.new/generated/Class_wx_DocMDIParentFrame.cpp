@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame)
 
 Gura_ImplementMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxDocMDIParentFrame();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame_1)
 
 Gura_ImplementMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int manager = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
@@ -78,20 +76,6 @@ Gura_ImplementMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame_1)
 	//int style = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
 	//pThis->GetEntity()->wxDocMDIParentFrame();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DocMDIParentFrame, ~wxDocMDIParentFrame)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DocMDIParentFrame, ~wxDocMDIParentFrame)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDocMDIParentFrame();
 	return Value::Nil;
 }
 
@@ -110,9 +94,8 @@ Gura_DeclareMethod(wx_DocMDIParentFrame, Create)
 
 Gura_ImplementMethod(wx_DocMDIParentFrame, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int manager = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
@@ -132,7 +115,6 @@ Gura_ImplementUserInheritableClass(wx_DocMDIParentFrame)
 {
 	Gura_AssignMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame);
 	Gura_AssignMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame_1);
-	Gura_AssignMethod(wx_DocMDIParentFrame, ~wxDocMDIParentFrame);
 	Gura_AssignMethod(wx_DocMDIParentFrame, Create);
 }
 

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_TextDataObject, wxTextDataObject)
 
 Gura_ImplementMethod(wx_TextDataObject, wxTextDataObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//pThis->GetEntity()->wxTextDataObject();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_TextDataObject, GetText)
 
 Gura_ImplementMethod(wx_TextDataObject, GetText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetText();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_TextDataObject, GetTextLength)
 
 Gura_ImplementMethod(wx_TextDataObject, GetTextLength)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTextLength();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_TextDataObject, GetFormatCount)
 
 Gura_ImplementMethod(wx_TextDataObject, GetFormatCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFormatCount();
 	return Value::Nil;
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_TextDataObject, GetFormat)
 
 Gura_ImplementMethod(wx_TextDataObject, GetFormat)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFormat();
 	return Value::Nil;
 }
@@ -120,9 +115,8 @@ Gura_DeclareMethod(wx_TextDataObject, GetAllFormats)
 
 Gura_ImplementMethod(wx_TextDataObject, GetAllFormats)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int formats = arg.GetNumber(0)
 	//int dir = arg.GetNumber(1)
 	//pThis->GetEntity()->GetAllFormats();
@@ -137,9 +131,8 @@ Gura_DeclareMethod(wx_TextDataObject, SetText)
 
 Gura_ImplementMethod(wx_TextDataObject, SetText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int strText = arg.GetNumber(0)
 	//pThis->GetEntity()->SetText();
 	return Value::Nil;

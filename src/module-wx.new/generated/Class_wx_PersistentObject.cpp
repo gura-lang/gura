@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_PersistentObject, wxPersistentObject)
 
 Gura_ImplementMethod(wx_PersistentObject, wxPersistentObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPersistentObject();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_PersistentObject, ~wxPersistentObject)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PersistentObject, ~wxPersistentObject)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPersistentObject();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_PersistentObject, Save)
 
 Gura_ImplementMethod(wx_PersistentObject, Save)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Save();
 	return Value::Nil;
 }
@@ -88,9 +72,8 @@ Gura_DeclareMethod(wx_PersistentObject, Restore)
 
 Gura_ImplementMethod(wx_PersistentObject, Restore)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Restore();
 	return Value::Nil;
 }
@@ -102,9 +85,8 @@ Gura_DeclareMethod(wx_PersistentObject, GetKind)
 
 Gura_ImplementMethod(wx_PersistentObject, GetKind)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetKind();
 	return Value::Nil;
 }
@@ -116,9 +98,8 @@ Gura_DeclareMethod(wx_PersistentObject, GetName)
 
 Gura_ImplementMethod(wx_PersistentObject, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -130,9 +111,8 @@ Gura_DeclareMethod(wx_PersistentObject, GetObject)
 
 Gura_ImplementMethod(wx_PersistentObject, GetObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetObject();
 	return Value::Nil;
 }
@@ -146,9 +126,8 @@ Gura_DeclareMethod(wx_PersistentObject, SaveValue)
 
 Gura_ImplementMethod(wx_PersistentObject, SaveValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
 	//pThis->GetEntity()->SaveValue();
@@ -164,9 +143,8 @@ Gura_DeclareMethod(wx_PersistentObject, RestoreValue)
 
 Gura_ImplementMethod(wx_PersistentObject, RestoreValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
 	//pThis->GetEntity()->RestoreValue();
@@ -179,7 +157,6 @@ Gura_ImplementMethod(wx_PersistentObject, RestoreValue)
 Gura_ImplementUserInheritableClass(wx_PersistentObject)
 {
 	Gura_AssignMethod(wx_PersistentObject, wxPersistentObject);
-	Gura_AssignMethod(wx_PersistentObject, ~wxPersistentObject);
 	Gura_AssignMethod(wx_PersistentObject, Save);
 	Gura_AssignMethod(wx_PersistentObject, Restore);
 	Gura_AssignMethod(wx_PersistentObject, GetKind);

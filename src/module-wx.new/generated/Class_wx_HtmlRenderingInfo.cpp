@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HtmlRenderingInfo, wxHtmlRenderingInfo)
 
 Gura_ImplementMethod(wx_HtmlRenderingInfo, wxHtmlRenderingInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHtmlRenderingInfo();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_HtmlRenderingInfo, SetSelection)
 
 Gura_ImplementMethod(wx_HtmlRenderingInfo, SetSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int s = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSelection();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_HtmlRenderingInfo, GetSelection)
 
 Gura_ImplementMethod(wx_HtmlRenderingInfo, GetSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_HtmlRenderingInfo, SetStyle)
 
 Gura_ImplementMethod(wx_HtmlRenderingInfo, SetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStyle();
 	return Value::Nil;
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_HtmlRenderingInfo, GetStyle)
 
 Gura_ImplementMethod(wx_HtmlRenderingInfo, GetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
@@ -118,9 +113,8 @@ Gura_DeclareMethod(wx_HtmlRenderingInfo, GetState)
 
 Gura_ImplementMethod(wx_HtmlRenderingInfo, GetState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetState();
 	return Value::Nil;
 }

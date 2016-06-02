@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_TaskBarIconEvent, wxTaskBarIconEvent)
 
 Gura_ImplementMethod(wx_TaskBarIconEvent, wxTaskBarIconEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarIconEvent *pThis = Object_wx_TaskBarIconEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int evtType = arg.GetNumber(0)
 	//int tbIcon = arg.GetNumber(1)
 	//pThis->GetEntity()->wxTaskBarIconEvent();

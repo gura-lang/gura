@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_MaximizeEvent, wxMaximizeEvent)
 
 Gura_ImplementMethod(wx_MaximizeEvent, wxMaximizeEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MaximizeEvent *pThis = Object_wx_MaximizeEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->wxMaximizeEvent();
 	return Value::Nil;

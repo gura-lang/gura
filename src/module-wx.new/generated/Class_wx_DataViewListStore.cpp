@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_DataViewListStore, wxDataViewListStore)
 
 Gura_ImplementMethod(wx_DataViewListStore, wxDataViewListStore)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxDataViewListStore();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DataViewListStore, ~wxDataViewListStore)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DataViewListStore, ~wxDataViewListStore)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDataViewListStore();
 	return Value::Nil;
 }
 
@@ -73,9 +58,8 @@ Gura_DeclareMethod(wx_DataViewListStore, PrependColumn)
 
 Gura_ImplementMethod(wx_DataViewListStore, PrependColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int varianttype = arg.GetNumber(0)
 	//pThis->GetEntity()->PrependColumn();
 	return Value::Nil;
@@ -90,9 +74,8 @@ Gura_DeclareMethod(wx_DataViewListStore, InsertColumn)
 
 Gura_ImplementMethod(wx_DataViewListStore, InsertColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int varianttype = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertColumn();
@@ -107,9 +90,8 @@ Gura_DeclareMethod(wx_DataViewListStore, AppendColumn)
 
 Gura_ImplementMethod(wx_DataViewListStore, AppendColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int varianttype = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendColumn();
 	return Value::Nil;
@@ -124,9 +106,8 @@ Gura_DeclareMethod(wx_DataViewListStore, AppendItem)
 
 Gura_ImplementMethod(wx_DataViewListStore, AppendItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int values = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->AppendItem();
@@ -142,9 +123,8 @@ Gura_DeclareMethod(wx_DataViewListStore, PrependItem)
 
 Gura_ImplementMethod(wx_DataViewListStore, PrependItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int values = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->PrependItem();
@@ -161,9 +141,8 @@ Gura_DeclareMethod(wx_DataViewListStore, InsertItem)
 
 Gura_ImplementMethod(wx_DataViewListStore, InsertItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int values = arg.GetNumber(1)
 	//int data = arg.GetNumber(2)
@@ -179,9 +158,8 @@ Gura_DeclareMethod(wx_DataViewListStore, DeleteItem)
 
 Gura_ImplementMethod(wx_DataViewListStore, DeleteItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteItem();
 	return Value::Nil;
@@ -194,9 +172,8 @@ Gura_DeclareMethod(wx_DataViewListStore, DeleteAllItems)
 
 Gura_ImplementMethod(wx_DataViewListStore, DeleteAllItems)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DeleteAllItems();
 	return Value::Nil;
 }
@@ -208,9 +185,8 @@ Gura_DeclareMethod(wx_DataViewListStore, GetItemCount)
 
 Gura_ImplementMethod(wx_DataViewListStore, GetItemCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetItemCount();
 	return Value::Nil;
 }
@@ -223,9 +199,8 @@ Gura_DeclareMethod(wx_DataViewListStore, GetItemData)
 
 Gura_ImplementMethod(wx_DataViewListStore, GetItemData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemData();
 	return Value::Nil;
@@ -238,9 +213,8 @@ Gura_DeclareMethod(wx_DataViewListStore, GetColumnCount)
 
 Gura_ImplementMethod(wx_DataViewListStore, GetColumnCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColumnCount();
 	return Value::Nil;
 }
@@ -253,9 +227,8 @@ Gura_DeclareMethod(wx_DataViewListStore, GetColumnType)
 
 Gura_ImplementMethod(wx_DataViewListStore, GetColumnType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColumnType();
 	return Value::Nil;
@@ -270,9 +243,8 @@ Gura_DeclareMethod(wx_DataViewListStore, SetItemData)
 
 Gura_ImplementMethod(wx_DataViewListStore, SetItemData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemData();
@@ -289,9 +261,8 @@ Gura_DeclareMethod(wx_DataViewListStore, GetValueByRow)
 
 Gura_ImplementMethod(wx_DataViewListStore, GetValueByRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int row = arg.GetNumber(1)
 	//int col = arg.GetNumber(2)
@@ -309,9 +280,8 @@ Gura_DeclareMethod(wx_DataViewListStore, SetValueByRow)
 
 Gura_ImplementMethod(wx_DataViewListStore, SetValueByRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int row = arg.GetNumber(1)
 	//int col = arg.GetNumber(2)
@@ -325,7 +295,6 @@ Gura_ImplementMethod(wx_DataViewListStore, SetValueByRow)
 Gura_ImplementUserInheritableClass(wx_DataViewListStore)
 {
 	Gura_AssignMethod(wx_DataViewListStore, wxDataViewListStore);
-	Gura_AssignMethod(wx_DataViewListStore, ~wxDataViewListStore);
 	Gura_AssignMethod(wx_DataViewListStore, PrependColumn);
 	Gura_AssignMethod(wx_DataViewListStore, InsertColumn);
 	Gura_AssignMethod(wx_DataViewListStore, AppendColumn);

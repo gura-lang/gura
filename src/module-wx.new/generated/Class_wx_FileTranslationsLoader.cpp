@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_FileTranslationsLoader, AddCatalogLookupPathPrefix)
 
 Gura_ImplementMethod(wx_FileTranslationsLoader, AddCatalogLookupPathPrefix)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTranslationsLoader *pThis = Object_wx_FileTranslationsLoader::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prefix = arg.GetNumber(0)
 	//pThis->GetEntity()->AddCatalogLookupPathPrefix();
 	return Value::Nil;

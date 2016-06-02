@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetAddress)
 
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetAddress)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int addr = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
 	//pThis->GetEntity()->GetAddress();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetName)
 
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetPath)
 
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_DynamicLibraryDetails, GetVersion)
 
 Gura_ImplementMethod(wx_DynamicLibraryDetails, GetVersion)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVersion();
 	return Value::Nil;
 }

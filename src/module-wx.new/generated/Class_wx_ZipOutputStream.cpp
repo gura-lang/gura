@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, wxZipOutputStream)
 
 Gura_ImplementMethod(wx_ZipOutputStream, wxZipOutputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int level = arg.GetNumber(1)
 	//int conv = arg.GetNumber(2)
@@ -67,27 +66,12 @@ Gura_DeclareMethod(wx_ZipOutputStream, wxZipOutputStream_1)
 
 Gura_ImplementMethod(wx_ZipOutputStream, wxZipOutputStream_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int level = arg.GetNumber(1)
 	//int conv = arg.GetNumber(2)
 	//pThis->GetEntity()->wxZipOutputStream();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_ZipOutputStream, ~wxZipOutputStream)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ZipOutputStream, ~wxZipOutputStream)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxZipOutputStream();
 	return Value::Nil;
 }
 
@@ -98,9 +82,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, Close)
 
 Gura_ImplementMethod(wx_ZipOutputStream, Close)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Close();
 	return Value::Nil;
 }
@@ -112,9 +95,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, CloseEntry)
 
 Gura_ImplementMethod(wx_ZipOutputStream, CloseEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CloseEntry();
 	return Value::Nil;
 }
@@ -127,9 +109,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, CopyArchiveMetaData)
 
 Gura_ImplementMethod(wx_ZipOutputStream, CopyArchiveMetaData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int inputStream = arg.GetNumber(0)
 	//pThis->GetEntity()->CopyArchiveMetaData();
 	return Value::Nil;
@@ -144,9 +125,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, CopyEntry)
 
 Gura_ImplementMethod(wx_ZipOutputStream, CopyEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
 	//int inputStream = arg.GetNumber(1)
 	//pThis->GetEntity()->CopyEntry();
@@ -160,9 +140,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, GetLevel)
 
 Gura_ImplementMethod(wx_ZipOutputStream, GetLevel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLevel();
 	return Value::Nil;
 }
@@ -175,9 +154,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, SetLevel)
 
 Gura_ImplementMethod(wx_ZipOutputStream, SetLevel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLevel();
 	return Value::Nil;
@@ -192,9 +170,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, PutNextDirEntry)
 
 Gura_ImplementMethod(wx_ZipOutputStream, PutNextDirEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
 	//pThis->GetEntity()->PutNextDirEntry();
@@ -209,9 +186,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, PutNextEntry)
 
 Gura_ImplementMethod(wx_ZipOutputStream, PutNextEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
 	//pThis->GetEntity()->PutNextEntry();
 	return Value::Nil;
@@ -227,9 +203,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, PutNextEntry_1)
 
 Gura_ImplementMethod(wx_ZipOutputStream, PutNextEntry_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -245,9 +220,8 @@ Gura_DeclareMethod(wx_ZipOutputStream, SetComment)
 
 Gura_ImplementMethod(wx_ZipOutputStream, SetComment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int comment = arg.GetNumber(0)
 	//pThis->GetEntity()->SetComment();
 	return Value::Nil;
@@ -260,7 +234,6 @@ Gura_ImplementUserInheritableClass(wx_ZipOutputStream)
 {
 	Gura_AssignMethod(wx_ZipOutputStream, wxZipOutputStream);
 	Gura_AssignMethod(wx_ZipOutputStream, wxZipOutputStream_1);
-	Gura_AssignMethod(wx_ZipOutputStream, ~wxZipOutputStream);
 	Gura_AssignMethod(wx_ZipOutputStream, Close);
 	Gura_AssignMethod(wx_ZipOutputStream, CloseEntry);
 	Gura_AssignMethod(wx_ZipOutputStream, CopyArchiveMetaData);

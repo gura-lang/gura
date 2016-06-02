@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_WindowDisabler, wxWindowDisabler)
 
 Gura_ImplementMethod(wx_WindowDisabler, wxWindowDisabler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowDisabler *pThis = Object_wx_WindowDisabler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int disable = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWindowDisabler();
 	return Value::Nil;
@@ -61,25 +60,10 @@ Gura_DeclareMethod(wx_WindowDisabler, wxWindowDisabler_1)
 
 Gura_ImplementMethod(wx_WindowDisabler, wxWindowDisabler_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowDisabler *pThis = Object_wx_WindowDisabler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winToSkip = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWindowDisabler();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_WindowDisabler, ~wxWindowDisabler)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_WindowDisabler, ~wxWindowDisabler)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_WindowDisabler *pThis = Object_wx_WindowDisabler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxWindowDisabler();
 	return Value::Nil;
 }
 
@@ -90,7 +74,6 @@ Gura_ImplementUserInheritableClass(wx_WindowDisabler)
 {
 	Gura_AssignMethod(wx_WindowDisabler, wxWindowDisabler);
 	Gura_AssignMethod(wx_WindowDisabler, wxWindowDisabler_1);
-	Gura_AssignMethod(wx_WindowDisabler, ~wxWindowDisabler);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowDisabler)

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_MessageOutputBest, wxMessageOutputBest)
 
 Gura_ImplementMethod(wx_MessageOutputBest, wxMessageOutputBest)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MessageOutputBest *pThis = Object_wx_MessageOutputBest::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->wxMessageOutputBest();
 	return Value::Nil;

@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_GridCellDateTimeRenderer, wxGridCellDateTimeRenderer)
 
 Gura_ImplementMethod(wx_GridCellDateTimeRenderer, wxGridCellDateTimeRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellDateTimeRenderer *pThis = Object_wx_GridCellDateTimeRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int outformat = arg.GetNumber(0)
 	//int informat = arg.GetNumber(1)
 	//pThis->GetEntity()->wxGridCellDateTimeRenderer();
@@ -63,9 +62,8 @@ Gura_DeclareMethod(wx_GridCellDateTimeRenderer, SetParameters)
 
 Gura_ImplementMethod(wx_GridCellDateTimeRenderer, SetParameters)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellDateTimeRenderer *pThis = Object_wx_GridCellDateTimeRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int params = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParameters();
 	return Value::Nil;

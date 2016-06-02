@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Rect, wxRect)
 
 Gura_ImplementMethod(wx_Rect, wxRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRect();
 	return Value::Nil;
 }
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_Rect, wxRect_1)
 
 Gura_ImplementMethod(wx_Rect, wxRect_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int width = arg.GetNumber(2)
@@ -82,9 +80,8 @@ Gura_DeclareMethod(wx_Rect, wxRect_2)
 
 Gura_ImplementMethod(wx_Rect, wxRect_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topLeft = arg.GetNumber(0)
 	//int bottomRight = arg.GetNumber(1)
 	//pThis->GetEntity()->wxRect();
@@ -100,9 +97,8 @@ Gura_DeclareMethod(wx_Rect, wxRect_3)
 
 Gura_ImplementMethod(wx_Rect, wxRect_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//pThis->GetEntity()->wxRect();
@@ -117,9 +113,8 @@ Gura_DeclareMethod(wx_Rect, wxRect_4)
 
 Gura_ImplementMethod(wx_Rect, wxRect_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRect();
 	return Value::Nil;
@@ -134,9 +129,8 @@ Gura_DeclareMethod(wx_Rect, CentreIn)
 
 Gura_ImplementMethod(wx_Rect, CentreIn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//int dir = arg.GetNumber(1)
 	//pThis->GetEntity()->CentreIn();
@@ -152,9 +146,8 @@ Gura_DeclareMethod(wx_Rect, CenterIn)
 
 Gura_ImplementMethod(wx_Rect, CenterIn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//int dir = arg.GetNumber(1)
 	//pThis->GetEntity()->CenterIn();
@@ -170,9 +163,8 @@ Gura_DeclareMethod(wx_Rect, Contains)
 
 Gura_ImplementMethod(wx_Rect, Contains)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->Contains();
@@ -187,9 +179,8 @@ Gura_DeclareMethod(wx_Rect, Contains_1)
 
 Gura_ImplementMethod(wx_Rect, Contains_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->Contains();
 	return Value::Nil;
@@ -203,9 +194,8 @@ Gura_DeclareMethod(wx_Rect, Contains_2)
 
 Gura_ImplementMethod(wx_Rect, Contains_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->Contains();
 	return Value::Nil;
@@ -220,9 +210,8 @@ Gura_DeclareMethod(wx_Rect, Deflate)
 
 Gura_ImplementMethod(wx_Rect, Deflate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dx = arg.GetNumber(0)
 	//int dy = arg.GetNumber(1)
 	//pThis->GetEntity()->Deflate();
@@ -237,9 +226,8 @@ Gura_DeclareMethod(wx_Rect, Deflate_1)
 
 Gura_ImplementMethod(wx_Rect, Deflate_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int diff = arg.GetNumber(0)
 	//pThis->GetEntity()->Deflate();
 	return Value::Nil;
@@ -253,9 +241,8 @@ Gura_DeclareMethod(wx_Rect, Deflate_2)
 
 Gura_ImplementMethod(wx_Rect, Deflate_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int diff = arg.GetNumber(0)
 	//pThis->GetEntity()->Deflate();
 	return Value::Nil;
@@ -270,9 +257,8 @@ Gura_DeclareMethod(wx_Rect, Deflate_3)
 
 Gura_ImplementMethod(wx_Rect, Deflate_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dx = arg.GetNumber(0)
 	//int dy = arg.GetNumber(1)
 	//pThis->GetEntity()->Deflate();
@@ -286,9 +272,8 @@ Gura_DeclareMethod(wx_Rect, GetBottom)
 
 Gura_ImplementMethod(wx_Rect, GetBottom)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottom();
 	return Value::Nil;
 }
@@ -300,9 +285,8 @@ Gura_DeclareMethod(wx_Rect, GetBottomLeft)
 
 Gura_ImplementMethod(wx_Rect, GetBottomLeft)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottomLeft();
 	return Value::Nil;
 }
@@ -314,9 +298,8 @@ Gura_DeclareMethod(wx_Rect, GetBottomRight)
 
 Gura_ImplementMethod(wx_Rect, GetBottomRight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottomRight();
 	return Value::Nil;
 }
@@ -328,9 +311,8 @@ Gura_DeclareMethod(wx_Rect, GetHeight)
 
 Gura_ImplementMethod(wx_Rect, GetHeight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
@@ -342,9 +324,8 @@ Gura_DeclareMethod(wx_Rect, GetLeft)
 
 Gura_ImplementMethod(wx_Rect, GetLeft)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeft();
 	return Value::Nil;
 }
@@ -356,9 +337,8 @@ Gura_DeclareMethod(wx_Rect, GetPosition)
 
 Gura_ImplementMethod(wx_Rect, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -370,9 +350,8 @@ Gura_DeclareMethod(wx_Rect, GetRight)
 
 Gura_ImplementMethod(wx_Rect, GetRight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRight();
 	return Value::Nil;
 }
@@ -384,9 +363,8 @@ Gura_DeclareMethod(wx_Rect, GetSize)
 
 Gura_ImplementMethod(wx_Rect, GetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -398,9 +376,8 @@ Gura_DeclareMethod(wx_Rect, GetTop)
 
 Gura_ImplementMethod(wx_Rect, GetTop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTop();
 	return Value::Nil;
 }
@@ -412,9 +389,8 @@ Gura_DeclareMethod(wx_Rect, GetTopLeft)
 
 Gura_ImplementMethod(wx_Rect, GetTopLeft)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopLeft();
 	return Value::Nil;
 }
@@ -426,9 +402,8 @@ Gura_DeclareMethod(wx_Rect, GetTopRight)
 
 Gura_ImplementMethod(wx_Rect, GetTopRight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopRight();
 	return Value::Nil;
 }
@@ -440,9 +415,8 @@ Gura_DeclareMethod(wx_Rect, GetWidth)
 
 Gura_ImplementMethod(wx_Rect, GetWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
@@ -454,9 +428,8 @@ Gura_DeclareMethod(wx_Rect, GetX)
 
 Gura_ImplementMethod(wx_Rect, GetX)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
@@ -468,9 +441,8 @@ Gura_DeclareMethod(wx_Rect, GetY)
 
 Gura_ImplementMethod(wx_Rect, GetY)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
@@ -484,9 +456,8 @@ Gura_DeclareMethod(wx_Rect, Inflate)
 
 Gura_ImplementMethod(wx_Rect, Inflate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dx = arg.GetNumber(0)
 	//int dy = arg.GetNumber(1)
 	//pThis->GetEntity()->Inflate();
@@ -501,9 +472,8 @@ Gura_DeclareMethod(wx_Rect, Inflate_1)
 
 Gura_ImplementMethod(wx_Rect, Inflate_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int diff = arg.GetNumber(0)
 	//pThis->GetEntity()->Inflate();
 	return Value::Nil;
@@ -517,9 +487,8 @@ Gura_DeclareMethod(wx_Rect, Inflate_2)
 
 Gura_ImplementMethod(wx_Rect, Inflate_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int diff = arg.GetNumber(0)
 	//pThis->GetEntity()->Inflate();
 	return Value::Nil;
@@ -534,9 +503,8 @@ Gura_DeclareMethod(wx_Rect, Inflate_3)
 
 Gura_ImplementMethod(wx_Rect, Inflate_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dx = arg.GetNumber(0)
 	//int dy = arg.GetNumber(1)
 	//pThis->GetEntity()->Inflate();
@@ -551,9 +519,8 @@ Gura_DeclareMethod(wx_Rect, Intersect)
 
 Gura_ImplementMethod(wx_Rect, Intersect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->Intersect();
 	return Value::Nil;
@@ -567,9 +534,8 @@ Gura_DeclareMethod(wx_Rect, Intersect_1)
 
 Gura_ImplementMethod(wx_Rect, Intersect_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->Intersect();
 	return Value::Nil;
@@ -583,9 +549,8 @@ Gura_DeclareMethod(wx_Rect, Intersects)
 
 Gura_ImplementMethod(wx_Rect, Intersects)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->Intersects();
 	return Value::Nil;
@@ -598,9 +563,8 @@ Gura_DeclareMethod(wx_Rect, IsEmpty)
 
 Gura_ImplementMethod(wx_Rect, IsEmpty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
@@ -614,9 +578,8 @@ Gura_DeclareMethod(wx_Rect, Offset)
 
 Gura_ImplementMethod(wx_Rect, Offset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dx = arg.GetNumber(0)
 	//int dy = arg.GetNumber(1)
 	//pThis->GetEntity()->Offset();
@@ -631,9 +594,8 @@ Gura_DeclareMethod(wx_Rect, Offset_1)
 
 Gura_ImplementMethod(wx_Rect, Offset_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->Offset();
 	return Value::Nil;
@@ -647,9 +609,8 @@ Gura_DeclareMethod(wx_Rect, SetHeight)
 
 Gura_ImplementMethod(wx_Rect, SetHeight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int height = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHeight();
 	return Value::Nil;
@@ -663,9 +624,8 @@ Gura_DeclareMethod(wx_Rect, SetPosition)
 
 Gura_ImplementMethod(wx_Rect, SetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;
@@ -679,9 +639,8 @@ Gura_DeclareMethod(wx_Rect, SetSize)
 
 Gura_ImplementMethod(wx_Rect, SetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int s = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
@@ -695,9 +654,8 @@ Gura_DeclareMethod(wx_Rect, SetWidth)
 
 Gura_ImplementMethod(wx_Rect, SetWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWidth();
 	return Value::Nil;
@@ -711,9 +669,8 @@ Gura_DeclareMethod(wx_Rect, SetX)
 
 Gura_ImplementMethod(wx_Rect, SetX)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//pThis->GetEntity()->SetX();
 	return Value::Nil;
@@ -727,9 +684,8 @@ Gura_DeclareMethod(wx_Rect, SetY)
 
 Gura_ImplementMethod(wx_Rect, SetY)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int y = arg.GetNumber(0)
 	//pThis->GetEntity()->SetY();
 	return Value::Nil;
@@ -743,9 +699,8 @@ Gura_DeclareMethod(wx_Rect, SetLeft)
 
 Gura_ImplementMethod(wx_Rect, SetLeft)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int left = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLeft();
 	return Value::Nil;
@@ -759,9 +714,8 @@ Gura_DeclareMethod(wx_Rect, SetRight)
 
 Gura_ImplementMethod(wx_Rect, SetRight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int right = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRight();
 	return Value::Nil;
@@ -775,9 +729,8 @@ Gura_DeclareMethod(wx_Rect, SetTop)
 
 Gura_ImplementMethod(wx_Rect, SetTop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int top = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTop();
 	return Value::Nil;
@@ -791,9 +744,8 @@ Gura_DeclareMethod(wx_Rect, SetBottom)
 
 Gura_ImplementMethod(wx_Rect, SetBottom)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bottom = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBottom();
 	return Value::Nil;
@@ -807,9 +759,8 @@ Gura_DeclareMethod(wx_Rect, SetTopLeft)
 
 Gura_ImplementMethod(wx_Rect, SetTopLeft)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int p = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTopLeft();
 	return Value::Nil;
@@ -823,9 +774,8 @@ Gura_DeclareMethod(wx_Rect, SetBottomRight)
 
 Gura_ImplementMethod(wx_Rect, SetBottomRight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int p = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBottomRight();
 	return Value::Nil;
@@ -839,9 +789,8 @@ Gura_DeclareMethod(wx_Rect, SetTopRight)
 
 Gura_ImplementMethod(wx_Rect, SetTopRight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int p = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTopRight();
 	return Value::Nil;
@@ -855,9 +804,8 @@ Gura_DeclareMethod(wx_Rect, SetBottomLeft)
 
 Gura_ImplementMethod(wx_Rect, SetBottomLeft)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int p = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBottomLeft();
 	return Value::Nil;
@@ -871,9 +819,8 @@ Gura_DeclareMethod(wx_Rect, Union)
 
 Gura_ImplementMethod(wx_Rect, Union)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->Union();
 	return Value::Nil;
@@ -887,9 +834,8 @@ Gura_DeclareMethod(wx_Rect, Union_1)
 
 Gura_ImplementMethod(wx_Rect, Union_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->Union();
 	return Value::Nil;

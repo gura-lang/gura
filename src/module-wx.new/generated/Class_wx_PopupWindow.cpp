@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_PopupWindow, wxPopupWindow)
 
 Gura_ImplementMethod(wx_PopupWindow, wxPopupWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PopupWindow *pThis = Object_wx_PopupWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPopupWindow();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_PopupWindow, wxPopupWindow_1)
 
 Gura_ImplementMethod(wx_PopupWindow, wxPopupWindow_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PopupWindow *pThis = Object_wx_PopupWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->wxPopupWindow();
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_PopupWindow, Create)
 
 Gura_ImplementMethod(wx_PopupWindow, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PopupWindow *pThis = Object_wx_PopupWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_PopupWindow, Position)
 
 Gura_ImplementMethod(wx_PopupWindow, Position)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PopupWindow *pThis = Object_wx_PopupWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ptOrigin = arg.GetNumber(0)
 	//int sizePopup = arg.GetNumber(1)
 	//pThis->GetEntity()->Position();

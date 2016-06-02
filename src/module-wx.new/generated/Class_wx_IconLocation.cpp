@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_IconLocation, IsOk)
 
 Gura_ImplementMethod(wx_IconLocation, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_IconLocation, SetFileName)
 
 Gura_ImplementMethod(wx_IconLocation, SetFileName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFileName();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_IconLocation, GetFileName)
 
 Gura_ImplementMethod(wx_IconLocation, GetFileName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFileName();
 	return Value::Nil;
 }

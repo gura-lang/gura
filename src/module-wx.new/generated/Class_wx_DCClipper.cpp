@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_DCClipper, wxDCClipper)
 
 Gura_ImplementMethod(wx_DCClipper, wxDCClipper)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCClipper *pThis = Object_wx_DCClipper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int region = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDCClipper();
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_DCClipper, wxDCClipper_1)
 
 Gura_ImplementMethod(wx_DCClipper, wxDCClipper_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCClipper *pThis = Object_wx_DCClipper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int rect = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDCClipper();
@@ -85,29 +83,14 @@ Gura_DeclareMethod(wx_DCClipper, wxDCClipper_2)
 
 Gura_ImplementMethod(wx_DCClipper, wxDCClipper_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCClipper *pThis = Object_wx_DCClipper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
 	//int w = arg.GetNumber(3)
 	//int h = arg.GetNumber(4)
 	//pThis->GetEntity()->wxDCClipper();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DCClipper, ~wxDCClipper)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DCClipper, ~wxDCClipper)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DCClipper *pThis = Object_wx_DCClipper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDCClipper();
 	return Value::Nil;
 }
 
@@ -119,7 +102,6 @@ Gura_ImplementUserInheritableClass(wx_DCClipper)
 	Gura_AssignMethod(wx_DCClipper, wxDCClipper);
 	Gura_AssignMethod(wx_DCClipper, wxDCClipper_1);
 	Gura_AssignMethod(wx_DCClipper, wxDCClipper_2);
-	Gura_AssignMethod(wx_DCClipper, ~wxDCClipper);
 }
 
 Gura_ImplementDescendantCreator(wx_DCClipper)

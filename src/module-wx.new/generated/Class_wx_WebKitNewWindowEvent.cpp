@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_WebKitNewWindowEvent, GetURL)
 
 Gura_ImplementMethod(wx_WebKitNewWindowEvent, GetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_WebKitNewWindowEvent, SetURL)
 
 Gura_ImplementMethod(wx_WebKitNewWindowEvent, SetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_WebKitNewWindowEvent, GetTargetName)
 
 Gura_ImplementMethod(wx_WebKitNewWindowEvent, GetTargetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTargetName();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_WebKitNewWindowEvent, SetTargetName)
 
 Gura_ImplementMethod(wx_WebKitNewWindowEvent, SetTargetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTargetName();
 	return Value::Nil;
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_WebKitNewWindowEvent, wxWebKitNewWindowEvent)
 
 Gura_ImplementMethod(wx_WebKitNewWindowEvent, wxWebKitNewWindowEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWebKitNewWindowEvent();
 	return Value::Nil;

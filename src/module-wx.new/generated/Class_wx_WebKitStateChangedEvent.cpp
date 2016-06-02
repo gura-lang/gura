@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_WebKitStateChangedEvent, GetState)
 
 Gura_ImplementMethod(wx_WebKitStateChangedEvent, GetState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetState();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_WebKitStateChangedEvent, SetState)
 
 Gura_ImplementMethod(wx_WebKitStateChangedEvent, SetState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int state = arg.GetNumber(0)
 	//pThis->GetEntity()->SetState();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_WebKitStateChangedEvent, GetURL)
 
 Gura_ImplementMethod(wx_WebKitStateChangedEvent, GetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_WebKitStateChangedEvent, SetURL)
 
 Gura_ImplementMethod(wx_WebKitStateChangedEvent, SetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_WebKitStateChangedEvent, wxWebKitStateChangedEvent)
 
 Gura_ImplementMethod(wx_WebKitStateChangedEvent, wxWebKitStateChangedEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWebKitStateChangedEvent();
 	return Value::Nil;

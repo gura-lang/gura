@@ -34,9 +34,9 @@ public:
 		InvalidateEntity();
 		return pEntity;
 	}
-	inline bool IsInvalid(Signal &sig) const {
+	inline bool IsInvalid(Environment &env) const {
 		if (_pEntity != nullptr) return false;
-		SetError_InvalidWxObject(sig, "wxFilterInputStream");
+		SetError_InvalidWxObject(env, "wxFilterInputStream");
 		return true;
 	}
 };

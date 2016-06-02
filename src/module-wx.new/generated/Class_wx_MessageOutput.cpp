@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_MessageOutput, Get)
 
 Gura_ImplementMethod(wx_MessageOutput, Get)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Get();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_MessageOutput, Set)
 
 Gura_ImplementMethod(wx_MessageOutput, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int msgout = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_MessageOutput, Printf)
 
 Gura_ImplementMethod(wx_MessageOutput, Printf)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->Printf();
 	return Value::Nil;
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_MessageOutput, Output)
 
 Gura_ImplementMethod(wx_MessageOutput, Output)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->Output();
 	return Value::Nil;

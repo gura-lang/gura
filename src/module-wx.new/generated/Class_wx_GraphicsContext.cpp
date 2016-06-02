@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Create)
 
 Gura_ImplementMethod(wx_GraphicsContext, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Create_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, Create_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int windowDC = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Create_2)
 
 Gura_ImplementMethod(wx_GraphicsContext, Create_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int memoryDC = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Create_3)
 
 Gura_ImplementMethod(wx_GraphicsContext, Create_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int printerDC = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -109,9 +105,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Create_4)
 
 Gura_ImplementMethod(wx_GraphicsContext, Create_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int metaFileDC = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -125,9 +120,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Create_5)
 
 Gura_ImplementMethod(wx_GraphicsContext, Create_5)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -140,9 +134,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Create_6)
 
 Gura_ImplementMethod(wx_GraphicsContext, Create_6)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -155,9 +148,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Clip)
 
 Gura_ImplementMethod(wx_GraphicsContext, Clip)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int region = arg.GetNumber(0)
 	//pThis->GetEntity()->Clip();
 	return Value::Nil;
@@ -174,9 +166,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Clip_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, Clip_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int w = arg.GetNumber(2)
@@ -193,9 +184,8 @@ Gura_DeclareMethod(wx_GraphicsContext, ConcatTransform)
 
 Gura_ImplementMethod(wx_GraphicsContext, ConcatTransform)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int matrix = arg.GetNumber(0)
 	//pThis->GetEntity()->ConcatTransform();
 	return Value::Nil;
@@ -209,9 +199,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateBitmap)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateBitmap();
 	return Value::Nil;
@@ -225,9 +214,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateBitmapFromImage)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateBitmapFromImage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateBitmapFromImage();
 	return Value::Nil;
@@ -245,9 +233,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateSubBitmap)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateSubBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -265,9 +252,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateBrush)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateBrush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int brush = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateBrush();
 	return Value::Nil;
@@ -282,9 +268,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateFont)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateFont();
@@ -302,9 +287,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateFont_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateFont_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sizeInPixels = arg.GetNumber(0)
 	//int facename = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -321,9 +305,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateFromNative)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateFromNative)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int context = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateFromNative();
 	return Value::Nil;
@@ -337,9 +320,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateFromNativeWindow)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateFromNativeWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateFromNativeWindow();
 	return Value::Nil;
@@ -358,9 +340,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateLinearGradientBrush)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateLinearGradientBrush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x1 = arg.GetNumber(0)
 	//int y1 = arg.GetNumber(1)
 	//int x2 = arg.GetNumber(2)
@@ -383,9 +364,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateLinearGradientBrush_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateLinearGradientBrush_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x1 = arg.GetNumber(0)
 	//int y1 = arg.GetNumber(1)
 	//int x2 = arg.GetNumber(2)
@@ -408,9 +388,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateMatrix)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateMatrix)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int a = arg.GetNumber(0)
 	//int b = arg.GetNumber(1)
 	//int c = arg.GetNumber(2)
@@ -429,9 +408,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateMatrix_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateMatrix_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mat = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateMatrix();
 	return Value::Nil;
@@ -444,9 +422,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreatePath)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreatePath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CreatePath();
 	return Value::Nil;
 }
@@ -459,9 +436,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreatePen)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreatePen)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pen = arg.GetNumber(0)
 	//pThis->GetEntity()->CreatePen();
 	return Value::Nil;
@@ -481,9 +457,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateRadialGradientBrush)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateRadialGradientBrush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int xo = arg.GetNumber(0)
 	//int yo = arg.GetNumber(1)
 	//int xc = arg.GetNumber(2)
@@ -508,9 +483,8 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateRadialGradientBrush_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, CreateRadialGradientBrush_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int xo = arg.GetNumber(0)
 	//int yo = arg.GetNumber(1)
 	//int xc = arg.GetNumber(2)
@@ -533,9 +507,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawBitmap)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bmp = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -557,9 +530,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawBitmap_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawBitmap_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bmp = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -580,9 +552,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawEllipse)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawEllipse)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int w = arg.GetNumber(2)
@@ -603,9 +574,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawIcon)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int icon = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -625,9 +595,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawLines)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawLines)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int points = arg.GetNumber(1)
 	//int fillStyle = arg.GetNumber(2)
@@ -644,9 +613,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawPath)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int fillStyle = arg.GetNumber(1)
 	//pThis->GetEntity()->DrawPath();
@@ -664,9 +632,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawRectangle)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawRectangle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int w = arg.GetNumber(2)
@@ -687,9 +654,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawRoundedRectangle)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawRoundedRectangle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int w = arg.GetNumber(2)
@@ -709,9 +675,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawText)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -730,9 +695,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawText_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawText_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -752,9 +716,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawText_2)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawText_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -775,9 +738,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawText_3)
 
 Gura_ImplementMethod(wx_GraphicsContext, DrawText_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -796,9 +758,8 @@ Gura_DeclareMethod(wx_GraphicsContext, FillPath)
 
 Gura_ImplementMethod(wx_GraphicsContext, FillPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int fillStyle = arg.GetNumber(1)
 	//pThis->GetEntity()->FillPath();
@@ -812,9 +773,8 @@ Gura_DeclareMethod(wx_GraphicsContext, GetNativeContext)
 
 Gura_ImplementMethod(wx_GraphicsContext, GetNativeContext)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNativeContext();
 	return Value::Nil;
 }
@@ -828,9 +788,8 @@ Gura_DeclareMethod(wx_GraphicsContext, GetPartialTextExtents)
 
 Gura_ImplementMethod(wx_GraphicsContext, GetPartialTextExtents)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int widths = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPartialTextExtents();
@@ -849,9 +808,8 @@ Gura_DeclareMethod(wx_GraphicsContext, GetTextExtent)
 
 Gura_ImplementMethod(wx_GraphicsContext, GetTextExtent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
@@ -868,9 +826,8 @@ Gura_DeclareMethod(wx_GraphicsContext, GetTransform)
 
 Gura_ImplementMethod(wx_GraphicsContext, GetTransform)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTransform();
 	return Value::Nil;
 }
@@ -882,9 +839,8 @@ Gura_DeclareMethod(wx_GraphicsContext, ResetClip)
 
 Gura_ImplementMethod(wx_GraphicsContext, ResetClip)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ResetClip();
 	return Value::Nil;
 }
@@ -897,9 +853,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Rotate)
 
 Gura_ImplementMethod(wx_GraphicsContext, Rotate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int angle = arg.GetNumber(0)
 	//pThis->GetEntity()->Rotate();
 	return Value::Nil;
@@ -914,9 +869,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Scale)
 
 Gura_ImplementMethod(wx_GraphicsContext, Scale)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int xScale = arg.GetNumber(0)
 	//int yScale = arg.GetNumber(1)
 	//pThis->GetEntity()->Scale();
@@ -931,9 +885,8 @@ Gura_DeclareMethod(wx_GraphicsContext, SetBrush)
 
 Gura_ImplementMethod(wx_GraphicsContext, SetBrush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int brush = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBrush();
 	return Value::Nil;
@@ -947,9 +900,8 @@ Gura_DeclareMethod(wx_GraphicsContext, SetBrush_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, SetBrush_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int brush = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBrush();
 	return Value::Nil;
@@ -964,9 +916,8 @@ Gura_DeclareMethod(wx_GraphicsContext, SetFont)
 
 Gura_ImplementMethod(wx_GraphicsContext, SetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//int colour = arg.GetNumber(1)
 	//pThis->GetEntity()->SetFont();
@@ -981,9 +932,8 @@ Gura_DeclareMethod(wx_GraphicsContext, SetFont_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, SetFont_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;
@@ -997,9 +947,8 @@ Gura_DeclareMethod(wx_GraphicsContext, SetPen)
 
 Gura_ImplementMethod(wx_GraphicsContext, SetPen)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pen = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPen();
 	return Value::Nil;
@@ -1013,9 +962,8 @@ Gura_DeclareMethod(wx_GraphicsContext, SetPen_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, SetPen_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pen = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPen();
 	return Value::Nil;
@@ -1029,9 +977,8 @@ Gura_DeclareMethod(wx_GraphicsContext, SetTransform)
 
 Gura_ImplementMethod(wx_GraphicsContext, SetTransform)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int matrix = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTransform();
 	return Value::Nil;
@@ -1048,9 +995,8 @@ Gura_DeclareMethod(wx_GraphicsContext, StrokeLine)
 
 Gura_ImplementMethod(wx_GraphicsContext, StrokeLine)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x1 = arg.GetNumber(0)
 	//int y1 = arg.GetNumber(1)
 	//int x2 = arg.GetNumber(2)
@@ -1069,9 +1015,8 @@ Gura_DeclareMethod(wx_GraphicsContext, StrokeLines)
 
 Gura_ImplementMethod(wx_GraphicsContext, StrokeLines)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int beginPoints = arg.GetNumber(1)
 	//int endPoints = arg.GetNumber(2)
@@ -1088,9 +1033,8 @@ Gura_DeclareMethod(wx_GraphicsContext, StrokeLines_1)
 
 Gura_ImplementMethod(wx_GraphicsContext, StrokeLines_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int points = arg.GetNumber(1)
 	//pThis->GetEntity()->StrokeLines();
@@ -1105,9 +1049,8 @@ Gura_DeclareMethod(wx_GraphicsContext, StrokePath)
 
 Gura_ImplementMethod(wx_GraphicsContext, StrokePath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//pThis->GetEntity()->StrokePath();
 	return Value::Nil;
@@ -1122,9 +1065,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Translate)
 
 Gura_ImplementMethod(wx_GraphicsContext, Translate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dx = arg.GetNumber(0)
 	//int dy = arg.GetNumber(1)
 	//pThis->GetEntity()->Translate();
@@ -1139,9 +1081,8 @@ Gura_DeclareMethod(wx_GraphicsContext, BeginLayer)
 
 Gura_ImplementMethod(wx_GraphicsContext, BeginLayer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int opacity = arg.GetNumber(0)
 	//pThis->GetEntity()->BeginLayer();
 	return Value::Nil;
@@ -1154,9 +1095,8 @@ Gura_DeclareMethod(wx_GraphicsContext, EndLayer)
 
 Gura_ImplementMethod(wx_GraphicsContext, EndLayer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->EndLayer();
 	return Value::Nil;
 }
@@ -1169,9 +1109,8 @@ Gura_DeclareMethod(wx_GraphicsContext, SetAntialiasMode)
 
 Gura_ImplementMethod(wx_GraphicsContext, SetAntialiasMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int antialias = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAntialiasMode();
 	return Value::Nil;
@@ -1184,9 +1123,8 @@ Gura_DeclareMethod(wx_GraphicsContext, GetAntialiasMode)
 
 Gura_ImplementMethod(wx_GraphicsContext, GetAntialiasMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAntialiasMode();
 	return Value::Nil;
 }
@@ -1199,9 +1137,8 @@ Gura_DeclareMethod(wx_GraphicsContext, SetInterpolationQuality)
 
 Gura_ImplementMethod(wx_GraphicsContext, SetInterpolationQuality)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int interpolation = arg.GetNumber(0)
 	//pThis->GetEntity()->SetInterpolationQuality();
 	return Value::Nil;
@@ -1214,9 +1151,8 @@ Gura_DeclareMethod(wx_GraphicsContext, GetInterpolationQuality)
 
 Gura_ImplementMethod(wx_GraphicsContext, GetInterpolationQuality)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetInterpolationQuality();
 	return Value::Nil;
 }
@@ -1229,9 +1165,8 @@ Gura_DeclareMethod(wx_GraphicsContext, SetCompositionMode)
 
 Gura_ImplementMethod(wx_GraphicsContext, SetCompositionMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int op = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCompositionMode();
 	return Value::Nil;
@@ -1244,9 +1179,8 @@ Gura_DeclareMethod(wx_GraphicsContext, GetCompositionMode)
 
 Gura_ImplementMethod(wx_GraphicsContext, GetCompositionMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCompositionMode();
 	return Value::Nil;
 }
@@ -1258,9 +1192,8 @@ Gura_DeclareMethod(wx_GraphicsContext, PushState)
 
 Gura_ImplementMethod(wx_GraphicsContext, PushState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->PushState();
 	return Value::Nil;
 }
@@ -1272,9 +1205,8 @@ Gura_DeclareMethod(wx_GraphicsContext, PopState)
 
 Gura_ImplementMethod(wx_GraphicsContext, PopState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->PopState();
 	return Value::Nil;
 }
@@ -1286,9 +1218,8 @@ Gura_DeclareMethod(wx_GraphicsContext, ShouldOffset)
 
 Gura_ImplementMethod(wx_GraphicsContext, ShouldOffset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ShouldOffset();
 	return Value::Nil;
 }
@@ -1301,9 +1232,8 @@ Gura_DeclareMethod(wx_GraphicsContext, EnableOffset)
 
 Gura_ImplementMethod(wx_GraphicsContext, EnableOffset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableOffset();
 	return Value::Nil;
@@ -1316,9 +1246,8 @@ Gura_DeclareMethod(wx_GraphicsContext, DisableOffset)
 
 Gura_ImplementMethod(wx_GraphicsContext, DisableOffset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DisableOffset();
 	return Value::Nil;
 }
@@ -1330,9 +1259,8 @@ Gura_DeclareMethod(wx_GraphicsContext, OffsetEnabled)
 
 Gura_ImplementMethod(wx_GraphicsContext, OffsetEnabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OffsetEnabled();
 	return Value::Nil;
 }
@@ -1345,9 +1273,8 @@ Gura_DeclareMethod(wx_GraphicsContext, StartDoc)
 
 Gura_ImplementMethod(wx_GraphicsContext, StartDoc)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int message = arg.GetNumber(0)
 	//pThis->GetEntity()->StartDoc();
 	return Value::Nil;
@@ -1360,9 +1287,8 @@ Gura_DeclareMethod(wx_GraphicsContext, EndDoc)
 
 Gura_ImplementMethod(wx_GraphicsContext, EndDoc)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->EndDoc();
 	return Value::Nil;
 }
@@ -1376,9 +1302,8 @@ Gura_DeclareMethod(wx_GraphicsContext, StartPage)
 
 Gura_ImplementMethod(wx_GraphicsContext, StartPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//pThis->GetEntity()->StartPage();
@@ -1392,9 +1317,8 @@ Gura_DeclareMethod(wx_GraphicsContext, EndPage)
 
 Gura_ImplementMethod(wx_GraphicsContext, EndPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->EndPage();
 	return Value::Nil;
 }
@@ -1406,9 +1330,8 @@ Gura_DeclareMethod(wx_GraphicsContext, Flush)
 
 Gura_ImplementMethod(wx_GraphicsContext, Flush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Flush();
 	return Value::Nil;
 }
@@ -1422,9 +1345,8 @@ Gura_DeclareMethod(wx_GraphicsContext, GetSize)
 
 Gura_ImplementMethod(wx_GraphicsContext, GetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSize();
@@ -1440,9 +1362,8 @@ Gura_DeclareMethod(wx_GraphicsContext, GetDPI)
 
 Gura_ImplementMethod(wx_GraphicsContext, GetDPI)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dpiX = arg.GetNumber(0)
 	//int dpiY = arg.GetNumber(1)
 	//pThis->GetEntity()->GetDPI();

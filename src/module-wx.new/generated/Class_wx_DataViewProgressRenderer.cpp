@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_DataViewProgressRenderer, GetDefaultType)
 
 Gura_ImplementMethod(wx_DataViewProgressRenderer, GetDefaultType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewProgressRenderer *pThis = Object_wx_DataViewProgressRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDefaultType();
 	return Value::Nil;
 }
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_DataViewProgressRenderer, wxDataViewProgressRenderer)
 
 Gura_ImplementMethod(wx_DataViewProgressRenderer, wxDataViewProgressRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewProgressRenderer *pThis = Object_wx_DataViewProgressRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int label = arg.GetNumber(0)
 	//int varianttype = arg.GetNumber(1)
 	//int mode = arg.GetNumber(2)

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_Log, AddTraceMask)
 
 Gura_ImplementMethod(wx_Log, AddTraceMask)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mask = arg.GetNumber(0)
 	//pThis->GetEntity()->AddTraceMask();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_Log, ClearTraceMasks)
 
 Gura_ImplementMethod(wx_Log, ClearTraceMasks)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ClearTraceMasks();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_Log, GetTraceMasks)
 
 Gura_ImplementMethod(wx_Log, GetTraceMasks)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTraceMasks();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_Log, IsAllowedTraceMask)
 
 Gura_ImplementMethod(wx_Log, IsAllowedTraceMask)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mask = arg.GetNumber(0)
 	//pThis->GetEntity()->IsAllowedTraceMask();
 	return Value::Nil;
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_Log, RemoveTraceMask)
 
 Gura_ImplementMethod(wx_Log, RemoveTraceMask)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mask = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveTraceMask();
 	return Value::Nil;
@@ -120,9 +115,8 @@ Gura_DeclareMethod(wx_Log, DontCreateOnDemand)
 
 Gura_ImplementMethod(wx_Log, DontCreateOnDemand)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DontCreateOnDemand();
 	return Value::Nil;
 }
@@ -134,9 +128,8 @@ Gura_DeclareMethod(wx_Log, GetActiveTarget)
 
 Gura_ImplementMethod(wx_Log, GetActiveTarget)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetActiveTarget();
 	return Value::Nil;
 }
@@ -149,9 +142,8 @@ Gura_DeclareMethod(wx_Log, SetActiveTarget)
 
 Gura_ImplementMethod(wx_Log, SetActiveTarget)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int logtarget = arg.GetNumber(0)
 	//pThis->GetEntity()->SetActiveTarget();
 	return Value::Nil;
@@ -165,9 +157,8 @@ Gura_DeclareMethod(wx_Log, SetThreadActiveTarget)
 
 Gura_ImplementMethod(wx_Log, SetThreadActiveTarget)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int logger = arg.GetNumber(0)
 	//pThis->GetEntity()->SetThreadActiveTarget();
 	return Value::Nil;
@@ -180,9 +171,8 @@ Gura_DeclareMethod(wx_Log, FlushActive)
 
 Gura_ImplementMethod(wx_Log, FlushActive)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->FlushActive();
 	return Value::Nil;
 }
@@ -194,9 +184,8 @@ Gura_DeclareMethod(wx_Log, Resume)
 
 Gura_ImplementMethod(wx_Log, Resume)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Resume();
 	return Value::Nil;
 }
@@ -208,9 +197,8 @@ Gura_DeclareMethod(wx_Log, Suspend)
 
 Gura_ImplementMethod(wx_Log, Suspend)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Suspend();
 	return Value::Nil;
 }
@@ -222,9 +210,8 @@ Gura_DeclareMethod(wx_Log, GetLogLevel)
 
 Gura_ImplementMethod(wx_Log, GetLogLevel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLogLevel();
 	return Value::Nil;
 }
@@ -238,9 +225,8 @@ Gura_DeclareMethod(wx_Log, IsLevelEnabled)
 
 Gura_ImplementMethod(wx_Log, IsLevelEnabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
 	//int component = arg.GetNumber(1)
 	//pThis->GetEntity()->IsLevelEnabled();
@@ -256,9 +242,8 @@ Gura_DeclareMethod(wx_Log, SetComponentLevel)
 
 Gura_ImplementMethod(wx_Log, SetComponentLevel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int component = arg.GetNumber(0)
 	//int level = arg.GetNumber(1)
 	//pThis->GetEntity()->SetComponentLevel();
@@ -273,9 +258,8 @@ Gura_DeclareMethod(wx_Log, SetLogLevel)
 
 Gura_ImplementMethod(wx_Log, SetLogLevel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int logLevel = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLogLevel();
 	return Value::Nil;
@@ -289,9 +273,8 @@ Gura_DeclareMethod(wx_Log, EnableLogging)
 
 Gura_ImplementMethod(wx_Log, EnableLogging)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableLogging();
 	return Value::Nil;
@@ -304,9 +287,8 @@ Gura_DeclareMethod(wx_Log, IsEnabled)
 
 Gura_ImplementMethod(wx_Log, IsEnabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEnabled();
 	return Value::Nil;
 }
@@ -318,9 +300,8 @@ Gura_DeclareMethod(wx_Log, GetRepetitionCounting)
 
 Gura_ImplementMethod(wx_Log, GetRepetitionCounting)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRepetitionCounting();
 	return Value::Nil;
 }
@@ -333,9 +314,8 @@ Gura_DeclareMethod(wx_Log, SetRepetitionCounting)
 
 Gura_ImplementMethod(wx_Log, SetRepetitionCounting)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int repetCounting = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRepetitionCounting();
 	return Value::Nil;
@@ -348,9 +328,8 @@ Gura_DeclareMethod(wx_Log, GetTimestamp)
 
 Gura_ImplementMethod(wx_Log, GetTimestamp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTimestamp();
 	return Value::Nil;
 }
@@ -363,9 +342,8 @@ Gura_DeclareMethod(wx_Log, SetTimestamp)
 
 Gura_ImplementMethod(wx_Log, SetTimestamp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTimestamp();
 	return Value::Nil;
@@ -378,9 +356,8 @@ Gura_DeclareMethod(wx_Log, DisableTimestamp)
 
 Gura_ImplementMethod(wx_Log, DisableTimestamp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DisableTimestamp();
 	return Value::Nil;
 }
@@ -392,9 +369,8 @@ Gura_DeclareMethod(wx_Log, GetVerbose)
 
 Gura_ImplementMethod(wx_Log, GetVerbose)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVerbose();
 	return Value::Nil;
 }
@@ -407,9 +383,8 @@ Gura_DeclareMethod(wx_Log, SetVerbose)
 
 Gura_ImplementMethod(wx_Log, SetVerbose)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int verbose = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVerbose();
 	return Value::Nil;
@@ -423,9 +398,8 @@ Gura_DeclareMethod(wx_Log, SetFormatter)
 
 Gura_ImplementMethod(wx_Log, SetFormatter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int formatter = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFormatter();
 	return Value::Nil;
@@ -438,9 +412,8 @@ Gura_DeclareMethod(wx_Log, Flush)
 
 Gura_ImplementMethod(wx_Log, Flush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Flush();
 	return Value::Nil;
 }
@@ -455,9 +428,8 @@ Gura_DeclareMethod(wx_Log, LogRecord)
 
 Gura_ImplementMethod(wx_Log, LogRecord)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
 	//int msg = arg.GetNumber(1)
 	//int info = arg.GetNumber(2)
@@ -475,9 +447,8 @@ Gura_DeclareMethod(wx_Log, DoLogRecord)
 
 Gura_ImplementMethod(wx_Log, DoLogRecord)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
 	//int msg = arg.GetNumber(1)
 	//int info = arg.GetNumber(2)
@@ -494,9 +465,8 @@ Gura_DeclareMethod(wx_Log, DoLogTextAtLevel)
 
 Gura_ImplementMethod(wx_Log, DoLogTextAtLevel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
 	//int msg = arg.GetNumber(1)
 	//pThis->GetEntity()->DoLogTextAtLevel();
@@ -511,9 +481,8 @@ Gura_DeclareMethod(wx_Log, DoLogText)
 
 Gura_ImplementMethod(wx_Log, DoLogText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int msg = arg.GetNumber(0)
 	//pThis->GetEntity()->DoLogText();
 	return Value::Nil;

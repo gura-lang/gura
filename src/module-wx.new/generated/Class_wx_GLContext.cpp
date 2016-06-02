@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_GLContext, wxGLContext)
 
 Gura_ImplementMethod(wx_GLContext, wxGLContext)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContext *pThis = Object_wx_GLContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int other = arg.GetNumber(1)
 	//int ctxAttrs = arg.GetNumber(2)
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_GLContext, IsOK)
 
 Gura_ImplementMethod(wx_GLContext, IsOK)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContext *pThis = Object_wx_GLContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOK();
 	return Value::Nil;
 }
@@ -79,9 +77,8 @@ Gura_DeclareMethod(wx_GLContext, SetCurrent)
 
 Gura_ImplementMethod(wx_GLContext, SetCurrent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContext *pThis = Object_wx_GLContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCurrent();
 	return Value::Nil;

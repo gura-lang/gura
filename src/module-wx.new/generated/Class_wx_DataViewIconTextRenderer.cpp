@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_DataViewIconTextRenderer, GetDefaultType)
 
 Gura_ImplementMethod(wx_DataViewIconTextRenderer, GetDefaultType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewIconTextRenderer *pThis = Object_wx_DataViewIconTextRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDefaultType();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_DataViewIconTextRenderer, wxDataViewIconTextRenderer)
 
 Gura_ImplementMethod(wx_DataViewIconTextRenderer, wxDataViewIconTextRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewIconTextRenderer *pThis = Object_wx_DataViewIconTextRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int varianttype = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
 	//int align = arg.GetNumber(2)

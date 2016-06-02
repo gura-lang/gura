@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, Clone)
 
 Gura_ImplementMethod(wx_ArchiveEntry, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, GetDateTime)
 
 Gura_ImplementMethod(wx_ArchiveEntry, GetDateTime)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDateTime();
 	return Value::Nil;
 }
@@ -73,9 +71,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, SetDateTime)
 
 Gura_ImplementMethod(wx_ArchiveEntry, SetDateTime)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dt = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDateTime();
 	return Value::Nil;
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, GetName)
 
 Gura_ImplementMethod(wx_ArchiveEntry, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, SetName)
 
 Gura_ImplementMethod(wx_ArchiveEntry, SetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->SetName();
@@ -122,9 +117,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, GetSize)
 
 Gura_ImplementMethod(wx_ArchiveEntry, GetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -137,9 +131,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, SetSize)
 
 Gura_ImplementMethod(wx_ArchiveEntry, SetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
@@ -152,9 +145,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, GetInternalFormat)
 
 Gura_ImplementMethod(wx_ArchiveEntry, GetInternalFormat)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetInternalFormat();
 	return Value::Nil;
 }
@@ -166,9 +158,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, GetInternalName)
 
 Gura_ImplementMethod(wx_ArchiveEntry, GetInternalName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetInternalName();
 	return Value::Nil;
 }
@@ -180,9 +171,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, GetOffset)
 
 Gura_ImplementMethod(wx_ArchiveEntry, GetOffset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOffset();
 	return Value::Nil;
 }
@@ -194,9 +184,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, IsDir)
 
 Gura_ImplementMethod(wx_ArchiveEntry, IsDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsDir();
 	return Value::Nil;
 }
@@ -209,9 +198,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, SetIsDir)
 
 Gura_ImplementMethod(wx_ArchiveEntry, SetIsDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int isDir = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIsDir();
 	return Value::Nil;
@@ -224,9 +212,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, IsReadOnly)
 
 Gura_ImplementMethod(wx_ArchiveEntry, IsReadOnly)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsReadOnly();
 	return Value::Nil;
 }
@@ -239,9 +226,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, SetIsReadOnly)
 
 Gura_ImplementMethod(wx_ArchiveEntry, SetIsReadOnly)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int isReadOnly = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIsReadOnly();
 	return Value::Nil;
@@ -255,9 +241,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, SetNotifier)
 
 Gura_ImplementMethod(wx_ArchiveEntry, SetNotifier)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int notifier = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNotifier();
 	return Value::Nil;
@@ -270,9 +255,8 @@ Gura_DeclareMethod(wx_ArchiveEntry, UnsetNotifier)
 
 Gura_ImplementMethod(wx_ArchiveEntry, UnsetNotifier)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->UnsetNotifier();
 	return Value::Nil;
 }

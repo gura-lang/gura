@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_EraseEvent, wxEraseEvent)
 
 Gura_ImplementMethod(wx_EraseEvent, wxEraseEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EraseEvent *pThis = Object_wx_EraseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//pThis->GetEntity()->wxEraseEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_EraseEvent, GetDC)
 
 Gura_ImplementMethod(wx_EraseEvent, GetDC)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EraseEvent *pThis = Object_wx_EraseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDC();
 	return Value::Nil;
 }

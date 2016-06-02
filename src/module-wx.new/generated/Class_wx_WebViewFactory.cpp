@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_WebViewFactory, Create)
 
 Gura_ImplementMethod(wx_WebViewFactory, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewFactory *pThis = Object_wx_WebViewFactory::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_WebViewFactory, Create_1)
 
 Gura_ImplementMethod(wx_WebViewFactory, Create_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewFactory *pThis = Object_wx_WebViewFactory::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int url = arg.GetNumber(2)

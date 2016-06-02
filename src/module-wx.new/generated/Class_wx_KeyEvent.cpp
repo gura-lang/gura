@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_KeyEvent, wxKeyEvent)
 
 Gura_ImplementMethod(wx_KeyEvent, wxKeyEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keyEventType = arg.GetNumber(0)
 	//pThis->GetEntity()->wxKeyEvent();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_KeyEvent, GetKeyCode)
 
 Gura_ImplementMethod(wx_KeyEvent, GetKeyCode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetKeyCode();
 	return Value::Nil;
 }
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_KeyEvent, IsKeyInCategory)
 
 Gura_ImplementMethod(wx_KeyEvent, IsKeyInCategory)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int category = arg.GetNumber(0)
 	//pThis->GetEntity()->IsKeyInCategory();
 	return Value::Nil;
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_KeyEvent, GetPosition)
 
 Gura_ImplementMethod(wx_KeyEvent, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_KeyEvent, GetPosition_1)
 
 Gura_ImplementMethod(wx_KeyEvent, GetPosition_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPosition();
@@ -122,9 +117,8 @@ Gura_DeclareMethod(wx_KeyEvent, GetRawKeyCode)
 
 Gura_ImplementMethod(wx_KeyEvent, GetRawKeyCode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRawKeyCode();
 	return Value::Nil;
 }
@@ -136,9 +130,8 @@ Gura_DeclareMethod(wx_KeyEvent, GetRawKeyFlags)
 
 Gura_ImplementMethod(wx_KeyEvent, GetRawKeyFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRawKeyFlags();
 	return Value::Nil;
 }
@@ -150,9 +143,8 @@ Gura_DeclareMethod(wx_KeyEvent, GetUnicodeKey)
 
 Gura_ImplementMethod(wx_KeyEvent, GetUnicodeKey)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUnicodeKey();
 	return Value::Nil;
 }
@@ -164,9 +156,8 @@ Gura_DeclareMethod(wx_KeyEvent, GetX)
 
 Gura_ImplementMethod(wx_KeyEvent, GetX)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
@@ -178,9 +169,8 @@ Gura_DeclareMethod(wx_KeyEvent, GetY)
 
 Gura_ImplementMethod(wx_KeyEvent, GetY)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
@@ -192,9 +182,8 @@ Gura_DeclareMethod(wx_KeyEvent, DoAllowNextEvent)
 
 Gura_ImplementMethod(wx_KeyEvent, DoAllowNextEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DoAllowNextEvent();
 	return Value::Nil;
 }
@@ -206,9 +195,8 @@ Gura_DeclareMethod(wx_KeyEvent, IsNextEventAllowed)
 
 Gura_ImplementMethod(wx_KeyEvent, IsNextEventAllowed)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsNextEventAllowed();
 	return Value::Nil;
 }

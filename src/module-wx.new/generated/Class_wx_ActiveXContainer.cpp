@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_ActiveXContainer, wxActiveXContainer)
 
 Gura_ImplementMethod(wx_ActiveXContainer, wxActiveXContainer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActiveXContainer *pThis = Object_wx_ActiveXContainer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int iid = arg.GetNumber(1)
 	//int pUnk = arg.GetNumber(2)
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_ActiveXContainer, QueryClientSiteInterface)
 
 Gura_ImplementMethod(wx_ActiveXContainer, QueryClientSiteInterface)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActiveXContainer *pThis = Object_wx_ActiveXContainer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int iid = arg.GetNumber(0)
 	//int _interface = arg.GetNumber(1)
 	//int desc = arg.GetNumber(2)

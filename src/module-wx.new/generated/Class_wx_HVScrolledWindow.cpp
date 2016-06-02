@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HVScrolledWindow, wxHVScrolledWindow)
 
 Gura_ImplementMethod(wx_HVScrolledWindow, wxHVScrolledWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HVScrolledWindow *pThis = Object_wx_HVScrolledWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHVScrolledWindow();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_HVScrolledWindow, wxHVScrolledWindow_1)
 
 Gura_ImplementMethod(wx_HVScrolledWindow, wxHVScrolledWindow_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HVScrolledWindow *pThis = Object_wx_HVScrolledWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_HVScrolledWindow, Create)
 
 Gura_ImplementMethod(wx_HVScrolledWindow, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HVScrolledWindow *pThis = Object_wx_HVScrolledWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)

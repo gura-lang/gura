@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_SocketEvent, wxSocketEvent)
 
 Gura_ImplementMethod(wx_SocketEvent, wxSocketEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->wxSocketEvent();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_SocketEvent, GetClientData)
 
 Gura_ImplementMethod(wx_SocketEvent, GetClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetClientData();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_SocketEvent, GetSocket)
 
 Gura_ImplementMethod(wx_SocketEvent, GetSocket)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSocket();
 	return Value::Nil;
 }
@@ -88,9 +85,8 @@ Gura_DeclareMethod(wx_SocketEvent, GetSocketEvent)
 
 Gura_ImplementMethod(wx_SocketEvent, GetSocketEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSocketEvent();
 	return Value::Nil;
 }

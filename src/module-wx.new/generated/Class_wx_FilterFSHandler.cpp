@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_FilterFSHandler, wxFilterFSHandler)
 
 Gura_ImplementMethod(wx_FilterFSHandler, wxFilterFSHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FilterFSHandler *pThis = Object_wx_FilterFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxFilterFSHandler();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_FilterFSHandler, ~wxFilterFSHandler)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_FilterFSHandler, ~wxFilterFSHandler)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_FilterFSHandler *pThis = Object_wx_FilterFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxFilterFSHandler();
 	return Value::Nil;
 }
 
@@ -71,7 +56,6 @@ Gura_ImplementMethod(wx_FilterFSHandler, ~wxFilterFSHandler)
 Gura_ImplementUserInheritableClass(wx_FilterFSHandler)
 {
 	Gura_AssignMethod(wx_FilterFSHandler, wxFilterFSHandler);
-	Gura_AssignMethod(wx_FilterFSHandler, ~wxFilterFSHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_FilterFSHandler)

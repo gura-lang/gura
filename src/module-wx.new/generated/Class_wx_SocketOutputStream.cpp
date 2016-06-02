@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_SocketOutputStream, wxSocketOutputStream)
 
 Gura_ImplementMethod(wx_SocketOutputStream, wxSocketOutputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SocketOutputStream *pThis = Object_wx_SocketOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int s = arg.GetNumber(0)
 	//pThis->GetEntity()->wxSocketOutputStream();
 	return Value::Nil;

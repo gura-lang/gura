@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_KeyboardState, wxKeyboardState)
 
 Gura_ImplementMethod(wx_KeyboardState, wxKeyboardState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int controlDown = arg.GetNumber(0)
 	//int shiftDown = arg.GetNumber(1)
 	//int altDown = arg.GetNumber(2)
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_KeyboardState, GetModifiers)
 
 Gura_ImplementMethod(wx_KeyboardState, GetModifiers)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetModifiers();
 	return Value::Nil;
 }
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_KeyboardState, HasAnyModifiers)
 
 Gura_ImplementMethod(wx_KeyboardState, HasAnyModifiers)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasAnyModifiers();
 	return Value::Nil;
 }
@@ -94,9 +91,8 @@ Gura_DeclareMethod(wx_KeyboardState, HasModifiers)
 
 Gura_ImplementMethod(wx_KeyboardState, HasModifiers)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasModifiers();
 	return Value::Nil;
 }
@@ -108,9 +104,8 @@ Gura_DeclareMethod(wx_KeyboardState, ControlDown)
 
 Gura_ImplementMethod(wx_KeyboardState, ControlDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ControlDown();
 	return Value::Nil;
 }
@@ -122,9 +117,8 @@ Gura_DeclareMethod(wx_KeyboardState, RawControlDown)
 
 Gura_ImplementMethod(wx_KeyboardState, RawControlDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RawControlDown();
 	return Value::Nil;
 }
@@ -136,9 +130,8 @@ Gura_DeclareMethod(wx_KeyboardState, ShiftDown)
 
 Gura_ImplementMethod(wx_KeyboardState, ShiftDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ShiftDown();
 	return Value::Nil;
 }
@@ -150,9 +143,8 @@ Gura_DeclareMethod(wx_KeyboardState, MetaDown)
 
 Gura_ImplementMethod(wx_KeyboardState, MetaDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MetaDown();
 	return Value::Nil;
 }
@@ -164,9 +156,8 @@ Gura_DeclareMethod(wx_KeyboardState, AltDown)
 
 Gura_ImplementMethod(wx_KeyboardState, AltDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AltDown();
 	return Value::Nil;
 }
@@ -178,9 +169,8 @@ Gura_DeclareMethod(wx_KeyboardState, CmdDown)
 
 Gura_ImplementMethod(wx_KeyboardState, CmdDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CmdDown();
 	return Value::Nil;
 }
@@ -193,9 +183,8 @@ Gura_DeclareMethod(wx_KeyboardState, SetControlDown)
 
 Gura_ImplementMethod(wx_KeyboardState, SetControlDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int down = arg.GetNumber(0)
 	//pThis->GetEntity()->SetControlDown();
 	return Value::Nil;
@@ -209,9 +198,8 @@ Gura_DeclareMethod(wx_KeyboardState, SetRawControlDown)
 
 Gura_ImplementMethod(wx_KeyboardState, SetRawControlDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int down = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRawControlDown();
 	return Value::Nil;
@@ -225,9 +213,8 @@ Gura_DeclareMethod(wx_KeyboardState, SetShiftDown)
 
 Gura_ImplementMethod(wx_KeyboardState, SetShiftDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int down = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShiftDown();
 	return Value::Nil;
@@ -241,9 +228,8 @@ Gura_DeclareMethod(wx_KeyboardState, SetAltDown)
 
 Gura_ImplementMethod(wx_KeyboardState, SetAltDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int down = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAltDown();
 	return Value::Nil;
@@ -257,9 +243,8 @@ Gura_DeclareMethod(wx_KeyboardState, SetMetaDown)
 
 Gura_ImplementMethod(wx_KeyboardState, SetMetaDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int down = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMetaDown();
 	return Value::Nil;

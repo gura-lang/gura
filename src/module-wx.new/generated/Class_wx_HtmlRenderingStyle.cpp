@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_HtmlRenderingStyle, GetSelectedTextColour)
 
 Gura_ImplementMethod(wx_HtmlRenderingStyle, GetSelectedTextColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingStyle *pThis = Object_wx_HtmlRenderingStyle::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int clr = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSelectedTextColour();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_HtmlRenderingStyle, GetSelectedTextBgColour)
 
 Gura_ImplementMethod(wx_HtmlRenderingStyle, GetSelectedTextBgColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingStyle *pThis = Object_wx_HtmlRenderingStyle::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int clr = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSelectedTextBgColour();
 	return Value::Nil;

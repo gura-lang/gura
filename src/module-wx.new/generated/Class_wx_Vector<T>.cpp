@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Vector<T>, wxVector)
 
 Gura_ImplementMethod(wx_Vector<T>, wxVector)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxVector();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_Vector<T>, wxVector_1)
 
 Gura_ImplementMethod(wx_Vector<T>, wxVector_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//pThis->GetEntity()->wxVector();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_Vector<T>, wxVector_2)
 
 Gura_ImplementMethod(wx_Vector<T>, wxVector_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
 	//pThis->GetEntity()->wxVector();
@@ -94,9 +91,8 @@ Gura_DeclareMethod(wx_Vector<T>, wxVector_3)
 
 Gura_ImplementMethod(wx_Vector<T>, wxVector_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int first = arg.GetNumber(0)
 	//int last = arg.GetNumber(1)
 	//pThis->GetEntity()->wxVector();
@@ -111,25 +107,10 @@ Gura_DeclareMethod(wx_Vector<T>, wxVector_4)
 
 Gura_ImplementMethod(wx_Vector<T>, wxVector_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int c = arg.GetNumber(0)
 	//pThis->GetEntity()->wxVector();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Vector<T>, ~wxVector)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Vector<T>, ~wxVector)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxVector();
 	return Value::Nil;
 }
 
@@ -142,9 +123,8 @@ Gura_DeclareMethod(wx_Vector<T>, assign)
 
 Gura_ImplementMethod(wx_Vector<T>, assign)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int v = arg.GetNumber(1)
 	//pThis->GetEntity()->assign();
@@ -160,9 +140,8 @@ Gura_DeclareMethod(wx_Vector<T>, assign_1)
 
 Gura_ImplementMethod(wx_Vector<T>, assign_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int first = arg.GetNumber(0)
 	//int last = arg.GetNumber(1)
 	//pThis->GetEntity()->assign();
@@ -177,9 +156,8 @@ Gura_DeclareMethod(wx_Vector<T>, at)
 
 Gura_ImplementMethod(wx_Vector<T>, at)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->at();
 	return Value::Nil;
@@ -193,9 +171,8 @@ Gura_DeclareMethod(wx_Vector<T>, at_1)
 
 Gura_ImplementMethod(wx_Vector<T>, at_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->at();
 	return Value::Nil;
@@ -208,9 +185,8 @@ Gura_DeclareMethod(wx_Vector<T>, back)
 
 Gura_ImplementMethod(wx_Vector<T>, back)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->back();
 	return Value::Nil;
 }
@@ -222,9 +198,8 @@ Gura_DeclareMethod(wx_Vector<T>, back_1)
 
 Gura_ImplementMethod(wx_Vector<T>, back_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->back();
 	return Value::Nil;
 }
@@ -236,9 +211,8 @@ Gura_DeclareMethod(wx_Vector<T>, begin)
 
 Gura_ImplementMethod(wx_Vector<T>, begin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->begin();
 	return Value::Nil;
 }
@@ -250,9 +224,8 @@ Gura_DeclareMethod(wx_Vector<T>, begin_1)
 
 Gura_ImplementMethod(wx_Vector<T>, begin_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->begin();
 	return Value::Nil;
 }
@@ -264,9 +237,8 @@ Gura_DeclareMethod(wx_Vector<T>, rbegin)
 
 Gura_ImplementMethod(wx_Vector<T>, rbegin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->rbegin();
 	return Value::Nil;
 }
@@ -278,9 +250,8 @@ Gura_DeclareMethod(wx_Vector<T>, rend)
 
 Gura_ImplementMethod(wx_Vector<T>, rend)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->rend();
 	return Value::Nil;
 }
@@ -292,9 +263,8 @@ Gura_DeclareMethod(wx_Vector<T>, capacity)
 
 Gura_ImplementMethod(wx_Vector<T>, capacity)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->capacity();
 	return Value::Nil;
 }
@@ -306,9 +276,8 @@ Gura_DeclareMethod(wx_Vector<T>, clear)
 
 Gura_ImplementMethod(wx_Vector<T>, clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->clear();
 	return Value::Nil;
 }
@@ -320,9 +289,8 @@ Gura_DeclareMethod(wx_Vector<T>, empty)
 
 Gura_ImplementMethod(wx_Vector<T>, empty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->empty();
 	return Value::Nil;
 }
@@ -334,9 +302,8 @@ Gura_DeclareMethod(wx_Vector<T>, end)
 
 Gura_ImplementMethod(wx_Vector<T>, end)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->end();
 	return Value::Nil;
 }
@@ -348,9 +315,8 @@ Gura_DeclareMethod(wx_Vector<T>, end_1)
 
 Gura_ImplementMethod(wx_Vector<T>, end_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->end();
 	return Value::Nil;
 }
@@ -363,9 +329,8 @@ Gura_DeclareMethod(wx_Vector<T>, erase)
 
 Gura_ImplementMethod(wx_Vector<T>, erase)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int it = arg.GetNumber(0)
 	//pThis->GetEntity()->erase();
 	return Value::Nil;
@@ -380,9 +345,8 @@ Gura_DeclareMethod(wx_Vector<T>, erase_1)
 
 Gura_ImplementMethod(wx_Vector<T>, erase_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int first = arg.GetNumber(0)
 	//int last = arg.GetNumber(1)
 	//pThis->GetEntity()->erase();
@@ -396,9 +360,8 @@ Gura_DeclareMethod(wx_Vector<T>, front)
 
 Gura_ImplementMethod(wx_Vector<T>, front)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->front();
 	return Value::Nil;
 }
@@ -410,9 +373,8 @@ Gura_DeclareMethod(wx_Vector<T>, front_1)
 
 Gura_ImplementMethod(wx_Vector<T>, front_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->front();
 	return Value::Nil;
 }
@@ -426,9 +388,8 @@ Gura_DeclareMethod(wx_Vector<T>, insert)
 
 Gura_ImplementMethod(wx_Vector<T>, insert)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int it = arg.GetNumber(0)
 	//int v = arg.GetNumber(1)
 	//pThis->GetEntity()->insert();
@@ -442,9 +403,8 @@ Gura_DeclareMethod(wx_Vector<T>, pop_back)
 
 Gura_ImplementMethod(wx_Vector<T>, pop_back)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->pop_back();
 	return Value::Nil;
 }
@@ -457,9 +417,8 @@ Gura_DeclareMethod(wx_Vector<T>, push_back)
 
 Gura_ImplementMethod(wx_Vector<T>, push_back)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int v = arg.GetNumber(0)
 	//pThis->GetEntity()->push_back();
 	return Value::Nil;
@@ -473,9 +432,8 @@ Gura_DeclareMethod(wx_Vector<T>, reserve)
 
 Gura_ImplementMethod(wx_Vector<T>, reserve)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->reserve();
 	return Value::Nil;
@@ -489,9 +447,8 @@ Gura_DeclareMethod(wx_Vector<T>, resize)
 
 Gura_ImplementMethod(wx_Vector<T>, resize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->resize();
 	return Value::Nil;
@@ -506,9 +463,8 @@ Gura_DeclareMethod(wx_Vector<T>, resize_1)
 
 Gura_ImplementMethod(wx_Vector<T>, resize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int v = arg.GetNumber(1)
 	//pThis->GetEntity()->resize();
@@ -522,9 +478,8 @@ Gura_DeclareMethod(wx_Vector<T>, size)
 
 Gura_ImplementMethod(wx_Vector<T>, size)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->size();
 	return Value::Nil;
 }
@@ -537,9 +492,8 @@ Gura_DeclareMethod(wx_Vector<T>, swap)
 
 Gura_ImplementMethod(wx_Vector<T>, swap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int v = arg.GetNumber(0)
 	//pThis->GetEntity()->swap();
 	return Value::Nil;
@@ -555,7 +509,6 @@ Gura_ImplementUserInheritableClass(wx_Vector<T>)
 	Gura_AssignMethod(wx_Vector<T>, wxVector_2);
 	Gura_AssignMethod(wx_Vector<T>, wxVector_3);
 	Gura_AssignMethod(wx_Vector<T>, wxVector_4);
-	Gura_AssignMethod(wx_Vector<T>, ~wxVector);
 	Gura_AssignMethod(wx_Vector<T>, assign);
 	Gura_AssignMethod(wx_Vector<T>, assign_1);
 	Gura_AssignMethod(wx_Vector<T>, at);

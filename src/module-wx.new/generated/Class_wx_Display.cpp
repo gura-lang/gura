@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_Display, wxDisplay)
 
 Gura_ImplementMethod(wx_Display, wxDisplay)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//pThis->GetEntity()->wxDisplay();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Display, ~wxDisplay)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Display, ~wxDisplay)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDisplay();
 	return Value::Nil;
 }
 
@@ -75,9 +60,8 @@ Gura_DeclareMethod(wx_Display, ChangeMode)
 
 Gura_ImplementMethod(wx_Display, ChangeMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mode = arg.GetNumber(0)
 	//pThis->GetEntity()->ChangeMode();
 	return Value::Nil;
@@ -90,9 +74,8 @@ Gura_DeclareMethod(wx_Display, GetClientArea)
 
 Gura_ImplementMethod(wx_Display, GetClientArea)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetClientArea();
 	return Value::Nil;
 }
@@ -104,9 +87,8 @@ Gura_DeclareMethod(wx_Display, GetCount)
 
 Gura_ImplementMethod(wx_Display, GetCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
@@ -118,9 +100,8 @@ Gura_DeclareMethod(wx_Display, GetCurrentMode)
 
 Gura_ImplementMethod(wx_Display, GetCurrentMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCurrentMode();
 	return Value::Nil;
 }
@@ -133,9 +114,8 @@ Gura_DeclareMethod(wx_Display, GetFromPoint)
 
 Gura_ImplementMethod(wx_Display, GetFromPoint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFromPoint();
 	return Value::Nil;
@@ -149,9 +129,8 @@ Gura_DeclareMethod(wx_Display, GetFromWindow)
 
 Gura_ImplementMethod(wx_Display, GetFromWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFromWindow();
 	return Value::Nil;
@@ -164,9 +143,8 @@ Gura_DeclareMethod(wx_Display, GetGeometry)
 
 Gura_ImplementMethod(wx_Display, GetGeometry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetGeometry();
 	return Value::Nil;
 }
@@ -179,9 +157,8 @@ Gura_DeclareMethod(wx_Display, GetModes)
 
 Gura_ImplementMethod(wx_Display, GetModes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mode = arg.GetNumber(0)
 	//pThis->GetEntity()->GetModes();
 	return Value::Nil;
@@ -194,9 +171,8 @@ Gura_DeclareMethod(wx_Display, GetName)
 
 Gura_ImplementMethod(wx_Display, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -208,9 +184,8 @@ Gura_DeclareMethod(wx_Display, IsPrimary)
 
 Gura_ImplementMethod(wx_Display, IsPrimary)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsPrimary();
 	return Value::Nil;
 }
@@ -221,7 +196,6 @@ Gura_ImplementMethod(wx_Display, IsPrimary)
 Gura_ImplementUserInheritableClass(wx_Display)
 {
 	Gura_AssignMethod(wx_Display, wxDisplay);
-	Gura_AssignMethod(wx_Display, ~wxDisplay);
 	Gura_AssignMethod(wx_Display, ChangeMode);
 	Gura_AssignMethod(wx_Display, GetClientArea);
 	Gura_AssignMethod(wx_Display, GetCount);

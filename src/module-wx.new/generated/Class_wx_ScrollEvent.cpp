@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_ScrollEvent, wxScrollEvent)
 
 Gura_ImplementMethod(wx_ScrollEvent, wxScrollEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_ScrollEvent, GetOrientation)
 
 Gura_ImplementMethod(wx_ScrollEvent, GetOrientation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOrientation();
 	return Value::Nil;
 }
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_ScrollEvent, GetPosition)
 
 Gura_ImplementMethod(wx_ScrollEvent, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_ScrollEvent, SetOrientation)
 
 Gura_ImplementMethod(wx_ScrollEvent, SetOrientation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOrientation();
 	return Value::Nil;
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_ScrollEvent, SetPosition)
 
 Gura_ImplementMethod(wx_ScrollEvent, SetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;

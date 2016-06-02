@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_BoxSizer, wxBoxSizer)
 
 Gura_ImplementMethod(wx_BoxSizer, wxBoxSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
 	//pThis->GetEntity()->wxBoxSizer();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_BoxSizer, AddSpacer)
 
 Gura_ImplementMethod(wx_BoxSizer, AddSpacer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//pThis->GetEntity()->AddSpacer();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_BoxSizer, CalcMin)
 
 Gura_ImplementMethod(wx_BoxSizer, CalcMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CalcMin();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_BoxSizer, GetOrientation)
 
 Gura_ImplementMethod(wx_BoxSizer, GetOrientation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOrientation();
 	return Value::Nil;
 }
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_BoxSizer, SetOrientation)
 
 Gura_ImplementMethod(wx_BoxSizer, SetOrientation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOrientation();
 	return Value::Nil;
@@ -120,9 +115,8 @@ Gura_DeclareMethod(wx_BoxSizer, RecalcSizes)
 
 Gura_ImplementMethod(wx_BoxSizer, RecalcSizes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RecalcSizes();
 	return Value::Nil;
 }

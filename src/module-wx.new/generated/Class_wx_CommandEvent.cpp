@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_CommandEvent, wxCommandEvent)
 
 Gura_ImplementMethod(wx_CommandEvent, wxCommandEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandEventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxCommandEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_CommandEvent, GetClientData)
 
 Gura_ImplementMethod(wx_CommandEvent, GetClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetClientData();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_CommandEvent, GetClientObject)
 
 Gura_ImplementMethod(wx_CommandEvent, GetClientObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetClientObject();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_CommandEvent, GetExtraLong)
 
 Gura_ImplementMethod(wx_CommandEvent, GetExtraLong)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetExtraLong();
 	return Value::Nil;
 }
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_CommandEvent, GetInt)
 
 Gura_ImplementMethod(wx_CommandEvent, GetInt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetInt();
 	return Value::Nil;
 }
@@ -118,9 +113,8 @@ Gura_DeclareMethod(wx_CommandEvent, GetSelection)
 
 Gura_ImplementMethod(wx_CommandEvent, GetSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
@@ -132,9 +126,8 @@ Gura_DeclareMethod(wx_CommandEvent, GetString)
 
 Gura_ImplementMethod(wx_CommandEvent, GetString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetString();
 	return Value::Nil;
 }
@@ -146,9 +139,8 @@ Gura_DeclareMethod(wx_CommandEvent, IsChecked)
 
 Gura_ImplementMethod(wx_CommandEvent, IsChecked)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsChecked();
 	return Value::Nil;
 }
@@ -160,9 +152,8 @@ Gura_DeclareMethod(wx_CommandEvent, IsSelection)
 
 Gura_ImplementMethod(wx_CommandEvent, IsSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsSelection();
 	return Value::Nil;
 }
@@ -175,9 +166,8 @@ Gura_DeclareMethod(wx_CommandEvent, SetClientData)
 
 Gura_ImplementMethod(wx_CommandEvent, SetClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int clientData = arg.GetNumber(0)
 	//pThis->GetEntity()->SetClientData();
 	return Value::Nil;
@@ -191,9 +181,8 @@ Gura_DeclareMethod(wx_CommandEvent, SetClientObject)
 
 Gura_ImplementMethod(wx_CommandEvent, SetClientObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int clientObject = arg.GetNumber(0)
 	//pThis->GetEntity()->SetClientObject();
 	return Value::Nil;
@@ -207,9 +196,8 @@ Gura_DeclareMethod(wx_CommandEvent, SetExtraLong)
 
 Gura_ImplementMethod(wx_CommandEvent, SetExtraLong)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int extraLong = arg.GetNumber(0)
 	//pThis->GetEntity()->SetExtraLong();
 	return Value::Nil;
@@ -223,9 +211,8 @@ Gura_DeclareMethod(wx_CommandEvent, SetInt)
 
 Gura_ImplementMethod(wx_CommandEvent, SetInt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int intCommand = arg.GetNumber(0)
 	//pThis->GetEntity()->SetInt();
 	return Value::Nil;
@@ -239,9 +226,8 @@ Gura_DeclareMethod(wx_CommandEvent, SetString)
 
 Gura_ImplementMethod(wx_CommandEvent, SetString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int string = arg.GetNumber(0)
 	//pThis->GetEntity()->SetString();
 	return Value::Nil;

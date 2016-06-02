@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Palette, wxPalette)
 
 Gura_ImplementMethod(wx_Palette, wxPalette)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPalette();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_Palette, wxPalette_1)
 
 Gura_ImplementMethod(wx_Palette, wxPalette_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int palette = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPalette();
 	return Value::Nil;
@@ -78,28 +76,13 @@ Gura_DeclareMethod(wx_Palette, wxPalette_2)
 
 Gura_ImplementMethod(wx_Palette, wxPalette_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int red = arg.GetNumber(1)
 	//int green = arg.GetNumber(2)
 	//int blue = arg.GetNumber(3)
 	//pThis->GetEntity()->wxPalette();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Palette, ~wxPalette)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Palette, ~wxPalette)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPalette();
 	return Value::Nil;
 }
 
@@ -114,9 +97,8 @@ Gura_DeclareMethod(wx_Palette, Create)
 
 Gura_ImplementMethod(wx_Palette, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int red = arg.GetNumber(1)
 	//int green = arg.GetNumber(2)
@@ -132,9 +114,8 @@ Gura_DeclareMethod(wx_Palette, GetColoursCount)
 
 Gura_ImplementMethod(wx_Palette, GetColoursCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColoursCount();
 	return Value::Nil;
 }
@@ -149,9 +130,8 @@ Gura_DeclareMethod(wx_Palette, GetPixel)
 
 Gura_ImplementMethod(wx_Palette, GetPixel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int red = arg.GetNumber(0)
 	//int green = arg.GetNumber(1)
 	//int blue = arg.GetNumber(2)
@@ -170,9 +150,8 @@ Gura_DeclareMethod(wx_Palette, GetRGB)
 
 Gura_ImplementMethod(wx_Palette, GetRGB)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixel = arg.GetNumber(0)
 	//int red = arg.GetNumber(1)
 	//int green = arg.GetNumber(2)
@@ -188,9 +167,8 @@ Gura_DeclareMethod(wx_Palette, IsOk)
 
 Gura_ImplementMethod(wx_Palette, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -203,7 +181,6 @@ Gura_ImplementUserInheritableClass(wx_Palette)
 	Gura_AssignMethod(wx_Palette, wxPalette);
 	Gura_AssignMethod(wx_Palette, wxPalette_1);
 	Gura_AssignMethod(wx_Palette, wxPalette_2);
-	Gura_AssignMethod(wx_Palette, ~wxPalette);
 	Gura_AssignMethod(wx_Palette, Create);
 	Gura_AssignMethod(wx_Palette, GetColoursCount);
 	Gura_AssignMethod(wx_Palette, GetPixel);

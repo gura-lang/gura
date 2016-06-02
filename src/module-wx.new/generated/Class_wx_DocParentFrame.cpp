@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_DocParentFrame, wxDocParentFrame)
 
 Gura_ImplementMethod(wx_DocParentFrame, wxDocParentFrame)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxDocParentFrame();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_DocParentFrame, wxDocParentFrame_1)
 
 Gura_ImplementMethod(wx_DocParentFrame, wxDocParentFrame_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int manager = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
@@ -78,20 +76,6 @@ Gura_ImplementMethod(wx_DocParentFrame, wxDocParentFrame_1)
 	//int style = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
 	//pThis->GetEntity()->wxDocParentFrame();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DocParentFrame, ~wxDocParentFrame)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DocParentFrame, ~wxDocParentFrame)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDocParentFrame();
 	return Value::Nil;
 }
 
@@ -110,9 +94,8 @@ Gura_DeclareMethod(wx_DocParentFrame, Create)
 
 Gura_ImplementMethod(wx_DocParentFrame, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int manager = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
@@ -132,9 +115,8 @@ Gura_DeclareMethod(wx_DocParentFrame, GetDocumentManager)
 
 Gura_ImplementMethod(wx_DocParentFrame, GetDocumentManager)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDocumentManager();
 	return Value::Nil;
 }
@@ -146,7 +128,6 @@ Gura_ImplementUserInheritableClass(wx_DocParentFrame)
 {
 	Gura_AssignMethod(wx_DocParentFrame, wxDocParentFrame);
 	Gura_AssignMethod(wx_DocParentFrame, wxDocParentFrame_1);
-	Gura_AssignMethod(wx_DocParentFrame, ~wxDocParentFrame);
 	Gura_AssignMethod(wx_DocParentFrame, Create);
 	Gura_AssignMethod(wx_DocParentFrame, GetDocumentManager);
 }

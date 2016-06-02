@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, wxRichTextCompositeObject)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, wxRichTextCompositeObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextCompositeObject();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RichTextCompositeObject, ~wxRichTextCompositeObject)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextCompositeObject, ~wxRichTextCompositeObject)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRichTextCompositeObject();
 	return Value::Nil;
 }
 
@@ -81,9 +66,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, HitTest)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, HitTest)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int pt = arg.GetNumber(2)
@@ -108,9 +92,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, FindPosition)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, FindPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int index = arg.GetNumber(2)
@@ -130,9 +113,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, CalculateRange)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, CalculateRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int start = arg.GetNumber(0)
 	//int end = arg.GetNumber(1)
 	//pThis->GetEntity()->CalculateRange();
@@ -147,9 +129,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, DeleteRange)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, DeleteRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteRange();
 	return Value::Nil;
@@ -163,9 +144,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, GetTextForRange)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, GetTextForRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//pThis->GetEntity()->GetTextForRange();
 	return Value::Nil;
@@ -187,9 +167,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, GetRangeSize)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, GetRangeSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int descent = arg.GetNumber(2)
@@ -211,9 +190,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, Dump)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, Dump)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//pThis->GetEntity()->Dump();
 	return Value::Nil;
@@ -227,9 +205,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, Invalidate)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, Invalidate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int invalidRange = arg.GetNumber(0)
 	//pThis->GetEntity()->Invalidate();
 	return Value::Nil;
@@ -242,9 +219,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, GetChildren)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, GetChildren)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetChildren();
 	return Value::Nil;
 }
@@ -256,9 +232,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, GetChildren_1)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, GetChildren_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetChildren();
 	return Value::Nil;
 }
@@ -270,9 +245,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, GetChildCount)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, GetChildCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetChildCount();
 	return Value::Nil;
 }
@@ -285,9 +259,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, GetChild)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, GetChild)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetChild();
 	return Value::Nil;
@@ -300,9 +273,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, IsComposite)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, IsComposite)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsComposite();
 	return Value::Nil;
 }
@@ -314,9 +286,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, IsAtomic)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, IsAtomic)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsAtomic();
 	return Value::Nil;
 }
@@ -328,9 +299,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, IsEmpty)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, IsEmpty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
@@ -343,9 +313,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, GetChildAtPosition)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, GetChildAtPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->GetChildAtPosition();
 	return Value::Nil;
@@ -359,9 +328,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, Copy)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, Copy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
@@ -375,9 +343,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, AppendChild)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, AppendChild)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int child = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendChild();
 	return Value::Nil;
@@ -392,9 +359,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, InsertChild)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, InsertChild)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int child = arg.GetNumber(0)
 	//int inFrontOf = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertChild();
@@ -410,9 +376,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, RemoveChild)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, RemoveChild)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int child = arg.GetNumber(0)
 	//int deleteChild = arg.GetNumber(1)
 	//pThis->GetEntity()->RemoveChild();
@@ -426,9 +391,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, DeleteChildren)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, DeleteChildren)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DeleteChildren();
 	return Value::Nil;
 }
@@ -442,9 +406,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, Defragment)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, Defragment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int context = arg.GetNumber(0)
 	//int range = arg.GetNumber(1)
 	//pThis->GetEntity()->Defragment();
@@ -459,9 +422,8 @@ Gura_DeclareMethod(wx_RichTextCompositeObject, Move)
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, Move)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->Move();
 	return Value::Nil;
@@ -473,7 +435,6 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, Move)
 Gura_ImplementUserInheritableClass(wx_RichTextCompositeObject)
 {
 	Gura_AssignMethod(wx_RichTextCompositeObject, wxRichTextCompositeObject);
-	Gura_AssignMethod(wx_RichTextCompositeObject, ~wxRichTextCompositeObject);
 	Gura_AssignMethod(wx_RichTextCompositeObject, HitTest);
 	Gura_AssignMethod(wx_RichTextCompositeObject, FindPosition);
 	Gura_AssignMethod(wx_RichTextCompositeObject, CalculateRange);

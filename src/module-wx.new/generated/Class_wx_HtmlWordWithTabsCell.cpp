@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_HtmlWordWithTabsCell, wxHtmlWordWithTabsCell)
 
 Gura_ImplementMethod(wx_HtmlWordWithTabsCell, wxHtmlWordWithTabsCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWordWithTabsCell *pThis = Object_wx_HtmlWordWithTabsCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int word = arg.GetNumber(0)
 	//int wordOrig = arg.GetNumber(1)
 	//int linepos = arg.GetNumber(2)

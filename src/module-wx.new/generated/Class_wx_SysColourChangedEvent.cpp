@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_SysColourChangedEvent, wxSysColourChangedEvent)
 
 Gura_ImplementMethod(wx_SysColourChangedEvent, wxSysColourChangedEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SysColourChangedEvent *pThis = Object_wx_SysColourChangedEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSysColourChangedEvent();
 	return Value::Nil;
 }

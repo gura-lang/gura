@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_RibbonArtProvider, wxRibbonArtProvider)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, wxRibbonArtProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRibbonArtProvider();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RibbonArtProvider, ~wxRibbonArtProvider)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RibbonArtProvider, ~wxRibbonArtProvider)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRibbonArtProvider();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, Clone)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -87,9 +71,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, SetFlags)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, SetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
@@ -102,9 +85,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetFlags)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
@@ -117,9 +99,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetMetric)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetMetric)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetMetric();
 	return Value::Nil;
@@ -134,9 +115,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, SetMetric)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, SetMetric)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int new_val = arg.GetNumber(1)
 	//pThis->GetEntity()->SetMetric();
@@ -152,9 +132,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, SetFont)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, SetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int font = arg.GetNumber(1)
 	//pThis->GetEntity()->SetFont();
@@ -169,9 +148,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetFont)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFont();
 	return Value::Nil;
@@ -185,9 +163,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetColour)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColour();
 	return Value::Nil;
@@ -202,9 +179,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, SetColour)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int colour = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColour();
@@ -219,9 +195,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetColor)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetColor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColor();
 	return Value::Nil;
@@ -236,9 +211,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, SetColor)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, SetColor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int color = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColor();
@@ -255,9 +229,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetColourScheme)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetColourScheme)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int primary = arg.GetNumber(0)
 	//int secondary = arg.GetNumber(1)
 	//int tertiary = arg.GetNumber(2)
@@ -275,9 +248,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, SetColourScheme)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, SetColourScheme)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int primary = arg.GetNumber(0)
 	//int secondary = arg.GetNumber(1)
 	//int tertiary = arg.GetNumber(2)
@@ -295,9 +267,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawTabCtrlBackground)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawTabCtrlBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -315,9 +286,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawTab)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawTab)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int tab = arg.GetNumber(2)
@@ -336,9 +306,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawTabSeparator)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawTabSeparator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -357,9 +326,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawPageBackground)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawPageBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -378,9 +346,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawScrollButton)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawScrollButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -399,9 +366,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawPanelBackground)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawPanelBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -419,9 +385,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawGalleryBackground)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawGalleryBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -440,9 +405,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawGalleryItemBackground)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawGalleryItemBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -462,9 +426,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawMinimisedPanel)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawMinimisedPanel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -483,9 +446,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawButtonBarBackground)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawButtonBarBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -508,9 +470,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawButtonBarButton)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawButtonBarButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -533,9 +494,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawToolBarBackground)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawToolBarBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -553,9 +513,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawToolGroupBackground)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawToolGroupBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -576,9 +535,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawTool)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -600,9 +558,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawToggleButton)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawToggleButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -621,9 +578,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, DrawHelpButton)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, DrawHelpButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -646,9 +602,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetBarTabWidth)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetBarTabWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -671,9 +626,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetTabCtrlHeight)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetTabCtrlHeight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int pages = arg.GetNumber(2)
@@ -691,9 +645,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetScrollButtonMinimumSize)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetScrollButtonMinimumSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
@@ -712,9 +665,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetPanelSize)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetPanelSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int client_size = arg.GetNumber(2)
@@ -734,9 +686,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetPanelClientSize)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetPanelClientSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -755,9 +706,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetPanelExtButtonArea)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetPanelExtButtonArea)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -775,9 +725,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetGallerySize)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetGallerySize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int client_size = arg.GetNumber(2)
@@ -799,9 +748,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetGalleryClientSize)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetGalleryClientSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -824,9 +772,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetPageBackgroundRedrawArea)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetPageBackgroundRedrawArea)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int page_old_size = arg.GetNumber(2)
@@ -852,9 +799,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetButtonBarButtonSize)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetButtonBarButtonSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int kind = arg.GetNumber(2)
@@ -880,9 +826,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetMinimisedPanelMinimumSize)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetMinimisedPanelMinimumSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int desired_bitmap_size = arg.GetNumber(2)
@@ -905,9 +850,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetToolSize)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetToolSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int bitmap_size = arg.GetNumber(2)
@@ -927,9 +871,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetBarToggleButtonArea)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetBarToggleButtonArea)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->GetBarToggleButtonArea();
 	return Value::Nil;
@@ -943,9 +886,8 @@ Gura_DeclareMethod(wx_RibbonArtProvider, GetRibbonHelpButtonArea)
 
 Gura_ImplementMethod(wx_RibbonArtProvider, GetRibbonHelpButtonArea)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->GetRibbonHelpButtonArea();
 	return Value::Nil;
@@ -957,7 +899,6 @@ Gura_ImplementMethod(wx_RibbonArtProvider, GetRibbonHelpButtonArea)
 Gura_ImplementUserInheritableClass(wx_RibbonArtProvider)
 {
 	Gura_AssignMethod(wx_RibbonArtProvider, wxRibbonArtProvider);
-	Gura_AssignMethod(wx_RibbonArtProvider, ~wxRibbonArtProvider);
 	Gura_AssignMethod(wx_RibbonArtProvider, Clone);
 	Gura_AssignMethod(wx_RibbonArtProvider, SetFlags);
 	Gura_AssignMethod(wx_RibbonArtProvider, GetFlags);

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, wxSpinCtrlDouble)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, wxSpinCtrlDouble)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSpinCtrlDouble();
 	return Value::Nil;
 }
@@ -69,9 +68,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, wxSpinCtrlDouble_1)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, wxSpinCtrlDouble_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -105,9 +103,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, Create)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -130,9 +127,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, GetDigits)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, GetDigits)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDigits();
 	return Value::Nil;
 }
@@ -144,9 +140,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, GetIncrement)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, GetIncrement)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetIncrement();
 	return Value::Nil;
 }
@@ -158,9 +153,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, GetMax)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, GetMax)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMax();
 	return Value::Nil;
 }
@@ -172,9 +166,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, GetMin)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, GetMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMin();
 	return Value::Nil;
 }
@@ -186,9 +179,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, GetValue)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -201,9 +193,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, SetDigits)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, SetDigits)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int digits = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDigits();
 	return Value::Nil;
@@ -217,9 +208,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, SetIncrement)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, SetIncrement)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int inc = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIncrement();
 	return Value::Nil;
@@ -234,9 +224,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, SetRange)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, SetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int minVal = arg.GetNumber(0)
 	//int maxVal = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRange();
@@ -251,9 +240,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, SetValue)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
@@ -267,9 +255,8 @@ Gura_DeclareMethod(wx_SpinCtrlDouble, SetValue_1)
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, SetValue_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;

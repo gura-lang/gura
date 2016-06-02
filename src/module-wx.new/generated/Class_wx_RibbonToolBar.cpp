@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, wxRibbonToolBar)
 
 Gura_ImplementMethod(wx_RibbonToolBar, wxRibbonToolBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRibbonToolBar();
 	return Value::Nil;
 }
@@ -63,29 +62,14 @@ Gura_DeclareMethod(wx_RibbonToolBar, wxRibbonToolBar_1)
 
 Gura_ImplementMethod(wx_RibbonToolBar, wxRibbonToolBar_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->wxRibbonToolBar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RibbonToolBar, ~wxRibbonToolBar)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RibbonToolBar, ~wxRibbonToolBar)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRibbonToolBar();
 	return Value::Nil;
 }
 
@@ -101,9 +85,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, Create)
 
 Gura_ImplementMethod(wx_RibbonToolBar, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -124,9 +107,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, AddTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//int help_string = arg.GetNumber(2)
@@ -145,9 +127,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddDropdownTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, AddDropdownTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//int help_string = arg.GetNumber(2)
@@ -165,9 +146,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddHybridTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, AddHybridTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//int help_string = arg.GetNumber(2)
@@ -185,9 +165,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddToggleTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, AddToggleTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//int help_string = arg.GetNumber(2)
@@ -208,9 +187,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddTool_1)
 
 Gura_ImplementMethod(wx_RibbonToolBar, AddTool_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//int bitmap_disabled = arg.GetNumber(2)
@@ -228,9 +206,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddSeparator)
 
 Gura_ImplementMethod(wx_RibbonToolBar, AddSeparator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AddSeparator();
 	return Value::Nil;
 }
@@ -247,9 +224,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, InsertTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int tool_id = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -270,9 +246,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertDropdownTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, InsertDropdownTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int tool_id = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -292,9 +267,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertHybridTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, InsertHybridTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int tool_id = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -314,9 +288,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertToggleTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, InsertToggleTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int tool_id = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -339,9 +312,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertTool_1)
 
 Gura_ImplementMethod(wx_RibbonToolBar, InsertTool_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int tool_id = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -361,9 +333,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertSeparator)
 
 Gura_ImplementMethod(wx_RibbonToolBar, InsertSeparator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->InsertSeparator();
 	return Value::Nil;
@@ -376,9 +347,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, ClearTools)
 
 Gura_ImplementMethod(wx_RibbonToolBar, ClearTools)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ClearTools();
 	return Value::Nil;
 }
@@ -391,9 +361,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, DeleteTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, DeleteTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteTool();
 	return Value::Nil;
@@ -407,9 +376,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, DeleteToolByPos)
 
 Gura_ImplementMethod(wx_RibbonToolBar, DeleteToolByPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteToolByPos();
 	return Value::Nil;
@@ -423,9 +391,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, FindById)
 
 Gura_ImplementMethod(wx_RibbonToolBar, FindById)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//pThis->GetEntity()->FindById();
 	return Value::Nil;
@@ -438,9 +405,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, GetToolByPos)
 
 Gura_ImplementMethod(wx_RibbonToolBar, GetToolByPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetToolByPos();
 	return Value::Nil;
 }
@@ -453,9 +419,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, GetToolId)
 
 Gura_ImplementMethod(wx_RibbonToolBar, GetToolId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool = arg.GetNumber(0)
 	//pThis->GetEntity()->GetToolId();
 	return Value::Nil;
@@ -469,9 +434,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, GetToolClientData)
 
 Gura_ImplementMethod(wx_RibbonToolBar, GetToolClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetToolClientData();
 	return Value::Nil;
@@ -485,9 +449,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, GetToolEnabled)
 
 Gura_ImplementMethod(wx_RibbonToolBar, GetToolEnabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetToolEnabled();
 	return Value::Nil;
@@ -501,9 +464,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, GetToolHelpString)
 
 Gura_ImplementMethod(wx_RibbonToolBar, GetToolHelpString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetToolHelpString();
 	return Value::Nil;
@@ -517,9 +479,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, GetToolKind)
 
 Gura_ImplementMethod(wx_RibbonToolBar, GetToolKind)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetToolKind();
 	return Value::Nil;
@@ -533,9 +494,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, GetToolPos)
 
 Gura_ImplementMethod(wx_RibbonToolBar, GetToolPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetToolPos();
 	return Value::Nil;
@@ -549,9 +509,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, GetToolState)
 
 Gura_ImplementMethod(wx_RibbonToolBar, GetToolState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetToolState();
 	return Value::Nil;
@@ -564,9 +523,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, Realize)
 
 Gura_ImplementMethod(wx_RibbonToolBar, Realize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Realize();
 	return Value::Nil;
 }
@@ -580,9 +538,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, SetRows)
 
 Gura_ImplementMethod(wx_RibbonToolBar, SetRows)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int nMin = arg.GetNumber(0)
 	//int nMax = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRows();
@@ -598,9 +555,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, SetToolClientData)
 
 Gura_ImplementMethod(wx_RibbonToolBar, SetToolClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int clientData = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolClientData();
@@ -616,9 +572,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, SetToolDisabledBitmap)
 
 Gura_ImplementMethod(wx_RibbonToolBar, SetToolDisabledBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolDisabledBitmap();
@@ -634,9 +589,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, SetToolHelpString)
 
 Gura_ImplementMethod(wx_RibbonToolBar, SetToolHelpString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int helpString = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolHelpString();
@@ -652,9 +606,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, SetToolNormalBitmap)
 
 Gura_ImplementMethod(wx_RibbonToolBar, SetToolNormalBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolNormalBitmap();
@@ -670,9 +623,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, EnableTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, EnableTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int enable = arg.GetNumber(1)
 	//pThis->GetEntity()->EnableTool();
@@ -688,9 +640,8 @@ Gura_DeclareMethod(wx_RibbonToolBar, ToggleTool)
 
 Gura_ImplementMethod(wx_RibbonToolBar, ToggleTool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int checked = arg.GetNumber(1)
 	//pThis->GetEntity()->ToggleTool();
@@ -704,7 +655,6 @@ Gura_ImplementUserInheritableClass(wx_RibbonToolBar)
 {
 	Gura_AssignMethod(wx_RibbonToolBar, wxRibbonToolBar);
 	Gura_AssignMethod(wx_RibbonToolBar, wxRibbonToolBar_1);
-	Gura_AssignMethod(wx_RibbonToolBar, ~wxRibbonToolBar);
 	Gura_AssignMethod(wx_RibbonToolBar, Create);
 	Gura_AssignMethod(wx_RibbonToolBar, AddTool);
 	Gura_AssignMethod(wx_RibbonToolBar, AddDropdownTool);

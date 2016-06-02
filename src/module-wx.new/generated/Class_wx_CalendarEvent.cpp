@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_CalendarEvent, wxCalendarEvent)
 
 Gura_ImplementMethod(wx_CalendarEvent, wxCalendarEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxCalendarEvent();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_CalendarEvent, wxCalendarEvent_1)
 
 Gura_ImplementMethod(wx_CalendarEvent, wxCalendarEvent_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_CalendarEvent, GetWeekDay)
 
 Gura_ImplementMethod(wx_CalendarEvent, GetWeekDay)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWeekDay();
 	return Value::Nil;
 }
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_CalendarEvent, SetWeekDay)
 
 Gura_ImplementMethod(wx_CalendarEvent, SetWeekDay)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int day = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWeekDay();
 	return Value::Nil;

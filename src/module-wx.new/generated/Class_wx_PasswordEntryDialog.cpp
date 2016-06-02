@@ -50,9 +50,8 @@ Gura_DeclareMethod(wx_PasswordEntryDialog, wxPasswordEntryDialog)
 
 Gura_ImplementMethod(wx_PasswordEntryDialog, wxPasswordEntryDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PasswordEntryDialog *pThis = Object_wx_PasswordEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)

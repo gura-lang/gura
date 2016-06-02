@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_RibbonButtonBarEvent, wxRibbonButtonBarEvent)
 
 Gura_ImplementMethod(wx_RibbonButtonBarEvent, wxRibbonButtonBarEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
 	//int bar = arg.GetNumber(2)
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_RibbonButtonBarEvent, GetBar)
 
 Gura_ImplementMethod(wx_RibbonButtonBarEvent, GetBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBar();
 	return Value::Nil;
 }
@@ -81,9 +79,8 @@ Gura_DeclareMethod(wx_RibbonButtonBarEvent, SetBar)
 
 Gura_ImplementMethod(wx_RibbonButtonBarEvent, SetBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bar = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBar();
 	return Value::Nil;
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_RibbonButtonBarEvent, GetButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBarEvent, GetButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetButton();
 	return Value::Nil;
 }
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_RibbonButtonBarEvent, SetButton)
 
 Gura_ImplementMethod(wx_RibbonButtonBarEvent, SetButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bar = arg.GetNumber(0)
 	//pThis->GetEntity()->SetButton();
 	return Value::Nil;
@@ -127,9 +122,8 @@ Gura_DeclareMethod(wx_RibbonButtonBarEvent, PopupMenu)
 
 Gura_ImplementMethod(wx_RibbonButtonBarEvent, PopupMenu)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int menu = arg.GetNumber(0)
 	//pThis->GetEntity()->PopupMenu();
 	return Value::Nil;

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GridTableMessage, wxGridTableMessage)
 
 Gura_ImplementMethod(wx_GridTableMessage, wxGridTableMessage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGridTableMessage();
 	return Value::Nil;
 }
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_GridTableMessage, wxGridTableMessage_1)
 
 Gura_ImplementMethod(wx_GridTableMessage, wxGridTableMessage_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int table = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int comInt1 = arg.GetNumber(2)
@@ -81,9 +79,8 @@ Gura_DeclareMethod(wx_GridTableMessage, SetTableObject)
 
 Gura_ImplementMethod(wx_GridTableMessage, SetTableObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int table = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTableObject();
 	return Value::Nil;
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_GridTableMessage, GetTableObject)
 
 Gura_ImplementMethod(wx_GridTableMessage, GetTableObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTableObject();
 	return Value::Nil;
 }
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_GridTableMessage, SetId)
 
 Gura_ImplementMethod(wx_GridTableMessage, SetId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->SetId();
 	return Value::Nil;
@@ -126,9 +121,8 @@ Gura_DeclareMethod(wx_GridTableMessage, GetId)
 
 Gura_ImplementMethod(wx_GridTableMessage, GetId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetId();
 	return Value::Nil;
 }
@@ -141,9 +135,8 @@ Gura_DeclareMethod(wx_GridTableMessage, SetCommandInt)
 
 Gura_ImplementMethod(wx_GridTableMessage, SetCommandInt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int comInt1 = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCommandInt();
 	return Value::Nil;
@@ -156,9 +149,8 @@ Gura_DeclareMethod(wx_GridTableMessage, GetCommandInt)
 
 Gura_ImplementMethod(wx_GridTableMessage, GetCommandInt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCommandInt();
 	return Value::Nil;
 }
@@ -171,9 +163,8 @@ Gura_DeclareMethod(wx_GridTableMessage, SetCommandInt2)
 
 Gura_ImplementMethod(wx_GridTableMessage, SetCommandInt2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int comInt2 = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCommandInt2();
 	return Value::Nil;
@@ -186,9 +177,8 @@ Gura_DeclareMethod(wx_GridTableMessage, GetCommandInt2)
 
 Gura_ImplementMethod(wx_GridTableMessage, GetCommandInt2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCommandInt2();
 	return Value::Nil;
 }

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Simplebook, wxSimplebook)
 
 Gura_ImplementMethod(wx_Simplebook, wxSimplebook)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSimplebook();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_Simplebook, wxSimplebook_1)
 
 Gura_ImplementMethod(wx_Simplebook, wxSimplebook_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_Simplebook, Create)
 
 Gura_ImplementMethod(wx_Simplebook, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -112,9 +109,8 @@ Gura_DeclareMethod(wx_Simplebook, SetEffects)
 
 Gura_ImplementMethod(wx_Simplebook, SetEffects)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int showEffect = arg.GetNumber(0)
 	//int hideEffect = arg.GetNumber(1)
 	//pThis->GetEntity()->SetEffects();
@@ -129,9 +125,8 @@ Gura_DeclareMethod(wx_Simplebook, SetEffect)
 
 Gura_ImplementMethod(wx_Simplebook, SetEffect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int effect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEffect();
 	return Value::Nil;
@@ -146,9 +141,8 @@ Gura_DeclareMethod(wx_Simplebook, SetEffectsTimeouts)
 
 Gura_ImplementMethod(wx_Simplebook, SetEffectsTimeouts)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int showTimeout = arg.GetNumber(0)
 	//int hideTimeout = arg.GetNumber(1)
 	//pThis->GetEntity()->SetEffectsTimeouts();
@@ -163,9 +157,8 @@ Gura_DeclareMethod(wx_Simplebook, SetEffectTimeout)
 
 Gura_ImplementMethod(wx_Simplebook, SetEffectTimeout)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int timeout = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEffectTimeout();
 	return Value::Nil;
@@ -179,9 +172,8 @@ Gura_DeclareMethod(wx_Simplebook, ShowNewPage)
 
 Gura_ImplementMethod(wx_Simplebook, ShowNewPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowNewPage();
 	return Value::Nil;

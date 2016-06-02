@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_PreferencesPage, wxPreferencesPage)
 
 Gura_ImplementMethod(wx_PreferencesPage, wxPreferencesPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPreferencesPage();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_PreferencesPage, ~wxPreferencesPage)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PreferencesPage, ~wxPreferencesPage)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPreferencesPage();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_PreferencesPage, GetName)
 
 Gura_ImplementMethod(wx_PreferencesPage, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -86,9 +70,8 @@ Gura_DeclareMethod(wx_PreferencesPage, GetLargeIcon)
 
 Gura_ImplementMethod(wx_PreferencesPage, GetLargeIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLargeIcon();
 	return Value::Nil;
 }
@@ -101,9 +84,8 @@ Gura_DeclareMethod(wx_PreferencesPage, CreateWindow)
 
 Gura_ImplementMethod(wx_PreferencesPage, CreateWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateWindow();
 	return Value::Nil;
@@ -115,7 +97,6 @@ Gura_ImplementMethod(wx_PreferencesPage, CreateWindow)
 Gura_ImplementUserInheritableClass(wx_PreferencesPage)
 {
 	Gura_AssignMethod(wx_PreferencesPage, wxPreferencesPage);
-	Gura_AssignMethod(wx_PreferencesPage, ~wxPreferencesPage);
 	Gura_AssignMethod(wx_PreferencesPage, GetName);
 	Gura_AssignMethod(wx_PreferencesPage, GetLargeIcon);
 	Gura_AssignMethod(wx_PreferencesPage, CreateWindow);

@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_TextUrlEvent, wxTextUrlEvent)
 
 Gura_ImplementMethod(wx_TextUrlEvent, wxTextUrlEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextUrlEvent *pThis = Object_wx_TextUrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winid = arg.GetNumber(0)
 	//int evtMouse = arg.GetNumber(1)
 	//int start = arg.GetNumber(2)
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_TextUrlEvent, wxTextUrlEvent_1)
 
 Gura_ImplementMethod(wx_TextUrlEvent, wxTextUrlEvent_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextUrlEvent *pThis = Object_wx_TextUrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->wxTextUrlEvent();
 	return Value::Nil;
@@ -82,9 +80,8 @@ Gura_DeclareMethod(wx_TextUrlEvent, GetMouseEvent)
 
 Gura_ImplementMethod(wx_TextUrlEvent, GetMouseEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextUrlEvent *pThis = Object_wx_TextUrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMouseEvent();
 	return Value::Nil;
 }
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_TextUrlEvent, GetURLStart)
 
 Gura_ImplementMethod(wx_TextUrlEvent, GetURLStart)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextUrlEvent *pThis = Object_wx_TextUrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetURLStart();
 	return Value::Nil;
 }
@@ -110,9 +106,8 @@ Gura_DeclareMethod(wx_TextUrlEvent, GetURLEnd)
 
 Gura_ImplementMethod(wx_TextUrlEvent, GetURLEnd)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextUrlEvent *pThis = Object_wx_TextUrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetURLEnd();
 	return Value::Nil;
 }
@@ -124,9 +119,8 @@ Gura_DeclareMethod(wx_TextUrlEvent, Clone)
 
 Gura_ImplementMethod(wx_TextUrlEvent, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextUrlEvent *pThis = Object_wx_TextUrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }

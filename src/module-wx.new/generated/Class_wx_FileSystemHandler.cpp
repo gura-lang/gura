@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_FileSystemHandler, wxFileSystemHandler)
 
 Gura_ImplementMethod(wx_FileSystemHandler, wxFileSystemHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxFileSystemHandler();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_FileSystemHandler, CanOpen)
 
 Gura_ImplementMethod(wx_FileSystemHandler, CanOpen)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int location = arg.GetNumber(0)
 	//pThis->GetEntity()->CanOpen();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_FileSystemHandler, FindFirst)
 
 Gura_ImplementMethod(wx_FileSystemHandler, FindFirst)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int wildcard = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->FindFirst();
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_FileSystemHandler, FindNext)
 
 Gura_ImplementMethod(wx_FileSystemHandler, FindNext)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->FindNext();
 	return Value::Nil;
 }
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
 
 Gura_ImplementMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int location = arg.GetNumber(0)
 	//pThis->GetEntity()->GetMimeTypeFromExt();
 	return Value::Nil;
@@ -124,9 +119,8 @@ Gura_DeclareMethod(wx_FileSystemHandler, OpenFile)
 
 Gura_ImplementMethod(wx_FileSystemHandler, OpenFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fs = arg.GetNumber(0)
 	//int location = arg.GetNumber(1)
 	//pThis->GetEntity()->OpenFile();
@@ -141,9 +135,8 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetAnchor)
 
 Gura_ImplementMethod(wx_FileSystemHandler, GetAnchor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int location = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAnchor();
 	return Value::Nil;
@@ -157,9 +150,8 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetLeftLocation)
 
 Gura_ImplementMethod(wx_FileSystemHandler, GetLeftLocation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int location = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLeftLocation();
 	return Value::Nil;
@@ -173,9 +165,8 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetProtocol)
 
 Gura_ImplementMethod(wx_FileSystemHandler, GetProtocol)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int location = arg.GetNumber(0)
 	//pThis->GetEntity()->GetProtocol();
 	return Value::Nil;
@@ -189,9 +180,8 @@ Gura_DeclareMethod(wx_FileSystemHandler, GetRightLocation)
 
 Gura_ImplementMethod(wx_FileSystemHandler, GetRightLocation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int location = arg.GetNumber(0)
 	//pThis->GetEntity()->GetRightLocation();
 	return Value::Nil;

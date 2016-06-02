@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_Document, wxDocument)
 
 Gura_ImplementMethod(wx_Document, wxDocument)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->wxDocument();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Document, ~wxDocument)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Document, ~wxDocument)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDocument();
 	return Value::Nil;
 }
 
@@ -75,9 +60,8 @@ Gura_DeclareMethod(wx_Document, AddView)
 
 Gura_ImplementMethod(wx_Document, AddView)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int view = arg.GetNumber(0)
 	//pThis->GetEntity()->AddView();
 	return Value::Nil;
@@ -90,9 +74,8 @@ Gura_DeclareMethod(wx_Document, AlreadySaved)
 
 Gura_ImplementMethod(wx_Document, AlreadySaved)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AlreadySaved();
 	return Value::Nil;
 }
@@ -104,9 +87,8 @@ Gura_DeclareMethod(wx_Document, Activate)
 
 Gura_ImplementMethod(wx_Document, Activate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Activate();
 	return Value::Nil;
 }
@@ -118,9 +100,8 @@ Gura_DeclareMethod(wx_Document, Close)
 
 Gura_ImplementMethod(wx_Document, Close)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Close();
 	return Value::Nil;
 }
@@ -132,9 +113,8 @@ Gura_DeclareMethod(wx_Document, DeleteAllViews)
 
 Gura_ImplementMethod(wx_Document, DeleteAllViews)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DeleteAllViews();
 	return Value::Nil;
 }
@@ -146,9 +126,8 @@ Gura_DeclareMethod(wx_Document, DeleteContents)
 
 Gura_ImplementMethod(wx_Document, DeleteContents)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DeleteContents();
 	return Value::Nil;
 }
@@ -160,9 +139,8 @@ Gura_DeclareMethod(wx_Document, GetCommandProcessor)
 
 Gura_ImplementMethod(wx_Document, GetCommandProcessor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCommandProcessor();
 	return Value::Nil;
 }
@@ -174,9 +152,8 @@ Gura_DeclareMethod(wx_Document, GetDocumentManager)
 
 Gura_ImplementMethod(wx_Document, GetDocumentManager)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDocumentManager();
 	return Value::Nil;
 }
@@ -188,9 +165,8 @@ Gura_DeclareMethod(wx_Document, GetDocumentName)
 
 Gura_ImplementMethod(wx_Document, GetDocumentName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDocumentName();
 	return Value::Nil;
 }
@@ -202,9 +178,8 @@ Gura_DeclareMethod(wx_Document, GetDocumentSaved)
 
 Gura_ImplementMethod(wx_Document, GetDocumentSaved)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDocumentSaved();
 	return Value::Nil;
 }
@@ -216,9 +191,8 @@ Gura_DeclareMethod(wx_Document, GetDocumentTemplate)
 
 Gura_ImplementMethod(wx_Document, GetDocumentTemplate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDocumentTemplate();
 	return Value::Nil;
 }
@@ -230,9 +204,8 @@ Gura_DeclareMethod(wx_Document, GetDocumentWindow)
 
 Gura_ImplementMethod(wx_Document, GetDocumentWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDocumentWindow();
 	return Value::Nil;
 }
@@ -244,9 +217,8 @@ Gura_DeclareMethod(wx_Document, GetFilename)
 
 Gura_ImplementMethod(wx_Document, GetFilename)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFilename();
 	return Value::Nil;
 }
@@ -258,9 +230,8 @@ Gura_DeclareMethod(wx_Document, GetFirstView)
 
 Gura_ImplementMethod(wx_Document, GetFirstView)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFirstView();
 	return Value::Nil;
 }
@@ -272,9 +243,8 @@ Gura_DeclareMethod(wx_Document, GetTitle)
 
 Gura_ImplementMethod(wx_Document, GetTitle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTitle();
 	return Value::Nil;
 }
@@ -286,9 +256,8 @@ Gura_DeclareMethod(wx_Document, GetUserReadableName)
 
 Gura_ImplementMethod(wx_Document, GetUserReadableName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUserReadableName();
 	return Value::Nil;
 }
@@ -300,9 +269,8 @@ Gura_DeclareMethod(wx_Document, GetViewsVector)
 
 Gura_ImplementMethod(wx_Document, GetViewsVector)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetViewsVector();
 	return Value::Nil;
 }
@@ -314,9 +282,8 @@ Gura_DeclareMethod(wx_Document, GetViews)
 
 Gura_ImplementMethod(wx_Document, GetViews)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetViews();
 	return Value::Nil;
 }
@@ -328,9 +295,8 @@ Gura_DeclareMethod(wx_Document, GetViews_1)
 
 Gura_ImplementMethod(wx_Document, GetViews_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetViews();
 	return Value::Nil;
 }
@@ -342,9 +308,8 @@ Gura_DeclareMethod(wx_Document, IsChildDocument)
 
 Gura_ImplementMethod(wx_Document, IsChildDocument)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsChildDocument();
 	return Value::Nil;
 }
@@ -356,9 +321,8 @@ Gura_DeclareMethod(wx_Document, IsModified)
 
 Gura_ImplementMethod(wx_Document, IsModified)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsModified();
 	return Value::Nil;
 }
@@ -371,9 +335,8 @@ Gura_DeclareMethod(wx_Document, LoadObject)
 
 Gura_ImplementMethod(wx_Document, LoadObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadObject();
 	return Value::Nil;
@@ -387,9 +350,8 @@ Gura_DeclareMethod(wx_Document, LoadObject_1)
 
 Gura_ImplementMethod(wx_Document, LoadObject_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadObject();
 	return Value::Nil;
@@ -403,9 +365,8 @@ Gura_DeclareMethod(wx_Document, Modify)
 
 Gura_ImplementMethod(wx_Document, Modify)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int modify = arg.GetNumber(0)
 	//pThis->GetEntity()->Modify();
 	return Value::Nil;
@@ -418,9 +379,8 @@ Gura_DeclareMethod(wx_Document, OnChangedViewList)
 
 Gura_ImplementMethod(wx_Document, OnChangedViewList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnChangedViewList();
 	return Value::Nil;
 }
@@ -432,9 +392,8 @@ Gura_DeclareMethod(wx_Document, OnCloseDocument)
 
 Gura_ImplementMethod(wx_Document, OnCloseDocument)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnCloseDocument();
 	return Value::Nil;
 }
@@ -448,9 +407,8 @@ Gura_DeclareMethod(wx_Document, OnCreate)
 
 Gura_ImplementMethod(wx_Document, OnCreate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->OnCreate();
@@ -464,9 +422,8 @@ Gura_DeclareMethod(wx_Document, OnCreateCommandProcessor)
 
 Gura_ImplementMethod(wx_Document, OnCreateCommandProcessor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnCreateCommandProcessor();
 	return Value::Nil;
 }
@@ -478,9 +435,8 @@ Gura_DeclareMethod(wx_Document, OnNewDocument)
 
 Gura_ImplementMethod(wx_Document, OnNewDocument)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnNewDocument();
 	return Value::Nil;
 }
@@ -493,9 +449,8 @@ Gura_DeclareMethod(wx_Document, OnOpenDocument)
 
 Gura_ImplementMethod(wx_Document, OnOpenDocument)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//pThis->GetEntity()->OnOpenDocument();
 	return Value::Nil;
@@ -509,9 +464,8 @@ Gura_DeclareMethod(wx_Document, OnSaveDocument)
 
 Gura_ImplementMethod(wx_Document, OnSaveDocument)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//pThis->GetEntity()->OnSaveDocument();
 	return Value::Nil;
@@ -524,9 +478,8 @@ Gura_DeclareMethod(wx_Document, OnSaveModified)
 
 Gura_ImplementMethod(wx_Document, OnSaveModified)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnSaveModified();
 	return Value::Nil;
 }
@@ -539,9 +492,8 @@ Gura_DeclareMethod(wx_Document, RemoveView)
 
 Gura_ImplementMethod(wx_Document, RemoveView)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int view = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveView();
 	return Value::Nil;
@@ -554,9 +506,8 @@ Gura_DeclareMethod(wx_Document, Save)
 
 Gura_ImplementMethod(wx_Document, Save)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Save();
 	return Value::Nil;
 }
@@ -568,9 +519,8 @@ Gura_DeclareMethod(wx_Document, SaveAs)
 
 Gura_ImplementMethod(wx_Document, SaveAs)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->SaveAs();
 	return Value::Nil;
 }
@@ -582,9 +532,8 @@ Gura_DeclareMethod(wx_Document, Revert)
 
 Gura_ImplementMethod(wx_Document, Revert)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Revert();
 	return Value::Nil;
 }
@@ -597,9 +546,8 @@ Gura_DeclareMethod(wx_Document, SaveObject)
 
 Gura_ImplementMethod(wx_Document, SaveObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//pThis->GetEntity()->SaveObject();
 	return Value::Nil;
@@ -613,9 +561,8 @@ Gura_DeclareMethod(wx_Document, SaveObject_1)
 
 Gura_ImplementMethod(wx_Document, SaveObject_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//pThis->GetEntity()->SaveObject();
 	return Value::Nil;
@@ -629,9 +576,8 @@ Gura_DeclareMethod(wx_Document, SetCommandProcessor)
 
 Gura_ImplementMethod(wx_Document, SetCommandProcessor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int processor = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCommandProcessor();
 	return Value::Nil;
@@ -645,9 +591,8 @@ Gura_DeclareMethod(wx_Document, SetDocumentName)
 
 Gura_ImplementMethod(wx_Document, SetDocumentName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDocumentName();
 	return Value::Nil;
@@ -661,9 +606,8 @@ Gura_DeclareMethod(wx_Document, SetDocumentTemplate)
 
 Gura_ImplementMethod(wx_Document, SetDocumentTemplate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int templ = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDocumentTemplate();
 	return Value::Nil;
@@ -677,9 +621,8 @@ Gura_DeclareMethod(wx_Document, SetDocumentSaved)
 
 Gura_ImplementMethod(wx_Document, SetDocumentSaved)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int saved = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDocumentSaved();
 	return Value::Nil;
@@ -694,9 +637,8 @@ Gura_DeclareMethod(wx_Document, SetFilename)
 
 Gura_ImplementMethod(wx_Document, SetFilename)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int notifyViews = arg.GetNumber(1)
 	//pThis->GetEntity()->SetFilename();
@@ -711,9 +653,8 @@ Gura_DeclareMethod(wx_Document, OnChangeFilename)
 
 Gura_ImplementMethod(wx_Document, OnChangeFilename)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int notifyViews = arg.GetNumber(0)
 	//pThis->GetEntity()->OnChangeFilename();
 	return Value::Nil;
@@ -727,9 +668,8 @@ Gura_DeclareMethod(wx_Document, SetTitle)
 
 Gura_ImplementMethod(wx_Document, SetTitle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitle();
 	return Value::Nil;
@@ -744,9 +684,8 @@ Gura_DeclareMethod(wx_Document, UpdateAllViews)
 
 Gura_ImplementMethod(wx_Document, UpdateAllViews)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sender = arg.GetNumber(0)
 	//int hint = arg.GetNumber(1)
 	//pThis->GetEntity()->UpdateAllViews();
@@ -761,9 +700,8 @@ Gura_DeclareMethod(wx_Document, DoSaveDocument)
 
 Gura_ImplementMethod(wx_Document, DoSaveDocument)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//pThis->GetEntity()->DoSaveDocument();
 	return Value::Nil;
@@ -777,9 +715,8 @@ Gura_DeclareMethod(wx_Document, DoOpenDocument)
 
 Gura_ImplementMethod(wx_Document, DoOpenDocument)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//pThis->GetEntity()->DoOpenDocument();
 	return Value::Nil;
@@ -791,7 +728,6 @@ Gura_ImplementMethod(wx_Document, DoOpenDocument)
 Gura_ImplementUserInheritableClass(wx_Document)
 {
 	Gura_AssignMethod(wx_Document, wxDocument);
-	Gura_AssignMethod(wx_Document, ~wxDocument);
 	Gura_AssignMethod(wx_Document, AddView);
 	Gura_AssignMethod(wx_Document, AlreadySaved);
 	Gura_AssignMethod(wx_Document, Activate);

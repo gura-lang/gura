@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_MDIClientWindow, wxMDIClientWindow)
 
 Gura_ImplementMethod(wx_MDIClientWindow, wxMDIClientWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MDIClientWindow *pThis = Object_wx_MDIClientWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxMDIClientWindow();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_MDIClientWindow, CreateClient)
 
 Gura_ImplementMethod(wx_MDIClientWindow, CreateClient)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MDIClientWindow *pThis = Object_wx_MDIClientWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateClient();

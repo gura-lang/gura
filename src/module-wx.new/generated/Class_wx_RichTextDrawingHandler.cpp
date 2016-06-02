@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_RichTextDrawingHandler, wxRichTextDrawingHandler)
 
 Gura_ImplementMethod(wx_RichTextDrawingHandler, wxRichTextDrawingHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextDrawingHandler();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_RichTextDrawingHandler, HasVirtualAttributes)
 
 Gura_ImplementMethod(wx_RichTextDrawingHandler, HasVirtualAttributes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->HasVirtualAttributes();
 	return Value::Nil;
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_RichTextDrawingHandler, GetVirtualAttributes)
 
 Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualAttributes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//int obj = arg.GetNumber(1)
 	//pThis->GetEntity()->GetVirtualAttributes();
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributesCount
 
 Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributesCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->GetVirtualSubobjectAttributesCount();
 	return Value::Nil;
@@ -113,9 +109,8 @@ Gura_DeclareMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributes)
 
 Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//int positions = arg.GetNumber(1)
 	//int attributes = arg.GetNumber(2)
@@ -131,9 +126,8 @@ Gura_DeclareMethod(wx_RichTextDrawingHandler, HasVirtualText)
 
 Gura_ImplementMethod(wx_RichTextDrawingHandler, HasVirtualText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->HasVirtualText();
 	return Value::Nil;
@@ -148,9 +142,8 @@ Gura_DeclareMethod(wx_RichTextDrawingHandler, GetVirtualText)
 
 Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
 	//pThis->GetEntity()->GetVirtualText();
@@ -165,9 +158,8 @@ Gura_DeclareMethod(wx_RichTextDrawingHandler, SetName)
 
 Gura_ImplementMethod(wx_RichTextDrawingHandler, SetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetName();
 	return Value::Nil;
@@ -180,9 +172,8 @@ Gura_DeclareMethod(wx_RichTextDrawingHandler, GetName)
 
 Gura_ImplementMethod(wx_RichTextDrawingHandler, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }

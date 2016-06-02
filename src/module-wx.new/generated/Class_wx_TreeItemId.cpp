@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TreeItemId, wxTreeItemId)
 
 Gura_ImplementMethod(wx_TreeItemId, wxTreeItemId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTreeItemId();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_TreeItemId, IsOk)
 
 Gura_ImplementMethod(wx_TreeItemId, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_TreeItemId, GetID)
 
 Gura_ImplementMethod(wx_TreeItemId, GetID)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetID();
 	return Value::Nil;
 }
@@ -86,9 +83,8 @@ Gura_DeclareMethod(wx_TreeItemId, Unset)
 
 Gura_ImplementMethod(wx_TreeItemId, Unset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Unset();
 	return Value::Nil;
 }

@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, wxIndividualLayoutConstraint)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, wxIndividualLayoutConstraint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxIndividualLayoutConstraint();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_IndividualLayoutConstraint, ~wxIndividualLayoutConstraint)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_IndividualLayoutConstraint, ~wxIndividualLayoutConstraint)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxIndividualLayoutConstraint();
 	return Value::Nil;
 }
 
@@ -77,9 +62,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, Set)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rel = arg.GetNumber(0)
 	//int otherW = arg.GetNumber(1)
 	//int otherE = arg.GetNumber(2)
@@ -98,9 +82,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, LeftOf)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, LeftOf)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sibling = arg.GetNumber(0)
 	//int margin = arg.GetNumber(1)
 	//pThis->GetEntity()->LeftOf();
@@ -116,9 +99,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, RightOf)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, RightOf)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sibling = arg.GetNumber(0)
 	//int margin = arg.GetNumber(1)
 	//pThis->GetEntity()->RightOf();
@@ -134,9 +116,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, Above)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, Above)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sibling = arg.GetNumber(0)
 	//int margin = arg.GetNumber(1)
 	//pThis->GetEntity()->Above();
@@ -152,9 +133,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, Below)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, Below)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sibling = arg.GetNumber(0)
 	//int margin = arg.GetNumber(1)
 	//pThis->GetEntity()->Below();
@@ -171,9 +151,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, SameAs)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, SameAs)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int otherW = arg.GetNumber(0)
 	//int edge = arg.GetNumber(1)
 	//int margin = arg.GetNumber(2)
@@ -191,9 +170,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, PercentOf)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, PercentOf)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int otherW = arg.GetNumber(0)
 	//int wh = arg.GetNumber(1)
 	//int per = arg.GetNumber(2)
@@ -209,9 +187,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, Absolute)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, Absolute)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->Absolute();
 	return Value::Nil;
@@ -224,9 +201,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, Unconstrained)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, Unconstrained)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Unconstrained();
 	return Value::Nil;
 }
@@ -238,9 +214,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, AsIs)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, AsIs)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AsIs();
 	return Value::Nil;
 }
@@ -252,9 +227,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, GetOtherWindow)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, GetOtherWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOtherWindow();
 	return Value::Nil;
 }
@@ -266,9 +240,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, GetMyEdge)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, GetMyEdge)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMyEdge();
 	return Value::Nil;
 }
@@ -281,9 +254,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, SetEdge)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, SetEdge)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int which = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEdge();
 	return Value::Nil;
@@ -297,9 +269,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, SetValue)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int v = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
@@ -312,9 +283,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, GetMargin)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, GetMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMargin();
 	return Value::Nil;
 }
@@ -327,9 +297,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, SetMargin)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, SetMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int m = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMargin();
 	return Value::Nil;
@@ -342,9 +311,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, GetValue)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -356,9 +324,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, GetPercent)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, GetPercent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPercent();
 	return Value::Nil;
 }
@@ -370,9 +337,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, GetOtherEdge)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, GetOtherEdge)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOtherEdge();
 	return Value::Nil;
 }
@@ -384,9 +350,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, GetDone)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, GetDone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDone();
 	return Value::Nil;
 }
@@ -399,9 +364,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, SetDone)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, SetDone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int d = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDone();
 	return Value::Nil;
@@ -414,9 +378,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, GetRelationship)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, GetRelationship)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRelationship();
 	return Value::Nil;
 }
@@ -429,9 +392,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, SetRelationship)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, SetRelationship)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRelationship();
 	return Value::Nil;
@@ -445,9 +407,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, ResetIfWin)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, ResetIfWin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int otherW = arg.GetNumber(0)
 	//pThis->GetEntity()->ResetIfWin();
 	return Value::Nil;
@@ -462,9 +423,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, SatisfyConstraint)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, SatisfyConstraint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int constraints = arg.GetNumber(0)
 	//int win = arg.GetNumber(1)
 	//pThis->GetEntity()->SatisfyConstraint();
@@ -481,9 +441,8 @@ Gura_DeclareMethod(wx_IndividualLayoutConstraint, GetEdge)
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, GetEdge)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int which = arg.GetNumber(0)
 	//int thisWin = arg.GetNumber(1)
 	//int other = arg.GetNumber(2)
@@ -497,7 +456,6 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, GetEdge)
 Gura_ImplementUserInheritableClass(wx_IndividualLayoutConstraint)
 {
 	Gura_AssignMethod(wx_IndividualLayoutConstraint, wxIndividualLayoutConstraint);
-	Gura_AssignMethod(wx_IndividualLayoutConstraint, ~wxIndividualLayoutConstraint);
 	Gura_AssignMethod(wx_IndividualLayoutConstraint, Set);
 	Gura_AssignMethod(wx_IndividualLayoutConstraint, LeftOf);
 	Gura_AssignMethod(wx_IndividualLayoutConstraint, RightOf);

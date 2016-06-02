@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ToggleButton, wxToggleButton)
 
 Gura_ImplementMethod(wx_ToggleButton, wxToggleButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxToggleButton();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_ToggleButton, wxToggleButton_1)
 
 Gura_ImplementMethod(wx_ToggleButton, wxToggleButton_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -78,20 +76,6 @@ Gura_ImplementMethod(wx_ToggleButton, wxToggleButton_1)
 	//int val = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
 	//pThis->GetEntity()->wxToggleButton();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_ToggleButton, ~wxToggleButton)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ToggleButton, ~wxToggleButton)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxToggleButton();
 	return Value::Nil;
 }
 
@@ -110,9 +94,8 @@ Gura_DeclareMethod(wx_ToggleButton, Create)
 
 Gura_ImplementMethod(wx_ToggleButton, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -132,9 +115,8 @@ Gura_DeclareMethod(wx_ToggleButton, GetValue)
 
 Gura_ImplementMethod(wx_ToggleButton, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -147,9 +129,8 @@ Gura_DeclareMethod(wx_ToggleButton, SetValue)
 
 Gura_ImplementMethod(wx_ToggleButton, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int state = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
@@ -162,7 +143,6 @@ Gura_ImplementUserInheritableClass(wx_ToggleButton)
 {
 	Gura_AssignMethod(wx_ToggleButton, wxToggleButton);
 	Gura_AssignMethod(wx_ToggleButton, wxToggleButton_1);
-	Gura_AssignMethod(wx_ToggleButton, ~wxToggleButton);
 	Gura_AssignMethod(wx_ToggleButton, Create);
 	Gura_AssignMethod(wx_ToggleButton, GetValue);
 	Gura_AssignMethod(wx_ToggleButton, SetValue);

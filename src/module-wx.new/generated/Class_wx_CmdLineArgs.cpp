@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_CmdLineArgs, begin)
 
 Gura_ImplementMethod(wx_CmdLineArgs, begin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArgs *pThis = Object_wx_CmdLineArgs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->begin();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_CmdLineArgs, end)
 
 Gura_ImplementMethod(wx_CmdLineArgs, end)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArgs *pThis = Object_wx_CmdLineArgs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->end();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_CmdLineArgs, size)
 
 Gura_ImplementMethod(wx_CmdLineArgs, size)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArgs *pThis = Object_wx_CmdLineArgs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->size();
 	return Value::Nil;
 }

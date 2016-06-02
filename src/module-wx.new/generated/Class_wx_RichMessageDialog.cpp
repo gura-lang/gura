@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_RichMessageDialog, wxRichMessageDialog)
 
 Gura_ImplementMethod(wx_RichMessageDialog, wxRichMessageDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
@@ -68,9 +67,8 @@ Gura_DeclareMethod(wx_RichMessageDialog, ShowCheckBox)
 
 Gura_ImplementMethod(wx_RichMessageDialog, ShowCheckBox)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int checkBoxText = arg.GetNumber(0)
 	//int checked = arg.GetNumber(1)
 	//pThis->GetEntity()->ShowCheckBox();
@@ -84,9 +82,8 @@ Gura_DeclareMethod(wx_RichMessageDialog, GetCheckBoxText)
 
 Gura_ImplementMethod(wx_RichMessageDialog, GetCheckBoxText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCheckBoxText();
 	return Value::Nil;
 }
@@ -99,9 +96,8 @@ Gura_DeclareMethod(wx_RichMessageDialog, ShowDetailedText)
 
 Gura_ImplementMethod(wx_RichMessageDialog, ShowDetailedText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int detailedText = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowDetailedText();
 	return Value::Nil;
@@ -114,9 +110,8 @@ Gura_DeclareMethod(wx_RichMessageDialog, GetDetailedText)
 
 Gura_ImplementMethod(wx_RichMessageDialog, GetDetailedText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDetailedText();
 	return Value::Nil;
 }
@@ -128,9 +123,8 @@ Gura_DeclareMethod(wx_RichMessageDialog, IsCheckBoxChecked)
 
 Gura_ImplementMethod(wx_RichMessageDialog, IsCheckBoxChecked)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsCheckBoxChecked();
 	return Value::Nil;
 }
@@ -142,9 +136,8 @@ Gura_DeclareMethod(wx_RichMessageDialog, ShowModal)
 
 Gura_ImplementMethod(wx_RichMessageDialog, ShowModal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }

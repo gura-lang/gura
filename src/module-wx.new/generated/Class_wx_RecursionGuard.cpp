@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_RecursionGuard, wxRecursionGuard)
 
 Gura_ImplementMethod(wx_RecursionGuard, wxRecursionGuard)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RecursionGuard *pThis = Object_wx_RecursionGuard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRecursionGuard();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RecursionGuard, ~wxRecursionGuard)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RecursionGuard, ~wxRecursionGuard)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RecursionGuard *pThis = Object_wx_RecursionGuard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRecursionGuard();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_RecursionGuard, IsInside)
 
 Gura_ImplementMethod(wx_RecursionGuard, IsInside)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RecursionGuard *pThis = Object_wx_RecursionGuard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsInside();
 	return Value::Nil;
 }
@@ -87,7 +71,6 @@ Gura_ImplementMethod(wx_RecursionGuard, IsInside)
 Gura_ImplementUserInheritableClass(wx_RecursionGuard)
 {
 	Gura_AssignMethod(wx_RecursionGuard, wxRecursionGuard);
-	Gura_AssignMethod(wx_RecursionGuard, ~wxRecursionGuard);
 	Gura_AssignMethod(wx_RecursionGuard, IsInside);
 }
 

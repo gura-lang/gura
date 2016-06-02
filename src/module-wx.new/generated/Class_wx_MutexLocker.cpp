@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_MutexLocker, wxMutexLocker)
 
 Gura_ImplementMethod(wx_MutexLocker, wxMutexLocker)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MutexLocker *pThis = Object_wx_MutexLocker::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mutex = arg.GetNumber(0)
 	//pThis->GetEntity()->wxMutexLocker();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_MutexLocker, ~wxMutexLocker)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_MutexLocker, ~wxMutexLocker)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_MutexLocker *pThis = Object_wx_MutexLocker::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxMutexLocker();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_MutexLocker, IsOk)
 
 Gura_ImplementMethod(wx_MutexLocker, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MutexLocker *pThis = Object_wx_MutexLocker::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -87,7 +71,6 @@ Gura_ImplementMethod(wx_MutexLocker, IsOk)
 Gura_ImplementUserInheritableClass(wx_MutexLocker)
 {
 	Gura_AssignMethod(wx_MutexLocker, wxMutexLocker);
-	Gura_AssignMethod(wx_MutexLocker, ~wxMutexLocker);
 	Gura_AssignMethod(wx_MutexLocker, IsOk);
 }
 

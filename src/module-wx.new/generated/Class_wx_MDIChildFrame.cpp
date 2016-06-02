@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_MDIChildFrame, wxMDIChildFrame)
 
 Gura_ImplementMethod(wx_MDIChildFrame, wxMDIChildFrame)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxMDIChildFrame();
 	return Value::Nil;
 }
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_MDIChildFrame, wxMDIChildFrame_1)
 
 Gura_ImplementMethod(wx_MDIChildFrame, wxMDIChildFrame_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -79,20 +77,6 @@ Gura_ImplementMethod(wx_MDIChildFrame, wxMDIChildFrame_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIChildFrame, ~wxMDIChildFrame)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_MDIChildFrame, ~wxMDIChildFrame)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxMDIChildFrame();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_MDIChildFrame, Activate)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -100,9 +84,8 @@ Gura_DeclareMethod(wx_MDIChildFrame, Activate)
 
 Gura_ImplementMethod(wx_MDIChildFrame, Activate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Activate();
 	return Value::Nil;
 }
@@ -121,9 +104,8 @@ Gura_DeclareMethod(wx_MDIChildFrame, Create)
 
 Gura_ImplementMethod(wx_MDIChildFrame, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -142,9 +124,8 @@ Gura_DeclareMethod(wx_MDIChildFrame, GetMDIParent)
 
 Gura_ImplementMethod(wx_MDIChildFrame, GetMDIParent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMDIParent();
 	return Value::Nil;
 }
@@ -156,9 +137,8 @@ Gura_DeclareMethod(wx_MDIChildFrame, IsAlwaysMaximized)
 
 Gura_ImplementMethod(wx_MDIChildFrame, IsAlwaysMaximized)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsAlwaysMaximized();
 	return Value::Nil;
 }
@@ -171,9 +151,8 @@ Gura_DeclareMethod(wx_MDIChildFrame, Maximize)
 
 Gura_ImplementMethod(wx_MDIChildFrame, Maximize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int maximize = arg.GetNumber(0)
 	//pThis->GetEntity()->Maximize();
 	return Value::Nil;
@@ -186,9 +165,8 @@ Gura_DeclareMethod(wx_MDIChildFrame, Restore)
 
 Gura_ImplementMethod(wx_MDIChildFrame, Restore)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Restore();
 	return Value::Nil;
 }
@@ -200,7 +178,6 @@ Gura_ImplementUserInheritableClass(wx_MDIChildFrame)
 {
 	Gura_AssignMethod(wx_MDIChildFrame, wxMDIChildFrame);
 	Gura_AssignMethod(wx_MDIChildFrame, wxMDIChildFrame_1);
-	Gura_AssignMethod(wx_MDIChildFrame, ~wxMDIChildFrame);
 	Gura_AssignMethod(wx_MDIChildFrame, Activate);
 	Gura_AssignMethod(wx_MDIChildFrame, Create);
 	Gura_AssignMethod(wx_MDIChildFrame, GetMDIParent);

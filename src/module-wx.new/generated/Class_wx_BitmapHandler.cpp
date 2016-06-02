@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_BitmapHandler, wxBitmapHandler)
 
 Gura_ImplementMethod(wx_BitmapHandler, wxBitmapHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxBitmapHandler();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_BitmapHandler, ~wxBitmapHandler)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_BitmapHandler, ~wxBitmapHandler)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxBitmapHandler();
 	return Value::Nil;
 }
 
@@ -78,9 +63,8 @@ Gura_DeclareMethod(wx_BitmapHandler, Create)
 
 Gura_ImplementMethod(wx_BitmapHandler, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
@@ -98,9 +82,8 @@ Gura_DeclareMethod(wx_BitmapHandler, GetExtension)
 
 Gura_ImplementMethod(wx_BitmapHandler, GetExtension)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetExtension();
 	return Value::Nil;
 }
@@ -112,9 +95,8 @@ Gura_DeclareMethod(wx_BitmapHandler, GetName)
 
 Gura_ImplementMethod(wx_BitmapHandler, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -126,9 +108,8 @@ Gura_DeclareMethod(wx_BitmapHandler, GetType)
 
 Gura_ImplementMethod(wx_BitmapHandler, GetType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetType();
 	return Value::Nil;
 }
@@ -145,9 +126,8 @@ Gura_DeclareMethod(wx_BitmapHandler, LoadFile)
 
 Gura_ImplementMethod(wx_BitmapHandler, LoadFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
@@ -168,9 +148,8 @@ Gura_DeclareMethod(wx_BitmapHandler, SaveFile)
 
 Gura_ImplementMethod(wx_BitmapHandler, SaveFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
@@ -187,9 +166,8 @@ Gura_DeclareMethod(wx_BitmapHandler, SetExtension)
 
 Gura_ImplementMethod(wx_BitmapHandler, SetExtension)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int extension = arg.GetNumber(0)
 	//pThis->GetEntity()->SetExtension();
 	return Value::Nil;
@@ -203,9 +181,8 @@ Gura_DeclareMethod(wx_BitmapHandler, SetName)
 
 Gura_ImplementMethod(wx_BitmapHandler, SetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetName();
 	return Value::Nil;
@@ -219,9 +196,8 @@ Gura_DeclareMethod(wx_BitmapHandler, SetType)
 
 Gura_ImplementMethod(wx_BitmapHandler, SetType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//pThis->GetEntity()->SetType();
 	return Value::Nil;
@@ -233,7 +209,6 @@ Gura_ImplementMethod(wx_BitmapHandler, SetType)
 Gura_ImplementUserInheritableClass(wx_BitmapHandler)
 {
 	Gura_AssignMethod(wx_BitmapHandler, wxBitmapHandler);
-	Gura_AssignMethod(wx_BitmapHandler, ~wxBitmapHandler);
 	Gura_AssignMethod(wx_BitmapHandler, Create);
 	Gura_AssignMethod(wx_BitmapHandler, GetExtension);
 	Gura_AssignMethod(wx_BitmapHandler, GetName);

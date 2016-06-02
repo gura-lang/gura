@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_LogFormatter, wxLogFormatter)
 
 Gura_ImplementMethod(wx_LogFormatter, wxLogFormatter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogFormatter *pThis = Object_wx_LogFormatter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxLogFormatter();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_LogFormatter, Format)
 
 Gura_ImplementMethod(wx_LogFormatter, Format)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogFormatter *pThis = Object_wx_LogFormatter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
 	//int msg = arg.GetNumber(1)
 	//int info = arg.GetNumber(2)
@@ -79,9 +77,8 @@ Gura_DeclareMethod(wx_LogFormatter, FormatTime)
 
 Gura_ImplementMethod(wx_LogFormatter, FormatTime)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogFormatter *pThis = Object_wx_LogFormatter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int time = arg.GetNumber(0)
 	//pThis->GetEntity()->FormatTime();
 	return Value::Nil;

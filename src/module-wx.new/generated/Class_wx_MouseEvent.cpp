@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_MouseEvent, wxMouseEvent)
 
 Gura_ImplementMethod(wx_MouseEvent, wxMouseEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mouseEventType = arg.GetNumber(0)
 	//pThis->GetEntity()->wxMouseEvent();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_MouseEvent, Aux1DClick)
 
 Gura_ImplementMethod(wx_MouseEvent, Aux1DClick)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Aux1DClick();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_MouseEvent, Aux1Down)
 
 Gura_ImplementMethod(wx_MouseEvent, Aux1Down)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Aux1Down();
 	return Value::Nil;
 }
@@ -88,9 +85,8 @@ Gura_DeclareMethod(wx_MouseEvent, Aux1Up)
 
 Gura_ImplementMethod(wx_MouseEvent, Aux1Up)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Aux1Up();
 	return Value::Nil;
 }
@@ -102,9 +98,8 @@ Gura_DeclareMethod(wx_MouseEvent, Aux2DClick)
 
 Gura_ImplementMethod(wx_MouseEvent, Aux2DClick)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Aux2DClick();
 	return Value::Nil;
 }
@@ -116,9 +111,8 @@ Gura_DeclareMethod(wx_MouseEvent, Aux2Down)
 
 Gura_ImplementMethod(wx_MouseEvent, Aux2Down)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Aux2Down();
 	return Value::Nil;
 }
@@ -130,9 +124,8 @@ Gura_DeclareMethod(wx_MouseEvent, Aux2Up)
 
 Gura_ImplementMethod(wx_MouseEvent, Aux2Up)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Aux2Up();
 	return Value::Nil;
 }
@@ -145,9 +138,8 @@ Gura_DeclareMethod(wx_MouseEvent, Button)
 
 Gura_ImplementMethod(wx_MouseEvent, Button)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int but = arg.GetNumber(0)
 	//pThis->GetEntity()->Button();
 	return Value::Nil;
@@ -161,9 +153,8 @@ Gura_DeclareMethod(wx_MouseEvent, ButtonDClick)
 
 Gura_ImplementMethod(wx_MouseEvent, ButtonDClick)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int but = arg.GetNumber(0)
 	//pThis->GetEntity()->ButtonDClick();
 	return Value::Nil;
@@ -177,9 +168,8 @@ Gura_DeclareMethod(wx_MouseEvent, ButtonDown)
 
 Gura_ImplementMethod(wx_MouseEvent, ButtonDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int but = arg.GetNumber(0)
 	//pThis->GetEntity()->ButtonDown();
 	return Value::Nil;
@@ -193,9 +183,8 @@ Gura_DeclareMethod(wx_MouseEvent, ButtonUp)
 
 Gura_ImplementMethod(wx_MouseEvent, ButtonUp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int but = arg.GetNumber(0)
 	//pThis->GetEntity()->ButtonUp();
 	return Value::Nil;
@@ -208,9 +197,8 @@ Gura_DeclareMethod(wx_MouseEvent, Dragging)
 
 Gura_ImplementMethod(wx_MouseEvent, Dragging)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Dragging();
 	return Value::Nil;
 }
@@ -222,9 +210,8 @@ Gura_DeclareMethod(wx_MouseEvent, Entering)
 
 Gura_ImplementMethod(wx_MouseEvent, Entering)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Entering();
 	return Value::Nil;
 }
@@ -236,9 +223,8 @@ Gura_DeclareMethod(wx_MouseEvent, GetButton)
 
 Gura_ImplementMethod(wx_MouseEvent, GetButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetButton();
 	return Value::Nil;
 }
@@ -250,9 +236,8 @@ Gura_DeclareMethod(wx_MouseEvent, GetClickCount)
 
 Gura_ImplementMethod(wx_MouseEvent, GetClickCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetClickCount();
 	return Value::Nil;
 }
@@ -264,9 +249,8 @@ Gura_DeclareMethod(wx_MouseEvent, GetLinesPerAction)
 
 Gura_ImplementMethod(wx_MouseEvent, GetLinesPerAction)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLinesPerAction();
 	return Value::Nil;
 }
@@ -278,9 +262,8 @@ Gura_DeclareMethod(wx_MouseEvent, GetColumnsPerAction)
 
 Gura_ImplementMethod(wx_MouseEvent, GetColumnsPerAction)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColumnsPerAction();
 	return Value::Nil;
 }
@@ -293,9 +276,8 @@ Gura_DeclareMethod(wx_MouseEvent, GetLogicalPosition)
 
 Gura_ImplementMethod(wx_MouseEvent, GetLogicalPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLogicalPosition();
 	return Value::Nil;
@@ -308,9 +290,8 @@ Gura_DeclareMethod(wx_MouseEvent, GetMagnification)
 
 Gura_ImplementMethod(wx_MouseEvent, GetMagnification)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMagnification();
 	return Value::Nil;
 }
@@ -322,9 +303,8 @@ Gura_DeclareMethod(wx_MouseEvent, GetWheelDelta)
 
 Gura_ImplementMethod(wx_MouseEvent, GetWheelDelta)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWheelDelta();
 	return Value::Nil;
 }
@@ -336,9 +316,8 @@ Gura_DeclareMethod(wx_MouseEvent, GetWheelRotation)
 
 Gura_ImplementMethod(wx_MouseEvent, GetWheelRotation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWheelRotation();
 	return Value::Nil;
 }
@@ -350,9 +329,8 @@ Gura_DeclareMethod(wx_MouseEvent, GetWheelAxis)
 
 Gura_ImplementMethod(wx_MouseEvent, GetWheelAxis)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWheelAxis();
 	return Value::Nil;
 }
@@ -364,9 +342,8 @@ Gura_DeclareMethod(wx_MouseEvent, IsButton)
 
 Gura_ImplementMethod(wx_MouseEvent, IsButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsButton();
 	return Value::Nil;
 }
@@ -378,9 +355,8 @@ Gura_DeclareMethod(wx_MouseEvent, IsPageScroll)
 
 Gura_ImplementMethod(wx_MouseEvent, IsPageScroll)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsPageScroll();
 	return Value::Nil;
 }
@@ -392,9 +368,8 @@ Gura_DeclareMethod(wx_MouseEvent, Leaving)
 
 Gura_ImplementMethod(wx_MouseEvent, Leaving)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Leaving();
 	return Value::Nil;
 }
@@ -406,9 +381,8 @@ Gura_DeclareMethod(wx_MouseEvent, LeftDClick)
 
 Gura_ImplementMethod(wx_MouseEvent, LeftDClick)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->LeftDClick();
 	return Value::Nil;
 }
@@ -420,9 +394,8 @@ Gura_DeclareMethod(wx_MouseEvent, LeftDown)
 
 Gura_ImplementMethod(wx_MouseEvent, LeftDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->LeftDown();
 	return Value::Nil;
 }
@@ -434,9 +407,8 @@ Gura_DeclareMethod(wx_MouseEvent, LeftUp)
 
 Gura_ImplementMethod(wx_MouseEvent, LeftUp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->LeftUp();
 	return Value::Nil;
 }
@@ -448,9 +420,8 @@ Gura_DeclareMethod(wx_MouseEvent, Magnify)
 
 Gura_ImplementMethod(wx_MouseEvent, Magnify)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Magnify();
 	return Value::Nil;
 }
@@ -462,9 +433,8 @@ Gura_DeclareMethod(wx_MouseEvent, MetaDown)
 
 Gura_ImplementMethod(wx_MouseEvent, MetaDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MetaDown();
 	return Value::Nil;
 }
@@ -476,9 +446,8 @@ Gura_DeclareMethod(wx_MouseEvent, MiddleDClick)
 
 Gura_ImplementMethod(wx_MouseEvent, MiddleDClick)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MiddleDClick();
 	return Value::Nil;
 }
@@ -490,9 +459,8 @@ Gura_DeclareMethod(wx_MouseEvent, MiddleDown)
 
 Gura_ImplementMethod(wx_MouseEvent, MiddleDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MiddleDown();
 	return Value::Nil;
 }
@@ -504,9 +472,8 @@ Gura_DeclareMethod(wx_MouseEvent, MiddleUp)
 
 Gura_ImplementMethod(wx_MouseEvent, MiddleUp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MiddleUp();
 	return Value::Nil;
 }
@@ -518,9 +485,8 @@ Gura_DeclareMethod(wx_MouseEvent, Moving)
 
 Gura_ImplementMethod(wx_MouseEvent, Moving)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Moving();
 	return Value::Nil;
 }
@@ -532,9 +498,8 @@ Gura_DeclareMethod(wx_MouseEvent, RightDClick)
 
 Gura_ImplementMethod(wx_MouseEvent, RightDClick)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RightDClick();
 	return Value::Nil;
 }
@@ -546,9 +511,8 @@ Gura_DeclareMethod(wx_MouseEvent, RightDown)
 
 Gura_ImplementMethod(wx_MouseEvent, RightDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RightDown();
 	return Value::Nil;
 }
@@ -560,9 +524,8 @@ Gura_DeclareMethod(wx_MouseEvent, RightUp)
 
 Gura_ImplementMethod(wx_MouseEvent, RightUp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RightUp();
 	return Value::Nil;
 }

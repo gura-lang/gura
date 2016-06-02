@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_RibbonBarEvent, wxRibbonBarEvent)
 
 Gura_ImplementMethod(wx_RibbonBarEvent, wxRibbonBarEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonBarEvent *pThis = Object_wx_RibbonBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
 	//int page = arg.GetNumber(2)
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_RibbonBarEvent, GetPage)
 
 Gura_ImplementMethod(wx_RibbonBarEvent, GetPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonBarEvent *pThis = Object_wx_RibbonBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPage();
 	return Value::Nil;
 }
@@ -79,9 +77,8 @@ Gura_DeclareMethod(wx_RibbonBarEvent, SetPage)
 
 Gura_ImplementMethod(wx_RibbonBarEvent, SetPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonBarEvent *pThis = Object_wx_RibbonBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPage();
 	return Value::Nil;

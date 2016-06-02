@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, wxTextBoxAttr)
 
 Gura_ImplementMethod(wx_TextBoxAttr, wxTextBoxAttr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTextBoxAttr();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, wxTextBoxAttr_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, wxTextBoxAttr_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//pThis->GetEntity()->wxTextBoxAttr();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, Init)
 
 Gura_ImplementMethod(wx_TextBoxAttr, Init)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Init();
 	return Value::Nil;
 }
@@ -88,9 +85,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, Reset)
 
 Gura_ImplementMethod(wx_TextBoxAttr, Reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, EqPartial)
 
 Gura_ImplementMethod(wx_TextBoxAttr, EqPartial)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//int weakTest = arg.GetNumber(1)
 	//pThis->GetEntity()->EqPartial();
@@ -122,9 +117,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, Apply)
 
 Gura_ImplementMethod(wx_TextBoxAttr, Apply)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//int compareWith = arg.GetNumber(1)
 	//pThis->GetEntity()->Apply();
@@ -141,9 +135,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, CollectCommonAttributes)
 
 Gura_ImplementMethod(wx_TextBoxAttr, CollectCommonAttributes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//int clashingAttr = arg.GetNumber(1)
 	//int absentAttr = arg.GetNumber(2)
@@ -159,9 +152,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, RemoveStyle)
 
 Gura_ImplementMethod(wx_TextBoxAttr, RemoveStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveStyle();
 	return Value::Nil;
@@ -175,9 +167,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetFlags)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
@@ -190,9 +181,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetFlags)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
@@ -205,9 +195,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, HasFlag)
 
 Gura_ImplementMethod(wx_TextBoxAttr, HasFlag)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
 	//pThis->GetEntity()->HasFlag();
 	return Value::Nil;
@@ -221,9 +210,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, RemoveFlag)
 
 Gura_ImplementMethod(wx_TextBoxAttr, RemoveFlag)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveFlag();
 	return Value::Nil;
@@ -237,9 +225,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, AddFlag)
 
 Gura_ImplementMethod(wx_TextBoxAttr, AddFlag)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
 	//pThis->GetEntity()->AddFlag();
 	return Value::Nil;
@@ -252,9 +239,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, IsDefault)
 
 Gura_ImplementMethod(wx_TextBoxAttr, IsDefault)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsDefault();
 	return Value::Nil;
 }
@@ -266,9 +252,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetFloatMode)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetFloatMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFloatMode();
 	return Value::Nil;
 }
@@ -281,9 +266,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetFloatMode)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetFloatMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFloatMode();
 	return Value::Nil;
@@ -296,9 +280,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, HasFloatMode)
 
 Gura_ImplementMethod(wx_TextBoxAttr, HasFloatMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasFloatMode();
 	return Value::Nil;
 }
@@ -310,9 +293,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, IsFloating)
 
 Gura_ImplementMethod(wx_TextBoxAttr, IsFloating)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsFloating();
 	return Value::Nil;
 }
@@ -324,9 +306,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetClearMode)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetClearMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetClearMode();
 	return Value::Nil;
 }
@@ -339,9 +320,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetClearMode)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetClearMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetClearMode();
 	return Value::Nil;
@@ -354,9 +334,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, HasClearMode)
 
 Gura_ImplementMethod(wx_TextBoxAttr, HasClearMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasClearMode();
 	return Value::Nil;
 }
@@ -368,9 +347,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetCollapseBorders)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetCollapseBorders)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCollapseBorders();
 	return Value::Nil;
 }
@@ -383,9 +361,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetCollapseBorders)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetCollapseBorders)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int collapse = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCollapseBorders();
 	return Value::Nil;
@@ -398,9 +375,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, HasCollapseBorders)
 
 Gura_ImplementMethod(wx_TextBoxAttr, HasCollapseBorders)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasCollapseBorders();
 	return Value::Nil;
 }
@@ -412,9 +388,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetWhitespaceMode)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetWhitespaceMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWhitespaceMode();
 	return Value::Nil;
 }
@@ -427,9 +402,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetWhitespaceMode)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetWhitespaceMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int whitespace = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWhitespaceMode();
 	return Value::Nil;
@@ -442,9 +416,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, HasWhitespaceMode)
 
 Gura_ImplementMethod(wx_TextBoxAttr, HasWhitespaceMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasWhitespaceMode();
 	return Value::Nil;
 }
@@ -456,9 +429,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, HasCornerRadius)
 
 Gura_ImplementMethod(wx_TextBoxAttr, HasCornerRadius)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasCornerRadius();
 	return Value::Nil;
 }
@@ -470,9 +442,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetCornerRadius)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetCornerRadius)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCornerRadius();
 	return Value::Nil;
 }
@@ -484,9 +455,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetCornerRadius_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetCornerRadius_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCornerRadius();
 	return Value::Nil;
 }
@@ -499,9 +469,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetCornerRadius)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetCornerRadius)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dim = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCornerRadius();
 	return Value::Nil;
@@ -514,9 +483,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetVerticalAlignment)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetVerticalAlignment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVerticalAlignment();
 	return Value::Nil;
 }
@@ -529,9 +497,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetVerticalAlignment)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetVerticalAlignment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int verticalAlignment = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVerticalAlignment();
 	return Value::Nil;
@@ -544,9 +511,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, HasVerticalAlignment)
 
 Gura_ImplementMethod(wx_TextBoxAttr, HasVerticalAlignment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasVerticalAlignment();
 	return Value::Nil;
 }
@@ -558,9 +524,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetMargins)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetMargins)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMargins();
 	return Value::Nil;
 }
@@ -572,9 +537,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetMargins_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetMargins_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMargins();
 	return Value::Nil;
 }
@@ -586,9 +550,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetLeftMargin)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetLeftMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeftMargin();
 	return Value::Nil;
 }
@@ -600,9 +563,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetLeftMargin_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetLeftMargin_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeftMargin();
 	return Value::Nil;
 }
@@ -614,9 +576,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetRightMargin)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetRightMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRightMargin();
 	return Value::Nil;
 }
@@ -628,9 +589,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetRightMargin_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetRightMargin_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRightMargin();
 	return Value::Nil;
 }
@@ -642,9 +602,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetTopMargin)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetTopMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopMargin();
 	return Value::Nil;
 }
@@ -656,9 +615,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetTopMargin_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetTopMargin_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopMargin();
 	return Value::Nil;
 }
@@ -670,9 +628,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBottomMargin)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBottomMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottomMargin();
 	return Value::Nil;
 }
@@ -684,9 +641,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBottomMargin_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBottomMargin_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottomMargin();
 	return Value::Nil;
 }
@@ -698,9 +654,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetPosition)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -712,9 +667,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetPosition_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetPosition_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -726,9 +680,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetLeft)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetLeft)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeft();
 	return Value::Nil;
 }
@@ -740,9 +693,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetLeft_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetLeft_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeft();
 	return Value::Nil;
 }
@@ -754,9 +706,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetRight)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetRight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRight();
 	return Value::Nil;
 }
@@ -768,9 +719,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetRight_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetRight_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRight();
 	return Value::Nil;
 }
@@ -782,9 +732,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetTop)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetTop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTop();
 	return Value::Nil;
 }
@@ -796,9 +745,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetTop_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetTop_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTop();
 	return Value::Nil;
 }
@@ -810,9 +758,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBottom)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBottom)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottom();
 	return Value::Nil;
 }
@@ -824,9 +771,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBottom_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBottom_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottom();
 	return Value::Nil;
 }
@@ -838,9 +784,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetPadding)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetPadding)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPadding();
 	return Value::Nil;
 }
@@ -852,9 +797,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetPadding_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetPadding_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPadding();
 	return Value::Nil;
 }
@@ -866,9 +810,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetLeftPadding)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetLeftPadding)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeftPadding();
 	return Value::Nil;
 }
@@ -880,9 +823,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetLeftPadding_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetLeftPadding_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeftPadding();
 	return Value::Nil;
 }
@@ -894,9 +836,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetRightPadding)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetRightPadding)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRightPadding();
 	return Value::Nil;
 }
@@ -908,9 +849,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetRightPadding_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetRightPadding_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRightPadding();
 	return Value::Nil;
 }
@@ -922,9 +862,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetTopPadding)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetTopPadding)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopPadding();
 	return Value::Nil;
 }
@@ -936,9 +875,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetTopPadding_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetTopPadding_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopPadding();
 	return Value::Nil;
 }
@@ -950,9 +888,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBottomPadding)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBottomPadding)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottomPadding();
 	return Value::Nil;
 }
@@ -964,9 +901,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBottomPadding_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBottomPadding_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottomPadding();
 	return Value::Nil;
 }
@@ -978,9 +914,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBorder)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBorder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBorder();
 	return Value::Nil;
 }
@@ -992,9 +927,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBorder_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBorder_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBorder();
 	return Value::Nil;
 }
@@ -1006,9 +940,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetLeftBorder)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetLeftBorder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeftBorder();
 	return Value::Nil;
 }
@@ -1020,9 +953,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetLeftBorder_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetLeftBorder_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeftBorder();
 	return Value::Nil;
 }
@@ -1034,9 +966,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetTopBorder)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetTopBorder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopBorder();
 	return Value::Nil;
 }
@@ -1048,9 +979,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetTopBorder_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetTopBorder_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopBorder();
 	return Value::Nil;
 }
@@ -1062,9 +992,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetRightBorder)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetRightBorder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRightBorder();
 	return Value::Nil;
 }
@@ -1076,9 +1005,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetRightBorder_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetRightBorder_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRightBorder();
 	return Value::Nil;
 }
@@ -1090,9 +1018,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBottomBorder)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBottomBorder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottomBorder();
 	return Value::Nil;
 }
@@ -1104,9 +1031,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBottomBorder_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBottomBorder_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottomBorder();
 	return Value::Nil;
 }
@@ -1118,9 +1044,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetOutline)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetOutline)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOutline();
 	return Value::Nil;
 }
@@ -1132,9 +1057,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetOutline_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetOutline_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOutline();
 	return Value::Nil;
 }
@@ -1146,9 +1070,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetLeftOutline)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetLeftOutline)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeftOutline();
 	return Value::Nil;
 }
@@ -1160,9 +1083,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetLeftOutline_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetLeftOutline_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeftOutline();
 	return Value::Nil;
 }
@@ -1174,9 +1096,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetTopOutline)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetTopOutline)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopOutline();
 	return Value::Nil;
 }
@@ -1188,9 +1109,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetTopOutline_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetTopOutline_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopOutline();
 	return Value::Nil;
 }
@@ -1202,9 +1122,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetRightOutline)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetRightOutline)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRightOutline();
 	return Value::Nil;
 }
@@ -1216,9 +1135,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetRightOutline_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetRightOutline_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRightOutline();
 	return Value::Nil;
 }
@@ -1230,9 +1148,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBottomOutline)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBottomOutline)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottomOutline();
 	return Value::Nil;
 }
@@ -1244,9 +1161,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBottomOutline_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBottomOutline_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottomOutline();
 	return Value::Nil;
 }
@@ -1258,9 +1174,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetSize)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -1272,9 +1187,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetSize_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -1286,9 +1200,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetMinSize)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetMinSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMinSize();
 	return Value::Nil;
 }
@@ -1300,9 +1213,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetMinSize_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetMinSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMinSize();
 	return Value::Nil;
 }
@@ -1314,9 +1226,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetMaxSize)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetMaxSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMaxSize();
 	return Value::Nil;
 }
@@ -1328,9 +1239,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetMaxSize_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetMaxSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMaxSize();
 	return Value::Nil;
 }
@@ -1343,9 +1253,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetSize)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sz = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
@@ -1359,9 +1268,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetMinSize)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetMinSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sz = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMinSize();
 	return Value::Nil;
@@ -1375,9 +1283,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetMaxSize)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetMaxSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sz = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMaxSize();
 	return Value::Nil;
@@ -1390,9 +1297,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetWidth)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
@@ -1404,9 +1310,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetWidth_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetWidth_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
@@ -1418,9 +1323,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetHeight)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetHeight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
@@ -1432,9 +1336,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetHeight_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetHeight_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
@@ -1446,9 +1349,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetBoxStyleName)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetBoxStyleName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBoxStyleName();
 	return Value::Nil;
 }
@@ -1461,9 +1363,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, SetBoxStyleName)
 
 Gura_ImplementMethod(wx_TextBoxAttr, SetBoxStyleName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBoxStyleName();
 	return Value::Nil;
@@ -1476,9 +1377,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, HasBoxStyleName)
 
 Gura_ImplementMethod(wx_TextBoxAttr, HasBoxStyleName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasBoxStyleName();
 	return Value::Nil;
 }
@@ -1490,9 +1390,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetShadow)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetShadow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetShadow();
 	return Value::Nil;
 }
@@ -1504,9 +1403,8 @@ Gura_DeclareMethod(wx_TextBoxAttr, GetShadow_1)
 
 Gura_ImplementMethod(wx_TextBoxAttr, GetShadow_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetShadow();
 	return Value::Nil;
 }

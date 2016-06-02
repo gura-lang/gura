@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_BrushList, FindOrCreateBrush)
 
 Gura_ImplementMethod(wx_BrushList, FindOrCreateBrush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BrushList *pThis = Object_wx_BrushList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->FindOrCreateBrush();

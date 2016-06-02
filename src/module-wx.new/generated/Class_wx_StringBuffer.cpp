@@ -46,26 +46,11 @@ Gura_DeclareMethod(wx_StringBuffer, wxStringBuffer)
 
 Gura_ImplementMethod(wx_StringBuffer, wxStringBuffer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringBuffer *pThis = Object_wx_StringBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
 	//pThis->GetEntity()->wxStringBuffer();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_StringBuffer, ~wxStringBuffer)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_StringBuffer, ~wxStringBuffer)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_StringBuffer *pThis = Object_wx_StringBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxStringBuffer();
 	return Value::Nil;
 }
 
@@ -75,7 +60,6 @@ Gura_ImplementMethod(wx_StringBuffer, ~wxStringBuffer)
 Gura_ImplementUserInheritableClass(wx_StringBuffer)
 {
 	Gura_AssignMethod(wx_StringBuffer, wxStringBuffer);
-	Gura_AssignMethod(wx_StringBuffer, ~wxStringBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_StringBuffer)

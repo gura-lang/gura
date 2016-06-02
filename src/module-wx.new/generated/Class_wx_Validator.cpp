@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_Validator, wxValidator)
 
 Gura_ImplementMethod(wx_Validator, wxValidator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxValidator();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Validator, ~wxValidator)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Validator, ~wxValidator)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxValidator();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_Validator, Clone)
 
 Gura_ImplementMethod(wx_Validator, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -86,9 +70,8 @@ Gura_DeclareMethod(wx_Validator, GetWindow)
 
 Gura_ImplementMethod(wx_Validator, GetWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }
@@ -101,9 +84,8 @@ Gura_DeclareMethod(wx_Validator, SuppressBellOnError)
 
 Gura_ImplementMethod(wx_Validator, SuppressBellOnError)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int suppress = arg.GetNumber(0)
 	//pThis->GetEntity()->SuppressBellOnError();
 	return Value::Nil;
@@ -116,9 +98,8 @@ Gura_DeclareMethod(wx_Validator, IsSilent)
 
 Gura_ImplementMethod(wx_Validator, IsSilent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsSilent();
 	return Value::Nil;
 }
@@ -131,9 +112,8 @@ Gura_DeclareMethod(wx_Validator, SetWindow)
 
 Gura_ImplementMethod(wx_Validator, SetWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWindow();
 	return Value::Nil;
@@ -146,9 +126,8 @@ Gura_DeclareMethod(wx_Validator, TransferFromWindow)
 
 Gura_ImplementMethod(wx_Validator, TransferFromWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->TransferFromWindow();
 	return Value::Nil;
 }
@@ -160,9 +139,8 @@ Gura_DeclareMethod(wx_Validator, TransferToWindow)
 
 Gura_ImplementMethod(wx_Validator, TransferToWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->TransferToWindow();
 	return Value::Nil;
 }
@@ -175,9 +153,8 @@ Gura_DeclareMethod(wx_Validator, Validate)
 
 Gura_ImplementMethod(wx_Validator, Validate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->Validate();
 	return Value::Nil;
@@ -189,7 +166,6 @@ Gura_ImplementMethod(wx_Validator, Validate)
 Gura_ImplementUserInheritableClass(wx_Validator)
 {
 	Gura_AssignMethod(wx_Validator, wxValidator);
-	Gura_AssignMethod(wx_Validator, ~wxValidator);
 	Gura_AssignMethod(wx_Validator, Clone);
 	Gura_AssignMethod(wx_Validator, GetWindow);
 	Gura_AssignMethod(wx_Validator, SuppressBellOnError);

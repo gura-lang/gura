@@ -49,9 +49,8 @@ Gura_DeclareMethod(wx_ContextHelpButton, wxContextHelpButton)
 
 Gura_ImplementMethod(wx_ContextHelpButton, wxContextHelpButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ContextHelpButton *pThis = Object_wx_ContextHelpButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_StaticLine, wxStaticLine)
 
 Gura_ImplementMethod(wx_StaticLine, wxStaticLine)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxStaticLine();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_StaticLine, wxStaticLine_1)
 
 Gura_ImplementMethod(wx_StaticLine, wxStaticLine_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_StaticLine, Create)
 
 Gura_ImplementMethod(wx_StaticLine, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -110,9 +107,8 @@ Gura_DeclareMethod(wx_StaticLine, GetDefaultSize)
 
 Gura_ImplementMethod(wx_StaticLine, GetDefaultSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDefaultSize();
 	return Value::Nil;
 }
@@ -124,9 +120,8 @@ Gura_DeclareMethod(wx_StaticLine, IsVertical)
 
 Gura_ImplementMethod(wx_StaticLine, IsVertical)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsVertical();
 	return Value::Nil;
 }

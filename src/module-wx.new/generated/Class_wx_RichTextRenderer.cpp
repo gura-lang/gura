@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_RichTextRenderer, wxRichTextRenderer)
 
 Gura_ImplementMethod(wx_RichTextRenderer, wxRichTextRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRenderer *pThis = Object_wx_RichTextRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRichTextRenderer();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RichTextRenderer, ~wxRichTextRenderer)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextRenderer, ~wxRichTextRenderer)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RichTextRenderer *pThis = Object_wx_RichTextRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRichTextRenderer();
 	return Value::Nil;
 }
 
@@ -76,9 +61,8 @@ Gura_DeclareMethod(wx_RichTextRenderer, DrawStandardBullet)
 
 Gura_ImplementMethod(wx_RichTextRenderer, DrawStandardBullet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRenderer *pThis = Object_wx_RichTextRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int paragraph = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int attr = arg.GetNumber(2)
@@ -99,9 +83,8 @@ Gura_DeclareMethod(wx_RichTextRenderer, DrawTextBullet)
 
 Gura_ImplementMethod(wx_RichTextRenderer, DrawTextBullet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRenderer *pThis = Object_wx_RichTextRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int paragraph = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int attr = arg.GetNumber(2)
@@ -122,9 +105,8 @@ Gura_DeclareMethod(wx_RichTextRenderer, DrawBitmapBullet)
 
 Gura_ImplementMethod(wx_RichTextRenderer, DrawBitmapBullet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRenderer *pThis = Object_wx_RichTextRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int paragraph = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int attr = arg.GetNumber(2)
@@ -141,9 +123,8 @@ Gura_DeclareMethod(wx_RichTextRenderer, EnumerateStandardBulletNames)
 
 Gura_ImplementMethod(wx_RichTextRenderer, EnumerateStandardBulletNames)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRenderer *pThis = Object_wx_RichTextRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bulletNames = arg.GetNumber(0)
 	//pThis->GetEntity()->EnumerateStandardBulletNames();
 	return Value::Nil;
@@ -160,9 +141,8 @@ Gura_DeclareMethod(wx_RichTextRenderer, MeasureBullet)
 
 Gura_ImplementMethod(wx_RichTextRenderer, MeasureBullet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextRenderer *pThis = Object_wx_RichTextRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int paragraph = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int attr = arg.GetNumber(2)
@@ -177,7 +157,6 @@ Gura_ImplementMethod(wx_RichTextRenderer, MeasureBullet)
 Gura_ImplementUserInheritableClass(wx_RichTextRenderer)
 {
 	Gura_AssignMethod(wx_RichTextRenderer, wxRichTextRenderer);
-	Gura_AssignMethod(wx_RichTextRenderer, ~wxRichTextRenderer);
 	Gura_AssignMethod(wx_RichTextRenderer, DrawStandardBullet);
 	Gura_AssignMethod(wx_RichTextRenderer, DrawTextBullet);
 	Gura_AssignMethod(wx_RichTextRenderer, DrawBitmapBullet);

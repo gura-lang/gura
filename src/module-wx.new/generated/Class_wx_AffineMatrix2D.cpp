@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, wxAffineMatrix2D)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, wxAffineMatrix2D)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxAffineMatrix2D();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, Get)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Get)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mat2D = arg.GetNumber(0)
 	//int tr = arg.GetNumber(1)
 	//pThis->GetEntity()->Get();
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, Set)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mat2D = arg.GetNumber(0)
 	//int tr = arg.GetNumber(1)
 	//pThis->GetEntity()->Set();
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, Concat)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Concat)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int t = arg.GetNumber(0)
 	//pThis->GetEntity()->Concat();
 	return Value::Nil;
@@ -110,9 +106,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, Invert)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Invert)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Invert();
 	return Value::Nil;
 }
@@ -124,9 +119,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, IsIdentity)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, IsIdentity)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsIdentity();
 	return Value::Nil;
 }
@@ -139,9 +133,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, IsEqual)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, IsEqual)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int t = arg.GetNumber(0)
 	//pThis->GetEntity()->IsEqual();
 	return Value::Nil;
@@ -156,9 +149,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, Translate)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Translate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dx = arg.GetNumber(0)
 	//int dy = arg.GetNumber(1)
 	//pThis->GetEntity()->Translate();
@@ -174,9 +166,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, Scale)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Scale)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int xScale = arg.GetNumber(0)
 	//int yScale = arg.GetNumber(1)
 	//pThis->GetEntity()->Scale();
@@ -191,9 +182,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, Mirror)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Mirror)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//pThis->GetEntity()->Mirror();
 	return Value::Nil;
@@ -207,9 +197,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, Rotate)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, Rotate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cRadians = arg.GetNumber(0)
 	//pThis->GetEntity()->Rotate();
 	return Value::Nil;
@@ -223,9 +212,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, TransformPoint)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, TransformPoint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int p = arg.GetNumber(0)
 	//pThis->GetEntity()->TransformPoint();
 	return Value::Nil;
@@ -240,9 +228,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, TransformPoint_1)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, TransformPoint_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->TransformPoint();
@@ -257,9 +244,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, TransformDistance)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int p = arg.GetNumber(0)
 	//pThis->GetEntity()->TransformDistance();
 	return Value::Nil;
@@ -274,9 +260,8 @@ Gura_DeclareMethod(wx_AffineMatrix2D, TransformDistance_1)
 
 Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dx = arg.GetNumber(0)
 	//int dy = arg.GetNumber(1)
 	//pThis->GetEntity()->TransformDistance();

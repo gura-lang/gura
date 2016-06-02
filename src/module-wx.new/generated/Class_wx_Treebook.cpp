@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Treebook, wxTreebook)
 
 Gura_ImplementMethod(wx_Treebook, wxTreebook)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTreebook();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_Treebook, wxTreebook_1)
 
 Gura_ImplementMethod(wx_Treebook, wxTreebook_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -74,20 +72,6 @@ Gura_ImplementMethod(wx_Treebook, wxTreebook_1)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
 	//pThis->GetEntity()->wxTreebook();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Treebook, ~wxTreebook)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Treebook, ~wxTreebook)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxTreebook();
 	return Value::Nil;
 }
 
@@ -102,9 +86,8 @@ Gura_DeclareMethod(wx_Treebook, AddPage)
 
 Gura_ImplementMethod(wx_Treebook, AddPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
 	//int bSelect = arg.GetNumber(2)
@@ -124,9 +107,8 @@ Gura_DeclareMethod(wx_Treebook, AddSubPage)
 
 Gura_ImplementMethod(wx_Treebook, AddSubPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
 	//int bSelect = arg.GetNumber(2)
@@ -143,9 +125,8 @@ Gura_DeclareMethod(wx_Treebook, CollapseNode)
 
 Gura_ImplementMethod(wx_Treebook, CollapseNode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pageId = arg.GetNumber(0)
 	//pThis->GetEntity()->CollapseNode();
 	return Value::Nil;
@@ -164,9 +145,8 @@ Gura_DeclareMethod(wx_Treebook, Create)
 
 Gura_ImplementMethod(wx_Treebook, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -185,9 +165,8 @@ Gura_DeclareMethod(wx_Treebook, DeletePage)
 
 Gura_ImplementMethod(wx_Treebook, DeletePage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pagePos = arg.GetNumber(0)
 	//pThis->GetEntity()->DeletePage();
 	return Value::Nil;
@@ -202,9 +181,8 @@ Gura_DeclareMethod(wx_Treebook, ExpandNode)
 
 Gura_ImplementMethod(wx_Treebook, ExpandNode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pageId = arg.GetNumber(0)
 	//int expand = arg.GetNumber(1)
 	//pThis->GetEntity()->ExpandNode();
@@ -219,9 +197,8 @@ Gura_DeclareMethod(wx_Treebook, GetPageParent)
 
 Gura_ImplementMethod(wx_Treebook, GetPageParent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPageParent();
 	return Value::Nil;
@@ -234,9 +211,8 @@ Gura_DeclareMethod(wx_Treebook, GetSelection)
 
 Gura_ImplementMethod(wx_Treebook, GetSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
@@ -253,9 +229,8 @@ Gura_DeclareMethod(wx_Treebook, InsertPage)
 
 Gura_ImplementMethod(wx_Treebook, InsertPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pagePos = arg.GetNumber(0)
 	//int page = arg.GetNumber(1)
 	//int text = arg.GetNumber(2)
@@ -277,9 +252,8 @@ Gura_DeclareMethod(wx_Treebook, InsertSubPage)
 
 Gura_ImplementMethod(wx_Treebook, InsertSubPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pagePos = arg.GetNumber(0)
 	//int page = arg.GetNumber(1)
 	//int text = arg.GetNumber(2)
@@ -297,9 +271,8 @@ Gura_DeclareMethod(wx_Treebook, IsNodeExpanded)
 
 Gura_ImplementMethod(wx_Treebook, IsNodeExpanded)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pageId = arg.GetNumber(0)
 	//pThis->GetEntity()->IsNodeExpanded();
 	return Value::Nil;
@@ -312,7 +285,6 @@ Gura_ImplementUserInheritableClass(wx_Treebook)
 {
 	Gura_AssignMethod(wx_Treebook, wxTreebook);
 	Gura_AssignMethod(wx_Treebook, wxTreebook_1);
-	Gura_AssignMethod(wx_Treebook, ~wxTreebook);
 	Gura_AssignMethod(wx_Treebook, AddPage);
 	Gura_AssignMethod(wx_Treebook, AddSubPage);
 	Gura_AssignMethod(wx_Treebook, CollapseNode);

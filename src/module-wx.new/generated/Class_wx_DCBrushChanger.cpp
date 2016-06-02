@@ -46,26 +46,11 @@ Gura_DeclareMethod(wx_DCBrushChanger, wxDCBrushChanger)
 
 Gura_ImplementMethod(wx_DCBrushChanger, wxDCBrushChanger)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCBrushChanger *pThis = Object_wx_DCBrushChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int brush = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDCBrushChanger();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DCBrushChanger, ~wxDCBrushChanger)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DCBrushChanger, ~wxDCBrushChanger)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DCBrushChanger *pThis = Object_wx_DCBrushChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDCBrushChanger();
 	return Value::Nil;
 }
 
@@ -75,7 +60,6 @@ Gura_ImplementMethod(wx_DCBrushChanger, ~wxDCBrushChanger)
 Gura_ImplementUserInheritableClass(wx_DCBrushChanger)
 {
 	Gura_AssignMethod(wx_DCBrushChanger, wxDCBrushChanger);
-	Gura_AssignMethod(wx_DCBrushChanger, ~wxDCBrushChanger);
 }
 
 Gura_ImplementDescendantCreator(wx_DCBrushChanger)

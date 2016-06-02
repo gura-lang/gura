@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_WindowCreateEvent, wxWindowCreateEvent)
 
 Gura_ImplementMethod(wx_WindowCreateEvent, wxWindowCreateEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowCreateEvent *pThis = Object_wx_WindowCreateEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWindowCreateEvent();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_WindowCreateEvent, GetWindow)
 
 Gura_ImplementMethod(wx_WindowCreateEvent, GetWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowCreateEvent *pThis = Object_wx_WindowCreateEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }

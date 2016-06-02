@@ -175,9 +175,9 @@ public:
 	inline void NotifyGuraObjectDeleted() {
 		if (_pObserver != nullptr) _pObserver->GuraObjectDeleted();
 	}
-	inline bool IsInvalid(Signal &sig) const {
+	inline bool IsInvalid(Environment &env) const {
 		if (_pEntity != nullptr) return false;
-		SetError_InvalidWxObject(sig, "wx${classNameShort}");
+		SetError_InvalidWxObject(env, "wx${classNameShort}");
 		return true;
 	}
 };
@@ -224,9 +224,9 @@ public:
 		InvalidateEntity();
 		return pEntity;
 	}
-	inline bool IsInvalid(Signal &sig) const {
+	inline bool IsInvalid(Environment &env) const {
 		if (_pEntity != nullptr) return false;
-		SetError_InvalidWxObject(sig, "wx${classNameShort}");
+		SetError_InvalidWxObject(env, "wx${classNameShort}");
 		return true;
 	}
 };
@@ -295,19 +295,18 @@ Gura_EndModuleScope(wx)
 '''.template()
 
 tmpl@Method = R'''
-${if (lineSkipFlag) {''}}
+${if (lineSkipFlag) { '' }}
 Gura_DeclareMethod(wx_${classNameShort}, ${funcNameGura})
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	${if (argInfos.isempty()) { nil } else { argInfos:*RenderDeclaration() }}
+	${if (!argInfos.isempty()) { argInfos:*RenderDeclaration() }}
 }
 
 Gura_ImplementMethod(wx_${classNameShort}, ${funcNameGura})
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_${classNameShort} *pThis = Object_wx_${classNameShort}::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	${if (argInfos.isempty()) { nil } else { argInfos:&RenderVariable(0..) }}
+	if (pThis->IsInvalid(env)) return Value::Nil;
+	${if (!argInfos.isempty()) { argInfos:&RenderVariable(0..) }}
 	//pThis->GetEntity()->${funcNameCPP}();
 	return Value::Nil;
 }
@@ -422,8 +421,7 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		this.classInfosOfChild:*UpdateSupportedStat(supportedStat)
 	}
 	AddMethod(pathName:string, lineNo:number, strSrc:string):void = {
-		functionInfo = CreateFunctionInfo(
-				this, this.functionInfosOfMethod, pathName, lineNo, strSrc)
+		CreateFunctionInfo(this, this.functionInfosOfMethod, pathName, lineNo, strSrc)
 	}
 }
 
@@ -538,6 +536,7 @@ CreateFunctionInfo(classInfo:ClassInfo, functionInfos[],
 	} else {
 		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function declaration')
 	}
+	identifier.startswith('~') && return	// ignore destructor
 	funcNameCPP = identifier
 	funcNameGura = identifier
 	if ((functionInfos:*funcNameGura == funcNameGura).or()) {

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, wxRichTextHeaderFooterData)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, wxRichTextHeaderFooterData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRichTextHeaderFooterData();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, wxRichTextHeaderFooterData_1)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, wxRichTextHeaderFooterData_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextHeaderFooterData();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, Clear)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, Copy)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, Copy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetFont)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFont();
 	return Value::Nil;
 }
@@ -118,9 +113,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetFooterMargin)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetFooterMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFooterMargin();
 	return Value::Nil;
 }
@@ -134,9 +128,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetFooterText)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetFooterText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//int location = arg.GetNumber(1)
 	//pThis->GetEntity()->GetFooterText();
@@ -150,9 +143,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetHeaderMargin)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetHeaderMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHeaderMargin();
 	return Value::Nil;
 }
@@ -166,9 +158,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetHeaderText)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetHeaderText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//int location = arg.GetNumber(1)
 	//pThis->GetEntity()->GetHeaderText();
@@ -182,9 +173,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetShowOnFirstPage)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetShowOnFirstPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetShowOnFirstPage();
 	return Value::Nil;
 }
@@ -199,9 +189,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetText)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int headerFooter = arg.GetNumber(0)
 	//int page = arg.GetNumber(1)
 	//int location = arg.GetNumber(2)
@@ -216,9 +205,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetTextColour)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetTextColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTextColour();
 	return Value::Nil;
 }
@@ -230,9 +218,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, Init)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, Init)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Init();
 	return Value::Nil;
 }
@@ -245,9 +232,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetFont)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;
@@ -263,9 +249,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetFooterText)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetFooterText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int page = arg.GetNumber(1)
 	//int location = arg.GetNumber(2)
@@ -283,9 +268,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetHeaderText)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetHeaderText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int page = arg.GetNumber(1)
 	//int location = arg.GetNumber(2)
@@ -302,9 +286,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetMargins)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetMargins)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int headerMargin = arg.GetNumber(0)
 	//int footerMargin = arg.GetNumber(1)
 	//pThis->GetEntity()->SetMargins();
@@ -319,9 +302,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetShowOnFirstPage)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetShowOnFirstPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int showOnFirstPage = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShowOnFirstPage();
 	return Value::Nil;
@@ -338,9 +320,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetText)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int headerFooter = arg.GetNumber(1)
 	//int page = arg.GetNumber(2)
@@ -357,9 +338,8 @@ Gura_DeclareMethod(wx_RichTextHeaderFooterData, SetTextColour)
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, SetTextColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextColour();
 	return Value::Nil;

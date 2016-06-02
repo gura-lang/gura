@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_DropTarget, wxDropTarget)
 
 Gura_ImplementMethod(wx_DropTarget, wxDropTarget)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->wxDropTarget();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DropTarget, ~wxDropTarget)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DropTarget, ~wxDropTarget)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDropTarget();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_DropTarget, GetData)
 
 Gura_ImplementMethod(wx_DropTarget, GetData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
@@ -91,9 +75,8 @@ Gura_DeclareMethod(wx_DropTarget, OnData)
 
 Gura_ImplementMethod(wx_DropTarget, OnData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int defResult = arg.GetNumber(2)
@@ -111,9 +94,8 @@ Gura_DeclareMethod(wx_DropTarget, OnDragOver)
 
 Gura_ImplementMethod(wx_DropTarget, OnDragOver)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int defResult = arg.GetNumber(2)
@@ -130,9 +112,8 @@ Gura_DeclareMethod(wx_DropTarget, OnDrop)
 
 Gura_ImplementMethod(wx_DropTarget, OnDrop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->OnDrop();
@@ -149,9 +130,8 @@ Gura_DeclareMethod(wx_DropTarget, OnEnter)
 
 Gura_ImplementMethod(wx_DropTarget, OnEnter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int defResult = arg.GetNumber(2)
@@ -166,9 +146,8 @@ Gura_DeclareMethod(wx_DropTarget, OnLeave)
 
 Gura_ImplementMethod(wx_DropTarget, OnLeave)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnLeave();
 	return Value::Nil;
 }
@@ -180,9 +159,8 @@ Gura_DeclareMethod(wx_DropTarget, GetDataObject)
 
 Gura_ImplementMethod(wx_DropTarget, GetDataObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDataObject();
 	return Value::Nil;
 }
@@ -195,9 +173,8 @@ Gura_DeclareMethod(wx_DropTarget, SetDataObject)
 
 Gura_ImplementMethod(wx_DropTarget, SetDataObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDataObject();
 	return Value::Nil;
@@ -211,9 +188,8 @@ Gura_DeclareMethod(wx_DropTarget, SetDefaultAction)
 
 Gura_ImplementMethod(wx_DropTarget, SetDefaultAction)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int action = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaultAction();
 	return Value::Nil;
@@ -226,9 +202,8 @@ Gura_DeclareMethod(wx_DropTarget, GetDefaultAction)
 
 Gura_ImplementMethod(wx_DropTarget, GetDefaultAction)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDefaultAction();
 	return Value::Nil;
 }
@@ -239,7 +214,6 @@ Gura_ImplementMethod(wx_DropTarget, GetDefaultAction)
 Gura_ImplementUserInheritableClass(wx_DropTarget)
 {
 	Gura_AssignMethod(wx_DropTarget, wxDropTarget);
-	Gura_AssignMethod(wx_DropTarget, ~wxDropTarget);
 	Gura_AssignMethod(wx_DropTarget, GetData);
 	Gura_AssignMethod(wx_DropTarget, OnData);
 	Gura_AssignMethod(wx_DropTarget, OnDragOver);

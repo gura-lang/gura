@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_HtmlTagsModule, FillHandlersTable)
 
 Gura_ImplementMethod(wx_HtmlTagsModule, FillHandlersTable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlTagsModule *pThis = Object_wx_HtmlTagsModule::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parser = arg.GetNumber(0)
 	//pThis->GetEntity()->FillHandlersTable();
 	return Value::Nil;

@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_PropertyGridPage, wxPropertyGridPage)
 
 Gura_ImplementMethod(wx_PropertyGridPage, wxPropertyGridPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPropertyGridPage();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_PropertyGridPage, ~wxPropertyGridPage)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PropertyGridPage, ~wxPropertyGridPage)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPropertyGridPage();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, Clear)
 
 Gura_ImplementMethod(wx_PropertyGridPage, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -86,9 +70,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, FitColumns)
 
 Gura_ImplementMethod(wx_PropertyGridPage, FitColumns)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->FitColumns();
 	return Value::Nil;
 }
@@ -100,9 +83,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, GetIndex)
 
 Gura_ImplementMethod(wx_PropertyGridPage, GetIndex)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetIndex();
 	return Value::Nil;
 }
@@ -114,9 +96,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, GetRoot)
 
 Gura_ImplementMethod(wx_PropertyGridPage, GetRoot)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRoot();
 	return Value::Nil;
 }
@@ -129,9 +110,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, GetSplitterPosition)
 
 Gura_ImplementMethod(wx_PropertyGridPage, GetSplitterPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSplitterPosition();
 	return Value::Nil;
@@ -144,9 +124,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, GetToolId)
 
 Gura_ImplementMethod(wx_PropertyGridPage, GetToolId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetToolId();
 	return Value::Nil;
 }
@@ -158,9 +137,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, Init)
 
 Gura_ImplementMethod(wx_PropertyGridPage, Init)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Init();
 	return Value::Nil;
 }
@@ -172,9 +150,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, IsHandlingAllEvents)
 
 Gura_ImplementMethod(wx_PropertyGridPage, IsHandlingAllEvents)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsHandlingAllEvents();
 	return Value::Nil;
 }
@@ -186,9 +163,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, OnShow)
 
 Gura_ImplementMethod(wx_PropertyGridPage, OnShow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnShow();
 	return Value::Nil;
 }
@@ -201,9 +177,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, RefreshProperty)
 
 Gura_ImplementMethod(wx_PropertyGridPage, RefreshProperty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int p = arg.GetNumber(0)
 	//pThis->GetEntity()->RefreshProperty();
 	return Value::Nil;
@@ -218,9 +193,8 @@ Gura_DeclareMethod(wx_PropertyGridPage, SetSplitterPosition)
 
 Gura_ImplementMethod(wx_PropertyGridPage, SetSplitterPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int splitterPos = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSplitterPosition();
@@ -233,7 +207,6 @@ Gura_ImplementMethod(wx_PropertyGridPage, SetSplitterPosition)
 Gura_ImplementUserInheritableClass(wx_PropertyGridPage)
 {
 	Gura_AssignMethod(wx_PropertyGridPage, wxPropertyGridPage);
-	Gura_AssignMethod(wx_PropertyGridPage, ~wxPropertyGridPage);
 	Gura_AssignMethod(wx_PropertyGridPage, Clear);
 	Gura_AssignMethod(wx_PropertyGridPage, FitColumns);
 	Gura_AssignMethod(wx_PropertyGridPage, GetIndex);

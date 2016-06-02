@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_SashEvent, wxSashEvent)
 
 Gura_ImplementMethod(wx_SashEvent, wxSashEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int edge = arg.GetNumber(1)
 	//pThis->GetEntity()->wxSashEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_SashEvent, GetDragRect)
 
 Gura_ImplementMethod(wx_SashEvent, GetDragRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDragRect();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_SashEvent, GetDragStatus)
 
 Gura_ImplementMethod(wx_SashEvent, GetDragStatus)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDragStatus();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_SashEvent, GetEdge)
 
 Gura_ImplementMethod(wx_SashEvent, GetEdge)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetEdge();
 	return Value::Nil;
 }
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_SashEvent, SetEdge)
 
 Gura_ImplementMethod(wx_SashEvent, SetEdge)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int edge = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEdge();
 	return Value::Nil;
@@ -121,9 +116,8 @@ Gura_DeclareMethod(wx_SashEvent, SetDragRect)
 
 Gura_ImplementMethod(wx_SashEvent, SetDragRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDragRect();
 	return Value::Nil;
@@ -137,9 +131,8 @@ Gura_DeclareMethod(wx_SashEvent, SetDragStatus)
 
 Gura_ImplementMethod(wx_SashEvent, SetDragStatus)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int status = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDragStatus();
 	return Value::Nil;

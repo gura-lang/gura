@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Wizard, wxWizard)
 
 Gura_ImplementMethod(wx_Wizard, wxWizard)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxWizard();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_Wizard, wxWizard_1)
 
 Gura_ImplementMethod(wx_Wizard, wxWizard_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_Wizard, Create)
 
 Gura_ImplementMethod(wx_Wizard, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -111,9 +108,8 @@ Gura_DeclareMethod(wx_Wizard, FitToPage)
 
 Gura_ImplementMethod(wx_Wizard, FitToPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int firstPage = arg.GetNumber(0)
 	//pThis->GetEntity()->FitToPage();
 	return Value::Nil;
@@ -126,9 +122,8 @@ Gura_DeclareMethod(wx_Wizard, GetBitmap)
 
 Gura_ImplementMethod(wx_Wizard, GetBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
@@ -140,9 +135,8 @@ Gura_DeclareMethod(wx_Wizard, GetBitmapBackgroundColour)
 
 Gura_ImplementMethod(wx_Wizard, GetBitmapBackgroundColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBitmapBackgroundColour();
 	return Value::Nil;
 }
@@ -154,9 +148,8 @@ Gura_DeclareMethod(wx_Wizard, GetBitmapPlacement)
 
 Gura_ImplementMethod(wx_Wizard, GetBitmapPlacement)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBitmapPlacement();
 	return Value::Nil;
 }
@@ -168,9 +161,8 @@ Gura_DeclareMethod(wx_Wizard, GetCurrentPage)
 
 Gura_ImplementMethod(wx_Wizard, GetCurrentPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCurrentPage();
 	return Value::Nil;
 }
@@ -182,9 +174,8 @@ Gura_DeclareMethod(wx_Wizard, GetMinimumBitmapWidth)
 
 Gura_ImplementMethod(wx_Wizard, GetMinimumBitmapWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMinimumBitmapWidth();
 	return Value::Nil;
 }
@@ -196,9 +187,8 @@ Gura_DeclareMethod(wx_Wizard, GetPageAreaSizer)
 
 Gura_ImplementMethod(wx_Wizard, GetPageAreaSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPageAreaSizer();
 	return Value::Nil;
 }
@@ -210,9 +200,8 @@ Gura_DeclareMethod(wx_Wizard, GetPageSize)
 
 Gura_ImplementMethod(wx_Wizard, GetPageSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPageSize();
 	return Value::Nil;
 }
@@ -225,9 +214,8 @@ Gura_DeclareMethod(wx_Wizard, HasNextPage)
 
 Gura_ImplementMethod(wx_Wizard, HasNextPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//pThis->GetEntity()->HasNextPage();
 	return Value::Nil;
@@ -241,9 +229,8 @@ Gura_DeclareMethod(wx_Wizard, HasPrevPage)
 
 Gura_ImplementMethod(wx_Wizard, HasPrevPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//pThis->GetEntity()->HasPrevPage();
 	return Value::Nil;
@@ -257,9 +244,8 @@ Gura_DeclareMethod(wx_Wizard, RunWizard)
 
 Gura_ImplementMethod(wx_Wizard, RunWizard)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int firstPage = arg.GetNumber(0)
 	//pThis->GetEntity()->RunWizard();
 	return Value::Nil;
@@ -273,9 +259,8 @@ Gura_DeclareMethod(wx_Wizard, SetBitmap)
 
 Gura_ImplementMethod(wx_Wizard, SetBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmap();
 	return Value::Nil;
@@ -289,9 +274,8 @@ Gura_DeclareMethod(wx_Wizard, SetBitmapBackgroundColour)
 
 Gura_ImplementMethod(wx_Wizard, SetBitmapBackgroundColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapBackgroundColour();
 	return Value::Nil;
@@ -305,9 +289,8 @@ Gura_DeclareMethod(wx_Wizard, SetBitmapPlacement)
 
 Gura_ImplementMethod(wx_Wizard, SetBitmapPlacement)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int placement = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapPlacement();
 	return Value::Nil;
@@ -321,9 +304,8 @@ Gura_DeclareMethod(wx_Wizard, SetBorder)
 
 Gura_ImplementMethod(wx_Wizard, SetBorder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int border = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBorder();
 	return Value::Nil;
@@ -337,9 +319,8 @@ Gura_DeclareMethod(wx_Wizard, SetMinimumBitmapWidth)
 
 Gura_ImplementMethod(wx_Wizard, SetMinimumBitmapWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMinimumBitmapWidth();
 	return Value::Nil;
@@ -353,9 +334,8 @@ Gura_DeclareMethod(wx_Wizard, SetPageSize)
 
 Gura_ImplementMethod(wx_Wizard, SetPageSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sizePage = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPageSize();
 	return Value::Nil;

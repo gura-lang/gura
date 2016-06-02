@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_WCharBuffer, wxWCharBuffer)
 
 Gura_ImplementMethod(wx_WCharBuffer, wxWCharBuffer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WCharBuffer *pThis = Object_wx_WCharBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buf = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWCharBuffer();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_WCharBuffer, wxWCharBuffer_1)
 
 Gura_ImplementMethod(wx_WCharBuffer, wxWCharBuffer_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WCharBuffer *pThis = Object_wx_WCharBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buf = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWCharBuffer();
 	return Value::Nil;
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_WCharBuffer, wxWCharBuffer_2)
 
 Gura_ImplementMethod(wx_WCharBuffer, wxWCharBuffer_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WCharBuffer *pThis = Object_wx_WCharBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWCharBuffer();
 	return Value::Nil;
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_WCharBuffer, wxWCharBuffer_3)
 
 Gura_ImplementMethod(wx_WCharBuffer, wxWCharBuffer_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WCharBuffer *pThis = Object_wx_WCharBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int len = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWCharBuffer();
 	return Value::Nil;
@@ -109,9 +105,8 @@ Gura_DeclareMethod(wx_WCharBuffer, wxWCharBuffer_4)
 
 Gura_ImplementMethod(wx_WCharBuffer, wxWCharBuffer_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WCharBuffer *pThis = Object_wx_WCharBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cstr = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWCharBuffer();
 	return Value::Nil;

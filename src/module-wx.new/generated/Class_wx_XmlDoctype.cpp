@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_XmlDoctype, wxXmlDoctype)
 
 Gura_ImplementMethod(wx_XmlDoctype, wxXmlDoctype)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rootName = arg.GetNumber(0)
 	//int systemId = arg.GetNumber(1)
 	//int publicId = arg.GetNumber(2)
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_XmlDoctype, Clear)
 
 Gura_ImplementMethod(wx_XmlDoctype, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_XmlDoctype, GetRootName)
 
 Gura_ImplementMethod(wx_XmlDoctype, GetRootName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRootName();
 	return Value::Nil;
 }
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_XmlDoctype, GetSystemId)
 
 Gura_ImplementMethod(wx_XmlDoctype, GetSystemId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSystemId();
 	return Value::Nil;
 }
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_XmlDoctype, GetPublicId)
 
 Gura_ImplementMethod(wx_XmlDoctype, GetPublicId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPublicId();
 	return Value::Nil;
 }
@@ -120,9 +115,8 @@ Gura_DeclareMethod(wx_XmlDoctype, GetFullString)
 
 Gura_ImplementMethod(wx_XmlDoctype, GetFullString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFullString();
 	return Value::Nil;
 }
@@ -134,9 +128,8 @@ Gura_DeclareMethod(wx_XmlDoctype, IsValid)
 
 Gura_ImplementMethod(wx_XmlDoctype, IsValid)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsValid();
 	return Value::Nil;
 }

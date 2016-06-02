@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_WindowModalDialogEvent, wxWindowModalDialogEvent)
 
 Gura_ImplementMethod(wx_WindowModalDialogEvent, wxWindowModalDialogEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxWindowModalDialogEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_WindowModalDialogEvent, GetDialog)
 
 Gura_ImplementMethod(wx_WindowModalDialogEvent, GetDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDialog();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_WindowModalDialogEvent, GetReturnCode)
 
 Gura_ImplementMethod(wx_WindowModalDialogEvent, GetReturnCode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetReturnCode();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_WindowModalDialogEvent, Clone)
 
 Gura_ImplementMethod(wx_WindowModalDialogEvent, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }

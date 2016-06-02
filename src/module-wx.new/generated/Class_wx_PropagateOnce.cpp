@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_PropagateOnce, wxPropagateOnce)
 
 Gura_ImplementMethod(wx_PropagateOnce, wxPropagateOnce)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropagateOnce *pThis = Object_wx_PropagateOnce::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPropagateOnce();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_PropagateOnce, ~wxPropagateOnce)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PropagateOnce, ~wxPropagateOnce)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_PropagateOnce *pThis = Object_wx_PropagateOnce::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPropagateOnce();
 	return Value::Nil;
 }
 
@@ -73,7 +58,6 @@ Gura_ImplementMethod(wx_PropagateOnce, ~wxPropagateOnce)
 Gura_ImplementUserInheritableClass(wx_PropagateOnce)
 {
 	Gura_AssignMethod(wx_PropagateOnce, wxPropagateOnce);
-	Gura_AssignMethod(wx_PropagateOnce, ~wxPropagateOnce);
 }
 
 Gura_ImplementDescendantCreator(wx_PropagateOnce)

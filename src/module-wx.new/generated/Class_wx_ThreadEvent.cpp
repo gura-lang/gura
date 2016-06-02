@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_ThreadEvent, wxThreadEvent)
 
 Gura_ImplementMethod(wx_ThreadEvent, wxThreadEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxThreadEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_ThreadEvent, Clone)
 
 Gura_ImplementMethod(wx_ThreadEvent, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_ThreadEvent, GetEventCategory)
 
 Gura_ImplementMethod(wx_ThreadEvent, GetEventCategory)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetEventCategory();
 	return Value::Nil;
 }
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_ThreadEvent, SetPayload)
 
 Gura_ImplementMethod(wx_ThreadEvent, SetPayload)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int payload = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPayload();
 	return Value::Nil;
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_ThreadEvent, GetPayload)
 
 Gura_ImplementMethod(wx_ThreadEvent, GetPayload)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPayload();
 	return Value::Nil;
 }
@@ -120,9 +115,8 @@ Gura_DeclareMethod(wx_ThreadEvent, GetExtraLong)
 
 Gura_ImplementMethod(wx_ThreadEvent, GetExtraLong)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetExtraLong();
 	return Value::Nil;
 }
@@ -134,9 +128,8 @@ Gura_DeclareMethod(wx_ThreadEvent, GetInt)
 
 Gura_ImplementMethod(wx_ThreadEvent, GetInt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetInt();
 	return Value::Nil;
 }
@@ -148,9 +141,8 @@ Gura_DeclareMethod(wx_ThreadEvent, GetString)
 
 Gura_ImplementMethod(wx_ThreadEvent, GetString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetString();
 	return Value::Nil;
 }
@@ -163,9 +155,8 @@ Gura_DeclareMethod(wx_ThreadEvent, SetExtraLong)
 
 Gura_ImplementMethod(wx_ThreadEvent, SetExtraLong)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int extraLong = arg.GetNumber(0)
 	//pThis->GetEntity()->SetExtraLong();
 	return Value::Nil;
@@ -179,9 +170,8 @@ Gura_DeclareMethod(wx_ThreadEvent, SetInt)
 
 Gura_ImplementMethod(wx_ThreadEvent, SetInt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int intCommand = arg.GetNumber(0)
 	//pThis->GetEntity()->SetInt();
 	return Value::Nil;
@@ -195,9 +185,8 @@ Gura_DeclareMethod(wx_ThreadEvent, SetString)
 
 Gura_ImplementMethod(wx_ThreadEvent, SetString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int string = arg.GetNumber(0)
 	//pThis->GetEntity()->SetString();
 	return Value::Nil;

@@ -51,9 +51,8 @@ Gura_DeclareMethod(wx_WebView, Create)
 
 Gura_ImplementMethod(wx_WebView, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int url = arg.GetNumber(2)
@@ -73,9 +72,8 @@ Gura_DeclareMethod(wx_WebView, New)
 
 Gura_ImplementMethod(wx_WebView, New)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int backend = arg.GetNumber(0)
 	//pThis->GetEntity()->New();
 	return Value::Nil;
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_WebView, New_1)
 
 Gura_ImplementMethod(wx_WebView, New_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int url = arg.GetNumber(2)
@@ -120,9 +117,8 @@ Gura_DeclareMethod(wx_WebView, RegisterFactory)
 
 Gura_ImplementMethod(wx_WebView, RegisterFactory)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int backend = arg.GetNumber(0)
 	//int factory = arg.GetNumber(1)
 	//pThis->GetEntity()->RegisterFactory();
@@ -136,9 +132,8 @@ Gura_DeclareMethod(wx_WebView, GetCurrentTitle)
 
 Gura_ImplementMethod(wx_WebView, GetCurrentTitle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCurrentTitle();
 	return Value::Nil;
 }
@@ -150,9 +145,8 @@ Gura_DeclareMethod(wx_WebView, GetCurrentURL)
 
 Gura_ImplementMethod(wx_WebView, GetCurrentURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCurrentURL();
 	return Value::Nil;
 }
@@ -164,9 +158,8 @@ Gura_DeclareMethod(wx_WebView, GetNativeBackend)
 
 Gura_ImplementMethod(wx_WebView, GetNativeBackend)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNativeBackend();
 	return Value::Nil;
 }
@@ -178,9 +171,8 @@ Gura_DeclareMethod(wx_WebView, GetPageSource)
 
 Gura_ImplementMethod(wx_WebView, GetPageSource)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPageSource();
 	return Value::Nil;
 }
@@ -192,9 +184,8 @@ Gura_DeclareMethod(wx_WebView, GetPageText)
 
 Gura_ImplementMethod(wx_WebView, GetPageText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPageText();
 	return Value::Nil;
 }
@@ -206,9 +197,8 @@ Gura_DeclareMethod(wx_WebView, IsBusy)
 
 Gura_ImplementMethod(wx_WebView, IsBusy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsBusy();
 	return Value::Nil;
 }
@@ -220,9 +210,8 @@ Gura_DeclareMethod(wx_WebView, IsEditable)
 
 Gura_ImplementMethod(wx_WebView, IsEditable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEditable();
 	return Value::Nil;
 }
@@ -235,9 +224,8 @@ Gura_DeclareMethod(wx_WebView, LoadURL)
 
 Gura_ImplementMethod(wx_WebView, LoadURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadURL();
 	return Value::Nil;
@@ -250,9 +238,8 @@ Gura_DeclareMethod(wx_WebView, Print)
 
 Gura_ImplementMethod(wx_WebView, Print)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Print();
 	return Value::Nil;
 }
@@ -265,9 +252,8 @@ Gura_DeclareMethod(wx_WebView, RegisterHandler)
 
 Gura_ImplementMethod(wx_WebView, RegisterHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int handler = arg.GetNumber(0)
 	//pThis->GetEntity()->RegisterHandler();
 	return Value::Nil;
@@ -281,9 +267,8 @@ Gura_DeclareMethod(wx_WebView, Reload)
 
 Gura_ImplementMethod(wx_WebView, Reload)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->Reload();
 	return Value::Nil;
@@ -297,9 +282,8 @@ Gura_DeclareMethod(wx_WebView, RunScript)
 
 Gura_ImplementMethod(wx_WebView, RunScript)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int javascript = arg.GetNumber(0)
 	//pThis->GetEntity()->RunScript();
 	return Value::Nil;
@@ -313,9 +297,8 @@ Gura_DeclareMethod(wx_WebView, SetEditable)
 
 Gura_ImplementMethod(wx_WebView, SetEditable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enable = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEditable();
 	return Value::Nil;
@@ -330,9 +313,8 @@ Gura_DeclareMethod(wx_WebView, SetPage)
 
 Gura_ImplementMethod(wx_WebView, SetPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int html = arg.GetNumber(0)
 	//int baseUrl = arg.GetNumber(1)
 	//pThis->GetEntity()->SetPage();
@@ -348,9 +330,8 @@ Gura_DeclareMethod(wx_WebView, SetPage_1)
 
 Gura_ImplementMethod(wx_WebView, SetPage_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int html = arg.GetNumber(0)
 	//int baseUrl = arg.GetNumber(1)
 	//pThis->GetEntity()->SetPage();
@@ -364,9 +345,8 @@ Gura_DeclareMethod(wx_WebView, Stop)
 
 Gura_ImplementMethod(wx_WebView, Stop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Stop();
 	return Value::Nil;
 }
@@ -378,9 +358,8 @@ Gura_DeclareMethod(wx_WebView, CanCopy)
 
 Gura_ImplementMethod(wx_WebView, CanCopy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanCopy();
 	return Value::Nil;
 }
@@ -392,9 +371,8 @@ Gura_DeclareMethod(wx_WebView, CanCut)
 
 Gura_ImplementMethod(wx_WebView, CanCut)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanCut();
 	return Value::Nil;
 }
@@ -406,9 +384,8 @@ Gura_DeclareMethod(wx_WebView, CanPaste)
 
 Gura_ImplementMethod(wx_WebView, CanPaste)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanPaste();
 	return Value::Nil;
 }
@@ -420,9 +397,8 @@ Gura_DeclareMethod(wx_WebView, Copy)
 
 Gura_ImplementMethod(wx_WebView, Copy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
 }
@@ -434,9 +410,8 @@ Gura_DeclareMethod(wx_WebView, Cut)
 
 Gura_ImplementMethod(wx_WebView, Cut)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Cut();
 	return Value::Nil;
 }
@@ -448,9 +423,8 @@ Gura_DeclareMethod(wx_WebView, Paste)
 
 Gura_ImplementMethod(wx_WebView, Paste)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Paste();
 	return Value::Nil;
 }
@@ -463,9 +437,8 @@ Gura_DeclareMethod(wx_WebView, EnableContextMenu)
 
 Gura_ImplementMethod(wx_WebView, EnableContextMenu)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableContextMenu();
 	return Value::Nil;
@@ -478,9 +451,8 @@ Gura_DeclareMethod(wx_WebView, IsContextMenuEnabled)
 
 Gura_ImplementMethod(wx_WebView, IsContextMenuEnabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsContextMenuEnabled();
 	return Value::Nil;
 }
@@ -492,9 +464,8 @@ Gura_DeclareMethod(wx_WebView, CanGoBack)
 
 Gura_ImplementMethod(wx_WebView, CanGoBack)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanGoBack();
 	return Value::Nil;
 }
@@ -506,9 +477,8 @@ Gura_DeclareMethod(wx_WebView, CanGoForward)
 
 Gura_ImplementMethod(wx_WebView, CanGoForward)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanGoForward();
 	return Value::Nil;
 }
@@ -520,9 +490,8 @@ Gura_DeclareMethod(wx_WebView, ClearHistory)
 
 Gura_ImplementMethod(wx_WebView, ClearHistory)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ClearHistory();
 	return Value::Nil;
 }
@@ -535,9 +504,8 @@ Gura_DeclareMethod(wx_WebView, EnableHistory)
 
 Gura_ImplementMethod(wx_WebView, EnableHistory)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableHistory();
 	return Value::Nil;
@@ -550,9 +518,8 @@ Gura_DeclareMethod(wx_WebView, GetBackwardHistory)
 
 Gura_ImplementMethod(wx_WebView, GetBackwardHistory)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBackwardHistory();
 	return Value::Nil;
 }
@@ -564,9 +531,8 @@ Gura_DeclareMethod(wx_WebView, GetForwardHistory)
 
 Gura_ImplementMethod(wx_WebView, GetForwardHistory)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetForwardHistory();
 	return Value::Nil;
 }
@@ -578,9 +544,8 @@ Gura_DeclareMethod(wx_WebView, GoBack)
 
 Gura_ImplementMethod(wx_WebView, GoBack)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GoBack();
 	return Value::Nil;
 }
@@ -592,9 +557,8 @@ Gura_DeclareMethod(wx_WebView, GoForward)
 
 Gura_ImplementMethod(wx_WebView, GoForward)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GoForward();
 	return Value::Nil;
 }
@@ -607,9 +571,8 @@ Gura_DeclareMethod(wx_WebView, LoadHistoryItem)
 
 Gura_ImplementMethod(wx_WebView, LoadHistoryItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadHistoryItem();
 	return Value::Nil;
@@ -622,9 +585,8 @@ Gura_DeclareMethod(wx_WebView, ClearSelection)
 
 Gura_ImplementMethod(wx_WebView, ClearSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ClearSelection();
 	return Value::Nil;
 }
@@ -636,9 +598,8 @@ Gura_DeclareMethod(wx_WebView, DeleteSelection)
 
 Gura_ImplementMethod(wx_WebView, DeleteSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DeleteSelection();
 	return Value::Nil;
 }
@@ -650,9 +611,8 @@ Gura_DeclareMethod(wx_WebView, GetSelectedSource)
 
 Gura_ImplementMethod(wx_WebView, GetSelectedSource)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSelectedSource();
 	return Value::Nil;
 }
@@ -664,9 +624,8 @@ Gura_DeclareMethod(wx_WebView, GetSelectedText)
 
 Gura_ImplementMethod(wx_WebView, GetSelectedText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSelectedText();
 	return Value::Nil;
 }
@@ -678,9 +637,8 @@ Gura_DeclareMethod(wx_WebView, HasSelection)
 
 Gura_ImplementMethod(wx_WebView, HasSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasSelection();
 	return Value::Nil;
 }
@@ -692,9 +650,8 @@ Gura_DeclareMethod(wx_WebView, SelectAll)
 
 Gura_ImplementMethod(wx_WebView, SelectAll)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->SelectAll();
 	return Value::Nil;
 }
@@ -706,9 +663,8 @@ Gura_DeclareMethod(wx_WebView, CanRedo)
 
 Gura_ImplementMethod(wx_WebView, CanRedo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanRedo();
 	return Value::Nil;
 }
@@ -720,9 +676,8 @@ Gura_DeclareMethod(wx_WebView, CanUndo)
 
 Gura_ImplementMethod(wx_WebView, CanUndo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanUndo();
 	return Value::Nil;
 }
@@ -734,9 +689,8 @@ Gura_DeclareMethod(wx_WebView, Redo)
 
 Gura_ImplementMethod(wx_WebView, Redo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Redo();
 	return Value::Nil;
 }
@@ -748,9 +702,8 @@ Gura_DeclareMethod(wx_WebView, Undo)
 
 Gura_ImplementMethod(wx_WebView, Undo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Undo();
 	return Value::Nil;
 }
@@ -764,9 +717,8 @@ Gura_DeclareMethod(wx_WebView, Find)
 
 Gura_ImplementMethod(wx_WebView, Find)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->Find();
@@ -781,9 +733,8 @@ Gura_DeclareMethod(wx_WebView, CanSetZoomType)
 
 Gura_ImplementMethod(wx_WebView, CanSetZoomType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//pThis->GetEntity()->CanSetZoomType();
 	return Value::Nil;
@@ -796,9 +747,8 @@ Gura_DeclareMethod(wx_WebView, GetZoom)
 
 Gura_ImplementMethod(wx_WebView, GetZoom)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetZoom();
 	return Value::Nil;
 }
@@ -810,9 +760,8 @@ Gura_DeclareMethod(wx_WebView, GetZoomType)
 
 Gura_ImplementMethod(wx_WebView, GetZoomType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetZoomType();
 	return Value::Nil;
 }
@@ -825,9 +774,8 @@ Gura_DeclareMethod(wx_WebView, SetZoom)
 
 Gura_ImplementMethod(wx_WebView, SetZoom)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int zoom = arg.GetNumber(0)
 	//pThis->GetEntity()->SetZoom();
 	return Value::Nil;
@@ -841,9 +789,8 @@ Gura_DeclareMethod(wx_WebView, SetZoomType)
 
 Gura_ImplementMethod(wx_WebView, SetZoomType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int zoomType = arg.GetNumber(0)
 	//pThis->GetEntity()->SetZoomType();
 	return Value::Nil;

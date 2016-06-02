@@ -37,20 +37,6 @@ String Object_wx_DataViewListModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewListModel, ~wxDataViewListModel)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DataViewListModel, ~wxDataViewListModel)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDataViewListModel();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_DataViewListModel, Compare)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -62,9 +48,8 @@ Gura_DeclareMethod(wx_DataViewListModel, Compare)
 
 Gura_ImplementMethod(wx_DataViewListModel, Compare)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item1 = arg.GetNumber(0)
 	//int item2 = arg.GetNumber(1)
 	//int column = arg.GetNumber(2)
@@ -83,9 +68,8 @@ Gura_DeclareMethod(wx_DataViewListModel, GetAttrByRow)
 
 Gura_ImplementMethod(wx_DataViewListModel, GetAttrByRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//int attr = arg.GetNumber(2)
@@ -102,9 +86,8 @@ Gura_DeclareMethod(wx_DataViewListModel, IsEnabledByRow)
 
 Gura_ImplementMethod(wx_DataViewListModel, IsEnabledByRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->IsEnabledByRow();
@@ -118,9 +101,8 @@ Gura_DeclareMethod(wx_DataViewListModel, GetCount)
 
 Gura_ImplementMethod(wx_DataViewListModel, GetCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
@@ -133,9 +115,8 @@ Gura_DeclareMethod(wx_DataViewListModel, GetRow)
 
 Gura_ImplementMethod(wx_DataViewListModel, GetRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetRow();
 	return Value::Nil;
@@ -151,9 +132,8 @@ Gura_DeclareMethod(wx_DataViewListModel, GetValueByRow)
 
 Gura_ImplementMethod(wx_DataViewListModel, GetValueByRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int variant = arg.GetNumber(0)
 	//int row = arg.GetNumber(1)
 	//int col = arg.GetNumber(2)
@@ -171,9 +151,8 @@ Gura_DeclareMethod(wx_DataViewListModel, SetValueByRow)
 
 Gura_ImplementMethod(wx_DataViewListModel, SetValueByRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int variant = arg.GetNumber(0)
 	//int row = arg.GetNumber(1)
 	//int col = arg.GetNumber(2)
@@ -186,7 +165,6 @@ Gura_ImplementMethod(wx_DataViewListModel, SetValueByRow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewListModel)
 {
-	Gura_AssignMethod(wx_DataViewListModel, ~wxDataViewListModel);
 	Gura_AssignMethod(wx_DataViewListModel, Compare);
 	Gura_AssignMethod(wx_DataViewListModel, GetAttrByRow);
 	Gura_AssignMethod(wx_DataViewListModel, IsEnabledByRow);

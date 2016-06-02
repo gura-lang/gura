@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GDIObject, wxGDIObject)
 
 Gura_ImplementMethod(wx_GDIObject, wxGDIObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GDIObject *pThis = Object_wx_GDIObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGDIObject();
 	return Value::Nil;
 }

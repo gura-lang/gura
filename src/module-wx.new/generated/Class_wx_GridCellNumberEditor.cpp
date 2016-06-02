@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_GridCellNumberEditor, wxGridCellNumberEditor)
 
 Gura_ImplementMethod(wx_GridCellNumberEditor, wxGridCellNumberEditor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
 	//pThis->GetEntity()->wxGridCellNumberEditor();
@@ -63,9 +62,8 @@ Gura_DeclareMethod(wx_GridCellNumberEditor, SetParameters)
 
 Gura_ImplementMethod(wx_GridCellNumberEditor, SetParameters)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int params = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParameters();
 	return Value::Nil;
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_GridCellNumberEditor, HasRange)
 
 Gura_ImplementMethod(wx_GridCellNumberEditor, HasRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasRange();
 	return Value::Nil;
 }
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_GridCellNumberEditor, GetString)
 
 Gura_ImplementMethod(wx_GridCellNumberEditor, GetString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetString();
 	return Value::Nil;
 }

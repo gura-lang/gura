@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_StatusBarPane, wxStatusBarPane)
 
 Gura_ImplementMethod(wx_StatusBarPane, wxStatusBarPane)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StatusBarPane *pThis = Object_wx_StatusBarPane::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//pThis->GetEntity()->wxStatusBarPane();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_StatusBarPane, GetWidth)
 
 Gura_ImplementMethod(wx_StatusBarPane, GetWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StatusBarPane *pThis = Object_wx_StatusBarPane::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_StatusBarPane, GetStyle)
 
 Gura_ImplementMethod(wx_StatusBarPane, GetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StatusBarPane *pThis = Object_wx_StatusBarPane::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_StatusBarPane, GetText)
 
 Gura_ImplementMethod(wx_StatusBarPane, GetText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StatusBarPane *pThis = Object_wx_StatusBarPane::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetText();
 	return Value::Nil;
 }

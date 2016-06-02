@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, IsCancelled)
 
 Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, IsCancelled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsCancelled();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, Cancel)
 
 Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, Cancel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cancel = arg.GetNumber(0)
 	//pThis->GetEntity()->Cancel();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, GetURL)
 
 Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, GetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, SetURL)
 
 Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, SetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, SetNavigationType)
 
 Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, SetNavigationType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int navType = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNavigationType();
 	return Value::Nil;
@@ -120,9 +115,8 @@ Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, GetNavigationType)
 
 Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, GetNavigationType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNavigationType();
 	return Value::Nil;
 }
@@ -135,9 +129,8 @@ Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, wxWebKitBeforeLoadEvent)
 
 Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, wxWebKitBeforeLoadEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWebKitBeforeLoadEvent();
 	return Value::Nil;

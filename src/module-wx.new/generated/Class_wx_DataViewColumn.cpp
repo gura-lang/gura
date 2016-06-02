@@ -50,9 +50,8 @@ Gura_DeclareMethod(wx_DataViewColumn, wxDataViewColumn)
 
 Gura_ImplementMethod(wx_DataViewColumn, wxDataViewColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//int renderer = arg.GetNumber(1)
 	//int model_column = arg.GetNumber(2)
@@ -76,9 +75,8 @@ Gura_DeclareMethod(wx_DataViewColumn, wxDataViewColumn_1)
 
 Gura_ImplementMethod(wx_DataViewColumn, wxDataViewColumn_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int renderer = arg.GetNumber(1)
 	//int model_column = arg.GetNumber(2)
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_DataViewColumn, GetModelColumn)
 
 Gura_ImplementMethod(wx_DataViewColumn, GetModelColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetModelColumn();
 	return Value::Nil;
 }
@@ -110,9 +107,8 @@ Gura_DeclareMethod(wx_DataViewColumn, GetOwner)
 
 Gura_ImplementMethod(wx_DataViewColumn, GetOwner)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOwner();
 	return Value::Nil;
 }
@@ -124,9 +120,8 @@ Gura_DeclareMethod(wx_DataViewColumn, GetRenderer)
 
 Gura_ImplementMethod(wx_DataViewColumn, GetRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRenderer();
 	return Value::Nil;
 }

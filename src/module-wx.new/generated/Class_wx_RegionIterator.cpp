@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RegionIterator, wxRegionIterator)
 
 Gura_ImplementMethod(wx_RegionIterator, wxRegionIterator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRegionIterator();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_RegionIterator, wxRegionIterator_1)
 
 Gura_ImplementMethod(wx_RegionIterator, wxRegionIterator_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int region = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRegionIterator();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_RegionIterator, GetH)
 
 Gura_ImplementMethod(wx_RegionIterator, GetH)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetH();
 	return Value::Nil;
 }
@@ -88,9 +85,8 @@ Gura_DeclareMethod(wx_RegionIterator, GetHeight)
 
 Gura_ImplementMethod(wx_RegionIterator, GetHeight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
@@ -102,9 +98,8 @@ Gura_DeclareMethod(wx_RegionIterator, GetRect)
 
 Gura_ImplementMethod(wx_RegionIterator, GetRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRect();
 	return Value::Nil;
 }
@@ -116,9 +111,8 @@ Gura_DeclareMethod(wx_RegionIterator, GetW)
 
 Gura_ImplementMethod(wx_RegionIterator, GetW)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetW();
 	return Value::Nil;
 }
@@ -130,9 +124,8 @@ Gura_DeclareMethod(wx_RegionIterator, GetWidth)
 
 Gura_ImplementMethod(wx_RegionIterator, GetWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
@@ -144,9 +137,8 @@ Gura_DeclareMethod(wx_RegionIterator, GetX)
 
 Gura_ImplementMethod(wx_RegionIterator, GetX)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
@@ -158,9 +150,8 @@ Gura_DeclareMethod(wx_RegionIterator, GetY)
 
 Gura_ImplementMethod(wx_RegionIterator, GetY)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
@@ -172,9 +163,8 @@ Gura_DeclareMethod(wx_RegionIterator, HaveRects)
 
 Gura_ImplementMethod(wx_RegionIterator, HaveRects)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HaveRects();
 	return Value::Nil;
 }
@@ -186,9 +176,8 @@ Gura_DeclareMethod(wx_RegionIterator, Reset)
 
 Gura_ImplementMethod(wx_RegionIterator, Reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }
@@ -201,9 +190,8 @@ Gura_DeclareMethod(wx_RegionIterator, Reset_1)
 
 Gura_ImplementMethod(wx_RegionIterator, Reset_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int region = arg.GetNumber(0)
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
@@ -216,9 +204,8 @@ Gura_DeclareMethod(wx_RegionIterator, bool)
 
 Gura_ImplementMethod(wx_RegionIterator, bool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->bool();
 	return Value::Nil;
 }

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_FontData, wxFontData)
 
 Gura_ImplementMethod(wx_FontData, wxFontData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxFontData();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_FontData, EnableEffects)
 
 Gura_ImplementMethod(wx_FontData, EnableEffects)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableEffects();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_FontData, GetAllowSymbols)
 
 Gura_ImplementMethod(wx_FontData, GetAllowSymbols)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAllowSymbols();
 	return Value::Nil;
 }
@@ -88,9 +85,8 @@ Gura_DeclareMethod(wx_FontData, GetChosenFont)
 
 Gura_ImplementMethod(wx_FontData, GetChosenFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetChosenFont();
 	return Value::Nil;
 }
@@ -102,9 +98,8 @@ Gura_DeclareMethod(wx_FontData, GetColour)
 
 Gura_ImplementMethod(wx_FontData, GetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
@@ -116,9 +111,8 @@ Gura_DeclareMethod(wx_FontData, GetEnableEffects)
 
 Gura_ImplementMethod(wx_FontData, GetEnableEffects)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetEnableEffects();
 	return Value::Nil;
 }
@@ -130,9 +124,8 @@ Gura_DeclareMethod(wx_FontData, GetInitialFont)
 
 Gura_ImplementMethod(wx_FontData, GetInitialFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetInitialFont();
 	return Value::Nil;
 }
@@ -144,9 +137,8 @@ Gura_DeclareMethod(wx_FontData, GetShowHelp)
 
 Gura_ImplementMethod(wx_FontData, GetShowHelp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetShowHelp();
 	return Value::Nil;
 }
@@ -159,9 +151,8 @@ Gura_DeclareMethod(wx_FontData, SetAllowSymbols)
 
 Gura_ImplementMethod(wx_FontData, SetAllowSymbols)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int allowSymbols = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAllowSymbols();
 	return Value::Nil;
@@ -175,9 +166,8 @@ Gura_DeclareMethod(wx_FontData, SetChosenFont)
 
 Gura_ImplementMethod(wx_FontData, SetChosenFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetChosenFont();
 	return Value::Nil;
@@ -191,9 +181,8 @@ Gura_DeclareMethod(wx_FontData, SetColour)
 
 Gura_ImplementMethod(wx_FontData, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -207,9 +196,8 @@ Gura_DeclareMethod(wx_FontData, SetInitialFont)
 
 Gura_ImplementMethod(wx_FontData, SetInitialFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetInitialFont();
 	return Value::Nil;
@@ -224,9 +212,8 @@ Gura_DeclareMethod(wx_FontData, SetRange)
 
 Gura_ImplementMethod(wx_FontData, SetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRange();
@@ -241,9 +228,8 @@ Gura_DeclareMethod(wx_FontData, SetShowHelp)
 
 Gura_ImplementMethod(wx_FontData, SetShowHelp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int showHelp = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShowHelp();
 	return Value::Nil;

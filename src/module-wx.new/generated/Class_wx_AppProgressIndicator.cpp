@@ -46,26 +46,11 @@ Gura_DeclareMethod(wx_AppProgressIndicator, wxAppProgressIndicator)
 
 Gura_ImplementMethod(wx_AppProgressIndicator, wxAppProgressIndicator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int maxValue = arg.GetNumber(1)
 	//pThis->GetEntity()->wxAppProgressIndicator();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_AppProgressIndicator, ~wxAppProgressIndicator)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_AppProgressIndicator, ~wxAppProgressIndicator)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxAppProgressIndicator();
 	return Value::Nil;
 }
 
@@ -76,9 +61,8 @@ Gura_DeclareMethod(wx_AppProgressIndicator, IsAvailable)
 
 Gura_ImplementMethod(wx_AppProgressIndicator, IsAvailable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsAvailable();
 	return Value::Nil;
 }
@@ -91,9 +75,8 @@ Gura_DeclareMethod(wx_AppProgressIndicator, SetValue)
 
 Gura_ImplementMethod(wx_AppProgressIndicator, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
@@ -107,9 +90,8 @@ Gura_DeclareMethod(wx_AppProgressIndicator, SetRange)
 
 Gura_ImplementMethod(wx_AppProgressIndicator, SetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRange();
 	return Value::Nil;
@@ -122,9 +104,8 @@ Gura_DeclareMethod(wx_AppProgressIndicator, Pulse)
 
 Gura_ImplementMethod(wx_AppProgressIndicator, Pulse)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Pulse();
 	return Value::Nil;
 }
@@ -135,7 +116,6 @@ Gura_ImplementMethod(wx_AppProgressIndicator, Pulse)
 Gura_ImplementUserInheritableClass(wx_AppProgressIndicator)
 {
 	Gura_AssignMethod(wx_AppProgressIndicator, wxAppProgressIndicator);
-	Gura_AssignMethod(wx_AppProgressIndicator, ~wxAppProgressIndicator);
 	Gura_AssignMethod(wx_AppProgressIndicator, IsAvailable);
 	Gura_AssignMethod(wx_AppProgressIndicator, SetValue);
 	Gura_AssignMethod(wx_AppProgressIndicator, SetRange);

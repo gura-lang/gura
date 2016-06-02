@@ -64,13 +64,13 @@ extern const bool OwnerTrue;
 Function *LookupFunctionCustom(Environment &env, const Symbol *pSymbol, EnvRefMode envRefMode);
 void SetWxReadyFlag(bool wxReadyFlag);
 bool IsWxReady();
-bool CheckWxReady(Signal &sig);
+bool CheckWxReady(Environment &env);
 void InitializeObjects(Environment &env);
-void SetError_Obsolete(Signal &sig);
-void SetError_NotImplemented(Signal &sig);
-void SetError_MSWOnly(Signal &sig);
-void SetError_InvalidWxObject(Signal &sig, const char *name);
-void SetLogError(const Signal &sig);
+void SetError_Obsolete(Environment &env);
+void SetError_NotImplemented(Environment &env);
+void SetError_MSWOnly(Environment &env);
+void SetError_InvalidWxObject(Environment &env, const char *name);
+void SetLogError(const Environment &env);
 wxArrayString *CreateArrayString(const ValueList &valList);
 wxArrayInt *CreateArrayInt(const ValueList &valList);
 Value ArrayIntToValue(Environment &env, const wxArrayInt &array);
@@ -79,9 +79,9 @@ Value ArrayStringToValue(Environment &env, const wxString *array, int n);
 void AddToArrayString(wxArrayString &array, const ValueList &valList);
 void AddToArrayInt(wxArrayInt &array, const ValueList &valList);
 void ConvertToWxImage(Image *pImageGura, wxImage *pImage);
-bool CheckMethodResult(Signal &sig);
-bool CheckMethodResult(Signal &sig, const Value &rtn,
-					ValueType valueType, bool invalidAcceptableFlag = false);
+bool CheckMethodResult(Environment &env);
+bool CheckMethodResult(Environment &env, const Value &rtn,
+					   ValueType valueType, bool invalidAcceptableFlag = false);
 
 //-----------------------------------------------------------------------------
 // GuraObjectObserver

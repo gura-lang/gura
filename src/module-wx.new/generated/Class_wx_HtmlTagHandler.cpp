@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HtmlTagHandler, wxHtmlTagHandler)
 
 Gura_ImplementMethod(wx_HtmlTagHandler, wxHtmlTagHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHtmlTagHandler();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_HtmlTagHandler, GetSupportedTags)
 
 Gura_ImplementMethod(wx_HtmlTagHandler, GetSupportedTags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSupportedTags();
 	return Value::Nil;
 }
@@ -73,9 +71,8 @@ Gura_DeclareMethod(wx_HtmlTagHandler, HandleTag)
 
 Gura_ImplementMethod(wx_HtmlTagHandler, HandleTag)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tag = arg.GetNumber(0)
 	//pThis->GetEntity()->HandleTag();
 	return Value::Nil;
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_HtmlTagHandler, SetParser)
 
 Gura_ImplementMethod(wx_HtmlTagHandler, SetParser)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parser = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParser();
 	return Value::Nil;
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_HtmlTagHandler, GetParser)
 
 Gura_ImplementMethod(wx_HtmlTagHandler, GetParser)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetParser();
 	return Value::Nil;
 }
@@ -119,9 +114,8 @@ Gura_DeclareMethod(wx_HtmlTagHandler, ParseInner)
 
 Gura_ImplementMethod(wx_HtmlTagHandler, ParseInner)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tag = arg.GetNumber(0)
 	//pThis->GetEntity()->ParseInner();
 	return Value::Nil;
@@ -135,9 +129,8 @@ Gura_DeclareMethod(wx_HtmlTagHandler, ParseInnerSource)
 
 Gura_ImplementMethod(wx_HtmlTagHandler, ParseInnerSource)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int source = arg.GetNumber(0)
 	//pThis->GetEntity()->ParseInnerSource();
 	return Value::Nil;

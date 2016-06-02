@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_CriticalSection, wxCriticalSection)
 
 Gura_ImplementMethod(wx_CriticalSection, wxCriticalSection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int critSecType = arg.GetNumber(0)
 	//pThis->GetEntity()->wxCriticalSection();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_CriticalSection, ~wxCriticalSection)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_CriticalSection, ~wxCriticalSection)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxCriticalSection();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_CriticalSection, Enter)
 
 Gura_ImplementMethod(wx_CriticalSection, Enter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Enter();
 	return Value::Nil;
 }
@@ -88,9 +72,8 @@ Gura_DeclareMethod(wx_CriticalSection, TryEnter)
 
 Gura_ImplementMethod(wx_CriticalSection, TryEnter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->TryEnter();
 	return Value::Nil;
 }
@@ -102,9 +85,8 @@ Gura_DeclareMethod(wx_CriticalSection, Leave)
 
 Gura_ImplementMethod(wx_CriticalSection, Leave)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Leave();
 	return Value::Nil;
 }
@@ -115,7 +97,6 @@ Gura_ImplementMethod(wx_CriticalSection, Leave)
 Gura_ImplementUserInheritableClass(wx_CriticalSection)
 {
 	Gura_AssignMethod(wx_CriticalSection, wxCriticalSection);
-	Gura_AssignMethod(wx_CriticalSection, ~wxCriticalSection);
 	Gura_AssignMethod(wx_CriticalSection, Enter);
 	Gura_AssignMethod(wx_CriticalSection, TryEnter);
 	Gura_AssignMethod(wx_CriticalSection, Leave);

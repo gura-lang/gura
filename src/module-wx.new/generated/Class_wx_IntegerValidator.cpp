@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_IntegerValidator, wxIntegerValidator)
 
 Gura_ImplementMethod(wx_IntegerValidator, wxIntegerValidator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_IntegerValidator *pThis = Object_wx_IntegerValidator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->wxIntegerValidator();

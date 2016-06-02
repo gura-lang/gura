@@ -46,26 +46,11 @@ Gura_DeclareMethod(wx_ScopedTiedPtr, wxScopedTiedPtr)
 
 Gura_ImplementMethod(wx_ScopedTiedPtr, wxScopedTiedPtr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopedTiedPtr *pThis = Object_wx_ScopedTiedPtr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ppTie = arg.GetNumber(0)
 	//int ptr = arg.GetNumber(1)
 	//pThis->GetEntity()->wxScopedTiedPtr();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_ScopedTiedPtr, ~wxScopedTiedPtr)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ScopedTiedPtr, ~wxScopedTiedPtr)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ScopedTiedPtr *pThis = Object_wx_ScopedTiedPtr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxScopedTiedPtr();
 	return Value::Nil;
 }
 
@@ -75,7 +60,6 @@ Gura_ImplementMethod(wx_ScopedTiedPtr, ~wxScopedTiedPtr)
 Gura_ImplementUserInheritableClass(wx_ScopedTiedPtr)
 {
 	Gura_AssignMethod(wx_ScopedTiedPtr, wxScopedTiedPtr);
-	Gura_AssignMethod(wx_ScopedTiedPtr, ~wxScopedTiedPtr);
 }
 
 Gura_ImplementDescendantCreator(wx_ScopedTiedPtr)

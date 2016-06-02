@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, wxHtmlDCRenderer)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, wxHtmlDCRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHtmlDCRenderer();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, GetTotalWidth)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, GetTotalWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTotalWidth();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, GetTotalHeight)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, GetTotalHeight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTotalHeight();
 	return Value::Nil;
 }
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, Render)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, Render)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int known_pagebreaks = arg.GetNumber(2)
@@ -114,9 +110,8 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetDC)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, SetDC)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int pixel_scale = arg.GetNumber(1)
 	//pThis->GetEntity()->SetDC();
@@ -133,9 +128,8 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetFonts)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, SetFonts)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int normal_face = arg.GetNumber(0)
 	//int fixed_face = arg.GetNumber(1)
 	//int sizes = arg.GetNumber(2)
@@ -153,9 +147,8 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetStandardFonts)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, SetStandardFonts)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//int normal_face = arg.GetNumber(1)
 	//int fixed_face = arg.GetNumber(2)
@@ -173,9 +166,8 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetHtmlText)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, SetHtmlText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int html = arg.GetNumber(0)
 	//int basepath = arg.GetNumber(1)
 	//int isdir = arg.GetNumber(2)
@@ -192,9 +184,8 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetSize)
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, SetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSize();

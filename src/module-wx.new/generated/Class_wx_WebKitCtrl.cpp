@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, wxWebKitCtrl)
 
 Gura_ImplementMethod(wx_WebKitCtrl, wxWebKitCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxWebKitCtrl();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, wxWebKitCtrl_1)
 
 Gura_ImplementMethod(wx_WebKitCtrl, wxWebKitCtrl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int strURL = arg.GetNumber(2)
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, Create)
 
 Gura_ImplementMethod(wx_WebKitCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int strURL = arg.GetNumber(2)
@@ -111,20 +108,6 @@ Gura_ImplementMethod(wx_WebKitCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitCtrl, ~wxWebKitCtrl)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_WebKitCtrl, ~wxWebKitCtrl)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxWebKitCtrl();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_WebKitCtrl, LoadURL)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -133,9 +116,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, LoadURL)
 
 Gura_ImplementMethod(wx_WebKitCtrl, LoadURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadURL();
 	return Value::Nil;
@@ -148,9 +130,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, CanGoBack)
 
 Gura_ImplementMethod(wx_WebKitCtrl, CanGoBack)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanGoBack();
 	return Value::Nil;
 }
@@ -162,9 +143,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, CanGoForward)
 
 Gura_ImplementMethod(wx_WebKitCtrl, CanGoForward)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanGoForward();
 	return Value::Nil;
 }
@@ -176,9 +156,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, GoBack)
 
 Gura_ImplementMethod(wx_WebKitCtrl, GoBack)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GoBack();
 	return Value::Nil;
 }
@@ -190,9 +169,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, GoForward)
 
 Gura_ImplementMethod(wx_WebKitCtrl, GoForward)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GoForward();
 	return Value::Nil;
 }
@@ -204,9 +182,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, Reload)
 
 Gura_ImplementMethod(wx_WebKitCtrl, Reload)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Reload();
 	return Value::Nil;
 }
@@ -218,9 +195,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, Stop)
 
 Gura_ImplementMethod(wx_WebKitCtrl, Stop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Stop();
 	return Value::Nil;
 }
@@ -232,9 +208,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, CanGetPageSource)
 
 Gura_ImplementMethod(wx_WebKitCtrl, CanGetPageSource)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanGetPageSource();
 	return Value::Nil;
 }
@@ -246,9 +221,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, GetPageSource)
 
 Gura_ImplementMethod(wx_WebKitCtrl, GetPageSource)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPageSource();
 	return Value::Nil;
 }
@@ -262,9 +236,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, SetPageSource)
 
 Gura_ImplementMethod(wx_WebKitCtrl, SetPageSource)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int source = arg.GetNumber(0)
 	//int baseUrl = arg.GetNumber(1)
 	//pThis->GetEntity()->SetPageSource();
@@ -278,9 +251,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, GetPageURL)
 
 Gura_ImplementMethod(wx_WebKitCtrl, GetPageURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPageURL();
 	return Value::Nil;
 }
@@ -293,9 +265,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, SetPageTitle)
 
 Gura_ImplementMethod(wx_WebKitCtrl, SetPageTitle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPageTitle();
 	return Value::Nil;
@@ -308,9 +279,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, GetPageTitle)
 
 Gura_ImplementMethod(wx_WebKitCtrl, GetPageTitle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPageTitle();
 	return Value::Nil;
 }
@@ -323,9 +293,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, SetTitle)
 
 Gura_ImplementMethod(wx_WebKitCtrl, SetTitle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitle();
 	return Value::Nil;
@@ -338,9 +307,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, GetTitle)
 
 Gura_ImplementMethod(wx_WebKitCtrl, GetTitle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTitle();
 	return Value::Nil;
 }
@@ -352,9 +320,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, GetSelection)
 
 Gura_ImplementMethod(wx_WebKitCtrl, GetSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
@@ -366,9 +333,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, CanIncreaseTextSize)
 
 Gura_ImplementMethod(wx_WebKitCtrl, CanIncreaseTextSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanIncreaseTextSize();
 	return Value::Nil;
 }
@@ -380,9 +346,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, IncreaseTextSize)
 
 Gura_ImplementMethod(wx_WebKitCtrl, IncreaseTextSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IncreaseTextSize();
 	return Value::Nil;
 }
@@ -394,9 +359,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, CanDecreaseTextSize)
 
 Gura_ImplementMethod(wx_WebKitCtrl, CanDecreaseTextSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanDecreaseTextSize();
 	return Value::Nil;
 }
@@ -408,9 +372,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, DecreaseTextSize)
 
 Gura_ImplementMethod(wx_WebKitCtrl, DecreaseTextSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DecreaseTextSize();
 	return Value::Nil;
 }
@@ -423,9 +386,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, Print)
 
 Gura_ImplementMethod(wx_WebKitCtrl, Print)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int showPrompt = arg.GetNumber(0)
 	//pThis->GetEntity()->Print();
 	return Value::Nil;
@@ -439,9 +401,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, MakeEditable)
 
 Gura_ImplementMethod(wx_WebKitCtrl, MakeEditable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enable = arg.GetNumber(0)
 	//pThis->GetEntity()->MakeEditable();
 	return Value::Nil;
@@ -454,9 +415,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, IsEditable)
 
 Gura_ImplementMethod(wx_WebKitCtrl, IsEditable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEditable();
 	return Value::Nil;
 }
@@ -469,9 +429,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, RunScript)
 
 Gura_ImplementMethod(wx_WebKitCtrl, RunScript)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int javascript = arg.GetNumber(0)
 	//pThis->GetEntity()->RunScript();
 	return Value::Nil;
@@ -485,9 +444,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, SetScrollPos)
 
 Gura_ImplementMethod(wx_WebKitCtrl, SetScrollPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetScrollPos();
 	return Value::Nil;
@@ -500,9 +458,8 @@ Gura_DeclareMethod(wx_WebKitCtrl, GetScrollPos)
 
 Gura_ImplementMethod(wx_WebKitCtrl, GetScrollPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetScrollPos();
 	return Value::Nil;
 }
@@ -515,7 +472,6 @@ Gura_ImplementUserInheritableClass(wx_WebKitCtrl)
 	Gura_AssignMethod(wx_WebKitCtrl, wxWebKitCtrl);
 	Gura_AssignMethod(wx_WebKitCtrl, wxWebKitCtrl_1);
 	Gura_AssignMethod(wx_WebKitCtrl, Create);
-	Gura_AssignMethod(wx_WebKitCtrl, ~wxWebKitCtrl);
 	Gura_AssignMethod(wx_WebKitCtrl, LoadURL);
 	Gura_AssignMethod(wx_WebKitCtrl, CanGoBack);
 	Gura_AssignMethod(wx_WebKitCtrl, CanGoForward);

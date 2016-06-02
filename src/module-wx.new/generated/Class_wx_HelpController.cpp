@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_HelpController, wxHelpController)
 
 Gura_ImplementMethod(wx_HelpController, wxHelpController)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parentWindow = arg.GetNumber(0)
 	//pThis->GetEntity()->wxHelpController();
 	return Value::Nil;

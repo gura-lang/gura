@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_Initializer, wxInitializer)
 
 Gura_ImplementMethod(wx_Initializer, wxInitializer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Initializer *pThis = Object_wx_Initializer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int argc = arg.GetNumber(0)
 	//int argv = arg.GetNumber(1)
 	//pThis->GetEntity()->wxInitializer();
@@ -62,24 +61,9 @@ Gura_DeclareMethod(wx_Initializer, IsOk)
 
 Gura_ImplementMethod(wx_Initializer, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Initializer *pThis = Object_wx_Initializer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Initializer, ~wxInitializer)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Initializer, ~wxInitializer)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Initializer *pThis = Object_wx_Initializer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxInitializer();
 	return Value::Nil;
 }
 
@@ -90,7 +74,6 @@ Gura_ImplementUserInheritableClass(wx_Initializer)
 {
 	Gura_AssignMethod(wx_Initializer, wxInitializer);
 	Gura_AssignMethod(wx_Initializer, IsOk);
-	Gura_AssignMethod(wx_Initializer, ~wxInitializer);
 }
 
 Gura_ImplementDescendantCreator(wx_Initializer)

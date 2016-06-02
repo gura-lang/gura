@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_LogBuffer, wxLogBuffer)
 
 Gura_ImplementMethod(wx_LogBuffer, wxLogBuffer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogBuffer *pThis = Object_wx_LogBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxLogBuffer();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_LogBuffer, Flush)
 
 Gura_ImplementMethod(wx_LogBuffer, Flush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogBuffer *pThis = Object_wx_LogBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Flush();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_LogBuffer, GetBuffer)
 
 Gura_ImplementMethod(wx_LogBuffer, GetBuffer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogBuffer *pThis = Object_wx_LogBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBuffer();
 	return Value::Nil;
 }

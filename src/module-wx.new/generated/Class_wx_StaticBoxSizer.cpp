@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_StaticBoxSizer, wxStaticBoxSizer)
 
 Gura_ImplementMethod(wx_StaticBoxSizer, wxStaticBoxSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int box = arg.GetNumber(0)
 	//int orient = arg.GetNumber(1)
 	//pThis->GetEntity()->wxStaticBoxSizer();
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_StaticBoxSizer, wxStaticBoxSizer_1)
 
 Gura_ImplementMethod(wx_StaticBoxSizer, wxStaticBoxSizer_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -82,9 +80,8 @@ Gura_DeclareMethod(wx_StaticBoxSizer, GetStaticBox)
 
 Gura_ImplementMethod(wx_StaticBoxSizer, GetStaticBox)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStaticBox();
 	return Value::Nil;
 }
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_StaticBoxSizer, CalcMin)
 
 Gura_ImplementMethod(wx_StaticBoxSizer, CalcMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CalcMin();
 	return Value::Nil;
 }
@@ -110,9 +106,8 @@ Gura_DeclareMethod(wx_StaticBoxSizer, RecalcSizes)
 
 Gura_ImplementMethod(wx_StaticBoxSizer, RecalcSizes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RecalcSizes();
 	return Value::Nil;
 }

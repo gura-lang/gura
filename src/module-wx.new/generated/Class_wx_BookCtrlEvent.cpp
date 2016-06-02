@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_BookCtrlEvent, wxBookCtrlEvent)
 
 Gura_ImplementMethod(wx_BookCtrlEvent, wxBookCtrlEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int sel = arg.GetNumber(2)
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_BookCtrlEvent, GetOldSelection)
 
 Gura_ImplementMethod(wx_BookCtrlEvent, GetOldSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOldSelection();
 	return Value::Nil;
 }
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_BookCtrlEvent, GetSelection)
 
 Gura_ImplementMethod(wx_BookCtrlEvent, GetSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_BookCtrlEvent, SetOldSelection)
 
 Gura_ImplementMethod(wx_BookCtrlEvent, SetOldSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOldSelection();
 	return Value::Nil;
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_BookCtrlEvent, SetSelection)
 
 Gura_ImplementMethod(wx_BookCtrlEvent, SetSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSelection();
 	return Value::Nil;

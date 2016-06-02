@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HtmlRenderingState, wxHtmlRenderingState)
 
 Gura_ImplementMethod(wx_HtmlRenderingState, wxHtmlRenderingState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHtmlRenderingState();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_HtmlRenderingState, SetSelectionState)
 
 Gura_ImplementMethod(wx_HtmlRenderingState, SetSelectionState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int s = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSelectionState();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_HtmlRenderingState, GetSelectionState)
 
 Gura_ImplementMethod(wx_HtmlRenderingState, GetSelectionState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSelectionState();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_HtmlRenderingState, SetFgColour)
 
 Gura_ImplementMethod(wx_HtmlRenderingState, SetFgColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int c = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFgColour();
 	return Value::Nil;
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_HtmlRenderingState, GetFgColour)
 
 Gura_ImplementMethod(wx_HtmlRenderingState, GetFgColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFgColour();
 	return Value::Nil;
 }
@@ -119,9 +114,8 @@ Gura_DeclareMethod(wx_HtmlRenderingState, SetBgColour)
 
 Gura_ImplementMethod(wx_HtmlRenderingState, SetBgColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int c = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBgColour();
 	return Value::Nil;
@@ -134,9 +128,8 @@ Gura_DeclareMethod(wx_HtmlRenderingState, GetBgColour)
 
 Gura_ImplementMethod(wx_HtmlRenderingState, GetBgColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBgColour();
 	return Value::Nil;
 }
@@ -149,9 +142,8 @@ Gura_DeclareMethod(wx_HtmlRenderingState, SetBgMode)
 
 Gura_ImplementMethod(wx_HtmlRenderingState, SetBgMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int m = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBgMode();
 	return Value::Nil;
@@ -164,9 +156,8 @@ Gura_DeclareMethod(wx_HtmlRenderingState, GetBgMode)
 
 Gura_ImplementMethod(wx_HtmlRenderingState, GetBgMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBgMode();
 	return Value::Nil;
 }

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_AcceleratorTable, wxAcceleratorTable)
 
 Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxAcceleratorTable();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_AcceleratorTable, wxAcceleratorTable_1)
 
 Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int entries = arg.GetNumber(1)
 	//pThis->GetEntity()->wxAcceleratorTable();
@@ -77,25 +75,10 @@ Gura_DeclareMethod(wx_AcceleratorTable, wxAcceleratorTable_2)
 
 Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int resource = arg.GetNumber(0)
 	//pThis->GetEntity()->wxAcceleratorTable();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_AcceleratorTable, ~wxAcceleratorTable)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_AcceleratorTable, ~wxAcceleratorTable)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxAcceleratorTable();
 	return Value::Nil;
 }
 
@@ -106,9 +89,8 @@ Gura_DeclareMethod(wx_AcceleratorTable, IsOk)
 
 Gura_ImplementMethod(wx_AcceleratorTable, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -121,7 +103,6 @@ Gura_ImplementUserInheritableClass(wx_AcceleratorTable)
 	Gura_AssignMethod(wx_AcceleratorTable, wxAcceleratorTable);
 	Gura_AssignMethod(wx_AcceleratorTable, wxAcceleratorTable_1);
 	Gura_AssignMethod(wx_AcceleratorTable, wxAcceleratorTable_2);
-	Gura_AssignMethod(wx_AcceleratorTable, ~wxAcceleratorTable);
 	Gura_AssignMethod(wx_AcceleratorTable, IsOk);
 }
 

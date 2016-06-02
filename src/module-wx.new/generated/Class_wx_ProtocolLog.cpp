@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_ProtocolLog, wxProtocolLog)
 
 Gura_ImplementMethod(wx_ProtocolLog, wxProtocolLog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int traceMask = arg.GetNumber(0)
 	//pThis->GetEntity()->wxProtocolLog();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_ProtocolLog, LogRequest)
 
 Gura_ImplementMethod(wx_ProtocolLog, LogRequest)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->LogRequest();
 	return Value::Nil;
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_ProtocolLog, LogResponse)
 
 Gura_ImplementMethod(wx_ProtocolLog, LogResponse)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->LogResponse();
 	return Value::Nil;
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_ProtocolLog, DoLogString)
 
 Gura_ImplementMethod(wx_ProtocolLog, DoLogString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->DoLogString();
 	return Value::Nil;

@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_TipProvider, wxTipProvider)
 
 Gura_ImplementMethod(wx_TipProvider, wxTipProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int currentTip = arg.GetNumber(0)
 	//pThis->GetEntity()->wxTipProvider();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_TipProvider, ~wxTipProvider)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_TipProvider, ~wxTipProvider)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxTipProvider();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_TipProvider, GetCurrentTip)
 
 Gura_ImplementMethod(wx_TipProvider, GetCurrentTip)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCurrentTip();
 	return Value::Nil;
 }
@@ -88,9 +72,8 @@ Gura_DeclareMethod(wx_TipProvider, GetTip)
 
 Gura_ImplementMethod(wx_TipProvider, GetTip)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTip();
 	return Value::Nil;
 }
@@ -101,7 +84,6 @@ Gura_ImplementMethod(wx_TipProvider, GetTip)
 Gura_ImplementUserInheritableClass(wx_TipProvider)
 {
 	Gura_AssignMethod(wx_TipProvider, wxTipProvider);
-	Gura_AssignMethod(wx_TipProvider, ~wxTipProvider);
 	Gura_AssignMethod(wx_TipProvider, GetCurrentTip);
 	Gura_AssignMethod(wx_TipProvider, GetTip);
 }

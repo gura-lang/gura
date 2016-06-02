@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_ScrollWinEvent, wxScrollWinEvent)
 
 Gura_ImplementMethod(wx_ScrollWinEvent, wxScrollWinEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int orientation = arg.GetNumber(2)
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_ScrollWinEvent, GetOrientation)
 
 Gura_ImplementMethod(wx_ScrollWinEvent, GetOrientation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOrientation();
 	return Value::Nil;
 }
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_ScrollWinEvent, GetPosition)
 
 Gura_ImplementMethod(wx_ScrollWinEvent, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_ScrollWinEvent, SetOrientation)
 
 Gura_ImplementMethod(wx_ScrollWinEvent, SetOrientation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOrientation();
 	return Value::Nil;
@@ -109,9 +105,8 @@ Gura_DeclareMethod(wx_ScrollWinEvent, SetPosition)
 
 Gura_ImplementMethod(wx_ScrollWinEvent, SetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollWinEvent *pThis = Object_wx_ScrollWinEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_StringClientData, wxStringClientData)
 
 Gura_ImplementMethod(wx_StringClientData, wxStringClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxStringClientData();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_StringClientData, wxStringClientData_1)
 
 Gura_ImplementMethod(wx_StringClientData, wxStringClientData_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->wxStringClientData();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_StringClientData, GetData)
 
 Gura_ImplementMethod(wx_StringClientData, GetData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_StringClientData, SetData)
 
 Gura_ImplementMethod(wx_StringClientData, SetData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetData();
 	return Value::Nil;

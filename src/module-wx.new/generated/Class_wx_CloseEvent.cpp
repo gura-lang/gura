@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_CloseEvent, wxCloseEvent)
 
 Gura_ImplementMethod(wx_CloseEvent, wxCloseEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandEventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxCloseEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_CloseEvent, CanVeto)
 
 Gura_ImplementMethod(wx_CloseEvent, CanVeto)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanVeto();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_CloseEvent, GetLoggingOff)
 
 Gura_ImplementMethod(wx_CloseEvent, GetLoggingOff)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLoggingOff();
 	return Value::Nil;
 }
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_CloseEvent, SetCanVeto)
 
 Gura_ImplementMethod(wx_CloseEvent, SetCanVeto)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int canVeto = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCanVeto();
 	return Value::Nil;
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_CloseEvent, SetLoggingOff)
 
 Gura_ImplementMethod(wx_CloseEvent, SetLoggingOff)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int loggingOff = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLoggingOff();
 	return Value::Nil;
@@ -123,9 +118,8 @@ Gura_DeclareMethod(wx_CloseEvent, Veto)
 
 Gura_ImplementMethod(wx_CloseEvent, Veto)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int veto = arg.GetNumber(0)
 	//pThis->GetEntity()->Veto();
 	return Value::Nil;
@@ -138,9 +132,8 @@ Gura_DeclareMethod(wx_CloseEvent, GetVeto)
 
 Gura_ImplementMethod(wx_CloseEvent, GetVeto)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVeto();
 	return Value::Nil;
 }

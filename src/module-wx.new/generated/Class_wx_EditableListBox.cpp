@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_EditableListBox, wxEditableListBox)
 
 Gura_ImplementMethod(wx_EditableListBox, wxEditableListBox)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EditableListBox *pThis = Object_wx_EditableListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxEditableListBox();
 	return Value::Nil;
 }
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_EditableListBox, wxEditableListBox_1)
 
 Gura_ImplementMethod(wx_EditableListBox, wxEditableListBox_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EditableListBox *pThis = Object_wx_EditableListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -76,20 +74,6 @@ Gura_ImplementMethod(wx_EditableListBox, wxEditableListBox_1)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
 	//pThis->GetEntity()->wxEditableListBox();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_EditableListBox, ~wxEditableListBox)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_EditableListBox, ~wxEditableListBox)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_EditableListBox *pThis = Object_wx_EditableListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxEditableListBox();
 	return Value::Nil;
 }
 
@@ -107,9 +91,8 @@ Gura_DeclareMethod(wx_EditableListBox, Create)
 
 Gura_ImplementMethod(wx_EditableListBox, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EditableListBox *pThis = Object_wx_EditableListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -129,9 +112,8 @@ Gura_DeclareMethod(wx_EditableListBox, SetStrings)
 
 Gura_ImplementMethod(wx_EditableListBox, SetStrings)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EditableListBox *pThis = Object_wx_EditableListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int strings = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStrings();
 	return Value::Nil;
@@ -145,9 +127,8 @@ Gura_DeclareMethod(wx_EditableListBox, GetStrings)
 
 Gura_ImplementMethod(wx_EditableListBox, GetStrings)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_EditableListBox *pThis = Object_wx_EditableListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int strings = arg.GetNumber(0)
 	//pThis->GetEntity()->GetStrings();
 	return Value::Nil;
@@ -160,7 +141,6 @@ Gura_ImplementUserInheritableClass(wx_EditableListBox)
 {
 	Gura_AssignMethod(wx_EditableListBox, wxEditableListBox);
 	Gura_AssignMethod(wx_EditableListBox, wxEditableListBox_1);
-	Gura_AssignMethod(wx_EditableListBox, ~wxEditableListBox);
 	Gura_AssignMethod(wx_EditableListBox, Create);
 	Gura_AssignMethod(wx_EditableListBox, SetStrings);
 	Gura_AssignMethod(wx_EditableListBox, GetStrings);

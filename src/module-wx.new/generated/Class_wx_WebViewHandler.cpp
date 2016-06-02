@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_WebViewHandler, wxWebViewHandler)
 
 Gura_ImplementMethod(wx_WebViewHandler, wxWebViewHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewHandler *pThis = Object_wx_WebViewHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int scheme = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWebViewHandler();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_WebViewHandler, GetFile)
 
 Gura_ImplementMethod(wx_WebViewHandler, GetFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewHandler *pThis = Object_wx_WebViewHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int uri = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFile();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_WebViewHandler, GetName)
 
 Gura_ImplementMethod(wx_WebViewHandler, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewHandler *pThis = Object_wx_WebViewHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }

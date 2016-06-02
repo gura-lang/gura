@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GBPosition, wxGBPosition)
 
 Gura_ImplementMethod(wx_GBPosition, wxGBPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGBPosition();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_GBPosition, wxGBPosition_1)
 
 Gura_ImplementMethod(wx_GBPosition, wxGBPosition_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->wxGBPosition();
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_GBPosition, GetCol)
 
 Gura_ImplementMethod(wx_GBPosition, GetCol)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCol();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_GBPosition, GetRow)
 
 Gura_ImplementMethod(wx_GBPosition, GetRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRow();
 	return Value::Nil;
 }
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_GBPosition, SetCol)
 
 Gura_ImplementMethod(wx_GBPosition, SetCol)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCol();
 	return Value::Nil;
@@ -121,9 +116,8 @@ Gura_DeclareMethod(wx_GBPosition, SetRow)
 
 Gura_ImplementMethod(wx_GBPosition, SetRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRow();
 	return Value::Nil;

@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_FontPickerEvent, wxFontPickerEvent)
 
 Gura_ImplementMethod(wx_FontPickerEvent, wxFontPickerEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int generator = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int font = arg.GetNumber(2)
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_FontPickerEvent, GetFont)
 
 Gura_ImplementMethod(wx_FontPickerEvent, GetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFont();
 	return Value::Nil;
 }
@@ -79,9 +77,8 @@ Gura_DeclareMethod(wx_FontPickerEvent, SetFont)
 
 Gura_ImplementMethod(wx_FontPickerEvent, SetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int f = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;

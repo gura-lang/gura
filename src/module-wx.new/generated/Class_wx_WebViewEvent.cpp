@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_WebViewEvent, wxWebViewEvent)
 
 Gura_ImplementMethod(wx_WebViewEvent, wxWebViewEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxWebViewEvent();
 	return Value::Nil;
 }
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_WebViewEvent, wxWebViewEvent_1)
 
 Gura_ImplementMethod(wx_WebViewEvent, wxWebViewEvent_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int href = arg.GetNumber(2)
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_WebViewEvent, GetTarget)
 
 Gura_ImplementMethod(wx_WebViewEvent, GetTarget)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTarget();
 	return Value::Nil;
 }
@@ -94,9 +91,8 @@ Gura_DeclareMethod(wx_WebViewEvent, GetURL)
 
 Gura_ImplementMethod(wx_WebViewEvent, GetURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }

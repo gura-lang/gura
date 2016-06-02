@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TimerEvent, wxTimerEvent)
 
 Gura_ImplementMethod(wx_TimerEvent, wxTimerEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTimerEvent();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_TimerEvent, wxTimerEvent_1)
 
 Gura_ImplementMethod(wx_TimerEvent, wxTimerEvent_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int timer = arg.GetNumber(0)
 	//pThis->GetEntity()->wxTimerEvent();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_TimerEvent, GetInterval)
 
 Gura_ImplementMethod(wx_TimerEvent, GetInterval)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetInterval();
 	return Value::Nil;
 }
@@ -88,9 +85,8 @@ Gura_DeclareMethod(wx_TimerEvent, GetTimer)
 
 Gura_ImplementMethod(wx_TimerEvent, GetTimer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTimer();
 	return Value::Nil;
 }

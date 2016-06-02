@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_URI, wxURI)
 
 Gura_ImplementMethod(wx_URI, wxURI)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxURI();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_URI, wxURI_1)
 
 Gura_ImplementMethod(wx_URI, wxURI_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int uri = arg.GetNumber(0)
 	//pThis->GetEntity()->wxURI();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_URI, wxURI_2)
 
 Gura_ImplementMethod(wx_URI, wxURI_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int uri = arg.GetNumber(0)
 	//pThis->GetEntity()->wxURI();
 	return Value::Nil;
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_URI, BuildURI)
 
 Gura_ImplementMethod(wx_URI, BuildURI)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->BuildURI();
 	return Value::Nil;
 }
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_URI, BuildUnescapedURI)
 
 Gura_ImplementMethod(wx_URI, BuildUnescapedURI)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->BuildUnescapedURI();
 	return Value::Nil;
 }
@@ -119,9 +114,8 @@ Gura_DeclareMethod(wx_URI, Create)
 
 Gura_ImplementMethod(wx_URI, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int uri = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -134,9 +128,8 @@ Gura_DeclareMethod(wx_URI, GetFragment)
 
 Gura_ImplementMethod(wx_URI, GetFragment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFragment();
 	return Value::Nil;
 }
@@ -148,9 +141,8 @@ Gura_DeclareMethod(wx_URI, GetHostType)
 
 Gura_ImplementMethod(wx_URI, GetHostType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHostType();
 	return Value::Nil;
 }
@@ -162,9 +154,8 @@ Gura_DeclareMethod(wx_URI, GetPassword)
 
 Gura_ImplementMethod(wx_URI, GetPassword)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPassword();
 	return Value::Nil;
 }
@@ -176,9 +167,8 @@ Gura_DeclareMethod(wx_URI, GetPath)
 
 Gura_ImplementMethod(wx_URI, GetPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
@@ -190,9 +180,8 @@ Gura_DeclareMethod(wx_URI, GetPort)
 
 Gura_ImplementMethod(wx_URI, GetPort)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPort();
 	return Value::Nil;
 }
@@ -204,9 +193,8 @@ Gura_DeclareMethod(wx_URI, GetQuery)
 
 Gura_ImplementMethod(wx_URI, GetQuery)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetQuery();
 	return Value::Nil;
 }
@@ -218,9 +206,8 @@ Gura_DeclareMethod(wx_URI, GetScheme)
 
 Gura_ImplementMethod(wx_URI, GetScheme)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetScheme();
 	return Value::Nil;
 }
@@ -232,9 +219,8 @@ Gura_DeclareMethod(wx_URI, GetServer)
 
 Gura_ImplementMethod(wx_URI, GetServer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetServer();
 	return Value::Nil;
 }
@@ -246,9 +232,8 @@ Gura_DeclareMethod(wx_URI, GetUser)
 
 Gura_ImplementMethod(wx_URI, GetUser)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUser();
 	return Value::Nil;
 }
@@ -260,9 +245,8 @@ Gura_DeclareMethod(wx_URI, GetUserInfo)
 
 Gura_ImplementMethod(wx_URI, GetUserInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUserInfo();
 	return Value::Nil;
 }
@@ -274,9 +258,8 @@ Gura_DeclareMethod(wx_URI, HasFragment)
 
 Gura_ImplementMethod(wx_URI, HasFragment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasFragment();
 	return Value::Nil;
 }
@@ -288,9 +271,8 @@ Gura_DeclareMethod(wx_URI, HasPath)
 
 Gura_ImplementMethod(wx_URI, HasPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasPath();
 	return Value::Nil;
 }
@@ -302,9 +284,8 @@ Gura_DeclareMethod(wx_URI, HasPort)
 
 Gura_ImplementMethod(wx_URI, HasPort)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasPort();
 	return Value::Nil;
 }
@@ -316,9 +297,8 @@ Gura_DeclareMethod(wx_URI, HasQuery)
 
 Gura_ImplementMethod(wx_URI, HasQuery)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasQuery();
 	return Value::Nil;
 }
@@ -330,9 +310,8 @@ Gura_DeclareMethod(wx_URI, HasScheme)
 
 Gura_ImplementMethod(wx_URI, HasScheme)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasScheme();
 	return Value::Nil;
 }
@@ -344,9 +323,8 @@ Gura_DeclareMethod(wx_URI, HasServer)
 
 Gura_ImplementMethod(wx_URI, HasServer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasServer();
 	return Value::Nil;
 }
@@ -358,9 +336,8 @@ Gura_DeclareMethod(wx_URI, HasUserInfo)
 
 Gura_ImplementMethod(wx_URI, HasUserInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasUserInfo();
 	return Value::Nil;
 }
@@ -372,9 +349,8 @@ Gura_DeclareMethod(wx_URI, IsReference)
 
 Gura_ImplementMethod(wx_URI, IsReference)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsReference();
 	return Value::Nil;
 }
@@ -388,9 +364,8 @@ Gura_DeclareMethod(wx_URI, Resolve)
 
 Gura_ImplementMethod(wx_URI, Resolve)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->Resolve();
@@ -405,9 +380,8 @@ Gura_DeclareMethod(wx_URI, Unescape)
 
 Gura_ImplementMethod(wx_URI, Unescape)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int uri = arg.GetNumber(0)
 	//pThis->GetEntity()->Unescape();
 	return Value::Nil;

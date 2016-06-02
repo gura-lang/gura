@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ScrollBar, wxScrollBar)
 
 Gura_ImplementMethod(wx_ScrollBar, wxScrollBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxScrollBar();
 	return Value::Nil;
 }
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_ScrollBar, wxScrollBar_1)
 
 Gura_ImplementMethod(wx_ScrollBar, wxScrollBar_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -76,20 +74,6 @@ Gura_ImplementMethod(wx_ScrollBar, wxScrollBar_1)
 	//int validator = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
 	//pThis->GetEntity()->wxScrollBar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_ScrollBar, ~wxScrollBar)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ScrollBar, ~wxScrollBar)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxScrollBar();
 	return Value::Nil;
 }
 
@@ -107,9 +91,8 @@ Gura_DeclareMethod(wx_ScrollBar, Create)
 
 Gura_ImplementMethod(wx_ScrollBar, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -128,9 +111,8 @@ Gura_DeclareMethod(wx_ScrollBar, GetPageSize)
 
 Gura_ImplementMethod(wx_ScrollBar, GetPageSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPageSize();
 	return Value::Nil;
 }
@@ -142,9 +124,8 @@ Gura_DeclareMethod(wx_ScrollBar, GetRange)
 
 Gura_ImplementMethod(wx_ScrollBar, GetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRange();
 	return Value::Nil;
 }
@@ -156,9 +137,8 @@ Gura_DeclareMethod(wx_ScrollBar, GetThumbPosition)
 
 Gura_ImplementMethod(wx_ScrollBar, GetThumbPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetThumbPosition();
 	return Value::Nil;
 }
@@ -170,9 +150,8 @@ Gura_DeclareMethod(wx_ScrollBar, GetThumbSize)
 
 Gura_ImplementMethod(wx_ScrollBar, GetThumbSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetThumbSize();
 	return Value::Nil;
 }
@@ -189,9 +168,8 @@ Gura_DeclareMethod(wx_ScrollBar, SetScrollbar)
 
 Gura_ImplementMethod(wx_ScrollBar, SetScrollbar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int position = arg.GetNumber(0)
 	//int thumbSize = arg.GetNumber(1)
 	//int range = arg.GetNumber(2)
@@ -209,9 +187,8 @@ Gura_DeclareMethod(wx_ScrollBar, SetThumbPosition)
 
 Gura_ImplementMethod(wx_ScrollBar, SetThumbPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int viewStart = arg.GetNumber(0)
 	//pThis->GetEntity()->SetThumbPosition();
 	return Value::Nil;
@@ -224,9 +201,8 @@ Gura_DeclareMethod(wx_ScrollBar, IsVertical)
 
 Gura_ImplementMethod(wx_ScrollBar, IsVertical)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsVertical();
 	return Value::Nil;
 }
@@ -238,7 +214,6 @@ Gura_ImplementUserInheritableClass(wx_ScrollBar)
 {
 	Gura_AssignMethod(wx_ScrollBar, wxScrollBar);
 	Gura_AssignMethod(wx_ScrollBar, wxScrollBar_1);
-	Gura_AssignMethod(wx_ScrollBar, ~wxScrollBar);
 	Gura_AssignMethod(wx_ScrollBar, Create);
 	Gura_AssignMethod(wx_ScrollBar, GetPageSize);
 	Gura_AssignMethod(wx_ScrollBar, GetRange);

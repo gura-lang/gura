@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, wxAcceleratorEntry)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, wxAcceleratorEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//int keyCode = arg.GetNumber(1)
 	//int cmd = arg.GetNumber(2)
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, wxAcceleratorEntry_1)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, wxAcceleratorEntry_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
 	//pThis->GetEntity()->wxAcceleratorEntry();
 	return Value::Nil;
@@ -82,9 +80,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, GetCommand)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, GetCommand)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCommand();
 	return Value::Nil;
 }
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, GetFlags)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, GetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
@@ -110,9 +106,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, GetKeyCode)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, GetKeyCode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetKeyCode();
 	return Value::Nil;
 }
@@ -124,9 +119,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, GetMenuItem)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, GetMenuItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMenuItem();
 	return Value::Nil;
 }
@@ -142,9 +136,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, Set)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//int keyCode = arg.GetNumber(1)
 	//int cmd = arg.GetNumber(2)
@@ -160,9 +153,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, IsOk)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -174,9 +166,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, ToString)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, ToString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ToString();
 	return Value::Nil;
 }
@@ -188,9 +179,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, ToRawString)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, ToRawString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ToRawString();
 	return Value::Nil;
 }
@@ -203,9 +193,8 @@ Gura_DeclareMethod(wx_AcceleratorEntry, FromString)
 
 Gura_ImplementMethod(wx_AcceleratorEntry, FromString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->FromString();
 	return Value::Nil;

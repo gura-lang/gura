@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_FileDataObject, wxFileDataObject)
 
 Gura_ImplementMethod(wx_FileDataObject, wxFileDataObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxFileDataObject();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_FileDataObject, AddFile)
 
 Gura_ImplementMethod(wx_FileDataObject, AddFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//pThis->GetEntity()->AddFile();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_FileDataObject, GetFilenames)
 
 Gura_ImplementMethod(wx_FileDataObject, GetFilenames)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFilenames();
 	return Value::Nil;
 }

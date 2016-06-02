@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_MessageDialog, ButtonLabel)
 
 Gura_ImplementMethod(wx_MessageDialog, ButtonLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stockId = arg.GetNumber(0)
 	//pThis->GetEntity()->ButtonLabel();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_MessageDialog, ButtonLabel_1)
 
 Gura_ImplementMethod(wx_MessageDialog, ButtonLabel_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int label = arg.GetNumber(0)
 	//pThis->GetEntity()->ButtonLabel();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_MessageDialog, GetAsString)
 
 Gura_ImplementMethod(wx_MessageDialog, GetAsString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAsString();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_MessageDialog, GetStockId)
 
 Gura_ImplementMethod(wx_MessageDialog, GetStockId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStockId();
 	return Value::Nil;
 }

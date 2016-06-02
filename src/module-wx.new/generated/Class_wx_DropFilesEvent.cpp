@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_DropFilesEvent, wxDropFilesEvent)
 
 Gura_ImplementMethod(wx_DropFilesEvent, wxDropFilesEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int noFiles = arg.GetNumber(1)
 	//int files = arg.GetNumber(2)
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_DropFilesEvent, GetFiles)
 
 Gura_ImplementMethod(wx_DropFilesEvent, GetFiles)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFiles();
 	return Value::Nil;
 }
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_DropFilesEvent, GetNumberOfFiles)
 
 Gura_ImplementMethod(wx_DropFilesEvent, GetNumberOfFiles)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNumberOfFiles();
 	return Value::Nil;
 }
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_DropFilesEvent, GetPosition)
 
 Gura_ImplementMethod(wx_DropFilesEvent, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }

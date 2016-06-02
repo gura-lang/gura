@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ScopeGuard, Dismiss)
 
 Gura_ImplementMethod(wx_ScopeGuard, Dismiss)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ScopeGuard *pThis = Object_wx_ScopeGuard::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Dismiss();
 	return Value::Nil;
 }

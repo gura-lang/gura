@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_App, wxApp)
 
 Gura_ImplementMethod(wx_App, wxApp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxApp();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_App, ~wxApp)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_App, ~wxApp)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxApp();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_App, GetDisplayMode)
 
 Gura_ImplementMethod(wx_App, GetDisplayMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDisplayMode();
 	return Value::Nil;
 }
@@ -86,9 +70,8 @@ Gura_DeclareMethod(wx_App, GetExitOnFrameDelete)
 
 Gura_ImplementMethod(wx_App, GetExitOnFrameDelete)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetExitOnFrameDelete();
 	return Value::Nil;
 }
@@ -100,9 +83,8 @@ Gura_DeclareMethod(wx_App, GetLayoutDirection)
 
 Gura_ImplementMethod(wx_App, GetLayoutDirection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLayoutDirection();
 	return Value::Nil;
 }
@@ -114,9 +96,8 @@ Gura_DeclareMethod(wx_App, GetUseBestVisual)
 
 Gura_ImplementMethod(wx_App, GetUseBestVisual)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUseBestVisual();
 	return Value::Nil;
 }
@@ -128,9 +109,8 @@ Gura_DeclareMethod(wx_App, GetTopWindow)
 
 Gura_ImplementMethod(wx_App, GetTopWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTopWindow();
 	return Value::Nil;
 }
@@ -142,9 +122,8 @@ Gura_DeclareMethod(wx_App, IsActive)
 
 Gura_ImplementMethod(wx_App, IsActive)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsActive();
 	return Value::Nil;
 }
@@ -158,9 +137,8 @@ Gura_DeclareMethod(wx_App, SafeYield)
 
 Gura_ImplementMethod(wx_App, SafeYield)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int onlyIfNeeded = arg.GetNumber(1)
 	//pThis->GetEntity()->SafeYield();
@@ -176,9 +154,8 @@ Gura_DeclareMethod(wx_App, SafeYieldFor)
 
 Gura_ImplementMethod(wx_App, SafeYieldFor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int eventsToProcess = arg.GetNumber(1)
 	//pThis->GetEntity()->SafeYieldFor();
@@ -193,9 +170,8 @@ Gura_DeclareMethod(wx_App, ProcessMessage)
 
 Gura_ImplementMethod(wx_App, ProcessMessage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int msg = arg.GetNumber(0)
 	//pThis->GetEntity()->ProcessMessage();
 	return Value::Nil;
@@ -209,9 +185,8 @@ Gura_DeclareMethod(wx_App, SetDisplayMode)
 
 Gura_ImplementMethod(wx_App, SetDisplayMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int info = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDisplayMode();
 	return Value::Nil;
@@ -225,9 +200,8 @@ Gura_DeclareMethod(wx_App, SetExitOnFrameDelete)
 
 Gura_ImplementMethod(wx_App, SetExitOnFrameDelete)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
 	//pThis->GetEntity()->SetExitOnFrameDelete();
 	return Value::Nil;
@@ -241,9 +215,8 @@ Gura_DeclareMethod(wx_App, SetNativeTheme)
 
 Gura_ImplementMethod(wx_App, SetNativeTheme)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int theme = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNativeTheme();
 	return Value::Nil;
@@ -257,9 +230,8 @@ Gura_DeclareMethod(wx_App, SetTopWindow)
 
 Gura_ImplementMethod(wx_App, SetTopWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTopWindow();
 	return Value::Nil;
@@ -274,9 +246,8 @@ Gura_DeclareMethod(wx_App, SetUseBestVisual)
 
 Gura_ImplementMethod(wx_App, SetUseBestVisual)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
 	//int forceTrueColour = arg.GetNumber(1)
 	//pThis->GetEntity()->SetUseBestVisual();
@@ -290,9 +261,8 @@ Gura_DeclareMethod(wx_App, MacNewFile)
 
 Gura_ImplementMethod(wx_App, MacNewFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MacNewFile();
 	return Value::Nil;
 }
@@ -305,9 +275,8 @@ Gura_DeclareMethod(wx_App, MacOpenFiles)
 
 Gura_ImplementMethod(wx_App, MacOpenFiles)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fileNames = arg.GetNumber(0)
 	//pThis->GetEntity()->MacOpenFiles();
 	return Value::Nil;
@@ -321,9 +290,8 @@ Gura_DeclareMethod(wx_App, MacOpenFile)
 
 Gura_ImplementMethod(wx_App, MacOpenFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fileName = arg.GetNumber(0)
 	//pThis->GetEntity()->MacOpenFile();
 	return Value::Nil;
@@ -337,9 +305,8 @@ Gura_DeclareMethod(wx_App, MacOpenURL)
 
 Gura_ImplementMethod(wx_App, MacOpenURL)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//pThis->GetEntity()->MacOpenURL();
 	return Value::Nil;
@@ -353,9 +320,8 @@ Gura_DeclareMethod(wx_App, MacPrintFile)
 
 Gura_ImplementMethod(wx_App, MacPrintFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fileName = arg.GetNumber(0)
 	//pThis->GetEntity()->MacPrintFile();
 	return Value::Nil;
@@ -368,9 +334,8 @@ Gura_DeclareMethod(wx_App, MacReopenApp)
 
 Gura_ImplementMethod(wx_App, MacReopenApp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MacReopenApp();
 	return Value::Nil;
 }
@@ -382,9 +347,8 @@ Gura_DeclareMethod(wx_App, OSXIsGUIApplication)
 
 Gura_ImplementMethod(wx_App, OSXIsGUIApplication)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OSXIsGUIApplication();
 	return Value::Nil;
 }
@@ -395,7 +359,6 @@ Gura_ImplementMethod(wx_App, OSXIsGUIApplication)
 Gura_ImplementUserInheritableClass(wx_App)
 {
 	Gura_AssignMethod(wx_App, wxApp);
-	Gura_AssignMethod(wx_App, ~wxApp);
 	Gura_AssignMethod(wx_App, GetDisplayMode);
 	Gura_AssignMethod(wx_App, GetExitOnFrameDelete);
 	Gura_AssignMethod(wx_App, GetLayoutDirection);

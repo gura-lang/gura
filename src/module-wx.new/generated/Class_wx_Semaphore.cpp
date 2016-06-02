@@ -46,26 +46,11 @@ Gura_DeclareMethod(wx_Semaphore, wxSemaphore)
 
 Gura_ImplementMethod(wx_Semaphore, wxSemaphore)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int initialcount = arg.GetNumber(0)
 	//int maxcount = arg.GetNumber(1)
 	//pThis->GetEntity()->wxSemaphore();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Semaphore, ~wxSemaphore)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Semaphore, ~wxSemaphore)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxSemaphore();
 	return Value::Nil;
 }
 
@@ -76,9 +61,8 @@ Gura_DeclareMethod(wx_Semaphore, Post)
 
 Gura_ImplementMethod(wx_Semaphore, Post)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Post();
 	return Value::Nil;
 }
@@ -90,9 +74,8 @@ Gura_DeclareMethod(wx_Semaphore, TryWait)
 
 Gura_ImplementMethod(wx_Semaphore, TryWait)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->TryWait();
 	return Value::Nil;
 }
@@ -104,9 +87,8 @@ Gura_DeclareMethod(wx_Semaphore, Wait)
 
 Gura_ImplementMethod(wx_Semaphore, Wait)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Wait();
 	return Value::Nil;
 }
@@ -119,9 +101,8 @@ Gura_DeclareMethod(wx_Semaphore, WaitTimeout)
 
 Gura_ImplementMethod(wx_Semaphore, WaitTimeout)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int timeout_millis = arg.GetNumber(0)
 	//pThis->GetEntity()->WaitTimeout();
 	return Value::Nil;
@@ -133,7 +114,6 @@ Gura_ImplementMethod(wx_Semaphore, WaitTimeout)
 Gura_ImplementUserInheritableClass(wx_Semaphore)
 {
 	Gura_AssignMethod(wx_Semaphore, wxSemaphore);
-	Gura_AssignMethod(wx_Semaphore, ~wxSemaphore);
 	Gura_AssignMethod(wx_Semaphore, Post);
 	Gura_AssignMethod(wx_Semaphore, TryWait);
 	Gura_AssignMethod(wx_Semaphore, Wait);

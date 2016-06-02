@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_AuiToolBarEvent, IsDropDownClicked)
 
 Gura_ImplementMethod(wx_AuiToolBarEvent, IsDropDownClicked)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsDropDownClicked();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_AuiToolBarEvent, GetClickPoint)
 
 Gura_ImplementMethod(wx_AuiToolBarEvent, GetClickPoint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetClickPoint();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_AuiToolBarEvent, GetItemRect)
 
 Gura_ImplementMethod(wx_AuiToolBarEvent, GetItemRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetItemRect();
 	return Value::Nil;
 }
@@ -86,9 +83,8 @@ Gura_DeclareMethod(wx_AuiToolBarEvent, GetToolId)
 
 Gura_ImplementMethod(wx_AuiToolBarEvent, GetToolId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetToolId();
 	return Value::Nil;
 }

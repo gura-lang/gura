@@ -52,9 +52,8 @@ Gura_DeclareMethod(wx_GLCanvas, wxGLCanvas)
 
 Gura_ImplementMethod(wx_GLCanvas, wxGLCanvas)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int dispAttrs = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
@@ -82,9 +81,8 @@ Gura_DeclareMethod(wx_GLCanvas, wxGLCanvas_1)
 
 Gura_ImplementMethod(wx_GLCanvas, wxGLCanvas_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int attribList = arg.GetNumber(2)
@@ -105,9 +103,8 @@ Gura_DeclareMethod(wx_GLCanvas, IsDisplaySupported)
 
 Gura_ImplementMethod(wx_GLCanvas, IsDisplaySupported)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dispAttrs = arg.GetNumber(0)
 	//pThis->GetEntity()->IsDisplaySupported();
 	return Value::Nil;
@@ -121,9 +118,8 @@ Gura_DeclareMethod(wx_GLCanvas, IsDisplaySupported_1)
 
 Gura_ImplementMethod(wx_GLCanvas, IsDisplaySupported_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attribList = arg.GetNumber(0)
 	//pThis->GetEntity()->IsDisplaySupported();
 	return Value::Nil;
@@ -137,9 +133,8 @@ Gura_DeclareMethod(wx_GLCanvas, IsExtensionSupported)
 
 Gura_ImplementMethod(wx_GLCanvas, IsExtensionSupported)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int extension = arg.GetNumber(0)
 	//pThis->GetEntity()->IsExtensionSupported();
 	return Value::Nil;
@@ -153,9 +148,8 @@ Gura_DeclareMethod(wx_GLCanvas, SetColour)
 
 Gura_ImplementMethod(wx_GLCanvas, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -169,9 +163,8 @@ Gura_DeclareMethod(wx_GLCanvas, SetCurrent)
 
 Gura_ImplementMethod(wx_GLCanvas, SetCurrent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int context = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCurrent();
 	return Value::Nil;
@@ -184,9 +177,8 @@ Gura_DeclareMethod(wx_GLCanvas, SwapBuffers)
 
 Gura_ImplementMethod(wx_GLCanvas, SwapBuffers)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->SwapBuffers();
 	return Value::Nil;
 }

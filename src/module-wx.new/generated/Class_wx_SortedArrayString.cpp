@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_SortedArrayString, wxSortedArrayString)
 
 Gura_ImplementMethod(wx_SortedArrayString, wxSortedArrayString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SortedArrayString *pThis = Object_wx_SortedArrayString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSortedArrayString();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_SortedArrayString, wxSortedArrayString_1)
 
 Gura_ImplementMethod(wx_SortedArrayString, wxSortedArrayString_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SortedArrayString *pThis = Object_wx_SortedArrayString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int compareFunction = arg.GetNumber(0)
 	//pThis->GetEntity()->wxSortedArrayString();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_SortedArrayString, wxSortedArrayString_2)
 
 Gura_ImplementMethod(wx_SortedArrayString, wxSortedArrayString_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SortedArrayString *pThis = Object_wx_SortedArrayString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int array = arg.GetNumber(0)
 	//pThis->GetEntity()->wxSortedArrayString();
 	return Value::Nil;
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_SortedArrayString, Add)
 
 Gura_ImplementMethod(wx_SortedArrayString, Add)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SortedArrayString *pThis = Object_wx_SortedArrayString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int copies = arg.GetNumber(1)
 	//pThis->GetEntity()->Add();
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_SortedArrayString, Index)
 
 Gura_ImplementMethod(wx_SortedArrayString, Index)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SortedArrayString *pThis = Object_wx_SortedArrayString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sz = arg.GetNumber(0)
 	//int bCase = arg.GetNumber(1)
 	//int bFromEnd = arg.GetNumber(2)
@@ -131,9 +126,8 @@ Gura_DeclareMethod(wx_SortedArrayString, Insert)
 
 Gura_ImplementMethod(wx_SortedArrayString, Insert)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SortedArrayString *pThis = Object_wx_SortedArrayString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int nIndex = arg.GetNumber(1)
 	//int copies = arg.GetNumber(2)
@@ -149,9 +143,8 @@ Gura_DeclareMethod(wx_SortedArrayString, Sort)
 
 Gura_ImplementMethod(wx_SortedArrayString, Sort)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SortedArrayString *pThis = Object_wx_SortedArrayString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int reverseOrder = arg.GetNumber(0)
 	//pThis->GetEntity()->Sort();
 	return Value::Nil;
@@ -165,9 +158,8 @@ Gura_DeclareMethod(wx_SortedArrayString, Sort_1)
 
 Gura_ImplementMethod(wx_SortedArrayString, Sort_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SortedArrayString *pThis = Object_wx_SortedArrayString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int compareFunction = arg.GetNumber(0)
 	//pThis->GetEntity()->Sort();
 	return Value::Nil;

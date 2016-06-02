@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, wxDataViewItemAttr)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, wxDataViewItemAttr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxDataViewItemAttr();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, SetBold)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, SetBold)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int set = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBold();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, SetColour)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, SetBackgroundColour)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, SetBackgroundColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBackgroundColour();
 	return Value::Nil;
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, SetItalic)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, SetItalic)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int set = arg.GetNumber(0)
 	//pThis->GetEntity()->SetItalic();
 	return Value::Nil;
@@ -122,9 +117,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, HasColour)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, HasColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasColour();
 	return Value::Nil;
 }
@@ -136,9 +130,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, GetColour)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, GetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
@@ -150,9 +143,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, HasFont)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, HasFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasFont();
 	return Value::Nil;
 }
@@ -164,9 +156,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, GetBold)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, GetBold)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBold();
 	return Value::Nil;
 }
@@ -178,9 +169,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, GetItalic)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, GetItalic)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetItalic();
 	return Value::Nil;
 }
@@ -192,9 +182,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, HasBackgroundColour)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, HasBackgroundColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasBackgroundColour();
 	return Value::Nil;
 }
@@ -206,9 +195,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, GetBackgroundColour)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, GetBackgroundColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBackgroundColour();
 	return Value::Nil;
 }
@@ -220,9 +208,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, IsDefault)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, IsDefault)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsDefault();
 	return Value::Nil;
 }
@@ -235,9 +222,8 @@ Gura_DeclareMethod(wx_DataViewItemAttr, GetEffectiveFont)
 
 Gura_ImplementMethod(wx_DataViewItemAttr, GetEffectiveFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->GetEffectiveFont();
 	return Value::Nil;

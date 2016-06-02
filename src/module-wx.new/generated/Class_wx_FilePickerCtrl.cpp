@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_FilePickerCtrl, wxFilePickerCtrl)
 
 Gura_ImplementMethod(wx_FilePickerCtrl, wxFilePickerCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxFilePickerCtrl();
 	return Value::Nil;
 }
@@ -68,9 +67,8 @@ Gura_DeclareMethod(wx_FilePickerCtrl, wxFilePickerCtrl_1)
 
 Gura_ImplementMethod(wx_FilePickerCtrl, wxFilePickerCtrl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int path = arg.GetNumber(2)
@@ -102,9 +100,8 @@ Gura_DeclareMethod(wx_FilePickerCtrl, Create)
 
 Gura_ImplementMethod(wx_FilePickerCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int path = arg.GetNumber(2)
@@ -126,9 +123,8 @@ Gura_DeclareMethod(wx_FilePickerCtrl, GetFileName)
 
 Gura_ImplementMethod(wx_FilePickerCtrl, GetFileName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFileName();
 	return Value::Nil;
 }
@@ -140,9 +136,8 @@ Gura_DeclareMethod(wx_FilePickerCtrl, GetPath)
 
 Gura_ImplementMethod(wx_FilePickerCtrl, GetPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
@@ -155,9 +150,8 @@ Gura_DeclareMethod(wx_FilePickerCtrl, SetFileName)
 
 Gura_ImplementMethod(wx_FilePickerCtrl, SetFileName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFileName();
 	return Value::Nil;
@@ -171,9 +165,8 @@ Gura_DeclareMethod(wx_FilePickerCtrl, SetInitialDirectory)
 
 Gura_ImplementMethod(wx_FilePickerCtrl, SetInitialDirectory)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//pThis->GetEntity()->SetInitialDirectory();
 	return Value::Nil;
@@ -187,9 +180,8 @@ Gura_DeclareMethod(wx_FilePickerCtrl, SetPath)
 
 Gura_ImplementMethod(wx_FilePickerCtrl, SetPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPath();
 	return Value::Nil;

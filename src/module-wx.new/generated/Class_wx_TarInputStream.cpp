@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_TarInputStream, wxTarInputStream)
 
 Gura_ImplementMethod(wx_TarInputStream, wxTarInputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
 	//pThis->GetEntity()->wxTarInputStream();
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_TarInputStream, wxTarInputStream_1)
 
 Gura_ImplementMethod(wx_TarInputStream, wxTarInputStream_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
 	//pThis->GetEntity()->wxTarInputStream();
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_TarInputStream, CloseEntry)
 
 Gura_ImplementMethod(wx_TarInputStream, CloseEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CloseEntry();
 	return Value::Nil;
 }
@@ -94,9 +91,8 @@ Gura_DeclareMethod(wx_TarInputStream, GetNextEntry)
 
 Gura_ImplementMethod(wx_TarInputStream, GetNextEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNextEntry();
 	return Value::Nil;
 }
@@ -109,9 +105,8 @@ Gura_DeclareMethod(wx_TarInputStream, OpenEntry)
 
 Gura_ImplementMethod(wx_TarInputStream, OpenEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
 	//pThis->GetEntity()->OpenEntry();
 	return Value::Nil;

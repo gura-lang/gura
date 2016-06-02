@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_DebugReportUpload, wxDebugReportUpload)
 
 Gura_ImplementMethod(wx_DebugReportUpload, wxDebugReportUpload)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//int input = arg.GetNumber(1)
 	//int action = arg.GetNumber(2)
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_DebugReportUpload, OnServerReply)
 
 Gura_ImplementMethod(wx_DebugReportUpload, OnServerReply)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int reply = arg.GetNumber(0)
 	//pThis->GetEntity()->OnServerReply();
 	return Value::Nil;

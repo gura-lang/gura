@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_LogInterposerTemp, wxLogInterposerTemp)
 
 Gura_ImplementMethod(wx_LogInterposerTemp, wxLogInterposerTemp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogInterposerTemp *pThis = Object_wx_LogInterposerTemp::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxLogInterposerTemp();
 	return Value::Nil;
 }

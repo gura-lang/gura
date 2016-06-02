@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_LayoutConstraints, wxLayoutConstraints)
 
 Gura_ImplementMethod(wx_LayoutConstraints, wxLayoutConstraints)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LayoutConstraints *pThis = Object_wx_LayoutConstraints::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxLayoutConstraints();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_LayoutConstraints, ~wxLayoutConstraints)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_LayoutConstraints, ~wxLayoutConstraints)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_LayoutConstraints *pThis = Object_wx_LayoutConstraints::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxLayoutConstraints();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_LayoutConstraints, SatisfyConstraints)
 
 Gura_ImplementMethod(wx_LayoutConstraints, SatisfyConstraints)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LayoutConstraints *pThis = Object_wx_LayoutConstraints::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int noChanges = arg.GetNumber(1)
 	//pThis->GetEntity()->SatisfyConstraints();
@@ -90,9 +74,8 @@ Gura_DeclareMethod(wx_LayoutConstraints, AreSatisfied)
 
 Gura_ImplementMethod(wx_LayoutConstraints, AreSatisfied)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LayoutConstraints *pThis = Object_wx_LayoutConstraints::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AreSatisfied();
 	return Value::Nil;
 }
@@ -103,7 +86,6 @@ Gura_ImplementMethod(wx_LayoutConstraints, AreSatisfied)
 Gura_ImplementUserInheritableClass(wx_LayoutConstraints)
 {
 	Gura_AssignMethod(wx_LayoutConstraints, wxLayoutConstraints);
-	Gura_AssignMethod(wx_LayoutConstraints, ~wxLayoutConstraints);
 	Gura_AssignMethod(wx_LayoutConstraints, SatisfyConstraints);
 	Gura_AssignMethod(wx_LayoutConstraints, AreSatisfied);
 }

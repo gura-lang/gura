@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_ArchiveFSHandler, wxArchiveFSHandler)
 
 Gura_ImplementMethod(wx_ArchiveFSHandler, wxArchiveFSHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveFSHandler *pThis = Object_wx_ArchiveFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxArchiveFSHandler();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_ArchiveFSHandler, ~wxArchiveFSHandler)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ArchiveFSHandler, ~wxArchiveFSHandler)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ArchiveFSHandler *pThis = Object_wx_ArchiveFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxArchiveFSHandler();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_ArchiveFSHandler, Cleanup)
 
 Gura_ImplementMethod(wx_ArchiveFSHandler, Cleanup)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveFSHandler *pThis = Object_wx_ArchiveFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Cleanup();
 	return Value::Nil;
 }
@@ -85,7 +69,6 @@ Gura_ImplementMethod(wx_ArchiveFSHandler, Cleanup)
 Gura_ImplementUserInheritableClass(wx_ArchiveFSHandler)
 {
 	Gura_AssignMethod(wx_ArchiveFSHandler, wxArchiveFSHandler);
-	Gura_AssignMethod(wx_ArchiveFSHandler, ~wxArchiveFSHandler);
 	Gura_AssignMethod(wx_ArchiveFSHandler, Cleanup);
 }
 

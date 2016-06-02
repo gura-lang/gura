@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RearrangeCtrl, wxRearrangeCtrl)
 
 Gura_ImplementMethod(wx_RearrangeCtrl, wxRearrangeCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeCtrl *pThis = Object_wx_RearrangeCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRearrangeCtrl();
 	return Value::Nil;
 }
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_RearrangeCtrl, wxRearrangeCtrl_1)
 
 Gura_ImplementMethod(wx_RearrangeCtrl, wxRearrangeCtrl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeCtrl *pThis = Object_wx_RearrangeCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -99,9 +97,8 @@ Gura_DeclareMethod(wx_RearrangeCtrl, Create)
 
 Gura_ImplementMethod(wx_RearrangeCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeCtrl *pThis = Object_wx_RearrangeCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -122,9 +119,8 @@ Gura_DeclareMethod(wx_RearrangeCtrl, GetList)
 
 Gura_ImplementMethod(wx_RearrangeCtrl, GetList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeCtrl *pThis = Object_wx_RearrangeCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetList();
 	return Value::Nil;
 }

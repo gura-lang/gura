@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Dialog, wxDialog)
 
 Gura_ImplementMethod(wx_Dialog, wxDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxDialog();
 	return Value::Nil;
 }
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_Dialog, wxDialog_1)
 
 Gura_ImplementMethod(wx_Dialog, wxDialog_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -79,20 +77,6 @@ Gura_ImplementMethod(wx_Dialog, wxDialog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, ~wxDialog)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Dialog, ~wxDialog)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDialog();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_Dialog, AddMainButtonId)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -101,9 +85,8 @@ Gura_DeclareMethod(wx_Dialog, AddMainButtonId)
 
 Gura_ImplementMethod(wx_Dialog, AddMainButtonId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->AddMainButtonId();
 	return Value::Nil;
@@ -116,9 +99,8 @@ Gura_DeclareMethod(wx_Dialog, CanDoLayoutAdaptation)
 
 Gura_ImplementMethod(wx_Dialog, CanDoLayoutAdaptation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanDoLayoutAdaptation();
 	return Value::Nil;
 }
@@ -131,9 +113,8 @@ Gura_DeclareMethod(wx_Dialog, Centre)
 
 Gura_ImplementMethod(wx_Dialog, Centre)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//pThis->GetEntity()->Centre();
 	return Value::Nil;
@@ -153,9 +134,8 @@ Gura_DeclareMethod(wx_Dialog, Create)
 
 Gura_ImplementMethod(wx_Dialog, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -175,9 +155,8 @@ Gura_DeclareMethod(wx_Dialog, CreateButtonSizer)
 
 Gura_ImplementMethod(wx_Dialog, CreateButtonSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateButtonSizer();
 	return Value::Nil;
@@ -191,9 +170,8 @@ Gura_DeclareMethod(wx_Dialog, CreateSeparatedButtonSizer)
 
 Gura_ImplementMethod(wx_Dialog, CreateSeparatedButtonSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateSeparatedButtonSizer();
 	return Value::Nil;
@@ -207,9 +185,8 @@ Gura_DeclareMethod(wx_Dialog, CreateSeparatedSizer)
 
 Gura_ImplementMethod(wx_Dialog, CreateSeparatedSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sizer = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateSeparatedSizer();
 	return Value::Nil;
@@ -223,9 +200,8 @@ Gura_DeclareMethod(wx_Dialog, CreateStdDialogButtonSizer)
 
 Gura_ImplementMethod(wx_Dialog, CreateStdDialogButtonSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateStdDialogButtonSizer();
 	return Value::Nil;
@@ -239,9 +215,8 @@ Gura_DeclareMethod(wx_Dialog, CreateTextSizer)
 
 Gura_ImplementMethod(wx_Dialog, CreateTextSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int message = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateTextSizer();
 	return Value::Nil;
@@ -254,9 +229,8 @@ Gura_DeclareMethod(wx_Dialog, DoLayoutAdaptation)
 
 Gura_ImplementMethod(wx_Dialog, DoLayoutAdaptation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DoLayoutAdaptation();
 	return Value::Nil;
 }
@@ -269,9 +243,8 @@ Gura_DeclareMethod(wx_Dialog, EnableLayoutAdaptation)
 
 Gura_ImplementMethod(wx_Dialog, EnableLayoutAdaptation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableLayoutAdaptation();
 	return Value::Nil;
@@ -285,9 +258,8 @@ Gura_DeclareMethod(wx_Dialog, EndModal)
 
 Gura_ImplementMethod(wx_Dialog, EndModal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int retCode = arg.GetNumber(0)
 	//pThis->GetEntity()->EndModal();
 	return Value::Nil;
@@ -300,9 +272,8 @@ Gura_DeclareMethod(wx_Dialog, GetAffirmativeId)
 
 Gura_ImplementMethod(wx_Dialog, GetAffirmativeId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAffirmativeId();
 	return Value::Nil;
 }
@@ -314,9 +285,8 @@ Gura_DeclareMethod(wx_Dialog, GetContentWindow)
 
 Gura_ImplementMethod(wx_Dialog, GetContentWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetContentWindow();
 	return Value::Nil;
 }
@@ -328,9 +298,8 @@ Gura_DeclareMethod(wx_Dialog, GetEscapeId)
 
 Gura_ImplementMethod(wx_Dialog, GetEscapeId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetEscapeId();
 	return Value::Nil;
 }
@@ -342,9 +311,8 @@ Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationDone)
 
 Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationDone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLayoutAdaptationDone();
 	return Value::Nil;
 }
@@ -356,9 +324,8 @@ Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationLevel)
 
 Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationLevel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLayoutAdaptationLevel();
 	return Value::Nil;
 }
@@ -370,9 +337,8 @@ Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationMode)
 
 Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLayoutAdaptationMode();
 	return Value::Nil;
 }
@@ -384,9 +350,8 @@ Gura_DeclareMethod(wx_Dialog, GetLayoutAdapter)
 
 Gura_ImplementMethod(wx_Dialog, GetLayoutAdapter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLayoutAdapter();
 	return Value::Nil;
 }
@@ -398,9 +363,8 @@ Gura_DeclareMethod(wx_Dialog, GetMainButtonIds)
 
 Gura_ImplementMethod(wx_Dialog, GetMainButtonIds)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMainButtonIds();
 	return Value::Nil;
 }
@@ -412,9 +376,8 @@ Gura_DeclareMethod(wx_Dialog, GetReturnCode)
 
 Gura_ImplementMethod(wx_Dialog, GetReturnCode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetReturnCode();
 	return Value::Nil;
 }
@@ -426,9 +389,8 @@ Gura_DeclareMethod(wx_Dialog, GetToolBar)
 
 Gura_ImplementMethod(wx_Dialog, GetToolBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetToolBar();
 	return Value::Nil;
 }
@@ -441,9 +403,8 @@ Gura_DeclareMethod(wx_Dialog, Iconize)
 
 Gura_ImplementMethod(wx_Dialog, Iconize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int iconize = arg.GetNumber(0)
 	//pThis->GetEntity()->Iconize();
 	return Value::Nil;
@@ -456,9 +417,8 @@ Gura_DeclareMethod(wx_Dialog, IsIconized)
 
 Gura_ImplementMethod(wx_Dialog, IsIconized)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsIconized();
 	return Value::Nil;
 }
@@ -470,9 +430,8 @@ Gura_DeclareMethod(wx_Dialog, IsLayoutAdaptationEnabled)
 
 Gura_ImplementMethod(wx_Dialog, IsLayoutAdaptationEnabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsLayoutAdaptationEnabled();
 	return Value::Nil;
 }
@@ -485,9 +444,8 @@ Gura_DeclareMethod(wx_Dialog, IsMainButtonId)
 
 Gura_ImplementMethod(wx_Dialog, IsMainButtonId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->IsMainButtonId();
 	return Value::Nil;
@@ -500,9 +458,8 @@ Gura_DeclareMethod(wx_Dialog, IsModal)
 
 Gura_ImplementMethod(wx_Dialog, IsModal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsModal();
 	return Value::Nil;
 }
@@ -515,9 +472,8 @@ Gura_DeclareMethod(wx_Dialog, SetAffirmativeId)
 
 Gura_ImplementMethod(wx_Dialog, SetAffirmativeId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAffirmativeId();
 	return Value::Nil;
@@ -531,9 +487,8 @@ Gura_DeclareMethod(wx_Dialog, SetEscapeId)
 
 Gura_ImplementMethod(wx_Dialog, SetEscapeId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEscapeId();
 	return Value::Nil;
@@ -547,9 +502,8 @@ Gura_DeclareMethod(wx_Dialog, SetIcon)
 
 Gura_ImplementMethod(wx_Dialog, SetIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int icon = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIcon();
 	return Value::Nil;
@@ -563,9 +517,8 @@ Gura_DeclareMethod(wx_Dialog, SetIcons)
 
 Gura_ImplementMethod(wx_Dialog, SetIcons)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int icons = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIcons();
 	return Value::Nil;
@@ -579,9 +532,8 @@ Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationDone)
 
 Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationDone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int done = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLayoutAdaptationDone();
 	return Value::Nil;
@@ -595,9 +547,8 @@ Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationLevel)
 
 Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationLevel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLayoutAdaptationLevel();
 	return Value::Nil;
@@ -611,9 +562,8 @@ Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationMode)
 
 Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLayoutAdaptationMode();
 	return Value::Nil;
@@ -627,9 +577,8 @@ Gura_DeclareMethod(wx_Dialog, SetLayoutAdapter)
 
 Gura_ImplementMethod(wx_Dialog, SetLayoutAdapter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int adapter = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLayoutAdapter();
 	return Value::Nil;
@@ -643,9 +592,8 @@ Gura_DeclareMethod(wx_Dialog, SetReturnCode)
 
 Gura_ImplementMethod(wx_Dialog, SetReturnCode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int retCode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetReturnCode();
 	return Value::Nil;
@@ -659,9 +607,8 @@ Gura_DeclareMethod(wx_Dialog, Show)
 
 Gura_ImplementMethod(wx_Dialog, Show)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int show = arg.GetNumber(0)
 	//pThis->GetEntity()->Show();
 	return Value::Nil;
@@ -674,9 +621,8 @@ Gura_DeclareMethod(wx_Dialog, ShowModal)
 
 Gura_ImplementMethod(wx_Dialog, ShowModal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }
@@ -688,9 +634,8 @@ Gura_DeclareMethod(wx_Dialog, ShowWindowModal)
 
 Gura_ImplementMethod(wx_Dialog, ShowWindowModal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ShowWindowModal();
 	return Value::Nil;
 }
@@ -703,9 +648,8 @@ Gura_DeclareMethod(wx_Dialog, ShowWindowModalThenDo)
 
 Gura_ImplementMethod(wx_Dialog, ShowWindowModalThenDo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int onEndModal = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowWindowModalThenDo();
 	return Value::Nil;
@@ -718,7 +662,6 @@ Gura_ImplementUserInheritableClass(wx_Dialog)
 {
 	Gura_AssignMethod(wx_Dialog, wxDialog);
 	Gura_AssignMethod(wx_Dialog, wxDialog_1);
-	Gura_AssignMethod(wx_Dialog, ~wxDialog);
 	Gura_AssignMethod(wx_Dialog, AddMainButtonId);
 	Gura_AssignMethod(wx_Dialog, CanDoLayoutAdaptation);
 	Gura_AssignMethod(wx_Dialog, Centre);

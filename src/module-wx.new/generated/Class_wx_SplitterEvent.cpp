@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_SplitterEvent, wxSplitterEvent)
 
 Gura_ImplementMethod(wx_SplitterEvent, wxSplitterEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int splitter = arg.GetNumber(1)
 	//pThis->GetEntity()->wxSplitterEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_SplitterEvent, GetSashPosition)
 
 Gura_ImplementMethod(wx_SplitterEvent, GetSashPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSashPosition();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_SplitterEvent, GetWindowBeingRemoved)
 
 Gura_ImplementMethod(wx_SplitterEvent, GetWindowBeingRemoved)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWindowBeingRemoved();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_SplitterEvent, GetX)
 
 Gura_ImplementMethod(wx_SplitterEvent, GetX)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_SplitterEvent, GetY)
 
 Gura_ImplementMethod(wx_SplitterEvent, GetY)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
@@ -119,9 +114,8 @@ Gura_DeclareMethod(wx_SplitterEvent, SetSashPosition)
 
 Gura_ImplementMethod(wx_SplitterEvent, SetSashPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSashPosition();
 	return Value::Nil;

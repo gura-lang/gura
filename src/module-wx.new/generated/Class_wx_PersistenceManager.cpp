@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_PersistenceManager, Set)
 
 Gura_ImplementMethod(wx_PersistenceManager, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int manager = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_PersistenceManager, Get)
 
 Gura_ImplementMethod(wx_PersistenceManager, Get)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Get();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_PersistenceManager, DisableSaving)
 
 Gura_ImplementMethod(wx_PersistenceManager, DisableSaving)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DisableSaving();
 	return Value::Nil;
 }
@@ -88,9 +85,8 @@ Gura_DeclareMethod(wx_PersistenceManager, DisableRestoring)
 
 Gura_ImplementMethod(wx_PersistenceManager, DisableRestoring)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DisableRestoring();
 	return Value::Nil;
 }
@@ -103,9 +99,8 @@ Gura_DeclareMethod(wx_PersistenceManager, Register)
 
 Gura_ImplementMethod(wx_PersistenceManager, Register)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Register();
 	return Value::Nil;
@@ -120,9 +115,8 @@ Gura_DeclareMethod(wx_PersistenceManager, Register_1)
 
 Gura_ImplementMethod(wx_PersistenceManager, Register_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//int po = arg.GetNumber(1)
 	//pThis->GetEntity()->Register();
@@ -137,9 +131,8 @@ Gura_DeclareMethod(wx_PersistenceManager, Find)
 
 Gura_ImplementMethod(wx_PersistenceManager, Find)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Find();
 	return Value::Nil;
@@ -153,9 +146,8 @@ Gura_DeclareMethod(wx_PersistenceManager, Unregister)
 
 Gura_ImplementMethod(wx_PersistenceManager, Unregister)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Unregister();
 	return Value::Nil;
@@ -169,9 +161,8 @@ Gura_DeclareMethod(wx_PersistenceManager, Save)
 
 Gura_ImplementMethod(wx_PersistenceManager, Save)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Save();
 	return Value::Nil;
@@ -185,9 +176,8 @@ Gura_DeclareMethod(wx_PersistenceManager, Restore)
 
 Gura_ImplementMethod(wx_PersistenceManager, Restore)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Restore();
 	return Value::Nil;
@@ -201,9 +191,8 @@ Gura_DeclareMethod(wx_PersistenceManager, SaveAndUnregister)
 
 Gura_ImplementMethod(wx_PersistenceManager, SaveAndUnregister)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->SaveAndUnregister();
 	return Value::Nil;
@@ -217,9 +206,8 @@ Gura_DeclareMethod(wx_PersistenceManager, RegisterAndRestore)
 
 Gura_ImplementMethod(wx_PersistenceManager, RegisterAndRestore)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->RegisterAndRestore();
 	return Value::Nil;
@@ -234,9 +222,8 @@ Gura_DeclareMethod(wx_PersistenceManager, RegisterAndRestore_1)
 
 Gura_ImplementMethod(wx_PersistenceManager, RegisterAndRestore_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//int po = arg.GetNumber(1)
 	//pThis->GetEntity()->RegisterAndRestore();
@@ -250,9 +237,8 @@ Gura_DeclareMethod(wx_PersistenceManager, wxPersistenceManager)
 
 Gura_ImplementMethod(wx_PersistenceManager, wxPersistenceManager)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPersistenceManager();
 	return Value::Nil;
 }
@@ -264,9 +250,8 @@ Gura_DeclareMethod(wx_PersistenceManager, GetConfig)
 
 Gura_ImplementMethod(wx_PersistenceManager, GetConfig)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetConfig();
 	return Value::Nil;
 }
@@ -280,9 +265,8 @@ Gura_DeclareMethod(wx_PersistenceManager, GetKey)
 
 Gura_ImplementMethod(wx_PersistenceManager, GetKey)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int who = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//pThis->GetEntity()->GetKey();

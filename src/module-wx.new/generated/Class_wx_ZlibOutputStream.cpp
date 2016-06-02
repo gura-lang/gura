@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_ZlibOutputStream, wxZlibOutputStream)
 
 Gura_ImplementMethod(wx_ZlibOutputStream, wxZlibOutputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int level = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_ZlibOutputStream, wxZlibOutputStream_1)
 
 Gura_ImplementMethod(wx_ZlibOutputStream, wxZlibOutputStream_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int level = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -84,9 +82,8 @@ Gura_DeclareMethod(wx_ZlibOutputStream, CanHandleGZip)
 
 Gura_ImplementMethod(wx_ZlibOutputStream, CanHandleGZip)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanHandleGZip();
 	return Value::Nil;
 }
@@ -100,9 +97,8 @@ Gura_DeclareMethod(wx_ZlibOutputStream, SetDictionary)
 
 Gura_ImplementMethod(wx_ZlibOutputStream, SetDictionary)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int datalen = arg.GetNumber(1)
 	//pThis->GetEntity()->SetDictionary();
@@ -117,9 +113,8 @@ Gura_DeclareMethod(wx_ZlibOutputStream, SetDictionary_1)
 
 Gura_ImplementMethod(wx_ZlibOutputStream, SetDictionary_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buf = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDictionary();
 	return Value::Nil;

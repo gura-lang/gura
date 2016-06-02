@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_ZipInputStream, wxZipInputStream)
 
 Gura_ImplementMethod(wx_ZipInputStream, wxZipInputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
 	//pThis->GetEntity()->wxZipInputStream();
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_ZipInputStream, wxZipInputStream_1)
 
 Gura_ImplementMethod(wx_ZipInputStream, wxZipInputStream_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
 	//pThis->GetEntity()->wxZipInputStream();
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_ZipInputStream, CloseEntry)
 
 Gura_ImplementMethod(wx_ZipInputStream, CloseEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CloseEntry();
 	return Value::Nil;
 }
@@ -94,9 +91,8 @@ Gura_DeclareMethod(wx_ZipInputStream, GetComment)
 
 Gura_ImplementMethod(wx_ZipInputStream, GetComment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetComment();
 	return Value::Nil;
 }
@@ -108,9 +104,8 @@ Gura_DeclareMethod(wx_ZipInputStream, GetNextEntry)
 
 Gura_ImplementMethod(wx_ZipInputStream, GetNextEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNextEntry();
 	return Value::Nil;
 }
@@ -122,9 +117,8 @@ Gura_DeclareMethod(wx_ZipInputStream, GetTotalEntries)
 
 Gura_ImplementMethod(wx_ZipInputStream, GetTotalEntries)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTotalEntries();
 	return Value::Nil;
 }
@@ -137,9 +131,8 @@ Gura_DeclareMethod(wx_ZipInputStream, OpenEntry)
 
 Gura_ImplementMethod(wx_ZipInputStream, OpenEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
 	//pThis->GetEntity()->OpenEntry();
 	return Value::Nil;

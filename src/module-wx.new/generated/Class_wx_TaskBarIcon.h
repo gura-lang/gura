@@ -34,9 +34,9 @@ public:
 		InvalidateEntity();
 		return pEntity;
 	}
-	inline bool IsInvalid(Signal &sig) const {
+	inline bool IsInvalid(Environment &env) const {
 		if (_pEntity != nullptr) return false;
-		SetError_InvalidWxObject(sig, "wxTaskBarIcon");
+		SetError_InvalidWxObject(env, "wxTaskBarIcon");
 		return true;
 	}
 };

@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_ClientData, wxClientData)
 
 Gura_ImplementMethod(wx_ClientData, wxClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ClientData *pThis = Object_wx_ClientData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxClientData();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_ClientData, ~wxClientData)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ClientData, ~wxClientData)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ClientData *pThis = Object_wx_ClientData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxClientData();
 	return Value::Nil;
 }
 
@@ -71,7 +56,6 @@ Gura_ImplementMethod(wx_ClientData, ~wxClientData)
 Gura_ImplementUserInheritableClass(wx_ClientData)
 {
 	Gura_AssignMethod(wx_ClientData, wxClientData);
-	Gura_AssignMethod(wx_ClientData, ~wxClientData);
 }
 
 Gura_ImplementDescendantCreator(wx_ClientData)

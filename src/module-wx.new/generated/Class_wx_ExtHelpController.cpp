@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_ExtHelpController, wxExtHelpController)
 
 Gura_ImplementMethod(wx_ExtHelpController, wxExtHelpController)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parentWindow = arg.GetNumber(0)
 	//pThis->GetEntity()->wxExtHelpController();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_ExtHelpController, ~wxExtHelpController)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ExtHelpController, ~wxExtHelpController)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxExtHelpController();
 	return Value::Nil;
 }
 
@@ -76,9 +61,8 @@ Gura_DeclareMethod(wx_ExtHelpController, SetViewer)
 
 Gura_ImplementMethod(wx_ExtHelpController, SetViewer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int viewer = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->SetViewer();
@@ -93,9 +77,8 @@ Gura_DeclareMethod(wx_ExtHelpController, Initialize)
 
 Gura_ImplementMethod(wx_ExtHelpController, Initialize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//pThis->GetEntity()->Initialize();
 	return Value::Nil;
@@ -109,9 +92,8 @@ Gura_DeclareMethod(wx_ExtHelpController, LoadFile)
 
 Gura_ImplementMethod(wx_ExtHelpController, LoadFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadFile();
 	return Value::Nil;
@@ -124,9 +106,8 @@ Gura_DeclareMethod(wx_ExtHelpController, DisplayContents)
 
 Gura_ImplementMethod(wx_ExtHelpController, DisplayContents)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DisplayContents();
 	return Value::Nil;
 }
@@ -139,9 +120,8 @@ Gura_DeclareMethod(wx_ExtHelpController, DisplaySection)
 
 Gura_ImplementMethod(wx_ExtHelpController, DisplaySection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sectionNo = arg.GetNumber(0)
 	//pThis->GetEntity()->DisplaySection();
 	return Value::Nil;
@@ -155,9 +135,8 @@ Gura_DeclareMethod(wx_ExtHelpController, DisplaySection_1)
 
 Gura_ImplementMethod(wx_ExtHelpController, DisplaySection_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int section = arg.GetNumber(0)
 	//pThis->GetEntity()->DisplaySection();
 	return Value::Nil;
@@ -171,9 +150,8 @@ Gura_DeclareMethod(wx_ExtHelpController, DisplayBlock)
 
 Gura_ImplementMethod(wx_ExtHelpController, DisplayBlock)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int blockNo = arg.GetNumber(0)
 	//pThis->GetEntity()->DisplayBlock();
 	return Value::Nil;
@@ -188,9 +166,8 @@ Gura_DeclareMethod(wx_ExtHelpController, KeywordSearch)
 
 Gura_ImplementMethod(wx_ExtHelpController, KeywordSearch)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int k = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
 	//pThis->GetEntity()->KeywordSearch();
@@ -204,9 +181,8 @@ Gura_DeclareMethod(wx_ExtHelpController, Quit)
 
 Gura_ImplementMethod(wx_ExtHelpController, Quit)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Quit();
 	return Value::Nil;
 }
@@ -218,9 +194,8 @@ Gura_DeclareMethod(wx_ExtHelpController, OnQuit)
 
 Gura_ImplementMethod(wx_ExtHelpController, OnQuit)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnQuit();
 	return Value::Nil;
 }
@@ -233,9 +208,8 @@ Gura_DeclareMethod(wx_ExtHelpController, DisplayHelp)
 
 Gura_ImplementMethod(wx_ExtHelpController, DisplayHelp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int relativeURL = arg.GetNumber(0)
 	//pThis->GetEntity()->DisplayHelp();
 	return Value::Nil;
@@ -252,9 +226,8 @@ Gura_DeclareMethod(wx_ExtHelpController, SetFrameParameters)
 
 Gura_ImplementMethod(wx_ExtHelpController, SetFrameParameters)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int titleFormat = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -273,9 +246,8 @@ Gura_DeclareMethod(wx_ExtHelpController, GetFrameParameters)
 
 Gura_ImplementMethod(wx_ExtHelpController, GetFrameParameters)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int newFrameEachTime = arg.GetNumber(2)
@@ -289,7 +261,6 @@ Gura_ImplementMethod(wx_ExtHelpController, GetFrameParameters)
 Gura_ImplementUserInheritableClass(wx_ExtHelpController)
 {
 	Gura_AssignMethod(wx_ExtHelpController, wxExtHelpController);
-	Gura_AssignMethod(wx_ExtHelpController, ~wxExtHelpController);
 	Gura_AssignMethod(wx_ExtHelpController, SetViewer);
 	Gura_AssignMethod(wx_ExtHelpController, Initialize);
 	Gura_AssignMethod(wx_ExtHelpController, LoadFile);

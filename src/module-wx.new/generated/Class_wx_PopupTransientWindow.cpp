@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_PopupTransientWindow, wxPopupTransientWindow)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, wxPopupTransientWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPopupTransientWindow();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_PopupTransientWindow, wxPopupTransientWindow_1)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, wxPopupTransientWindow_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->wxPopupTransientWindow();
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_PopupTransientWindow, Popup)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, Popup)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int focus = arg.GetNumber(0)
 	//pThis->GetEntity()->Popup();
 	return Value::Nil;
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_PopupTransientWindow, Dismiss)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, Dismiss)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Dismiss();
 	return Value::Nil;
 }
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_PopupTransientWindow, ProcessLeftDown)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, ProcessLeftDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->ProcessLeftDown();
 	return Value::Nil;
@@ -122,9 +117,8 @@ Gura_DeclareMethod(wx_PopupTransientWindow, OnDismiss)
 
 Gura_ImplementMethod(wx_PopupTransientWindow, OnDismiss)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnDismiss();
 	return Value::Nil;
 }

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_HelpControllerHelpProvider, wxHelpControllerHelpProvider)
 
 Gura_ImplementMethod(wx_HelpControllerHelpProvider, wxHelpControllerHelpProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int hc = arg.GetNumber(0)
 	//pThis->GetEntity()->wxHelpControllerHelpProvider();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_HelpControllerHelpProvider, GetHelpController)
 
 Gura_ImplementMethod(wx_HelpControllerHelpProvider, GetHelpController)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHelpController();
 	return Value::Nil;
 }
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_HelpControllerHelpProvider, SetHelpController)
 
 Gura_ImplementMethod(wx_HelpControllerHelpProvider, SetHelpController)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int hc = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHelpController();
 	return Value::Nil;

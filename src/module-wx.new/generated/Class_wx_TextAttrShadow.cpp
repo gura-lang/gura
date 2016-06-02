@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, wxTextAttrShadow)
 
 Gura_ImplementMethod(wx_TextAttrShadow, wxTextAttrShadow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTextAttrShadow();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, Reset)
 
 Gura_ImplementMethod(wx_TextAttrShadow, Reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, EqPartial)
 
 Gura_ImplementMethod(wx_TextAttrShadow, EqPartial)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int shadow = arg.GetNumber(0)
 	//int weakTest = arg.GetNumber(1)
 	//pThis->GetEntity()->EqPartial();
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, Apply)
 
 Gura_ImplementMethod(wx_TextAttrShadow, Apply)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int shadow = arg.GetNumber(0)
 	//int compareWith = arg.GetNumber(1)
 	//pThis->GetEntity()->Apply();
@@ -109,9 +105,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, RemoveStyle)
 
 Gura_ImplementMethod(wx_TextAttrShadow, RemoveStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveStyle();
 	return Value::Nil;
@@ -127,9 +122,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, CollectCommonAttributes)
 
 Gura_ImplementMethod(wx_TextAttrShadow, CollectCommonAttributes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//int clashingAttr = arg.GetNumber(1)
 	//int absentAttr = arg.GetNumber(2)
@@ -145,9 +139,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, SetColour)
 
 Gura_ImplementMethod(wx_TextAttrShadow, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -161,9 +154,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, SetColour_1)
 
 Gura_ImplementMethod(wx_TextAttrShadow, SetColour_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -176,9 +168,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetColourLong)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetColourLong)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColourLong();
 	return Value::Nil;
 }
@@ -190,9 +181,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetColour)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
@@ -204,9 +194,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, HasColour)
 
 Gura_ImplementMethod(wx_TextAttrShadow, HasColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasColour();
 	return Value::Nil;
 }
@@ -218,9 +207,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetOffsetX)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetOffsetX)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOffsetX();
 	return Value::Nil;
 }
@@ -232,9 +220,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetOffsetX_1)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetOffsetX_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOffsetX();
 	return Value::Nil;
 }
@@ -247,9 +234,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, SetOffsetX)
 
 Gura_ImplementMethod(wx_TextAttrShadow, SetOffsetX)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int offset = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOffsetX();
 	return Value::Nil;
@@ -262,9 +248,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetOffsetY)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetOffsetY)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOffsetY();
 	return Value::Nil;
 }
@@ -276,9 +261,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetOffsetY_1)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetOffsetY_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOffsetY();
 	return Value::Nil;
 }
@@ -291,9 +275,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, SetOffsetY)
 
 Gura_ImplementMethod(wx_TextAttrShadow, SetOffsetY)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int offset = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOffsetY();
 	return Value::Nil;
@@ -306,9 +289,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetSpread)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetSpread)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSpread();
 	return Value::Nil;
 }
@@ -320,9 +302,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetSpread_1)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetSpread_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSpread();
 	return Value::Nil;
 }
@@ -335,9 +316,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, SetSpread)
 
 Gura_ImplementMethod(wx_TextAttrShadow, SetSpread)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int spread = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSpread();
 	return Value::Nil;
@@ -350,9 +330,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetBlurDistance)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetBlurDistance)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBlurDistance();
 	return Value::Nil;
 }
@@ -364,9 +343,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetBlurDistance_1)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetBlurDistance_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBlurDistance();
 	return Value::Nil;
 }
@@ -379,9 +357,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, SetBlurDistance)
 
 Gura_ImplementMethod(wx_TextAttrShadow, SetBlurDistance)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int blur = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBlurDistance();
 	return Value::Nil;
@@ -394,9 +371,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetOpacity)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetOpacity)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOpacity();
 	return Value::Nil;
 }
@@ -408,9 +384,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetOpacity_1)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetOpacity_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOpacity();
 	return Value::Nil;
 }
@@ -422,9 +397,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, IsValid)
 
 Gura_ImplementMethod(wx_TextAttrShadow, IsValid)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsValid();
 	return Value::Nil;
 }
@@ -437,9 +411,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, SetValid)
 
 Gura_ImplementMethod(wx_TextAttrShadow, SetValid)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int b = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValid();
 	return Value::Nil;
@@ -452,9 +425,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, GetFlags)
 
 Gura_ImplementMethod(wx_TextAttrShadow, GetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
@@ -467,9 +439,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, SetFlags)
 
 Gura_ImplementMethod(wx_TextAttrShadow, SetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
@@ -483,9 +454,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, AddFlag)
 
 Gura_ImplementMethod(wx_TextAttrShadow, AddFlag)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
 	//pThis->GetEntity()->AddFlag();
 	return Value::Nil;
@@ -499,9 +469,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, RemoveFlag)
 
 Gura_ImplementMethod(wx_TextAttrShadow, RemoveFlag)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveFlag();
 	return Value::Nil;
@@ -515,9 +484,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, SetOpacity)
 
 Gura_ImplementMethod(wx_TextAttrShadow, SetOpacity)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int opacity = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOpacity();
 	return Value::Nil;
@@ -530,9 +498,8 @@ Gura_DeclareMethod(wx_TextAttrShadow, IsDefault)
 
 Gura_ImplementMethod(wx_TextAttrShadow, IsDefault)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsDefault();
 	return Value::Nil;
 }

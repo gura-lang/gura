@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_PowerResource, Acquire)
 
 Gura_ImplementMethod(wx_PowerResource, Acquire)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PowerResource *pThis = Object_wx_PowerResource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int kind = arg.GetNumber(0)
 	//int reason = arg.GetNumber(1)
 	//pThis->GetEntity()->Acquire();
@@ -63,9 +62,8 @@ Gura_DeclareMethod(wx_PowerResource, Release)
 
 Gura_ImplementMethod(wx_PowerResource, Release)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PowerResource *pThis = Object_wx_PowerResource::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int kind = arg.GetNumber(0)
 	//pThis->GetEntity()->Release();
 	return Value::Nil;

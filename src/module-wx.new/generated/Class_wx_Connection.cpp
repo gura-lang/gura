@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Connection, wxConnection)
 
 Gura_ImplementMethod(wx_Connection, wxConnection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxConnection();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_Connection, wxConnection_1)
 
 Gura_ImplementMethod(wx_Connection, wxConnection_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//pThis->GetEntity()->wxConnection();
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_Connection, Advise)
 
 Gura_ImplementMethod(wx_Connection, Advise)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -100,9 +97,8 @@ Gura_DeclareMethod(wx_Connection, Advise_1)
 
 Gura_ImplementMethod(wx_Connection, Advise_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->Advise();
@@ -118,9 +114,8 @@ Gura_DeclareMethod(wx_Connection, Advise_2)
 
 Gura_ImplementMethod(wx_Connection, Advise_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->Advise();
@@ -136,9 +131,8 @@ Gura_DeclareMethod(wx_Connection, Advise_3)
 
 Gura_ImplementMethod(wx_Connection, Advise_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->Advise();
@@ -152,9 +146,8 @@ Gura_DeclareMethod(wx_Connection, Disconnect)
 
 Gura_ImplementMethod(wx_Connection, Disconnect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Disconnect();
 	return Value::Nil;
 }
@@ -169,9 +162,8 @@ Gura_DeclareMethod(wx_Connection, Execute)
 
 Gura_ImplementMethod(wx_Connection, Execute)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
@@ -187,9 +179,8 @@ Gura_DeclareMethod(wx_Connection, Execute_1)
 
 Gura_ImplementMethod(wx_Connection, Execute_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
@@ -203,9 +194,8 @@ Gura_DeclareMethod(wx_Connection, Execute_2)
 
 Gura_ImplementMethod(wx_Connection, Execute_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
@@ -219,9 +209,8 @@ Gura_DeclareMethod(wx_Connection, Execute_3)
 
 Gura_ImplementMethod(wx_Connection, Execute_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
@@ -239,9 +228,8 @@ Gura_DeclareMethod(wx_Connection, OnAdvise)
 
 Gura_ImplementMethod(wx_Connection, OnAdvise)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topic = arg.GetNumber(0)
 	//int item = arg.GetNumber(1)
 	//int data = arg.GetNumber(2)
@@ -258,9 +246,8 @@ Gura_DeclareMethod(wx_Connection, OnDisconnect)
 
 Gura_ImplementMethod(wx_Connection, OnDisconnect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnDisconnect();
 	return Value::Nil;
 }
@@ -274,9 +261,8 @@ Gura_DeclareMethod(wx_Connection, OnExec)
 
 Gura_ImplementMethod(wx_Connection, OnExec)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topic = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->OnExec();
@@ -295,9 +281,8 @@ Gura_DeclareMethod(wx_Connection, OnPoke)
 
 Gura_ImplementMethod(wx_Connection, OnPoke)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topic = arg.GetNumber(0)
 	//int item = arg.GetNumber(1)
 	//int data = arg.GetNumber(2)
@@ -318,9 +303,8 @@ Gura_DeclareMethod(wx_Connection, OnRequest)
 
 Gura_ImplementMethod(wx_Connection, OnRequest)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topic = arg.GetNumber(0)
 	//int item = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -338,9 +322,8 @@ Gura_DeclareMethod(wx_Connection, OnStartAdvise)
 
 Gura_ImplementMethod(wx_Connection, OnStartAdvise)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topic = arg.GetNumber(0)
 	//int item = arg.GetNumber(1)
 	//pThis->GetEntity()->OnStartAdvise();
@@ -356,9 +339,8 @@ Gura_DeclareMethod(wx_Connection, OnStopAdvise)
 
 Gura_ImplementMethod(wx_Connection, OnStopAdvise)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topic = arg.GetNumber(0)
 	//int item = arg.GetNumber(1)
 	//pThis->GetEntity()->OnStopAdvise();
@@ -376,9 +358,8 @@ Gura_DeclareMethod(wx_Connection, Poke)
 
 Gura_ImplementMethod(wx_Connection, Poke)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -396,9 +377,8 @@ Gura_DeclareMethod(wx_Connection, Poke_1)
 
 Gura_ImplementMethod(wx_Connection, Poke_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->Poke();
@@ -414,9 +394,8 @@ Gura_DeclareMethod(wx_Connection, Poke_2)
 
 Gura_ImplementMethod(wx_Connection, Poke_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->Poke();
@@ -432,9 +411,8 @@ Gura_DeclareMethod(wx_Connection, Poke_3)
 
 Gura_ImplementMethod(wx_Connection, Poke_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->Poke();
@@ -451,9 +429,8 @@ Gura_DeclareMethod(wx_Connection, Request)
 
 Gura_ImplementMethod(wx_Connection, Request)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
@@ -469,9 +446,8 @@ Gura_DeclareMethod(wx_Connection, StartAdvise)
 
 Gura_ImplementMethod(wx_Connection, StartAdvise)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->StartAdvise();
 	return Value::Nil;
@@ -485,9 +461,8 @@ Gura_DeclareMethod(wx_Connection, StopAdvise)
 
 Gura_ImplementMethod(wx_Connection, StopAdvise)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->StopAdvise();
 	return Value::Nil;
@@ -501,9 +476,8 @@ Gura_DeclareMethod(wx_Connection, IsTextFormat)
 
 Gura_ImplementMethod(wx_Connection, IsTextFormat)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->IsTextFormat();
 	return Value::Nil;
@@ -519,9 +493,8 @@ Gura_DeclareMethod(wx_Connection, GetTextFromData)
 
 Gura_ImplementMethod(wx_Connection, GetTextFromData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)

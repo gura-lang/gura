@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Locale, wxLocale)
 
 Gura_ImplementMethod(wx_Locale, wxLocale)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxLocale();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_Locale, wxLocale_1)
 
 Gura_ImplementMethod(wx_Locale, wxLocale_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int language = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->wxLocale();
@@ -80,28 +78,13 @@ Gura_DeclareMethod(wx_Locale, wxLocale_2)
 
 Gura_ImplementMethod(wx_Locale, wxLocale_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int shortName = arg.GetNumber(1)
 	//int locale = arg.GetNumber(2)
 	//int bLoadDefault = arg.GetNumber(3)
 	//pThis->GetEntity()->wxLocale();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Locale, ~wxLocale)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Locale, ~wxLocale)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxLocale();
 	return Value::Nil;
 }
 
@@ -113,9 +96,8 @@ Gura_DeclareMethod(wx_Locale, AddCatalog)
 
 Gura_ImplementMethod(wx_Locale, AddCatalog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//pThis->GetEntity()->AddCatalog();
 	return Value::Nil;
@@ -130,9 +112,8 @@ Gura_DeclareMethod(wx_Locale, AddCatalog_1)
 
 Gura_ImplementMethod(wx_Locale, AddCatalog_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//int msgIdLanguage = arg.GetNumber(1)
 	//pThis->GetEntity()->AddCatalog();
@@ -149,9 +130,8 @@ Gura_DeclareMethod(wx_Locale, AddCatalog_2)
 
 Gura_ImplementMethod(wx_Locale, AddCatalog_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//int msgIdLanguage = arg.GetNumber(1)
 	//int msgIdCharset = arg.GetNumber(2)
@@ -167,9 +147,8 @@ Gura_DeclareMethod(wx_Locale, AddCatalogLookupPathPrefix)
 
 Gura_ImplementMethod(wx_Locale, AddCatalogLookupPathPrefix)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prefix = arg.GetNumber(0)
 	//pThis->GetEntity()->AddCatalogLookupPathPrefix();
 	return Value::Nil;
@@ -183,9 +162,8 @@ Gura_DeclareMethod(wx_Locale, AddLanguage)
 
 Gura_ImplementMethod(wx_Locale, AddLanguage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int info = arg.GetNumber(0)
 	//pThis->GetEntity()->AddLanguage();
 	return Value::Nil;
@@ -199,9 +177,8 @@ Gura_DeclareMethod(wx_Locale, FindLanguageInfo)
 
 Gura_ImplementMethod(wx_Locale, FindLanguageInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int locale = arg.GetNumber(0)
 	//pThis->GetEntity()->FindLanguageInfo();
 	return Value::Nil;
@@ -214,9 +191,8 @@ Gura_DeclareMethod(wx_Locale, GetCanonicalName)
 
 Gura_ImplementMethod(wx_Locale, GetCanonicalName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCanonicalName();
 	return Value::Nil;
 }
@@ -230,9 +206,8 @@ Gura_DeclareMethod(wx_Locale, GetHeaderValue)
 
 Gura_ImplementMethod(wx_Locale, GetHeaderValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int header = arg.GetNumber(0)
 	//int domain = arg.GetNumber(1)
 	//pThis->GetEntity()->GetHeaderValue();
@@ -246,9 +221,8 @@ Gura_DeclareMethod(wx_Locale, GetLanguage)
 
 Gura_ImplementMethod(wx_Locale, GetLanguage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLanguage();
 	return Value::Nil;
 }
@@ -261,9 +235,8 @@ Gura_DeclareMethod(wx_Locale, GetLanguageInfo)
 
 Gura_ImplementMethod(wx_Locale, GetLanguageInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLanguageInfo();
 	return Value::Nil;
@@ -277,9 +250,8 @@ Gura_DeclareMethod(wx_Locale, GetLanguageName)
 
 Gura_ImplementMethod(wx_Locale, GetLanguageName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLanguageName();
 	return Value::Nil;
@@ -293,9 +265,8 @@ Gura_DeclareMethod(wx_Locale, GetLanguageCanonicalName)
 
 Gura_ImplementMethod(wx_Locale, GetLanguageCanonicalName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLanguageCanonicalName();
 	return Value::Nil;
@@ -308,9 +279,8 @@ Gura_DeclareMethod(wx_Locale, GetLocale)
 
 Gura_ImplementMethod(wx_Locale, GetLocale)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLocale();
 	return Value::Nil;
 }
@@ -322,9 +292,8 @@ Gura_DeclareMethod(wx_Locale, GetName)
 
 Gura_ImplementMethod(wx_Locale, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -338,9 +307,8 @@ Gura_DeclareMethod(wx_Locale, GetString)
 
 Gura_ImplementMethod(wx_Locale, GetString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int origString = arg.GetNumber(0)
 	//int domain = arg.GetNumber(1)
 	//pThis->GetEntity()->GetString();
@@ -358,9 +326,8 @@ Gura_DeclareMethod(wx_Locale, GetString_1)
 
 Gura_ImplementMethod(wx_Locale, GetString_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int origString = arg.GetNumber(0)
 	//int origString2 = arg.GetNumber(1)
 	//int n = arg.GetNumber(2)
@@ -376,9 +343,8 @@ Gura_DeclareMethod(wx_Locale, GetSysName)
 
 Gura_ImplementMethod(wx_Locale, GetSysName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSysName();
 	return Value::Nil;
 }
@@ -390,9 +356,8 @@ Gura_DeclareMethod(wx_Locale, GetSystemEncoding)
 
 Gura_ImplementMethod(wx_Locale, GetSystemEncoding)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSystemEncoding();
 	return Value::Nil;
 }
@@ -404,9 +369,8 @@ Gura_DeclareMethod(wx_Locale, GetSystemEncodingName)
 
 Gura_ImplementMethod(wx_Locale, GetSystemEncodingName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSystemEncodingName();
 	return Value::Nil;
 }
@@ -418,9 +382,8 @@ Gura_DeclareMethod(wx_Locale, GetSystemLanguage)
 
 Gura_ImplementMethod(wx_Locale, GetSystemLanguage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSystemLanguage();
 	return Value::Nil;
 }
@@ -434,9 +397,8 @@ Gura_DeclareMethod(wx_Locale, GetInfo)
 
 Gura_ImplementMethod(wx_Locale, GetInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//int cat = arg.GetNumber(1)
 	//pThis->GetEntity()->GetInfo();
@@ -452,9 +414,8 @@ Gura_DeclareMethod(wx_Locale, GetOSInfo)
 
 Gura_ImplementMethod(wx_Locale, GetOSInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//int cat = arg.GetNumber(1)
 	//pThis->GetEntity()->GetOSInfo();
@@ -470,9 +431,8 @@ Gura_DeclareMethod(wx_Locale, Init)
 
 Gura_ImplementMethod(wx_Locale, Init)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int language = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->Init();
@@ -490,9 +450,8 @@ Gura_DeclareMethod(wx_Locale, Init_1)
 
 Gura_ImplementMethod(wx_Locale, Init_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int shortName = arg.GetNumber(1)
 	//int locale = arg.GetNumber(2)
@@ -509,9 +468,8 @@ Gura_DeclareMethod(wx_Locale, IsAvailable)
 
 Gura_ImplementMethod(wx_Locale, IsAvailable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
 	//pThis->GetEntity()->IsAvailable();
 	return Value::Nil;
@@ -525,9 +483,8 @@ Gura_DeclareMethod(wx_Locale, IsLoaded)
 
 Gura_ImplementMethod(wx_Locale, IsLoaded)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int domain = arg.GetNumber(0)
 	//pThis->GetEntity()->IsLoaded();
 	return Value::Nil;
@@ -540,9 +497,8 @@ Gura_DeclareMethod(wx_Locale, IsOk)
 
 Gura_ImplementMethod(wx_Locale, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -555,7 +511,6 @@ Gura_ImplementUserInheritableClass(wx_Locale)
 	Gura_AssignMethod(wx_Locale, wxLocale);
 	Gura_AssignMethod(wx_Locale, wxLocale_1);
 	Gura_AssignMethod(wx_Locale, wxLocale_2);
-	Gura_AssignMethod(wx_Locale, ~wxLocale);
 	Gura_AssignMethod(wx_Locale, AddCatalog);
 	Gura_AssignMethod(wx_Locale, AddCatalog_1);
 	Gura_AssignMethod(wx_Locale, AddCatalog_2);

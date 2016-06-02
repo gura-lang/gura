@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Colour, wxColour)
 
 Gura_ImplementMethod(wx_Colour, wxColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxColour();
 	return Value::Nil;
 }
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_Colour, wxColour_1)
 
 Gura_ImplementMethod(wx_Colour, wxColour_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int red = arg.GetNumber(0)
 	//int green = arg.GetNumber(1)
 	//int blue = arg.GetNumber(2)
@@ -81,9 +79,8 @@ Gura_DeclareMethod(wx_Colour, wxColour_2)
 
 Gura_ImplementMethod(wx_Colour, wxColour_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colourName = arg.GetNumber(0)
 	//pThis->GetEntity()->wxColour();
 	return Value::Nil;
@@ -97,9 +94,8 @@ Gura_DeclareMethod(wx_Colour, wxColour_3)
 
 Gura_ImplementMethod(wx_Colour, wxColour_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colRGB = arg.GetNumber(0)
 	//pThis->GetEntity()->wxColour();
 	return Value::Nil;
@@ -113,9 +109,8 @@ Gura_DeclareMethod(wx_Colour, wxColour_4)
 
 Gura_ImplementMethod(wx_Colour, wxColour_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->wxColour();
 	return Value::Nil;
@@ -128,9 +123,8 @@ Gura_DeclareMethod(wx_Colour, Alpha)
 
 Gura_ImplementMethod(wx_Colour, Alpha)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Alpha();
 	return Value::Nil;
 }
@@ -142,9 +136,8 @@ Gura_DeclareMethod(wx_Colour, Blue)
 
 Gura_ImplementMethod(wx_Colour, Blue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Blue();
 	return Value::Nil;
 }
@@ -157,9 +150,8 @@ Gura_DeclareMethod(wx_Colour, GetAsString)
 
 Gura_ImplementMethod(wx_Colour, GetAsString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAsString();
 	return Value::Nil;
@@ -173,9 +165,8 @@ Gura_DeclareMethod(wx_Colour, SetRGB)
 
 Gura_ImplementMethod(wx_Colour, SetRGB)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colRGB = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRGB();
 	return Value::Nil;
@@ -189,9 +180,8 @@ Gura_DeclareMethod(wx_Colour, SetRGBA)
 
 Gura_ImplementMethod(wx_Colour, SetRGBA)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colRGBA = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRGBA();
 	return Value::Nil;
@@ -204,9 +194,8 @@ Gura_DeclareMethod(wx_Colour, GetRGB)
 
 Gura_ImplementMethod(wx_Colour, GetRGB)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRGB();
 	return Value::Nil;
 }
@@ -218,9 +207,8 @@ Gura_DeclareMethod(wx_Colour, GetRGBA)
 
 Gura_ImplementMethod(wx_Colour, GetRGBA)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRGBA();
 	return Value::Nil;
 }
@@ -232,9 +220,8 @@ Gura_DeclareMethod(wx_Colour, GetPixel)
 
 Gura_ImplementMethod(wx_Colour, GetPixel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPixel();
 	return Value::Nil;
 }
@@ -246,9 +233,8 @@ Gura_DeclareMethod(wx_Colour, Green)
 
 Gura_ImplementMethod(wx_Colour, Green)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Green();
 	return Value::Nil;
 }
@@ -260,9 +246,8 @@ Gura_DeclareMethod(wx_Colour, IsOk)
 
 Gura_ImplementMethod(wx_Colour, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -274,9 +259,8 @@ Gura_DeclareMethod(wx_Colour, Red)
 
 Gura_ImplementMethod(wx_Colour, Red)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Red();
 	return Value::Nil;
 }
@@ -292,9 +276,8 @@ Gura_DeclareMethod(wx_Colour, Set)
 
 Gura_ImplementMethod(wx_Colour, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int red = arg.GetNumber(0)
 	//int green = arg.GetNumber(1)
 	//int blue = arg.GetNumber(2)
@@ -311,9 +294,8 @@ Gura_DeclareMethod(wx_Colour, Set_1)
 
 Gura_ImplementMethod(wx_Colour, Set_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int RGB = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
@@ -327,9 +309,8 @@ Gura_DeclareMethod(wx_Colour, Set_2)
 
 Gura_ImplementMethod(wx_Colour, Set_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
@@ -346,9 +327,8 @@ Gura_DeclareMethod(wx_Colour, MakeMono)
 
 Gura_ImplementMethod(wx_Colour, MakeMono)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//int g = arg.GetNumber(1)
 	//int b = arg.GetNumber(2)
@@ -368,9 +348,8 @@ Gura_DeclareMethod(wx_Colour, MakeDisabled)
 
 Gura_ImplementMethod(wx_Colour, MakeDisabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//int g = arg.GetNumber(1)
 	//int b = arg.GetNumber(2)
@@ -387,9 +366,8 @@ Gura_DeclareMethod(wx_Colour, MakeDisabled_1)
 
 Gura_ImplementMethod(wx_Colour, MakeDisabled_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int brightness = arg.GetNumber(0)
 	//pThis->GetEntity()->MakeDisabled();
 	return Value::Nil;
@@ -405,9 +383,8 @@ Gura_DeclareMethod(wx_Colour, MakeGrey)
 
 Gura_ImplementMethod(wx_Colour, MakeGrey)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//int g = arg.GetNumber(1)
 	//int b = arg.GetNumber(2)
@@ -428,9 +405,8 @@ Gura_DeclareMethod(wx_Colour, MakeGrey_1)
 
 Gura_ImplementMethod(wx_Colour, MakeGrey_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//int g = arg.GetNumber(1)
 	//int b = arg.GetNumber(2)
@@ -451,9 +427,8 @@ Gura_DeclareMethod(wx_Colour, AlphaBlend)
 
 Gura_ImplementMethod(wx_Colour, AlphaBlend)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fg = arg.GetNumber(0)
 	//int bg = arg.GetNumber(1)
 	//int alpha = arg.GetNumber(2)
@@ -472,9 +447,8 @@ Gura_DeclareMethod(wx_Colour, ChangeLightness)
 
 Gura_ImplementMethod(wx_Colour, ChangeLightness)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//int g = arg.GetNumber(1)
 	//int b = arg.GetNumber(2)
@@ -491,9 +465,8 @@ Gura_DeclareMethod(wx_Colour, ChangeLightness_1)
 
 Gura_ImplementMethod(wx_Colour, ChangeLightness_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ialpha = arg.GetNumber(0)
 	//pThis->GetEntity()->ChangeLightness();
 	return Value::Nil;

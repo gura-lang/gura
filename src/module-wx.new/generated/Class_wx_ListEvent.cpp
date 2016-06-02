@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_ListEvent, wxListEvent)
 
 Gura_ImplementMethod(wx_ListEvent, wxListEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxListEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_ListEvent, GetCacheFrom)
 
 Gura_ImplementMethod(wx_ListEvent, GetCacheFrom)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCacheFrom();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_ListEvent, GetCacheTo)
 
 Gura_ImplementMethod(wx_ListEvent, GetCacheTo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCacheTo();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_ListEvent, GetColumn)
 
 Gura_ImplementMethod(wx_ListEvent, GetColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColumn();
 	return Value::Nil;
 }
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_ListEvent, GetData)
 
 Gura_ImplementMethod(wx_ListEvent, GetData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
@@ -118,9 +113,8 @@ Gura_DeclareMethod(wx_ListEvent, GetImage)
 
 Gura_ImplementMethod(wx_ListEvent, GetImage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetImage();
 	return Value::Nil;
 }
@@ -132,9 +126,8 @@ Gura_DeclareMethod(wx_ListEvent, GetIndex)
 
 Gura_ImplementMethod(wx_ListEvent, GetIndex)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetIndex();
 	return Value::Nil;
 }
@@ -146,9 +139,8 @@ Gura_DeclareMethod(wx_ListEvent, GetItem)
 
 Gura_ImplementMethod(wx_ListEvent, GetItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetItem();
 	return Value::Nil;
 }
@@ -160,9 +152,8 @@ Gura_DeclareMethod(wx_ListEvent, GetKeyCode)
 
 Gura_ImplementMethod(wx_ListEvent, GetKeyCode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetKeyCode();
 	return Value::Nil;
 }
@@ -174,9 +165,8 @@ Gura_DeclareMethod(wx_ListEvent, GetLabel)
 
 Gura_ImplementMethod(wx_ListEvent, GetLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLabel();
 	return Value::Nil;
 }
@@ -188,9 +178,8 @@ Gura_DeclareMethod(wx_ListEvent, GetMask)
 
 Gura_ImplementMethod(wx_ListEvent, GetMask)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMask();
 	return Value::Nil;
 }
@@ -202,9 +191,8 @@ Gura_DeclareMethod(wx_ListEvent, GetPoint)
 
 Gura_ImplementMethod(wx_ListEvent, GetPoint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPoint();
 	return Value::Nil;
 }
@@ -216,9 +204,8 @@ Gura_DeclareMethod(wx_ListEvent, GetText)
 
 Gura_ImplementMethod(wx_ListEvent, GetText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetText();
 	return Value::Nil;
 }
@@ -230,9 +217,8 @@ Gura_DeclareMethod(wx_ListEvent, IsEditCancelled)
 
 Gura_ImplementMethod(wx_ListEvent, IsEditCancelled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEditCancelled();
 	return Value::Nil;
 }

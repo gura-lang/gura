@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, wxRichTextParagraphLayoutBox)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, wxRichTextParagraphLayoutBox)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextParagraphLayoutBox();
 	return Value::Nil;
@@ -60,24 +59,9 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, wxRichTextParagraphLayoutBox_1
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, wxRichTextParagraphLayoutBox_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRichTextParagraphLayoutBox();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, ~wxRichTextParagraphLayoutBox)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, ~wxRichTextParagraphLayoutBox)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRichTextParagraphLayoutBox();
 	return Value::Nil;
 }
 
@@ -95,9 +79,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, HitTest)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, HitTest)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int pt = arg.GetNumber(2)
@@ -123,9 +106,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, Draw)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, Draw)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int range = arg.GetNumber(2)
@@ -149,9 +131,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, Layout)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, Layout)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -177,9 +158,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetRangeSize)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetRangeSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int descent = arg.GetNumber(2)
@@ -201,9 +181,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, DeleteRange)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, DeleteRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteRange();
 	return Value::Nil;
@@ -217,9 +196,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetTextForRange)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetTextForRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//pThis->GetEntity()->GetTextForRange();
 	return Value::Nil;
@@ -236,9 +214,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, ImportFromXML)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, ImportFromXML)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int node = arg.GetNumber(1)
 	//int handler = arg.GetNumber(2)
@@ -257,9 +234,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, ExportXML)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, ExportXML)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int indent = arg.GetNumber(1)
 	//int handler = arg.GetNumber(2)
@@ -276,9 +252,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, ExportXML_1)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, ExportXML_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int handler = arg.GetNumber(1)
 	//pThis->GetEntity()->ExportXML();
@@ -292,9 +267,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetXMLNodeName)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetXMLNodeName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetXMLNodeName();
 	return Value::Nil;
 }
@@ -306,9 +280,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, AcceptsFocus)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, AcceptsFocus)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AcceptsFocus();
 	return Value::Nil;
 }
@@ -321,9 +294,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, SetRichTextCtrl)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, SetRichTextCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ctrl = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRichTextCtrl();
 	return Value::Nil;
@@ -336,9 +308,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetRichTextCtrl)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetRichTextCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRichTextCtrl();
 	return Value::Nil;
 }
@@ -351,9 +322,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, SetPartialParagraph)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, SetPartialParagraph)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int partialPara = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPartialParagraph();
 	return Value::Nil;
@@ -366,9 +336,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetPartialParagraph)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetPartialParagraph)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPartialParagraph();
 	return Value::Nil;
 }
@@ -380,9 +349,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetStyleSheet)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetStyleSheet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStyleSheet();
 	return Value::Nil;
 }
@@ -394,9 +362,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, IsTopLevel)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, IsTopLevel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsTopLevel();
 	return Value::Nil;
 }
@@ -413,9 +380,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, InsertParagraphsWithUndo)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, InsertParagraphsWithUndo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int paragraphs = arg.GetNumber(2)
@@ -437,9 +403,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, InsertTextWithUndo)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, InsertTextWithUndo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int text = arg.GetNumber(2)
@@ -460,9 +425,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, InsertNewlineWithUndo)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, InsertNewlineWithUndo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int ctrl = arg.GetNumber(2)
@@ -484,9 +448,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, InsertImageWithUndo)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, InsertImageWithUndo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int imageBlock = arg.GetNumber(2)
@@ -511,9 +474,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, InsertFieldWithUndo)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, InsertFieldWithUndo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int fieldType = arg.GetNumber(2)
@@ -536,9 +498,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetStyleForNewParagraph)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetStyleForNewParagraph)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int caretPosition = arg.GetNumber(2)
@@ -559,9 +520,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, InsertObjectWithUndo)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, InsertObjectWithUndo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int object = arg.GetNumber(2)
@@ -581,9 +541,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, DeleteRangeWithUndo)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, DeleteRangeWithUndo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int ctrl = arg.GetNumber(1)
 	//int buffer = arg.GetNumber(2)
@@ -605,9 +564,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, DrawFloats)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, DrawFloats)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int range = arg.GetNumber(2)
@@ -629,9 +587,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, MoveAnchoredObjectToParagraph)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, MoveAnchoredObjectToParagraph)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int from = arg.GetNumber(0)
 	//int to = arg.GetNumber(1)
 	//int obj = arg.GetNumber(2)
@@ -646,9 +603,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, Init)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, Init)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Init();
 	return Value::Nil;
 }
@@ -660,9 +616,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, Clear)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -674,9 +629,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, Reset)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, Reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }
@@ -690,9 +644,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, AddParagraph)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, AddParagraph)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int paraStyle = arg.GetNumber(1)
 	//pThis->GetEntity()->AddParagraph();
@@ -708,9 +661,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, AddImage)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, AddImage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//int paraStyle = arg.GetNumber(1)
 	//pThis->GetEntity()->AddImage();
@@ -726,9 +678,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, AddParagraphs)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, AddParagraphs)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int paraStyle = arg.GetNumber(1)
 	//pThis->GetEntity()->AddParagraphs();
@@ -744,9 +695,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetLineAtPosition)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetLineAtPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int caretPosition = arg.GetNumber(1)
 	//pThis->GetEntity()->GetLineAtPosition();
@@ -761,9 +711,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetLineAtYPosition)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetLineAtYPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int y = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLineAtYPosition();
 	return Value::Nil;
@@ -778,9 +727,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetParagraphAtPosition)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetParagraphAtPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int caretPosition = arg.GetNumber(1)
 	//pThis->GetEntity()->GetParagraphAtPosition();
@@ -796,9 +744,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetLineSizeAtPosition)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetLineSizeAtPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int caretPosition = arg.GetNumber(1)
 	//pThis->GetEntity()->GetLineSizeAtPosition();
@@ -815,9 +762,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetVisibleLineNumber)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetVisibleLineNumber)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int caretPosition = arg.GetNumber(1)
 	//int startOfLine = arg.GetNumber(2)
@@ -833,9 +779,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetLineForVisibleLineNumber)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetLineForVisibleLineNumber)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lineNumber = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLineForVisibleLineNumber();
 	return Value::Nil;
@@ -849,9 +794,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetLeafObjectAtPosition)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetLeafObjectAtPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int position = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLeafObjectAtPosition();
 	return Value::Nil;
@@ -865,9 +809,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetParagraphAtLine)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetParagraphAtLine)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int paragraphNumber = arg.GetNumber(0)
 	//pThis->GetEntity()->GetParagraphAtLine();
 	return Value::Nil;
@@ -881,9 +824,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetParagraphForLine)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetParagraphForLine)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int line = arg.GetNumber(0)
 	//pThis->GetEntity()->GetParagraphForLine();
 	return Value::Nil;
@@ -897,9 +839,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetParagraphLength)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetParagraphLength)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int paragraphNumber = arg.GetNumber(0)
 	//pThis->GetEntity()->GetParagraphLength();
 	return Value::Nil;
@@ -912,9 +853,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetParagraphCount)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetParagraphCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetParagraphCount();
 	return Value::Nil;
 }
@@ -926,9 +866,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetLineCount)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetLineCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLineCount();
 	return Value::Nil;
 }
@@ -941,9 +880,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetParagraphText)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetParagraphText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int paragraphNumber = arg.GetNumber(0)
 	//pThis->GetEntity()->GetParagraphText();
 	return Value::Nil;
@@ -958,9 +896,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, XYToPosition)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, XYToPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->XYToPosition();
@@ -977,9 +914,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, PositionToXY)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, PositionToXY)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -997,9 +933,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, SetStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, SetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -1017,9 +952,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, SetStyle_1)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, SetStyle_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//int textAttr = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -1036,9 +970,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int position = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->GetStyle();
@@ -1054,9 +987,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetUncombinedStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetUncombinedStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int position = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->GetUncombinedStyle();
@@ -1073,9 +1005,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, DoGetStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, DoGetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int position = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//int combineStyles = arg.GetNumber(2)
@@ -1092,9 +1023,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetStyleForRange)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetStyleForRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->GetStyleForRange();
@@ -1112,9 +1042,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, CollectStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, CollectStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int currentStyle = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//int clashingAttr = arg.GetNumber(2)
@@ -1135,9 +1064,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, SetListStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, SetListStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int def = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -1159,9 +1087,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, SetListStyle_1)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, SetListStyle_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int defName = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -1180,9 +1107,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, ClearListStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, ClearListStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->ClearListStyle();
@@ -1201,9 +1127,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, NumberList)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, NumberList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int def = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -1225,9 +1150,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, NumberList_1)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, NumberList_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int defName = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -1249,9 +1173,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, PromoteList)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, PromoteList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int promoteBy = arg.GetNumber(0)
 	//int range = arg.GetNumber(1)
 	//int def = arg.GetNumber(2)
@@ -1273,9 +1196,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, PromoteList_1)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, PromoteList_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int promoteBy = arg.GetNumber(0)
 	//int range = arg.GetNumber(1)
 	//int defName = arg.GetNumber(2)
@@ -1299,9 +1221,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, DoNumberList)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, DoNumberList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int promotionRange = arg.GetNumber(1)
 	//int promoteBy = arg.GetNumber(2)
@@ -1322,9 +1243,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, FindNextParagraphNumber)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, FindNextParagraphNumber)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int previousParagraph = arg.GetNumber(0)
 	//int attr = arg.GetNumber(1)
 	//pThis->GetEntity()->FindNextParagraphNumber();
@@ -1341,9 +1261,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, SetProperties)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, SetProperties)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int properties = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -1361,9 +1280,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, SetObjectPropertiesWithUndo)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, SetObjectPropertiesWithUndo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//int properties = arg.GetNumber(1)
 	//int objToSet = arg.GetNumber(2)
@@ -1380,9 +1298,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, HasCharacterAttributes)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, HasCharacterAttributes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->HasCharacterAttributes();
@@ -1398,9 +1315,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, HasParagraphAttributes)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, HasParagraphAttributes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->HasParagraphAttributes();
@@ -1414,9 +1330,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, Clone)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -1429,9 +1344,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, PrepareContent)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, PrepareContent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int container = arg.GetNumber(0)
 	//pThis->GetEntity()->PrepareContent();
 	return Value::Nil;
@@ -1446,9 +1360,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, InsertFragment)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, InsertFragment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int position = arg.GetNumber(0)
 	//int fragment = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertFragment();
@@ -1464,9 +1377,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, CopyFragment)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, CopyFragment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int fragment = arg.GetNumber(1)
 	//pThis->GetEntity()->CopyFragment();
@@ -1481,9 +1393,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, ApplyStyleSheet)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, ApplyStyleSheet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int styleSheet = arg.GetNumber(0)
 	//pThis->GetEntity()->ApplyStyleSheet();
 	return Value::Nil;
@@ -1497,9 +1408,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, Copy)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, Copy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
@@ -1513,9 +1423,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, operator=)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, operator=)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->operator=();
 	return Value::Nil;
@@ -1528,9 +1437,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, UpdateRanges)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, UpdateRanges)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->UpdateRanges();
 	return Value::Nil;
 }
@@ -1542,9 +1450,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetText)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetText();
 	return Value::Nil;
 }
@@ -1557,9 +1464,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, SetDefaultStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, SetDefaultStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaultStyle();
 	return Value::Nil;
@@ -1572,9 +1478,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetDefaultStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetDefaultStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDefaultStyle();
 	return Value::Nil;
 }
@@ -1587,9 +1492,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, SetBasicStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, SetBasicStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBasicStyle();
 	return Value::Nil;
@@ -1602,9 +1506,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetBasicStyle)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetBasicStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBasicStyle();
 	return Value::Nil;
 }
@@ -1617,9 +1520,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, Invalidate)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, Invalidate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int invalidRange = arg.GetNumber(0)
 	//pThis->GetEntity()->Invalidate();
 	return Value::Nil;
@@ -1633,9 +1535,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, DoInvalidate)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, DoInvalidate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int invalidRange = arg.GetNumber(0)
 	//pThis->GetEntity()->DoInvalidate();
 	return Value::Nil;
@@ -1649,9 +1550,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, InvalidateHierarchy)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, InvalidateHierarchy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int invalidRange = arg.GetNumber(0)
 	//pThis->GetEntity()->InvalidateHierarchy();
 	return Value::Nil;
@@ -1666,9 +1566,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, UpdateFloatingObjects)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, UpdateFloatingObjects)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int availableRect = arg.GetNumber(0)
 	//int untilObj = arg.GetNumber(1)
 	//pThis->GetEntity()->UpdateFloatingObjects();
@@ -1683,9 +1582,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetInvalidRange)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetInvalidRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int wholeParagraphs = arg.GetNumber(0)
 	//pThis->GetEntity()->GetInvalidRange();
 	return Value::Nil;
@@ -1698,9 +1596,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, IsDirty)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, IsDirty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsDirty();
 	return Value::Nil;
 }
@@ -1712,9 +1609,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetFloatCollector)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetFloatCollector)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFloatCollector();
 	return Value::Nil;
 }
@@ -1726,9 +1622,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetFloatingObjectCount)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetFloatingObjectCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFloatingObjectCount();
 	return Value::Nil;
 }
@@ -1741,9 +1636,8 @@ Gura_DeclareMethod(wx_RichTextParagraphLayoutBox, GetFloatingObjects)
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, GetFloatingObjects)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int objects = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFloatingObjects();
 	return Value::Nil;
@@ -1756,7 +1650,6 @@ Gura_ImplementUserInheritableClass(wx_RichTextParagraphLayoutBox)
 {
 	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, wxRichTextParagraphLayoutBox);
 	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, wxRichTextParagraphLayoutBox_1);
-	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, ~wxRichTextParagraphLayoutBox);
 	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, HitTest);
 	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, Draw);
 	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, Layout);

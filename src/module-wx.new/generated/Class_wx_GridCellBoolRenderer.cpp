@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GridCellBoolRenderer, wxGridCellBoolRenderer)
 
 Gura_ImplementMethod(wx_GridCellBoolRenderer, wxGridCellBoolRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellBoolRenderer *pThis = Object_wx_GridCellBoolRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGridCellBoolRenderer();
 	return Value::Nil;
 }

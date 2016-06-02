@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_SetCursorEvent, wxSetCursorEvent)
 
 Gura_ImplementMethod(wx_SetCursorEvent, wxSetCursorEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->wxSetCursorEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_SetCursorEvent, GetCursor)
 
 Gura_ImplementMethod(wx_SetCursorEvent, GetCursor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCursor();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_SetCursorEvent, GetX)
 
 Gura_ImplementMethod(wx_SetCursorEvent, GetX)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_SetCursorEvent, GetY)
 
 Gura_ImplementMethod(wx_SetCursorEvent, GetY)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_SetCursorEvent, HasCursor)
 
 Gura_ImplementMethod(wx_SetCursorEvent, HasCursor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasCursor();
 	return Value::Nil;
 }
@@ -119,9 +114,8 @@ Gura_DeclareMethod(wx_SetCursorEvent, SetCursor)
 
 Gura_ImplementMethod(wx_SetCursorEvent, SetCursor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cursor = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCursor();
 	return Value::Nil;

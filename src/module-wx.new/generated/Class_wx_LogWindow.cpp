@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_LogWindow, wxLogWindow)
 
 Gura_ImplementMethod(wx_LogWindow, wxLogWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pParent = arg.GetNumber(0)
 	//int szTitle = arg.GetNumber(1)
 	//int show = arg.GetNumber(2)
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_LogWindow, GetFrame)
 
 Gura_ImplementMethod(wx_LogWindow, GetFrame)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFrame();
 	return Value::Nil;
 }
@@ -81,9 +79,8 @@ Gura_DeclareMethod(wx_LogWindow, OnFrameClose)
 
 Gura_ImplementMethod(wx_LogWindow, OnFrameClose)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int frame = arg.GetNumber(0)
 	//pThis->GetEntity()->OnFrameClose();
 	return Value::Nil;
@@ -97,9 +94,8 @@ Gura_DeclareMethod(wx_LogWindow, OnFrameDelete)
 
 Gura_ImplementMethod(wx_LogWindow, OnFrameDelete)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int frame = arg.GetNumber(0)
 	//pThis->GetEntity()->OnFrameDelete();
 	return Value::Nil;
@@ -113,9 +109,8 @@ Gura_DeclareMethod(wx_LogWindow, Show)
 
 Gura_ImplementMethod(wx_LogWindow, Show)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int show = arg.GetNumber(0)
 	//pThis->GetEntity()->Show();
 	return Value::Nil;

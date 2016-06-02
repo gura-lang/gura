@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_WizardEvent, wxWizardEvent)
 
 Gura_ImplementMethod(wx_WizardEvent, wxWizardEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int direction = arg.GetNumber(2)
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_WizardEvent, GetDirection)
 
 Gura_ImplementMethod(wx_WizardEvent, GetDirection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDirection();
 	return Value::Nil;
 }
@@ -80,9 +78,8 @@ Gura_DeclareMethod(wx_WizardEvent, GetPage)
 
 Gura_ImplementMethod(wx_WizardEvent, GetPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPage();
 	return Value::Nil;
 }

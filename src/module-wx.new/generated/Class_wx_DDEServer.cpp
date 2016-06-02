@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_DDEServer, wxDDEServer)
 
 Gura_ImplementMethod(wx_DDEServer, wxDDEServer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxDDEServer();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_DDEServer, Create)
 
 Gura_ImplementMethod(wx_DDEServer, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int service = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_DDEServer, OnAcceptConnection)
 
 Gura_ImplementMethod(wx_DDEServer, OnAcceptConnection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topic = arg.GetNumber(0)
 	//pThis->GetEntity()->OnAcceptConnection();
 	return Value::Nil;

@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_Module, wxModule)
 
 Gura_ImplementMethod(wx_Module, wxModule)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxModule();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Module, ~wxModule)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Module, ~wxModule)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxModule();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_Module, OnExit)
 
 Gura_ImplementMethod(wx_Module, OnExit)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnExit();
 	return Value::Nil;
 }
@@ -86,9 +70,8 @@ Gura_DeclareMethod(wx_Module, OnInit)
 
 Gura_ImplementMethod(wx_Module, OnInit)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnInit();
 	return Value::Nil;
 }
@@ -101,9 +84,8 @@ Gura_DeclareMethod(wx_Module, AddDependency)
 
 Gura_ImplementMethod(wx_Module, AddDependency)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dep = arg.GetNumber(0)
 	//pThis->GetEntity()->AddDependency();
 	return Value::Nil;
@@ -117,9 +99,8 @@ Gura_DeclareMethod(wx_Module, AddDependency_1)
 
 Gura_ImplementMethod(wx_Module, AddDependency_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int classname = arg.GetNumber(0)
 	//pThis->GetEntity()->AddDependency();
 	return Value::Nil;
@@ -131,7 +112,6 @@ Gura_ImplementMethod(wx_Module, AddDependency_1)
 Gura_ImplementUserInheritableClass(wx_Module)
 {
 	Gura_AssignMethod(wx_Module, wxModule);
-	Gura_AssignMethod(wx_Module, ~wxModule);
 	Gura_AssignMethod(wx_Module, OnExit);
 	Gura_AssignMethod(wx_Module, OnInit);
 	Gura_AssignMethod(wx_Module, AddDependency);

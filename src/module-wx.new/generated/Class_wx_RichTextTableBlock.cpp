@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, wxRichTextTableBlock)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, wxRichTextTableBlock)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRichTextTableBlock();
 	return Value::Nil;
 }
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, wxRichTextTableBlock_1)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, wxRichTextTableBlock_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colStart = arg.GetNumber(0)
 	//int colEnd = arg.GetNumber(1)
 	//int rowStart = arg.GetNumber(2)
@@ -81,9 +79,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, wxRichTextTableBlock_2)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, wxRichTextTableBlock_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int block = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextTableBlock();
 	return Value::Nil;
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, Init)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, Init)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Init();
 	return Value::Nil;
 }
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, Copy)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, Copy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int block = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
@@ -127,9 +122,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, operator=)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, operator=)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int block = arg.GetNumber(0)
 	//pThis->GetEntity()->operator=();
 	return Value::Nil;
@@ -145,9 +139,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, ComputeBlockForSelection)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, ComputeBlockForSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int table = arg.GetNumber(0)
 	//int ctrl = arg.GetNumber(1)
 	//int requireCellSelection = arg.GetNumber(2)
@@ -163,9 +156,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, IsWholeTable)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, IsWholeTable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int table = arg.GetNumber(0)
 	//pThis->GetEntity()->IsWholeTable();
 	return Value::Nil;
@@ -179,9 +171,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, GetFocusedCell)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, GetFocusedCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ctrl = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFocusedCell();
 	return Value::Nil;
@@ -194,9 +185,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, ColStart)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, ColStart)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ColStart();
 	return Value::Nil;
 }
@@ -208,9 +198,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, ColStart_1)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, ColStart_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ColStart();
 	return Value::Nil;
 }
@@ -222,9 +211,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, ColEnd)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, ColEnd)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ColEnd();
 	return Value::Nil;
 }
@@ -236,9 +224,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, ColEnd_1)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, ColEnd_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ColEnd();
 	return Value::Nil;
 }
@@ -250,9 +237,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, RowStart)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, RowStart)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RowStart();
 	return Value::Nil;
 }
@@ -264,9 +250,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, RowStart_1)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, RowStart_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RowStart();
 	return Value::Nil;
 }
@@ -278,9 +263,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, RowEnd)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, RowEnd)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RowEnd();
 	return Value::Nil;
 }
@@ -292,9 +276,8 @@ Gura_DeclareMethod(wx_RichTextTableBlock, RowEnd_1)
 
 Gura_ImplementMethod(wx_RichTextTableBlock, RowEnd_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RowEnd();
 	return Value::Nil;
 }

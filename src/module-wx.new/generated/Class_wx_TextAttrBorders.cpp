@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, wxTextAttrBorders)
 
 Gura_ImplementMethod(wx_TextAttrBorders, wxTextAttrBorders)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTextAttrBorders();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, SetStyle)
 
 Gura_ImplementMethod(wx_TextAttrBorders, SetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStyle();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, SetColour)
 
 Gura_ImplementMethod(wx_TextAttrBorders, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, SetColour_1)
 
 Gura_ImplementMethod(wx_TextAttrBorders, SetColour_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, SetWidth)
 
 Gura_ImplementMethod(wx_TextAttrBorders, SetWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWidth();
 	return Value::Nil;
@@ -124,9 +119,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, SetWidth_1)
 
 Gura_ImplementMethod(wx_TextAttrBorders, SetWidth_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int units = arg.GetNumber(1)
 	//pThis->GetEntity()->SetWidth();
@@ -140,9 +134,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, Reset)
 
 Gura_ImplementMethod(wx_TextAttrBorders, Reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }
@@ -156,9 +149,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, EqPartial)
 
 Gura_ImplementMethod(wx_TextAttrBorders, EqPartial)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int borders = arg.GetNumber(0)
 	//int weakTest = arg.GetNumber(1)
 	//pThis->GetEntity()->EqPartial();
@@ -174,9 +166,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, Apply)
 
 Gura_ImplementMethod(wx_TextAttrBorders, Apply)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int borders = arg.GetNumber(0)
 	//int compareWith = arg.GetNumber(1)
 	//pThis->GetEntity()->Apply();
@@ -191,9 +182,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, RemoveStyle)
 
 Gura_ImplementMethod(wx_TextAttrBorders, RemoveStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveStyle();
 	return Value::Nil;
@@ -209,9 +199,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, CollectCommonAttributes)
 
 Gura_ImplementMethod(wx_TextAttrBorders, CollectCommonAttributes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//int clashingAttr = arg.GetNumber(1)
 	//int absentAttr = arg.GetNumber(2)
@@ -226,9 +215,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, IsValid)
 
 Gura_ImplementMethod(wx_TextAttrBorders, IsValid)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsValid();
 	return Value::Nil;
 }
@@ -240,9 +228,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, GetLeft)
 
 Gura_ImplementMethod(wx_TextAttrBorders, GetLeft)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeft();
 	return Value::Nil;
 }
@@ -254,9 +241,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, GetLeft_1)
 
 Gura_ImplementMethod(wx_TextAttrBorders, GetLeft_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLeft();
 	return Value::Nil;
 }
@@ -268,9 +254,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, GetRight)
 
 Gura_ImplementMethod(wx_TextAttrBorders, GetRight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRight();
 	return Value::Nil;
 }
@@ -282,9 +267,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, GetRight_1)
 
 Gura_ImplementMethod(wx_TextAttrBorders, GetRight_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRight();
 	return Value::Nil;
 }
@@ -296,9 +280,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, GetTop)
 
 Gura_ImplementMethod(wx_TextAttrBorders, GetTop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTop();
 	return Value::Nil;
 }
@@ -310,9 +293,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, GetTop_1)
 
 Gura_ImplementMethod(wx_TextAttrBorders, GetTop_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTop();
 	return Value::Nil;
 }
@@ -324,9 +306,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, GetBottom)
 
 Gura_ImplementMethod(wx_TextAttrBorders, GetBottom)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottom();
 	return Value::Nil;
 }
@@ -338,9 +319,8 @@ Gura_DeclareMethod(wx_TextAttrBorders, GetBottom_1)
 
 Gura_ImplementMethod(wx_TextAttrBorders, GetBottom_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBottom();
 	return Value::Nil;
 }

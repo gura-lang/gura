@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_RichTextEvent, wxRichTextEvent)
 
 Gura_ImplementMethod(wx_RichTextEvent, wxRichTextEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//pThis->GetEntity()->wxRichTextEvent();
@@ -63,9 +62,8 @@ Gura_DeclareMethod(wx_RichTextEvent, wxRichTextEvent_1)
 
 Gura_ImplementMethod(wx_RichTextEvent, wxRichTextEvent_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextEvent();
 	return Value::Nil;
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_RichTextEvent, GetPosition)
 
 Gura_ImplementMethod(wx_RichTextEvent, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_RichTextEvent, SetPosition)
 
 Gura_ImplementMethod(wx_RichTextEvent, SetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;
@@ -108,9 +104,8 @@ Gura_DeclareMethod(wx_RichTextEvent, GetFlags)
 
 Gura_ImplementMethod(wx_RichTextEvent, GetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
@@ -123,9 +118,8 @@ Gura_DeclareMethod(wx_RichTextEvent, SetFlags)
 
 Gura_ImplementMethod(wx_RichTextEvent, SetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
@@ -138,9 +132,8 @@ Gura_DeclareMethod(wx_RichTextEvent, GetOldStyleSheet)
 
 Gura_ImplementMethod(wx_RichTextEvent, GetOldStyleSheet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOldStyleSheet();
 	return Value::Nil;
 }
@@ -153,9 +146,8 @@ Gura_DeclareMethod(wx_RichTextEvent, SetOldStyleSheet)
 
 Gura_ImplementMethod(wx_RichTextEvent, SetOldStyleSheet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sheet = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOldStyleSheet();
 	return Value::Nil;
@@ -168,9 +160,8 @@ Gura_DeclareMethod(wx_RichTextEvent, GetNewStyleSheet)
 
 Gura_ImplementMethod(wx_RichTextEvent, GetNewStyleSheet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNewStyleSheet();
 	return Value::Nil;
 }
@@ -183,9 +174,8 @@ Gura_DeclareMethod(wx_RichTextEvent, SetNewStyleSheet)
 
 Gura_ImplementMethod(wx_RichTextEvent, SetNewStyleSheet)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sheet = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNewStyleSheet();
 	return Value::Nil;
@@ -198,9 +188,8 @@ Gura_DeclareMethod(wx_RichTextEvent, GetRange)
 
 Gura_ImplementMethod(wx_RichTextEvent, GetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRange();
 	return Value::Nil;
 }
@@ -213,9 +202,8 @@ Gura_DeclareMethod(wx_RichTextEvent, SetRange)
 
 Gura_ImplementMethod(wx_RichTextEvent, SetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRange();
 	return Value::Nil;
@@ -228,9 +216,8 @@ Gura_DeclareMethod(wx_RichTextEvent, GetCharacter)
 
 Gura_ImplementMethod(wx_RichTextEvent, GetCharacter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCharacter();
 	return Value::Nil;
 }
@@ -243,9 +230,8 @@ Gura_DeclareMethod(wx_RichTextEvent, SetCharacter)
 
 Gura_ImplementMethod(wx_RichTextEvent, SetCharacter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ch = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCharacter();
 	return Value::Nil;
@@ -258,9 +244,8 @@ Gura_DeclareMethod(wx_RichTextEvent, GetContainer)
 
 Gura_ImplementMethod(wx_RichTextEvent, GetContainer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetContainer();
 	return Value::Nil;
 }
@@ -273,9 +258,8 @@ Gura_DeclareMethod(wx_RichTextEvent, SetContainer)
 
 Gura_ImplementMethod(wx_RichTextEvent, SetContainer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int container = arg.GetNumber(0)
 	//pThis->GetEntity()->SetContainer();
 	return Value::Nil;
@@ -288,9 +272,8 @@ Gura_DeclareMethod(wx_RichTextEvent, GetOldContainer)
 
 Gura_ImplementMethod(wx_RichTextEvent, GetOldContainer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOldContainer();
 	return Value::Nil;
 }
@@ -303,9 +286,8 @@ Gura_DeclareMethod(wx_RichTextEvent, SetOldContainer)
 
 Gura_ImplementMethod(wx_RichTextEvent, SetOldContainer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int container = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOldContainer();
 	return Value::Nil;
@@ -318,9 +300,8 @@ Gura_DeclareMethod(wx_RichTextEvent, Clone)
 
 Gura_ImplementMethod(wx_RichTextEvent, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }

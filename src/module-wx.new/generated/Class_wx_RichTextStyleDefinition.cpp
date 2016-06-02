@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, wxRichTextStyleDefinition)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, wxRichTextStyleDefinition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextStyleDefinition();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RichTextStyleDefinition, ~wxRichTextStyleDefinition)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextStyleDefinition, ~wxRichTextStyleDefinition)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRichTextStyleDefinition();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, GetBaseStyle)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, GetBaseStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBaseStyle();
 	return Value::Nil;
 }
@@ -88,9 +72,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, GetDescription)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, GetDescription)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDescription();
 	return Value::Nil;
 }
@@ -102,9 +85,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, GetName)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -116,9 +98,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, GetStyle)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, GetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
@@ -130,9 +111,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, GetStyle_1)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, GetStyle_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
@@ -145,9 +125,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, GetStyleMergedWithBase)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, GetStyleMergedWithBase)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sheet = arg.GetNumber(0)
 	//pThis->GetEntity()->GetStyleMergedWithBase();
 	return Value::Nil;
@@ -161,9 +140,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, SetBaseStyle)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, SetBaseStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBaseStyle();
 	return Value::Nil;
@@ -177,9 +155,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, SetDescription)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, SetDescription)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int descr = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDescription();
 	return Value::Nil;
@@ -193,9 +170,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, SetName)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, SetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetName();
 	return Value::Nil;
@@ -209,9 +185,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, SetStyle)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, SetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStyle();
 	return Value::Nil;
@@ -224,9 +199,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, GetProperties)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, GetProperties)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetProperties();
 	return Value::Nil;
 }
@@ -238,9 +212,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, GetProperties_1)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, GetProperties_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetProperties();
 	return Value::Nil;
 }
@@ -253,9 +226,8 @@ Gura_DeclareMethod(wx_RichTextStyleDefinition, SetProperties)
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, SetProperties)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int props = arg.GetNumber(0)
 	//pThis->GetEntity()->SetProperties();
 	return Value::Nil;
@@ -267,7 +239,6 @@ Gura_ImplementMethod(wx_RichTextStyleDefinition, SetProperties)
 Gura_ImplementUserInheritableClass(wx_RichTextStyleDefinition)
 {
 	Gura_AssignMethod(wx_RichTextStyleDefinition, wxRichTextStyleDefinition);
-	Gura_AssignMethod(wx_RichTextStyleDefinition, ~wxRichTextStyleDefinition);
 	Gura_AssignMethod(wx_RichTextStyleDefinition, GetBaseStyle);
 	Gura_AssignMethod(wx_RichTextStyleDefinition, GetDescription);
 	Gura_AssignMethod(wx_RichTextStyleDefinition, GetName);

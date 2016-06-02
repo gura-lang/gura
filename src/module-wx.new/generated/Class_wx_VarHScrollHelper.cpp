@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, wxVarHScrollHelper)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, wxVarHScrollHelper)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winToScroll = arg.GetNumber(0)
 	//pThis->GetEntity()->wxVarHScrollHelper();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, GetColumnCount)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, GetColumnCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColumnCount();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, GetVisibleColumnsBegin)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, GetVisibleColumnsBegin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVisibleColumnsBegin();
 	return Value::Nil;
 }
@@ -88,9 +85,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, GetVisibleColumnsEnd)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, GetVisibleColumnsEnd)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVisibleColumnsEnd();
 	return Value::Nil;
 }
@@ -103,9 +99,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, IsColumnVisible)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, IsColumnVisible)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
 	//pThis->GetEntity()->IsColumnVisible();
 	return Value::Nil;
@@ -119,9 +114,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, RefreshColumn)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, RefreshColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
 	//pThis->GetEntity()->RefreshColumn();
 	return Value::Nil;
@@ -136,9 +130,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, RefreshColumns)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, RefreshColumns)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int from = arg.GetNumber(0)
 	//int to = arg.GetNumber(1)
 	//pThis->GetEntity()->RefreshColumns();
@@ -153,9 +146,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, ScrollColumnPages)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, ScrollColumnPages)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pages = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollColumnPages();
 	return Value::Nil;
@@ -169,9 +161,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, ScrollColumns)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, ScrollColumns)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int columns = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollColumns();
 	return Value::Nil;
@@ -185,9 +176,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, ScrollToColumn)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, ScrollToColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollToColumn();
 	return Value::Nil;
@@ -201,9 +191,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, SetColumnCount)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, SetColumnCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int columnCount = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColumnCount();
 	return Value::Nil;
@@ -216,9 +205,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, EstimateTotalWidth)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, EstimateTotalWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->EstimateTotalWidth();
 	return Value::Nil;
 }
@@ -232,9 +220,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, OnGetColumnsWidthHint)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, OnGetColumnsWidthHint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int columnMin = arg.GetNumber(0)
 	//int columnMax = arg.GetNumber(1)
 	//pThis->GetEntity()->OnGetColumnsWidthHint();
@@ -249,9 +236,8 @@ Gura_DeclareMethod(wx_VarHScrollHelper, OnGetColumnWidth)
 
 Gura_ImplementMethod(wx_VarHScrollHelper, OnGetColumnWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
 	//pThis->GetEntity()->OnGetColumnWidth();
 	return Value::Nil;

@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_RichTextCharacterStyleDefinition, wxRichTextCharacterStyle
 
 Gura_ImplementMethod(wx_RichTextCharacterStyleDefinition, wxRichTextCharacterStyleDefinition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextCharacterStyleDefinition *pThis = Object_wx_RichTextCharacterStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextCharacterStyleDefinition();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RichTextCharacterStyleDefinition, ~wxRichTextCharacterStyleDefinition)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextCharacterStyleDefinition, ~wxRichTextCharacterStyleDefinition)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RichTextCharacterStyleDefinition *pThis = Object_wx_RichTextCharacterStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRichTextCharacterStyleDefinition();
 	return Value::Nil;
 }
 
@@ -73,7 +58,6 @@ Gura_ImplementMethod(wx_RichTextCharacterStyleDefinition, ~wxRichTextCharacterSt
 Gura_ImplementUserInheritableClass(wx_RichTextCharacterStyleDefinition)
 {
 	Gura_AssignMethod(wx_RichTextCharacterStyleDefinition, wxRichTextCharacterStyleDefinition);
-	Gura_AssignMethod(wx_RichTextCharacterStyleDefinition, ~wxRichTextCharacterStyleDefinition);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextCharacterStyleDefinition)

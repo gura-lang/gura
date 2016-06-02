@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_GUIEventLoop, wxGUIEventLoop)
 
 Gura_ImplementMethod(wx_GUIEventLoop, wxGUIEventLoop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GUIEventLoop *pThis = Object_wx_GUIEventLoop::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGUIEventLoop();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_GUIEventLoop, ~wxGUIEventLoop)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_GUIEventLoop, ~wxGUIEventLoop)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_GUIEventLoop *pThis = Object_wx_GUIEventLoop::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxGUIEventLoop();
 	return Value::Nil;
 }
 
@@ -71,7 +56,6 @@ Gura_ImplementMethod(wx_GUIEventLoop, ~wxGUIEventLoop)
 Gura_ImplementUserInheritableClass(wx_GUIEventLoop)
 {
 	Gura_AssignMethod(wx_GUIEventLoop, wxGUIEventLoop);
-	Gura_AssignMethod(wx_GUIEventLoop, ~wxGUIEventLoop);
 }
 
 Gura_ImplementDescendantCreator(wx_GUIEventLoop)

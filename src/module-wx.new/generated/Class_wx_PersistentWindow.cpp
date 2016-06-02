@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_PersistentWindow, wxPersistentWindow)
 
 Gura_ImplementMethod(wx_PersistentWindow, wxPersistentWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentWindow *pThis = Object_wx_PersistentWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPersistentWindow();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_PersistentWindow, Get)
 
 Gura_ImplementMethod(wx_PersistentWindow, Get)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentWindow *pThis = Object_wx_PersistentWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Get();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_PersistentWindow, GetName)
 
 Gura_ImplementMethod(wx_PersistentWindow, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentWindow *pThis = Object_wx_PersistentWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }

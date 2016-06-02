@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ActivityIndicator, wxActivityIndicator)
 
 Gura_ImplementMethod(wx_ActivityIndicator, wxActivityIndicator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxActivityIndicator();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_ActivityIndicator, wxActivityIndicator_1)
 
 Gura_ImplementMethod(wx_ActivityIndicator, wxActivityIndicator_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_ActivityIndicator, Create)
 
 Gura_ImplementMethod(wx_ActivityIndicator, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -110,9 +107,8 @@ Gura_DeclareMethod(wx_ActivityIndicator, Start)
 
 Gura_ImplementMethod(wx_ActivityIndicator, Start)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Start();
 	return Value::Nil;
 }
@@ -124,9 +120,8 @@ Gura_DeclareMethod(wx_ActivityIndicator, Stop)
 
 Gura_ImplementMethod(wx_ActivityIndicator, Stop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Stop();
 	return Value::Nil;
 }
@@ -138,9 +133,8 @@ Gura_DeclareMethod(wx_ActivityIndicator, IsRunning)
 
 Gura_ImplementMethod(wx_ActivityIndicator, IsRunning)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsRunning();
 	return Value::Nil;
 }

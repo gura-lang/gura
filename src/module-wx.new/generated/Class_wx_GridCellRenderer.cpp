@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GridCellRenderer, wxGridCellRenderer)
 
 Gura_ImplementMethod(wx_GridCellRenderer, wxGridCellRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGridCellRenderer();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_GridCellRenderer, Clone)
 
 Gura_ImplementMethod(wx_GridCellRenderer, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -79,9 +77,8 @@ Gura_DeclareMethod(wx_GridCellRenderer, Draw)
 
 Gura_ImplementMethod(wx_GridCellRenderer, Draw)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int grid = arg.GetNumber(0)
 	//int attr = arg.GetNumber(1)
 	//int dc = arg.GetNumber(2)
@@ -105,9 +102,8 @@ Gura_DeclareMethod(wx_GridCellRenderer, GetBestSize)
 
 Gura_ImplementMethod(wx_GridCellRenderer, GetBestSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int grid = arg.GetNumber(0)
 	//int attr = arg.GetNumber(1)
 	//int dc = arg.GetNumber(2)
@@ -130,9 +126,8 @@ Gura_DeclareMethod(wx_GridCellRenderer, GetBestHeight)
 
 Gura_ImplementMethod(wx_GridCellRenderer, GetBestHeight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int grid = arg.GetNumber(0)
 	//int attr = arg.GetNumber(1)
 	//int dc = arg.GetNumber(2)
@@ -156,9 +151,8 @@ Gura_DeclareMethod(wx_GridCellRenderer, GetBestWidth)
 
 Gura_ImplementMethod(wx_GridCellRenderer, GetBestWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int grid = arg.GetNumber(0)
 	//int attr = arg.GetNumber(1)
 	//int dc = arg.GetNumber(2)
@@ -166,20 +160,6 @@ Gura_ImplementMethod(wx_GridCellRenderer, GetBestWidth)
 	//int col = arg.GetNumber(4)
 	//int height = arg.GetNumber(5)
 	//pThis->GetEntity()->GetBestWidth();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_GridCellRenderer, ~wxGridCellRenderer)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_GridCellRenderer, ~wxGridCellRenderer)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxGridCellRenderer();
 	return Value::Nil;
 }
 
@@ -194,7 +174,6 @@ Gura_ImplementUserInheritableClass(wx_GridCellRenderer)
 	Gura_AssignMethod(wx_GridCellRenderer, GetBestSize);
 	Gura_AssignMethod(wx_GridCellRenderer, GetBestHeight);
 	Gura_AssignMethod(wx_GridCellRenderer, GetBestWidth);
-	Gura_AssignMethod(wx_GridCellRenderer, ~wxGridCellRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellRenderer)

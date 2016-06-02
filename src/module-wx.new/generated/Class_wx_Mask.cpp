@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Mask, wxMask)
 
 Gura_ImplementMethod(wx_Mask, wxMask)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxMask();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_Mask, wxMask_1)
 
 Gura_ImplementMethod(wx_Mask, wxMask_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
 	//pThis->GetEntity()->wxMask();
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_Mask, wxMask_2)
 
 Gura_ImplementMethod(wx_Mask, wxMask_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->wxMask();
 	return Value::Nil;
@@ -94,26 +91,11 @@ Gura_DeclareMethod(wx_Mask, wxMask_3)
 
 Gura_ImplementMethod(wx_Mask, wxMask_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int colour = arg.GetNumber(1)
 	//pThis->GetEntity()->wxMask();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Mask, ~wxMask)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Mask, ~wxMask)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxMask();
 	return Value::Nil;
 }
 
@@ -126,9 +108,8 @@ Gura_DeclareMethod(wx_Mask, Create)
 
 Gura_ImplementMethod(wx_Mask, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
@@ -143,9 +124,8 @@ Gura_DeclareMethod(wx_Mask, Create_1)
 
 Gura_ImplementMethod(wx_Mask, Create_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -160,9 +140,8 @@ Gura_DeclareMethod(wx_Mask, Create_2)
 
 Gura_ImplementMethod(wx_Mask, Create_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int colour = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
@@ -176,9 +155,8 @@ Gura_DeclareMethod(wx_Mask, GetBitmap)
 
 Gura_ImplementMethod(wx_Mask, GetBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
@@ -192,7 +170,6 @@ Gura_ImplementUserInheritableClass(wx_Mask)
 	Gura_AssignMethod(wx_Mask, wxMask_1);
 	Gura_AssignMethod(wx_Mask, wxMask_2);
 	Gura_AssignMethod(wx_Mask, wxMask_3);
-	Gura_AssignMethod(wx_Mask, ~wxMask);
 	Gura_AssignMethod(wx_Mask, Create);
 	Gura_AssignMethod(wx_Mask, Create_1);
 	Gura_AssignMethod(wx_Mask, Create_2);

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_XLocale, wxXLocale)
 
 Gura_ImplementMethod(wx_XLocale, wxXLocale)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxXLocale();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_XLocale, wxXLocale_1)
 
 Gura_ImplementMethod(wx_XLocale, wxXLocale_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
 	//pThis->GetEntity()->wxXLocale();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_XLocale, wxXLocale_2)
 
 Gura_ImplementMethod(wx_XLocale, wxXLocale_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int loc = arg.GetNumber(0)
 	//pThis->GetEntity()->wxXLocale();
 	return Value::Nil;
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_XLocale, GetCLocale)
 
 Gura_ImplementMethod(wx_XLocale, GetCLocale)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCLocale();
 	return Value::Nil;
 }
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_XLocale, IsOk)
 
 Gura_ImplementMethod(wx_XLocale, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }

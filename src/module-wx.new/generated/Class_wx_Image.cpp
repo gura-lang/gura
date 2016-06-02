@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_Image, RGBValue)
 
 Gura_ImplementMethod(wx_Image, RGBValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Image *pThis = Object_wx_Image::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
 	//int g = arg.GetNumber(1)
 	//int b = arg.GetNumber(2)

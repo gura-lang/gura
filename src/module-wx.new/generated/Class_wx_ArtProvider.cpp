@@ -37,20 +37,6 @@ String Object_wx_ArtProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ArtProvider, ~wxArtProvider)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ArtProvider, ~wxArtProvider)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxArtProvider();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_ArtProvider, Delete)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -59,9 +45,8 @@ Gura_DeclareMethod(wx_ArtProvider, Delete)
 
 Gura_ImplementMethod(wx_ArtProvider, Delete)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int provider = arg.GetNumber(0)
 	//pThis->GetEntity()->Delete();
 	return Value::Nil;
@@ -77,9 +62,8 @@ Gura_DeclareMethod(wx_ArtProvider, GetBitmap)
 
 Gura_ImplementMethod(wx_ArtProvider, GetBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int client = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -97,9 +81,8 @@ Gura_DeclareMethod(wx_ArtProvider, GetIcon)
 
 Gura_ImplementMethod(wx_ArtProvider, GetIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int client = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -115,9 +98,8 @@ Gura_DeclareMethod(wx_ArtProvider, GetNativeSizeHint)
 
 Gura_ImplementMethod(wx_ArtProvider, GetNativeSizeHint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int client = arg.GetNumber(0)
 	//pThis->GetEntity()->GetNativeSizeHint();
 	return Value::Nil;
@@ -132,9 +114,8 @@ Gura_DeclareMethod(wx_ArtProvider, GetSizeHint)
 
 Gura_ImplementMethod(wx_ArtProvider, GetSizeHint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int client = arg.GetNumber(0)
 	//int platform_default = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSizeHint();
@@ -150,9 +131,8 @@ Gura_DeclareMethod(wx_ArtProvider, GetIconBundle)
 
 Gura_ImplementMethod(wx_ArtProvider, GetIconBundle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int client = arg.GetNumber(1)
 	//pThis->GetEntity()->GetIconBundle();
@@ -166,9 +146,8 @@ Gura_DeclareMethod(wx_ArtProvider, HasNativeProvider)
 
 Gura_ImplementMethod(wx_ArtProvider, HasNativeProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasNativeProvider();
 	return Value::Nil;
 }
@@ -181,9 +160,8 @@ Gura_DeclareMethod(wx_ArtProvider, Insert)
 
 Gura_ImplementMethod(wx_ArtProvider, Insert)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int provider = arg.GetNumber(0)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
@@ -196,9 +174,8 @@ Gura_DeclareMethod(wx_ArtProvider, Pop)
 
 Gura_ImplementMethod(wx_ArtProvider, Pop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Pop();
 	return Value::Nil;
 }
@@ -211,9 +188,8 @@ Gura_DeclareMethod(wx_ArtProvider, Push)
 
 Gura_ImplementMethod(wx_ArtProvider, Push)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int provider = arg.GetNumber(0)
 	//pThis->GetEntity()->Push();
 	return Value::Nil;
@@ -227,9 +203,8 @@ Gura_DeclareMethod(wx_ArtProvider, PushBack)
 
 Gura_ImplementMethod(wx_ArtProvider, PushBack)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int provider = arg.GetNumber(0)
 	//pThis->GetEntity()->PushBack();
 	return Value::Nil;
@@ -243,9 +218,8 @@ Gura_DeclareMethod(wx_ArtProvider, Remove)
 
 Gura_ImplementMethod(wx_ArtProvider, Remove)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int provider = arg.GetNumber(0)
 	//pThis->GetEntity()->Remove();
 	return Value::Nil;
@@ -259,9 +233,8 @@ Gura_DeclareMethod(wx_ArtProvider, GetMessageBoxIconId)
 
 Gura_ImplementMethod(wx_ArtProvider, GetMessageBoxIconId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->GetMessageBoxIconId();
 	return Value::Nil;
@@ -275,9 +248,8 @@ Gura_DeclareMethod(wx_ArtProvider, GetMessageBoxIcon)
 
 Gura_ImplementMethod(wx_ArtProvider, GetMessageBoxIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->GetMessageBoxIcon();
 	return Value::Nil;
@@ -293,9 +265,8 @@ Gura_DeclareMethod(wx_ArtProvider, CreateBitmap)
 
 Gura_ImplementMethod(wx_ArtProvider, CreateBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int client = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -312,9 +283,8 @@ Gura_DeclareMethod(wx_ArtProvider, CreateIconBundle)
 
 Gura_ImplementMethod(wx_ArtProvider, CreateIconBundle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int client = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateIconBundle();
@@ -326,7 +296,6 @@ Gura_ImplementMethod(wx_ArtProvider, CreateIconBundle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArtProvider)
 {
-	Gura_AssignMethod(wx_ArtProvider, ~wxArtProvider);
 	Gura_AssignMethod(wx_ArtProvider, Delete);
 	Gura_AssignMethod(wx_ArtProvider, GetBitmap);
 	Gura_AssignMethod(wx_ArtProvider, GetIcon);

@@ -49,9 +49,8 @@ Gura_DeclareMethod(wx_HtmlCellEvent, wxHtmlCellEvent)
 
 Gura_ImplementMethod(wx_HtmlCellEvent, wxHtmlCellEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int cell = arg.GetNumber(2)
@@ -68,9 +67,8 @@ Gura_DeclareMethod(wx_HtmlCellEvent, GetCell)
 
 Gura_ImplementMethod(wx_HtmlCellEvent, GetCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCell();
 	return Value::Nil;
 }
@@ -82,9 +80,8 @@ Gura_DeclareMethod(wx_HtmlCellEvent, GetLinkClicked)
 
 Gura_ImplementMethod(wx_HtmlCellEvent, GetLinkClicked)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLinkClicked();
 	return Value::Nil;
 }
@@ -96,9 +93,8 @@ Gura_DeclareMethod(wx_HtmlCellEvent, GetPoint)
 
 Gura_ImplementMethod(wx_HtmlCellEvent, GetPoint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPoint();
 	return Value::Nil;
 }
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_HtmlCellEvent, SetLinkClicked)
 
 Gura_ImplementMethod(wx_HtmlCellEvent, SetLinkClicked)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int linkclicked = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLinkClicked();
 	return Value::Nil;

@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_TextCompleterSimple, GetCompletions)
 
 Gura_ImplementMethod(wx_TextCompleterSimple, GetCompletions)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextCompleterSimple *pThis = Object_wx_TextCompleterSimple::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prefix = arg.GetNumber(0)
 	//int res = arg.GetNumber(1)
 	//pThis->GetEntity()->GetCompletions();

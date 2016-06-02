@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_Process, wxProcess)
 
 Gura_ImplementMethod(wx_Process, wxProcess)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxProcess();
@@ -63,25 +62,10 @@ Gura_DeclareMethod(wx_Process, wxProcess_1)
 
 Gura_ImplementMethod(wx_Process, wxProcess_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->wxProcess();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Process, ~wxProcess)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Process, ~wxProcess)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxProcess();
 	return Value::Nil;
 }
 
@@ -92,9 +76,8 @@ Gura_DeclareMethod(wx_Process, Activate)
 
 Gura_ImplementMethod(wx_Process, Activate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Activate();
 	return Value::Nil;
 }
@@ -106,9 +89,8 @@ Gura_DeclareMethod(wx_Process, CloseOutput)
 
 Gura_ImplementMethod(wx_Process, CloseOutput)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CloseOutput();
 	return Value::Nil;
 }
@@ -120,9 +102,8 @@ Gura_DeclareMethod(wx_Process, Detach)
 
 Gura_ImplementMethod(wx_Process, Detach)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Detach();
 	return Value::Nil;
 }
@@ -135,9 +116,8 @@ Gura_DeclareMethod(wx_Process, Exists)
 
 Gura_ImplementMethod(wx_Process, Exists)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pid = arg.GetNumber(0)
 	//pThis->GetEntity()->Exists();
 	return Value::Nil;
@@ -150,9 +130,8 @@ Gura_DeclareMethod(wx_Process, GetErrorStream)
 
 Gura_ImplementMethod(wx_Process, GetErrorStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetErrorStream();
 	return Value::Nil;
 }
@@ -164,9 +143,8 @@ Gura_DeclareMethod(wx_Process, GetInputStream)
 
 Gura_ImplementMethod(wx_Process, GetInputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetInputStream();
 	return Value::Nil;
 }
@@ -178,9 +156,8 @@ Gura_DeclareMethod(wx_Process, GetOutputStream)
 
 Gura_ImplementMethod(wx_Process, GetOutputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOutputStream();
 	return Value::Nil;
 }
@@ -192,9 +169,8 @@ Gura_DeclareMethod(wx_Process, GetPid)
 
 Gura_ImplementMethod(wx_Process, GetPid)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPid();
 	return Value::Nil;
 }
@@ -206,9 +182,8 @@ Gura_DeclareMethod(wx_Process, IsErrorAvailable)
 
 Gura_ImplementMethod(wx_Process, IsErrorAvailable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsErrorAvailable();
 	return Value::Nil;
 }
@@ -220,9 +195,8 @@ Gura_DeclareMethod(wx_Process, IsInputAvailable)
 
 Gura_ImplementMethod(wx_Process, IsInputAvailable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsInputAvailable();
 	return Value::Nil;
 }
@@ -234,9 +208,8 @@ Gura_DeclareMethod(wx_Process, IsInputOpened)
 
 Gura_ImplementMethod(wx_Process, IsInputOpened)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsInputOpened();
 	return Value::Nil;
 }
@@ -251,9 +224,8 @@ Gura_DeclareMethod(wx_Process, Kill)
 
 Gura_ImplementMethod(wx_Process, Kill)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pid = arg.GetNumber(0)
 	//int sig = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -270,9 +242,8 @@ Gura_DeclareMethod(wx_Process, OnTerminate)
 
 Gura_ImplementMethod(wx_Process, OnTerminate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pid = arg.GetNumber(0)
 	//int status = arg.GetNumber(1)
 	//pThis->GetEntity()->OnTerminate();
@@ -288,9 +259,8 @@ Gura_DeclareMethod(wx_Process, Open)
 
 Gura_ImplementMethod(wx_Process, Open)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cmd = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->Open();
@@ -304,9 +274,8 @@ Gura_DeclareMethod(wx_Process, Redirect)
 
 Gura_ImplementMethod(wx_Process, Redirect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Redirect();
 	return Value::Nil;
 }
@@ -319,9 +288,8 @@ Gura_DeclareMethod(wx_Process, SetPriority)
 
 Gura_ImplementMethod(wx_Process, SetPriority)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int priority = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPriority();
 	return Value::Nil;
@@ -334,7 +302,6 @@ Gura_ImplementUserInheritableClass(wx_Process)
 {
 	Gura_AssignMethod(wx_Process, wxProcess);
 	Gura_AssignMethod(wx_Process, wxProcess_1);
-	Gura_AssignMethod(wx_Process, ~wxProcess);
 	Gura_AssignMethod(wx_Process, Activate);
 	Gura_AssignMethod(wx_Process, CloseOutput);
 	Gura_AssignMethod(wx_Process, Detach);

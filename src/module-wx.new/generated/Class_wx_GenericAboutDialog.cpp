@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GenericAboutDialog, wxGenericAboutDialog)
 
 Gura_ImplementMethod(wx_GenericAboutDialog, wxGenericAboutDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGenericAboutDialog();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_GenericAboutDialog, wxGenericAboutDialog_1)
 
 Gura_ImplementMethod(wx_GenericAboutDialog, wxGenericAboutDialog_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int info = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//pThis->GetEntity()->wxGenericAboutDialog();
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_GenericAboutDialog, Create)
 
 Gura_ImplementMethod(wx_GenericAboutDialog, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int info = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
@@ -94,9 +91,8 @@ Gura_DeclareMethod(wx_GenericAboutDialog, DoAddCustomControls)
 
 Gura_ImplementMethod(wx_GenericAboutDialog, DoAddCustomControls)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DoAddCustomControls();
 	return Value::Nil;
 }
@@ -110,9 +106,8 @@ Gura_DeclareMethod(wx_GenericAboutDialog, AddControl)
 
 Gura_ImplementMethod(wx_GenericAboutDialog, AddControl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->AddControl();
@@ -127,9 +122,8 @@ Gura_DeclareMethod(wx_GenericAboutDialog, AddControl_1)
 
 Gura_ImplementMethod(wx_GenericAboutDialog, AddControl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->AddControl();
 	return Value::Nil;
@@ -143,9 +137,8 @@ Gura_DeclareMethod(wx_GenericAboutDialog, AddText)
 
 Gura_ImplementMethod(wx_GenericAboutDialog, AddText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//pThis->GetEntity()->AddText();
 	return Value::Nil;
@@ -160,9 +153,8 @@ Gura_DeclareMethod(wx_GenericAboutDialog, AddCollapsiblePane)
 
 Gura_ImplementMethod(wx_GenericAboutDialog, AddCollapsiblePane)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
 	//pThis->GetEntity()->AddCollapsiblePane();

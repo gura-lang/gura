@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_FSInputStream, wxFileInputStream)
 
 Gura_ImplementMethod(wx_FSInputStream, wxFileInputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FSInputStream *pThis = Object_wx_FSInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->wxFileInputStream();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_FSInputStream, IsOk)
 
 Gura_ImplementMethod(wx_FSInputStream, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FSInputStream *pThis = Object_wx_FSInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }

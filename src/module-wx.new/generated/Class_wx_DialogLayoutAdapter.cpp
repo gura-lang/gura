@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_DialogLayoutAdapter, wxDialogLayoutAdapter)
 
 Gura_ImplementMethod(wx_DialogLayoutAdapter, wxDialogLayoutAdapter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxDialogLayoutAdapter();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_DialogLayoutAdapter, CanDoLayoutAdaptation)
 
 Gura_ImplementMethod(wx_DialogLayoutAdapter, CanDoLayoutAdaptation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dialog = arg.GetNumber(0)
 	//pThis->GetEntity()->CanDoLayoutAdaptation();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_DialogLayoutAdapter, DoLayoutAdaptation)
 
 Gura_ImplementMethod(wx_DialogLayoutAdapter, DoLayoutAdaptation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dialog = arg.GetNumber(0)
 	//pThis->GetEntity()->DoLayoutAdaptation();
 	return Value::Nil;

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_RichTextBox, wxRichTextBox)
 
 Gura_ImplementMethod(wx_RichTextBox, wxRichTextBox)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextBox();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_RichTextBox, wxRichTextBox_1)
 
 Gura_ImplementMethod(wx_RichTextBox, wxRichTextBox_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRichTextBox();
 	return Value::Nil;
 }
@@ -81,9 +79,8 @@ Gura_DeclareMethod(wx_RichTextBox, Draw)
 
 Gura_ImplementMethod(wx_RichTextBox, Draw)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int range = arg.GetNumber(2)
@@ -102,9 +99,8 @@ Gura_DeclareMethod(wx_RichTextBox, GetXMLNodeName)
 
 Gura_ImplementMethod(wx_RichTextBox, GetXMLNodeName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetXMLNodeName();
 	return Value::Nil;
 }
@@ -116,9 +112,8 @@ Gura_DeclareMethod(wx_RichTextBox, CanEditProperties)
 
 Gura_ImplementMethod(wx_RichTextBox, CanEditProperties)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanEditProperties();
 	return Value::Nil;
 }
@@ -132,9 +127,8 @@ Gura_DeclareMethod(wx_RichTextBox, EditProperties)
 
 Gura_ImplementMethod(wx_RichTextBox, EditProperties)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
 	//pThis->GetEntity()->EditProperties();
@@ -148,9 +142,8 @@ Gura_DeclareMethod(wx_RichTextBox, GetPropertiesMenuLabel)
 
 Gura_ImplementMethod(wx_RichTextBox, GetPropertiesMenuLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPropertiesMenuLabel();
 	return Value::Nil;
 }
@@ -162,9 +155,8 @@ Gura_DeclareMethod(wx_RichTextBox, Clone)
 
 Gura_ImplementMethod(wx_RichTextBox, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -177,9 +169,8 @@ Gura_DeclareMethod(wx_RichTextBox, Copy)
 
 Gura_ImplementMethod(wx_RichTextBox, Copy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;

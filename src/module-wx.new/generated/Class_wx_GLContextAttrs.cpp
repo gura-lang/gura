@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, CoreProfile)
 
 Gura_ImplementMethod(wx_GLContextAttrs, CoreProfile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CoreProfile();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, MajorVersion)
 
 Gura_ImplementMethod(wx_GLContextAttrs, MajorVersion)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->MajorVersion();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, MinorVersion)
 
 Gura_ImplementMethod(wx_GLContextAttrs, MinorVersion)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->MinorVersion();
 	return Value::Nil;
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, OGLVersion)
 
 Gura_ImplementMethod(wx_GLContextAttrs, OGLVersion)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int vmayor = arg.GetNumber(0)
 	//int vminor = arg.GetNumber(1)
 	//pThis->GetEntity()->OGLVersion();
@@ -108,9 +104,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, CompatibilityProfile)
 
 Gura_ImplementMethod(wx_GLContextAttrs, CompatibilityProfile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CompatibilityProfile();
 	return Value::Nil;
 }
@@ -122,9 +117,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, ForwardCompatible)
 
 Gura_ImplementMethod(wx_GLContextAttrs, ForwardCompatible)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ForwardCompatible();
 	return Value::Nil;
 }
@@ -136,9 +130,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, ES2)
 
 Gura_ImplementMethod(wx_GLContextAttrs, ES2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ES2();
 	return Value::Nil;
 }
@@ -150,9 +143,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, DebugCtx)
 
 Gura_ImplementMethod(wx_GLContextAttrs, DebugCtx)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DebugCtx();
 	return Value::Nil;
 }
@@ -164,9 +156,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, Robust)
 
 Gura_ImplementMethod(wx_GLContextAttrs, Robust)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Robust();
 	return Value::Nil;
 }
@@ -178,9 +169,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, NoResetNotify)
 
 Gura_ImplementMethod(wx_GLContextAttrs, NoResetNotify)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->NoResetNotify();
 	return Value::Nil;
 }
@@ -192,9 +182,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, LoseOnReset)
 
 Gura_ImplementMethod(wx_GLContextAttrs, LoseOnReset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->LoseOnReset();
 	return Value::Nil;
 }
@@ -206,9 +195,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, ResetIsolation)
 
 Gura_ImplementMethod(wx_GLContextAttrs, ResetIsolation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ResetIsolation();
 	return Value::Nil;
 }
@@ -221,9 +209,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, ReleaseFlush)
 
 Gura_ImplementMethod(wx_GLContextAttrs, ReleaseFlush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->ReleaseFlush();
 	return Value::Nil;
@@ -236,9 +223,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, PlatformDefaults)
 
 Gura_ImplementMethod(wx_GLContextAttrs, PlatformDefaults)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->PlatformDefaults();
 	return Value::Nil;
 }
@@ -250,9 +236,8 @@ Gura_DeclareMethod(wx_GLContextAttrs, EndList)
 
 Gura_ImplementMethod(wx_GLContextAttrs, EndList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->EndList();
 	return Value::Nil;
 }

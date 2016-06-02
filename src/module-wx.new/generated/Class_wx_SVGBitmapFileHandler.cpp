@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_SVGBitmapFileHandler, ProcessBitmap)
 
 Gura_ImplementMethod(wx_SVGBitmapFileHandler, ProcessBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SVGBitmapFileHandler *pThis = Object_wx_SVGBitmapFileHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)

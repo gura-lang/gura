@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_QueryNewPaletteEvent, wxQueryNewPaletteEvent)
 
 Gura_ImplementMethod(wx_QueryNewPaletteEvent, wxQueryNewPaletteEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_QueryNewPaletteEvent *pThis = Object_wx_QueryNewPaletteEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winid = arg.GetNumber(0)
 	//pThis->GetEntity()->wxQueryNewPaletteEvent();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_QueryNewPaletteEvent, SetPaletteRealized)
 
 Gura_ImplementMethod(wx_QueryNewPaletteEvent, SetPaletteRealized)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_QueryNewPaletteEvent *pThis = Object_wx_QueryNewPaletteEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int realized = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPaletteRealized();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_QueryNewPaletteEvent, GetPaletteRealized)
 
 Gura_ImplementMethod(wx_QueryNewPaletteEvent, GetPaletteRealized)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_QueryNewPaletteEvent *pThis = Object_wx_QueryNewPaletteEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPaletteRealized();
 	return Value::Nil;
 }

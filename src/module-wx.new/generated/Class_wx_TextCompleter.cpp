@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_TextCompleter, Start)
 
 Gura_ImplementMethod(wx_TextCompleter, Start)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextCompleter *pThis = Object_wx_TextCompleter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prefix = arg.GetNumber(0)
 	//pThis->GetEntity()->Start();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_TextCompleter, GetNext)
 
 Gura_ImplementMethod(wx_TextCompleter, GetNext)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextCompleter *pThis = Object_wx_TextCompleter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNext();
 	return Value::Nil;
 }

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker)
 
 Gura_ImplementMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSingleInstanceChecker();
 	return Value::Nil;
 }
@@ -60,26 +59,11 @@ Gura_DeclareMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker_1)
 
 Gura_ImplementMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//pThis->GetEntity()->wxSingleInstanceChecker();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_SingleInstanceChecker, ~wxSingleInstanceChecker)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_SingleInstanceChecker, ~wxSingleInstanceChecker)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxSingleInstanceChecker();
 	return Value::Nil;
 }
 
@@ -92,9 +76,8 @@ Gura_DeclareMethod(wx_SingleInstanceChecker, Create)
 
 Gura_ImplementMethod(wx_SingleInstanceChecker, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
@@ -108,9 +91,8 @@ Gura_DeclareMethod(wx_SingleInstanceChecker, CreateDefault)
 
 Gura_ImplementMethod(wx_SingleInstanceChecker, CreateDefault)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CreateDefault();
 	return Value::Nil;
 }
@@ -122,9 +104,8 @@ Gura_DeclareMethod(wx_SingleInstanceChecker, IsAnotherRunning)
 
 Gura_ImplementMethod(wx_SingleInstanceChecker, IsAnotherRunning)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsAnotherRunning();
 	return Value::Nil;
 }
@@ -136,7 +117,6 @@ Gura_ImplementUserInheritableClass(wx_SingleInstanceChecker)
 {
 	Gura_AssignMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker);
 	Gura_AssignMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker_1);
-	Gura_AssignMethod(wx_SingleInstanceChecker, ~wxSingleInstanceChecker);
 	Gura_AssignMethod(wx_SingleInstanceChecker, Create);
 	Gura_AssignMethod(wx_SingleInstanceChecker, CreateDefault);
 	Gura_AssignMethod(wx_SingleInstanceChecker, IsAnotherRunning);

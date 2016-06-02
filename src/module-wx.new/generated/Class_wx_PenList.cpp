@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_PenList, wxPenList)
 
 Gura_ImplementMethod(wx_PenList, wxPenList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PenList *pThis = Object_wx_PenList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPenList();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_PenList, FindOrCreatePen)
 
 Gura_ImplementMethod(wx_PenList, FindOrCreatePen)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PenList *pThis = Object_wx_PenList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)

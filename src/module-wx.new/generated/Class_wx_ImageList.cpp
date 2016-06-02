@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ImageList, wxImageList)
 
 Gura_ImplementMethod(wx_ImageList, wxImageList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxImageList();
 	return Value::Nil;
 }
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_ImageList, wxImageList_1)
 
 Gura_ImplementMethod(wx_ImageList, wxImageList_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//int mask = arg.GetNumber(2)
@@ -82,9 +80,8 @@ Gura_DeclareMethod(wx_ImageList, Add)
 
 Gura_ImplementMethod(wx_ImageList, Add)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int mask = arg.GetNumber(1)
 	//pThis->GetEntity()->Add();
@@ -100,9 +97,8 @@ Gura_DeclareMethod(wx_ImageList, Add_1)
 
 Gura_ImplementMethod(wx_ImageList, Add_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int maskColour = arg.GetNumber(1)
 	//pThis->GetEntity()->Add();
@@ -117,9 +113,8 @@ Gura_DeclareMethod(wx_ImageList, Add_2)
 
 Gura_ImplementMethod(wx_ImageList, Add_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int icon = arg.GetNumber(0)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
@@ -136,9 +131,8 @@ Gura_DeclareMethod(wx_ImageList, Create)
 
 Gura_ImplementMethod(wx_ImageList, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//int mask = arg.GetNumber(2)
@@ -160,9 +154,8 @@ Gura_DeclareMethod(wx_ImageList, Draw)
 
 Gura_ImplementMethod(wx_ImageList, Draw)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int x = arg.GetNumber(2)
@@ -181,9 +174,8 @@ Gura_DeclareMethod(wx_ImageList, GetBitmap)
 
 Gura_ImplementMethod(wx_ImageList, GetBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
@@ -197,9 +189,8 @@ Gura_DeclareMethod(wx_ImageList, GetIcon)
 
 Gura_ImplementMethod(wx_ImageList, GetIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//pThis->GetEntity()->GetIcon();
 	return Value::Nil;
@@ -212,9 +203,8 @@ Gura_DeclareMethod(wx_ImageList, GetImageCount)
 
 Gura_ImplementMethod(wx_ImageList, GetImageCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetImageCount();
 	return Value::Nil;
 }
@@ -229,9 +219,8 @@ Gura_DeclareMethod(wx_ImageList, GetSize)
 
 Gura_ImplementMethod(wx_ImageList, GetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
@@ -246,9 +235,8 @@ Gura_DeclareMethod(wx_ImageList, GetSize_1)
 
 Gura_ImplementMethod(wx_ImageList, GetSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -261,9 +249,8 @@ Gura_DeclareMethod(wx_ImageList, Remove)
 
 Gura_ImplementMethod(wx_ImageList, Remove)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//pThis->GetEntity()->Remove();
 	return Value::Nil;
@@ -276,9 +263,8 @@ Gura_DeclareMethod(wx_ImageList, RemoveAll)
 
 Gura_ImplementMethod(wx_ImageList, RemoveAll)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RemoveAll();
 	return Value::Nil;
 }
@@ -293,9 +279,8 @@ Gura_DeclareMethod(wx_ImageList, Replace)
 
 Gura_ImplementMethod(wx_ImageList, Replace)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//int mask = arg.GetNumber(2)
@@ -312,9 +297,8 @@ Gura_DeclareMethod(wx_ImageList, Replace_1)
 
 Gura_ImplementMethod(wx_ImageList, Replace_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//int icon = arg.GetNumber(1)
 	//pThis->GetEntity()->Replace();

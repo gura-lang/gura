@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_LogNull, wxLogNull)
 
 Gura_ImplementMethod(wx_LogNull, wxLogNull)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogNull *pThis = Object_wx_LogNull::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxLogNull();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_LogNull, ~wxLogNull)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_LogNull, ~wxLogNull)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_LogNull *pThis = Object_wx_LogNull::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxLogNull();
 	return Value::Nil;
 }
 
@@ -71,7 +56,6 @@ Gura_ImplementMethod(wx_LogNull, ~wxLogNull)
 Gura_ImplementUserInheritableClass(wx_LogNull)
 {
 	Gura_AssignMethod(wx_LogNull, wxLogNull);
-	Gura_AssignMethod(wx_LogNull, ~wxLogNull);
 }
 
 Gura_ImplementDescendantCreator(wx_LogNull)

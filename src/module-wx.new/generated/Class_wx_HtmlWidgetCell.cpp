@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_HtmlWidgetCell, wxHtmlWidgetCell)
 
 Gura_ImplementMethod(wx_HtmlWidgetCell, wxHtmlWidgetCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWidgetCell *pThis = Object_wx_HtmlWidgetCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int wnd = arg.GetNumber(0)
 	//int w = arg.GetNumber(1)
 	//pThis->GetEntity()->wxHtmlWidgetCell();

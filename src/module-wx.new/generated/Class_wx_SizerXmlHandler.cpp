@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_SizerXmlHandler, wxSizerXmlHandler)
 
 Gura_ImplementMethod(wx_SizerXmlHandler, wxSizerXmlHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSizerXmlHandler();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_SizerXmlHandler, DoCreateResource)
 
 Gura_ImplementMethod(wx_SizerXmlHandler, DoCreateResource)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DoCreateResource();
 	return Value::Nil;
 }
@@ -73,9 +71,8 @@ Gura_DeclareMethod(wx_SizerXmlHandler, CanHandle)
 
 Gura_ImplementMethod(wx_SizerXmlHandler, CanHandle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int node = arg.GetNumber(0)
 	//pThis->GetEntity()->CanHandle();
 	return Value::Nil;
@@ -89,9 +86,8 @@ Gura_DeclareMethod(wx_SizerXmlHandler, DoCreateSizer)
 
 Gura_ImplementMethod(wx_SizerXmlHandler, DoCreateSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->DoCreateSizer();
 	return Value::Nil;
@@ -105,9 +101,8 @@ Gura_DeclareMethod(wx_SizerXmlHandler, IsSizerNode)
 
 Gura_ImplementMethod(wx_SizerXmlHandler, IsSizerNode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int node = arg.GetNumber(0)
 	//pThis->GetEntity()->IsSizerNode();
 	return Value::Nil;

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_FileStream, wxFileStream)
 
 Gura_ImplementMethod(wx_FileStream, wxFileStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileStream *pThis = Object_wx_FileStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int iofileName = arg.GetNumber(0)
 	//pThis->GetEntity()->wxFileStream();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_FileStream, IsOk)
 
 Gura_ImplementMethod(wx_FileStream, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileStream *pThis = Object_wx_FileStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }

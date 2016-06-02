@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_StopWatch, wxStopWatch)
 
 Gura_ImplementMethod(wx_StopWatch, wxStopWatch)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxStopWatch();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_StopWatch, Pause)
 
 Gura_ImplementMethod(wx_StopWatch, Pause)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Pause();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_StopWatch, Resume)
 
 Gura_ImplementMethod(wx_StopWatch, Resume)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Resume();
 	return Value::Nil;
 }
@@ -87,9 +84,8 @@ Gura_DeclareMethod(wx_StopWatch, Start)
 
 Gura_ImplementMethod(wx_StopWatch, Start)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int milliseconds = arg.GetNumber(0)
 	//pThis->GetEntity()->Start();
 	return Value::Nil;
@@ -102,9 +98,8 @@ Gura_DeclareMethod(wx_StopWatch, Time)
 
 Gura_ImplementMethod(wx_StopWatch, Time)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Time();
 	return Value::Nil;
 }
@@ -116,9 +111,8 @@ Gura_DeclareMethod(wx_StopWatch, TimeInMicro)
 
 Gura_ImplementMethod(wx_StopWatch, TimeInMicro)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->TimeInMicro();
 	return Value::Nil;
 }

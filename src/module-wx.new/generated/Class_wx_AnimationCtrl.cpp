@@ -51,9 +51,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, wxAnimationCtrl)
 
 Gura_ImplementMethod(wx_AnimationCtrl, wxAnimationCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int anim = arg.GetNumber(2)
@@ -79,9 +78,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, Create)
 
 Gura_ImplementMethod(wx_AnimationCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int anim = arg.GetNumber(2)
@@ -100,9 +98,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, GetAnimation)
 
 Gura_ImplementMethod(wx_AnimationCtrl, GetAnimation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAnimation();
 	return Value::Nil;
 }
@@ -114,9 +111,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, GetInactiveBitmap)
 
 Gura_ImplementMethod(wx_AnimationCtrl, GetInactiveBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetInactiveBitmap();
 	return Value::Nil;
 }
@@ -128,9 +124,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, IsPlaying)
 
 Gura_ImplementMethod(wx_AnimationCtrl, IsPlaying)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsPlaying();
 	return Value::Nil;
 }
@@ -144,9 +139,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, LoadFile)
 
 Gura_ImplementMethod(wx_AnimationCtrl, LoadFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//int animType = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadFile();
@@ -162,9 +156,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, Load)
 
 Gura_ImplementMethod(wx_AnimationCtrl, Load)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//int animType = arg.GetNumber(1)
 	//pThis->GetEntity()->Load();
@@ -178,9 +171,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, Play)
 
 Gura_ImplementMethod(wx_AnimationCtrl, Play)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Play();
 	return Value::Nil;
 }
@@ -193,9 +185,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, SetAnimation)
 
 Gura_ImplementMethod(wx_AnimationCtrl, SetAnimation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int anim = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAnimation();
 	return Value::Nil;
@@ -209,9 +200,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, SetInactiveBitmap)
 
 Gura_ImplementMethod(wx_AnimationCtrl, SetInactiveBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bmp = arg.GetNumber(0)
 	//pThis->GetEntity()->SetInactiveBitmap();
 	return Value::Nil;
@@ -224,9 +214,8 @@ Gura_DeclareMethod(wx_AnimationCtrl, Stop)
 
 Gura_ImplementMethod(wx_AnimationCtrl, Stop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Stop();
 	return Value::Nil;
 }

@@ -50,9 +50,9 @@ public:
 	inline void NotifyGuraObjectDeleted() {
 		if (_pObserver != nullptr) _pObserver->GuraObjectDeleted();
 	}
-	inline bool IsInvalid(Signal &sig) const {
+	inline bool IsInvalid(Environment &env) const {
 		if (_pEntity != nullptr) return false;
-		SetError_InvalidWxObject(sig, "wxCmdLineArgs");
+		SetError_InvalidWxObject(env, "wxCmdLineArgs");
 		return true;
 	}
 };

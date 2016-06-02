@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_TaskBarButton, SetProgressRange)
 
 Gura_ImplementMethod(wx_TaskBarButton, SetProgressRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//pThis->GetEntity()->SetProgressRange();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_TaskBarButton, SetProgressValue)
 
 Gura_ImplementMethod(wx_TaskBarButton, SetProgressValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetProgressValue();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_TaskBarButton, PulseProgress)
 
 Gura_ImplementMethod(wx_TaskBarButton, PulseProgress)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->PulseProgress();
 	return Value::Nil;
 }
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_TaskBarButton, Show)
 
 Gura_ImplementMethod(wx_TaskBarButton, Show)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int show = arg.GetNumber(0)
 	//pThis->GetEntity()->Show();
 	return Value::Nil;
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_TaskBarButton, Hide)
 
 Gura_ImplementMethod(wx_TaskBarButton, Hide)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Hide();
 	return Value::Nil;
 }
@@ -121,9 +116,8 @@ Gura_DeclareMethod(wx_TaskBarButton, SetThumbnailTooltip)
 
 Gura_ImplementMethod(wx_TaskBarButton, SetThumbnailTooltip)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tooltip = arg.GetNumber(0)
 	//pThis->GetEntity()->SetThumbnailTooltip();
 	return Value::Nil;
@@ -137,9 +131,8 @@ Gura_DeclareMethod(wx_TaskBarButton, SetProgressState)
 
 Gura_ImplementMethod(wx_TaskBarButton, SetProgressState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int state = arg.GetNumber(0)
 	//pThis->GetEntity()->SetProgressState();
 	return Value::Nil;
@@ -154,9 +147,8 @@ Gura_DeclareMethod(wx_TaskBarButton, SetOverlayIcon)
 
 Gura_ImplementMethod(wx_TaskBarButton, SetOverlayIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int icon = arg.GetNumber(0)
 	//int description = arg.GetNumber(1)
 	//pThis->GetEntity()->SetOverlayIcon();
@@ -171,9 +163,8 @@ Gura_DeclareMethod(wx_TaskBarButton, SetThumbnailClip)
 
 Gura_ImplementMethod(wx_TaskBarButton, SetThumbnailClip)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetThumbnailClip();
 	return Value::Nil;
@@ -187,9 +178,8 @@ Gura_DeclareMethod(wx_TaskBarButton, SetThumbnailContents)
 
 Gura_ImplementMethod(wx_TaskBarButton, SetThumbnailContents)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int child = arg.GetNumber(0)
 	//pThis->GetEntity()->SetThumbnailContents();
 	return Value::Nil;
@@ -204,9 +194,8 @@ Gura_DeclareMethod(wx_TaskBarButton, InsertThumbBarButton)
 
 Gura_ImplementMethod(wx_TaskBarButton, InsertThumbBarButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int button = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertThumbBarButton();
@@ -221,9 +210,8 @@ Gura_DeclareMethod(wx_TaskBarButton, AppendThumbBarButton)
 
 Gura_ImplementMethod(wx_TaskBarButton, AppendThumbBarButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendThumbBarButton();
 	return Value::Nil;
@@ -236,9 +224,8 @@ Gura_DeclareMethod(wx_TaskBarButton, AppendSeparatorInThumbBar)
 
 Gura_ImplementMethod(wx_TaskBarButton, AppendSeparatorInThumbBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AppendSeparatorInThumbBar();
 	return Value::Nil;
 }
@@ -251,9 +238,8 @@ Gura_DeclareMethod(wx_TaskBarButton, RemoveThumbBarButton)
 
 Gura_ImplementMethod(wx_TaskBarButton, RemoveThumbBarButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveThumbBarButton();
 	return Value::Nil;
@@ -267,9 +253,8 @@ Gura_DeclareMethod(wx_TaskBarButton, RemoveThumbBarButton_1)
 
 Gura_ImplementMethod(wx_TaskBarButton, RemoveThumbBarButton_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveThumbBarButton();
 	return Value::Nil;

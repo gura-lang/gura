@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, wxVarHVScrollHelper)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, wxVarHVScrollHelper)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winToScroll = arg.GetNumber(0)
 	//pThis->GetEntity()->wxVarHVScrollHelper();
 	return Value::Nil;
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, EnablePhysicalScrolling)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, EnablePhysicalScrolling)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int vscrolling = arg.GetNumber(0)
 	//int hscrolling = arg.GetNumber(1)
 	//pThis->GetEntity()->EnablePhysicalScrolling();
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, GetRowColumnCount)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, GetRowColumnCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRowColumnCount();
 	return Value::Nil;
 }
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, GetVisibleBegin)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, GetVisibleBegin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVisibleBegin();
 	return Value::Nil;
 }
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, GetVisibleEnd)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, GetVisibleEnd)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVisibleEnd();
 	return Value::Nil;
 }
@@ -122,9 +117,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, IsVisible)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, IsVisible)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int column = arg.GetNumber(1)
 	//pThis->GetEntity()->IsVisible();
@@ -139,9 +133,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, IsVisible_1)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, IsVisible_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->IsVisible();
 	return Value::Nil;
@@ -156,9 +149,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, RefreshRowColumn)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, RefreshRowColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int column = arg.GetNumber(1)
 	//pThis->GetEntity()->RefreshRowColumn();
@@ -173,9 +165,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, RefreshRowColumn_1)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, RefreshRowColumn_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->RefreshRowColumn();
 	return Value::Nil;
@@ -192,9 +183,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, RefreshRowsColumns)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, RefreshRowsColumns)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fromRow = arg.GetNumber(0)
 	//int toRow = arg.GetNumber(1)
 	//int fromColumn = arg.GetNumber(2)
@@ -212,9 +202,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, RefreshRowsColumns_1)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, RefreshRowsColumns_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int from = arg.GetNumber(0)
 	//int to = arg.GetNumber(1)
 	//pThis->GetEntity()->RefreshRowsColumns();
@@ -230,9 +219,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, ScrollToRowColumn)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, ScrollToRowColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int column = arg.GetNumber(1)
 	//pThis->GetEntity()->ScrollToRowColumn();
@@ -247,9 +235,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, ScrollToRowColumn_1)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, ScrollToRowColumn_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollToRowColumn();
 	return Value::Nil;
@@ -264,9 +251,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, SetRowColumnCount)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, SetRowColumnCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rowCount = arg.GetNumber(0)
 	//int columnCount = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRowColumnCount();
@@ -282,9 +268,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, VirtualHitTest)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, VirtualHitTest)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->VirtualHitTest();
@@ -299,9 +284,8 @@ Gura_DeclareMethod(wx_VarHVScrollHelper, VirtualHitTest_1)
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, VirtualHitTest_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->VirtualHitTest();
 	return Value::Nil;

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_BitmapButton, wxBitmapButton)
 
 Gura_ImplementMethod(wx_BitmapButton, wxBitmapButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxBitmapButton();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_BitmapButton, wxBitmapButton_1)
 
 Gura_ImplementMethod(wx_BitmapButton, wxBitmapButton_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_BitmapButton, Create)
 
 Gura_ImplementMethod(wx_BitmapButton, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -120,9 +117,8 @@ Gura_DeclareMethod(wx_BitmapButton, NewCloseButton)
 
 Gura_ImplementMethod(wx_BitmapButton, NewCloseButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//pThis->GetEntity()->NewCloseButton();

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_FileName, wxFileName)
 
 Gura_ImplementMethod(wx_FileName, wxFileName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxFileName();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_FileName, wxFileName_1)
 
 Gura_ImplementMethod(wx_FileName, wxFileName_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//pThis->GetEntity()->wxFileName();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_FileName, wxFileName_2)
 
 Gura_ImplementMethod(wx_FileName, wxFileName_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fullpath = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->wxFileName();
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_FileName, wxFileName_3)
 
 Gura_ImplementMethod(wx_FileName, wxFileName_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
@@ -116,9 +112,8 @@ Gura_DeclareMethod(wx_FileName, wxFileName_4)
 
 Gura_ImplementMethod(wx_FileName, wxFileName_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//int ext = arg.GetNumber(2)
@@ -139,9 +134,8 @@ Gura_DeclareMethod(wx_FileName, wxFileName_5)
 
 Gura_ImplementMethod(wx_FileName, wxFileName_5)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int volume = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//int name = arg.GetNumber(2)
@@ -159,9 +153,8 @@ Gura_DeclareMethod(wx_FileName, AppendDir)
 
 Gura_ImplementMethod(wx_FileName, AppendDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendDir();
 	return Value::Nil;
@@ -175,9 +168,8 @@ Gura_DeclareMethod(wx_FileName, Assign)
 
 Gura_ImplementMethod(wx_FileName, Assign)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filepath = arg.GetNumber(0)
 	//pThis->GetEntity()->Assign();
 	return Value::Nil;
@@ -192,9 +184,8 @@ Gura_DeclareMethod(wx_FileName, Assign_1)
 
 Gura_ImplementMethod(wx_FileName, Assign_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fullpath = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->Assign();
@@ -214,9 +205,8 @@ Gura_DeclareMethod(wx_FileName, Assign_2)
 
 Gura_ImplementMethod(wx_FileName, Assign_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int volume = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//int name = arg.GetNumber(2)
@@ -239,9 +229,8 @@ Gura_DeclareMethod(wx_FileName, Assign_3)
 
 Gura_ImplementMethod(wx_FileName, Assign_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int volume = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//int name = arg.GetNumber(2)
@@ -261,9 +250,8 @@ Gura_DeclareMethod(wx_FileName, Assign_4)
 
 Gura_ImplementMethod(wx_FileName, Assign_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
@@ -282,9 +270,8 @@ Gura_DeclareMethod(wx_FileName, Assign_5)
 
 Gura_ImplementMethod(wx_FileName, Assign_5)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//int ext = arg.GetNumber(2)
@@ -301,9 +288,8 @@ Gura_DeclareMethod(wx_FileName, AssignCwd)
 
 Gura_ImplementMethod(wx_FileName, AssignCwd)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int volume = arg.GetNumber(0)
 	//pThis->GetEntity()->AssignCwd();
 	return Value::Nil;
@@ -318,9 +304,8 @@ Gura_DeclareMethod(wx_FileName, AssignDir)
 
 Gura_ImplementMethod(wx_FileName, AssignDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->AssignDir();
@@ -334,9 +319,8 @@ Gura_DeclareMethod(wx_FileName, AssignHomeDir)
 
 Gura_ImplementMethod(wx_FileName, AssignHomeDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AssignHomeDir();
 	return Value::Nil;
 }
@@ -349,9 +333,8 @@ Gura_DeclareMethod(wx_FileName, AssignTempFileName)
 
 Gura_ImplementMethod(wx_FileName, AssignTempFileName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prefix = arg.GetNumber(0)
 	//pThis->GetEntity()->AssignTempFileName();
 	return Value::Nil;
@@ -366,9 +349,8 @@ Gura_DeclareMethod(wx_FileName, AssignTempFileName_1)
 
 Gura_ImplementMethod(wx_FileName, AssignTempFileName_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prefix = arg.GetNumber(0)
 	//int fileTemp = arg.GetNumber(1)
 	//pThis->GetEntity()->AssignTempFileName();
@@ -384,9 +366,8 @@ Gura_DeclareMethod(wx_FileName, AssignTempFileName_2)
 
 Gura_ImplementMethod(wx_FileName, AssignTempFileName_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prefix = arg.GetNumber(0)
 	//int fileTemp = arg.GetNumber(1)
 	//pThis->GetEntity()->AssignTempFileName();
@@ -400,9 +381,8 @@ Gura_DeclareMethod(wx_FileName, Clear)
 
 Gura_ImplementMethod(wx_FileName, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -414,9 +394,8 @@ Gura_DeclareMethod(wx_FileName, ClearExt)
 
 Gura_ImplementMethod(wx_FileName, ClearExt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ClearExt();
 	return Value::Nil;
 }
@@ -430,9 +409,8 @@ Gura_DeclareMethod(wx_FileName, CreateTempFileName)
 
 Gura_ImplementMethod(wx_FileName, CreateTempFileName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prefix = arg.GetNumber(0)
 	//int fileTemp = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateTempFileName();
@@ -448,9 +426,8 @@ Gura_DeclareMethod(wx_FileName, CreateTempFileName_1)
 
 Gura_ImplementMethod(wx_FileName, CreateTempFileName_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prefix = arg.GetNumber(0)
 	//int fileTemp = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateTempFileName();
@@ -464,9 +441,8 @@ Gura_DeclareMethod(wx_FileName, DirExists)
 
 Gura_ImplementMethod(wx_FileName, DirExists)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DirExists();
 	return Value::Nil;
 }
@@ -479,9 +455,8 @@ Gura_DeclareMethod(wx_FileName, DirExists_1)
 
 Gura_ImplementMethod(wx_FileName, DirExists_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//pThis->GetEntity()->DirExists();
 	return Value::Nil;
@@ -496,9 +471,8 @@ Gura_DeclareMethod(wx_FileName, DirName)
 
 Gura_ImplementMethod(wx_FileName, DirName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->DirName();
@@ -512,9 +486,8 @@ Gura_DeclareMethod(wx_FileName, DontFollowLink)
 
 Gura_ImplementMethod(wx_FileName, DontFollowLink)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DontFollowLink();
 	return Value::Nil;
 }
@@ -527,9 +500,8 @@ Gura_DeclareMethod(wx_FileName, Exists)
 
 Gura_ImplementMethod(wx_FileName, Exists)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->Exists();
 	return Value::Nil;
@@ -544,9 +516,8 @@ Gura_DeclareMethod(wx_FileName, Exists_1)
 
 Gura_ImplementMethod(wx_FileName, Exists_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->Exists();
@@ -560,9 +531,8 @@ Gura_DeclareMethod(wx_FileName, FileExists)
 
 Gura_ImplementMethod(wx_FileName, FileExists)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->FileExists();
 	return Value::Nil;
 }
@@ -575,9 +545,8 @@ Gura_DeclareMethod(wx_FileName, FileExists_1)
 
 Gura_ImplementMethod(wx_FileName, FileExists_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//pThis->GetEntity()->FileExists();
 	return Value::Nil;
@@ -592,9 +561,8 @@ Gura_DeclareMethod(wx_FileName, FileName)
 
 Gura_ImplementMethod(wx_FileName, FileName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->FileName();
@@ -609,9 +577,8 @@ Gura_DeclareMethod(wx_FileName, GetCwd)
 
 Gura_ImplementMethod(wx_FileName, GetCwd)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int volume = arg.GetNumber(0)
 	//pThis->GetEntity()->GetCwd();
 	return Value::Nil;
@@ -624,9 +591,8 @@ Gura_DeclareMethod(wx_FileName, GetDirCount)
 
 Gura_ImplementMethod(wx_FileName, GetDirCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDirCount();
 	return Value::Nil;
 }
@@ -638,9 +604,8 @@ Gura_DeclareMethod(wx_FileName, GetDirs)
 
 Gura_ImplementMethod(wx_FileName, GetDirs)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDirs();
 	return Value::Nil;
 }
@@ -652,9 +617,8 @@ Gura_DeclareMethod(wx_FileName, GetExt)
 
 Gura_ImplementMethod(wx_FileName, GetExt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetExt();
 	return Value::Nil;
 }
@@ -667,9 +631,8 @@ Gura_DeclareMethod(wx_FileName, GetForbiddenChars)
 
 Gura_ImplementMethod(wx_FileName, GetForbiddenChars)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->GetForbiddenChars();
 	return Value::Nil;
@@ -683,9 +646,8 @@ Gura_DeclareMethod(wx_FileName, GetFormat)
 
 Gura_ImplementMethod(wx_FileName, GetFormat)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFormat();
 	return Value::Nil;
@@ -698,9 +660,8 @@ Gura_DeclareMethod(wx_FileName, GetFullName)
 
 Gura_ImplementMethod(wx_FileName, GetFullName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFullName();
 	return Value::Nil;
 }
@@ -713,9 +674,8 @@ Gura_DeclareMethod(wx_FileName, GetFullPath)
 
 Gura_ImplementMethod(wx_FileName, GetFullPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFullPath();
 	return Value::Nil;
@@ -728,9 +688,8 @@ Gura_DeclareMethod(wx_FileName, GetHomeDir)
 
 Gura_ImplementMethod(wx_FileName, GetHomeDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHomeDir();
 	return Value::Nil;
 }
@@ -745,9 +704,8 @@ Gura_DeclareMethod(wx_FileName, GetHumanReadableSize)
 
 Gura_ImplementMethod(wx_FileName, GetHumanReadableSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int failmsg = arg.GetNumber(0)
 	//int precision = arg.GetNumber(1)
 	//int conv = arg.GetNumber(2)
@@ -766,9 +724,8 @@ Gura_DeclareMethod(wx_FileName, GetHumanReadableSize_1)
 
 Gura_ImplementMethod(wx_FileName, GetHumanReadableSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bytes = arg.GetNumber(0)
 	//int nullsize = arg.GetNumber(1)
 	//int precision = arg.GetNumber(2)
@@ -784,9 +741,8 @@ Gura_DeclareMethod(wx_FileName, GetLongPath)
 
 Gura_ImplementMethod(wx_FileName, GetLongPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLongPath();
 	return Value::Nil;
 }
@@ -798,9 +754,8 @@ Gura_DeclareMethod(wx_FileName, GetModificationTime)
 
 Gura_ImplementMethod(wx_FileName, GetModificationTime)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetModificationTime();
 	return Value::Nil;
 }
@@ -812,9 +767,8 @@ Gura_DeclareMethod(wx_FileName, GetName)
 
 Gura_ImplementMethod(wx_FileName, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -828,9 +782,8 @@ Gura_DeclareMethod(wx_FileName, GetPath)
 
 Gura_ImplementMethod(wx_FileName, GetPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPath();
@@ -845,9 +798,8 @@ Gura_DeclareMethod(wx_FileName, GetPathSeparator)
 
 Gura_ImplementMethod(wx_FileName, GetPathSeparator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPathSeparator();
 	return Value::Nil;
@@ -861,9 +813,8 @@ Gura_DeclareMethod(wx_FileName, GetPathSeparators)
 
 Gura_ImplementMethod(wx_FileName, GetPathSeparators)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPathSeparators();
 	return Value::Nil;
@@ -877,9 +828,8 @@ Gura_DeclareMethod(wx_FileName, GetPathTerminators)
 
 Gura_ImplementMethod(wx_FileName, GetPathTerminators)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPathTerminators();
 	return Value::Nil;
@@ -893,9 +843,8 @@ Gura_DeclareMethod(wx_FileName, GetPathWithSep)
 
 Gura_ImplementMethod(wx_FileName, GetPathWithSep)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPathWithSep();
 	return Value::Nil;
@@ -908,9 +857,8 @@ Gura_DeclareMethod(wx_FileName, GetShortPath)
 
 Gura_ImplementMethod(wx_FileName, GetShortPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetShortPath();
 	return Value::Nil;
 }
@@ -922,9 +870,8 @@ Gura_DeclareMethod(wx_FileName, GetSize)
 
 Gura_ImplementMethod(wx_FileName, GetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -937,9 +884,8 @@ Gura_DeclareMethod(wx_FileName, GetSize_1)
 
 Gura_ImplementMethod(wx_FileName, GetSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
@@ -952,9 +898,8 @@ Gura_DeclareMethod(wx_FileName, GetTempDir)
 
 Gura_ImplementMethod(wx_FileName, GetTempDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTempDir();
 	return Value::Nil;
 }
@@ -969,9 +914,8 @@ Gura_DeclareMethod(wx_FileName, GetTimes)
 
 Gura_ImplementMethod(wx_FileName, GetTimes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dtAccess = arg.GetNumber(0)
 	//int dtMod = arg.GetNumber(1)
 	//int dtCreate = arg.GetNumber(2)
@@ -986,9 +930,8 @@ Gura_DeclareMethod(wx_FileName, GetVolume)
 
 Gura_ImplementMethod(wx_FileName, GetVolume)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVolume();
 	return Value::Nil;
 }
@@ -1001,9 +944,8 @@ Gura_DeclareMethod(wx_FileName, GetVolumeSeparator)
 
 Gura_ImplementMethod(wx_FileName, GetVolumeSeparator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->GetVolumeSeparator();
 	return Value::Nil;
@@ -1018,9 +960,8 @@ Gura_DeclareMethod(wx_FileName, GetVolumeString)
 
 Gura_ImplementMethod(wx_FileName, GetVolumeString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int drive = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->GetVolumeString();
@@ -1034,9 +975,8 @@ Gura_DeclareMethod(wx_FileName, HasExt)
 
 Gura_ImplementMethod(wx_FileName, HasExt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasExt();
 	return Value::Nil;
 }
@@ -1048,9 +988,8 @@ Gura_DeclareMethod(wx_FileName, HasName)
 
 Gura_ImplementMethod(wx_FileName, HasName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasName();
 	return Value::Nil;
 }
@@ -1062,9 +1001,8 @@ Gura_DeclareMethod(wx_FileName, HasVolume)
 
 Gura_ImplementMethod(wx_FileName, HasVolume)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasVolume();
 	return Value::Nil;
 }
@@ -1078,9 +1016,8 @@ Gura_DeclareMethod(wx_FileName, InsertDir)
 
 Gura_ImplementMethod(wx_FileName, InsertDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int before = arg.GetNumber(0)
 	//int dir = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertDir();
@@ -1095,9 +1032,8 @@ Gura_DeclareMethod(wx_FileName, IsAbsolute)
 
 Gura_ImplementMethod(wx_FileName, IsAbsolute)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->IsAbsolute();
 	return Value::Nil;
@@ -1111,9 +1047,8 @@ Gura_DeclareMethod(wx_FileName, IsCaseSensitive)
 
 Gura_ImplementMethod(wx_FileName, IsCaseSensitive)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->IsCaseSensitive();
 	return Value::Nil;
@@ -1126,9 +1061,8 @@ Gura_DeclareMethod(wx_FileName, IsDir)
 
 Gura_ImplementMethod(wx_FileName, IsDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsDir();
 	return Value::Nil;
 }
@@ -1140,9 +1074,8 @@ Gura_DeclareMethod(wx_FileName, IsDirReadable)
 
 Gura_ImplementMethod(wx_FileName, IsDirReadable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsDirReadable();
 	return Value::Nil;
 }
@@ -1155,9 +1088,8 @@ Gura_DeclareMethod(wx_FileName, IsDirReadable_1)
 
 Gura_ImplementMethod(wx_FileName, IsDirReadable_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//pThis->GetEntity()->IsDirReadable();
 	return Value::Nil;
@@ -1170,9 +1102,8 @@ Gura_DeclareMethod(wx_FileName, IsDirWritable)
 
 Gura_ImplementMethod(wx_FileName, IsDirWritable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsDirWritable();
 	return Value::Nil;
 }
@@ -1185,9 +1116,8 @@ Gura_DeclareMethod(wx_FileName, IsDirWritable_1)
 
 Gura_ImplementMethod(wx_FileName, IsDirWritable_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//pThis->GetEntity()->IsDirWritable();
 	return Value::Nil;
@@ -1200,9 +1130,8 @@ Gura_DeclareMethod(wx_FileName, IsFileExecutable)
 
 Gura_ImplementMethod(wx_FileName, IsFileExecutable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsFileExecutable();
 	return Value::Nil;
 }
@@ -1215,9 +1144,8 @@ Gura_DeclareMethod(wx_FileName, IsFileExecutable_1)
 
 Gura_ImplementMethod(wx_FileName, IsFileExecutable_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//pThis->GetEntity()->IsFileExecutable();
 	return Value::Nil;
@@ -1230,9 +1158,8 @@ Gura_DeclareMethod(wx_FileName, IsFileReadable)
 
 Gura_ImplementMethod(wx_FileName, IsFileReadable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsFileReadable();
 	return Value::Nil;
 }
@@ -1245,9 +1172,8 @@ Gura_DeclareMethod(wx_FileName, IsFileReadable_1)
 
 Gura_ImplementMethod(wx_FileName, IsFileReadable_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//pThis->GetEntity()->IsFileReadable();
 	return Value::Nil;
@@ -1260,9 +1186,8 @@ Gura_DeclareMethod(wx_FileName, IsFileWritable)
 
 Gura_ImplementMethod(wx_FileName, IsFileWritable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsFileWritable();
 	return Value::Nil;
 }
@@ -1275,9 +1200,8 @@ Gura_DeclareMethod(wx_FileName, IsFileWritable_1)
 
 Gura_ImplementMethod(wx_FileName, IsFileWritable_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
 	//pThis->GetEntity()->IsFileWritable();
 	return Value::Nil;
@@ -1290,9 +1214,8 @@ Gura_DeclareMethod(wx_FileName, IsOk)
 
 Gura_ImplementMethod(wx_FileName, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -1306,9 +1229,8 @@ Gura_DeclareMethod(wx_FileName, IsPathSeparator)
 
 Gura_ImplementMethod(wx_FileName, IsPathSeparator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ch = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->IsPathSeparator();
@@ -1324,9 +1246,8 @@ Gura_DeclareMethod(wx_FileName, IsMSWUniqueVolumeNamePath)
 
 Gura_ImplementMethod(wx_FileName, IsMSWUniqueVolumeNamePath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->IsMSWUniqueVolumeNamePath();
@@ -1341,9 +1262,8 @@ Gura_DeclareMethod(wx_FileName, IsRelative)
 
 Gura_ImplementMethod(wx_FileName, IsRelative)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->IsRelative();
 	return Value::Nil;
@@ -1358,9 +1278,8 @@ Gura_DeclareMethod(wx_FileName, MakeAbsolute)
 
 Gura_ImplementMethod(wx_FileName, MakeAbsolute)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cwd = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->MakeAbsolute();
@@ -1376,9 +1295,8 @@ Gura_DeclareMethod(wx_FileName, MakeRelativeTo)
 
 Gura_ImplementMethod(wx_FileName, MakeRelativeTo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pathBase = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->MakeRelativeTo();
@@ -1394,9 +1312,8 @@ Gura_DeclareMethod(wx_FileName, Mkdir)
 
 Gura_ImplementMethod(wx_FileName, Mkdir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int perm = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->Mkdir();
@@ -1413,9 +1330,8 @@ Gura_DeclareMethod(wx_FileName, Mkdir_1)
 
 Gura_ImplementMethod(wx_FileName, Mkdir_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//int perm = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
@@ -1433,9 +1349,8 @@ Gura_DeclareMethod(wx_FileName, Normalize)
 
 Gura_ImplementMethod(wx_FileName, Normalize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//int cwd = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
@@ -1451,9 +1366,8 @@ Gura_DeclareMethod(wx_FileName, PrependDir)
 
 Gura_ImplementMethod(wx_FileName, PrependDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//pThis->GetEntity()->PrependDir();
 	return Value::Nil;
@@ -1467,9 +1381,8 @@ Gura_DeclareMethod(wx_FileName, RemoveDir)
 
 Gura_ImplementMethod(wx_FileName, RemoveDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveDir();
 	return Value::Nil;
@@ -1482,9 +1395,8 @@ Gura_DeclareMethod(wx_FileName, RemoveLastDir)
 
 Gura_ImplementMethod(wx_FileName, RemoveLastDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RemoveLastDir();
 	return Value::Nil;
 }
@@ -1499,9 +1411,8 @@ Gura_DeclareMethod(wx_FileName, ReplaceEnvVariable)
 
 Gura_ImplementMethod(wx_FileName, ReplaceEnvVariable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int envname = arg.GetNumber(0)
 	//int replacementFmtString = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
@@ -1517,9 +1428,8 @@ Gura_DeclareMethod(wx_FileName, ReplaceHomeDir)
 
 Gura_ImplementMethod(wx_FileName, ReplaceHomeDir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
 	//pThis->GetEntity()->ReplaceHomeDir();
 	return Value::Nil;
@@ -1533,9 +1443,8 @@ Gura_DeclareMethod(wx_FileName, Rmdir)
 
 Gura_ImplementMethod(wx_FileName, Rmdir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->Rmdir();
 	return Value::Nil;
@@ -1550,9 +1459,8 @@ Gura_DeclareMethod(wx_FileName, Rmdir_1)
 
 Gura_ImplementMethod(wx_FileName, Rmdir_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dir = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->Rmdir();
@@ -1568,9 +1476,8 @@ Gura_DeclareMethod(wx_FileName, SameAs)
 
 Gura_ImplementMethod(wx_FileName, SameAs)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filepath = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->SameAs();
@@ -1584,9 +1491,8 @@ Gura_DeclareMethod(wx_FileName, SetCwd)
 
 Gura_ImplementMethod(wx_FileName, SetCwd)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->SetCwd();
 	return Value::Nil;
 }
@@ -1599,9 +1505,8 @@ Gura_DeclareMethod(wx_FileName, SetCwd_1)
 
 Gura_ImplementMethod(wx_FileName, SetCwd_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cwd = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCwd();
 	return Value::Nil;
@@ -1614,9 +1519,8 @@ Gura_DeclareMethod(wx_FileName, SetEmptyExt)
 
 Gura_ImplementMethod(wx_FileName, SetEmptyExt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->SetEmptyExt();
 	return Value::Nil;
 }
@@ -1629,9 +1533,8 @@ Gura_DeclareMethod(wx_FileName, SetExt)
 
 Gura_ImplementMethod(wx_FileName, SetExt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ext = arg.GetNumber(0)
 	//pThis->GetEntity()->SetExt();
 	return Value::Nil;
@@ -1645,9 +1548,8 @@ Gura_DeclareMethod(wx_FileName, SetFullName)
 
 Gura_ImplementMethod(wx_FileName, SetFullName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fullname = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFullName();
 	return Value::Nil;
@@ -1661,9 +1563,8 @@ Gura_DeclareMethod(wx_FileName, SetName)
 
 Gura_ImplementMethod(wx_FileName, SetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetName();
 	return Value::Nil;
@@ -1678,9 +1579,8 @@ Gura_DeclareMethod(wx_FileName, SetPath)
 
 Gura_ImplementMethod(wx_FileName, SetPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
 	//pThis->GetEntity()->SetPath();
@@ -1695,9 +1595,8 @@ Gura_DeclareMethod(wx_FileName, SetPermissions)
 
 Gura_ImplementMethod(wx_FileName, SetPermissions)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int permissions = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPermissions();
 	return Value::Nil;
@@ -1713,9 +1612,8 @@ Gura_DeclareMethod(wx_FileName, SetTimes)
 
 Gura_ImplementMethod(wx_FileName, SetTimes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dtAccess = arg.GetNumber(0)
 	//int dtMod = arg.GetNumber(1)
 	//int dtCreate = arg.GetNumber(2)
@@ -1731,9 +1629,8 @@ Gura_DeclareMethod(wx_FileName, SetVolume)
 
 Gura_ImplementMethod(wx_FileName, SetVolume)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int volume = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVolume();
 	return Value::Nil;
@@ -1746,9 +1643,8 @@ Gura_DeclareMethod(wx_FileName, ShouldFollowLink)
 
 Gura_ImplementMethod(wx_FileName, ShouldFollowLink)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ShouldFollowLink();
 	return Value::Nil;
 }
@@ -1767,9 +1663,8 @@ Gura_DeclareMethod(wx_FileName, SplitPath)
 
 Gura_ImplementMethod(wx_FileName, SplitPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fullpath = arg.GetNumber(0)
 	//int volume = arg.GetNumber(1)
 	//int path = arg.GetNumber(2)
@@ -1794,9 +1689,8 @@ Gura_DeclareMethod(wx_FileName, SplitPath_1)
 
 Gura_ImplementMethod(wx_FileName, SplitPath_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fullpath = arg.GetNumber(0)
 	//int volume = arg.GetNumber(1)
 	//int path = arg.GetNumber(2)
@@ -1819,9 +1713,8 @@ Gura_DeclareMethod(wx_FileName, SplitPath_2)
 
 Gura_ImplementMethod(wx_FileName, SplitPath_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fullpath = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//int name = arg.GetNumber(2)
@@ -1842,9 +1735,8 @@ Gura_DeclareMethod(wx_FileName, SplitVolume)
 
 Gura_ImplementMethod(wx_FileName, SplitVolume)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fullpath = arg.GetNumber(0)
 	//int volume = arg.GetNumber(1)
 	//int path = arg.GetNumber(2)
@@ -1861,9 +1753,8 @@ Gura_DeclareMethod(wx_FileName, StripExtension)
 
 Gura_ImplementMethod(wx_FileName, StripExtension)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fullname = arg.GetNumber(0)
 	//pThis->GetEntity()->StripExtension();
 	return Value::Nil;
@@ -1876,9 +1767,8 @@ Gura_DeclareMethod(wx_FileName, Touch)
 
 Gura_ImplementMethod(wx_FileName, Touch)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Touch();
 	return Value::Nil;
 }

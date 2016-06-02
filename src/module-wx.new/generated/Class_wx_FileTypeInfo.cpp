@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, wxFileTypeInfo)
 
 Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxFileTypeInfo();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, wxFileTypeInfo_1)
 
 Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mimeType = arg.GetNumber(0)
 	//pThis->GetEntity()->wxFileTypeInfo();
 	return Value::Nil;
@@ -79,9 +77,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, wxFileTypeInfo_2)
 
 Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mimeType = arg.GetNumber(0)
 	//int openCmd = arg.GetNumber(1)
 	//int printCmd = arg.GetNumber(2)
@@ -99,9 +96,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, wxFileTypeInfo_3)
 
 Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sArray = arg.GetNumber(0)
 	//pThis->GetEntity()->wxFileTypeInfo();
 	return Value::Nil;
@@ -115,9 +111,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, AddExtension)
 
 Gura_ImplementMethod(wx_FileTypeInfo, AddExtension)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ext = arg.GetNumber(0)
 	//pThis->GetEntity()->AddExtension();
 	return Value::Nil;
@@ -131,9 +126,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, SetDescription)
 
 Gura_ImplementMethod(wx_FileTypeInfo, SetDescription)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int description = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDescription();
 	return Value::Nil;
@@ -147,9 +141,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, SetOpenCommand)
 
 Gura_ImplementMethod(wx_FileTypeInfo, SetOpenCommand)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int command = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOpenCommand();
 	return Value::Nil;
@@ -163,9 +156,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, SetPrintCommand)
 
 Gura_ImplementMethod(wx_FileTypeInfo, SetPrintCommand)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int command = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPrintCommand();
 	return Value::Nil;
@@ -179,9 +171,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, SetShortDesc)
 
 Gura_ImplementMethod(wx_FileTypeInfo, SetShortDesc)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int shortDesc = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShortDesc();
 	return Value::Nil;
@@ -196,9 +187,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, SetIcon)
 
 Gura_ImplementMethod(wx_FileTypeInfo, SetIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int iconFile = arg.GetNumber(0)
 	//int iconIndex = arg.GetNumber(1)
 	//pThis->GetEntity()->SetIcon();
@@ -212,9 +202,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, GetMimeType)
 
 Gura_ImplementMethod(wx_FileTypeInfo, GetMimeType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMimeType();
 	return Value::Nil;
 }
@@ -226,9 +215,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, GetOpenCommand)
 
 Gura_ImplementMethod(wx_FileTypeInfo, GetOpenCommand)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOpenCommand();
 	return Value::Nil;
 }
@@ -240,9 +228,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, GetPrintCommand)
 
 Gura_ImplementMethod(wx_FileTypeInfo, GetPrintCommand)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPrintCommand();
 	return Value::Nil;
 }
@@ -254,9 +241,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, GetShortDesc)
 
 Gura_ImplementMethod(wx_FileTypeInfo, GetShortDesc)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetShortDesc();
 	return Value::Nil;
 }
@@ -268,9 +254,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, GetDescription)
 
 Gura_ImplementMethod(wx_FileTypeInfo, GetDescription)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDescription();
 	return Value::Nil;
 }
@@ -282,9 +267,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, GetExtensions)
 
 Gura_ImplementMethod(wx_FileTypeInfo, GetExtensions)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetExtensions();
 	return Value::Nil;
 }
@@ -296,9 +280,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, GetExtensionsCount)
 
 Gura_ImplementMethod(wx_FileTypeInfo, GetExtensionsCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetExtensionsCount();
 	return Value::Nil;
 }
@@ -310,9 +293,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, GetIconFile)
 
 Gura_ImplementMethod(wx_FileTypeInfo, GetIconFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetIconFile();
 	return Value::Nil;
 }
@@ -324,9 +306,8 @@ Gura_DeclareMethod(wx_FileTypeInfo, GetIconIndex)
 
 Gura_ImplementMethod(wx_FileTypeInfo, GetIconIndex)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetIconIndex();
 	return Value::Nil;
 }

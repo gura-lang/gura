@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_WebViewHistoryItem, wxWebViewHistoryItem)
 
 Gura_ImplementMethod(wx_WebViewHistoryItem, wxWebViewHistoryItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewHistoryItem *pThis = Object_wx_WebViewHistoryItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//int title = arg.GetNumber(1)
 	//pThis->GetEntity()->wxWebViewHistoryItem();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_WebViewHistoryItem, GetUrl)
 
 Gura_ImplementMethod(wx_WebViewHistoryItem, GetUrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewHistoryItem *pThis = Object_wx_WebViewHistoryItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUrl();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_WebViewHistoryItem, GetTitle)
 
 Gura_ImplementMethod(wx_WebViewHistoryItem, GetTitle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WebViewHistoryItem *pThis = Object_wx_WebViewHistoryItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTitle();
 	return Value::Nil;
 }

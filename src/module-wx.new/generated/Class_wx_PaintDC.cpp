@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_PaintDC, wxPaintDC)
 
 Gura_ImplementMethod(wx_PaintDC, wxPaintDC)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PaintDC *pThis = Object_wx_PaintDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPaintDC();
 	return Value::Nil;

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl)
 
 Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxCollapsibleHeaderCtrl();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl_1)
 
 Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, Create)
 
 Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -119,9 +116,8 @@ Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, SetCollapsed)
 
 Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, SetCollapsed)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int collapsed = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCollapsed();
 	return Value::Nil;
@@ -134,9 +130,8 @@ Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, IsCollapsed)
 
 Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, IsCollapsed)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsCollapsed();
 	return Value::Nil;
 }

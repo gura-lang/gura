@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_NotifyEvent, wxNotifyEvent)
 
 Gura_ImplementMethod(wx_NotifyEvent, wxNotifyEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxNotifyEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_NotifyEvent, Allow)
 
 Gura_ImplementMethod(wx_NotifyEvent, Allow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Allow();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_NotifyEvent, IsAllowed)
 
 Gura_ImplementMethod(wx_NotifyEvent, IsAllowed)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsAllowed();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_NotifyEvent, Veto)
 
 Gura_ImplementMethod(wx_NotifyEvent, Veto)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Veto();
 	return Value::Nil;
 }

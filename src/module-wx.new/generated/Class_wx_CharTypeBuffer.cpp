@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_CharTypeBuffer, wxCharTypeBuffer)
 
 Gura_ImplementMethod(wx_CharTypeBuffer, wxCharTypeBuffer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
 	//pThis->GetEntity()->wxCharTypeBuffer();
@@ -63,9 +62,8 @@ Gura_DeclareMethod(wx_CharTypeBuffer, wxCharTypeBuffer_1)
 
 Gura_ImplementMethod(wx_CharTypeBuffer, wxCharTypeBuffer_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int len = arg.GetNumber(0)
 	//pThis->GetEntity()->wxCharTypeBuffer();
 	return Value::Nil;
@@ -79,9 +77,8 @@ Gura_DeclareMethod(wx_CharTypeBuffer, wxCharTypeBuffer_2)
 
 Gura_ImplementMethod(wx_CharTypeBuffer, wxCharTypeBuffer_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int src = arg.GetNumber(0)
 	//pThis->GetEntity()->wxCharTypeBuffer();
 	return Value::Nil;
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_CharTypeBuffer, wxCharTypeBuffer_3)
 
 Gura_ImplementMethod(wx_CharTypeBuffer, wxCharTypeBuffer_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int src = arg.GetNumber(0)
 	//pThis->GetEntity()->wxCharTypeBuffer();
 	return Value::Nil;
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_CharTypeBuffer, extend)
 
 Gura_ImplementMethod(wx_CharTypeBuffer, extend)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int len = arg.GetNumber(0)
 	//pThis->GetEntity()->extend();
 	return Value::Nil;
@@ -127,9 +122,8 @@ Gura_DeclareMethod(wx_CharTypeBuffer, shrink)
 
 Gura_ImplementMethod(wx_CharTypeBuffer, shrink)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int len = arg.GetNumber(0)
 	//pThis->GetEntity()->shrink();
 	return Value::Nil;

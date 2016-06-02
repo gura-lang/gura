@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_ProcessEvent, wxProcessEvent)
 
 Gura_ImplementMethod(wx_ProcessEvent, wxProcessEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int pid = arg.GetNumber(1)
 	//int exitcode = arg.GetNumber(2)
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_ProcessEvent, GetExitCode)
 
 Gura_ImplementMethod(wx_ProcessEvent, GetExitCode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetExitCode();
 	return Value::Nil;
 }
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_ProcessEvent, GetPid)
 
 Gura_ImplementMethod(wx_ProcessEvent, GetPid)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPid();
 	return Value::Nil;
 }

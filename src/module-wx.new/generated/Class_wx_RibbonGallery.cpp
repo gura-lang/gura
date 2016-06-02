@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RibbonGallery, wxRibbonGallery)
 
 Gura_ImplementMethod(wx_RibbonGallery, wxRibbonGallery)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRibbonGallery();
 	return Value::Nil;
 }
@@ -63,29 +62,14 @@ Gura_DeclareMethod(wx_RibbonGallery, wxRibbonGallery_1)
 
 Gura_ImplementMethod(wx_RibbonGallery, wxRibbonGallery_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->wxRibbonGallery();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RibbonGallery, ~wxRibbonGallery)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RibbonGallery, ~wxRibbonGallery)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRibbonGallery();
 	return Value::Nil;
 }
 
@@ -101,9 +85,8 @@ Gura_DeclareMethod(wx_RibbonGallery, Create)
 
 Gura_ImplementMethod(wx_RibbonGallery, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -120,9 +103,8 @@ Gura_DeclareMethod(wx_RibbonGallery, Clear)
 
 Gura_ImplementMethod(wx_RibbonGallery, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -134,9 +116,8 @@ Gura_DeclareMethod(wx_RibbonGallery, IsEmpty)
 
 Gura_ImplementMethod(wx_RibbonGallery, IsEmpty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
@@ -148,9 +129,8 @@ Gura_DeclareMethod(wx_RibbonGallery, GetCount)
 
 Gura_ImplementMethod(wx_RibbonGallery, GetCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
@@ -163,9 +143,8 @@ Gura_DeclareMethod(wx_RibbonGallery, GetItem)
 
 Gura_ImplementMethod(wx_RibbonGallery, GetItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItem();
 	return Value::Nil;
@@ -180,9 +159,8 @@ Gura_DeclareMethod(wx_RibbonGallery, Append)
 
 Gura_ImplementMethod(wx_RibbonGallery, Append)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->Append();
@@ -199,9 +177,8 @@ Gura_DeclareMethod(wx_RibbonGallery, Append_1)
 
 Gura_ImplementMethod(wx_RibbonGallery, Append_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int clientData = arg.GetNumber(2)
@@ -219,9 +196,8 @@ Gura_DeclareMethod(wx_RibbonGallery, Append_2)
 
 Gura_ImplementMethod(wx_RibbonGallery, Append_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int clientData = arg.GetNumber(2)
@@ -238,9 +214,8 @@ Gura_DeclareMethod(wx_RibbonGallery, SetItemClientObject)
 
 Gura_ImplementMethod(wx_RibbonGallery, SetItemClientObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemClientObject();
@@ -255,9 +230,8 @@ Gura_DeclareMethod(wx_RibbonGallery, GetItemClientObject)
 
 Gura_ImplementMethod(wx_RibbonGallery, GetItemClientObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemClientObject();
 	return Value::Nil;
@@ -272,9 +246,8 @@ Gura_DeclareMethod(wx_RibbonGallery, SetItemClientData)
 
 Gura_ImplementMethod(wx_RibbonGallery, SetItemClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemClientData();
@@ -289,9 +262,8 @@ Gura_DeclareMethod(wx_RibbonGallery, GetItemClientData)
 
 Gura_ImplementMethod(wx_RibbonGallery, GetItemClientData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemClientData();
 	return Value::Nil;
@@ -305,9 +277,8 @@ Gura_DeclareMethod(wx_RibbonGallery, SetSelection)
 
 Gura_ImplementMethod(wx_RibbonGallery, SetSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSelection();
 	return Value::Nil;
@@ -320,9 +291,8 @@ Gura_DeclareMethod(wx_RibbonGallery, GetSelection)
 
 Gura_ImplementMethod(wx_RibbonGallery, GetSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
@@ -334,9 +304,8 @@ Gura_DeclareMethod(wx_RibbonGallery, GetHoveredItem)
 
 Gura_ImplementMethod(wx_RibbonGallery, GetHoveredItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHoveredItem();
 	return Value::Nil;
 }
@@ -348,9 +317,8 @@ Gura_DeclareMethod(wx_RibbonGallery, GetActiveItem)
 
 Gura_ImplementMethod(wx_RibbonGallery, GetActiveItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetActiveItem();
 	return Value::Nil;
 }
@@ -362,9 +330,8 @@ Gura_DeclareMethod(wx_RibbonGallery, GetUpButtonState)
 
 Gura_ImplementMethod(wx_RibbonGallery, GetUpButtonState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUpButtonState();
 	return Value::Nil;
 }
@@ -376,9 +343,8 @@ Gura_DeclareMethod(wx_RibbonGallery, GetDownButtonState)
 
 Gura_ImplementMethod(wx_RibbonGallery, GetDownButtonState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDownButtonState();
 	return Value::Nil;
 }
@@ -390,9 +356,8 @@ Gura_DeclareMethod(wx_RibbonGallery, GetExtensionButtonState)
 
 Gura_ImplementMethod(wx_RibbonGallery, GetExtensionButtonState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetExtensionButtonState();
 	return Value::Nil;
 }
@@ -404,9 +369,8 @@ Gura_DeclareMethod(wx_RibbonGallery, IsHovered)
 
 Gura_ImplementMethod(wx_RibbonGallery, IsHovered)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsHovered();
 	return Value::Nil;
 }
@@ -419,9 +383,8 @@ Gura_DeclareMethod(wx_RibbonGallery, ScrollLines)
 
 Gura_ImplementMethod(wx_RibbonGallery, ScrollLines)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lines = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollLines();
 	return Value::Nil;
@@ -435,9 +398,8 @@ Gura_DeclareMethod(wx_RibbonGallery, ScrollPixels)
 
 Gura_ImplementMethod(wx_RibbonGallery, ScrollPixels)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixels = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollPixels();
 	return Value::Nil;
@@ -451,9 +413,8 @@ Gura_DeclareMethod(wx_RibbonGallery, EnsureVisible)
 
 Gura_ImplementMethod(wx_RibbonGallery, EnsureVisible)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//pThis->GetEntity()->EnsureVisible();
 	return Value::Nil;
@@ -466,7 +427,6 @@ Gura_ImplementUserInheritableClass(wx_RibbonGallery)
 {
 	Gura_AssignMethod(wx_RibbonGallery, wxRibbonGallery);
 	Gura_AssignMethod(wx_RibbonGallery, wxRibbonGallery_1);
-	Gura_AssignMethod(wx_RibbonGallery, ~wxRibbonGallery);
 	Gura_AssignMethod(wx_RibbonGallery, Create);
 	Gura_AssignMethod(wx_RibbonGallery, Clear);
 	Gura_AssignMethod(wx_RibbonGallery, IsEmpty);

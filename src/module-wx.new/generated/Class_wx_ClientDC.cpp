@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_ClientDC, wxClientDC)
 
 Gura_ImplementMethod(wx_ClientDC, wxClientDC)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ClientDC *pThis = Object_wx_ClientDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//pThis->GetEntity()->wxClientDC();
 	return Value::Nil;

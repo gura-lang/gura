@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_ColourPickerCtrl, wxColourPickerCtrl)
 
 Gura_ImplementMethod(wx_ColourPickerCtrl, wxColourPickerCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxColourPickerCtrl();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_ColourPickerCtrl, wxColourPickerCtrl_1)
 
 Gura_ImplementMethod(wx_ColourPickerCtrl, wxColourPickerCtrl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int colour = arg.GetNumber(2)
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_ColourPickerCtrl, Create)
 
 Gura_ImplementMethod(wx_ColourPickerCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int colour = arg.GetNumber(2)
@@ -118,9 +115,8 @@ Gura_DeclareMethod(wx_ColourPickerCtrl, GetColour)
 
 Gura_ImplementMethod(wx_ColourPickerCtrl, GetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
@@ -133,9 +129,8 @@ Gura_DeclareMethod(wx_ColourPickerCtrl, SetColour)
 
 Gura_ImplementMethod(wx_ColourPickerCtrl, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -149,9 +144,8 @@ Gura_DeclareMethod(wx_ColourPickerCtrl, SetColour_1)
 
 Gura_ImplementMethod(wx_ColourPickerCtrl, SetColour_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colname = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;

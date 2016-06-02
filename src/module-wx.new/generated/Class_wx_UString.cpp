@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_UString, wxUString)
 
 Gura_ImplementMethod(wx_UString, wxUString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_UString, wxUString_1)
 
 Gura_ImplementMethod(wx_UString, wxUString_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_UString, wxUString_2)
 
 Gura_ImplementMethod(wx_UString, wxUString_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -91,9 +88,8 @@ Gura_DeclareMethod(wx_UString, wxUString_3)
 
 Gura_ImplementMethod(wx_UString, wxUString_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buf = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_UString, wxUString_4)
 
 Gura_ImplementMethod(wx_UString, wxUString_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -123,9 +118,8 @@ Gura_DeclareMethod(wx_UString, wxUString_5)
 
 Gura_ImplementMethod(wx_UString, wxUString_5)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buf = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -140,9 +134,8 @@ Gura_DeclareMethod(wx_UString, wxUString_6)
 
 Gura_ImplementMethod(wx_UString, wxUString_6)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
 	//pThis->GetEntity()->wxUString();
@@ -158,9 +151,8 @@ Gura_DeclareMethod(wx_UString, wxUString_7)
 
 Gura_ImplementMethod(wx_UString, wxUString_7)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buf = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
 	//pThis->GetEntity()->wxUString();
@@ -175,9 +167,8 @@ Gura_DeclareMethod(wx_UString, wxUString_8)
 
 Gura_ImplementMethod(wx_UString, wxUString_8)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -191,9 +182,8 @@ Gura_DeclareMethod(wx_UString, wxUString_9)
 
 Gura_ImplementMethod(wx_UString, wxUString_9)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buf = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -207,9 +197,8 @@ Gura_DeclareMethod(wx_UString, wxUString_10)
 
 Gura_ImplementMethod(wx_UString, wxUString_10)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -223,9 +212,8 @@ Gura_DeclareMethod(wx_UString, wxUString_11)
 
 Gura_ImplementMethod(wx_UString, wxUString_11)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ch = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -239,9 +227,8 @@ Gura_DeclareMethod(wx_UString, wxUString_12)
 
 Gura_ImplementMethod(wx_UString, wxUString_12)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ch = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -255,9 +242,8 @@ Gura_DeclareMethod(wx_UString, wxUString_13)
 
 Gura_ImplementMethod(wx_UString, wxUString_13)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ch = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -271,9 +257,8 @@ Gura_DeclareMethod(wx_UString, wxUString_14)
 
 Gura_ImplementMethod(wx_UString, wxUString_14)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ch = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -287,9 +272,8 @@ Gura_DeclareMethod(wx_UString, wxUString_15)
 
 Gura_ImplementMethod(wx_UString, wxUString_15)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ch = arg.GetNumber(0)
 	//pThis->GetEntity()->wxUString();
 	return Value::Nil;
@@ -304,9 +288,8 @@ Gura_DeclareMethod(wx_UString, wxUString_16)
 
 Gura_ImplementMethod(wx_UString, wxUString_16)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int ch = arg.GetNumber(1)
 	//pThis->GetEntity()->wxUString();
@@ -322,9 +305,8 @@ Gura_DeclareMethod(wx_UString, wxUString_17)
 
 Gura_ImplementMethod(wx_UString, wxUString_17)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int ch = arg.GetNumber(1)
 	//pThis->GetEntity()->wxUString();
@@ -340,9 +322,8 @@ Gura_DeclareMethod(wx_UString, wxUString_18)
 
 Gura_ImplementMethod(wx_UString, wxUString_18)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int ch = arg.GetNumber(1)
 	//pThis->GetEntity()->wxUString();
@@ -358,9 +339,8 @@ Gura_DeclareMethod(wx_UString, wxUString_19)
 
 Gura_ImplementMethod(wx_UString, wxUString_19)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int ch = arg.GetNumber(1)
 	//pThis->GetEntity()->wxUString();
@@ -376,9 +356,8 @@ Gura_DeclareMethod(wx_UString, wxUString_20)
 
 Gura_ImplementMethod(wx_UString, wxUString_20)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int ch = arg.GetNumber(1)
 	//pThis->GetEntity()->wxUString();
@@ -394,9 +373,8 @@ Gura_DeclareMethod(wx_UString, FromAscii)
 
 Gura_ImplementMethod(wx_UString, FromAscii)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int n = arg.GetNumber(1)
 	//pThis->GetEntity()->FromAscii();
@@ -411,9 +389,8 @@ Gura_DeclareMethod(wx_UString, FromAscii_1)
 
 Gura_ImplementMethod(wx_UString, FromAscii_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->FromAscii();
 	return Value::Nil;
@@ -428,9 +405,8 @@ Gura_DeclareMethod(wx_UString, FromUTF8)
 
 Gura_ImplementMethod(wx_UString, FromUTF8)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int n = arg.GetNumber(1)
 	//pThis->GetEntity()->FromUTF8();
@@ -445,9 +421,8 @@ Gura_DeclareMethod(wx_UString, FromUTF8_1)
 
 Gura_ImplementMethod(wx_UString, FromUTF8_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->FromUTF8();
 	return Value::Nil;
@@ -462,9 +437,8 @@ Gura_DeclareMethod(wx_UString, FromUTF16)
 
 Gura_ImplementMethod(wx_UString, FromUTF16)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int n = arg.GetNumber(1)
 	//pThis->GetEntity()->FromUTF16();
@@ -479,9 +453,8 @@ Gura_DeclareMethod(wx_UString, FromUTF16_1)
 
 Gura_ImplementMethod(wx_UString, FromUTF16_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->FromUTF16();
 	return Value::Nil;
@@ -495,9 +468,8 @@ Gura_DeclareMethod(wx_UString, assignFromAscii)
 
 Gura_ImplementMethod(wx_UString, assignFromAscii)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->assignFromAscii();
 	return Value::Nil;
@@ -512,9 +484,8 @@ Gura_DeclareMethod(wx_UString, assignFromAscii_1)
 
 Gura_ImplementMethod(wx_UString, assignFromAscii_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int n = arg.GetNumber(1)
 	//pThis->GetEntity()->assignFromAscii();
@@ -529,9 +500,8 @@ Gura_DeclareMethod(wx_UString, assignFromUTF8)
 
 Gura_ImplementMethod(wx_UString, assignFromUTF8)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->assignFromUTF8();
 	return Value::Nil;
@@ -546,9 +516,8 @@ Gura_DeclareMethod(wx_UString, assignFromUTF8_1)
 
 Gura_ImplementMethod(wx_UString, assignFromUTF8_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int n = arg.GetNumber(1)
 	//pThis->GetEntity()->assignFromUTF8();
@@ -563,9 +532,8 @@ Gura_DeclareMethod(wx_UString, assignFromUTF16)
 
 Gura_ImplementMethod(wx_UString, assignFromUTF16)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->assignFromUTF16();
 	return Value::Nil;
@@ -580,9 +548,8 @@ Gura_DeclareMethod(wx_UString, assignFromUTF16_1)
 
 Gura_ImplementMethod(wx_UString, assignFromUTF16_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int n = arg.GetNumber(1)
 	//pThis->GetEntity()->assignFromUTF16();
@@ -597,9 +564,8 @@ Gura_DeclareMethod(wx_UString, assignFromCString)
 
 Gura_ImplementMethod(wx_UString, assignFromCString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->assignFromCString();
 	return Value::Nil;
@@ -614,9 +580,8 @@ Gura_DeclareMethod(wx_UString, assignFromCString_1)
 
 Gura_ImplementMethod(wx_UString, assignFromCString_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
 	//pThis->GetEntity()->assignFromCString();
@@ -630,9 +595,8 @@ Gura_DeclareMethod(wx_UString, utf8_str)
 
 Gura_ImplementMethod(wx_UString, utf8_str)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->utf8_str();
 	return Value::Nil;
 }
@@ -644,9 +608,8 @@ Gura_DeclareMethod(wx_UString, utf16_str)
 
 Gura_ImplementMethod(wx_UString, utf16_str)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->utf16_str();
 	return Value::Nil;
 }
@@ -658,9 +621,8 @@ Gura_DeclareMethod(wx_UString, wc_str)
 
 Gura_ImplementMethod(wx_UString, wc_str)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wc_str();
 	return Value::Nil;
 }
@@ -672,9 +634,8 @@ Gura_DeclareMethod(wx_UString, wxString)
 
 Gura_ImplementMethod(wx_UString, wxString)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxString();
 	return Value::Nil;
 }
@@ -687,9 +648,8 @@ Gura_DeclareMethod(wx_UString, assign)
 
 Gura_ImplementMethod(wx_UString, assign)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//pThis->GetEntity()->assign();
 	return Value::Nil;
@@ -703,9 +663,8 @@ Gura_DeclareMethod(wx_UString, append)
 
 Gura_ImplementMethod(wx_UString, append)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int s = arg.GetNumber(0)
 	//pThis->GetEntity()->append();
 	return Value::Nil;
@@ -720,9 +679,8 @@ Gura_DeclareMethod(wx_UString, insert)
 
 Gura_ImplementMethod(wx_UString, insert)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int s = arg.GetNumber(1)
 	//pThis->GetEntity()->insert();

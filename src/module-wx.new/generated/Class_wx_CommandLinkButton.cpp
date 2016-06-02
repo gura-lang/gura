@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_CommandLinkButton, wxCommandLinkButton)
 
 Gura_ImplementMethod(wx_CommandLinkButton, wxCommandLinkButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxCommandLinkButton();
 	return Value::Nil;
 }
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_CommandLinkButton, wxCommandLinkButton_1)
 
 Gura_ImplementMethod(wx_CommandLinkButton, wxCommandLinkButton_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int mainLabel = arg.GetNumber(2)
@@ -99,9 +97,8 @@ Gura_DeclareMethod(wx_CommandLinkButton, Create)
 
 Gura_ImplementMethod(wx_CommandLinkButton, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int mainLabel = arg.GetNumber(2)
@@ -124,9 +121,8 @@ Gura_DeclareMethod(wx_CommandLinkButton, SetMainLabelAndNote)
 
 Gura_ImplementMethod(wx_CommandLinkButton, SetMainLabelAndNote)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mainLabel = arg.GetNumber(0)
 	//int note = arg.GetNumber(1)
 	//pThis->GetEntity()->SetMainLabelAndNote();
@@ -141,9 +137,8 @@ Gura_DeclareMethod(wx_CommandLinkButton, SetLabel)
 
 Gura_ImplementMethod(wx_CommandLinkButton, SetLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int label = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLabel();
 	return Value::Nil;
@@ -156,9 +151,8 @@ Gura_DeclareMethod(wx_CommandLinkButton, GetLabel)
 
 Gura_ImplementMethod(wx_CommandLinkButton, GetLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLabel();
 	return Value::Nil;
 }
@@ -171,9 +165,8 @@ Gura_DeclareMethod(wx_CommandLinkButton, SetMainLabel)
 
 Gura_ImplementMethod(wx_CommandLinkButton, SetMainLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mainLabel = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMainLabel();
 	return Value::Nil;
@@ -187,9 +180,8 @@ Gura_DeclareMethod(wx_CommandLinkButton, SetNote)
 
 Gura_ImplementMethod(wx_CommandLinkButton, SetNote)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int note = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNote();
 	return Value::Nil;
@@ -202,9 +194,8 @@ Gura_DeclareMethod(wx_CommandLinkButton, GetMainLabel)
 
 Gura_ImplementMethod(wx_CommandLinkButton, GetMainLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMainLabel();
 	return Value::Nil;
 }
@@ -216,9 +207,8 @@ Gura_DeclareMethod(wx_CommandLinkButton, GetNote)
 
 Gura_ImplementMethod(wx_CommandLinkButton, GetNote)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNote();
 	return Value::Nil;
 }

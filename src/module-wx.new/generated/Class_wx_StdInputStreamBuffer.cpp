@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_StdInputStreamBuffer, wxStdInputStreamBuffer)
 
 Gura_ImplementMethod(wx_StdInputStreamBuffer, wxStdInputStreamBuffer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_StdInputStreamBuffer *pThis = Object_wx_StdInputStreamBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//pThis->GetEntity()->wxStdInputStreamBuffer();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_StdInputStreamBuffer, ~wxStdInputStreamBuffer)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_StdInputStreamBuffer, ~wxStdInputStreamBuffer)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_StdInputStreamBuffer *pThis = Object_wx_StdInputStreamBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxStdInputStreamBuffer();
 	return Value::Nil;
 }
 
@@ -73,7 +58,6 @@ Gura_ImplementMethod(wx_StdInputStreamBuffer, ~wxStdInputStreamBuffer)
 Gura_ImplementUserInheritableClass(wx_StdInputStreamBuffer)
 {
 	Gura_AssignMethod(wx_StdInputStreamBuffer, wxStdInputStreamBuffer);
-	Gura_AssignMethod(wx_StdInputStreamBuffer, ~wxStdInputStreamBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_StdInputStreamBuffer)

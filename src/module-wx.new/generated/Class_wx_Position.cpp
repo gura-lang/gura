@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Position, wxPosition)
 
 Gura_ImplementMethod(wx_Position, wxPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPosition();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_Position, wxPosition_1)
 
 Gura_ImplementMethod(wx_Position, wxPosition_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->wxPosition();
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_Position, GetCol)
 
 Gura_ImplementMethod(wx_Position, GetCol)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCol();
 	return Value::Nil;
 }
@@ -90,9 +87,8 @@ Gura_DeclareMethod(wx_Position, GetColumn)
 
 Gura_ImplementMethod(wx_Position, GetColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColumn();
 	return Value::Nil;
 }
@@ -104,9 +100,8 @@ Gura_DeclareMethod(wx_Position, GetRow)
 
 Gura_ImplementMethod(wx_Position, GetRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRow();
 	return Value::Nil;
 }
@@ -119,9 +114,8 @@ Gura_DeclareMethod(wx_Position, SetCol)
 
 Gura_ImplementMethod(wx_Position, SetCol)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCol();
 	return Value::Nil;
@@ -135,9 +129,8 @@ Gura_DeclareMethod(wx_Position, SetColumn)
 
 Gura_ImplementMethod(wx_Position, SetColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColumn();
 	return Value::Nil;
@@ -151,9 +144,8 @@ Gura_DeclareMethod(wx_Position, SetRow)
 
 Gura_ImplementMethod(wx_Position, SetRow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRow();
 	return Value::Nil;

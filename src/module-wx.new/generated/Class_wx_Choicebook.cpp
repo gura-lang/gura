@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Choicebook, wxChoicebook)
 
 Gura_ImplementMethod(wx_Choicebook, wxChoicebook)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Choicebook *pThis = Object_wx_Choicebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxChoicebook();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_Choicebook, wxChoicebook_1)
 
 Gura_ImplementMethod(wx_Choicebook, wxChoicebook_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Choicebook *pThis = Object_wx_Choicebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_Choicebook, Create)
 
 Gura_ImplementMethod(wx_Choicebook, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Choicebook *pThis = Object_wx_Choicebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -110,9 +107,8 @@ Gura_DeclareMethod(wx_Choicebook, GetChoiceCtrl)
 
 Gura_ImplementMethod(wx_Choicebook, GetChoiceCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Choicebook *pThis = Object_wx_Choicebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetChoiceCtrl();
 	return Value::Nil;
 }

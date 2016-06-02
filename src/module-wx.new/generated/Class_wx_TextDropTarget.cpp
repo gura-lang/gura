@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TextDropTarget, wxTextDropTarget)
 
 Gura_ImplementMethod(wx_TextDropTarget, wxTextDropTarget)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTextDropTarget();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_TextDropTarget, OnDrop)
 
 Gura_ImplementMethod(wx_TextDropTarget, OnDrop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->OnDrop();
@@ -79,9 +77,8 @@ Gura_DeclareMethod(wx_TextDropTarget, OnDropText)
 
 Gura_ImplementMethod(wx_TextDropTarget, OnDropText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int data = arg.GetNumber(2)

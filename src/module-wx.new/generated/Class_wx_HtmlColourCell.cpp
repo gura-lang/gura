@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_HtmlColourCell, wxHtmlColourCell)
 
 Gura_ImplementMethod(wx_HtmlColourCell, wxHtmlColourCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlColourCell *pThis = Object_wx_HtmlColourCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int clr = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->wxHtmlColourCell();

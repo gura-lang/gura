@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_WizardPage, wxWizardPage)
 
 Gura_ImplementMethod(wx_WizardPage, wxWizardPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxWizardPage();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_WizardPage, wxWizardPage_1)
 
 Gura_ImplementMethod(wx_WizardPage, wxWizardPage_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->wxWizardPage();
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_WizardPage, Create)
 
 Gura_ImplementMethod(wx_WizardPage, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
@@ -94,9 +91,8 @@ Gura_DeclareMethod(wx_WizardPage, GetBitmap)
 
 Gura_ImplementMethod(wx_WizardPage, GetBitmap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
@@ -108,9 +104,8 @@ Gura_DeclareMethod(wx_WizardPage, GetNext)
 
 Gura_ImplementMethod(wx_WizardPage, GetNext)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNext();
 	return Value::Nil;
 }
@@ -122,9 +117,8 @@ Gura_DeclareMethod(wx_WizardPage, GetPrev)
 
 Gura_ImplementMethod(wx_WizardPage, GetPrev)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPrev();
 	return Value::Nil;
 }

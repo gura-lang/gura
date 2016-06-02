@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, wxAuiDefaultTabArt)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, wxAuiDefaultTabArt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxAuiDefaultTabArt();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_AuiDefaultTabArt, ~wxAuiDefaultTabArt)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_AuiDefaultTabArt, ~wxAuiDefaultTabArt)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxAuiDefaultTabArt();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, Clone)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -87,9 +71,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, SetFlags)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, SetFlags)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
@@ -104,9 +87,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, SetSizingInfo)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, SetSizingInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tabCtrlSize = arg.GetNumber(0)
 	//int tabCount = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSizingInfo();
@@ -121,9 +103,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, SetNormalFont)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, SetNormalFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNormalFont();
 	return Value::Nil;
@@ -137,9 +118,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, SetSelectedFont)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, SetSelectedFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSelectedFont();
 	return Value::Nil;
@@ -153,9 +133,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, SetMeasuringFont)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, SetMeasuringFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMeasuringFont();
 	return Value::Nil;
@@ -169,9 +148,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, SetColour)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -185,9 +163,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, SetActiveColour)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, SetActiveColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetActiveColour();
 	return Value::Nil;
@@ -203,9 +180,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, DrawBackground)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, DrawBackground)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -228,9 +204,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, DrawTab)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, DrawTab)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int pane = arg.GetNumber(2)
@@ -257,9 +232,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, DrawButton)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, DrawButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int inRect = arg.GetNumber(2)
@@ -278,9 +252,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, GetIndentSize)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, GetIndentSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetIndentSize();
 	return Value::Nil;
 }
@@ -299,9 +272,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, GetTabSize)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, GetTabSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int wnd = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
@@ -323,9 +295,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, ShowDropDown)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, ShowDropDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int wnd = arg.GetNumber(0)
 	//int items = arg.GetNumber(1)
 	//int activeIdx = arg.GetNumber(2)
@@ -343,9 +314,8 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, GetBestTabCtrlSize)
 
 Gura_ImplementMethod(wx_AuiDefaultTabArt, GetBestTabCtrlSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int wnd = arg.GetNumber(0)
 	//int pages = arg.GetNumber(1)
 	//int requiredBmpSize = arg.GetNumber(2)
@@ -359,7 +329,6 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, GetBestTabCtrlSize)
 Gura_ImplementUserInheritableClass(wx_AuiDefaultTabArt)
 {
 	Gura_AssignMethod(wx_AuiDefaultTabArt, wxAuiDefaultTabArt);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, ~wxAuiDefaultTabArt);
 	Gura_AssignMethod(wx_AuiDefaultTabArt, Clone);
 	Gura_AssignMethod(wx_AuiDefaultTabArt, SetFlags);
 	Gura_AssignMethod(wx_AuiDefaultTabArt, SetSizingInfo);

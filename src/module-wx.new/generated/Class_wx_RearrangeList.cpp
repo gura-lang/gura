@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RearrangeList, wxRearrangeList)
 
 Gura_ImplementMethod(wx_RearrangeList, wxRearrangeList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRearrangeList();
 	return Value::Nil;
 }
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_RearrangeList, wxRearrangeList_1)
 
 Gura_ImplementMethod(wx_RearrangeList, wxRearrangeList_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -99,9 +97,8 @@ Gura_DeclareMethod(wx_RearrangeList, Create)
 
 Gura_ImplementMethod(wx_RearrangeList, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -122,9 +119,8 @@ Gura_DeclareMethod(wx_RearrangeList, GetCurrentOrder)
 
 Gura_ImplementMethod(wx_RearrangeList, GetCurrentOrder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCurrentOrder();
 	return Value::Nil;
 }
@@ -136,9 +132,8 @@ Gura_DeclareMethod(wx_RearrangeList, CanMoveCurrentUp)
 
 Gura_ImplementMethod(wx_RearrangeList, CanMoveCurrentUp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanMoveCurrentUp();
 	return Value::Nil;
 }
@@ -150,9 +145,8 @@ Gura_DeclareMethod(wx_RearrangeList, CanMoveCurrentDown)
 
 Gura_ImplementMethod(wx_RearrangeList, CanMoveCurrentDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanMoveCurrentDown();
 	return Value::Nil;
 }
@@ -164,9 +158,8 @@ Gura_DeclareMethod(wx_RearrangeList, MoveCurrentUp)
 
 Gura_ImplementMethod(wx_RearrangeList, MoveCurrentUp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MoveCurrentUp();
 	return Value::Nil;
 }
@@ -178,9 +171,8 @@ Gura_DeclareMethod(wx_RearrangeList, MoveCurrentDown)
 
 Gura_ImplementMethod(wx_RearrangeList, MoveCurrentDown)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MoveCurrentDown();
 	return Value::Nil;
 }

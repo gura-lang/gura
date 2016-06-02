@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_RichTextLine, wxRichTextLine)
 
 Gura_ImplementMethod(wx_RichTextLine, wxRichTextLine)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextLine();
 	return Value::Nil;
@@ -61,25 +60,10 @@ Gura_DeclareMethod(wx_RichTextLine, wxRichTextLine_1)
 
 Gura_ImplementMethod(wx_RichTextLine, wxRichTextLine_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->wxRichTextLine();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RichTextLine, ~wxRichTextLine)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextLine, ~wxRichTextLine)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRichTextLine();
 	return Value::Nil;
 }
 
@@ -91,9 +75,8 @@ Gura_DeclareMethod(wx_RichTextLine, SetRange)
 
 Gura_ImplementMethod(wx_RichTextLine, SetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRange();
 	return Value::Nil;
@@ -108,9 +91,8 @@ Gura_DeclareMethod(wx_RichTextLine, SetRange_1)
 
 Gura_ImplementMethod(wx_RichTextLine, SetRange_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int from = arg.GetNumber(0)
 	//int to = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRange();
@@ -124,9 +106,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetParent)
 
 Gura_ImplementMethod(wx_RichTextLine, GetParent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetParent();
 	return Value::Nil;
 }
@@ -138,9 +119,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetRange)
 
 Gura_ImplementMethod(wx_RichTextLine, GetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRange();
 	return Value::Nil;
 }
@@ -152,9 +132,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetRange_1)
 
 Gura_ImplementMethod(wx_RichTextLine, GetRange_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRange();
 	return Value::Nil;
 }
@@ -166,9 +145,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetAbsoluteRange)
 
 Gura_ImplementMethod(wx_RichTextLine, GetAbsoluteRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAbsoluteRange();
 	return Value::Nil;
 }
@@ -180,9 +158,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetSize)
 
 Gura_ImplementMethod(wx_RichTextLine, GetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -195,9 +172,8 @@ Gura_DeclareMethod(wx_RichTextLine, SetSize)
 
 Gura_ImplementMethod(wx_RichTextLine, SetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sz = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
@@ -210,9 +186,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetPosition)
 
 Gura_ImplementMethod(wx_RichTextLine, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -225,9 +200,8 @@ Gura_DeclareMethod(wx_RichTextLine, SetPosition)
 
 Gura_ImplementMethod(wx_RichTextLine, SetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;
@@ -240,9 +214,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetAbsolutePosition)
 
 Gura_ImplementMethod(wx_RichTextLine, GetAbsolutePosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAbsolutePosition();
 	return Value::Nil;
 }
@@ -254,9 +227,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetRect)
 
 Gura_ImplementMethod(wx_RichTextLine, GetRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRect();
 	return Value::Nil;
 }
@@ -269,9 +241,8 @@ Gura_DeclareMethod(wx_RichTextLine, SetDescent)
 
 Gura_ImplementMethod(wx_RichTextLine, SetDescent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int descent = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDescent();
 	return Value::Nil;
@@ -284,9 +255,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetDescent)
 
 Gura_ImplementMethod(wx_RichTextLine, GetDescent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDescent();
 	return Value::Nil;
 }
@@ -298,9 +268,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetObjectSizes)
 
 Gura_ImplementMethod(wx_RichTextLine, GetObjectSizes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetObjectSizes();
 	return Value::Nil;
 }
@@ -312,9 +281,8 @@ Gura_DeclareMethod(wx_RichTextLine, GetObjectSizes_1)
 
 Gura_ImplementMethod(wx_RichTextLine, GetObjectSizes_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetObjectSizes();
 	return Value::Nil;
 }
@@ -327,9 +295,8 @@ Gura_DeclareMethod(wx_RichTextLine, Init)
 
 Gura_ImplementMethod(wx_RichTextLine, Init)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->Init();
 	return Value::Nil;
@@ -343,9 +310,8 @@ Gura_DeclareMethod(wx_RichTextLine, Copy)
 
 Gura_ImplementMethod(wx_RichTextLine, Copy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
@@ -358,9 +324,8 @@ Gura_DeclareMethod(wx_RichTextLine, Clone)
 
 Gura_ImplementMethod(wx_RichTextLine, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -372,7 +337,6 @@ Gura_ImplementUserInheritableClass(wx_RichTextLine)
 {
 	Gura_AssignMethod(wx_RichTextLine, wxRichTextLine);
 	Gura_AssignMethod(wx_RichTextLine, wxRichTextLine_1);
-	Gura_AssignMethod(wx_RichTextLine, ~wxRichTextLine);
 	Gura_AssignMethod(wx_RichTextLine, SetRange);
 	Gura_AssignMethod(wx_RichTextLine, SetRange_1);
 	Gura_AssignMethod(wx_RichTextLine, GetParent);

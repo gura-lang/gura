@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_MirrorDC, wxMirrorDC)
 
 Gura_ImplementMethod(wx_MirrorDC, wxMirrorDC)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MirrorDC *pThis = Object_wx_MirrorDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int mirror = arg.GetNumber(1)
 	//pThis->GetEntity()->wxMirrorDC();

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSymbolPickerDialog();
 	return Value::Nil;
 }
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog_1)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int symbol = arg.GetNumber(0)
 	//int initialFont = arg.GetNumber(1)
 	//int normalTextFont = arg.GetNumber(2)
@@ -99,9 +97,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, Create)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int symbol = arg.GetNumber(0)
 	//int initialFont = arg.GetNumber(1)
 	//int normalTextFont = arg.GetNumber(2)
@@ -122,9 +119,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, GetFontName)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, GetFontName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFontName();
 	return Value::Nil;
 }
@@ -136,9 +132,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, GetFromUnicode)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, GetFromUnicode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFromUnicode();
 	return Value::Nil;
 }
@@ -150,9 +145,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, GetNormalTextFontName)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, GetNormalTextFontName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNormalTextFontName();
 	return Value::Nil;
 }
@@ -164,9 +158,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, GetSymbol)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, GetSymbol)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSymbol();
 	return Value::Nil;
 }
@@ -178,9 +171,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, GetSymbolChar)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, GetSymbolChar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSymbolChar();
 	return Value::Nil;
 }
@@ -192,9 +184,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, HasSelection)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, HasSelection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasSelection();
 	return Value::Nil;
 }
@@ -207,9 +198,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, SetFontName)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, SetFontName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFontName();
 	return Value::Nil;
@@ -223,9 +213,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, SetFromUnicode)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, SetFromUnicode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFromUnicode();
 	return Value::Nil;
@@ -239,9 +228,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, SetNormalTextFontName)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, SetNormalTextFontName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNormalTextFontName();
 	return Value::Nil;
@@ -255,9 +243,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, SetSymbol)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, SetSymbol)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSymbol();
 	return Value::Nil;
@@ -271,9 +258,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, SetUnicodeMode)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, SetUnicodeMode)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int unicodeMode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetUnicodeMode();
 	return Value::Nil;
@@ -286,9 +272,8 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, UseNormalFont)
 
 Gura_ImplementMethod(wx_SymbolPickerDialog, UseNormalFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->UseNormalFont();
 	return Value::Nil;
 }

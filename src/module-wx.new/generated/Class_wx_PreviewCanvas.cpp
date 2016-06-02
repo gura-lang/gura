@@ -50,9 +50,8 @@ Gura_DeclareMethod(wx_PreviewCanvas, wxPreviewCanvas)
 
 Gura_ImplementMethod(wx_PreviewCanvas, wxPreviewCanvas)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreviewCanvas *pThis = Object_wx_PreviewCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int preview = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -60,20 +59,6 @@ Gura_ImplementMethod(wx_PreviewCanvas, wxPreviewCanvas)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
 	//pThis->GetEntity()->wxPreviewCanvas();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_PreviewCanvas, ~wxPreviewCanvas)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PreviewCanvas, ~wxPreviewCanvas)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_PreviewCanvas *pThis = Object_wx_PreviewCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPreviewCanvas();
 	return Value::Nil;
 }
 
@@ -85,9 +70,8 @@ Gura_DeclareMethod(wx_PreviewCanvas, OnPaint)
 
 Gura_ImplementMethod(wx_PreviewCanvas, OnPaint)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PreviewCanvas *pThis = Object_wx_PreviewCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->OnPaint();
 	return Value::Nil;
@@ -99,7 +83,6 @@ Gura_ImplementMethod(wx_PreviewCanvas, OnPaint)
 Gura_ImplementUserInheritableClass(wx_PreviewCanvas)
 {
 	Gura_AssignMethod(wx_PreviewCanvas, wxPreviewCanvas);
-	Gura_AssignMethod(wx_PreviewCanvas, ~wxPreviewCanvas);
 	Gura_AssignMethod(wx_PreviewCanvas, OnPaint);
 }
 

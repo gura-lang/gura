@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_PostScriptDC, wxPostScriptDC)
 
 Gura_ImplementMethod(wx_PostScriptDC, wxPostScriptDC)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PostScriptDC *pThis = Object_wx_PostScriptDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPostScriptDC();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_PostScriptDC, wxPostScriptDC_1)
 
 Gura_ImplementMethod(wx_PostScriptDC, wxPostScriptDC_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PostScriptDC *pThis = Object_wx_PostScriptDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int printData = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPostScriptDC();
 	return Value::Nil;

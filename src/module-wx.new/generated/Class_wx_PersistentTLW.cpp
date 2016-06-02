@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_PersistentTLW, wxPersistentTLW)
 
 Gura_ImplementMethod(wx_PersistentTLW, wxPersistentTLW)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentTLW *pThis = Object_wx_PersistentTLW::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int book = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPersistentTLW();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_PersistentTLW, Save)
 
 Gura_ImplementMethod(wx_PersistentTLW, Save)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentTLW *pThis = Object_wx_PersistentTLW::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Save();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_PersistentTLW, Restore)
 
 Gura_ImplementMethod(wx_PersistentTLW, Restore)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PersistentTLW *pThis = Object_wx_PersistentTLW::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Restore();
 	return Value::Nil;
 }

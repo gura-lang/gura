@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_Accessible, wxAccessible)
 
 Gura_ImplementMethod(wx_Accessible, wxAccessible)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->wxAccessible();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Accessible, ~wxAccessible)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Accessible, ~wxAccessible)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxAccessible();
 	return Value::Nil;
 }
 
@@ -75,9 +60,8 @@ Gura_DeclareMethod(wx_Accessible, DoDefaultAction)
 
 Gura_ImplementMethod(wx_Accessible, DoDefaultAction)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//pThis->GetEntity()->DoDefaultAction();
 	return Value::Nil;
@@ -92,9 +76,8 @@ Gura_DeclareMethod(wx_Accessible, GetChild)
 
 Gura_ImplementMethod(wx_Accessible, GetChild)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int child = arg.GetNumber(1)
 	//pThis->GetEntity()->GetChild();
@@ -109,9 +92,8 @@ Gura_DeclareMethod(wx_Accessible, GetChildCount)
 
 Gura_ImplementMethod(wx_Accessible, GetChildCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childCount = arg.GetNumber(0)
 	//pThis->GetEntity()->GetChildCount();
 	return Value::Nil;
@@ -126,9 +108,8 @@ Gura_DeclareMethod(wx_Accessible, GetDefaultAction)
 
 Gura_ImplementMethod(wx_Accessible, GetDefaultAction)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int actionName = arg.GetNumber(1)
 	//pThis->GetEntity()->GetDefaultAction();
@@ -144,9 +125,8 @@ Gura_DeclareMethod(wx_Accessible, GetDescription)
 
 Gura_ImplementMethod(wx_Accessible, GetDescription)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int description = arg.GetNumber(1)
 	//pThis->GetEntity()->GetDescription();
@@ -162,9 +142,8 @@ Gura_DeclareMethod(wx_Accessible, GetFocus)
 
 Gura_ImplementMethod(wx_Accessible, GetFocus)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int child = arg.GetNumber(1)
 	//pThis->GetEntity()->GetFocus();
@@ -180,9 +159,8 @@ Gura_DeclareMethod(wx_Accessible, GetHelpText)
 
 Gura_ImplementMethod(wx_Accessible, GetHelpText)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int helpText = arg.GetNumber(1)
 	//pThis->GetEntity()->GetHelpText();
@@ -198,9 +176,8 @@ Gura_DeclareMethod(wx_Accessible, GetKeyboardShortcut)
 
 Gura_ImplementMethod(wx_Accessible, GetKeyboardShortcut)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int shortcut = arg.GetNumber(1)
 	//pThis->GetEntity()->GetKeyboardShortcut();
@@ -216,9 +193,8 @@ Gura_DeclareMethod(wx_Accessible, GetLocation)
 
 Gura_ImplementMethod(wx_Accessible, GetLocation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//int elementId = arg.GetNumber(1)
 	//pThis->GetEntity()->GetLocation();
@@ -234,9 +210,8 @@ Gura_DeclareMethod(wx_Accessible, GetName)
 
 Gura_ImplementMethod(wx_Accessible, GetName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//pThis->GetEntity()->GetName();
@@ -251,9 +226,8 @@ Gura_DeclareMethod(wx_Accessible, GetParent)
 
 Gura_ImplementMethod(wx_Accessible, GetParent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//pThis->GetEntity()->GetParent();
 	return Value::Nil;
@@ -268,9 +242,8 @@ Gura_DeclareMethod(wx_Accessible, GetRole)
 
 Gura_ImplementMethod(wx_Accessible, GetRole)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int role = arg.GetNumber(1)
 	//pThis->GetEntity()->GetRole();
@@ -285,9 +258,8 @@ Gura_DeclareMethod(wx_Accessible, GetSelections)
 
 Gura_ImplementMethod(wx_Accessible, GetSelections)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int selections = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSelections();
 	return Value::Nil;
@@ -302,9 +274,8 @@ Gura_DeclareMethod(wx_Accessible, GetState)
 
 Gura_ImplementMethod(wx_Accessible, GetState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int state = arg.GetNumber(1)
 	//pThis->GetEntity()->GetState();
@@ -320,9 +291,8 @@ Gura_DeclareMethod(wx_Accessible, GetValue)
 
 Gura_ImplementMethod(wx_Accessible, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int strValue = arg.GetNumber(1)
 	//pThis->GetEntity()->GetValue();
@@ -336,9 +306,8 @@ Gura_DeclareMethod(wx_Accessible, GetWindow)
 
 Gura_ImplementMethod(wx_Accessible, GetWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }
@@ -353,9 +322,8 @@ Gura_DeclareMethod(wx_Accessible, HitTest)
 
 Gura_ImplementMethod(wx_Accessible, HitTest)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//int childId = arg.GetNumber(1)
 	//int childObject = arg.GetNumber(2)
@@ -374,9 +342,8 @@ Gura_DeclareMethod(wx_Accessible, Navigate)
 
 Gura_ImplementMethod(wx_Accessible, Navigate)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int navDir = arg.GetNumber(0)
 	//int fromId = arg.GetNumber(1)
 	//int toId = arg.GetNumber(2)
@@ -396,9 +363,8 @@ Gura_DeclareMethod(wx_Accessible, NotifyEvent)
 
 Gura_ImplementMethod(wx_Accessible, NotifyEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int window = arg.GetNumber(1)
 	//int objectType = arg.GetNumber(2)
@@ -416,9 +382,8 @@ Gura_DeclareMethod(wx_Accessible, Select)
 
 Gura_ImplementMethod(wx_Accessible, Select)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//int selectFlags = arg.GetNumber(1)
 	//pThis->GetEntity()->Select();
@@ -433,9 +398,8 @@ Gura_DeclareMethod(wx_Accessible, SetWindow)
 
 Gura_ImplementMethod(wx_Accessible, SetWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWindow();
 	return Value::Nil;
@@ -447,7 +411,6 @@ Gura_ImplementMethod(wx_Accessible, SetWindow)
 Gura_ImplementUserInheritableClass(wx_Accessible)
 {
 	Gura_AssignMethod(wx_Accessible, wxAccessible);
-	Gura_AssignMethod(wx_Accessible, ~wxAccessible);
 	Gura_AssignMethod(wx_Accessible, DoDefaultAction);
 	Gura_AssignMethod(wx_Accessible, GetChild);
 	Gura_AssignMethod(wx_Accessible, GetChildCount);

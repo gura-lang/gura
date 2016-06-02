@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_Overlay, wxOverlay)
 
 Gura_ImplementMethod(wx_Overlay, wxOverlay)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Overlay *pThis = Object_wx_Overlay::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxOverlay();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Overlay, ~wxOverlay)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Overlay, ~wxOverlay)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Overlay *pThis = Object_wx_Overlay::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxOverlay();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_Overlay, Reset)
 
 Gura_ImplementMethod(wx_Overlay, Reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Overlay *pThis = Object_wx_Overlay::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }
@@ -85,7 +69,6 @@ Gura_ImplementMethod(wx_Overlay, Reset)
 Gura_ImplementUserInheritableClass(wx_Overlay)
 {
 	Gura_AssignMethod(wx_Overlay, wxOverlay);
-	Gura_AssignMethod(wx_Overlay, ~wxOverlay);
 	Gura_AssignMethod(wx_Overlay, Reset);
 }
 

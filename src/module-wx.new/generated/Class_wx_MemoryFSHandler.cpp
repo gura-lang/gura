@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_MemoryFSHandler, wxMemoryFSHandler)
 
 Gura_ImplementMethod(wx_MemoryFSHandler, wxMemoryFSHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxMemoryFSHandler();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_MemoryFSHandler, AddFile)
 
 Gura_ImplementMethod(wx_MemoryFSHandler, AddFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int image = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
@@ -81,9 +79,8 @@ Gura_DeclareMethod(wx_MemoryFSHandler, AddFile_1)
 
 Gura_ImplementMethod(wx_MemoryFSHandler, AddFile_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
@@ -101,9 +98,8 @@ Gura_DeclareMethod(wx_MemoryFSHandler, AddFileWithMimeType)
 
 Gura_ImplementMethod(wx_MemoryFSHandler, AddFileWithMimeType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int textdata = arg.GetNumber(1)
 	//int mimetype = arg.GetNumber(2)
@@ -122,9 +118,8 @@ Gura_DeclareMethod(wx_MemoryFSHandler, AddFileWithMimeType_1)
 
 Gura_ImplementMethod(wx_MemoryFSHandler, AddFileWithMimeType_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int binarydata = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -141,9 +136,8 @@ Gura_DeclareMethod(wx_MemoryFSHandler, RemoveFile)
 
 Gura_ImplementMethod(wx_MemoryFSHandler, RemoveFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveFile();
 	return Value::Nil;

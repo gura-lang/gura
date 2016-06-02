@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, wxRichTextContextMenuPr
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, wxRichTextContextMenuPropertiesInfo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRichTextContextMenuPropertiesInfo();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, Init)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, Init)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Init();
 	return Value::Nil;
 }
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, AddItem)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, AddItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int label = arg.GetNumber(0)
 	//int obj = arg.GetNumber(1)
 	//pThis->GetEntity()->AddItem();
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, AddMenuItems)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, AddMenuItems)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int menu = arg.GetNumber(0)
 	//int startCmd = arg.GetNumber(1)
 	//pThis->GetEntity()->AddMenuItems();
@@ -111,9 +107,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, AddItems)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, AddItems)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ctrl = arg.GetNumber(0)
 	//int container = arg.GetNumber(1)
 	//int obj = arg.GetNumber(2)
@@ -128,9 +123,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, Clear)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -143,9 +137,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, GetLabel)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, GetLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLabel();
 	return Value::Nil;
@@ -159,9 +152,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, GetObject)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, GetObject)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetObject();
 	return Value::Nil;
@@ -174,9 +166,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, GetObjects)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, GetObjects)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetObjects();
 	return Value::Nil;
 }
@@ -188,9 +179,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, GetObjects_1)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, GetObjects_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetObjects();
 	return Value::Nil;
 }
@@ -202,9 +192,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, GetLabels)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, GetLabels)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLabels();
 	return Value::Nil;
 }
@@ -216,9 +205,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, GetLabels_1)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, GetLabels_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLabels();
 	return Value::Nil;
 }
@@ -230,9 +218,8 @@ Gura_DeclareMethod(wx_RichTextContextMenuPropertiesInfo, GetCount)
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, GetCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }

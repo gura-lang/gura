@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RibbonPage, wxRibbonPage)
 
 Gura_ImplementMethod(wx_RibbonPage, wxRibbonPage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRibbonPage();
 	return Value::Nil;
 }
@@ -63,29 +62,14 @@ Gura_DeclareMethod(wx_RibbonPage, wxRibbonPage_1)
 
 Gura_ImplementMethod(wx_RibbonPage, wxRibbonPage_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
 	//int icon = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->wxRibbonPage();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RibbonPage, ~wxRibbonPage)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RibbonPage, ~wxRibbonPage)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRibbonPage();
 	return Value::Nil;
 }
 
@@ -101,9 +85,8 @@ Gura_DeclareMethod(wx_RibbonPage, Create)
 
 Gura_ImplementMethod(wx_RibbonPage, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -121,9 +104,8 @@ Gura_DeclareMethod(wx_RibbonPage, SetArtProvider)
 
 Gura_ImplementMethod(wx_RibbonPage, SetArtProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int art = arg.GetNumber(0)
 	//pThis->GetEntity()->SetArtProvider();
 	return Value::Nil;
@@ -136,9 +118,8 @@ Gura_DeclareMethod(wx_RibbonPage, GetIcon)
 
 Gura_ImplementMethod(wx_RibbonPage, GetIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetIcon();
 	return Value::Nil;
 }
@@ -154,9 +135,8 @@ Gura_DeclareMethod(wx_RibbonPage, SetSizeWithScrollButtonAdjustment)
 
 Gura_ImplementMethod(wx_RibbonPage, SetSizeWithScrollButtonAdjustment)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int width = arg.GetNumber(2)
@@ -173,9 +153,8 @@ Gura_DeclareMethod(wx_RibbonPage, AdjustRectToIncludeScrollButtons)
 
 Gura_ImplementMethod(wx_RibbonPage, AdjustRectToIncludeScrollButtons)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
 	//pThis->GetEntity()->AdjustRectToIncludeScrollButtons();
 	return Value::Nil;
@@ -188,9 +167,8 @@ Gura_DeclareMethod(wx_RibbonPage, DismissExpandedPanel)
 
 Gura_ImplementMethod(wx_RibbonPage, DismissExpandedPanel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DismissExpandedPanel();
 	return Value::Nil;
 }
@@ -202,9 +180,8 @@ Gura_DeclareMethod(wx_RibbonPage, Realize)
 
 Gura_ImplementMethod(wx_RibbonPage, Realize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Realize();
 	return Value::Nil;
 }
@@ -217,9 +194,8 @@ Gura_DeclareMethod(wx_RibbonPage, ScrollLines)
 
 Gura_ImplementMethod(wx_RibbonPage, ScrollLines)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lines = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollLines();
 	return Value::Nil;
@@ -233,9 +209,8 @@ Gura_DeclareMethod(wx_RibbonPage, ScrollPixels)
 
 Gura_ImplementMethod(wx_RibbonPage, ScrollPixels)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixels = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollPixels();
 	return Value::Nil;
@@ -249,9 +224,8 @@ Gura_DeclareMethod(wx_RibbonPage, ScrollSections)
 
 Gura_ImplementMethod(wx_RibbonPage, ScrollSections)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sections = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollSections();
 	return Value::Nil;
@@ -264,9 +238,8 @@ Gura_DeclareMethod(wx_RibbonPage, GetMajorAxis)
 
 Gura_ImplementMethod(wx_RibbonPage, GetMajorAxis)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMajorAxis();
 	return Value::Nil;
 }
@@ -278,7 +251,6 @@ Gura_ImplementUserInheritableClass(wx_RibbonPage)
 {
 	Gura_AssignMethod(wx_RibbonPage, wxRibbonPage);
 	Gura_AssignMethod(wx_RibbonPage, wxRibbonPage_1);
-	Gura_AssignMethod(wx_RibbonPage, ~wxRibbonPage);
 	Gura_AssignMethod(wx_RibbonPage, Create);
 	Gura_AssignMethod(wx_RibbonPage, SetArtProvider);
 	Gura_AssignMethod(wx_RibbonPage, GetIcon);

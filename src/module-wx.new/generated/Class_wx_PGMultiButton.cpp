@@ -46,26 +46,11 @@ Gura_DeclareMethod(wx_PGMultiButton, wxPGMultiButton)
 
 Gura_ImplementMethod(wx_PGMultiButton, wxPGMultiButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pg = arg.GetNumber(0)
 	//int sz = arg.GetNumber(1)
 	//pThis->GetEntity()->wxPGMultiButton();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_PGMultiButton, ~wxPGMultiButton)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PGMultiButton, ~wxPGMultiButton)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPGMultiButton();
 	return Value::Nil;
 }
 
@@ -78,9 +63,8 @@ Gura_DeclareMethod(wx_PGMultiButton, Add)
 
 Gura_ImplementMethod(wx_PGMultiButton, Add)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int label = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->Add();
@@ -96,9 +80,8 @@ Gura_DeclareMethod(wx_PGMultiButton, Add_1)
 
 Gura_ImplementMethod(wx_PGMultiButton, Add_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->Add();
@@ -114,9 +97,8 @@ Gura_DeclareMethod(wx_PGMultiButton, Finalize)
 
 Gura_ImplementMethod(wx_PGMultiButton, Finalize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int propGrid = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//pThis->GetEntity()->Finalize();
@@ -131,9 +113,8 @@ Gura_DeclareMethod(wx_PGMultiButton, GetButton)
 
 Gura_ImplementMethod(wx_PGMultiButton, GetButton)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int i = arg.GetNumber(0)
 	//pThis->GetEntity()->GetButton();
 	return Value::Nil;
@@ -147,9 +128,8 @@ Gura_DeclareMethod(wx_PGMultiButton, GetButtonId)
 
 Gura_ImplementMethod(wx_PGMultiButton, GetButtonId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int i = arg.GetNumber(0)
 	//pThis->GetEntity()->GetButtonId();
 	return Value::Nil;
@@ -162,9 +142,8 @@ Gura_DeclareMethod(wx_PGMultiButton, GetCount)
 
 Gura_ImplementMethod(wx_PGMultiButton, GetCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
@@ -176,9 +155,8 @@ Gura_DeclareMethod(wx_PGMultiButton, GetPrimarySize)
 
 Gura_ImplementMethod(wx_PGMultiButton, GetPrimarySize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPrimarySize();
 	return Value::Nil;
 }
@@ -189,7 +167,6 @@ Gura_ImplementMethod(wx_PGMultiButton, GetPrimarySize)
 Gura_ImplementUserInheritableClass(wx_PGMultiButton)
 {
 	Gura_AssignMethod(wx_PGMultiButton, wxPGMultiButton);
-	Gura_AssignMethod(wx_PGMultiButton, ~wxPGMultiButton);
 	Gura_AssignMethod(wx_PGMultiButton, Add);
 	Gura_AssignMethod(wx_PGMultiButton, Add_1);
 	Gura_AssignMethod(wx_PGMultiButton, Finalize);

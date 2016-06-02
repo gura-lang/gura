@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_SystemSettings, wxSystemSettings)
 
 Gura_ImplementMethod(wx_SystemSettings, wxSystemSettings)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSystemSettings();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_SystemSettings, GetColour)
 
 Gura_ImplementMethod(wx_SystemSettings, GetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColour();
 	return Value::Nil;
@@ -75,9 +73,8 @@ Gura_DeclareMethod(wx_SystemSettings, GetFont)
 
 Gura_ImplementMethod(wx_SystemSettings, GetFont)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFont();
 	return Value::Nil;
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_SystemSettings, GetMetric)
 
 Gura_ImplementMethod(wx_SystemSettings, GetMetric)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//int win = arg.GetNumber(1)
 	//pThis->GetEntity()->GetMetric();
@@ -108,9 +104,8 @@ Gura_DeclareMethod(wx_SystemSettings, GetScreenType)
 
 Gura_ImplementMethod(wx_SystemSettings, GetScreenType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetScreenType();
 	return Value::Nil;
 }
@@ -123,9 +118,8 @@ Gura_DeclareMethod(wx_SystemSettings, HasFeature)
 
 Gura_ImplementMethod(wx_SystemSettings, HasFeature)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//pThis->GetEntity()->HasFeature();
 	return Value::Nil;

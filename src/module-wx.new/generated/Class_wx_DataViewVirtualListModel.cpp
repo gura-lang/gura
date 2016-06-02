@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_DataViewVirtualListModel, wxDataViewVirtualListModel)
 
 Gura_ImplementMethod(wx_DataViewVirtualListModel, wxDataViewVirtualListModel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int initial_size = arg.GetNumber(0)
 	//pThis->GetEntity()->wxDataViewVirtualListModel();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_DataViewVirtualListModel, GetItem)
 
 Gura_ImplementMethod(wx_DataViewVirtualListModel, GetItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItem();
 	return Value::Nil;
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_DataViewVirtualListModel, Reset)
 
 Gura_ImplementMethod(wx_DataViewVirtualListModel, Reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int new_size = arg.GetNumber(0)
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_DataViewVirtualListModel, RowAppended)
 
 Gura_ImplementMethod(wx_DataViewVirtualListModel, RowAppended)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RowAppended();
 	return Value::Nil;
 }
@@ -107,9 +103,8 @@ Gura_DeclareMethod(wx_DataViewVirtualListModel, RowChanged)
 
 Gura_ImplementMethod(wx_DataViewVirtualListModel, RowChanged)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//pThis->GetEntity()->RowChanged();
 	return Value::Nil;
@@ -123,9 +118,8 @@ Gura_DeclareMethod(wx_DataViewVirtualListModel, RowDeleted)
 
 Gura_ImplementMethod(wx_DataViewVirtualListModel, RowDeleted)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//pThis->GetEntity()->RowDeleted();
 	return Value::Nil;
@@ -139,9 +133,8 @@ Gura_DeclareMethod(wx_DataViewVirtualListModel, RowInserted)
 
 Gura_ImplementMethod(wx_DataViewVirtualListModel, RowInserted)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int before = arg.GetNumber(0)
 	//pThis->GetEntity()->RowInserted();
 	return Value::Nil;
@@ -154,9 +147,8 @@ Gura_DeclareMethod(wx_DataViewVirtualListModel, RowPrepended)
 
 Gura_ImplementMethod(wx_DataViewVirtualListModel, RowPrepended)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->RowPrepended();
 	return Value::Nil;
 }
@@ -170,9 +162,8 @@ Gura_DeclareMethod(wx_DataViewVirtualListModel, RowValueChanged)
 
 Gura_ImplementMethod(wx_DataViewVirtualListModel, RowValueChanged)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->RowValueChanged();
@@ -187,9 +178,8 @@ Gura_DeclareMethod(wx_DataViewVirtualListModel, RowsDeleted)
 
 Gura_ImplementMethod(wx_DataViewVirtualListModel, RowsDeleted)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rows = arg.GetNumber(0)
 	//pThis->GetEntity()->RowsDeleted();
 	return Value::Nil;

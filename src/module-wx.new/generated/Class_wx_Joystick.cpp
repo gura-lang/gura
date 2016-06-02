@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_Joystick, wxJoystick)
 
 Gura_ImplementMethod(wx_Joystick, wxJoystick)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int joystick = arg.GetNumber(0)
 	//pThis->GetEntity()->wxJoystick();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Joystick, ~wxJoystick)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Joystick, ~wxJoystick)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxJoystick();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_Joystick, GetButtonState)
 
 Gura_ImplementMethod(wx_Joystick, GetButtonState)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetButtonState();
 	return Value::Nil;
 }
@@ -89,9 +73,8 @@ Gura_DeclareMethod(wx_Joystick, GetButtonState_1)
 
 Gura_ImplementMethod(wx_Joystick, GetButtonState_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetButtonState();
 	return Value::Nil;
@@ -104,9 +87,8 @@ Gura_DeclareMethod(wx_Joystick, GetManufacturerId)
 
 Gura_ImplementMethod(wx_Joystick, GetManufacturerId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetManufacturerId();
 	return Value::Nil;
 }
@@ -118,9 +100,8 @@ Gura_DeclareMethod(wx_Joystick, GetMovementThreshold)
 
 Gura_ImplementMethod(wx_Joystick, GetMovementThreshold)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMovementThreshold();
 	return Value::Nil;
 }
@@ -132,9 +113,8 @@ Gura_DeclareMethod(wx_Joystick, GetNumberAxes)
 
 Gura_ImplementMethod(wx_Joystick, GetNumberAxes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNumberAxes();
 	return Value::Nil;
 }
@@ -146,9 +126,8 @@ Gura_DeclareMethod(wx_Joystick, GetNumberButtons)
 
 Gura_ImplementMethod(wx_Joystick, GetNumberButtons)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNumberButtons();
 	return Value::Nil;
 }
@@ -160,9 +139,8 @@ Gura_DeclareMethod(wx_Joystick, GetNumberJoysticks)
 
 Gura_ImplementMethod(wx_Joystick, GetNumberJoysticks)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNumberJoysticks();
 	return Value::Nil;
 }
@@ -174,9 +152,8 @@ Gura_DeclareMethod(wx_Joystick, GetPOVCTSPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetPOVCTSPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPOVCTSPosition();
 	return Value::Nil;
 }
@@ -188,9 +165,8 @@ Gura_DeclareMethod(wx_Joystick, GetPOVPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetPOVPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPOVPosition();
 	return Value::Nil;
 }
@@ -202,9 +178,8 @@ Gura_DeclareMethod(wx_Joystick, GetPollingMax)
 
 Gura_ImplementMethod(wx_Joystick, GetPollingMax)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPollingMax();
 	return Value::Nil;
 }
@@ -216,9 +191,8 @@ Gura_DeclareMethod(wx_Joystick, GetPollingMin)
 
 Gura_ImplementMethod(wx_Joystick, GetPollingMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPollingMin();
 	return Value::Nil;
 }
@@ -230,9 +204,8 @@ Gura_DeclareMethod(wx_Joystick, GetPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -245,9 +218,8 @@ Gura_DeclareMethod(wx_Joystick, GetPosition_1)
 
 Gura_ImplementMethod(wx_Joystick, GetPosition_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int axis = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
@@ -260,9 +232,8 @@ Gura_DeclareMethod(wx_Joystick, GetProductId)
 
 Gura_ImplementMethod(wx_Joystick, GetProductId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetProductId();
 	return Value::Nil;
 }
@@ -274,9 +245,8 @@ Gura_DeclareMethod(wx_Joystick, GetProductName)
 
 Gura_ImplementMethod(wx_Joystick, GetProductName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetProductName();
 	return Value::Nil;
 }
@@ -288,9 +258,8 @@ Gura_DeclareMethod(wx_Joystick, GetRudderMax)
 
 Gura_ImplementMethod(wx_Joystick, GetRudderMax)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRudderMax();
 	return Value::Nil;
 }
@@ -302,9 +271,8 @@ Gura_DeclareMethod(wx_Joystick, GetRudderMin)
 
 Gura_ImplementMethod(wx_Joystick, GetRudderMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRudderMin();
 	return Value::Nil;
 }
@@ -316,9 +284,8 @@ Gura_DeclareMethod(wx_Joystick, GetRudderPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetRudderPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRudderPosition();
 	return Value::Nil;
 }
@@ -330,9 +297,8 @@ Gura_DeclareMethod(wx_Joystick, GetUMax)
 
 Gura_ImplementMethod(wx_Joystick, GetUMax)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUMax();
 	return Value::Nil;
 }
@@ -344,9 +310,8 @@ Gura_DeclareMethod(wx_Joystick, GetUMin)
 
 Gura_ImplementMethod(wx_Joystick, GetUMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUMin();
 	return Value::Nil;
 }
@@ -358,9 +323,8 @@ Gura_DeclareMethod(wx_Joystick, GetUPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetUPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUPosition();
 	return Value::Nil;
 }
@@ -372,9 +336,8 @@ Gura_DeclareMethod(wx_Joystick, GetVMax)
 
 Gura_ImplementMethod(wx_Joystick, GetVMax)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVMax();
 	return Value::Nil;
 }
@@ -386,9 +349,8 @@ Gura_DeclareMethod(wx_Joystick, GetVMin)
 
 Gura_ImplementMethod(wx_Joystick, GetVMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVMin();
 	return Value::Nil;
 }
@@ -400,9 +362,8 @@ Gura_DeclareMethod(wx_Joystick, GetVPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetVPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVPosition();
 	return Value::Nil;
 }
@@ -414,9 +375,8 @@ Gura_DeclareMethod(wx_Joystick, GetXMax)
 
 Gura_ImplementMethod(wx_Joystick, GetXMax)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetXMax();
 	return Value::Nil;
 }
@@ -428,9 +388,8 @@ Gura_DeclareMethod(wx_Joystick, GetXMin)
 
 Gura_ImplementMethod(wx_Joystick, GetXMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetXMin();
 	return Value::Nil;
 }
@@ -442,9 +401,8 @@ Gura_DeclareMethod(wx_Joystick, GetYMax)
 
 Gura_ImplementMethod(wx_Joystick, GetYMax)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetYMax();
 	return Value::Nil;
 }
@@ -456,9 +414,8 @@ Gura_DeclareMethod(wx_Joystick, GetYMin)
 
 Gura_ImplementMethod(wx_Joystick, GetYMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetYMin();
 	return Value::Nil;
 }
@@ -470,9 +427,8 @@ Gura_DeclareMethod(wx_Joystick, GetZMax)
 
 Gura_ImplementMethod(wx_Joystick, GetZMax)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetZMax();
 	return Value::Nil;
 }
@@ -484,9 +440,8 @@ Gura_DeclareMethod(wx_Joystick, GetZMin)
 
 Gura_ImplementMethod(wx_Joystick, GetZMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetZMin();
 	return Value::Nil;
 }
@@ -498,9 +453,8 @@ Gura_DeclareMethod(wx_Joystick, GetZPosition)
 
 Gura_ImplementMethod(wx_Joystick, GetZPosition)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetZPosition();
 	return Value::Nil;
 }
@@ -512,9 +466,8 @@ Gura_DeclareMethod(wx_Joystick, HasPOV)
 
 Gura_ImplementMethod(wx_Joystick, HasPOV)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasPOV();
 	return Value::Nil;
 }
@@ -526,9 +479,8 @@ Gura_DeclareMethod(wx_Joystick, HasPOV4Dir)
 
 Gura_ImplementMethod(wx_Joystick, HasPOV4Dir)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasPOV4Dir();
 	return Value::Nil;
 }
@@ -540,9 +492,8 @@ Gura_DeclareMethod(wx_Joystick, HasPOVCTS)
 
 Gura_ImplementMethod(wx_Joystick, HasPOVCTS)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasPOVCTS();
 	return Value::Nil;
 }
@@ -554,9 +505,8 @@ Gura_DeclareMethod(wx_Joystick, HasRudder)
 
 Gura_ImplementMethod(wx_Joystick, HasRudder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasRudder();
 	return Value::Nil;
 }
@@ -568,9 +518,8 @@ Gura_DeclareMethod(wx_Joystick, HasU)
 
 Gura_ImplementMethod(wx_Joystick, HasU)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasU();
 	return Value::Nil;
 }
@@ -582,9 +531,8 @@ Gura_DeclareMethod(wx_Joystick, HasV)
 
 Gura_ImplementMethod(wx_Joystick, HasV)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasV();
 	return Value::Nil;
 }
@@ -596,9 +544,8 @@ Gura_DeclareMethod(wx_Joystick, HasZ)
 
 Gura_ImplementMethod(wx_Joystick, HasZ)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasZ();
 	return Value::Nil;
 }
@@ -610,9 +557,8 @@ Gura_DeclareMethod(wx_Joystick, IsOk)
 
 Gura_ImplementMethod(wx_Joystick, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -624,9 +570,8 @@ Gura_DeclareMethod(wx_Joystick, ReleaseCapture)
 
 Gura_ImplementMethod(wx_Joystick, ReleaseCapture)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ReleaseCapture();
 	return Value::Nil;
 }
@@ -640,9 +585,8 @@ Gura_DeclareMethod(wx_Joystick, SetCapture)
 
 Gura_ImplementMethod(wx_Joystick, SetCapture)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int pollingFreq = arg.GetNumber(1)
 	//pThis->GetEntity()->SetCapture();
@@ -657,9 +601,8 @@ Gura_DeclareMethod(wx_Joystick, SetMovementThreshold)
 
 Gura_ImplementMethod(wx_Joystick, SetMovementThreshold)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int threshold = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMovementThreshold();
 	return Value::Nil;
@@ -671,7 +614,6 @@ Gura_ImplementMethod(wx_Joystick, SetMovementThreshold)
 Gura_ImplementUserInheritableClass(wx_Joystick)
 {
 	Gura_AssignMethod(wx_Joystick, wxJoystick);
-	Gura_AssignMethod(wx_Joystick, ~wxJoystick);
 	Gura_AssignMethod(wx_Joystick, GetButtonState);
 	Gura_AssignMethod(wx_Joystick, GetButtonState_1);
 	Gura_AssignMethod(wx_Joystick, GetManufacturerId);

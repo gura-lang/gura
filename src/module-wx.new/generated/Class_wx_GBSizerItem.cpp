@@ -51,9 +51,8 @@ Gura_DeclareMethod(wx_GBSizerItem, wxGBSizerItem)
 
 Gura_ImplementMethod(wx_GBSizerItem, wxGBSizerItem)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -78,9 +77,8 @@ Gura_DeclareMethod(wx_GBSizerItem, wxGBSizerItem_1)
 
 Gura_ImplementMethod(wx_GBSizerItem, wxGBSizerItem_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int span = arg.GetNumber(2)
@@ -104,9 +102,8 @@ Gura_DeclareMethod(wx_GBSizerItem, wxGBSizerItem_2)
 
 Gura_ImplementMethod(wx_GBSizerItem, wxGBSizerItem_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sizer = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int span = arg.GetNumber(2)
@@ -126,9 +123,8 @@ Gura_DeclareMethod(wx_GBSizerItem, GetEndPos)
 
 Gura_ImplementMethod(wx_GBSizerItem, GetEndPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->GetEndPos();
@@ -142,9 +138,8 @@ Gura_DeclareMethod(wx_GBSizerItem, GetPos)
 
 Gura_ImplementMethod(wx_GBSizerItem, GetPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPos();
 	return Value::Nil;
 }
@@ -158,9 +153,8 @@ Gura_DeclareMethod(wx_GBSizerItem, GetPos_1)
 
 Gura_ImplementMethod(wx_GBSizerItem, GetPos_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPos();
@@ -174,9 +168,8 @@ Gura_DeclareMethod(wx_GBSizerItem, GetSpan)
 
 Gura_ImplementMethod(wx_GBSizerItem, GetSpan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSpan();
 	return Value::Nil;
 }
@@ -190,9 +183,8 @@ Gura_DeclareMethod(wx_GBSizerItem, GetSpan_1)
 
 Gura_ImplementMethod(wx_GBSizerItem, GetSpan_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rowspan = arg.GetNumber(0)
 	//int colspan = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSpan();
@@ -207,9 +199,8 @@ Gura_DeclareMethod(wx_GBSizerItem, Intersects)
 
 Gura_ImplementMethod(wx_GBSizerItem, Intersects)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int other = arg.GetNumber(0)
 	//pThis->GetEntity()->Intersects();
 	return Value::Nil;
@@ -224,9 +215,8 @@ Gura_DeclareMethod(wx_GBSizerItem, Intersects_1)
 
 Gura_ImplementMethod(wx_GBSizerItem, Intersects_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int span = arg.GetNumber(1)
 	//pThis->GetEntity()->Intersects();
@@ -241,9 +231,8 @@ Gura_DeclareMethod(wx_GBSizerItem, SetPos)
 
 Gura_ImplementMethod(wx_GBSizerItem, SetPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPos();
 	return Value::Nil;
@@ -257,9 +246,8 @@ Gura_DeclareMethod(wx_GBSizerItem, SetSpan)
 
 Gura_ImplementMethod(wx_GBSizerItem, SetSpan)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int span = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSpan();
 	return Value::Nil;
@@ -272,9 +260,8 @@ Gura_DeclareMethod(wx_GBSizerItem, GetGBSizer)
 
 Gura_ImplementMethod(wx_GBSizerItem, GetGBSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetGBSizer();
 	return Value::Nil;
 }
@@ -287,9 +274,8 @@ Gura_DeclareMethod(wx_GBSizerItem, SetGBSizer)
 
 Gura_ImplementMethod(wx_GBSizerItem, SetGBSizer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sizer = arg.GetNumber(0)
 	//pThis->GetEntity()->SetGBSizer();
 	return Value::Nil;

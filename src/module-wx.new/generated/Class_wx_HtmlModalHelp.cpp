@@ -48,9 +48,8 @@ Gura_DeclareMethod(wx_HtmlModalHelp, wxHtmlModalHelp)
 
 Gura_ImplementMethod(wx_HtmlModalHelp, wxHtmlModalHelp)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlModalHelp *pThis = Object_wx_HtmlModalHelp::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int helpFile = arg.GetNumber(1)
 	//int topic = arg.GetNumber(2)

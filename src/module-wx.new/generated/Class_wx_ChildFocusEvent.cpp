@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_ChildFocusEvent, wxChildFocusEvent)
 
 Gura_ImplementMethod(wx_ChildFocusEvent, wxChildFocusEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ChildFocusEvent *pThis = Object_wx_ChildFocusEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->wxChildFocusEvent();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_ChildFocusEvent, GetWindow)
 
 Gura_ImplementMethod(wx_ChildFocusEvent, GetWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ChildFocusEvent *pThis = Object_wx_ChildFocusEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }

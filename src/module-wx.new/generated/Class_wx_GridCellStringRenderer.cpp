@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GridCellStringRenderer, wxGridCellStringRenderer)
 
 Gura_ImplementMethod(wx_GridCellStringRenderer, wxGridCellStringRenderer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellStringRenderer *pThis = Object_wx_GridCellStringRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGridCellStringRenderer();
 	return Value::Nil;
 }

@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_RichTextField, wxRichTextField)
 
 Gura_ImplementMethod(wx_RichTextField, wxRichTextField)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fieldType = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//pThis->GetEntity()->wxRichTextField();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_RichTextField, wxRichTextField_1)
 
 Gura_ImplementMethod(wx_RichTextField, wxRichTextField_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRichTextField();
 	return Value::Nil;
 }
@@ -83,9 +81,8 @@ Gura_DeclareMethod(wx_RichTextField, Draw)
 
 Gura_ImplementMethod(wx_RichTextField, Draw)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int range = arg.GetNumber(2)
@@ -109,9 +106,8 @@ Gura_DeclareMethod(wx_RichTextField, Layout)
 
 Gura_ImplementMethod(wx_RichTextField, Layout)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int context = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)
@@ -137,9 +133,8 @@ Gura_DeclareMethod(wx_RichTextField, GetRangeSize)
 
 Gura_ImplementMethod(wx_RichTextField, GetRangeSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int descent = arg.GetNumber(2)
@@ -160,9 +155,8 @@ Gura_DeclareMethod(wx_RichTextField, GetXMLNodeName)
 
 Gura_ImplementMethod(wx_RichTextField, GetXMLNodeName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetXMLNodeName();
 	return Value::Nil;
 }
@@ -174,9 +168,8 @@ Gura_DeclareMethod(wx_RichTextField, CanEditProperties)
 
 Gura_ImplementMethod(wx_RichTextField, CanEditProperties)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanEditProperties();
 	return Value::Nil;
 }
@@ -190,9 +183,8 @@ Gura_DeclareMethod(wx_RichTextField, EditProperties)
 
 Gura_ImplementMethod(wx_RichTextField, EditProperties)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
 	//pThis->GetEntity()->EditProperties();
@@ -206,9 +198,8 @@ Gura_DeclareMethod(wx_RichTextField, GetPropertiesMenuLabel)
 
 Gura_ImplementMethod(wx_RichTextField, GetPropertiesMenuLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPropertiesMenuLabel();
 	return Value::Nil;
 }
@@ -220,9 +211,8 @@ Gura_DeclareMethod(wx_RichTextField, AcceptsFocus)
 
 Gura_ImplementMethod(wx_RichTextField, AcceptsFocus)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->AcceptsFocus();
 	return Value::Nil;
 }
@@ -236,9 +226,8 @@ Gura_DeclareMethod(wx_RichTextField, CalculateRange)
 
 Gura_ImplementMethod(wx_RichTextField, CalculateRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int start = arg.GetNumber(0)
 	//int end = arg.GetNumber(1)
 	//pThis->GetEntity()->CalculateRange();
@@ -252,9 +241,8 @@ Gura_DeclareMethod(wx_RichTextField, IsAtomic)
 
 Gura_ImplementMethod(wx_RichTextField, IsAtomic)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsAtomic();
 	return Value::Nil;
 }
@@ -266,9 +254,8 @@ Gura_DeclareMethod(wx_RichTextField, IsEmpty)
 
 Gura_ImplementMethod(wx_RichTextField, IsEmpty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
@@ -280,9 +267,8 @@ Gura_DeclareMethod(wx_RichTextField, IsTopLevel)
 
 Gura_ImplementMethod(wx_RichTextField, IsTopLevel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsTopLevel();
 	return Value::Nil;
 }
@@ -295,9 +281,8 @@ Gura_DeclareMethod(wx_RichTextField, SetFieldType)
 
 Gura_ImplementMethod(wx_RichTextField, SetFieldType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fieldType = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFieldType();
 	return Value::Nil;
@@ -310,9 +295,8 @@ Gura_DeclareMethod(wx_RichTextField, GetFieldType)
 
 Gura_ImplementMethod(wx_RichTextField, GetFieldType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFieldType();
 	return Value::Nil;
 }
@@ -325,9 +309,8 @@ Gura_DeclareMethod(wx_RichTextField, UpdateField)
 
 Gura_ImplementMethod(wx_RichTextField, UpdateField)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//pThis->GetEntity()->UpdateField();
 	return Value::Nil;
@@ -340,9 +323,8 @@ Gura_DeclareMethod(wx_RichTextField, Clone)
 
 Gura_ImplementMethod(wx_RichTextField, Clone)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
@@ -355,9 +337,8 @@ Gura_DeclareMethod(wx_RichTextField, Copy)
 
 Gura_ImplementMethod(wx_RichTextField, Copy)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;

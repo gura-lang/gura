@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_CommandProcessor, wxCommandProcessor)
 
 Gura_ImplementMethod(wx_CommandProcessor, wxCommandProcessor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int maxCommands = arg.GetNumber(0)
 	//pThis->GetEntity()->wxCommandProcessor();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_CommandProcessor, ~wxCommandProcessor)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_CommandProcessor, ~wxCommandProcessor)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxCommandProcessor();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_CommandProcessor, CanUndo)
 
 Gura_ImplementMethod(wx_CommandProcessor, CanUndo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanUndo();
 	return Value::Nil;
 }
@@ -88,9 +72,8 @@ Gura_DeclareMethod(wx_CommandProcessor, CanRedo)
 
 Gura_ImplementMethod(wx_CommandProcessor, CanRedo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanRedo();
 	return Value::Nil;
 }
@@ -102,9 +85,8 @@ Gura_DeclareMethod(wx_CommandProcessor, ClearCommands)
 
 Gura_ImplementMethod(wx_CommandProcessor, ClearCommands)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ClearCommands();
 	return Value::Nil;
 }
@@ -116,9 +98,8 @@ Gura_DeclareMethod(wx_CommandProcessor, GetCommands)
 
 Gura_ImplementMethod(wx_CommandProcessor, GetCommands)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCommands();
 	return Value::Nil;
 }
@@ -130,9 +111,8 @@ Gura_DeclareMethod(wx_CommandProcessor, GetCurrentCommand)
 
 Gura_ImplementMethod(wx_CommandProcessor, GetCurrentCommand)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetCurrentCommand();
 	return Value::Nil;
 }
@@ -144,9 +124,8 @@ Gura_DeclareMethod(wx_CommandProcessor, GetEditMenu)
 
 Gura_ImplementMethod(wx_CommandProcessor, GetEditMenu)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetEditMenu();
 	return Value::Nil;
 }
@@ -158,9 +137,8 @@ Gura_DeclareMethod(wx_CommandProcessor, GetMaxCommands)
 
 Gura_ImplementMethod(wx_CommandProcessor, GetMaxCommands)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetMaxCommands();
 	return Value::Nil;
 }
@@ -172,9 +150,8 @@ Gura_DeclareMethod(wx_CommandProcessor, GetRedoAccelerator)
 
 Gura_ImplementMethod(wx_CommandProcessor, GetRedoAccelerator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRedoAccelerator();
 	return Value::Nil;
 }
@@ -186,9 +163,8 @@ Gura_DeclareMethod(wx_CommandProcessor, GetRedoMenuLabel)
 
 Gura_ImplementMethod(wx_CommandProcessor, GetRedoMenuLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRedoMenuLabel();
 	return Value::Nil;
 }
@@ -200,9 +176,8 @@ Gura_DeclareMethod(wx_CommandProcessor, GetUndoAccelerator)
 
 Gura_ImplementMethod(wx_CommandProcessor, GetUndoAccelerator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUndoAccelerator();
 	return Value::Nil;
 }
@@ -214,9 +189,8 @@ Gura_DeclareMethod(wx_CommandProcessor, GetUndoMenuLabel)
 
 Gura_ImplementMethod(wx_CommandProcessor, GetUndoMenuLabel)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetUndoMenuLabel();
 	return Value::Nil;
 }
@@ -228,9 +202,8 @@ Gura_DeclareMethod(wx_CommandProcessor, Initialize)
 
 Gura_ImplementMethod(wx_CommandProcessor, Initialize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Initialize();
 	return Value::Nil;
 }
@@ -242,9 +215,8 @@ Gura_DeclareMethod(wx_CommandProcessor, IsDirty)
 
 Gura_ImplementMethod(wx_CommandProcessor, IsDirty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsDirty();
 	return Value::Nil;
 }
@@ -256,9 +228,8 @@ Gura_DeclareMethod(wx_CommandProcessor, MarkAsSaved)
 
 Gura_ImplementMethod(wx_CommandProcessor, MarkAsSaved)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->MarkAsSaved();
 	return Value::Nil;
 }
@@ -270,9 +241,8 @@ Gura_DeclareMethod(wx_CommandProcessor, Redo)
 
 Gura_ImplementMethod(wx_CommandProcessor, Redo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Redo();
 	return Value::Nil;
 }
@@ -285,9 +255,8 @@ Gura_DeclareMethod(wx_CommandProcessor, SetEditMenu)
 
 Gura_ImplementMethod(wx_CommandProcessor, SetEditMenu)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int menu = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEditMenu();
 	return Value::Nil;
@@ -300,9 +269,8 @@ Gura_DeclareMethod(wx_CommandProcessor, SetMenuStrings)
 
 Gura_ImplementMethod(wx_CommandProcessor, SetMenuStrings)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->SetMenuStrings();
 	return Value::Nil;
 }
@@ -315,9 +283,8 @@ Gura_DeclareMethod(wx_CommandProcessor, SetRedoAccelerator)
 
 Gura_ImplementMethod(wx_CommandProcessor, SetRedoAccelerator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int accel = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRedoAccelerator();
 	return Value::Nil;
@@ -331,9 +298,8 @@ Gura_DeclareMethod(wx_CommandProcessor, SetUndoAccelerator)
 
 Gura_ImplementMethod(wx_CommandProcessor, SetUndoAccelerator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int accel = arg.GetNumber(0)
 	//pThis->GetEntity()->SetUndoAccelerator();
 	return Value::Nil;
@@ -348,9 +314,8 @@ Gura_DeclareMethod(wx_CommandProcessor, Submit)
 
 Gura_ImplementMethod(wx_CommandProcessor, Submit)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int command = arg.GetNumber(0)
 	//int storeIt = arg.GetNumber(1)
 	//pThis->GetEntity()->Submit();
@@ -365,9 +330,8 @@ Gura_DeclareMethod(wx_CommandProcessor, Store)
 
 Gura_ImplementMethod(wx_CommandProcessor, Store)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int command = arg.GetNumber(0)
 	//pThis->GetEntity()->Store();
 	return Value::Nil;
@@ -380,9 +344,8 @@ Gura_DeclareMethod(wx_CommandProcessor, Undo)
 
 Gura_ImplementMethod(wx_CommandProcessor, Undo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Undo();
 	return Value::Nil;
 }
@@ -393,7 +356,6 @@ Gura_ImplementMethod(wx_CommandProcessor, Undo)
 Gura_ImplementUserInheritableClass(wx_CommandProcessor)
 {
 	Gura_AssignMethod(wx_CommandProcessor, wxCommandProcessor);
-	Gura_AssignMethod(wx_CommandProcessor, ~wxCommandProcessor);
 	Gura_AssignMethod(wx_CommandProcessor, CanUndo);
 	Gura_AssignMethod(wx_CommandProcessor, CanRedo);
 	Gura_AssignMethod(wx_CommandProcessor, ClearCommands);

@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_PickerBase, wxPickerBase)
 
 Gura_ImplementMethod(wx_PickerBase, wxPickerBase)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPickerBase();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_PickerBase, ~wxPickerBase)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PickerBase, ~wxPickerBase)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPickerBase();
 	return Value::Nil;
 }
 
@@ -80,9 +65,8 @@ Gura_DeclareMethod(wx_PickerBase, CreateBase)
 
 Gura_ImplementMethod(wx_PickerBase, CreateBase)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int text = arg.GetNumber(2)
@@ -102,9 +86,8 @@ Gura_DeclareMethod(wx_PickerBase, GetInternalMargin)
 
 Gura_ImplementMethod(wx_PickerBase, GetInternalMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetInternalMargin();
 	return Value::Nil;
 }
@@ -116,9 +99,8 @@ Gura_DeclareMethod(wx_PickerBase, GetPickerCtrlProportion)
 
 Gura_ImplementMethod(wx_PickerBase, GetPickerCtrlProportion)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPickerCtrlProportion();
 	return Value::Nil;
 }
@@ -130,9 +112,8 @@ Gura_DeclareMethod(wx_PickerBase, GetTextCtrl)
 
 Gura_ImplementMethod(wx_PickerBase, GetTextCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTextCtrl();
 	return Value::Nil;
 }
@@ -144,9 +125,8 @@ Gura_DeclareMethod(wx_PickerBase, GetPickerCtrl)
 
 Gura_ImplementMethod(wx_PickerBase, GetPickerCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPickerCtrl();
 	return Value::Nil;
 }
@@ -158,9 +138,8 @@ Gura_DeclareMethod(wx_PickerBase, GetTextCtrlProportion)
 
 Gura_ImplementMethod(wx_PickerBase, GetTextCtrlProportion)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTextCtrlProportion();
 	return Value::Nil;
 }
@@ -172,9 +151,8 @@ Gura_DeclareMethod(wx_PickerBase, HasTextCtrl)
 
 Gura_ImplementMethod(wx_PickerBase, HasTextCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->HasTextCtrl();
 	return Value::Nil;
 }
@@ -186,9 +164,8 @@ Gura_DeclareMethod(wx_PickerBase, IsPickerCtrlGrowable)
 
 Gura_ImplementMethod(wx_PickerBase, IsPickerCtrlGrowable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsPickerCtrlGrowable();
 	return Value::Nil;
 }
@@ -200,9 +177,8 @@ Gura_DeclareMethod(wx_PickerBase, IsTextCtrlGrowable)
 
 Gura_ImplementMethod(wx_PickerBase, IsTextCtrlGrowable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsTextCtrlGrowable();
 	return Value::Nil;
 }
@@ -215,9 +191,8 @@ Gura_DeclareMethod(wx_PickerBase, SetInternalMargin)
 
 Gura_ImplementMethod(wx_PickerBase, SetInternalMargin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int margin = arg.GetNumber(0)
 	//pThis->GetEntity()->SetInternalMargin();
 	return Value::Nil;
@@ -231,9 +206,8 @@ Gura_DeclareMethod(wx_PickerBase, SetPickerCtrlGrowable)
 
 Gura_ImplementMethod(wx_PickerBase, SetPickerCtrlGrowable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int grow = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPickerCtrlGrowable();
 	return Value::Nil;
@@ -247,9 +221,8 @@ Gura_DeclareMethod(wx_PickerBase, SetPickerCtrlProportion)
 
 Gura_ImplementMethod(wx_PickerBase, SetPickerCtrlProportion)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prop = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPickerCtrlProportion();
 	return Value::Nil;
@@ -263,9 +236,8 @@ Gura_DeclareMethod(wx_PickerBase, SetTextCtrlGrowable)
 
 Gura_ImplementMethod(wx_PickerBase, SetTextCtrlGrowable)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int grow = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextCtrlGrowable();
 	return Value::Nil;
@@ -279,9 +251,8 @@ Gura_DeclareMethod(wx_PickerBase, SetTextCtrlProportion)
 
 Gura_ImplementMethod(wx_PickerBase, SetTextCtrlProportion)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prop = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextCtrlProportion();
 	return Value::Nil;
@@ -295,9 +266,8 @@ Gura_DeclareMethod(wx_PickerBase, SetTextCtrl)
 
 Gura_ImplementMethod(wx_PickerBase, SetTextCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextCtrl();
 	return Value::Nil;
@@ -311,9 +281,8 @@ Gura_DeclareMethod(wx_PickerBase, SetPickerCtrl)
 
 Gura_ImplementMethod(wx_PickerBase, SetPickerCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int picker = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPickerCtrl();
 	return Value::Nil;
@@ -326,9 +295,8 @@ Gura_DeclareMethod(wx_PickerBase, UpdatePickerFromTextCtrl)
 
 Gura_ImplementMethod(wx_PickerBase, UpdatePickerFromTextCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->UpdatePickerFromTextCtrl();
 	return Value::Nil;
 }
@@ -340,9 +308,8 @@ Gura_DeclareMethod(wx_PickerBase, UpdateTextCtrlFromPicker)
 
 Gura_ImplementMethod(wx_PickerBase, UpdateTextCtrlFromPicker)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->UpdateTextCtrlFromPicker();
 	return Value::Nil;
 }
@@ -355,9 +322,8 @@ Gura_DeclareMethod(wx_PickerBase, GetTextCtrlStyle)
 
 Gura_ImplementMethod(wx_PickerBase, GetTextCtrlStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//pThis->GetEntity()->GetTextCtrlStyle();
 	return Value::Nil;
@@ -371,9 +337,8 @@ Gura_DeclareMethod(wx_PickerBase, GetPickerStyle)
 
 Gura_ImplementMethod(wx_PickerBase, GetPickerStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPickerStyle();
 	return Value::Nil;
@@ -386,9 +351,8 @@ Gura_DeclareMethod(wx_PickerBase, PostCreation)
 
 Gura_ImplementMethod(wx_PickerBase, PostCreation)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->PostCreation();
 	return Value::Nil;
 }
@@ -399,7 +363,6 @@ Gura_ImplementMethod(wx_PickerBase, PostCreation)
 Gura_ImplementUserInheritableClass(wx_PickerBase)
 {
 	Gura_AssignMethod(wx_PickerBase, wxPickerBase);
-	Gura_AssignMethod(wx_PickerBase, ~wxPickerBase);
 	Gura_AssignMethod(wx_PickerBase, CreateBase);
 	Gura_AssignMethod(wx_PickerBase, GetInternalMargin);
 	Gura_AssignMethod(wx_PickerBase, GetPickerCtrlProportion);

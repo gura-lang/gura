@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_PixelData, wxPixelData)
 
 Gura_ImplementMethod(wx_PixelData, wxPixelData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPixelData();
 	return Value::Nil;
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_PixelData, wxPixelData_1)
 
 Gura_ImplementMethod(wx_PixelData, wxPixelData_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int i = arg.GetNumber(0)
 	//int rect = arg.GetNumber(1)
 	//pThis->GetEntity()->wxPixelData();
@@ -81,9 +79,8 @@ Gura_DeclareMethod(wx_PixelData, wxPixelData_2)
 
 Gura_ImplementMethod(wx_PixelData, wxPixelData_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int i = arg.GetNumber(0)
 	//int pt = arg.GetNumber(1)
 	//int sz = arg.GetNumber(2)
@@ -98,9 +95,8 @@ Gura_DeclareMethod(wx_PixelData, bool)
 
 Gura_ImplementMethod(wx_PixelData, bool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->bool();
 	return Value::Nil;
 }
@@ -112,9 +108,8 @@ Gura_DeclareMethod(wx_PixelData, GetPixels)
 
 Gura_ImplementMethod(wx_PixelData, GetPixels)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPixels();
 	return Value::Nil;
 }
@@ -126,9 +121,8 @@ Gura_DeclareMethod(wx_PixelData, GetOrigin)
 
 Gura_ImplementMethod(wx_PixelData, GetOrigin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOrigin();
 	return Value::Nil;
 }
@@ -140,9 +134,8 @@ Gura_DeclareMethod(wx_PixelData, GetWidth)
 
 Gura_ImplementMethod(wx_PixelData, GetWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
@@ -154,9 +147,8 @@ Gura_DeclareMethod(wx_PixelData, GetHeight)
 
 Gura_ImplementMethod(wx_PixelData, GetHeight)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
@@ -168,9 +160,8 @@ Gura_DeclareMethod(wx_PixelData, GetSize)
 
 Gura_ImplementMethod(wx_PixelData, GetSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -182,9 +173,8 @@ Gura_DeclareMethod(wx_PixelData, GetRowStride)
 
 Gura_ImplementMethod(wx_PixelData, GetRowStride)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRowStride();
 	return Value::Nil;
 }
@@ -197,9 +187,8 @@ Gura_DeclareMethod(wx_PixelData, Reset)
 
 Gura_ImplementMethod(wx_PixelData, Reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
@@ -213,9 +202,8 @@ Gura_DeclareMethod(wx_PixelData, Iterator)
 
 Gura_ImplementMethod(wx_PixelData, Iterator)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//pThis->GetEntity()->Iterator();
 	return Value::Nil;
@@ -230,9 +218,8 @@ Gura_DeclareMethod(wx_PixelData, Iterator_1)
 
 Gura_ImplementMethod(wx_PixelData, Iterator_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bmp = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
 	//pThis->GetEntity()->Iterator();
@@ -246,9 +233,8 @@ Gura_DeclareMethod(wx_PixelData, Iterator_2)
 
 Gura_ImplementMethod(wx_PixelData, Iterator_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Iterator();
 	return Value::Nil;
 }
@@ -260,9 +246,8 @@ Gura_DeclareMethod(wx_PixelData, IsOk)
 
 Gura_ImplementMethod(wx_PixelData, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -277,9 +262,8 @@ Gura_DeclareMethod(wx_PixelData, Offset)
 
 Gura_ImplementMethod(wx_PixelData, Offset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -296,9 +280,8 @@ Gura_DeclareMethod(wx_PixelData, OffsetX)
 
 Gura_ImplementMethod(wx_PixelData, OffsetX)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//pThis->GetEntity()->OffsetX();
@@ -314,9 +297,8 @@ Gura_DeclareMethod(wx_PixelData, OffsetY)
 
 Gura_ImplementMethod(wx_PixelData, OffsetY)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->OffsetY();
@@ -333,9 +315,8 @@ Gura_DeclareMethod(wx_PixelData, MoveTo)
 
 Gura_ImplementMethod(wx_PixelData, MoveTo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
@@ -350,9 +331,8 @@ Gura_DeclareMethod(wx_PixelData, Red)
 
 Gura_ImplementMethod(wx_PixelData, Red)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Red();
 	return Value::Nil;
 }
@@ -364,9 +344,8 @@ Gura_DeclareMethod(wx_PixelData, Green)
 
 Gura_ImplementMethod(wx_PixelData, Green)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Green();
 	return Value::Nil;
 }
@@ -378,9 +357,8 @@ Gura_DeclareMethod(wx_PixelData, Blue)
 
 Gura_ImplementMethod(wx_PixelData, Blue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Blue();
 	return Value::Nil;
 }
@@ -392,9 +370,8 @@ Gura_DeclareMethod(wx_PixelData, Alpha)
 
 Gura_ImplementMethod(wx_PixelData, Alpha)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Alpha();
 	return Value::Nil;
 }

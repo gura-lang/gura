@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_PropagationDisabler, wxPropagationDisabler)
 
 Gura_ImplementMethod(wx_PropagationDisabler, wxPropagationDisabler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PropagationDisabler *pThis = Object_wx_PropagationDisabler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPropagationDisabler();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_PropagationDisabler, ~wxPropagationDisabler)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PropagationDisabler, ~wxPropagationDisabler)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_PropagationDisabler *pThis = Object_wx_PropagationDisabler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxPropagationDisabler();
 	return Value::Nil;
 }
 
@@ -73,7 +58,6 @@ Gura_ImplementMethod(wx_PropagationDisabler, ~wxPropagationDisabler)
 Gura_ImplementUserInheritableClass(wx_PropagationDisabler)
 {
 	Gura_AssignMethod(wx_PropagationDisabler, wxPropagationDisabler);
-	Gura_AssignMethod(wx_PropagationDisabler, ~wxPropagationDisabler);
 }
 
 Gura_ImplementDescendantCreator(wx_PropagationDisabler)

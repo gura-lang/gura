@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_MouseCaptureLostEvent, wxMouseCaptureLostEvent)
 
 Gura_ImplementMethod(wx_MouseCaptureLostEvent, wxMouseCaptureLostEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MouseCaptureLostEvent *pThis = Object_wx_MouseCaptureLostEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int windowId = arg.GetNumber(0)
 	//pThis->GetEntity()->wxMouseCaptureLostEvent();
 	return Value::Nil;

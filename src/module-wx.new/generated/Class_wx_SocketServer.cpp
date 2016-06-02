@@ -46,26 +46,11 @@ Gura_DeclareMethod(wx_SocketServer, wxSocketServer)
 
 Gura_ImplementMethod(wx_SocketServer, wxSocketServer)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int address = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->wxSocketServer();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_SocketServer, ~wxSocketServer)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_SocketServer, ~wxSocketServer)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxSocketServer();
 	return Value::Nil;
 }
 
@@ -77,9 +62,8 @@ Gura_DeclareMethod(wx_SocketServer, Accept)
 
 Gura_ImplementMethod(wx_SocketServer, Accept)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int wait = arg.GetNumber(0)
 	//pThis->GetEntity()->Accept();
 	return Value::Nil;
@@ -94,9 +78,8 @@ Gura_DeclareMethod(wx_SocketServer, AcceptWith)
 
 Gura_ImplementMethod(wx_SocketServer, AcceptWith)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int socket = arg.GetNumber(0)
 	//int wait = arg.GetNumber(1)
 	//pThis->GetEntity()->AcceptWith();
@@ -112,9 +95,8 @@ Gura_DeclareMethod(wx_SocketServer, WaitForAccept)
 
 Gura_ImplementMethod(wx_SocketServer, WaitForAccept)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int seconds = arg.GetNumber(0)
 	//int millisecond = arg.GetNumber(1)
 	//pThis->GetEntity()->WaitForAccept();
@@ -127,7 +109,6 @@ Gura_ImplementMethod(wx_SocketServer, WaitForAccept)
 Gura_ImplementUserInheritableClass(wx_SocketServer)
 {
 	Gura_AssignMethod(wx_SocketServer, wxSocketServer);
-	Gura_AssignMethod(wx_SocketServer, ~wxSocketServer);
 	Gura_AssignMethod(wx_SocketServer, Accept);
 	Gura_AssignMethod(wx_SocketServer, AcceptWith);
 	Gura_AssignMethod(wx_SocketServer, WaitForAccept);

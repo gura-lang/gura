@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_NavigationEnabled, wxNavigationEnabled)
 
 Gura_ImplementMethod(wx_NavigationEnabled, wxNavigationEnabled)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NavigationEnabled *pThis = Object_wx_NavigationEnabled::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxNavigationEnabled();
 	return Value::Nil;
 }

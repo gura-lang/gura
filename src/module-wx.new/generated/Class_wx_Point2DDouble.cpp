@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Point2DDouble, wxPoint2DDouble)
 
 Gura_ImplementMethod(wx_Point2DDouble, wxPoint2DDouble)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxPoint2DDouble();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_Point2DDouble, wxPoint2DDouble_1)
 
 Gura_ImplementMethod(wx_Point2DDouble, wxPoint2DDouble_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->wxPoint2DDouble();
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_Point2DDouble, wxPoint2DDouble_2)
 
 Gura_ImplementMethod(wx_Point2DDouble, wxPoint2DDouble_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPoint2DDouble();
 	return Value::Nil;
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_Point2DDouble, wxPoint2DDouble_3)
 
 Gura_ImplementMethod(wx_Point2DDouble, wxPoint2DDouble_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPoint2DDouble();
 	return Value::Nil;
@@ -109,9 +105,8 @@ Gura_DeclareMethod(wx_Point2DDouble, wxPoint2DDouble_4)
 
 Gura_ImplementMethod(wx_Point2DDouble, wxPoint2DDouble_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPoint2DDouble();
 	return Value::Nil;
@@ -126,9 +121,8 @@ Gura_DeclareMethod(wx_Point2DDouble, GetFloor)
 
 Gura_ImplementMethod(wx_Point2DDouble, GetFloor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->GetFloor();
@@ -144,9 +138,8 @@ Gura_DeclareMethod(wx_Point2DDouble, GetRounded)
 
 Gura_ImplementMethod(wx_Point2DDouble, GetRounded)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->GetRounded();
@@ -160,9 +153,8 @@ Gura_DeclareMethod(wx_Point2DDouble, GetVectorLength)
 
 Gura_ImplementMethod(wx_Point2DDouble, GetVectorLength)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVectorLength();
 	return Value::Nil;
 }
@@ -174,9 +166,8 @@ Gura_DeclareMethod(wx_Point2DDouble, GetVectorAngle)
 
 Gura_ImplementMethod(wx_Point2DDouble, GetVectorAngle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetVectorAngle();
 	return Value::Nil;
 }
@@ -189,9 +180,8 @@ Gura_DeclareMethod(wx_Point2DDouble, SetVectorLength)
 
 Gura_ImplementMethod(wx_Point2DDouble, SetVectorLength)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int length = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVectorLength();
 	return Value::Nil;
@@ -205,9 +195,8 @@ Gura_DeclareMethod(wx_Point2DDouble, SetVectorAngle)
 
 Gura_ImplementMethod(wx_Point2DDouble, SetVectorAngle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int degrees = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVectorAngle();
 	return Value::Nil;
@@ -220,9 +209,8 @@ Gura_DeclareMethod(wx_Point2DDouble, Normalize)
 
 Gura_ImplementMethod(wx_Point2DDouble, Normalize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Normalize();
 	return Value::Nil;
 }
@@ -235,9 +223,8 @@ Gura_DeclareMethod(wx_Point2DDouble, GetDistance)
 
 Gura_ImplementMethod(wx_Point2DDouble, GetDistance)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->GetDistance();
 	return Value::Nil;
@@ -251,9 +238,8 @@ Gura_DeclareMethod(wx_Point2DDouble, GetDistanceSquare)
 
 Gura_ImplementMethod(wx_Point2DDouble, GetDistanceSquare)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//pThis->GetEntity()->GetDistanceSquare();
 	return Value::Nil;
@@ -267,9 +253,8 @@ Gura_DeclareMethod(wx_Point2DDouble, GetDotProduct)
 
 Gura_ImplementMethod(wx_Point2DDouble, GetDotProduct)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int vec = arg.GetNumber(0)
 	//pThis->GetEntity()->GetDotProduct();
 	return Value::Nil;
@@ -283,9 +268,8 @@ Gura_DeclareMethod(wx_Point2DDouble, GetCrossProduct)
 
 Gura_ImplementMethod(wx_Point2DDouble, GetCrossProduct)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int vec = arg.GetNumber(0)
 	//pThis->GetEntity()->GetCrossProduct();
 	return Value::Nil;

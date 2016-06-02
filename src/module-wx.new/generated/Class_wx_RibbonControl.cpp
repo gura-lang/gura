@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RibbonControl, wxRibbonControl)
 
 Gura_ImplementMethod(wx_RibbonControl, wxRibbonControl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRibbonControl();
 	return Value::Nil;
 }
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_RibbonControl, wxRibbonControl_1)
 
 Gura_ImplementMethod(wx_RibbonControl, wxRibbonControl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -87,9 +85,8 @@ Gura_DeclareMethod(wx_RibbonControl, SetArtProvider)
 
 Gura_ImplementMethod(wx_RibbonControl, SetArtProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int art = arg.GetNumber(0)
 	//pThis->GetEntity()->SetArtProvider();
 	return Value::Nil;
@@ -102,9 +99,8 @@ Gura_DeclareMethod(wx_RibbonControl, GetArtProvider)
 
 Gura_ImplementMethod(wx_RibbonControl, GetArtProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetArtProvider();
 	return Value::Nil;
 }
@@ -116,9 +112,8 @@ Gura_DeclareMethod(wx_RibbonControl, IsSizingContinuous)
 
 Gura_ImplementMethod(wx_RibbonControl, IsSizingContinuous)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsSizingContinuous();
 	return Value::Nil;
 }
@@ -131,9 +126,8 @@ Gura_DeclareMethod(wx_RibbonControl, GetNextSmallerSize)
 
 Gura_ImplementMethod(wx_RibbonControl, GetNextSmallerSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//pThis->GetEntity()->GetNextSmallerSize();
 	return Value::Nil;
@@ -148,9 +142,8 @@ Gura_DeclareMethod(wx_RibbonControl, GetNextSmallerSize_1)
 
 Gura_ImplementMethod(wx_RibbonControl, GetNextSmallerSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//int relative_to = arg.GetNumber(1)
 	//pThis->GetEntity()->GetNextSmallerSize();
@@ -165,9 +158,8 @@ Gura_DeclareMethod(wx_RibbonControl, GetNextLargerSize)
 
 Gura_ImplementMethod(wx_RibbonControl, GetNextLargerSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//pThis->GetEntity()->GetNextLargerSize();
 	return Value::Nil;
@@ -182,9 +174,8 @@ Gura_DeclareMethod(wx_RibbonControl, GetNextLargerSize_1)
 
 Gura_ImplementMethod(wx_RibbonControl, GetNextLargerSize_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//int relative_to = arg.GetNumber(1)
 	//pThis->GetEntity()->GetNextLargerSize();
@@ -198,9 +189,8 @@ Gura_DeclareMethod(wx_RibbonControl, Realize)
 
 Gura_ImplementMethod(wx_RibbonControl, Realize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Realize();
 	return Value::Nil;
 }
@@ -212,9 +202,8 @@ Gura_DeclareMethod(wx_RibbonControl, Realise)
 
 Gura_ImplementMethod(wx_RibbonControl, Realise)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Realise();
 	return Value::Nil;
 }
@@ -226,9 +215,8 @@ Gura_DeclareMethod(wx_RibbonControl, GetAncestorRibbonBar)
 
 Gura_ImplementMethod(wx_RibbonControl, GetAncestorRibbonBar)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAncestorRibbonBar();
 	return Value::Nil;
 }
@@ -241,9 +229,8 @@ Gura_DeclareMethod(wx_RibbonControl, GetBestSizeForParentSize)
 
 Gura_ImplementMethod(wx_RibbonControl, GetBestSizeForParentSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parentSize = arg.GetNumber(0)
 	//pThis->GetEntity()->GetBestSizeForParentSize();
 	return Value::Nil;
@@ -258,9 +245,8 @@ Gura_DeclareMethod(wx_RibbonControl, DoGetNextSmallerSize)
 
 Gura_ImplementMethod(wx_RibbonControl, DoGetNextSmallerSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//int relative_to = arg.GetNumber(1)
 	//pThis->GetEntity()->DoGetNextSmallerSize();
@@ -276,9 +262,8 @@ Gura_DeclareMethod(wx_RibbonControl, DoGetNextLargerSize)
 
 Gura_ImplementMethod(wx_RibbonControl, DoGetNextLargerSize)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//int relative_to = arg.GetNumber(1)
 	//pThis->GetEntity()->DoGetNextLargerSize();

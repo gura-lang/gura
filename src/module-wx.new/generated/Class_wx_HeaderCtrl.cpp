@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, wxHeaderCtrl)
 
 Gura_ImplementMethod(wx_HeaderCtrl, wxHeaderCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxHeaderCtrl();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, wxHeaderCtrl_1)
 
 Gura_ImplementMethod(wx_HeaderCtrl, wxHeaderCtrl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -90,9 +88,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, Create)
 
 Gura_ImplementMethod(wx_HeaderCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -111,9 +108,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, SetColumnCount)
 
 Gura_ImplementMethod(wx_HeaderCtrl, SetColumnCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int count = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColumnCount();
 	return Value::Nil;
@@ -126,9 +122,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, GetColumnCount)
 
 Gura_ImplementMethod(wx_HeaderCtrl, GetColumnCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColumnCount();
 	return Value::Nil;
 }
@@ -140,9 +135,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, IsEmpty)
 
 Gura_ImplementMethod(wx_HeaderCtrl, IsEmpty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
@@ -155,9 +149,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, UpdateColumn)
 
 Gura_ImplementMethod(wx_HeaderCtrl, UpdateColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->UpdateColumn();
 	return Value::Nil;
@@ -171,9 +164,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, SetColumnsOrder)
 
 Gura_ImplementMethod(wx_HeaderCtrl, SetColumnsOrder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int order = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColumnsOrder();
 	return Value::Nil;
@@ -186,9 +178,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, GetColumnsOrder)
 
 Gura_ImplementMethod(wx_HeaderCtrl, GetColumnsOrder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColumnsOrder();
 	return Value::Nil;
 }
@@ -201,9 +192,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, GetColumnAt)
 
 Gura_ImplementMethod(wx_HeaderCtrl, GetColumnAt)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColumnAt();
 	return Value::Nil;
@@ -217,9 +207,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, GetColumnPos)
 
 Gura_ImplementMethod(wx_HeaderCtrl, GetColumnPos)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColumnPos();
 	return Value::Nil;
@@ -232,9 +221,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, ResetColumnsOrder)
 
 Gura_ImplementMethod(wx_HeaderCtrl, ResetColumnsOrder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ResetColumnsOrder();
 	return Value::Nil;
 }
@@ -249,9 +237,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, MoveColumnInOrderArray)
 
 Gura_ImplementMethod(wx_HeaderCtrl, MoveColumnInOrderArray)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int order = arg.GetNumber(0)
 	//int idx = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -268,9 +255,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, ShowColumnsMenu)
 
 Gura_ImplementMethod(wx_HeaderCtrl, ShowColumnsMenu)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//int title = arg.GetNumber(1)
 	//pThis->GetEntity()->ShowColumnsMenu();
@@ -286,9 +272,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, AddColumnsItems)
 
 Gura_ImplementMethod(wx_HeaderCtrl, AddColumnsItems)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int menu = arg.GetNumber(0)
 	//int idColumnsBase = arg.GetNumber(1)
 	//pThis->GetEntity()->AddColumnsItems();
@@ -302,9 +287,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, ShowCustomizeDialog)
 
 Gura_ImplementMethod(wx_HeaderCtrl, ShowCustomizeDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ShowCustomizeDialog();
 	return Value::Nil;
 }
@@ -317,9 +301,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, GetColumnTitleWidth)
 
 Gura_ImplementMethod(wx_HeaderCtrl, GetColumnTitleWidth)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColumnTitleWidth();
 	return Value::Nil;
@@ -333,9 +316,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, GetColumn)
 
 Gura_ImplementMethod(wx_HeaderCtrl, GetColumn)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColumn();
 	return Value::Nil;
@@ -350,9 +332,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, UpdateColumnVisibility)
 
 Gura_ImplementMethod(wx_HeaderCtrl, UpdateColumnVisibility)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
 	//int show = arg.GetNumber(1)
 	//pThis->GetEntity()->UpdateColumnVisibility();
@@ -367,9 +348,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, UpdateColumnsOrder)
 
 Gura_ImplementMethod(wx_HeaderCtrl, UpdateColumnsOrder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int order = arg.GetNumber(0)
 	//pThis->GetEntity()->UpdateColumnsOrder();
 	return Value::Nil;
@@ -384,9 +364,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, UpdateColumnWidthToFit)
 
 Gura_ImplementMethod(wx_HeaderCtrl, UpdateColumnWidthToFit)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
 	//int widthTitle = arg.GetNumber(1)
 	//pThis->GetEntity()->UpdateColumnWidthToFit();
@@ -401,9 +380,8 @@ Gura_DeclareMethod(wx_HeaderCtrl, OnColumnCountChanging)
 
 Gura_ImplementMethod(wx_HeaderCtrl, OnColumnCountChanging)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int count = arg.GetNumber(0)
 	//pThis->GetEntity()->OnColumnCountChanging();
 	return Value::Nil;

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_DCFontChanger, wxDCFontChanger)
 
 Gura_ImplementMethod(wx_DCFontChanger, wxDCFontChanger)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCFontChanger *pThis = Object_wx_DCFontChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//pThis->GetEntity()->wxDCFontChanger();
 	return Value::Nil;
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_DCFontChanger, wxDCFontChanger_1)
 
 Gura_ImplementMethod(wx_DCFontChanger, wxDCFontChanger_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCFontChanger *pThis = Object_wx_DCFontChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int font = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDCFontChanger();
@@ -79,25 +77,10 @@ Gura_DeclareMethod(wx_DCFontChanger, Set)
 
 Gura_ImplementMethod(wx_DCFontChanger, Set)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DCFontChanger *pThis = Object_wx_DCFontChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DCFontChanger, ~wxDCFontChanger)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DCFontChanger, ~wxDCFontChanger)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DCFontChanger *pThis = Object_wx_DCFontChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDCFontChanger();
 	return Value::Nil;
 }
 
@@ -109,7 +92,6 @@ Gura_ImplementUserInheritableClass(wx_DCFontChanger)
 	Gura_AssignMethod(wx_DCFontChanger, wxDCFontChanger);
 	Gura_AssignMethod(wx_DCFontChanger, wxDCFontChanger_1);
 	Gura_AssignMethod(wx_DCFontChanger, Set);
-	Gura_AssignMethod(wx_DCFontChanger, ~wxDCFontChanger);
 }
 
 Gura_ImplementDescendantCreator(wx_DCFontChanger)

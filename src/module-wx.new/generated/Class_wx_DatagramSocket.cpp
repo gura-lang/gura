@@ -46,26 +46,11 @@ Gura_DeclareMethod(wx_DatagramSocket, wxDatagramSocket)
 
 Gura_ImplementMethod(wx_DatagramSocket, wxDatagramSocket)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int addr = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->wxDatagramSocket();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_DatagramSocket, ~wxDatagramSocket)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_DatagramSocket, ~wxDatagramSocket)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxDatagramSocket();
 	return Value::Nil;
 }
 
@@ -79,9 +64,8 @@ Gura_DeclareMethod(wx_DatagramSocket, SendTo)
 
 Gura_ImplementMethod(wx_DatagramSocket, SendTo)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int address = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
 	//int nbytes = arg.GetNumber(2)
@@ -95,7 +79,6 @@ Gura_ImplementMethod(wx_DatagramSocket, SendTo)
 Gura_ImplementUserInheritableClass(wx_DatagramSocket)
 {
 	Gura_AssignMethod(wx_DatagramSocket, wxDatagramSocket);
-	Gura_AssignMethod(wx_DatagramSocket, ~wxDatagramSocket);
 	Gura_AssignMethod(wx_DatagramSocket, SendTo);
 }
 

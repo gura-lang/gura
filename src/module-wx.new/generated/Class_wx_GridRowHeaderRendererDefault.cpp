@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_GridRowHeaderRendererDefault, DrawBorder)
 
 Gura_ImplementMethod(wx_GridRowHeaderRendererDefault, DrawBorder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridRowHeaderRendererDefault *pThis = Object_wx_GridRowHeaderRendererDefault::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int grid = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int rect = arg.GetNumber(2)

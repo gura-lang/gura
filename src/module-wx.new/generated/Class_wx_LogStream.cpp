@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_LogStream, wxLogStream)
 
 Gura_ImplementMethod(wx_LogStream, wxLogStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogStream *pThis = Object_wx_LogStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ostr = arg.GetNumber(0)
 	//pThis->GetEntity()->wxLogStream();
 	return Value::Nil;

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_SystemThemedControl, wxSystemThemedControl)
 
 Gura_ImplementMethod(wx_SystemThemedControl, wxSystemThemedControl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SystemThemedControl *pThis = Object_wx_SystemThemedControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxSystemThemedControl();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_SystemThemedControl, EnableSystemTheme)
 
 Gura_ImplementMethod(wx_SystemThemedControl, EnableSystemTheme)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_SystemThemedControl *pThis = Object_wx_SystemThemedControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableSystemTheme();
 	return Value::Nil;

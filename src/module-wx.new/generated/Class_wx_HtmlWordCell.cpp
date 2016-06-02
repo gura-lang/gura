@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_HtmlWordCell, wxHtmlWordCell)
 
 Gura_ImplementMethod(wx_HtmlWordCell, wxHtmlWordCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_HtmlWordCell *pThis = Object_wx_HtmlWordCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int word = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//pThis->GetEntity()->wxHtmlWordCell();

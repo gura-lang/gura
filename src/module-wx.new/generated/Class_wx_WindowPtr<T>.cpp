@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_WindowPtr<T>, wxWindowPtr)
 
 Gura_ImplementMethod(wx_WindowPtr<T>, wxWindowPtr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowPtr<T> *pThis = Object_wx_WindowPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxWindowPtr();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_WindowPtr<T>, wxWindowPtr_1)
 
 Gura_ImplementMethod(wx_WindowPtr<T>, wxWindowPtr_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowPtr<T> *pThis = Object_wx_WindowPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWindowPtr();
 	return Value::Nil;
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_WindowPtr<T>, wxWindowPtr_2)
 
 Gura_ImplementMethod(wx_WindowPtr<T>, wxWindowPtr_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowPtr<T> *pThis = Object_wx_WindowPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ptr = arg.GetNumber(0)
 	//int d = arg.GetNumber(1)
 	//pThis->GetEntity()->wxWindowPtr();
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_WindowPtr<T>, wxWindowPtr_3)
 
 Gura_ImplementMethod(wx_WindowPtr<T>, wxWindowPtr_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowPtr<T> *pThis = Object_wx_WindowPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tocopy = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWindowPtr();
 	return Value::Nil;
@@ -109,9 +105,8 @@ Gura_DeclareMethod(wx_WindowPtr<T>, reset)
 
 Gura_ImplementMethod(wx_WindowPtr<T>, reset)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_WindowPtr<T> *pThis = Object_wx_WindowPtr<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->reset();
 	return Value::Nil;

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Brush, wxBrush)
 
 Gura_ImplementMethod(wx_Brush, wxBrush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxBrush();
 	return Value::Nil;
 }
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_Brush, wxBrush_1)
 
 Gura_ImplementMethod(wx_Brush, wxBrush_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->wxBrush();
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_Brush, wxBrush_2)
 
 Gura_ImplementMethod(wx_Brush, wxBrush_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stippleBitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->wxBrush();
 	return Value::Nil;
@@ -93,25 +90,10 @@ Gura_DeclareMethod(wx_Brush, wxBrush_3)
 
 Gura_ImplementMethod(wx_Brush, wxBrush_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int brush = arg.GetNumber(0)
 	//pThis->GetEntity()->wxBrush();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Brush, ~wxBrush)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Brush, ~wxBrush)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxBrush();
 	return Value::Nil;
 }
 
@@ -122,9 +104,8 @@ Gura_DeclareMethod(wx_Brush, GetColour)
 
 Gura_ImplementMethod(wx_Brush, GetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
@@ -136,9 +117,8 @@ Gura_DeclareMethod(wx_Brush, GetStipple)
 
 Gura_ImplementMethod(wx_Brush, GetStipple)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStipple();
 	return Value::Nil;
 }
@@ -150,9 +130,8 @@ Gura_DeclareMethod(wx_Brush, GetStyle)
 
 Gura_ImplementMethod(wx_Brush, GetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
@@ -164,9 +143,8 @@ Gura_DeclareMethod(wx_Brush, IsHatch)
 
 Gura_ImplementMethod(wx_Brush, IsHatch)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsHatch();
 	return Value::Nil;
 }
@@ -178,9 +156,8 @@ Gura_DeclareMethod(wx_Brush, IsOk)
 
 Gura_ImplementMethod(wx_Brush, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -192,9 +169,8 @@ Gura_DeclareMethod(wx_Brush, IsNonTransparent)
 
 Gura_ImplementMethod(wx_Brush, IsNonTransparent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsNonTransparent();
 	return Value::Nil;
 }
@@ -206,9 +182,8 @@ Gura_DeclareMethod(wx_Brush, IsTransparent)
 
 Gura_ImplementMethod(wx_Brush, IsTransparent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsTransparent();
 	return Value::Nil;
 }
@@ -221,9 +196,8 @@ Gura_DeclareMethod(wx_Brush, SetColour)
 
 Gura_ImplementMethod(wx_Brush, SetColour)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
@@ -239,9 +213,8 @@ Gura_DeclareMethod(wx_Brush, SetColour_1)
 
 Gura_ImplementMethod(wx_Brush, SetColour_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int red = arg.GetNumber(0)
 	//int green = arg.GetNumber(1)
 	//int blue = arg.GetNumber(2)
@@ -257,9 +230,8 @@ Gura_DeclareMethod(wx_Brush, SetStipple)
 
 Gura_ImplementMethod(wx_Brush, SetStipple)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStipple();
 	return Value::Nil;
@@ -273,9 +245,8 @@ Gura_DeclareMethod(wx_Brush, SetStyle)
 
 Gura_ImplementMethod(wx_Brush, SetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStyle();
 	return Value::Nil;
@@ -290,7 +261,6 @@ Gura_ImplementUserInheritableClass(wx_Brush)
 	Gura_AssignMethod(wx_Brush, wxBrush_1);
 	Gura_AssignMethod(wx_Brush, wxBrush_2);
 	Gura_AssignMethod(wx_Brush, wxBrush_3);
-	Gura_AssignMethod(wx_Brush, ~wxBrush);
 	Gura_AssignMethod(wx_Brush, GetColour);
 	Gura_AssignMethod(wx_Brush, GetStipple);
 	Gura_AssignMethod(wx_Brush, GetStyle);

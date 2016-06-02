@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_GridCellAutoWrapStringEditor, wxGridCellAutoWrapStringEdit
 
 Gura_ImplementMethod(wx_GridCellAutoWrapStringEditor, wxGridCellAutoWrapStringEditor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellAutoWrapStringEditor *pThis = Object_wx_GridCellAutoWrapStringEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGridCellAutoWrapStringEditor();
 	return Value::Nil;
 }

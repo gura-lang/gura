@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_RearrangeDialog, wxRearrangeDialog)
 
 Gura_ImplementMethod(wx_RearrangeDialog, wxRearrangeDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRearrangeDialog();
 	return Value::Nil;
 }
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_RearrangeDialog, wxRearrangeDialog_1)
 
 Gura_ImplementMethod(wx_RearrangeDialog, wxRearrangeDialog_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -93,9 +91,8 @@ Gura_DeclareMethod(wx_RearrangeDialog, Create)
 
 Gura_ImplementMethod(wx_RearrangeDialog, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -115,9 +112,8 @@ Gura_DeclareMethod(wx_RearrangeDialog, AddExtraControls)
 
 Gura_ImplementMethod(wx_RearrangeDialog, AddExtraControls)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->AddExtraControls();
 	return Value::Nil;
@@ -130,9 +126,8 @@ Gura_DeclareMethod(wx_RearrangeDialog, GetList)
 
 Gura_ImplementMethod(wx_RearrangeDialog, GetList)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetList();
 	return Value::Nil;
 }
@@ -144,9 +139,8 @@ Gura_DeclareMethod(wx_RearrangeDialog, GetOrder)
 
 Gura_ImplementMethod(wx_RearrangeDialog, GetOrder)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetOrder();
 	return Value::Nil;
 }

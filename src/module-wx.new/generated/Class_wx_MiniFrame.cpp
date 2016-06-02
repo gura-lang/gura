@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_MiniFrame, wxMiniFrame)
 
 Gura_ImplementMethod(wx_MiniFrame, wxMiniFrame)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MiniFrame *pThis = Object_wx_MiniFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxMiniFrame();
 	return Value::Nil;
 }
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_MiniFrame, wxMiniFrame_1)
 
 Gura_ImplementMethod(wx_MiniFrame, wxMiniFrame_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MiniFrame *pThis = Object_wx_MiniFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -76,20 +74,6 @@ Gura_ImplementMethod(wx_MiniFrame, wxMiniFrame_1)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
 	//pThis->GetEntity()->wxMiniFrame();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_MiniFrame, ~wxMiniFrame)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_MiniFrame, ~wxMiniFrame)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_MiniFrame *pThis = Object_wx_MiniFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxMiniFrame();
 	return Value::Nil;
 }
 
@@ -107,9 +91,8 @@ Gura_DeclareMethod(wx_MiniFrame, Create)
 
 Gura_ImplementMethod(wx_MiniFrame, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MiniFrame *pThis = Object_wx_MiniFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -128,7 +111,6 @@ Gura_ImplementUserInheritableClass(wx_MiniFrame)
 {
 	Gura_AssignMethod(wx_MiniFrame, wxMiniFrame);
 	Gura_AssignMethod(wx_MiniFrame, wxMiniFrame_1);
-	Gura_AssignMethod(wx_MiniFrame, ~wxMiniFrame);
 	Gura_AssignMethod(wx_MiniFrame, Create);
 }
 

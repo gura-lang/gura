@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Cursor, wxCursor)
 
 Gura_ImplementMethod(wx_Cursor, wxCursor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxCursor();
 	return Value::Nil;
 }
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_Cursor, wxCursor_1)
 
 Gura_ImplementMethod(wx_Cursor, wxCursor_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bits = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
@@ -88,9 +86,8 @@ Gura_DeclareMethod(wx_Cursor, wxCursor_2)
 
 Gura_ImplementMethod(wx_Cursor, wxCursor_2)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cursorName = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
 	//int hotSpotX = arg.GetNumber(2)
@@ -107,9 +104,8 @@ Gura_DeclareMethod(wx_Cursor, wxCursor_3)
 
 Gura_ImplementMethod(wx_Cursor, wxCursor_3)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cursorId = arg.GetNumber(0)
 	//pThis->GetEntity()->wxCursor();
 	return Value::Nil;
@@ -123,9 +119,8 @@ Gura_DeclareMethod(wx_Cursor, wxCursor_4)
 
 Gura_ImplementMethod(wx_Cursor, wxCursor_4)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//pThis->GetEntity()->wxCursor();
 	return Value::Nil;
@@ -139,25 +134,10 @@ Gura_DeclareMethod(wx_Cursor, wxCursor_5)
 
 Gura_ImplementMethod(wx_Cursor, wxCursor_5)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cursor = arg.GetNumber(0)
 	//pThis->GetEntity()->wxCursor();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Cursor, ~wxCursor)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Cursor, ~wxCursor)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxCursor();
 	return Value::Nil;
 }
 
@@ -168,9 +148,8 @@ Gura_DeclareMethod(wx_Cursor, IsOk)
 
 Gura_ImplementMethod(wx_Cursor, IsOk)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
@@ -182,9 +161,8 @@ Gura_DeclareMethod(wx_Cursor, GetHotSpot)
 
 Gura_ImplementMethod(wx_Cursor, GetHotSpot)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetHotSpot();
 	return Value::Nil;
 }
@@ -200,7 +178,6 @@ Gura_ImplementUserInheritableClass(wx_Cursor)
 	Gura_AssignMethod(wx_Cursor, wxCursor_3);
 	Gura_AssignMethod(wx_Cursor, wxCursor_4);
 	Gura_AssignMethod(wx_Cursor, wxCursor_5);
-	Gura_AssignMethod(wx_Cursor, ~wxCursor);
 	Gura_AssignMethod(wx_Cursor, IsOk);
 	Gura_AssignMethod(wx_Cursor, GetHotSpot);
 }

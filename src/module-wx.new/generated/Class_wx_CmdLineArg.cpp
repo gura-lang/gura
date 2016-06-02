@@ -37,20 +37,6 @@ String Object_wx_CmdLineArg::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CmdLineArg, ~wxCmdLineArg)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_CmdLineArg, ~wxCmdLineArg)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxCmdLineArg();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_CmdLineArg, GetDateVal)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -58,9 +44,8 @@ Gura_DeclareMethod(wx_CmdLineArg, GetDateVal)
 
 Gura_ImplementMethod(wx_CmdLineArg, GetDateVal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDateVal();
 	return Value::Nil;
 }
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_CmdLineArg, GetDoubleVal)
 
 Gura_ImplementMethod(wx_CmdLineArg, GetDoubleVal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDoubleVal();
 	return Value::Nil;
 }
@@ -86,9 +70,8 @@ Gura_DeclareMethod(wx_CmdLineArg, GetKind)
 
 Gura_ImplementMethod(wx_CmdLineArg, GetKind)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetKind();
 	return Value::Nil;
 }
@@ -100,9 +83,8 @@ Gura_DeclareMethod(wx_CmdLineArg, GetLongVal)
 
 Gura_ImplementMethod(wx_CmdLineArg, GetLongVal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLongVal();
 	return Value::Nil;
 }
@@ -114,9 +96,8 @@ Gura_DeclareMethod(wx_CmdLineArg, GetLongName)
 
 Gura_ImplementMethod(wx_CmdLineArg, GetLongName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLongName();
 	return Value::Nil;
 }
@@ -128,9 +109,8 @@ Gura_DeclareMethod(wx_CmdLineArg, GetShortName)
 
 Gura_ImplementMethod(wx_CmdLineArg, GetShortName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetShortName();
 	return Value::Nil;
 }
@@ -142,9 +122,8 @@ Gura_DeclareMethod(wx_CmdLineArg, GetStrVal)
 
 Gura_ImplementMethod(wx_CmdLineArg, GetStrVal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetStrVal();
 	return Value::Nil;
 }
@@ -156,9 +135,8 @@ Gura_DeclareMethod(wx_CmdLineArg, GetType)
 
 Gura_ImplementMethod(wx_CmdLineArg, GetType)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetType();
 	return Value::Nil;
 }
@@ -170,9 +148,8 @@ Gura_DeclareMethod(wx_CmdLineArg, IsNegated)
 
 Gura_ImplementMethod(wx_CmdLineArg, IsNegated)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IsNegated();
 	return Value::Nil;
 }
@@ -182,7 +159,6 @@ Gura_ImplementMethod(wx_CmdLineArg, IsNegated)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CmdLineArg)
 {
-	Gura_AssignMethod(wx_CmdLineArg, ~wxCmdLineArg);
 	Gura_AssignMethod(wx_CmdLineArg, GetDateVal);
 	Gura_AssignMethod(wx_CmdLineArg, GetDoubleVal);
 	Gura_AssignMethod(wx_CmdLineArg, GetKind);

@@ -37,20 +37,6 @@ String Object_wx_ArchiveOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ArchiveOutputStream, ~wxArchiveOutputStream)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_ArchiveOutputStream, ~wxArchiveOutputStream)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxArchiveOutputStream();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_ArchiveOutputStream, Close)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -58,9 +44,8 @@ Gura_DeclareMethod(wx_ArchiveOutputStream, Close)
 
 Gura_ImplementMethod(wx_ArchiveOutputStream, Close)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Close();
 	return Value::Nil;
 }
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_ArchiveOutputStream, CloseEntry)
 
 Gura_ImplementMethod(wx_ArchiveOutputStream, CloseEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CloseEntry();
 	return Value::Nil;
 }
@@ -87,9 +71,8 @@ Gura_DeclareMethod(wx_ArchiveOutputStream, CopyArchiveMetaData)
 
 Gura_ImplementMethod(wx_ArchiveOutputStream, CopyArchiveMetaData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//pThis->GetEntity()->CopyArchiveMetaData();
 	return Value::Nil;
@@ -104,9 +87,8 @@ Gura_DeclareMethod(wx_ArchiveOutputStream, CopyEntry)
 
 Gura_ImplementMethod(wx_ArchiveOutputStream, CopyEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
 	//int stream = arg.GetNumber(1)
 	//pThis->GetEntity()->CopyEntry();
@@ -122,9 +104,8 @@ Gura_DeclareMethod(wx_ArchiveOutputStream, PutNextDirEntry)
 
 Gura_ImplementMethod(wx_ArchiveOutputStream, PutNextDirEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
 	//pThis->GetEntity()->PutNextDirEntry();
@@ -139,9 +120,8 @@ Gura_DeclareMethod(wx_ArchiveOutputStream, PutNextEntry)
 
 Gura_ImplementMethod(wx_ArchiveOutputStream, PutNextEntry)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
 	//pThis->GetEntity()->PutNextEntry();
 	return Value::Nil;
@@ -157,9 +137,8 @@ Gura_DeclareMethod(wx_ArchiveOutputStream, PutNextEntry_1)
 
 Gura_ImplementMethod(wx_ArchiveOutputStream, PutNextEntry_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
@@ -172,7 +151,6 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, PutNextEntry_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveOutputStream)
 {
-	Gura_AssignMethod(wx_ArchiveOutputStream, ~wxArchiveOutputStream);
 	Gura_AssignMethod(wx_ArchiveOutputStream, Close);
 	Gura_AssignMethod(wx_ArchiveOutputStream, CloseEntry);
 	Gura_AssignMethod(wx_ArchiveOutputStream, CopyArchiveMetaData);

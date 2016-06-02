@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_TimePickerCtrl, wxTimePickerCtrl)
 
 Gura_ImplementMethod(wx_TimePickerCtrl, wxTimePickerCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTimePickerCtrl();
 	return Value::Nil;
 }
@@ -66,9 +65,8 @@ Gura_DeclareMethod(wx_TimePickerCtrl, wxTimePickerCtrl_1)
 
 Gura_ImplementMethod(wx_TimePickerCtrl, wxTimePickerCtrl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int dt = arg.GetNumber(2)
@@ -96,9 +94,8 @@ Gura_DeclareMethod(wx_TimePickerCtrl, Create)
 
 Gura_ImplementMethod(wx_TimePickerCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int dt = arg.GetNumber(2)
@@ -121,9 +118,8 @@ Gura_DeclareMethod(wx_TimePickerCtrl, GetTime)
 
 Gura_ImplementMethod(wx_TimePickerCtrl, GetTime)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int hour = arg.GetNumber(0)
 	//int min = arg.GetNumber(1)
 	//int sec = arg.GetNumber(2)
@@ -138,9 +134,8 @@ Gura_DeclareMethod(wx_TimePickerCtrl, GetValue)
 
 Gura_ImplementMethod(wx_TimePickerCtrl, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -155,9 +150,8 @@ Gura_DeclareMethod(wx_TimePickerCtrl, SetTime)
 
 Gura_ImplementMethod(wx_TimePickerCtrl, SetTime)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int hour = arg.GetNumber(0)
 	//int min = arg.GetNumber(1)
 	//int sec = arg.GetNumber(2)
@@ -173,9 +167,8 @@ Gura_DeclareMethod(wx_TimePickerCtrl, SetValue)
 
 Gura_ImplementMethod(wx_TimePickerCtrl, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dt = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;

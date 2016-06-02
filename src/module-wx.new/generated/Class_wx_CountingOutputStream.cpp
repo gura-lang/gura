@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_CountingOutputStream, wxCountingOutputStream)
 
 Gura_ImplementMethod(wx_CountingOutputStream, wxCountingOutputStream)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CountingOutputStream *pThis = Object_wx_CountingOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxCountingOutputStream();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_CountingOutputStream, ~wxCountingOutputStream)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_CountingOutputStream, ~wxCountingOutputStream)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_CountingOutputStream *pThis = Object_wx_CountingOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxCountingOutputStream();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_CountingOutputStream, GetLength)
 
 Gura_ImplementMethod(wx_CountingOutputStream, GetLength)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_CountingOutputStream *pThis = Object_wx_CountingOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetLength();
 	return Value::Nil;
 }
@@ -85,7 +69,6 @@ Gura_ImplementMethod(wx_CountingOutputStream, GetLength)
 Gura_ImplementUserInheritableClass(wx_CountingOutputStream)
 {
 	Gura_AssignMethod(wx_CountingOutputStream, wxCountingOutputStream);
-	Gura_AssignMethod(wx_CountingOutputStream, ~wxCountingOutputStream);
 	Gura_AssignMethod(wx_CountingOutputStream, GetLength);
 }
 

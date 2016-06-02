@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, wxRichTextXMLHandler)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, wxRichTextXMLHandler)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int ext = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
@@ -64,9 +63,8 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, CanLoad)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, CanLoad)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanLoad();
 	return Value::Nil;
 }
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, CanSave)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, CanSave)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanSave();
 	return Value::Nil;
 }
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, ExportXML)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, ExportXML)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int obj = arg.GetNumber(1)
 	//int level = arg.GetNumber(2)
@@ -115,9 +111,8 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, ImportXML)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, ImportXML)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int obj = arg.GetNumber(1)
 	//int node = arg.GetNumber(2)
@@ -134,9 +129,8 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, RegisterNodeName)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, RegisterNodeName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int nodeName = arg.GetNumber(0)
 	//int className = arg.GetNumber(1)
 	//pThis->GetEntity()->RegisterNodeName();
@@ -150,9 +144,8 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, ClearNodeToClassMap)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, ClearNodeToClassMap)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ClearNodeToClassMap();
 	return Value::Nil;
 }
@@ -166,9 +159,8 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, DoLoadFile)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, DoLoadFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoLoadFile();
@@ -184,9 +176,8 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, DoSaveFile)
 
 Gura_ImplementMethod(wx_RichTextXMLHandler, DoSaveFile)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoSaveFile();

@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_FileCtrl, wxFileCtrl)
 
 Gura_ImplementMethod(wx_FileCtrl, wxFileCtrl)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxFileCtrl();
 	return Value::Nil;
 }
@@ -67,9 +66,8 @@ Gura_DeclareMethod(wx_FileCtrl, wxFileCtrl_1)
 
 Gura_ImplementMethod(wx_FileCtrl, wxFileCtrl_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int defaultDirectory = arg.GetNumber(2)
@@ -99,9 +97,8 @@ Gura_DeclareMethod(wx_FileCtrl, Create)
 
 Gura_ImplementMethod(wx_FileCtrl, Create)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int defaultDirectory = arg.GetNumber(2)
@@ -122,9 +119,8 @@ Gura_DeclareMethod(wx_FileCtrl, GetDirectory)
 
 Gura_ImplementMethod(wx_FileCtrl, GetDirectory)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDirectory();
 	return Value::Nil;
 }
@@ -136,9 +132,8 @@ Gura_DeclareMethod(wx_FileCtrl, GetFilename)
 
 Gura_ImplementMethod(wx_FileCtrl, GetFilename)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFilename();
 	return Value::Nil;
 }
@@ -151,9 +146,8 @@ Gura_DeclareMethod(wx_FileCtrl, GetFilenames)
 
 Gura_ImplementMethod(wx_FileCtrl, GetFilenames)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filenames = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFilenames();
 	return Value::Nil;
@@ -166,9 +160,8 @@ Gura_DeclareMethod(wx_FileCtrl, GetFilterIndex)
 
 Gura_ImplementMethod(wx_FileCtrl, GetFilterIndex)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFilterIndex();
 	return Value::Nil;
 }
@@ -180,9 +173,8 @@ Gura_DeclareMethod(wx_FileCtrl, GetPath)
 
 Gura_ImplementMethod(wx_FileCtrl, GetPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
@@ -195,9 +187,8 @@ Gura_DeclareMethod(wx_FileCtrl, GetPaths)
 
 Gura_ImplementMethod(wx_FileCtrl, GetPaths)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int paths = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPaths();
 	return Value::Nil;
@@ -210,9 +201,8 @@ Gura_DeclareMethod(wx_FileCtrl, GetWildcard)
 
 Gura_ImplementMethod(wx_FileCtrl, GetWildcard)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWildcard();
 	return Value::Nil;
 }
@@ -225,9 +215,8 @@ Gura_DeclareMethod(wx_FileCtrl, SetDirectory)
 
 Gura_ImplementMethod(wx_FileCtrl, SetDirectory)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int directory = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDirectory();
 	return Value::Nil;
@@ -241,9 +230,8 @@ Gura_DeclareMethod(wx_FileCtrl, SetFilename)
 
 Gura_ImplementMethod(wx_FileCtrl, SetFilename)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFilename();
 	return Value::Nil;
@@ -257,9 +245,8 @@ Gura_DeclareMethod(wx_FileCtrl, SetPath)
 
 Gura_ImplementMethod(wx_FileCtrl, SetPath)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPath();
 	return Value::Nil;
@@ -273,9 +260,8 @@ Gura_DeclareMethod(wx_FileCtrl, SetFilterIndex)
 
 Gura_ImplementMethod(wx_FileCtrl, SetFilterIndex)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filterIndex = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFilterIndex();
 	return Value::Nil;
@@ -289,9 +275,8 @@ Gura_DeclareMethod(wx_FileCtrl, SetWildcard)
 
 Gura_ImplementMethod(wx_FileCtrl, SetWildcard)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int wildCard = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWildcard();
 	return Value::Nil;
@@ -305,9 +290,8 @@ Gura_DeclareMethod(wx_FileCtrl, ShowHidden)
 
 Gura_ImplementMethod(wx_FileCtrl, ShowHidden)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int show = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowHidden();
 	return Value::Nil;

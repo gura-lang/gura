@@ -37,20 +37,6 @@ String Object_wx_RefCounter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RefCounter, ~wxRefCounter)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RefCounter, ~wxRefCounter)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxRefCounter();
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(wx_RefCounter, wxRefCounter)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -58,9 +44,8 @@ Gura_DeclareMethod(wx_RefCounter, wxRefCounter)
 
 Gura_ImplementMethod(wx_RefCounter, wxRefCounter)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxRefCounter();
 	return Value::Nil;
 }
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_RefCounter, DecRef)
 
 Gura_ImplementMethod(wx_RefCounter, DecRef)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DecRef();
 	return Value::Nil;
 }
@@ -86,9 +70,8 @@ Gura_DeclareMethod(wx_RefCounter, GetRefCount)
 
 Gura_ImplementMethod(wx_RefCounter, GetRefCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRefCount();
 	return Value::Nil;
 }
@@ -100,9 +83,8 @@ Gura_DeclareMethod(wx_RefCounter, IncRef)
 
 Gura_ImplementMethod(wx_RefCounter, IncRef)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->IncRef();
 	return Value::Nil;
 }
@@ -112,7 +94,6 @@ Gura_ImplementMethod(wx_RefCounter, IncRef)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RefCounter)
 {
-	Gura_AssignMethod(wx_RefCounter, ~wxRefCounter);
 	Gura_AssignMethod(wx_RefCounter, wxRefCounter);
 	Gura_AssignMethod(wx_RefCounter, DecRef);
 	Gura_AssignMethod(wx_RefCounter, GetRefCount);

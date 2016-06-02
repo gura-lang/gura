@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_GridCellEnumEditor, wxGridCellEnumEditor)
 
 Gura_ImplementMethod(wx_GridCellEnumEditor, wxGridCellEnumEditor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellEnumEditor *pThis = Object_wx_GridCellEnumEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int choices = arg.GetNumber(0)
 	//pThis->GetEntity()->wxGridCellEnumEditor();
 	return Value::Nil;

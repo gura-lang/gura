@@ -51,9 +51,8 @@ Gura_DeclareMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog)
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
@@ -78,9 +77,8 @@ Gura_DeclareMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog_1)
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
@@ -98,9 +96,8 @@ Gura_DeclareMethod(wx_MultiChoiceDialog, GetSelections)
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, GetSelections)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSelections();
 	return Value::Nil;
 }
@@ -113,9 +110,8 @@ Gura_DeclareMethod(wx_MultiChoiceDialog, SetSelections)
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, SetSelections)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int selections = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSelections();
 	return Value::Nil;
@@ -128,9 +124,8 @@ Gura_DeclareMethod(wx_MultiChoiceDialog, ShowModal)
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, ShowModal)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }

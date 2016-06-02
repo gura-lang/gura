@@ -45,25 +45,10 @@ Gura_DeclareMethod(wx_Mutex, wxMutex)
 
 Gura_ImplementMethod(wx_Mutex, wxMutex)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//pThis->GetEntity()->wxMutex();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_Mutex, ~wxMutex)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_Mutex, ~wxMutex)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxMutex();
 	return Value::Nil;
 }
 
@@ -74,9 +59,8 @@ Gura_DeclareMethod(wx_Mutex, Lock)
 
 Gura_ImplementMethod(wx_Mutex, Lock)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Lock();
 	return Value::Nil;
 }
@@ -89,9 +73,8 @@ Gura_DeclareMethod(wx_Mutex, LockTimeout)
 
 Gura_ImplementMethod(wx_Mutex, LockTimeout)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int msec = arg.GetNumber(0)
 	//pThis->GetEntity()->LockTimeout();
 	return Value::Nil;
@@ -104,9 +87,8 @@ Gura_DeclareMethod(wx_Mutex, TryLock)
 
 Gura_ImplementMethod(wx_Mutex, TryLock)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->TryLock();
 	return Value::Nil;
 }
@@ -118,9 +100,8 @@ Gura_DeclareMethod(wx_Mutex, Unlock)
 
 Gura_ImplementMethod(wx_Mutex, Unlock)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Unlock();
 	return Value::Nil;
 }
@@ -131,7 +112,6 @@ Gura_ImplementMethod(wx_Mutex, Unlock)
 Gura_ImplementUserInheritableClass(wx_Mutex)
 {
 	Gura_AssignMethod(wx_Mutex, wxMutex);
-	Gura_AssignMethod(wx_Mutex, ~wxMutex);
 	Gura_AssignMethod(wx_Mutex, Lock);
 	Gura_AssignMethod(wx_Mutex, LockTimeout);
 	Gura_AssignMethod(wx_Mutex, TryLock);

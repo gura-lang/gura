@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_PaintEvent, wxPaintEvent)
 
 Gura_ImplementMethod(wx_PaintEvent, wxPaintEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PaintEvent *pThis = Object_wx_PaintEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPaintEvent();
 	return Value::Nil;

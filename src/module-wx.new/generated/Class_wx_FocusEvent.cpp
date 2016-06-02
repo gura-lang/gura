@@ -46,9 +46,8 @@ Gura_DeclareMethod(wx_FocusEvent, wxFocusEvent)
 
 Gura_ImplementMethod(wx_FocusEvent, wxFocusEvent)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->wxFocusEvent();
@@ -62,9 +61,8 @@ Gura_DeclareMethod(wx_FocusEvent, GetWindow)
 
 Gura_ImplementMethod(wx_FocusEvent, GetWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }
@@ -77,9 +75,8 @@ Gura_DeclareMethod(wx_FocusEvent, SetWindow)
 
 Gura_ImplementMethod(wx_FocusEvent, SetWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWindow();
 	return Value::Nil;

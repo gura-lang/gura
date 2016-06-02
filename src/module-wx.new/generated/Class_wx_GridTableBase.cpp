@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_GridTableBase, wxGridTableBase)
 
 Gura_ImplementMethod(wx_GridTableBase, wxGridTableBase)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxGridTableBase();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_GridTableBase, ~wxGridTableBase)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_GridTableBase, ~wxGridTableBase)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxGridTableBase();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetNumberRows)
 
 Gura_ImplementMethod(wx_GridTableBase, GetNumberRows)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNumberRows();
 	return Value::Nil;
 }
@@ -86,9 +70,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetNumberCols)
 
 Gura_ImplementMethod(wx_GridTableBase, GetNumberCols)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetNumberCols();
 	return Value::Nil;
 }
@@ -100,9 +83,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetRowsCount)
 
 Gura_ImplementMethod(wx_GridTableBase, GetRowsCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetRowsCount();
 	return Value::Nil;
 }
@@ -114,9 +96,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetColsCount)
 
 Gura_ImplementMethod(wx_GridTableBase, GetColsCount)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetColsCount();
 	return Value::Nil;
 }
@@ -130,9 +111,8 @@ Gura_DeclareMethod(wx_GridTableBase, IsEmptyCell)
 
 Gura_ImplementMethod(wx_GridTableBase, IsEmptyCell)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->IsEmptyCell();
@@ -147,9 +127,8 @@ Gura_DeclareMethod(wx_GridTableBase, IsEmpty)
 
 Gura_ImplementMethod(wx_GridTableBase, IsEmpty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int coords = arg.GetNumber(0)
 	//pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
@@ -164,9 +143,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetValue)
 
 Gura_ImplementMethod(wx_GridTableBase, GetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->GetValue();
@@ -183,9 +161,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetValue)
 
 Gura_ImplementMethod(wx_GridTableBase, SetValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -202,9 +179,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetTypeName)
 
 Gura_ImplementMethod(wx_GridTableBase, GetTypeName)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->GetTypeName();
@@ -221,9 +197,8 @@ Gura_DeclareMethod(wx_GridTableBase, CanGetValueAs)
 
 Gura_ImplementMethod(wx_GridTableBase, CanGetValueAs)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//int typeName = arg.GetNumber(2)
@@ -241,9 +216,8 @@ Gura_DeclareMethod(wx_GridTableBase, CanSetValueAs)
 
 Gura_ImplementMethod(wx_GridTableBase, CanSetValueAs)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//int typeName = arg.GetNumber(2)
@@ -260,9 +234,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetValueAsLong)
 
 Gura_ImplementMethod(wx_GridTableBase, GetValueAsLong)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->GetValueAsLong();
@@ -278,9 +251,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetValueAsDouble)
 
 Gura_ImplementMethod(wx_GridTableBase, GetValueAsDouble)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->GetValueAsDouble();
@@ -296,9 +268,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetValueAsBool)
 
 Gura_ImplementMethod(wx_GridTableBase, GetValueAsBool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->GetValueAsBool();
@@ -315,9 +286,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetValueAsCustom)
 
 Gura_ImplementMethod(wx_GridTableBase, GetValueAsCustom)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//int typeName = arg.GetNumber(2)
@@ -335,9 +305,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetValueAsLong)
 
 Gura_ImplementMethod(wx_GridTableBase, SetValueAsLong)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -355,9 +324,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetValueAsDouble)
 
 Gura_ImplementMethod(wx_GridTableBase, SetValueAsDouble)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -375,9 +343,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetValueAsBool)
 
 Gura_ImplementMethod(wx_GridTableBase, SetValueAsBool)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -396,9 +363,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetValueAsCustom)
 
 Gura_ImplementMethod(wx_GridTableBase, SetValueAsCustom)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//int typeName = arg.GetNumber(2)
@@ -415,9 +381,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetView)
 
 Gura_ImplementMethod(wx_GridTableBase, SetView)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int grid = arg.GetNumber(0)
 	//pThis->GetEntity()->SetView();
 	return Value::Nil;
@@ -430,9 +395,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetView)
 
 Gura_ImplementMethod(wx_GridTableBase, GetView)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetView();
 	return Value::Nil;
 }
@@ -444,9 +408,8 @@ Gura_DeclareMethod(wx_GridTableBase, Clear)
 
 Gura_ImplementMethod(wx_GridTableBase, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -460,9 +423,8 @@ Gura_DeclareMethod(wx_GridTableBase, InsertRows)
 
 Gura_ImplementMethod(wx_GridTableBase, InsertRows)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int numRows = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertRows();
@@ -477,9 +439,8 @@ Gura_DeclareMethod(wx_GridTableBase, AppendRows)
 
 Gura_ImplementMethod(wx_GridTableBase, AppendRows)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int numRows = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendRows();
 	return Value::Nil;
@@ -494,9 +455,8 @@ Gura_DeclareMethod(wx_GridTableBase, DeleteRows)
 
 Gura_ImplementMethod(wx_GridTableBase, DeleteRows)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int numRows = arg.GetNumber(1)
 	//pThis->GetEntity()->DeleteRows();
@@ -512,9 +472,8 @@ Gura_DeclareMethod(wx_GridTableBase, InsertCols)
 
 Gura_ImplementMethod(wx_GridTableBase, InsertCols)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int numCols = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertCols();
@@ -529,9 +488,8 @@ Gura_DeclareMethod(wx_GridTableBase, AppendCols)
 
 Gura_ImplementMethod(wx_GridTableBase, AppendCols)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int numCols = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendCols();
 	return Value::Nil;
@@ -546,9 +504,8 @@ Gura_DeclareMethod(wx_GridTableBase, DeleteCols)
 
 Gura_ImplementMethod(wx_GridTableBase, DeleteCols)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int numCols = arg.GetNumber(1)
 	//pThis->GetEntity()->DeleteCols();
@@ -563,9 +520,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetRowLabelValue)
 
 Gura_ImplementMethod(wx_GridTableBase, GetRowLabelValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//pThis->GetEntity()->GetRowLabelValue();
 	return Value::Nil;
@@ -579,9 +535,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetColLabelValue)
 
 Gura_ImplementMethod(wx_GridTableBase, GetColLabelValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColLabelValue();
 	return Value::Nil;
@@ -596,9 +551,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetRowLabelValue)
 
 Gura_ImplementMethod(wx_GridTableBase, SetRowLabelValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int label = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRowLabelValue();
@@ -614,9 +568,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetColLabelValue)
 
 Gura_ImplementMethod(wx_GridTableBase, SetColLabelValue)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//int label = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColLabelValue();
@@ -631,9 +584,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetAttrProvider)
 
 Gura_ImplementMethod(wx_GridTableBase, SetAttrProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attrProvider = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAttrProvider();
 	return Value::Nil;
@@ -646,9 +598,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetAttrProvider)
 
 Gura_ImplementMethod(wx_GridTableBase, GetAttrProvider)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetAttrProvider();
 	return Value::Nil;
 }
@@ -663,9 +614,8 @@ Gura_DeclareMethod(wx_GridTableBase, GetAttr)
 
 Gura_ImplementMethod(wx_GridTableBase, GetAttr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//int kind = arg.GetNumber(2)
@@ -683,9 +633,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetAttr)
 
 Gura_ImplementMethod(wx_GridTableBase, SetAttr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//int row = arg.GetNumber(1)
 	//int col = arg.GetNumber(2)
@@ -702,9 +651,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetRowAttr)
 
 Gura_ImplementMethod(wx_GridTableBase, SetRowAttr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//int row = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRowAttr();
@@ -720,9 +668,8 @@ Gura_DeclareMethod(wx_GridTableBase, SetColAttr)
 
 Gura_ImplementMethod(wx_GridTableBase, SetColAttr)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColAttr();
@@ -736,9 +683,8 @@ Gura_DeclareMethod(wx_GridTableBase, CanHaveAttributes)
 
 Gura_ImplementMethod(wx_GridTableBase, CanHaveAttributes)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->CanHaveAttributes();
 	return Value::Nil;
 }
@@ -749,7 +695,6 @@ Gura_ImplementMethod(wx_GridTableBase, CanHaveAttributes)
 Gura_ImplementUserInheritableClass(wx_GridTableBase)
 {
 	Gura_AssignMethod(wx_GridTableBase, wxGridTableBase);
-	Gura_AssignMethod(wx_GridTableBase, ~wxGridTableBase);
 	Gura_AssignMethod(wx_GridTableBase, GetNumberRows);
 	Gura_AssignMethod(wx_GridTableBase, GetNumberCols);
 	Gura_AssignMethod(wx_GridTableBase, GetRowsCount);

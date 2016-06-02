@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_LogGui, wxLogGui)
 
 Gura_ImplementMethod(wx_LogGui, wxLogGui)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxLogGui();
 	return Value::Nil;
 }
@@ -58,9 +57,8 @@ Gura_DeclareMethod(wx_LogGui, Flush)
 
 Gura_ImplementMethod(wx_LogGui, Flush)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Flush();
 	return Value::Nil;
 }
@@ -72,9 +70,8 @@ Gura_DeclareMethod(wx_LogGui, GetTitle)
 
 Gura_ImplementMethod(wx_LogGui, GetTitle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetTitle();
 	return Value::Nil;
 }
@@ -86,9 +83,8 @@ Gura_DeclareMethod(wx_LogGui, GetSeverityIcon)
 
 Gura_ImplementMethod(wx_LogGui, GetSeverityIcon)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetSeverityIcon();
 	return Value::Nil;
 }
@@ -100,9 +96,8 @@ Gura_DeclareMethod(wx_LogGui, Clear)
 
 Gura_ImplementMethod(wx_LogGui, Clear)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
@@ -117,9 +112,8 @@ Gura_DeclareMethod(wx_LogGui, DoShowSingleLogMessage)
 
 Gura_ImplementMethod(wx_LogGui, DoShowSingleLogMessage)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int message = arg.GetNumber(0)
 	//int title = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
@@ -139,9 +133,8 @@ Gura_DeclareMethod(wx_LogGui, DoShowMultipleLogMessages)
 
 Gura_ImplementMethod(wx_LogGui, DoShowMultipleLogMessages)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int messages = arg.GetNumber(0)
 	//int severities = arg.GetNumber(1)
 	//int times = arg.GetNumber(2)

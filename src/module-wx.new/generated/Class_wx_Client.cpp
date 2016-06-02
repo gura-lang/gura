@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Client, wxClient)
 
 Gura_ImplementMethod(wx_Client, wxClient)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Client *pThis = Object_wx_Client::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxClient();
 	return Value::Nil;
 }
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_Client, MakeConnection)
 
 Gura_ImplementMethod(wx_Client, MakeConnection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Client *pThis = Object_wx_Client::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int host = arg.GetNumber(0)
 	//int service = arg.GetNumber(1)
 	//int topic = arg.GetNumber(2)
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_Client, OnMakeConnection)
 
 Gura_ImplementMethod(wx_Client, OnMakeConnection)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Client *pThis = Object_wx_Client::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->OnMakeConnection();
 	return Value::Nil;
 }
@@ -93,9 +90,8 @@ Gura_DeclareMethod(wx_Client, ValidHost)
 
 Gura_ImplementMethod(wx_Client, ValidHost)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Client *pThis = Object_wx_Client::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int host = arg.GetNumber(0)
 	//pThis->GetEntity()->ValidHost();
 	return Value::Nil;

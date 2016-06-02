@@ -44,9 +44,8 @@ Gura_DeclareMethod(wx_Stack<T>, wxStack)
 
 Gura_ImplementMethod(wx_Stack<T>, wxStack)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxStack();
 	return Value::Nil;
 }
@@ -59,9 +58,8 @@ Gura_DeclareMethod(wx_Stack<T>, wxStack_1)
 
 Gura_ImplementMethod(wx_Stack<T>, wxStack_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cont = arg.GetNumber(0)
 	//pThis->GetEntity()->wxStack();
 	return Value::Nil;
@@ -74,9 +72,8 @@ Gura_DeclareMethod(wx_Stack<T>, empty)
 
 Gura_ImplementMethod(wx_Stack<T>, empty)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->empty();
 	return Value::Nil;
 }
@@ -88,9 +85,8 @@ Gura_DeclareMethod(wx_Stack<T>, size)
 
 Gura_ImplementMethod(wx_Stack<T>, size)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->size();
 	return Value::Nil;
 }
@@ -102,9 +98,8 @@ Gura_DeclareMethod(wx_Stack<T>, top)
 
 Gura_ImplementMethod(wx_Stack<T>, top)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->top();
 	return Value::Nil;
 }
@@ -116,9 +111,8 @@ Gura_DeclareMethod(wx_Stack<T>, top_1)
 
 Gura_ImplementMethod(wx_Stack<T>, top_1)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->top();
 	return Value::Nil;
 }
@@ -131,9 +125,8 @@ Gura_DeclareMethod(wx_Stack<T>, push)
 
 Gura_ImplementMethod(wx_Stack<T>, push)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//pThis->GetEntity()->push();
 	return Value::Nil;
@@ -146,9 +139,8 @@ Gura_DeclareMethod(wx_Stack<T>, pop)
 
 Gura_ImplementMethod(wx_Stack<T>, pop)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->pop();
 	return Value::Nil;
 }

@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_PrinterDC, wxPrinterDC)
 
 Gura_ImplementMethod(wx_PrinterDC, wxPrinterDC)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int printData = arg.GetNumber(0)
 	//pThis->GetEntity()->wxPrinterDC();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_PrinterDC, GetPaperRect)
 
 Gura_ImplementMethod(wx_PrinterDC, GetPaperRect)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetPaperRect();
 	return Value::Nil;
 }

@@ -44,24 +44,9 @@ Gura_DeclareMethod(wx_TreeItemData, wxTreeItemData)
 
 Gura_ImplementMethod(wx_TreeItemData, wxTreeItemData)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->wxTreeItemData();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_TreeItemData, ~wxTreeItemData)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_TreeItemData, ~wxTreeItemData)
-{
-	Signal &sig = env.GetSignal();
-	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
-	//pThis->GetEntity()->~wxTreeItemData();
 	return Value::Nil;
 }
 
@@ -72,9 +57,8 @@ Gura_DeclareMethod(wx_TreeItemData, GetId)
 
 Gura_ImplementMethod(wx_TreeItemData, GetId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetId();
 	return Value::Nil;
 }
@@ -87,9 +71,8 @@ Gura_DeclareMethod(wx_TreeItemData, SetId)
 
 Gura_ImplementMethod(wx_TreeItemData, SetId)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//pThis->GetEntity()->SetId();
 	return Value::Nil;
@@ -101,7 +84,6 @@ Gura_ImplementMethod(wx_TreeItemData, SetId)
 Gura_ImplementUserInheritableClass(wx_TreeItemData)
 {
 	Gura_AssignMethod(wx_TreeItemData, wxTreeItemData);
-	Gura_AssignMethod(wx_TreeItemData, ~wxTreeItemData);
 	Gura_AssignMethod(wx_TreeItemData, GetId);
 	Gura_AssignMethod(wx_TreeItemData, SetId);
 }

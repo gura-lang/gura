@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_ConvAuto, wxConvAuto)
 
 Gura_ImplementMethod(wx_ConvAuto, wxConvAuto)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enc = arg.GetNumber(0)
 	//pThis->GetEntity()->wxConvAuto();
 	return Value::Nil;
@@ -60,9 +59,8 @@ Gura_DeclareMethod(wx_ConvAuto, GetBOM)
 
 Gura_ImplementMethod(wx_ConvAuto, GetBOM)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetBOM();
 	return Value::Nil;
 }
@@ -76,9 +74,8 @@ Gura_DeclareMethod(wx_ConvAuto, GetBOMChars)
 
 Gura_ImplementMethod(wx_ConvAuto, GetBOMChars)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bom = arg.GetNumber(0)
 	//int count = arg.GetNumber(1)
 	//pThis->GetEntity()->GetBOMChars();
@@ -92,9 +89,8 @@ Gura_DeclareMethod(wx_ConvAuto, DisableFallbackEncoding)
 
 Gura_ImplementMethod(wx_ConvAuto, DisableFallbackEncoding)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->DisableFallbackEncoding();
 	return Value::Nil;
 }
@@ -106,9 +102,8 @@ Gura_DeclareMethod(wx_ConvAuto, GetFallbackEncoding)
 
 Gura_ImplementMethod(wx_ConvAuto, GetFallbackEncoding)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetFallbackEncoding();
 	return Value::Nil;
 }
@@ -121,9 +116,8 @@ Gura_DeclareMethod(wx_ConvAuto, SetFallbackEncoding)
 
 Gura_ImplementMethod(wx_ConvAuto, SetFallbackEncoding)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enc = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFallbackEncoding();
 	return Value::Nil;
@@ -138,9 +132,8 @@ Gura_DeclareMethod(wx_ConvAuto, DetectBOM)
 
 Gura_ImplementMethod(wx_ConvAuto, DetectBOM)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int src = arg.GetNumber(0)
 	//int srcLen = arg.GetNumber(1)
 	//pThis->GetEntity()->DetectBOM();

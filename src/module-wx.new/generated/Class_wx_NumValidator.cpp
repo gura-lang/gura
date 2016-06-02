@@ -45,9 +45,8 @@ Gura_DeclareMethod(wx_NumValidator, SetMin)
 
 Gura_ImplementMethod(wx_NumValidator, SetMin)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int min = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMin();
 	return Value::Nil;
@@ -61,9 +60,8 @@ Gura_DeclareMethod(wx_NumValidator, SetMax)
 
 Gura_ImplementMethod(wx_NumValidator, SetMax)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int max = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMax();
 	return Value::Nil;
@@ -78,9 +76,8 @@ Gura_DeclareMethod(wx_NumValidator, SetRange)
 
 Gura_ImplementMethod(wx_NumValidator, SetRange)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRange();
@@ -95,9 +92,8 @@ Gura_DeclareMethod(wx_NumValidator, SetStyle)
 
 Gura_ImplementMethod(wx_NumValidator, SetStyle)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStyle();
 	return Value::Nil;
@@ -110,9 +106,8 @@ Gura_DeclareMethod(wx_NumValidator, TransferToWindow)
 
 Gura_ImplementMethod(wx_NumValidator, TransferToWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->TransferToWindow();
 	return Value::Nil;
 }
@@ -124,9 +119,8 @@ Gura_DeclareMethod(wx_NumValidator, TransferFromWindow)
 
 Gura_ImplementMethod(wx_NumValidator, TransferFromWindow)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->TransferFromWindow();
 	return Value::Nil;
 }

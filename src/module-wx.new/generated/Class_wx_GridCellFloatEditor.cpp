@@ -47,9 +47,8 @@ Gura_DeclareMethod(wx_GridCellFloatEditor, wxGridCellFloatEditor)
 
 Gura_ImplementMethod(wx_GridCellFloatEditor, wxGridCellFloatEditor)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellFloatEditor *pThis = Object_wx_GridCellFloatEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int precision = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
@@ -65,9 +64,8 @@ Gura_DeclareMethod(wx_GridCellFloatEditor, SetParameters)
 
 Gura_ImplementMethod(wx_GridCellFloatEditor, SetParameters)
 {
-	Signal &sig = env.GetSignal();
 	Object_wx_GridCellFloatEditor *pThis = Object_wx_GridCellFloatEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(sig)) return Value::Nil;
+	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int params = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParameters();
 	return Value::Nil;
