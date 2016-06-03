@@ -276,14 +276,14 @@ String Object_wx_${classNameShort}::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-${functionInfosOfMethod:&RenderImplementation(0.. > 0)}
+${funcInfosOfMethod:&RenderImplementation(0.. > 0)}
 
 //----------------------------------------------------------------------------
 // Class implementation for wx${classNameShort}
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_${classNameShort})
 {
-	${functionInfosOfMethod:*RenderAssignment()}
+	${funcInfosOfMethod:*RenderAssignment()}
 }
 
 Gura_ImplementDescendantCreator(wx_${classNameShort})
@@ -359,7 +359,7 @@ EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
 ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 				   className:string, classNamesParent[]:string,
 				   classInfosOfParent[] => [], classInfosOfChild[] => [],
-				   functionInfosOfMethod[] => [], supportedStat:symbol => `supported) {
+				   funcInfosOfMethod[] => [], supportedStat:symbol => `supported) {
 	IsSupported() = {
 		this.supportedStat == `supported
 	}
@@ -406,7 +406,7 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 	}
 	RenderSource(dirName:string):void = {
 		classNameShort = this.MakeClassNameShort()
-		functionInfosOfMethod = this.functionInfosOfMethod
+		funcInfosOfMethod = this.funcInfosOfMethod
 		tmpl@Source.render(path.join(dirName, format('Class_wx_%s.cpp', classNameShort)))
 	}
 	InheritValidation():void = {
@@ -421,7 +421,7 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		this.classInfosOfChild:*UpdateSupportedStat(supportedStat)
 	}
 	AddMethod(pathName:string, lineNo:number, strSrc:string):void = {
-		CreateFunctionInfo(this, this.functionInfosOfMethod, pathName, lineNo, strSrc)
+		funcInfo = CreateFuncInfo(this, this.funcInfosOfMethod, pathName, lineNo, strSrc)
 	}
 }
 
@@ -435,7 +435,7 @@ ArgInfo = struct(argName:string) {
 	}
 }
 
-FunctionInfo = struct(classInfo:ClassInfo, funcNameCPP:string, funcNameGura:string,
+FuncInfo = struct(classInfo:ClassInfo, funcNameCPP:string, funcNameGura:string,
 					  argInfos[]:ArgInfo => []) {
 	MakeFuncNameInternal() = '__' + this.funcNameGura
 	RenderImplementation(lineSkipFlag:boolean):map = {
@@ -513,7 +513,7 @@ CreateClassInfo(pathName:string, lineNo:string, strSrc:string) = {
 
 cntMethods = 0
 
-CreateFunctionInfo(classInfo:ClassInfo, functionInfos[],
+CreateFuncInfo(classInfo:ClassInfo, funcInfos[],
 				   pathName:string, lineNo:string, strSrc:string) = {
 	if (m = strSrc.match(r'^(.*?)\((.*)\)\s*(const)?\s*(=\s*0)?\s*;?$')) {
 		funcHead = m[1].strip()
@@ -543,13 +543,13 @@ CreateFunctionInfo(classInfo:ClassInfo, functionInfos[],
 	identifier.startswith('~') && return	// ignore destructor
 	funcNameCPP = identifier
 	funcNameGura = identifier
-	if ((functionInfos:*funcNameGura == funcNameGura).or()) {
+	if ((funcInfos:*funcNameGura == funcNameGura).or()) {
 		repeat {|i|
 			funcNameGura = format('%s_%d', identifier, i + 1)
-			!(functionInfos:*funcNameGura == funcNameGura).or() && break
+			!(funcInfos:*funcNameGura == funcNameGura).or() && break
 		}
 	}
-	functionInfo = FunctionInfo(classInfo, funcNameCPP, funcNameGura)
+	funcInfo = FuncInfo(classInfo, funcNameCPP, funcNameGura)
 	//printf('%s:%s:%s\n', identifier, typeList, refOperator)
 	if (!argList.isempty()) {
 		argList.split(',') {|arg|
@@ -568,16 +568,16 @@ CreateFunctionInfo(classInfo:ClassInfo, functionInfos[],
 				brackets = m[4]
 				//
 				argName = identifier
-				functionInfo.argInfos.add(ArgInfo(argName))
+				funcInfo.argInfos.add(ArgInfo(argName))
 			} else {
 				//WarningMessage(pathName, lineNo, strSrc, 'unacceptable argument declaration')
 			}
 			//printf('  %s:%s:%s:%s\n', identifier, typeList, refOperator, brackets)
 		}
 	}
-	functionInfos.add(functionInfo)
+	funcInfos.add(funcInfo)
 	cntMethods += 1
-	functionInfo
+	funcInfo
 }
 
 Parse(pathName:string):map:void = {
