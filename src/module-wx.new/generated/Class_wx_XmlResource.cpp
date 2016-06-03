@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxXmlResource, "wxXmlResource")
 	//DeclareArg(env, "filemask", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XmlResource));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlResource)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxXmlResource_1, "wxXmlResource_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XmlResource));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlResource_1)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxPersistentObject, "wxPersistentObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PersistentObject));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPersistentObject)

@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxConfigPathChanger, "wxConfigPathChanger")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pContainer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strEntry", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ConfigPathChanger));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxConfigPathChanger)

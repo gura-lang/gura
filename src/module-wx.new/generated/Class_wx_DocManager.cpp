@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxDocManager, "wxDocManager")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "initialize", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DocManager));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDocManager)

@@ -470,6 +470,8 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __GetCairoRenderer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsRenderer)
 {
+	// Class assignment
+	Gura_AssignValueEx("GraphicsRenderer", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_GraphicsRenderer, __CreateBitmap);
 	Gura_AssignMethod(wx_GraphicsRenderer, __CreateBitmapFromImage);

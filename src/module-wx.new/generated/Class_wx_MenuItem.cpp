@@ -46,6 +46,8 @@ Gura_DeclareFunctionAlias(__wxMenuItem, "wxMenuItem")
 	//DeclareArg(env, "helpString", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "subMenu", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MenuItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMenuItem)

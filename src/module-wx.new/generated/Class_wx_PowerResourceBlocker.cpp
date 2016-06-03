@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxPowerResourceBlocker, "wxPowerResourceBlocker")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "reason", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PowerResourceBlocker));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPowerResourceBlocker)

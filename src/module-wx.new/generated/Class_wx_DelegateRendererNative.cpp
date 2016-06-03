@@ -40,6 +40,8 @@ String Object_wx_DelegateRendererNative::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDelegateRendererNative, "wxDelegateRendererNative")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DelegateRendererNative));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDelegateRendererNative)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxDelegateRendererNative_1, "wxDelegateRendererNativ
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rendererNative", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DelegateRendererNative));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDelegateRendererNative_1)

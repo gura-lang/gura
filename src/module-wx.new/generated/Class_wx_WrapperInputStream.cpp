@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxWrapperInputStream, "wxWrapperInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WrapperInputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWrapperInputStream)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxWrapperInputStream_1, "wxWrapperInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WrapperInputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWrapperInputStream_1)
@@ -66,6 +70,8 @@ Gura_ImplementFunction(__wxWrapperInputStream_1)
 Gura_DeclareFunctionAlias(__wxWrapperInputStream_2, "wxWrapperInputStream_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_WrapperInputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWrapperInputStream_2)

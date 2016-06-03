@@ -40,6 +40,8 @@ String Object_wx_RibbonArtProvider::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRibbonArtProvider, "wxRibbonArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonArtProvider));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonArtProvider)

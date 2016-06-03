@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxProcess, "wxProcess")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Process));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxProcess)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxProcess_1, "wxProcess_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Process));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxProcess_1)

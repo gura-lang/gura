@@ -39,6 +39,8 @@ String Object_wx_Grid::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Grid)
 {
+	// Class assignment
+	Gura_AssignValueEx("Grid", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_Grid)

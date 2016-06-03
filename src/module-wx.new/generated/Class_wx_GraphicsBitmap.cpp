@@ -40,6 +40,8 @@ String Object_wx_GraphicsBitmap::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGraphicsBitmap, "wxGraphicsBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GraphicsBitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGraphicsBitmap)

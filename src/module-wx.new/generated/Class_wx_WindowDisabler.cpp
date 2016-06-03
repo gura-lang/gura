@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxWindowDisabler, "wxWindowDisabler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "disable", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WindowDisabler));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWindowDisabler)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxWindowDisabler_1, "wxWindowDisabler_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToSkip", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WindowDisabler));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWindowDisabler_1)

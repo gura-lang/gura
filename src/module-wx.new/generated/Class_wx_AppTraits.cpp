@@ -204,6 +204,8 @@ Gura_ImplementMethod(wx_AppTraits, __ShowAssertDialog)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AppTraits)
 {
+	// Class assignment
+	Gura_AssignValueEx("AppTraits", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_AppTraits, __CreateConfig);
 	Gura_AssignMethod(wx_AppTraits, __CreateEventLoop);

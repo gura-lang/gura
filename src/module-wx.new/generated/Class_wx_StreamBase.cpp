@@ -40,6 +40,8 @@ String Object_wx_StreamBase::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxStreamBase, "wxStreamBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_StreamBase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStreamBase)

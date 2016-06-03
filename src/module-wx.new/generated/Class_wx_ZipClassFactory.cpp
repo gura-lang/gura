@@ -39,6 +39,8 @@ String Object_wx_ZipClassFactory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipClassFactory)
 {
+	// Class assignment
+	Gura_AssignValueEx("ZipClassFactory", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_ZipClassFactory)

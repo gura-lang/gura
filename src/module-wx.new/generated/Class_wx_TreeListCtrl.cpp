@@ -40,6 +40,8 @@ String Object_wx_TreeListCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTreeListCtrl, "wxTreeListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TreeListCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTreeListCtrl)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxTreeListCtrl_1, "wxTreeListCtrl_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TreeListCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTreeListCtrl_1)

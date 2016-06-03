@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxAuiManager, "wxAuiManager")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "managed_wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AuiManager));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAuiManager)

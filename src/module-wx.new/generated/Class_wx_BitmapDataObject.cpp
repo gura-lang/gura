@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxBitmapDataObject, "wxBitmapDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BitmapDataObject));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmapDataObject)

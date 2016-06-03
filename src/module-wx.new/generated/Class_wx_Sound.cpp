@@ -40,6 +40,8 @@ String Object_wx_Sound::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSound, "wxSound")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Sound));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSound)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxSound_1, "wxSound_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "isResource", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Sound));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSound_1)
@@ -68,6 +72,8 @@ Gura_DeclareFunctionAlias(__wxSound_2, "wxSound_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Sound));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSound_2)

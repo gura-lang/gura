@@ -39,6 +39,8 @@ String Object_wx_IconBundle::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IconBundle)
 {
+	// Class assignment
+	Gura_AssignValueEx("IconBundle", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_IconBundle)

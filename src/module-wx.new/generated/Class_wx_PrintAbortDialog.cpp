@@ -46,6 +46,8 @@ Gura_DeclareFunctionAlias(__wxPrintAbortDialog, "wxPrintAbortDialog")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PrintAbortDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrintAbortDialog)

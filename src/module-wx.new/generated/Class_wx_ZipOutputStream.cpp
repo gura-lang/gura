@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxZipOutputStream, "wxZipOutputStream")
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ZipOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxZipOutputStream)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxZipOutputStream_1, "wxZipOutputStream_1")
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ZipOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxZipOutputStream_1)

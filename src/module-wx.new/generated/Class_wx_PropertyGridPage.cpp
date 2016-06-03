@@ -40,6 +40,8 @@ String Object_wx_PropertyGridPage::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPropertyGridPage, "wxPropertyGridPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PropertyGridPage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPropertyGridPage)

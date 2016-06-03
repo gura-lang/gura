@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxHtmlWordWithTabsCell, "wxHtmlWordWithTabsCell")
 	//DeclareArg(env, "wordOrig", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "linepos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlWordWithTabsCell));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlWordWithTabsCell)

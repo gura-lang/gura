@@ -40,6 +40,8 @@ String Object_wx_GBSpan::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGBSpan, "wxGBSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GBSpan));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGBSpan)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxGBSpan_1, "wxGBSpan_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rowspan", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colspan", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GBSpan));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGBSpan_1)

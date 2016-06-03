@@ -47,6 +47,8 @@ Gura_DeclareFunctionAlias(__wxRichTextAction, "wxRichTextAction")
 	//DeclareArg(env, "container", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ignoreFirstTime", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextAction));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextAction)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxClientDC, "wxClientDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ClientDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxClientDC)

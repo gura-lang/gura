@@ -40,6 +40,8 @@ String Object_wx_PropertyGrid::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPropertyGrid, "wxPropertyGrid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PropertyGrid));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPropertyGrid)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxPropertyGrid_1, "wxPropertyGrid_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PropertyGrid));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPropertyGrid_1)

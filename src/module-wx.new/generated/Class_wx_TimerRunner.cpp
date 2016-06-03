@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxTimerRunner, "wxTimerRunner")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TimerRunner));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTimerRunner)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxTimerRunner_1, "wxTimerRunner_1")
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "milli", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "oneShot", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TimerRunner));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTimerRunner_1)

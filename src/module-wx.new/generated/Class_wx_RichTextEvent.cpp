@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxRichTextEvent, "wxRichTextEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextEvent)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxRichTextEvent_1, "wxRichTextEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextEvent_1)

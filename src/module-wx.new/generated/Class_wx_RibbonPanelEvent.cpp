@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxRibbonPanelEvent, "wxRibbonPanelEvent")
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "win_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "panel", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonPanelEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonPanelEvent)

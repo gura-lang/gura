@@ -40,6 +40,8 @@ String Object_wx_PGCell::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPGCell, "wxPGCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PGCell));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGCell)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxPGCell_1, "wxPGCell_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PGCell));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGCell_1)
@@ -68,6 +72,8 @@ Gura_DeclareFunctionAlias(__wxPGCell_2, "wxPGCell_2")
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fgCol", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bgCol", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PGCell));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGCell_2)

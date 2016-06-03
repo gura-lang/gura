@@ -40,6 +40,8 @@ String Object_wx_Brush::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxBrush, "wxBrush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Brush));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBrush)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxBrush_1, "wxBrush_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Brush));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBrush_1)
@@ -67,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxBrush_2, "wxBrush_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stippleBitmap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Brush));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBrush_2)
@@ -80,6 +86,8 @@ Gura_DeclareFunctionAlias(__wxBrush_3, "wxBrush_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Brush));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBrush_3)

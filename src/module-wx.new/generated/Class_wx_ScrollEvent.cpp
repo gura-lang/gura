@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxScrollEvent, "wxScrollEvent")
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ScrollEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxScrollEvent)

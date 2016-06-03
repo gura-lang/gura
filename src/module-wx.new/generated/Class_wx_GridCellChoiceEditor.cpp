@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxGridCellChoiceEditor, "wxGridCellChoiceEditor")
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "allowOthers", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridCellChoiceEditor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridCellChoiceEditor)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxGridCellChoiceEditor_1, "wxGridCellChoiceEditor_1"
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "allowOthers", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridCellChoiceEditor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridCellChoiceEditor_1)

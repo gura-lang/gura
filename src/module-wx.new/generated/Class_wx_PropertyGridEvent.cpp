@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxPropertyGridEvent, "wxPropertyGridEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PropertyGridEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPropertyGridEvent)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxPropertyGridEvent_1, "wxPropertyGridEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PropertyGridEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPropertyGridEvent_1)

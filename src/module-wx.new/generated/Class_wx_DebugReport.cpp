@@ -39,6 +39,8 @@ String Object_wx_DebugReport::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReport)
 {
+	// Class assignment
+	Gura_AssignValueEx("DebugReport", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_DebugReport)

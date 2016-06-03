@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxGridSizer, "wxGridSizer")
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridSizer)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxGridSizer_1, "wxGridSizer_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridSizer_1)
@@ -76,6 +80,8 @@ Gura_DeclareFunctionAlias(__wxGridSizer_2, "wxGridSizer_2")
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridSizer_2)
@@ -94,6 +100,8 @@ Gura_DeclareFunctionAlias(__wxGridSizer_3, "wxGridSizer_3")
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridSizer_3)

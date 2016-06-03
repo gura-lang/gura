@@ -40,6 +40,8 @@ String Object_wx_DDEConnection::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDDEConnection, "wxDDEConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DDEConnection));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDDEConnection)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxDDEConnection_1, "wxDDEConnection_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DDEConnection));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDDEConnection_1)

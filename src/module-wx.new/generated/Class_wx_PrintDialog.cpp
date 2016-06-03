@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxPrintDialog, "wxPrintDialog")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PrintDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrintDialog)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxPrintDialog_1, "wxPrintDialog_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PrintDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrintDialog_1)

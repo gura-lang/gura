@@ -40,6 +40,8 @@ String Object_wx_SystemOptions::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSystemOptions, "wxSystemOptions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SystemOptions));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSystemOptions)

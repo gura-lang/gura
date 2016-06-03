@@ -2213,6 +2213,8 @@ Gura_ImplementMethod(wx_DC, __GetLogicalOrigin_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DC)
 {
+	// Class assignment
+	Gura_AssignValueEx("DC", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_DC, __DeviceToLogicalX);
 	Gura_AssignMethod(wx_DC, __DeviceToLogicalXRel);

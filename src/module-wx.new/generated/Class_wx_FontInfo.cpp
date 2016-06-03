@@ -40,6 +40,8 @@ String Object_wx_FontInfo::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFontInfo, "wxFontInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FontInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFontInfo)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxFontInfo_1, "wxFontInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pointSize", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FontInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFontInfo_1)
@@ -65,6 +69,8 @@ Gura_DeclareFunctionAlias(__wxFontInfo_2, "wxFontInfo_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pixelSize", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FontInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFontInfo_2)

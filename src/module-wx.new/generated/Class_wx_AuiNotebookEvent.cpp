@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxAuiNotebookEvent, "wxAuiNotebookEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "win_id", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AuiNotebookEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAuiNotebookEvent)

@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxCharTypeBuffer, "wxCharTypeBuffer")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CharTypeBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCharTypeBuffer)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxCharTypeBuffer_1, "wxCharTypeBuffer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CharTypeBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCharTypeBuffer_1)
@@ -69,6 +73,8 @@ Gura_DeclareFunctionAlias(__wxCharTypeBuffer_2, "wxCharTypeBuffer_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CharTypeBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCharTypeBuffer_2)
@@ -82,6 +88,8 @@ Gura_DeclareFunctionAlias(__wxCharTypeBuffer_3, "wxCharTypeBuffer_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CharTypeBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCharTypeBuffer_3)

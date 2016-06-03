@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxRichTextPlainText, "wxRichTextPlainText")
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextPlainText));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextPlainText)
@@ -57,6 +59,8 @@ Gura_ImplementFunction(__wxRichTextPlainText)
 Gura_DeclareFunctionAlias(__wxRichTextPlainText_1, "wxRichTextPlainText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextPlainText));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextPlainText_1)

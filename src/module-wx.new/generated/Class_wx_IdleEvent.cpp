@@ -40,6 +40,8 @@ String Object_wx_IdleEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxIdleEvent, "wxIdleEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_IdleEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxIdleEvent)

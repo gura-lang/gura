@@ -40,6 +40,8 @@ String Object_wx_WebKitCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxWebKitCtrl, "wxWebKitCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_WebKitCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWebKitCtrl)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxWebKitCtrl_1, "wxWebKitCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WebKitCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWebKitCtrl_1)

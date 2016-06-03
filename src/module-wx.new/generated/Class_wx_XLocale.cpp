@@ -40,6 +40,8 @@ String Object_wx_XLocale::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxXLocale, "wxXLocale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_XLocale));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXLocale)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxXLocale_1, "wxXLocale_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XLocale));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXLocale_1)
@@ -65,6 +69,8 @@ Gura_DeclareFunctionAlias(__wxXLocale_2, "wxXLocale_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XLocale));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXLocale_2)

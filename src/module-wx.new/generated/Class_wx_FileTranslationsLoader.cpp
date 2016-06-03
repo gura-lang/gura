@@ -57,6 +57,8 @@ Gura_ImplementMethod(wx_FileTranslationsLoader, __AddCatalogLookupPathPrefix)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileTranslationsLoader)
 {
+	// Class assignment
+	Gura_AssignValueEx("FileTranslationsLoader", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_FileTranslationsLoader, __AddCatalogLookupPathPrefix);
 }

@@ -39,6 +39,8 @@ String Object_wx_RichTextFormattingDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFormattingDialog)
 {
+	// Class assignment
+	Gura_AssignValueEx("RichTextFormattingDialog", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextFormattingDialog)

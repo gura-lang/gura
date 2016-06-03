@@ -45,6 +45,8 @@ Gura_DeclareFunctionAlias(__wxRichTextStyleComboCtrl, "wxRichTextStyleComboCtrl"
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleComboCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextStyleComboCtrl)
@@ -61,6 +63,8 @@ Gura_ImplementFunction(__wxRichTextStyleComboCtrl)
 Gura_DeclareFunctionAlias(__wxRichTextStyleComboCtrl_1, "wxRichTextStyleComboCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleComboCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextStyleComboCtrl_1)

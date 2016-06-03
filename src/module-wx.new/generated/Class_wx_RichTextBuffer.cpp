@@ -40,6 +40,8 @@ String Object_wx_RichTextBuffer::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextBuffer, "wxRichTextBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextBuffer)
@@ -51,6 +53,8 @@ Gura_ImplementFunction(__wxRichTextBuffer)
 Gura_DeclareFunctionAlias(__wxRichTextBuffer_1, "wxRichTextBuffer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextBuffer_1)

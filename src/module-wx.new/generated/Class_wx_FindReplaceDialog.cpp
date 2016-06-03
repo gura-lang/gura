@@ -40,6 +40,8 @@ String Object_wx_FindReplaceDialog::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFindReplaceDialog, "wxFindReplaceDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FindReplaceDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFindReplaceDialog)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxFindReplaceDialog_1, "wxFindReplaceDialog_1")
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FindReplaceDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFindReplaceDialog_1)

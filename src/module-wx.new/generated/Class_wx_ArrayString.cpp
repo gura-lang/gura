@@ -40,6 +40,8 @@ String Object_wx_ArrayString::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxArrayString, "wxArrayString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxArrayString)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxArrayString_1, "wxArrayString_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxArrayString_1)
@@ -66,6 +70,8 @@ Gura_DeclareFunctionAlias(__wxArrayString_2, "wxArrayString_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxArrayString_2)
@@ -81,6 +87,8 @@ Gura_DeclareFunctionAlias(__wxArrayString_3, "wxArrayString_3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxArrayString_3)
@@ -96,6 +104,8 @@ Gura_DeclareFunctionAlias(__wxArrayString_4, "wxArrayString_4")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxArrayString_4)

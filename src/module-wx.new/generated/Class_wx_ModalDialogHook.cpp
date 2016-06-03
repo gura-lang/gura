@@ -40,6 +40,8 @@ String Object_wx_ModalDialogHook::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxModalDialogHook, "wxModalDialogHook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ModalDialogHook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxModalDialogHook)

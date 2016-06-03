@@ -40,6 +40,8 @@ String Object_wx_GDIObject::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGDIObject, "wxGDIObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GDIObject));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGDIObject)

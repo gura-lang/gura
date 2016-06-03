@@ -40,6 +40,8 @@ String Object_wx_MDIClientWindow::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxMDIClientWindow, "wxMDIClientWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_MDIClientWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMDIClientWindow)

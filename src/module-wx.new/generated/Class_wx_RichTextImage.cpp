@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRichTextImage, "wxRichTextImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextImage)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxRichTextImage_1, "wxRichTextImage_1")
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "charStyle", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextImage_1)
@@ -73,6 +77,8 @@ Gura_DeclareFunctionAlias(__wxRichTextImage_2, "wxRichTextImage_2")
 	//DeclareArg(env, "imageBlock", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "charStyle", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextImage_2)
@@ -87,6 +93,8 @@ Gura_ImplementFunction(__wxRichTextImage_2)
 Gura_DeclareFunctionAlias(__wxRichTextImage_3, "wxRichTextImage_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextImage_3)

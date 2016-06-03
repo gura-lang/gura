@@ -46,6 +46,8 @@ Gura_DeclareFunctionAlias(__wxHtmlTag, "wxHtmlTag")
 	//DeclareArg(env, "end_pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cache", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "entParser", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlTag));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlTag)

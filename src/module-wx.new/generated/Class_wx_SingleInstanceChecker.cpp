@@ -40,6 +40,8 @@ String Object_wx_SingleInstanceChecker::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSingleInstanceChecker, "wxSingleInstanceChecker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SingleInstanceChecker));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSingleInstanceChecker)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxSingleInstanceChecker_1, "wxSingleInstanceChecker_
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SingleInstanceChecker));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSingleInstanceChecker_1)

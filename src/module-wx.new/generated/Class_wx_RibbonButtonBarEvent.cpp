@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxRibbonButtonBarEvent, "wxRibbonButtonBarEvent")
 	//DeclareArg(env, "win_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bar", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonButtonBarEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonButtonBarEvent)

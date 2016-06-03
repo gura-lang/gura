@@ -40,6 +40,8 @@ String Object_wx_DebugReportPreviewStd::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDebugReportPreviewStd, "wxDebugReportPreviewStd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DebugReportPreviewStd));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDebugReportPreviewStd)

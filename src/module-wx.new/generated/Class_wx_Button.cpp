@@ -40,6 +40,8 @@ String Object_wx_Button::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxButton, "wxButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Button));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxButton)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxButton_1, "wxButton_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Button));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxButton_1)

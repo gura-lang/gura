@@ -40,6 +40,8 @@ String Object_wx_NativeFontInfo::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxNativeFontInfo, "wxNativeFontInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_NativeFontInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxNativeFontInfo)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxNativeFontInfo_1, "wxNativeFontInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_NativeFontInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxNativeFontInfo_1)

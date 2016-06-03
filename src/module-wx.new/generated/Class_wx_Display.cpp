@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxDisplay, "wxDisplay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Display));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDisplay)

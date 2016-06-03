@@ -39,6 +39,8 @@ String Object_wx_GraphicsPen::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsPen)
 {
+	// Class assignment
+	Gura_AssignValueEx("GraphicsPen", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsPen)

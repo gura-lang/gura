@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRichTextTable, "wxRichTextTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextTable));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextTable)
@@ -53,6 +55,8 @@ Gura_ImplementFunction(__wxRichTextTable)
 Gura_DeclareFunctionAlias(__wxRichTextTable_1, "wxRichTextTable_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextTable));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextTable_1)

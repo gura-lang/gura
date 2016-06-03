@@ -40,6 +40,8 @@ String Object_wx_ImageHandler::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxImageHandler, "wxImageHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ImageHandler));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxImageHandler)

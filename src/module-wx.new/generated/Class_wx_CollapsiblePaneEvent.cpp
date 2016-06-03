@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxCollapsiblePaneEvent, "wxCollapsiblePaneEvent")
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "collapsed", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CollapsiblePaneEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCollapsiblePaneEvent)

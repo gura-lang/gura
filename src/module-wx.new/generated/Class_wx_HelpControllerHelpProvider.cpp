@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxHelpControllerHelpProvider, "wxHelpControllerHelpP
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HelpControllerHelpProvider));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHelpControllerHelpProvider)

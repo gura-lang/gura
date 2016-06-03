@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxMouseCaptureChangedEvent, "wxMouseCaptureChangedEv
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "windowId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gainedCapture", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MouseCaptureChangedEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMouseCaptureChangedEvent)

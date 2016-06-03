@@ -40,6 +40,8 @@ String Object_wx_HtmlFilter::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHtmlFilter, "wxHtmlFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlFilter));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlFilter)

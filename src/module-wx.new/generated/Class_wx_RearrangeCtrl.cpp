@@ -40,6 +40,8 @@ String Object_wx_RearrangeCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRearrangeCtrl, "wxRearrangeCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RearrangeCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRearrangeCtrl)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxRearrangeCtrl_1, "wxRearrangeCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RearrangeCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRearrangeCtrl_1)

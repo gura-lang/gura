@@ -46,6 +46,8 @@ Gura_DeclareFunctionAlias(__wxConfigBase, "wxConfigBase")
 	//DeclareArg(env, "globalFilename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ConfigBase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxConfigBase)

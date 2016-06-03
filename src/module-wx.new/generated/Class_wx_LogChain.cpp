@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxLogChain, "wxLogChain")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "logger", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_LogChain));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLogChain)

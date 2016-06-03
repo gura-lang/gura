@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxZlibInputStream, "wxZlibInputStream")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ZlibInputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxZlibInputStream)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxZlibInputStream_1, "wxZlibInputStream_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ZlibInputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxZlibInputStream_1)

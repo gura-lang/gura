@@ -40,6 +40,8 @@ String Object_wx_DataViewItem::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDataViewItem, "wxDataViewItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewItem)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxDataViewItem_1, "wxDataViewItem_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewItem_1)
@@ -65,6 +69,8 @@ Gura_DeclareFunctionAlias(__wxDataViewItem_2, "wxDataViewItem_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewItem_2)

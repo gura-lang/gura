@@ -40,6 +40,8 @@ String Object_wx_FontPickerCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFontPickerCtrl, "wxFontPickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FontPickerCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFontPickerCtrl)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxFontPickerCtrl_1, "wxFontPickerCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FontPickerCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFontPickerCtrl_1)

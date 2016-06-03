@@ -39,6 +39,8 @@ String Object_wx_WithImages::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WithImages)
 {
+	// Class assignment
+	Gura_AssignValueEx("WithImages", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_WithImages)

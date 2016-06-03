@@ -40,6 +40,8 @@ String Object_wx_HeaderCtrlSimple::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHeaderCtrlSimple, "wxHeaderCtrlSimple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HeaderCtrlSimple));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHeaderCtrlSimple)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxHeaderCtrlSimple_1, "wxHeaderCtrlSimple_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HeaderCtrlSimple));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHeaderCtrlSimple_1)

@@ -40,6 +40,8 @@ String Object_wx_GridCellAutoWrapStringEditor::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridCellAutoWrapStringEditor, "wxGridCellAutoWrapStringEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridCellAutoWrapStringEditor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridCellAutoWrapStringEditor)

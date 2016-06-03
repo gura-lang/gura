@@ -40,6 +40,8 @@ String Object_wx_StringClientData::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxStringClientData, "wxStringClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_StringClientData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStringClientData)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxStringClientData_1, "wxStringClientData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StringClientData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStringClientData_1)

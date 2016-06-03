@@ -40,6 +40,8 @@ String Object_wx_Listbook::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxListbook, "wxListbook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Listbook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxListbook)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxListbook_1, "wxListbook_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Listbook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxListbook_1)

@@ -40,6 +40,8 @@ String Object_wx_ToggleButton::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxToggleButton, "wxToggleButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ToggleButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxToggleButton)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxToggleButton_1, "wxToggleButton_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ToggleButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxToggleButton_1)

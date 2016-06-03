@@ -40,6 +40,8 @@ String Object_wx_RichTextHeaderFooterData::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextHeaderFooterData, "wxRichTextHeaderFooterData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextHeaderFooterData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextHeaderFooterData)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxRichTextHeaderFooterData_1, "wxRichTextHeaderFoote
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextHeaderFooterData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextHeaderFooterData_1)

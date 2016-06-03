@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxHelpController, "wxHelpController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HelpController));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHelpController)

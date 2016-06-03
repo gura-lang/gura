@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxSVGFileDC, "wxSVGFileDC")
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dpi", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SVGFileDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSVGFileDC)

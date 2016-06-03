@@ -40,6 +40,8 @@ String Object_wx_TextAttr::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTextAttr, "wxTextAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TextAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextAttr)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxTextAttr_1, "wxTextAttr_1")
 	//DeclareArg(env, "colBack", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextAttr_1)
@@ -71,6 +75,8 @@ Gura_DeclareFunctionAlias(__wxTextAttr_2, "wxTextAttr_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextAttr_2)

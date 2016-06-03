@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxScopedArray, "wxScopedArray")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ScopedArray));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxScopedArray)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxScopedArray_1, "wxScopedArray_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ScopedArray));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxScopedArray_1)

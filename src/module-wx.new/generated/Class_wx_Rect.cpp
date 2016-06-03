@@ -40,6 +40,8 @@ String Object_wx_Rect::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRect, "wxRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Rect));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxRect_1, "wxRect_1")
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Rect));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect_1)
@@ -72,6 +76,8 @@ Gura_DeclareFunctionAlias(__wxRect_2, "wxRect_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topLeft", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bottomRight", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Rect));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect_2)
@@ -87,6 +93,8 @@ Gura_DeclareFunctionAlias(__wxRect_3, "wxRect_3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Rect));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect_3)
@@ -101,6 +109,8 @@ Gura_DeclareFunctionAlias(__wxRect_4, "wxRect_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Rect));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect_4)

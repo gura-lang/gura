@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxMirrorDC, "wxMirrorDC")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mirror", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MirrorDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMirrorDC)

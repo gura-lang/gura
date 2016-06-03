@@ -40,6 +40,8 @@ String Object_wx_FontList::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFontList, "wxFontList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FontList));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFontList)

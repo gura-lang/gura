@@ -1375,6 +1375,8 @@ Gura_ImplementMethod(wx_GraphicsContext, __GetDPI)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsContext)
 {
+	// Class assignment
+	Gura_AssignValueEx("GraphicsContext", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_GraphicsContext, __Create);
 	Gura_AssignMethod(wx_GraphicsContext, __Create_1);

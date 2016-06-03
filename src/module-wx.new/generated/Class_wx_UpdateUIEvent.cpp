@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxUpdateUIEvent, "wxUpdateUIEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandId", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_UpdateUIEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxUpdateUIEvent)

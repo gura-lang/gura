@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxBookCtrlEvent, "wxBookCtrlEvent")
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sel", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "oldSel", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BookCtrlEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBookCtrlEvent)

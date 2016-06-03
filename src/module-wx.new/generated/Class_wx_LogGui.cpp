@@ -40,6 +40,8 @@ String Object_wx_LogGui::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxLogGui, "wxLogGui")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_LogGui));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLogGui)

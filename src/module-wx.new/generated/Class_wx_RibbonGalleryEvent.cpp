@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxRibbonGalleryEvent, "wxRibbonGalleryEvent")
 	//DeclareArg(env, "win_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gallery", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonGalleryEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonGalleryEvent)

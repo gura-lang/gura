@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxHeaderColumnSimple, "wxHeaderColumnSimple")
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HeaderColumnSimple));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHeaderColumnSimple)
@@ -63,6 +65,8 @@ Gura_DeclareFunctionAlias(__wxHeaderColumnSimple_1, "wxHeaderColumnSimple_1")
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HeaderColumnSimple));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHeaderColumnSimple_1)

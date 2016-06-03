@@ -40,6 +40,8 @@ String Object_wx_XmlDocument::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxXmlDocument, "wxXmlDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_XmlDocument));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlDocument)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxXmlDocument_1, "wxXmlDocument_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XmlDocument));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlDocument_1)
@@ -66,6 +70,8 @@ Gura_DeclareFunctionAlias(__wxXmlDocument_2, "wxXmlDocument_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XmlDocument));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlDocument_2)
@@ -81,6 +87,8 @@ Gura_DeclareFunctionAlias(__wxXmlDocument_3, "wxXmlDocument_3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XmlDocument));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlDocument_3)

@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxBufferedOutputStream, "wxBufferedOutputStream")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BufferedOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBufferedOutputStream)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxBufferedOutputStream_1, "wxBufferedOutputStream_1"
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bufsize", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BufferedOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBufferedOutputStream_1)

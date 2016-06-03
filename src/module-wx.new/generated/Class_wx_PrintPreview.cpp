@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxPrintPreview, "wxPrintPreview")
 	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "printoutForPrinting", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PrintPreview));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrintPreview)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxPrintPreview_1, "wxPrintPreview_1")
 	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "printoutForPrinting", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PrintPreview));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrintPreview_1)

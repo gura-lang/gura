@@ -40,6 +40,8 @@ String Object_wx_GridStringTable::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridStringTable, "wxGridStringTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridStringTable));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridStringTable)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxGridStringTable_1, "wxGridStringTable_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "numRows", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "numCols", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridStringTable));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridStringTable_1)

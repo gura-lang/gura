@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxTaskBarIcon, "wxTaskBarIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iconType", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TaskBarIcon));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTaskBarIcon)

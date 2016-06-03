@@ -225,6 +225,8 @@ Gura_ImplementMethod(wx_Protocol, __LogResponse)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Protocol)
 {
+	// Class assignment
+	Gura_AssignValueEx("Protocol", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_Protocol, __Abort);
 	Gura_AssignMethod(wx_Protocol, __GetContentType);

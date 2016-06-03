@@ -40,6 +40,8 @@ String Object_wx_PGProperty::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPGProperty, "wxPGProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PGProperty));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGProperty)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxPGProperty_1, "wxPGProperty_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PGProperty));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGProperty_1)

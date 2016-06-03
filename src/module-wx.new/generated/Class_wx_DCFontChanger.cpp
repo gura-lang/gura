@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxDCFontChanger, "wxDCFontChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DCFontChanger));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDCFontChanger)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxDCFontChanger_1, "wxDCFontChanger_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DCFontChanger));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDCFontChanger_1)

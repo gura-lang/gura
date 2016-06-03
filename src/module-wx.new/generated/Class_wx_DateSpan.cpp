@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxDateSpan, "wxDateSpan")
 	//DeclareArg(env, "months", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "weeks", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "days", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DateSpan));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDateSpan)

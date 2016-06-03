@@ -40,6 +40,8 @@ String Object_wx_String::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxString, "wxString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxString_1, "wxString_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stringSrc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_1)
@@ -66,6 +70,8 @@ Gura_DeclareFunctionAlias(__wxString_2, "wxString_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nRepeat", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_2)
@@ -81,6 +87,8 @@ Gura_DeclareFunctionAlias(__wxString_3, "wxString_3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nRepeat", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_3)
@@ -96,6 +104,8 @@ Gura_DeclareFunctionAlias(__wxString_4, "wxString_4")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nRepeat", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_4)
@@ -111,6 +121,8 @@ Gura_DeclareFunctionAlias(__wxString_5, "wxString_5")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nRepeat", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_5)
@@ -125,6 +137,8 @@ Gura_DeclareFunctionAlias(__wxString_6, "wxString_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_6)
@@ -139,6 +153,8 @@ Gura_DeclareFunctionAlias(__wxString_7, "wxString_7")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_7)
@@ -154,6 +170,8 @@ Gura_DeclareFunctionAlias(__wxString_8, "wxString_8")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLength", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_8)
@@ -170,6 +188,8 @@ Gura_DeclareFunctionAlias(__wxString_9, "wxString_9")
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLength", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_9)
@@ -185,6 +205,8 @@ Gura_DeclareFunctionAlias(__wxString_10, "wxString_10")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pwz", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_10)
@@ -199,6 +221,8 @@ Gura_DeclareFunctionAlias(__wxString_11, "wxString_11")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pwz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLength", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_11)
@@ -213,6 +237,8 @@ Gura_DeclareFunctionAlias(__wxString_12, "wxString_12")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_12)
@@ -226,6 +252,8 @@ Gura_DeclareFunctionAlias(__wxString_13, "wxString_13")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_13)
@@ -239,6 +267,8 @@ Gura_DeclareFunctionAlias(__wxString_14, "wxString_14")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_14)
@@ -252,6 +282,8 @@ Gura_DeclareFunctionAlias(__wxString_15, "wxString_15")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_String));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxString_15)

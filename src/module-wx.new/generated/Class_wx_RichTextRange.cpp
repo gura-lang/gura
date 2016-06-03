@@ -40,6 +40,8 @@ String Object_wx_RichTextRange::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextRange, "wxRichTextRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextRange));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextRange)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxRichTextRange_1, "wxRichTextRange_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextRange));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextRange_1)
@@ -67,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxRichTextRange_2, "wxRichTextRange_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextRange));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextRange_2)

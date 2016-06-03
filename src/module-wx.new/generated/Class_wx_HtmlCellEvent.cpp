@@ -45,6 +45,8 @@ Gura_DeclareFunctionAlias(__wxHtmlCellEvent, "wxHtmlCellEvent")
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "point", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ev", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlCellEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlCellEvent)

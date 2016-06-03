@@ -40,6 +40,8 @@ String Object_wx_Region::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRegion, "wxRegion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Region));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegion)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxRegion_1, "wxRegion_1")
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Region));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegion_1)
@@ -72,6 +76,8 @@ Gura_DeclareFunctionAlias(__wxRegion_2, "wxRegion_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topLeft", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bottomRight", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Region));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegion_2)
@@ -86,6 +92,8 @@ Gura_DeclareFunctionAlias(__wxRegion_3, "wxRegion_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Region));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegion_3)
@@ -99,6 +107,8 @@ Gura_DeclareFunctionAlias(__wxRegion_4, "wxRegion_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Region));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegion_4)
@@ -114,6 +124,8 @@ Gura_DeclareFunctionAlias(__wxRegion_5, "wxRegion_5")
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "points", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Region));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegion_5)
@@ -129,6 +141,8 @@ Gura_DeclareFunctionAlias(__wxRegion_6, "wxRegion_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Region));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegion_6)
@@ -144,6 +158,8 @@ Gura_DeclareFunctionAlias(__wxRegion_7, "wxRegion_7")
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "transColour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tolerance", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Region));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegion_7)

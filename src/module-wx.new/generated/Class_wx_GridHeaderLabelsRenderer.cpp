@@ -69,6 +69,8 @@ Gura_ImplementMethod(wx_GridHeaderLabelsRenderer, __DrawLabel)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridHeaderLabelsRenderer)
 {
+	// Class assignment
+	Gura_AssignValueEx("GridHeaderLabelsRenderer", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_GridHeaderLabelsRenderer, __DrawLabel);
 }

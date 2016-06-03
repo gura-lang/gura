@@ -40,6 +40,8 @@ String Object_wx_TextAttrSize::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTextAttrSize, "wxTextAttrSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TextAttrSize));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextAttrSize)

@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxDCClipper, "wxDCClipper")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DCClipper));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDCClipper)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxDCClipper_1, "wxDCClipper_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DCClipper));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDCClipper_1)
@@ -75,6 +79,8 @@ Gura_DeclareFunctionAlias(__wxDCClipper_2, "wxDCClipper_2")
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DCClipper));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDCClipper_2)

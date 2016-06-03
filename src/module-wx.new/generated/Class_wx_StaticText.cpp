@@ -40,6 +40,8 @@ String Object_wx_StaticText::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxStaticText, "wxStaticText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_StaticText));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStaticText)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxStaticText_1, "wxStaticText_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StaticText));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStaticText_1)

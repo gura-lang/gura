@@ -72,6 +72,8 @@ Gura_ImplementMethod(wx_NonOwnedWindow, __SetShape_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NonOwnedWindow)
 {
+	// Class assignment
+	Gura_AssignValueEx("NonOwnedWindow", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_NonOwnedWindow, __SetShape);
 	Gura_AssignMethod(wx_NonOwnedWindow, __SetShape_1);

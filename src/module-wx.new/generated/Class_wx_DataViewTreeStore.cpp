@@ -40,6 +40,8 @@ String Object_wx_DataViewTreeStore::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDataViewTreeStore, "wxDataViewTreeStore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewTreeStore));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewTreeStore)

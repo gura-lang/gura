@@ -40,6 +40,8 @@ String Object_wx_RichTextFontTable::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextFontTable, "wxRichTextFontTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextFontTable));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextFontTable)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxRichTextFontTable_1, "wxRichTextFontTable_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextFontTable));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextFontTable_1)

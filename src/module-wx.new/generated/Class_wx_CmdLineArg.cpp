@@ -159,6 +159,8 @@ Gura_ImplementMethod(wx_CmdLineArg, __IsNegated)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CmdLineArg)
 {
+	// Class assignment
+	Gura_AssignValueEx("CmdLineArg", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_CmdLineArg, __GetDateVal);
 	Gura_AssignMethod(wx_CmdLineArg, __GetDoubleVal);

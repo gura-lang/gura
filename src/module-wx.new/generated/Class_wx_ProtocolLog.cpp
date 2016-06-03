@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxProtocolLog, "wxProtocolLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "traceMask", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ProtocolLog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxProtocolLog)

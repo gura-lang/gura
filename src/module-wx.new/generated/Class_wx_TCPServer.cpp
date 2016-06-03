@@ -40,6 +40,8 @@ String Object_wx_TCPServer::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTCPServer, "wxTCPServer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TCPServer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTCPServer)

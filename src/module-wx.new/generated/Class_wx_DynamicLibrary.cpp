@@ -40,6 +40,8 @@ String Object_wx_DynamicLibrary::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDynamicLibrary, "wxDynamicLibrary")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DynamicLibrary));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDynamicLibrary)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxDynamicLibrary_1, "wxDynamicLibrary_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DynamicLibrary));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDynamicLibrary_1)

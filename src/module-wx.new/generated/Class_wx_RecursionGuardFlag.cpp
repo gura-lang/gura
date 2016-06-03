@@ -39,6 +39,8 @@ String Object_wx_RecursionGuardFlag::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RecursionGuardFlag)
 {
+	// Class assignment
+	Gura_AssignValueEx("RecursionGuardFlag", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_RecursionGuardFlag)

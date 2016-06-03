@@ -40,6 +40,8 @@ String Object_wx_ColourDatabase::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxColourDatabase, "wxColourDatabase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ColourDatabase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxColourDatabase)

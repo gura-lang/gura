@@ -40,6 +40,8 @@ String Object_wx_PowerEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPowerEvent, "wxPowerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PowerEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPowerEvent)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxPowerEvent_1, "wxPowerEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "evtType", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PowerEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPowerEvent_1)

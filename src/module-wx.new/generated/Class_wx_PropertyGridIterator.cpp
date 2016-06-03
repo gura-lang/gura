@@ -111,6 +111,8 @@ Gura_ImplementMethod(wx_PropertyGridIterator, __Prev)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertyGridIterator)
 {
+	// Class assignment
+	Gura_AssignValueEx("PropertyGridIterator", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_PropertyGridIterator, __Assign);
 	Gura_AssignMethod(wx_PropertyGridIterator, __AtEnd);

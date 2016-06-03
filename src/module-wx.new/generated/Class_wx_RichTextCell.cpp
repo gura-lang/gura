@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRichTextCell, "wxRichTextCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextCell));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextCell)
@@ -53,6 +55,8 @@ Gura_ImplementFunction(__wxRichTextCell)
 Gura_DeclareFunctionAlias(__wxRichTextCell_1, "wxRichTextCell_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextCell));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextCell_1)

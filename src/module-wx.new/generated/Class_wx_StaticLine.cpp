@@ -40,6 +40,8 @@ String Object_wx_StaticLine::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxStaticLine, "wxStaticLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_StaticLine));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStaticLine)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxStaticLine_1, "wxStaticLine_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StaticLine));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStaticLine_1)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxFileStream, "wxFileStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iofileName", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileStream)

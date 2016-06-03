@@ -98,6 +98,8 @@ Gura_ImplementMethod(wx_MessageDialog, __GetStockId)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageDialog)
 {
+	// Class assignment
+	Gura_AssignValueEx("MessageDialog", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_MessageDialog, __ButtonLabel);
 	Gura_AssignMethod(wx_MessageDialog, __ButtonLabel_1);

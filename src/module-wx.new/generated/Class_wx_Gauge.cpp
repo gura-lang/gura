@@ -40,6 +40,8 @@ String Object_wx_Gauge::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGauge, "wxGauge")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Gauge));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGauge)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxGauge_1, "wxGauge_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Gauge));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGauge_1)

@@ -40,6 +40,8 @@ String Object_wx_CommandLinkButton::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxCommandLinkButton, "wxCommandLinkButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_CommandLinkButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCommandLinkButton)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxCommandLinkButton_1, "wxCommandLinkButton_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CommandLinkButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCommandLinkButton_1)

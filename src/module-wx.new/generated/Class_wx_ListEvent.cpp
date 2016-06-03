@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxListEvent, "wxListEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ListEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxListEvent)

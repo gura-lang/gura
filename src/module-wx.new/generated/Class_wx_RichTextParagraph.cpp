@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxRichTextParagraph, "wxRichTextParagraph")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextParagraph));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextParagraph)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxRichTextParagraph_1, "wxRichTextParagraph_1")
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "paraStyle", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "charStyle", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextParagraph));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextParagraph_1)
@@ -74,6 +78,8 @@ Gura_ImplementFunction(__wxRichTextParagraph_1)
 Gura_DeclareFunctionAlias(__wxRichTextParagraph_2, "wxRichTextParagraph_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextParagraph));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextParagraph_2)

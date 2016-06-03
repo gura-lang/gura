@@ -40,6 +40,8 @@ String Object_wx_FilePickerCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFilePickerCtrl, "wxFilePickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FilePickerCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFilePickerCtrl)
@@ -61,6 +63,8 @@ Gura_DeclareFunctionAlias(__wxFilePickerCtrl_1, "wxFilePickerCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FilePickerCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFilePickerCtrl_1)

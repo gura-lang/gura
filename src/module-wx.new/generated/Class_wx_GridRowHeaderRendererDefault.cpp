@@ -61,6 +61,8 @@ Gura_ImplementMethod(wx_GridRowHeaderRendererDefault, __DrawBorder)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridRowHeaderRendererDefault)
 {
+	// Class assignment
+	Gura_AssignValueEx("GridRowHeaderRendererDefault", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_GridRowHeaderRendererDefault, __DrawBorder);
 }

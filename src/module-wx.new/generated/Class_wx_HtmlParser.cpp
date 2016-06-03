@@ -40,6 +40,8 @@ String Object_wx_HtmlParser::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHtmlParser, "wxHtmlParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlParser));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlParser)

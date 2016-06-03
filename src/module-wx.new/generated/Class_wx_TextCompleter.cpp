@@ -70,6 +70,8 @@ Gura_ImplementMethod(wx_TextCompleter, __GetNext)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextCompleter)
 {
+	// Class assignment
+	Gura_AssignValueEx("TextCompleter", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_TextCompleter, __Start);
 	Gura_AssignMethod(wx_TextCompleter, __GetNext);

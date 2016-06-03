@@ -40,6 +40,8 @@ String Object_wx_DirPickerCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDirPickerCtrl, "wxDirPickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DirPickerCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDirPickerCtrl)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxDirPickerCtrl_1, "wxDirPickerCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DirPickerCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDirPickerCtrl_1)

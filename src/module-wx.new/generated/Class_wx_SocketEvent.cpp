@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxSocketEvent, "wxSocketEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SocketEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSocketEvent)

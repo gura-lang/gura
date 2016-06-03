@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxStaticBoxSizer, "wxStaticBoxSizer")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "box", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StaticBoxSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStaticBoxSizer)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxStaticBoxSizer_1, "wxStaticBoxSizer_1")
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StaticBoxSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStaticBoxSizer_1)

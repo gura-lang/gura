@@ -40,6 +40,8 @@ String Object_wx_WebViewEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxWebViewEvent, "wxWebViewEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_WebViewEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWebViewEvent)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxWebViewEvent_1, "wxWebViewEvent_1")
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "href", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "target", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WebViewEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWebViewEvent_1)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRichTextAttr, "wxRichTextAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextAttr)
@@ -53,6 +55,8 @@ Gura_ImplementFunction(__wxRichTextAttr)
 Gura_DeclareFunctionAlias(__wxRichTextAttr_1, "wxRichTextAttr_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextAttr_1)
@@ -64,6 +68,8 @@ Gura_ImplementFunction(__wxRichTextAttr_1)
 Gura_DeclareFunctionAlias(__wxRichTextAttr_2, "wxRichTextAttr_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextAttr_2)

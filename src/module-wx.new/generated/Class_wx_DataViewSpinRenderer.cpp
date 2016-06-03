@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxDataViewSpinRenderer, "wxDataViewSpinRenderer")
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewSpinRenderer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewSpinRenderer)

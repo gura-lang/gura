@@ -40,6 +40,8 @@ String Object_wx_DataViewModel::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDataViewModel, "wxDataViewModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewModel));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewModel)

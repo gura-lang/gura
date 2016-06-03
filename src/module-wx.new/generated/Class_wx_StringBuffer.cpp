@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxStringBuffer, "wxStringBuffer")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StringBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStringBuffer)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxVarVScrollHelper, "wxVarVScrollHelper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToScroll", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_VarVScrollHelper));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxVarVScrollHelper)

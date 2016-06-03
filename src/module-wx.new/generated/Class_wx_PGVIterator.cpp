@@ -40,6 +40,8 @@ String Object_wx_PGVIterator::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPGVIterator, "wxPGVIterator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PGVIterator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGVIterator)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxPGVIterator_1, "wxPGVIterator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PGVIterator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGVIterator_1)
@@ -65,6 +69,8 @@ Gura_DeclareFunctionAlias(__wxPGVIterator_2, "wxPGVIterator_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PGVIterator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGVIterator_2)

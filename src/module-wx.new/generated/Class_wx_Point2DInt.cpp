@@ -40,6 +40,8 @@ String Object_wx_Point2DInt::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPoint2DInt, "wxPoint2DInt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Point2DInt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPoint2DInt)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxPoint2DInt_1, "wxPoint2DInt_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Point2DInt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPoint2DInt_1)
@@ -67,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxPoint2DInt_2, "wxPoint2DInt_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Point2DInt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPoint2DInt_2)
@@ -80,6 +86,8 @@ Gura_DeclareFunctionAlias(__wxPoint2DInt_3, "wxPoint2DInt_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Point2DInt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPoint2DInt_3)

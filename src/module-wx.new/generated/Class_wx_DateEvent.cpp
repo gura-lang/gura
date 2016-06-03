@@ -40,6 +40,8 @@ String Object_wx_DateEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDateEvent, "wxDateEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DateEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDateEvent)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxDateEvent_1, "wxDateEvent_1")
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DateEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDateEvent_1)

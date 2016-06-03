@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRichTextBox, "wxRichTextBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextBox)
@@ -53,6 +55,8 @@ Gura_ImplementFunction(__wxRichTextBox)
 Gura_DeclareFunctionAlias(__wxRichTextBox_1, "wxRichTextBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextBox_1)

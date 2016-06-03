@@ -39,6 +39,8 @@ String Object_wx_GridCellAttr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellAttr)
 {
+	// Class assignment
+	Gura_AssignValueEx("GridCellAttr", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellAttr)

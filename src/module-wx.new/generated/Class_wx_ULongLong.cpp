@@ -39,6 +39,8 @@ String Object_wx_ULongLong::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ULongLong)
 {
+	// Class assignment
+	Gura_AssignValueEx("ULongLong", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_ULongLong)

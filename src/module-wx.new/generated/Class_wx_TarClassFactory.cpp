@@ -39,6 +39,8 @@ String Object_wx_TarClassFactory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TarClassFactory)
 {
+	// Class assignment
+	Gura_AssignValueEx("TarClassFactory", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_TarClassFactory)

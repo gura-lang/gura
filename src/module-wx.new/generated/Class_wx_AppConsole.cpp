@@ -675,6 +675,8 @@ Gura_ImplementMethod(wx_AppConsole, __SetCLocale)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AppConsole)
 {
+	// Class assignment
+	Gura_AssignValueEx("AppConsole", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_AppConsole, __CreateTraits);
 	Gura_AssignMethod(wx_AppConsole, __MainLoop);

@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxFFileOutputStream, "wxFFileOutputStream")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FFileOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFFileOutputStream)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxFFileOutputStream_1, "wxFFileOutputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FFileOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFFileOutputStream_1)
@@ -69,6 +73,8 @@ Gura_DeclareFunctionAlias(__wxFFileOutputStream_2, "wxFFileOutputStream_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FFileOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFFileOutputStream_2)

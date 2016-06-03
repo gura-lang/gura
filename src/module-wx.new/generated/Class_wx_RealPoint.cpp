@@ -40,6 +40,8 @@ String Object_wx_RealPoint::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRealPoint, "wxRealPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RealPoint));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRealPoint)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxRealPoint_1, "wxRealPoint_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RealPoint));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRealPoint_1)
@@ -67,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxRealPoint_2, "wxRealPoint_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RealPoint));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRealPoint_2)

@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxLogWindow, "wxLogWindow")
 	//DeclareArg(env, "szTitle", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "passToOld", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_LogWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLogWindow)

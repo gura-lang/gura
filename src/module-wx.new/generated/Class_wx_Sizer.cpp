@@ -40,6 +40,8 @@ String Object_wx_Sizer::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSizer, "wxSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Sizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSizer)

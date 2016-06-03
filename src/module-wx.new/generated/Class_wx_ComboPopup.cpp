@@ -40,6 +40,8 @@ String Object_wx_ComboPopup::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxComboPopup, "wxComboPopup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ComboPopup));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxComboPopup)

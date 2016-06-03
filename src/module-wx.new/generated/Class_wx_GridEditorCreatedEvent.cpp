@@ -40,6 +40,8 @@ String Object_wx_GridEditorCreatedEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridEditorCreatedEvent, "wxGridEditorCreatedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridEditorCreatedEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridEditorCreatedEvent)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxGridEditorCreatedEvent_1, "wxGridEditorCreatedEven
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridEditorCreatedEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridEditorCreatedEvent_1)

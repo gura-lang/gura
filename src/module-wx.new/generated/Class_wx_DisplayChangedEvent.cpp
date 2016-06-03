@@ -40,6 +40,8 @@ String Object_wx_DisplayChangedEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDisplayChangedEvent, "wxDisplayChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DisplayChangedEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDisplayChangedEvent)

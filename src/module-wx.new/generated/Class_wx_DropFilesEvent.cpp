@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxDropFilesEvent, "wxDropFilesEvent")
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "noFiles", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "files", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DropFilesEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDropFilesEvent)

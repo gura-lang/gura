@@ -40,6 +40,8 @@ String Object_wx_NativeWindow::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxNativeWindow, "wxNativeWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_NativeWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxNativeWindow)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxNativeWindow_1, "wxNativeWindow_1")
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "handle", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_NativeWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxNativeWindow_1)

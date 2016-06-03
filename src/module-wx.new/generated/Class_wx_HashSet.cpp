@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxHashSet, "wxHashSet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HashSet));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHashSet)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxHashSet_1, "wxHashSet_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "set", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HashSet));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHashSet_1)

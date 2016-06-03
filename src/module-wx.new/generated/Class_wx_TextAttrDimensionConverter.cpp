@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxTextAttrDimensionConverter, "wxTextAttrDimensionCo
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "scale", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextAttrDimensionConverter));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextAttrDimensionConverter)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxTextAttrDimensionConverter_1, "wxTextAttrDimension
 	//DeclareArg(env, "ppi", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "scale", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextAttrDimensionConverter));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextAttrDimensionConverter_1)

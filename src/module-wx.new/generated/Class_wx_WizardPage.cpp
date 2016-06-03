@@ -40,6 +40,8 @@ String Object_wx_WizardPage::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxWizardPage, "wxWizardPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_WizardPage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWizardPage)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxWizardPage_1, "wxWizardPage_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WizardPage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWizardPage_1)

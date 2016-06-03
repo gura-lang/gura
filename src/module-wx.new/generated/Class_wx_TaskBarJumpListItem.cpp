@@ -48,6 +48,8 @@ Gura_DeclareFunctionAlias(__wxTaskBarJumpListItem, "wxTaskBarJumpListItem")
 	//DeclareArg(env, "tooltip", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconPath", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconIndex", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TaskBarJumpListItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTaskBarJumpListItem)

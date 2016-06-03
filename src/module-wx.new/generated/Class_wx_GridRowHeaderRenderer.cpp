@@ -39,6 +39,8 @@ String Object_wx_GridRowHeaderRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridRowHeaderRenderer)
 {
+	// Class assignment
+	Gura_AssignValueEx("GridRowHeaderRenderer", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_GridRowHeaderRenderer)

@@ -40,6 +40,8 @@ String Object_wx_PGChoices::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPGChoices, "wxPGChoices")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PGChoices));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGChoices)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxPGChoices_1, "wxPGChoices_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "a", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PGChoices));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGChoices_1)
@@ -66,6 +70,8 @@ Gura_DeclareFunctionAlias(__wxPGChoices_2, "wxPGChoices_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "labels", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "values", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PGChoices));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGChoices_2)
@@ -81,6 +87,8 @@ Gura_DeclareFunctionAlias(__wxPGChoices_3, "wxPGChoices_3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "labels", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "values", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PGChoices));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGChoices_3)
@@ -95,6 +103,8 @@ Gura_DeclareFunctionAlias(__wxPGChoices_4, "wxPGChoices_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PGChoices));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGChoices_4)

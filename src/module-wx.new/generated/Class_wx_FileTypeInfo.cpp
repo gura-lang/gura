@@ -40,6 +40,8 @@ String Object_wx_FileTypeInfo::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFileTypeInfo, "wxFileTypeInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FileTypeInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileTypeInfo)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxFileTypeInfo_1, "wxFileTypeInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mimeType", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileTypeInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileTypeInfo_1)
@@ -69,6 +73,8 @@ Gura_DeclareFunctionAlias(__wxFileTypeInfo_2, "wxFileTypeInfo_2")
 	//DeclareArg(env, "printCmd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "description", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "extension", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileTypeInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileTypeInfo_2)
@@ -86,6 +92,8 @@ Gura_DeclareFunctionAlias(__wxFileTypeInfo_3, "wxFileTypeInfo_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sArray", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileTypeInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileTypeInfo_3)

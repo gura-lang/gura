@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxMouseCaptureLostEvent, "wxMouseCaptureLostEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "windowId", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MouseCaptureLostEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMouseCaptureLostEvent)

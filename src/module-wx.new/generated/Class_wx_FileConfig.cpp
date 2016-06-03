@@ -46,6 +46,8 @@ Gura_DeclareFunctionAlias(__wxFileConfig, "wxFileConfig")
 	//DeclareArg(env, "globalFilename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileConfig));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileConfig)
@@ -65,6 +67,8 @@ Gura_DeclareFunctionAlias(__wxFileConfig_1, "wxFileConfig_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "is", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileConfig));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileConfig_1)

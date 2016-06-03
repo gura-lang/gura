@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxGridBagSizer, "wxGridBagSizer")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridBagSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridBagSizer)

@@ -40,6 +40,8 @@ String Object_wx_CalendarEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxCalendarEvent, "wxCalendarEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_CalendarEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCalendarEvent)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxCalendarEvent_1, "wxCalendarEvent_1")
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CalendarEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCalendarEvent_1)

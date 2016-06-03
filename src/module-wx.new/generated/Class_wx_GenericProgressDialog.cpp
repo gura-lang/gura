@@ -45,6 +45,8 @@ Gura_DeclareFunctionAlias(__wxGenericProgressDialog, "wxGenericProgressDialog")
 	//DeclareArg(env, "maximum", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericProgressDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericProgressDialog)

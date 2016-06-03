@@ -773,6 +773,8 @@ Gura_ImplementMethod(wx_List<T>, __AsVector)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_List<T>)
 {
+	// Class assignment
+	Gura_AssignValueEx("List<T>", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_List<T>, __Append);
 	Gura_AssignMethod(wx_List<T>, __Clear);

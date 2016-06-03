@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxDropSource, "wxDropSource")
 	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DropSource));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDropSource)
@@ -64,6 +66,8 @@ Gura_DeclareFunctionAlias(__wxDropSource_1, "wxDropSource_1")
 	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DropSource));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDropSource_1)
@@ -84,6 +88,8 @@ Gura_DeclareFunctionAlias(__wxDropSource_2, "wxDropSource_2")
 	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DropSource));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDropSource_2)
@@ -104,6 +110,8 @@ Gura_DeclareFunctionAlias(__wxDropSource_3, "wxDropSource_3")
 	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DropSource));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDropSource_3)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxStdOutputStreamBuffer, "wxStdOutputStreamBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StdOutputStreamBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStdOutputStreamBuffer)

@@ -40,6 +40,8 @@ String Object_wx_BitmapToggleButton::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxBitmapToggleButton, "wxBitmapToggleButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_BitmapToggleButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmapToggleButton)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxBitmapToggleButton_1, "wxBitmapToggleButton_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BitmapToggleButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmapToggleButton_1)

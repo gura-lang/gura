@@ -40,6 +40,8 @@ String Object_wx_SystemThemedControl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSystemThemedControl, "wxSystemThemedControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SystemThemedControl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSystemThemedControl)

@@ -39,6 +39,8 @@ String Object_wx_NumberFormatter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NumberFormatter)
 {
+	// Class assignment
+	Gura_AssignValueEx("NumberFormatter", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_NumberFormatter)

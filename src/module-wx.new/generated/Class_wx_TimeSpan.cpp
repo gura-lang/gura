@@ -40,6 +40,8 @@ String Object_wx_TimeSpan::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTimeSpan, "wxTimeSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TimeSpan));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTimeSpan)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxTimeSpan_1, "wxTimeSpan_1")
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sec", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "msec", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TimeSpan));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTimeSpan_1)

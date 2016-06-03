@@ -40,6 +40,8 @@ String Object_wx_FontMapper::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFontMapper, "wxFontMapper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FontMapper));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFontMapper)

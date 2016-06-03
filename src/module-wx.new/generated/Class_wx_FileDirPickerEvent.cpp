@@ -40,6 +40,8 @@ String Object_wx_FileDirPickerEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFileDirPickerEvent, "wxFileDirPickerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FileDirPickerEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileDirPickerEvent)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxFileDirPickerEvent_1, "wxFileDirPickerEvent_1")
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileDirPickerEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileDirPickerEvent_1)

@@ -40,6 +40,8 @@ String Object_wx_MouseState::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxMouseState, "wxMouseState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_MouseState));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMouseState)

@@ -40,6 +40,8 @@ String Object_wx_SpinCtrlDouble::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSpinCtrlDouble, "wxSpinCtrlDouble")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SpinCtrlDouble));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSpinCtrlDouble)
@@ -62,6 +64,8 @@ Gura_DeclareFunctionAlias(__wxSpinCtrlDouble_1, "wxSpinCtrlDouble_1")
 	//DeclareArg(env, "initial", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "inc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SpinCtrlDouble));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSpinCtrlDouble_1)

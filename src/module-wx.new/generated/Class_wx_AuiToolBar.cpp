@@ -40,6 +40,8 @@ String Object_wx_AuiToolBar::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAuiToolBar, "wxAuiToolBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_AuiToolBar));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAuiToolBar)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxAuiToolBar_1, "wxAuiToolBar_1")
 	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AuiToolBar));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAuiToolBar_1)

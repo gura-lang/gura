@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxDataViewIconText, "wxDataViewIconText")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewIconText));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewIconText)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxDataViewIconText_1, "wxDataViewIconText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewIconText));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewIconText_1)

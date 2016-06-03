@@ -40,6 +40,8 @@ String Object_wx_TreeCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTreeCtrl, "wxTreeCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TreeCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTreeCtrl)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxTreeCtrl_1, "wxTreeCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TreeCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTreeCtrl_1)

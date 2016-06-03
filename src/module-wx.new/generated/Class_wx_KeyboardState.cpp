@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxKeyboardState, "wxKeyboardState")
 	//DeclareArg(env, "shiftDown", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "altDown", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "metaDown", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_KeyboardState));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxKeyboardState)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxCustomDataObject, "wxCustomDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CustomDataObject));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCustomDataObject)

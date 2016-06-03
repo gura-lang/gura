@@ -39,6 +39,8 @@ String Object_wx_GridColumnHeaderRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridColumnHeaderRenderer)
 {
+	// Class assignment
+	Gura_AssignValueEx("GridColumnHeaderRenderer", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_GridColumnHeaderRenderer)

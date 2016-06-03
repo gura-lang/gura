@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxBusyCursor, "wxBusyCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BusyCursor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBusyCursor)

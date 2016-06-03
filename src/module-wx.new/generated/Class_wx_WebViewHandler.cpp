@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxWebViewHandler, "wxWebViewHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "scheme", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WebViewHandler));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWebViewHandler)

@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxProcessEvent, "wxProcessEvent")
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "exitcode", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ProcessEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxProcessEvent)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRegKey, "wxRegKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "viewMode", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RegKey));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegKey)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxRegKey_1, "wxRegKey_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "strKey", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "viewMode", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RegKey));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegKey_1)
@@ -71,6 +75,8 @@ Gura_DeclareFunctionAlias(__wxRegKey_2, "wxRegKey_2")
 	//DeclareArg(env, "keyParent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strKey", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "viewMode", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RegKey));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegKey_2)
@@ -87,6 +93,8 @@ Gura_DeclareFunctionAlias(__wxRegKey_3, "wxRegKey_3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyParent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strKey", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RegKey));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegKey_3)

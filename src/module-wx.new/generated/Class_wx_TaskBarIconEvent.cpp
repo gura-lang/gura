@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxTaskBarIconEvent, "wxTaskBarIconEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "evtType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tbIcon", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TaskBarIconEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTaskBarIconEvent)

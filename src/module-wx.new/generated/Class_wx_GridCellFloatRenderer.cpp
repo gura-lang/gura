@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxGridCellFloatRenderer, "wxGridCellFloatRenderer")
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridCellFloatRenderer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridCellFloatRenderer)

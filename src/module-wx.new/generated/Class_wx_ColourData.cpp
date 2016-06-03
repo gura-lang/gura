@@ -39,6 +39,8 @@ String Object_wx_ColourData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourData)
 {
+	// Class assignment
+	Gura_AssignValueEx("ColourData", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_ColourData)

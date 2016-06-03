@@ -40,6 +40,8 @@ String Object_wx_ItemContainerImmutable::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxItemContainerImmutable, "wxItemContainerImmutable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ItemContainerImmutable));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxItemContainerImmutable)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxTextValidator, "wxTextValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextValidator)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxTextValidator_1, "wxTextValidator_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextValidator_1)

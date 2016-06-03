@@ -40,6 +40,8 @@ String Object_wx_RibbonPage::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRibbonPage, "wxRibbonPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonPage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonPage)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxRibbonPage_1, "wxRibbonPage_1")
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonPage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonPage_1)

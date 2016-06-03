@@ -40,6 +40,8 @@ String Object_wx_Timer::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTimer, "wxTimer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Timer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTimer)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxTimer_1, "wxTimer_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "owner", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Timer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTimer_1)

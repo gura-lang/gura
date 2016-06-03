@@ -40,6 +40,8 @@ String Object_wx_LongLong::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxLongLong, "wxLongLong")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_LongLong));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLongLong)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxLongLong_1, "wxLongLong_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ll", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_LongLong));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLongLong_1)
@@ -66,6 +70,8 @@ Gura_DeclareFunctionAlias(__wxLongLong_2, "wxLongLong_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hi", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lo", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_LongLong));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLongLong_2)

@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxTextUrlEvent, "wxTextUrlEvent")
 	//DeclareArg(env, "evtMouse", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextUrlEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextUrlEvent)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxTextUrlEvent_1, "wxTextUrlEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextUrlEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextUrlEvent_1)

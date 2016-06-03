@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxActiveXContainer, "wxActiveXContainer")
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pUnk", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ActiveXContainer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxActiveXContainer)

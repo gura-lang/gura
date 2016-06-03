@@ -40,6 +40,8 @@ String Object_wx_TopLevelWindow::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTopLevelWindow, "wxTopLevelWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TopLevelWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTopLevelWindow)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxTopLevelWindow_1, "wxTopLevelWindow_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TopLevelWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTopLevelWindow_1)

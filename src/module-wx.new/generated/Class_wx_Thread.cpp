@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxThread, "wxThread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Thread));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxThread)

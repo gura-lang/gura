@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxWizardEvent, "wxWizardEvent")
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WizardEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWizardEvent)

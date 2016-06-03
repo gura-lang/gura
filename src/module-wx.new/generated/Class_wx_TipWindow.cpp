@@ -45,6 +45,8 @@ Gura_DeclareFunctionAlias(__wxTipWindow, "wxTipWindow")
 	//DeclareArg(env, "maxLength", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "windowPtr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rectBounds", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TipWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTipWindow)

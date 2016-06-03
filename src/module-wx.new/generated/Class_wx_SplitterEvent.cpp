@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxSplitterEvent, "wxSplitterEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "splitter", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SplitterEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSplitterEvent)

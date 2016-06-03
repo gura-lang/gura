@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxPixelData, "wxPixelData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PixelData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPixelData)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxPixelData_1, "wxPixelData_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PixelData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPixelData_1)
@@ -71,6 +75,8 @@ Gura_DeclareFunctionAlias(__wxPixelData_2, "wxPixelData_2")
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PixelData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPixelData_2)

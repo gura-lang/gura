@@ -40,6 +40,8 @@ String Object_wx_GridTableMessage::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridTableMessage, "wxGridTableMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridTableMessage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridTableMessage)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxGridTableMessage_1, "wxGridTableMessage_1")
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "comInt1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "comInt2", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridTableMessage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridTableMessage_1)

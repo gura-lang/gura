@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxToolTip, "wxToolTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tip", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ToolTip));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxToolTip)

@@ -40,6 +40,8 @@ String Object_wx_DragImage::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDragImage, "wxDragImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DragImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDragImage)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxDragImage_1, "wxDragImage_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DragImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDragImage_1)
@@ -68,6 +72,8 @@ Gura_DeclareFunctionAlias(__wxDragImage_2, "wxDragImage_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DragImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDragImage_2)
@@ -83,6 +89,8 @@ Gura_DeclareFunctionAlias(__wxDragImage_3, "wxDragImage_3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DragImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDragImage_3)
@@ -98,6 +106,8 @@ Gura_DeclareFunctionAlias(__wxDragImage_4, "wxDragImage_4")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "treeCtrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DragImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDragImage_4)
@@ -113,6 +123,8 @@ Gura_DeclareFunctionAlias(__wxDragImage_5, "wxDragImage_5")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "listCtrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DragImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDragImage_5)

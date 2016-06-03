@@ -72,6 +72,8 @@ Gura_ImplementMethod(wx_HtmlRenderingStyle, __GetSelectedTextBgColour)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlRenderingStyle)
 {
+	// Class assignment
+	Gura_AssignValueEx("HtmlRenderingStyle", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlRenderingStyle, __GetSelectedTextColour);
 	Gura_AssignMethod(wx_HtmlRenderingStyle, __GetSelectedTextBgColour);

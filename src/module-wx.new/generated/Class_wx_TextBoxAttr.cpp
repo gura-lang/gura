@@ -40,6 +40,8 @@ String Object_wx_TextBoxAttr::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTextBoxAttr, "wxTextBoxAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TextBoxAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextBoxAttr)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxTextBoxAttr_1, "wxTextBoxAttr_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextBoxAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextBoxAttr_1)

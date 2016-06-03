@@ -40,6 +40,8 @@ String Object_wx_ColourPickerEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxColourPickerEvent, "wxColourPickerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ColourPickerEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxColourPickerEvent)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxColourPickerEvent_1, "wxColourPickerEvent_1")
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ColourPickerEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxColourPickerEvent_1)

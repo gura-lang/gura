@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxAcceleratorEntry, "wxAcceleratorEntry")
 	//DeclareArg(env, "keyCode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cmd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AcceleratorEntry));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAcceleratorEntry)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxAcceleratorEntry_1, "wxAcceleratorEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AcceleratorEntry));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAcceleratorEntry_1)

@@ -40,6 +40,8 @@ String Object_wx_Animation::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAnimation, "wxAnimation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Animation));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAnimation)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxAnimation_1, "wxAnimation_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "anim", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Animation));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAnimation_1)
@@ -66,6 +70,8 @@ Gura_DeclareFunctionAlias(__wxAnimation_2, "wxAnimation_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Animation));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAnimation_2)

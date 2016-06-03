@@ -40,6 +40,8 @@ String Object_wx_CheckBox::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxCheckBox, "wxCheckBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_CheckBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCheckBox)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxCheckBox_1, "wxCheckBox_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CheckBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCheckBox_1)

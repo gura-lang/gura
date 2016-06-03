@@ -40,6 +40,8 @@ String Object_wx_TextAttrDimension::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTextAttrDimension, "wxTextAttrDimension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TextAttrDimension));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextAttrDimension)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxTextAttrDimension_1, "wxTextAttrDimension_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextAttrDimension));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextAttrDimension_1)

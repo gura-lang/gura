@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxSocketOutputStream, "wxSocketOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SocketOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSocketOutputStream)

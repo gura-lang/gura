@@ -40,6 +40,8 @@ String Object_wx_Pen::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPen, "wxPen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Pen));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPen)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxPen_1, "wxPen_1")
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Pen));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPen_1)
@@ -70,6 +74,8 @@ Gura_DeclareFunctionAlias(__wxPen_2, "wxPen_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stipple", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Pen));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPen_2)
@@ -84,6 +90,8 @@ Gura_DeclareFunctionAlias(__wxPen_3, "wxPen_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Pen));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPen_3)

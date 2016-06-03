@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxMemoryBuffer, "wxMemoryBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MemoryBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMemoryBuffer)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxMemoryBuffer_1, "wxMemoryBuffer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MemoryBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMemoryBuffer_1)

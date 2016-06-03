@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxHtmlHelpController, "wxHtmlHelpController")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpController));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlHelpController)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxHtmlHelpController_1, "wxHtmlHelpController_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpController));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlHelpController_1)

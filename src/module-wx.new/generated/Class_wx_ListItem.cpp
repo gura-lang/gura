@@ -40,6 +40,8 @@ String Object_wx_ListItem::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxListItem, "wxListItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ListItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxListItem)

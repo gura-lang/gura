@@ -40,6 +40,8 @@ String Object_wx_TreeListItem::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTreeListItem, "wxTreeListItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TreeListItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTreeListItem)

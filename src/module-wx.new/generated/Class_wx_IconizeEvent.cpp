@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxIconizeEvent, "wxIconizeEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconized", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_IconizeEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxIconizeEvent)

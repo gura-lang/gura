@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxStringOutputStream, "wxStringOutputStream")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pString", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StringOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStringOutputStream)

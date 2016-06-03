@@ -40,6 +40,8 @@ String Object_wx_VariantDataCurrency::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxVariantDataCurrency, "wxVariantDataCurrency")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_VariantDataCurrency));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxVariantDataCurrency)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxVariantDataCurrency_1, "wxVariantDataCurrency_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_VariantDataCurrency));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxVariantDataCurrency_1)

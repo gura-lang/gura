@@ -40,6 +40,8 @@ String Object_wx_StringTokenizer::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxStringTokenizer, "wxStringTokenizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_StringTokenizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStringTokenizer)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxStringTokenizer_1, "wxStringTokenizer_1")
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "delims", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StringTokenizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStringTokenizer_1)

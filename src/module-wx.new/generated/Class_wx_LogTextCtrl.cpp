@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxLogTextCtrl, "wxLogTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pTextCtrl", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_LogTextCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLogTextCtrl)

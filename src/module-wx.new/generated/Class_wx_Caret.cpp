@@ -40,6 +40,8 @@ String Object_wx_Caret::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxCaret, "wxCaret")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Caret));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCaret)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxCaret_1, "wxCaret_1")
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Caret));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCaret_1)
@@ -70,6 +74,8 @@ Gura_DeclareFunctionAlias(__wxCaret_2, "wxCaret_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Caret));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCaret_2)

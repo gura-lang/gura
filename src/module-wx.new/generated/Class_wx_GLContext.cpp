@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxGLContext, "wxGLContext")
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctxAttrs", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GLContext));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGLContext)

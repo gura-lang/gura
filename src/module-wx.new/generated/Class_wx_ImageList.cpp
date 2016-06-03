@@ -40,6 +40,8 @@ String Object_wx_ImageList::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxImageList, "wxImageList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ImageList));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxImageList)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxImageList_1, "wxImageList_1")
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "initialCount", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ImageList));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxImageList_1)

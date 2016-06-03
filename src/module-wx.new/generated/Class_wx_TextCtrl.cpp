@@ -40,6 +40,8 @@ String Object_wx_TextCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTextCtrl, "wxTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TextCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextCtrl)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxTextCtrl_1, "wxTextCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextCtrl_1)

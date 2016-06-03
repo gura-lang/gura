@@ -39,6 +39,8 @@ String Object_wx_NotificationMessage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NotificationMessage)
 {
+	// Class assignment
+	Gura_AssignValueEx("NotificationMessage", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_NotificationMessage)

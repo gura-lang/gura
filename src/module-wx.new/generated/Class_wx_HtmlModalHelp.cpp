@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxHtmlModalHelp, "wxHtmlModalHelp")
 	//DeclareArg(env, "helpFile", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlModalHelp));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlModalHelp)

@@ -40,6 +40,8 @@ String Object_wx_HtmlWindowInterface::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHtmlWindowInterface, "wxHtmlWindowInterface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlWindowInterface));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlWindowInterface)

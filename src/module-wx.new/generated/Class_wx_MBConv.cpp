@@ -40,6 +40,8 @@ String Object_wx_MBConv::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxMBConv, "wxMBConv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_MBConv));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMBConv)

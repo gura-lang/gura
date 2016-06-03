@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxWebViewHistoryItem, "wxWebViewHistoryItem")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WebViewHistoryItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWebViewHistoryItem)

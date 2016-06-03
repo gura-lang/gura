@@ -40,6 +40,8 @@ String Object_wx_RichTextImageBlock::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextImageBlock, "wxRichTextImageBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextImageBlock));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextImageBlock)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxRichTextImageBlock_1, "wxRichTextImageBlock_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextImageBlock));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextImageBlock_1)

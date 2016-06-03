@@ -40,6 +40,8 @@ String Object_wx_DataViewModelNotifier::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDataViewModelNotifier, "wxDataViewModelNotifier")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewModelNotifier));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewModelNotifier)

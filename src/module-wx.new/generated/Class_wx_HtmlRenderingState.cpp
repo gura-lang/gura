@@ -40,6 +40,8 @@ String Object_wx_HtmlRenderingState::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHtmlRenderingState, "wxHtmlRenderingState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlRenderingState));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlRenderingState)

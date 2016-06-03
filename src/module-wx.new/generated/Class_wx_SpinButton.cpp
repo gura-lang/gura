@@ -40,6 +40,8 @@ String Object_wx_SpinButton::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSpinButton, "wxSpinButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SpinButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSpinButton)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxSpinButton_1, "wxSpinButton_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SpinButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSpinButton_1)

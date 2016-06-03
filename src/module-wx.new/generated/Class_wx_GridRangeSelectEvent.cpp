@@ -40,6 +40,8 @@ String Object_wx_GridRangeSelectEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridRangeSelectEvent, "wxGridRangeSelectEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridRangeSelectEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridRangeSelectEvent)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxGridRangeSelectEvent_1, "wxGridRangeSelectEvent_1"
 	//DeclareArg(env, "bottomRight", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sel", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "kbd", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridRangeSelectEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridRangeSelectEvent_1)

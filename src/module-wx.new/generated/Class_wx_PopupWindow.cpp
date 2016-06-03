@@ -40,6 +40,8 @@ String Object_wx_PopupWindow::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPopupWindow, "wxPopupWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PopupWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPopupWindow)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxPopupWindow_1, "wxPopupWindow_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PopupWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPopupWindow_1)

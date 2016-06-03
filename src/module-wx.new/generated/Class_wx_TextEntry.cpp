@@ -636,6 +636,8 @@ Gura_ImplementMethod(wx_TextEntry, __WriteText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextEntry)
 {
+	// Class assignment
+	Gura_AssignValueEx("TextEntry", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_TextEntry, __AppendText);
 	Gura_AssignMethod(wx_TextEntry, __AutoComplete);

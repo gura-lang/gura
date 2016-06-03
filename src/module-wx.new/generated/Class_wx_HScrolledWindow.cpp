@@ -40,6 +40,8 @@ String Object_wx_HScrolledWindow::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHScrolledWindow, "wxHScrolledWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HScrolledWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHScrolledWindow)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxHScrolledWindow_1, "wxHScrolledWindow_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HScrolledWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHScrolledWindow_1)

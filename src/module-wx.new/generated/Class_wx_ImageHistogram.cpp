@@ -40,6 +40,8 @@ String Object_wx_ImageHistogram::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxImageHistogram, "wxImageHistogram")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ImageHistogram));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxImageHistogram)

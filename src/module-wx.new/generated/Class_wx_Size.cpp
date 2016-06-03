@@ -40,6 +40,8 @@ String Object_wx_Size::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSize, "wxSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Size));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSize)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxSize_1, "wxSize_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Size));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSize_1)

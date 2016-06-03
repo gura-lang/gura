@@ -39,6 +39,8 @@ String Object_wx_MBConvUTF7::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MBConvUTF7)
 {
+	// Class assignment
+	Gura_AssignValueEx("MBConvUTF7", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_MBConvUTF7)

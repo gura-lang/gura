@@ -40,6 +40,8 @@ String Object_wx_VScrolledWindow::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxVScrolledWindow, "wxVScrolledWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_VScrolledWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxVScrolledWindow)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxVScrolledWindow_1, "wxVScrolledWindow_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_VScrolledWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxVScrolledWindow_1)

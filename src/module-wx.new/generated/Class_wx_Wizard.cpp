@@ -40,6 +40,8 @@ String Object_wx_Wizard::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxWizard, "wxWizard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Wizard));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWizard)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxWizard_1, "wxWizard_1")
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Wizard));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWizard_1)

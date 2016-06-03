@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxDataViewBitmapRenderer, "wxDataViewBitmapRenderer"
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewBitmapRenderer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewBitmapRenderer)

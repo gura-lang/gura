@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxStackWalker, "wxStackWalker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argv0", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StackWalker));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStackWalker)

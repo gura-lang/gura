@@ -40,6 +40,8 @@ String Object_wx_GridCellEditor::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridCellEditor, "wxGridCellEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridCellEditor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridCellEditor)

@@ -40,6 +40,8 @@ String Object_wx_ComboCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxComboCtrl, "wxComboCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ComboCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxComboCtrl)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxComboCtrl_1, "wxComboCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ComboCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxComboCtrl_1)

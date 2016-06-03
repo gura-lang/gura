@@ -40,6 +40,8 @@ String Object_wx_EvtHandler::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxEvtHandler, "wxEvtHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_EvtHandler));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxEvtHandler)

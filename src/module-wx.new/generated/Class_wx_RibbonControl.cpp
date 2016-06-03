@@ -40,6 +40,8 @@ String Object_wx_RibbonControl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRibbonControl, "wxRibbonControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonControl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonControl)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxRibbonControl_1, "wxRibbonControl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonControl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonControl_1)

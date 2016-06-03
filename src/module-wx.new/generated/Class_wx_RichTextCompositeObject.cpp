@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRichTextCompositeObject, "wxRichTextCompositeObjec
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextCompositeObject));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextCompositeObject)

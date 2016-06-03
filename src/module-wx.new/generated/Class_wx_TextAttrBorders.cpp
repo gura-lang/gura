@@ -40,6 +40,8 @@ String Object_wx_TextAttrBorders::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTextAttrBorders, "wxTextAttrBorders")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TextAttrBorders));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextAttrBorders)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxHashMap, "wxHashMap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HashMap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHashMap)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxHashMap_1, "wxHashMap_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "map", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HashMap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHashMap_1)

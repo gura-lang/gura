@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxCSConv, "wxCSConv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "charset", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CSConv));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCSConv)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxCSConv_1, "wxCSConv_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CSConv));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCSConv_1)

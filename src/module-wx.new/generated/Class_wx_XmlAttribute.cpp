@@ -40,6 +40,8 @@ String Object_wx_XmlAttribute::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxXmlAttribute, "wxXmlAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_XmlAttribute));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlAttribute)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxXmlAttribute_1, "wxXmlAttribute_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "next", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XmlAttribute));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlAttribute_1)

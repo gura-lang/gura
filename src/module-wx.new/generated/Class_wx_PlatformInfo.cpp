@@ -40,6 +40,8 @@ String Object_wx_PlatformInfo::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPlatformInfo, "wxPlatformInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PlatformInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPlatformInfo)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxPlatformInfo_1, "wxPlatformInfo_1")
 	//DeclareArg(env, "osMinor", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "arch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "endian", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PlatformInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPlatformInfo_1)

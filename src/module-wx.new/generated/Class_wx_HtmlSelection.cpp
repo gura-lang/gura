@@ -40,6 +40,8 @@ String Object_wx_HtmlSelection::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHtmlSelection, "wxHtmlSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlSelection));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlSelection)

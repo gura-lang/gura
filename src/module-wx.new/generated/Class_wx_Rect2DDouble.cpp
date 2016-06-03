@@ -40,6 +40,8 @@ String Object_wx_Rect2DDouble::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRect2DDouble, "wxRect2DDouble")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Rect2DDouble));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect2DDouble)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxRect2DDouble_1, "wxRect2DDouble_1")
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Rect2DDouble));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect2DDouble_1)

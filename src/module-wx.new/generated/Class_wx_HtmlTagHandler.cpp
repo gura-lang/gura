@@ -40,6 +40,8 @@ String Object_wx_HtmlTagHandler::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHtmlTagHandler, "wxHtmlTagHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlTagHandler));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlTagHandler)

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxVariantDataErrorCode, "wxVariantDataErrorCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_VariantDataErrorCode));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxVariantDataErrorCode)

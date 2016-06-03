@@ -39,6 +39,8 @@ String Object_wx_DateTime::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DateTime)
 {
+	// Class assignment
+	Gura_AssignValueEx("DateTime", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_DateTime)

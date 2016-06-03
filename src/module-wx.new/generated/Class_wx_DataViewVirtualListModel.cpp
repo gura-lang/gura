@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxDataViewVirtualListModel, "wxDataViewVirtualListMo
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initial_size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewVirtualListModel));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewVirtualListModel)

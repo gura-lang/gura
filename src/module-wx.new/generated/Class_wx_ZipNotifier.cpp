@@ -57,6 +57,8 @@ Gura_ImplementMethod(wx_ZipNotifier, __OnEntryUpdated)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipNotifier)
 {
+	// Class assignment
+	Gura_AssignValueEx("ZipNotifier", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_ZipNotifier, __OnEntryUpdated);
 }

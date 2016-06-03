@@ -39,6 +39,8 @@ String Object_wx_WeakRefDynamic<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WeakRefDynamic<T>)
 {
+	// Class assignment
+	Gura_AssignValueEx("WeakRefDynamic<T>", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_WeakRefDynamic<T>)

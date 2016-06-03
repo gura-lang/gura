@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxContextHelp, "wxContextHelp")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "doNow", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ContextHelp));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxContextHelp)

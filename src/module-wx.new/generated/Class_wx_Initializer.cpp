@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxInitializer, "wxInitializer")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Initializer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxInitializer)

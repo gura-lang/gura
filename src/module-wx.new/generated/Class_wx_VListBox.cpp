@@ -40,6 +40,8 @@ String Object_wx_VListBox::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxVListBox, "wxVListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_VListBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxVListBox)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxVListBox_1, "wxVListBox_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_VListBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxVListBox_1)

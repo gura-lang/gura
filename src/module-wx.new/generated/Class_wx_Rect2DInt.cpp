@@ -40,6 +40,8 @@ String Object_wx_Rect2DInt::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRect2DInt, "wxRect2DInt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Rect2DInt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect2DInt)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxRect2DInt_1, "wxRect2DInt_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Rect2DInt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect2DInt_1)
@@ -68,6 +72,8 @@ Gura_DeclareFunctionAlias(__wxRect2DInt_2, "wxRect2DInt_2")
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Rect2DInt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect2DInt_2)
@@ -85,6 +91,8 @@ Gura_DeclareFunctionAlias(__wxRect2DInt_3, "wxRect2DInt_3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topLeft", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bottomRight", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Rect2DInt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect2DInt_3)
@@ -100,6 +108,8 @@ Gura_DeclareFunctionAlias(__wxRect2DInt_4, "wxRect2DInt_4")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Rect2DInt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect2DInt_4)
@@ -114,6 +124,8 @@ Gura_DeclareFunctionAlias(__wxRect2DInt_5, "wxRect2DInt_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Rect2DInt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRect2DInt_5)

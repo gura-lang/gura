@@ -40,6 +40,8 @@ String Object_wx_FSVolume::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFSVolume, "wxFSVolume")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FSVolume));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFSVolume)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxFSVolume_1, "wxFSVolume_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FSVolume));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFSVolume_1)

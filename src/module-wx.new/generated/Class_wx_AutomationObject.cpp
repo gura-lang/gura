@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxAutomationObject, "wxAutomationObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dispatchPtr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AutomationObject));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAutomationObject)

@@ -40,6 +40,8 @@ String Object_wx_SpinCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSpinCtrl, "wxSpinCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SpinCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSpinCtrl)
@@ -61,6 +63,8 @@ Gura_DeclareFunctionAlias(__wxSpinCtrl_1, "wxSpinCtrl_1")
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "initial", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SpinCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSpinCtrl_1)

@@ -40,6 +40,8 @@ String Object_wx_PrintData::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPrintData, "wxPrintData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PrintData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrintData)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxPrintData_1, "wxPrintData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PrintData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrintData_1)

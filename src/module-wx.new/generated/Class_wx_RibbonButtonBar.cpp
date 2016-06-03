@@ -40,6 +40,8 @@ String Object_wx_RibbonButtonBar::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRibbonButtonBar, "wxRibbonButtonBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonButtonBar));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonButtonBar)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxRibbonButtonBar_1, "wxRibbonButtonBar_1")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonButtonBar));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonButtonBar_1)

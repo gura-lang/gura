@@ -40,6 +40,8 @@ String Object_wx_MemoryDC::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxMemoryDC, "wxMemoryDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_MemoryDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMemoryDC)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxMemoryDC_1, "wxMemoryDC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MemoryDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMemoryDC_1)
@@ -65,6 +69,8 @@ Gura_DeclareFunctionAlias(__wxMemoryDC_2, "wxMemoryDC_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MemoryDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMemoryDC_2)

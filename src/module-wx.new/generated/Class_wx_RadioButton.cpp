@@ -40,6 +40,8 @@ String Object_wx_RadioButton::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRadioButton, "wxRadioButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RadioButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRadioButton)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxRadioButton_1, "wxRadioButton_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RadioButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRadioButton_1)

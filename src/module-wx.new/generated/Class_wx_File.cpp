@@ -39,6 +39,8 @@ String Object_wx_File::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_File)
 {
+	// Class assignment
+	Gura_AssignValueEx("File", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_File)

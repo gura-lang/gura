@@ -45,6 +45,8 @@ Gura_DeclareFunctionAlias(__wxRichTextStyleListCtrl, "wxRichTextStyleListCtrl")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleListCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextStyleListCtrl)
@@ -61,6 +63,8 @@ Gura_ImplementFunction(__wxRichTextStyleListCtrl)
 Gura_DeclareFunctionAlias(__wxRichTextStyleListCtrl_1, "wxRichTextStyleListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleListCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextStyleListCtrl_1)

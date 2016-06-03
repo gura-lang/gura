@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxTaskBarJumpListCategory, "wxTaskBarJumpListCategor
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TaskBarJumpListCategory));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTaskBarJumpListCategory)

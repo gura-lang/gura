@@ -231,6 +231,8 @@ Gura_ImplementMethod(wx_FilterClassFactory, __Remove)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilterClassFactory)
 {
+	// Class assignment
+	Gura_AssignValueEx("FilterClassFactory", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_FilterClassFactory, __CanHandle);
 	Gura_AssignMethod(wx_FilterClassFactory, __Find);

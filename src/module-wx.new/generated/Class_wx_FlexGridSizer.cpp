@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxFlexGridSizer, "wxFlexGridSizer")
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FlexGridSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFlexGridSizer)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxFlexGridSizer_1, "wxFlexGridSizer_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FlexGridSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFlexGridSizer_1)
@@ -76,6 +80,8 @@ Gura_DeclareFunctionAlias(__wxFlexGridSizer_2, "wxFlexGridSizer_2")
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FlexGridSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFlexGridSizer_2)
@@ -94,6 +100,8 @@ Gura_DeclareFunctionAlias(__wxFlexGridSizer_3, "wxFlexGridSizer_3")
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FlexGridSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFlexGridSizer_3)

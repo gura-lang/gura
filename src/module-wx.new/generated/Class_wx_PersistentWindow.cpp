@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxPersistentWindow, "wxPersistentWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PersistentWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPersistentWindow)

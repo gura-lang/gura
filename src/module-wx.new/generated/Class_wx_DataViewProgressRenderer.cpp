@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxDataViewProgressRenderer, "wxDataViewProgressRende
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewProgressRenderer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewProgressRenderer)

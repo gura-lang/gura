@@ -40,6 +40,8 @@ String Object_wx_Any::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAny, "wxAny")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Any));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAny)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxAny_1, "wxAny_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Any));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAny_1)
@@ -65,6 +69,8 @@ Gura_DeclareFunctionAlias(__wxAny_2, "wxAny_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "any", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Any));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAny_2)
@@ -78,6 +84,8 @@ Gura_DeclareFunctionAlias(__wxAny_3, "wxAny_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Any));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAny_3)

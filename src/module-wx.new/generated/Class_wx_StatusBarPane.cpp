@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxStatusBarPane, "wxStatusBarPane")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StatusBarPane));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStatusBarPane)

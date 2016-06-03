@@ -40,6 +40,8 @@ String Object_wx_Bitmap::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxBitmap, "wxBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmap)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxBitmap_1, "wxBitmap_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmap_1)
@@ -68,6 +72,8 @@ Gura_DeclareFunctionAlias(__wxBitmap_2, "wxBitmap_2")
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmap_2)
@@ -86,6 +92,8 @@ Gura_DeclareFunctionAlias(__wxBitmap_3, "wxBitmap_3")
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmap_3)
@@ -102,6 +110,8 @@ Gura_DeclareFunctionAlias(__wxBitmap_4, "wxBitmap_4")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmap_4)
@@ -116,6 +126,8 @@ Gura_DeclareFunctionAlias(__wxBitmap_5, "wxBitmap_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmap_5)
@@ -130,6 +142,8 @@ Gura_DeclareFunctionAlias(__wxBitmap_6, "wxBitmap_6")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmap_6)
@@ -145,6 +159,8 @@ Gura_DeclareFunctionAlias(__wxBitmap_7, "wxBitmap_7")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "img", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmap_7)
@@ -159,6 +175,8 @@ Gura_DeclareFunctionAlias(__wxBitmap_8, "wxBitmap_8")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmap_8)

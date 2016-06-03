@@ -40,6 +40,8 @@ String Object_wx_LayoutConstraints::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxLayoutConstraints, "wxLayoutConstraints")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_LayoutConstraints));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLayoutConstraints)

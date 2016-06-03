@@ -46,6 +46,8 @@ Gura_DeclareFunctionAlias(__wxSizerItem, "wxSizerItem")
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SizerItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSizerItem)
@@ -65,6 +67,8 @@ Gura_DeclareFunctionAlias(__wxSizerItem_1, "wxSizerItem_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SizerItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSizerItem_1)
@@ -83,6 +87,8 @@ Gura_DeclareFunctionAlias(__wxSizerItem_2, "wxSizerItem_2")
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SizerItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSizerItem_2)
@@ -101,6 +107,8 @@ Gura_DeclareFunctionAlias(__wxSizerItem_3, "wxSizerItem_3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SizerItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSizerItem_3)
@@ -119,6 +127,8 @@ Gura_DeclareFunctionAlias(__wxSizerItem_4, "wxSizerItem_4")
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SizerItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSizerItem_4)

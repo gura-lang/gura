@@ -82,6 +82,8 @@ Gura_ImplementMethod(wx_WebViewFactory, __Create_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewFactory)
 {
+	// Class assignment
+	Gura_AssignValueEx("WebViewFactory", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_WebViewFactory, __Create);
 	Gura_AssignMethod(wx_WebViewFactory, __Create_1);

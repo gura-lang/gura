@@ -39,6 +39,8 @@ String Object_wx_AuiTabContainerButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiTabContainerButton)
 {
+	// Class assignment
+	Gura_AssignValueEx("AuiTabContainerButton", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_AuiTabContainerButton)

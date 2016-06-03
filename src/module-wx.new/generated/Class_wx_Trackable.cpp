@@ -39,6 +39,8 @@ String Object_wx_Trackable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Trackable)
 {
+	// Class assignment
+	Gura_AssignValueEx("Trackable", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_Trackable)

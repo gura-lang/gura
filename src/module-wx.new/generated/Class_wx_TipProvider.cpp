@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxTipProvider, "wxTipProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "currentTip", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TipProvider));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTipProvider)

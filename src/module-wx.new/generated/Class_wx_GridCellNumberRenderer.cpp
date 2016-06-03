@@ -40,6 +40,8 @@ String Object_wx_GridCellNumberRenderer::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridCellNumberRenderer, "wxGridCellNumberRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridCellNumberRenderer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridCellNumberRenderer)

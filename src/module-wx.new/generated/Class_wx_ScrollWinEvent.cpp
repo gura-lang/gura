@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxScrollWinEvent, "wxScrollWinEvent")
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ScrollWinEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxScrollWinEvent)

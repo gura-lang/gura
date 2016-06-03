@@ -40,6 +40,8 @@ String Object_wx_GridSizeEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridSizeEvent, "wxGridSizeEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridSizeEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridSizeEvent)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxGridSizeEvent_1, "wxGridSizeEvent_1")
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "kbd", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridSizeEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridSizeEvent_1)

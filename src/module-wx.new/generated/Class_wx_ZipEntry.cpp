@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxZipEntry, "wxZipEntry")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ZipEntry));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxZipEntry)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxZipEntry_1, "wxZipEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ZipEntry));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxZipEntry_1)

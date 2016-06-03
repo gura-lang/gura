@@ -40,6 +40,8 @@ String Object_wx_PreferencesPage::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPreferencesPage, "wxPreferencesPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PreferencesPage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPreferencesPage)

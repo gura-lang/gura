@@ -661,6 +661,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Set_6)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ItemContainer)
 {
+	// Class assignment
+	Gura_AssignValueEx("ItemContainer", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_ItemContainer, __Append);
 	Gura_AssignMethod(wx_ItemContainer, __Append_1);

@@ -40,6 +40,8 @@ String Object_wx_FileName::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFileName, "wxFileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FileName));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileName)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxFileName_1, "wxFileName_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileName));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileName_1)
@@ -66,6 +70,8 @@ Gura_DeclareFunctionAlias(__wxFileName_2, "wxFileName_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fullpath", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileName));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileName_2)
@@ -82,6 +88,8 @@ Gura_DeclareFunctionAlias(__wxFileName_3, "wxFileName_3")
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileName));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileName_3)
@@ -100,6 +108,8 @@ Gura_DeclareFunctionAlias(__wxFileName_4, "wxFileName_4")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ext", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileName));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileName_4)
@@ -120,6 +130,8 @@ Gura_DeclareFunctionAlias(__wxFileName_5, "wxFileName_5")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ext", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileName));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileName_5)

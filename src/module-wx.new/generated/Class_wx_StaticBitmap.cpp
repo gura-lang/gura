@@ -39,6 +39,8 @@ String Object_wx_StaticBitmap::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticBitmap)
 {
+	// Class assignment
+	Gura_AssignValueEx("StaticBitmap", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_StaticBitmap)

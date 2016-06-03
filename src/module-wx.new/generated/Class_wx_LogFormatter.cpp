@@ -40,6 +40,8 @@ String Object_wx_LogFormatter::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxLogFormatter, "wxLogFormatter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_LogFormatter));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLogFormatter)

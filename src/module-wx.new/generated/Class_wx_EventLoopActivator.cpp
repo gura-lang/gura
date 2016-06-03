@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxEventLoopActivator, "wxEventLoopActivator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loop", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_EventLoopActivator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxEventLoopActivator)

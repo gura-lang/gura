@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxGridCellDateTimeRenderer, "wxGridCellDateTimeRende
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "outformat", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "informat", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridCellDateTimeRenderer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridCellDateTimeRenderer)

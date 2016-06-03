@@ -40,6 +40,8 @@ String Object_wx_HtmlWindow::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHtmlWindow, "wxHtmlWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlWindow)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxHtmlWindow_1, "wxHtmlWindow_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlWindow_1)

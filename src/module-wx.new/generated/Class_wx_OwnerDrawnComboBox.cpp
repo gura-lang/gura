@@ -40,6 +40,8 @@ String Object_wx_OwnerDrawnComboBox::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox, "wxOwnerDrawnComboBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_OwnerDrawnComboBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxOwnerDrawnComboBox)
@@ -61,6 +63,8 @@ Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox_1, "wxOwnerDrawnComboBox_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_OwnerDrawnComboBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxOwnerDrawnComboBox_1)
@@ -91,6 +95,8 @@ Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox_2, "wxOwnerDrawnComboBox_2")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_OwnerDrawnComboBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxOwnerDrawnComboBox_2)

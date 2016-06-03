@@ -40,6 +40,8 @@ String Object_wx_AffineMatrix2DBase::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAffineMatrix2DBase, "wxAffineMatrix2DBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_AffineMatrix2DBase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAffineMatrix2DBase)

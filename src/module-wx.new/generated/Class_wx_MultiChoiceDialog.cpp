@@ -47,6 +47,8 @@ Gura_DeclareFunctionAlias(__wxMultiChoiceDialog, "wxMultiChoiceDialog")
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MultiChoiceDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMultiChoiceDialog)
@@ -71,6 +73,8 @@ Gura_DeclareFunctionAlias(__wxMultiChoiceDialog_1, "wxMultiChoiceDialog_1")
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MultiChoiceDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMultiChoiceDialog_1)

@@ -59,6 +59,8 @@ Gura_ImplementMethod(wx_BrushList, __FindOrCreateBrush)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BrushList)
 {
+	// Class assignment
+	Gura_AssignValueEx("BrushList", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_BrushList, __FindOrCreateBrush);
 }

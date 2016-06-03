@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxWebKitBeforeLoadEvent, "wxWebKitBeforeLoadEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WebKitBeforeLoadEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWebKitBeforeLoadEvent)

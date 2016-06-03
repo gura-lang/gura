@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxTreeEvent, "wxTreeEvent")
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tree", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TreeEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTreeEvent)

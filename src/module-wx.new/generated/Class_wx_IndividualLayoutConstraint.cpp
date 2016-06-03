@@ -40,6 +40,8 @@ String Object_wx_IndividualLayoutConstraint::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxIndividualLayoutConstraint, "wxIndividualLayoutConstraint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_IndividualLayoutConstraint));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxIndividualLayoutConstraint)

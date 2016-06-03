@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxSemaphore, "wxSemaphore")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initialcount", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxcount", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Semaphore));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSemaphore)

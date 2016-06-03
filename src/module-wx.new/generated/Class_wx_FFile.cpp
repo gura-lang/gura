@@ -40,6 +40,8 @@ String Object_wx_FFile::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFFile, "wxFFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FFile));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFFile)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxFFile_1, "wxFFile_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FFile));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFFile_1)
@@ -66,6 +70,8 @@ Gura_DeclareFunctionAlias(__wxFFile_2, "wxFFile_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FFile));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFFile_2)

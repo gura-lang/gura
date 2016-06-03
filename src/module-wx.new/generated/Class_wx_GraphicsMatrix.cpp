@@ -274,6 +274,8 @@ Gura_ImplementMethod(wx_GraphicsMatrix, __Translate)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsMatrix)
 {
+	// Class assignment
+	Gura_AssignValueEx("GraphicsMatrix", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_GraphicsMatrix, __Concat);
 	Gura_AssignMethod(wx_GraphicsMatrix, __Concat_1);

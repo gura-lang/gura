@@ -40,6 +40,8 @@ String Object_wx_RichTextFormattingDialogFactory::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextFormattingDialogFactory, "wxRichTextFormattingDialogFactory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextFormattingDialogFactory));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextFormattingDialogFactory)

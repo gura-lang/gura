@@ -801,6 +801,8 @@ Gura_ImplementMethod(wx_WebView, __SetZoomType)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebView)
 {
+	// Class assignment
+	Gura_AssignValueEx("WebView", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_WebView, __Create);
 	Gura_AssignMethod(wx_WebView, __New);

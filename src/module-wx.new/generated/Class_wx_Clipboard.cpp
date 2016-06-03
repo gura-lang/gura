@@ -40,6 +40,8 @@ String Object_wx_Clipboard::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxClipboard, "wxClipboard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Clipboard));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxClipboard)

@@ -68,6 +68,8 @@ Gura_ImplementMethod(wx_GraphicsObject, __IsNull)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsObject)
 {
+	// Class assignment
+	Gura_AssignValueEx("GraphicsObject", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_GraphicsObject, __GetRenderer);
 	Gura_AssignMethod(wx_GraphicsObject, __IsNull);

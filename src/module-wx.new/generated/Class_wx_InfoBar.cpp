@@ -40,6 +40,8 @@ String Object_wx_InfoBar::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxInfoBar, "wxInfoBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_InfoBar));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxInfoBar)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxInfoBar_1, "wxInfoBar_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_InfoBar));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxInfoBar_1)

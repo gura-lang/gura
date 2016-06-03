@@ -47,6 +47,8 @@ Gura_DeclareFunctionAlias(__wxGBSizerItem, "wxGBSizerItem")
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GBSizerItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGBSizerItem)
@@ -71,6 +73,8 @@ Gura_DeclareFunctionAlias(__wxGBSizerItem_1, "wxGBSizerItem_1")
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GBSizerItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGBSizerItem_1)
@@ -94,6 +98,8 @@ Gura_DeclareFunctionAlias(__wxGBSizerItem_2, "wxGBSizerItem_2")
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GBSizerItem));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGBSizerItem_2)

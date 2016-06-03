@@ -40,6 +40,8 @@ String Object_wx_DataViewItemAttr::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDataViewItemAttr, "wxDataViewItemAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewItemAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewItemAttr)

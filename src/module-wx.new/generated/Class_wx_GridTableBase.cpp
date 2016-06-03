@@ -40,6 +40,8 @@ String Object_wx_GridTableBase::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridTableBase, "wxGridTableBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridTableBase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridTableBase)

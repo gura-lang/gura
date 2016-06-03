@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRichTextDrawingHandler, "wxRichTextDrawingHandler"
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextDrawingHandler));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextDrawingHandler)

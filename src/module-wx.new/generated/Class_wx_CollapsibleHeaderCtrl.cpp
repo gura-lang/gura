@@ -40,6 +40,8 @@ String Object_wx_CollapsibleHeaderCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxCollapsibleHeaderCtrl, "wxCollapsibleHeaderCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_CollapsibleHeaderCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCollapsibleHeaderCtrl)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxCollapsibleHeaderCtrl_1, "wxCollapsibleHeaderCtrl_
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CollapsibleHeaderCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCollapsibleHeaderCtrl_1)

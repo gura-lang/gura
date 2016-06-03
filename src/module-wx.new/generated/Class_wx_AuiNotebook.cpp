@@ -40,6 +40,8 @@ String Object_wx_AuiNotebook::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAuiNotebook, "wxAuiNotebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_AuiNotebook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAuiNotebook)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxAuiNotebook_1, "wxAuiNotebook_1")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AuiNotebook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAuiNotebook_1)

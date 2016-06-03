@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxLogStderr, "wxLogStderr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_LogStderr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLogStderr)

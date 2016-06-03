@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxGCDC, "wxGCDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "windowDC", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GCDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGCDC)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxGCDC_1, "wxGCDC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "memoryDC", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GCDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGCDC_1)
@@ -67,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxGCDC_2, "wxGCDC_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printerDC", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GCDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGCDC_2)
@@ -80,6 +86,8 @@ Gura_DeclareFunctionAlias(__wxGCDC_3, "wxGCDC_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GCDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGCDC_3)
@@ -93,6 +101,8 @@ Gura_DeclareFunctionAlias(__wxGCDC_4, "wxGCDC_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "emfDC", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GCDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGCDC_4)
@@ -105,6 +115,8 @@ Gura_ImplementFunction(__wxGCDC_4)
 Gura_DeclareFunctionAlias(__wxGCDC_5, "wxGCDC_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GCDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGCDC_5)

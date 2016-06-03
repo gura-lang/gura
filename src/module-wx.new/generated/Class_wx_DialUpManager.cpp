@@ -246,6 +246,8 @@ Gura_ImplementMethod(wx_DialUpManager, __SetWellKnownHost)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DialUpManager)
 {
+	// Class assignment
+	Gura_AssignValueEx("DialUpManager", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_DialUpManager, __CancelDialing);
 	Gura_AssignMethod(wx_DialUpManager, __Create);

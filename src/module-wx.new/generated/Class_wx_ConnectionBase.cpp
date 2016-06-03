@@ -39,6 +39,8 @@ String Object_wx_ConnectionBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ConnectionBase)
 {
+	// Class assignment
+	Gura_AssignValueEx("ConnectionBase", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_ConnectionBase)

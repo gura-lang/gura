@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxWebKitStateChangedEvent, "wxWebKitStateChangedEven
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WebKitStateChangedEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWebKitStateChangedEvent)

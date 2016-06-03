@@ -40,6 +40,8 @@ String Object_wx_GenericAboutDialog::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGenericAboutDialog, "wxGenericAboutDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GenericAboutDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericAboutDialog)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxGenericAboutDialog_1, "wxGenericAboutDialog_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericAboutDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericAboutDialog_1)

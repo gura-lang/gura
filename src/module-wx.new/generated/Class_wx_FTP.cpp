@@ -39,6 +39,8 @@ String Object_wx_FTP::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FTP)
 {
+	// Class assignment
+	Gura_AssignValueEx("FTP", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_FTP)

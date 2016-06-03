@@ -39,6 +39,8 @@ String Object_wx_RichTextFieldTypeStandard::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFieldTypeStandard)
 {
+	// Class assignment
+	Gura_AssignValueEx("RichTextFieldTypeStandard", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextFieldTypeStandard)

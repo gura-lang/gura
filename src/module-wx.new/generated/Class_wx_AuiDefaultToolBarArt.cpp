@@ -40,6 +40,8 @@ String Object_wx_AuiDefaultToolBarArt::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAuiDefaultToolBarArt, "wxAuiDefaultToolBarArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_AuiDefaultToolBarArt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAuiDefaultToolBarArt)

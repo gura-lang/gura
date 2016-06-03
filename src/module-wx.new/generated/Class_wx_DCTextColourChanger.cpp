@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxDCTextColourChanger, "wxDCTextColourChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DCTextColourChanger));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDCTextColourChanger)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxDCTextColourChanger_1, "wxDCTextColourChanger_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DCTextColourChanger));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDCTextColourChanger_1)

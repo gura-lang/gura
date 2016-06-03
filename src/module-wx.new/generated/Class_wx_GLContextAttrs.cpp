@@ -247,6 +247,8 @@ Gura_ImplementMethod(wx_GLContextAttrs, __EndList)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLContextAttrs)
 {
+	// Class assignment
+	Gura_AssignValueEx("GLContextAttrs", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_GLContextAttrs, __CoreProfile);
 	Gura_AssignMethod(wx_GLContextAttrs, __MajorVersion);

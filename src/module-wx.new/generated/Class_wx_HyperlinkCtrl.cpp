@@ -40,6 +40,8 @@ String Object_wx_HyperlinkCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHyperlinkCtrl, "wxHyperlinkCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HyperlinkCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHyperlinkCtrl)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxHyperlinkCtrl_1, "wxHyperlinkCtrl_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HyperlinkCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHyperlinkCtrl_1)

@@ -39,6 +39,8 @@ String Object_wx_UniCharRef::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_UniCharRef)
 {
+	// Class assignment
+	Gura_AssignValueEx("UniCharRef", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_UniCharRef)

@@ -40,6 +40,8 @@ String Object_wx_URI::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxURI, "wxURI")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_URI));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxURI)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxURI_1, "wxURI_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_URI));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxURI_1)
@@ -65,6 +69,8 @@ Gura_DeclareFunctionAlias(__wxURI_2, "wxURI_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_URI));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxURI_2)

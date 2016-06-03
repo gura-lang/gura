@@ -40,6 +40,8 @@ String Object_wx_Mask::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxMask, "wxMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Mask));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMask)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxMask_1, "wxMask_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Mask));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMask_1)
@@ -67,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxMask_2, "wxMask_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Mask));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMask_2)
@@ -81,6 +87,8 @@ Gura_DeclareFunctionAlias(__wxMask_3, "wxMask_3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Mask));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMask_3)

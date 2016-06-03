@@ -49,6 +49,8 @@ Gura_DeclareFunctionAlias(__wxToolBarToolBase, "wxToolBarToolBase")
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "shortHelpString", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "longHelpString", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ToolBarToolBase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxToolBarToolBase)
@@ -72,6 +74,8 @@ Gura_DeclareFunctionAlias(__wxToolBarToolBase_1, "wxToolBarToolBase_1")
 	//DeclareArg(env, "tbar", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "control", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ToolBarToolBase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxToolBarToolBase_1)

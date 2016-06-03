@@ -40,6 +40,8 @@ String Object_wx_RichTextCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextCtrl, "wxRichTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextCtrl)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxRichTextCtrl_1, "wxRichTextCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextCtrl_1)

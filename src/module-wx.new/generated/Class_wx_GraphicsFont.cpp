@@ -39,6 +39,8 @@ String Object_wx_GraphicsFont::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsFont)
 {
+	// Class assignment
+	Gura_AssignValueEx("GraphicsFont", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsFont)

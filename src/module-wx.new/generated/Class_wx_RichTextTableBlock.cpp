@@ -40,6 +40,8 @@ String Object_wx_RichTextTableBlock::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextTableBlock, "wxRichTextTableBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextTableBlock));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextTableBlock)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxRichTextTableBlock_1, "wxRichTextTableBlock_1")
 	//DeclareArg(env, "colEnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rowStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rowEnd", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextTableBlock));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextTableBlock_1)
@@ -71,6 +75,8 @@ Gura_DeclareFunctionAlias(__wxRichTextTableBlock_2, "wxRichTextTableBlock_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextTableBlock));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextTableBlock_2)

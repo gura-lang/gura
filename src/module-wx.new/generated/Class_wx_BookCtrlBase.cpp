@@ -39,6 +39,8 @@ String Object_wx_BookCtrlBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BookCtrlBase)
 {
+	// Class assignment
+	Gura_AssignValueEx("BookCtrlBase", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_BookCtrlBase)

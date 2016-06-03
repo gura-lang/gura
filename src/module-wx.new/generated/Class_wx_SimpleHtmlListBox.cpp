@@ -49,6 +49,8 @@ Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox, "wxSimpleHtmlListBox")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SimpleHtmlListBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSimpleHtmlListBox)
@@ -77,6 +79,8 @@ Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox_1, "wxSimpleHtmlListBox_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SimpleHtmlListBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSimpleHtmlListBox_1)
@@ -96,6 +100,8 @@ Gura_ImplementFunction(__wxSimpleHtmlListBox_1)
 Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox_2, "wxSimpleHtmlListBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SimpleHtmlListBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSimpleHtmlListBox_2)

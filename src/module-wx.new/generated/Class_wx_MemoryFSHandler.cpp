@@ -40,6 +40,8 @@ String Object_wx_MemoryFSHandler::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxMemoryFSHandler, "wxMemoryFSHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_MemoryFSHandler));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMemoryFSHandler)

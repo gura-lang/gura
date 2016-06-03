@@ -130,6 +130,8 @@ Gura_ImplementMethod(wx_NumValidator, __TransferFromWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NumValidator)
 {
+	// Class assignment
+	Gura_AssignValueEx("NumValidator", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_NumValidator, __SetMin);
 	Gura_AssignMethod(wx_NumValidator, __SetMax);

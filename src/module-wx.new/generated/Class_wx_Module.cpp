@@ -40,6 +40,8 @@ String Object_wx_Module::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxModule, "wxModule")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Module));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxModule)

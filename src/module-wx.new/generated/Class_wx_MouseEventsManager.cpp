@@ -40,6 +40,8 @@ String Object_wx_MouseEventsManager::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxMouseEventsManager, "wxMouseEventsManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_MouseEventsManager));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMouseEventsManager)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxMouseEventsManager_1, "wxMouseEventsManager_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MouseEventsManager));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMouseEventsManager_1)

@@ -45,6 +45,8 @@ Gura_DeclareFunctionAlias(__wxCalendarDateAttr, "wxCalendarDateAttr")
 	//DeclareArg(env, "colBorder", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CalendarDateAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCalendarDateAttr)
@@ -63,6 +65,8 @@ Gura_DeclareFunctionAlias(__wxCalendarDateAttr_1, "wxCalendarDateAttr_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colBorder", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CalendarDateAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCalendarDateAttr_1)

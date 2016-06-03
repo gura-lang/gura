@@ -39,6 +39,8 @@ String Object_wx_RichTextStyleListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleListBox)
 {
+	// Class assignment
+	Gura_AssignValueEx("RichTextStyleListBox", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextStyleListBox)

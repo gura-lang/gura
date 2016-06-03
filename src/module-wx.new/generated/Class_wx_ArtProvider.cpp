@@ -296,6 +296,8 @@ Gura_ImplementMethod(wx_ArtProvider, __CreateIconBundle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArtProvider)
 {
+	// Class assignment
+	Gura_AssignValueEx("ArtProvider", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_ArtProvider, __Delete);
 	Gura_AssignMethod(wx_ArtProvider, __GetBitmap);

@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxDebugReportUpload, "wxDebugReportUpload")
 	//DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "action", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "curl", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DebugReportUpload));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDebugReportUpload)

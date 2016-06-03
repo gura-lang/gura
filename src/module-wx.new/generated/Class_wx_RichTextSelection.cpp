@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRichTextSelection, "wxRichTextSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sel", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextSelection));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextSelection)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxRichTextSelection_1, "wxRichTextSelection_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "container", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextSelection));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextSelection_1)
@@ -68,6 +72,8 @@ Gura_ImplementFunction(__wxRichTextSelection_1)
 Gura_DeclareFunctionAlias(__wxRichTextSelection_2, "wxRichTextSelection_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextSelection));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextSelection_2)

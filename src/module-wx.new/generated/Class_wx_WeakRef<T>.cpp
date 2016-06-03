@@ -111,6 +111,8 @@ Gura_ImplementMethod(wx_WeakRef<T>, __get)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WeakRef<T>)
 {
+	// Class assignment
+	Gura_AssignValueEx("WeakRef<T>", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_WeakRef<T>, __wxWeakRef);
 	Gura_AssignMethod(wx_WeakRef<T>, __wxWeakRef_1);

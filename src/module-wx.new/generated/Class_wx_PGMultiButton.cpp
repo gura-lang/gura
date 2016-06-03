@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxPGMultiButton, "wxPGMultiButton")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PGMultiButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPGMultiButton)

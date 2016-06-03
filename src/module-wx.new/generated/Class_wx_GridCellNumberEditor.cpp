@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxGridCellNumberEditor, "wxGridCellNumberEditor")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridCellNumberEditor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridCellNumberEditor)

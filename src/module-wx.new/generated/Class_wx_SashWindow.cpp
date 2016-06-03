@@ -40,6 +40,8 @@ String Object_wx_SashWindow::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSashWindow, "wxSashWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SashWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSashWindow)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxSashWindow_1, "wxSashWindow_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SashWindow));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSashWindow_1)

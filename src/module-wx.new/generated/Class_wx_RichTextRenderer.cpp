@@ -40,6 +40,8 @@ String Object_wx_RichTextRenderer::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextRenderer, "wxRichTextRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextRenderer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextRenderer)

@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxSashEvent, "wxSashEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SashEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSashEvent)

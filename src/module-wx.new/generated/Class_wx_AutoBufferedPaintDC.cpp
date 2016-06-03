@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxAutoBufferedPaintDC, "wxAutoBufferedPaintDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AutoBufferedPaintDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAutoBufferedPaintDC)

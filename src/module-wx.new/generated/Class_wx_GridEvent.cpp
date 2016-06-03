@@ -40,6 +40,8 @@ String Object_wx_GridEvent::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridEvent, "wxGridEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridEvent)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxGridEvent_1, "wxGridEvent_1")
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sel", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "kbd", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridEvent_1)

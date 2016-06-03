@@ -40,6 +40,8 @@ String Object_wx_FileDropTarget::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFileDropTarget, "wxFileDropTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FileDropTarget));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileDropTarget)

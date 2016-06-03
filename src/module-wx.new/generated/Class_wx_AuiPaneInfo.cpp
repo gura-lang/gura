@@ -40,6 +40,8 @@ String Object_wx_AuiPaneInfo::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAuiPaneInfo, "wxAuiPaneInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_AuiPaneInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAuiPaneInfo)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxAuiPaneInfo_1, "wxAuiPaneInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AuiPaneInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAuiPaneInfo_1)

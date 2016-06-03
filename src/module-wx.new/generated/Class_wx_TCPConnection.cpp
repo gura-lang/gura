@@ -40,6 +40,8 @@ String Object_wx_TCPConnection::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTCPConnection, "wxTCPConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TCPConnection));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTCPConnection)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxTCPConnection_1, "wxTCPConnection_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TCPConnection));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTCPConnection_1)

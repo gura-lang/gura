@@ -40,6 +40,8 @@ String Object_wx_FontDialog::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFontDialog, "wxFontDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FontDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFontDialog)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxFontDialog_1, "wxFontDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FontDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFontDialog_1)
@@ -66,6 +70,8 @@ Gura_DeclareFunctionAlias(__wxFontDialog_2, "wxFontDialog_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FontDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFontDialog_2)

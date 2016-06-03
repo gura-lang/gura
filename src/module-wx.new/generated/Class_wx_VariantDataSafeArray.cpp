@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxVariantDataSafeArray, "wxVariantDataSafeArray")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_VariantDataSafeArray));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxVariantDataSafeArray)

@@ -40,6 +40,8 @@ String Object_wx_XmlResourceHandler::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxXmlResourceHandler, "wxXmlResourceHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_XmlResourceHandler));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlResourceHandler)

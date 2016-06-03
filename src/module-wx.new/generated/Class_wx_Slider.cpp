@@ -40,6 +40,8 @@ String Object_wx_Slider::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSlider, "wxSlider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Slider));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSlider)
@@ -61,6 +63,8 @@ Gura_DeclareFunctionAlias(__wxSlider_1, "wxSlider_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Slider));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSlider_1)

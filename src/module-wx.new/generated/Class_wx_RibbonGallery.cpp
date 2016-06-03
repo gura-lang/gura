@@ -40,6 +40,8 @@ String Object_wx_RibbonGallery::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRibbonGallery, "wxRibbonGallery")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonGallery));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonGallery)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxRibbonGallery_1, "wxRibbonGallery_1")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonGallery));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonGallery_1)

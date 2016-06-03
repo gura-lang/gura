@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxDialUpEvent, "wxDialUpEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "isConnected", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "isOwnEvent", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DialUpEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDialUpEvent)

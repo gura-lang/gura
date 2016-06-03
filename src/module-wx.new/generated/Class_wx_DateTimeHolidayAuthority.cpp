@@ -39,6 +39,8 @@ String Object_wx_DateTimeHolidayAuthority::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DateTimeHolidayAuthority)
 {
+	// Class assignment
+	Gura_AssignValueEx("DateTimeHolidayAuthority", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_DateTimeHolidayAuthority)

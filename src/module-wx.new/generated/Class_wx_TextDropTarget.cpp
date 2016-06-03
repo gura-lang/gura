@@ -40,6 +40,8 @@ String Object_wx_TextDropTarget::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTextDropTarget, "wxTextDropTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TextDropTarget));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextDropTarget)

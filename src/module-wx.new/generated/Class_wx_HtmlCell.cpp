@@ -40,6 +40,8 @@ String Object_wx_HtmlCell::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHtmlCell, "wxHtmlCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlCell));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlCell)

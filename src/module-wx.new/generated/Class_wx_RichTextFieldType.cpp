@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRichTextFieldType, "wxRichTextFieldType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextFieldType));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextFieldType)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxRichTextFieldType_1, "wxRichTextFieldType_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fieldType", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextFieldType));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextFieldType_1)

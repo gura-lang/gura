@@ -117,6 +117,8 @@ Gura_ImplementMethod(wx_WindowPtr<T>, __reset)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowPtr<T>)
 {
+	// Class assignment
+	Gura_AssignValueEx("WindowPtr<T>", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_WindowPtr<T>, __wxWindowPtr);
 	Gura_AssignMethod(wx_WindowPtr<T>, __wxWindowPtr_1);

@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxURL, "wxURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_URL));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxURL)

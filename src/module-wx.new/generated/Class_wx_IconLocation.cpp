@@ -83,6 +83,8 @@ Gura_ImplementMethod(wx_IconLocation, __GetFileName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IconLocation)
 {
+	// Class assignment
+	Gura_AssignValueEx("IconLocation", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_IconLocation, __IsOk);
 	Gura_AssignMethod(wx_IconLocation, __SetFileName);

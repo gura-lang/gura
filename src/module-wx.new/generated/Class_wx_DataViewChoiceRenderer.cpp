@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxDataViewChoiceRenderer, "wxDataViewChoiceRenderer"
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewChoiceRenderer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewChoiceRenderer)

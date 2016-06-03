@@ -40,6 +40,8 @@ String Object_wx_PathList::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPathList, "wxPathList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PathList));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPathList)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxPathList_1, "wxPathList_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PathList));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPathList_1)

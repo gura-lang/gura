@@ -61,6 +61,8 @@ Gura_ImplementMethod(wx_Image, __RGBValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Image)
 {
+	// Class assignment
+	Gura_AssignValueEx("Image", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_Image, __RGBValue);
 }

@@ -72,6 +72,8 @@ Gura_ImplementMethod(wx_FSInputStream, __IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FSInputStream)
 {
+	// Class assignment
+	Gura_AssignValueEx("FSInputStream", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_FSInputStream, __wxFileInputStream);
 	Gura_AssignMethod(wx_FSInputStream, __IsOk);

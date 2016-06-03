@@ -40,6 +40,8 @@ String Object_wx_AddRemoveAdaptor::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAddRemoveAdaptor, "wxAddRemoveAdaptor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_AddRemoveAdaptor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAddRemoveAdaptor)

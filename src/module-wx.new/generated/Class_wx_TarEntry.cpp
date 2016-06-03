@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxTarEntry, "wxTarEntry")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TarEntry));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTarEntry)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxTarEntry_1, "wxTarEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TarEntry));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTarEntry_1)

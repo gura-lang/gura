@@ -39,6 +39,8 @@ String Object_wx_DataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataObject)
 {
+	// Class assignment
+	Gura_AssignValueEx("DataObject", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_DataObject)

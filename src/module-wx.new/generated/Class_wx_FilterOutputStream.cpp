@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxFilterOutputStream, "wxFilterOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FilterOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFilterOutputStream)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxFilterOutputStream_1, "wxFilterOutputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FilterOutputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFilterOutputStream_1)

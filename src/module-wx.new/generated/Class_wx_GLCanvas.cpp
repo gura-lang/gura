@@ -48,6 +48,8 @@ Gura_DeclareFunctionAlias(__wxGLCanvas, "wxGLCanvas")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GLCanvas));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGLCanvas)
@@ -75,6 +77,8 @@ Gura_DeclareFunctionAlias(__wxGLCanvas_1, "wxGLCanvas_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GLCanvas));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGLCanvas_1)

@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxGraphicsGradientStops, "wxGraphicsGradientStops")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "startCol", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "endCol", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GraphicsGradientStops));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGraphicsGradientStops)

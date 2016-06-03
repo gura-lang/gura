@@ -40,6 +40,8 @@ String Object_wx_RibbonPanel::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRibbonPanel, "wxRibbonPanel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonPanel));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonPanel)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxRibbonPanel_1, "wxRibbonPanel_1")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RibbonPanel));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRibbonPanel_1)

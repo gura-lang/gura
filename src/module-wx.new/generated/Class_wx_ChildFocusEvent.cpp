@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxChildFocusEvent, "wxChildFocusEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ChildFocusEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxChildFocusEvent)

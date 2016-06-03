@@ -40,6 +40,8 @@ String Object_wx_Font::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFont, "wxFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Font));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFont)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxFont_1, "wxFont_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Font));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFont_1)
@@ -65,6 +69,8 @@ Gura_DeclareFunctionAlias(__wxFont_2, "wxFont_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Font));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFont_2)
@@ -84,6 +90,8 @@ Gura_DeclareFunctionAlias(__wxFont_3, "wxFont_3")
 	//DeclareArg(env, "underline", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "faceName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Font));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFont_3)
@@ -109,6 +117,8 @@ Gura_DeclareFunctionAlias(__wxFont_4, "wxFont_4")
 	//DeclareArg(env, "underline", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "faceName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Font));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFont_4)
@@ -128,6 +138,8 @@ Gura_DeclareFunctionAlias(__wxFont_5, "wxFont_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nativeInfoString", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Font));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFont_5)
@@ -141,6 +153,8 @@ Gura_DeclareFunctionAlias(__wxFont_6, "wxFont_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nativeInfo", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Font));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFont_6)

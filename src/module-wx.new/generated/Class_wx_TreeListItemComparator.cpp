@@ -40,6 +40,8 @@ String Object_wx_TreeListItemComparator::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTreeListItemComparator, "wxTreeListItemComparator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TreeListItemComparator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTreeListItemComparator)

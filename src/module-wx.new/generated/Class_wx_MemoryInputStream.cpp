@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxMemoryInputStream, "wxMemoryInputStream")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MemoryInputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMemoryInputStream)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxMemoryInputStream_1, "wxMemoryInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MemoryInputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMemoryInputStream_1)
@@ -70,6 +74,8 @@ Gura_DeclareFunctionAlias(__wxMemoryInputStream_2, "wxMemoryInputStream_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MemoryInputStream));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMemoryInputStream_2)

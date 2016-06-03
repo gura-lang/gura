@@ -40,6 +40,8 @@ String Object_wx_Translations::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTranslations, "wxTranslations")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Translations));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTranslations)

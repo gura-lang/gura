@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxCriticalSectionLocker, "wxCriticalSectionLocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "criticalsection", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CriticalSectionLocker));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCriticalSectionLocker)

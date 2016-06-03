@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxPrinterDC, "wxPrinterDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PrinterDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrinterDC)

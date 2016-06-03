@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxWindowCreateEvent, "wxWindowCreateEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_WindowCreateEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxWindowCreateEvent)

@@ -48,6 +48,8 @@ Gura_DeclareFunctionAlias(__wxSingleChoiceDialog, "wxSingleChoiceDialog")
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SingleChoiceDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSingleChoiceDialog)
@@ -74,6 +76,8 @@ Gura_DeclareFunctionAlias(__wxSingleChoiceDialog_1, "wxSingleChoiceDialog_1")
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SingleChoiceDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSingleChoiceDialog_1)

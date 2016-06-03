@@ -40,6 +40,8 @@ String Object_wx_RefCounter::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRefCounter, "wxRefCounter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RefCounter));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRefCounter)

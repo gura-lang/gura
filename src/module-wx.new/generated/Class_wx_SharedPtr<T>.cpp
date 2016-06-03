@@ -173,6 +173,8 @@ Gura_ImplementMethod(wx_SharedPtr<T>, __use_count)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SharedPtr<T>)
 {
+	// Class assignment
+	Gura_AssignValueEx("SharedPtr<T>", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_SharedPtr<T>, __wxSharedPtr);
 	Gura_AssignMethod(wx_SharedPtr<T>, __wxSharedPtr_1);

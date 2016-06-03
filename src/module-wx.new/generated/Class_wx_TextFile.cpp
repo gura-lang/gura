@@ -40,6 +40,8 @@ String Object_wx_TextFile::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTextFile, "wxTextFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TextFile));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextFile)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxTextFile_1, "wxTextFile_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "strFile", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextFile));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextFile_1)

@@ -40,6 +40,8 @@ String Object_wx_GridCellCoords::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGridCellCoords, "wxGridCellCoords")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GridCellCoords));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridCellCoords)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxGridCellCoords_1, "wxGridCellCoords_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridCellCoords));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridCellCoords_1)

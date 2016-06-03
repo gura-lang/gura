@@ -40,6 +40,8 @@ String Object_wx_MessageOutputDebug::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxMessageOutputDebug, "wxMessageOutputDebug")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_MessageOutputDebug));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMessageOutputDebug)

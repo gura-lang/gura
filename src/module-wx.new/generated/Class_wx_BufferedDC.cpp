@@ -40,6 +40,8 @@ String Object_wx_BufferedDC::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxBufferedDC, "wxBufferedDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_BufferedDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBufferedDC)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxBufferedDC_1, "wxBufferedDC_1")
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "area", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BufferedDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBufferedDC_1)
@@ -71,6 +75,8 @@ Gura_DeclareFunctionAlias(__wxBufferedDC_2, "wxBufferedDC_2")
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BufferedDC));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBufferedDC_2)

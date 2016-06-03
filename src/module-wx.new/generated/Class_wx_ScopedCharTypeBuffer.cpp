@@ -40,6 +40,8 @@ String Object_wx_ScopedCharTypeBuffer::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxScopedCharTypeBuffer, "wxScopedCharTypeBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ScopedCharTypeBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxScopedCharTypeBuffer)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxScopedCharTypeBuffer_1, "wxScopedCharTypeBuffer_1"
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ScopedCharTypeBuffer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxScopedCharTypeBuffer_1)

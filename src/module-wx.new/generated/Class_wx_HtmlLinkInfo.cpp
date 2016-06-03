@@ -40,6 +40,8 @@ String Object_wx_HtmlLinkInfo::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxHtmlLinkInfo, "wxHtmlLinkInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlLinkInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlLinkInfo)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxHtmlLinkInfo_1, "wxHtmlLinkInfo_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "href", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "target", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlLinkInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlLinkInfo_1)

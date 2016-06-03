@@ -40,6 +40,8 @@ String Object_wx_TextEntryDialog::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTextEntryDialog, "wxTextEntryDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TextEntryDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextEntryDialog)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxTextEntryDialog_1, "wxTextEntryDialog_1")
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TextEntryDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTextEntryDialog_1)

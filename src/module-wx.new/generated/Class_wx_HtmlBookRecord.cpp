@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxHtmlBookRecord, "wxHtmlBookRecord")
 	//DeclareArg(env, "basepath", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_HtmlBookRecord));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxHtmlBookRecord)

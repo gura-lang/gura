@@ -40,6 +40,8 @@ String Object_wx_RearrangeDialog::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRearrangeDialog, "wxRearrangeDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RearrangeDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRearrangeDialog)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxRearrangeDialog_1, "wxRearrangeDialog_1")
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RearrangeDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRearrangeDialog_1)

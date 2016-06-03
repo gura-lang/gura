@@ -40,6 +40,8 @@ String Object_wx_RichTextProperties::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextProperties, "wxRichTextProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextProperties));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextProperties)
@@ -51,6 +53,8 @@ Gura_ImplementFunction(__wxRichTextProperties)
 Gura_DeclareFunctionAlias(__wxRichTextProperties_1, "wxRichTextProperties_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextProperties));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextProperties_1)

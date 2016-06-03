@@ -40,6 +40,8 @@ String Object_wx_RichTextStyleOrganiserDialog::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRichTextStyleOrganiserDialog, "wxRichTextStyleOrganiserDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleOrganiserDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextStyleOrganiserDialog)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxRichTextStyleOrganiserDialog_1, "wxRichTextStyleOr
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleOrganiserDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextStyleOrganiserDialog_1)

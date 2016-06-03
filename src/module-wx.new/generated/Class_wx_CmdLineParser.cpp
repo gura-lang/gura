@@ -40,6 +40,8 @@ String Object_wx_CmdLineParser::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxCmdLineParser, "wxCmdLineParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCmdLineParser)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_1, "wxCmdLineParser_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCmdLineParser_1)
@@ -68,6 +72,8 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_2, "wxCmdLineParser_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCmdLineParser_2)
@@ -82,6 +88,8 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_3, "wxCmdLineParser_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cmdline", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCmdLineParser_3)
@@ -95,6 +103,8 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_4, "wxCmdLineParser_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCmdLineParser_4)
@@ -110,6 +120,8 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_5, "wxCmdLineParser_5")
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCmdLineParser_5)
@@ -126,6 +138,8 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_6, "wxCmdLineParser_6")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cmdline", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCmdLineParser_6)

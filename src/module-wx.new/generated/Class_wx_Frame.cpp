@@ -40,6 +40,8 @@ String Object_wx_Frame::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFrame, "wxFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Frame));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFrame)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxFrame_1, "wxFrame_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Frame));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFrame_1)

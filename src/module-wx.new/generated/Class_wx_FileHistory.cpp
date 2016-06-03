@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxFileHistory, "wxFileHistory")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maxFiles", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "idBase", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileHistory));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileHistory)

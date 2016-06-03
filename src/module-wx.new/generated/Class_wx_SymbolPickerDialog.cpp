@@ -40,6 +40,8 @@ String Object_wx_SymbolPickerDialog::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSymbolPickerDialog, "wxSymbolPickerDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SymbolPickerDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSymbolPickerDialog)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxSymbolPickerDialog_1, "wxSymbolPickerDialog_1")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SymbolPickerDialog));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSymbolPickerDialog_1)

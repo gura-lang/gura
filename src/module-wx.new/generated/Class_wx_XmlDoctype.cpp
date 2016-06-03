@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxXmlDoctype, "wxXmlDoctype")
 	//DeclareArg(env, "rootName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "systemId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "publicId", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XmlDoctype));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlDoctype)

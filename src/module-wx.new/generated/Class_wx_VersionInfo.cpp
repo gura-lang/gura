@@ -46,6 +46,8 @@ Gura_DeclareFunctionAlias(__wxVersionInfo, "wxVersionInfo")
 	//DeclareArg(env, "micro", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "description", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "copyright", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_VersionInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxVersionInfo)

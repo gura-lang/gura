@@ -39,6 +39,8 @@ String Object_wx_HelpEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpEvent)
 {
+	// Class assignment
+	Gura_AssignValueEx("HelpEvent", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_HelpEvent)

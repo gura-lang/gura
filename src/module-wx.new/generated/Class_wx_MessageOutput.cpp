@@ -100,6 +100,8 @@ Gura_ImplementMethod(wx_MessageOutput, __Output)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageOutput)
 {
+	// Class assignment
+	Gura_AssignValueEx("MessageOutput", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_MessageOutput, __Get);
 	Gura_AssignMethod(wx_MessageOutput, __Set);

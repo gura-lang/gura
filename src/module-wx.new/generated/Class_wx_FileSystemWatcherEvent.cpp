@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent, "wxFileSystemWatcherEvent"
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "changeType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "watchid", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileSystemWatcherEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileSystemWatcherEvent)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent_1, "wxFileSystemWatcherEven
 	//DeclareArg(env, "warningType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "errorMsg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "watchid", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileSystemWatcherEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileSystemWatcherEvent_1)
@@ -78,6 +82,8 @@ Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent_2, "wxFileSystemWatcherEven
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "newPath", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "watchid", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileSystemWatcherEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileSystemWatcherEvent_2)

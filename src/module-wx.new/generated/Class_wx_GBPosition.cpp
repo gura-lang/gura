@@ -40,6 +40,8 @@ String Object_wx_GBPosition::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGBPosition, "wxGBPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GBPosition));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGBPosition)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxGBPosition_1, "wxGBPosition_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GBPosition));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGBPosition_1)

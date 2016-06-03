@@ -45,6 +45,8 @@ Gura_DeclareFunctionAlias(__wxClassInfo, "wxClassInfo")
 	//DeclareArg(env, "baseClass2", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fn", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ClassInfo));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxClassInfo)

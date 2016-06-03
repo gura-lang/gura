@@ -40,6 +40,8 @@ String Object_wx_SizerXmlHandler::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSizerXmlHandler, "wxSizerXmlHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SizerXmlHandler));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSizerXmlHandler)

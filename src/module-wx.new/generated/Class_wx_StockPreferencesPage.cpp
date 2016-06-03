@@ -39,6 +39,8 @@ String Object_wx_StockPreferencesPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StockPreferencesPage)
 {
+	// Class assignment
+	Gura_AssignValueEx("StockPreferencesPage", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_StockPreferencesPage)

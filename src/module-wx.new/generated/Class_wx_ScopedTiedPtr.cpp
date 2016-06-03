@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxScopedTiedPtr, "wxScopedTiedPtr")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ppTie", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ptr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ScopedTiedPtr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxScopedTiedPtr)

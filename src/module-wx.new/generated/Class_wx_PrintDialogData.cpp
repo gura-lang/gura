@@ -40,6 +40,8 @@ String Object_wx_PrintDialogData::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPrintDialogData, "wxPrintDialogData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_PrintDialogData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrintDialogData)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxPrintDialogData_1, "wxPrintDialogData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dialogData", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PrintDialogData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrintDialogData_1)
@@ -65,6 +69,8 @@ Gura_DeclareFunctionAlias(__wxPrintDialogData_2, "wxPrintDialogData_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PrintDialogData));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPrintDialogData_2)

@@ -50,6 +50,8 @@ Gura_DeclareFunctionAlias(__wxDocTemplate, "wxDocTemplate")
 	//DeclareArg(env, "docClassInfo", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "viewClassInfo", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DocTemplate));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDocTemplate)

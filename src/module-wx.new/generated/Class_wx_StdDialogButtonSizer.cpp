@@ -40,6 +40,8 @@ String Object_wx_StdDialogButtonSizer::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxStdDialogButtonSizer, "wxStdDialogButtonSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_StdDialogButtonSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStdDialogButtonSizer)

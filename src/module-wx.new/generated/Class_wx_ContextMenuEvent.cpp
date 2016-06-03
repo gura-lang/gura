@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxContextMenuEvent, "wxContextMenuEvent")
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ContextMenuEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxContextMenuEvent)

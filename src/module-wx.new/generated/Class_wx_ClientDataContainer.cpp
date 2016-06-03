@@ -40,6 +40,8 @@ String Object_wx_ClientDataContainer::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxClientDataContainer, "wxClientDataContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ClientDataContainer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxClientDataContainer)

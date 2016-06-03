@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxEventBlocker, "wxEventBlocker")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_EventBlocker));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxEventBlocker)

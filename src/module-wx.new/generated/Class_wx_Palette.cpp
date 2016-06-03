@@ -40,6 +40,8 @@ String Object_wx_Palette::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxPalette, "wxPalette")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Palette));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPalette)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxPalette_1, "wxPalette_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Palette));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPalette_1)
@@ -68,6 +72,8 @@ Gura_DeclareFunctionAlias(__wxPalette_2, "wxPalette_2")
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "green", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Palette));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPalette_2)

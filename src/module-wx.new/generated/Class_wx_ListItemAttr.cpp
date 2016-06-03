@@ -40,6 +40,8 @@ String Object_wx_ListItemAttr::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxListItemAttr, "wxListItemAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ListItemAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxListItemAttr)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxListItemAttr_1, "wxListItemAttr_1")
 	//DeclareArg(env, "colText", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colBack", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ListItemAttr));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxListItemAttr_1)

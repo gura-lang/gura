@@ -40,6 +40,8 @@ String Object_wx_DataViewTreeCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDataViewTreeCtrl, "wxDataViewTreeCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewTreeCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewTreeCtrl)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxDataViewTreeCtrl_1, "wxDataViewTreeCtrl_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DataViewTreeCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDataViewTreeCtrl_1)

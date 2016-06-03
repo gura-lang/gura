@@ -40,6 +40,8 @@ String Object_wx_Cursor::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxCursor, "wxCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Cursor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCursor)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxCursor_1, "wxCursor_1")
 	//DeclareArg(env, "hotSpotX", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hotSpotY", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maskBits", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Cursor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCursor_1)
@@ -78,6 +82,8 @@ Gura_DeclareFunctionAlias(__wxCursor_2, "wxCursor_2")
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hotSpotX", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hotSpotY", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Cursor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCursor_2)
@@ -94,6 +100,8 @@ Gura_DeclareFunctionAlias(__wxCursor_3, "wxCursor_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursorId", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Cursor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCursor_3)
@@ -107,6 +115,8 @@ Gura_DeclareFunctionAlias(__wxCursor_4, "wxCursor_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Cursor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCursor_4)
@@ -120,6 +130,8 @@ Gura_DeclareFunctionAlias(__wxCursor_5, "wxCursor_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Cursor));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCursor_5)

@@ -40,6 +40,8 @@ String Object_wx_TimePickerCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTimePickerCtrl, "wxTimePickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_TimePickerCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTimePickerCtrl)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxTimePickerCtrl_1, "wxTimePickerCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_TimePickerCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTimePickerCtrl_1)

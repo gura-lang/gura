@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxRichTextParagraphLayoutBox, "wxRichTextParagraphLa
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextParagraphLayoutBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextParagraphLayoutBox)
@@ -53,6 +55,8 @@ Gura_ImplementFunction(__wxRichTextParagraphLayoutBox)
 Gura_DeclareFunctionAlias(__wxRichTextParagraphLayoutBox_1, "wxRichTextParagraphLayoutBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextParagraphLayoutBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextParagraphLayoutBox_1)

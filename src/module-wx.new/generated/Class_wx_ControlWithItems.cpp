@@ -39,6 +39,8 @@ String Object_wx_ControlWithItems::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ControlWithItems)
 {
+	// Class assignment
+	Gura_AssignValueEx("ControlWithItems", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_ControlWithItems)

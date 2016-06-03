@@ -39,6 +39,8 @@ String Object_wx_ActivateEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ActivateEvent)
 {
+	// Class assignment
+	Gura_AssignValueEx("ActivateEvent", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_ActivateEvent)

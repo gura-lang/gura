@@ -39,6 +39,8 @@ String Object_wx_LogRecordInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogRecordInfo)
 {
+	// Class assignment
+	Gura_AssignValueEx("LogRecordInfo", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_LogRecordInfo)

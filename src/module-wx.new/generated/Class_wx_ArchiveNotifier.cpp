@@ -57,6 +57,8 @@ Gura_ImplementMethod(wx_ArchiveNotifier, __OnEntryUpdated)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveNotifier)
 {
+	// Class assignment
+	Gura_AssignValueEx("ArchiveNotifier", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_ArchiveNotifier, __OnEntryUpdated);
 }

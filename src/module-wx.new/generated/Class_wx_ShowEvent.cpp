@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxShowEvent, "wxShowEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ShowEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxShowEvent)

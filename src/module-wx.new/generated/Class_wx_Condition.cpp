@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxCondition, "wxCondition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mutex", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Condition));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxCondition)

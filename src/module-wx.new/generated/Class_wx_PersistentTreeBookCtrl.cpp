@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxPersistentTreeBookCtrl, "wxPersistentTreeBookCtrl"
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "book", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_PersistentTreeBookCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxPersistentTreeBookCtrl)

@@ -40,6 +40,8 @@ String Object_wx_AuiDefaultTabArt::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAuiDefaultTabArt, "wxAuiDefaultTabArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_AuiDefaultTabArt));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAuiDefaultTabArt)

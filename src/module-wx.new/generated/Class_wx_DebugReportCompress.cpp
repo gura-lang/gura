@@ -40,6 +40,8 @@ String Object_wx_DebugReportCompress::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDebugReportCompress, "wxDebugReportCompress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DebugReportCompress));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDebugReportCompress)

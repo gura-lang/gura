@@ -40,6 +40,8 @@ String Object_wx_Locale::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxLocale, "wxLocale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Locale));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLocale)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxLocale_1, "wxLocale_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "language", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Locale));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLocale_1)
@@ -70,6 +74,8 @@ Gura_DeclareFunctionAlias(__wxLocale_2, "wxLocale_2")
 	//DeclareArg(env, "shortName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "locale", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bLoadDefault", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Locale));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxLocale_2)

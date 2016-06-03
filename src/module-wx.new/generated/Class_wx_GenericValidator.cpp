@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxGenericValidator, "wxGenericValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericValidator)
@@ -54,6 +56,8 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_1, "wxGenericValidator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericValidator_1)
@@ -67,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_2, "wxGenericValidator_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericValidator_2)
@@ -80,6 +86,8 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_3, "wxGenericValidator_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericValidator_3)
@@ -93,6 +101,8 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_4, "wxGenericValidator_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericValidator_4)
@@ -106,6 +116,8 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_5, "wxGenericValidator_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericValidator_5)
@@ -119,6 +131,8 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_6, "wxGenericValidator_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericValidator_6)
@@ -132,6 +146,8 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_7, "wxGenericValidator_7")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericValidator_7)
@@ -145,6 +161,8 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_8, "wxGenericValidator_8")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericValidator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericValidator_8)

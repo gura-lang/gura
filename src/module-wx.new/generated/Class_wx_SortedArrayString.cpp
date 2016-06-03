@@ -40,6 +40,8 @@ String Object_wx_SortedArrayString::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSortedArrayString, "wxSortedArrayString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SortedArrayString));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSortedArrayString)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxSortedArrayString_1, "wxSortedArrayString_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "compareFunction", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SortedArrayString));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSortedArrayString_1)
@@ -65,6 +69,8 @@ Gura_DeclareFunctionAlias(__wxSortedArrayString_2, "wxSortedArrayString_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SortedArrayString));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSortedArrayString_2)

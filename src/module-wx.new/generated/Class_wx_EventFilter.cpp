@@ -39,6 +39,8 @@ String Object_wx_EventFilter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EventFilter)
 {
+	// Class assignment
+	Gura_AssignValueEx("EventFilter", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_EventFilter)

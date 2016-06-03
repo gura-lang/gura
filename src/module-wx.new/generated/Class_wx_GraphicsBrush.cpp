@@ -39,6 +39,8 @@ String Object_wx_GraphicsBrush::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsBrush)
 {
+	// Class assignment
+	Gura_AssignValueEx("GraphicsBrush", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsBrush)

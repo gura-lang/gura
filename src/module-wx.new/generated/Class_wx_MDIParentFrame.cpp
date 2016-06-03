@@ -40,6 +40,8 @@ String Object_wx_MDIParentFrame::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxMDIParentFrame, "wxMDIParentFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_MDIParentFrame));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMDIParentFrame)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxMDIParentFrame_1, "wxMDIParentFrame_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MDIParentFrame));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMDIParentFrame_1)

@@ -45,6 +45,8 @@ Gura_DeclareFunctionAlias(__wxFSFile, "wxFSFile")
 	//DeclareArg(env, "mimetype", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "anchor", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "modif", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FSFile));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFSFile)

@@ -44,6 +44,8 @@ Gura_DeclareFunctionAlias(__wxJoystickEvent, "wxJoystickEvent")
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "joystick", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "change", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_JoystickEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxJoystickEvent)

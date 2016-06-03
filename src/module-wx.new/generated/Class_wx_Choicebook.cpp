@@ -40,6 +40,8 @@ String Object_wx_Choicebook::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxChoicebook, "wxChoicebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Choicebook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxChoicebook)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxChoicebook_1, "wxChoicebook_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Choicebook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxChoicebook_1)

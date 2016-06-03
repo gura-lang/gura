@@ -39,6 +39,8 @@ String Object_wx_SimpleHelpProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SimpleHelpProvider)
 {
+	// Class assignment
+	Gura_AssignValueEx("SimpleHelpProvider", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_SimpleHelpProvider)

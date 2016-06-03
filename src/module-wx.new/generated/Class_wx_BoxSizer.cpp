@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxBoxSizer, "wxBoxSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BoxSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBoxSizer)

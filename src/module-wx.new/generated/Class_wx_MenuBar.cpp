@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxMenuBar, "wxMenuBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MenuBar));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMenuBar)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxMenuBar_1, "wxMenuBar_1")
 	//DeclareArg(env, "menus", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "titles", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MenuBar));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMenuBar_1)

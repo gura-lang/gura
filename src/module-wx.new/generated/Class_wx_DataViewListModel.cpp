@@ -165,6 +165,8 @@ Gura_ImplementMethod(wx_DataViewListModel, __SetValueByRow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewListModel)
 {
+	// Class assignment
+	Gura_AssignValueEx("DataViewListModel", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewListModel, __Compare);
 	Gura_AssignMethod(wx_DataViewListModel, __GetAttrByRow);

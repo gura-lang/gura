@@ -40,6 +40,8 @@ String Object_wx_Simplebook::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSimplebook, "wxSimplebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Simplebook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSimplebook)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxSimplebook_1, "wxSimplebook_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Simplebook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSimplebook_1)

@@ -47,6 +47,8 @@ Gura_DeclareFunctionAlias(__wxXmlNode, "wxXmlNode")
 	//DeclareArg(env, "attrs", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "next", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lineNo", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XmlNode));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlNode)
@@ -69,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxXmlNode_1, "wxXmlNode_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "content", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lineNo", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XmlNode));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlNode_1)
@@ -85,6 +89,8 @@ Gura_DeclareFunctionAlias(__wxXmlNode_2, "wxXmlNode_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_XmlNode));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxXmlNode_2)

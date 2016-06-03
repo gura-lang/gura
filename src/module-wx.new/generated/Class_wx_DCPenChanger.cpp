@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxDCPenChanger, "wxDCPenChanger")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DCPenChanger));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDCPenChanger)

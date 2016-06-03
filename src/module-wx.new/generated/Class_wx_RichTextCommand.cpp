@@ -46,6 +46,8 @@ Gura_DeclareFunctionAlias(__wxRichTextCommand, "wxRichTextCommand")
 	//DeclareArg(env, "container", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ignoreFirstTime", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextCommand));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextCommand)
@@ -64,6 +66,8 @@ Gura_DeclareFunctionAlias(__wxRichTextCommand_1, "wxRichTextCommand_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextCommand));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextCommand_1)

@@ -39,6 +39,8 @@ String Object_wx_NavigationKeyEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NavigationKeyEvent)
 {
+	// Class assignment
+	Gura_AssignValueEx("NavigationKeyEvent", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_NavigationKeyEvent)

@@ -40,6 +40,8 @@ String Object_wx_Dir::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDir, "wxDir")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Dir));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDir)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxDir_1, "wxDir_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Dir));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDir_1)

@@ -40,6 +40,8 @@ String Object_wx_Icon::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxIcon, "wxIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Icon));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxIcon)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxIcon_1, "wxIcon_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Icon));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxIcon_1)
@@ -67,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxIcon_2, "wxIcon_2")
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Icon));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxIcon_2)
@@ -82,6 +88,8 @@ Gura_DeclareFunctionAlias(__wxIcon_3, "wxIcon_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Icon));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxIcon_3)
@@ -98,6 +106,8 @@ Gura_DeclareFunctionAlias(__wxIcon_4, "wxIcon_4")
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "desiredWidth", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "desiredHeight", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Icon));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxIcon_4)
@@ -114,6 +124,8 @@ Gura_DeclareFunctionAlias(__wxIcon_5, "wxIcon_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Icon));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxIcon_5)

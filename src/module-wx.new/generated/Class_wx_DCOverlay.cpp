@@ -46,6 +46,8 @@ Gura_DeclareFunctionAlias(__wxDCOverlay, "wxDCOverlay")
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DCOverlay));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDCOverlay)
@@ -65,6 +67,8 @@ Gura_DeclareFunctionAlias(__wxDCOverlay_1, "wxDCOverlay_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "overlay", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DCOverlay));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDCOverlay_1)

@@ -40,6 +40,8 @@ String Object_wx_RegionIterator::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRegionIterator, "wxRegionIterator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RegionIterator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegionIterator)
@@ -52,6 +54,8 @@ Gura_DeclareFunctionAlias(__wxRegionIterator_1, "wxRegionIterator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RegionIterator));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegionIterator_1)

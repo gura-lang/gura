@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxStyledTextEvent, "wxStyledTextEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StyledTextEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStyledTextEvent)
@@ -56,6 +58,8 @@ Gura_DeclareFunctionAlias(__wxStyledTextEvent_1, "wxStyledTextEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StyledTextEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStyledTextEvent_1)

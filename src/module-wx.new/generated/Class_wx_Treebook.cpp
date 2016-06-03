@@ -40,6 +40,8 @@ String Object_wx_Treebook::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxTreebook, "wxTreebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_Treebook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTreebook)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxTreebook_1, "wxTreebook_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Treebook));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxTreebook_1)

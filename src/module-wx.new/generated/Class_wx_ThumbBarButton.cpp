@@ -40,6 +40,8 @@ String Object_wx_ThumbBarButton::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxThumbBarButton, "wxThumbBarButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_ThumbBarButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxThumbBarButton)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxThumbBarButton_1, "wxThumbBarButton_1")
 	//DeclareArg(env, "hasBackground", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "shown", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "interactive", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_ThumbBarButton));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxThumbBarButton_1)

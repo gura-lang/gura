@@ -40,6 +40,8 @@ String Object_wx_FileCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxFileCtrl, "wxFileCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_FileCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileCtrl)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxFileCtrl_1, "wxFileCtrl_1")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FileCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxFileCtrl_1)

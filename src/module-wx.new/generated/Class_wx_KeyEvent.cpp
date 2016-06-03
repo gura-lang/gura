@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxKeyEvent, "wxKeyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyEventType", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_KeyEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxKeyEvent)

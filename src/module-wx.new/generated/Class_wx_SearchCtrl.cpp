@@ -40,6 +40,8 @@ String Object_wx_SearchCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxSearchCtrl, "wxSearchCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_SearchCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSearchCtrl)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxSearchCtrl_1, "wxSearchCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SearchCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSearchCtrl_1)

@@ -40,6 +40,8 @@ String Object_wx_StatusBar::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxStatusBar, "wxStatusBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_StatusBar));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStatusBar)
@@ -55,6 +57,8 @@ Gura_DeclareFunctionAlias(__wxStatusBar_1, "wxStatusBar_1")
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_StatusBar));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxStatusBar_1)

@@ -40,6 +40,8 @@ String Object_wx_RegEx::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxRegEx, "wxRegEx")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RegEx));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegEx)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxRegEx_1, "wxRegEx_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "expr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RegEx));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRegEx_1)

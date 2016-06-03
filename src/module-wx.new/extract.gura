@@ -293,7 +293,10 @@ ${end}
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_${classNameShort})
 {
-	${if (!funcInfosOfConstructor.isempty())}
+	${if (funcInfosOfConstructor.isempty())}
+	// Class assignment
+	Gura_AssignValueEx("${classNameShort}", Reference());
+	${else}
 	// Constructor assignment
 	${funcInfosOfConstructor:*RenderAssignment()}
 	${end}
@@ -333,6 +336,8 @@ Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	${if (!argInfos.isempty()) { argInfos:*RenderDeclaration() }}
+	SetClassToConstruct(Gura_UserClass(wx_${classNameShort}));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(${funcNameInternal})
@@ -502,17 +507,19 @@ FuncInfo = struct(funcNameCPP:string, funcNameGura:string,
 				  classInfo?:ClassInfo, funcType:symbol => `Function, argInfos[]:ArgInfo => []) {
 	MakeFuncNameInternal() = '__' + this.funcNameGura
 	RenderImplementation(lineSkipFlag:boolean):map = {
-		classNameShort = this.classInfo.MakeClassNameShort()
 		funcNameCPP = this.funcNameCPP
 		funcNameGura = this.funcNameGura
 		funcNameInternal = this.MakeFuncNameInternal()
 		argInfos = this.argInfos
 		if (this.funcType == `Function) {
 			tmpl@ImplementFunction.render()
-		} elsif (this.funcType == `Constructor) {
-			tmpl@ImplementConstructor.render()
-		} elsif (this.funcType == `Method) {
-			tmpl@ImplementMethod.render()
+		} else {
+			classNameShort = this.classInfo.MakeClassNameShort()
+			if (this.funcType == `Constructor) {
+				tmpl@ImplementConstructor.render()
+			} elsif (this.funcType == `Method) {
+				tmpl@ImplementMethod.render()
+			}
 		}
 	}
 	RenderAssignment() = {

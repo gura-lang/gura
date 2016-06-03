@@ -624,6 +624,8 @@ Gura_ImplementMethod(wx_RendererNative, __Set)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RendererNative)
 {
+	// Class assignment
+	Gura_AssignValueEx("RendererNative", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_RendererNative, __DrawCheckBox);
 	Gura_AssignMethod(wx_RendererNative, __DrawComboBoxDropButton);

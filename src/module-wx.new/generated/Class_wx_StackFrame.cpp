@@ -180,6 +180,8 @@ Gura_ImplementMethod(wx_StackFrame, __HasSourceLocation)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StackFrame)
 {
+	// Class assignment
+	Gura_AssignValueEx("StackFrame", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_StackFrame, __GetAddress);
 	Gura_AssignMethod(wx_StackFrame, __GetFileName);

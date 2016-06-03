@@ -39,6 +39,8 @@ String Object_wx_StandardPaths::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StandardPaths)
 {
+	// Class assignment
+	Gura_AssignValueEx("StandardPaths", Reference());
 }
 
 Gura_ImplementDescendantCreator(wx_StandardPaths)

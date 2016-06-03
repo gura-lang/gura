@@ -43,6 +43,8 @@ Gura_DeclareFunctionAlias(__wxSpinDoubleEvent, "wxSpinDoubleEvent")
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SpinDoubleEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSpinDoubleEvent)
@@ -58,6 +60,8 @@ Gura_DeclareFunctionAlias(__wxSpinDoubleEvent_1, "wxSpinDoubleEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_SpinDoubleEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxSpinDoubleEvent_1)

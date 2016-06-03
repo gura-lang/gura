@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxMouseEvent, "wxMouseEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mouseEventType", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_MouseEvent));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxMouseEvent)

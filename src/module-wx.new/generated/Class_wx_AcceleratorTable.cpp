@@ -40,6 +40,8 @@ String Object_wx_AcceleratorTable::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAcceleratorTable, "wxAcceleratorTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_AcceleratorTable));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAcceleratorTable)
@@ -53,6 +55,8 @@ Gura_DeclareFunctionAlias(__wxAcceleratorTable_1, "wxAcceleratorTable_1")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "entries", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AcceleratorTable));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAcceleratorTable_1)
@@ -67,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxAcceleratorTable_2, "wxAcceleratorTable_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "resource", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AcceleratorTable));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAcceleratorTable_2)

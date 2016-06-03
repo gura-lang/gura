@@ -226,6 +226,8 @@ Gura_ImplementMethod(wx_HeaderColumn, __IsSortOrderAscending)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HeaderColumn)
 {
+	// Class assignment
+	Gura_AssignValueEx("HeaderColumn", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_HeaderColumn, __GetTitle);
 	Gura_AssignMethod(wx_HeaderColumn, __GetBitmap);

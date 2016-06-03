@@ -42,6 +42,8 @@ Gura_DeclareFunctionAlias(__wxRichTextObjectAddress, "wxRichTextObjectAddress")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topLevelContainer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextObjectAddress));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextObjectAddress)
@@ -55,6 +57,8 @@ Gura_ImplementFunction(__wxRichTextObjectAddress)
 Gura_DeclareFunctionAlias(__wxRichTextObjectAddress_1, "wxRichTextObjectAddress_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextObjectAddress));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextObjectAddress_1)
@@ -67,6 +71,8 @@ Gura_DeclareFunctionAlias(__wxRichTextObjectAddress_2, "wxRichTextObjectAddress_
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_RichTextObjectAddress));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxRichTextObjectAddress_2)

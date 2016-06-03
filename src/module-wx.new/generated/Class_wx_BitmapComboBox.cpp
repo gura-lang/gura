@@ -40,6 +40,8 @@ String Object_wx_BitmapComboBox::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxBitmapComboBox, "wxBitmapComboBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_BitmapComboBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmapComboBox)
@@ -61,6 +63,8 @@ Gura_DeclareFunctionAlias(__wxBitmapComboBox_1, "wxBitmapComboBox_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BitmapComboBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmapComboBox_1)
@@ -91,6 +95,8 @@ Gura_DeclareFunctionAlias(__wxBitmapComboBox_2, "wxBitmapComboBox_2")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_BitmapComboBox));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxBitmapComboBox_2)

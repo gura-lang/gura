@@ -40,6 +40,8 @@ String Object_wx_DatePickerCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxDatePickerCtrl, "wxDatePickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_DatePickerCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDatePickerCtrl)
@@ -59,6 +61,8 @@ Gura_DeclareFunctionAlias(__wxDatePickerCtrl_1, "wxDatePickerCtrl_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DatePickerCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxDatePickerCtrl_1)

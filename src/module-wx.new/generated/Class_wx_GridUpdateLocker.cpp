@@ -41,6 +41,8 @@ Gura_DeclareFunctionAlias(__wxGridUpdateLocker, "wxGridUpdateLocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GridUpdateLocker));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGridUpdateLocker)

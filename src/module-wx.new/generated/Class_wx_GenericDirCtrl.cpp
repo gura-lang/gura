@@ -40,6 +40,8 @@ String Object_wx_GenericDirCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxGenericDirCtrl, "wxGenericDirCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_GenericDirCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericDirCtrl)
@@ -60,6 +62,8 @@ Gura_DeclareFunctionAlias(__wxGenericDirCtrl_1, "wxGenericDirCtrl_1")
 	//DeclareArg(env, "filter", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultFilter", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_GenericDirCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxGenericDirCtrl_1)

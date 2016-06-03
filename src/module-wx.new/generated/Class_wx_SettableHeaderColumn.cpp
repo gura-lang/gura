@@ -295,6 +295,8 @@ Gura_ImplementMethod(wx_SettableHeaderColumn, __ToggleSortOrder)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SettableHeaderColumn)
 {
+	// Class assignment
+	Gura_AssignValueEx("SettableHeaderColumn", Reference());
 	// Method assignment
 	Gura_AssignMethod(wx_SettableHeaderColumn, __SetTitle);
 	Gura_AssignMethod(wx_SettableHeaderColumn, __SetBitmap);

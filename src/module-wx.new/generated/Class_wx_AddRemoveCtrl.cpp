@@ -40,6 +40,8 @@ String Object_wx_AddRemoveCtrl::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(__wxAddRemoveCtrl, "wxAddRemoveCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(wx_AddRemoveCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAddRemoveCtrl)
@@ -57,6 +59,8 @@ Gura_DeclareFunctionAlias(__wxAddRemoveCtrl_1, "wxAddRemoveCtrl_1")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_AddRemoveCtrl));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__wxAddRemoveCtrl_1)
