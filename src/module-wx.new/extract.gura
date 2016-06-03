@@ -636,7 +636,6 @@ CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
 	funcNameCPP = identifier
 	funcNameGura = identifier
 	funcInfo = FuncInfo(funcNameCPP, funcNameGura)
-	//printf('%s:%s:%s\n', identifier, typeList, refOperator)
 	pos = 0
 	iArg = 0
 	while (pos < argsStr.len()) {
