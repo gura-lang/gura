@@ -37,7 +37,7 @@ String Object_wx_WindowDisabler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWindowDisabler, "wxWindowDisabler")
+Gura_DeclareFunctionAlias(__WindowDisabler, "WindowDisabler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "disable", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxWindowDisabler, "wxWindowDisabler")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWindowDisabler)
+Gura_ImplementFunction(__WindowDisabler)
 {
 	//int disable = arg.GetNumber(0)
 	//wxWindowDisabler();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxWindowDisabler_1, "wxWindowDisabler_1")
+Gura_DeclareFunctionAlias(__WindowDisabler_1, "WindowDisabler_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToSkip", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxWindowDisabler_1, "wxWindowDisabler_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWindowDisabler_1)
+Gura_ImplementFunction(__WindowDisabler_1)
 {
 	//int winToSkip = arg.GetNumber(0)
 	//wxWindowDisabler();
@@ -73,8 +73,8 @@ Gura_ImplementFunction(__wxWindowDisabler_1)
 Gura_ImplementUserInheritableClass(wx_WindowDisabler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWindowDisabler);
-	Gura_AssignFunction(__wxWindowDisabler_1);
+	Gura_AssignFunction(__WindowDisabler);
+	Gura_AssignFunction(__WindowDisabler_1);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowDisabler)

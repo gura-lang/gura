@@ -37,20 +37,20 @@ String Object_wx_RadioButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRadioButton, "wxRadioButton")
+Gura_DeclareFunctionAlias(__RadioButton, "RadioButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RadioButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRadioButton)
+Gura_ImplementFunction(__RadioButton)
 {
 	//wxRadioButton();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRadioButton_1, "wxRadioButton_1")
+Gura_DeclareFunctionAlias(__RadioButton_1, "RadioButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxRadioButton_1, "wxRadioButton_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRadioButton_1)
+Gura_ImplementFunction(__RadioButton_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -145,8 +145,8 @@ Gura_ImplementMethod(wx_RadioButton, __SetValue)
 Gura_ImplementUserInheritableClass(wx_RadioButton)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRadioButton);
-	Gura_AssignFunction(__wxRadioButton_1);
+	Gura_AssignFunction(__RadioButton);
+	Gura_AssignFunction(__RadioButton_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RadioButton, __Create);
 	Gura_AssignMethod(wx_RadioButton, __GetValue);

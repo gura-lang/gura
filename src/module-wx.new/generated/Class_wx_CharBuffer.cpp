@@ -37,7 +37,7 @@ String Object_wx_CharBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCharBuffer, "wxCharBuffer")
+Gura_DeclareFunctionAlias(__CharBuffer, "CharBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxCharBuffer, "wxCharBuffer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCharBuffer)
+Gura_ImplementFunction(__CharBuffer)
 {
 	//int buf = arg.GetNumber(0)
 	//wxCharBuffer();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCharBuffer_1, "wxCharBuffer_1")
+Gura_DeclareFunctionAlias(__CharBuffer_1, "CharBuffer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
@@ -60,14 +60,14 @@ Gura_DeclareFunctionAlias(__wxCharBuffer_1, "wxCharBuffer_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCharBuffer_1)
+Gura_ImplementFunction(__CharBuffer_1)
 {
 	//int buf = arg.GetNumber(0)
 	//wxCharBuffer();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCharBuffer_2, "wxCharBuffer_2")
+Gura_DeclareFunctionAlias(__CharBuffer_2, "CharBuffer_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -75,14 +75,14 @@ Gura_DeclareFunctionAlias(__wxCharBuffer_2, "wxCharBuffer_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCharBuffer_2)
+Gura_ImplementFunction(__CharBuffer_2)
 {
 	//int str = arg.GetNumber(0)
 	//wxCharBuffer();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCharBuffer_3, "wxCharBuffer_3")
+Gura_DeclareFunctionAlias(__CharBuffer_3, "CharBuffer_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
@@ -90,14 +90,14 @@ Gura_DeclareFunctionAlias(__wxCharBuffer_3, "wxCharBuffer_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCharBuffer_3)
+Gura_ImplementFunction(__CharBuffer_3)
 {
 	//int len = arg.GetNumber(0)
 	//wxCharBuffer();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCharBuffer_4, "wxCharBuffer_4")
+Gura_DeclareFunctionAlias(__CharBuffer_4, "CharBuffer_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cstr", VTYPE_number, OCCUR_Once);
@@ -105,7 +105,7 @@ Gura_DeclareFunctionAlias(__wxCharBuffer_4, "wxCharBuffer_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCharBuffer_4)
+Gura_ImplementFunction(__CharBuffer_4)
 {
 	//int cstr = arg.GetNumber(0)
 	//wxCharBuffer();
@@ -118,11 +118,11 @@ Gura_ImplementFunction(__wxCharBuffer_4)
 Gura_ImplementUserInheritableClass(wx_CharBuffer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCharBuffer);
-	Gura_AssignFunction(__wxCharBuffer_1);
-	Gura_AssignFunction(__wxCharBuffer_2);
-	Gura_AssignFunction(__wxCharBuffer_3);
-	Gura_AssignFunction(__wxCharBuffer_4);
+	Gura_AssignFunction(__CharBuffer);
+	Gura_AssignFunction(__CharBuffer_1);
+	Gura_AssignFunction(__CharBuffer_2);
+	Gura_AssignFunction(__CharBuffer_3);
+	Gura_AssignFunction(__CharBuffer_4);
 }
 
 Gura_ImplementDescendantCreator(wx_CharBuffer)

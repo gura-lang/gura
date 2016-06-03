@@ -37,7 +37,7 @@ String Object_wx_CloseEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCloseEvent, "wxCloseEvent")
+Gura_DeclareFunctionAlias(__CloseEvent, "CloseEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandEventType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxCloseEvent, "wxCloseEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCloseEvent)
+Gura_ImplementFunction(__CloseEvent)
 {
 	//int commandEventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_CloseEvent, __GetVeto)
 Gura_ImplementUserInheritableClass(wx_CloseEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCloseEvent);
+	Gura_AssignFunction(__CloseEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_CloseEvent, __CanVeto);
 	Gura_AssignMethod(wx_CloseEvent, __GetLoggingOff);

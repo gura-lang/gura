@@ -37,7 +37,7 @@ String Object_wx_DataViewToggleRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewToggleRenderer, "wxDataViewToggleRenderer")
+Gura_DeclareFunctionAlias(__DataViewToggleRenderer, "DataViewToggleRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxDataViewToggleRenderer, "wxDataViewToggleRenderer"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewToggleRenderer)
+Gura_ImplementFunction(__DataViewToggleRenderer)
 {
 	//int varianttype = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_DataViewToggleRenderer, __GetDefaultType)
 Gura_ImplementUserInheritableClass(wx_DataViewToggleRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewToggleRenderer);
+	Gura_AssignFunction(__DataViewToggleRenderer);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewToggleRenderer, __GetDefaultType);
 }

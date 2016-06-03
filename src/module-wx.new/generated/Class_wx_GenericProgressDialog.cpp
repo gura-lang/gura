@@ -37,7 +37,7 @@ String Object_wx_GenericProgressDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGenericProgressDialog, "wxGenericProgressDialog")
+Gura_DeclareFunctionAlias(__GenericProgressDialog, "GenericProgressDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__wxGenericProgressDialog, "wxGenericProgressDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericProgressDialog)
+Gura_ImplementFunction(__GenericProgressDialog)
 {
 	//int title = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_GenericProgressDialog, __Update)
 Gura_ImplementUserInheritableClass(wx_GenericProgressDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGenericProgressDialog);
+	Gura_AssignFunction(__GenericProgressDialog);
 	// Method assignment
 	Gura_AssignMethod(wx_GenericProgressDialog, __GetValue);
 	Gura_AssignMethod(wx_GenericProgressDialog, __GetRange);

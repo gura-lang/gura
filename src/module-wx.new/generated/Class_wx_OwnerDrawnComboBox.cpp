@@ -37,20 +37,20 @@ String Object_wx_OwnerDrawnComboBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox, "wxOwnerDrawnComboBox")
+Gura_DeclareFunctionAlias(__OwnerDrawnComboBox, "OwnerDrawnComboBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_OwnerDrawnComboBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxOwnerDrawnComboBox)
+Gura_ImplementFunction(__OwnerDrawnComboBox)
 {
 	//wxOwnerDrawnComboBox();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox_1, "wxOwnerDrawnComboBox_1")
+Gura_DeclareFunctionAlias(__OwnerDrawnComboBox_1, "OwnerDrawnComboBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -67,7 +67,7 @@ Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox_1, "wxOwnerDrawnComboBox_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxOwnerDrawnComboBox_1)
+Gura_ImplementFunction(__OwnerDrawnComboBox_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -83,7 +83,7 @@ Gura_ImplementFunction(__wxOwnerDrawnComboBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox_2, "wxOwnerDrawnComboBox_2")
+Gura_DeclareFunctionAlias(__OwnerDrawnComboBox_2, "OwnerDrawnComboBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox_2, "wxOwnerDrawnComboBox_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxOwnerDrawnComboBox_2)
+Gura_ImplementFunction(__OwnerDrawnComboBox_2)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -353,9 +353,9 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __OnMeasureItemWidth)
 Gura_ImplementUserInheritableClass(wx_OwnerDrawnComboBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxOwnerDrawnComboBox);
-	Gura_AssignFunction(__wxOwnerDrawnComboBox_1);
-	Gura_AssignFunction(__wxOwnerDrawnComboBox_2);
+	Gura_AssignFunction(__OwnerDrawnComboBox);
+	Gura_AssignFunction(__OwnerDrawnComboBox_1);
+	Gura_AssignFunction(__OwnerDrawnComboBox_2);
 	// Method assignment
 	Gura_AssignMethod(wx_OwnerDrawnComboBox, __Create);
 	Gura_AssignMethod(wx_OwnerDrawnComboBox, __Create_1);

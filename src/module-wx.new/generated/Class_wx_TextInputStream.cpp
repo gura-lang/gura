@@ -37,7 +37,7 @@ String Object_wx_TextInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextInputStream, "wxTextInputStream")
+Gura_DeclareFunctionAlias(__TextInputStream, "TextInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxTextInputStream, "wxTextInputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextInputStream)
+Gura_ImplementFunction(__TextInputStream)
 {
 	//int stream = arg.GetNumber(0)
 	//int sep = arg.GetNumber(1)
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_TextInputStream, __SetStringSeparators)
 Gura_ImplementUserInheritableClass(wx_TextInputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextInputStream);
+	Gura_AssignFunction(__TextInputStream);
 	// Method assignment
 	Gura_AssignMethod(wx_TextInputStream, __GetInputStream);
 	Gura_AssignMethod(wx_TextInputStream, __GetChar);

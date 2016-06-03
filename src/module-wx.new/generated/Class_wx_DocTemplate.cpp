@@ -37,7 +37,7 @@ String Object_wx_DocTemplate::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDocTemplate, "wxDocTemplate")
+Gura_DeclareFunctionAlias(__DocTemplate, "DocTemplate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
@@ -54,7 +54,7 @@ Gura_DeclareFunctionAlias(__wxDocTemplate, "wxDocTemplate")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDocTemplate)
+Gura_ImplementFunction(__DocTemplate)
 {
 	//int manager = arg.GetNumber(0)
 	//int descr = arg.GetNumber(1)
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_DocTemplate, __SetFlags)
 Gura_ImplementUserInheritableClass(wx_DocTemplate)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDocTemplate);
+	Gura_AssignFunction(__DocTemplate);
 	// Method assignment
 	Gura_AssignMethod(wx_DocTemplate, __CreateDocument);
 	Gura_AssignMethod(wx_DocTemplate, __CreateView);

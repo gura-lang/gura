@@ -37,7 +37,7 @@ String Object_wx_DataViewSpinRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewSpinRenderer, "wxDataViewSpinRenderer")
+Gura_DeclareFunctionAlias(__DataViewSpinRenderer, "DataViewSpinRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxDataViewSpinRenderer, "wxDataViewSpinRenderer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewSpinRenderer)
+Gura_ImplementFunction(__DataViewSpinRenderer)
 {
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__wxDataViewSpinRenderer)
 Gura_ImplementUserInheritableClass(wx_DataViewSpinRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewSpinRenderer);
+	Gura_AssignFunction(__DataViewSpinRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewSpinRenderer)

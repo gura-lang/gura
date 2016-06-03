@@ -37,20 +37,20 @@ String Object_wx_BannerWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBannerWindow, "wxBannerWindow")
+Gura_DeclareFunctionAlias(__BannerWindow, "BannerWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BannerWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBannerWindow)
+Gura_ImplementFunction(__BannerWindow)
 {
 	//wxBannerWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBannerWindow_1, "wxBannerWindow_1")
+Gura_DeclareFunctionAlias(__BannerWindow_1, "BannerWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxBannerWindow_1, "wxBannerWindow_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBannerWindow_1)
+Gura_ImplementFunction(__BannerWindow_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int dir = arg.GetNumber(1)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__wxBannerWindow_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBannerWindow_2, "wxBannerWindow_2")
+Gura_DeclareFunctionAlias(__BannerWindow_2, "BannerWindow_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -81,7 +81,7 @@ Gura_DeclareFunctionAlias(__wxBannerWindow_2, "wxBannerWindow_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBannerWindow_2)
+Gura_ImplementFunction(__BannerWindow_2)
 {
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
@@ -179,9 +179,9 @@ Gura_ImplementMethod(wx_BannerWindow, __SetGradient)
 Gura_ImplementUserInheritableClass(wx_BannerWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBannerWindow);
-	Gura_AssignFunction(__wxBannerWindow_1);
-	Gura_AssignFunction(__wxBannerWindow_2);
+	Gura_AssignFunction(__BannerWindow);
+	Gura_AssignFunction(__BannerWindow_1);
+	Gura_AssignFunction(__BannerWindow_2);
 	// Method assignment
 	Gura_AssignMethod(wx_BannerWindow, __Create);
 	Gura_AssignMethod(wx_BannerWindow, __SetBitmap);

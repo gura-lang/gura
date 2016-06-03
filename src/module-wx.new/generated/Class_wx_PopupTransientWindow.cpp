@@ -37,20 +37,20 @@ String Object_wx_PopupTransientWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPopupTransientWindow, "wxPopupTransientWindow")
+Gura_DeclareFunctionAlias(__PopupTransientWindow, "PopupTransientWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PopupTransientWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPopupTransientWindow)
+Gura_ImplementFunction(__PopupTransientWindow)
 {
 	//wxPopupTransientWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPopupTransientWindow_1, "wxPopupTransientWindow_1")
+Gura_DeclareFunctionAlias(__PopupTransientWindow_1, "PopupTransientWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxPopupTransientWindow_1, "wxPopupTransientWindow_1"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPopupTransientWindow_1)
+Gura_ImplementFunction(__PopupTransientWindow_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -132,8 +132,8 @@ Gura_ImplementMethod(wx_PopupTransientWindow, __OnDismiss)
 Gura_ImplementUserInheritableClass(wx_PopupTransientWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPopupTransientWindow);
-	Gura_AssignFunction(__wxPopupTransientWindow_1);
+	Gura_AssignFunction(__PopupTransientWindow);
+	Gura_AssignFunction(__PopupTransientWindow_1);
 	// Method assignment
 	Gura_AssignMethod(wx_PopupTransientWindow, __Popup);
 	Gura_AssignMethod(wx_PopupTransientWindow, __Dismiss);

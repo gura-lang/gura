@@ -37,7 +37,7 @@ String Object_wx_PasswordEntryDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPasswordEntryDialog, "wxPasswordEntryDialog")
+Gura_DeclareFunctionAlias(__PasswordEntryDialog, "PasswordEntryDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxPasswordEntryDialog, "wxPasswordEntryDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPasswordEntryDialog)
+Gura_ImplementFunction(__PasswordEntryDialog)
 {
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -68,7 +68,7 @@ Gura_ImplementFunction(__wxPasswordEntryDialog)
 Gura_ImplementUserInheritableClass(wx_PasswordEntryDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPasswordEntryDialog);
+	Gura_AssignFunction(__PasswordEntryDialog);
 }
 
 Gura_ImplementDescendantCreator(wx_PasswordEntryDialog)

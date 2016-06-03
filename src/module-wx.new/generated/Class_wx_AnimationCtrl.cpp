@@ -37,7 +37,7 @@ String Object_wx_AnimationCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAnimationCtrl, "wxAnimationCtrl")
+Gura_DeclareFunctionAlias(__AnimationCtrl, "AnimationCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareFunctionAlias(__wxAnimationCtrl, "wxAnimationCtrl")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAnimationCtrl)
+Gura_ImplementFunction(__AnimationCtrl)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, __Stop)
 Gura_ImplementUserInheritableClass(wx_AnimationCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAnimationCtrl);
+	Gura_AssignFunction(__AnimationCtrl);
 	// Method assignment
 	Gura_AssignMethod(wx_AnimationCtrl, __Create);
 	Gura_AssignMethod(wx_AnimationCtrl, __GetAnimation);

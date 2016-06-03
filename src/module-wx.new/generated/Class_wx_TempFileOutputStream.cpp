@@ -37,7 +37,7 @@ String Object_wx_TempFileOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTempFileOutputStream, "wxTempFileOutputStream")
+Gura_DeclareFunctionAlias(__TempFileOutputStream, "TempFileOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxTempFileOutputStream, "wxTempFileOutputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTempFileOutputStream)
+Gura_ImplementFunction(__TempFileOutputStream)
 {
 	//int fileName = arg.GetNumber(0)
 	//wxTempFileOutputStream();
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_TempFileOutputStream, __Discard)
 Gura_ImplementUserInheritableClass(wx_TempFileOutputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTempFileOutputStream);
+	Gura_AssignFunction(__TempFileOutputStream);
 	// Method assignment
 	Gura_AssignMethod(wx_TempFileOutputStream, __Commit);
 	Gura_AssignMethod(wx_TempFileOutputStream, __Discard);

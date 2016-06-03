@@ -37,20 +37,20 @@ String Object_wx_CheckBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCheckBox, "wxCheckBox")
+Gura_DeclareFunctionAlias(__CheckBox, "CheckBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CheckBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCheckBox)
+Gura_ImplementFunction(__CheckBox)
 {
 	//wxCheckBox();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCheckBox_1, "wxCheckBox_1")
+Gura_DeclareFunctionAlias(__CheckBox_1, "CheckBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxCheckBox_1, "wxCheckBox_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCheckBox_1)
+Gura_ImplementFunction(__CheckBox_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -212,8 +212,8 @@ Gura_ImplementMethod(wx_CheckBox, __Set3StateValue)
 Gura_ImplementUserInheritableClass(wx_CheckBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCheckBox);
-	Gura_AssignFunction(__wxCheckBox_1);
+	Gura_AssignFunction(__CheckBox);
+	Gura_AssignFunction(__CheckBox_1);
 	// Method assignment
 	Gura_AssignMethod(wx_CheckBox, __Create);
 	Gura_AssignMethod(wx_CheckBox, __GetValue);

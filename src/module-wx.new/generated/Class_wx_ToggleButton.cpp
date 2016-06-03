@@ -37,20 +37,20 @@ String Object_wx_ToggleButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxToggleButton, "wxToggleButton")
+Gura_DeclareFunctionAlias(__ToggleButton, "ToggleButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ToggleButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxToggleButton)
+Gura_ImplementFunction(__ToggleButton)
 {
 	//wxToggleButton();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxToggleButton_1, "wxToggleButton_1")
+Gura_DeclareFunctionAlias(__ToggleButton_1, "ToggleButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxToggleButton_1, "wxToggleButton_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxToggleButton_1)
+Gura_ImplementFunction(__ToggleButton_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -145,8 +145,8 @@ Gura_ImplementMethod(wx_ToggleButton, __SetValue)
 Gura_ImplementUserInheritableClass(wx_ToggleButton)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxToggleButton);
-	Gura_AssignFunction(__wxToggleButton_1);
+	Gura_AssignFunction(__ToggleButton);
+	Gura_AssignFunction(__ToggleButton_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ToggleButton, __Create);
 	Gura_AssignMethod(wx_ToggleButton, __GetValue);

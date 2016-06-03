@@ -37,7 +37,7 @@ String Object_wx_ConvAuto::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxConvAuto, "wxConvAuto")
+Gura_DeclareFunctionAlias(__ConvAuto, "ConvAuto")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxConvAuto, "wxConvAuto")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxConvAuto)
+Gura_ImplementFunction(__ConvAuto)
 {
 	//int enc = arg.GetNumber(0)
 	//wxConvAuto();
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_ConvAuto, __DetectBOM)
 Gura_ImplementUserInheritableClass(wx_ConvAuto)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxConvAuto);
+	Gura_AssignFunction(__ConvAuto);
 	// Method assignment
 	Gura_AssignMethod(wx_ConvAuto, __GetBOM);
 	Gura_AssignMethod(wx_ConvAuto, __GetBOMChars);

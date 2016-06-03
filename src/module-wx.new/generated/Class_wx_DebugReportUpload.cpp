@@ -37,7 +37,7 @@ String Object_wx_DebugReportUpload::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDebugReportUpload, "wxDebugReportUpload")
+Gura_DeclareFunctionAlias(__DebugReportUpload, "DebugReportUpload")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxDebugReportUpload, "wxDebugReportUpload")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDebugReportUpload)
+Gura_ImplementFunction(__DebugReportUpload)
 {
 	//int url = arg.GetNumber(0)
 	//int input = arg.GetNumber(1)
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_DebugReportUpload, __OnServerReply)
 Gura_ImplementUserInheritableClass(wx_DebugReportUpload)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDebugReportUpload);
+	Gura_AssignFunction(__DebugReportUpload);
 	// Method assignment
 	Gura_AssignMethod(wx_DebugReportUpload, __OnServerReply);
 }

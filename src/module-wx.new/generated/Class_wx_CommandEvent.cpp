@@ -37,7 +37,7 @@ String Object_wx_CommandEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCommandEvent, "wxCommandEvent")
+Gura_DeclareFunctionAlias(__CommandEvent, "CommandEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandEventType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxCommandEvent, "wxCommandEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCommandEvent)
+Gura_ImplementFunction(__CommandEvent)
 {
 	//int commandEventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_CommandEvent, __SetString)
 Gura_ImplementUserInheritableClass(wx_CommandEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCommandEvent);
+	Gura_AssignFunction(__CommandEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_CommandEvent, __GetClientData);
 	Gura_AssignMethod(wx_CommandEvent, __GetClientObject);

@@ -37,14 +37,14 @@ String Object_wx_RichTextStyleSheet::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextStyleSheet, "wxRichTextStyleSheet")
+Gura_DeclareFunctionAlias(__RichTextStyleSheet, "RichTextStyleSheet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleSheet));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextStyleSheet)
+Gura_ImplementFunction(__RichTextStyleSheet)
 {
 	//wxRichTextStyleSheet();
 	return Value::Nil;
@@ -447,7 +447,7 @@ Gura_ImplementMethod(wx_RichTextStyleSheet, __SetProperties)
 Gura_ImplementUserInheritableClass(wx_RichTextStyleSheet)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextStyleSheet);
+	Gura_AssignFunction(__RichTextStyleSheet);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextStyleSheet, __AddCharacterStyle);
 	Gura_AssignMethod(wx_RichTextStyleSheet, __AddListStyle);

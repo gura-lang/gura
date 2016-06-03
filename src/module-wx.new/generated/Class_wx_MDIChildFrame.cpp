@@ -37,20 +37,20 @@ String Object_wx_MDIChildFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMDIChildFrame, "wxMDIChildFrame")
+Gura_DeclareFunctionAlias(__MDIChildFrame, "MDIChildFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MDIChildFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMDIChildFrame)
+Gura_ImplementFunction(__MDIChildFrame)
 {
 	//wxMDIChildFrame();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMDIChildFrame_1, "wxMDIChildFrame_1")
+Gura_DeclareFunctionAlias(__MDIChildFrame_1, "MDIChildFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxMDIChildFrame_1, "wxMDIChildFrame_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMDIChildFrame_1)
+Gura_ImplementFunction(__MDIChildFrame_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -180,8 +180,8 @@ Gura_ImplementMethod(wx_MDIChildFrame, __Restore)
 Gura_ImplementUserInheritableClass(wx_MDIChildFrame)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMDIChildFrame);
-	Gura_AssignFunction(__wxMDIChildFrame_1);
+	Gura_AssignFunction(__MDIChildFrame);
+	Gura_AssignFunction(__MDIChildFrame_1);
 	// Method assignment
 	Gura_AssignMethod(wx_MDIChildFrame, __Activate);
 	Gura_AssignMethod(wx_MDIChildFrame, __Create);

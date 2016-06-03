@@ -37,20 +37,20 @@ String Object_wx_Treebook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTreebook, "wxTreebook")
+Gura_DeclareFunctionAlias(__Treebook, "Treebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Treebook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTreebook)
+Gura_ImplementFunction(__Treebook)
 {
 	//wxTreebook();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTreebook_1, "wxTreebook_1")
+Gura_DeclareFunctionAlias(__Treebook_1, "Treebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxTreebook_1, "wxTreebook_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTreebook_1)
+Gura_ImplementFunction(__Treebook_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -287,8 +287,8 @@ Gura_ImplementMethod(wx_Treebook, __IsNodeExpanded)
 Gura_ImplementUserInheritableClass(wx_Treebook)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTreebook);
-	Gura_AssignFunction(__wxTreebook_1);
+	Gura_AssignFunction(__Treebook);
+	Gura_AssignFunction(__Treebook_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Treebook, __AddPage);
 	Gura_AssignMethod(wx_Treebook, __AddSubPage);

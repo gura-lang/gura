@@ -37,7 +37,7 @@ String Object_wx_WebViewArchiveHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWebViewArchiveHandler, "wxWebViewArchiveHandler")
+Gura_DeclareFunctionAlias(__WebViewArchiveHandler, "WebViewArchiveHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "scheme", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxWebViewArchiveHandler, "wxWebViewArchiveHandler")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWebViewArchiveHandler)
+Gura_ImplementFunction(__WebViewArchiveHandler)
 {
 	//int scheme = arg.GetNumber(0)
 	//wxWebViewArchiveHandler();
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_WebViewArchiveHandler, __GetFile)
 Gura_ImplementUserInheritableClass(wx_WebViewArchiveHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWebViewArchiveHandler);
+	Gura_AssignFunction(__WebViewArchiveHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_WebViewArchiveHandler, __GetFile);
 }

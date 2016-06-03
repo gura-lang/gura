@@ -37,20 +37,20 @@ String Object_wx_ListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxListBox, "wxListBox")
+Gura_DeclareFunctionAlias(__ListBox, "ListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListBox)
+Gura_ImplementFunction(__ListBox)
 {
 	//wxListBox();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxListBox_1, "wxListBox_1")
+Gura_DeclareFunctionAlias(__ListBox_1, "ListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxListBox_1, "wxListBox_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListBox_1)
+Gura_ImplementFunction(__ListBox_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -81,7 +81,7 @@ Gura_ImplementFunction(__wxListBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxListBox_2, "wxListBox_2")
+Gura_DeclareFunctionAlias(__ListBox_2, "ListBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_DeclareFunctionAlias(__wxListBox_2, "wxListBox_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListBox_2)
+Gura_ImplementFunction(__ListBox_2)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -498,9 +498,9 @@ Gura_ImplementMethod(wx_ListBox, __FindString)
 Gura_ImplementUserInheritableClass(wx_ListBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxListBox);
-	Gura_AssignFunction(__wxListBox_1);
-	Gura_AssignFunction(__wxListBox_2);
+	Gura_AssignFunction(__ListBox);
+	Gura_AssignFunction(__ListBox_1);
+	Gura_AssignFunction(__ListBox_2);
 	// Method assignment
 	Gura_AssignMethod(wx_ListBox, __Create);
 	Gura_AssignMethod(wx_ListBox, __Create_1);

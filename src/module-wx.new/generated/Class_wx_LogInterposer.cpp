@@ -37,14 +37,14 @@ String Object_wx_LogInterposer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLogInterposer, "wxLogInterposer")
+Gura_DeclareFunctionAlias(__LogInterposer, "LogInterposer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogInterposer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLogInterposer)
+Gura_ImplementFunction(__LogInterposer)
 {
 	//wxLogInterposer();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxLogInterposer)
 Gura_ImplementUserInheritableClass(wx_LogInterposer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLogInterposer);
+	Gura_AssignFunction(__LogInterposer);
 }
 
 Gura_ImplementDescendantCreator(wx_LogInterposer)

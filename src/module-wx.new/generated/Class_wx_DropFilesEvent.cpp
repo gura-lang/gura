@@ -37,7 +37,7 @@ String Object_wx_DropFilesEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDropFilesEvent, "wxDropFilesEvent")
+Gura_DeclareFunctionAlias(__DropFilesEvent, "DropFilesEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxDropFilesEvent, "wxDropFilesEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDropFilesEvent)
+Gura_ImplementFunction(__DropFilesEvent)
 {
 	//int id = arg.GetNumber(0)
 	//int noFiles = arg.GetNumber(1)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_DropFilesEvent, __GetPosition)
 Gura_ImplementUserInheritableClass(wx_DropFilesEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDropFilesEvent);
+	Gura_AssignFunction(__DropFilesEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_DropFilesEvent, __GetFiles);
 	Gura_AssignMethod(wx_DropFilesEvent, __GetNumberOfFiles);

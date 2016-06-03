@@ -37,7 +37,7 @@ String Object_wx_WindowCreateEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWindowCreateEvent, "wxWindowCreateEvent")
+Gura_DeclareFunctionAlias(__WindowCreateEvent, "WindowCreateEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxWindowCreateEvent, "wxWindowCreateEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWindowCreateEvent)
+Gura_ImplementFunction(__WindowCreateEvent)
 {
 	//int win = arg.GetNumber(0)
 	//wxWindowCreateEvent();
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_WindowCreateEvent, __GetWindow)
 Gura_ImplementUserInheritableClass(wx_WindowCreateEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWindowCreateEvent);
+	Gura_AssignFunction(__WindowCreateEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_WindowCreateEvent, __GetWindow);
 }

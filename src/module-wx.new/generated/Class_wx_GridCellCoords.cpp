@@ -37,20 +37,20 @@ String Object_wx_GridCellCoords::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridCellCoords, "wxGridCellCoords")
+Gura_DeclareFunctionAlias(__GridCellCoords, "GridCellCoords")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellCoords));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellCoords)
+Gura_ImplementFunction(__GridCellCoords)
 {
 	//wxGridCellCoords();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGridCellCoords_1, "wxGridCellCoords_1")
+Gura_DeclareFunctionAlias(__GridCellCoords_1, "GridCellCoords_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxGridCellCoords_1, "wxGridCellCoords_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellCoords_1)
+Gura_ImplementFunction(__GridCellCoords_1)
 {
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
@@ -149,8 +149,8 @@ Gura_ImplementMethod(wx_GridCellCoords, __Set)
 Gura_ImplementUserInheritableClass(wx_GridCellCoords)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridCellCoords);
-	Gura_AssignFunction(__wxGridCellCoords_1);
+	Gura_AssignFunction(__GridCellCoords);
+	Gura_AssignFunction(__GridCellCoords_1);
 	// Method assignment
 	Gura_AssignMethod(wx_GridCellCoords, __GetRow);
 	Gura_AssignMethod(wx_GridCellCoords, __SetRow);

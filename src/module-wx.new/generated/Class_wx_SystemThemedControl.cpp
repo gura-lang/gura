@@ -37,14 +37,14 @@ String Object_wx_SystemThemedControl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSystemThemedControl, "wxSystemThemedControl")
+Gura_DeclareFunctionAlias(__SystemThemedControl, "SystemThemedControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SystemThemedControl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSystemThemedControl)
+Gura_ImplementFunction(__SystemThemedControl)
 {
 	//wxSystemThemedControl();
 	return Value::Nil;
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_SystemThemedControl, __EnableSystemTheme)
 Gura_ImplementUserInheritableClass(wx_SystemThemedControl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSystemThemedControl);
+	Gura_AssignFunction(__SystemThemedControl);
 	// Method assignment
 	Gura_AssignMethod(wx_SystemThemedControl, __EnableSystemTheme);
 }

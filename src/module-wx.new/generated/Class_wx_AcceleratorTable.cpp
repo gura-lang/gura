@@ -37,20 +37,20 @@ String Object_wx_AcceleratorTable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAcceleratorTable, "wxAcceleratorTable")
+Gura_DeclareFunctionAlias(__AcceleratorTable, "AcceleratorTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AcceleratorTable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAcceleratorTable)
+Gura_ImplementFunction(__AcceleratorTable)
 {
 	//wxAcceleratorTable();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAcceleratorTable_1, "wxAcceleratorTable_1")
+Gura_DeclareFunctionAlias(__AcceleratorTable_1, "AcceleratorTable_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxAcceleratorTable_1, "wxAcceleratorTable_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAcceleratorTable_1)
+Gura_ImplementFunction(__AcceleratorTable_1)
 {
 	//int n = arg.GetNumber(0)
 	//int entries = arg.GetNumber(1)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__wxAcceleratorTable_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAcceleratorTable_2, "wxAcceleratorTable_2")
+Gura_DeclareFunctionAlias(__AcceleratorTable_2, "AcceleratorTable_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "resource", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__wxAcceleratorTable_2, "wxAcceleratorTable_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAcceleratorTable_2)
+Gura_ImplementFunction(__AcceleratorTable_2)
 {
 	//int resource = arg.GetNumber(0)
 	//wxAcceleratorTable();
@@ -104,9 +104,9 @@ Gura_ImplementMethod(wx_AcceleratorTable, __IsOk)
 Gura_ImplementUserInheritableClass(wx_AcceleratorTable)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAcceleratorTable);
-	Gura_AssignFunction(__wxAcceleratorTable_1);
-	Gura_AssignFunction(__wxAcceleratorTable_2);
+	Gura_AssignFunction(__AcceleratorTable);
+	Gura_AssignFunction(__AcceleratorTable_1);
+	Gura_AssignFunction(__AcceleratorTable_2);
 	// Method assignment
 	Gura_AssignMethod(wx_AcceleratorTable, __IsOk);
 }

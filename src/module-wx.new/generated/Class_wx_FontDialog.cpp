@@ -37,20 +37,20 @@ String Object_wx_FontDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFontDialog, "wxFontDialog")
+Gura_DeclareFunctionAlias(__FontDialog, "FontDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFontDialog)
+Gura_ImplementFunction(__FontDialog)
 {
 	//wxFontDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFontDialog_1, "wxFontDialog_1")
+Gura_DeclareFunctionAlias(__FontDialog_1, "FontDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxFontDialog_1, "wxFontDialog_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFontDialog_1)
+Gura_ImplementFunction(__FontDialog_1)
 {
 	//int parent = arg.GetNumber(0)
 	//wxFontDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFontDialog_2, "wxFontDialog_2")
+Gura_DeclareFunctionAlias(__FontDialog_2, "FontDialog_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_DeclareFunctionAlias(__wxFontDialog_2, "wxFontDialog_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFontDialog_2)
+Gura_ImplementFunction(__FontDialog_2)
 {
 	//int parent = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
@@ -162,9 +162,9 @@ Gura_ImplementMethod(wx_FontDialog, __ShowModal)
 Gura_ImplementUserInheritableClass(wx_FontDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFontDialog);
-	Gura_AssignFunction(__wxFontDialog_1);
-	Gura_AssignFunction(__wxFontDialog_2);
+	Gura_AssignFunction(__FontDialog);
+	Gura_AssignFunction(__FontDialog_1);
+	Gura_AssignFunction(__FontDialog_2);
 	// Method assignment
 	Gura_AssignMethod(wx_FontDialog, __Create);
 	Gura_AssignMethod(wx_FontDialog, __Create_1);

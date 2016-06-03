@@ -37,7 +37,7 @@ String Object_wx_DataObjectSimple::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataObjectSimple, "wxDataObjectSimple")
+Gura_DeclareFunctionAlias(__DataObjectSimple, "DataObjectSimple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxDataObjectSimple, "wxDataObjectSimple")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataObjectSimple)
+Gura_ImplementFunction(__DataObjectSimple)
 {
 	//int format = arg.GetNumber(0)
 	//wxDataObjectSimple();
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, __SetFormat)
 Gura_ImplementUserInheritableClass(wx_DataObjectSimple)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataObjectSimple);
+	Gura_AssignFunction(__DataObjectSimple);
 	// Method assignment
 	Gura_AssignMethod(wx_DataObjectSimple, __GetDataHere);
 	Gura_AssignMethod(wx_DataObjectSimple, __GetDataSize);

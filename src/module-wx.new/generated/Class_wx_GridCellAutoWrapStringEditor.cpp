@@ -37,14 +37,14 @@ String Object_wx_GridCellAutoWrapStringEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridCellAutoWrapStringEditor, "wxGridCellAutoWrapStringEditor")
+Gura_DeclareFunctionAlias(__GridCellAutoWrapStringEditor, "GridCellAutoWrapStringEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellAutoWrapStringEditor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellAutoWrapStringEditor)
+Gura_ImplementFunction(__GridCellAutoWrapStringEditor)
 {
 	//wxGridCellAutoWrapStringEditor();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxGridCellAutoWrapStringEditor)
 Gura_ImplementUserInheritableClass(wx_GridCellAutoWrapStringEditor)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridCellAutoWrapStringEditor);
+	Gura_AssignFunction(__GridCellAutoWrapStringEditor);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellAutoWrapStringEditor)

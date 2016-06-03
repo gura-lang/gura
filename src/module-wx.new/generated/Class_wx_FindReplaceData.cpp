@@ -37,7 +37,7 @@ String Object_wx_FindReplaceData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFindReplaceData, "wxFindReplaceData")
+Gura_DeclareFunctionAlias(__FindReplaceData, "FindReplaceData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxFindReplaceData, "wxFindReplaceData")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFindReplaceData)
+Gura_ImplementFunction(__FindReplaceData)
 {
 	//int flags = arg.GetNumber(0)
 	//wxFindReplaceData();
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_FindReplaceData, __SetReplaceString)
 Gura_ImplementUserInheritableClass(wx_FindReplaceData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFindReplaceData);
+	Gura_AssignFunction(__FindReplaceData);
 	// Method assignment
 	Gura_AssignMethod(wx_FindReplaceData, __GetFindString);
 	Gura_AssignMethod(wx_FindReplaceData, __GetFlags);

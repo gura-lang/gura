@@ -37,7 +37,7 @@ String Object_wx_WebViewHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWebViewHandler, "wxWebViewHandler")
+Gura_DeclareFunctionAlias(__WebViewHandler, "WebViewHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "scheme", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxWebViewHandler, "wxWebViewHandler")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWebViewHandler)
+Gura_ImplementFunction(__WebViewHandler)
 {
 	//int scheme = arg.GetNumber(0)
 	//wxWebViewHandler();
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_WebViewHandler, __GetName)
 Gura_ImplementUserInheritableClass(wx_WebViewHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWebViewHandler);
+	Gura_AssignFunction(__WebViewHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_WebViewHandler, __GetFile);
 	Gura_AssignMethod(wx_WebViewHandler, __GetName);

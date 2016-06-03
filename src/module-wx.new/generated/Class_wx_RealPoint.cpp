@@ -37,20 +37,20 @@ String Object_wx_RealPoint::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRealPoint, "wxRealPoint")
+Gura_DeclareFunctionAlias(__RealPoint, "RealPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RealPoint));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRealPoint)
+Gura_ImplementFunction(__RealPoint)
 {
 	//wxRealPoint();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRealPoint_1, "wxRealPoint_1")
+Gura_DeclareFunctionAlias(__RealPoint_1, "RealPoint_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxRealPoint_1, "wxRealPoint_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRealPoint_1)
+Gura_ImplementFunction(__RealPoint_1)
 {
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__wxRealPoint_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRealPoint_2, "wxRealPoint_2")
+Gura_DeclareFunctionAlias(__RealPoint_2, "RealPoint_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__wxRealPoint_2, "wxRealPoint_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRealPoint_2)
+Gura_ImplementFunction(__RealPoint_2)
 {
 	//int pt = arg.GetNumber(0)
 	//wxRealPoint();
@@ -88,9 +88,9 @@ Gura_ImplementFunction(__wxRealPoint_2)
 Gura_ImplementUserInheritableClass(wx_RealPoint)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRealPoint);
-	Gura_AssignFunction(__wxRealPoint_1);
-	Gura_AssignFunction(__wxRealPoint_2);
+	Gura_AssignFunction(__RealPoint);
+	Gura_AssignFunction(__RealPoint_1);
+	Gura_AssignFunction(__RealPoint_2);
 }
 
 Gura_ImplementDescendantCreator(wx_RealPoint)

@@ -37,14 +37,14 @@ String Object_wx_DataViewListStore::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewListStore, "wxDataViewListStore")
+Gura_DeclareFunctionAlias(__DataViewListStore, "DataViewListStore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewListStore));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewListStore)
+Gura_ImplementFunction(__DataViewListStore)
 {
 	//wxDataViewListStore();
 	return Value::Nil;
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __SetValueByRow)
 Gura_ImplementUserInheritableClass(wx_DataViewListStore)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewListStore);
+	Gura_AssignFunction(__DataViewListStore);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewListStore, __PrependColumn);
 	Gura_AssignMethod(wx_DataViewListStore, __InsertColumn);

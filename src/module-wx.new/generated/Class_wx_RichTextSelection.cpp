@@ -37,7 +37,7 @@ String Object_wx_RichTextSelection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextSelection, "wxRichTextSelection")
+Gura_DeclareFunctionAlias(__RichTextSelection, "RichTextSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sel", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxRichTextSelection, "wxRichTextSelection")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextSelection)
+Gura_ImplementFunction(__RichTextSelection)
 {
 	//int sel = arg.GetNumber(0)
 	//wxRichTextSelection();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextSelection_1, "wxRichTextSelection_1")
+Gura_DeclareFunctionAlias(__RichTextSelection_1, "RichTextSelection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxRichTextSelection_1, "wxRichTextSelection_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextSelection_1)
+Gura_ImplementFunction(__RichTextSelection_1)
 {
 	//int range = arg.GetNumber(0)
 	//int container = arg.GetNumber(1)
@@ -69,14 +69,14 @@ Gura_ImplementFunction(__wxRichTextSelection_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextSelection_2, "wxRichTextSelection_2")
+Gura_DeclareFunctionAlias(__RichTextSelection_2, "RichTextSelection_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextSelection));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextSelection_2)
+Gura_ImplementFunction(__RichTextSelection_2)
 {
 	//wxRichTextSelection();
 	return Value::Nil;
@@ -387,9 +387,9 @@ Gura_ImplementMethod(wx_RichTextSelection, __WithinSelection_3)
 Gura_ImplementUserInheritableClass(wx_RichTextSelection)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextSelection);
-	Gura_AssignFunction(__wxRichTextSelection_1);
-	Gura_AssignFunction(__wxRichTextSelection_2);
+	Gura_AssignFunction(__RichTextSelection);
+	Gura_AssignFunction(__RichTextSelection_1);
+	Gura_AssignFunction(__RichTextSelection_2);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextSelection, __Reset);
 	Gura_AssignMethod(wx_RichTextSelection, __Set);

@@ -37,20 +37,20 @@ String Object_wx_GridSizeEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridSizeEvent, "wxGridSizeEvent")
+Gura_DeclareFunctionAlias(__GridSizeEvent, "GridSizeEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridSizeEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridSizeEvent)
+Gura_ImplementFunction(__GridSizeEvent)
 {
 	//wxGridSizeEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGridSizeEvent_1, "wxGridSizeEvent_1")
+Gura_DeclareFunctionAlias(__GridSizeEvent_1, "GridSizeEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxGridSizeEvent_1, "wxGridSizeEvent_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridSizeEvent_1)
+Gura_ImplementFunction(__GridSizeEvent_1)
 {
 	//int id = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
@@ -164,8 +164,8 @@ Gura_ImplementMethod(wx_GridSizeEvent, __ShiftDown)
 Gura_ImplementUserInheritableClass(wx_GridSizeEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridSizeEvent);
-	Gura_AssignFunction(__wxGridSizeEvent_1);
+	Gura_AssignFunction(__GridSizeEvent);
+	Gura_AssignFunction(__GridSizeEvent_1);
 	// Method assignment
 	Gura_AssignMethod(wx_GridSizeEvent, __AltDown);
 	Gura_AssignMethod(wx_GridSizeEvent, __ControlDown);

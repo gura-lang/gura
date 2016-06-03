@@ -37,14 +37,14 @@ String Object_wx_BitmapHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBitmapHandler, "wxBitmapHandler")
+Gura_DeclareFunctionAlias(__BitmapHandler, "BitmapHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBitmapHandler)
+Gura_ImplementFunction(__BitmapHandler)
 {
 	//wxBitmapHandler();
 	return Value::Nil;
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_BitmapHandler, __SetType)
 Gura_ImplementUserInheritableClass(wx_BitmapHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBitmapHandler);
+	Gura_AssignFunction(__BitmapHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_BitmapHandler, __Create);
 	Gura_AssignMethod(wx_BitmapHandler, __GetExtension);

@@ -37,7 +37,7 @@ String Object_wx_QueryLayoutInfoEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxQueryLayoutInfoEvent, "wxQueryLayoutInfoEvent")
+Gura_DeclareFunctionAlias(__QueryLayoutInfoEvent, "QueryLayoutInfoEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxQueryLayoutInfoEvent, "wxQueryLayoutInfoEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxQueryLayoutInfoEvent)
+Gura_ImplementFunction(__QueryLayoutInfoEvent)
 {
 	//int id = arg.GetNumber(0)
 	//wxQueryLayoutInfoEvent();
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __SetSize)
 Gura_ImplementUserInheritableClass(wx_QueryLayoutInfoEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxQueryLayoutInfoEvent);
+	Gura_AssignFunction(__QueryLayoutInfoEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_QueryLayoutInfoEvent, __GetAlignment);
 	Gura_AssignMethod(wx_QueryLayoutInfoEvent, __GetFlags);

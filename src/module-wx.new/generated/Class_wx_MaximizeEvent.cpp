@@ -37,7 +37,7 @@ String Object_wx_MaximizeEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMaximizeEvent, "wxMaximizeEvent")
+Gura_DeclareFunctionAlias(__MaximizeEvent, "MaximizeEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxMaximizeEvent, "wxMaximizeEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMaximizeEvent)
+Gura_ImplementFunction(__MaximizeEvent)
 {
 	//int id = arg.GetNumber(0)
 	//wxMaximizeEvent();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxMaximizeEvent)
 Gura_ImplementUserInheritableClass(wx_MaximizeEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMaximizeEvent);
+	Gura_AssignFunction(__MaximizeEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_MaximizeEvent)

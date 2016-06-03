@@ -37,7 +37,7 @@ String Object_wx_GLCanvas::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGLCanvas, "wxGLCanvas")
+Gura_DeclareFunctionAlias(__GLCanvas, "GLCanvas")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -52,7 +52,7 @@ Gura_DeclareFunctionAlias(__wxGLCanvas, "wxGLCanvas")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGLCanvas)
+Gura_ImplementFunction(__GLCanvas)
 {
 	//int parent = arg.GetNumber(0)
 	//int dispAttrs = arg.GetNumber(1)
@@ -66,7 +66,7 @@ Gura_ImplementFunction(__wxGLCanvas)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGLCanvas_1, "wxGLCanvas_1")
+Gura_DeclareFunctionAlias(__GLCanvas_1, "GLCanvas_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -81,7 +81,7 @@ Gura_DeclareFunctionAlias(__wxGLCanvas_1, "wxGLCanvas_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGLCanvas_1)
+Gura_ImplementFunction(__GLCanvas_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -192,8 +192,8 @@ Gura_ImplementMethod(wx_GLCanvas, __SwapBuffers)
 Gura_ImplementUserInheritableClass(wx_GLCanvas)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGLCanvas);
-	Gura_AssignFunction(__wxGLCanvas_1);
+	Gura_AssignFunction(__GLCanvas);
+	Gura_AssignFunction(__GLCanvas_1);
 	// Method assignment
 	Gura_AssignMethod(wx_GLCanvas, __IsDisplaySupported);
 	Gura_AssignMethod(wx_GLCanvas, __IsDisplaySupported_1);

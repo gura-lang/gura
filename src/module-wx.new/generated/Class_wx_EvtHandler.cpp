@@ -37,14 +37,14 @@ String Object_wx_EvtHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxEvtHandler, "wxEvtHandler")
+Gura_DeclareFunctionAlias(__EvtHandler, "EvtHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_EvtHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxEvtHandler)
+Gura_ImplementFunction(__EvtHandler)
 {
 	//wxEvtHandler();
 	return Value::Nil;
@@ -86,25 +86,10 @@ Gura_ImplementMethod(wx_EvtHandler, __AddPendingEvent)
 Gura_DeclareMethodAlias(wx_EvtHandler, __CallAfter, "CallAfter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "x1", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_EvtHandler, __CallAfter)
-{
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x1 = arg.GetNumber(0)
-	//pThis->GetEntity()->CallAfter();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_EvtHandler, __CallAfter_1, "CallAfter_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "functor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_EvtHandler, __CallAfter_1)
+Gura_ImplementMethod(wx_EvtHandler, __CallAfter)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -362,29 +347,6 @@ Gura_ImplementMethod(wx_EvtHandler, __Bind)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_EvtHandler, __Bind_1, "Bind_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "lastId", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_EvtHandler, __Bind_1)
-{
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int eventType = arg.GetNumber(0)
-	//int handler = arg.GetNumber(1)
-	//int id = arg.GetNumber(2)
-	//int lastId = arg.GetNumber(3)
-	//int userData = arg.GetNumber(4)
-	//pThis->GetEntity()->Bind();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_EvtHandler, __Unbind, "Unbind")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -401,29 +363,6 @@ Gura_ImplementMethod(wx_EvtHandler, __Unbind)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int functor = arg.GetNumber(1)
-	//int id = arg.GetNumber(2)
-	//int lastId = arg.GetNumber(3)
-	//int userData = arg.GetNumber(4)
-	//pThis->GetEntity()->Unbind();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_EvtHandler, __Unbind_1, "Unbind_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "lastId", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_EvtHandler, __Unbind_1)
-{
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int eventType = arg.GetNumber(0)
-	//int handler = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
 	//int lastId = arg.GetNumber(3)
 	//int userData = arg.GetNumber(4)
@@ -663,12 +602,11 @@ Gura_ImplementMethod(wx_EvtHandler, __TryAfter)
 Gura_ImplementUserInheritableClass(wx_EvtHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxEvtHandler);
+	Gura_AssignFunction(__EvtHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_EvtHandler, __QueueEvent);
 	Gura_AssignMethod(wx_EvtHandler, __AddPendingEvent);
 	Gura_AssignMethod(wx_EvtHandler, __CallAfter);
-	Gura_AssignMethod(wx_EvtHandler, __CallAfter_1);
 	Gura_AssignMethod(wx_EvtHandler, __ProcessEvent);
 	Gura_AssignMethod(wx_EvtHandler, __ProcessEventLocally);
 	Gura_AssignMethod(wx_EvtHandler, __SafelyProcessEvent);
@@ -682,9 +620,7 @@ Gura_ImplementUserInheritableClass(wx_EvtHandler)
 	Gura_AssignMethod(wx_EvtHandler, __Disconnect_1);
 	Gura_AssignMethod(wx_EvtHandler, __Disconnect_2);
 	Gura_AssignMethod(wx_EvtHandler, __Bind);
-	Gura_AssignMethod(wx_EvtHandler, __Bind_1);
 	Gura_AssignMethod(wx_EvtHandler, __Unbind);
-	Gura_AssignMethod(wx_EvtHandler, __Unbind_1);
 	Gura_AssignMethod(wx_EvtHandler, __GetClientData);
 	Gura_AssignMethod(wx_EvtHandler, __GetClientObject);
 	Gura_AssignMethod(wx_EvtHandler, __SetClientData);

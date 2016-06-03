@@ -37,20 +37,20 @@ String Object_wx_Point::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPoint, "wxPoint")
+Gura_DeclareFunctionAlias(__Point, "Point")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Point));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPoint)
+Gura_ImplementFunction(__Point)
 {
 	//wxPoint();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPoint_1, "wxPoint_1")
+Gura_DeclareFunctionAlias(__Point_1, "Point_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxPoint_1, "wxPoint_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPoint_1)
+Gura_ImplementFunction(__Point_1)
 {
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__wxPoint_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPoint_2, "wxPoint_2")
+Gura_DeclareFunctionAlias(__Point_2, "Point_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__wxPoint_2, "wxPoint_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPoint_2)
+Gura_ImplementFunction(__Point_2)
 {
 	//int pt = arg.GetNumber(0)
 	//wxPoint();
@@ -119,9 +119,9 @@ Gura_ImplementMethod(wx_Point, __SetDefaults)
 Gura_ImplementUserInheritableClass(wx_Point)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPoint);
-	Gura_AssignFunction(__wxPoint_1);
-	Gura_AssignFunction(__wxPoint_2);
+	Gura_AssignFunction(__Point);
+	Gura_AssignFunction(__Point_1);
+	Gura_AssignFunction(__Point_2);
 	// Method assignment
 	Gura_AssignMethod(wx_Point, __IsFullySpecified);
 	Gura_AssignMethod(wx_Point, __SetDefaults);

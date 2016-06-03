@@ -37,20 +37,20 @@ String Object_wx_Slider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSlider, "wxSlider")
+Gura_DeclareFunctionAlias(__Slider, "Slider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Slider));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSlider)
+Gura_ImplementFunction(__Slider)
 {
 	//wxSlider();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSlider_1, "wxSlider_1")
+Gura_DeclareFunctionAlias(__Slider_1, "Slider_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -67,7 +67,7 @@ Gura_DeclareFunctionAlias(__wxSlider_1, "wxSlider_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSlider_1)
+Gura_ImplementFunction(__Slider_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -422,8 +422,8 @@ Gura_ImplementMethod(wx_Slider, __SetValue)
 Gura_ImplementUserInheritableClass(wx_Slider)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSlider);
-	Gura_AssignFunction(__wxSlider_1);
+	Gura_AssignFunction(__Slider);
+	Gura_AssignFunction(__Slider_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Slider, __ClearSel);
 	Gura_AssignMethod(wx_Slider, __ClearTicks);

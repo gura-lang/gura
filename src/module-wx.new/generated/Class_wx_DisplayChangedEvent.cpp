@@ -37,14 +37,14 @@ String Object_wx_DisplayChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDisplayChangedEvent, "wxDisplayChangedEvent")
+Gura_DeclareFunctionAlias(__DisplayChangedEvent, "DisplayChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DisplayChangedEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDisplayChangedEvent)
+Gura_ImplementFunction(__DisplayChangedEvent)
 {
 	//wxDisplayChangedEvent();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxDisplayChangedEvent)
 Gura_ImplementUserInheritableClass(wx_DisplayChangedEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDisplayChangedEvent);
+	Gura_AssignFunction(__DisplayChangedEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_DisplayChangedEvent)

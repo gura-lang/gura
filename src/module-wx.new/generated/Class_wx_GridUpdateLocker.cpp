@@ -37,7 +37,7 @@ String Object_wx_GridUpdateLocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridUpdateLocker, "wxGridUpdateLocker")
+Gura_DeclareFunctionAlias(__GridUpdateLocker, "GridUpdateLocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxGridUpdateLocker, "wxGridUpdateLocker")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridUpdateLocker)
+Gura_ImplementFunction(__GridUpdateLocker)
 {
 	//int grid = arg.GetNumber(0)
 	//wxGridUpdateLocker();
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_GridUpdateLocker, __Create)
 Gura_ImplementUserInheritableClass(wx_GridUpdateLocker)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridUpdateLocker);
+	Gura_AssignFunction(__GridUpdateLocker);
 	// Method assignment
 	Gura_AssignMethod(wx_GridUpdateLocker, __Create);
 }

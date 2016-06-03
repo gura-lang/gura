@@ -37,20 +37,20 @@ String Object_wx_FileTypeInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileTypeInfo, "wxFileTypeInfo")
+Gura_DeclareFunctionAlias(__FileTypeInfo, "FileTypeInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileTypeInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileTypeInfo)
+Gura_ImplementFunction(__FileTypeInfo)
 {
 	//wxFileTypeInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileTypeInfo_1, "wxFileTypeInfo_1")
+Gura_DeclareFunctionAlias(__FileTypeInfo_1, "FileTypeInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mimeType", VTYPE_number, OCCUR_Once);
@@ -58,37 +58,14 @@ Gura_DeclareFunctionAlias(__wxFileTypeInfo_1, "wxFileTypeInfo_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileTypeInfo_1)
+Gura_ImplementFunction(__FileTypeInfo_1)
 {
 	//int mimeType = arg.GetNumber(0)
 	//wxFileTypeInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileTypeInfo_2, "wxFileTypeInfo_2")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "mimeType", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "openCmd", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "printCmd", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "description", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "extension", VTYPE_number, OCCUR_Once);
-	SetClassToConstruct(Gura_UserClass(wx_FileTypeInfo));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(__wxFileTypeInfo_2)
-{
-	//int mimeType = arg.GetNumber(0)
-	//int openCmd = arg.GetNumber(1)
-	//int printCmd = arg.GetNumber(2)
-	//int description = arg.GetNumber(3)
-	//int extension = arg.GetNumber(4)
-	//wxFileTypeInfo();
-	return Value::Nil;
-}
-
-Gura_DeclareFunctionAlias(__wxFileTypeInfo_3, "wxFileTypeInfo_3")
+Gura_DeclareFunctionAlias(__FileTypeInfo_2, "FileTypeInfo_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sArray", VTYPE_number, OCCUR_Once);
@@ -96,7 +73,7 @@ Gura_DeclareFunctionAlias(__wxFileTypeInfo_3, "wxFileTypeInfo_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileTypeInfo_3)
+Gura_ImplementFunction(__FileTypeInfo_2)
 {
 	//int sArray = arg.GetNumber(0)
 	//wxFileTypeInfo();
@@ -321,10 +298,9 @@ Gura_ImplementMethod(wx_FileTypeInfo, __GetIconIndex)
 Gura_ImplementUserInheritableClass(wx_FileTypeInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileTypeInfo);
-	Gura_AssignFunction(__wxFileTypeInfo_1);
-	Gura_AssignFunction(__wxFileTypeInfo_2);
-	Gura_AssignFunction(__wxFileTypeInfo_3);
+	Gura_AssignFunction(__FileTypeInfo);
+	Gura_AssignFunction(__FileTypeInfo_1);
+	Gura_AssignFunction(__FileTypeInfo_2);
 	// Method assignment
 	Gura_AssignMethod(wx_FileTypeInfo, __AddExtension);
 	Gura_AssignMethod(wx_FileTypeInfo, __SetDescription);

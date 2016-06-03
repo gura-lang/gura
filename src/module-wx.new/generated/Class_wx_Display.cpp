@@ -37,7 +37,7 @@ String Object_wx_Display::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDisplay, "wxDisplay")
+Gura_DeclareFunctionAlias(__Display, "Display")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxDisplay, "wxDisplay")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDisplay)
+Gura_ImplementFunction(__Display)
 {
 	//int index = arg.GetNumber(0)
 	//wxDisplay();
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_Display, __IsPrimary)
 Gura_ImplementUserInheritableClass(wx_Display)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDisplay);
+	Gura_AssignFunction(__Display);
 	// Method assignment
 	Gura_AssignMethod(wx_Display, __ChangeMode);
 	Gura_AssignMethod(wx_Display, __GetClientArea);

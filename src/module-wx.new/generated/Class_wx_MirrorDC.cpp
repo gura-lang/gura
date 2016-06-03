@@ -37,7 +37,7 @@ String Object_wx_MirrorDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMirrorDC, "wxMirrorDC")
+Gura_DeclareFunctionAlias(__MirrorDC, "MirrorDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxMirrorDC, "wxMirrorDC")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMirrorDC)
+Gura_ImplementFunction(__MirrorDC)
 {
 	//int dc = arg.GetNumber(0)
 	//int mirror = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxMirrorDC)
 Gura_ImplementUserInheritableClass(wx_MirrorDC)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMirrorDC);
+	Gura_AssignFunction(__MirrorDC);
 }
 
 Gura_ImplementDescendantCreator(wx_MirrorDC)

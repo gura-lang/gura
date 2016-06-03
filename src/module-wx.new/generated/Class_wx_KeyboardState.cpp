@@ -37,7 +37,7 @@ String Object_wx_KeyboardState::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxKeyboardState, "wxKeyboardState")
+Gura_DeclareFunctionAlias(__KeyboardState, "KeyboardState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "controlDown", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxKeyboardState, "wxKeyboardState")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxKeyboardState)
+Gura_ImplementFunction(__KeyboardState)
 {
 	//int controlDown = arg.GetNumber(0)
 	//int shiftDown = arg.GetNumber(1)
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetMetaDown)
 Gura_ImplementUserInheritableClass(wx_KeyboardState)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxKeyboardState);
+	Gura_AssignFunction(__KeyboardState);
 	// Method assignment
 	Gura_AssignMethod(wx_KeyboardState, __GetModifiers);
 	Gura_AssignMethod(wx_KeyboardState, __HasAnyModifiers);

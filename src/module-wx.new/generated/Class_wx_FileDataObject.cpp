@@ -37,14 +37,14 @@ String Object_wx_FileDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileDataObject, "wxFileDataObject")
+Gura_DeclareFunctionAlias(__FileDataObject, "FileDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileDataObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileDataObject)
+Gura_ImplementFunction(__FileDataObject)
 {
 	//wxFileDataObject();
 	return Value::Nil;
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_FileDataObject, __GetFilenames)
 Gura_ImplementUserInheritableClass(wx_FileDataObject)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileDataObject);
+	Gura_AssignFunction(__FileDataObject);
 	// Method assignment
 	Gura_AssignMethod(wx_FileDataObject, __AddFile);
 	Gura_AssignMethod(wx_FileDataObject, __GetFilenames);

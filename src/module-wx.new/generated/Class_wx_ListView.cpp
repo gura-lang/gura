@@ -37,20 +37,20 @@ String Object_wx_ListView::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxListView, "wxListView")
+Gura_DeclareFunctionAlias(__ListView, "ListView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ListView));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListView)
+Gura_ImplementFunction(__ListView)
 {
 	//wxListView();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxListView_1, "wxListView_1")
+Gura_DeclareFunctionAlias(__ListView_1, "ListView_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxListView_1, "wxListView_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListView_1)
+Gura_ImplementFunction(__ListView_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
@@ -206,8 +206,8 @@ Gura_ImplementMethod(wx_ListView, __SetColumnImage)
 Gura_ImplementUserInheritableClass(wx_ListView)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxListView);
-	Gura_AssignFunction(__wxListView_1);
+	Gura_AssignFunction(__ListView);
+	Gura_AssignFunction(__ListView_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ListView, __ClearColumnImage);
 	Gura_AssignMethod(wx_ListView, __Focus);

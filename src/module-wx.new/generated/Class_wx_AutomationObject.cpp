@@ -37,7 +37,7 @@ String Object_wx_AutomationObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAutomationObject, "wxAutomationObject")
+Gura_DeclareFunctionAlias(__AutomationObject, "AutomationObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dispatchPtr", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxAutomationObject, "wxAutomationObject")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAutomationObject)
+Gura_ImplementFunction(__AutomationObject)
 {
 	//int dispatchPtr = arg.GetNumber(0)
 	//wxAutomationObject();
@@ -70,21 +70,6 @@ Gura_ImplementMethod(wx_AutomationObject, __CallMethod)
 	//int method = arg.GetNumber(0)
 	//int noArgs = arg.GetNumber(1)
 	//int args = arg.GetNumber(2)
-	//pThis->GetEntity()->CallMethod();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_AutomationObject, __CallMethod_1, "CallMethod_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "method", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_AutomationObject, __CallMethod_1)
-{
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int method = arg.GetNumber(0)
 	//pThis->GetEntity()->CallMethod();
 	return Value::Nil;
 }
@@ -187,21 +172,6 @@ Gura_ImplementMethod(wx_AutomationObject, __GetProperty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_AutomationObject, __GetProperty_1, "GetProperty_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_AutomationObject, __GetProperty_1)
-{
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int property = arg.GetNumber(0)
-	//pThis->GetEntity()->GetProperty();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_AutomationObject, __Invoke, "Invoke")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -242,21 +212,6 @@ Gura_ImplementMethod(wx_AutomationObject, __PutProperty)
 	//int property = arg.GetNumber(0)
 	//int noArgs = arg.GetNumber(1)
 	//int args = arg.GetNumber(2)
-	//pThis->GetEntity()->PutProperty();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_AutomationObject, __PutProperty_1, "PutProperty_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_AutomationObject, __PutProperty_1)
-{
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int property = arg.GetNumber(0)
 	//pThis->GetEntity()->PutProperty();
 	return Value::Nil;
 }
@@ -338,20 +293,17 @@ Gura_ImplementMethod(wx_AutomationObject, __SetConvertVariantFlags)
 Gura_ImplementUserInheritableClass(wx_AutomationObject)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAutomationObject);
+	Gura_AssignFunction(__AutomationObject);
 	// Method assignment
 	Gura_AssignMethod(wx_AutomationObject, __CallMethod);
-	Gura_AssignMethod(wx_AutomationObject, __CallMethod_1);
 	Gura_AssignMethod(wx_AutomationObject, __CreateInstance);
 	Gura_AssignMethod(wx_AutomationObject, __IsOk);
 	Gura_AssignMethod(wx_AutomationObject, __GetDispatchPtr);
 	Gura_AssignMethod(wx_AutomationObject, __GetInstance);
 	Gura_AssignMethod(wx_AutomationObject, __GetObject);
 	Gura_AssignMethod(wx_AutomationObject, __GetProperty);
-	Gura_AssignMethod(wx_AutomationObject, __GetProperty_1);
 	Gura_AssignMethod(wx_AutomationObject, __Invoke);
 	Gura_AssignMethod(wx_AutomationObject, __PutProperty);
-	Gura_AssignMethod(wx_AutomationObject, __PutProperty_1);
 	Gura_AssignMethod(wx_AutomationObject, __SetDispatchPtr);
 	Gura_AssignMethod(wx_AutomationObject, __GetLCID);
 	Gura_AssignMethod(wx_AutomationObject, __SetLCID);

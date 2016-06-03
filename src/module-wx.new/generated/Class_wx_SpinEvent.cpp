@@ -37,7 +37,7 @@ String Object_wx_SpinEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSpinEvent, "wxSpinEvent")
+Gura_DeclareFunctionAlias(__SpinEvent, "SpinEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxSpinEvent, "wxSpinEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSpinEvent)
+Gura_ImplementFunction(__SpinEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_SpinEvent, __SetPosition)
 Gura_ImplementUserInheritableClass(wx_SpinEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSpinEvent);
+	Gura_AssignFunction(__SpinEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_SpinEvent, __GetPosition);
 	Gura_AssignMethod(wx_SpinEvent, __SetPosition);

@@ -37,14 +37,14 @@ String Object_wx_Quantize::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxQuantize, "wxQuantize")
+Gura_DeclareFunctionAlias(__Quantize, "Quantize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Quantize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxQuantize)
+Gura_ImplementFunction(__Quantize)
 {
 	//wxQuantize();
 	return Value::Nil;
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_Quantize, __Quantize_1)
 Gura_ImplementUserInheritableClass(wx_Quantize)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxQuantize);
+	Gura_AssignFunction(__Quantize);
 	// Method assignment
 	Gura_AssignMethod(wx_Quantize, __DoQuantize);
 	Gura_AssignMethod(wx_Quantize, __Quantize);

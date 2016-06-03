@@ -37,7 +37,7 @@ String Object_wx_PropertySheetDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPropertySheetDialog, "wxPropertySheetDialog")
+Gura_DeclareFunctionAlias(__PropertySheetDialog, "PropertySheetDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareFunctionAlias(__wxPropertySheetDialog, "wxPropertySheetDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPropertySheetDialog)
+Gura_ImplementFunction(__PropertySheetDialog)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __SetSheetStyle)
 Gura_ImplementUserInheritableClass(wx_PropertySheetDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPropertySheetDialog);
+	Gura_AssignFunction(__PropertySheetDialog);
 	// Method assignment
 	Gura_AssignMethod(wx_PropertySheetDialog, __AddBookCtrl);
 	Gura_AssignMethod(wx_PropertySheetDialog, __Create);

@@ -37,14 +37,14 @@ String Object_wx_DebugReportPreview::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDebugReportPreview, "wxDebugReportPreview")
+Gura_DeclareFunctionAlias(__DebugReportPreview, "DebugReportPreview")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DebugReportPreview));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDebugReportPreview)
+Gura_ImplementFunction(__DebugReportPreview)
 {
 	//wxDebugReportPreview();
 	return Value::Nil;
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_DebugReportPreview, __Show)
 Gura_ImplementUserInheritableClass(wx_DebugReportPreview)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDebugReportPreview);
+	Gura_AssignFunction(__DebugReportPreview);
 	// Method assignment
 	Gura_AssignMethod(wx_DebugReportPreview, __Show);
 }

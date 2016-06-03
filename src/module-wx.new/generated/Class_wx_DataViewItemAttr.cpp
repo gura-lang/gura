@@ -37,14 +37,14 @@ String Object_wx_DataViewItemAttr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewItemAttr, "wxDataViewItemAttr")
+Gura_DeclareFunctionAlias(__DataViewItemAttr, "DataViewItemAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewItemAttr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewItemAttr)
+Gura_ImplementFunction(__DataViewItemAttr)
 {
 	//wxDataViewItemAttr();
 	return Value::Nil;
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_DataViewItemAttr, __GetEffectiveFont)
 Gura_ImplementUserInheritableClass(wx_DataViewItemAttr)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewItemAttr);
+	Gura_AssignFunction(__DataViewItemAttr);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewItemAttr, __SetBold);
 	Gura_AssignMethod(wx_DataViewItemAttr, __SetColour);

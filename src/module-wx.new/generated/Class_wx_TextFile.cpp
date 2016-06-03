@@ -37,20 +37,20 @@ String Object_wx_TextFile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextFile, "wxTextFile")
+Gura_DeclareFunctionAlias(__TextFile, "TextFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextFile));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextFile)
+Gura_ImplementFunction(__TextFile)
 {
 	//wxTextFile();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTextFile_1, "wxTextFile_1")
+Gura_DeclareFunctionAlias(__TextFile_1, "TextFile_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "strFile", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxTextFile_1, "wxTextFile_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextFile_1)
+Gura_ImplementFunction(__TextFile_1)
 {
 	//int strFile = arg.GetNumber(0)
 	//wxTextFile();
@@ -446,8 +446,8 @@ Gura_ImplementMethod(wx_TextFile, __Write)
 Gura_ImplementUserInheritableClass(wx_TextFile)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextFile);
-	Gura_AssignFunction(__wxTextFile_1);
+	Gura_AssignFunction(__TextFile);
+	Gura_AssignFunction(__TextFile_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TextFile, __AddLine);
 	Gura_AssignMethod(wx_TextFile, __Clear);

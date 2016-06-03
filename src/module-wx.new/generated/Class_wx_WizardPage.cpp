@@ -37,20 +37,20 @@ String Object_wx_WizardPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWizardPage, "wxWizardPage")
+Gura_DeclareFunctionAlias(__WizardPage, "WizardPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_WizardPage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWizardPage)
+Gura_ImplementFunction(__WizardPage)
 {
 	//wxWizardPage();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxWizardPage_1, "wxWizardPage_1")
+Gura_DeclareFunctionAlias(__WizardPage_1, "WizardPage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxWizardPage_1, "wxWizardPage_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWizardPage_1)
+Gura_ImplementFunction(__WizardPage_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
@@ -132,8 +132,8 @@ Gura_ImplementMethod(wx_WizardPage, __GetPrev)
 Gura_ImplementUserInheritableClass(wx_WizardPage)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWizardPage);
-	Gura_AssignFunction(__wxWizardPage_1);
+	Gura_AssignFunction(__WizardPage);
+	Gura_AssignFunction(__WizardPage_1);
 	// Method assignment
 	Gura_AssignMethod(wx_WizardPage, __Create);
 	Gura_AssignMethod(wx_WizardPage, __GetBitmap);

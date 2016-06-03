@@ -37,20 +37,20 @@ String Object_wx_MouseEventsManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMouseEventsManager, "wxMouseEventsManager")
+Gura_DeclareFunctionAlias(__MouseEventsManager, "MouseEventsManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MouseEventsManager));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMouseEventsManager)
+Gura_ImplementFunction(__MouseEventsManager)
 {
 	//wxMouseEventsManager();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMouseEventsManager_1, "wxMouseEventsManager_1")
+Gura_DeclareFunctionAlias(__MouseEventsManager_1, "MouseEventsManager_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxMouseEventsManager_1, "wxMouseEventsManager_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMouseEventsManager_1)
+Gura_ImplementFunction(__MouseEventsManager_1)
 {
 	//int win = arg.GetNumber(0)
 	//wxMouseEventsManager();
@@ -215,8 +215,8 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseClickCancelled)
 Gura_ImplementUserInheritableClass(wx_MouseEventsManager)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMouseEventsManager);
-	Gura_AssignFunction(__wxMouseEventsManager_1);
+	Gura_AssignFunction(__MouseEventsManager);
+	Gura_AssignFunction(__MouseEventsManager_1);
 	// Method assignment
 	Gura_AssignMethod(wx_MouseEventsManager, __Create);
 	Gura_AssignMethod(wx_MouseEventsManager, __MouseHitTest);

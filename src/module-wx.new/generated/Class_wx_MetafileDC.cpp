@@ -37,7 +37,7 @@ String Object_wx_MetafileDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMetafileDC, "wxMetafileDC")
+Gura_DeclareFunctionAlias(__MetafileDC, "MetafileDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxMetafileDC, "wxMetafileDC")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMetafileDC)
+Gura_ImplementFunction(__MetafileDC)
 {
 	//int filename = arg.GetNumber(0)
 	//wxMetafileDC();
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_MetafileDC, __Close)
 Gura_ImplementUserInheritableClass(wx_MetafileDC)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMetafileDC);
+	Gura_AssignFunction(__MetafileDC);
 	// Method assignment
 	Gura_AssignMethod(wx_MetafileDC, __Close);
 }

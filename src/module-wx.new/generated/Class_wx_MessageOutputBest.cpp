@@ -37,7 +37,7 @@ String Object_wx_MessageOutputBest::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMessageOutputBest, "wxMessageOutputBest")
+Gura_DeclareFunctionAlias(__MessageOutputBest, "MessageOutputBest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxMessageOutputBest, "wxMessageOutputBest")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMessageOutputBest)
+Gura_ImplementFunction(__MessageOutputBest)
 {
 	//int flags = arg.GetNumber(0)
 	//wxMessageOutputBest();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxMessageOutputBest)
 Gura_ImplementUserInheritableClass(wx_MessageOutputBest)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMessageOutputBest);
+	Gura_AssignFunction(__MessageOutputBest);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageOutputBest)

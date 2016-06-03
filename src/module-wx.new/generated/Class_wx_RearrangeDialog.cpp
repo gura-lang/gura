@@ -37,20 +37,20 @@ String Object_wx_RearrangeDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRearrangeDialog, "wxRearrangeDialog")
+Gura_DeclareFunctionAlias(__RearrangeDialog, "RearrangeDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RearrangeDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRearrangeDialog)
+Gura_ImplementFunction(__RearrangeDialog)
 {
 	//wxRearrangeDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRearrangeDialog_1, "wxRearrangeDialog_1")
+Gura_DeclareFunctionAlias(__RearrangeDialog_1, "RearrangeDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxRearrangeDialog_1, "wxRearrangeDialog_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRearrangeDialog_1)
+Gura_ImplementFunction(__RearrangeDialog_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -154,8 +154,8 @@ Gura_ImplementMethod(wx_RearrangeDialog, __GetOrder)
 Gura_ImplementUserInheritableClass(wx_RearrangeDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRearrangeDialog);
-	Gura_AssignFunction(__wxRearrangeDialog_1);
+	Gura_AssignFunction(__RearrangeDialog);
+	Gura_AssignFunction(__RearrangeDialog_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RearrangeDialog, __Create);
 	Gura_AssignMethod(wx_RearrangeDialog, __AddExtraControls);

@@ -37,7 +37,7 @@ String Object_wx_TarInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTarInputStream, "wxTarInputStream")
+Gura_DeclareFunctionAlias(__TarInputStream, "TarInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxTarInputStream, "wxTarInputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTarInputStream)
+Gura_ImplementFunction(__TarInputStream)
 {
 	//int stream = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxTarInputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTarInputStream_1, "wxTarInputStream_1")
+Gura_DeclareFunctionAlias(__TarInputStream_1, "TarInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxTarInputStream_1, "wxTarInputStream_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTarInputStream_1)
+Gura_ImplementFunction(__TarInputStream_1)
 {
 	//int stream = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
@@ -121,8 +121,8 @@ Gura_ImplementMethod(wx_TarInputStream, __OpenEntry)
 Gura_ImplementUserInheritableClass(wx_TarInputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTarInputStream);
-	Gura_AssignFunction(__wxTarInputStream_1);
+	Gura_AssignFunction(__TarInputStream);
+	Gura_AssignFunction(__TarInputStream_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TarInputStream, __CloseEntry);
 	Gura_AssignMethod(wx_TarInputStream, __GetNextEntry);

@@ -37,7 +37,7 @@ String Object_wx_TextDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextDataObject, "wxTextDataObject")
+Gura_DeclareFunctionAlias(__TextDataObject, "TextDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxTextDataObject, "wxTextDataObject")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextDataObject)
+Gura_ImplementFunction(__TextDataObject)
 {
 	//int text = arg.GetNumber(0)
 	//wxTextDataObject();
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_TextDataObject, __SetText)
 Gura_ImplementUserInheritableClass(wx_TextDataObject)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextDataObject);
+	Gura_AssignFunction(__TextDataObject);
 	// Method assignment
 	Gura_AssignMethod(wx_TextDataObject, __GetText);
 	Gura_AssignMethod(wx_TextDataObject, __GetTextLength);

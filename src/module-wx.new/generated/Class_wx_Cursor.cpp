@@ -37,20 +37,20 @@ String Object_wx_Cursor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCursor, "wxCursor")
+Gura_DeclareFunctionAlias(__Cursor, "Cursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCursor)
+Gura_ImplementFunction(__Cursor)
 {
 	//wxCursor();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCursor_1, "wxCursor_1")
+Gura_DeclareFunctionAlias(__Cursor_1, "Cursor_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxCursor_1, "wxCursor_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCursor_1)
+Gura_ImplementFunction(__Cursor_1)
 {
 	//int bits = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
@@ -75,7 +75,7 @@ Gura_ImplementFunction(__wxCursor_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCursor_2, "wxCursor_2")
+Gura_DeclareFunctionAlias(__Cursor_2, "Cursor_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursorName", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareFunctionAlias(__wxCursor_2, "wxCursor_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCursor_2)
+Gura_ImplementFunction(__Cursor_2)
 {
 	//int cursorName = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
@@ -96,7 +96,7 @@ Gura_ImplementFunction(__wxCursor_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCursor_3, "wxCursor_3")
+Gura_DeclareFunctionAlias(__Cursor_3, "Cursor_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursorId", VTYPE_number, OCCUR_Once);
@@ -104,14 +104,14 @@ Gura_DeclareFunctionAlias(__wxCursor_3, "wxCursor_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCursor_3)
+Gura_ImplementFunction(__Cursor_3)
 {
 	//int cursorId = arg.GetNumber(0)
 	//wxCursor();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCursor_4, "wxCursor_4")
+Gura_DeclareFunctionAlias(__Cursor_4, "Cursor_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -119,14 +119,14 @@ Gura_DeclareFunctionAlias(__wxCursor_4, "wxCursor_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCursor_4)
+Gura_ImplementFunction(__Cursor_4)
 {
 	//int image = arg.GetNumber(0)
 	//wxCursor();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCursor_5, "wxCursor_5")
+Gura_DeclareFunctionAlias(__Cursor_5, "Cursor_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
@@ -134,7 +134,7 @@ Gura_DeclareFunctionAlias(__wxCursor_5, "wxCursor_5")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCursor_5)
+Gura_ImplementFunction(__Cursor_5)
 {
 	//int cursor = arg.GetNumber(0)
 	//wxCursor();
@@ -176,12 +176,12 @@ Gura_ImplementMethod(wx_Cursor, __GetHotSpot)
 Gura_ImplementUserInheritableClass(wx_Cursor)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCursor);
-	Gura_AssignFunction(__wxCursor_1);
-	Gura_AssignFunction(__wxCursor_2);
-	Gura_AssignFunction(__wxCursor_3);
-	Gura_AssignFunction(__wxCursor_4);
-	Gura_AssignFunction(__wxCursor_5);
+	Gura_AssignFunction(__Cursor);
+	Gura_AssignFunction(__Cursor_1);
+	Gura_AssignFunction(__Cursor_2);
+	Gura_AssignFunction(__Cursor_3);
+	Gura_AssignFunction(__Cursor_4);
+	Gura_AssignFunction(__Cursor_5);
 	// Method assignment
 	Gura_AssignMethod(wx_Cursor, __IsOk);
 	Gura_AssignMethod(wx_Cursor, __GetHotSpot);

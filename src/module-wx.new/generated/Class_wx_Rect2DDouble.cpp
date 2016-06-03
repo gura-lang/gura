@@ -37,20 +37,20 @@ String Object_wx_Rect2DDouble::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRect2DDouble, "wxRect2DDouble")
+Gura_DeclareFunctionAlias(__Rect2DDouble, "Rect2DDouble")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Rect2DDouble));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRect2DDouble)
+Gura_ImplementFunction(__Rect2DDouble)
 {
 	//wxRect2DDouble();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRect2DDouble_1, "wxRect2DDouble_1")
+Gura_DeclareFunctionAlias(__Rect2DDouble_1, "Rect2DDouble_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxRect2DDouble_1, "wxRect2DDouble_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRect2DDouble_1)
+Gura_ImplementFunction(__Rect2DDouble_1)
 {
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
@@ -826,8 +826,8 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Scale_1)
 Gura_ImplementUserInheritableClass(wx_Rect2DDouble)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRect2DDouble);
-	Gura_AssignFunction(__wxRect2DDouble_1);
+	Gura_AssignFunction(__Rect2DDouble);
+	Gura_AssignFunction(__Rect2DDouble_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Rect2DDouble, __GetPosition);
 	Gura_AssignMethod(wx_Rect2DDouble, __GetSize);

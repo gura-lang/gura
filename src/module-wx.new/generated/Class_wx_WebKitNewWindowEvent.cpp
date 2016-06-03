@@ -37,7 +37,7 @@ String Object_wx_WebKitNewWindowEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWebKitNewWindowEvent, "wxWebKitNewWindowEvent")
+Gura_DeclareFunctionAlias(__WebKitNewWindowEvent, "WebKitNewWindowEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxWebKitNewWindowEvent, "wxWebKitNewWindowEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWebKitNewWindowEvent)
+Gura_ImplementFunction(__WebKitNewWindowEvent)
 {
 	//int win = arg.GetNumber(0)
 	//wxWebKitNewWindowEvent();
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_WebKitNewWindowEvent, __SetTargetName)
 Gura_ImplementUserInheritableClass(wx_WebKitNewWindowEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWebKitNewWindowEvent);
+	Gura_AssignFunction(__WebKitNewWindowEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_WebKitNewWindowEvent, __GetURL);
 	Gura_AssignMethod(wx_WebKitNewWindowEvent, __SetURL);

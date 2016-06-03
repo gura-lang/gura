@@ -37,20 +37,20 @@ String Object_wx_ColourPickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxColourPickerCtrl, "wxColourPickerCtrl")
+Gura_DeclareFunctionAlias(__ColourPickerCtrl, "ColourPickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ColourPickerCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxColourPickerCtrl)
+Gura_ImplementFunction(__ColourPickerCtrl)
 {
 	//wxColourPickerCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxColourPickerCtrl_1, "wxColourPickerCtrl_1")
+Gura_DeclareFunctionAlias(__ColourPickerCtrl_1, "ColourPickerCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxColourPickerCtrl_1, "wxColourPickerCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxColourPickerCtrl_1)
+Gura_ImplementFunction(__ColourPickerCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -160,8 +160,8 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, __SetColour_1)
 Gura_ImplementUserInheritableClass(wx_ColourPickerCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxColourPickerCtrl);
-	Gura_AssignFunction(__wxColourPickerCtrl_1);
+	Gura_AssignFunction(__ColourPickerCtrl);
+	Gura_AssignFunction(__ColourPickerCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ColourPickerCtrl, __Create);
 	Gura_AssignMethod(wx_ColourPickerCtrl, __GetColour);

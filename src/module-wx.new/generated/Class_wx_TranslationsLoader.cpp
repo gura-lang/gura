@@ -37,14 +37,14 @@ String Object_wx_TranslationsLoader::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTranslationsLoader, "wxTranslationsLoader")
+Gura_DeclareFunctionAlias(__TranslationsLoader, "TranslationsLoader")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TranslationsLoader));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTranslationsLoader)
+Gura_ImplementFunction(__TranslationsLoader)
 {
 	//wxTranslationsLoader();
 	return Value::Nil;
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_TranslationsLoader, __GetAvailableTranslations)
 Gura_ImplementUserInheritableClass(wx_TranslationsLoader)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTranslationsLoader);
+	Gura_AssignFunction(__TranslationsLoader);
 	// Method assignment
 	Gura_AssignMethod(wx_TranslationsLoader, __LoadCatalog);
 	Gura_AssignMethod(wx_TranslationsLoader, __GetAvailableTranslations);

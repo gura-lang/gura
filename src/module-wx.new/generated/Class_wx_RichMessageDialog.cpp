@@ -37,7 +37,7 @@ String Object_wx_RichMessageDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichMessageDialog, "wxRichMessageDialog")
+Gura_DeclareFunctionAlias(__RichMessageDialog, "RichMessageDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxRichMessageDialog, "wxRichMessageDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichMessageDialog)
+Gura_ImplementFunction(__RichMessageDialog)
 {
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_RichMessageDialog, __ShowModal)
 Gura_ImplementUserInheritableClass(wx_RichMessageDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichMessageDialog);
+	Gura_AssignFunction(__RichMessageDialog);
 	// Method assignment
 	Gura_AssignMethod(wx_RichMessageDialog, __ShowCheckBox);
 	Gura_AssignMethod(wx_RichMessageDialog, __GetCheckBoxText);

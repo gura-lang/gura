@@ -37,7 +37,7 @@ String Object_wx_ClipboardTextEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxClipboardTextEvent, "wxClipboardTextEvent")
+Gura_DeclareFunctionAlias(__ClipboardTextEvent, "ClipboardTextEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxClipboardTextEvent, "wxClipboardTextEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxClipboardTextEvent)
+Gura_ImplementFunction(__ClipboardTextEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxClipboardTextEvent)
 Gura_ImplementUserInheritableClass(wx_ClipboardTextEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxClipboardTextEvent);
+	Gura_AssignFunction(__ClipboardTextEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_ClipboardTextEvent)

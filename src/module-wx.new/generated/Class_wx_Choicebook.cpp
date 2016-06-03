@@ -37,20 +37,20 @@ String Object_wx_Choicebook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxChoicebook, "wxChoicebook")
+Gura_DeclareFunctionAlias(__Choicebook, "Choicebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Choicebook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxChoicebook)
+Gura_ImplementFunction(__Choicebook)
 {
 	//wxChoicebook();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxChoicebook_1, "wxChoicebook_1")
+Gura_DeclareFunctionAlias(__Choicebook_1, "Choicebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxChoicebook_1, "wxChoicebook_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxChoicebook_1)
+Gura_ImplementFunction(__Choicebook_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -122,8 +122,8 @@ Gura_ImplementMethod(wx_Choicebook, __GetChoiceCtrl)
 Gura_ImplementUserInheritableClass(wx_Choicebook)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxChoicebook);
-	Gura_AssignFunction(__wxChoicebook_1);
+	Gura_AssignFunction(__Choicebook);
+	Gura_AssignFunction(__Choicebook_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Choicebook, __Create);
 	Gura_AssignMethod(wx_Choicebook, __GetChoiceCtrl);

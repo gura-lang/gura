@@ -37,7 +37,7 @@ String Object_wx_FSFile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFSFile, "wxFSFile")
+Gura_DeclareFunctionAlias(__FSFile, "FSFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__wxFSFile, "wxFSFile")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFSFile)
+Gura_ImplementFunction(__FSFile)
 {
 	//int stream = arg.GetNumber(0)
 	//int location = arg.GetNumber(1)
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_FSFile, __GetStream)
 Gura_ImplementUserInheritableClass(wx_FSFile)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFSFile);
+	Gura_AssignFunction(__FSFile);
 	// Method assignment
 	Gura_AssignMethod(wx_FSFile, __DetachStream);
 	Gura_AssignMethod(wx_FSFile, __GetAnchor);

@@ -37,20 +37,20 @@ String Object_wx_Variant::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxVariant, "wxVariant")
+Gura_DeclareFunctionAlias(__Variant, "Variant")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Variant));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant)
+Gura_ImplementFunction(__Variant)
 {
 	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_1, "wxVariant_1")
+Gura_DeclareFunctionAlias(__Variant_1, "Variant_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxVariant_1, "wxVariant_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_1)
+Gura_ImplementFunction(__Variant_1)
 {
 	//int data = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__wxVariant_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_2, "wxVariant_2")
+Gura_DeclareFunctionAlias(__Variant_2, "Variant_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
@@ -75,14 +75,14 @@ Gura_DeclareFunctionAlias(__wxVariant_2, "wxVariant_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_2)
+Gura_ImplementFunction(__Variant_2)
 {
 	//int variant = arg.GetNumber(0)
 	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_3, "wxVariant_3")
+Gura_DeclareFunctionAlias(__Variant_3, "Variant_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "any", VTYPE_number, OCCUR_Once);
@@ -90,14 +90,14 @@ Gura_DeclareFunctionAlias(__wxVariant_3, "wxVariant_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_3)
+Gura_ImplementFunction(__Variant_3)
 {
 	//int any = arg.GetNumber(0)
 	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_4, "wxVariant_4")
+Gura_DeclareFunctionAlias(__Variant_4, "Variant_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -106,7 +106,7 @@ Gura_DeclareFunctionAlias(__wxVariant_4, "wxVariant_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_4)
+Gura_ImplementFunction(__Variant_4)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -114,7 +114,7 @@ Gura_ImplementFunction(__wxVariant_4)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_5, "wxVariant_5")
+Gura_DeclareFunctionAlias(__Variant_5, "Variant_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -123,7 +123,7 @@ Gura_DeclareFunctionAlias(__wxVariant_5, "wxVariant_5")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_5)
+Gura_ImplementFunction(__Variant_5)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -131,7 +131,7 @@ Gura_ImplementFunction(__wxVariant_5)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_6, "wxVariant_6")
+Gura_DeclareFunctionAlias(__Variant_6, "Variant_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -140,7 +140,7 @@ Gura_DeclareFunctionAlias(__wxVariant_6, "wxVariant_6")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_6)
+Gura_ImplementFunction(__Variant_6)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -148,7 +148,7 @@ Gura_ImplementFunction(__wxVariant_6)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_7, "wxVariant_7")
+Gura_DeclareFunctionAlias(__Variant_7, "Variant_7")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -157,7 +157,7 @@ Gura_DeclareFunctionAlias(__wxVariant_7, "wxVariant_7")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_7)
+Gura_ImplementFunction(__Variant_7)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -165,7 +165,7 @@ Gura_ImplementFunction(__wxVariant_7)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_8, "wxVariant_8")
+Gura_DeclareFunctionAlias(__Variant_8, "Variant_8")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -174,7 +174,7 @@ Gura_DeclareFunctionAlias(__wxVariant_8, "wxVariant_8")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_8)
+Gura_ImplementFunction(__Variant_8)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -182,7 +182,7 @@ Gura_ImplementFunction(__wxVariant_8)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_9, "wxVariant_9")
+Gura_DeclareFunctionAlias(__Variant_9, "Variant_9")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -191,7 +191,7 @@ Gura_DeclareFunctionAlias(__wxVariant_9, "wxVariant_9")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_9)
+Gura_ImplementFunction(__Variant_9)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -199,7 +199,7 @@ Gura_ImplementFunction(__wxVariant_9)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_10, "wxVariant_10")
+Gura_DeclareFunctionAlias(__Variant_10, "Variant_10")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -208,7 +208,7 @@ Gura_DeclareFunctionAlias(__wxVariant_10, "wxVariant_10")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_10)
+Gura_ImplementFunction(__Variant_10)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -216,7 +216,7 @@ Gura_ImplementFunction(__wxVariant_10)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_11, "wxVariant_11")
+Gura_DeclareFunctionAlias(__Variant_11, "Variant_11")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -225,7 +225,7 @@ Gura_DeclareFunctionAlias(__wxVariant_11, "wxVariant_11")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_11)
+Gura_ImplementFunction(__Variant_11)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -233,7 +233,7 @@ Gura_ImplementFunction(__wxVariant_11)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_12, "wxVariant_12")
+Gura_DeclareFunctionAlias(__Variant_12, "Variant_12")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -242,7 +242,7 @@ Gura_DeclareFunctionAlias(__wxVariant_12, "wxVariant_12")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_12)
+Gura_ImplementFunction(__Variant_12)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -250,7 +250,7 @@ Gura_ImplementFunction(__wxVariant_12)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_13, "wxVariant_13")
+Gura_DeclareFunctionAlias(__Variant_13, "Variant_13")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -259,7 +259,7 @@ Gura_DeclareFunctionAlias(__wxVariant_13, "wxVariant_13")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_13)
+Gura_ImplementFunction(__Variant_13)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -267,7 +267,7 @@ Gura_ImplementFunction(__wxVariant_13)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_14, "wxVariant_14")
+Gura_DeclareFunctionAlias(__Variant_14, "Variant_14")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -276,7 +276,7 @@ Gura_DeclareFunctionAlias(__wxVariant_14, "wxVariant_14")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_14)
+Gura_ImplementFunction(__Variant_14)
 {
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -284,7 +284,7 @@ Gura_ImplementFunction(__wxVariant_14)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_15, "wxVariant_15")
+Gura_DeclareFunctionAlias(__Variant_15, "Variant_15")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
@@ -293,7 +293,7 @@ Gura_DeclareFunctionAlias(__wxVariant_15, "wxVariant_15")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_15)
+Gura_ImplementFunction(__Variant_15)
 {
 	//int val = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -301,7 +301,7 @@ Gura_ImplementFunction(__wxVariant_15)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariant_16, "wxVariant_16")
+Gura_DeclareFunctionAlias(__Variant_16, "Variant_16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
@@ -310,7 +310,7 @@ Gura_DeclareFunctionAlias(__wxVariant_16, "wxVariant_16")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariant_16)
+Gura_ImplementFunction(__Variant_16)
 {
 	//int val = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -955,23 +955,23 @@ Gura_ImplementMethod(wx_Variant, __wxString)
 Gura_ImplementUserInheritableClass(wx_Variant)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxVariant);
-	Gura_AssignFunction(__wxVariant_1);
-	Gura_AssignFunction(__wxVariant_2);
-	Gura_AssignFunction(__wxVariant_3);
-	Gura_AssignFunction(__wxVariant_4);
-	Gura_AssignFunction(__wxVariant_5);
-	Gura_AssignFunction(__wxVariant_6);
-	Gura_AssignFunction(__wxVariant_7);
-	Gura_AssignFunction(__wxVariant_8);
-	Gura_AssignFunction(__wxVariant_9);
-	Gura_AssignFunction(__wxVariant_10);
-	Gura_AssignFunction(__wxVariant_11);
-	Gura_AssignFunction(__wxVariant_12);
-	Gura_AssignFunction(__wxVariant_13);
-	Gura_AssignFunction(__wxVariant_14);
-	Gura_AssignFunction(__wxVariant_15);
-	Gura_AssignFunction(__wxVariant_16);
+	Gura_AssignFunction(__Variant);
+	Gura_AssignFunction(__Variant_1);
+	Gura_AssignFunction(__Variant_2);
+	Gura_AssignFunction(__Variant_3);
+	Gura_AssignFunction(__Variant_4);
+	Gura_AssignFunction(__Variant_5);
+	Gura_AssignFunction(__Variant_6);
+	Gura_AssignFunction(__Variant_7);
+	Gura_AssignFunction(__Variant_8);
+	Gura_AssignFunction(__Variant_9);
+	Gura_AssignFunction(__Variant_10);
+	Gura_AssignFunction(__Variant_11);
+	Gura_AssignFunction(__Variant_12);
+	Gura_AssignFunction(__Variant_13);
+	Gura_AssignFunction(__Variant_14);
+	Gura_AssignFunction(__Variant_15);
+	Gura_AssignFunction(__Variant_16);
 	// Method assignment
 	Gura_AssignMethod(wx_Variant, __Append);
 	Gura_AssignMethod(wx_Variant, __Clear);

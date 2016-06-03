@@ -37,20 +37,20 @@ String Object_wx_StringTokenizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStringTokenizer, "wxStringTokenizer")
+Gura_DeclareFunctionAlias(__StringTokenizer, "StringTokenizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StringTokenizer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStringTokenizer)
+Gura_ImplementFunction(__StringTokenizer)
 {
 	//wxStringTokenizer();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxStringTokenizer_1, "wxStringTokenizer_1")
+Gura_DeclareFunctionAlias(__StringTokenizer_1, "StringTokenizer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxStringTokenizer_1, "wxStringTokenizer_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStringTokenizer_1)
+Gura_ImplementFunction(__StringTokenizer_1)
 {
 	//int str = arg.GetNumber(0)
 	//int delims = arg.GetNumber(1)
@@ -175,8 +175,8 @@ Gura_ImplementMethod(wx_StringTokenizer, __SetString)
 Gura_ImplementUserInheritableClass(wx_StringTokenizer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStringTokenizer);
-	Gura_AssignFunction(__wxStringTokenizer_1);
+	Gura_AssignFunction(__StringTokenizer);
+	Gura_AssignFunction(__StringTokenizer_1);
 	// Method assignment
 	Gura_AssignMethod(wx_StringTokenizer, __CountTokens);
 	Gura_AssignMethod(wx_StringTokenizer, __GetLastDelimiter);

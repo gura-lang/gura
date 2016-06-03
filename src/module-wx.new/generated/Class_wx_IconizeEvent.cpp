@@ -37,7 +37,7 @@ String Object_wx_IconizeEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxIconizeEvent, "wxIconizeEvent")
+Gura_DeclareFunctionAlias(__IconizeEvent, "IconizeEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxIconizeEvent, "wxIconizeEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxIconizeEvent)
+Gura_ImplementFunction(__IconizeEvent)
 {
 	//int id = arg.GetNumber(0)
 	//int iconized = arg.GetNumber(1)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_IconizeEvent, __Iconized)
 Gura_ImplementUserInheritableClass(wx_IconizeEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxIconizeEvent);
+	Gura_AssignFunction(__IconizeEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_IconizeEvent, __IsIconized);
 	Gura_AssignMethod(wx_IconizeEvent, __Iconized);

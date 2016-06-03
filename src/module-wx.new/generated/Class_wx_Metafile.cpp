@@ -37,7 +37,7 @@ String Object_wx_Metafile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMetafile, "wxMetafile")
+Gura_DeclareFunctionAlias(__Metafile, "Metafile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxMetafile, "wxMetafile")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMetafile)
+Gura_ImplementFunction(__Metafile)
 {
 	//int filename = arg.GetNumber(0)
 	//wxMetafile();
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_Metafile, __SetClipboard)
 Gura_ImplementUserInheritableClass(wx_Metafile)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMetafile);
+	Gura_AssignFunction(__Metafile);
 	// Method assignment
 	Gura_AssignMethod(wx_Metafile, __IsOk);
 	Gura_AssignMethod(wx_Metafile, __Play);

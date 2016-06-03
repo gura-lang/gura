@@ -37,7 +37,7 @@ String Object_wx_PersistentTreeBookCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPersistentTreeBookCtrl, "wxPersistentTreeBookCtrl")
+Gura_DeclareFunctionAlias(__PersistentTreeBookCtrl, "PersistentTreeBookCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "book", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPersistentTreeBookCtrl, "wxPersistentTreeBookCtrl"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPersistentTreeBookCtrl)
+Gura_ImplementFunction(__PersistentTreeBookCtrl)
 {
 	//int book = arg.GetNumber(0)
 	//wxPersistentTreeBookCtrl();
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_PersistentTreeBookCtrl, __Restore)
 Gura_ImplementUserInheritableClass(wx_PersistentTreeBookCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPersistentTreeBookCtrl);
+	Gura_AssignFunction(__PersistentTreeBookCtrl);
 	// Method assignment
 	Gura_AssignMethod(wx_PersistentTreeBookCtrl, __Save);
 	Gura_AssignMethod(wx_PersistentTreeBookCtrl, __Restore);

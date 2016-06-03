@@ -37,7 +37,7 @@ String Object_wx_RichToolTip::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichToolTip, "wxRichToolTip")
+Gura_DeclareFunctionAlias(__RichToolTip, "RichToolTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxRichToolTip, "wxRichToolTip")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichToolTip)
+Gura_ImplementFunction(__RichToolTip)
 {
 	//int title = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_RichToolTip, __ShowFor)
 Gura_ImplementUserInheritableClass(wx_RichToolTip)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichToolTip);
+	Gura_AssignFunction(__RichToolTip);
 	// Method assignment
 	Gura_AssignMethod(wx_RichToolTip, __SetBackgroundColour);
 	Gura_AssignMethod(wx_RichToolTip, __SetIcon);

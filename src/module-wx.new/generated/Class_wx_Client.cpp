@@ -37,14 +37,14 @@ String Object_wx_Client::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxClient, "wxClient")
+Gura_DeclareFunctionAlias(__Client, "Client")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Client));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxClient)
+Gura_ImplementFunction(__Client)
 {
 	//wxClient();
 	return Value::Nil;
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_Client, __ValidHost)
 Gura_ImplementUserInheritableClass(wx_Client)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxClient);
+	Gura_AssignFunction(__Client);
 	// Method assignment
 	Gura_AssignMethod(wx_Client, __MakeConnection);
 	Gura_AssignMethod(wx_Client, __OnMakeConnection);

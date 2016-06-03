@@ -37,20 +37,20 @@ String Object_wx_MDIParentFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMDIParentFrame, "wxMDIParentFrame")
+Gura_DeclareFunctionAlias(__MDIParentFrame, "MDIParentFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MDIParentFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMDIParentFrame)
+Gura_ImplementFunction(__MDIParentFrame)
 {
 	//wxMDIParentFrame();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMDIParentFrame_1, "wxMDIParentFrame_1")
+Gura_DeclareFunctionAlias(__MDIParentFrame_1, "MDIParentFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxMDIParentFrame_1, "wxMDIParentFrame_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMDIParentFrame_1)
+Gura_ImplementFunction(__MDIParentFrame_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -260,8 +260,8 @@ Gura_ImplementMethod(wx_MDIParentFrame, __Tile)
 Gura_ImplementUserInheritableClass(wx_MDIParentFrame)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMDIParentFrame);
-	Gura_AssignFunction(__wxMDIParentFrame_1);
+	Gura_AssignFunction(__MDIParentFrame);
+	Gura_AssignFunction(__MDIParentFrame_1);
 	// Method assignment
 	Gura_AssignMethod(wx_MDIParentFrame, __ActivateNext);
 	Gura_AssignMethod(wx_MDIParentFrame, __ActivatePrevious);

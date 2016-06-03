@@ -37,7 +37,7 @@ String Object_wx_GridBagSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridBagSizer, "wxGridBagSizer")
+Gura_DeclareFunctionAlias(__GridBagSizer, "GridBagSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxGridBagSizer, "wxGridBagSizer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridBagSizer)
+Gura_ImplementFunction(__GridBagSizer)
 {
 	//int vgap = arg.GetNumber(0)
 	//int hgap = arg.GetNumber(1)
@@ -529,7 +529,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __SetItemSpan_2)
 Gura_ImplementUserInheritableClass(wx_GridBagSizer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridBagSizer);
+	Gura_AssignFunction(__GridBagSizer);
 	// Method assignment
 	Gura_AssignMethod(wx_GridBagSizer, __Add);
 	Gura_AssignMethod(wx_GridBagSizer, __Add_1);

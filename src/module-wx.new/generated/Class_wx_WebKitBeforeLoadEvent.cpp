@@ -37,7 +37,7 @@ String Object_wx_WebKitBeforeLoadEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWebKitBeforeLoadEvent, "wxWebKitBeforeLoadEvent")
+Gura_DeclareFunctionAlias(__WebKitBeforeLoadEvent, "WebKitBeforeLoadEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxWebKitBeforeLoadEvent, "wxWebKitBeforeLoadEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWebKitBeforeLoadEvent)
+Gura_ImplementFunction(__WebKitBeforeLoadEvent)
 {
 	//int win = arg.GetNumber(0)
 	//wxWebKitBeforeLoadEvent();
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __GetNavigationType)
 Gura_ImplementUserInheritableClass(wx_WebKitBeforeLoadEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWebKitBeforeLoadEvent);
+	Gura_AssignFunction(__WebKitBeforeLoadEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __IsCancelled);
 	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __Cancel);

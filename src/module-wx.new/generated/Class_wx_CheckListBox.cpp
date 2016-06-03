@@ -37,20 +37,20 @@ String Object_wx_CheckListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCheckListBox, "wxCheckListBox")
+Gura_DeclareFunctionAlias(__CheckListBox, "CheckListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CheckListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCheckListBox)
+Gura_ImplementFunction(__CheckListBox)
 {
 	//wxCheckListBox();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCheckListBox_1, "wxCheckListBox_1")
+Gura_DeclareFunctionAlias(__CheckListBox_1, "CheckListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxCheckListBox_1, "wxCheckListBox_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCheckListBox_1)
+Gura_ImplementFunction(__CheckListBox_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -81,7 +81,7 @@ Gura_ImplementFunction(__wxCheckListBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCheckListBox_2, "wxCheckListBox_2")
+Gura_DeclareFunctionAlias(__CheckListBox_2, "CheckListBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_DeclareFunctionAlias(__wxCheckListBox_2, "wxCheckListBox_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCheckListBox_2)
+Gura_ImplementFunction(__CheckListBox_2)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -226,9 +226,9 @@ Gura_ImplementMethod(wx_CheckListBox, __GetCheckedItems)
 Gura_ImplementUserInheritableClass(wx_CheckListBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCheckListBox);
-	Gura_AssignFunction(__wxCheckListBox_1);
-	Gura_AssignFunction(__wxCheckListBox_2);
+	Gura_AssignFunction(__CheckListBox);
+	Gura_AssignFunction(__CheckListBox_1);
+	Gura_AssignFunction(__CheckListBox_2);
 	// Method assignment
 	Gura_AssignMethod(wx_CheckListBox, __Create);
 	Gura_AssignMethod(wx_CheckListBox, __Create_1);

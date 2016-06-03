@@ -37,20 +37,20 @@ String Object_wx_Colour::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxColour, "wxColour")
+Gura_DeclareFunctionAlias(__Colour, "Colour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Colour));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxColour)
+Gura_ImplementFunction(__Colour)
 {
 	//wxColour();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxColour_1, "wxColour_1")
+Gura_DeclareFunctionAlias(__Colour_1, "Colour_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxColour_1, "wxColour_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxColour_1)
+Gura_ImplementFunction(__Colour_1)
 {
 	//int red = arg.GetNumber(0)
 	//int green = arg.GetNumber(1)
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__wxColour_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxColour_2, "wxColour_2")
+Gura_DeclareFunctionAlias(__Colour_2, "Colour_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colourName", VTYPE_number, OCCUR_Once);
@@ -79,14 +79,14 @@ Gura_DeclareFunctionAlias(__wxColour_2, "wxColour_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxColour_2)
+Gura_ImplementFunction(__Colour_2)
 {
 	//int colourName = arg.GetNumber(0)
 	//wxColour();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxColour_3, "wxColour_3")
+Gura_DeclareFunctionAlias(__Colour_3, "Colour_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colRGB", VTYPE_number, OCCUR_Once);
@@ -94,14 +94,14 @@ Gura_DeclareFunctionAlias(__wxColour_3, "wxColour_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxColour_3)
+Gura_ImplementFunction(__Colour_3)
 {
 	//int colRGB = arg.GetNumber(0)
 	//wxColour();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxColour_4, "wxColour_4")
+Gura_DeclareFunctionAlias(__Colour_4, "Colour_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
@@ -109,7 +109,7 @@ Gura_DeclareFunctionAlias(__wxColour_4, "wxColour_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxColour_4)
+Gura_ImplementFunction(__Colour_4)
 {
 	//int colour = arg.GetNumber(0)
 	//wxColour();
@@ -481,11 +481,11 @@ Gura_ImplementMethod(wx_Colour, __ChangeLightness_1)
 Gura_ImplementUserInheritableClass(wx_Colour)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxColour);
-	Gura_AssignFunction(__wxColour_1);
-	Gura_AssignFunction(__wxColour_2);
-	Gura_AssignFunction(__wxColour_3);
-	Gura_AssignFunction(__wxColour_4);
+	Gura_AssignFunction(__Colour);
+	Gura_AssignFunction(__Colour_1);
+	Gura_AssignFunction(__Colour_2);
+	Gura_AssignFunction(__Colour_3);
+	Gura_AssignFunction(__Colour_4);
 	// Method assignment
 	Gura_AssignMethod(wx_Colour, __Alpha);
 	Gura_AssignMethod(wx_Colour, __Blue);

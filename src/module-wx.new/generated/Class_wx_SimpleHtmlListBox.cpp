@@ -37,7 +37,7 @@ String Object_wx_SimpleHtmlListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox, "wxSimpleHtmlListBox")
+Gura_DeclareFunctionAlias(__SimpleHtmlListBox, "SimpleHtmlListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -53,7 +53,7 @@ Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox, "wxSimpleHtmlListBox")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSimpleHtmlListBox)
+Gura_ImplementFunction(__SimpleHtmlListBox)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -68,7 +68,7 @@ Gura_ImplementFunction(__wxSimpleHtmlListBox)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox_1, "wxSimpleHtmlListBox_1")
+Gura_DeclareFunctionAlias(__SimpleHtmlListBox_1, "SimpleHtmlListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox_1, "wxSimpleHtmlListBox_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSimpleHtmlListBox_1)
+Gura_ImplementFunction(__SimpleHtmlListBox_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -97,14 +97,14 @@ Gura_ImplementFunction(__wxSimpleHtmlListBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox_2, "wxSimpleHtmlListBox_2")
+Gura_DeclareFunctionAlias(__SimpleHtmlListBox_2, "SimpleHtmlListBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SimpleHtmlListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSimpleHtmlListBox_2)
+Gura_ImplementFunction(__SimpleHtmlListBox_2)
 {
 	//wxSimpleHtmlListBox();
 	return Value::Nil;
@@ -179,9 +179,9 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, __Create_1)
 Gura_ImplementUserInheritableClass(wx_SimpleHtmlListBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSimpleHtmlListBox);
-	Gura_AssignFunction(__wxSimpleHtmlListBox_1);
-	Gura_AssignFunction(__wxSimpleHtmlListBox_2);
+	Gura_AssignFunction(__SimpleHtmlListBox);
+	Gura_AssignFunction(__SimpleHtmlListBox_1);
+	Gura_AssignFunction(__SimpleHtmlListBox_2);
 	// Method assignment
 	Gura_AssignMethod(wx_SimpleHtmlListBox, __Create);
 	Gura_AssignMethod(wx_SimpleHtmlListBox, __Create_1);

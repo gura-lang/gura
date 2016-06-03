@@ -37,7 +37,7 @@ String Object_wx_FilterInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFilterInputStream, "wxFilterInputStream")
+Gura_DeclareFunctionAlias(__FilterInputStream, "FilterInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxFilterInputStream, "wxFilterInputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFilterInputStream)
+Gura_ImplementFunction(__FilterInputStream)
 {
 	//int stream = arg.GetNumber(0)
 	//wxFilterInputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFilterInputStream_1, "wxFilterInputStream_1")
+Gura_DeclareFunctionAlias(__FilterInputStream_1, "FilterInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxFilterInputStream_1, "wxFilterInputStream_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFilterInputStream_1)
+Gura_ImplementFunction(__FilterInputStream_1)
 {
 	//int stream = arg.GetNumber(0)
 	//wxFilterInputStream();
@@ -73,8 +73,8 @@ Gura_ImplementFunction(__wxFilterInputStream_1)
 Gura_ImplementUserInheritableClass(wx_FilterInputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFilterInputStream);
-	Gura_AssignFunction(__wxFilterInputStream_1);
+	Gura_AssignFunction(__FilterInputStream);
+	Gura_AssignFunction(__FilterInputStream_1);
 }
 
 Gura_ImplementDescendantCreator(wx_FilterInputStream)

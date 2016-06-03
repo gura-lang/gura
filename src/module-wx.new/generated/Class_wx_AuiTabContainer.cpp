@@ -37,14 +37,14 @@ String Object_wx_AuiTabContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiTabContainer, "wxAuiTabContainer")
+Gura_DeclareFunctionAlias(__AuiTabContainer, "AuiTabContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiTabContainer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiTabContainer)
+Gura_ImplementFunction(__AuiTabContainer)
 {
 	//wxAuiTabContainer();
 	return Value::Nil;
@@ -585,7 +585,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __Render)
 Gura_ImplementUserInheritableClass(wx_AuiTabContainer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiTabContainer);
+	Gura_AssignFunction(__AuiTabContainer);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiTabContainer, __SetArtProvider);
 	Gura_AssignMethod(wx_AuiTabContainer, __GetArtProvider);

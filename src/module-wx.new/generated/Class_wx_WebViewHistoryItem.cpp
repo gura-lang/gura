@@ -37,7 +37,7 @@ String Object_wx_WebViewHistoryItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWebViewHistoryItem, "wxWebViewHistoryItem")
+Gura_DeclareFunctionAlias(__WebViewHistoryItem, "WebViewHistoryItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxWebViewHistoryItem, "wxWebViewHistoryItem")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWebViewHistoryItem)
+Gura_ImplementFunction(__WebViewHistoryItem)
 {
 	//int url = arg.GetNumber(0)
 	//int title = arg.GetNumber(1)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_WebViewHistoryItem, __GetTitle)
 Gura_ImplementUserInheritableClass(wx_WebViewHistoryItem)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWebViewHistoryItem);
+	Gura_AssignFunction(__WebViewHistoryItem);
 	// Method assignment
 	Gura_AssignMethod(wx_WebViewHistoryItem, __GetUrl);
 	Gura_AssignMethod(wx_WebViewHistoryItem, __GetTitle);

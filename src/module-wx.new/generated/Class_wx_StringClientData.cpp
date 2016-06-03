@@ -37,20 +37,20 @@ String Object_wx_StringClientData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStringClientData, "wxStringClientData")
+Gura_DeclareFunctionAlias(__StringClientData, "StringClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StringClientData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStringClientData)
+Gura_ImplementFunction(__StringClientData)
 {
 	//wxStringClientData();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxStringClientData_1, "wxStringClientData_1")
+Gura_DeclareFunctionAlias(__StringClientData_1, "StringClientData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxStringClientData_1, "wxStringClientData_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStringClientData_1)
+Gura_ImplementFunction(__StringClientData_1)
 {
 	//int data = arg.GetNumber(0)
 	//wxStringClientData();
@@ -102,8 +102,8 @@ Gura_ImplementMethod(wx_StringClientData, __SetData)
 Gura_ImplementUserInheritableClass(wx_StringClientData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStringClientData);
-	Gura_AssignFunction(__wxStringClientData_1);
+	Gura_AssignFunction(__StringClientData);
+	Gura_AssignFunction(__StringClientData_1);
 	// Method assignment
 	Gura_AssignMethod(wx_StringClientData, __GetData);
 	Gura_AssignMethod(wx_StringClientData, __SetData);

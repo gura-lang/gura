@@ -37,14 +37,14 @@ String Object_wx_MBConv::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMBConv, "wxMBConv")
+Gura_DeclareFunctionAlias(__MBConv, "MBConv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MBConv));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMBConv)
+Gura_ImplementFunction(__MBConv)
 {
 	//wxMBConv();
 	return Value::Nil;
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_MBConv, __WC2MB)
 Gura_ImplementUserInheritableClass(wx_MBConv)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMBConv);
+	Gura_AssignFunction(__MBConv);
 	// Method assignment
 	Gura_AssignMethod(wx_MBConv, __Clone);
 	Gura_AssignMethod(wx_MBConv, __GetMBNulLen);

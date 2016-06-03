@@ -37,7 +37,7 @@ String Object_wx_RichTextDrawingContext::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextDrawingContext, "wxRichTextDrawingContext")
+Gura_DeclareFunctionAlias(__RichTextDrawingContext, "RichTextDrawingContext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxRichTextDrawingContext, "wxRichTextDrawingContext"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextDrawingContext)
+Gura_ImplementFunction(__RichTextDrawingContext)
 {
 	//int buffer = arg.GetNumber(0)
 	//wxRichTextDrawingContext();
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __GetDelayedImageLoading)
 Gura_ImplementUserInheritableClass(wx_RichTextDrawingContext)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextDrawingContext);
+	Gura_AssignFunction(__RichTextDrawingContext);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextDrawingContext, __Init);
 	Gura_AssignMethod(wx_RichTextDrawingContext, __HasVirtualAttributes);

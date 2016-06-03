@@ -37,7 +37,7 @@ String Object_wx_MediaEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMediaEvent, "wxMediaEvent")
+Gura_DeclareFunctionAlias(__MediaEvent, "MediaEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxMediaEvent, "wxMediaEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMediaEvent)
+Gura_ImplementFunction(__MediaEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxMediaEvent)
 Gura_ImplementUserInheritableClass(wx_MediaEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMediaEvent);
+	Gura_AssignFunction(__MediaEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_MediaEvent)

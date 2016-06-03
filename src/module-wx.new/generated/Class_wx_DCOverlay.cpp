@@ -37,7 +37,7 @@ String Object_wx_DCOverlay::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDCOverlay, "wxDCOverlay")
+Gura_DeclareFunctionAlias(__DCOverlay, "DCOverlay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "overlay", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxDCOverlay, "wxDCOverlay")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDCOverlay)
+Gura_ImplementFunction(__DCOverlay)
 {
 	//int overlay = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
@@ -62,7 +62,7 @@ Gura_ImplementFunction(__wxDCOverlay)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDCOverlay_1, "wxDCOverlay_1")
+Gura_DeclareFunctionAlias(__DCOverlay_1, "DCOverlay_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "overlay", VTYPE_number, OCCUR_Once);
@@ -71,7 +71,7 @@ Gura_DeclareFunctionAlias(__wxDCOverlay_1, "wxDCOverlay_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDCOverlay_1)
+Gura_ImplementFunction(__DCOverlay_1)
 {
 	//int overlay = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
@@ -101,8 +101,8 @@ Gura_ImplementMethod(wx_DCOverlay, __Clear)
 Gura_ImplementUserInheritableClass(wx_DCOverlay)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDCOverlay);
-	Gura_AssignFunction(__wxDCOverlay_1);
+	Gura_AssignFunction(__DCOverlay);
+	Gura_AssignFunction(__DCOverlay_1);
 	// Method assignment
 	Gura_AssignMethod(wx_DCOverlay, __Clear);
 }

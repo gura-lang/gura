@@ -37,20 +37,20 @@ String Object_wx_RadioBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRadioBox, "wxRadioBox")
+Gura_DeclareFunctionAlias(__RadioBox, "RadioBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RadioBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRadioBox)
+Gura_ImplementFunction(__RadioBox)
 {
 	//wxRadioBox();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRadioBox_1, "wxRadioBox_1")
+Gura_DeclareFunctionAlias(__RadioBox_1, "RadioBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -68,7 +68,7 @@ Gura_DeclareFunctionAlias(__wxRadioBox_1, "wxRadioBox_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRadioBox_1)
+Gura_ImplementFunction(__RadioBox_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -85,7 +85,7 @@ Gura_ImplementFunction(__wxRadioBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRadioBox_2, "wxRadioBox_2")
+Gura_DeclareFunctionAlias(__RadioBox_2, "RadioBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -102,7 +102,7 @@ Gura_DeclareFunctionAlias(__wxRadioBox_2, "wxRadioBox_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRadioBox_2)
+Gura_ImplementFunction(__RadioBox_2)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -454,9 +454,9 @@ Gura_ImplementMethod(wx_RadioBox, __GetSelection)
 Gura_ImplementUserInheritableClass(wx_RadioBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRadioBox);
-	Gura_AssignFunction(__wxRadioBox_1);
-	Gura_AssignFunction(__wxRadioBox_2);
+	Gura_AssignFunction(__RadioBox);
+	Gura_AssignFunction(__RadioBox_1);
+	Gura_AssignFunction(__RadioBox_2);
 	// Method assignment
 	Gura_AssignMethod(wx_RadioBox, __Create);
 	Gura_AssignMethod(wx_RadioBox, __Create_1);

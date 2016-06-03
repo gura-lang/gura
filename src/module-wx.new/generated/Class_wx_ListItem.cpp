@@ -37,14 +37,14 @@ String Object_wx_ListItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxListItem, "wxListItem")
+Gura_DeclareFunctionAlias(__ListItem, "ListItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ListItem));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListItem)
+Gura_ImplementFunction(__ListItem)
 {
 	//wxListItem();
 	return Value::Nil;
@@ -438,7 +438,7 @@ Gura_ImplementMethod(wx_ListItem, __SetWidth)
 Gura_ImplementUserInheritableClass(wx_ListItem)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxListItem);
+	Gura_AssignFunction(__ListItem);
 	// Method assignment
 	Gura_AssignMethod(wx_ListItem, __Clear);
 	Gura_AssignMethod(wx_ListItem, __GetAlign);

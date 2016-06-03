@@ -37,7 +37,7 @@ String Object_wx_RichTextEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextEvent, "wxRichTextEvent")
+Gura_DeclareFunctionAlias(__RichTextEvent, "RichTextEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxRichTextEvent, "wxRichTextEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextEvent)
+Gura_ImplementFunction(__RichTextEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxRichTextEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextEvent_1, "wxRichTextEvent_1")
+Gura_DeclareFunctionAlias(__RichTextEvent_1, "RichTextEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxRichTextEvent_1, "wxRichTextEvent_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextEvent_1)
+Gura_ImplementFunction(__RichTextEvent_1)
 {
 	//int event = arg.GetNumber(0)
 	//wxRichTextEvent();
@@ -315,8 +315,8 @@ Gura_ImplementMethod(wx_RichTextEvent, __Clone)
 Gura_ImplementUserInheritableClass(wx_RichTextEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextEvent);
-	Gura_AssignFunction(__wxRichTextEvent_1);
+	Gura_AssignFunction(__RichTextEvent);
+	Gura_AssignFunction(__RichTextEvent_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextEvent, __GetPosition);
 	Gura_AssignMethod(wx_RichTextEvent, __SetPosition);

@@ -37,7 +37,7 @@ String Object_wx_Process::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxProcess, "wxProcess")
+Gura_DeclareFunctionAlias(__Process, "Process")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxProcess, "wxProcess")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxProcess)
+Gura_ImplementFunction(__Process)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxProcess)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxProcess_1, "wxProcess_1")
+Gura_DeclareFunctionAlias(__Process_1, "Process_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxProcess_1, "wxProcess_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxProcess_1)
+Gura_ImplementFunction(__Process_1)
 {
 	//int flags = arg.GetNumber(0)
 	//wxProcess();
@@ -304,8 +304,8 @@ Gura_ImplementMethod(wx_Process, __SetPriority)
 Gura_ImplementUserInheritableClass(wx_Process)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxProcess);
-	Gura_AssignFunction(__wxProcess_1);
+	Gura_AssignFunction(__Process);
+	Gura_AssignFunction(__Process_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Process, __Activate);
 	Gura_AssignMethod(wx_Process, __CloseOutput);

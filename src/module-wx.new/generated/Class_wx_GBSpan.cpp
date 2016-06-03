@@ -37,20 +37,20 @@ String Object_wx_GBSpan::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGBSpan, "wxGBSpan")
+Gura_DeclareFunctionAlias(__GBSpan, "GBSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GBSpan));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGBSpan)
+Gura_ImplementFunction(__GBSpan)
 {
 	//wxGBSpan();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGBSpan_1, "wxGBSpan_1")
+Gura_DeclareFunctionAlias(__GBSpan_1, "GBSpan_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rowspan", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxGBSpan_1, "wxGBSpan_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGBSpan_1)
+Gura_ImplementFunction(__GBSpan_1)
 {
 	//int rowspan = arg.GetNumber(0)
 	//int colspan = arg.GetNumber(1)
@@ -132,8 +132,8 @@ Gura_ImplementMethod(wx_GBSpan, __SetRowspan)
 Gura_ImplementUserInheritableClass(wx_GBSpan)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGBSpan);
-	Gura_AssignFunction(__wxGBSpan_1);
+	Gura_AssignFunction(__GBSpan);
+	Gura_AssignFunction(__GBSpan_1);
 	// Method assignment
 	Gura_AssignMethod(wx_GBSpan, __GetColspan);
 	Gura_AssignMethod(wx_GBSpan, __GetRowspan);

@@ -37,14 +37,14 @@ String Object_wx_Overlay::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxOverlay, "wxOverlay")
+Gura_DeclareFunctionAlias(__Overlay, "Overlay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Overlay));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxOverlay)
+Gura_ImplementFunction(__Overlay)
 {
 	//wxOverlay();
 	return Value::Nil;
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_Overlay, __Reset)
 Gura_ImplementUserInheritableClass(wx_Overlay)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxOverlay);
+	Gura_AssignFunction(__Overlay);
 	// Method assignment
 	Gura_AssignMethod(wx_Overlay, __Reset);
 }

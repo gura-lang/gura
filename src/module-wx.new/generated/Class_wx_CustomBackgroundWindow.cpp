@@ -37,14 +37,14 @@ String Object_wx_CustomBackgroundWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCustomBackgroundWindow, "wxCustomBackgroundWindow")
+Gura_DeclareFunctionAlias(__CustomBackgroundWindow, "CustomBackgroundWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CustomBackgroundWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCustomBackgroundWindow)
+Gura_ImplementFunction(__CustomBackgroundWindow)
 {
 	//wxCustomBackgroundWindow();
 	return Value::Nil;
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_CustomBackgroundWindow, __SetBackgroundBitmap)
 Gura_ImplementUserInheritableClass(wx_CustomBackgroundWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCustomBackgroundWindow);
+	Gura_AssignFunction(__CustomBackgroundWindow);
 	// Method assignment
 	Gura_AssignMethod(wx_CustomBackgroundWindow, __SetBackgroundBitmap);
 }

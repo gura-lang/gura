@@ -37,20 +37,20 @@ String Object_wx_WebKitCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWebKitCtrl, "wxWebKitCtrl")
+Gura_DeclareFunctionAlias(__WebKitCtrl, "WebKitCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_WebKitCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWebKitCtrl)
+Gura_ImplementFunction(__WebKitCtrl)
 {
 	//wxWebKitCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxWebKitCtrl_1, "wxWebKitCtrl_1")
+Gura_DeclareFunctionAlias(__WebKitCtrl_1, "WebKitCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxWebKitCtrl_1, "wxWebKitCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWebKitCtrl_1)
+Gura_ImplementFunction(__WebKitCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
@@ -473,8 +473,8 @@ Gura_ImplementMethod(wx_WebKitCtrl, __GetScrollPos)
 Gura_ImplementUserInheritableClass(wx_WebKitCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWebKitCtrl);
-	Gura_AssignFunction(__wxWebKitCtrl_1);
+	Gura_AssignFunction(__WebKitCtrl);
+	Gura_AssignFunction(__WebKitCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_WebKitCtrl, __Create);
 	Gura_AssignMethod(wx_WebKitCtrl, __LoadURL);

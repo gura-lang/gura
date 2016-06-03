@@ -37,20 +37,20 @@ String Object_wx_AuiToolBarItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiToolBarItem, "wxAuiToolBarItem")
+Gura_DeclareFunctionAlias(__AuiToolBarItem, "AuiToolBarItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiToolBarItem));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiToolBarItem)
+Gura_ImplementFunction(__AuiToolBarItem)
 {
 	//wxAuiToolBarItem();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAuiToolBarItem_1, "wxAuiToolBarItem_1")
+Gura_DeclareFunctionAlias(__AuiToolBarItem_1, "AuiToolBarItem_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxAuiToolBarItem_1, "wxAuiToolBarItem_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiToolBarItem_1)
+Gura_ImplementFunction(__AuiToolBarItem_1)
 {
 	//int c = arg.GetNumber(0)
 	//wxAuiToolBarItem();
@@ -621,8 +621,8 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __GetAlignment)
 Gura_ImplementUserInheritableClass(wx_AuiToolBarItem)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiToolBarItem);
-	Gura_AssignFunction(__wxAuiToolBarItem_1);
+	Gura_AssignFunction(__AuiToolBarItem);
+	Gura_AssignFunction(__AuiToolBarItem_1);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiToolBarItem, __Assign);
 	Gura_AssignMethod(wx_AuiToolBarItem, __SetWindow);

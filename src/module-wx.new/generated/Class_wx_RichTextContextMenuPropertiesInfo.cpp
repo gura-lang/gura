@@ -37,14 +37,14 @@ String Object_wx_RichTextContextMenuPropertiesInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextContextMenuPropertiesInfo, "wxRichTextContextMenuPropertiesInfo")
+Gura_DeclareFunctionAlias(__RichTextContextMenuPropertiesInfo, "RichTextContextMenuPropertiesInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextContextMenuPropertiesInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextContextMenuPropertiesInfo)
+Gura_ImplementFunction(__RichTextContextMenuPropertiesInfo)
 {
 	//wxRichTextContextMenuPropertiesInfo();
 	return Value::Nil;
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetCount)
 Gura_ImplementUserInheritableClass(wx_RichTextContextMenuPropertiesInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextContextMenuPropertiesInfo);
+	Gura_AssignFunction(__RichTextContextMenuPropertiesInfo);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextContextMenuPropertiesInfo, __Init);
 	Gura_AssignMethod(wx_RichTextContextMenuPropertiesInfo, __AddItem);

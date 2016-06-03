@@ -37,14 +37,14 @@ String Object_wx_FileDropTarget::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileDropTarget, "wxFileDropTarget")
+Gura_DeclareFunctionAlias(__FileDropTarget, "FileDropTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileDropTarget));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileDropTarget)
+Gura_ImplementFunction(__FileDropTarget)
 {
 	//wxFileDropTarget();
 	return Value::Nil;
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_FileDropTarget, __OnDropFiles)
 Gura_ImplementUserInheritableClass(wx_FileDropTarget)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileDropTarget);
+	Gura_AssignFunction(__FileDropTarget);
 	// Method assignment
 	Gura_AssignMethod(wx_FileDropTarget, __OnDrop);
 	Gura_AssignMethod(wx_FileDropTarget, __OnDropFiles);

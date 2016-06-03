@@ -37,20 +37,20 @@ String Object_wx_DirFilterListCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDirFilterListCtrl, "wxDirFilterListCtrl")
+Gura_DeclareFunctionAlias(__DirFilterListCtrl, "DirFilterListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DirFilterListCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDirFilterListCtrl)
+Gura_ImplementFunction(__DirFilterListCtrl)
 {
 	//wxDirFilterListCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDirFilterListCtrl_1, "wxDirFilterListCtrl_1")
+Gura_DeclareFunctionAlias(__DirFilterListCtrl_1, "DirFilterListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxDirFilterListCtrl_1, "wxDirFilterListCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDirFilterListCtrl_1)
+Gura_ImplementFunction(__DirFilterListCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -135,8 +135,8 @@ Gura_ImplementMethod(wx_DirFilterListCtrl, __FillFilterList)
 Gura_ImplementUserInheritableClass(wx_DirFilterListCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDirFilterListCtrl);
-	Gura_AssignFunction(__wxDirFilterListCtrl_1);
+	Gura_AssignFunction(__DirFilterListCtrl);
+	Gura_AssignFunction(__DirFilterListCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_DirFilterListCtrl, __Create);
 	Gura_AssignMethod(wx_DirFilterListCtrl, __Init);

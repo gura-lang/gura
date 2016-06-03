@@ -37,7 +37,7 @@ String Object_wx_RichTextDrawingHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextDrawingHandler, "wxRichTextDrawingHandler")
+Gura_DeclareFunctionAlias(__RichTextDrawingHandler, "RichTextDrawingHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxRichTextDrawingHandler, "wxRichTextDrawingHandler"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextDrawingHandler)
+Gura_ImplementFunction(__RichTextDrawingHandler)
 {
 	//int name = arg.GetNumber(0)
 	//wxRichTextDrawingHandler();
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, __GetName)
 Gura_ImplementUserInheritableClass(wx_RichTextDrawingHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextDrawingHandler);
+	Gura_AssignFunction(__RichTextDrawingHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextDrawingHandler, __HasVirtualAttributes);
 	Gura_AssignMethod(wx_RichTextDrawingHandler, __GetVirtualAttributes);

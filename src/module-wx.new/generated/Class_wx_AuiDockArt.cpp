@@ -37,14 +37,14 @@ String Object_wx_AuiDockArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiDockArt, "wxAuiDockArt")
+Gura_DeclareFunctionAlias(__AuiDockArt, "AuiDockArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiDockArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiDockArt)
+Gura_ImplementFunction(__AuiDockArt)
 {
 	//wxAuiDockArt();
 	return Value::Nil;
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __SetMetric)
 Gura_ImplementUserInheritableClass(wx_AuiDockArt)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiDockArt);
+	Gura_AssignFunction(__AuiDockArt);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiDockArt, __DrawBackground);
 	Gura_AssignMethod(wx_AuiDockArt, __DrawBorder);

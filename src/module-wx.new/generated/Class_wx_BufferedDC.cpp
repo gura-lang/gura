@@ -37,20 +37,20 @@ String Object_wx_BufferedDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBufferedDC, "wxBufferedDC")
+Gura_DeclareFunctionAlias(__BufferedDC, "BufferedDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBufferedDC)
+Gura_ImplementFunction(__BufferedDC)
 {
 	//wxBufferedDC();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBufferedDC_1, "wxBufferedDC_1")
+Gura_DeclareFunctionAlias(__BufferedDC_1, "BufferedDC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxBufferedDC_1, "wxBufferedDC_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBufferedDC_1)
+Gura_ImplementFunction(__BufferedDC_1)
 {
 	//int dc = arg.GetNumber(0)
 	//int area = arg.GetNumber(1)
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__wxBufferedDC_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBufferedDC_2, "wxBufferedDC_2")
+Gura_DeclareFunctionAlias(__BufferedDC_2, "BufferedDC_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareFunctionAlias(__wxBufferedDC_2, "wxBufferedDC_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBufferedDC_2)
+Gura_ImplementFunction(__BufferedDC_2)
 {
 	//int dc = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
@@ -176,9 +176,9 @@ Gura_ImplementMethod(wx_BufferedDC, __GetStyle)
 Gura_ImplementUserInheritableClass(wx_BufferedDC)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBufferedDC);
-	Gura_AssignFunction(__wxBufferedDC_1);
-	Gura_AssignFunction(__wxBufferedDC_2);
+	Gura_AssignFunction(__BufferedDC);
+	Gura_AssignFunction(__BufferedDC_1);
+	Gura_AssignFunction(__BufferedDC_2);
 	// Method assignment
 	Gura_AssignMethod(wx_BufferedDC, __Init);
 	Gura_AssignMethod(wx_BufferedDC, __Init_1);

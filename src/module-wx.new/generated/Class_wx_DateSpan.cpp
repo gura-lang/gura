@@ -37,7 +37,7 @@ String Object_wx_DateSpan::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDateSpan, "wxDateSpan")
+Gura_DeclareFunctionAlias(__DateSpan, "DateSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "years", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxDateSpan, "wxDateSpan")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDateSpan)
+Gura_ImplementFunction(__DateSpan)
 {
 	//int years = arg.GetNumber(0)
 	//int months = arg.GetNumber(1)
@@ -433,7 +433,7 @@ Gura_ImplementMethod(wx_DateSpan, __Years)
 Gura_ImplementUserInheritableClass(wx_DateSpan)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDateSpan);
+	Gura_AssignFunction(__DateSpan);
 	// Method assignment
 	Gura_AssignMethod(wx_DateSpan, __Add);
 	Gura_AssignMethod(wx_DateSpan, __Add_1);

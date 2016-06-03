@@ -37,20 +37,20 @@ String Object_wx_RibbonBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRibbonBar, "wxRibbonBar")
+Gura_DeclareFunctionAlias(__RibbonBar, "RibbonBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonBar)
+Gura_ImplementFunction(__RibbonBar)
 {
 	//wxRibbonBar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRibbonBar_1, "wxRibbonBar_1")
+Gura_DeclareFunctionAlias(__RibbonBar_1, "RibbonBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxRibbonBar_1, "wxRibbonBar_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonBar_1)
+Gura_ImplementFunction(__RibbonBar_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -440,8 +440,8 @@ Gura_ImplementMethod(wx_RibbonBar, __Realize)
 Gura_ImplementUserInheritableClass(wx_RibbonBar)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRibbonBar);
-	Gura_AssignFunction(__wxRibbonBar_1);
+	Gura_AssignFunction(__RibbonBar);
+	Gura_AssignFunction(__RibbonBar_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RibbonBar, __Create);
 	Gura_AssignMethod(wx_RibbonBar, __SetTabCtrlMargins);

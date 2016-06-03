@@ -479,8 +479,9 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 	AddMethod(pathName:string, lineNo:number, strSrc:string):void = {
 		!(funcInfo = CreateFuncInfo(pathName, lineNo, strSrc)) && return
 		funcInfo.classInfo = this
-		if (this.className == funcInfo.funcNameCPP) {
+		if (funcInfo.funcNameGura == this.className) {
 			funcInfo.funcType = `Constructor
+			funcInfo.funcNameGura = this.MakeClassNameShort()
 			funcInfo.AvertFuncNameConflict(this.funcInfosOfConstructor)
 			this.funcInfosOfConstructor.add(funcInfo)
 			cntConstructors += 1
@@ -536,7 +537,7 @@ FuncInfo = struct(funcNameCPP:string, funcNameGura:string,
 	AvertFuncNameConflict(funcInfos[]:FuncInfo) = {
 		if ((funcInfos:*funcNameGura == this.funcNameGura).or()) {
 			repeat {|i|
-				funcNameGura = format('%s_%d', this.funcNameCPP, i + 1)
+				funcNameGura = format('%s_%d', this.funcNameGura, i + 1)
 				!(funcInfos:*funcNameGura == funcNameGura).or() && break
 			}
 			this.funcNameGura = funcNameGura
@@ -599,7 +600,12 @@ CreateClassInfo(pathName:string, lineNo:string, strSrc:string) = {
 }
 
 CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
-	if (m = strSrc.match(r'^(.*?)\((.*)\)\s*(const)?\s*(=\s*0)?\s*;?$')) {
+	if (m = strSrc.match(r'^(.*?)\((.*)\)\s*(const)?\s*:.+$')) {
+		funcHead = m[1].strip()
+		argList = m[2].strip()
+		constFlag = !m[3].isempty()
+		pureVirtualFlag = false
+	} elsif (m = strSrc.match(r'^(.*?)\((.*)\)\s*(const)?\s*(=\s*0)?\s*;?$')) {
 		funcHead = m[1].strip()
 		argList = m[2].strip()
 		constFlag = !m[3].isempty()
@@ -630,7 +636,7 @@ CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
 	funcInfo = FuncInfo(funcNameCPP, funcNameGura)
 	//printf('%s:%s:%s\n', identifier, typeList, refOperator)
 	if (!argList.isempty()) {
-		argList.split(',') {|arg|
+		argList.split(',') {|arg, iArg|
 			fields = arg.split('=')::strip()
 			if (fields.len() == 1) {
 				varHead = fields[0]
@@ -639,18 +645,26 @@ CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
 				varHead = fields[0]
 				initValue = fields[1]
 			}
-			if (m = varHead.match(r'^(.+?)([\s\*&]+)(~?\w+)\s*(\[\s*\])?$')) {
+			if (varHead == '...') {
+				WarningMessage(pathName, lineNo, strSrc,
+							   'variable length argument is not acceptable')
+				return
+			} elsif (m = varHead.match(r'^(.+?)([\s\*&]+)(\w+)\s*(\[\s*\])?$')) {
 				typeList = m[1]
 				refOperator = m[2].strip()
-				identifier = m[3]
+				argName = m[3]
 				brackets = m[4]
-				//
-				argName = identifier
-				funcInfo.argInfos.add(ArgInfo(argName))
+			} elsif (m = varHead.match(r'^(.+?)([\s\*&]+)$')) {
+				typeList = m[1]
+				refOperator = m[2].strip()
+				argName = format('_arg%d', iArg)
+				brackets = ''
 			} else {
-				//WarningMessage(pathName, lineNo, strSrc, 'unacceptable argument declaration')
+				WarningMessage(pathName, lineNo, strSrc,
+							   'unacceptable argument declaration: ' + varHead)
+				return
 			}
-			//printf('  %s:%s:%s:%s\n', identifier, typeList, refOperator, brackets)
+			funcInfo.argInfos.add(ArgInfo(argName))
 		}
 	}
 	funcInfo

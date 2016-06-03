@@ -37,7 +37,7 @@ String Object_wx_StringBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStringBuffer, "wxStringBuffer")
+Gura_DeclareFunctionAlias(__StringBuffer, "StringBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxStringBuffer, "wxStringBuffer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStringBuffer)
+Gura_ImplementFunction(__StringBuffer)
 {
 	//int str = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxStringBuffer)
 Gura_ImplementUserInheritableClass(wx_StringBuffer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStringBuffer);
+	Gura_AssignFunction(__StringBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_StringBuffer)

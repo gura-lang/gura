@@ -37,14 +37,14 @@ String Object_wx_TextWrapper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextWrapper, "wxTextWrapper")
+Gura_DeclareFunctionAlias(__TextWrapper, "TextWrapper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextWrapper));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextWrapper)
+Gura_ImplementFunction(__TextWrapper)
 {
 	//wxTextWrapper();
 	return Value::Nil;
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_TextWrapper, __OnNewLine)
 Gura_ImplementUserInheritableClass(wx_TextWrapper)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextWrapper);
+	Gura_AssignFunction(__TextWrapper);
 	// Method assignment
 	Gura_AssignMethod(wx_TextWrapper, __Wrap);
 	Gura_AssignMethod(wx_TextWrapper, __OnOutputLine);

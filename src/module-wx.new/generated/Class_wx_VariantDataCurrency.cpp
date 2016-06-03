@@ -37,20 +37,20 @@ String Object_wx_VariantDataCurrency::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxVariantDataCurrency, "wxVariantDataCurrency")
+Gura_DeclareFunctionAlias(__VariantDataCurrency, "VariantDataCurrency")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_VariantDataCurrency));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariantDataCurrency)
+Gura_ImplementFunction(__VariantDataCurrency)
 {
 	//wxVariantDataCurrency();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVariantDataCurrency_1, "wxVariantDataCurrency_1")
+Gura_DeclareFunctionAlias(__VariantDataCurrency_1, "VariantDataCurrency_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxVariantDataCurrency_1, "wxVariantDataCurrency_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariantDataCurrency_1)
+Gura_ImplementFunction(__VariantDataCurrency_1)
 {
 	//int value = arg.GetNumber(0)
 	//wxVariantDataCurrency();
@@ -173,8 +173,8 @@ Gura_ImplementMethod(wx_VariantDataCurrency, __GetAsAny)
 Gura_ImplementUserInheritableClass(wx_VariantDataCurrency)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxVariantDataCurrency);
-	Gura_AssignFunction(__wxVariantDataCurrency_1);
+	Gura_AssignFunction(__VariantDataCurrency);
+	Gura_AssignFunction(__VariantDataCurrency_1);
 	// Method assignment
 	Gura_AssignMethod(wx_VariantDataCurrency, __GetValue);
 	Gura_AssignMethod(wx_VariantDataCurrency, __SetValue);

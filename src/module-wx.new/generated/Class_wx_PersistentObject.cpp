@@ -37,7 +37,7 @@ String Object_wx_PersistentObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPersistentObject, "wxPersistentObject")
+Gura_DeclareFunctionAlias(__PersistentObject, "PersistentObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPersistentObject, "wxPersistentObject")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPersistentObject)
+Gura_ImplementFunction(__PersistentObject)
 {
 	//int obj = arg.GetNumber(0)
 	//wxPersistentObject();
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_PersistentObject, __RestoreValue)
 Gura_ImplementUserInheritableClass(wx_PersistentObject)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPersistentObject);
+	Gura_AssignFunction(__PersistentObject);
 	// Method assignment
 	Gura_AssignMethod(wx_PersistentObject, __Save);
 	Gura_AssignMethod(wx_PersistentObject, __Restore);

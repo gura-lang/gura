@@ -37,14 +37,14 @@ String Object_wx_LayoutConstraints::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLayoutConstraints, "wxLayoutConstraints")
+Gura_DeclareFunctionAlias(__LayoutConstraints, "LayoutConstraints")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LayoutConstraints));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLayoutConstraints)
+Gura_ImplementFunction(__LayoutConstraints)
 {
 	//wxLayoutConstraints();
 	return Value::Nil;
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_LayoutConstraints, __AreSatisfied)
 Gura_ImplementUserInheritableClass(wx_LayoutConstraints)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLayoutConstraints);
+	Gura_AssignFunction(__LayoutConstraints);
 	// Method assignment
 	Gura_AssignMethod(wx_LayoutConstraints, __SatisfyConstraints);
 	Gura_AssignMethod(wx_LayoutConstraints, __AreSatisfied);

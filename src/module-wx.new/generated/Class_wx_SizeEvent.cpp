@@ -37,7 +37,7 @@ String Object_wx_SizeEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSizeEvent, "wxSizeEvent")
+Gura_DeclareFunctionAlias(__SizeEvent, "SizeEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxSizeEvent, "wxSizeEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSizeEvent)
+Gura_ImplementFunction(__SizeEvent)
 {
 	//int sz = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_SizeEvent, __SetRect)
 Gura_ImplementUserInheritableClass(wx_SizeEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSizeEvent);
+	Gura_AssignFunction(__SizeEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_SizeEvent, __GetSize);
 	Gura_AssignMethod(wx_SizeEvent, __SetSize);

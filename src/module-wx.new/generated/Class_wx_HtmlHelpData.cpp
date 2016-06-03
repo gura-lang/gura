@@ -37,14 +37,14 @@ String Object_wx_HtmlHelpData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlHelpData, "wxHtmlHelpData")
+Gura_DeclareFunctionAlias(__HtmlHelpData, "HtmlHelpData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlHelpData)
+Gura_ImplementFunction(__HtmlHelpData)
 {
 	//wxHtmlHelpData();
 	return Value::Nil;
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, __SetTempDir)
 Gura_ImplementUserInheritableClass(wx_HtmlHelpData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlHelpData);
+	Gura_AssignFunction(__HtmlHelpData);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlHelpData, __AddBook);
 	Gura_AssignMethod(wx_HtmlHelpData, __FindPageById);

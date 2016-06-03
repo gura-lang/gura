@@ -37,20 +37,20 @@ String Object_wx_ThumbBarButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxThumbBarButton, "wxThumbBarButton")
+Gura_DeclareFunctionAlias(__ThumbBarButton, "ThumbBarButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ThumbBarButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxThumbBarButton)
+Gura_ImplementFunction(__ThumbBarButton)
 {
 	//wxThumbBarButton();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxThumbBarButton_1, "wxThumbBarButton_1")
+Gura_DeclareFunctionAlias(__ThumbBarButton_1, "ThumbBarButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxThumbBarButton_1, "wxThumbBarButton_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxThumbBarButton_1)
+Gura_ImplementFunction(__ThumbBarButton_1)
 {
 	//int id = arg.GetNumber(0)
 	//int icon = arg.GetNumber(1)
@@ -335,8 +335,8 @@ Gura_ImplementMethod(wx_ThumbBarButton, __SetInteractive)
 Gura_ImplementUserInheritableClass(wx_ThumbBarButton)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxThumbBarButton);
-	Gura_AssignFunction(__wxThumbBarButton_1);
+	Gura_AssignFunction(__ThumbBarButton);
+	Gura_AssignFunction(__ThumbBarButton_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ThumbBarButton, __Create);
 	Gura_AssignMethod(wx_ThumbBarButton, __GetID);

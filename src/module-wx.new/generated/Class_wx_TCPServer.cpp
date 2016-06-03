@@ -37,14 +37,14 @@ String Object_wx_TCPServer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTCPServer, "wxTCPServer")
+Gura_DeclareFunctionAlias(__TCPServer, "TCPServer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TCPServer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTCPServer)
+Gura_ImplementFunction(__TCPServer)
 {
 	//wxTCPServer();
 	return Value::Nil;
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_TCPServer, __OnAcceptConnection)
 Gura_ImplementUserInheritableClass(wx_TCPServer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTCPServer);
+	Gura_AssignFunction(__TCPServer);
 	// Method assignment
 	Gura_AssignMethod(wx_TCPServer, __Create);
 	Gura_AssignMethod(wx_TCPServer, __OnAcceptConnection);

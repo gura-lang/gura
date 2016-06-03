@@ -37,7 +37,7 @@ String Object_wx_ThreadHelper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxThreadHelper, "wxThreadHelper")
+Gura_DeclareFunctionAlias(__ThreadHelper, "ThreadHelper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxThreadHelper, "wxThreadHelper")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxThreadHelper)
+Gura_ImplementFunction(__ThreadHelper)
 {
 	//int kind = arg.GetNumber(0)
 	//wxThreadHelper();
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_ThreadHelper, __GetThreadKind)
 Gura_ImplementUserInheritableClass(wx_ThreadHelper)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxThreadHelper);
+	Gura_AssignFunction(__ThreadHelper);
 	// Method assignment
 	Gura_AssignMethod(wx_ThreadHelper, __Entry);
 	Gura_AssignMethod(wx_ThreadHelper, __OnDelete);

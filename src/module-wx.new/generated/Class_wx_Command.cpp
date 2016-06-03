@@ -37,7 +37,7 @@ String Object_wx_Command::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCommand, "wxCommand")
+Gura_DeclareFunctionAlias(__Command, "Command")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "canUndo", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxCommand, "wxCommand")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCommand)
+Gura_ImplementFunction(__Command)
 {
 	//int canUndo = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_Command, __Undo)
 Gura_ImplementUserInheritableClass(wx_Command)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCommand);
+	Gura_AssignFunction(__Command);
 	// Method assignment
 	Gura_AssignMethod(wx_Command, __CanUndo);
 	Gura_AssignMethod(wx_Command, __Do);

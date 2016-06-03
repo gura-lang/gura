@@ -37,20 +37,20 @@ String Object_wx_SearchCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSearchCtrl, "wxSearchCtrl")
+Gura_DeclareFunctionAlias(__SearchCtrl, "SearchCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SearchCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSearchCtrl)
+Gura_ImplementFunction(__SearchCtrl)
 {
 	//wxSearchCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSearchCtrl_1, "wxSearchCtrl_1")
+Gura_DeclareFunctionAlias(__SearchCtrl_1, "SearchCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxSearchCtrl_1, "wxSearchCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSearchCtrl_1)
+Gura_ImplementFunction(__SearchCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -229,8 +229,8 @@ Gura_ImplementMethod(wx_SearchCtrl, __GetDescriptiveText)
 Gura_ImplementUserInheritableClass(wx_SearchCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSearchCtrl);
-	Gura_AssignFunction(__wxSearchCtrl_1);
+	Gura_AssignFunction(__SearchCtrl);
+	Gura_AssignFunction(__SearchCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_SearchCtrl, __Create);
 	Gura_AssignMethod(wx_SearchCtrl, __GetMenu);

@@ -37,7 +37,7 @@ String Object_wx_Printout::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPrintout, "wxPrintout")
+Gura_DeclareFunctionAlias(__Printout, "Printout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPrintout, "wxPrintout")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPrintout)
+Gura_ImplementFunction(__Printout)
 {
 	//int title = arg.GetNumber(0)
 	//wxPrintout();
@@ -490,7 +490,7 @@ Gura_ImplementMethod(wx_Printout, __SetLogicalOrigin)
 Gura_ImplementUserInheritableClass(wx_Printout)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPrintout);
+	Gura_AssignFunction(__Printout);
 	// Method assignment
 	Gura_AssignMethod(wx_Printout, __FitThisSizeToPage);
 	Gura_AssignMethod(wx_Printout, __FitThisSizeToPageMargins);

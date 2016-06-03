@@ -37,14 +37,14 @@ String Object_wx_GridTableBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridTableBase, "wxGridTableBase")
+Gura_DeclareFunctionAlias(__GridTableBase, "GridTableBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridTableBase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridTableBase)
+Gura_ImplementFunction(__GridTableBase)
 {
 	//wxGridTableBase();
 	return Value::Nil;
@@ -698,7 +698,7 @@ Gura_ImplementMethod(wx_GridTableBase, __CanHaveAttributes)
 Gura_ImplementUserInheritableClass(wx_GridTableBase)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridTableBase);
+	Gura_AssignFunction(__GridTableBase);
 	// Method assignment
 	Gura_AssignMethod(wx_GridTableBase, __GetNumberRows);
 	Gura_AssignMethod(wx_GridTableBase, __GetNumberCols);

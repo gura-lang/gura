@@ -37,14 +37,14 @@ String Object_wx_CountingOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCountingOutputStream, "wxCountingOutputStream")
+Gura_DeclareFunctionAlias(__CountingOutputStream, "CountingOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CountingOutputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCountingOutputStream)
+Gura_ImplementFunction(__CountingOutputStream)
 {
 	//wxCountingOutputStream();
 	return Value::Nil;
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_CountingOutputStream, __GetLength)
 Gura_ImplementUserInheritableClass(wx_CountingOutputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCountingOutputStream);
+	Gura_AssignFunction(__CountingOutputStream);
 	// Method assignment
 	Gura_AssignMethod(wx_CountingOutputStream, __GetLength);
 }

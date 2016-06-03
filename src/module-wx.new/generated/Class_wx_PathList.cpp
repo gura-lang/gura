@@ -37,20 +37,20 @@ String Object_wx_PathList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPathList, "wxPathList")
+Gura_DeclareFunctionAlias(__PathList, "PathList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PathList));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPathList)
+Gura_ImplementFunction(__PathList)
 {
 	//wxPathList();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPathList_1, "wxPathList_1")
+Gura_DeclareFunctionAlias(__PathList_1, "PathList_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxPathList_1, "wxPathList_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPathList_1)
+Gura_ImplementFunction(__PathList_1)
 {
 	//int arr = arg.GetNumber(0)
 	//wxPathList();
@@ -164,8 +164,8 @@ Gura_ImplementMethod(wx_PathList, __FindValidPath)
 Gura_ImplementUserInheritableClass(wx_PathList)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPathList);
-	Gura_AssignFunction(__wxPathList_1);
+	Gura_AssignFunction(__PathList);
+	Gura_AssignFunction(__PathList_1);
 	// Method assignment
 	Gura_AssignMethod(wx_PathList, __Add);
 	Gura_AssignMethod(wx_PathList, __Add_1);

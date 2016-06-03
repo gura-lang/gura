@@ -37,20 +37,20 @@ String Object_wx_ComboCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxComboCtrl, "wxComboCtrl")
+Gura_DeclareFunctionAlias(__ComboCtrl, "ComboCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ComboCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxComboCtrl)
+Gura_ImplementFunction(__ComboCtrl)
 {
 	//wxComboCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxComboCtrl_1, "wxComboCtrl_1")
+Gura_DeclareFunctionAlias(__ComboCtrl_1, "ComboCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxComboCtrl_1, "wxComboCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxComboCtrl_1)
+Gura_ImplementFunction(__ComboCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -933,8 +933,8 @@ Gura_ImplementMethod(wx_ComboCtrl, __DoSetPopupControl)
 Gura_ImplementUserInheritableClass(wx_ComboCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxComboCtrl);
-	Gura_AssignFunction(__wxComboCtrl_1);
+	Gura_AssignFunction(__ComboCtrl);
+	Gura_AssignFunction(__ComboCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ComboCtrl, __Copy);
 	Gura_AssignMethod(wx_ComboCtrl, __Create);

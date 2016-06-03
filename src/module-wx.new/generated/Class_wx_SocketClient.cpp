@@ -37,7 +37,7 @@ String Object_wx_SocketClient::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSocketClient, "wxSocketClient")
+Gura_DeclareFunctionAlias(__SocketClient, "SocketClient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxSocketClient, "wxSocketClient")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSocketClient)
+Gura_ImplementFunction(__SocketClient)
 {
 	//int flags = arg.GetNumber(0)
 	//wxSocketClient();
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_SocketClient, __WaitOnConnect)
 Gura_ImplementUserInheritableClass(wx_SocketClient)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSocketClient);
+	Gura_AssignFunction(__SocketClient);
 	// Method assignment
 	Gura_AssignMethod(wx_SocketClient, __Connect);
 	Gura_AssignMethod(wx_SocketClient, __Connect_1);

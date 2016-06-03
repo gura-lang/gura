@@ -37,7 +37,7 @@ String Object_wx_HtmlWordWithTabsCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlWordWithTabsCell, "wxHtmlWordWithTabsCell")
+Gura_DeclareFunctionAlias(__HtmlWordWithTabsCell, "HtmlWordWithTabsCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "word", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxHtmlWordWithTabsCell, "wxHtmlWordWithTabsCell")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlWordWithTabsCell)
+Gura_ImplementFunction(__HtmlWordWithTabsCell)
 {
 	//int word = arg.GetNumber(0)
 	//int wordOrig = arg.GetNumber(1)
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__wxHtmlWordWithTabsCell)
 Gura_ImplementUserInheritableClass(wx_HtmlWordWithTabsCell)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlWordWithTabsCell);
+	Gura_AssignFunction(__HtmlWordWithTabsCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWordWithTabsCell)

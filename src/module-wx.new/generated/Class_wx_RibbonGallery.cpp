@@ -37,20 +37,20 @@ String Object_wx_RibbonGallery::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRibbonGallery, "wxRibbonGallery")
+Gura_DeclareFunctionAlias(__RibbonGallery, "RibbonGallery")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonGallery));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonGallery)
+Gura_ImplementFunction(__RibbonGallery)
 {
 	//wxRibbonGallery();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRibbonGallery_1, "wxRibbonGallery_1")
+Gura_DeclareFunctionAlias(__RibbonGallery_1, "RibbonGallery_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxRibbonGallery_1, "wxRibbonGallery_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonGallery_1)
+Gura_ImplementFunction(__RibbonGallery_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -429,8 +429,8 @@ Gura_ImplementMethod(wx_RibbonGallery, __EnsureVisible)
 Gura_ImplementUserInheritableClass(wx_RibbonGallery)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRibbonGallery);
-	Gura_AssignFunction(__wxRibbonGallery_1);
+	Gura_AssignFunction(__RibbonGallery);
+	Gura_AssignFunction(__RibbonGallery_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RibbonGallery, __Create);
 	Gura_AssignMethod(wx_RibbonGallery, __Clear);

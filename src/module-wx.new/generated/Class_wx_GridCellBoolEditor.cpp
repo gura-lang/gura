@@ -37,14 +37,14 @@ String Object_wx_GridCellBoolEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridCellBoolEditor, "wxGridCellBoolEditor")
+Gura_DeclareFunctionAlias(__GridCellBoolEditor, "GridCellBoolEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellBoolEditor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellBoolEditor)
+Gura_ImplementFunction(__GridCellBoolEditor)
 {
 	//wxGridCellBoolEditor();
 	return Value::Nil;
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_GridCellBoolEditor, __UseStringValues)
 Gura_ImplementUserInheritableClass(wx_GridCellBoolEditor)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridCellBoolEditor);
+	Gura_AssignFunction(__GridCellBoolEditor);
 	// Method assignment
 	Gura_AssignMethod(wx_GridCellBoolEditor, __IsTrueValue);
 	Gura_AssignMethod(wx_GridCellBoolEditor, __UseStringValues);

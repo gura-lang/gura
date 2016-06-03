@@ -37,14 +37,14 @@ String Object_wx_MemoryFSHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMemoryFSHandler, "wxMemoryFSHandler")
+Gura_DeclareFunctionAlias(__MemoryFSHandler, "MemoryFSHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryFSHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMemoryFSHandler)
+Gura_ImplementFunction(__MemoryFSHandler)
 {
 	//wxMemoryFSHandler();
 	return Value::Nil;
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_MemoryFSHandler, __RemoveFile)
 Gura_ImplementUserInheritableClass(wx_MemoryFSHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMemoryFSHandler);
+	Gura_AssignFunction(__MemoryFSHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_MemoryFSHandler, __AddFile);
 	Gura_AssignMethod(wx_MemoryFSHandler, __AddFile_1);

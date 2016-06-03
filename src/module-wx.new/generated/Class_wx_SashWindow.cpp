@@ -37,20 +37,20 @@ String Object_wx_SashWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSashWindow, "wxSashWindow")
+Gura_DeclareFunctionAlias(__SashWindow, "SashWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SashWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSashWindow)
+Gura_ImplementFunction(__SashWindow)
 {
 	//wxSashWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSashWindow_1, "wxSashWindow_1")
+Gura_DeclareFunctionAlias(__SashWindow_1, "SashWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxSashWindow_1, "wxSashWindow_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSashWindow_1)
+Gura_ImplementFunction(__SashWindow_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -331,8 +331,8 @@ Gura_ImplementMethod(wx_SashWindow, __SizeWindows)
 Gura_ImplementUserInheritableClass(wx_SashWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSashWindow);
-	Gura_AssignFunction(__wxSashWindow_1);
+	Gura_AssignFunction(__SashWindow);
+	Gura_AssignFunction(__SashWindow_1);
 	// Method assignment
 	Gura_AssignMethod(wx_SashWindow, __GetMaximumSizeX);
 	Gura_AssignMethod(wx_SashWindow, __GetMaximumSizeY);

@@ -37,7 +37,7 @@ String Object_wx_DataViewColumn::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewColumn, "wxDataViewColumn")
+Gura_DeclareFunctionAlias(__DataViewColumn, "DataViewColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxDataViewColumn, "wxDataViewColumn")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewColumn)
+Gura_ImplementFunction(__DataViewColumn)
 {
 	//int title = arg.GetNumber(0)
 	//int renderer = arg.GetNumber(1)
@@ -62,7 +62,7 @@ Gura_ImplementFunction(__wxDataViewColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDataViewColumn_1, "wxDataViewColumn_1")
+Gura_DeclareFunctionAlias(__DataViewColumn_1, "DataViewColumn_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__wxDataViewColumn_1, "wxDataViewColumn_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewColumn_1)
+Gura_ImplementFunction(__DataViewColumn_1)
 {
 	//int bitmap = arg.GetNumber(0)
 	//int renderer = arg.GetNumber(1)
@@ -135,8 +135,8 @@ Gura_ImplementMethod(wx_DataViewColumn, __GetRenderer)
 Gura_ImplementUserInheritableClass(wx_DataViewColumn)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewColumn);
-	Gura_AssignFunction(__wxDataViewColumn_1);
+	Gura_AssignFunction(__DataViewColumn);
+	Gura_AssignFunction(__DataViewColumn_1);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewColumn, __GetModelColumn);
 	Gura_AssignMethod(wx_DataViewColumn, __GetOwner);

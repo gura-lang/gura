@@ -37,7 +37,7 @@ String Object_wx_PreviewControlBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPreviewControlBar, "wxPreviewControlBar")
+Gura_DeclareFunctionAlias(__PreviewControlBar, "PreviewControlBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "preview", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareFunctionAlias(__wxPreviewControlBar, "wxPreviewControlBar")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPreviewControlBar)
+Gura_ImplementFunction(__PreviewControlBar)
 {
 	//int preview = arg.GetNumber(0)
 	//int buttons = arg.GetNumber(1)
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_PreviewControlBar, __SetZoomControl)
 Gura_ImplementUserInheritableClass(wx_PreviewControlBar)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPreviewControlBar);
+	Gura_AssignFunction(__PreviewControlBar);
 	// Method assignment
 	Gura_AssignMethod(wx_PreviewControlBar, __CreateButtons);
 	Gura_AssignMethod(wx_PreviewControlBar, __GetPrintPreview);

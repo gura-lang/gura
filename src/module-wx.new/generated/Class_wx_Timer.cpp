@@ -37,20 +37,20 @@ String Object_wx_Timer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTimer, "wxTimer")
+Gura_DeclareFunctionAlias(__Timer, "Timer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Timer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTimer)
+Gura_ImplementFunction(__Timer)
 {
 	//wxTimer();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTimer_1, "wxTimer_1")
+Gura_DeclareFunctionAlias(__Timer_1, "Timer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "owner", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxTimer_1, "wxTimer_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTimer_1)
+Gura_ImplementFunction(__Timer_1)
 {
 	//int owner = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -216,8 +216,8 @@ Gura_ImplementMethod(wx_Timer, __Stop)
 Gura_ImplementUserInheritableClass(wx_Timer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTimer);
-	Gura_AssignFunction(__wxTimer_1);
+	Gura_AssignFunction(__Timer);
+	Gura_AssignFunction(__Timer_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Timer, __GetId);
 	Gura_AssignMethod(wx_Timer, __GetInterval);

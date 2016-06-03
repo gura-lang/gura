@@ -37,20 +37,20 @@ String Object_wx_RearrangeList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRearrangeList, "wxRearrangeList")
+Gura_DeclareFunctionAlias(__RearrangeList, "RearrangeList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RearrangeList));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRearrangeList)
+Gura_ImplementFunction(__RearrangeList)
 {
 	//wxRearrangeList();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRearrangeList_1, "wxRearrangeList_1")
+Gura_DeclareFunctionAlias(__RearrangeList_1, "RearrangeList_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxRearrangeList_1, "wxRearrangeList_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRearrangeList_1)
+Gura_ImplementFunction(__RearrangeList_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -186,8 +186,8 @@ Gura_ImplementMethod(wx_RearrangeList, __MoveCurrentDown)
 Gura_ImplementUserInheritableClass(wx_RearrangeList)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRearrangeList);
-	Gura_AssignFunction(__wxRearrangeList_1);
+	Gura_AssignFunction(__RearrangeList);
+	Gura_AssignFunction(__RearrangeList_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RearrangeList, __Create);
 	Gura_AssignMethod(wx_RearrangeList, __GetCurrentOrder);

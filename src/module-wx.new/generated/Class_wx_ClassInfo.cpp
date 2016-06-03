@@ -37,7 +37,7 @@ String Object_wx_ClassInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxClassInfo, "wxClassInfo")
+Gura_DeclareFunctionAlias(__ClassInfo, "ClassInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "className", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__wxClassInfo, "wxClassInfo")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxClassInfo)
+Gura_ImplementFunction(__ClassInfo)
 {
 	//int className = arg.GetNumber(0)
 	//int baseClass1 = arg.GetNumber(1)
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_ClassInfo, __IsKindOf)
 Gura_ImplementUserInheritableClass(wx_ClassInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxClassInfo);
+	Gura_AssignFunction(__ClassInfo);
 	// Method assignment
 	Gura_AssignMethod(wx_ClassInfo, __CreateObject);
 	Gura_AssignMethod(wx_ClassInfo, __FindClass);

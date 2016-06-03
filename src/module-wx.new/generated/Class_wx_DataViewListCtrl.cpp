@@ -37,20 +37,20 @@ String Object_wx_DataViewListCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewListCtrl, "wxDataViewListCtrl")
+Gura_DeclareFunctionAlias(__DataViewListCtrl, "DataViewListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewListCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewListCtrl)
+Gura_ImplementFunction(__DataViewListCtrl)
 {
 	//wxDataViewListCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDataViewListCtrl_1, "wxDataViewListCtrl_1")
+Gura_DeclareFunctionAlias(__DataViewListCtrl_1, "DataViewListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxDataViewListCtrl_1, "wxDataViewListCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewListCtrl_1)
+Gura_ImplementFunction(__DataViewListCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -651,8 +651,8 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __SetItemData)
 Gura_ImplementUserInheritableClass(wx_DataViewListCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewListCtrl);
-	Gura_AssignFunction(__wxDataViewListCtrl_1);
+	Gura_AssignFunction(__DataViewListCtrl);
+	Gura_AssignFunction(__DataViewListCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewListCtrl, __Create);
 	Gura_AssignMethod(wx_DataViewListCtrl, __GetStore);

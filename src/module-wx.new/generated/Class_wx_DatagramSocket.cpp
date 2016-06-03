@@ -37,7 +37,7 @@ String Object_wx_DatagramSocket::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDatagramSocket, "wxDatagramSocket")
+Gura_DeclareFunctionAlias(__DatagramSocket, "DatagramSocket")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxDatagramSocket, "wxDatagramSocket")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDatagramSocket)
+Gura_ImplementFunction(__DatagramSocket)
 {
 	//int addr = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_DatagramSocket, __SendTo)
 Gura_ImplementUserInheritableClass(wx_DatagramSocket)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDatagramSocket);
+	Gura_AssignFunction(__DatagramSocket);
 	// Method assignment
 	Gura_AssignMethod(wx_DatagramSocket, __SendTo);
 }

@@ -37,20 +37,20 @@ String Object_wx_DataViewCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewCtrl, "wxDataViewCtrl")
+Gura_DeclareFunctionAlias(__DataViewCtrl, "DataViewCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewCtrl)
+Gura_ImplementFunction(__DataViewCtrl)
 {
 	//wxDataViewCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDataViewCtrl_1, "wxDataViewCtrl_1")
+Gura_DeclareFunctionAlias(__DataViewCtrl_1, "DataViewCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxDataViewCtrl_1, "wxDataViewCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewCtrl_1)
+Gura_ImplementFunction(__DataViewCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -1340,8 +1340,8 @@ Gura_ImplementMethod(wx_DataViewCtrl, __ToggleSortByColumn)
 Gura_ImplementUserInheritableClass(wx_DataViewCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewCtrl);
-	Gura_AssignFunction(__wxDataViewCtrl_1);
+	Gura_AssignFunction(__DataViewCtrl);
+	Gura_AssignFunction(__DataViewCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewCtrl, __AllowMultiColumnSort);
 	Gura_AssignMethod(wx_DataViewCtrl, __Create);

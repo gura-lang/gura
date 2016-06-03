@@ -37,14 +37,14 @@ String Object_wx_TreeItemData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTreeItemData, "wxTreeItemData")
+Gura_DeclareFunctionAlias(__TreeItemData, "TreeItemData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeItemData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTreeItemData)
+Gura_ImplementFunction(__TreeItemData)
 {
 	//wxTreeItemData();
 	return Value::Nil;
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_TreeItemData, __SetId)
 Gura_ImplementUserInheritableClass(wx_TreeItemData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTreeItemData);
+	Gura_AssignFunction(__TreeItemData);
 	// Method assignment
 	Gura_AssignMethod(wx_TreeItemData, __GetId);
 	Gura_AssignMethod(wx_TreeItemData, __SetId);

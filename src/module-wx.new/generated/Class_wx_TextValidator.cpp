@@ -37,7 +37,7 @@ String Object_wx_TextValidator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextValidator, "wxTextValidator")
+Gura_DeclareFunctionAlias(__TextValidator, "TextValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxTextValidator, "wxTextValidator")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextValidator)
+Gura_ImplementFunction(__TextValidator)
 {
 	//int validator = arg.GetNumber(0)
 	//wxTextValidator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTextValidator_1, "wxTextValidator_1")
+Gura_DeclareFunctionAlias(__TextValidator_1, "TextValidator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxTextValidator_1, "wxTextValidator_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextValidator_1)
+Gura_ImplementFunction(__TextValidator_1)
 {
 	//int style = arg.GetNumber(0)
 	//int valPtr = arg.GetNumber(1)
@@ -321,8 +321,8 @@ Gura_ImplementMethod(wx_TextValidator, __IsValid)
 Gura_ImplementUserInheritableClass(wx_TextValidator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextValidator);
-	Gura_AssignFunction(__wxTextValidator_1);
+	Gura_AssignFunction(__TextValidator);
+	Gura_AssignFunction(__TextValidator_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TextValidator, __Clone);
 	Gura_AssignMethod(wx_TextValidator, __GetExcludes);

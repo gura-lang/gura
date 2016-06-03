@@ -37,7 +37,7 @@ String Object_wx_FileHistory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileHistory, "wxFileHistory")
+Gura_DeclareFunctionAlias(__FileHistory, "FileHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maxFiles", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxFileHistory, "wxFileHistory")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileHistory)
+Gura_ImplementFunction(__FileHistory)
 {
 	//int maxFiles = arg.GetNumber(0)
 	//int idBase = arg.GetNumber(1)
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_FileHistory, __UseMenu)
 Gura_ImplementUserInheritableClass(wx_FileHistory)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileHistory);
+	Gura_AssignFunction(__FileHistory);
 	// Method assignment
 	Gura_AssignMethod(wx_FileHistory, __AddFileToHistory);
 	Gura_AssignMethod(wx_FileHistory, __AddFilesToMenu);

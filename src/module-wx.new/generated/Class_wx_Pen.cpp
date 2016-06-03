@@ -37,20 +37,20 @@ String Object_wx_Pen::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPen, "wxPen")
+Gura_DeclareFunctionAlias(__Pen, "Pen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Pen));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPen)
+Gura_ImplementFunction(__Pen)
 {
 	//wxPen();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPen_1, "wxPen_1")
+Gura_DeclareFunctionAlias(__Pen_1, "Pen_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxPen_1, "wxPen_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPen_1)
+Gura_ImplementFunction(__Pen_1)
 {
 	//int colour = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__wxPen_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPen_2, "wxPen_2")
+Gura_DeclareFunctionAlias(__Pen_2, "Pen_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stipple", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__wxPen_2, "wxPen_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPen_2)
+Gura_ImplementFunction(__Pen_2)
 {
 	//int stipple = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
@@ -86,7 +86,7 @@ Gura_ImplementFunction(__wxPen_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPen_3, "wxPen_3")
+Gura_DeclareFunctionAlias(__Pen_3, "Pen_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
@@ -94,7 +94,7 @@ Gura_DeclareFunctionAlias(__wxPen_3, "wxPen_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPen_3)
+Gura_ImplementFunction(__Pen_3)
 {
 	//int pen = arg.GetNumber(0)
 	//wxPen();
@@ -368,10 +368,10 @@ Gura_ImplementMethod(wx_Pen, __SetWidth)
 Gura_ImplementUserInheritableClass(wx_Pen)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPen);
-	Gura_AssignFunction(__wxPen_1);
-	Gura_AssignFunction(__wxPen_2);
-	Gura_AssignFunction(__wxPen_3);
+	Gura_AssignFunction(__Pen);
+	Gura_AssignFunction(__Pen_1);
+	Gura_AssignFunction(__Pen_2);
+	Gura_AssignFunction(__Pen_3);
 	// Method assignment
 	Gura_AssignMethod(wx_Pen, __GetCap);
 	Gura_AssignMethod(wx_Pen, __GetColour);

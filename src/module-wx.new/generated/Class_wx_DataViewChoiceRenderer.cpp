@@ -37,7 +37,7 @@ String Object_wx_DataViewChoiceRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewChoiceRenderer, "wxDataViewChoiceRenderer")
+Gura_DeclareFunctionAlias(__DataViewChoiceRenderer, "DataViewChoiceRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxDataViewChoiceRenderer, "wxDataViewChoiceRenderer"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewChoiceRenderer)
+Gura_ImplementFunction(__DataViewChoiceRenderer)
 {
 	//int choices = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_DataViewChoiceRenderer, __GetChoices)
 Gura_ImplementUserInheritableClass(wx_DataViewChoiceRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewChoiceRenderer);
+	Gura_AssignFunction(__DataViewChoiceRenderer);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewChoiceRenderer, __GetChoice);
 	Gura_AssignMethod(wx_DataViewChoiceRenderer, __GetChoices);

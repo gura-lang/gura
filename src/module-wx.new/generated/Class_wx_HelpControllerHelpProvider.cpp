@@ -37,7 +37,7 @@ String Object_wx_HelpControllerHelpProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHelpControllerHelpProvider, "wxHelpControllerHelpProvider")
+Gura_DeclareFunctionAlias(__HelpControllerHelpProvider, "HelpControllerHelpProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hc", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxHelpControllerHelpProvider, "wxHelpControllerHelpP
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHelpControllerHelpProvider)
+Gura_ImplementFunction(__HelpControllerHelpProvider)
 {
 	//int hc = arg.GetNumber(0)
 	//wxHelpControllerHelpProvider();
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_HelpControllerHelpProvider, __SetHelpController)
 Gura_ImplementUserInheritableClass(wx_HelpControllerHelpProvider)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHelpControllerHelpProvider);
+	Gura_AssignFunction(__HelpControllerHelpProvider);
 	// Method assignment
 	Gura_AssignMethod(wx_HelpControllerHelpProvider, __GetHelpController);
 	Gura_AssignMethod(wx_HelpControllerHelpProvider, __SetHelpController);

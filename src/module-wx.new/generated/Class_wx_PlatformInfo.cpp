@@ -37,20 +37,20 @@ String Object_wx_PlatformInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPlatformInfo, "wxPlatformInfo")
+Gura_DeclareFunctionAlias(__PlatformInfo, "PlatformInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PlatformInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPlatformInfo)
+Gura_ImplementFunction(__PlatformInfo)
 {
 	//wxPlatformInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPlatformInfo_1, "wxPlatformInfo_1")
+Gura_DeclareFunctionAlias(__PlatformInfo_1, "PlatformInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxPlatformInfo_1, "wxPlatformInfo_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPlatformInfo_1)
+Gura_ImplementFunction(__PlatformInfo_1)
 {
 	//int pid = arg.GetNumber(0)
 	//int tkMajor = arg.GetNumber(1)
@@ -688,8 +688,8 @@ Gura_ImplementMethod(wx_PlatformInfo, __SetLinuxDistributionInfo)
 Gura_ImplementUserInheritableClass(wx_PlatformInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPlatformInfo);
-	Gura_AssignFunction(__wxPlatformInfo_1);
+	Gura_AssignFunction(__PlatformInfo);
+	Gura_AssignFunction(__PlatformInfo_1);
 	// Method assignment
 	Gura_AssignMethod(wx_PlatformInfo, __CheckOSVersion);
 	Gura_AssignMethod(wx_PlatformInfo, __CheckToolkitVersion);

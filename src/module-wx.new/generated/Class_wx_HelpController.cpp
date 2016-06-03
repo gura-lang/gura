@@ -37,7 +37,7 @@ String Object_wx_HelpController::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHelpController, "wxHelpController")
+Gura_DeclareFunctionAlias(__HelpController, "HelpController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxHelpController, "wxHelpController")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHelpController)
+Gura_ImplementFunction(__HelpController)
 {
 	//int parentWindow = arg.GetNumber(0)
 	//wxHelpController();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxHelpController)
 Gura_ImplementUserInheritableClass(wx_HelpController)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHelpController);
+	Gura_AssignFunction(__HelpController);
 }
 
 Gura_ImplementDescendantCreator(wx_HelpController)

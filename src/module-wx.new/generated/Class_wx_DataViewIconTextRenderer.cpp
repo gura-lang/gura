@@ -37,7 +37,7 @@ String Object_wx_DataViewIconTextRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewIconTextRenderer, "wxDataViewIconTextRenderer")
+Gura_DeclareFunctionAlias(__DataViewIconTextRenderer, "DataViewIconTextRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxDataViewIconTextRenderer, "wxDataViewIconTextRende
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewIconTextRenderer)
+Gura_ImplementFunction(__DataViewIconTextRenderer)
 {
 	//int varianttype = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_DataViewIconTextRenderer, __GetDefaultType)
 Gura_ImplementUserInheritableClass(wx_DataViewIconTextRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewIconTextRenderer);
+	Gura_AssignFunction(__DataViewIconTextRenderer);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewIconTextRenderer, __GetDefaultType);
 }

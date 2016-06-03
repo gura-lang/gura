@@ -37,7 +37,7 @@ String Object_wx_WizardEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWizardEvent, "wxWizardEvent")
+Gura_DeclareFunctionAlias(__WizardEvent, "WizardEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxWizardEvent, "wxWizardEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWizardEvent)
+Gura_ImplementFunction(__WizardEvent)
 {
 	//int type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_WizardEvent, __GetPage)
 Gura_ImplementUserInheritableClass(wx_WizardEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWizardEvent);
+	Gura_AssignFunction(__WizardEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_WizardEvent, __GetDirection);
 	Gura_AssignMethod(wx_WizardEvent, __GetPage);

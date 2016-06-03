@@ -37,20 +37,20 @@ String Object_wx_ToolBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxToolBar, "wxToolBar")
+Gura_DeclareFunctionAlias(__ToolBar, "ToolBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ToolBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxToolBar)
+Gura_ImplementFunction(__ToolBar)
 {
 	//wxToolBar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxToolBar_1, "wxToolBar_1")
+Gura_DeclareFunctionAlias(__ToolBar_1, "ToolBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxToolBar_1, "wxToolBar_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxToolBar_1)
+Gura_ImplementFunction(__ToolBar_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -969,8 +969,8 @@ Gura_ImplementMethod(wx_ToolBar, __CreateSeparator)
 Gura_ImplementUserInheritableClass(wx_ToolBar)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxToolBar);
-	Gura_AssignFunction(__wxToolBar_1);
+	Gura_AssignFunction(__ToolBar);
+	Gura_AssignFunction(__ToolBar_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ToolBar, __AddCheckTool);
 	Gura_AssignMethod(wx_ToolBar, __AddControl);

@@ -37,7 +37,7 @@ String Object_wx_StatusBarPane::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStatusBarPane, "wxStatusBarPane")
+Gura_DeclareFunctionAlias(__StatusBarPane, "StatusBarPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxStatusBarPane, "wxStatusBarPane")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStatusBarPane)
+Gura_ImplementFunction(__StatusBarPane)
 {
 	//int style = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_StatusBarPane, __GetText)
 Gura_ImplementUserInheritableClass(wx_StatusBarPane)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStatusBarPane);
+	Gura_AssignFunction(__StatusBarPane);
 	// Method assignment
 	Gura_AssignMethod(wx_StatusBarPane, __GetWidth);
 	Gura_AssignMethod(wx_StatusBarPane, __GetStyle);

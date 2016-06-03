@@ -37,7 +37,7 @@ String Object_wx_Event::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxEvent, "wxEvent")
+Gura_DeclareFunctionAlias(__Event, "Event")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxEvent, "wxEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxEvent)
+Gura_ImplementFunction(__Event)
 {
 	//int id = arg.GetNumber(0)
 	//int eventType = arg.GetNumber(1)
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_Event, __StopPropagation)
 Gura_ImplementUserInheritableClass(wx_Event)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxEvent);
+	Gura_AssignFunction(__Event);
 	// Method assignment
 	Gura_AssignMethod(wx_Event, __Clone);
 	Gura_AssignMethod(wx_Event, __GetEventObject);

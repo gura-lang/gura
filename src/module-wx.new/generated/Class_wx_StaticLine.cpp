@@ -37,20 +37,20 @@ String Object_wx_StaticLine::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStaticLine, "wxStaticLine")
+Gura_DeclareFunctionAlias(__StaticLine, "StaticLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StaticLine));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStaticLine)
+Gura_ImplementFunction(__StaticLine)
 {
 	//wxStaticLine();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxStaticLine_1, "wxStaticLine_1")
+Gura_DeclareFunctionAlias(__StaticLine_1, "StaticLine_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxStaticLine_1, "wxStaticLine_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStaticLine_1)
+Gura_ImplementFunction(__StaticLine_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -135,8 +135,8 @@ Gura_ImplementMethod(wx_StaticLine, __IsVertical)
 Gura_ImplementUserInheritableClass(wx_StaticLine)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStaticLine);
-	Gura_AssignFunction(__wxStaticLine_1);
+	Gura_AssignFunction(__StaticLine);
+	Gura_AssignFunction(__StaticLine_1);
 	// Method assignment
 	Gura_AssignMethod(wx_StaticLine, __Create);
 	Gura_AssignMethod(wx_StaticLine, __GetDefaultSize);

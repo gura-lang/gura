@@ -37,7 +37,7 @@ String Object_wx_RichTextFileHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextFileHandler, "wxRichTextFileHandler")
+Gura_DeclareFunctionAlias(__RichTextFileHandler, "RichTextFileHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxRichTextFileHandler, "wxRichTextFileHandler")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextFileHandler)
+Gura_ImplementFunction(__RichTextFileHandler)
 {
 	//int name = arg.GetNumber(0)
 	//int ext = arg.GetNumber(1)
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __DoSaveFile)
 Gura_ImplementUserInheritableClass(wx_RichTextFileHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextFileHandler);
+	Gura_AssignFunction(__RichTextFileHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextFileHandler, __LoadFile);
 	Gura_AssignMethod(wx_RichTextFileHandler, __SaveFile);

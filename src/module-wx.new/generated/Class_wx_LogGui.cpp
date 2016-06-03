@@ -37,14 +37,14 @@ String Object_wx_LogGui::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLogGui, "wxLogGui")
+Gura_DeclareFunctionAlias(__LogGui, "LogGui")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogGui));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLogGui)
+Gura_ImplementFunction(__LogGui)
 {
 	//wxLogGui();
 	return Value::Nil;
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_LogGui, __DoShowMultipleLogMessages)
 Gura_ImplementUserInheritableClass(wx_LogGui)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLogGui);
+	Gura_AssignFunction(__LogGui);
 	// Method assignment
 	Gura_AssignMethod(wx_LogGui, __Flush);
 	Gura_AssignMethod(wx_LogGui, __GetTitle);

@@ -37,14 +37,14 @@ String Object_wx_PGEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPGEditor, "wxPGEditor")
+Gura_DeclareFunctionAlias(__PGEditor, "PGEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PGEditor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPGEditor)
+Gura_ImplementFunction(__PGEditor)
 {
 	//wxPGEditor();
 	return Value::Nil;
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_PGEditor, __CanContainCustomImage)
 Gura_ImplementUserInheritableClass(wx_PGEditor)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPGEditor);
+	Gura_AssignFunction(__PGEditor);
 	// Method assignment
 	Gura_AssignMethod(wx_PGEditor, __GetName);
 	Gura_AssignMethod(wx_PGEditor, __CreateControls);

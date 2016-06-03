@@ -37,14 +37,14 @@ String Object_wx_NavigationEnabled::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxNavigationEnabled, "wxNavigationEnabled")
+Gura_DeclareFunctionAlias(__NavigationEnabled, "NavigationEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_NavigationEnabled));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxNavigationEnabled)
+Gura_ImplementFunction(__NavigationEnabled)
 {
 	//wxNavigationEnabled();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxNavigationEnabled)
 Gura_ImplementUserInheritableClass(wx_NavigationEnabled)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxNavigationEnabled);
+	Gura_AssignFunction(__NavigationEnabled);
 }
 
 Gura_ImplementDescendantCreator(wx_NavigationEnabled)

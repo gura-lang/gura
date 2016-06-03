@@ -37,7 +37,7 @@ String Object_wx_WrapSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWrapSizer, "wxWrapSizer")
+Gura_DeclareFunctionAlias(__WrapSizer, "WrapSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxWrapSizer, "wxWrapSizer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWrapSizer)
+Gura_ImplementFunction(__WrapSizer)
 {
 	//int orient = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_WrapSizer, __IsSpaceItem)
 Gura_ImplementUserInheritableClass(wx_WrapSizer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWrapSizer);
+	Gura_AssignFunction(__WrapSizer);
 	// Method assignment
 	Gura_AssignMethod(wx_WrapSizer, __InformFirstDirection);
 	Gura_AssignMethod(wx_WrapSizer, __RecalcSizes);

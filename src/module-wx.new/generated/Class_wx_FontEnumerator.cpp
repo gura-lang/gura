@@ -37,14 +37,14 @@ String Object_wx_FontEnumerator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFontEnumerator, "wxFontEnumerator")
+Gura_DeclareFunctionAlias(__FontEnumerator, "FontEnumerator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontEnumerator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFontEnumerator)
+Gura_ImplementFunction(__FontEnumerator)
 {
 	//wxFontEnumerator();
 	return Value::Nil;
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_FontEnumerator, __OnFontEncoding)
 Gura_ImplementUserInheritableClass(wx_FontEnumerator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFontEnumerator);
+	Gura_AssignFunction(__FontEnumerator);
 	// Method assignment
 	Gura_AssignMethod(wx_FontEnumerator, __EnumerateEncodings);
 	Gura_AssignMethod(wx_FontEnumerator, __EnumerateFacenames);

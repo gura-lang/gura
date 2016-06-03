@@ -37,14 +37,14 @@ String Object_wx_HtmlWinTagHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlWinTagHandler, "wxHtmlWinTagHandler")
+Gura_DeclareFunctionAlias(__HtmlWinTagHandler, "HtmlWinTagHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWinTagHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlWinTagHandler)
+Gura_ImplementFunction(__HtmlWinTagHandler)
 {
 	//wxHtmlWinTagHandler();
 	return Value::Nil;
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_HtmlWinTagHandler, __SetParser)
 Gura_ImplementUserInheritableClass(wx_HtmlWinTagHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlWinTagHandler);
+	Gura_AssignFunction(__HtmlWinTagHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlWinTagHandler, __SetParser);
 }

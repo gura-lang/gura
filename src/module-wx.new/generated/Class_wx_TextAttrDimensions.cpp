@@ -37,14 +37,14 @@ String Object_wx_TextAttrDimensions::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextAttrDimensions, "wxTextAttrDimensions")
+Gura_DeclareFunctionAlias(__TextAttrDimensions, "TextAttrDimensions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttrDimensions));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextAttrDimensions)
+Gura_ImplementFunction(__TextAttrDimensions)
 {
 	//wxTextAttrDimensions();
 	return Value::Nil;
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_TextAttrDimensions, __IsValid)
 Gura_ImplementUserInheritableClass(wx_TextAttrDimensions)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextAttrDimensions);
+	Gura_AssignFunction(__TextAttrDimensions);
 	// Method assignment
 	Gura_AssignMethod(wx_TextAttrDimensions, __Reset);
 	Gura_AssignMethod(wx_TextAttrDimensions, __EqPartial);

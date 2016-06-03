@@ -37,14 +37,14 @@ String Object_wx_FontData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFontData, "wxFontData")
+Gura_DeclareFunctionAlias(__FontData, "FontData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFontData)
+Gura_ImplementFunction(__FontData)
 {
 	//wxFontData();
 	return Value::Nil;
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_FontData, __SetShowHelp)
 Gura_ImplementUserInheritableClass(wx_FontData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFontData);
+	Gura_AssignFunction(__FontData);
 	// Method assignment
 	Gura_AssignMethod(wx_FontData, __EnableEffects);
 	Gura_AssignMethod(wx_FontData, __GetAllowSymbols);

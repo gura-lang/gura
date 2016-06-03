@@ -37,14 +37,14 @@ String Object_wx_PenList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPenList, "wxPenList")
+Gura_DeclareFunctionAlias(__PenList, "PenList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PenList));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPenList)
+Gura_ImplementFunction(__PenList)
 {
 	//wxPenList();
 	return Value::Nil;
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_PenList, __FindOrCreatePen)
 Gura_ImplementUserInheritableClass(wx_PenList)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPenList);
+	Gura_AssignFunction(__PenList);
 	// Method assignment
 	Gura_AssignMethod(wx_PenList, __FindOrCreatePen);
 }

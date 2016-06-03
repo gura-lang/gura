@@ -37,7 +37,7 @@ String Object_wx_TextAttrDimensionConverter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextAttrDimensionConverter, "wxTextAttrDimensionConverter")
+Gura_DeclareFunctionAlias(__TextAttrDimensionConverter, "TextAttrDimensionConverter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxTextAttrDimensionConverter, "wxTextAttrDimensionCo
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextAttrDimensionConverter)
+Gura_ImplementFunction(__TextAttrDimensionConverter)
 {
 	//int dc = arg.GetNumber(0)
 	//int scale = arg.GetNumber(1)
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxTextAttrDimensionConverter)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTextAttrDimensionConverter_1, "wxTextAttrDimensionConverter_1")
+Gura_DeclareFunctionAlias(__TextAttrDimensionConverter_1, "TextAttrDimensionConverter_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ppi", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxTextAttrDimensionConverter_1, "wxTextAttrDimension
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextAttrDimensionConverter_1)
+Gura_ImplementFunction(__TextAttrDimensionConverter_1)
 {
 	//int ppi = arg.GetNumber(0)
 	//int scale = arg.GetNumber(1)
@@ -146,8 +146,8 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, __ConvertPixelsToTenthsMM)
 Gura_ImplementUserInheritableClass(wx_TextAttrDimensionConverter)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextAttrDimensionConverter);
-	Gura_AssignFunction(__wxTextAttrDimensionConverter_1);
+	Gura_AssignFunction(__TextAttrDimensionConverter);
+	Gura_AssignFunction(__TextAttrDimensionConverter_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TextAttrDimensionConverter, __GetPixels);
 	Gura_AssignMethod(wx_TextAttrDimensionConverter, __GetTenthsMM);

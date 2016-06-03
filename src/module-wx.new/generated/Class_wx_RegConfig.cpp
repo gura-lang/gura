@@ -37,7 +37,7 @@ String Object_wx_RegConfig::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRegConfig, "wxRegConfig")
+Gura_DeclareFunctionAlias(__RegConfig, "RegConfig")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__wxRegConfig, "wxRegConfig")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRegConfig)
+Gura_ImplementFunction(__RegConfig)
 {
 	//int appName = arg.GetNumber(0)
 	//int vendorName = arg.GetNumber(1)
@@ -66,7 +66,7 @@ Gura_ImplementFunction(__wxRegConfig)
 Gura_ImplementUserInheritableClass(wx_RegConfig)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRegConfig);
+	Gura_AssignFunction(__RegConfig);
 }
 
 Gura_ImplementDescendantCreator(wx_RegConfig)

@@ -37,7 +37,7 @@ String Object_wx_DataViewCustomRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewCustomRenderer, "wxDataViewCustomRenderer")
+Gura_DeclareFunctionAlias(__DataViewCustomRenderer, "DataViewCustomRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxDataViewCustomRenderer, "wxDataViewCustomRenderer"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewCustomRenderer)
+Gura_ImplementFunction(__DataViewCustomRenderer)
 {
 	//int varianttype = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, __GetTextExtent)
 Gura_ImplementUserInheritableClass(wx_DataViewCustomRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewCustomRenderer);
+	Gura_AssignFunction(__DataViewCustomRenderer);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewCustomRenderer, __GetDefaultType);
 	Gura_AssignMethod(wx_DataViewCustomRenderer, __ActivateCell);

@@ -37,14 +37,14 @@ String Object_wx_ArchiveFSHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxArchiveFSHandler, "wxArchiveFSHandler")
+Gura_DeclareFunctionAlias(__ArchiveFSHandler, "ArchiveFSHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ArchiveFSHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxArchiveFSHandler)
+Gura_ImplementFunction(__ArchiveFSHandler)
 {
 	//wxArchiveFSHandler();
 	return Value::Nil;
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_ArchiveFSHandler, __Cleanup)
 Gura_ImplementUserInheritableClass(wx_ArchiveFSHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxArchiveFSHandler);
+	Gura_AssignFunction(__ArchiveFSHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_ArchiveFSHandler, __Cleanup);
 }

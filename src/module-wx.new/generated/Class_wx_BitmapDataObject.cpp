@@ -37,7 +37,7 @@ String Object_wx_BitmapDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBitmapDataObject, "wxBitmapDataObject")
+Gura_DeclareFunctionAlias(__BitmapDataObject, "BitmapDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxBitmapDataObject, "wxBitmapDataObject")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBitmapDataObject)
+Gura_ImplementFunction(__BitmapDataObject)
 {
 	//int bitmap = arg.GetNumber(0)
 	//wxBitmapDataObject();
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_BitmapDataObject, __SetBitmap)
 Gura_ImplementUserInheritableClass(wx_BitmapDataObject)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBitmapDataObject);
+	Gura_AssignFunction(__BitmapDataObject);
 	// Method assignment
 	Gura_AssignMethod(wx_BitmapDataObject, __GetBitmap);
 	Gura_AssignMethod(wx_BitmapDataObject, __SetBitmap);

@@ -37,14 +37,14 @@ String Object_wx_AffineMatrix2DBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAffineMatrix2DBase, "wxAffineMatrix2DBase")
+Gura_DeclareFunctionAlias(__AffineMatrix2DBase, "AffineMatrix2DBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AffineMatrix2DBase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAffineMatrix2DBase)
+Gura_ImplementFunction(__AffineMatrix2DBase)
 {
 	//wxAffineMatrix2DBase();
 	return Value::Nil;
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __TransformDistance_1)
 Gura_ImplementUserInheritableClass(wx_AffineMatrix2DBase)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAffineMatrix2DBase);
+	Gura_AssignFunction(__AffineMatrix2DBase);
 	// Method assignment
 	Gura_AssignMethod(wx_AffineMatrix2DBase, __Set);
 	Gura_AssignMethod(wx_AffineMatrix2DBase, __Get);

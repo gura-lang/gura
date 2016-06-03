@@ -37,20 +37,20 @@ String Object_wx_AuiPaneInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiPaneInfo, "wxAuiPaneInfo")
+Gura_DeclareFunctionAlias(__AuiPaneInfo, "AuiPaneInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiPaneInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiPaneInfo)
+Gura_ImplementFunction(__AuiPaneInfo)
 {
 	//wxAuiPaneInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAuiPaneInfo_1, "wxAuiPaneInfo_1")
+Gura_DeclareFunctionAlias(__AuiPaneInfo_1, "AuiPaneInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxAuiPaneInfo_1, "wxAuiPaneInfo_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiPaneInfo_1)
+Gura_ImplementFunction(__AuiPaneInfo_1)
 {
 	//int c = arg.GetNumber(0)
 	//wxAuiPaneInfo();
@@ -1154,8 +1154,8 @@ Gura_ImplementMethod(wx_AuiPaneInfo, __Window)
 Gura_ImplementUserInheritableClass(wx_AuiPaneInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiPaneInfo);
-	Gura_AssignFunction(__wxAuiPaneInfo_1);
+	Gura_AssignFunction(__AuiPaneInfo);
+	Gura_AssignFunction(__AuiPaneInfo_1);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiPaneInfo, __BestSize);
 	Gura_AssignMethod(wx_AuiPaneInfo, __BestSize_1);

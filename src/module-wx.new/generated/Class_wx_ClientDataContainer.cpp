@@ -37,14 +37,14 @@ String Object_wx_ClientDataContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxClientDataContainer, "wxClientDataContainer")
+Gura_DeclareFunctionAlias(__ClientDataContainer, "ClientDataContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ClientDataContainer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxClientDataContainer)
+Gura_ImplementFunction(__ClientDataContainer)
 {
 	//wxClientDataContainer();
 	return Value::Nil;
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_ClientDataContainer, __SetClientObject)
 Gura_ImplementUserInheritableClass(wx_ClientDataContainer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxClientDataContainer);
+	Gura_AssignFunction(__ClientDataContainer);
 	// Method assignment
 	Gura_AssignMethod(wx_ClientDataContainer, __GetClientData);
 	Gura_AssignMethod(wx_ClientDataContainer, __GetClientObject);

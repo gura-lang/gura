@@ -37,14 +37,14 @@ String Object_wx_HtmlSelection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlSelection, "wxHtmlSelection")
+Gura_DeclareFunctionAlias(__HtmlSelection, "HtmlSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlSelection));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlSelection)
+Gura_ImplementFunction(__HtmlSelection)
 {
 	//wxHtmlSelection();
 	return Value::Nil;
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_HtmlSelection, __IsEmpty)
 Gura_ImplementUserInheritableClass(wx_HtmlSelection)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlSelection);
+	Gura_AssignFunction(__HtmlSelection);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlSelection, __Set);
 	Gura_AssignMethod(wx_HtmlSelection, __Set_1);

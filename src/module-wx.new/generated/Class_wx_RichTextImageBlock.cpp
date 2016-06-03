@@ -37,20 +37,20 @@ String Object_wx_RichTextImageBlock::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextImageBlock, "wxRichTextImageBlock")
+Gura_DeclareFunctionAlias(__RichTextImageBlock, "RichTextImageBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextImageBlock));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextImageBlock)
+Gura_ImplementFunction(__RichTextImageBlock)
 {
 	//wxRichTextImageBlock();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextImageBlock_1, "wxRichTextImageBlock_1")
+Gura_DeclareFunctionAlias(__RichTextImageBlock_1, "RichTextImageBlock_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxRichTextImageBlock_1, "wxRichTextImageBlock_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextImageBlock_1)
+Gura_ImplementFunction(__RichTextImageBlock_1)
 {
 	//int block = arg.GetNumber(0)
 	//wxRichTextImageBlock();
@@ -448,8 +448,8 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __WriteBlock_1)
 Gura_ImplementUserInheritableClass(wx_RichTextImageBlock)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextImageBlock);
-	Gura_AssignFunction(__wxRichTextImageBlock_1);
+	Gura_AssignFunction(__RichTextImageBlock);
+	Gura_AssignFunction(__RichTextImageBlock_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextImageBlock, __Init);
 	Gura_AssignMethod(wx_RichTextImageBlock, __Clear);

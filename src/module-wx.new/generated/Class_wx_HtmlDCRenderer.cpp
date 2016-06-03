@@ -37,14 +37,14 @@ String Object_wx_HtmlDCRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlDCRenderer, "wxHtmlDCRenderer")
+Gura_DeclareFunctionAlias(__HtmlDCRenderer, "HtmlDCRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlDCRenderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlDCRenderer)
+Gura_ImplementFunction(__HtmlDCRenderer)
 {
 	//wxHtmlDCRenderer();
 	return Value::Nil;
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetSize)
 Gura_ImplementUserInheritableClass(wx_HtmlDCRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlDCRenderer);
+	Gura_AssignFunction(__HtmlDCRenderer);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlDCRenderer, __GetTotalWidth);
 	Gura_AssignMethod(wx_HtmlDCRenderer, __GetTotalHeight);

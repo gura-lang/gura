@@ -37,20 +37,20 @@ String Object_wx_DocParentFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDocParentFrame, "wxDocParentFrame")
+Gura_DeclareFunctionAlias(__DocParentFrame, "DocParentFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DocParentFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDocParentFrame)
+Gura_ImplementFunction(__DocParentFrame)
 {
 	//wxDocParentFrame();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDocParentFrame_1, "wxDocParentFrame_1")
+Gura_DeclareFunctionAlias(__DocParentFrame_1, "DocParentFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxDocParentFrame_1, "wxDocParentFrame_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDocParentFrame_1)
+Gura_ImplementFunction(__DocParentFrame_1)
 {
 	//int manager = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
@@ -130,8 +130,8 @@ Gura_ImplementMethod(wx_DocParentFrame, __GetDocumentManager)
 Gura_ImplementUserInheritableClass(wx_DocParentFrame)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDocParentFrame);
-	Gura_AssignFunction(__wxDocParentFrame_1);
+	Gura_AssignFunction(__DocParentFrame);
+	Gura_AssignFunction(__DocParentFrame_1);
 	// Method assignment
 	Gura_AssignMethod(wx_DocParentFrame, __Create);
 	Gura_AssignMethod(wx_DocParentFrame, __GetDocumentManager);

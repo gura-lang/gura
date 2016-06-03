@@ -37,20 +37,20 @@ String Object_wx_HyperlinkCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHyperlinkCtrl, "wxHyperlinkCtrl")
+Gura_DeclareFunctionAlias(__HyperlinkCtrl, "HyperlinkCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HyperlinkCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHyperlinkCtrl)
+Gura_ImplementFunction(__HyperlinkCtrl)
 {
 	//wxHyperlinkCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxHyperlinkCtrl_1, "wxHyperlinkCtrl_1")
+Gura_DeclareFunctionAlias(__HyperlinkCtrl_1, "HyperlinkCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxHyperlinkCtrl_1, "wxHyperlinkCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHyperlinkCtrl_1)
+Gura_ImplementFunction(__HyperlinkCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -257,8 +257,8 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, __SetVisitedColour)
 Gura_ImplementUserInheritableClass(wx_HyperlinkCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHyperlinkCtrl);
-	Gura_AssignFunction(__wxHyperlinkCtrl_1);
+	Gura_AssignFunction(__HyperlinkCtrl);
+	Gura_AssignFunction(__HyperlinkCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_HyperlinkCtrl, __Create);
 	Gura_AssignMethod(wx_HyperlinkCtrl, __GetHoverColour);

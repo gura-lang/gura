@@ -37,20 +37,20 @@ String Object_wx_Panel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPanel, "wxPanel")
+Gura_DeclareFunctionAlias(__Panel, "Panel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Panel));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPanel)
+Gura_ImplementFunction(__Panel)
 {
 	//wxPanel();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPanel_1, "wxPanel_1")
+Gura_DeclareFunctionAlias(__Panel_1, "Panel_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxPanel_1, "wxPanel_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPanel_1)
+Gura_ImplementFunction(__Panel_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -189,8 +189,8 @@ Gura_ImplementMethod(wx_Panel, __SetFocusIgnoringChildren)
 Gura_ImplementUserInheritableClass(wx_Panel)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPanel);
-	Gura_AssignFunction(__wxPanel_1);
+	Gura_AssignFunction(__Panel);
+	Gura_AssignFunction(__Panel_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Panel, __AcceptsFocus);
 	Gura_AssignMethod(wx_Panel, __Create);

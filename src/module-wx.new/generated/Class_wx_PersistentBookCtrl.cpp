@@ -37,7 +37,7 @@ String Object_wx_PersistentBookCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPersistentBookCtrl, "wxPersistentBookCtrl")
+Gura_DeclareFunctionAlias(__PersistentBookCtrl, "PersistentBookCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "book", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPersistentBookCtrl, "wxPersistentBookCtrl")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPersistentBookCtrl)
+Gura_ImplementFunction(__PersistentBookCtrl)
 {
 	//int book = arg.GetNumber(0)
 	//wxPersistentBookCtrl();
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_PersistentBookCtrl, __Restore)
 Gura_ImplementUserInheritableClass(wx_PersistentBookCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPersistentBookCtrl);
+	Gura_AssignFunction(__PersistentBookCtrl);
 	// Method assignment
 	Gura_AssignMethod(wx_PersistentBookCtrl, __Save);
 	Gura_AssignMethod(wx_PersistentBookCtrl, __Restore);

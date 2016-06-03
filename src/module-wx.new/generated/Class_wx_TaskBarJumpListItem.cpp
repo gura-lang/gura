@@ -37,7 +37,7 @@ String Object_wx_TaskBarJumpListItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTaskBarJumpListItem, "wxTaskBarJumpListItem")
+Gura_DeclareFunctionAlias(__TaskBarJumpListItem, "TaskBarJumpListItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentCategory", VTYPE_number, OCCUR_Once);
@@ -52,7 +52,7 @@ Gura_DeclareFunctionAlias(__wxTaskBarJumpListItem, "wxTaskBarJumpListItem")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTaskBarJumpListItem)
+Gura_ImplementFunction(__TaskBarJumpListItem)
 {
 	//int parentCategory = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, __SetCategory)
 Gura_ImplementUserInheritableClass(wx_TaskBarJumpListItem)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTaskBarJumpListItem);
+	Gura_AssignFunction(__TaskBarJumpListItem);
 	// Method assignment
 	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetType);
 	Gura_AssignMethod(wx_TaskBarJumpListItem, __SetType);

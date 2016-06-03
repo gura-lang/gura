@@ -37,7 +37,7 @@ String Object_wx_BookCtrlEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBookCtrlEvent, "wxBookCtrlEvent")
+Gura_DeclareFunctionAlias(__BookCtrlEvent, "BookCtrlEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxBookCtrlEvent, "wxBookCtrlEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBookCtrlEvent)
+Gura_ImplementFunction(__BookCtrlEvent)
 {
 	//int eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_BookCtrlEvent, __SetSelection)
 Gura_ImplementUserInheritableClass(wx_BookCtrlEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBookCtrlEvent);
+	Gura_AssignFunction(__BookCtrlEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_BookCtrlEvent, __GetOldSelection);
 	Gura_AssignMethod(wx_BookCtrlEvent, __GetSelection);

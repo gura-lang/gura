@@ -37,20 +37,20 @@ String Object_wx_MediaCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMediaCtrl, "wxMediaCtrl")
+Gura_DeclareFunctionAlias(__MediaCtrl, "MediaCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MediaCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMediaCtrl)
+Gura_ImplementFunction(__MediaCtrl)
 {
 	//wxMediaCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMediaCtrl_1, "wxMediaCtrl_1")
+Gura_DeclareFunctionAlias(__MediaCtrl_1, "MediaCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxMediaCtrl_1, "wxMediaCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMediaCtrl_1)
+Gura_ImplementFunction(__MediaCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -379,8 +379,8 @@ Gura_ImplementMethod(wx_MediaCtrl, __Tell)
 Gura_ImplementUserInheritableClass(wx_MediaCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMediaCtrl);
-	Gura_AssignFunction(__wxMediaCtrl_1);
+	Gura_AssignFunction(__MediaCtrl);
+	Gura_AssignFunction(__MediaCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_MediaCtrl, __Create);
 	Gura_AssignMethod(wx_MediaCtrl, __GetBestSize);

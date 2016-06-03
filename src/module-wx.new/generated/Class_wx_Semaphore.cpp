@@ -37,7 +37,7 @@ String Object_wx_Semaphore::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSemaphore, "wxSemaphore")
+Gura_DeclareFunctionAlias(__Semaphore, "Semaphore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initialcount", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxSemaphore, "wxSemaphore")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSemaphore)
+Gura_ImplementFunction(__Semaphore)
 {
 	//int initialcount = arg.GetNumber(0)
 	//int maxcount = arg.GetNumber(1)
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_Semaphore, __WaitTimeout)
 Gura_ImplementUserInheritableClass(wx_Semaphore)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSemaphore);
+	Gura_AssignFunction(__Semaphore);
 	// Method assignment
 	Gura_AssignMethod(wx_Semaphore, __Post);
 	Gura_AssignMethod(wx_Semaphore, __TryWait);

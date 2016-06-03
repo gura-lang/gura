@@ -37,7 +37,7 @@ String Object_wx_VariantDataErrorCode::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxVariantDataErrorCode, "wxVariantDataErrorCode")
+Gura_DeclareFunctionAlias(__VariantDataErrorCode, "VariantDataErrorCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxVariantDataErrorCode, "wxVariantDataErrorCode")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariantDataErrorCode)
+Gura_ImplementFunction(__VariantDataErrorCode)
 {
 	//int value = arg.GetNumber(0)
 	//wxVariantDataErrorCode();
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_VariantDataErrorCode, __GetAsAny)
 Gura_ImplementUserInheritableClass(wx_VariantDataErrorCode)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxVariantDataErrorCode);
+	Gura_AssignFunction(__VariantDataErrorCode);
 	// Method assignment
 	Gura_AssignMethod(wx_VariantDataErrorCode, __GetValue);
 	Gura_AssignMethod(wx_VariantDataErrorCode, __SetValue);

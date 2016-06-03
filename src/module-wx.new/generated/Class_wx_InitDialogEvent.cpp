@@ -37,7 +37,7 @@ String Object_wx_InitDialogEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxInitDialogEvent, "wxInitDialogEvent")
+Gura_DeclareFunctionAlias(__InitDialogEvent, "InitDialogEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxInitDialogEvent, "wxInitDialogEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxInitDialogEvent)
+Gura_ImplementFunction(__InitDialogEvent)
 {
 	//int id = arg.GetNumber(0)
 	//wxInitDialogEvent();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxInitDialogEvent)
 Gura_ImplementUserInheritableClass(wx_InitDialogEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxInitDialogEvent);
+	Gura_AssignFunction(__InitDialogEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_InitDialogEvent)

@@ -37,20 +37,20 @@ String Object_wx_DatePickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDatePickerCtrl, "wxDatePickerCtrl")
+Gura_DeclareFunctionAlias(__DatePickerCtrl, "DatePickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DatePickerCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDatePickerCtrl)
+Gura_ImplementFunction(__DatePickerCtrl)
 {
 	//wxDatePickerCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDatePickerCtrl_1, "wxDatePickerCtrl_1")
+Gura_DeclareFunctionAlias(__DatePickerCtrl_1, "DatePickerCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxDatePickerCtrl_1, "wxDatePickerCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDatePickerCtrl_1)
+Gura_ImplementFunction(__DatePickerCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -179,8 +179,8 @@ Gura_ImplementMethod(wx_DatePickerCtrl, __SetValue)
 Gura_ImplementUserInheritableClass(wx_DatePickerCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDatePickerCtrl);
-	Gura_AssignFunction(__wxDatePickerCtrl_1);
+	Gura_AssignFunction(__DatePickerCtrl);
+	Gura_AssignFunction(__DatePickerCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_DatePickerCtrl, __Create);
 	Gura_AssignMethod(wx_DatePickerCtrl, __GetRange);

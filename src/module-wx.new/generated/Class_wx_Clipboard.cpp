@@ -37,14 +37,14 @@ String Object_wx_Clipboard::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxClipboard, "wxClipboard")
+Gura_DeclareFunctionAlias(__Clipboard, "Clipboard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Clipboard));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxClipboard)
+Gura_ImplementFunction(__Clipboard)
 {
 	//wxClipboard();
 	return Value::Nil;
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_Clipboard, __Get)
 Gura_ImplementUserInheritableClass(wx_Clipboard)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxClipboard);
+	Gura_AssignFunction(__Clipboard);
 	// Method assignment
 	Gura_AssignMethod(wx_Clipboard, __AddData);
 	Gura_AssignMethod(wx_Clipboard, __Clear);

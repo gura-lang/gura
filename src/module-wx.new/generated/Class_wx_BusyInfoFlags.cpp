@@ -37,14 +37,14 @@ String Object_wx_BusyInfoFlags::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBusyInfoFlags, "wxBusyInfoFlags")
+Gura_DeclareFunctionAlias(__BusyInfoFlags, "BusyInfoFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BusyInfoFlags));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBusyInfoFlags)
+Gura_ImplementFunction(__BusyInfoFlags)
 {
 	//wxBusyInfoFlags();
 	return Value::Nil;
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_BusyInfoFlags, __Transparency)
 Gura_ImplementUserInheritableClass(wx_BusyInfoFlags)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBusyInfoFlags);
+	Gura_AssignFunction(__BusyInfoFlags);
 	// Method assignment
 	Gura_AssignMethod(wx_BusyInfoFlags, __Parent);
 	Gura_AssignMethod(wx_BusyInfoFlags, __Icon);

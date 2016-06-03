@@ -37,7 +37,7 @@ String Object_wx_CollapsiblePaneEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCollapsiblePaneEvent, "wxCollapsiblePaneEvent")
+Gura_DeclareFunctionAlias(__CollapsiblePaneEvent, "CollapsiblePaneEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxCollapsiblePaneEvent, "wxCollapsiblePaneEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCollapsiblePaneEvent)
+Gura_ImplementFunction(__CollapsiblePaneEvent)
 {
 	//int generator = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_CollapsiblePaneEvent, __SetCollapsed)
 Gura_ImplementUserInheritableClass(wx_CollapsiblePaneEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCollapsiblePaneEvent);
+	Gura_AssignFunction(__CollapsiblePaneEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_CollapsiblePaneEvent, __GetCollapsed);
 	Gura_AssignMethod(wx_CollapsiblePaneEvent, __SetCollapsed);

@@ -37,20 +37,20 @@ String Object_wx_RibbonControl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRibbonControl, "wxRibbonControl")
+Gura_DeclareFunctionAlias(__RibbonControl, "RibbonControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonControl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonControl)
+Gura_ImplementFunction(__RibbonControl)
 {
 	//wxRibbonControl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRibbonControl_1, "wxRibbonControl_1")
+Gura_DeclareFunctionAlias(__RibbonControl_1, "RibbonControl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxRibbonControl_1, "wxRibbonControl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonControl_1)
+Gura_ImplementFunction(__RibbonControl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -279,8 +279,8 @@ Gura_ImplementMethod(wx_RibbonControl, __DoGetNextLargerSize)
 Gura_ImplementUserInheritableClass(wx_RibbonControl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRibbonControl);
-	Gura_AssignFunction(__wxRibbonControl_1);
+	Gura_AssignFunction(__RibbonControl);
+	Gura_AssignFunction(__RibbonControl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RibbonControl, __SetArtProvider);
 	Gura_AssignMethod(wx_RibbonControl, __GetArtProvider);

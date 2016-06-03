@@ -37,7 +37,7 @@ String Object_wx_RichTextListStyleDefinition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextListStyleDefinition, "wxRichTextListStyleDefinition")
+Gura_DeclareFunctionAlias(__RichTextListStyleDefinition, "RichTextListStyleDefinition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxRichTextListStyleDefinition, "wxRichTextListStyleD
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextListStyleDefinition)
+Gura_ImplementFunction(__RichTextListStyleDefinition)
 {
 	//int name = arg.GetNumber(0)
 	//wxRichTextListStyleDefinition();
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __SetLevelAttributes)
 Gura_ImplementUserInheritableClass(wx_RichTextListStyleDefinition)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextListStyleDefinition);
+	Gura_AssignFunction(__RichTextListStyleDefinition);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextListStyleDefinition, __CombineWithParagraphStyle);
 	Gura_AssignMethod(wx_RichTextListStyleDefinition, __FindLevelForIndent);

@@ -37,7 +37,7 @@ String Object_wx_HtmlContainerCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlContainerCell, "wxHtmlContainerCell")
+Gura_DeclareFunctionAlias(__HtmlContainerCell, "HtmlContainerCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxHtmlContainerCell, "wxHtmlContainerCell")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlContainerCell)
+Gura_ImplementFunction(__HtmlContainerCell)
 {
 	//int parent = arg.GetNumber(0)
 	//wxHtmlContainerCell();
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetWidthFloat_1)
 Gura_ImplementUserInheritableClass(wx_HtmlContainerCell)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlContainerCell);
+	Gura_AssignFunction(__HtmlContainerCell);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlContainerCell, __GetAlignHor);
 	Gura_AssignMethod(wx_HtmlContainerCell, __GetAlignVer);

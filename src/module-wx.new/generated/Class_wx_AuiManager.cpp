@@ -37,7 +37,7 @@ String Object_wx_AuiManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiManager, "wxAuiManager")
+Gura_DeclareFunctionAlias(__AuiManager, "AuiManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "managed_wnd", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxAuiManager, "wxAuiManager")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiManager)
+Gura_ImplementFunction(__AuiManager)
 {
 	//int managed_wnd = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -461,7 +461,7 @@ Gura_ImplementMethod(wx_AuiManager, __ProcessDockResult)
 Gura_ImplementUserInheritableClass(wx_AuiManager)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiManager);
+	Gura_AssignFunction(__AuiManager);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiManager, __AddPane);
 	Gura_AssignMethod(wx_AuiManager, __AddPane_1);

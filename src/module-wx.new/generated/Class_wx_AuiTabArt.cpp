@@ -37,14 +37,14 @@ String Object_wx_AuiTabArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiTabArt, "wxAuiTabArt")
+Gura_DeclareFunctionAlias(__AuiTabArt, "AuiTabArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiTabArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiTabArt)
+Gura_ImplementFunction(__AuiTabArt)
 {
 	//wxAuiTabArt();
 	return Value::Nil;
@@ -144,12 +144,18 @@ Gura_ImplementMethod(wx_AuiTabArt, __DrawTab)
 Gura_DeclareMethodAlias(wx_AuiTabArt, __GetBestTabCtrlSize, "GetBestTabCtrlSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "_arg0", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg1", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg2", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AuiTabArt, __GetBestTabCtrlSize)
 {
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
+	//int _arg0 = arg.GetNumber(0)
+	//int _arg1 = arg.GetNumber(1)
+	//int _arg2 = arg.GetNumber(2)
 	//pThis->GetEntity()->GetBestTabCtrlSize();
 	return Value::Nil;
 }
@@ -307,7 +313,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __SetSizingInfo)
 Gura_ImplementUserInheritableClass(wx_AuiTabArt)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiTabArt);
+	Gura_AssignFunction(__AuiTabArt);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiTabArt, __Clone);
 	Gura_AssignMethod(wx_AuiTabArt, __DrawBackground);

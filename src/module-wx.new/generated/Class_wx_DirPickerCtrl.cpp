@@ -37,20 +37,20 @@ String Object_wx_DirPickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDirPickerCtrl, "wxDirPickerCtrl")
+Gura_DeclareFunctionAlias(__DirPickerCtrl, "DirPickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DirPickerCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDirPickerCtrl)
+Gura_ImplementFunction(__DirPickerCtrl)
 {
 	//wxDirPickerCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDirPickerCtrl_1, "wxDirPickerCtrl_1")
+Gura_DeclareFunctionAlias(__DirPickerCtrl_1, "DirPickerCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxDirPickerCtrl_1, "wxDirPickerCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDirPickerCtrl_1)
+Gura_ImplementFunction(__DirPickerCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -192,8 +192,8 @@ Gura_ImplementMethod(wx_DirPickerCtrl, __SetPath)
 Gura_ImplementUserInheritableClass(wx_DirPickerCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDirPickerCtrl);
-	Gura_AssignFunction(__wxDirPickerCtrl_1);
+	Gura_AssignFunction(__DirPickerCtrl);
+	Gura_AssignFunction(__DirPickerCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_DirPickerCtrl, __Create);
 	Gura_AssignMethod(wx_DirPickerCtrl, __GetDirName);

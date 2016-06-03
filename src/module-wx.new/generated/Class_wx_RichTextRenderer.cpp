@@ -37,14 +37,14 @@ String Object_wx_RichTextRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextRenderer, "wxRichTextRenderer")
+Gura_DeclareFunctionAlias(__RichTextRenderer, "RichTextRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextRenderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextRenderer)
+Gura_ImplementFunction(__RichTextRenderer)
 {
 	//wxRichTextRenderer();
 	return Value::Nil;
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_RichTextRenderer, __MeasureBullet)
 Gura_ImplementUserInheritableClass(wx_RichTextRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextRenderer);
+	Gura_AssignFunction(__RichTextRenderer);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextRenderer, __DrawStandardBullet);
 	Gura_AssignMethod(wx_RichTextRenderer, __DrawTextBullet);

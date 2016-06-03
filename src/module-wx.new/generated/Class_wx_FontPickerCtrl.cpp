@@ -37,20 +37,20 @@ String Object_wx_FontPickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFontPickerCtrl, "wxFontPickerCtrl")
+Gura_DeclareFunctionAlias(__FontPickerCtrl, "FontPickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontPickerCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFontPickerCtrl)
+Gura_ImplementFunction(__FontPickerCtrl)
 {
 	//wxFontPickerCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFontPickerCtrl_1, "wxFontPickerCtrl_1")
+Gura_DeclareFunctionAlias(__FontPickerCtrl_1, "FontPickerCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxFontPickerCtrl_1, "wxFontPickerCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFontPickerCtrl_1)
+Gura_ImplementFunction(__FontPickerCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -201,8 +201,8 @@ Gura_ImplementMethod(wx_FontPickerCtrl, __SetSelectedFont)
 Gura_ImplementUserInheritableClass(wx_FontPickerCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFontPickerCtrl);
-	Gura_AssignFunction(__wxFontPickerCtrl_1);
+	Gura_AssignFunction(__FontPickerCtrl);
+	Gura_AssignFunction(__FontPickerCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_FontPickerCtrl, __Create);
 	Gura_AssignMethod(wx_FontPickerCtrl, __GetMaxPointSize);

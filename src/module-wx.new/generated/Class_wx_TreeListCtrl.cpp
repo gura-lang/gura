@@ -37,20 +37,20 @@ String Object_wx_TreeListCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTreeListCtrl, "wxTreeListCtrl")
+Gura_DeclareFunctionAlias(__TreeListCtrl, "TreeListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeListCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTreeListCtrl)
+Gura_ImplementFunction(__TreeListCtrl)
 {
 	//wxTreeListCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTreeListCtrl_1, "wxTreeListCtrl_1")
+Gura_DeclareFunctionAlias(__TreeListCtrl_1, "TreeListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxTreeListCtrl_1, "wxTreeListCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTreeListCtrl_1)
+Gura_ImplementFunction(__TreeListCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -867,8 +867,8 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetDataView)
 Gura_ImplementUserInheritableClass(wx_TreeListCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTreeListCtrl);
-	Gura_AssignFunction(__wxTreeListCtrl_1);
+	Gura_AssignFunction(__TreeListCtrl);
+	Gura_AssignFunction(__TreeListCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TreeListCtrl, __Create);
 	Gura_AssignMethod(wx_TreeListCtrl, __AssignImageList);

@@ -37,7 +37,7 @@ String Object_wx_PersistentTLW::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPersistentTLW, "wxPersistentTLW")
+Gura_DeclareFunctionAlias(__PersistentTLW, "PersistentTLW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "book", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPersistentTLW, "wxPersistentTLW")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPersistentTLW)
+Gura_ImplementFunction(__PersistentTLW)
 {
 	//int book = arg.GetNumber(0)
 	//wxPersistentTLW();
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_PersistentTLW, __Restore)
 Gura_ImplementUserInheritableClass(wx_PersistentTLW)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPersistentTLW);
+	Gura_AssignFunction(__PersistentTLW);
 	// Method assignment
 	Gura_AssignMethod(wx_PersistentTLW, __Save);
 	Gura_AssignMethod(wx_PersistentTLW, __Restore);

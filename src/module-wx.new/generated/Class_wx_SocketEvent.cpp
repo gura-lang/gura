@@ -37,7 +37,7 @@ String Object_wx_SocketEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSocketEvent, "wxSocketEvent")
+Gura_DeclareFunctionAlias(__SocketEvent, "SocketEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxSocketEvent, "wxSocketEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSocketEvent)
+Gura_ImplementFunction(__SocketEvent)
 {
 	//int id = arg.GetNumber(0)
 	//wxSocketEvent();
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_SocketEvent, __GetSocketEvent)
 Gura_ImplementUserInheritableClass(wx_SocketEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSocketEvent);
+	Gura_AssignFunction(__SocketEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_SocketEvent, __GetClientData);
 	Gura_AssignMethod(wx_SocketEvent, __GetSocket);

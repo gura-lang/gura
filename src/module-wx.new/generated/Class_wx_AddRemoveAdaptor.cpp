@@ -37,14 +37,14 @@ String Object_wx_AddRemoveAdaptor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAddRemoveAdaptor, "wxAddRemoveAdaptor")
+Gura_DeclareFunctionAlias(__AddRemoveAdaptor, "AddRemoveAdaptor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AddRemoveAdaptor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAddRemoveAdaptor)
+Gura_ImplementFunction(__AddRemoveAdaptor)
 {
 	//wxAddRemoveAdaptor();
 	return Value::Nil;
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, __OnRemove)
 Gura_ImplementUserInheritableClass(wx_AddRemoveAdaptor)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAddRemoveAdaptor);
+	Gura_AssignFunction(__AddRemoveAdaptor);
 	// Method assignment
 	Gura_AssignMethod(wx_AddRemoveAdaptor, __GetItemsCtrl);
 	Gura_AssignMethod(wx_AddRemoveAdaptor, __CanAdd);

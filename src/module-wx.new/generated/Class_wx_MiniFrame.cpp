@@ -37,20 +37,20 @@ String Object_wx_MiniFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMiniFrame, "wxMiniFrame")
+Gura_DeclareFunctionAlias(__MiniFrame, "MiniFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MiniFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMiniFrame)
+Gura_ImplementFunction(__MiniFrame)
 {
 	//wxMiniFrame();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMiniFrame_1, "wxMiniFrame_1")
+Gura_DeclareFunctionAlias(__MiniFrame_1, "MiniFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxMiniFrame_1, "wxMiniFrame_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMiniFrame_1)
+Gura_ImplementFunction(__MiniFrame_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -113,8 +113,8 @@ Gura_ImplementMethod(wx_MiniFrame, __Create)
 Gura_ImplementUserInheritableClass(wx_MiniFrame)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMiniFrame);
-	Gura_AssignFunction(__wxMiniFrame_1);
+	Gura_AssignFunction(__MiniFrame);
+	Gura_AssignFunction(__MiniFrame_1);
 	// Method assignment
 	Gura_AssignMethod(wx_MiniFrame, __Create);
 }

@@ -37,14 +37,14 @@ String Object_wx_RibbonArtProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRibbonArtProvider, "wxRibbonArtProvider")
+Gura_DeclareFunctionAlias(__RibbonArtProvider, "RibbonArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonArtProvider));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonArtProvider)
+Gura_ImplementFunction(__RibbonArtProvider)
 {
 	//wxRibbonArtProvider();
 	return Value::Nil;
@@ -902,7 +902,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetRibbonHelpButtonArea)
 Gura_ImplementUserInheritableClass(wx_RibbonArtProvider)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRibbonArtProvider);
+	Gura_AssignFunction(__RibbonArtProvider);
 	// Method assignment
 	Gura_AssignMethod(wx_RibbonArtProvider, __Clone);
 	Gura_AssignMethod(wx_RibbonArtProvider, __SetFlags);

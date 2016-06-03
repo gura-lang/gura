@@ -37,20 +37,20 @@ String Object_wx_PageSetupDialogData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPageSetupDialogData, "wxPageSetupDialogData")
+Gura_DeclareFunctionAlias(__PageSetupDialogData, "PageSetupDialogData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PageSetupDialogData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPageSetupDialogData)
+Gura_ImplementFunction(__PageSetupDialogData)
 {
 	//wxPageSetupDialogData();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPageSetupDialogData_1, "wxPageSetupDialogData_1")
+Gura_DeclareFunctionAlias(__PageSetupDialogData_1, "PageSetupDialogData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxPageSetupDialogData_1, "wxPageSetupDialogData_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPageSetupDialogData_1)
+Gura_ImplementFunction(__PageSetupDialogData_1)
 {
 	//int data = arg.GetNumber(0)
 	//wxPageSetupDialogData();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPageSetupDialogData_2, "wxPageSetupDialogData_2")
+Gura_DeclareFunctionAlias(__PageSetupDialogData_2, "PageSetupDialogData_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_DeclareFunctionAlias(__wxPageSetupDialogData_2, "wxPageSetupDialogData_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPageSetupDialogData_2)
+Gura_ImplementFunction(__PageSetupDialogData_2)
 {
 	//int printData = arg.GetNumber(0)
 	//wxPageSetupDialogData();
@@ -507,9 +507,9 @@ Gura_ImplementMethod(wx_PageSetupDialogData, __SetPrintData)
 Gura_ImplementUserInheritableClass(wx_PageSetupDialogData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPageSetupDialogData);
-	Gura_AssignFunction(__wxPageSetupDialogData_1);
-	Gura_AssignFunction(__wxPageSetupDialogData_2);
+	Gura_AssignFunction(__PageSetupDialogData);
+	Gura_AssignFunction(__PageSetupDialogData_1);
+	Gura_AssignFunction(__PageSetupDialogData_2);
 	// Method assignment
 	Gura_AssignMethod(wx_PageSetupDialogData, __EnableHelp);
 	Gura_AssignMethod(wx_PageSetupDialogData, __EnableMargins);

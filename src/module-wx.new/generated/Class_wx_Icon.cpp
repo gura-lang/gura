@@ -37,20 +37,20 @@ String Object_wx_Icon::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxIcon, "wxIcon")
+Gura_DeclareFunctionAlias(__Icon, "Icon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxIcon)
+Gura_ImplementFunction(__Icon)
 {
 	//wxIcon();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxIcon_1, "wxIcon_1")
+Gura_DeclareFunctionAlias(__Icon_1, "Icon_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxIcon_1, "wxIcon_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxIcon_1)
+Gura_ImplementFunction(__Icon_1)
 {
 	//int icon = arg.GetNumber(0)
 	//wxIcon();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxIcon_2, "wxIcon_2")
+Gura_DeclareFunctionAlias(__Icon_2, "Icon_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__wxIcon_2, "wxIcon_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxIcon_2)
+Gura_ImplementFunction(__Icon_2)
 {
 	//int bits = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__wxIcon_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxIcon_3, "wxIcon_3")
+Gura_DeclareFunctionAlias(__Icon_3, "Icon_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
@@ -92,14 +92,14 @@ Gura_DeclareFunctionAlias(__wxIcon_3, "wxIcon_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxIcon_3)
+Gura_ImplementFunction(__Icon_3)
 {
 	//int bits = arg.GetNumber(0)
 	//wxIcon();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxIcon_4, "wxIcon_4")
+Gura_DeclareFunctionAlias(__Icon_4, "Icon_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_DeclareFunctionAlias(__wxIcon_4, "wxIcon_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxIcon_4)
+Gura_ImplementFunction(__Icon_4)
 {
 	//int name = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
@@ -120,7 +120,7 @@ Gura_ImplementFunction(__wxIcon_4)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxIcon_5, "wxIcon_5")
+Gura_DeclareFunctionAlias(__Icon_5, "Icon_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loc", VTYPE_number, OCCUR_Once);
@@ -128,7 +128,7 @@ Gura_DeclareFunctionAlias(__wxIcon_5, "wxIcon_5")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxIcon_5)
+Gura_ImplementFunction(__Icon_5)
 {
 	//int loc = arg.GetNumber(0)
 	//wxIcon();
@@ -307,12 +307,12 @@ Gura_ImplementMethod(wx_Icon, __SetWidth)
 Gura_ImplementUserInheritableClass(wx_Icon)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxIcon);
-	Gura_AssignFunction(__wxIcon_1);
-	Gura_AssignFunction(__wxIcon_2);
-	Gura_AssignFunction(__wxIcon_3);
-	Gura_AssignFunction(__wxIcon_4);
-	Gura_AssignFunction(__wxIcon_5);
+	Gura_AssignFunction(__Icon);
+	Gura_AssignFunction(__Icon_1);
+	Gura_AssignFunction(__Icon_2);
+	Gura_AssignFunction(__Icon_3);
+	Gura_AssignFunction(__Icon_4);
+	Gura_AssignFunction(__Icon_5);
 	// Method assignment
 	Gura_AssignMethod(wx_Icon, __CreateFromHICON);
 	Gura_AssignMethod(wx_Icon, __ConvertToDisabled);

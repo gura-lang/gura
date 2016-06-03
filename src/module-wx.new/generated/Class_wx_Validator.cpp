@@ -37,14 +37,14 @@ String Object_wx_Validator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxValidator, "wxValidator")
+Gura_DeclareFunctionAlias(__Validator, "Validator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Validator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxValidator)
+Gura_ImplementFunction(__Validator)
 {
 	//wxValidator();
 	return Value::Nil;
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_Validator, __Validate)
 Gura_ImplementUserInheritableClass(wx_Validator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxValidator);
+	Gura_AssignFunction(__Validator);
 	// Method assignment
 	Gura_AssignMethod(wx_Validator, __Clone);
 	Gura_AssignMethod(wx_Validator, __GetWindow);

@@ -37,14 +37,14 @@ String Object_wx_FileSystemHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileSystemHandler, "wxFileSystemHandler")
+Gura_DeclareFunctionAlias(__FileSystemHandler, "FileSystemHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileSystemHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileSystemHandler)
+Gura_ImplementFunction(__FileSystemHandler)
 {
 	//wxFileSystemHandler();
 	return Value::Nil;
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetRightLocation)
 Gura_ImplementUserInheritableClass(wx_FileSystemHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileSystemHandler);
+	Gura_AssignFunction(__FileSystemHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_FileSystemHandler, __CanOpen);
 	Gura_AssignMethod(wx_FileSystemHandler, __FindFirst);

@@ -37,20 +37,20 @@ String Object_wx_FFile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFFile, "wxFFile")
+Gura_DeclareFunctionAlias(__FFile, "FFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FFile));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFFile)
+Gura_ImplementFunction(__FFile)
 {
 	//wxFFile();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFFile_1, "wxFFile_1")
+Gura_DeclareFunctionAlias(__FFile_1, "FFile_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxFFile_1, "wxFFile_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFFile_1)
+Gura_ImplementFunction(__FFile_1)
 {
 	//int fp = arg.GetNumber(0)
 	//wxFFile();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFFile_2, "wxFFile_2")
+Gura_DeclareFunctionAlias(__FFile_2, "FFile_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_DeclareFunctionAlias(__wxFFile_2, "wxFFile_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFFile_2)
+Gura_ImplementFunction(__FFile_2)
 {
 	//int filename = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
@@ -368,9 +368,9 @@ Gura_ImplementMethod(wx_FFile, __fp)
 Gura_ImplementUserInheritableClass(wx_FFile)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFFile);
-	Gura_AssignFunction(__wxFFile_1);
-	Gura_AssignFunction(__wxFFile_2);
+	Gura_AssignFunction(__FFile);
+	Gura_AssignFunction(__FFile_1);
+	Gura_AssignFunction(__FFile_2);
 	// Method assignment
 	Gura_AssignMethod(wx_FFile, __Attach);
 	Gura_AssignMethod(wx_FFile, __Close);

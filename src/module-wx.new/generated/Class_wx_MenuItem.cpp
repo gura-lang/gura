@@ -37,7 +37,7 @@ String Object_wx_MenuItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMenuItem, "wxMenuItem")
+Gura_DeclareFunctionAlias(__MenuItem, "MenuItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentMenu", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxMenuItem, "wxMenuItem")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMenuItem)
+Gura_ImplementFunction(__MenuItem)
 {
 	//int parentMenu = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -659,7 +659,7 @@ Gura_ImplementMethod(wx_MenuItem, __SetAccel)
 Gura_ImplementUserInheritableClass(wx_MenuItem)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMenuItem);
+	Gura_AssignFunction(__MenuItem);
 	// Method assignment
 	Gura_AssignMethod(wx_MenuItem, __Check);
 	Gura_AssignMethod(wx_MenuItem, __Enable);

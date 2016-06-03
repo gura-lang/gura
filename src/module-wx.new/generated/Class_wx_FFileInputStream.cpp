@@ -37,7 +37,7 @@ String Object_wx_FFileInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFFileInputStream, "wxFFileInputStream")
+Gura_DeclareFunctionAlias(__FFileInputStream, "FFileInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxFFileInputStream, "wxFFileInputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFFileInputStream)
+Gura_ImplementFunction(__FFileInputStream)
 {
 	//int filename = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxFFileInputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFFileInputStream_1, "wxFFileInputStream_1")
+Gura_DeclareFunctionAlias(__FFileInputStream_1, "FFileInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
@@ -62,14 +62,14 @@ Gura_DeclareFunctionAlias(__wxFFileInputStream_1, "wxFFileInputStream_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFFileInputStream_1)
+Gura_ImplementFunction(__FFileInputStream_1)
 {
 	//int file = arg.GetNumber(0)
 	//wxFFileInputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFFileInputStream_2, "wxFFileInputStream_2")
+Gura_DeclareFunctionAlias(__FFileInputStream_2, "FFileInputStream_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__wxFFileInputStream_2, "wxFFileInputStream_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFFileInputStream_2)
+Gura_ImplementFunction(__FFileInputStream_2)
 {
 	//int fp = arg.GetNumber(0)
 	//wxFFileInputStream();
@@ -119,9 +119,9 @@ Gura_ImplementMethod(wx_FFileInputStream, __GetFile)
 Gura_ImplementUserInheritableClass(wx_FFileInputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFFileInputStream);
-	Gura_AssignFunction(__wxFFileInputStream_1);
-	Gura_AssignFunction(__wxFFileInputStream_2);
+	Gura_AssignFunction(__FFileInputStream);
+	Gura_AssignFunction(__FFileInputStream_1);
+	Gura_AssignFunction(__FFileInputStream_2);
 	// Method assignment
 	Gura_AssignMethod(wx_FFileInputStream, __IsOk);
 	Gura_AssignMethod(wx_FFileInputStream, __GetFile);

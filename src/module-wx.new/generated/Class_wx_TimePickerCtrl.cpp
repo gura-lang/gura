@@ -37,20 +37,20 @@ String Object_wx_TimePickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTimePickerCtrl, "wxTimePickerCtrl")
+Gura_DeclareFunctionAlias(__TimePickerCtrl, "TimePickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TimePickerCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTimePickerCtrl)
+Gura_ImplementFunction(__TimePickerCtrl)
 {
 	//wxTimePickerCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTimePickerCtrl_1, "wxTimePickerCtrl_1")
+Gura_DeclareFunctionAlias(__TimePickerCtrl_1, "TimePickerCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxTimePickerCtrl_1, "wxTimePickerCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTimePickerCtrl_1)
+Gura_ImplementFunction(__TimePickerCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -183,8 +183,8 @@ Gura_ImplementMethod(wx_TimePickerCtrl, __SetValue)
 Gura_ImplementUserInheritableClass(wx_TimePickerCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTimePickerCtrl);
-	Gura_AssignFunction(__wxTimePickerCtrl_1);
+	Gura_AssignFunction(__TimePickerCtrl);
+	Gura_AssignFunction(__TimePickerCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TimePickerCtrl, __Create);
 	Gura_AssignMethod(wx_TimePickerCtrl, __GetTime);

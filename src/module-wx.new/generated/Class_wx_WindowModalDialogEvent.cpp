@@ -37,7 +37,7 @@ String Object_wx_WindowModalDialogEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWindowModalDialogEvent, "wxWindowModalDialogEvent")
+Gura_DeclareFunctionAlias(__WindowModalDialogEvent, "WindowModalDialogEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxWindowModalDialogEvent, "wxWindowModalDialogEvent"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWindowModalDialogEvent)
+Gura_ImplementFunction(__WindowModalDialogEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_WindowModalDialogEvent, __Clone)
 Gura_ImplementUserInheritableClass(wx_WindowModalDialogEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWindowModalDialogEvent);
+	Gura_AssignFunction(__WindowModalDialogEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_WindowModalDialogEvent, __GetDialog);
 	Gura_AssignMethod(wx_WindowModalDialogEvent, __GetReturnCode);

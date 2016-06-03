@@ -37,14 +37,14 @@ String Object_wx_PickerBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPickerBase, "wxPickerBase")
+Gura_DeclareFunctionAlias(__PickerBase, "PickerBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PickerBase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPickerBase)
+Gura_ImplementFunction(__PickerBase)
 {
 	//wxPickerBase();
 	return Value::Nil;
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_PickerBase, __PostCreation)
 Gura_ImplementUserInheritableClass(wx_PickerBase)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPickerBase);
+	Gura_AssignFunction(__PickerBase);
 	// Method assignment
 	Gura_AssignMethod(wx_PickerBase, __CreateBase);
 	Gura_AssignMethod(wx_PickerBase, __GetInternalMargin);

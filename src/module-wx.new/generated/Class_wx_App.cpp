@@ -37,14 +37,14 @@ String Object_wx_App::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxApp, "wxApp")
+Gura_DeclareFunctionAlias(__App, "App")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_App));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxApp)
+Gura_ImplementFunction(__App)
 {
 	//wxApp();
 	return Value::Nil;
@@ -362,7 +362,7 @@ Gura_ImplementMethod(wx_App, __OSXIsGUIApplication)
 Gura_ImplementUserInheritableClass(wx_App)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxApp);
+	Gura_AssignFunction(__App);
 	// Method assignment
 	Gura_AssignMethod(wx_App, __GetDisplayMode);
 	Gura_AssignMethod(wx_App, __GetExitOnFrameDelete);

@@ -37,7 +37,7 @@ String Object_wx_XmlResource::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxXmlResource, "wxXmlResource")
+Gura_DeclareFunctionAlias(__XmlResource, "XmlResource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filemask", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxXmlResource, "wxXmlResource")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxXmlResource)
+Gura_ImplementFunction(__XmlResource)
 {
 	//int filemask = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxXmlResource)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxXmlResource_1, "wxXmlResource_1")
+Gura_DeclareFunctionAlias(__XmlResource_1, "XmlResource_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxXmlResource_1, "wxXmlResource_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxXmlResource_1)
+Gura_ImplementFunction(__XmlResource_1)
 {
 	//int flags = arg.GetNumber(0)
 	//int domain = arg.GetNumber(1)
@@ -715,8 +715,8 @@ Gura_ImplementMethod(wx_XmlResource, __DoReportError)
 Gura_ImplementUserInheritableClass(wx_XmlResource)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxXmlResource);
-	Gura_AssignFunction(__wxXmlResource_1);
+	Gura_AssignFunction(__XmlResource);
+	Gura_AssignFunction(__XmlResource_1);
 	// Method assignment
 	Gura_AssignMethod(wx_XmlResource, __AddHandler);
 	Gura_AssignMethod(wx_XmlResource, __InsertHandler);

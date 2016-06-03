@@ -37,7 +37,7 @@ String Object_wx_ProcessEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxProcessEvent, "wxProcessEvent")
+Gura_DeclareFunctionAlias(__ProcessEvent, "ProcessEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxProcessEvent, "wxProcessEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxProcessEvent)
+Gura_ImplementFunction(__ProcessEvent)
 {
 	//int id = arg.GetNumber(0)
 	//int pid = arg.GetNumber(1)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_ProcessEvent, __GetPid)
 Gura_ImplementUserInheritableClass(wx_ProcessEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxProcessEvent);
+	Gura_AssignFunction(__ProcessEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_ProcessEvent, __GetExitCode);
 	Gura_AssignMethod(wx_ProcessEvent, __GetPid);

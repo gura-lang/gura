@@ -37,14 +37,14 @@ String Object_wx_StdDialogButtonSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStdDialogButtonSizer, "wxStdDialogButtonSizer")
+Gura_DeclareFunctionAlias(__StdDialogButtonSizer, "StdDialogButtonSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StdDialogButtonSizer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStdDialogButtonSizer)
+Gura_ImplementFunction(__StdDialogButtonSizer)
 {
 	//wxStdDialogButtonSizer();
 	return Value::Nil;
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_StdDialogButtonSizer, __CalcMin)
 Gura_ImplementUserInheritableClass(wx_StdDialogButtonSizer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStdDialogButtonSizer);
+	Gura_AssignFunction(__StdDialogButtonSizer);
 	// Method assignment
 	Gura_AssignMethod(wx_StdDialogButtonSizer, __AddButton);
 	Gura_AssignMethod(wx_StdDialogButtonSizer, __Realize);

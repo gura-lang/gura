@@ -37,20 +37,20 @@ String Object_wx_TextAttr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextAttr, "wxTextAttr")
+Gura_DeclareFunctionAlias(__TextAttr, "TextAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextAttr)
+Gura_ImplementFunction(__TextAttr)
 {
 	//wxTextAttr();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTextAttr_1, "wxTextAttr_1")
+Gura_DeclareFunctionAlias(__TextAttr_1, "TextAttr_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colText", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxTextAttr_1, "wxTextAttr_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextAttr_1)
+Gura_ImplementFunction(__TextAttr_1)
 {
 	//int colText = arg.GetNumber(0)
 	//int colBack = arg.GetNumber(1)
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__wxTextAttr_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTextAttr_2, "wxTextAttr_2")
+Gura_DeclareFunctionAlias(__TextAttr_2, "TextAttr_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareFunctionAlias(__wxTextAttr_2, "wxTextAttr_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextAttr_2)
+Gura_ImplementFunction(__TextAttr_2)
 {
 	//int attr = arg.GetNumber(0)
 	//wxTextAttr();
@@ -1524,9 +1524,9 @@ Gura_ImplementMethod(wx_TextAttr, __SetURL)
 Gura_ImplementUserInheritableClass(wx_TextAttr)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextAttr);
-	Gura_AssignFunction(__wxTextAttr_1);
-	Gura_AssignFunction(__wxTextAttr_2);
+	Gura_AssignFunction(__TextAttr);
+	Gura_AssignFunction(__TextAttr_1);
+	Gura_AssignFunction(__TextAttr_2);
 	// Method assignment
 	Gura_AssignMethod(wx_TextAttr, __Apply);
 	Gura_AssignMethod(wx_TextAttr, __Merge);

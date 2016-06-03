@@ -37,7 +37,7 @@ String Object_wx_PaintDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPaintDC, "wxPaintDC")
+Gura_DeclareFunctionAlias(__PaintDC, "PaintDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPaintDC, "wxPaintDC")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPaintDC)
+Gura_ImplementFunction(__PaintDC)
 {
 	//int window = arg.GetNumber(0)
 	//wxPaintDC();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxPaintDC)
 Gura_ImplementUserInheritableClass(wx_PaintDC)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPaintDC);
+	Gura_AssignFunction(__PaintDC);
 }
 
 Gura_ImplementDescendantCreator(wx_PaintDC)

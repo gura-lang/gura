@@ -37,20 +37,20 @@ String Object_wx_GridEditorCreatedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridEditorCreatedEvent, "wxGridEditorCreatedEvent")
+Gura_DeclareFunctionAlias(__GridEditorCreatedEvent, "GridEditorCreatedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridEditorCreatedEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridEditorCreatedEvent)
+Gura_ImplementFunction(__GridEditorCreatedEvent)
 {
 	//wxGridEditorCreatedEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGridEditorCreatedEvent_1, "wxGridEditorCreatedEvent_1")
+Gura_DeclareFunctionAlias(__GridEditorCreatedEvent_1, "GridEditorCreatedEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxGridEditorCreatedEvent_1, "wxGridEditorCreatedEven
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridEditorCreatedEvent_1)
+Gura_ImplementFunction(__GridEditorCreatedEvent_1)
 {
 	//int id = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
@@ -168,8 +168,8 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, __SetRow)
 Gura_ImplementUserInheritableClass(wx_GridEditorCreatedEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridEditorCreatedEvent);
-	Gura_AssignFunction(__wxGridEditorCreatedEvent_1);
+	Gura_AssignFunction(__GridEditorCreatedEvent);
+	Gura_AssignFunction(__GridEditorCreatedEvent_1);
 	// Method assignment
 	Gura_AssignMethod(wx_GridEditorCreatedEvent, __GetCol);
 	Gura_AssignMethod(wx_GridEditorCreatedEvent, __GetControl);

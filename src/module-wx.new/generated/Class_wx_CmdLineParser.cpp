@@ -37,37 +37,20 @@ String Object_wx_CmdLineParser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCmdLineParser, "wxCmdLineParser")
+Gura_DeclareFunctionAlias(__CmdLineParser, "CmdLineParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCmdLineParser)
+Gura_ImplementFunction(__CmdLineParser)
 {
 	//wxCmdLineParser();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCmdLineParser_1, "wxCmdLineParser_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
-	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(__wxCmdLineParser_1)
-{
-	//int argc = arg.GetNumber(0)
-	//int argv = arg.GetNumber(1)
-	//wxCmdLineParser();
-	return Value::Nil;
-}
-
-Gura_DeclareFunctionAlias(__wxCmdLineParser_2, "wxCmdLineParser_2")
+Gura_DeclareFunctionAlias(__CmdLineParser_1, "CmdLineParser_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
@@ -76,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_2, "wxCmdLineParser_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCmdLineParser_2)
+Gura_ImplementFunction(__CmdLineParser_1)
 {
 	//int argc = arg.GetNumber(0)
 	//int argv = arg.GetNumber(1)
@@ -84,7 +67,24 @@ Gura_ImplementFunction(__wxCmdLineParser_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCmdLineParser_3, "wxCmdLineParser_3")
+Gura_DeclareFunctionAlias(__CmdLineParser_2, "CmdLineParser_2")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(__CmdLineParser_2)
+{
+	//int argc = arg.GetNumber(0)
+	//int argv = arg.GetNumber(1)
+	//wxCmdLineParser();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__CmdLineParser_3, "CmdLineParser_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cmdline", VTYPE_number, OCCUR_Once);
@@ -92,14 +92,14 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_3, "wxCmdLineParser_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCmdLineParser_3)
+Gura_ImplementFunction(__CmdLineParser_3)
 {
 	//int cmdline = arg.GetNumber(0)
 	//wxCmdLineParser();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCmdLineParser_4, "wxCmdLineParser_4")
+Gura_DeclareFunctionAlias(__CmdLineParser_4, "CmdLineParser_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
@@ -107,14 +107,14 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_4, "wxCmdLineParser_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCmdLineParser_4)
+Gura_ImplementFunction(__CmdLineParser_4)
 {
 	//int desc = arg.GetNumber(0)
 	//wxCmdLineParser();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCmdLineParser_5, "wxCmdLineParser_5")
+Gura_DeclareFunctionAlias(__CmdLineParser_5, "CmdLineParser_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_5, "wxCmdLineParser_5")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCmdLineParser_5)
+Gura_ImplementFunction(__CmdLineParser_5)
 {
 	//int desc = arg.GetNumber(0)
 	//int argc = arg.GetNumber(1)
@@ -133,7 +133,7 @@ Gura_ImplementFunction(__wxCmdLineParser_5)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCmdLineParser_6, "wxCmdLineParser_6")
+Gura_DeclareFunctionAlias(__CmdLineParser_6, "CmdLineParser_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
@@ -142,7 +142,7 @@ Gura_DeclareFunctionAlias(__wxCmdLineParser_6, "wxCmdLineParser_6")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCmdLineParser_6)
+Gura_ImplementFunction(__CmdLineParser_6)
 {
 	//int desc = arg.GetNumber(0)
 	//int cmdline = arg.GetNumber(1)
@@ -609,13 +609,13 @@ Gura_ImplementMethod(wx_CmdLineParser, __GetUsageString)
 Gura_ImplementUserInheritableClass(wx_CmdLineParser)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCmdLineParser);
-	Gura_AssignFunction(__wxCmdLineParser_1);
-	Gura_AssignFunction(__wxCmdLineParser_2);
-	Gura_AssignFunction(__wxCmdLineParser_3);
-	Gura_AssignFunction(__wxCmdLineParser_4);
-	Gura_AssignFunction(__wxCmdLineParser_5);
-	Gura_AssignFunction(__wxCmdLineParser_6);
+	Gura_AssignFunction(__CmdLineParser);
+	Gura_AssignFunction(__CmdLineParser_1);
+	Gura_AssignFunction(__CmdLineParser_2);
+	Gura_AssignFunction(__CmdLineParser_3);
+	Gura_AssignFunction(__CmdLineParser_4);
+	Gura_AssignFunction(__CmdLineParser_5);
+	Gura_AssignFunction(__CmdLineParser_6);
 	// Method assignment
 	Gura_AssignMethod(wx_CmdLineParser, __AddLongOption);
 	Gura_AssignMethod(wx_CmdLineParser, __AddLongSwitch);

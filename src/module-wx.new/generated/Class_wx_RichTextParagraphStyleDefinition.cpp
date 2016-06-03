@@ -37,7 +37,7 @@ String Object_wx_RichTextParagraphStyleDefinition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextParagraphStyleDefinition, "wxRichTextParagraphStyleDefinition")
+Gura_DeclareFunctionAlias(__RichTextParagraphStyleDefinition, "RichTextParagraphStyleDefinition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxRichTextParagraphStyleDefinition, "wxRichTextParag
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextParagraphStyleDefinition)
+Gura_ImplementFunction(__RichTextParagraphStyleDefinition)
 {
 	//int name = arg.GetNumber(0)
 	//wxRichTextParagraphStyleDefinition();
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, __SetNextStyle)
 Gura_ImplementUserInheritableClass(wx_RichTextParagraphStyleDefinition)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextParagraphStyleDefinition);
+	Gura_AssignFunction(__RichTextParagraphStyleDefinition);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, __GetNextStyle);
 	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, __SetNextStyle);

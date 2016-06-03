@@ -37,7 +37,7 @@ String Object_wx_Thread::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxThread, "wxThread")
+Gura_DeclareFunctionAlias(__Thread, "Thread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxThread, "wxThread")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxThread)
+Gura_ImplementFunction(__Thread)
 {
 	//int kind = arg.GetNumber(0)
 	//wxThread();
@@ -441,7 +441,7 @@ Gura_ImplementMethod(wx_Thread, __OnExit)
 Gura_ImplementUserInheritableClass(wx_Thread)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxThread);
+	Gura_AssignFunction(__Thread);
 	// Method assignment
 	Gura_AssignMethod(wx_Thread, __Create);
 	Gura_AssignMethod(wx_Thread, __Delete);

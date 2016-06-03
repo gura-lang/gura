@@ -37,7 +37,7 @@ String Object_wx_KeyEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxKeyEvent, "wxKeyEvent")
+Gura_DeclareFunctionAlias(__KeyEvent, "KeyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyEventType", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxKeyEvent, "wxKeyEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxKeyEvent)
+Gura_ImplementFunction(__KeyEvent)
 {
 	//int keyEventType = arg.GetNumber(0)
 	//wxKeyEvent();
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_KeyEvent, __IsNextEventAllowed)
 Gura_ImplementUserInheritableClass(wx_KeyEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxKeyEvent);
+	Gura_AssignFunction(__KeyEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_KeyEvent, __GetKeyCode);
 	Gura_AssignMethod(wx_KeyEvent, __IsKeyInCategory);

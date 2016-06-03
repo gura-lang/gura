@@ -37,7 +37,7 @@ String Object_wx_BufferedInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBufferedInputStream, "wxBufferedInputStream")
+Gura_DeclareFunctionAlias(__BufferedInputStream, "BufferedInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxBufferedInputStream, "wxBufferedInputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBufferedInputStream)
+Gura_ImplementFunction(__BufferedInputStream)
 {
 	//int stream = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxBufferedInputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBufferedInputStream_1, "wxBufferedInputStream_1")
+Gura_DeclareFunctionAlias(__BufferedInputStream_1, "BufferedInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxBufferedInputStream_1, "wxBufferedInputStream_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBufferedInputStream_1)
+Gura_ImplementFunction(__BufferedInputStream_1)
 {
 	//int stream = arg.GetNumber(0)
 	//int bufsize = arg.GetNumber(1)
@@ -77,8 +77,8 @@ Gura_ImplementFunction(__wxBufferedInputStream_1)
 Gura_ImplementUserInheritableClass(wx_BufferedInputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBufferedInputStream);
-	Gura_AssignFunction(__wxBufferedInputStream_1);
+	Gura_AssignFunction(__BufferedInputStream);
+	Gura_AssignFunction(__BufferedInputStream_1);
 }
 
 Gura_ImplementDescendantCreator(wx_BufferedInputStream)

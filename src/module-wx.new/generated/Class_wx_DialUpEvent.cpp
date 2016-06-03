@@ -37,7 +37,7 @@ String Object_wx_DialUpEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDialUpEvent, "wxDialUpEvent")
+Gura_DeclareFunctionAlias(__DialUpEvent, "DialUpEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "isConnected", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxDialUpEvent, "wxDialUpEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDialUpEvent)
+Gura_ImplementFunction(__DialUpEvent)
 {
 	//int isConnected = arg.GetNumber(0)
 	//int isOwnEvent = arg.GetNumber(1)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_DialUpEvent, __IsOwnEvent)
 Gura_ImplementUserInheritableClass(wx_DialUpEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDialUpEvent);
+	Gura_AssignFunction(__DialUpEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_DialUpEvent, __IsConnectedEvent);
 	Gura_AssignMethod(wx_DialUpEvent, __IsOwnEvent);

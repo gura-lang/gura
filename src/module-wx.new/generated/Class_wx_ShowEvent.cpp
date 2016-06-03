@@ -37,7 +37,7 @@ String Object_wx_ShowEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxShowEvent, "wxShowEvent")
+Gura_DeclareFunctionAlias(__ShowEvent, "ShowEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxShowEvent, "wxShowEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxShowEvent)
+Gura_ImplementFunction(__ShowEvent)
 {
 	//int winid = arg.GetNumber(0)
 	//int show = arg.GetNumber(1)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_ShowEvent, __GetShow)
 Gura_ImplementUserInheritableClass(wx_ShowEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxShowEvent);
+	Gura_AssignFunction(__ShowEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_ShowEvent, __SetShow);
 	Gura_AssignMethod(wx_ShowEvent, __IsShown);

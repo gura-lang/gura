@@ -37,14 +37,14 @@ String Object_wx_DialogLayoutAdapter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDialogLayoutAdapter, "wxDialogLayoutAdapter")
+Gura_DeclareFunctionAlias(__DialogLayoutAdapter, "DialogLayoutAdapter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DialogLayoutAdapter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDialogLayoutAdapter)
+Gura_ImplementFunction(__DialogLayoutAdapter)
 {
 	//wxDialogLayoutAdapter();
 	return Value::Nil;
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_DialogLayoutAdapter, __DoLayoutAdaptation)
 Gura_ImplementUserInheritableClass(wx_DialogLayoutAdapter)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDialogLayoutAdapter);
+	Gura_AssignFunction(__DialogLayoutAdapter);
 	// Method assignment
 	Gura_AssignMethod(wx_DialogLayoutAdapter, __CanDoLayoutAdaptation);
 	Gura_AssignMethod(wx_DialogLayoutAdapter, __DoLayoutAdaptation);

@@ -37,20 +37,20 @@ String Object_wx_FSVolume::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFSVolume, "wxFSVolume")
+Gura_DeclareFunctionAlias(__FSVolume, "FSVolume")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FSVolume));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFSVolume)
+Gura_ImplementFunction(__FSVolume)
 {
 	//wxFSVolume();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFSVolume_1, "wxFSVolume_1")
+Gura_DeclareFunctionAlias(__FSVolume_1, "FSVolume_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxFSVolume_1, "wxFSVolume_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFSVolume_1)
+Gura_ImplementFunction(__FSVolume_1)
 {
 	//int name = arg.GetNumber(0)
 	//wxFSVolume();
@@ -212,8 +212,8 @@ Gura_ImplementMethod(wx_FSVolume, __GetIcon)
 Gura_ImplementUserInheritableClass(wx_FSVolume)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFSVolume);
-	Gura_AssignFunction(__wxFSVolume_1);
+	Gura_AssignFunction(__FSVolume);
+	Gura_AssignFunction(__FSVolume_1);
 	// Method assignment
 	Gura_AssignMethod(wx_FSVolume, __Create);
 	Gura_AssignMethod(wx_FSVolume, __GetVolumes);

@@ -37,7 +37,7 @@ String Object_wx_CalendarDateAttr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCalendarDateAttr, "wxCalendarDateAttr")
+Gura_DeclareFunctionAlias(__CalendarDateAttr, "CalendarDateAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colText", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__wxCalendarDateAttr, "wxCalendarDateAttr")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCalendarDateAttr)
+Gura_ImplementFunction(__CalendarDateAttr)
 {
 	//int colText = arg.GetNumber(0)
 	//int colBack = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxCalendarDateAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCalendarDateAttr_1, "wxCalendarDateAttr_1")
+Gura_DeclareFunctionAlias(__CalendarDateAttr_1, "CalendarDateAttr_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
@@ -69,7 +69,7 @@ Gura_DeclareFunctionAlias(__wxCalendarDateAttr_1, "wxCalendarDateAttr_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCalendarDateAttr_1)
+Gura_ImplementFunction(__CalendarDateAttr_1)
 {
 	//int border = arg.GetNumber(0)
 	//int colBorder = arg.GetNumber(1)
@@ -347,8 +347,8 @@ Gura_ImplementMethod(wx_CalendarDateAttr, __SetMark)
 Gura_ImplementUserInheritableClass(wx_CalendarDateAttr)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCalendarDateAttr);
-	Gura_AssignFunction(__wxCalendarDateAttr_1);
+	Gura_AssignFunction(__CalendarDateAttr);
+	Gura_AssignFunction(__CalendarDateAttr_1);
 	// Method assignment
 	Gura_AssignMethod(wx_CalendarDateAttr, __GetBackgroundColour);
 	Gura_AssignMethod(wx_CalendarDateAttr, __GetBorder);

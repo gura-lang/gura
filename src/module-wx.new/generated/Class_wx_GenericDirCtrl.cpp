@@ -37,20 +37,20 @@ String Object_wx_GenericDirCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGenericDirCtrl, "wxGenericDirCtrl")
+Gura_DeclareFunctionAlias(__GenericDirCtrl, "GenericDirCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GenericDirCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericDirCtrl)
+Gura_ImplementFunction(__GenericDirCtrl)
 {
 	//wxGenericDirCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGenericDirCtrl_1, "wxGenericDirCtrl_1")
+Gura_DeclareFunctionAlias(__GenericDirCtrl_1, "GenericDirCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxGenericDirCtrl_1, "wxGenericDirCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericDirCtrl_1)
+Gura_ImplementFunction(__GenericDirCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -459,8 +459,8 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __UnselectAll)
 Gura_ImplementUserInheritableClass(wx_GenericDirCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGenericDirCtrl);
-	Gura_AssignFunction(__wxGenericDirCtrl_1);
+	Gura_AssignFunction(__GenericDirCtrl);
+	Gura_AssignFunction(__GenericDirCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_GenericDirCtrl, __CollapsePath);
 	Gura_AssignMethod(wx_GenericDirCtrl, __CollapseTree);

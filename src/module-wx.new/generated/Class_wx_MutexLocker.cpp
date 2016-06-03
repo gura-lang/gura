@@ -37,7 +37,7 @@ String Object_wx_MutexLocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMutexLocker, "wxMutexLocker")
+Gura_DeclareFunctionAlias(__MutexLocker, "MutexLocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mutex", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxMutexLocker, "wxMutexLocker")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMutexLocker)
+Gura_ImplementFunction(__MutexLocker)
 {
 	//int mutex = arg.GetNumber(0)
 	//wxMutexLocker();
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_MutexLocker, __IsOk)
 Gura_ImplementUserInheritableClass(wx_MutexLocker)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMutexLocker);
+	Gura_AssignFunction(__MutexLocker);
 	// Method assignment
 	Gura_AssignMethod(wx_MutexLocker, __IsOk);
 }

@@ -37,14 +37,14 @@ String Object_wx_SizerXmlHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSizerXmlHandler, "wxSizerXmlHandler")
+Gura_DeclareFunctionAlias(__SizerXmlHandler, "SizerXmlHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SizerXmlHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSizerXmlHandler)
+Gura_ImplementFunction(__SizerXmlHandler)
 {
 	//wxSizerXmlHandler();
 	return Value::Nil;
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_SizerXmlHandler, __IsSizerNode)
 Gura_ImplementUserInheritableClass(wx_SizerXmlHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSizerXmlHandler);
+	Gura_AssignFunction(__SizerXmlHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_SizerXmlHandler, __DoCreateResource);
 	Gura_AssignMethod(wx_SizerXmlHandler, __CanHandle);

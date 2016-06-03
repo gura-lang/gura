@@ -37,7 +37,7 @@ String Object_wx_TipProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTipProvider, "wxTipProvider")
+Gura_DeclareFunctionAlias(__TipProvider, "TipProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "currentTip", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxTipProvider, "wxTipProvider")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTipProvider)
+Gura_ImplementFunction(__TipProvider)
 {
 	//int currentTip = arg.GetNumber(0)
 	//wxTipProvider();
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_TipProvider, __GetTip)
 Gura_ImplementUserInheritableClass(wx_TipProvider)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTipProvider);
+	Gura_AssignFunction(__TipProvider);
 	// Method assignment
 	Gura_AssignMethod(wx_TipProvider, __GetCurrentTip);
 	Gura_AssignMethod(wx_TipProvider, __GetTip);

@@ -37,20 +37,20 @@ String Object_wx_Dir::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDir, "wxDir")
+Gura_DeclareFunctionAlias(__Dir, "Dir")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Dir));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDir)
+Gura_ImplementFunction(__Dir)
 {
 	//wxDir();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDir_1, "wxDir_1")
+Gura_DeclareFunctionAlias(__Dir_1, "Dir_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxDir_1, "wxDir_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDir_1)
+Gura_ImplementFunction(__Dir_1)
 {
 	//int dir = arg.GetNumber(0)
 	//wxDir();
@@ -332,8 +332,8 @@ Gura_ImplementMethod(wx_Dir, __Traverse)
 Gura_ImplementUserInheritableClass(wx_Dir)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDir);
-	Gura_AssignFunction(__wxDir_1);
+	Gura_AssignFunction(__Dir);
+	Gura_AssignFunction(__Dir_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Dir, __Close);
 	Gura_AssignMethod(wx_Dir, __Exists);

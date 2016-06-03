@@ -37,20 +37,20 @@ String Object_wx_HScrolledWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHScrolledWindow, "wxHScrolledWindow")
+Gura_DeclareFunctionAlias(__HScrolledWindow, "HScrolledWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HScrolledWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHScrolledWindow)
+Gura_ImplementFunction(__HScrolledWindow)
 {
 	//wxHScrolledWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxHScrolledWindow_1, "wxHScrolledWindow_1")
+Gura_DeclareFunctionAlias(__HScrolledWindow_1, "HScrolledWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxHScrolledWindow_1, "wxHScrolledWindow_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHScrolledWindow_1)
+Gura_ImplementFunction(__HScrolledWindow_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -109,8 +109,8 @@ Gura_ImplementMethod(wx_HScrolledWindow, __Create)
 Gura_ImplementUserInheritableClass(wx_HScrolledWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHScrolledWindow);
-	Gura_AssignFunction(__wxHScrolledWindow_1);
+	Gura_AssignFunction(__HScrolledWindow);
+	Gura_AssignFunction(__HScrolledWindow_1);
 	// Method assignment
 	Gura_AssignMethod(wx_HScrolledWindow, __Create);
 }

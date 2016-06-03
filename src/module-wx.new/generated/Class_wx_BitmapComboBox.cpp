@@ -37,20 +37,20 @@ String Object_wx_BitmapComboBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBitmapComboBox, "wxBitmapComboBox")
+Gura_DeclareFunctionAlias(__BitmapComboBox, "BitmapComboBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapComboBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBitmapComboBox)
+Gura_ImplementFunction(__BitmapComboBox)
 {
 	//wxBitmapComboBox();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBitmapComboBox_1, "wxBitmapComboBox_1")
+Gura_DeclareFunctionAlias(__BitmapComboBox_1, "BitmapComboBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -67,7 +67,7 @@ Gura_DeclareFunctionAlias(__wxBitmapComboBox_1, "wxBitmapComboBox_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBitmapComboBox_1)
+Gura_ImplementFunction(__BitmapComboBox_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -83,7 +83,7 @@ Gura_ImplementFunction(__wxBitmapComboBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBitmapComboBox_2, "wxBitmapComboBox_2")
+Gura_DeclareFunctionAlias(__BitmapComboBox_2, "BitmapComboBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_DeclareFunctionAlias(__wxBitmapComboBox_2, "wxBitmapComboBox_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBitmapComboBox_2)
+Gura_ImplementFunction(__BitmapComboBox_2)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -348,9 +348,9 @@ Gura_ImplementMethod(wx_BitmapComboBox, __SetItemBitmap)
 Gura_ImplementUserInheritableClass(wx_BitmapComboBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBitmapComboBox);
-	Gura_AssignFunction(__wxBitmapComboBox_1);
-	Gura_AssignFunction(__wxBitmapComboBox_2);
+	Gura_AssignFunction(__BitmapComboBox);
+	Gura_AssignFunction(__BitmapComboBox_1);
+	Gura_AssignFunction(__BitmapComboBox_2);
 	// Method assignment
 	Gura_AssignMethod(wx_BitmapComboBox, __Append);
 	Gura_AssignMethod(wx_BitmapComboBox, __Append_1);

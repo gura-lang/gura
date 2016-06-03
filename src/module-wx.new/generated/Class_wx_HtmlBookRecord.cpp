@@ -37,7 +37,7 @@ String Object_wx_HtmlBookRecord::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlBookRecord, "wxHtmlBookRecord")
+Gura_DeclareFunctionAlias(__HtmlBookRecord, "HtmlBookRecord")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bookfile", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxHtmlBookRecord, "wxHtmlBookRecord")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlBookRecord)
+Gura_ImplementFunction(__HtmlBookRecord)
 {
 	//int bookfile = arg.GetNumber(0)
 	//int basepath = arg.GetNumber(1)
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __GetFullPath)
 Gura_ImplementUserInheritableClass(wx_HtmlBookRecord)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlBookRecord);
+	Gura_AssignFunction(__HtmlBookRecord);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlBookRecord, __GetBookFile);
 	Gura_AssignMethod(wx_HtmlBookRecord, __GetTitle);

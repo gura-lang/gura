@@ -37,7 +37,7 @@ String Object_wx_MessageOutputStderr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMessageOutputStderr, "wxMessageOutputStderr")
+Gura_DeclareFunctionAlias(__MessageOutputStderr, "MessageOutputStderr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxMessageOutputStderr, "wxMessageOutputStderr")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMessageOutputStderr)
+Gura_ImplementFunction(__MessageOutputStderr)
 {
 	//int fp = arg.GetNumber(0)
 	//wxMessageOutputStderr();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxMessageOutputStderr)
 Gura_ImplementUserInheritableClass(wx_MessageOutputStderr)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMessageOutputStderr);
+	Gura_AssignFunction(__MessageOutputStderr);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageOutputStderr)

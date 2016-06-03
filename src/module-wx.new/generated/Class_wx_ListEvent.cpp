@@ -37,7 +37,7 @@ String Object_wx_ListEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxListEvent, "wxListEvent")
+Gura_DeclareFunctionAlias(__ListEvent, "ListEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxListEvent, "wxListEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListEvent)
+Gura_ImplementFunction(__ListEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_ListEvent, __IsEditCancelled)
 Gura_ImplementUserInheritableClass(wx_ListEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxListEvent);
+	Gura_AssignFunction(__ListEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_ListEvent, __GetCacheFrom);
 	Gura_AssignMethod(wx_ListEvent, __GetCacheTo);

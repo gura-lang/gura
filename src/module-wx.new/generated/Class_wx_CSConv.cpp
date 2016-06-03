@@ -37,7 +37,7 @@ String Object_wx_CSConv::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCSConv, "wxCSConv")
+Gura_DeclareFunctionAlias(__CSConv, "CSConv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "charset", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxCSConv, "wxCSConv")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCSConv)
+Gura_ImplementFunction(__CSConv)
 {
 	//int charset = arg.GetNumber(0)
 	//wxCSConv();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCSConv_1, "wxCSConv_1")
+Gura_DeclareFunctionAlias(__CSConv_1, "CSConv_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxCSConv_1, "wxCSConv_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCSConv_1)
+Gura_ImplementFunction(__CSConv_1)
 {
 	//int encoding = arg.GetNumber(0)
 	//wxCSConv();
@@ -89,8 +89,8 @@ Gura_ImplementMethod(wx_CSConv, __IsOk)
 Gura_ImplementUserInheritableClass(wx_CSConv)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCSConv);
-	Gura_AssignFunction(__wxCSConv_1);
+	Gura_AssignFunction(__CSConv);
+	Gura_AssignFunction(__CSConv_1);
 	// Method assignment
 	Gura_AssignMethod(wx_CSConv, __IsOk);
 }

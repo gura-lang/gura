@@ -37,20 +37,20 @@ String Object_wx_URI::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxURI, "wxURI")
+Gura_DeclareFunctionAlias(__URI, "URI")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_URI));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxURI)
+Gura_ImplementFunction(__URI)
 {
 	//wxURI();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxURI_1, "wxURI_1")
+Gura_DeclareFunctionAlias(__URI_1, "URI_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxURI_1, "wxURI_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxURI_1)
+Gura_ImplementFunction(__URI_1)
 {
 	//int uri = arg.GetNumber(0)
 	//wxURI();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxURI_2, "wxURI_2")
+Gura_DeclareFunctionAlias(__URI_2, "URI_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_DeclareFunctionAlias(__wxURI_2, "wxURI_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxURI_2)
+Gura_ImplementFunction(__URI_2)
 {
 	//int uri = arg.GetNumber(0)
 	//wxURI();
@@ -396,9 +396,9 @@ Gura_ImplementMethod(wx_URI, __Unescape)
 Gura_ImplementUserInheritableClass(wx_URI)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxURI);
-	Gura_AssignFunction(__wxURI_1);
-	Gura_AssignFunction(__wxURI_2);
+	Gura_AssignFunction(__URI);
+	Gura_AssignFunction(__URI_1);
+	Gura_AssignFunction(__URI_2);
 	// Method assignment
 	Gura_AssignMethod(wx_URI, __BuildURI);
 	Gura_AssignMethod(wx_URI, __BuildUnescapedURI);

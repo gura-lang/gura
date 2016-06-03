@@ -37,7 +37,7 @@ String Object_wx_MemoryInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMemoryInputStream, "wxMemoryInputStream")
+Gura_DeclareFunctionAlias(__MemoryInputStream, "MemoryInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxMemoryInputStream, "wxMemoryInputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMemoryInputStream)
+Gura_ImplementFunction(__MemoryInputStream)
 {
 	//int data = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxMemoryInputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMemoryInputStream_1, "wxMemoryInputStream_1")
+Gura_DeclareFunctionAlias(__MemoryInputStream_1, "MemoryInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -62,14 +62,14 @@ Gura_DeclareFunctionAlias(__wxMemoryInputStream_1, "wxMemoryInputStream_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMemoryInputStream_1)
+Gura_ImplementFunction(__MemoryInputStream_1)
 {
 	//int stream = arg.GetNumber(0)
 	//wxMemoryInputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMemoryInputStream_2, "wxMemoryInputStream_2")
+Gura_DeclareFunctionAlias(__MemoryInputStream_2, "MemoryInputStream_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__wxMemoryInputStream_2, "wxMemoryInputStream_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMemoryInputStream_2)
+Gura_ImplementFunction(__MemoryInputStream_2)
 {
 	//int stream = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
@@ -108,9 +108,9 @@ Gura_ImplementMethod(wx_MemoryInputStream, __GetInputStreamBuffer)
 Gura_ImplementUserInheritableClass(wx_MemoryInputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMemoryInputStream);
-	Gura_AssignFunction(__wxMemoryInputStream_1);
-	Gura_AssignFunction(__wxMemoryInputStream_2);
+	Gura_AssignFunction(__MemoryInputStream);
+	Gura_AssignFunction(__MemoryInputStream_1);
+	Gura_AssignFunction(__MemoryInputStream_2);
 	// Method assignment
 	Gura_AssignMethod(wx_MemoryInputStream, __GetInputStreamBuffer);
 }

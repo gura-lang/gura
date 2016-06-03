@@ -37,7 +37,7 @@ String Object_wx_GBSizerItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGBSizerItem, "wxGBSizerItem")
+Gura_DeclareFunctionAlias(__GBSizerItem, "GBSizerItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareFunctionAlias(__wxGBSizerItem, "wxGBSizerItem")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGBSizerItem)
+Gura_ImplementFunction(__GBSizerItem)
 {
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__wxGBSizerItem)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGBSizerItem_1, "wxGBSizerItem_1")
+Gura_DeclareFunctionAlias(__GBSizerItem_1, "GBSizerItem_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__wxGBSizerItem_1, "wxGBSizerItem_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGBSizerItem_1)
+Gura_ImplementFunction(__GBSizerItem_1)
 {
 	//int window = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
@@ -89,7 +89,7 @@ Gura_ImplementFunction(__wxGBSizerItem_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGBSizerItem_2, "wxGBSizerItem_2")
+Gura_DeclareFunctionAlias(__GBSizerItem_2, "GBSizerItem_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
@@ -102,7 +102,7 @@ Gura_DeclareFunctionAlias(__wxGBSizerItem_2, "wxGBSizerItem_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGBSizerItem_2)
+Gura_ImplementFunction(__GBSizerItem_2)
 {
 	//int sizer = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
@@ -290,9 +290,9 @@ Gura_ImplementMethod(wx_GBSizerItem, __SetGBSizer)
 Gura_ImplementUserInheritableClass(wx_GBSizerItem)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGBSizerItem);
-	Gura_AssignFunction(__wxGBSizerItem_1);
-	Gura_AssignFunction(__wxGBSizerItem_2);
+	Gura_AssignFunction(__GBSizerItem);
+	Gura_AssignFunction(__GBSizerItem_1);
+	Gura_AssignFunction(__GBSizerItem_2);
 	// Method assignment
 	Gura_AssignMethod(wx_GBSizerItem, __GetEndPos);
 	Gura_AssignMethod(wx_GBSizerItem, __GetPos);

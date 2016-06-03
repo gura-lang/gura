@@ -37,14 +37,14 @@ String Object_wx_UIActionSimulator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxUIActionSimulator, "wxUIActionSimulator")
+Gura_DeclareFunctionAlias(__UIActionSimulator, "UIActionSimulator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_UIActionSimulator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUIActionSimulator)
+Gura_ImplementFunction(__UIActionSimulator)
 {
 	//wxUIActionSimulator();
 	return Value::Nil;
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __Text)
 Gura_ImplementUserInheritableClass(wx_UIActionSimulator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxUIActionSimulator);
+	Gura_AssignFunction(__UIActionSimulator);
 	// Method assignment
 	Gura_AssignMethod(wx_UIActionSimulator, __MouseMove);
 	Gura_AssignMethod(wx_UIActionSimulator, __MouseMove_1);

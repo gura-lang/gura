@@ -37,20 +37,20 @@ String Object_wx_Palette::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPalette, "wxPalette")
+Gura_DeclareFunctionAlias(__Palette, "Palette")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Palette));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPalette)
+Gura_ImplementFunction(__Palette)
 {
 	//wxPalette();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPalette_1, "wxPalette_1")
+Gura_DeclareFunctionAlias(__Palette_1, "Palette_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxPalette_1, "wxPalette_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPalette_1)
+Gura_ImplementFunction(__Palette_1)
 {
 	//int palette = arg.GetNumber(0)
 	//wxPalette();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPalette_2, "wxPalette_2")
+Gura_DeclareFunctionAlias(__Palette_2, "Palette_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__wxPalette_2, "wxPalette_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPalette_2)
+Gura_ImplementFunction(__Palette_2)
 {
 	//int n = arg.GetNumber(0)
 	//int red = arg.GetNumber(1)
@@ -182,9 +182,9 @@ Gura_ImplementMethod(wx_Palette, __IsOk)
 Gura_ImplementUserInheritableClass(wx_Palette)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPalette);
-	Gura_AssignFunction(__wxPalette_1);
-	Gura_AssignFunction(__wxPalette_2);
+	Gura_AssignFunction(__Palette);
+	Gura_AssignFunction(__Palette_1);
+	Gura_AssignFunction(__Palette_2);
 	// Method assignment
 	Gura_AssignMethod(wx_Palette, __Create);
 	Gura_AssignMethod(wx_Palette, __GetColoursCount);

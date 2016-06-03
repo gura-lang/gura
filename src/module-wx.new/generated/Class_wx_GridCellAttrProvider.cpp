@@ -37,14 +37,14 @@ String Object_wx_GridCellAttrProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridCellAttrProvider, "wxGridCellAttrProvider")
+Gura_DeclareFunctionAlias(__GridCellAttrProvider, "GridCellAttrProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellAttrProvider));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellAttrProvider)
+Gura_ImplementFunction(__GridCellAttrProvider)
 {
 	//wxGridCellAttrProvider();
 	return Value::Nil;
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, __GetCornerRenderer)
 Gura_ImplementUserInheritableClass(wx_GridCellAttrProvider)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridCellAttrProvider);
+	Gura_AssignFunction(__GridCellAttrProvider);
 	// Method assignment
 	Gura_AssignMethod(wx_GridCellAttrProvider, __GetAttr);
 	Gura_AssignMethod(wx_GridCellAttrProvider, __SetAttr);

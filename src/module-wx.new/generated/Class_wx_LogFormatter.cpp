@@ -37,14 +37,14 @@ String Object_wx_LogFormatter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLogFormatter, "wxLogFormatter")
+Gura_DeclareFunctionAlias(__LogFormatter, "LogFormatter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogFormatter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLogFormatter)
+Gura_ImplementFunction(__LogFormatter)
 {
 	//wxLogFormatter();
 	return Value::Nil;
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_LogFormatter, __FormatTime)
 Gura_ImplementUserInheritableClass(wx_LogFormatter)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLogFormatter);
+	Gura_AssignFunction(__LogFormatter);
 	// Method assignment
 	Gura_AssignMethod(wx_LogFormatter, __Format);
 	Gura_AssignMethod(wx_LogFormatter, __FormatTime);

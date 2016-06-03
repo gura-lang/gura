@@ -37,7 +37,7 @@ String Object_wx_RecursionGuard::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRecursionGuard, "wxRecursionGuard")
+Gura_DeclareFunctionAlias(__RecursionGuard, "RecursionGuard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxRecursionGuard, "wxRecursionGuard")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRecursionGuard)
+Gura_ImplementFunction(__RecursionGuard)
 {
 	//int flag = arg.GetNumber(0)
 	//wxRecursionGuard();
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_RecursionGuard, __IsInside)
 Gura_ImplementUserInheritableClass(wx_RecursionGuard)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRecursionGuard);
+	Gura_AssignFunction(__RecursionGuard);
 	// Method assignment
 	Gura_AssignMethod(wx_RecursionGuard, __IsInside);
 }

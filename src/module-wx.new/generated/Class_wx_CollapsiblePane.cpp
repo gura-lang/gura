@@ -37,20 +37,20 @@ String Object_wx_CollapsiblePane::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCollapsiblePane, "wxCollapsiblePane")
+Gura_DeclareFunctionAlias(__CollapsiblePane, "CollapsiblePane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CollapsiblePane));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCollapsiblePane)
+Gura_ImplementFunction(__CollapsiblePane)
 {
 	//wxCollapsiblePane();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCollapsiblePane_1, "wxCollapsiblePane_1")
+Gura_DeclareFunctionAlias(__CollapsiblePane_1, "CollapsiblePane_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxCollapsiblePane_1, "wxCollapsiblePane_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCollapsiblePane_1)
+Gura_ImplementFunction(__CollapsiblePane_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -184,8 +184,8 @@ Gura_ImplementMethod(wx_CollapsiblePane, __IsExpanded)
 Gura_ImplementUserInheritableClass(wx_CollapsiblePane)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCollapsiblePane);
-	Gura_AssignFunction(__wxCollapsiblePane_1);
+	Gura_AssignFunction(__CollapsiblePane);
+	Gura_AssignFunction(__CollapsiblePane_1);
 	// Method assignment
 	Gura_AssignMethod(wx_CollapsiblePane, __Create);
 	Gura_AssignMethod(wx_CollapsiblePane, __Collapse);

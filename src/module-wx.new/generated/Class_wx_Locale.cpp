@@ -37,20 +37,20 @@ String Object_wx_Locale::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLocale, "wxLocale")
+Gura_DeclareFunctionAlias(__Locale, "Locale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Locale));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLocale)
+Gura_ImplementFunction(__Locale)
 {
 	//wxLocale();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxLocale_1, "wxLocale_1")
+Gura_DeclareFunctionAlias(__Locale_1, "Locale_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "language", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxLocale_1, "wxLocale_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLocale_1)
+Gura_ImplementFunction(__Locale_1)
 {
 	//int language = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__wxLocale_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxLocale_2, "wxLocale_2")
+Gura_DeclareFunctionAlias(__Locale_2, "Locale_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__wxLocale_2, "wxLocale_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLocale_2)
+Gura_ImplementFunction(__Locale_2)
 {
 	//int name = arg.GetNumber(0)
 	//int shortName = arg.GetNumber(1)
@@ -512,9 +512,9 @@ Gura_ImplementMethod(wx_Locale, __IsOk)
 Gura_ImplementUserInheritableClass(wx_Locale)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLocale);
-	Gura_AssignFunction(__wxLocale_1);
-	Gura_AssignFunction(__wxLocale_2);
+	Gura_AssignFunction(__Locale);
+	Gura_AssignFunction(__Locale_1);
+	Gura_AssignFunction(__Locale_2);
 	// Method assignment
 	Gura_AssignMethod(wx_Locale, __AddCatalog);
 	Gura_AssignMethod(wx_Locale, __AddCatalog_1);

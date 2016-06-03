@@ -37,7 +37,7 @@ String Object_wx_XmlNode::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxXmlNode, "wxXmlNode")
+Gura_DeclareFunctionAlias(__XmlNode, "XmlNode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareFunctionAlias(__wxXmlNode, "wxXmlNode")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxXmlNode)
+Gura_ImplementFunction(__XmlNode)
 {
 	//int parent = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__wxXmlNode)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxXmlNode_1, "wxXmlNode_1")
+Gura_DeclareFunctionAlias(__XmlNode_1, "XmlNode_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__wxXmlNode_1, "wxXmlNode_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxXmlNode_1)
+Gura_ImplementFunction(__XmlNode_1)
 {
 	//int type = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -85,7 +85,7 @@ Gura_ImplementFunction(__wxXmlNode_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxXmlNode_2, "wxXmlNode_2")
+Gura_DeclareFunctionAlias(__XmlNode_2, "XmlNode_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
@@ -93,7 +93,7 @@ Gura_DeclareFunctionAlias(__wxXmlNode_2, "wxXmlNode_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxXmlNode_2)
+Gura_ImplementFunction(__XmlNode_2)
 {
 	//int node = arg.GetNumber(0)
 	//wxXmlNode();
@@ -547,9 +547,9 @@ Gura_ImplementMethod(wx_XmlNode, __SetType)
 Gura_ImplementUserInheritableClass(wx_XmlNode)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxXmlNode);
-	Gura_AssignFunction(__wxXmlNode_1);
-	Gura_AssignFunction(__wxXmlNode_2);
+	Gura_AssignFunction(__XmlNode);
+	Gura_AssignFunction(__XmlNode_1);
+	Gura_AssignFunction(__XmlNode_2);
 	// Method assignment
 	Gura_AssignMethod(wx_XmlNode, __AddAttribute);
 	Gura_AssignMethod(wx_XmlNode, __AddAttribute_1);

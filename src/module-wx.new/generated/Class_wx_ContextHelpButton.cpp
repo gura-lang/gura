@@ -37,7 +37,7 @@ String Object_wx_ContextHelpButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxContextHelpButton, "wxContextHelpButton")
+Gura_DeclareFunctionAlias(__ContextHelpButton, "ContextHelpButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__wxContextHelpButton, "wxContextHelpButton")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxContextHelpButton)
+Gura_ImplementFunction(__ContextHelpButton)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -66,7 +66,7 @@ Gura_ImplementFunction(__wxContextHelpButton)
 Gura_ImplementUserInheritableClass(wx_ContextHelpButton)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxContextHelpButton);
+	Gura_AssignFunction(__ContextHelpButton);
 }
 
 Gura_ImplementDescendantCreator(wx_ContextHelpButton)

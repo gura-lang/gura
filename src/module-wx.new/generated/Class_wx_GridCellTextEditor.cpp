@@ -37,7 +37,7 @@ String Object_wx_GridCellTextEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridCellTextEditor, "wxGridCellTextEditor")
+Gura_DeclareFunctionAlias(__GridCellTextEditor, "GridCellTextEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maxChars", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxGridCellTextEditor, "wxGridCellTextEditor")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellTextEditor)
+Gura_ImplementFunction(__GridCellTextEditor)
 {
 	//int maxChars = arg.GetNumber(0)
 	//wxGridCellTextEditor();
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_GridCellTextEditor, __SetValidator)
 Gura_ImplementUserInheritableClass(wx_GridCellTextEditor)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridCellTextEditor);
+	Gura_AssignFunction(__GridCellTextEditor);
 	// Method assignment
 	Gura_AssignMethod(wx_GridCellTextEditor, __SetParameters);
 	Gura_AssignMethod(wx_GridCellTextEditor, __SetValidator);

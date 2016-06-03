@@ -37,14 +37,14 @@ String Object_wx_IdleEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxIdleEvent, "wxIdleEvent")
+Gura_DeclareFunctionAlias(__IdleEvent, "IdleEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_IdleEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxIdleEvent)
+Gura_ImplementFunction(__IdleEvent)
 {
 	//wxIdleEvent();
 	return Value::Nil;
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_IdleEvent, __SetMode)
 Gura_ImplementUserInheritableClass(wx_IdleEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxIdleEvent);
+	Gura_AssignFunction(__IdleEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_IdleEvent, __GetMode);
 	Gura_AssignMethod(wx_IdleEvent, __MoreRequested);

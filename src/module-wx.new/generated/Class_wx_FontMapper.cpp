@@ -37,14 +37,14 @@ String Object_wx_FontMapper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFontMapper, "wxFontMapper")
+Gura_DeclareFunctionAlias(__FontMapper, "FontMapper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontMapper));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFontMapper)
+Gura_ImplementFunction(__FontMapper)
 {
 	//wxFontMapper();
 	return Value::Nil;
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_FontMapper, __SetDialogTitle)
 Gura_ImplementUserInheritableClass(wx_FontMapper)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFontMapper);
+	Gura_AssignFunction(__FontMapper);
 	// Method assignment
 	Gura_AssignMethod(wx_FontMapper, __CharsetToEncoding);
 	Gura_AssignMethod(wx_FontMapper, __Get);

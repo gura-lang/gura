@@ -37,7 +37,7 @@ String Object_wx_MemoryOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMemoryOutputStream, "wxMemoryOutputStream")
+Gura_DeclareFunctionAlias(__MemoryOutputStream, "MemoryOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxMemoryOutputStream, "wxMemoryOutputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMemoryOutputStream)
+Gura_ImplementFunction(__MemoryOutputStream)
 {
 	//int data = arg.GetNumber(0)
 	//int length = arg.GetNumber(1)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_MemoryOutputStream, __GetOutputStreamBuffer)
 Gura_ImplementUserInheritableClass(wx_MemoryOutputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMemoryOutputStream);
+	Gura_AssignFunction(__MemoryOutputStream);
 	// Method assignment
 	Gura_AssignMethod(wx_MemoryOutputStream, __CopyTo);
 	Gura_AssignMethod(wx_MemoryOutputStream, __GetOutputStreamBuffer);

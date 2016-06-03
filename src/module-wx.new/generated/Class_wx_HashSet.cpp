@@ -37,7 +37,7 @@ String Object_wx_HashSet::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHashSet, "wxHashSet")
+Gura_DeclareFunctionAlias(__HashSet, "HashSet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxHashSet, "wxHashSet")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHashSet)
+Gura_ImplementFunction(__HashSet)
 {
 	//int size = arg.GetNumber(0)
 	//wxHashSet();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxHashSet_1, "wxHashSet_1")
+Gura_DeclareFunctionAlias(__HashSet_1, "HashSet_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "set", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxHashSet_1, "wxHashSet_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHashSet_1)
+Gura_ImplementFunction(__HashSet_1)
 {
 	//int set = arg.GetNumber(0)
 	//wxHashSet();
@@ -272,8 +272,8 @@ Gura_ImplementMethod(wx_HashSet, __size)
 Gura_ImplementUserInheritableClass(wx_HashSet)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHashSet);
-	Gura_AssignFunction(__wxHashSet_1);
+	Gura_AssignFunction(__HashSet);
+	Gura_AssignFunction(__HashSet_1);
 	// Method assignment
 	Gura_AssignMethod(wx_HashSet, __begin);
 	Gura_AssignMethod(wx_HashSet, __begin_1);

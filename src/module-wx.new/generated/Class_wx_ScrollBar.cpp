@@ -37,20 +37,20 @@ String Object_wx_ScrollBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxScrollBar, "wxScrollBar")
+Gura_DeclareFunctionAlias(__ScrollBar, "ScrollBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ScrollBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxScrollBar)
+Gura_ImplementFunction(__ScrollBar)
 {
 	//wxScrollBar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxScrollBar_1, "wxScrollBar_1")
+Gura_DeclareFunctionAlias(__ScrollBar_1, "ScrollBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxScrollBar_1, "wxScrollBar_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxScrollBar_1)
+Gura_ImplementFunction(__ScrollBar_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -216,8 +216,8 @@ Gura_ImplementMethod(wx_ScrollBar, __IsVertical)
 Gura_ImplementUserInheritableClass(wx_ScrollBar)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxScrollBar);
-	Gura_AssignFunction(__wxScrollBar_1);
+	Gura_AssignFunction(__ScrollBar);
+	Gura_AssignFunction(__ScrollBar_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ScrollBar, __Create);
 	Gura_AssignMethod(wx_ScrollBar, __GetPageSize);

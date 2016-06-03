@@ -37,20 +37,20 @@ String Object_wx_WebViewEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWebViewEvent, "wxWebViewEvent")
+Gura_DeclareFunctionAlias(__WebViewEvent, "WebViewEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_WebViewEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWebViewEvent)
+Gura_ImplementFunction(__WebViewEvent)
 {
 	//wxWebViewEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxWebViewEvent_1, "wxWebViewEvent_1")
+Gura_DeclareFunctionAlias(__WebViewEvent_1, "WebViewEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxWebViewEvent_1, "wxWebViewEvent_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWebViewEvent_1)
+Gura_ImplementFunction(__WebViewEvent_1)
 {
 	//int type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -106,8 +106,8 @@ Gura_ImplementMethod(wx_WebViewEvent, __GetURL)
 Gura_ImplementUserInheritableClass(wx_WebViewEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWebViewEvent);
-	Gura_AssignFunction(__wxWebViewEvent_1);
+	Gura_AssignFunction(__WebViewEvent);
+	Gura_AssignFunction(__WebViewEvent_1);
 	// Method assignment
 	Gura_AssignMethod(wx_WebViewEvent, __GetTarget);
 	Gura_AssignMethod(wx_WebViewEvent, __GetURL);

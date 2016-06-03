@@ -37,7 +37,7 @@ String Object_wx_FindDialogEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFindDialogEvent, "wxFindDialogEvent")
+Gura_DeclareFunctionAlias(__FindDialogEvent, "FindDialogEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxFindDialogEvent, "wxFindDialogEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFindDialogEvent)
+Gura_ImplementFunction(__FindDialogEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_FindDialogEvent, __GetReplaceString)
 Gura_ImplementUserInheritableClass(wx_FindDialogEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFindDialogEvent);
+	Gura_AssignFunction(__FindDialogEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_FindDialogEvent, __GetDialog);
 	Gura_AssignMethod(wx_FindDialogEvent, __GetFindString);

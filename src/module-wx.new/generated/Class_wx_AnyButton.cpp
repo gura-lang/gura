@@ -37,14 +37,14 @@ String Object_wx_AnyButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAnyButton, "wxAnyButton")
+Gura_DeclareFunctionAlias(__AnyButton, "AnyButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AnyButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAnyButton)
+Gura_ImplementFunction(__AnyButton)
 {
 	//wxAnyButton();
 	return Value::Nil;
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapPosition)
 Gura_ImplementUserInheritableClass(wx_AnyButton)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAnyButton);
+	Gura_AssignFunction(__AnyButton);
 	// Method assignment
 	Gura_AssignMethod(wx_AnyButton, __GetBitmap);
 	Gura_AssignMethod(wx_AnyButton, __GetBitmapCurrent);

@@ -37,20 +37,20 @@ String Object_wx_PropertyGrid::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPropertyGrid, "wxPropertyGrid")
+Gura_DeclareFunctionAlias(__PropertyGrid, "PropertyGrid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PropertyGrid));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPropertyGrid)
+Gura_ImplementFunction(__PropertyGrid)
 {
 	//wxPropertyGrid();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPropertyGrid_1, "wxPropertyGrid_1")
+Gura_DeclareFunctionAlias(__PropertyGrid_1, "PropertyGrid_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxPropertyGrid_1, "wxPropertyGrid_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPropertyGrid_1)
+Gura_ImplementFunction(__PropertyGrid_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -1321,8 +1321,8 @@ Gura_ImplementMethod(wx_PropertyGrid, __WasValueChangedInEvent)
 Gura_ImplementUserInheritableClass(wx_PropertyGrid)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPropertyGrid);
-	Gura_AssignFunction(__wxPropertyGrid_1);
+	Gura_AssignFunction(__PropertyGrid);
+	Gura_AssignFunction(__PropertyGrid_1);
 	// Method assignment
 	Gura_AssignMethod(wx_PropertyGrid, __AddActionTrigger);
 	Gura_AssignMethod(wx_PropertyGrid, __AddToSelection);

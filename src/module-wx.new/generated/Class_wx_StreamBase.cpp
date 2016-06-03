@@ -37,14 +37,14 @@ String Object_wx_StreamBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStreamBase, "wxStreamBase")
+Gura_DeclareFunctionAlias(__StreamBase, "StreamBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StreamBase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStreamBase)
+Gura_ImplementFunction(__StreamBase)
 {
 	//wxStreamBase();
 	return Value::Nil;
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_StreamBase, __OnSysTell)
 Gura_ImplementUserInheritableClass(wx_StreamBase)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStreamBase);
+	Gura_AssignFunction(__StreamBase);
 	// Method assignment
 	Gura_AssignMethod(wx_StreamBase, __GetLastError);
 	Gura_AssignMethod(wx_StreamBase, __GetLength);

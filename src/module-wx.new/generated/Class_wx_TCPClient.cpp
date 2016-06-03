@@ -37,14 +37,14 @@ String Object_wx_TCPClient::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTCPClient, "wxTCPClient")
+Gura_DeclareFunctionAlias(__TCPClient, "TCPClient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TCPClient));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTCPClient)
+Gura_ImplementFunction(__TCPClient)
 {
 	//wxTCPClient();
 	return Value::Nil;
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_TCPClient, __ValidHost)
 Gura_ImplementUserInheritableClass(wx_TCPClient)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTCPClient);
+	Gura_AssignFunction(__TCPClient);
 	// Method assignment
 	Gura_AssignMethod(wx_TCPClient, __MakeConnection);
 	Gura_AssignMethod(wx_TCPClient, __OnMakeConnection);

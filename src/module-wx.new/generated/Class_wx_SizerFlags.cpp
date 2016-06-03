@@ -37,7 +37,7 @@ String Object_wx_SizerFlags::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSizerFlags, "wxSizerFlags")
+Gura_DeclareFunctionAlias(__SizerFlags, "SizerFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxSizerFlags, "wxSizerFlags")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSizerFlags)
+Gura_ImplementFunction(__SizerFlags)
 {
 	//int proportion = arg.GetNumber(0)
 	//wxSizerFlags();
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_SizerFlags, __TripleBorder)
 Gura_ImplementUserInheritableClass(wx_SizerFlags)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSizerFlags);
+	Gura_AssignFunction(__SizerFlags);
 	// Method assignment
 	Gura_AssignMethod(wx_SizerFlags, __Align);
 	Gura_AssignMethod(wx_SizerFlags, __Border);

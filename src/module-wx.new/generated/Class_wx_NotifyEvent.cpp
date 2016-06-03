@@ -37,7 +37,7 @@ String Object_wx_NotifyEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxNotifyEvent, "wxNotifyEvent")
+Gura_DeclareFunctionAlias(__NotifyEvent, "NotifyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxNotifyEvent, "wxNotifyEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxNotifyEvent)
+Gura_ImplementFunction(__NotifyEvent)
 {
 	//int eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_NotifyEvent, __Veto)
 Gura_ImplementUserInheritableClass(wx_NotifyEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxNotifyEvent);
+	Gura_AssignFunction(__NotifyEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_NotifyEvent, __Allow);
 	Gura_AssignMethod(wx_NotifyEvent, __IsAllowed);

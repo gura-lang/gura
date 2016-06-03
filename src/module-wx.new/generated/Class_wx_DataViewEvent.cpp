@@ -37,7 +37,7 @@ String Object_wx_DataViewEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewEvent, "wxDataViewEvent")
+Gura_DeclareFunctionAlias(__DataViewEvent, "DataViewEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxDataViewEvent, "wxDataViewEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewEvent)
+Gura_ImplementFunction(__DataViewEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDropEffect)
 Gura_ImplementUserInheritableClass(wx_DataViewEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewEvent);
+	Gura_AssignFunction(__DataViewEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewEvent, __GetColumn);
 	Gura_AssignMethod(wx_DataViewEvent, __GetDataViewColumn);

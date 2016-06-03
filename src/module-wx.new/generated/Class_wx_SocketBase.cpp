@@ -37,14 +37,14 @@ String Object_wx_SocketBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSocketBase, "wxSocketBase")
+Gura_DeclareFunctionAlias(__SocketBase, "SocketBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SocketBase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSocketBase)
+Gura_ImplementFunction(__SocketBase)
 {
 	//wxSocketBase();
 	return Value::Nil;
@@ -652,7 +652,7 @@ Gura_ImplementMethod(wx_SocketBase, __GetSocket)
 Gura_ImplementUserInheritableClass(wx_SocketBase)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSocketBase);
+	Gura_AssignFunction(__SocketBase);
 	// Method assignment
 	Gura_AssignMethod(wx_SocketBase, __Destroy);
 	Gura_AssignMethod(wx_SocketBase, __Initialize);

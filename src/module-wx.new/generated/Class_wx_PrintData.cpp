@@ -37,20 +37,20 @@ String Object_wx_PrintData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPrintData, "wxPrintData")
+Gura_DeclareFunctionAlias(__PrintData, "PrintData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PrintData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPrintData)
+Gura_ImplementFunction(__PrintData)
 {
 	//wxPrintData();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPrintData_1, "wxPrintData_1")
+Gura_DeclareFunctionAlias(__PrintData_1, "PrintData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxPrintData_1, "wxPrintData_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPrintData_1)
+Gura_ImplementFunction(__PrintData_1)
 {
 	//int data = arg.GetNumber(0)
 	//wxPrintData();
@@ -410,8 +410,8 @@ Gura_ImplementMethod(wx_PrintData, __SetPrintMode)
 Gura_ImplementUserInheritableClass(wx_PrintData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPrintData);
-	Gura_AssignFunction(__wxPrintData_1);
+	Gura_AssignFunction(__PrintData);
+	Gura_AssignFunction(__PrintData_1);
 	// Method assignment
 	Gura_AssignMethod(wx_PrintData, __GetBin);
 	Gura_AssignMethod(wx_PrintData, __GetCollate);

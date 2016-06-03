@@ -37,7 +37,7 @@ String Object_wx_Joystick::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxJoystick, "wxJoystick")
+Gura_DeclareFunctionAlias(__Joystick, "Joystick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "joystick", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxJoystick, "wxJoystick")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxJoystick)
+Gura_ImplementFunction(__Joystick)
 {
 	//int joystick = arg.GetNumber(0)
 	//wxJoystick();
@@ -617,7 +617,7 @@ Gura_ImplementMethod(wx_Joystick, __SetMovementThreshold)
 Gura_ImplementUserInheritableClass(wx_Joystick)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxJoystick);
+	Gura_AssignFunction(__Joystick);
 	// Method assignment
 	Gura_AssignMethod(wx_Joystick, __GetButtonState);
 	Gura_AssignMethod(wx_Joystick, __GetButtonState_1);

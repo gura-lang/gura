@@ -37,7 +37,7 @@ String Object_wx_GridCellEnumRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridCellEnumRenderer, "wxGridCellEnumRenderer")
+Gura_DeclareFunctionAlias(__GridCellEnumRenderer, "GridCellEnumRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxGridCellEnumRenderer, "wxGridCellEnumRenderer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellEnumRenderer)
+Gura_ImplementFunction(__GridCellEnumRenderer)
 {
 	//int choices = arg.GetNumber(0)
 	//wxGridCellEnumRenderer();
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_GridCellEnumRenderer, __SetParameters)
 Gura_ImplementUserInheritableClass(wx_GridCellEnumRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridCellEnumRenderer);
+	Gura_AssignFunction(__GridCellEnumRenderer);
 	// Method assignment
 	Gura_AssignMethod(wx_GridCellEnumRenderer, __SetParameters);
 }

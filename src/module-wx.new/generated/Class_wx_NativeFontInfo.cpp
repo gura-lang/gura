@@ -37,20 +37,20 @@ String Object_wx_NativeFontInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxNativeFontInfo, "wxNativeFontInfo")
+Gura_DeclareFunctionAlias(__NativeFontInfo, "NativeFontInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_NativeFontInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxNativeFontInfo)
+Gura_ImplementFunction(__NativeFontInfo)
 {
 	//wxNativeFontInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxNativeFontInfo_1, "wxNativeFontInfo_1")
+Gura_DeclareFunctionAlias(__NativeFontInfo_1, "NativeFontInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxNativeFontInfo_1, "wxNativeFontInfo_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxNativeFontInfo_1)
+Gura_ImplementFunction(__NativeFontInfo_1)
 {
 	//int info = arg.GetNumber(0)
 	//wxNativeFontInfo();
@@ -397,8 +397,8 @@ Gura_ImplementMethod(wx_NativeFontInfo, __ToUserString)
 Gura_ImplementUserInheritableClass(wx_NativeFontInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxNativeFontInfo);
-	Gura_AssignFunction(__wxNativeFontInfo_1);
+	Gura_AssignFunction(__NativeFontInfo);
+	Gura_AssignFunction(__NativeFontInfo_1);
 	// Method assignment
 	Gura_AssignMethod(wx_NativeFontInfo, __Init);
 	Gura_AssignMethod(wx_NativeFontInfo, __InitFromFont);

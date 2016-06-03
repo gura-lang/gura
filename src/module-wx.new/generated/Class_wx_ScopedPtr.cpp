@@ -37,7 +37,7 @@ String Object_wx_ScopedPtr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxScopedPtr, "wxScopedPtr")
+Gura_DeclareFunctionAlias(__ScopedPtr, "ScopedPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "T", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxScopedPtr, "wxScopedPtr")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxScopedPtr)
+Gura_ImplementFunction(__ScopedPtr)
 {
 	//int T = arg.GetNumber(0)
 	//wxScopedPtr();
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_ScopedPtr, __swap)
 Gura_ImplementUserInheritableClass(wx_ScopedPtr)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxScopedPtr);
+	Gura_AssignFunction(__ScopedPtr);
 	// Method assignment
 	Gura_AssignMethod(wx_ScopedPtr, __get);
 	Gura_AssignMethod(wx_ScopedPtr, __release);

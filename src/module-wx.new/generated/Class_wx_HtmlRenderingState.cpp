@@ -37,14 +37,14 @@ String Object_wx_HtmlRenderingState::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlRenderingState, "wxHtmlRenderingState")
+Gura_DeclareFunctionAlias(__HtmlRenderingState, "HtmlRenderingState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlRenderingState));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlRenderingState)
+Gura_ImplementFunction(__HtmlRenderingState)
 {
 	//wxHtmlRenderingState();
 	return Value::Nil;
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_HtmlRenderingState, __GetBgMode)
 Gura_ImplementUserInheritableClass(wx_HtmlRenderingState)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlRenderingState);
+	Gura_AssignFunction(__HtmlRenderingState);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlRenderingState, __SetSelectionState);
 	Gura_AssignMethod(wx_HtmlRenderingState, __GetSelectionState);

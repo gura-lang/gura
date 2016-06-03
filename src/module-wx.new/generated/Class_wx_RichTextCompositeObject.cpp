@@ -37,7 +37,7 @@ String Object_wx_RichTextCompositeObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextCompositeObject, "wxRichTextCompositeObject")
+Gura_DeclareFunctionAlias(__RichTextCompositeObject, "RichTextCompositeObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxRichTextCompositeObject, "wxRichTextCompositeObjec
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextCompositeObject)
+Gura_ImplementFunction(__RichTextCompositeObject)
 {
 	//int parent = arg.GetNumber(0)
 	//wxRichTextCompositeObject();
@@ -151,37 +151,6 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __GetTextForRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//pThis->GetEntity()->GetTextForRange();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __GetRangeSize, "GetRangeSize")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "descent", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "partialExtents", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_RichTextCompositeObject, __GetRangeSize)
-{
-	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int range = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
-	//int descent = arg.GetNumber(2)
-	//int dc = arg.GetNumber(3)
-	//int context = arg.GetNumber(4)
-	//int flags = arg.GetNumber(5)
-	//int position = arg.GetNumber(6)
-	//int parentSize = arg.GetNumber(7)
-	//int partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize();
 	return Value::Nil;
 }
 
@@ -438,14 +407,13 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __Move)
 Gura_ImplementUserInheritableClass(wx_RichTextCompositeObject)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextCompositeObject);
+	Gura_AssignFunction(__RichTextCompositeObject);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextCompositeObject, __HitTest);
 	Gura_AssignMethod(wx_RichTextCompositeObject, __FindPosition);
 	Gura_AssignMethod(wx_RichTextCompositeObject, __CalculateRange);
 	Gura_AssignMethod(wx_RichTextCompositeObject, __DeleteRange);
 	Gura_AssignMethod(wx_RichTextCompositeObject, __GetTextForRange);
-	Gura_AssignMethod(wx_RichTextCompositeObject, __GetRangeSize);
 	Gura_AssignMethod(wx_RichTextCompositeObject, __Dump);
 	Gura_AssignMethod(wx_RichTextCompositeObject, __Invalidate);
 	Gura_AssignMethod(wx_RichTextCompositeObject, __GetChildren);

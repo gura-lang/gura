@@ -37,14 +37,14 @@ String Object_wx_MimeTypesManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMimeTypesManager, "wxMimeTypesManager")
+Gura_DeclareFunctionAlias(__MimeTypesManager, "MimeTypesManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MimeTypesManager));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMimeTypesManager)
+Gura_ImplementFunction(__MimeTypesManager)
 {
 	//wxMimeTypesManager();
 	return Value::Nil;
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, __EnumAllFileTypes)
 Gura_ImplementUserInheritableClass(wx_MimeTypesManager)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMimeTypesManager);
+	Gura_AssignFunction(__MimeTypesManager);
 	// Method assignment
 	Gura_AssignMethod(wx_MimeTypesManager, __AddFallbacks);
 	Gura_AssignMethod(wx_MimeTypesManager, __GetFileTypeFromExtension);

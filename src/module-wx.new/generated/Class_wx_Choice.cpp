@@ -37,20 +37,20 @@ String Object_wx_Choice::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxChoice, "wxChoice")
+Gura_DeclareFunctionAlias(__Choice, "Choice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Choice));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxChoice)
+Gura_ImplementFunction(__Choice)
 {
 	//wxChoice();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxChoice_1, "wxChoice_1")
+Gura_DeclareFunctionAlias(__Choice_1, "Choice_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxChoice_1, "wxChoice_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxChoice_1)
+Gura_ImplementFunction(__Choice_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -81,7 +81,7 @@ Gura_ImplementFunction(__wxChoice_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxChoice_2, "wxChoice_2")
+Gura_DeclareFunctionAlias(__Choice_2, "Choice_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_DeclareFunctionAlias(__wxChoice_2, "wxChoice_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxChoice_2)
+Gura_ImplementFunction(__Choice_2)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -323,9 +323,9 @@ Gura_ImplementMethod(wx_Choice, __SetString)
 Gura_ImplementUserInheritableClass(wx_Choice)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxChoice);
-	Gura_AssignFunction(__wxChoice_1);
-	Gura_AssignFunction(__wxChoice_2);
+	Gura_AssignFunction(__Choice);
+	Gura_AssignFunction(__Choice_1);
+	Gura_AssignFunction(__Choice_2);
 	// Method assignment
 	Gura_AssignMethod(wx_Choice, __Create);
 	Gura_AssignMethod(wx_Choice, __Create_1);

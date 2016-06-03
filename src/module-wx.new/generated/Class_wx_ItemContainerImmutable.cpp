@@ -37,14 +37,14 @@ String Object_wx_ItemContainerImmutable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxItemContainerImmutable, "wxItemContainerImmutable")
+Gura_DeclareFunctionAlias(__ItemContainerImmutable, "ItemContainerImmutable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ItemContainerImmutable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxItemContainerImmutable)
+Gura_ImplementFunction(__ItemContainerImmutable)
 {
 	//wxItemContainerImmutable();
 	return Value::Nil;
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __Select)
 Gura_ImplementUserInheritableClass(wx_ItemContainerImmutable)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxItemContainerImmutable);
+	Gura_AssignFunction(__ItemContainerImmutable);
 	// Method assignment
 	Gura_AssignMethod(wx_ItemContainerImmutable, __GetCount);
 	Gura_AssignMethod(wx_ItemContainerImmutable, __IsEmpty);

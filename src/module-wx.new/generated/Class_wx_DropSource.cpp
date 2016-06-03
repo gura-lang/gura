@@ -37,7 +37,7 @@ String Object_wx_DropSource::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDropSource, "wxDropSource")
+Gura_DeclareFunctionAlias(__DropSource, "DropSource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxDropSource, "wxDropSource")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDropSource)
+Gura_ImplementFunction(__DropSource)
 {
 	//int win = arg.GetNumber(0)
 	//int iconCopy = arg.GetNumber(1)
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxDropSource)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDropSource_1, "wxDropSource_1")
+Gura_DeclareFunctionAlias(__DropSource_1, "DropSource_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -70,7 +70,7 @@ Gura_DeclareFunctionAlias(__wxDropSource_1, "wxDropSource_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDropSource_1)
+Gura_ImplementFunction(__DropSource_1)
 {
 	//int data = arg.GetNumber(0)
 	//int win = arg.GetNumber(1)
@@ -81,7 +81,7 @@ Gura_ImplementFunction(__wxDropSource_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDropSource_2, "wxDropSource_2")
+Gura_DeclareFunctionAlias(__DropSource_2, "DropSource_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareFunctionAlias(__wxDropSource_2, "wxDropSource_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDropSource_2)
+Gura_ImplementFunction(__DropSource_2)
 {
 	//int win = arg.GetNumber(0)
 	//int iconCopy = arg.GetNumber(1)
@@ -102,7 +102,7 @@ Gura_ImplementFunction(__wxDropSource_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDropSource_3, "wxDropSource_3")
+Gura_DeclareFunctionAlias(__DropSource_3, "DropSource_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -114,7 +114,7 @@ Gura_DeclareFunctionAlias(__wxDropSource_3, "wxDropSource_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDropSource_3)
+Gura_ImplementFunction(__DropSource_3)
 {
 	//int data = arg.GetNumber(0)
 	//int win = arg.GetNumber(1)
@@ -226,10 +226,10 @@ Gura_ImplementMethod(wx_DropSource, __SetData)
 Gura_ImplementUserInheritableClass(wx_DropSource)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDropSource);
-	Gura_AssignFunction(__wxDropSource_1);
-	Gura_AssignFunction(__wxDropSource_2);
-	Gura_AssignFunction(__wxDropSource_3);
+	Gura_AssignFunction(__DropSource);
+	Gura_AssignFunction(__DropSource_1);
+	Gura_AssignFunction(__DropSource_2);
+	Gura_AssignFunction(__DropSource_3);
 	// Method assignment
 	Gura_AssignMethod(wx_DropSource, __DoDragDrop);
 	Gura_AssignMethod(wx_DropSource, __GetDataObject);

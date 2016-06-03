@@ -37,14 +37,14 @@ String Object_wx_GDIObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGDIObject, "wxGDIObject")
+Gura_DeclareFunctionAlias(__GDIObject, "GDIObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GDIObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGDIObject)
+Gura_ImplementFunction(__GDIObject)
 {
 	//wxGDIObject();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxGDIObject)
 Gura_ImplementUserInheritableClass(wx_GDIObject)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGDIObject);
+	Gura_AssignFunction(__GDIObject);
 }
 
 Gura_ImplementDescendantCreator(wx_GDIObject)

@@ -37,7 +37,7 @@ String Object_wx_MultiChoiceDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMultiChoiceDialog, "wxMultiChoiceDialog")
+Gura_DeclareFunctionAlias(__MultiChoiceDialog, "MultiChoiceDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareFunctionAlias(__wxMultiChoiceDialog, "wxMultiChoiceDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMultiChoiceDialog)
+Gura_ImplementFunction(__MultiChoiceDialog)
 {
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__wxMultiChoiceDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMultiChoiceDialog_1, "wxMultiChoiceDialog_1")
+Gura_DeclareFunctionAlias(__MultiChoiceDialog_1, "MultiChoiceDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__wxMultiChoiceDialog_1, "wxMultiChoiceDialog_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMultiChoiceDialog_1)
+Gura_ImplementFunction(__MultiChoiceDialog_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -139,8 +139,8 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, __ShowModal)
 Gura_ImplementUserInheritableClass(wx_MultiChoiceDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMultiChoiceDialog);
-	Gura_AssignFunction(__wxMultiChoiceDialog_1);
+	Gura_AssignFunction(__MultiChoiceDialog);
+	Gura_AssignFunction(__MultiChoiceDialog_1);
 	// Method assignment
 	Gura_AssignMethod(wx_MultiChoiceDialog, __GetSelections);
 	Gura_AssignMethod(wx_MultiChoiceDialog, __SetSelections);

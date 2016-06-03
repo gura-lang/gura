@@ -37,20 +37,20 @@ String Object_wx_RibbonPanel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRibbonPanel, "wxRibbonPanel")
+Gura_DeclareFunctionAlias(__RibbonPanel, "RibbonPanel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonPanel));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonPanel)
+Gura_ImplementFunction(__RibbonPanel)
 {
 	//wxRibbonPanel();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRibbonPanel_1, "wxRibbonPanel_1")
+Gura_DeclareFunctionAlias(__RibbonPanel_1, "RibbonPanel_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxRibbonPanel_1, "wxRibbonPanel_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonPanel_1)
+Gura_ImplementFunction(__RibbonPanel_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -299,8 +299,8 @@ Gura_ImplementMethod(wx_RibbonPanel, __GetExpandedPanel)
 Gura_ImplementUserInheritableClass(wx_RibbonPanel)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRibbonPanel);
-	Gura_AssignFunction(__wxRibbonPanel_1);
+	Gura_AssignFunction(__RibbonPanel);
+	Gura_AssignFunction(__RibbonPanel_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RibbonPanel, __Create);
 	Gura_AssignMethod(wx_RibbonPanel, __GetMinimisedIcon);

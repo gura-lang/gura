@@ -37,20 +37,20 @@ String Object_wx_FileCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileCtrl, "wxFileCtrl")
+Gura_DeclareFunctionAlias(__FileCtrl, "FileCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileCtrl)
+Gura_ImplementFunction(__FileCtrl)
 {
 	//wxFileCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileCtrl_1, "wxFileCtrl_1")
+Gura_DeclareFunctionAlias(__FileCtrl_1, "FileCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxFileCtrl_1, "wxFileCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileCtrl_1)
+Gura_ImplementFunction(__FileCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -306,8 +306,8 @@ Gura_ImplementMethod(wx_FileCtrl, __ShowHidden)
 Gura_ImplementUserInheritableClass(wx_FileCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileCtrl);
-	Gura_AssignFunction(__wxFileCtrl_1);
+	Gura_AssignFunction(__FileCtrl);
+	Gura_AssignFunction(__FileCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_FileCtrl, __Create);
 	Gura_AssignMethod(wx_FileCtrl, __GetDirectory);

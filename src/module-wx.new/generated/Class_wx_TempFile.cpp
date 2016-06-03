@@ -37,7 +37,7 @@ String Object_wx_TempFile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTempFile, "wxTempFile")
+Gura_DeclareFunctionAlias(__TempFile, "TempFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "strName", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxTempFile, "wxTempFile")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTempFile)
+Gura_ImplementFunction(__TempFile)
 {
 	//int strName = arg.GetNumber(0)
 	//wxTempFile();
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_TempFile, __Write)
 Gura_ImplementUserInheritableClass(wx_TempFile)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTempFile);
+	Gura_AssignFunction(__TempFile);
 	// Method assignment
 	Gura_AssignMethod(wx_TempFile, __Commit);
 	Gura_AssignMethod(wx_TempFile, __Discard);

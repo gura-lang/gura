@@ -37,7 +37,7 @@ String Object_wx_MouseEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMouseEvent, "wxMouseEvent")
+Gura_DeclareFunctionAlias(__MouseEvent, "MouseEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mouseEventType", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxMouseEvent, "wxMouseEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMouseEvent)
+Gura_ImplementFunction(__MouseEvent)
 {
 	//int mouseEventType = arg.GetNumber(0)
 	//wxMouseEvent();
@@ -539,7 +539,7 @@ Gura_ImplementMethod(wx_MouseEvent, __RightUp)
 Gura_ImplementUserInheritableClass(wx_MouseEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMouseEvent);
+	Gura_AssignFunction(__MouseEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_MouseEvent, __Aux1DClick);
 	Gura_AssignMethod(wx_MouseEvent, __Aux1Down);

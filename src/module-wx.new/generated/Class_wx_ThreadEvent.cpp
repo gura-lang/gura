@@ -37,7 +37,7 @@ String Object_wx_ThreadEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxThreadEvent, "wxThreadEvent")
+Gura_DeclareFunctionAlias(__ThreadEvent, "ThreadEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxThreadEvent, "wxThreadEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxThreadEvent)
+Gura_ImplementFunction(__ThreadEvent)
 {
 	//int eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_ThreadEvent, __SetString)
 Gura_ImplementUserInheritableClass(wx_ThreadEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxThreadEvent);
+	Gura_AssignFunction(__ThreadEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_ThreadEvent, __Clone);
 	Gura_AssignMethod(wx_ThreadEvent, __GetEventCategory);

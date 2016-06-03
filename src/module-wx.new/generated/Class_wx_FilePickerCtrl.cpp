@@ -37,20 +37,20 @@ String Object_wx_FilePickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFilePickerCtrl, "wxFilePickerCtrl")
+Gura_DeclareFunctionAlias(__FilePickerCtrl, "FilePickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FilePickerCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFilePickerCtrl)
+Gura_ImplementFunction(__FilePickerCtrl)
 {
 	//wxFilePickerCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFilePickerCtrl_1, "wxFilePickerCtrl_1")
+Gura_DeclareFunctionAlias(__FilePickerCtrl_1, "FilePickerCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -67,7 +67,7 @@ Gura_DeclareFunctionAlias(__wxFilePickerCtrl_1, "wxFilePickerCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFilePickerCtrl_1)
+Gura_ImplementFunction(__FilePickerCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -196,8 +196,8 @@ Gura_ImplementMethod(wx_FilePickerCtrl, __SetPath)
 Gura_ImplementUserInheritableClass(wx_FilePickerCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFilePickerCtrl);
-	Gura_AssignFunction(__wxFilePickerCtrl_1);
+	Gura_AssignFunction(__FilePickerCtrl);
+	Gura_AssignFunction(__FilePickerCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_FilePickerCtrl, __Create);
 	Gura_AssignMethod(wx_FilePickerCtrl, __GetFileName);

@@ -37,14 +37,14 @@ String Object_wx_AuiSimpleTabArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiSimpleTabArt, "wxAuiSimpleTabArt")
+Gura_DeclareFunctionAlias(__AuiSimpleTabArt, "AuiSimpleTabArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiSimpleTabArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiSimpleTabArt)
+Gura_ImplementFunction(__AuiSimpleTabArt)
 {
 	//wxAuiSimpleTabArt();
 	return Value::Nil;
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_AuiSimpleTabArt, __GetBestTabCtrlSize)
 Gura_ImplementUserInheritableClass(wx_AuiSimpleTabArt)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiSimpleTabArt);
+	Gura_AssignFunction(__AuiSimpleTabArt);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiSimpleTabArt, __Clone);
 	Gura_AssignMethod(wx_AuiSimpleTabArt, __SetFlags);

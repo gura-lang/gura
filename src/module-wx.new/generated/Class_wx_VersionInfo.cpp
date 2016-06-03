@@ -37,7 +37,7 @@ String Object_wx_VersionInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxVersionInfo, "wxVersionInfo")
+Gura_DeclareFunctionAlias(__VersionInfo, "VersionInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxVersionInfo, "wxVersionInfo")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVersionInfo)
+Gura_ImplementFunction(__VersionInfo)
 {
 	//int name = arg.GetNumber(0)
 	//int major = arg.GetNumber(1)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_VersionInfo, __GetCopyright)
 Gura_ImplementUserInheritableClass(wx_VersionInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxVersionInfo);
+	Gura_AssignFunction(__VersionInfo);
 	// Method assignment
 	Gura_AssignMethod(wx_VersionInfo, __GetName);
 	Gura_AssignMethod(wx_VersionInfo, __GetMajor);

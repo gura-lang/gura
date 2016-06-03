@@ -37,20 +37,20 @@ String Object_wx_XmlDocument::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxXmlDocument, "wxXmlDocument")
+Gura_DeclareFunctionAlias(__XmlDocument, "XmlDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_XmlDocument));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxXmlDocument)
+Gura_ImplementFunction(__XmlDocument)
 {
 	//wxXmlDocument();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxXmlDocument_1, "wxXmlDocument_1")
+Gura_DeclareFunctionAlias(__XmlDocument_1, "XmlDocument_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxXmlDocument_1, "wxXmlDocument_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxXmlDocument_1)
+Gura_ImplementFunction(__XmlDocument_1)
 {
 	//int doc = arg.GetNumber(0)
 	//wxXmlDocument();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxXmlDocument_2, "wxXmlDocument_2")
+Gura_DeclareFunctionAlias(__XmlDocument_2, "XmlDocument_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_DeclareFunctionAlias(__wxXmlDocument_2, "wxXmlDocument_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxXmlDocument_2)
+Gura_ImplementFunction(__XmlDocument_2)
 {
 	//int filename = arg.GetNumber(0)
 	//int encoding = arg.GetNumber(1)
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__wxXmlDocument_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxXmlDocument_3, "wxXmlDocument_3")
+Gura_DeclareFunctionAlias(__XmlDocument_3, "XmlDocument_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -91,7 +91,7 @@ Gura_DeclareFunctionAlias(__wxXmlDocument_3, "wxXmlDocument_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxXmlDocument_3)
+Gura_ImplementFunction(__XmlDocument_3)
 {
 	//int stream = arg.GetNumber(0)
 	//int encoding = arg.GetNumber(1)
@@ -415,10 +415,10 @@ Gura_ImplementMethod(wx_XmlDocument, __GetLibraryVersionInfo)
 Gura_ImplementUserInheritableClass(wx_XmlDocument)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxXmlDocument);
-	Gura_AssignFunction(__wxXmlDocument_1);
-	Gura_AssignFunction(__wxXmlDocument_2);
-	Gura_AssignFunction(__wxXmlDocument_3);
+	Gura_AssignFunction(__XmlDocument);
+	Gura_AssignFunction(__XmlDocument_1);
+	Gura_AssignFunction(__XmlDocument_2);
+	Gura_AssignFunction(__XmlDocument_3);
 	// Method assignment
 	Gura_AssignMethod(wx_XmlDocument, __AppendToProlog);
 	Gura_AssignMethod(wx_XmlDocument, __DetachDocumentNode);

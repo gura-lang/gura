@@ -37,7 +37,7 @@ String Object_wx_LogChain::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLogChain, "wxLogChain")
+Gura_DeclareFunctionAlias(__LogChain, "LogChain")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "logger", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxLogChain, "wxLogChain")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLogChain)
+Gura_ImplementFunction(__LogChain)
 {
 	//int logger = arg.GetNumber(0)
 	//wxLogChain();
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_LogChain, __SetLog)
 Gura_ImplementUserInheritableClass(wx_LogChain)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLogChain);
+	Gura_AssignFunction(__LogChain);
 	// Method assignment
 	Gura_AssignMethod(wx_LogChain, __DetachOldLog);
 	Gura_AssignMethod(wx_LogChain, __GetOldLog);

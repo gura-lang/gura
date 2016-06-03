@@ -37,7 +37,7 @@ String Object_wx_PrinterDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPrinterDC, "wxPrinterDC")
+Gura_DeclareFunctionAlias(__PrinterDC, "PrinterDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPrinterDC, "wxPrinterDC")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPrinterDC)
+Gura_ImplementFunction(__PrinterDC)
 {
 	//int printData = arg.GetNumber(0)
 	//wxPrinterDC();
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_PrinterDC, __GetPaperRect)
 Gura_ImplementUserInheritableClass(wx_PrinterDC)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPrinterDC);
+	Gura_AssignFunction(__PrinterDC);
 	// Method assignment
 	Gura_AssignMethod(wx_PrinterDC, __GetPaperRect);
 }

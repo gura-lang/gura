@@ -37,7 +37,7 @@ String Object_wx_HtmlLinkEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlLinkEvent, "wxHtmlLinkEvent")
+Gura_DeclareFunctionAlias(__HtmlLinkEvent, "HtmlLinkEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxHtmlLinkEvent, "wxHtmlLinkEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlLinkEvent)
+Gura_ImplementFunction(__HtmlLinkEvent)
 {
 	//int id = arg.GetNumber(0)
 	//int linkinfo = arg.GetNumber(1)
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_HtmlLinkEvent, __GetLinkInfo)
 Gura_ImplementUserInheritableClass(wx_HtmlLinkEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlLinkEvent);
+	Gura_AssignFunction(__HtmlLinkEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlLinkEvent, __GetLinkInfo);
 }

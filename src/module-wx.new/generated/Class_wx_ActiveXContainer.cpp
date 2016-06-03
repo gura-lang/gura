@@ -37,7 +37,7 @@ String Object_wx_ActiveXContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxActiveXContainer, "wxActiveXContainer")
+Gura_DeclareFunctionAlias(__ActiveXContainer, "ActiveXContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxActiveXContainer, "wxActiveXContainer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxActiveXContainer)
+Gura_ImplementFunction(__ActiveXContainer)
 {
 	//int parent = arg.GetNumber(0)
 	//int iid = arg.GetNumber(1)
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_ActiveXContainer, __QueryClientSiteInterface)
 Gura_ImplementUserInheritableClass(wx_ActiveXContainer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxActiveXContainer);
+	Gura_AssignFunction(__ActiveXContainer);
 	// Method assignment
 	Gura_AssignMethod(wx_ActiveXContainer, __QueryClientSiteInterface);
 }

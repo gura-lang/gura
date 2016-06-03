@@ -37,7 +37,7 @@ String Object_wx_VarScrollHelperBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxVarScrollHelperBase, "wxVarScrollHelperBase")
+Gura_DeclareFunctionAlias(__VarScrollHelperBase, "VarScrollHelperBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToScroll", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxVarScrollHelperBase, "wxVarScrollHelperBase")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVarScrollHelperBase)
+Gura_ImplementFunction(__VarScrollHelperBase)
 {
 	//int winToScroll = arg.GetNumber(0)
 	//wxVarScrollHelperBase();
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __OnGetUnitSize)
 Gura_ImplementUserInheritableClass(wx_VarScrollHelperBase)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxVarScrollHelperBase);
+	Gura_AssignFunction(__VarScrollHelperBase);
 	// Method assignment
 	Gura_AssignMethod(wx_VarScrollHelperBase, __CalcScrolledPosition);
 	Gura_AssignMethod(wx_VarScrollHelperBase, __CalcUnscrolledPosition);

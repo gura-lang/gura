@@ -37,7 +37,7 @@ String Object_wx_DocManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDocManager, "wxDocManager")
+Gura_DeclareFunctionAlias(__DocManager, "DocManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxDocManager, "wxDocManager")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDocManager)
+Gura_ImplementFunction(__DocManager)
 {
 	//int flags = arg.GetNumber(0)
 	//int initialize = arg.GetNumber(1)
@@ -781,7 +781,7 @@ Gura_ImplementMethod(wx_DocManager, __CreatePreviewFrame)
 Gura_ImplementUserInheritableClass(wx_DocManager)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDocManager);
+	Gura_AssignFunction(__DocManager);
 	// Method assignment
 	Gura_AssignMethod(wx_DocManager, __ActivateView);
 	Gura_AssignMethod(wx_DocManager, __AddDocument);

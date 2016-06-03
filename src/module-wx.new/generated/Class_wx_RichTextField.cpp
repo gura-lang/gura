@@ -37,7 +37,7 @@ String Object_wx_RichTextField::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextField, "wxRichTextField")
+Gura_DeclareFunctionAlias(__RichTextField, "RichTextField")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fieldType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxRichTextField, "wxRichTextField")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextField)
+Gura_ImplementFunction(__RichTextField)
 {
 	//int fieldType = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
@@ -54,15 +54,17 @@ Gura_ImplementFunction(__wxRichTextField)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextField_1, "wxRichTextField_1")
+Gura_DeclareFunctionAlias(__RichTextField_1, "RichTextField_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextField));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextField_1)
+Gura_ImplementFunction(__RichTextField_1)
 {
+	//int obj = arg.GetNumber(0)
 	//wxRichTextField();
 	return Value::Nil;
 }
@@ -117,37 +119,6 @@ Gura_ImplementMethod(wx_RichTextField, __Layout)
 	//int parentRect = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->Layout();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_RichTextField, __GetRangeSize, "GetRangeSize")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "descent", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "partialExtents", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_RichTextField, __GetRangeSize)
-{
-	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int range = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
-	//int descent = arg.GetNumber(2)
-	//int dc = arg.GetNumber(3)
-	//int context = arg.GetNumber(4)
-	//int flags = arg.GetNumber(5)
-	//int position = arg.GetNumber(6)
-	//int parentSize = arg.GetNumber(7)
-	//int partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize();
 	return Value::Nil;
 }
 
@@ -353,12 +324,11 @@ Gura_ImplementMethod(wx_RichTextField, __Copy)
 Gura_ImplementUserInheritableClass(wx_RichTextField)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextField);
-	Gura_AssignFunction(__wxRichTextField_1);
+	Gura_AssignFunction(__RichTextField);
+	Gura_AssignFunction(__RichTextField_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextField, __Draw);
 	Gura_AssignMethod(wx_RichTextField, __Layout);
-	Gura_AssignMethod(wx_RichTextField, __GetRangeSize);
 	Gura_AssignMethod(wx_RichTextField, __GetXMLNodeName);
 	Gura_AssignMethod(wx_RichTextField, __CanEditProperties);
 	Gura_AssignMethod(wx_RichTextField, __EditProperties);

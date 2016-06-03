@@ -37,14 +37,14 @@ String Object_wx_ModalDialogHook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxModalDialogHook, "wxModalDialogHook")
+Gura_DeclareFunctionAlias(__ModalDialogHook, "ModalDialogHook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ModalDialogHook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxModalDialogHook)
+Gura_ImplementFunction(__ModalDialogHook)
 {
 	//wxModalDialogHook();
 	return Value::Nil;
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_ModalDialogHook, __Exit)
 Gura_ImplementUserInheritableClass(wx_ModalDialogHook)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxModalDialogHook);
+	Gura_AssignFunction(__ModalDialogHook);
 	// Method assignment
 	Gura_AssignMethod(wx_ModalDialogHook, __Register);
 	Gura_AssignMethod(wx_ModalDialogHook, __Unregister);

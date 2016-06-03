@@ -37,14 +37,14 @@ String Object_wx_ImageHistogram::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxImageHistogram, "wxImageHistogram")
+Gura_DeclareFunctionAlias(__ImageHistogram, "ImageHistogram")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ImageHistogram));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxImageHistogram)
+Gura_ImplementFunction(__ImageHistogram)
 {
 	//wxImageHistogram();
 	return Value::Nil;
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_ImageHistogram, __FindFirstUnusedColour)
 Gura_ImplementUserInheritableClass(wx_ImageHistogram)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxImageHistogram);
+	Gura_AssignFunction(__ImageHistogram);
 	// Method assignment
 	Gura_AssignMethod(wx_ImageHistogram, __MakeKey);
 	Gura_AssignMethod(wx_ImageHistogram, __FindFirstUnusedColour);

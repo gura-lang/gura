@@ -37,20 +37,20 @@ String Object_wx_FindReplaceDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFindReplaceDialog, "wxFindReplaceDialog")
+Gura_DeclareFunctionAlias(__FindReplaceDialog, "FindReplaceDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FindReplaceDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFindReplaceDialog)
+Gura_ImplementFunction(__FindReplaceDialog)
 {
 	//wxFindReplaceDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFindReplaceDialog_1, "wxFindReplaceDialog_1")
+Gura_DeclareFunctionAlias(__FindReplaceDialog_1, "FindReplaceDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxFindReplaceDialog_1, "wxFindReplaceDialog_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFindReplaceDialog_1)
+Gura_ImplementFunction(__FindReplaceDialog_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
@@ -114,8 +114,8 @@ Gura_ImplementMethod(wx_FindReplaceDialog, __GetData)
 Gura_ImplementUserInheritableClass(wx_FindReplaceDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFindReplaceDialog);
-	Gura_AssignFunction(__wxFindReplaceDialog_1);
+	Gura_AssignFunction(__FindReplaceDialog);
+	Gura_AssignFunction(__FindReplaceDialog_1);
 	// Method assignment
 	Gura_AssignMethod(wx_FindReplaceDialog, __Create);
 	Gura_AssignMethod(wx_FindReplaceDialog, __GetData);

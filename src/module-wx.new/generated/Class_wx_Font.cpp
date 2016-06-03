@@ -37,35 +37,20 @@ String Object_wx_Font::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFont, "wxFont")
+Gura_DeclareFunctionAlias(__Font, "Font")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Font));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFont)
+Gura_ImplementFunction(__Font)
 {
 	//wxFont();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFont_1, "wxFont_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
-	SetClassToConstruct(Gura_UserClass(wx_Font));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(__wxFont_1)
-{
-	//int font = arg.GetNumber(0)
-	//wxFont();
-	return Value::Nil;
-}
-
-Gura_DeclareFunctionAlias(__wxFont_2, "wxFont_2")
+Gura_DeclareFunctionAlias(__Font_1, "Font_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
@@ -73,14 +58,29 @@ Gura_DeclareFunctionAlias(__wxFont_2, "wxFont_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFont_2)
+Gura_ImplementFunction(__Font_1)
 {
 	//int font = arg.GetNumber(0)
 	//wxFont();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFont_3, "wxFont_3")
+Gura_DeclareFunctionAlias(__Font_2, "Font_2")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_Font));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(__Font_2)
+{
+	//int font = arg.GetNumber(0)
+	//wxFont();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__Font_3, "Font_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pointSize", VTYPE_number, OCCUR_Once);
@@ -94,7 +94,7 @@ Gura_DeclareFunctionAlias(__wxFont_3, "wxFont_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFont_3)
+Gura_ImplementFunction(__Font_3)
 {
 	//int pointSize = arg.GetNumber(0)
 	//int family = arg.GetNumber(1)
@@ -107,7 +107,7 @@ Gura_ImplementFunction(__wxFont_3)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFont_4, "wxFont_4")
+Gura_DeclareFunctionAlias(__Font_4, "Font_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pixelSize", VTYPE_number, OCCUR_Once);
@@ -121,7 +121,7 @@ Gura_DeclareFunctionAlias(__wxFont_4, "wxFont_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFont_4)
+Gura_ImplementFunction(__Font_4)
 {
 	//int pixelSize = arg.GetNumber(0)
 	//int family = arg.GetNumber(1)
@@ -134,7 +134,7 @@ Gura_ImplementFunction(__wxFont_4)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFont_5, "wxFont_5")
+Gura_DeclareFunctionAlias(__Font_5, "Font_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nativeInfoString", VTYPE_number, OCCUR_Once);
@@ -142,14 +142,14 @@ Gura_DeclareFunctionAlias(__wxFont_5, "wxFont_5")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFont_5)
+Gura_ImplementFunction(__Font_5)
 {
 	//int nativeInfoString = arg.GetNumber(0)
 	//wxFont();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFont_6, "wxFont_6")
+Gura_DeclareFunctionAlias(__Font_6, "Font_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nativeInfo", VTYPE_number, OCCUR_Once);
@@ -157,7 +157,7 @@ Gura_DeclareFunctionAlias(__wxFont_6, "wxFont_6")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFont_6)
+Gura_ImplementFunction(__Font_6)
 {
 	//int nativeInfo = arg.GetNumber(0)
 	//wxFont();
@@ -924,13 +924,13 @@ Gura_ImplementMethod(wx_Font, __New_5)
 Gura_ImplementUserInheritableClass(wx_Font)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFont);
-	Gura_AssignFunction(__wxFont_1);
-	Gura_AssignFunction(__wxFont_2);
-	Gura_AssignFunction(__wxFont_3);
-	Gura_AssignFunction(__wxFont_4);
-	Gura_AssignFunction(__wxFont_5);
-	Gura_AssignFunction(__wxFont_6);
+	Gura_AssignFunction(__Font);
+	Gura_AssignFunction(__Font_1);
+	Gura_AssignFunction(__Font_2);
+	Gura_AssignFunction(__Font_3);
+	Gura_AssignFunction(__Font_4);
+	Gura_AssignFunction(__Font_5);
+	Gura_AssignFunction(__Font_6);
 	// Method assignment
 	Gura_AssignMethod(wx_Font, __GetBaseFont);
 	Gura_AssignMethod(wx_Font, __GetEncoding);

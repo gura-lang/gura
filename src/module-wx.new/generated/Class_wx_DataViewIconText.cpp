@@ -37,7 +37,7 @@ String Object_wx_DataViewIconText::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewIconText, "wxDataViewIconText")
+Gura_DeclareFunctionAlias(__DataViewIconText, "DataViewIconText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxDataViewIconText, "wxDataViewIconText")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewIconText)
+Gura_ImplementFunction(__DataViewIconText)
 {
 	//int text = arg.GetNumber(0)
 	//int icon = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxDataViewIconText)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDataViewIconText_1, "wxDataViewIconText_1")
+Gura_DeclareFunctionAlias(__DataViewIconText_1, "DataViewIconText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxDataViewIconText_1, "wxDataViewIconText_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewIconText_1)
+Gura_ImplementFunction(__DataViewIconText_1)
 {
 	//int other = arg.GetNumber(0)
 	//wxDataViewIconText();
@@ -134,8 +134,8 @@ Gura_ImplementMethod(wx_DataViewIconText, __SetText)
 Gura_ImplementUserInheritableClass(wx_DataViewIconText)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewIconText);
-	Gura_AssignFunction(__wxDataViewIconText_1);
+	Gura_AssignFunction(__DataViewIconText);
+	Gura_AssignFunction(__DataViewIconText_1);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewIconText, __GetIcon);
 	Gura_AssignMethod(wx_DataViewIconText, __GetText);

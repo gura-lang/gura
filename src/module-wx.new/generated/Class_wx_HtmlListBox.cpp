@@ -37,7 +37,7 @@ String Object_wx_HtmlListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlListBox, "wxHtmlListBox")
+Gura_DeclareFunctionAlias(__HtmlListBox, "HtmlListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxHtmlListBox, "wxHtmlListBox")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlListBox)
+Gura_ImplementFunction(__HtmlListBox)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -62,14 +62,14 @@ Gura_ImplementFunction(__wxHtmlListBox)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxHtmlListBox_1, "wxHtmlListBox_1")
+Gura_DeclareFunctionAlias(__HtmlListBox_1, "HtmlListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlListBox_1)
+Gura_ImplementFunction(__HtmlListBox_1)
 {
 	//wxHtmlListBox();
 	return Value::Nil;
@@ -212,8 +212,8 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnGetItem)
 Gura_ImplementUserInheritableClass(wx_HtmlListBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlListBox);
-	Gura_AssignFunction(__wxHtmlListBox_1);
+	Gura_AssignFunction(__HtmlListBox);
+	Gura_AssignFunction(__HtmlListBox_1);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlListBox, __Create);
 	Gura_AssignMethod(wx_HtmlListBox, __GetFileSystem);

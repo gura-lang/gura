@@ -37,7 +37,7 @@ String Object_wx_AuiManagerEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiManagerEvent, "wxAuiManagerEvent")
+Gura_DeclareFunctionAlias(__AuiManagerEvent, "AuiManagerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxAuiManagerEvent, "wxAuiManagerEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiManagerEvent)
+Gura_ImplementFunction(__AuiManagerEvent)
 {
 	//int type = arg.GetNumber(0)
 	//wxAuiManagerEvent();
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __Veto)
 Gura_ImplementUserInheritableClass(wx_AuiManagerEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiManagerEvent);
+	Gura_AssignFunction(__AuiManagerEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiManagerEvent, __CanVeto);
 	Gura_AssignMethod(wx_AuiManagerEvent, __GetButton);

@@ -37,7 +37,7 @@ String Object_wx_SVGFileDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSVGFileDC, "wxSVGFileDC")
+Gura_DeclareFunctionAlias(__SVGFileDC, "SVGFileDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxSVGFileDC, "wxSVGFileDC")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSVGFileDC)
+Gura_ImplementFunction(__SVGFileDC)
 {
 	//int filename = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __StartDoc)
 Gura_ImplementUserInheritableClass(wx_SVGFileDC)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSVGFileDC);
+	Gura_AssignFunction(__SVGFileDC);
 	// Method assignment
 	Gura_AssignMethod(wx_SVGFileDC, __EndDoc);
 	Gura_AssignMethod(wx_SVGFileDC, __EndPage);

@@ -37,14 +37,14 @@ String Object_wx_DataViewModelNotifier::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewModelNotifier, "wxDataViewModelNotifier")
+Gura_DeclareFunctionAlias(__DataViewModelNotifier, "DataViewModelNotifier")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewModelNotifier));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewModelNotifier)
+Gura_ImplementFunction(__DataViewModelNotifier)
 {
 	//wxDataViewModelNotifier();
 	return Value::Nil;
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_DataViewModelNotifier, __ValueChanged)
 Gura_ImplementUserInheritableClass(wx_DataViewModelNotifier)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewModelNotifier);
+	Gura_AssignFunction(__DataViewModelNotifier);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewModelNotifier, __Cleared);
 	Gura_AssignMethod(wx_DataViewModelNotifier, __GetOwner);

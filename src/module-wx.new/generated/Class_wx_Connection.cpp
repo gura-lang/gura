@@ -37,20 +37,20 @@ String Object_wx_Connection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxConnection, "wxConnection")
+Gura_DeclareFunctionAlias(__Connection, "Connection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Connection));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxConnection)
+Gura_ImplementFunction(__Connection)
 {
 	//wxConnection();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxConnection_1, "wxConnection_1")
+Gura_DeclareFunctionAlias(__Connection_1, "Connection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxConnection_1, "wxConnection_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxConnection_1)
+Gura_ImplementFunction(__Connection_1)
 {
 	//int buffer = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
@@ -511,8 +511,8 @@ Gura_ImplementMethod(wx_Connection, __GetTextFromData)
 Gura_ImplementUserInheritableClass(wx_Connection)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxConnection);
-	Gura_AssignFunction(__wxConnection_1);
+	Gura_AssignFunction(__Connection);
+	Gura_AssignFunction(__Connection_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Connection, __Advise);
 	Gura_AssignMethod(wx_Connection, __Advise_1);

@@ -37,14 +37,14 @@ String Object_wx_AnyValueType::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAnyValueType, "wxAnyValueType")
+Gura_DeclareFunctionAlias(__AnyValueType, "AnyValueType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AnyValueType));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAnyValueType)
+Gura_ImplementFunction(__AnyValueType)
 {
 	//wxAnyValueType();
 	return Value::Nil;
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_AnyValueType, __IsSameType)
 Gura_ImplementUserInheritableClass(wx_AnyValueType)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAnyValueType);
+	Gura_AssignFunction(__AnyValueType);
 	// Method assignment
 	Gura_AssignMethod(wx_AnyValueType, __CheckType);
 	Gura_AssignMethod(wx_AnyValueType, __ConvertValue);

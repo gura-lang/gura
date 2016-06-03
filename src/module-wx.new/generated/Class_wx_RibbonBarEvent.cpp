@@ -37,7 +37,7 @@ String Object_wx_RibbonBarEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRibbonBarEvent, "wxRibbonBarEvent")
+Gura_DeclareFunctionAlias(__RibbonBarEvent, "RibbonBarEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxRibbonBarEvent, "wxRibbonBarEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonBarEvent)
+Gura_ImplementFunction(__RibbonBarEvent)
 {
 	//int command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_RibbonBarEvent, __SetPage)
 Gura_ImplementUserInheritableClass(wx_RibbonBarEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRibbonBarEvent);
+	Gura_AssignFunction(__RibbonBarEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_RibbonBarEvent, __GetPage);
 	Gura_AssignMethod(wx_RibbonBarEvent, __SetPage);

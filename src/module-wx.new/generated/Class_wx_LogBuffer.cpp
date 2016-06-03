@@ -37,14 +37,14 @@ String Object_wx_LogBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLogBuffer, "wxLogBuffer")
+Gura_DeclareFunctionAlias(__LogBuffer, "LogBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLogBuffer)
+Gura_ImplementFunction(__LogBuffer)
 {
 	//wxLogBuffer();
 	return Value::Nil;
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_LogBuffer, __GetBuffer)
 Gura_ImplementUserInheritableClass(wx_LogBuffer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLogBuffer);
+	Gura_AssignFunction(__LogBuffer);
 	// Method assignment
 	Gura_AssignMethod(wx_LogBuffer, __Flush);
 	Gura_AssignMethod(wx_LogBuffer, __GetBuffer);

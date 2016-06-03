@@ -37,20 +37,20 @@ String Object_wx_RibbonToolBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRibbonToolBar, "wxRibbonToolBar")
+Gura_DeclareFunctionAlias(__RibbonToolBar, "RibbonToolBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonToolBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonToolBar)
+Gura_ImplementFunction(__RibbonToolBar)
 {
 	//wxRibbonToolBar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRibbonToolBar_1, "wxRibbonToolBar_1")
+Gura_DeclareFunctionAlias(__RibbonToolBar_1, "RibbonToolBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxRibbonToolBar_1, "wxRibbonToolBar_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonToolBar_1)
+Gura_ImplementFunction(__RibbonToolBar_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -401,19 +401,6 @@ Gura_ImplementMethod(wx_RibbonToolBar, __FindById)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RibbonToolBar, __GetToolByPos, "GetToolByPos")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RibbonToolBar, __GetToolByPos)
-{
-	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolByPos();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_RibbonToolBar, __GetToolId, "GetToolId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -657,8 +644,8 @@ Gura_ImplementMethod(wx_RibbonToolBar, __ToggleTool)
 Gura_ImplementUserInheritableClass(wx_RibbonToolBar)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRibbonToolBar);
-	Gura_AssignFunction(__wxRibbonToolBar_1);
+	Gura_AssignFunction(__RibbonToolBar);
+	Gura_AssignFunction(__RibbonToolBar_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RibbonToolBar, __Create);
 	Gura_AssignMethod(wx_RibbonToolBar, __AddTool);
@@ -677,7 +664,6 @@ Gura_ImplementUserInheritableClass(wx_RibbonToolBar)
 	Gura_AssignMethod(wx_RibbonToolBar, __DeleteTool);
 	Gura_AssignMethod(wx_RibbonToolBar, __DeleteToolByPos);
 	Gura_AssignMethod(wx_RibbonToolBar, __FindById);
-	Gura_AssignMethod(wx_RibbonToolBar, __GetToolByPos);
 	Gura_AssignMethod(wx_RibbonToolBar, __GetToolId);
 	Gura_AssignMethod(wx_RibbonToolBar, __GetToolClientData);
 	Gura_AssignMethod(wx_RibbonToolBar, __GetToolEnabled);

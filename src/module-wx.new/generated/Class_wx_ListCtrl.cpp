@@ -37,20 +37,20 @@ String Object_wx_ListCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxListCtrl, "wxListCtrl")
+Gura_DeclareFunctionAlias(__ListCtrl, "ListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ListCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListCtrl)
+Gura_ImplementFunction(__ListCtrl)
 {
 	//wxListCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxListCtrl_1, "wxListCtrl_1")
+Gura_DeclareFunctionAlias(__ListCtrl_1, "ListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxListCtrl_1, "wxListCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListCtrl_1)
+Gura_ImplementFunction(__ListCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -1485,8 +1485,8 @@ Gura_ImplementMethod(wx_ListCtrl, __OnGetItemText)
 Gura_ImplementUserInheritableClass(wx_ListCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxListCtrl);
-	Gura_AssignFunction(__wxListCtrl_1);
+	Gura_AssignFunction(__ListCtrl);
+	Gura_AssignFunction(__ListCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ListCtrl, __AppendColumn);
 	Gura_AssignMethod(wx_ListCtrl, __Arrange);

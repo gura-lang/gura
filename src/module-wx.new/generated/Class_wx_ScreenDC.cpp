@@ -37,14 +37,14 @@ String Object_wx_ScreenDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxScreenDC, "wxScreenDC")
+Gura_DeclareFunctionAlias(__ScreenDC, "ScreenDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ScreenDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxScreenDC)
+Gura_ImplementFunction(__ScreenDC)
 {
 	//wxScreenDC();
 	return Value::Nil;
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_ScreenDC, __StartDrawingOnTop_1)
 Gura_ImplementUserInheritableClass(wx_ScreenDC)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxScreenDC);
+	Gura_AssignFunction(__ScreenDC);
 	// Method assignment
 	Gura_AssignMethod(wx_ScreenDC, __EndDrawingOnTop);
 	Gura_AssignMethod(wx_ScreenDC, __StartDrawingOnTop);

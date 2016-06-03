@@ -37,7 +37,7 @@ String Object_wx_JoystickEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxJoystickEvent, "wxJoystickEvent")
+Gura_DeclareFunctionAlias(__JoystickEvent, "JoystickEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxJoystickEvent, "wxJoystickEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxJoystickEvent)
+Gura_ImplementFunction(__JoystickEvent)
 {
 	//int eventType = arg.GetNumber(0)
 	//int state = arg.GetNumber(1)
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_JoystickEvent, __IsZMove)
 Gura_ImplementUserInheritableClass(wx_JoystickEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxJoystickEvent);
+	Gura_AssignFunction(__JoystickEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_JoystickEvent, __ButtonDown);
 	Gura_AssignMethod(wx_JoystickEvent, __ButtonIsDown);

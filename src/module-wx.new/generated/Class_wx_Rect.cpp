@@ -37,20 +37,20 @@ String Object_wx_Rect::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRect, "wxRect")
+Gura_DeclareFunctionAlias(__Rect, "Rect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Rect));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRect)
+Gura_ImplementFunction(__Rect)
 {
 	//wxRect();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRect_1, "wxRect_1")
+Gura_DeclareFunctionAlias(__Rect_1, "Rect_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxRect_1, "wxRect_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRect_1)
+Gura_ImplementFunction(__Rect_1)
 {
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__wxRect_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRect_2, "wxRect_2")
+Gura_DeclareFunctionAlias(__Rect_2, "Rect_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topLeft", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_DeclareFunctionAlias(__wxRect_2, "wxRect_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRect_2)
+Gura_ImplementFunction(__Rect_2)
 {
 	//int topLeft = arg.GetNumber(0)
 	//int bottomRight = arg.GetNumber(1)
@@ -88,7 +88,7 @@ Gura_ImplementFunction(__wxRect_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRect_3, "wxRect_3")
+Gura_DeclareFunctionAlias(__Rect_3, "Rect_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -97,7 +97,7 @@ Gura_DeclareFunctionAlias(__wxRect_3, "wxRect_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRect_3)
+Gura_ImplementFunction(__Rect_3)
 {
 	//int pos = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
@@ -105,7 +105,7 @@ Gura_ImplementFunction(__wxRect_3)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRect_4, "wxRect_4")
+Gura_DeclareFunctionAlias(__Rect_4, "Rect_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -113,7 +113,7 @@ Gura_DeclareFunctionAlias(__wxRect_4, "wxRect_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRect_4)
+Gura_ImplementFunction(__Rect_4)
 {
 	//int size = arg.GetNumber(0)
 	//wxRect();
@@ -850,11 +850,11 @@ Gura_ImplementMethod(wx_Rect, __Union_1)
 Gura_ImplementUserInheritableClass(wx_Rect)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRect);
-	Gura_AssignFunction(__wxRect_1);
-	Gura_AssignFunction(__wxRect_2);
-	Gura_AssignFunction(__wxRect_3);
-	Gura_AssignFunction(__wxRect_4);
+	Gura_AssignFunction(__Rect);
+	Gura_AssignFunction(__Rect_1);
+	Gura_AssignFunction(__Rect_2);
+	Gura_AssignFunction(__Rect_3);
+	Gura_AssignFunction(__Rect_4);
 	// Method assignment
 	Gura_AssignMethod(wx_Rect, __CentreIn);
 	Gura_AssignMethod(wx_Rect, __CenterIn);

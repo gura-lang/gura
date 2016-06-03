@@ -37,20 +37,20 @@ String Object_wx_ComboBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxComboBox, "wxComboBox")
+Gura_DeclareFunctionAlias(__ComboBox, "ComboBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ComboBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxComboBox)
+Gura_ImplementFunction(__ComboBox)
 {
 	//wxComboBox();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxComboBox_1, "wxComboBox_1")
+Gura_DeclareFunctionAlias(__ComboBox_1, "ComboBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -67,7 +67,7 @@ Gura_DeclareFunctionAlias(__wxComboBox_1, "wxComboBox_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxComboBox_1)
+Gura_ImplementFunction(__ComboBox_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -83,7 +83,7 @@ Gura_ImplementFunction(__wxComboBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxComboBox_2, "wxComboBox_2")
+Gura_DeclareFunctionAlias(__ComboBox_2, "ComboBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_DeclareFunctionAlias(__wxComboBox_2, "wxComboBox_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxComboBox_2)
+Gura_ImplementFunction(__ComboBox_2)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -430,9 +430,9 @@ Gura_ImplementMethod(wx_ComboBox, __GetCount)
 Gura_ImplementUserInheritableClass(wx_ComboBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxComboBox);
-	Gura_AssignFunction(__wxComboBox_1);
-	Gura_AssignFunction(__wxComboBox_2);
+	Gura_AssignFunction(__ComboBox);
+	Gura_AssignFunction(__ComboBox_1);
+	Gura_AssignFunction(__ComboBox_2);
 	// Method assignment
 	Gura_AssignMethod(wx_ComboBox, __Create);
 	Gura_AssignMethod(wx_ComboBox, __Create_1);

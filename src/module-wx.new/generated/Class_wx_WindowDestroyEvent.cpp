@@ -37,7 +37,7 @@ String Object_wx_WindowDestroyEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWindowDestroyEvent, "wxWindowDestroyEvent")
+Gura_DeclareFunctionAlias(__WindowDestroyEvent, "WindowDestroyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxWindowDestroyEvent, "wxWindowDestroyEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWindowDestroyEvent)
+Gura_ImplementFunction(__WindowDestroyEvent)
 {
 	//int win = arg.GetNumber(0)
 	//wxWindowDestroyEvent();
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_WindowDestroyEvent, __GetWindow)
 Gura_ImplementUserInheritableClass(wx_WindowDestroyEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWindowDestroyEvent);
+	Gura_AssignFunction(__WindowDestroyEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_WindowDestroyEvent, __GetWindow);
 }

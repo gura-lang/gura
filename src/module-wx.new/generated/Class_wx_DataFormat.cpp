@@ -37,7 +37,7 @@ String Object_wx_DataFormat::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataFormat, "wxDataFormat")
+Gura_DeclareFunctionAlias(__DataFormat, "DataFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxDataFormat, "wxDataFormat")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataFormat)
+Gura_ImplementFunction(__DataFormat)
 {
 	//int format = arg.GetNumber(0)
 	//wxDataFormat();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDataFormat_1, "wxDataFormat_1")
+Gura_DeclareFunctionAlias(__DataFormat_1, "DataFormat_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxDataFormat_1, "wxDataFormat_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataFormat_1)
+Gura_ImplementFunction(__DataFormat_1)
 {
 	//int format = arg.GetNumber(0)
 	//wxDataFormat();
@@ -132,8 +132,8 @@ Gura_ImplementMethod(wx_DataFormat, __SetType)
 Gura_ImplementUserInheritableClass(wx_DataFormat)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataFormat);
-	Gura_AssignFunction(__wxDataFormat_1);
+	Gura_AssignFunction(__DataFormat);
+	Gura_AssignFunction(__DataFormat_1);
 	// Method assignment
 	Gura_AssignMethod(wx_DataFormat, __GetId);
 	Gura_AssignMethod(wx_DataFormat, __GetType);

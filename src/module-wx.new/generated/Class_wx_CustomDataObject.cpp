@@ -37,7 +37,7 @@ String Object_wx_CustomDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCustomDataObject, "wxCustomDataObject")
+Gura_DeclareFunctionAlias(__CustomDataObject, "CustomDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxCustomDataObject, "wxCustomDataObject")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCustomDataObject)
+Gura_ImplementFunction(__CustomDataObject)
 {
 	//int format = arg.GetNumber(0)
 	//wxCustomDataObject();
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_CustomDataObject, __TakeData)
 Gura_ImplementUserInheritableClass(wx_CustomDataObject)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCustomDataObject);
+	Gura_AssignFunction(__CustomDataObject);
 	// Method assignment
 	Gura_AssignMethod(wx_CustomDataObject, __Alloc);
 	Gura_AssignMethod(wx_CustomDataObject, __Free);

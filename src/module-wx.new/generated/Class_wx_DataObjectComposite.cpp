@@ -37,14 +37,14 @@ String Object_wx_DataObjectComposite::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataObjectComposite, "wxDataObjectComposite")
+Gura_DeclareFunctionAlias(__DataObjectComposite, "DataObjectComposite")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataObjectComposite));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataObjectComposite)
+Gura_ImplementFunction(__DataObjectComposite)
 {
 	//wxDataObjectComposite();
 	return Value::Nil;
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_DataObjectComposite, __GetObject)
 Gura_ImplementUserInheritableClass(wx_DataObjectComposite)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataObjectComposite);
+	Gura_AssignFunction(__DataObjectComposite);
 	// Method assignment
 	Gura_AssignMethod(wx_DataObjectComposite, __Add);
 	Gura_AssignMethod(wx_DataObjectComposite, __GetReceivedFormat);

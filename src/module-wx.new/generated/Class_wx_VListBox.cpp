@@ -37,20 +37,20 @@ String Object_wx_VListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxVListBox, "wxVListBox")
+Gura_DeclareFunctionAlias(__VListBox, "VListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_VListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVListBox)
+Gura_ImplementFunction(__VListBox)
 {
 	//wxVListBox();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVListBox_1, "wxVListBox_1")
+Gura_DeclareFunctionAlias(__VListBox_1, "VListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxVListBox_1, "wxVListBox_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVListBox_1)
+Gura_ImplementFunction(__VListBox_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -499,8 +499,8 @@ Gura_ImplementMethod(wx_VListBox, __OnMeasureItem)
 Gura_ImplementUserInheritableClass(wx_VListBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxVListBox);
-	Gura_AssignFunction(__wxVListBox_1);
+	Gura_AssignFunction(__VListBox);
+	Gura_AssignFunction(__VListBox_1);
 	// Method assignment
 	Gura_AssignMethod(wx_VListBox, __Clear);
 	Gura_AssignMethod(wx_VListBox, __Create);

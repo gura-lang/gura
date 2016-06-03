@@ -37,7 +37,7 @@ String Object_wx_ConfigBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxConfigBase, "wxConfigBase")
+Gura_DeclareFunctionAlias(__ConfigBase, "ConfigBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxConfigBase, "wxConfigBase")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxConfigBase)
+Gura_ImplementFunction(__ConfigBase)
 {
 	//int appName = arg.GetNumber(0)
 	//int vendorName = arg.GetNumber(1)
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_ConfigBase, __GetNumberOfGroups)
 Gura_ImplementUserInheritableClass(wx_ConfigBase)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxConfigBase);
+	Gura_AssignFunction(__ConfigBase);
 	// Method assignment
 	Gura_AssignMethod(wx_ConfigBase, __GetPath);
 	Gura_AssignMethod(wx_ConfigBase, __SetPath);

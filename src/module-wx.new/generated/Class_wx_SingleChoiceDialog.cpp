@@ -37,7 +37,7 @@ String Object_wx_SingleChoiceDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSingleChoiceDialog, "wxSingleChoiceDialog")
+Gura_DeclareFunctionAlias(__SingleChoiceDialog, "SingleChoiceDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -52,7 +52,7 @@ Gura_DeclareFunctionAlias(__wxSingleChoiceDialog, "wxSingleChoiceDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSingleChoiceDialog)
+Gura_ImplementFunction(__SingleChoiceDialog)
 {
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -66,7 +66,7 @@ Gura_ImplementFunction(__wxSingleChoiceDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSingleChoiceDialog_1, "wxSingleChoiceDialog_1")
+Gura_DeclareFunctionAlias(__SingleChoiceDialog_1, "SingleChoiceDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_DeclareFunctionAlias(__wxSingleChoiceDialog_1, "wxSingleChoiceDialog_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSingleChoiceDialog_1)
+Gura_ImplementFunction(__SingleChoiceDialog_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -169,8 +169,8 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, __ShowModal)
 Gura_ImplementUserInheritableClass(wx_SingleChoiceDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSingleChoiceDialog);
-	Gura_AssignFunction(__wxSingleChoiceDialog_1);
+	Gura_AssignFunction(__SingleChoiceDialog);
+	Gura_AssignFunction(__SingleChoiceDialog_1);
 	// Method assignment
 	Gura_AssignMethod(wx_SingleChoiceDialog, __GetSelection);
 	Gura_AssignMethod(wx_SingleChoiceDialog, __GetSelectionData);

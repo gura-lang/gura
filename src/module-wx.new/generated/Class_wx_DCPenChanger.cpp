@@ -37,7 +37,7 @@ String Object_wx_DCPenChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDCPenChanger, "wxDCPenChanger")
+Gura_DeclareFunctionAlias(__DCPenChanger, "DCPenChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxDCPenChanger, "wxDCPenChanger")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDCPenChanger)
+Gura_ImplementFunction(__DCPenChanger)
 {
 	//int dc = arg.GetNumber(0)
 	//int pen = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxDCPenChanger)
 Gura_ImplementUserInheritableClass(wx_DCPenChanger)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDCPenChanger);
+	Gura_AssignFunction(__DCPenChanger);
 }
 
 Gura_ImplementDescendantCreator(wx_DCPenChanger)

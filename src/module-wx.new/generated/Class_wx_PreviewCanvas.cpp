@@ -37,7 +37,7 @@ String Object_wx_PreviewCanvas::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPreviewCanvas, "wxPreviewCanvas")
+Gura_DeclareFunctionAlias(__PreviewCanvas, "PreviewCanvas")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "preview", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxPreviewCanvas, "wxPreviewCanvas")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPreviewCanvas)
+Gura_ImplementFunction(__PreviewCanvas)
 {
 	//int preview = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_PreviewCanvas, __OnPaint)
 Gura_ImplementUserInheritableClass(wx_PreviewCanvas)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPreviewCanvas);
+	Gura_AssignFunction(__PreviewCanvas);
 	// Method assignment
 	Gura_AssignMethod(wx_PreviewCanvas, __OnPaint);
 }

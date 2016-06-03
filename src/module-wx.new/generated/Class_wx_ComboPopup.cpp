@@ -37,14 +37,14 @@ String Object_wx_ComboPopup::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxComboPopup, "wxComboPopup")
+Gura_DeclareFunctionAlias(__ComboPopup, "ComboPopup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ComboPopup));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxComboPopup)
+Gura_ImplementFunction(__ComboPopup)
 {
 	//wxComboPopup();
 	return Value::Nil;
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_ComboPopup, __SetStringValue)
 Gura_ImplementUserInheritableClass(wx_ComboPopup)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxComboPopup);
+	Gura_AssignFunction(__ComboPopup);
 	// Method assignment
 	Gura_AssignMethod(wx_ComboPopup, __Create);
 	Gura_AssignMethod(wx_ComboPopup, __DestroyPopup);

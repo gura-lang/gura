@@ -37,7 +37,7 @@ String Object_wx_StreamToTextRedirector::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStreamToTextRedirector, "wxStreamToTextRedirector")
+Gura_DeclareFunctionAlias(__StreamToTextRedirector, "StreamToTextRedirector")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxStreamToTextRedirector, "wxStreamToTextRedirector"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStreamToTextRedirector)
+Gura_ImplementFunction(__StreamToTextRedirector)
 {
 	//int text = arg.GetNumber(0)
 	//int ostr = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxStreamToTextRedirector)
 Gura_ImplementUserInheritableClass(wx_StreamToTextRedirector)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStreamToTextRedirector);
+	Gura_AssignFunction(__StreamToTextRedirector);
 }
 
 Gura_ImplementDescendantCreator(wx_StreamToTextRedirector)

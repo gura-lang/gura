@@ -37,14 +37,14 @@ String Object_wx_HtmlWindowInterface::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlWindowInterface, "wxHtmlWindowInterface")
+Gura_DeclareFunctionAlias(__HtmlWindowInterface, "HtmlWindowInterface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWindowInterface));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlWindowInterface)
+Gura_ImplementFunction(__HtmlWindowInterface)
 {
 	//wxHtmlWindowInterface();
 	return Value::Nil;
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, __SetHTMLStatusText)
 Gura_ImplementUserInheritableClass(wx_HtmlWindowInterface)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlWindowInterface);
+	Gura_AssignFunction(__HtmlWindowInterface);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlWindowInterface, __SetHTMLWindowTitle);
 	Gura_AssignMethod(wx_HtmlWindowInterface, __OnHTMLLinkClicked);

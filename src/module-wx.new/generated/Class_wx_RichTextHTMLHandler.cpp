@@ -37,7 +37,7 @@ String Object_wx_RichTextHTMLHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextHTMLHandler, "wxRichTextHTMLHandler")
+Gura_DeclareFunctionAlias(__RichTextHTMLHandler, "RichTextHTMLHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxRichTextHTMLHandler, "wxRichTextHTMLHandler")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextHTMLHandler)
+Gura_ImplementFunction(__RichTextHTMLHandler)
 {
 	//int name = arg.GetNumber(0)
 	//int ext = arg.GetNumber(1)
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __DoSaveFile)
 Gura_ImplementUserInheritableClass(wx_RichTextHTMLHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextHTMLHandler);
+	Gura_AssignFunction(__RichTextHTMLHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextHTMLHandler, __ClearTemporaryImageLocations);
 	Gura_AssignMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages);

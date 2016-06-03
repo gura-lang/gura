@@ -37,7 +37,7 @@ String Object_wx_GenericValidator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGenericValidator, "wxGenericValidator")
+Gura_DeclareFunctionAlias(__GenericValidator, "GenericValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxGenericValidator, "wxGenericValidator")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericValidator)
+Gura_ImplementFunction(__GenericValidator)
 {
 	//int validator = arg.GetNumber(0)
 	//wxGenericValidator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGenericValidator_1, "wxGenericValidator_1")
+Gura_DeclareFunctionAlias(__GenericValidator_1, "GenericValidator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
@@ -60,14 +60,14 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_1, "wxGenericValidator_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericValidator_1)
+Gura_ImplementFunction(__GenericValidator_1)
 {
 	//int valPtr = arg.GetNumber(0)
 	//wxGenericValidator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGenericValidator_2, "wxGenericValidator_2")
+Gura_DeclareFunctionAlias(__GenericValidator_2, "GenericValidator_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
@@ -75,14 +75,14 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_2, "wxGenericValidator_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericValidator_2)
+Gura_ImplementFunction(__GenericValidator_2)
 {
 	//int valPtr = arg.GetNumber(0)
 	//wxGenericValidator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGenericValidator_3, "wxGenericValidator_3")
+Gura_DeclareFunctionAlias(__GenericValidator_3, "GenericValidator_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
@@ -90,14 +90,14 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_3, "wxGenericValidator_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericValidator_3)
+Gura_ImplementFunction(__GenericValidator_3)
 {
 	//int valPtr = arg.GetNumber(0)
 	//wxGenericValidator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGenericValidator_4, "wxGenericValidator_4")
+Gura_DeclareFunctionAlias(__GenericValidator_4, "GenericValidator_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
@@ -105,14 +105,14 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_4, "wxGenericValidator_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericValidator_4)
+Gura_ImplementFunction(__GenericValidator_4)
 {
 	//int valPtr = arg.GetNumber(0)
 	//wxGenericValidator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGenericValidator_5, "wxGenericValidator_5")
+Gura_DeclareFunctionAlias(__GenericValidator_5, "GenericValidator_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
@@ -120,14 +120,14 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_5, "wxGenericValidator_5")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericValidator_5)
+Gura_ImplementFunction(__GenericValidator_5)
 {
 	//int valPtr = arg.GetNumber(0)
 	//wxGenericValidator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGenericValidator_6, "wxGenericValidator_6")
+Gura_DeclareFunctionAlias(__GenericValidator_6, "GenericValidator_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
@@ -135,14 +135,14 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_6, "wxGenericValidator_6")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericValidator_6)
+Gura_ImplementFunction(__GenericValidator_6)
 {
 	//int valPtr = arg.GetNumber(0)
 	//wxGenericValidator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGenericValidator_7, "wxGenericValidator_7")
+Gura_DeclareFunctionAlias(__GenericValidator_7, "GenericValidator_7")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
@@ -150,14 +150,14 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_7, "wxGenericValidator_7")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericValidator_7)
+Gura_ImplementFunction(__GenericValidator_7)
 {
 	//int valPtr = arg.GetNumber(0)
 	//wxGenericValidator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGenericValidator_8, "wxGenericValidator_8")
+Gura_DeclareFunctionAlias(__GenericValidator_8, "GenericValidator_8")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
@@ -165,7 +165,7 @@ Gura_DeclareFunctionAlias(__wxGenericValidator_8, "wxGenericValidator_8")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGenericValidator_8)
+Gura_ImplementFunction(__GenericValidator_8)
 {
 	//int valPtr = arg.GetNumber(0)
 	//wxGenericValidator();
@@ -220,15 +220,15 @@ Gura_ImplementMethod(wx_GenericValidator, __TransferToWindow)
 Gura_ImplementUserInheritableClass(wx_GenericValidator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGenericValidator);
-	Gura_AssignFunction(__wxGenericValidator_1);
-	Gura_AssignFunction(__wxGenericValidator_2);
-	Gura_AssignFunction(__wxGenericValidator_3);
-	Gura_AssignFunction(__wxGenericValidator_4);
-	Gura_AssignFunction(__wxGenericValidator_5);
-	Gura_AssignFunction(__wxGenericValidator_6);
-	Gura_AssignFunction(__wxGenericValidator_7);
-	Gura_AssignFunction(__wxGenericValidator_8);
+	Gura_AssignFunction(__GenericValidator);
+	Gura_AssignFunction(__GenericValidator_1);
+	Gura_AssignFunction(__GenericValidator_2);
+	Gura_AssignFunction(__GenericValidator_3);
+	Gura_AssignFunction(__GenericValidator_4);
+	Gura_AssignFunction(__GenericValidator_5);
+	Gura_AssignFunction(__GenericValidator_6);
+	Gura_AssignFunction(__GenericValidator_7);
+	Gura_AssignFunction(__GenericValidator_8);
 	// Method assignment
 	Gura_AssignMethod(wx_GenericValidator, __Clone);
 	Gura_AssignMethod(wx_GenericValidator, __TransferFromWindow);

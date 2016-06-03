@@ -37,14 +37,14 @@ String Object_wx_LayoutAlgorithm::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLayoutAlgorithm, "wxLayoutAlgorithm")
+Gura_DeclareFunctionAlias(__LayoutAlgorithm, "LayoutAlgorithm")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LayoutAlgorithm));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLayoutAlgorithm)
+Gura_ImplementFunction(__LayoutAlgorithm)
 {
 	//wxLayoutAlgorithm();
 	return Value::Nil;
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutWindow)
 Gura_ImplementUserInheritableClass(wx_LayoutAlgorithm)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLayoutAlgorithm);
+	Gura_AssignFunction(__LayoutAlgorithm);
 	// Method assignment
 	Gura_AssignMethod(wx_LayoutAlgorithm, __LayoutFrame);
 	Gura_AssignMethod(wx_LayoutAlgorithm, __LayoutMDIFrame);

@@ -37,7 +37,7 @@ String Object_wx_CommandProcessor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCommandProcessor, "wxCommandProcessor")
+Gura_DeclareFunctionAlias(__CommandProcessor, "CommandProcessor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maxCommands", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxCommandProcessor, "wxCommandProcessor")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCommandProcessor)
+Gura_ImplementFunction(__CommandProcessor)
 {
 	//int maxCommands = arg.GetNumber(0)
 	//wxCommandProcessor();
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_CommandProcessor, __Undo)
 Gura_ImplementUserInheritableClass(wx_CommandProcessor)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCommandProcessor);
+	Gura_AssignFunction(__CommandProcessor);
 	// Method assignment
 	Gura_AssignMethod(wx_CommandProcessor, __CanUndo);
 	Gura_AssignMethod(wx_CommandProcessor, __CanRedo);

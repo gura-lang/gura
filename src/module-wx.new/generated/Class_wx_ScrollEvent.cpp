@@ -37,7 +37,7 @@ String Object_wx_ScrollEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxScrollEvent, "wxScrollEvent")
+Gura_DeclareFunctionAlias(__ScrollEvent, "ScrollEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxScrollEvent, "wxScrollEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxScrollEvent)
+Gura_ImplementFunction(__ScrollEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_ScrollEvent, __SetPosition)
 Gura_ImplementUserInheritableClass(wx_ScrollEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxScrollEvent);
+	Gura_AssignFunction(__ScrollEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_ScrollEvent, __GetOrientation);
 	Gura_AssignMethod(wx_ScrollEvent, __GetPosition);

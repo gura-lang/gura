@@ -37,14 +37,14 @@ String Object_wx_FileType::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileType, "wxFileType")
+Gura_DeclareFunctionAlias(__FileType, "FileType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileType));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileType)
+Gura_ImplementFunction(__FileType)
 {
 	//wxFileType();
 	return Value::Nil;
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_FileType, __GetParamValue)
 Gura_ImplementUserInheritableClass(wx_FileType)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileType);
+	Gura_AssignFunction(__FileType);
 	// Method assignment
 	Gura_AssignMethod(wx_FileType, __MessageParameters);
 	Gura_AssignMethod(wx_FileType, __MessageParameters_1);

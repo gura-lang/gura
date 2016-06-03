@@ -37,14 +37,14 @@ String Object_wx_InternetFSHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxInternetFSHandler, "wxInternetFSHandler")
+Gura_DeclareFunctionAlias(__InternetFSHandler, "InternetFSHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_InternetFSHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxInternetFSHandler)
+Gura_ImplementFunction(__InternetFSHandler)
 {
 	//wxInternetFSHandler();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxInternetFSHandler)
 Gura_ImplementUserInheritableClass(wx_InternetFSHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxInternetFSHandler);
+	Gura_AssignFunction(__InternetFSHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_InternetFSHandler)

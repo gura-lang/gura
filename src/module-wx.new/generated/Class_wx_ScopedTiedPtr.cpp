@@ -37,7 +37,7 @@ String Object_wx_ScopedTiedPtr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxScopedTiedPtr, "wxScopedTiedPtr")
+Gura_DeclareFunctionAlias(__ScopedTiedPtr, "ScopedTiedPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ppTie", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxScopedTiedPtr, "wxScopedTiedPtr")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxScopedTiedPtr)
+Gura_ImplementFunction(__ScopedTiedPtr)
 {
 	//int ppTie = arg.GetNumber(0)
 	//int ptr = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxScopedTiedPtr)
 Gura_ImplementUserInheritableClass(wx_ScopedTiedPtr)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxScopedTiedPtr);
+	Gura_AssignFunction(__ScopedTiedPtr);
 }
 
 Gura_ImplementDescendantCreator(wx_ScopedTiedPtr)

@@ -37,20 +37,20 @@ String Object_wx_LongLong::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLongLong, "wxLongLong")
+Gura_DeclareFunctionAlias(__LongLong, "LongLong")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LongLong));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLongLong)
+Gura_ImplementFunction(__LongLong)
 {
 	//wxLongLong();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxLongLong_1, "wxLongLong_1")
+Gura_DeclareFunctionAlias(__LongLong_1, "LongLong_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ll", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxLongLong_1, "wxLongLong_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLongLong_1)
+Gura_ImplementFunction(__LongLong_1)
 {
 	//int ll = arg.GetNumber(0)
 	//wxLongLong();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxLongLong_2, "wxLongLong_2")
+Gura_DeclareFunctionAlias(__LongLong_2, "LongLong_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hi", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_DeclareFunctionAlias(__wxLongLong_2, "wxLongLong_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLongLong_2)
+Gura_ImplementFunction(__LongLong_2)
 {
 	//int hi = arg.GetNumber(0)
 	//int lo = arg.GetNumber(1)
@@ -210,9 +210,9 @@ Gura_ImplementMethod(wx_LongLong, __ToString)
 Gura_ImplementUserInheritableClass(wx_LongLong)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLongLong);
-	Gura_AssignFunction(__wxLongLong_1);
-	Gura_AssignFunction(__wxLongLong_2);
+	Gura_AssignFunction(__LongLong);
+	Gura_AssignFunction(__LongLong_1);
+	Gura_AssignFunction(__LongLong_2);
 	// Method assignment
 	Gura_AssignMethod(wx_LongLong, __Abs);
 	Gura_AssignMethod(wx_LongLong, __Abs_1);

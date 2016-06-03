@@ -37,14 +37,14 @@ String Object_wx_ClientData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxClientData, "wxClientData")
+Gura_DeclareFunctionAlias(__ClientData, "ClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ClientData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxClientData)
+Gura_ImplementFunction(__ClientData)
 {
 	//wxClientData();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxClientData)
 Gura_ImplementUserInheritableClass(wx_ClientData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxClientData);
+	Gura_AssignFunction(__ClientData);
 }
 
 Gura_ImplementDescendantCreator(wx_ClientData)

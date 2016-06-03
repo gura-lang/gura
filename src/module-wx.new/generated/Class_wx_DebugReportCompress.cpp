@@ -37,14 +37,14 @@ String Object_wx_DebugReportCompress::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDebugReportCompress, "wxDebugReportCompress")
+Gura_DeclareFunctionAlias(__DebugReportCompress, "DebugReportCompress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DebugReportCompress));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDebugReportCompress)
+Gura_ImplementFunction(__DebugReportCompress)
 {
 	//wxDebugReportCompress();
 	return Value::Nil;
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_DebugReportCompress, __GetCompressedFileName)
 Gura_ImplementUserInheritableClass(wx_DebugReportCompress)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDebugReportCompress);
+	Gura_AssignFunction(__DebugReportCompress);
 	// Method assignment
 	Gura_AssignMethod(wx_DebugReportCompress, __SetCompressedFileDirectory);
 	Gura_AssignMethod(wx_DebugReportCompress, __SetCompressedFileBaseName);

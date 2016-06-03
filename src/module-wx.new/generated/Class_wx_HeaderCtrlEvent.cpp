@@ -37,7 +37,7 @@ String Object_wx_HeaderCtrlEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHeaderCtrlEvent, "wxHeaderCtrlEvent")
+Gura_DeclareFunctionAlias(__HeaderCtrlEvent, "HeaderCtrlEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxHeaderCtrlEvent, "wxHeaderCtrlEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHeaderCtrlEvent)
+Gura_ImplementFunction(__HeaderCtrlEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxHeaderCtrlEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxHeaderCtrlEvent_1, "wxHeaderCtrlEvent_1")
+Gura_DeclareFunctionAlias(__HeaderCtrlEvent_1, "HeaderCtrlEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxHeaderCtrlEvent_1, "wxHeaderCtrlEvent_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHeaderCtrlEvent_1)
+Gura_ImplementFunction(__HeaderCtrlEvent_1)
 {
 	//int event = arg.GetNumber(0)
 	//wxHeaderCtrlEvent();
@@ -162,8 +162,8 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, __SetNewOrder)
 Gura_ImplementUserInheritableClass(wx_HeaderCtrlEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHeaderCtrlEvent);
-	Gura_AssignFunction(__wxHeaderCtrlEvent_1);
+	Gura_AssignFunction(__HeaderCtrlEvent);
+	Gura_AssignFunction(__HeaderCtrlEvent_1);
 	// Method assignment
 	Gura_AssignMethod(wx_HeaderCtrlEvent, __GetColumn);
 	Gura_AssignMethod(wx_HeaderCtrlEvent, __SetColumn);

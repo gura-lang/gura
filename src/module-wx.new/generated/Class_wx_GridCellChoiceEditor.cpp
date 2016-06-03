@@ -37,7 +37,7 @@ String Object_wx_GridCellChoiceEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridCellChoiceEditor, "wxGridCellChoiceEditor")
+Gura_DeclareFunctionAlias(__GridCellChoiceEditor, "GridCellChoiceEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxGridCellChoiceEditor, "wxGridCellChoiceEditor")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellChoiceEditor)
+Gura_ImplementFunction(__GridCellChoiceEditor)
 {
 	//int count = arg.GetNumber(0)
 	//int choices = arg.GetNumber(1)
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxGridCellChoiceEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGridCellChoiceEditor_1, "wxGridCellChoiceEditor_1")
+Gura_DeclareFunctionAlias(__GridCellChoiceEditor_1, "GridCellChoiceEditor_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxGridCellChoiceEditor_1, "wxGridCellChoiceEditor_1"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellChoiceEditor_1)
+Gura_ImplementFunction(__GridCellChoiceEditor_1)
 {
 	//int choices = arg.GetNumber(0)
 	//int allowOthers = arg.GetNumber(1)
@@ -97,8 +97,8 @@ Gura_ImplementMethod(wx_GridCellChoiceEditor, __SetParameters)
 Gura_ImplementUserInheritableClass(wx_GridCellChoiceEditor)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridCellChoiceEditor);
-	Gura_AssignFunction(__wxGridCellChoiceEditor_1);
+	Gura_AssignFunction(__GridCellChoiceEditor);
+	Gura_AssignFunction(__GridCellChoiceEditor_1);
 	// Method assignment
 	Gura_AssignMethod(wx_GridCellChoiceEditor, __SetParameters);
 }

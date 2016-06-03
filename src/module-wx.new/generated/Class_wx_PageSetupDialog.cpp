@@ -37,7 +37,7 @@ String Object_wx_PageSetupDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPageSetupDialog, "wxPageSetupDialog")
+Gura_DeclareFunctionAlias(__PageSetupDialog, "PageSetupDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxPageSetupDialog, "wxPageSetupDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPageSetupDialog)
+Gura_ImplementFunction(__PageSetupDialog)
 {
 	//int parent = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_PageSetupDialog, __ShowModal)
 Gura_ImplementUserInheritableClass(wx_PageSetupDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPageSetupDialog);
+	Gura_AssignFunction(__PageSetupDialog);
 	// Method assignment
 	Gura_AssignMethod(wx_PageSetupDialog, __GetPageSetupData);
 	Gura_AssignMethod(wx_PageSetupDialog, __ShowModal);

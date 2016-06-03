@@ -37,20 +37,20 @@ String Object_wx_TextCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextCtrl, "wxTextCtrl")
+Gura_DeclareFunctionAlias(__TextCtrl, "TextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextCtrl)
+Gura_ImplementFunction(__TextCtrl)
 {
 	//wxTextCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTextCtrl_1, "wxTextCtrl_1")
+Gura_DeclareFunctionAlias(__TextCtrl_1, "TextCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxTextCtrl_1, "wxTextCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextCtrl_1)
+Gura_ImplementFunction(__TextCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -470,8 +470,8 @@ Gura_ImplementMethod(wx_TextCtrl, __XYToPosition)
 Gura_ImplementUserInheritableClass(wx_TextCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextCtrl);
-	Gura_AssignFunction(__wxTextCtrl_1);
+	Gura_AssignFunction(__TextCtrl);
+	Gura_AssignFunction(__TextCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TextCtrl, __Create);
 	Gura_AssignMethod(wx_TextCtrl, __DiscardEdits);

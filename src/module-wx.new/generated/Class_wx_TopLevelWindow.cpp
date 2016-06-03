@@ -37,20 +37,20 @@ String Object_wx_TopLevelWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTopLevelWindow, "wxTopLevelWindow")
+Gura_DeclareFunctionAlias(__TopLevelWindow, "TopLevelWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TopLevelWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTopLevelWindow)
+Gura_ImplementFunction(__TopLevelWindow)
 {
 	//wxTopLevelWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTopLevelWindow_1, "wxTopLevelWindow_1")
+Gura_DeclareFunctionAlias(__TopLevelWindow_1, "TopLevelWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxTopLevelWindow_1, "wxTopLevelWindow_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTopLevelWindow_1)
+Gura_ImplementFunction(__TopLevelWindow_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -736,8 +736,8 @@ Gura_ImplementMethod(wx_TopLevelWindow, __UseNativeDecorationsByDefault)
 Gura_ImplementUserInheritableClass(wx_TopLevelWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTopLevelWindow);
-	Gura_AssignFunction(__wxTopLevelWindow_1);
+	Gura_AssignFunction(__TopLevelWindow);
+	Gura_AssignFunction(__TopLevelWindow_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TopLevelWindow, __Create);
 	Gura_AssignMethod(wx_TopLevelWindow, __CanSetTransparent);

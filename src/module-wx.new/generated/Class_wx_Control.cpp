@@ -37,7 +37,7 @@ String Object_wx_Control::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxControl, "wxControl")
+Gura_DeclareFunctionAlias(__Control, "Control")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareFunctionAlias(__wxControl, "wxControl")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxControl)
+Gura_ImplementFunction(__Control)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -64,14 +64,14 @@ Gura_ImplementFunction(__wxControl)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxControl_1, "wxControl_1")
+Gura_DeclareFunctionAlias(__Control_1, "Control_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Control));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxControl_1)
+Gura_ImplementFunction(__Control_1)
 {
 	//wxControl();
 	return Value::Nil;
@@ -299,8 +299,8 @@ Gura_ImplementMethod(wx_Control, __Ellipsize)
 Gura_ImplementUserInheritableClass(wx_Control)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxControl);
-	Gura_AssignFunction(__wxControl_1);
+	Gura_AssignFunction(__Control);
+	Gura_AssignFunction(__Control_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Control, __Create);
 	Gura_AssignMethod(wx_Control, __Command);

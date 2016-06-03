@@ -37,7 +37,7 @@ String Object_wx_HtmlCellEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlCellEvent, "wxHtmlCellEvent")
+Gura_DeclareFunctionAlias(__HtmlCellEvent, "HtmlCellEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__wxHtmlCellEvent, "wxHtmlCellEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlCellEvent)
+Gura_ImplementFunction(__HtmlCellEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, __SetLinkClicked)
 Gura_ImplementUserInheritableClass(wx_HtmlCellEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlCellEvent);
+	Gura_AssignFunction(__HtmlCellEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlCellEvent, __GetCell);
 	Gura_AssignMethod(wx_HtmlCellEvent, __GetLinkClicked);

@@ -37,7 +37,7 @@ String Object_wx_StackWalker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStackWalker, "wxStackWalker")
+Gura_DeclareFunctionAlias(__StackWalker, "StackWalker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argv0", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxStackWalker, "wxStackWalker")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStackWalker)
+Gura_ImplementFunction(__StackWalker)
 {
 	//int argv0 = arg.GetNumber(0)
 	//wxStackWalker();
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_StackWalker, __OnStackFrame)
 Gura_ImplementUserInheritableClass(wx_StackWalker)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStackWalker);
+	Gura_AssignFunction(__StackWalker);
 	// Method assignment
 	Gura_AssignMethod(wx_StackWalker, __Walk);
 	Gura_AssignMethod(wx_StackWalker, __WalkFromException);

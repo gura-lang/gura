@@ -37,7 +37,7 @@ String Object_wx_HeaderColumnSimple::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHeaderColumnSimple, "wxHeaderColumnSimple")
+Gura_DeclareFunctionAlias(__HeaderColumnSimple, "HeaderColumnSimple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxHeaderColumnSimple, "wxHeaderColumnSimple")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHeaderColumnSimple)
+Gura_ImplementFunction(__HeaderColumnSimple)
 {
 	//int title = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxHeaderColumnSimple)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxHeaderColumnSimple_1, "wxHeaderColumnSimple_1")
+Gura_DeclareFunctionAlias(__HeaderColumnSimple_1, "HeaderColumnSimple_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -69,7 +69,7 @@ Gura_DeclareFunctionAlias(__wxHeaderColumnSimple_1, "wxHeaderColumnSimple_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHeaderColumnSimple_1)
+Gura_ImplementFunction(__HeaderColumnSimple_1)
 {
 	//int bitmap = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
@@ -297,8 +297,8 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __IsSortOrderAscending)
 Gura_ImplementUserInheritableClass(wx_HeaderColumnSimple)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHeaderColumnSimple);
-	Gura_AssignFunction(__wxHeaderColumnSimple_1);
+	Gura_AssignFunction(__HeaderColumnSimple);
+	Gura_AssignFunction(__HeaderColumnSimple_1);
 	// Method assignment
 	Gura_AssignMethod(wx_HeaderColumnSimple, __SetTitle);
 	Gura_AssignMethod(wx_HeaderColumnSimple, __GetTitle);

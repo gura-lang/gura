@@ -37,7 +37,7 @@ String Object_wx_ProtocolLog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxProtocolLog, "wxProtocolLog")
+Gura_DeclareFunctionAlias(__ProtocolLog, "ProtocolLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "traceMask", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxProtocolLog, "wxProtocolLog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxProtocolLog)
+Gura_ImplementFunction(__ProtocolLog)
 {
 	//int traceMask = arg.GetNumber(0)
 	//wxProtocolLog();
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_ProtocolLog, __DoLogString)
 Gura_ImplementUserInheritableClass(wx_ProtocolLog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxProtocolLog);
+	Gura_AssignFunction(__ProtocolLog);
 	// Method assignment
 	Gura_AssignMethod(wx_ProtocolLog, __LogRequest);
 	Gura_AssignMethod(wx_ProtocolLog, __LogResponse);

@@ -37,14 +37,14 @@ String Object_wx_MDIClientWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMDIClientWindow, "wxMDIClientWindow")
+Gura_DeclareFunctionAlias(__MDIClientWindow, "MDIClientWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MDIClientWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMDIClientWindow)
+Gura_ImplementFunction(__MDIClientWindow)
 {
 	//wxMDIClientWindow();
 	return Value::Nil;
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_MDIClientWindow, __CreateClient)
 Gura_ImplementUserInheritableClass(wx_MDIClientWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMDIClientWindow);
+	Gura_AssignFunction(__MDIClientWindow);
 	// Method assignment
 	Gura_AssignMethod(wx_MDIClientWindow, __CreateClient);
 }

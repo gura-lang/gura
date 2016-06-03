@@ -37,7 +37,7 @@ String Object_wx_IntegerValidator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxIntegerValidator, "wxIntegerValidator")
+Gura_DeclareFunctionAlias(__IntegerValidator, "IntegerValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxIntegerValidator, "wxIntegerValidator")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxIntegerValidator)
+Gura_ImplementFunction(__IntegerValidator)
 {
 	//int value = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxIntegerValidator)
 Gura_ImplementUserInheritableClass(wx_IntegerValidator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxIntegerValidator);
+	Gura_AssignFunction(__IntegerValidator);
 }
 
 Gura_ImplementDescendantCreator(wx_IntegerValidator)

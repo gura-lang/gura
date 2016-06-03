@@ -37,7 +37,7 @@ String Object_wx_RichTextObjectAddress::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextObjectAddress, "wxRichTextObjectAddress")
+Gura_DeclareFunctionAlias(__RichTextObjectAddress, "RichTextObjectAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topLevelContainer", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxRichTextObjectAddress, "wxRichTextObjectAddress")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextObjectAddress)
+Gura_ImplementFunction(__RichTextObjectAddress)
 {
 	//int topLevelContainer = arg.GetNumber(0)
 	//int obj = arg.GetNumber(1)
@@ -54,20 +54,20 @@ Gura_ImplementFunction(__wxRichTextObjectAddress)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextObjectAddress_1, "wxRichTextObjectAddress_1")
+Gura_DeclareFunctionAlias(__RichTextObjectAddress_1, "RichTextObjectAddress_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextObjectAddress));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextObjectAddress_1)
+Gura_ImplementFunction(__RichTextObjectAddress_1)
 {
 	//wxRichTextObjectAddress();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextObjectAddress_2, "wxRichTextObjectAddress_2")
+Gura_DeclareFunctionAlias(__RichTextObjectAddress_2, "RichTextObjectAddress_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__wxRichTextObjectAddress_2, "wxRichTextObjectAddress_
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextObjectAddress_2)
+Gura_ImplementFunction(__RichTextObjectAddress_2)
 {
 	//int address = arg.GetNumber(0)
 	//wxRichTextObjectAddress();
@@ -192,9 +192,9 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __SetAddress)
 Gura_ImplementUserInheritableClass(wx_RichTextObjectAddress)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextObjectAddress);
-	Gura_AssignFunction(__wxRichTextObjectAddress_1);
-	Gura_AssignFunction(__wxRichTextObjectAddress_2);
+	Gura_AssignFunction(__RichTextObjectAddress);
+	Gura_AssignFunction(__RichTextObjectAddress_1);
+	Gura_AssignFunction(__RichTextObjectAddress_2);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextObjectAddress, __Init);
 	Gura_AssignMethod(wx_RichTextObjectAddress, __Copy);

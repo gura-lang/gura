@@ -37,14 +37,14 @@ String Object_wx_SockAddress::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSockAddress, "wxSockAddress")
+Gura_DeclareFunctionAlias(__SockAddress, "SockAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SockAddress));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSockAddress)
+Gura_ImplementFunction(__SockAddress)
 {
 	//wxSockAddress();
 	return Value::Nil;
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_SockAddress, __GetAddressDataLen)
 Gura_ImplementUserInheritableClass(wx_SockAddress)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSockAddress);
+	Gura_AssignFunction(__SockAddress);
 	// Method assignment
 	Gura_AssignMethod(wx_SockAddress, __Clear);
 	Gura_AssignMethod(wx_SockAddress, __SockAddrLen);

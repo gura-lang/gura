@@ -37,7 +37,7 @@ String Object_wx_TaskBarIconEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTaskBarIconEvent, "wxTaskBarIconEvent")
+Gura_DeclareFunctionAlias(__TaskBarIconEvent, "TaskBarIconEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "evtType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxTaskBarIconEvent, "wxTaskBarIconEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTaskBarIconEvent)
+Gura_ImplementFunction(__TaskBarIconEvent)
 {
 	//int evtType = arg.GetNumber(0)
 	//int tbIcon = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxTaskBarIconEvent)
 Gura_ImplementUserInheritableClass(wx_TaskBarIconEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTaskBarIconEvent);
+	Gura_AssignFunction(__TaskBarIconEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_TaskBarIconEvent)

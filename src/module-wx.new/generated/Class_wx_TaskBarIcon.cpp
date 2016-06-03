@@ -37,7 +37,7 @@ String Object_wx_TaskBarIcon::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTaskBarIcon, "wxTaskBarIcon")
+Gura_DeclareFunctionAlias(__TaskBarIcon, "TaskBarIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iconType", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxTaskBarIcon, "wxTaskBarIcon")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTaskBarIcon)
+Gura_ImplementFunction(__TaskBarIcon)
 {
 	//int iconType = arg.GetNumber(0)
 	//wxTaskBarIcon();
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, __CreatePopupMenu)
 Gura_ImplementUserInheritableClass(wx_TaskBarIcon)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTaskBarIcon);
+	Gura_AssignFunction(__TaskBarIcon);
 	// Method assignment
 	Gura_AssignMethod(wx_TaskBarIcon, __Destroy);
 	Gura_AssignMethod(wx_TaskBarIcon, __IsIconInstalled);

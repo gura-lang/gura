@@ -37,7 +37,7 @@ String Object_wx_VarHScrollHelper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxVarHScrollHelper, "wxVarHScrollHelper")
+Gura_DeclareFunctionAlias(__VarHScrollHelper, "VarHScrollHelper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToScroll", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxVarHScrollHelper, "wxVarHScrollHelper")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVarHScrollHelper)
+Gura_ImplementFunction(__VarHScrollHelper)
 {
 	//int winToScroll = arg.GetNumber(0)
 	//wxVarHScrollHelper();
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_VarHScrollHelper, __OnGetColumnWidth)
 Gura_ImplementUserInheritableClass(wx_VarHScrollHelper)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxVarHScrollHelper);
+	Gura_AssignFunction(__VarHScrollHelper);
 	// Method assignment
 	Gura_AssignMethod(wx_VarHScrollHelper, __GetColumnCount);
 	Gura_AssignMethod(wx_VarHScrollHelper, __GetVisibleColumnsBegin);

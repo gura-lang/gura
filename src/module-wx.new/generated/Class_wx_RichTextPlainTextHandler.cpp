@@ -37,7 +37,7 @@ String Object_wx_RichTextPlainTextHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextPlainTextHandler, "wxRichTextPlainTextHandler")
+Gura_DeclareFunctionAlias(__RichTextPlainTextHandler, "RichTextPlainTextHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxRichTextPlainTextHandler, "wxRichTextPlainTextHand
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextPlainTextHandler)
+Gura_ImplementFunction(__RichTextPlainTextHandler)
 {
 	//int name = arg.GetNumber(0)
 	//int ext = arg.GetNumber(1)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_RichTextPlainTextHandler, __DoSaveFile)
 Gura_ImplementUserInheritableClass(wx_RichTextPlainTextHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextPlainTextHandler);
+	Gura_AssignFunction(__RichTextPlainTextHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextPlainTextHandler, __CanSave);
 	Gura_AssignMethod(wx_RichTextPlainTextHandler, __CanLoad);

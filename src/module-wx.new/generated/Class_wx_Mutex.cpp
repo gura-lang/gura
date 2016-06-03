@@ -37,7 +37,7 @@ String Object_wx_Mutex::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMutex, "wxMutex")
+Gura_DeclareFunctionAlias(__Mutex, "Mutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxMutex, "wxMutex")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMutex)
+Gura_ImplementFunction(__Mutex)
 {
 	//int type = arg.GetNumber(0)
 	//wxMutex();
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_Mutex, __Unlock)
 Gura_ImplementUserInheritableClass(wx_Mutex)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMutex);
+	Gura_AssignFunction(__Mutex);
 	// Method assignment
 	Gura_AssignMethod(wx_Mutex, __Lock);
 	Gura_AssignMethod(wx_Mutex, __LockTimeout);

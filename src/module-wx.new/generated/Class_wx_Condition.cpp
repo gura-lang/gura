@@ -37,7 +37,7 @@ String Object_wx_Condition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCondition, "wxCondition")
+Gura_DeclareFunctionAlias(__Condition, "Condition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mutex", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxCondition, "wxCondition")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCondition)
+Gura_ImplementFunction(__Condition)
 {
 	//int mutex = arg.GetNumber(0)
 	//wxCondition();
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_Condition, __WaitTimeout)
 Gura_ImplementUserInheritableClass(wx_Condition)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCondition);
+	Gura_AssignFunction(__Condition);
 	// Method assignment
 	Gura_AssignMethod(wx_Condition, __Broadcast);
 	Gura_AssignMethod(wx_Condition, __IsOk);

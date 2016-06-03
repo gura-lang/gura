@@ -37,14 +37,14 @@ String Object_wx_DataViewTreeStore::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewTreeStore, "wxDataViewTreeStore")
+Gura_DeclareFunctionAlias(__DataViewTreeStore, "DataViewTreeStore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewTreeStore));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewTreeStore)
+Gura_ImplementFunction(__DataViewTreeStore)
 {
 	//wxDataViewTreeStore();
 	return Value::Nil;
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __SetItemIcon)
 Gura_ImplementUserInheritableClass(wx_DataViewTreeStore)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewTreeStore);
+	Gura_AssignFunction(__DataViewTreeStore);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewTreeStore, __AppendContainer);
 	Gura_AssignMethod(wx_DataViewTreeStore, __AppendItem);

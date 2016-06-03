@@ -37,14 +37,14 @@ String Object_wx_InputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxInputStream, "wxInputStream")
+Gura_DeclareFunctionAlias(__InputStream, "InputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_InputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxInputStream)
+Gura_ImplementFunction(__InputStream)
 {
 	//wxInputStream();
 	return Value::Nil;
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_InputStream, __OnSysRead)
 Gura_ImplementUserInheritableClass(wx_InputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxInputStream);
+	Gura_AssignFunction(__InputStream);
 	// Method assignment
 	Gura_AssignMethod(wx_InputStream, __CanRead);
 	Gura_AssignMethod(wx_InputStream, __Eof);

@@ -37,7 +37,7 @@ String Object_wx_Initializer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxInitializer, "wxInitializer")
+Gura_DeclareFunctionAlias(__Initializer, "Initializer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxInitializer, "wxInitializer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxInitializer)
+Gura_ImplementFunction(__Initializer)
 {
 	//int argc = arg.GetNumber(0)
 	//int argv = arg.GetNumber(1)
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_Initializer, __IsOk)
 Gura_ImplementUserInheritableClass(wx_Initializer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxInitializer);
+	Gura_AssignFunction(__Initializer);
 	// Method assignment
 	Gura_AssignMethod(wx_Initializer, __IsOk);
 }

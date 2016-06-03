@@ -37,7 +37,7 @@ String Object_wx_PreviewFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPreviewFrame, "wxPreviewFrame")
+Gura_DeclareFunctionAlias(__PreviewFrame, "PreviewFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "preview", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareFunctionAlias(__wxPreviewFrame, "wxPreviewFrame")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPreviewFrame)
+Gura_ImplementFunction(__PreviewFrame)
 {
 	//int preview = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_PreviewFrame, __OnCloseWindow)
 Gura_ImplementUserInheritableClass(wx_PreviewFrame)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPreviewFrame);
+	Gura_AssignFunction(__PreviewFrame);
 	// Method assignment
 	Gura_AssignMethod(wx_PreviewFrame, __CreateCanvas);
 	Gura_AssignMethod(wx_PreviewFrame, __CreateControlBar);

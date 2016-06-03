@@ -37,7 +37,7 @@ String Object_wx_DataViewDateRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewDateRenderer, "wxDataViewDateRenderer")
+Gura_DeclareFunctionAlias(__DataViewDateRenderer, "DataViewDateRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxDataViewDateRenderer, "wxDataViewDateRenderer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewDateRenderer)
+Gura_ImplementFunction(__DataViewDateRenderer)
 {
 	//int varianttype = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_DataViewDateRenderer, __GetDefaultType)
 Gura_ImplementUserInheritableClass(wx_DataViewDateRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewDateRenderer);
+	Gura_AssignFunction(__DataViewDateRenderer);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewDateRenderer, __GetDefaultType);
 }

@@ -37,14 +37,14 @@ String Object_wx_DataViewModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewModel, "wxDataViewModel")
+Gura_DeclareFunctionAlias(__DataViewModel, "DataViewModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewModel));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewModel)
+Gura_ImplementFunction(__DataViewModel)
 {
 	//wxDataViewModel();
 	return Value::Nil;
@@ -490,7 +490,7 @@ Gura_ImplementMethod(wx_DataViewModel, __IsVirtualListModel)
 Gura_ImplementUserInheritableClass(wx_DataViewModel)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewModel);
+	Gura_AssignFunction(__DataViewModel);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewModel, __AddNotifier);
 	Gura_AssignMethod(wx_DataViewModel, __ChangeValue);

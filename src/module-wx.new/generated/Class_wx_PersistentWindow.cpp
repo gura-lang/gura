@@ -37,7 +37,7 @@ String Object_wx_PersistentWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPersistentWindow, "wxPersistentWindow")
+Gura_DeclareFunctionAlias(__PersistentWindow, "PersistentWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPersistentWindow, "wxPersistentWindow")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPersistentWindow)
+Gura_ImplementFunction(__PersistentWindow)
 {
 	//int win = arg.GetNumber(0)
 	//wxPersistentWindow();
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_PersistentWindow, __GetName)
 Gura_ImplementUserInheritableClass(wx_PersistentWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPersistentWindow);
+	Gura_AssignFunction(__PersistentWindow);
 	// Method assignment
 	Gura_AssignMethod(wx_PersistentWindow, __Get);
 	Gura_AssignMethod(wx_PersistentWindow, __GetName);

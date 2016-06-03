@@ -37,7 +37,7 @@ String Object_wx_EventBlocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxEventBlocker, "wxEventBlocker")
+Gura_DeclareFunctionAlias(__EventBlocker, "EventBlocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxEventBlocker, "wxEventBlocker")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxEventBlocker)
+Gura_ImplementFunction(__EventBlocker)
 {
 	//int win = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_EventBlocker, __Block)
 Gura_ImplementUserInheritableClass(wx_EventBlocker)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxEventBlocker);
+	Gura_AssignFunction(__EventBlocker);
 	// Method assignment
 	Gura_AssignMethod(wx_EventBlocker, __Block);
 }

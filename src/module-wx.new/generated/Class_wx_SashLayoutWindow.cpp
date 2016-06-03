@@ -37,20 +37,20 @@ String Object_wx_SashLayoutWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSashLayoutWindow, "wxSashLayoutWindow")
+Gura_DeclareFunctionAlias(__SashLayoutWindow, "SashLayoutWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SashLayoutWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSashLayoutWindow)
+Gura_ImplementFunction(__SashLayoutWindow)
 {
 	//wxSashLayoutWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSashLayoutWindow_1, "wxSashLayoutWindow_1")
+Gura_DeclareFunctionAlias(__SashLayoutWindow_1, "SashLayoutWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxSashLayoutWindow_1, "wxSashLayoutWindow_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSashLayoutWindow_1)
+Gura_ImplementFunction(__SashLayoutWindow_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -210,8 +210,8 @@ Gura_ImplementMethod(wx_SashLayoutWindow, __SetOrientation)
 Gura_ImplementUserInheritableClass(wx_SashLayoutWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSashLayoutWindow);
-	Gura_AssignFunction(__wxSashLayoutWindow_1);
+	Gura_AssignFunction(__SashLayoutWindow);
+	Gura_AssignFunction(__SashLayoutWindow_1);
 	// Method assignment
 	Gura_AssignMethod(wx_SashLayoutWindow, __Create);
 	Gura_AssignMethod(wx_SashLayoutWindow, __GetAlignment);

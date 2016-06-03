@@ -37,7 +37,7 @@ String Object_wx_ZipOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxZipOutputStream, "wxZipOutputStream")
+Gura_DeclareFunctionAlias(__ZipOutputStream, "ZipOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxZipOutputStream, "wxZipOutputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxZipOutputStream)
+Gura_ImplementFunction(__ZipOutputStream)
 {
 	//int stream = arg.GetNumber(0)
 	//int level = arg.GetNumber(1)
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxZipOutputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxZipOutputStream_1, "wxZipOutputStream_1")
+Gura_DeclareFunctionAlias(__ZipOutputStream_1, "ZipOutputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxZipOutputStream_1, "wxZipOutputStream_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxZipOutputStream_1)
+Gura_ImplementFunction(__ZipOutputStream_1)
 {
 	//int stream = arg.GetNumber(0)
 	//int level = arg.GetNumber(1)
@@ -236,8 +236,8 @@ Gura_ImplementMethod(wx_ZipOutputStream, __SetComment)
 Gura_ImplementUserInheritableClass(wx_ZipOutputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxZipOutputStream);
-	Gura_AssignFunction(__wxZipOutputStream_1);
+	Gura_AssignFunction(__ZipOutputStream);
+	Gura_AssignFunction(__ZipOutputStream_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ZipOutputStream, __Close);
 	Gura_AssignMethod(wx_ZipOutputStream, __CloseEntry);

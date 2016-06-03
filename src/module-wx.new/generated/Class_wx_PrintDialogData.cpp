@@ -37,20 +37,20 @@ String Object_wx_PrintDialogData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPrintDialogData, "wxPrintDialogData")
+Gura_DeclareFunctionAlias(__PrintDialogData, "PrintDialogData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PrintDialogData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPrintDialogData)
+Gura_ImplementFunction(__PrintDialogData)
 {
 	//wxPrintDialogData();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPrintDialogData_1, "wxPrintDialogData_1")
+Gura_DeclareFunctionAlias(__PrintDialogData_1, "PrintDialogData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dialogData", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxPrintDialogData_1, "wxPrintDialogData_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPrintDialogData_1)
+Gura_ImplementFunction(__PrintDialogData_1)
 {
 	//int dialogData = arg.GetNumber(0)
 	//wxPrintDialogData();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPrintDialogData_2, "wxPrintDialogData_2")
+Gura_DeclareFunctionAlias(__PrintDialogData_2, "PrintDialogData_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_DeclareFunctionAlias(__wxPrintDialogData_2, "wxPrintDialogData_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPrintDialogData_2)
+Gura_ImplementFunction(__PrintDialogData_2)
 {
 	//int printData = arg.GetNumber(0)
 	//wxPrintDialogData();
@@ -442,9 +442,9 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetToPage)
 Gura_ImplementUserInheritableClass(wx_PrintDialogData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPrintDialogData);
-	Gura_AssignFunction(__wxPrintDialogData_1);
-	Gura_AssignFunction(__wxPrintDialogData_2);
+	Gura_AssignFunction(__PrintDialogData);
+	Gura_AssignFunction(__PrintDialogData_1);
+	Gura_AssignFunction(__PrintDialogData_2);
 	// Method assignment
 	Gura_AssignMethod(wx_PrintDialogData, __EnableHelp);
 	Gura_AssignMethod(wx_PrintDialogData, __EnablePageNumbers);

@@ -37,7 +37,7 @@ String Object_wx_PaletteChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPaletteChangedEvent, "wxPaletteChangedEvent")
+Gura_DeclareFunctionAlias(__PaletteChangedEvent, "PaletteChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPaletteChangedEvent, "wxPaletteChangedEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPaletteChangedEvent)
+Gura_ImplementFunction(__PaletteChangedEvent)
 {
 	//int winid = arg.GetNumber(0)
 	//wxPaletteChangedEvent();
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_PaletteChangedEvent, __GetChangedWindow)
 Gura_ImplementUserInheritableClass(wx_PaletteChangedEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPaletteChangedEvent);
+	Gura_AssignFunction(__PaletteChangedEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_PaletteChangedEvent, __SetChangedWindow);
 	Gura_AssignMethod(wx_PaletteChangedEvent, __GetChangedWindow);

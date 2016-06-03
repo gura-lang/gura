@@ -37,14 +37,14 @@ String Object_wx_SystemOptions::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSystemOptions, "wxSystemOptions")
+Gura_DeclareFunctionAlias(__SystemOptions, "SystemOptions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SystemOptions));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSystemOptions)
+Gura_ImplementFunction(__SystemOptions)
 {
 	//wxSystemOptions();
 	return Value::Nil;
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_SystemOptions, __SetOption_1)
 Gura_ImplementUserInheritableClass(wx_SystemOptions)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSystemOptions);
+	Gura_AssignFunction(__SystemOptions);
 	// Method assignment
 	Gura_AssignMethod(wx_SystemOptions, __GetOption);
 	Gura_AssignMethod(wx_SystemOptions, __GetOptionInt);

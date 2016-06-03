@@ -37,14 +37,14 @@ String Object_wx_VariantData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxVariantData, "wxVariantData")
+Gura_DeclareFunctionAlias(__VariantData, "VariantData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_VariantData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariantData)
+Gura_ImplementFunction(__VariantData)
 {
 	//wxVariantData();
 	return Value::Nil;
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_VariantData, __Write_1)
 Gura_ImplementUserInheritableClass(wx_VariantData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxVariantData);
+	Gura_AssignFunction(__VariantData);
 	// Method assignment
 	Gura_AssignMethod(wx_VariantData, __Clone);
 	Gura_AssignMethod(wx_VariantData, __DecRef);

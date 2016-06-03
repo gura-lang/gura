@@ -37,7 +37,7 @@ String Object_wx_HtmlWordCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlWordCell, "wxHtmlWordCell")
+Gura_DeclareFunctionAlias(__HtmlWordCell, "HtmlWordCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "word", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxHtmlWordCell, "wxHtmlWordCell")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlWordCell)
+Gura_ImplementFunction(__HtmlWordCell)
 {
 	//int word = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxHtmlWordCell)
 Gura_ImplementUserInheritableClass(wx_HtmlWordCell)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlWordCell);
+	Gura_AssignFunction(__HtmlWordCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWordCell)

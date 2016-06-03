@@ -37,7 +37,7 @@ String Object_wx_URL::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxURL, "wxURL")
+Gura_DeclareFunctionAlias(__URL, "URL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxURL, "wxURL")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxURL)
+Gura_ImplementFunction(__URL)
 {
 	//int url = arg.GetNumber(0)
 	//wxURL();
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_URL, __SetURL)
 Gura_ImplementUserInheritableClass(wx_URL)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxURL);
+	Gura_AssignFunction(__URL);
 	// Method assignment
 	Gura_AssignMethod(wx_URL, __GetError);
 	Gura_AssignMethod(wx_URL, __GetInputStream);

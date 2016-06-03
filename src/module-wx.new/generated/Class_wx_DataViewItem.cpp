@@ -37,20 +37,20 @@ String Object_wx_DataViewItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewItem, "wxDataViewItem")
+Gura_DeclareFunctionAlias(__DataViewItem, "DataViewItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewItem));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewItem)
+Gura_ImplementFunction(__DataViewItem)
 {
 	//wxDataViewItem();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDataViewItem_1, "wxDataViewItem_1")
+Gura_DeclareFunctionAlias(__DataViewItem_1, "DataViewItem_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxDataViewItem_1, "wxDataViewItem_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewItem_1)
+Gura_ImplementFunction(__DataViewItem_1)
 {
 	//int item = arg.GetNumber(0)
 	//wxDataViewItem();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDataViewItem_2, "wxDataViewItem_2")
+Gura_DeclareFunctionAlias(__DataViewItem_2, "DataViewItem_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_DeclareFunctionAlias(__wxDataViewItem_2, "wxDataViewItem_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewItem_2)
+Gura_ImplementFunction(__DataViewItem_2)
 {
 	//int id = arg.GetNumber(0)
 	//wxDataViewItem();
@@ -115,9 +115,9 @@ Gura_ImplementMethod(wx_DataViewItem, __IsOk)
 Gura_ImplementUserInheritableClass(wx_DataViewItem)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewItem);
-	Gura_AssignFunction(__wxDataViewItem_1);
-	Gura_AssignFunction(__wxDataViewItem_2);
+	Gura_AssignFunction(__DataViewItem);
+	Gura_AssignFunction(__DataViewItem_1);
+	Gura_AssignFunction(__DataViewItem_2);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewItem, __GetID);
 	Gura_AssignMethod(wx_DataViewItem, __IsOk);

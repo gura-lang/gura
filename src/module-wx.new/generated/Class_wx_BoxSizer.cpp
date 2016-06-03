@@ -37,7 +37,7 @@ String Object_wx_BoxSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBoxSizer, "wxBoxSizer")
+Gura_DeclareFunctionAlias(__BoxSizer, "BoxSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxBoxSizer, "wxBoxSizer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBoxSizer)
+Gura_ImplementFunction(__BoxSizer)
 {
 	//int orient = arg.GetNumber(0)
 	//wxBoxSizer();
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_BoxSizer, __RecalcSizes)
 Gura_ImplementUserInheritableClass(wx_BoxSizer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBoxSizer);
+	Gura_AssignFunction(__BoxSizer);
 	// Method assignment
 	Gura_AssignMethod(wx_BoxSizer, __AddSpacer);
 	Gura_AssignMethod(wx_BoxSizer, __CalcMin);

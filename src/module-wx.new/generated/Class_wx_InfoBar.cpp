@@ -37,20 +37,20 @@ String Object_wx_InfoBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxInfoBar, "wxInfoBar")
+Gura_DeclareFunctionAlias(__InfoBar, "InfoBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_InfoBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxInfoBar)
+Gura_ImplementFunction(__InfoBar)
 {
 	//wxInfoBar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxInfoBar_1, "wxInfoBar_1")
+Gura_DeclareFunctionAlias(__InfoBar_1, "InfoBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxInfoBar_1, "wxInfoBar_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxInfoBar_1)
+Gura_ImplementFunction(__InfoBar_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
@@ -284,8 +284,8 @@ Gura_ImplementMethod(wx_InfoBar, __SetFont)
 Gura_ImplementUserInheritableClass(wx_InfoBar)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxInfoBar);
-	Gura_AssignFunction(__wxInfoBar_1);
+	Gura_AssignFunction(__InfoBar);
+	Gura_AssignFunction(__InfoBar_1);
 	// Method assignment
 	Gura_AssignMethod(wx_InfoBar, __Create);
 	Gura_AssignMethod(wx_InfoBar, __AddButton);

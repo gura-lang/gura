@@ -37,7 +37,7 @@ String Object_wx_XmlDoctype::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxXmlDoctype, "wxXmlDoctype")
+Gura_DeclareFunctionAlias(__XmlDoctype, "XmlDoctype")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rootName", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxXmlDoctype, "wxXmlDoctype")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxXmlDoctype)
+Gura_ImplementFunction(__XmlDoctype)
 {
 	//int rootName = arg.GetNumber(0)
 	//int systemId = arg.GetNumber(1)
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_XmlDoctype, __IsValid)
 Gura_ImplementUserInheritableClass(wx_XmlDoctype)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxXmlDoctype);
+	Gura_AssignFunction(__XmlDoctype);
 	// Method assignment
 	Gura_AssignMethod(wx_XmlDoctype, __Clear);
 	Gura_AssignMethod(wx_XmlDoctype, __GetRootName);

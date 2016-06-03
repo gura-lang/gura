@@ -37,14 +37,14 @@ String Object_wx_TreeItemId::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTreeItemId, "wxTreeItemId")
+Gura_DeclareFunctionAlias(__TreeItemId, "TreeItemId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeItemId));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTreeItemId)
+Gura_ImplementFunction(__TreeItemId)
 {
 	//wxTreeItemId();
 	return Value::Nil;
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_TreeItemId, __Unset)
 Gura_ImplementUserInheritableClass(wx_TreeItemId)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTreeItemId);
+	Gura_AssignFunction(__TreeItemId);
 	// Method assignment
 	Gura_AssignMethod(wx_TreeItemId, __IsOk);
 	Gura_AssignMethod(wx_TreeItemId, __GetID);

@@ -37,14 +37,14 @@ String Object_wx_Module::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxModule, "wxModule")
+Gura_DeclareFunctionAlias(__Module, "Module")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Module));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxModule)
+Gura_ImplementFunction(__Module)
 {
 	//wxModule();
 	return Value::Nil;
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_Module, __AddDependency_1)
 Gura_ImplementUserInheritableClass(wx_Module)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxModule);
+	Gura_AssignFunction(__Module);
 	// Method assignment
 	Gura_AssignMethod(wx_Module, __OnExit);
 	Gura_AssignMethod(wx_Module, __OnInit);

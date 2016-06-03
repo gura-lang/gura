@@ -37,14 +37,14 @@ String Object_wx_LogNull::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLogNull, "wxLogNull")
+Gura_DeclareFunctionAlias(__LogNull, "LogNull")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogNull));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLogNull)
+Gura_ImplementFunction(__LogNull)
 {
 	//wxLogNull();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxLogNull)
 Gura_ImplementUserInheritableClass(wx_LogNull)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLogNull);
+	Gura_AssignFunction(__LogNull);
 }
 
 Gura_ImplementDescendantCreator(wx_LogNull)

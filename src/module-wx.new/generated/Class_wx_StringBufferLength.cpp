@@ -37,7 +37,7 @@ String Object_wx_StringBufferLength::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStringBufferLength, "wxStringBufferLength")
+Gura_DeclareFunctionAlias(__StringBufferLength, "StringBufferLength")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxStringBufferLength, "wxStringBufferLength")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStringBufferLength)
+Gura_ImplementFunction(__StringBufferLength)
 {
 	//int str = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_StringBufferLength, __SetLength)
 Gura_ImplementUserInheritableClass(wx_StringBufferLength)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStringBufferLength);
+	Gura_AssignFunction(__StringBufferLength);
 	// Method assignment
 	Gura_AssignMethod(wx_StringBufferLength, __SetLength);
 }

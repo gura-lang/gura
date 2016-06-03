@@ -37,20 +37,20 @@ String Object_wx_ColourPickerEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxColourPickerEvent, "wxColourPickerEvent")
+Gura_DeclareFunctionAlias(__ColourPickerEvent, "ColourPickerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ColourPickerEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxColourPickerEvent)
+Gura_ImplementFunction(__ColourPickerEvent)
 {
 	//wxColourPickerEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxColourPickerEvent_1, "wxColourPickerEvent_1")
+Gura_DeclareFunctionAlias(__ColourPickerEvent_1, "ColourPickerEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxColourPickerEvent_1, "wxColourPickerEvent_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxColourPickerEvent_1)
+Gura_ImplementFunction(__ColourPickerEvent_1)
 {
 	//int generator = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -106,8 +106,8 @@ Gura_ImplementMethod(wx_ColourPickerEvent, __SetColour)
 Gura_ImplementUserInheritableClass(wx_ColourPickerEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxColourPickerEvent);
-	Gura_AssignFunction(__wxColourPickerEvent_1);
+	Gura_AssignFunction(__ColourPickerEvent);
+	Gura_AssignFunction(__ColourPickerEvent_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ColourPickerEvent, __GetColour);
 	Gura_AssignMethod(wx_ColourPickerEvent, __SetColour);

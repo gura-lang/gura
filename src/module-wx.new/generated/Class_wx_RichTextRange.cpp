@@ -37,20 +37,20 @@ String Object_wx_RichTextRange::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextRange, "wxRichTextRange")
+Gura_DeclareFunctionAlias(__RichTextRange, "RichTextRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextRange));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextRange)
+Gura_ImplementFunction(__RichTextRange)
 {
 	//wxRichTextRange();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextRange_1, "wxRichTextRange_1")
+Gura_DeclareFunctionAlias(__RichTextRange_1, "RichTextRange_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxRichTextRange_1, "wxRichTextRange_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextRange_1)
+Gura_ImplementFunction(__RichTextRange_1)
 {
 	//int start = arg.GetNumber(0)
 	//int end = arg.GetNumber(1)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__wxRichTextRange_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextRange_2, "wxRichTextRange_2")
+Gura_DeclareFunctionAlias(__RichTextRange_2, "RichTextRange_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__wxRichTextRange_2, "wxRichTextRange_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextRange_2)
+Gura_ImplementFunction(__RichTextRange_2)
 {
 	//int range = arg.GetNumber(0)
 	//wxRichTextRange();
@@ -276,9 +276,9 @@ Gura_ImplementMethod(wx_RichTextRange, __FromInternal)
 Gura_ImplementUserInheritableClass(wx_RichTextRange)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextRange);
-	Gura_AssignFunction(__wxRichTextRange_1);
-	Gura_AssignFunction(__wxRichTextRange_2);
+	Gura_AssignFunction(__RichTextRange);
+	Gura_AssignFunction(__RichTextRange_1);
+	Gura_AssignFunction(__RichTextRange_2);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextRange, __SetRange);
 	Gura_AssignMethod(wx_RichTextRange, __SetStart);

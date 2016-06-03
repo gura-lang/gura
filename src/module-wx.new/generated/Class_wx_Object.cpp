@@ -37,20 +37,20 @@ String Object_wx_Object::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxObject, "wxObject")
+Gura_DeclareFunctionAlias(__Object, "Object")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Object));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxObject)
+Gura_ImplementFunction(__Object)
 {
 	//wxObject();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxObject_1, "wxObject_1")
+Gura_DeclareFunctionAlias(__Object_1, "Object_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxObject_1, "wxObject_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxObject_1)
+Gura_ImplementFunction(__Object_1)
 {
 	//int other = arg.GetNumber(0)
 	//wxObject();
@@ -261,8 +261,8 @@ Gura_ImplementMethod(wx_Object, __CloneRefData)
 Gura_ImplementUserInheritableClass(wx_Object)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxObject);
-	Gura_AssignFunction(__wxObject_1);
+	Gura_AssignFunction(__Object);
+	Gura_AssignFunction(__Object_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Object, __GetClassInfo);
 	Gura_AssignMethod(wx_Object, __GetRefData);

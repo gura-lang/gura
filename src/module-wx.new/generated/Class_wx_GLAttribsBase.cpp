@@ -37,14 +37,14 @@ String Object_wx_GLAttribsBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGLAttribsBase, "wxGLAttribsBase")
+Gura_DeclareFunctionAlias(__GLAttribsBase, "GLAttribsBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GLAttribsBase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGLAttribsBase)
+Gura_ImplementFunction(__GLAttribsBase)
 {
 	//wxGLAttribsBase();
 	return Value::Nil;
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_GLAttribsBase, __NeedsARB)
 Gura_ImplementUserInheritableClass(wx_GLAttribsBase)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGLAttribsBase);
+	Gura_AssignFunction(__GLAttribsBase);
 	// Method assignment
 	Gura_AssignMethod(wx_GLAttribsBase, __AddAttribute);
 	Gura_AssignMethod(wx_GLAttribsBase, __AddAttribBits);

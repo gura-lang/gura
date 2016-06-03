@@ -37,7 +37,7 @@ String Object_wx_TimerRunner::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTimerRunner, "wxTimerRunner")
+Gura_DeclareFunctionAlias(__TimerRunner, "TimerRunner")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxTimerRunner, "wxTimerRunner")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTimerRunner)
+Gura_ImplementFunction(__TimerRunner)
 {
 	//int timer = arg.GetNumber(0)
 	//wxTimerRunner();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTimerRunner_1, "wxTimerRunner_1")
+Gura_DeclareFunctionAlias(__TimerRunner_1, "TimerRunner_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxTimerRunner_1, "wxTimerRunner_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTimerRunner_1)
+Gura_ImplementFunction(__TimerRunner_1)
 {
 	//int timer = arg.GetNumber(0)
 	//int milli = arg.GetNumber(1)
@@ -97,8 +97,8 @@ Gura_ImplementMethod(wx_TimerRunner, __Start)
 Gura_ImplementUserInheritableClass(wx_TimerRunner)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTimerRunner);
-	Gura_AssignFunction(__wxTimerRunner_1);
+	Gura_AssignFunction(__TimerRunner);
+	Gura_AssignFunction(__TimerRunner_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TimerRunner, __Start);
 }

@@ -37,14 +37,14 @@ String Object_wx_RefCounter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRefCounter, "wxRefCounter")
+Gura_DeclareFunctionAlias(__RefCounter, "RefCounter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RefCounter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRefCounter)
+Gura_ImplementFunction(__RefCounter)
 {
 	//wxRefCounter();
 	return Value::Nil;
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_RefCounter, __IncRef)
 Gura_ImplementUserInheritableClass(wx_RefCounter)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRefCounter);
+	Gura_AssignFunction(__RefCounter);
 	// Method assignment
 	Gura_AssignMethod(wx_RefCounter, __DecRef);
 	Gura_AssignMethod(wx_RefCounter, __GetRefCount);

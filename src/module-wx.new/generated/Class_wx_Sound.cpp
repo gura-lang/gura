@@ -37,20 +37,20 @@ String Object_wx_Sound::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSound, "wxSound")
+Gura_DeclareFunctionAlias(__Sound, "Sound")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Sound));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSound)
+Gura_ImplementFunction(__Sound)
 {
 	//wxSound();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSound_1, "wxSound_1")
+Gura_DeclareFunctionAlias(__Sound_1, "Sound_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxSound_1, "wxSound_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSound_1)
+Gura_ImplementFunction(__Sound_1)
 {
 	//int fileName = arg.GetNumber(0)
 	//int isResource = arg.GetNumber(1)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__wxSound_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSound_2, "wxSound_2")
+Gura_DeclareFunctionAlias(__Sound_2, "Sound_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__wxSound_2, "wxSound_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSound_2)
+Gura_ImplementFunction(__Sound_2)
 {
 	//int size = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
@@ -198,9 +198,9 @@ Gura_ImplementMethod(wx_Sound, __Stop)
 Gura_ImplementUserInheritableClass(wx_Sound)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSound);
-	Gura_AssignFunction(__wxSound_1);
-	Gura_AssignFunction(__wxSound_2);
+	Gura_AssignFunction(__Sound);
+	Gura_AssignFunction(__Sound_1);
+	Gura_AssignFunction(__Sound_2);
 	// Method assignment
 	Gura_AssignMethod(wx_Sound, __Create);
 	Gura_AssignMethod(wx_Sound, __Create_1);

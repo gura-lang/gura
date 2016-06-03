@@ -37,20 +37,20 @@ String Object_wx_UniChar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxUniChar, "wxUniChar")
+Gura_DeclareFunctionAlias(__UniChar, "UniChar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar)
+Gura_ImplementFunction(__UniChar)
 {
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_1, "wxUniChar_1")
+Gura_DeclareFunctionAlias(__UniChar_1, "UniChar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxUniChar_1, "wxUniChar_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_1)
+Gura_ImplementFunction(__UniChar_1)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_2, "wxUniChar_2")
+Gura_DeclareFunctionAlias(__UniChar_2, "UniChar_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -73,14 +73,14 @@ Gura_DeclareFunctionAlias(__wxUniChar_2, "wxUniChar_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_2)
+Gura_ImplementFunction(__UniChar_2)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_3, "wxUniChar_3")
+Gura_DeclareFunctionAlias(__UniChar_3, "UniChar_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -88,14 +88,14 @@ Gura_DeclareFunctionAlias(__wxUniChar_3, "wxUniChar_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_3)
+Gura_ImplementFunction(__UniChar_3)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_4, "wxUniChar_4")
+Gura_DeclareFunctionAlias(__UniChar_4, "UniChar_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -103,14 +103,14 @@ Gura_DeclareFunctionAlias(__wxUniChar_4, "wxUniChar_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_4)
+Gura_ImplementFunction(__UniChar_4)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_5, "wxUniChar_5")
+Gura_DeclareFunctionAlias(__UniChar_5, "UniChar_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -118,14 +118,14 @@ Gura_DeclareFunctionAlias(__wxUniChar_5, "wxUniChar_5")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_5)
+Gura_ImplementFunction(__UniChar_5)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_6, "wxUniChar_6")
+Gura_DeclareFunctionAlias(__UniChar_6, "UniChar_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -133,14 +133,14 @@ Gura_DeclareFunctionAlias(__wxUniChar_6, "wxUniChar_6")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_6)
+Gura_ImplementFunction(__UniChar_6)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_7, "wxUniChar_7")
+Gura_DeclareFunctionAlias(__UniChar_7, "UniChar_7")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -148,14 +148,14 @@ Gura_DeclareFunctionAlias(__wxUniChar_7, "wxUniChar_7")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_7)
+Gura_ImplementFunction(__UniChar_7)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_8, "wxUniChar_8")
+Gura_DeclareFunctionAlias(__UniChar_8, "UniChar_8")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -163,14 +163,14 @@ Gura_DeclareFunctionAlias(__wxUniChar_8, "wxUniChar_8")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_8)
+Gura_ImplementFunction(__UniChar_8)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_9, "wxUniChar_9")
+Gura_DeclareFunctionAlias(__UniChar_9, "UniChar_9")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -178,14 +178,14 @@ Gura_DeclareFunctionAlias(__wxUniChar_9, "wxUniChar_9")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_9)
+Gura_ImplementFunction(__UniChar_9)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_10, "wxUniChar_10")
+Gura_DeclareFunctionAlias(__UniChar_10, "UniChar_10")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -193,14 +193,14 @@ Gura_DeclareFunctionAlias(__wxUniChar_10, "wxUniChar_10")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_10)
+Gura_ImplementFunction(__UniChar_10)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUniChar_11, "wxUniChar_11")
+Gura_DeclareFunctionAlias(__UniChar_11, "UniChar_11")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -208,7 +208,7 @@ Gura_DeclareFunctionAlias(__wxUniChar_11, "wxUniChar_11")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUniChar_11)
+Gura_ImplementFunction(__UniChar_11)
 {
 	//int c = arg.GetNumber(0)
 	//wxUniChar();
@@ -408,18 +408,18 @@ Gura_ImplementMethod(wx_UniChar, __wxULongLong_t)
 Gura_ImplementUserInheritableClass(wx_UniChar)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxUniChar);
-	Gura_AssignFunction(__wxUniChar_1);
-	Gura_AssignFunction(__wxUniChar_2);
-	Gura_AssignFunction(__wxUniChar_3);
-	Gura_AssignFunction(__wxUniChar_4);
-	Gura_AssignFunction(__wxUniChar_5);
-	Gura_AssignFunction(__wxUniChar_6);
-	Gura_AssignFunction(__wxUniChar_7);
-	Gura_AssignFunction(__wxUniChar_8);
-	Gura_AssignFunction(__wxUniChar_9);
-	Gura_AssignFunction(__wxUniChar_10);
-	Gura_AssignFunction(__wxUniChar_11);
+	Gura_AssignFunction(__UniChar);
+	Gura_AssignFunction(__UniChar_1);
+	Gura_AssignFunction(__UniChar_2);
+	Gura_AssignFunction(__UniChar_3);
+	Gura_AssignFunction(__UniChar_4);
+	Gura_AssignFunction(__UniChar_5);
+	Gura_AssignFunction(__UniChar_6);
+	Gura_AssignFunction(__UniChar_7);
+	Gura_AssignFunction(__UniChar_8);
+	Gura_AssignFunction(__UniChar_9);
+	Gura_AssignFunction(__UniChar_10);
+	Gura_AssignFunction(__UniChar_11);
 	// Method assignment
 	Gura_AssignMethod(wx_UniChar, __GetValue);
 	Gura_AssignMethod(wx_UniChar, __IsAscii);

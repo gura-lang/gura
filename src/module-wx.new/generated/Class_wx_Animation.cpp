@@ -37,20 +37,20 @@ String Object_wx_Animation::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAnimation, "wxAnimation")
+Gura_DeclareFunctionAlias(__Animation, "Animation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Animation));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAnimation)
+Gura_ImplementFunction(__Animation)
 {
 	//wxAnimation();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAnimation_1, "wxAnimation_1")
+Gura_DeclareFunctionAlias(__Animation_1, "Animation_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "anim", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxAnimation_1, "wxAnimation_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAnimation_1)
+Gura_ImplementFunction(__Animation_1)
 {
 	//int anim = arg.GetNumber(0)
 	//wxAnimation();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAnimation_2, "wxAnimation_2")
+Gura_DeclareFunctionAlias(__Animation_2, "Animation_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_DeclareFunctionAlias(__wxAnimation_2, "wxAnimation_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAnimation_2)
+Gura_ImplementFunction(__Animation_2)
 {
 	//int name = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
@@ -194,9 +194,9 @@ Gura_ImplementMethod(wx_Animation, __LoadFile)
 Gura_ImplementUserInheritableClass(wx_Animation)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAnimation);
-	Gura_AssignFunction(__wxAnimation_1);
-	Gura_AssignFunction(__wxAnimation_2);
+	Gura_AssignFunction(__Animation);
+	Gura_AssignFunction(__Animation_1);
+	Gura_AssignFunction(__Animation_2);
 	// Method assignment
 	Gura_AssignMethod(wx_Animation, __GetDelay);
 	Gura_AssignMethod(wx_Animation, __GetFrame);

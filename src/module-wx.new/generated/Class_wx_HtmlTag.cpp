@@ -37,7 +37,7 @@ String Object_wx_HtmlTag::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlTag, "wxHtmlTag")
+Gura_DeclareFunctionAlias(__HtmlTag, "HtmlTag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxHtmlTag, "wxHtmlTag")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlTag)
+Gura_ImplementFunction(__HtmlTag)
 {
 	//int parent = arg.GetNumber(0)
 	//int source = arg.GetNumber(1)
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_HtmlTag, __ScanParam_1)
 Gura_ImplementUserInheritableClass(wx_HtmlTag)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlTag);
+	Gura_AssignFunction(__HtmlTag);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlTag, __GetAllParams);
 	Gura_AssignMethod(wx_HtmlTag, __GetBeginPos);

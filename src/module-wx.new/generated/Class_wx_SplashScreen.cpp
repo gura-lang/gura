@@ -37,7 +37,7 @@ String Object_wx_SplashScreen::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSplashScreen, "wxSplashScreen")
+Gura_DeclareFunctionAlias(__SplashScreen, "SplashScreen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -52,7 +52,7 @@ Gura_DeclareFunctionAlias(__wxSplashScreen, "wxSplashScreen")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSplashScreen)
+Gura_ImplementFunction(__SplashScreen)
 {
 	//int bitmap = arg.GetNumber(0)
 	//int splashStyle = arg.GetNumber(1)
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_SplashScreen, __OnCloseWindow)
 Gura_ImplementUserInheritableClass(wx_SplashScreen)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSplashScreen);
+	Gura_AssignFunction(__SplashScreen);
 	// Method assignment
 	Gura_AssignMethod(wx_SplashScreen, __GetSplashStyle);
 	Gura_AssignMethod(wx_SplashScreen, __GetSplashWindow);

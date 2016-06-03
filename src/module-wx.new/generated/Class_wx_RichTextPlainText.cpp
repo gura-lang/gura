@@ -37,7 +37,7 @@ String Object_wx_RichTextPlainText::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextPlainText, "wxRichTextPlainText")
+Gura_DeclareFunctionAlias(__RichTextPlainText, "RichTextPlainText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxRichTextPlainText, "wxRichTextPlainText")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextPlainText)
+Gura_ImplementFunction(__RichTextPlainText)
 {
 	//int text = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
@@ -56,15 +56,17 @@ Gura_ImplementFunction(__wxRichTextPlainText)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextPlainText_1, "wxRichTextPlainText_1")
+Gura_DeclareFunctionAlias(__RichTextPlainText_1, "RichTextPlainText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextPlainText));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextPlainText_1)
+Gura_ImplementFunction(__RichTextPlainText_1)
 {
+	//int obj = arg.GetNumber(0)
 	//wxRichTextPlainText();
 	return Value::Nil;
 }
@@ -119,37 +121,6 @@ Gura_ImplementMethod(wx_RichTextPlainText, __Layout)
 	//int parentRect = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->Layout();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_RichTextPlainText, __GetRangeSize, "GetRangeSize")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "descent", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "partialExtents", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_RichTextPlainText, __GetRangeSize)
-{
-	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int range = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
-	//int descent = arg.GetNumber(2)
-	//int dc = arg.GetNumber(3)
-	//int context = arg.GetNumber(4)
-	//int flags = arg.GetNumber(5)
-	//int position = arg.GetNumber(6)
-	//int parentSize = arg.GetNumber(7)
-	//int partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize();
 	return Value::Nil;
 }
 
@@ -494,12 +465,11 @@ Gura_ImplementMethod(wx_RichTextPlainText, __DrawTabbedString)
 Gura_ImplementUserInheritableClass(wx_RichTextPlainText)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextPlainText);
-	Gura_AssignFunction(__wxRichTextPlainText_1);
+	Gura_AssignFunction(__RichTextPlainText);
+	Gura_AssignFunction(__RichTextPlainText_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextPlainText, __Draw);
 	Gura_AssignMethod(wx_RichTextPlainText, __Layout);
-	Gura_AssignMethod(wx_RichTextPlainText, __GetRangeSize);
 	Gura_AssignMethod(wx_RichTextPlainText, __GetTextForRange);
 	Gura_AssignMethod(wx_RichTextPlainText, __DoSplit);
 	Gura_AssignMethod(wx_RichTextPlainText, __CalculateRange);

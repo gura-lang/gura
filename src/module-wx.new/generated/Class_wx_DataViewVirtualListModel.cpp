@@ -37,7 +37,7 @@ String Object_wx_DataViewVirtualListModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewVirtualListModel, "wxDataViewVirtualListModel")
+Gura_DeclareFunctionAlias(__DataViewVirtualListModel, "DataViewVirtualListModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initial_size", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxDataViewVirtualListModel, "wxDataViewVirtualListMo
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewVirtualListModel)
+Gura_ImplementFunction(__DataViewVirtualListModel)
 {
 	//int initial_size = arg.GetNumber(0)
 	//wxDataViewVirtualListModel();
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowsDeleted)
 Gura_ImplementUserInheritableClass(wx_DataViewVirtualListModel)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewVirtualListModel);
+	Gura_AssignFunction(__DataViewVirtualListModel);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewVirtualListModel, __GetItem);
 	Gura_AssignMethod(wx_DataViewVirtualListModel, __Reset);

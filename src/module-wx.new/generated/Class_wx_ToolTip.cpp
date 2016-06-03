@@ -37,7 +37,7 @@ String Object_wx_ToolTip::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxToolTip, "wxToolTip")
+Gura_DeclareFunctionAlias(__ToolTip, "ToolTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tip", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxToolTip, "wxToolTip")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxToolTip)
+Gura_ImplementFunction(__ToolTip)
 {
 	//int tip = arg.GetNumber(0)
 	//wxToolTip();
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_ToolTip, __SetTip)
 Gura_ImplementUserInheritableClass(wx_ToolTip)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxToolTip);
+	Gura_AssignFunction(__ToolTip);
 	// Method assignment
 	Gura_AssignMethod(wx_ToolTip, __Enable);
 	Gura_AssignMethod(wx_ToolTip, __GetTip);

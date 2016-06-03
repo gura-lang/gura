@@ -37,7 +37,7 @@ String Object_wx_TreeEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTreeEvent, "wxTreeEvent")
+Gura_DeclareFunctionAlias(__TreeEvent, "TreeEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxTreeEvent, "wxTreeEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTreeEvent)
+Gura_ImplementFunction(__TreeEvent)
 {
 	//int commandType = arg.GetNumber(0)
 	//int tree = arg.GetNumber(1)
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_TreeEvent, __SetToolTip)
 Gura_ImplementUserInheritableClass(wx_TreeEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTreeEvent);
+	Gura_AssignFunction(__TreeEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_TreeEvent, __GetItem);
 	Gura_AssignMethod(wx_TreeEvent, __GetKeyCode);

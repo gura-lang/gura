@@ -37,14 +37,14 @@ String Object_wx_HTTP::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHTTP, "wxHTTP")
+Gura_DeclareFunctionAlias(__HTTP, "HTTP")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HTTP));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHTTP)
+Gura_ImplementFunction(__HTTP)
 {
 	//wxHTTP();
 	return Value::Nil;
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_HTTP, __SetPostText)
 Gura_ImplementUserInheritableClass(wx_HTTP)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHTTP);
+	Gura_AssignFunction(__HTTP);
 	// Method assignment
 	Gura_AssignMethod(wx_HTTP, __Connect);
 	Gura_AssignMethod(wx_HTTP, __Connect_1);

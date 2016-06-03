@@ -37,7 +37,7 @@ String Object_wx_WebKitStateChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWebKitStateChangedEvent, "wxWebKitStateChangedEvent")
+Gura_DeclareFunctionAlias(__WebKitStateChangedEvent, "WebKitStateChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxWebKitStateChangedEvent, "wxWebKitStateChangedEven
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWebKitStateChangedEvent)
+Gura_ImplementFunction(__WebKitStateChangedEvent)
 {
 	//int win = arg.GetNumber(0)
 	//wxWebKitStateChangedEvent();
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_WebKitStateChangedEvent, __SetURL)
 Gura_ImplementUserInheritableClass(wx_WebKitStateChangedEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWebKitStateChangedEvent);
+	Gura_AssignFunction(__WebKitStateChangedEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_WebKitStateChangedEvent, __GetState);
 	Gura_AssignMethod(wx_WebKitStateChangedEvent, __SetState);

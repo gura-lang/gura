@@ -37,7 +37,7 @@ String Object_wx_RibbonButtonBarEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRibbonButtonBarEvent, "wxRibbonButtonBarEvent")
+Gura_DeclareFunctionAlias(__RibbonButtonBarEvent, "RibbonButtonBarEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxRibbonButtonBarEvent, "wxRibbonButtonBarEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonButtonBarEvent)
+Gura_ImplementFunction(__RibbonButtonBarEvent)
 {
 	//int command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, __PopupMenu)
 Gura_ImplementUserInheritableClass(wx_RibbonButtonBarEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRibbonButtonBarEvent);
+	Gura_AssignFunction(__RibbonButtonBarEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_RibbonButtonBarEvent, __GetBar);
 	Gura_AssignMethod(wx_RibbonButtonBarEvent, __SetBar);

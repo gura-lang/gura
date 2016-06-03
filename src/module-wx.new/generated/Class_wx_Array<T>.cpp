@@ -63,21 +63,6 @@ Gura_ImplementMethod(wx_Array<T>, __wxObjArray)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Array<T>, __wxSortedArray, "wxSortedArray")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_Array<T>, __wxSortedArray)
-{
-	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//pThis->GetEntity()->wxSortedArray();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_Array<T>, __wxArray_1, "wxArray_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -93,13 +78,13 @@ Gura_ImplementMethod(wx_Array<T>, __wxArray_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Array<T>, __wxSortedArray_1, "wxSortedArray_1")
+Gura_DeclareMethodAlias(wx_Array<T>, __wxSortedArray, "wxSortedArray")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Array<T>, __wxSortedArray_1)
+Gura_ImplementMethod(wx_Array<T>, __wxSortedArray)
 {
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -503,9 +488,8 @@ Gura_ImplementUserInheritableClass(wx_Array<T>)
 	// Method assignment
 	Gura_AssignMethod(wx_Array<T>, __wxArray);
 	Gura_AssignMethod(wx_Array<T>, __wxObjArray);
-	Gura_AssignMethod(wx_Array<T>, __wxSortedArray);
 	Gura_AssignMethod(wx_Array<T>, __wxArray_1);
-	Gura_AssignMethod(wx_Array<T>, __wxSortedArray_1);
+	Gura_AssignMethod(wx_Array<T>, __wxSortedArray);
 	Gura_AssignMethod(wx_Array<T>, __wxObjArray_1);
 	Gura_AssignMethod(wx_Array<T>, __Alloc);
 	Gura_AssignMethod(wx_Array<T>, __Shrink);

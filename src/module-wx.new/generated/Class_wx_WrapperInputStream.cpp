@@ -37,7 +37,7 @@ String Object_wx_WrapperInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWrapperInputStream, "wxWrapperInputStream")
+Gura_DeclareFunctionAlias(__WrapperInputStream, "WrapperInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxWrapperInputStream, "wxWrapperInputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWrapperInputStream)
+Gura_ImplementFunction(__WrapperInputStream)
 {
 	//int stream = arg.GetNumber(0)
 	//wxWrapperInputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxWrapperInputStream_1, "wxWrapperInputStream_1")
+Gura_DeclareFunctionAlias(__WrapperInputStream_1, "WrapperInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -60,21 +60,21 @@ Gura_DeclareFunctionAlias(__wxWrapperInputStream_1, "wxWrapperInputStream_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWrapperInputStream_1)
+Gura_ImplementFunction(__WrapperInputStream_1)
 {
 	//int stream = arg.GetNumber(0)
 	//wxWrapperInputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxWrapperInputStream_2, "wxWrapperInputStream_2")
+Gura_DeclareFunctionAlias(__WrapperInputStream_2, "WrapperInputStream_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_WrapperInputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWrapperInputStream_2)
+Gura_ImplementFunction(__WrapperInputStream_2)
 {
 	//wxWrapperInputStream();
 	return Value::Nil;
@@ -119,9 +119,9 @@ Gura_ImplementMethod(wx_WrapperInputStream, __InitParentStream_1)
 Gura_ImplementUserInheritableClass(wx_WrapperInputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWrapperInputStream);
-	Gura_AssignFunction(__wxWrapperInputStream_1);
-	Gura_AssignFunction(__wxWrapperInputStream_2);
+	Gura_AssignFunction(__WrapperInputStream);
+	Gura_AssignFunction(__WrapperInputStream_1);
+	Gura_AssignFunction(__WrapperInputStream_2);
 	// Method assignment
 	Gura_AssignMethod(wx_WrapperInputStream, __InitParentStream);
 	Gura_AssignMethod(wx_WrapperInputStream, __InitParentStream_1);

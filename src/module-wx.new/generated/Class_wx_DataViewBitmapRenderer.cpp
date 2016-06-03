@@ -37,7 +37,7 @@ String Object_wx_DataViewBitmapRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewBitmapRenderer, "wxDataViewBitmapRenderer")
+Gura_DeclareFunctionAlias(__DataViewBitmapRenderer, "DataViewBitmapRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxDataViewBitmapRenderer, "wxDataViewBitmapRenderer"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewBitmapRenderer)
+Gura_ImplementFunction(__DataViewBitmapRenderer)
 {
 	//int varianttype = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_DataViewBitmapRenderer, __GetDefaultType)
 Gura_ImplementUserInheritableClass(wx_DataViewBitmapRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewBitmapRenderer);
+	Gura_AssignFunction(__DataViewBitmapRenderer);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewBitmapRenderer, __GetDefaultType);
 }

@@ -37,37 +37,20 @@ String Object_wx_DragImage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDragImage, "wxDragImage")
+Gura_DeclareFunctionAlias(__DragImage, "DragImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DragImage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDragImage)
+Gura_ImplementFunction(__DragImage)
 {
 	//wxDragImage();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDragImage_1, "wxDragImage_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
-	SetClassToConstruct(Gura_UserClass(wx_DragImage));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(__wxDragImage_1)
-{
-	//int image = arg.GetNumber(0)
-	//int cursor = arg.GetNumber(1)
-	//wxDragImage();
-	return Value::Nil;
-}
-
-Gura_DeclareFunctionAlias(__wxDragImage_2, "wxDragImage_2")
+Gura_DeclareFunctionAlias(__DragImage_1, "DragImage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -76,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxDragImage_2, "wxDragImage_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDragImage_2)
+Gura_ImplementFunction(__DragImage_1)
 {
 	//int image = arg.GetNumber(0)
 	//int cursor = arg.GetNumber(1)
@@ -84,7 +67,24 @@ Gura_ImplementFunction(__wxDragImage_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDragImage_3, "wxDragImage_3")
+Gura_DeclareFunctionAlias(__DragImage_2, "DragImage_2")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_DragImage));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(__DragImage_2)
+{
+	//int image = arg.GetNumber(0)
+	//int cursor = arg.GetNumber(1)
+	//wxDragImage();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__DragImage_3, "DragImage_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -93,7 +93,7 @@ Gura_DeclareFunctionAlias(__wxDragImage_3, "wxDragImage_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDragImage_3)
+Gura_ImplementFunction(__DragImage_3)
 {
 	//int text = arg.GetNumber(0)
 	//int cursor = arg.GetNumber(1)
@@ -101,7 +101,7 @@ Gura_ImplementFunction(__wxDragImage_3)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDragImage_4, "wxDragImage_4")
+Gura_DeclareFunctionAlias(__DragImage_4, "DragImage_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "treeCtrl", VTYPE_number, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_DeclareFunctionAlias(__wxDragImage_4, "wxDragImage_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDragImage_4)
+Gura_ImplementFunction(__DragImage_4)
 {
 	//int treeCtrl = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -118,7 +118,7 @@ Gura_ImplementFunction(__wxDragImage_4)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDragImage_5, "wxDragImage_5")
+Gura_DeclareFunctionAlias(__DragImage_5, "DragImage_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "listCtrl", VTYPE_number, OCCUR_Once);
@@ -127,7 +127,7 @@ Gura_DeclareFunctionAlias(__wxDragImage_5, "wxDragImage_5")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDragImage_5)
+Gura_ImplementFunction(__DragImage_5)
 {
 	//int listCtrl = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -291,12 +291,12 @@ Gura_ImplementMethod(wx_DragImage, __UpdateBackingFromWindow)
 Gura_ImplementUserInheritableClass(wx_DragImage)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDragImage);
-	Gura_AssignFunction(__wxDragImage_1);
-	Gura_AssignFunction(__wxDragImage_2);
-	Gura_AssignFunction(__wxDragImage_3);
-	Gura_AssignFunction(__wxDragImage_4);
-	Gura_AssignFunction(__wxDragImage_5);
+	Gura_AssignFunction(__DragImage);
+	Gura_AssignFunction(__DragImage_1);
+	Gura_AssignFunction(__DragImage_2);
+	Gura_AssignFunction(__DragImage_3);
+	Gura_AssignFunction(__DragImage_4);
+	Gura_AssignFunction(__DragImage_5);
 	// Method assignment
 	Gura_AssignMethod(wx_DragImage, __BeginDrag);
 	Gura_AssignMethod(wx_DragImage, __BeginDrag_1);

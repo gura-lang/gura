@@ -37,14 +37,14 @@ String Object_wx_PersistenceManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPersistenceManager, "wxPersistenceManager")
+Gura_DeclareFunctionAlias(__PersistenceManager, "PersistenceManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PersistenceManager));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPersistenceManager)
+Gura_ImplementFunction(__PersistenceManager)
 {
 	//wxPersistenceManager();
 	return Value::Nil;
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __GetKey)
 Gura_ImplementUserInheritableClass(wx_PersistenceManager)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPersistenceManager);
+	Gura_AssignFunction(__PersistenceManager);
 	// Method assignment
 	Gura_AssignMethod(wx_PersistenceManager, __Set);
 	Gura_AssignMethod(wx_PersistenceManager, __Get);

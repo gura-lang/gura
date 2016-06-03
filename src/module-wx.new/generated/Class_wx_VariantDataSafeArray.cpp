@@ -37,7 +37,7 @@ String Object_wx_VariantDataSafeArray::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxVariantDataSafeArray, "wxVariantDataSafeArray")
+Gura_DeclareFunctionAlias(__VariantDataSafeArray, "VariantDataSafeArray")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxVariantDataSafeArray, "wxVariantDataSafeArray")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVariantDataSafeArray)
+Gura_ImplementFunction(__VariantDataSafeArray)
 {
 	//int value = arg.GetNumber(0)
 	//wxVariantDataSafeArray();
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_VariantDataSafeArray, __GetAsAny)
 Gura_ImplementUserInheritableClass(wx_VariantDataSafeArray)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxVariantDataSafeArray);
+	Gura_AssignFunction(__VariantDataSafeArray);
 	// Method assignment
 	Gura_AssignMethod(wx_VariantDataSafeArray, __GetValue);
 	Gura_AssignMethod(wx_VariantDataSafeArray, __SetValue);

@@ -37,14 +37,14 @@ String Object_wx_AboutDialogInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAboutDialogInfo, "wxAboutDialogInfo")
+Gura_DeclareFunctionAlias(__AboutDialogInfo, "AboutDialogInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AboutDialogInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAboutDialogInfo)
+Gura_ImplementFunction(__AboutDialogInfo)
 {
 	//wxAboutDialogInfo();
 	return Value::Nil;
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetWebSite)
 Gura_ImplementUserInheritableClass(wx_AboutDialogInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAboutDialogInfo);
+	Gura_AssignFunction(__AboutDialogInfo);
 	// Method assignment
 	Gura_AssignMethod(wx_AboutDialogInfo, __AddArtist);
 	Gura_AssignMethod(wx_AboutDialogInfo, __AddDeveloper);

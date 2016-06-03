@@ -37,7 +37,7 @@ String Object_wx_WindowDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWindowDC, "wxWindowDC")
+Gura_DeclareFunctionAlias(__WindowDC, "WindowDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxWindowDC, "wxWindowDC")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWindowDC)
+Gura_ImplementFunction(__WindowDC)
 {
 	//int window = arg.GetNumber(0)
 	//wxWindowDC();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxWindowDC)
 Gura_ImplementUserInheritableClass(wx_WindowDC)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWindowDC);
+	Gura_AssignFunction(__WindowDC);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowDC)

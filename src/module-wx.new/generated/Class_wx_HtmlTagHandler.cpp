@@ -37,14 +37,14 @@ String Object_wx_HtmlTagHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlTagHandler, "wxHtmlTagHandler")
+Gura_DeclareFunctionAlias(__HtmlTagHandler, "HtmlTagHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlTagHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlTagHandler)
+Gura_ImplementFunction(__HtmlTagHandler)
 {
 	//wxHtmlTagHandler();
 	return Value::Nil;
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_HtmlTagHandler, __ParseInnerSource)
 Gura_ImplementUserInheritableClass(wx_HtmlTagHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlTagHandler);
+	Gura_AssignFunction(__HtmlTagHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlTagHandler, __GetSupportedTags);
 	Gura_AssignMethod(wx_HtmlTagHandler, __HandleTag);

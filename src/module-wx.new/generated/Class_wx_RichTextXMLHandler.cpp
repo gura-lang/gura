@@ -37,7 +37,7 @@ String Object_wx_RichTextXMLHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextXMLHandler, "wxRichTextXMLHandler")
+Gura_DeclareFunctionAlias(__RichTextXMLHandler, "RichTextXMLHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxRichTextXMLHandler, "wxRichTextXMLHandler")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextXMLHandler)
+Gura_ImplementFunction(__RichTextXMLHandler)
 {
 	//int name = arg.GetNumber(0)
 	//int ext = arg.GetNumber(1)
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __DoSaveFile)
 Gura_ImplementUserInheritableClass(wx_RichTextXMLHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextXMLHandler);
+	Gura_AssignFunction(__RichTextXMLHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextXMLHandler, __CanLoad);
 	Gura_AssignMethod(wx_RichTextXMLHandler, __CanSave);

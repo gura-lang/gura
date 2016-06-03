@@ -37,7 +37,7 @@ String Object_wx_RichTextBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextBox, "wxRichTextBox")
+Gura_DeclareFunctionAlias(__RichTextBox, "RichTextBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -45,22 +45,24 @@ Gura_DeclareFunctionAlias(__wxRichTextBox, "wxRichTextBox")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextBox)
+Gura_ImplementFunction(__RichTextBox)
 {
 	//int parent = arg.GetNumber(0)
 	//wxRichTextBox();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextBox_1, "wxRichTextBox_1")
+Gura_DeclareFunctionAlias(__RichTextBox_1, "RichTextBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextBox_1)
+Gura_ImplementFunction(__RichTextBox_1)
 {
+	//int obj = arg.GetNumber(0)
 	//wxRichTextBox();
 	return Value::Nil;
 }
@@ -185,8 +187,8 @@ Gura_ImplementMethod(wx_RichTextBox, __Copy)
 Gura_ImplementUserInheritableClass(wx_RichTextBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextBox);
-	Gura_AssignFunction(__wxRichTextBox_1);
+	Gura_AssignFunction(__RichTextBox);
+	Gura_AssignFunction(__RichTextBox_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextBox, __Draw);
 	Gura_AssignMethod(wx_RichTextBox, __GetXMLNodeName);

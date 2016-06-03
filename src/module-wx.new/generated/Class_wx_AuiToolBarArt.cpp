@@ -37,14 +37,14 @@ String Object_wx_AuiToolBarArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiToolBarArt, "wxAuiToolBarArt")
+Gura_DeclareFunctionAlias(__AuiToolBarArt, "AuiToolBarArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiToolBarArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiToolBarArt)
+Gura_ImplementFunction(__AuiToolBarArt)
 {
 	//wxAuiToolBarArt();
 	return Value::Nil;
@@ -424,7 +424,7 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __ShowDropDown)
 Gura_ImplementUserInheritableClass(wx_AuiToolBarArt)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiToolBarArt);
+	Gura_AssignFunction(__AuiToolBarArt);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiToolBarArt, __Clone);
 	Gura_AssignMethod(wx_AuiToolBarArt, __SetFlags);

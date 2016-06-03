@@ -37,7 +37,7 @@ String Object_wx_PixelData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPixelData, "wxPixelData")
+Gura_DeclareFunctionAlias(__PixelData, "PixelData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxPixelData, "wxPixelData")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPixelData)
+Gura_ImplementFunction(__PixelData)
 {
 	//int image = arg.GetNumber(0)
 	//wxPixelData();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPixelData_1, "wxPixelData_1")
+Gura_DeclareFunctionAlias(__PixelData_1, "PixelData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxPixelData_1, "wxPixelData_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPixelData_1)
+Gura_ImplementFunction(__PixelData_1)
 {
 	//int i = arg.GetNumber(0)
 	//int rect = arg.GetNumber(1)
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__wxPixelData_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPixelData_2, "wxPixelData_2")
+Gura_DeclareFunctionAlias(__PixelData_2, "PixelData_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareFunctionAlias(__wxPixelData_2, "wxPixelData_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPixelData_2)
+Gura_ImplementFunction(__PixelData_2)
 {
 	//int i = arg.GetNumber(0)
 	//int pt = arg.GetNumber(1)
@@ -385,9 +385,9 @@ Gura_ImplementMethod(wx_PixelData, __Alpha)
 Gura_ImplementUserInheritableClass(wx_PixelData)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPixelData);
-	Gura_AssignFunction(__wxPixelData_1);
-	Gura_AssignFunction(__wxPixelData_2);
+	Gura_AssignFunction(__PixelData);
+	Gura_AssignFunction(__PixelData_1);
+	Gura_AssignFunction(__PixelData_2);
 	// Method assignment
 	Gura_AssignMethod(wx_PixelData, __bool);
 	Gura_AssignMethod(wx_PixelData, __GetPixels);

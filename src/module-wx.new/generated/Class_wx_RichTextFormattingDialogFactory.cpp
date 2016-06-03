@@ -37,14 +37,14 @@ String Object_wx_RichTextFormattingDialogFactory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextFormattingDialogFactory, "wxRichTextFormattingDialogFactory")
+Gura_DeclareFunctionAlias(__RichTextFormattingDialogFactory, "RichTextFormattingDialogFactory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextFormattingDialogFactory));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextFormattingDialogFactory)
+Gura_ImplementFunction(__RichTextFormattingDialogFactory)
 {
 	//wxRichTextFormattingDialogFactory();
 	return Value::Nil;
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __ShowHelp)
 Gura_ImplementUserInheritableClass(wx_RichTextFormattingDialogFactory)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextFormattingDialogFactory);
+	Gura_AssignFunction(__RichTextFormattingDialogFactory);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __CreateButtons);
 	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __CreatePage);

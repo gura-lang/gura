@@ -37,7 +37,7 @@ String Object_wx_MemoryBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMemoryBuffer, "wxMemoryBuffer")
+Gura_DeclareFunctionAlias(__MemoryBuffer, "MemoryBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxMemoryBuffer, "wxMemoryBuffer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMemoryBuffer)
+Gura_ImplementFunction(__MemoryBuffer)
 {
 	//int src = arg.GetNumber(0)
 	//wxMemoryBuffer();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMemoryBuffer_1, "wxMemoryBuffer_1")
+Gura_DeclareFunctionAlias(__MemoryBuffer_1, "MemoryBuffer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxMemoryBuffer_1, "wxMemoryBuffer_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMemoryBuffer_1)
+Gura_ImplementFunction(__MemoryBuffer_1)
 {
 	//int size = arg.GetNumber(0)
 	//wxMemoryBuffer();
@@ -263,8 +263,8 @@ Gura_ImplementMethod(wx_MemoryBuffer, __UngetWriteBuf)
 Gura_ImplementUserInheritableClass(wx_MemoryBuffer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMemoryBuffer);
-	Gura_AssignFunction(__wxMemoryBuffer_1);
+	Gura_AssignFunction(__MemoryBuffer);
+	Gura_AssignFunction(__MemoryBuffer_1);
 	// Method assignment
 	Gura_AssignMethod(wx_MemoryBuffer, __AppendByte);
 	Gura_AssignMethod(wx_MemoryBuffer, __AppendData);

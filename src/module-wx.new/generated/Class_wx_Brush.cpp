@@ -37,20 +37,20 @@ String Object_wx_Brush::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBrush, "wxBrush")
+Gura_DeclareFunctionAlias(__Brush, "Brush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Brush));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBrush)
+Gura_ImplementFunction(__Brush)
 {
 	//wxBrush();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBrush_1, "wxBrush_1")
+Gura_DeclareFunctionAlias(__Brush_1, "Brush_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxBrush_1, "wxBrush_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBrush_1)
+Gura_ImplementFunction(__Brush_1)
 {
 	//int colour = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__wxBrush_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBrush_2, "wxBrush_2")
+Gura_DeclareFunctionAlias(__Brush_2, "Brush_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stippleBitmap", VTYPE_number, OCCUR_Once);
@@ -75,14 +75,14 @@ Gura_DeclareFunctionAlias(__wxBrush_2, "wxBrush_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBrush_2)
+Gura_ImplementFunction(__Brush_2)
 {
 	//int stippleBitmap = arg.GetNumber(0)
 	//wxBrush();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBrush_3, "wxBrush_3")
+Gura_DeclareFunctionAlias(__Brush_3, "Brush_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
@@ -90,7 +90,7 @@ Gura_DeclareFunctionAlias(__wxBrush_3, "wxBrush_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBrush_3)
+Gura_ImplementFunction(__Brush_3)
 {
 	//int brush = arg.GetNumber(0)
 	//wxBrush();
@@ -261,10 +261,10 @@ Gura_ImplementMethod(wx_Brush, __SetStyle)
 Gura_ImplementUserInheritableClass(wx_Brush)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBrush);
-	Gura_AssignFunction(__wxBrush_1);
-	Gura_AssignFunction(__wxBrush_2);
-	Gura_AssignFunction(__wxBrush_3);
+	Gura_AssignFunction(__Brush);
+	Gura_AssignFunction(__Brush_1);
+	Gura_AssignFunction(__Brush_2);
+	Gura_AssignFunction(__Brush_3);
 	// Method assignment
 	Gura_AssignMethod(wx_Brush, __GetColour);
 	Gura_AssignMethod(wx_Brush, __GetStipple);

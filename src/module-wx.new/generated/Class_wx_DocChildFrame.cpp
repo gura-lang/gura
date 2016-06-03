@@ -37,7 +37,7 @@ String Object_wx_DocChildFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDocChildFrame, "wxDocChildFrame")
+Gura_DeclareFunctionAlias(__DocChildFrame, "DocChildFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
@@ -53,7 +53,7 @@ Gura_DeclareFunctionAlias(__wxDocChildFrame, "wxDocChildFrame")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDocChildFrame)
+Gura_ImplementFunction(__DocChildFrame)
 {
 	//int doc = arg.GetNumber(0)
 	//int view = arg.GetNumber(1)
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_DocChildFrame, __SetView)
 Gura_ImplementUserInheritableClass(wx_DocChildFrame)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDocChildFrame);
+	Gura_AssignFunction(__DocChildFrame);
 	// Method assignment
 	Gura_AssignMethod(wx_DocChildFrame, __GetDocument);
 	Gura_AssignMethod(wx_DocChildFrame, __GetView);

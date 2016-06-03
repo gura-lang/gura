@@ -37,20 +37,20 @@ String Object_wx_Position::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPosition, "wxPosition")
+Gura_DeclareFunctionAlias(__Position, "Position")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Position));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPosition)
+Gura_ImplementFunction(__Position)
 {
 	//wxPosition();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPosition_1, "wxPosition_1")
+Gura_DeclareFunctionAlias(__Position_1, "Position_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxPosition_1, "wxPosition_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPosition_1)
+Gura_ImplementFunction(__Position_1)
 {
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
@@ -160,8 +160,8 @@ Gura_ImplementMethod(wx_Position, __SetRow)
 Gura_ImplementUserInheritableClass(wx_Position)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPosition);
-	Gura_AssignFunction(__wxPosition_1);
+	Gura_AssignFunction(__Position);
+	Gura_AssignFunction(__Position_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Position, __GetCol);
 	Gura_AssignMethod(wx_Position, __GetColumn);

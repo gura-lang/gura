@@ -37,7 +37,7 @@ String Object_wx_RichTextStyleComboCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextStyleComboCtrl, "wxRichTextStyleComboCtrl")
+Gura_DeclareFunctionAlias(__RichTextStyleComboCtrl, "RichTextStyleComboCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__wxRichTextStyleComboCtrl, "wxRichTextStyleComboCtrl"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextStyleComboCtrl)
+Gura_ImplementFunction(__RichTextStyleComboCtrl)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -60,14 +60,14 @@ Gura_ImplementFunction(__wxRichTextStyleComboCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextStyleComboCtrl_1, "wxRichTextStyleComboCtrl_1")
+Gura_DeclareFunctionAlias(__RichTextStyleComboCtrl_1, "RichTextStyleComboCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleComboCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextStyleComboCtrl_1)
+Gura_ImplementFunction(__RichTextStyleComboCtrl_1)
 {
 	//wxRichTextStyleComboCtrl();
 	return Value::Nil;
@@ -174,8 +174,8 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, __UpdateStyles)
 Gura_ImplementUserInheritableClass(wx_RichTextStyleComboCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextStyleComboCtrl);
-	Gura_AssignFunction(__wxRichTextStyleComboCtrl_1);
+	Gura_AssignFunction(__RichTextStyleComboCtrl);
+	Gura_AssignFunction(__RichTextStyleComboCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextStyleComboCtrl, __Create);
 	Gura_AssignMethod(wx_RichTextStyleComboCtrl, __GetRichTextCtrl);

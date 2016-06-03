@@ -37,7 +37,7 @@ String Object_wx_LogStderr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLogStderr, "wxLogStderr")
+Gura_DeclareFunctionAlias(__LogStderr, "LogStderr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxLogStderr, "wxLogStderr")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLogStderr)
+Gura_ImplementFunction(__LogStderr)
 {
 	//int fp = arg.GetNumber(0)
 	//wxLogStderr();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxLogStderr)
 Gura_ImplementUserInheritableClass(wx_LogStderr)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLogStderr);
+	Gura_AssignFunction(__LogStderr);
 }
 
 Gura_ImplementDescendantCreator(wx_LogStderr)

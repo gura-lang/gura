@@ -37,7 +37,7 @@ String Object_wx_HtmlHelpDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlHelpDialog, "wxHtmlHelpDialog")
+Gura_DeclareFunctionAlias(__HtmlHelpDialog, "HtmlHelpDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxHtmlHelpDialog, "wxHtmlHelpDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlHelpDialog)
+Gura_ImplementFunction(__HtmlHelpDialog)
 {
 	//int data = arg.GetNumber(0)
 	//wxHtmlHelpDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxHtmlHelpDialog_1, "wxHtmlHelpDialog_1")
+Gura_DeclareFunctionAlias(__HtmlHelpDialog_1, "HtmlHelpDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxHtmlHelpDialog_1, "wxHtmlHelpDialog_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlHelpDialog_1)
+Gura_ImplementFunction(__HtmlHelpDialog_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -165,8 +165,8 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, __SetTitleFormat)
 Gura_ImplementUserInheritableClass(wx_HtmlHelpDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlHelpDialog);
-	Gura_AssignFunction(__wxHtmlHelpDialog_1);
+	Gura_AssignFunction(__HtmlHelpDialog);
+	Gura_AssignFunction(__HtmlHelpDialog_1);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlHelpDialog, __AddToolbarButtons);
 	Gura_AssignMethod(wx_HtmlHelpDialog, __Create);

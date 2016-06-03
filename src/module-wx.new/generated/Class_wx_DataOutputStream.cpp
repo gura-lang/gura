@@ -37,7 +37,7 @@ String Object_wx_DataOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataOutputStream, "wxDataOutputStream")
+Gura_DeclareFunctionAlias(__DataOutputStream, "DataOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxDataOutputStream, "wxDataOutputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataOutputStream)
+Gura_ImplementFunction(__DataOutputStream)
 {
 	//int stream = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_DataOutputStream, __WriteString)
 Gura_ImplementUserInheritableClass(wx_DataOutputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataOutputStream);
+	Gura_AssignFunction(__DataOutputStream);
 	// Method assignment
 	Gura_AssignMethod(wx_DataOutputStream, __BigEndianOrdered);
 	Gura_AssignMethod(wx_DataOutputStream, __GetConv);

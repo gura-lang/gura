@@ -37,14 +37,14 @@ String Object_wx_PreferencesPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPreferencesPage, "wxPreferencesPage")
+Gura_DeclareFunctionAlias(__PreferencesPage, "PreferencesPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PreferencesPage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPreferencesPage)
+Gura_ImplementFunction(__PreferencesPage)
 {
 	//wxPreferencesPage();
 	return Value::Nil;
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_PreferencesPage, __CreateWindow)
 Gura_ImplementUserInheritableClass(wx_PreferencesPage)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPreferencesPage);
+	Gura_AssignFunction(__PreferencesPage);
 	// Method assignment
 	Gura_AssignMethod(wx_PreferencesPage, __GetName);
 	Gura_AssignMethod(wx_PreferencesPage, __GetLargeIcon);

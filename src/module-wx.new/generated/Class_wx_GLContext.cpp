@@ -37,7 +37,7 @@ String Object_wx_GLContext::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGLContext, "wxGLContext")
+Gura_DeclareFunctionAlias(__GLContext, "GLContext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxGLContext, "wxGLContext")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGLContext)
+Gura_ImplementFunction(__GLContext)
 {
 	//int win = arg.GetNumber(0)
 	//int other = arg.GetNumber(1)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_GLContext, __SetCurrent)
 Gura_ImplementUserInheritableClass(wx_GLContext)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGLContext);
+	Gura_AssignFunction(__GLContext);
 	// Method assignment
 	Gura_AssignMethod(wx_GLContext, __IsOK);
 	Gura_AssignMethod(wx_GLContext, __SetCurrent);

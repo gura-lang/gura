@@ -37,7 +37,7 @@ String Object_wx_SplitterEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSplitterEvent, "wxSplitterEvent")
+Gura_DeclareFunctionAlias(__SplitterEvent, "SplitterEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxSplitterEvent, "wxSplitterEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSplitterEvent)
+Gura_ImplementFunction(__SplitterEvent)
 {
 	//int eventType = arg.GetNumber(0)
 	//int splitter = arg.GetNumber(1)
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_SplitterEvent, __SetSashPosition)
 Gura_ImplementUserInheritableClass(wx_SplitterEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSplitterEvent);
+	Gura_AssignFunction(__SplitterEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_SplitterEvent, __GetSashPosition);
 	Gura_AssignMethod(wx_SplitterEvent, __GetWindowBeingRemoved);

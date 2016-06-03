@@ -37,20 +37,20 @@ String Object_wx_CollapsibleHeaderCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCollapsibleHeaderCtrl, "wxCollapsibleHeaderCtrl")
+Gura_DeclareFunctionAlias(__CollapsibleHeaderCtrl, "CollapsibleHeaderCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CollapsibleHeaderCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCollapsibleHeaderCtrl)
+Gura_ImplementFunction(__CollapsibleHeaderCtrl)
 {
 	//wxCollapsibleHeaderCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCollapsibleHeaderCtrl_1, "wxCollapsibleHeaderCtrl_1")
+Gura_DeclareFunctionAlias(__CollapsibleHeaderCtrl_1, "CollapsibleHeaderCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxCollapsibleHeaderCtrl_1, "wxCollapsibleHeaderCtrl_
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCollapsibleHeaderCtrl_1)
+Gura_ImplementFunction(__CollapsibleHeaderCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -145,8 +145,8 @@ Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __IsCollapsed)
 Gura_ImplementUserInheritableClass(wx_CollapsibleHeaderCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCollapsibleHeaderCtrl);
-	Gura_AssignFunction(__wxCollapsibleHeaderCtrl_1);
+	Gura_AssignFunction(__CollapsibleHeaderCtrl);
+	Gura_AssignFunction(__CollapsibleHeaderCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, __Create);
 	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, __SetCollapsed);

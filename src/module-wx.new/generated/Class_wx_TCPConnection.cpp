@@ -37,20 +37,20 @@ String Object_wx_TCPConnection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTCPConnection, "wxTCPConnection")
+Gura_DeclareFunctionAlias(__TCPConnection, "TCPConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TCPConnection));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTCPConnection)
+Gura_ImplementFunction(__TCPConnection)
 {
 	//wxTCPConnection();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTCPConnection_1, "wxTCPConnection_1")
+Gura_DeclareFunctionAlias(__TCPConnection_1, "TCPConnection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxTCPConnection_1, "wxTCPConnection_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTCPConnection_1)
+Gura_ImplementFunction(__TCPConnection_1)
 {
 	//int buffer = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
@@ -481,8 +481,8 @@ Gura_ImplementMethod(wx_TCPConnection, __StopAdvise)
 Gura_ImplementUserInheritableClass(wx_TCPConnection)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTCPConnection);
-	Gura_AssignFunction(__wxTCPConnection_1);
+	Gura_AssignFunction(__TCPConnection);
+	Gura_AssignFunction(__TCPConnection_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TCPConnection, __Advise);
 	Gura_AssignMethod(wx_TCPConnection, __Advise_1);

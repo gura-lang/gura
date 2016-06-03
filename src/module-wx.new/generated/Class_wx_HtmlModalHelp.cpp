@@ -37,7 +37,7 @@ String Object_wx_HtmlModalHelp::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlModalHelp, "wxHtmlModalHelp")
+Gura_DeclareFunctionAlias(__HtmlModalHelp, "HtmlModalHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxHtmlModalHelp, "wxHtmlModalHelp")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlModalHelp)
+Gura_ImplementFunction(__HtmlModalHelp)
 {
 	//int parent = arg.GetNumber(0)
 	//int helpFile = arg.GetNumber(1)
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__wxHtmlModalHelp)
 Gura_ImplementUserInheritableClass(wx_HtmlModalHelp)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlModalHelp);
+	Gura_AssignFunction(__HtmlModalHelp);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlModalHelp)

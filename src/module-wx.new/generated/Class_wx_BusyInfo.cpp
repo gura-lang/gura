@@ -37,7 +37,7 @@ String Object_wx_BusyInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxBusyInfo, "wxBusyInfo")
+Gura_DeclareFunctionAlias(__BusyInfo, "BusyInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxBusyInfo, "wxBusyInfo")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBusyInfo)
+Gura_ImplementFunction(__BusyInfo)
 {
 	//int flags = arg.GetNumber(0)
 	//wxBusyInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxBusyInfo_1, "wxBusyInfo_1")
+Gura_DeclareFunctionAlias(__BusyInfo_1, "BusyInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxBusyInfo_1, "wxBusyInfo_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxBusyInfo_1)
+Gura_ImplementFunction(__BusyInfo_1)
 {
 	//int msg = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
@@ -75,8 +75,8 @@ Gura_ImplementFunction(__wxBusyInfo_1)
 Gura_ImplementUserInheritableClass(wx_BusyInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxBusyInfo);
-	Gura_AssignFunction(__wxBusyInfo_1);
+	Gura_AssignFunction(__BusyInfo);
+	Gura_AssignFunction(__BusyInfo_1);
 }
 
 Gura_ImplementDescendantCreator(wx_BusyInfo)

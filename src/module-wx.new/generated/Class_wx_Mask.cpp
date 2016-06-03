@@ -37,20 +37,20 @@ String Object_wx_Mask::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMask, "wxMask")
+Gura_DeclareFunctionAlias(__Mask, "Mask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Mask));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMask)
+Gura_ImplementFunction(__Mask)
 {
 	//wxMask();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMask_1, "wxMask_1")
+Gura_DeclareFunctionAlias(__Mask_1, "Mask_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxMask_1, "wxMask_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMask_1)
+Gura_ImplementFunction(__Mask_1)
 {
 	//int bitmap = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__wxMask_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMask_2, "wxMask_2")
+Gura_DeclareFunctionAlias(__Mask_2, "Mask_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -75,14 +75,14 @@ Gura_DeclareFunctionAlias(__wxMask_2, "wxMask_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMask_2)
+Gura_ImplementFunction(__Mask_2)
 {
 	//int bitmap = arg.GetNumber(0)
 	//wxMask();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMask_3, "wxMask_3")
+Gura_DeclareFunctionAlias(__Mask_3, "Mask_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -91,7 +91,7 @@ Gura_DeclareFunctionAlias(__wxMask_3, "wxMask_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMask_3)
+Gura_ImplementFunction(__Mask_3)
 {
 	//int bitmap = arg.GetNumber(0)
 	//int colour = arg.GetNumber(1)
@@ -170,10 +170,10 @@ Gura_ImplementMethod(wx_Mask, __GetBitmap)
 Gura_ImplementUserInheritableClass(wx_Mask)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMask);
-	Gura_AssignFunction(__wxMask_1);
-	Gura_AssignFunction(__wxMask_2);
-	Gura_AssignFunction(__wxMask_3);
+	Gura_AssignFunction(__Mask);
+	Gura_AssignFunction(__Mask_1);
+	Gura_AssignFunction(__Mask_2);
+	Gura_AssignFunction(__Mask_3);
 	// Method assignment
 	Gura_AssignMethod(wx_Mask, __Create);
 	Gura_AssignMethod(wx_Mask, __Create_1);

@@ -37,7 +37,7 @@ String Object_wx_Document::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDocument, "wxDocument")
+Gura_DeclareFunctionAlias(__Document, "Document")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxDocument, "wxDocument")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDocument)
+Gura_ImplementFunction(__Document)
 {
 	//int parent = arg.GetNumber(0)
 	//wxDocument();
@@ -731,7 +731,7 @@ Gura_ImplementMethod(wx_Document, __DoOpenDocument)
 Gura_ImplementUserInheritableClass(wx_Document)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDocument);
+	Gura_AssignFunction(__Document);
 	// Method assignment
 	Gura_AssignMethod(wx_Document, __AddView);
 	Gura_AssignMethod(wx_Document, __AlreadySaved);

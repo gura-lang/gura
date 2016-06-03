@@ -37,20 +37,20 @@ String Object_wx_SortedArrayString::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSortedArrayString, "wxSortedArrayString")
+Gura_DeclareFunctionAlias(__SortedArrayString, "SortedArrayString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SortedArrayString));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSortedArrayString)
+Gura_ImplementFunction(__SortedArrayString)
 {
 	//wxSortedArrayString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSortedArrayString_1, "wxSortedArrayString_1")
+Gura_DeclareFunctionAlias(__SortedArrayString_1, "SortedArrayString_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "compareFunction", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxSortedArrayString_1, "wxSortedArrayString_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSortedArrayString_1)
+Gura_ImplementFunction(__SortedArrayString_1)
 {
 	//int compareFunction = arg.GetNumber(0)
 	//wxSortedArrayString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSortedArrayString_2, "wxSortedArrayString_2")
+Gura_DeclareFunctionAlias(__SortedArrayString_2, "SortedArrayString_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_DeclareFunctionAlias(__wxSortedArrayString_2, "wxSortedArrayString_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSortedArrayString_2)
+Gura_ImplementFunction(__SortedArrayString_2)
 {
 	//int array = arg.GetNumber(0)
 	//wxSortedArrayString();
@@ -174,9 +174,9 @@ Gura_ImplementMethod(wx_SortedArrayString, __Sort_1)
 Gura_ImplementUserInheritableClass(wx_SortedArrayString)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSortedArrayString);
-	Gura_AssignFunction(__wxSortedArrayString_1);
-	Gura_AssignFunction(__wxSortedArrayString_2);
+	Gura_AssignFunction(__SortedArrayString);
+	Gura_AssignFunction(__SortedArrayString_1);
+	Gura_AssignFunction(__SortedArrayString_2);
 	// Method assignment
 	Gura_AssignMethod(wx_SortedArrayString, __Add);
 	Gura_AssignMethod(wx_SortedArrayString, __Index);

@@ -37,7 +37,7 @@ String Object_wx_RegKey::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRegKey, "wxRegKey")
+Gura_DeclareFunctionAlias(__RegKey, "RegKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "viewMode", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxRegKey, "wxRegKey")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRegKey)
+Gura_ImplementFunction(__RegKey)
 {
 	//int viewMode = arg.GetNumber(0)
 	//wxRegKey();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRegKey_1, "wxRegKey_1")
+Gura_DeclareFunctionAlias(__RegKey_1, "RegKey_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "strKey", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxRegKey_1, "wxRegKey_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRegKey_1)
+Gura_ImplementFunction(__RegKey_1)
 {
 	//int strKey = arg.GetNumber(0)
 	//int viewMode = arg.GetNumber(1)
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__wxRegKey_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRegKey_2, "wxRegKey_2")
+Gura_DeclareFunctionAlias(__RegKey_2, "RegKey_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyParent", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareFunctionAlias(__wxRegKey_2, "wxRegKey_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRegKey_2)
+Gura_ImplementFunction(__RegKey_2)
 {
 	//int keyParent = arg.GetNumber(0)
 	//int strKey = arg.GetNumber(1)
@@ -88,7 +88,7 @@ Gura_ImplementFunction(__wxRegKey_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRegKey_3, "wxRegKey_3")
+Gura_DeclareFunctionAlias(__RegKey_3, "RegKey_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyParent", VTYPE_number, OCCUR_Once);
@@ -97,7 +97,7 @@ Gura_DeclareFunctionAlias(__wxRegKey_3, "wxRegKey_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRegKey_3)
+Gura_ImplementFunction(__RegKey_3)
 {
 	//int keyParent = arg.GetNumber(0)
 	//int strKey = arg.GetNumber(1)
@@ -111,10 +111,10 @@ Gura_ImplementFunction(__wxRegKey_3)
 Gura_ImplementUserInheritableClass(wx_RegKey)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRegKey);
-	Gura_AssignFunction(__wxRegKey_1);
-	Gura_AssignFunction(__wxRegKey_2);
-	Gura_AssignFunction(__wxRegKey_3);
+	Gura_AssignFunction(__RegKey);
+	Gura_AssignFunction(__RegKey_1);
+	Gura_AssignFunction(__RegKey_2);
+	Gura_AssignFunction(__RegKey_3);
 }
 
 Gura_ImplementDescendantCreator(wx_RegKey)

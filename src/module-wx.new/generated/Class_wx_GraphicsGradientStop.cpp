@@ -37,7 +37,7 @@ String Object_wx_GraphicsGradientStop::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGraphicsGradientStop, "wxGraphicsGradientStop")
+Gura_DeclareFunctionAlias(__GraphicsGradientStop, "GraphicsGradientStop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxGraphicsGradientStop, "wxGraphicsGradientStop")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGraphicsGradientStop)
+Gura_ImplementFunction(__GraphicsGradientStop)
 {
 	//int col = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_GraphicsGradientStop, __SetPosition)
 Gura_ImplementUserInheritableClass(wx_GraphicsGradientStop)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGraphicsGradientStop);
+	Gura_AssignFunction(__GraphicsGradientStop);
 	// Method assignment
 	Gura_AssignMethod(wx_GraphicsGradientStop, __GetColour);
 	Gura_AssignMethod(wx_GraphicsGradientStop, __SetColour);

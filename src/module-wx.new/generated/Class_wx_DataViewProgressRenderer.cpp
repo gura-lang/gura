@@ -37,7 +37,7 @@ String Object_wx_DataViewProgressRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewProgressRenderer, "wxDataViewProgressRenderer")
+Gura_DeclareFunctionAlias(__DataViewProgressRenderer, "DataViewProgressRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxDataViewProgressRenderer, "wxDataViewProgressRende
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewProgressRenderer)
+Gura_ImplementFunction(__DataViewProgressRenderer)
 {
 	//int label = arg.GetNumber(0)
 	//int varianttype = arg.GetNumber(1)
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_DataViewProgressRenderer, __GetDefaultType)
 Gura_ImplementUserInheritableClass(wx_DataViewProgressRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewProgressRenderer);
+	Gura_AssignFunction(__DataViewProgressRenderer);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewProgressRenderer, __GetDefaultType);
 }

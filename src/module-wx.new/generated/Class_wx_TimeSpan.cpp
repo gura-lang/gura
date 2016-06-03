@@ -37,20 +37,20 @@ String Object_wx_TimeSpan::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTimeSpan, "wxTimeSpan")
+Gura_DeclareFunctionAlias(__TimeSpan, "TimeSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TimeSpan));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTimeSpan)
+Gura_ImplementFunction(__TimeSpan)
 {
 	//wxTimeSpan();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTimeSpan_1, "wxTimeSpan_1")
+Gura_DeclareFunctionAlias(__TimeSpan_1, "TimeSpan_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hours", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxTimeSpan_1, "wxTimeSpan_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTimeSpan_1)
+Gura_ImplementFunction(__TimeSpan_1)
 {
 	//int hours = arg.GetNumber(0)
 	//int min = arg.GetNumber(1)
@@ -567,8 +567,8 @@ Gura_ImplementMethod(wx_TimeSpan, __Weeks)
 Gura_ImplementUserInheritableClass(wx_TimeSpan)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTimeSpan);
-	Gura_AssignFunction(__wxTimeSpan_1);
+	Gura_AssignFunction(__TimeSpan);
+	Gura_AssignFunction(__TimeSpan_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TimeSpan, __Abs);
 	Gura_AssignMethod(wx_TimeSpan, __Add);

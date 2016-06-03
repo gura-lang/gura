@@ -37,7 +37,7 @@ String Object_wx_ContextHelp::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxContextHelp, "wxContextHelp")
+Gura_DeclareFunctionAlias(__ContextHelp, "ContextHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxContextHelp, "wxContextHelp")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxContextHelp)
+Gura_ImplementFunction(__ContextHelp)
 {
 	//int window = arg.GetNumber(0)
 	//int doNow = arg.GetNumber(1)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_ContextHelp, __EndContextHelp)
 Gura_ImplementUserInheritableClass(wx_ContextHelp)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxContextHelp);
+	Gura_AssignFunction(__ContextHelp);
 	// Method assignment
 	Gura_AssignMethod(wx_ContextHelp, __BeginContextHelp);
 	Gura_AssignMethod(wx_ContextHelp, __EndContextHelp);

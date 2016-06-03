@@ -37,14 +37,14 @@ String Object_wx_HtmlCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlCell, "wxHtmlCell")
+Gura_DeclareFunctionAlias(__HtmlCell, "HtmlCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlCell));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlCell)
+Gura_ImplementFunction(__HtmlCell)
 {
 	//wxHtmlCell();
 	return Value::Nil;
@@ -418,7 +418,7 @@ Gura_ImplementMethod(wx_HtmlCell, __SetPos)
 Gura_ImplementUserInheritableClass(wx_HtmlCell)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlCell);
+	Gura_AssignFunction(__HtmlCell);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlCell, __AdjustPagebreak);
 	Gura_AssignMethod(wx_HtmlCell, __Draw);

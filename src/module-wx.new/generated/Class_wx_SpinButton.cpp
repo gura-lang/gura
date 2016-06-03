@@ -37,20 +37,20 @@ String Object_wx_SpinButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSpinButton, "wxSpinButton")
+Gura_DeclareFunctionAlias(__SpinButton, "SpinButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SpinButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSpinButton)
+Gura_ImplementFunction(__SpinButton)
 {
 	//wxSpinButton();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSpinButton_1, "wxSpinButton_1")
+Gura_DeclareFunctionAlias(__SpinButton_1, "SpinButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxSpinButton_1, "wxSpinButton_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSpinButton_1)
+Gura_ImplementFunction(__SpinButton_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -180,8 +180,8 @@ Gura_ImplementMethod(wx_SpinButton, __SetValue)
 Gura_ImplementUserInheritableClass(wx_SpinButton)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSpinButton);
-	Gura_AssignFunction(__wxSpinButton_1);
+	Gura_AssignFunction(__SpinButton);
+	Gura_AssignFunction(__SpinButton_1);
 	// Method assignment
 	Gura_AssignMethod(wx_SpinButton, __Create);
 	Gura_AssignMethod(wx_SpinButton, __GetMax);

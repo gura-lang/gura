@@ -37,7 +37,7 @@ String Object_wx_Accessible::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAccessible, "wxAccessible")
+Gura_DeclareFunctionAlias(__Accessible, "Accessible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxAccessible, "wxAccessible")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAccessible)
+Gura_ImplementFunction(__Accessible)
 {
 	//int win = arg.GetNumber(0)
 	//wxAccessible();
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_Accessible, __SetWindow)
 Gura_ImplementUserInheritableClass(wx_Accessible)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAccessible);
+	Gura_AssignFunction(__Accessible);
 	// Method assignment
 	Gura_AssignMethod(wx_Accessible, __DoDefaultAction);
 	Gura_AssignMethod(wx_Accessible, __GetChild);

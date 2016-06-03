@@ -37,7 +37,7 @@ String Object_wx_StyledTextCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStyledTextCtrl, "wxStyledTextCtrl")
+Gura_DeclareFunctionAlias(__StyledTextCtrl, "StyledTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxStyledTextCtrl, "wxStyledTextCtrl")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStyledTextCtrl)
+Gura_ImplementFunction(__StyledTextCtrl)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -62,14 +62,14 @@ Gura_ImplementFunction(__wxStyledTextCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxStyledTextCtrl_1, "wxStyledTextCtrl_1")
+Gura_DeclareFunctionAlias(__StyledTextCtrl_1, "StyledTextCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StyledTextCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStyledTextCtrl_1)
+Gura_ImplementFunction(__StyledTextCtrl_1)
 {
 	//wxStyledTextCtrl();
 	return Value::Nil;
@@ -10562,8 +10562,8 @@ Gura_ImplementMethod(wx_StyledTextCtrl, __HitTest_1)
 Gura_ImplementUserInheritableClass(wx_StyledTextCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStyledTextCtrl);
-	Gura_AssignFunction(__wxStyledTextCtrl_1);
+	Gura_AssignFunction(__StyledTextCtrl);
+	Gura_AssignFunction(__StyledTextCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_StyledTextCtrl, __Create);
 	Gura_AssignMethod(wx_StyledTextCtrl, __AddText);

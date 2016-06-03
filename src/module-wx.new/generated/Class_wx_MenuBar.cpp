@@ -37,7 +37,7 @@ String Object_wx_MenuBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMenuBar, "wxMenuBar")
+Gura_DeclareFunctionAlias(__MenuBar, "MenuBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxMenuBar, "wxMenuBar")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMenuBar)
+Gura_ImplementFunction(__MenuBar)
 {
 	//int style = arg.GetNumber(0)
 	//wxMenuBar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMenuBar_1, "wxMenuBar_1")
+Gura_DeclareFunctionAlias(__MenuBar_1, "MenuBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxMenuBar_1, "wxMenuBar_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMenuBar_1)
+Gura_ImplementFunction(__MenuBar_1)
 {
 	//int n = arg.GetNumber(0)
 	//int menus = arg.GetNumber(1)
@@ -580,8 +580,8 @@ Gura_ImplementMethod(wx_MenuBar, __Detach)
 Gura_ImplementUserInheritableClass(wx_MenuBar)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMenuBar);
-	Gura_AssignFunction(__wxMenuBar_1);
+	Gura_AssignFunction(__MenuBar);
+	Gura_AssignFunction(__MenuBar_1);
 	// Method assignment
 	Gura_AssignMethod(wx_MenuBar, __Append);
 	Gura_AssignMethod(wx_MenuBar, __Check);

@@ -37,14 +37,14 @@ String Object_wx_MessageOutputDebug::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMessageOutputDebug, "wxMessageOutputDebug")
+Gura_DeclareFunctionAlias(__MessageOutputDebug, "MessageOutputDebug")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MessageOutputDebug));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMessageOutputDebug)
+Gura_ImplementFunction(__MessageOutputDebug)
 {
 	//wxMessageOutputDebug();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxMessageOutputDebug)
 Gura_ImplementUserInheritableClass(wx_MessageOutputDebug)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMessageOutputDebug);
+	Gura_AssignFunction(__MessageOutputDebug);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageOutputDebug)

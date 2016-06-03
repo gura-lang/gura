@@ -37,14 +37,14 @@ String Object_wx_MouseState::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMouseState, "wxMouseState")
+Gura_DeclareFunctionAlias(__MouseState, "MouseState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MouseState));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMouseState)
+Gura_ImplementFunction(__MouseState)
 {
 	//wxMouseState();
 	return Value::Nil;
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_MouseState, __SetState)
 Gura_ImplementUserInheritableClass(wx_MouseState)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMouseState);
+	Gura_AssignFunction(__MouseState);
 	// Method assignment
 	Gura_AssignMethod(wx_MouseState, __GetX);
 	Gura_AssignMethod(wx_MouseState, __GetY);

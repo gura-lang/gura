@@ -37,14 +37,14 @@ String Object_wx_HtmlFilter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlFilter, "wxHtmlFilter")
+Gura_DeclareFunctionAlias(__HtmlFilter, "HtmlFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlFilter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlFilter)
+Gura_ImplementFunction(__HtmlFilter)
 {
 	//wxHtmlFilter();
 	return Value::Nil;
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_HtmlFilter, __ReadFile)
 Gura_ImplementUserInheritableClass(wx_HtmlFilter)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlFilter);
+	Gura_AssignFunction(__HtmlFilter);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlFilter, __CanRead);
 	Gura_AssignMethod(wx_HtmlFilter, __ReadFile);

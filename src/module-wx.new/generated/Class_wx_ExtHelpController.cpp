@@ -37,7 +37,7 @@ String Object_wx_ExtHelpController::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxExtHelpController, "wxExtHelpController")
+Gura_DeclareFunctionAlias(__ExtHelpController, "ExtHelpController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxExtHelpController, "wxExtHelpController")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxExtHelpController)
+Gura_ImplementFunction(__ExtHelpController)
 {
 	//int parentWindow = arg.GetNumber(0)
 	//wxExtHelpController();
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __GetFrameParameters)
 Gura_ImplementUserInheritableClass(wx_ExtHelpController)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxExtHelpController);
+	Gura_AssignFunction(__ExtHelpController);
 	// Method assignment
 	Gura_AssignMethod(wx_ExtHelpController, __SetViewer);
 	Gura_AssignMethod(wx_ExtHelpController, __Initialize);

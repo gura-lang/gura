@@ -37,20 +37,20 @@ String Object_wx_GBPosition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGBPosition, "wxGBPosition")
+Gura_DeclareFunctionAlias(__GBPosition, "GBPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GBPosition));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGBPosition)
+Gura_ImplementFunction(__GBPosition)
 {
 	//wxGBPosition();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxGBPosition_1, "wxGBPosition_1")
+Gura_DeclareFunctionAlias(__GBPosition_1, "GBPosition_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxGBPosition_1, "wxGBPosition_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGBPosition_1)
+Gura_ImplementFunction(__GBPosition_1)
 {
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
@@ -132,8 +132,8 @@ Gura_ImplementMethod(wx_GBPosition, __SetRow)
 Gura_ImplementUserInheritableClass(wx_GBPosition)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGBPosition);
-	Gura_AssignFunction(__wxGBPosition_1);
+	Gura_AssignFunction(__GBPosition);
+	Gura_AssignFunction(__GBPosition_1);
 	// Method assignment
 	Gura_AssignMethod(wx_GBPosition, __GetCol);
 	Gura_AssignMethod(wx_GBPosition, __GetRow);

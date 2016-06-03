@@ -37,7 +37,7 @@ String Object_wx_SetCursorEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSetCursorEvent, "wxSetCursorEvent")
+Gura_DeclareFunctionAlias(__SetCursorEvent, "SetCursorEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxSetCursorEvent, "wxSetCursorEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSetCursorEvent)
+Gura_ImplementFunction(__SetCursorEvent)
 {
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, __SetCursor)
 Gura_ImplementUserInheritableClass(wx_SetCursorEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSetCursorEvent);
+	Gura_AssignFunction(__SetCursorEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_SetCursorEvent, __GetCursor);
 	Gura_AssignMethod(wx_SetCursorEvent, __GetX);

@@ -37,7 +37,7 @@ String Object_wx_TipWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTipWindow, "wxTipWindow")
+Gura_DeclareFunctionAlias(__TipWindow, "TipWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__wxTipWindow, "wxTipWindow")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTipWindow)
+Gura_ImplementFunction(__TipWindow)
 {
 	//int parent = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_TipWindow, __SetTipWindowPtr)
 Gura_ImplementUserInheritableClass(wx_TipWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTipWindow);
+	Gura_AssignFunction(__TipWindow);
 	// Method assignment
 	Gura_AssignMethod(wx_TipWindow, __SetBoundingRect);
 	Gura_AssignMethod(wx_TipWindow, __SetTipWindowPtr);

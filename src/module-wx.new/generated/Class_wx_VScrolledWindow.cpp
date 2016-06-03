@@ -37,20 +37,20 @@ String Object_wx_VScrolledWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxVScrolledWindow, "wxVScrolledWindow")
+Gura_DeclareFunctionAlias(__VScrolledWindow, "VScrolledWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_VScrolledWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVScrolledWindow)
+Gura_ImplementFunction(__VScrolledWindow)
 {
 	//wxVScrolledWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxVScrolledWindow_1, "wxVScrolledWindow_1")
+Gura_DeclareFunctionAlias(__VScrolledWindow_1, "VScrolledWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxVScrolledWindow_1, "wxVScrolledWindow_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxVScrolledWindow_1)
+Gura_ImplementFunction(__VScrolledWindow_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -109,8 +109,8 @@ Gura_ImplementMethod(wx_VScrolledWindow, __Create)
 Gura_ImplementUserInheritableClass(wx_VScrolledWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxVScrolledWindow);
-	Gura_AssignFunction(__wxVScrolledWindow_1);
+	Gura_AssignFunction(__VScrolledWindow);
+	Gura_AssignFunction(__VScrolledWindow_1);
 	// Method assignment
 	Gura_AssignMethod(wx_VScrolledWindow, __Create);
 }

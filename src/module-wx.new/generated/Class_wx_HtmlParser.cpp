@@ -37,14 +37,14 @@ String Object_wx_HtmlParser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlParser, "wxHtmlParser")
+Gura_DeclareFunctionAlias(__HtmlParser, "HtmlParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlParser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlParser)
+Gura_ImplementFunction(__HtmlParser)
 {
 	//wxHtmlParser();
 	return Value::Nil;
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_HtmlParser, __AddTag)
 Gura_ImplementUserInheritableClass(wx_HtmlParser)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlParser);
+	Gura_AssignFunction(__HtmlParser);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlParser, __AddTagHandler);
 	Gura_AssignMethod(wx_HtmlParser, __AddWord);

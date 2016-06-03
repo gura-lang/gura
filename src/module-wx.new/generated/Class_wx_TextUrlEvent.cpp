@@ -37,7 +37,7 @@ String Object_wx_TextUrlEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextUrlEvent, "wxTextUrlEvent")
+Gura_DeclareFunctionAlias(__TextUrlEvent, "TextUrlEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxTextUrlEvent, "wxTextUrlEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextUrlEvent)
+Gura_ImplementFunction(__TextUrlEvent)
 {
 	//int winid = arg.GetNumber(0)
 	//int evtMouse = arg.GetNumber(1)
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxTextUrlEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTextUrlEvent_1, "wxTextUrlEvent_1")
+Gura_DeclareFunctionAlias(__TextUrlEvent_1, "TextUrlEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxTextUrlEvent_1, "wxTextUrlEvent_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextUrlEvent_1)
+Gura_ImplementFunction(__TextUrlEvent_1)
 {
 	//int event = arg.GetNumber(0)
 	//wxTextUrlEvent();
@@ -134,8 +134,8 @@ Gura_ImplementMethod(wx_TextUrlEvent, __Clone)
 Gura_ImplementUserInheritableClass(wx_TextUrlEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextUrlEvent);
-	Gura_AssignFunction(__wxTextUrlEvent_1);
+	Gura_AssignFunction(__TextUrlEvent);
+	Gura_AssignFunction(__TextUrlEvent_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TextUrlEvent, __GetMouseEvent);
 	Gura_AssignMethod(wx_TextUrlEvent, __GetURLStart);

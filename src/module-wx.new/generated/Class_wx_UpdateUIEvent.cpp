@@ -37,7 +37,7 @@ String Object_wx_UpdateUIEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxUpdateUIEvent, "wxUpdateUIEvent")
+Gura_DeclareFunctionAlias(__UpdateUIEvent, "UpdateUIEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandId", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxUpdateUIEvent, "wxUpdateUIEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUpdateUIEvent)
+Gura_ImplementFunction(__UpdateUIEvent)
 {
 	//int commandId = arg.GetNumber(0)
 	//wxUpdateUIEvent();
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __Show)
 Gura_ImplementUserInheritableClass(wx_UpdateUIEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxUpdateUIEvent);
+	Gura_AssignFunction(__UpdateUIEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_UpdateUIEvent, __CanUpdate);
 	Gura_AssignMethod(wx_UpdateUIEvent, __Check);

@@ -37,7 +37,7 @@ String Object_wx_DCBrushChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDCBrushChanger, "wxDCBrushChanger")
+Gura_DeclareFunctionAlias(__DCBrushChanger, "DCBrushChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxDCBrushChanger, "wxDCBrushChanger")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDCBrushChanger)
+Gura_ImplementFunction(__DCBrushChanger)
 {
 	//int dc = arg.GetNumber(0)
 	//int brush = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxDCBrushChanger)
 Gura_ImplementUserInheritableClass(wx_DCBrushChanger)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDCBrushChanger);
+	Gura_AssignFunction(__DCBrushChanger);
 }
 
 Gura_ImplementDescendantCreator(wx_DCBrushChanger)

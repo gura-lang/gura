@@ -37,20 +37,20 @@ String Object_wx_StaticText::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStaticText, "wxStaticText")
+Gura_DeclareFunctionAlias(__StaticText, "StaticText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StaticText));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStaticText)
+Gura_ImplementFunction(__StaticText)
 {
 	//wxStaticText();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxStaticText_1, "wxStaticText_1")
+Gura_DeclareFunctionAlias(__StaticText_1, "StaticText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxStaticText_1, "wxStaticText_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStaticText_1)
+Gura_ImplementFunction(__StaticText_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -141,8 +141,8 @@ Gura_ImplementMethod(wx_StaticText, __Wrap)
 Gura_ImplementUserInheritableClass(wx_StaticText)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStaticText);
-	Gura_AssignFunction(__wxStaticText_1);
+	Gura_AssignFunction(__StaticText);
+	Gura_AssignFunction(__StaticText_1);
 	// Method assignment
 	Gura_AssignMethod(wx_StaticText, __Create);
 	Gura_AssignMethod(wx_StaticText, __IsEllipsized);

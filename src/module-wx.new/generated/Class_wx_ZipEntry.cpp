@@ -37,7 +37,7 @@ String Object_wx_ZipEntry::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxZipEntry, "wxZipEntry")
+Gura_DeclareFunctionAlias(__ZipEntry, "ZipEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxZipEntry, "wxZipEntry")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxZipEntry)
+Gura_ImplementFunction(__ZipEntry)
 {
 	//int name = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxZipEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxZipEntry_1, "wxZipEntry_1")
+Gura_DeclareFunctionAlias(__ZipEntry_1, "ZipEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxZipEntry_1, "wxZipEntry_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxZipEntry_1)
+Gura_ImplementFunction(__ZipEntry_1)
 {
 	//int entry = arg.GetNumber(0)
 	//wxZipEntry();
@@ -459,8 +459,8 @@ Gura_ImplementMethod(wx_ZipEntry, __UnsetNotifier)
 Gura_ImplementUserInheritableClass(wx_ZipEntry)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxZipEntry);
-	Gura_AssignFunction(__wxZipEntry_1);
+	Gura_AssignFunction(__ZipEntry);
+	Gura_AssignFunction(__ZipEntry_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ZipEntry, __Clone);
 	Gura_AssignMethod(wx_ZipEntry, __GetComment);

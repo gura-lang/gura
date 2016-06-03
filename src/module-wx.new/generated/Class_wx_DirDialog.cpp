@@ -37,7 +37,7 @@ String Object_wx_DirDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDirDialog, "wxDirDialog")
+Gura_DeclareFunctionAlias(__DirDialog, "DirDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareFunctionAlias(__wxDirDialog, "wxDirDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDirDialog)
+Gura_ImplementFunction(__DirDialog)
 {
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_DirDialog, __ShowModal)
 Gura_ImplementUserInheritableClass(wx_DirDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDirDialog);
+	Gura_AssignFunction(__DirDialog);
 	// Method assignment
 	Gura_AssignMethod(wx_DirDialog, __GetMessage);
 	Gura_AssignMethod(wx_DirDialog, __GetPath);

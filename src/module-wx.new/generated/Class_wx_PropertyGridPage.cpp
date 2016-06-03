@@ -37,14 +37,14 @@ String Object_wx_PropertyGridPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPropertyGridPage, "wxPropertyGridPage")
+Gura_DeclareFunctionAlias(__PropertyGridPage, "PropertyGridPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PropertyGridPage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPropertyGridPage)
+Gura_ImplementFunction(__PropertyGridPage)
 {
 	//wxPropertyGridPage();
 	return Value::Nil;
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_PropertyGridPage, __SetSplitterPosition)
 Gura_ImplementUserInheritableClass(wx_PropertyGridPage)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPropertyGridPage);
+	Gura_AssignFunction(__PropertyGridPage);
 	// Method assignment
 	Gura_AssignMethod(wx_PropertyGridPage, __Clear);
 	Gura_AssignMethod(wx_PropertyGridPage, __FitColumns);

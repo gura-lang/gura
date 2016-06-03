@@ -37,20 +37,20 @@ String Object_wx_FileName::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileName, "wxFileName")
+Gura_DeclareFunctionAlias(__FileName, "FileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileName));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileName)
+Gura_ImplementFunction(__FileName)
 {
 	//wxFileName();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileName_1, "wxFileName_1")
+Gura_DeclareFunctionAlias(__FileName_1, "FileName_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxFileName_1, "wxFileName_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileName_1)
+Gura_ImplementFunction(__FileName_1)
 {
 	//int filename = arg.GetNumber(0)
 	//wxFileName();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileName_2, "wxFileName_2")
+Gura_DeclareFunctionAlias(__FileName_2, "FileName_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fullpath", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_DeclareFunctionAlias(__wxFileName_2, "wxFileName_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileName_2)
+Gura_ImplementFunction(__FileName_2)
 {
 	//int fullpath = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__wxFileName_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileName_3, "wxFileName_3")
+Gura_DeclareFunctionAlias(__FileName_3, "FileName_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareFunctionAlias(__wxFileName_3, "wxFileName_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileName_3)
+Gura_ImplementFunction(__FileName_3)
 {
 	//int path = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -101,7 +101,7 @@ Gura_ImplementFunction(__wxFileName_3)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileName_4, "wxFileName_4")
+Gura_DeclareFunctionAlias(__FileName_4, "FileName_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
@@ -112,7 +112,7 @@ Gura_DeclareFunctionAlias(__wxFileName_4, "wxFileName_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileName_4)
+Gura_ImplementFunction(__FileName_4)
 {
 	//int path = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -122,7 +122,7 @@ Gura_ImplementFunction(__wxFileName_4)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileName_5, "wxFileName_5")
+Gura_DeclareFunctionAlias(__FileName_5, "FileName_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "volume", VTYPE_number, OCCUR_Once);
@@ -134,7 +134,7 @@ Gura_DeclareFunctionAlias(__wxFileName_5, "wxFileName_5")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileName_5)
+Gura_ImplementFunction(__FileName_5)
 {
 	//int volume = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
@@ -1782,12 +1782,12 @@ Gura_ImplementMethod(wx_FileName, __Touch)
 Gura_ImplementUserInheritableClass(wx_FileName)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileName);
-	Gura_AssignFunction(__wxFileName_1);
-	Gura_AssignFunction(__wxFileName_2);
-	Gura_AssignFunction(__wxFileName_3);
-	Gura_AssignFunction(__wxFileName_4);
-	Gura_AssignFunction(__wxFileName_5);
+	Gura_AssignFunction(__FileName);
+	Gura_AssignFunction(__FileName_1);
+	Gura_AssignFunction(__FileName_2);
+	Gura_AssignFunction(__FileName_3);
+	Gura_AssignFunction(__FileName_4);
+	Gura_AssignFunction(__FileName_5);
 	// Method assignment
 	Gura_AssignMethod(wx_FileName, __AppendDir);
 	Gura_AssignMethod(wx_FileName, __Assign);

@@ -37,14 +37,14 @@ String Object_wx_FileSystemWatcher::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileSystemWatcher, "wxFileSystemWatcher")
+Gura_DeclareFunctionAlias(__FileSystemWatcher, "FileSystemWatcher")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileSystemWatcher));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileSystemWatcher)
+Gura_ImplementFunction(__FileSystemWatcher)
 {
 	//wxFileSystemWatcher();
 	return Value::Nil;
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __SetOwner)
 Gura_ImplementUserInheritableClass(wx_FileSystemWatcher)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileSystemWatcher);
+	Gura_AssignFunction(__FileSystemWatcher);
 	// Method assignment
 	Gura_AssignMethod(wx_FileSystemWatcher, __Add);
 	Gura_AssignMethod(wx_FileSystemWatcher, __AddTree);

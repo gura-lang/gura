@@ -37,20 +37,20 @@ String Object_wx_SpinCtrlDouble::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSpinCtrlDouble, "wxSpinCtrlDouble")
+Gura_DeclareFunctionAlias(__SpinCtrlDouble, "SpinCtrlDouble")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SpinCtrlDouble));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSpinCtrlDouble)
+Gura_ImplementFunction(__SpinCtrlDouble)
 {
 	//wxSpinCtrlDouble();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSpinCtrlDouble_1, "wxSpinCtrlDouble_1")
+Gura_DeclareFunctionAlias(__SpinCtrlDouble_1, "SpinCtrlDouble_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -68,7 +68,7 @@ Gura_DeclareFunctionAlias(__wxSpinCtrlDouble_1, "wxSpinCtrlDouble_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSpinCtrlDouble_1)
+Gura_ImplementFunction(__SpinCtrlDouble_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -271,8 +271,8 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetValue_1)
 Gura_ImplementUserInheritableClass(wx_SpinCtrlDouble)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSpinCtrlDouble);
-	Gura_AssignFunction(__wxSpinCtrlDouble_1);
+	Gura_AssignFunction(__SpinCtrlDouble);
+	Gura_AssignFunction(__SpinCtrlDouble_1);
 	// Method assignment
 	Gura_AssignMethod(wx_SpinCtrlDouble, __Create);
 	Gura_AssignMethod(wx_SpinCtrlDouble, __GetDigits);

@@ -37,7 +37,7 @@ String Object_wx_FileSystemWatcherEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent, "wxFileSystemWatcherEvent")
+Gura_DeclareFunctionAlias(__FileSystemWatcherEvent, "FileSystemWatcherEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "changeType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent, "wxFileSystemWatcherEvent"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileSystemWatcherEvent)
+Gura_ImplementFunction(__FileSystemWatcherEvent)
 {
 	//int changeType = arg.GetNumber(0)
 	//int watchid = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxFileSystemWatcherEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent_1, "wxFileSystemWatcherEvent_1")
+Gura_DeclareFunctionAlias(__FileSystemWatcherEvent_1, "FileSystemWatcherEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "changeType", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent_1, "wxFileSystemWatcherEven
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileSystemWatcherEvent_1)
+Gura_ImplementFunction(__FileSystemWatcherEvent_1)
 {
 	//int changeType = arg.GetNumber(0)
 	//int warningType = arg.GetNumber(1)
@@ -75,7 +75,7 @@ Gura_ImplementFunction(__wxFileSystemWatcherEvent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent_2, "wxFileSystemWatcherEvent_2")
+Gura_DeclareFunctionAlias(__FileSystemWatcherEvent_2, "FileSystemWatcherEvent_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "changeType", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent_2, "wxFileSystemWatcherEven
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileSystemWatcherEvent_2)
+Gura_ImplementFunction(__FileSystemWatcherEvent_2)
 {
 	//int changeType = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
@@ -196,9 +196,9 @@ Gura_ImplementMethod(wx_FileSystemWatcherEvent, __ToString)
 Gura_ImplementUserInheritableClass(wx_FileSystemWatcherEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileSystemWatcherEvent);
-	Gura_AssignFunction(__wxFileSystemWatcherEvent_1);
-	Gura_AssignFunction(__wxFileSystemWatcherEvent_2);
+	Gura_AssignFunction(__FileSystemWatcherEvent);
+	Gura_AssignFunction(__FileSystemWatcherEvent_1);
+	Gura_AssignFunction(__FileSystemWatcherEvent_2);
 	// Method assignment
 	Gura_AssignMethod(wx_FileSystemWatcherEvent, __GetPath);
 	Gura_AssignMethod(wx_FileSystemWatcherEvent, __GetNewPath);

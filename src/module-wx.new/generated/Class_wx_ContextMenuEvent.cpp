@@ -37,7 +37,7 @@ String Object_wx_ContextMenuEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxContextMenuEvent, "wxContextMenuEvent")
+Gura_DeclareFunctionAlias(__ContextMenuEvent, "ContextMenuEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxContextMenuEvent, "wxContextMenuEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxContextMenuEvent)
+Gura_ImplementFunction(__ContextMenuEvent)
 {
 	//int type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_ContextMenuEvent, __SetPosition)
 Gura_ImplementUserInheritableClass(wx_ContextMenuEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxContextMenuEvent);
+	Gura_AssignFunction(__ContextMenuEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_ContextMenuEvent, __GetPosition);
 	Gura_AssignMethod(wx_ContextMenuEvent, __SetPosition);

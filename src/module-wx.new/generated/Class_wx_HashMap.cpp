@@ -37,7 +37,7 @@ String Object_wx_HashMap::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHashMap, "wxHashMap")
+Gura_DeclareFunctionAlias(__HashMap, "HashMap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxHashMap, "wxHashMap")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHashMap)
+Gura_ImplementFunction(__HashMap)
 {
 	//int size = arg.GetNumber(0)
 	//wxHashMap();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxHashMap_1, "wxHashMap_1")
+Gura_DeclareFunctionAlias(__HashMap_1, "HashMap_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "map", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxHashMap_1, "wxHashMap_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHashMap_1)
+Gura_ImplementFunction(__HashMap_1)
 {
 	//int map = arg.GetNumber(0)
 	//wxHashMap();
@@ -272,8 +272,8 @@ Gura_ImplementMethod(wx_HashMap, __size)
 Gura_ImplementUserInheritableClass(wx_HashMap)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHashMap);
-	Gura_AssignFunction(__wxHashMap_1);
+	Gura_AssignFunction(__HashMap);
+	Gura_AssignFunction(__HashMap_1);
 	// Method assignment
 	Gura_AssignMethod(wx_HashMap, __begin);
 	Gura_AssignMethod(wx_HashMap, __begin_1);

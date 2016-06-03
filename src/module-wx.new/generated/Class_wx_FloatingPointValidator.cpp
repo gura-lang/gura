@@ -37,7 +37,7 @@ String Object_wx_FloatingPointValidator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFloatingPointValidator, "wxFloatingPointValidator")
+Gura_DeclareFunctionAlias(__FloatingPointValidator, "FloatingPointValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxFloatingPointValidator, "wxFloatingPointValidator"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFloatingPointValidator)
+Gura_ImplementFunction(__FloatingPointValidator)
 {
 	//int value = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxFloatingPointValidator)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFloatingPointValidator_1, "wxFloatingPointValidator_1")
+Gura_DeclareFunctionAlias(__FloatingPointValidator_1, "FloatingPointValidator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxFloatingPointValidator_1, "wxFloatingPointValidato
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFloatingPointValidator_1)
+Gura_ImplementFunction(__FloatingPointValidator_1)
 {
 	//int precision = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
@@ -97,8 +97,8 @@ Gura_ImplementMethod(wx_FloatingPointValidator, __SetPrecision)
 Gura_ImplementUserInheritableClass(wx_FloatingPointValidator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFloatingPointValidator);
-	Gura_AssignFunction(__wxFloatingPointValidator_1);
+	Gura_AssignFunction(__FloatingPointValidator);
+	Gura_AssignFunction(__FloatingPointValidator_1);
 	// Method assignment
 	Gura_AssignMethod(wx_FloatingPointValidator, __SetPrecision);
 }

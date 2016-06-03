@@ -37,7 +37,7 @@ String Object_wx_MenuEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMenuEvent, "wxMenuEvent")
+Gura_DeclareFunctionAlias(__MenuEvent, "MenuEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxMenuEvent, "wxMenuEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMenuEvent)
+Gura_ImplementFunction(__MenuEvent)
 {
 	//int type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_MenuEvent, __IsPopup)
 Gura_ImplementUserInheritableClass(wx_MenuEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMenuEvent);
+	Gura_AssignFunction(__MenuEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_MenuEvent, __GetMenu);
 	Gura_AssignMethod(wx_MenuEvent, __GetMenuId);

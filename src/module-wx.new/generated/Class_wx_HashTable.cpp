@@ -37,7 +37,7 @@ String Object_wx_HashTable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHashTable, "wxHashTable")
+Gura_DeclareFunctionAlias(__HashTable, "HashTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key_type", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxHashTable, "wxHashTable")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHashTable)
+Gura_ImplementFunction(__HashTable)
 {
 	//int key_type = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_HashTable, __Put_1)
 Gura_ImplementUserInheritableClass(wx_HashTable)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHashTable);
+	Gura_AssignFunction(__HashTable);
 	// Method assignment
 	Gura_AssignMethod(wx_HashTable, __BeginFind);
 	Gura_AssignMethod(wx_HashTable, __Clear);

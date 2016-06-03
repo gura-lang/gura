@@ -37,7 +37,7 @@ String Object_wx_SizerItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSizerItem, "wxSizerItem")
+Gura_DeclareFunctionAlias(__SizerItem, "SizerItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxSizerItem, "wxSizerItem")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSizerItem)
+Gura_ImplementFunction(__SizerItem)
 {
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
@@ -62,7 +62,7 @@ Gura_ImplementFunction(__wxSizerItem)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSizerItem_1, "wxSizerItem_1")
+Gura_DeclareFunctionAlias(__SizerItem_1, "SizerItem_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -71,7 +71,7 @@ Gura_DeclareFunctionAlias(__wxSizerItem_1, "wxSizerItem_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSizerItem_1)
+Gura_ImplementFunction(__SizerItem_1)
 {
 	//int window = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -79,7 +79,7 @@ Gura_ImplementFunction(__wxSizerItem_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSizerItem_2, "wxSizerItem_2")
+Gura_DeclareFunctionAlias(__SizerItem_2, "SizerItem_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -91,7 +91,7 @@ Gura_DeclareFunctionAlias(__wxSizerItem_2, "wxSizerItem_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSizerItem_2)
+Gura_ImplementFunction(__SizerItem_2)
 {
 	//int window = arg.GetNumber(0)
 	//int proportion = arg.GetNumber(1)
@@ -102,7 +102,7 @@ Gura_ImplementFunction(__wxSizerItem_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSizerItem_3, "wxSizerItem_3")
+Gura_DeclareFunctionAlias(__SizerItem_3, "SizerItem_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
@@ -111,7 +111,7 @@ Gura_DeclareFunctionAlias(__wxSizerItem_3, "wxSizerItem_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSizerItem_3)
+Gura_ImplementFunction(__SizerItem_3)
 {
 	//int sizer = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -119,7 +119,7 @@ Gura_ImplementFunction(__wxSizerItem_3)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSizerItem_4, "wxSizerItem_4")
+Gura_DeclareFunctionAlias(__SizerItem_4, "SizerItem_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
@@ -131,7 +131,7 @@ Gura_DeclareFunctionAlias(__wxSizerItem_4, "wxSizerItem_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSizerItem_4)
+Gura_ImplementFunction(__SizerItem_4)
 {
 	//int sizer = arg.GetNumber(0)
 	//int proportion = arg.GetNumber(1)
@@ -721,11 +721,11 @@ Gura_ImplementMethod(wx_SizerItem, __Show)
 Gura_ImplementUserInheritableClass(wx_SizerItem)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSizerItem);
-	Gura_AssignFunction(__wxSizerItem_1);
-	Gura_AssignFunction(__wxSizerItem_2);
-	Gura_AssignFunction(__wxSizerItem_3);
-	Gura_AssignFunction(__wxSizerItem_4);
+	Gura_AssignFunction(__SizerItem);
+	Gura_AssignFunction(__SizerItem_1);
+	Gura_AssignFunction(__SizerItem_2);
+	Gura_AssignFunction(__SizerItem_3);
+	Gura_AssignFunction(__SizerItem_4);
 	// Method assignment
 	Gura_AssignMethod(wx_SizerItem, __AssignWindow);
 	Gura_AssignMethod(wx_SizerItem, __AssignSizer);

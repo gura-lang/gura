@@ -37,7 +37,7 @@ String Object_wx_RichTextCharacterStyleDefinition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextCharacterStyleDefinition, "wxRichTextCharacterStyleDefinition")
+Gura_DeclareFunctionAlias(__RichTextCharacterStyleDefinition, "RichTextCharacterStyleDefinition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxRichTextCharacterStyleDefinition, "wxRichTextChara
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextCharacterStyleDefinition)
+Gura_ImplementFunction(__RichTextCharacterStyleDefinition)
 {
 	//int name = arg.GetNumber(0)
 	//wxRichTextCharacterStyleDefinition();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxRichTextCharacterStyleDefinition)
 Gura_ImplementUserInheritableClass(wx_RichTextCharacterStyleDefinition)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextCharacterStyleDefinition);
+	Gura_AssignFunction(__RichTextCharacterStyleDefinition);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextCharacterStyleDefinition)

@@ -37,7 +37,7 @@ String Object_wx_FocusEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFocusEvent, "wxFocusEvent")
+Gura_DeclareFunctionAlias(__FocusEvent, "FocusEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxFocusEvent, "wxFocusEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFocusEvent)
+Gura_ImplementFunction(__FocusEvent)
 {
 	//int eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_FocusEvent, __SetWindow)
 Gura_ImplementUserInheritableClass(wx_FocusEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFocusEvent);
+	Gura_AssignFunction(__FocusEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_FocusEvent, __GetWindow);
 	Gura_AssignMethod(wx_FocusEvent, __SetWindow);

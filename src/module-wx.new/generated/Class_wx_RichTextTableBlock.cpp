@@ -37,20 +37,20 @@ String Object_wx_RichTextTableBlock::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextTableBlock, "wxRichTextTableBlock")
+Gura_DeclareFunctionAlias(__RichTextTableBlock, "RichTextTableBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextTableBlock));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextTableBlock)
+Gura_ImplementFunction(__RichTextTableBlock)
 {
 	//wxRichTextTableBlock();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextTableBlock_1, "wxRichTextTableBlock_1")
+Gura_DeclareFunctionAlias(__RichTextTableBlock_1, "RichTextTableBlock_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colStart", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxRichTextTableBlock_1, "wxRichTextTableBlock_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextTableBlock_1)
+Gura_ImplementFunction(__RichTextTableBlock_1)
 {
 	//int colStart = arg.GetNumber(0)
 	//int colEnd = arg.GetNumber(1)
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__wxRichTextTableBlock_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextTableBlock_2, "wxRichTextTableBlock_2")
+Gura_DeclareFunctionAlias(__RichTextTableBlock_2, "RichTextTableBlock_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareFunctionAlias(__wxRichTextTableBlock_2, "wxRichTextTableBlock_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextTableBlock_2)
+Gura_ImplementFunction(__RichTextTableBlock_2)
 {
 	//int block = arg.GetNumber(0)
 	//wxRichTextTableBlock();
@@ -276,9 +276,9 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __RowEnd_1)
 Gura_ImplementUserInheritableClass(wx_RichTextTableBlock)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextTableBlock);
-	Gura_AssignFunction(__wxRichTextTableBlock_1);
-	Gura_AssignFunction(__wxRichTextTableBlock_2);
+	Gura_AssignFunction(__RichTextTableBlock);
+	Gura_AssignFunction(__RichTextTableBlock_1);
+	Gura_AssignFunction(__RichTextTableBlock_2);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextTableBlock, __Init);
 	Gura_AssignMethod(wx_RichTextTableBlock, __Copy);

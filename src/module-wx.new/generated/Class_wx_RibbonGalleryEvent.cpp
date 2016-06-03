@@ -37,7 +37,7 @@ String Object_wx_RibbonGalleryEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRibbonGalleryEvent, "wxRibbonGalleryEvent")
+Gura_DeclareFunctionAlias(__RibbonGalleryEvent, "RibbonGalleryEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxRibbonGalleryEvent, "wxRibbonGalleryEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonGalleryEvent)
+Gura_ImplementFunction(__RibbonGalleryEvent)
 {
 	//int command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_RibbonGalleryEvent, __SetGalleryItem)
 Gura_ImplementUserInheritableClass(wx_RibbonGalleryEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRibbonGalleryEvent);
+	Gura_AssignFunction(__RibbonGalleryEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_RibbonGalleryEvent, __GetGallery);
 	Gura_AssignMethod(wx_RibbonGalleryEvent, __GetGalleryItem);

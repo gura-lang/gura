@@ -37,7 +37,7 @@ String Object_wx_TarEntry::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTarEntry, "wxTarEntry")
+Gura_DeclareFunctionAlias(__TarEntry, "TarEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxTarEntry, "wxTarEntry")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTarEntry)
+Gura_ImplementFunction(__TarEntry)
 {
 	//int name = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxTarEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTarEntry_1, "wxTarEntry_1")
+Gura_DeclareFunctionAlias(__TarEntry_1, "TarEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxTarEntry_1, "wxTarEntry_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTarEntry_1)
+Gura_ImplementFunction(__TarEntry_1)
 {
 	//int entry = arg.GetNumber(0)
 	//wxTarEntry();
@@ -448,8 +448,8 @@ Gura_ImplementMethod(wx_TarEntry, __GetInternalName_1)
 Gura_ImplementUserInheritableClass(wx_TarEntry)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTarEntry);
-	Gura_AssignFunction(__wxTarEntry_1);
+	Gura_AssignFunction(__TarEntry);
+	Gura_AssignFunction(__TarEntry_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TarEntry, __GetAccessTime);
 	Gura_AssignMethod(wx_TarEntry, __SetAccessTime);

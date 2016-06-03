@@ -37,20 +37,20 @@ String Object_wx_Caret::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCaret, "wxCaret")
+Gura_DeclareFunctionAlias(__Caret, "Caret")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Caret));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCaret)
+Gura_ImplementFunction(__Caret)
 {
 	//wxCaret();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCaret_1, "wxCaret_1")
+Gura_DeclareFunctionAlias(__Caret_1, "Caret_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__wxCaret_1, "wxCaret_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCaret_1)
+Gura_ImplementFunction(__Caret_1)
 {
 	//int window = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__wxCaret_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCaret_2, "wxCaret_2")
+Gura_DeclareFunctionAlias(__Caret_2, "Caret_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__wxCaret_2, "wxCaret_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCaret_2)
+Gura_ImplementFunction(__Caret_2)
 {
 	//int window = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
@@ -350,9 +350,9 @@ Gura_ImplementMethod(wx_Caret, __Show)
 Gura_ImplementUserInheritableClass(wx_Caret)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCaret);
-	Gura_AssignFunction(__wxCaret_1);
-	Gura_AssignFunction(__wxCaret_2);
+	Gura_AssignFunction(__Caret);
+	Gura_AssignFunction(__Caret_1);
+	Gura_AssignFunction(__Caret_2);
 	// Method assignment
 	Gura_AssignMethod(wx_Caret, __Create);
 	Gura_AssignMethod(wx_Caret, __Create_1);

@@ -37,7 +37,7 @@ String Object_wx_StdOutputStreamBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStdOutputStreamBuffer, "wxStdOutputStreamBuffer")
+Gura_DeclareFunctionAlias(__StdOutputStreamBuffer, "StdOutputStreamBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxStdOutputStreamBuffer, "wxStdOutputStreamBuffer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStdOutputStreamBuffer)
+Gura_ImplementFunction(__StdOutputStreamBuffer)
 {
 	//int stream = arg.GetNumber(0)
 	//wxStdOutputStreamBuffer();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxStdOutputStreamBuffer)
 Gura_ImplementUserInheritableClass(wx_StdOutputStreamBuffer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStdOutputStreamBuffer);
+	Gura_AssignFunction(__StdOutputStreamBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_StdOutputStreamBuffer)

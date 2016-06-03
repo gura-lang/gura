@@ -37,7 +37,7 @@ String Object_wx_DCClipper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDCClipper, "wxDCClipper")
+Gura_DeclareFunctionAlias(__DCClipper, "DCClipper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxDCClipper, "wxDCClipper")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDCClipper)
+Gura_ImplementFunction(__DCClipper)
 {
 	//int dc = arg.GetNumber(0)
 	//int region = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxDCClipper)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDCClipper_1, "wxDCClipper_1")
+Gura_DeclareFunctionAlias(__DCClipper_1, "DCClipper_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxDCClipper_1, "wxDCClipper_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDCClipper_1)
+Gura_ImplementFunction(__DCClipper_1)
 {
 	//int dc = arg.GetNumber(0)
 	//int rect = arg.GetNumber(1)
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__wxDCClipper_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxDCClipper_2, "wxDCClipper_2")
+Gura_DeclareFunctionAlias(__DCClipper_2, "DCClipper_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_DeclareFunctionAlias(__wxDCClipper_2, "wxDCClipper_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDCClipper_2)
+Gura_ImplementFunction(__DCClipper_2)
 {
 	//int dc = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
@@ -100,9 +100,9 @@ Gura_ImplementFunction(__wxDCClipper_2)
 Gura_ImplementUserInheritableClass(wx_DCClipper)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDCClipper);
-	Gura_AssignFunction(__wxDCClipper_1);
-	Gura_AssignFunction(__wxDCClipper_2);
+	Gura_AssignFunction(__DCClipper);
+	Gura_AssignFunction(__DCClipper_1);
+	Gura_AssignFunction(__DCClipper_2);
 }
 
 Gura_ImplementDescendantCreator(wx_DCClipper)

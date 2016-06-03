@@ -37,20 +37,20 @@ String Object_wx_NativeWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxNativeWindow, "wxNativeWindow")
+Gura_DeclareFunctionAlias(__NativeWindow, "NativeWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_NativeWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxNativeWindow)
+Gura_ImplementFunction(__NativeWindow)
 {
 	//wxNativeWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxNativeWindow_1, "wxNativeWindow_1")
+Gura_DeclareFunctionAlias(__NativeWindow_1, "NativeWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxNativeWindow_1, "wxNativeWindow_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxNativeWindow_1)
+Gura_ImplementFunction(__NativeWindow_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
@@ -95,8 +95,8 @@ Gura_ImplementMethod(wx_NativeWindow, __Disown)
 Gura_ImplementUserInheritableClass(wx_NativeWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxNativeWindow);
-	Gura_AssignFunction(__wxNativeWindow_1);
+	Gura_AssignFunction(__NativeWindow);
+	Gura_AssignFunction(__NativeWindow_1);
 	// Method assignment
 	Gura_AssignMethod(wx_NativeWindow, __Disown);
 }

@@ -37,7 +37,7 @@ String Object_wx_MouseCaptureChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMouseCaptureChangedEvent, "wxMouseCaptureChangedEvent")
+Gura_DeclareFunctionAlias(__MouseCaptureChangedEvent, "MouseCaptureChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "windowId", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxMouseCaptureChangedEvent, "wxMouseCaptureChangedEv
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMouseCaptureChangedEvent)
+Gura_ImplementFunction(__MouseCaptureChangedEvent)
 {
 	//int windowId = arg.GetNumber(0)
 	//int gainedCapture = arg.GetNumber(1)
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_MouseCaptureChangedEvent, __GetCapturedWindow)
 Gura_ImplementUserInheritableClass(wx_MouseCaptureChangedEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMouseCaptureChangedEvent);
+	Gura_AssignFunction(__MouseCaptureChangedEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_MouseCaptureChangedEvent, __GetCapturedWindow);
 }

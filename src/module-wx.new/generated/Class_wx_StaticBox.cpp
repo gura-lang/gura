@@ -37,20 +37,20 @@ String Object_wx_StaticBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStaticBox, "wxStaticBox")
+Gura_DeclareFunctionAlias(__StaticBox, "StaticBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StaticBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStaticBox)
+Gura_ImplementFunction(__StaticBox)
 {
 	//wxStaticBox();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxStaticBox_1, "wxStaticBox_1")
+Gura_DeclareFunctionAlias(__StaticBox_1, "StaticBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxStaticBox_1, "wxStaticBox_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStaticBox_1)
+Gura_ImplementFunction(__StaticBox_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -113,8 +113,8 @@ Gura_ImplementMethod(wx_StaticBox, __Create)
 Gura_ImplementUserInheritableClass(wx_StaticBox)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStaticBox);
-	Gura_AssignFunction(__wxStaticBox_1);
+	Gura_AssignFunction(__StaticBox);
+	Gura_AssignFunction(__StaticBox_1);
 	// Method assignment
 	Gura_AssignMethod(wx_StaticBox, __Create);
 }

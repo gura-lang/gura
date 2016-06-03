@@ -37,14 +37,14 @@ String Object_wx_TextAttrShadow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextAttrShadow, "wxTextAttrShadow")
+Gura_DeclareFunctionAlias(__TextAttrShadow, "TextAttrShadow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttrShadow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextAttrShadow)
+Gura_ImplementFunction(__TextAttrShadow)
 {
 	//wxTextAttrShadow();
 	return Value::Nil;
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_TextAttrShadow, __IsDefault)
 Gura_ImplementUserInheritableClass(wx_TextAttrShadow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextAttrShadow);
+	Gura_AssignFunction(__TextAttrShadow);
 	// Method assignment
 	Gura_AssignMethod(wx_TextAttrShadow, __Reset);
 	Gura_AssignMethod(wx_TextAttrShadow, __EqPartial);

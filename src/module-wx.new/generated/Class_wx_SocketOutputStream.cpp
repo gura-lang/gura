@@ -37,7 +37,7 @@ String Object_wx_SocketOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSocketOutputStream, "wxSocketOutputStream")
+Gura_DeclareFunctionAlias(__SocketOutputStream, "SocketOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxSocketOutputStream, "wxSocketOutputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSocketOutputStream)
+Gura_ImplementFunction(__SocketOutputStream)
 {
 	//int s = arg.GetNumber(0)
 	//wxSocketOutputStream();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxSocketOutputStream)
 Gura_ImplementUserInheritableClass(wx_SocketOutputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSocketOutputStream);
+	Gura_AssignFunction(__SocketOutputStream);
 }
 
 Gura_ImplementDescendantCreator(wx_SocketOutputStream)

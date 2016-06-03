@@ -37,7 +37,7 @@ String Object_wx_SashEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSashEvent, "wxSashEvent")
+Gura_DeclareFunctionAlias(__SashEvent, "SashEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxSashEvent, "wxSashEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSashEvent)
+Gura_ImplementFunction(__SashEvent)
 {
 	//int id = arg.GetNumber(0)
 	//int edge = arg.GetNumber(1)
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_SashEvent, __SetDragStatus)
 Gura_ImplementUserInheritableClass(wx_SashEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSashEvent);
+	Gura_AssignFunction(__SashEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_SashEvent, __GetDragRect);
 	Gura_AssignMethod(wx_SashEvent, __GetDragStatus);

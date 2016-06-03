@@ -37,20 +37,20 @@ String Object_wx_Window::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxWindow, "wxWindow")
+Gura_DeclareFunctionAlias(__Window, "Window")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Window));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWindow)
+Gura_ImplementFunction(__Window)
 {
 	//wxWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxWindow_1, "wxWindow_1")
+Gura_DeclareFunctionAlias(__Window_1, "Window_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxWindow_1, "wxWindow_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxWindow_1)
+Gura_ImplementFunction(__Window_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -687,8 +687,8 @@ Gura_ImplementMethod(wx_Window, __ChildrenRepositioningGuard)
 Gura_ImplementUserInheritableClass(wx_Window)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxWindow);
-	Gura_AssignFunction(__wxWindow_1);
+	Gura_AssignFunction(__Window);
+	Gura_AssignFunction(__Window_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Window, __Create);
 	Gura_AssignMethod(wx_Window, __AcceptsFocus);

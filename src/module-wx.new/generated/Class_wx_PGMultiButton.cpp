@@ -37,7 +37,7 @@ String Object_wx_PGMultiButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPGMultiButton, "wxPGMultiButton")
+Gura_DeclareFunctionAlias(__PGMultiButton, "PGMultiButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pg", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxPGMultiButton, "wxPGMultiButton")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPGMultiButton)
+Gura_ImplementFunction(__PGMultiButton)
 {
 	//int pg = arg.GetNumber(0)
 	//int sz = arg.GetNumber(1)
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_PGMultiButton, __GetPrimarySize)
 Gura_ImplementUserInheritableClass(wx_PGMultiButton)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPGMultiButton);
+	Gura_AssignFunction(__PGMultiButton);
 	// Method assignment
 	Gura_AssignMethod(wx_PGMultiButton, __Add);
 	Gura_AssignMethod(wx_PGMultiButton, __Add_1);

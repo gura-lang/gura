@@ -37,14 +37,14 @@ String Object_wx_ImageHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxImageHandler, "wxImageHandler")
+Gura_DeclareFunctionAlias(__ImageHandler, "ImageHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ImageHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxImageHandler)
+Gura_ImplementFunction(__ImageHandler)
 {
 	//wxImageHandler();
 	return Value::Nil;
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_ImageHandler, __DoCanRead)
 Gura_ImplementUserInheritableClass(wx_ImageHandler)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxImageHandler);
+	Gura_AssignFunction(__ImageHandler);
 	// Method assignment
 	Gura_AssignMethod(wx_ImageHandler, __CanRead);
 	Gura_AssignMethod(wx_ImageHandler, __CanRead_1);

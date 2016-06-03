@@ -37,14 +37,14 @@ String Object_wx_HtmlRenderingInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlRenderingInfo, "wxHtmlRenderingInfo")
+Gura_DeclareFunctionAlias(__HtmlRenderingInfo, "HtmlRenderingInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlRenderingInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlRenderingInfo)
+Gura_ImplementFunction(__HtmlRenderingInfo)
 {
 	//wxHtmlRenderingInfo();
 	return Value::Nil;
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_HtmlRenderingInfo, __GetState)
 Gura_ImplementUserInheritableClass(wx_HtmlRenderingInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlRenderingInfo);
+	Gura_AssignFunction(__HtmlRenderingInfo);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlRenderingInfo, __SetSelection);
 	Gura_AssignMethod(wx_HtmlRenderingInfo, __GetSelection);

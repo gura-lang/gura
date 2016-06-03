@@ -37,20 +37,20 @@ String Object_wx_Listbook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxListbook, "wxListbook")
+Gura_DeclareFunctionAlias(__Listbook, "Listbook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Listbook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListbook)
+Gura_ImplementFunction(__Listbook)
 {
 	//wxListbook();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxListbook_1, "wxListbook_1")
+Gura_DeclareFunctionAlias(__Listbook_1, "Listbook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxListbook_1, "wxListbook_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxListbook_1)
+Gura_ImplementFunction(__Listbook_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -122,8 +122,8 @@ Gura_ImplementMethod(wx_Listbook, __GetListView)
 Gura_ImplementUserInheritableClass(wx_Listbook)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxListbook);
-	Gura_AssignFunction(__wxListbook_1);
+	Gura_AssignFunction(__Listbook);
+	Gura_AssignFunction(__Listbook_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Listbook, __Create);
 	Gura_AssignMethod(wx_Listbook, __GetListView);

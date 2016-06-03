@@ -37,7 +37,7 @@ String Object_wx_ConfigPathChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxConfigPathChanger, "wxConfigPathChanger")
+Gura_DeclareFunctionAlias(__ConfigPathChanger, "ConfigPathChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pContainer", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxConfigPathChanger, "wxConfigPathChanger")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxConfigPathChanger)
+Gura_ImplementFunction(__ConfigPathChanger)
 {
 	//int pContainer = arg.GetNumber(0)
 	//int strEntry = arg.GetNumber(1)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_ConfigPathChanger, __UpdateIfDeleted)
 Gura_ImplementUserInheritableClass(wx_ConfigPathChanger)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxConfigPathChanger);
+	Gura_AssignFunction(__ConfigPathChanger);
 	// Method assignment
 	Gura_AssignMethod(wx_ConfigPathChanger, __Name);
 	Gura_AssignMethod(wx_ConfigPathChanger, __UpdateIfDeleted);

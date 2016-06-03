@@ -37,20 +37,20 @@ String Object_wx_RichTextFontTable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextFontTable, "wxRichTextFontTable")
+Gura_DeclareFunctionAlias(__RichTextFontTable, "RichTextFontTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextFontTable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextFontTable)
+Gura_ImplementFunction(__RichTextFontTable)
 {
 	//wxRichTextFontTable();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextFontTable_1, "wxRichTextFontTable_1")
+Gura_DeclareFunctionAlias(__RichTextFontTable_1, "RichTextFontTable_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxRichTextFontTable_1, "wxRichTextFontTable_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextFontTable_1)
+Gura_ImplementFunction(__RichTextFontTable_1)
 {
 	//int table = arg.GetNumber(0)
 	//wxRichTextFontTable();
@@ -130,8 +130,8 @@ Gura_ImplementMethod(wx_RichTextFontTable, __SetFontScale)
 Gura_ImplementUserInheritableClass(wx_RichTextFontTable)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextFontTable);
-	Gura_AssignFunction(__wxRichTextFontTable_1);
+	Gura_AssignFunction(__RichTextFontTable);
+	Gura_AssignFunction(__RichTextFontTable_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextFontTable, __IsOk);
 	Gura_AssignMethod(wx_RichTextFontTable, __FindFont);

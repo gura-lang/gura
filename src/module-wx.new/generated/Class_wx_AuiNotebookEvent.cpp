@@ -37,7 +37,7 @@ String Object_wx_AuiNotebookEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiNotebookEvent, "wxAuiNotebookEvent")
+Gura_DeclareFunctionAlias(__AuiNotebookEvent, "AuiNotebookEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxAuiNotebookEvent, "wxAuiNotebookEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiNotebookEvent)
+Gura_ImplementFunction(__AuiNotebookEvent)
 {
 	//int command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_AuiNotebookEvent, __Clone)
 Gura_ImplementUserInheritableClass(wx_AuiNotebookEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiNotebookEvent);
+	Gura_AssignFunction(__AuiNotebookEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiNotebookEvent, __Clone);
 }

@@ -37,7 +37,7 @@ String Object_wx_RichTextAttr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextAttr, "wxRichTextAttr")
+Gura_DeclareFunctionAlias(__RichTextAttr, "RichTextAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -45,34 +45,36 @@ Gura_DeclareFunctionAlias(__wxRichTextAttr, "wxRichTextAttr")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextAttr)
+Gura_ImplementFunction(__RichTextAttr)
 {
 	//int attr = arg.GetNumber(0)
 	//wxRichTextAttr();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextAttr_1, "wxRichTextAttr_1")
+Gura_DeclareFunctionAlias(__RichTextAttr_1, "RichTextAttr_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextAttr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextAttr_1)
+Gura_ImplementFunction(__RichTextAttr_1)
 {
+	//int attr = arg.GetNumber(0)
 	//wxRichTextAttr();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextAttr_2, "wxRichTextAttr_2")
+Gura_DeclareFunctionAlias(__RichTextAttr_2, "RichTextAttr_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextAttr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextAttr_2)
+Gura_ImplementFunction(__RichTextAttr_2)
 {
 	//wxRichTextAttr();
 	return Value::Nil;
@@ -224,9 +226,9 @@ Gura_ImplementMethod(wx_RichTextAttr, __IsDefault)
 Gura_ImplementUserInheritableClass(wx_RichTextAttr)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextAttr);
-	Gura_AssignFunction(__wxRichTextAttr_1);
-	Gura_AssignFunction(__wxRichTextAttr_2);
+	Gura_AssignFunction(__RichTextAttr);
+	Gura_AssignFunction(__RichTextAttr_1);
+	Gura_AssignFunction(__RichTextAttr_2);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextAttr, __Copy);
 	Gura_AssignMethod(wx_RichTextAttr, __EqPartial);

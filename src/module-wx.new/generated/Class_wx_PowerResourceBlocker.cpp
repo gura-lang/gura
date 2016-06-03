@@ -37,7 +37,7 @@ String Object_wx_PowerResourceBlocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPowerResourceBlocker, "wxPowerResourceBlocker")
+Gura_DeclareFunctionAlias(__PowerResourceBlocker, "PowerResourceBlocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxPowerResourceBlocker, "wxPowerResourceBlocker")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPowerResourceBlocker)
+Gura_ImplementFunction(__PowerResourceBlocker)
 {
 	//int kind = arg.GetNumber(0)
 	//int reason = arg.GetNumber(1)
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_PowerResourceBlocker, __IsInEffect)
 Gura_ImplementUserInheritableClass(wx_PowerResourceBlocker)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPowerResourceBlocker);
+	Gura_AssignFunction(__PowerResourceBlocker);
 	// Method assignment
 	Gura_AssignMethod(wx_PowerResourceBlocker, __IsInEffect);
 }

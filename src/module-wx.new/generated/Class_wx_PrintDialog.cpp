@@ -37,7 +37,7 @@ String Object_wx_PrintDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPrintDialog, "wxPrintDialog")
+Gura_DeclareFunctionAlias(__PrintDialog, "PrintDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxPrintDialog, "wxPrintDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPrintDialog)
+Gura_ImplementFunction(__PrintDialog)
 {
 	//int parent = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxPrintDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPrintDialog_1, "wxPrintDialog_1")
+Gura_DeclareFunctionAlias(__PrintDialog_1, "PrintDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxPrintDialog_1, "wxPrintDialog_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPrintDialog_1)
+Gura_ImplementFunction(__PrintDialog_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
@@ -132,8 +132,8 @@ Gura_ImplementMethod(wx_PrintDialog, __ShowModal)
 Gura_ImplementUserInheritableClass(wx_PrintDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPrintDialog);
-	Gura_AssignFunction(__wxPrintDialog_1);
+	Gura_AssignFunction(__PrintDialog);
+	Gura_AssignFunction(__PrintDialog_1);
 	// Method assignment
 	Gura_AssignMethod(wx_PrintDialog, __GetPrintDC);
 	Gura_AssignMethod(wx_PrintDialog, __GetPrintDialogData);

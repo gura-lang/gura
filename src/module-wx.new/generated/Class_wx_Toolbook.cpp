@@ -37,20 +37,20 @@ String Object_wx_Toolbook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxToolbook, "wxToolbook")
+Gura_DeclareFunctionAlias(__Toolbook, "Toolbook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Toolbook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxToolbook)
+Gura_ImplementFunction(__Toolbook)
 {
 	//wxToolbook();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxToolbook_1, "wxToolbook_1")
+Gura_DeclareFunctionAlias(__Toolbook_1, "Toolbook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxToolbook_1, "wxToolbook_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxToolbook_1)
+Gura_ImplementFunction(__Toolbook_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -122,8 +122,8 @@ Gura_ImplementMethod(wx_Toolbook, __GetToolBar)
 Gura_ImplementUserInheritableClass(wx_Toolbook)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxToolbook);
-	Gura_AssignFunction(__wxToolbook_1);
+	Gura_AssignFunction(__Toolbook);
+	Gura_AssignFunction(__Toolbook_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Toolbook, __Create);
 	Gura_AssignMethod(wx_Toolbook, __GetToolBar);

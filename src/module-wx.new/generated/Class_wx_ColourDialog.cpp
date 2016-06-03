@@ -37,7 +37,7 @@ String Object_wx_ColourDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxColourDialog, "wxColourDialog")
+Gura_DeclareFunctionAlias(__ColourDialog, "ColourDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxColourDialog, "wxColourDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxColourDialog)
+Gura_ImplementFunction(__ColourDialog)
 {
 	//int parent = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_ColourDialog, __ShowModal)
 Gura_ImplementUserInheritableClass(wx_ColourDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxColourDialog);
+	Gura_AssignFunction(__ColourDialog);
 	// Method assignment
 	Gura_AssignMethod(wx_ColourDialog, __Create);
 	Gura_AssignMethod(wx_ColourDialog, __GetColourData);

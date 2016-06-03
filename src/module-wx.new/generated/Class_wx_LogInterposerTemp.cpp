@@ -37,14 +37,14 @@ String Object_wx_LogInterposerTemp::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLogInterposerTemp, "wxLogInterposerTemp")
+Gura_DeclareFunctionAlias(__LogInterposerTemp, "LogInterposerTemp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogInterposerTemp));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLogInterposerTemp)
+Gura_ImplementFunction(__LogInterposerTemp)
 {
 	//wxLogInterposerTemp();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxLogInterposerTemp)
 Gura_ImplementUserInheritableClass(wx_LogInterposerTemp)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLogInterposerTemp);
+	Gura_AssignFunction(__LogInterposerTemp);
 }
 
 Gura_ImplementDescendantCreator(wx_LogInterposerTemp)

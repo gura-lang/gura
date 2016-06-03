@@ -37,7 +37,7 @@ String Object_wx_RichTextImage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextImage, "wxRichTextImage")
+Gura_DeclareFunctionAlias(__RichTextImage, "RichTextImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -45,14 +45,14 @@ Gura_DeclareFunctionAlias(__wxRichTextImage, "wxRichTextImage")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextImage)
+Gura_ImplementFunction(__RichTextImage)
 {
 	//int parent = arg.GetNumber(0)
 	//wxRichTextImage();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextImage_1, "wxRichTextImage_1")
+Gura_DeclareFunctionAlias(__RichTextImage_1, "RichTextImage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxRichTextImage_1, "wxRichTextImage_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextImage_1)
+Gura_ImplementFunction(__RichTextImage_1)
 {
 	//int image = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__wxRichTextImage_1)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextImage_2, "wxRichTextImage_2")
+Gura_DeclareFunctionAlias(__RichTextImage_2, "RichTextImage_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "imageBlock", VTYPE_number, OCCUR_Once);
@@ -81,7 +81,7 @@ Gura_DeclareFunctionAlias(__wxRichTextImage_2, "wxRichTextImage_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextImage_2)
+Gura_ImplementFunction(__RichTextImage_2)
 {
 	//int imageBlock = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
@@ -90,15 +90,17 @@ Gura_ImplementFunction(__wxRichTextImage_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextImage_3, "wxRichTextImage_3")
+Gura_DeclareFunctionAlias(__RichTextImage_3, "RichTextImage_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextImage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextImage_3)
+Gura_ImplementFunction(__RichTextImage_3)
 {
+	//int obj = arg.GetNumber(0)
 	//wxRichTextImage();
 	return Value::Nil;
 }
@@ -153,37 +155,6 @@ Gura_ImplementMethod(wx_RichTextImage, __Layout)
 	//int parentRect = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->Layout();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_RichTextImage, __GetRangeSize, "GetRangeSize")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "descent", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "partialExtents", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_RichTextImage, __GetRangeSize)
-{
-	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int range = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
-	//int descent = arg.GetNumber(2)
-	//int dc = arg.GetNumber(3)
-	//int context = arg.GetNumber(4)
-	//int flags = arg.GetNumber(5)
-	//int position = arg.GetNumber(6)
-	//int parentSize = arg.GetNumber(7)
-	//int partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize();
 	return Value::Nil;
 }
 
@@ -540,14 +511,13 @@ Gura_ImplementMethod(wx_RichTextImage, __SetImageState)
 Gura_ImplementUserInheritableClass(wx_RichTextImage)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextImage);
-	Gura_AssignFunction(__wxRichTextImage_1);
-	Gura_AssignFunction(__wxRichTextImage_2);
-	Gura_AssignFunction(__wxRichTextImage_3);
+	Gura_AssignFunction(__RichTextImage);
+	Gura_AssignFunction(__RichTextImage_1);
+	Gura_AssignFunction(__RichTextImage_2);
+	Gura_AssignFunction(__RichTextImage_3);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextImage, __Draw);
 	Gura_AssignMethod(wx_RichTextImage, __Layout);
-	Gura_AssignMethod(wx_RichTextImage, __GetRangeSize);
 	Gura_AssignMethod(wx_RichTextImage, __GetNaturalSize);
 	Gura_AssignMethod(wx_RichTextImage, __IsEmpty);
 	Gura_AssignMethod(wx_RichTextImage, __CanEditProperties);

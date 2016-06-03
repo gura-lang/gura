@@ -37,14 +37,14 @@ String Object_wx_FileSystem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileSystem, "wxFileSystem")
+Gura_DeclareFunctionAlias(__FileSystem, "FileSystem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileSystem));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileSystem)
+Gura_ImplementFunction(__FileSystem)
 {
 	//wxFileSystem();
 	return Value::Nil;
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_FileSystem, __URLToFileName)
 Gura_ImplementUserInheritableClass(wx_FileSystem)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileSystem);
+	Gura_AssignFunction(__FileSystem);
 	// Method assignment
 	Gura_AssignMethod(wx_FileSystem, __AddHandler);
 	Gura_AssignMethod(wx_FileSystem, __RemoveHandler);

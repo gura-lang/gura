@@ -37,7 +37,7 @@ String Object_wx_MoveEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMoveEvent, "wxMoveEvent")
+Gura_DeclareFunctionAlias(__MoveEvent, "MoveEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxMoveEvent, "wxMoveEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMoveEvent)
+Gura_ImplementFunction(__MoveEvent)
 {
 	//int pt = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_MoveEvent, __SetPosition)
 Gura_ImplementUserInheritableClass(wx_MoveEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMoveEvent);
+	Gura_AssignFunction(__MoveEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_MoveEvent, __GetPosition);
 	Gura_AssignMethod(wx_MoveEvent, __GetRect);

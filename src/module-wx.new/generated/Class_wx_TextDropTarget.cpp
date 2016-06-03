@@ -37,14 +37,14 @@ String Object_wx_TextDropTarget::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextDropTarget, "wxTextDropTarget")
+Gura_DeclareFunctionAlias(__TextDropTarget, "TextDropTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextDropTarget));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextDropTarget)
+Gura_ImplementFunction(__TextDropTarget)
 {
 	//wxTextDropTarget();
 	return Value::Nil;
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_TextDropTarget, __OnDropText)
 Gura_ImplementUserInheritableClass(wx_TextDropTarget)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextDropTarget);
+	Gura_AssignFunction(__TextDropTarget);
 	// Method assignment
 	Gura_AssignMethod(wx_TextDropTarget, __OnDrop);
 	Gura_AssignMethod(wx_TextDropTarget, __OnDropText);

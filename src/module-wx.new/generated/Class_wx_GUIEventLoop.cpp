@@ -37,14 +37,14 @@ String Object_wx_GUIEventLoop::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGUIEventLoop, "wxGUIEventLoop")
+Gura_DeclareFunctionAlias(__GUIEventLoop, "GUIEventLoop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GUIEventLoop));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGUIEventLoop)
+Gura_ImplementFunction(__GUIEventLoop)
 {
 	//wxGUIEventLoop();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxGUIEventLoop)
 Gura_ImplementUserInheritableClass(wx_GUIEventLoop)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGUIEventLoop);
+	Gura_AssignFunction(__GUIEventLoop);
 }
 
 Gura_ImplementDescendantCreator(wx_GUIEventLoop)

@@ -37,14 +37,14 @@ String Object_wx_AuiDefaultTabArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiDefaultTabArt, "wxAuiDefaultTabArt")
+Gura_DeclareFunctionAlias(__AuiDefaultTabArt, "AuiDefaultTabArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiDefaultTabArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiDefaultTabArt)
+Gura_ImplementFunction(__AuiDefaultTabArt)
 {
 	//wxAuiDefaultTabArt();
 	return Value::Nil;
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __GetBestTabCtrlSize)
 Gura_ImplementUserInheritableClass(wx_AuiDefaultTabArt)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiDefaultTabArt);
+	Gura_AssignFunction(__AuiDefaultTabArt);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiDefaultTabArt, __Clone);
 	Gura_AssignMethod(wx_AuiDefaultTabArt, __SetFlags);

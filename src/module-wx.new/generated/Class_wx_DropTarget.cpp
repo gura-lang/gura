@@ -37,7 +37,7 @@ String Object_wx_DropTarget::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDropTarget, "wxDropTarget")
+Gura_DeclareFunctionAlias(__DropTarget, "DropTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxDropTarget, "wxDropTarget")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDropTarget)
+Gura_ImplementFunction(__DropTarget)
 {
 	//int data = arg.GetNumber(0)
 	//wxDropTarget();
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_DropTarget, __GetDefaultAction)
 Gura_ImplementUserInheritableClass(wx_DropTarget)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDropTarget);
+	Gura_AssignFunction(__DropTarget);
 	// Method assignment
 	Gura_AssignMethod(wx_DropTarget, __GetData);
 	Gura_AssignMethod(wx_DropTarget, __OnData);

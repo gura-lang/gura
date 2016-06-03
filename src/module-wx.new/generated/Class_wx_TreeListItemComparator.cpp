@@ -37,14 +37,14 @@ String Object_wx_TreeListItemComparator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTreeListItemComparator, "wxTreeListItemComparator")
+Gura_DeclareFunctionAlias(__TreeListItemComparator, "TreeListItemComparator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeListItemComparator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTreeListItemComparator)
+Gura_ImplementFunction(__TreeListItemComparator)
 {
 	//wxTreeListItemComparator();
 	return Value::Nil;
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_TreeListItemComparator, __Compare)
 Gura_ImplementUserInheritableClass(wx_TreeListItemComparator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTreeListItemComparator);
+	Gura_AssignFunction(__TreeListItemComparator);
 	// Method assignment
 	Gura_AssignMethod(wx_TreeListItemComparator, __Compare);
 }

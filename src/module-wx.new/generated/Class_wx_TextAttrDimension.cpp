@@ -37,20 +37,20 @@ String Object_wx_TextAttrDimension::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextAttrDimension, "wxTextAttrDimension")
+Gura_DeclareFunctionAlias(__TextAttrDimension, "TextAttrDimension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttrDimension));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextAttrDimension)
+Gura_ImplementFunction(__TextAttrDimension)
 {
 	//wxTextAttrDimension();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxTextAttrDimension_1, "wxTextAttrDimension_1")
+Gura_DeclareFunctionAlias(__TextAttrDimension_1, "TextAttrDimension_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxTextAttrDimension_1, "wxTextAttrDimension_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextAttrDimension_1)
+Gura_ImplementFunction(__TextAttrDimension_1)
 {
 	//int value = arg.GetNumber(0)
 	//int units = arg.GetNumber(1)
@@ -359,8 +359,8 @@ Gura_ImplementMethod(wx_TextAttrDimension, __SetFlags)
 Gura_ImplementUserInheritableClass(wx_TextAttrDimension)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextAttrDimension);
-	Gura_AssignFunction(__wxTextAttrDimension_1);
+	Gura_AssignFunction(__TextAttrDimension);
+	Gura_AssignFunction(__TextAttrDimension_1);
 	// Method assignment
 	Gura_AssignMethod(wx_TextAttrDimension, __Reset);
 	Gura_AssignMethod(wx_TextAttrDimension, __EqPartial);

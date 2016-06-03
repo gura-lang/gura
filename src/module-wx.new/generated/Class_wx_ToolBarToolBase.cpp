@@ -37,7 +37,7 @@ String Object_wx_ToolBarToolBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxToolBarToolBase, "wxToolBarToolBase")
+Gura_DeclareFunctionAlias(__ToolBarToolBase, "ToolBarToolBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tbar", VTYPE_number, OCCUR_Once);
@@ -53,7 +53,7 @@ Gura_DeclareFunctionAlias(__wxToolBarToolBase, "wxToolBarToolBase")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxToolBarToolBase)
+Gura_ImplementFunction(__ToolBarToolBase)
 {
 	//int tbar = arg.GetNumber(0)
 	//int toolid = arg.GetNumber(1)
@@ -68,7 +68,7 @@ Gura_ImplementFunction(__wxToolBarToolBase)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxToolBarToolBase_1, "wxToolBarToolBase_1")
+Gura_DeclareFunctionAlias(__ToolBarToolBase_1, "ToolBarToolBase_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tbar", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__wxToolBarToolBase_1, "wxToolBarToolBase_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxToolBarToolBase_1)
+Gura_ImplementFunction(__ToolBarToolBase_1)
 {
 	//int tbar = arg.GetNumber(0)
 	//int control = arg.GetNumber(1)
@@ -397,8 +397,8 @@ Gura_ImplementMethod(wx_ToolBarToolBase, __GetDropdownMenu)
 Gura_ImplementUserInheritableClass(wx_ToolBarToolBase)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxToolBarToolBase);
-	Gura_AssignFunction(__wxToolBarToolBase_1);
+	Gura_AssignFunction(__ToolBarToolBase);
+	Gura_AssignFunction(__ToolBarToolBase_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ToolBarToolBase, __GetId);
 	Gura_AssignMethod(wx_ToolBarToolBase, __GetControl);

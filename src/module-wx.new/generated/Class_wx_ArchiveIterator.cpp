@@ -37,20 +37,20 @@ String Object_wx_ArchiveIterator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxArchiveIterator, "wxArchiveIterator")
+Gura_DeclareFunctionAlias(__ArchiveIterator, "ArchiveIterator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ArchiveIterator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxArchiveIterator)
+Gura_ImplementFunction(__ArchiveIterator)
 {
 	//wxArchiveIterator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxArchiveIterator_1, "wxArchiveIterator_1")
+Gura_DeclareFunctionAlias(__ArchiveIterator_1, "ArchiveIterator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "arc", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__wxArchiveIterator_1, "wxArchiveIterator_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxArchiveIterator_1)
+Gura_ImplementFunction(__ArchiveIterator_1)
 {
 	//int arc = arg.GetNumber(0)
 	//wxArchiveIterator();
@@ -71,8 +71,8 @@ Gura_ImplementFunction(__wxArchiveIterator_1)
 Gura_ImplementUserInheritableClass(wx_ArchiveIterator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxArchiveIterator);
-	Gura_AssignFunction(__wxArchiveIterator_1);
+	Gura_AssignFunction(__ArchiveIterator);
+	Gura_AssignFunction(__ArchiveIterator_1);
 }
 
 Gura_ImplementDescendantCreator(wx_ArchiveIterator)

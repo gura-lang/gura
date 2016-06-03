@@ -37,7 +37,7 @@ String Object_wx_ZlibInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxZlibInputStream, "wxZlibInputStream")
+Gura_DeclareFunctionAlias(__ZlibInputStream, "ZlibInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxZlibInputStream, "wxZlibInputStream")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxZlibInputStream)
+Gura_ImplementFunction(__ZlibInputStream)
 {
 	//int stream = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__wxZlibInputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxZlibInputStream_1, "wxZlibInputStream_1")
+Gura_DeclareFunctionAlias(__ZlibInputStream_1, "ZlibInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxZlibInputStream_1, "wxZlibInputStream_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxZlibInputStream_1)
+Gura_ImplementFunction(__ZlibInputStream_1)
 {
 	//int stream = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -125,8 +125,8 @@ Gura_ImplementMethod(wx_ZlibInputStream, __SetDictionary_1)
 Gura_ImplementUserInheritableClass(wx_ZlibInputStream)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxZlibInputStream);
-	Gura_AssignFunction(__wxZlibInputStream_1);
+	Gura_AssignFunction(__ZlibInputStream);
+	Gura_AssignFunction(__ZlibInputStream_1);
 	// Method assignment
 	Gura_AssignMethod(wx_ZlibInputStream, __CanHandleGZip);
 	Gura_AssignMethod(wx_ZlibInputStream, __SetDictionary);

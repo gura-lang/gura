@@ -37,20 +37,20 @@ String Object_wx_ArrayString::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxArrayString, "wxArrayString")
+Gura_DeclareFunctionAlias(__ArrayString, "ArrayString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxArrayString)
+Gura_ImplementFunction(__ArrayString)
 {
 	//wxArrayString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxArrayString_1, "wxArrayString_1")
+Gura_DeclareFunctionAlias(__ArrayString_1, "ArrayString_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxArrayString_1, "wxArrayString_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxArrayString_1)
+Gura_ImplementFunction(__ArrayString_1)
 {
 	//int array = arg.GetNumber(0)
 	//wxArrayString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxArrayString_2, "wxArrayString_2")
+Gura_DeclareFunctionAlias(__ArrayString_2, "ArrayString_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_DeclareFunctionAlias(__wxArrayString_2, "wxArrayString_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxArrayString_2)
+Gura_ImplementFunction(__ArrayString_2)
 {
 	//int sz = arg.GetNumber(0)
 	//int arr = arg.GetNumber(1)
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__wxArrayString_2)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxArrayString_3, "wxArrayString_3")
+Gura_DeclareFunctionAlias(__ArrayString_3, "ArrayString_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
@@ -91,7 +91,7 @@ Gura_DeclareFunctionAlias(__wxArrayString_3, "wxArrayString_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxArrayString_3)
+Gura_ImplementFunction(__ArrayString_3)
 {
 	//int sz = arg.GetNumber(0)
 	//int arr = arg.GetNumber(1)
@@ -99,7 +99,7 @@ Gura_ImplementFunction(__wxArrayString_3)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxArrayString_4, "wxArrayString_4")
+Gura_DeclareFunctionAlias(__ArrayString_4, "ArrayString_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
@@ -108,7 +108,7 @@ Gura_DeclareFunctionAlias(__wxArrayString_4, "wxArrayString_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxArrayString_4)
+Gura_ImplementFunction(__ArrayString_4)
 {
 	//int sz = arg.GetNumber(0)
 	//int arr = arg.GetNumber(1)
@@ -395,11 +395,11 @@ Gura_ImplementMethod(wx_ArrayString, __Sort_1)
 Gura_ImplementUserInheritableClass(wx_ArrayString)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxArrayString);
-	Gura_AssignFunction(__wxArrayString_1);
-	Gura_AssignFunction(__wxArrayString_2);
-	Gura_AssignFunction(__wxArrayString_3);
-	Gura_AssignFunction(__wxArrayString_4);
+	Gura_AssignFunction(__ArrayString);
+	Gura_AssignFunction(__ArrayString_1);
+	Gura_AssignFunction(__ArrayString_2);
+	Gura_AssignFunction(__ArrayString_3);
+	Gura_AssignFunction(__ArrayString_4);
 	// Method assignment
 	Gura_AssignMethod(wx_ArrayString, __int);
 	Gura_AssignMethod(wx_ArrayString, __Add);

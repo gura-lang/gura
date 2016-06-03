@@ -37,14 +37,14 @@ String Object_wx_View::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxView, "wxView")
+Gura_DeclareFunctionAlias(__View, "View")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_View));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxView)
+Gura_ImplementFunction(__View)
 {
 	//wxView();
 	return Value::Nil;
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_View, __SetViewName)
 Gura_ImplementUserInheritableClass(wx_View)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxView);
+	Gura_AssignFunction(__View);
 	// Method assignment
 	Gura_AssignMethod(wx_View, __Activate);
 	Gura_AssignMethod(wx_View, __Close);

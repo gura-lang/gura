@@ -37,28 +37,30 @@ String Object_wx_RichTextBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextBuffer, "wxRichTextBuffer")
+Gura_DeclareFunctionAlias(__RichTextBuffer, "RichTextBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextBuffer)
+Gura_ImplementFunction(__RichTextBuffer)
 {
 	//wxRichTextBuffer();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextBuffer_1, "wxRichTextBuffer_1")
+Gura_DeclareFunctionAlias(__RichTextBuffer_1, "RichTextBuffer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextBuffer_1)
+Gura_ImplementFunction(__RichTextBuffer_1)
 {
+	//int obj = arg.GetNumber(0)
 	//wxRichTextBuffer();
 	return Value::Nil;
 }
@@ -1895,8 +1897,8 @@ Gura_ImplementMethod(wx_RichTextBuffer, __SetFloatingLayoutMode)
 Gura_ImplementUserInheritableClass(wx_RichTextBuffer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextBuffer);
-	Gura_AssignFunction(__wxRichTextBuffer_1);
+	Gura_AssignFunction(__RichTextBuffer);
+	Gura_AssignFunction(__RichTextBuffer_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextBuffer, __GetCommandProcessor);
 	Gura_AssignMethod(wx_RichTextBuffer, __SetStyleSheet);

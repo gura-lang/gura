@@ -37,20 +37,20 @@ String Object_wx_Simplebook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSimplebook, "wxSimplebook")
+Gura_DeclareFunctionAlias(__Simplebook, "Simplebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Simplebook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSimplebook)
+Gura_ImplementFunction(__Simplebook)
 {
 	//wxSimplebook();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSimplebook_1, "wxSimplebook_1")
+Gura_DeclareFunctionAlias(__Simplebook_1, "Simplebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxSimplebook_1, "wxSimplebook_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSimplebook_1)
+Gura_ImplementFunction(__Simplebook_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -188,8 +188,8 @@ Gura_ImplementMethod(wx_Simplebook, __ShowNewPage)
 Gura_ImplementUserInheritableClass(wx_Simplebook)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSimplebook);
-	Gura_AssignFunction(__wxSimplebook_1);
+	Gura_AssignFunction(__Simplebook);
+	Gura_AssignFunction(__Simplebook_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Simplebook, __Create);
 	Gura_AssignMethod(wx_Simplebook, __SetEffects);

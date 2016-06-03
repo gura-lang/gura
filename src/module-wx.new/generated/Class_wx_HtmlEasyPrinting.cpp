@@ -37,7 +37,7 @@ String Object_wx_HtmlEasyPrinting::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlEasyPrinting, "wxHtmlEasyPrinting")
+Gura_DeclareFunctionAlias(__HtmlEasyPrinting, "HtmlEasyPrinting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxHtmlEasyPrinting, "wxHtmlEasyPrinting")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlEasyPrinting)
+Gura_ImplementFunction(__HtmlEasyPrinting)
 {
 	//int name = arg.GetNumber(0)
 	//int parentWindow = arg.GetNumber(1)
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __CheckFit)
 Gura_ImplementUserInheritableClass(wx_HtmlEasyPrinting)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlEasyPrinting);
+	Gura_AssignFunction(__HtmlEasyPrinting);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlEasyPrinting, __GetName);
 	Gura_AssignMethod(wx_HtmlEasyPrinting, __GetPageSetupData);

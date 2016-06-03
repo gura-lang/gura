@@ -37,7 +37,7 @@ String Object_wx_RichTextCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextCell, "wxRichTextCell")
+Gura_DeclareFunctionAlias(__RichTextCell, "RichTextCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -45,22 +45,24 @@ Gura_DeclareFunctionAlias(__wxRichTextCell, "wxRichTextCell")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextCell)
+Gura_ImplementFunction(__RichTextCell)
 {
 	//int parent = arg.GetNumber(0)
 	//wxRichTextCell();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextCell_1, "wxRichTextCell_1")
+Gura_DeclareFunctionAlias(__RichTextCell_1, "RichTextCell_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextCell));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextCell_1)
+Gura_ImplementFunction(__RichTextCell_1)
 {
+	//int obj = arg.GetNumber(0)
 	//wxRichTextCell();
 	return Value::Nil;
 }
@@ -268,8 +270,8 @@ Gura_ImplementMethod(wx_RichTextCell, __Copy)
 Gura_ImplementUserInheritableClass(wx_RichTextCell)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextCell);
-	Gura_AssignFunction(__wxRichTextCell_1);
+	Gura_AssignFunction(__RichTextCell);
+	Gura_AssignFunction(__RichTextCell_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextCell, __Draw);
 	Gura_AssignMethod(wx_RichTextCell, __HitTest);

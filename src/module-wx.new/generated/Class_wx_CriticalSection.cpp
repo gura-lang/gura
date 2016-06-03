@@ -37,7 +37,7 @@ String Object_wx_CriticalSection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCriticalSection, "wxCriticalSection")
+Gura_DeclareFunctionAlias(__CriticalSection, "CriticalSection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "critSecType", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxCriticalSection, "wxCriticalSection")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCriticalSection)
+Gura_ImplementFunction(__CriticalSection)
 {
 	//int critSecType = arg.GetNumber(0)
 	//wxCriticalSection();
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_CriticalSection, __Leave)
 Gura_ImplementUserInheritableClass(wx_CriticalSection)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCriticalSection);
+	Gura_AssignFunction(__CriticalSection);
 	// Method assignment
 	Gura_AssignMethod(wx_CriticalSection, __Enter);
 	Gura_AssignMethod(wx_CriticalSection, __TryEnter);

@@ -37,20 +37,20 @@ String Object_wx_HeaderCtrlSimple::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHeaderCtrlSimple, "wxHeaderCtrlSimple")
+Gura_DeclareFunctionAlias(__HeaderCtrlSimple, "HeaderCtrlSimple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HeaderCtrlSimple));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHeaderCtrlSimple)
+Gura_ImplementFunction(__HeaderCtrlSimple)
 {
 	//wxHeaderCtrlSimple();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxHeaderCtrlSimple_1, "wxHeaderCtrlSimple_1")
+Gura_DeclareFunctionAlias(__HeaderCtrlSimple_1, "HeaderCtrlSimple_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxHeaderCtrlSimple_1, "wxHeaderCtrlSimple_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHeaderCtrlSimple_1)
+Gura_ImplementFunction(__HeaderCtrlSimple_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
@@ -208,8 +208,8 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __GetBestFittingWidth)
 Gura_ImplementUserInheritableClass(wx_HeaderCtrlSimple)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHeaderCtrlSimple);
-	Gura_AssignFunction(__wxHeaderCtrlSimple_1);
+	Gura_AssignFunction(__HeaderCtrlSimple);
+	Gura_AssignFunction(__HeaderCtrlSimple_1);
 	// Method assignment
 	Gura_AssignMethod(wx_HeaderCtrlSimple, __InsertColumn);
 	Gura_AssignMethod(wx_HeaderCtrlSimple, __AppendColumn);

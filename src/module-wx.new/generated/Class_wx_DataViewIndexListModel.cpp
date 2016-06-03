@@ -37,7 +37,7 @@ String Object_wx_DataViewIndexListModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxDataViewIndexListModel, "wxDataViewIndexListModel")
+Gura_DeclareFunctionAlias(__DataViewIndexListModel, "DataViewIndexListModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initial_size", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxDataViewIndexListModel, "wxDataViewIndexListModel"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxDataViewIndexListModel)
+Gura_ImplementFunction(__DataViewIndexListModel)
 {
 	//int initial_size = arg.GetNumber(0)
 	//wxDataViewIndexListModel();
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, __RowsDeleted)
 Gura_ImplementUserInheritableClass(wx_DataViewIndexListModel)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxDataViewIndexListModel);
+	Gura_AssignFunction(__DataViewIndexListModel);
 	// Method assignment
 	Gura_AssignMethod(wx_DataViewIndexListModel, __GetItem);
 	Gura_AssignMethod(wx_DataViewIndexListModel, __Reset);

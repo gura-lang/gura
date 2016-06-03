@@ -37,28 +37,30 @@ String Object_wx_RichTextProperties::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextProperties, "wxRichTextProperties")
+Gura_DeclareFunctionAlias(__RichTextProperties, "RichTextProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextProperties));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextProperties)
+Gura_ImplementFunction(__RichTextProperties)
 {
 	//wxRichTextProperties();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextProperties_1, "wxRichTextProperties_1")
+Gura_DeclareFunctionAlias(__RichTextProperties_1, "RichTextProperties_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "props", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextProperties));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextProperties_1)
+Gura_ImplementFunction(__RichTextProperties_1)
 {
+	//int props = arg.GetNumber(0)
 	//wxRichTextProperties();
 	return Value::Nil;
 }
@@ -449,8 +451,8 @@ Gura_ImplementMethod(wx_RichTextProperties, __MergeProperties)
 Gura_ImplementUserInheritableClass(wx_RichTextProperties)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextProperties);
-	Gura_AssignFunction(__wxRichTextProperties_1);
+	Gura_AssignFunction(__RichTextProperties);
+	Gura_AssignFunction(__RichTextProperties_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextProperties, __Copy);
 	Gura_AssignMethod(wx_RichTextProperties, __Clear);

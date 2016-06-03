@@ -37,20 +37,20 @@ String Object_wx_Any::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAny, "wxAny")
+Gura_DeclareFunctionAlias(__Any, "Any")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Any));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAny)
+Gura_ImplementFunction(__Any)
 {
 	//wxAny();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAny_1, "wxAny_1")
+Gura_DeclareFunctionAlias(__Any_1, "Any_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxAny_1, "wxAny_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAny_1)
+Gura_ImplementFunction(__Any_1)
 {
 	//int value = arg.GetNumber(0)
 	//wxAny();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAny_2, "wxAny_2")
+Gura_DeclareFunctionAlias(__Any_2, "Any_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "any", VTYPE_number, OCCUR_Once);
@@ -73,14 +73,14 @@ Gura_DeclareFunctionAlias(__wxAny_2, "wxAny_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAny_2)
+Gura_ImplementFunction(__Any_2)
 {
 	//int any = arg.GetNumber(0)
 	//wxAny();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAny_3, "wxAny_3")
+Gura_DeclareFunctionAlias(__Any_3, "Any_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
@@ -88,7 +88,7 @@ Gura_DeclareFunctionAlias(__wxAny_3, "wxAny_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAny_3)
+Gura_ImplementFunction(__Any_3)
 {
 	//int variant = arg.GetNumber(0)
 	//wxAny();
@@ -214,10 +214,10 @@ Gura_ImplementMethod(wx_Any, __MakeNull)
 Gura_ImplementUserInheritableClass(wx_Any)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAny);
-	Gura_AssignFunction(__wxAny_1);
-	Gura_AssignFunction(__wxAny_2);
-	Gura_AssignFunction(__wxAny_3);
+	Gura_AssignFunction(__Any);
+	Gura_AssignFunction(__Any_1);
+	Gura_AssignFunction(__Any_2);
+	Gura_AssignFunction(__Any_3);
 	// Method assignment
 	Gura_AssignMethod(wx_Any, __As);
 	Gura_AssignMethod(wx_Any, __CheckType);

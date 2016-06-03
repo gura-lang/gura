@@ -37,35 +37,20 @@ String Object_wx_UString::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxUString, "wxUString")
+Gura_DeclareFunctionAlias(__UString, "UString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_UString));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString)
+Gura_ImplementFunction(__UString)
 {
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_1, "wxUString_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
-	SetClassToConstruct(Gura_UserClass(wx_UString));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(__wxUString_1)
-{
-	//int str = arg.GetNumber(0)
-	//wxUString();
-	return Value::Nil;
-}
-
-Gura_DeclareFunctionAlias(__wxUString_2, "wxUString_2")
+Gura_DeclareFunctionAlias(__UString_1, "UString_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -73,14 +58,29 @@ Gura_DeclareFunctionAlias(__wxUString_2, "wxUString_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_2)
+Gura_ImplementFunction(__UString_1)
 {
 	//int str = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_3, "wxUString_3")
+Gura_DeclareFunctionAlias(__UString_2, "UString_2")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_UString));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(__UString_2)
+{
+	//int str = arg.GetNumber(0)
+	//wxUString();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__UString_3, "UString_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
@@ -88,14 +88,14 @@ Gura_DeclareFunctionAlias(__wxUString_3, "wxUString_3")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_3)
+Gura_ImplementFunction(__UString_3)
 {
 	//int buf = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_4, "wxUString_4")
+Gura_DeclareFunctionAlias(__UString_4, "UString_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -103,14 +103,14 @@ Gura_DeclareFunctionAlias(__wxUString_4, "wxUString_4")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_4)
+Gura_ImplementFunction(__UString_4)
 {
 	//int str = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_5, "wxUString_5")
+Gura_DeclareFunctionAlias(__UString_5, "UString_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
@@ -118,14 +118,14 @@ Gura_DeclareFunctionAlias(__wxUString_5, "wxUString_5")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_5)
+Gura_ImplementFunction(__UString_5)
 {
 	//int buf = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_6, "wxUString_6")
+Gura_DeclareFunctionAlias(__UString_6, "UString_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -134,7 +134,7 @@ Gura_DeclareFunctionAlias(__wxUString_6, "wxUString_6")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_6)
+Gura_ImplementFunction(__UString_6)
 {
 	//int str = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
@@ -142,7 +142,7 @@ Gura_ImplementFunction(__wxUString_6)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_7, "wxUString_7")
+Gura_DeclareFunctionAlias(__UString_7, "UString_7")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
@@ -151,7 +151,7 @@ Gura_DeclareFunctionAlias(__wxUString_7, "wxUString_7")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_7)
+Gura_ImplementFunction(__UString_7)
 {
 	//int buf = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
@@ -159,7 +159,7 @@ Gura_ImplementFunction(__wxUString_7)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_8, "wxUString_8")
+Gura_DeclareFunctionAlias(__UString_8, "UString_8")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -167,14 +167,14 @@ Gura_DeclareFunctionAlias(__wxUString_8, "wxUString_8")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_8)
+Gura_ImplementFunction(__UString_8)
 {
 	//int str = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_9, "wxUString_9")
+Gura_DeclareFunctionAlias(__UString_9, "UString_9")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
@@ -182,14 +182,14 @@ Gura_DeclareFunctionAlias(__wxUString_9, "wxUString_9")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_9)
+Gura_ImplementFunction(__UString_9)
 {
 	//int buf = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_10, "wxUString_10")
+Gura_DeclareFunctionAlias(__UString_10, "UString_10")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -197,14 +197,14 @@ Gura_DeclareFunctionAlias(__wxUString_10, "wxUString_10")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_10)
+Gura_ImplementFunction(__UString_10)
 {
 	//int str = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_11, "wxUString_11")
+Gura_DeclareFunctionAlias(__UString_11, "UString_11")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
@@ -212,14 +212,14 @@ Gura_DeclareFunctionAlias(__wxUString_11, "wxUString_11")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_11)
+Gura_ImplementFunction(__UString_11)
 {
 	//int ch = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_12, "wxUString_12")
+Gura_DeclareFunctionAlias(__UString_12, "UString_12")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
@@ -227,14 +227,14 @@ Gura_DeclareFunctionAlias(__wxUString_12, "wxUString_12")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_12)
+Gura_ImplementFunction(__UString_12)
 {
 	//int ch = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_13, "wxUString_13")
+Gura_DeclareFunctionAlias(__UString_13, "UString_13")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
@@ -242,14 +242,14 @@ Gura_DeclareFunctionAlias(__wxUString_13, "wxUString_13")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_13)
+Gura_ImplementFunction(__UString_13)
 {
 	//int ch = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_14, "wxUString_14")
+Gura_DeclareFunctionAlias(__UString_14, "UString_14")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
@@ -257,14 +257,14 @@ Gura_DeclareFunctionAlias(__wxUString_14, "wxUString_14")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_14)
+Gura_ImplementFunction(__UString_14)
 {
 	//int ch = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_15, "wxUString_15")
+Gura_DeclareFunctionAlias(__UString_15, "UString_15")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
@@ -272,14 +272,14 @@ Gura_DeclareFunctionAlias(__wxUString_15, "wxUString_15")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_15)
+Gura_ImplementFunction(__UString_15)
 {
 	//int ch = arg.GetNumber(0)
 	//wxUString();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_16, "wxUString_16")
+Gura_DeclareFunctionAlias(__UString_16, "UString_16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -288,7 +288,7 @@ Gura_DeclareFunctionAlias(__wxUString_16, "wxUString_16")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_16)
+Gura_ImplementFunction(__UString_16)
 {
 	//int n = arg.GetNumber(0)
 	//int ch = arg.GetNumber(1)
@@ -296,7 +296,7 @@ Gura_ImplementFunction(__wxUString_16)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_17, "wxUString_17")
+Gura_DeclareFunctionAlias(__UString_17, "UString_17")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -305,7 +305,7 @@ Gura_DeclareFunctionAlias(__wxUString_17, "wxUString_17")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_17)
+Gura_ImplementFunction(__UString_17)
 {
 	//int n = arg.GetNumber(0)
 	//int ch = arg.GetNumber(1)
@@ -313,7 +313,7 @@ Gura_ImplementFunction(__wxUString_17)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_18, "wxUString_18")
+Gura_DeclareFunctionAlias(__UString_18, "UString_18")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -322,7 +322,7 @@ Gura_DeclareFunctionAlias(__wxUString_18, "wxUString_18")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_18)
+Gura_ImplementFunction(__UString_18)
 {
 	//int n = arg.GetNumber(0)
 	//int ch = arg.GetNumber(1)
@@ -330,7 +330,7 @@ Gura_ImplementFunction(__wxUString_18)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_19, "wxUString_19")
+Gura_DeclareFunctionAlias(__UString_19, "UString_19")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -339,7 +339,7 @@ Gura_DeclareFunctionAlias(__wxUString_19, "wxUString_19")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_19)
+Gura_ImplementFunction(__UString_19)
 {
 	//int n = arg.GetNumber(0)
 	//int ch = arg.GetNumber(1)
@@ -347,7 +347,7 @@ Gura_ImplementFunction(__wxUString_19)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxUString_20, "wxUString_20")
+Gura_DeclareFunctionAlias(__UString_20, "UString_20")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -356,7 +356,7 @@ Gura_DeclareFunctionAlias(__wxUString_20, "wxUString_20")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxUString_20)
+Gura_ImplementFunction(__UString_20)
 {
 	//int n = arg.GetNumber(0)
 	//int ch = arg.GetNumber(1)
@@ -696,27 +696,27 @@ Gura_ImplementMethod(wx_UString, __insert)
 Gura_ImplementUserInheritableClass(wx_UString)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxUString);
-	Gura_AssignFunction(__wxUString_1);
-	Gura_AssignFunction(__wxUString_2);
-	Gura_AssignFunction(__wxUString_3);
-	Gura_AssignFunction(__wxUString_4);
-	Gura_AssignFunction(__wxUString_5);
-	Gura_AssignFunction(__wxUString_6);
-	Gura_AssignFunction(__wxUString_7);
-	Gura_AssignFunction(__wxUString_8);
-	Gura_AssignFunction(__wxUString_9);
-	Gura_AssignFunction(__wxUString_10);
-	Gura_AssignFunction(__wxUString_11);
-	Gura_AssignFunction(__wxUString_12);
-	Gura_AssignFunction(__wxUString_13);
-	Gura_AssignFunction(__wxUString_14);
-	Gura_AssignFunction(__wxUString_15);
-	Gura_AssignFunction(__wxUString_16);
-	Gura_AssignFunction(__wxUString_17);
-	Gura_AssignFunction(__wxUString_18);
-	Gura_AssignFunction(__wxUString_19);
-	Gura_AssignFunction(__wxUString_20);
+	Gura_AssignFunction(__UString);
+	Gura_AssignFunction(__UString_1);
+	Gura_AssignFunction(__UString_2);
+	Gura_AssignFunction(__UString_3);
+	Gura_AssignFunction(__UString_4);
+	Gura_AssignFunction(__UString_5);
+	Gura_AssignFunction(__UString_6);
+	Gura_AssignFunction(__UString_7);
+	Gura_AssignFunction(__UString_8);
+	Gura_AssignFunction(__UString_9);
+	Gura_AssignFunction(__UString_10);
+	Gura_AssignFunction(__UString_11);
+	Gura_AssignFunction(__UString_12);
+	Gura_AssignFunction(__UString_13);
+	Gura_AssignFunction(__UString_14);
+	Gura_AssignFunction(__UString_15);
+	Gura_AssignFunction(__UString_16);
+	Gura_AssignFunction(__UString_17);
+	Gura_AssignFunction(__UString_18);
+	Gura_AssignFunction(__UString_19);
+	Gura_AssignFunction(__UString_20);
 	// Method assignment
 	Gura_AssignMethod(wx_UString, __FromAscii);
 	Gura_AssignMethod(wx_UString, __FromAscii_1);

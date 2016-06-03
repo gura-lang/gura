@@ -37,7 +37,7 @@ String Object_wx_FileDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileDialog, "wxFileDialog")
+Gura_DeclareFunctionAlias(__FileDialog, "FileDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -53,7 +53,7 @@ Gura_DeclareFunctionAlias(__wxFileDialog, "wxFileDialog")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileDialog)
+Gura_ImplementFunction(__FileDialog)
 {
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_FileDialog, __ShowModal)
 Gura_ImplementUserInheritableClass(wx_FileDialog)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileDialog);
+	Gura_AssignFunction(__FileDialog);
 	// Method assignment
 	Gura_AssignMethod(wx_FileDialog, __GetCurrentlySelectedFilename);
 	Gura_AssignMethod(wx_FileDialog, __GetDirectory);

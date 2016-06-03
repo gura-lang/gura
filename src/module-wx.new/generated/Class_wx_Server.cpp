@@ -37,14 +37,14 @@ String Object_wx_Server::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxServer, "wxServer")
+Gura_DeclareFunctionAlias(__Server, "Server")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Server));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxServer)
+Gura_ImplementFunction(__Server)
 {
 	//wxServer();
 	return Value::Nil;
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_Server, __OnAcceptConnection)
 Gura_ImplementUserInheritableClass(wx_Server)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxServer);
+	Gura_AssignFunction(__Server);
 	// Method assignment
 	Gura_AssignMethod(wx_Server, __Create);
 	Gura_AssignMethod(wx_Server, __OnAcceptConnection);

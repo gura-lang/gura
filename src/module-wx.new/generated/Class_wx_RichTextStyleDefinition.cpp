@@ -37,7 +37,7 @@ String Object_wx_RichTextStyleDefinition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextStyleDefinition, "wxRichTextStyleDefinition")
+Gura_DeclareFunctionAlias(__RichTextStyleDefinition, "RichTextStyleDefinition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxRichTextStyleDefinition, "wxRichTextStyleDefinitio
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextStyleDefinition)
+Gura_ImplementFunction(__RichTextStyleDefinition)
 {
 	//int name = arg.GetNumber(0)
 	//wxRichTextStyleDefinition();
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_RichTextStyleDefinition, __SetProperties)
 Gura_ImplementUserInheritableClass(wx_RichTextStyleDefinition)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextStyleDefinition);
+	Gura_AssignFunction(__RichTextStyleDefinition);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextStyleDefinition, __GetBaseStyle);
 	Gura_AssignMethod(wx_RichTextStyleDefinition, __GetDescription);

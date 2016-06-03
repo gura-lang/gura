@@ -37,14 +37,14 @@ String Object_wx_GridCellAutoWrapStringRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridCellAutoWrapStringRenderer, "wxGridCellAutoWrapStringRenderer")
+Gura_DeclareFunctionAlias(__GridCellAutoWrapStringRenderer, "GridCellAutoWrapStringRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellAutoWrapStringRenderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellAutoWrapStringRenderer)
+Gura_ImplementFunction(__GridCellAutoWrapStringRenderer)
 {
 	//wxGridCellAutoWrapStringRenderer();
 	return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__wxGridCellAutoWrapStringRenderer)
 Gura_ImplementUserInheritableClass(wx_GridCellAutoWrapStringRenderer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridCellAutoWrapStringRenderer);
+	Gura_AssignFunction(__GridCellAutoWrapStringRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellAutoWrapStringRenderer)

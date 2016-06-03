@@ -37,7 +37,7 @@ String Object_wx_GridCellFloatEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGridCellFloatEditor, "wxGridCellFloatEditor")
+Gura_DeclareFunctionAlias(__GridCellFloatEditor, "GridCellFloatEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__wxGridCellFloatEditor, "wxGridCellFloatEditor")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGridCellFloatEditor)
+Gura_ImplementFunction(__GridCellFloatEditor)
 {
 	//int width = arg.GetNumber(0)
 	//int precision = arg.GetNumber(1)
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_GridCellFloatEditor, __SetParameters)
 Gura_ImplementUserInheritableClass(wx_GridCellFloatEditor)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGridCellFloatEditor);
+	Gura_AssignFunction(__GridCellFloatEditor);
 	// Method assignment
 	Gura_AssignMethod(wx_GridCellFloatEditor, __SetParameters);
 }

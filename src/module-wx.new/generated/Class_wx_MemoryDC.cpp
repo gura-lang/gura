@@ -37,20 +37,20 @@ String Object_wx_MemoryDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxMemoryDC, "wxMemoryDC")
+Gura_DeclareFunctionAlias(__MemoryDC, "MemoryDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMemoryDC)
+Gura_ImplementFunction(__MemoryDC)
 {
 	//wxMemoryDC();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMemoryDC_1, "wxMemoryDC_1")
+Gura_DeclareFunctionAlias(__MemoryDC_1, "MemoryDC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxMemoryDC_1, "wxMemoryDC_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMemoryDC_1)
+Gura_ImplementFunction(__MemoryDC_1)
 {
 	//int dc = arg.GetNumber(0)
 	//wxMemoryDC();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxMemoryDC_2, "wxMemoryDC_2")
+Gura_DeclareFunctionAlias(__MemoryDC_2, "MemoryDC_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_DeclareFunctionAlias(__wxMemoryDC_2, "wxMemoryDC_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxMemoryDC_2)
+Gura_ImplementFunction(__MemoryDC_2)
 {
 	//int bitmap = arg.GetNumber(0)
 	//wxMemoryDC();
@@ -119,9 +119,9 @@ Gura_ImplementMethod(wx_MemoryDC, __SelectObjectAsSource)
 Gura_ImplementUserInheritableClass(wx_MemoryDC)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxMemoryDC);
-	Gura_AssignFunction(__wxMemoryDC_1);
-	Gura_AssignFunction(__wxMemoryDC_2);
+	Gura_AssignFunction(__MemoryDC);
+	Gura_AssignFunction(__MemoryDC_1);
+	Gura_AssignFunction(__MemoryDC_2);
 	// Method assignment
 	Gura_AssignMethod(wx_MemoryDC, __SelectObject);
 	Gura_AssignMethod(wx_MemoryDC, __SelectObjectAsSource);

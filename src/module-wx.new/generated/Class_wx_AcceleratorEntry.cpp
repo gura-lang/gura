@@ -37,7 +37,7 @@ String Object_wx_AcceleratorEntry::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAcceleratorEntry, "wxAcceleratorEntry")
+Gura_DeclareFunctionAlias(__AcceleratorEntry, "AcceleratorEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxAcceleratorEntry, "wxAcceleratorEntry")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAcceleratorEntry)
+Gura_ImplementFunction(__AcceleratorEntry)
 {
 	//int flags = arg.GetNumber(0)
 	//int keyCode = arg.GetNumber(1)
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxAcceleratorEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAcceleratorEntry_1, "wxAcceleratorEntry_1")
+Gura_DeclareFunctionAlias(__AcceleratorEntry_1, "AcceleratorEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__wxAcceleratorEntry_1, "wxAcceleratorEntry_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAcceleratorEntry_1)
+Gura_ImplementFunction(__AcceleratorEntry_1)
 {
 	//int entry = arg.GetNumber(0)
 	//wxAcceleratorEntry();
@@ -209,8 +209,8 @@ Gura_ImplementMethod(wx_AcceleratorEntry, __FromString)
 Gura_ImplementUserInheritableClass(wx_AcceleratorEntry)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAcceleratorEntry);
-	Gura_AssignFunction(__wxAcceleratorEntry_1);
+	Gura_AssignFunction(__AcceleratorEntry);
+	Gura_AssignFunction(__AcceleratorEntry_1);
 	// Method assignment
 	Gura_AssignMethod(wx_AcceleratorEntry, __GetCommand);
 	Gura_AssignMethod(wx_AcceleratorEntry, __GetFlags);

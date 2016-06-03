@@ -37,20 +37,20 @@ String Object_wx_PopupWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPopupWindow, "wxPopupWindow")
+Gura_DeclareFunctionAlias(__PopupWindow, "PopupWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PopupWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPopupWindow)
+Gura_ImplementFunction(__PopupWindow)
 {
 	//wxPopupWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPopupWindow_1, "wxPopupWindow_1")
+Gura_DeclareFunctionAlias(__PopupWindow_1, "PopupWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxPopupWindow_1, "wxPopupWindow_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPopupWindow_1)
+Gura_ImplementFunction(__PopupWindow_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -110,8 +110,8 @@ Gura_ImplementMethod(wx_PopupWindow, __Position)
 Gura_ImplementUserInheritableClass(wx_PopupWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPopupWindow);
-	Gura_AssignFunction(__wxPopupWindow_1);
+	Gura_AssignFunction(__PopupWindow);
+	Gura_AssignFunction(__PopupWindow_1);
 	// Method assignment
 	Gura_AssignMethod(wx_PopupWindow, __Create);
 	Gura_AssignMethod(wx_PopupWindow, __Position);

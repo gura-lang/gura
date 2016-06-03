@@ -37,20 +37,20 @@ String Object_wx_PGVIterator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPGVIterator, "wxPGVIterator")
+Gura_DeclareFunctionAlias(__PGVIterator, "PGVIterator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PGVIterator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPGVIterator)
+Gura_ImplementFunction(__PGVIterator)
 {
 	//wxPGVIterator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPGVIterator_1, "wxPGVIterator_1")
+Gura_DeclareFunctionAlias(__PGVIterator_1, "PGVIterator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
@@ -58,14 +58,14 @@ Gura_DeclareFunctionAlias(__wxPGVIterator_1, "wxPGVIterator_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPGVIterator_1)
+Gura_ImplementFunction(__PGVIterator_1)
 {
 	//int obj = arg.GetNumber(0)
 	//wxPGVIterator();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPGVIterator_2, "wxPGVIterator_2")
+Gura_DeclareFunctionAlias(__PGVIterator_2, "PGVIterator_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_DeclareFunctionAlias(__wxPGVIterator_2, "wxPGVIterator_2")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPGVIterator_2)
+Gura_ImplementFunction(__PGVIterator_2)
 {
 	//int it = arg.GetNumber(0)
 	//wxPGVIterator();
@@ -141,9 +141,9 @@ Gura_ImplementMethod(wx_PGVIterator, __GetProperty)
 Gura_ImplementUserInheritableClass(wx_PGVIterator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPGVIterator);
-	Gura_AssignFunction(__wxPGVIterator_1);
-	Gura_AssignFunction(__wxPGVIterator_2);
+	Gura_AssignFunction(__PGVIterator);
+	Gura_AssignFunction(__PGVIterator_1);
+	Gura_AssignFunction(__PGVIterator_2);
 	// Method assignment
 	Gura_AssignMethod(wx_PGVIterator, __UnRef);
 	Gura_AssignMethod(wx_PGVIterator, __Next);

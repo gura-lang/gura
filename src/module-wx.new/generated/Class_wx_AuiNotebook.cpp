@@ -37,20 +37,20 @@ String Object_wx_AuiNotebook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAuiNotebook, "wxAuiNotebook")
+Gura_DeclareFunctionAlias(__AuiNotebook, "AuiNotebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiNotebook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiNotebook)
+Gura_ImplementFunction(__AuiNotebook)
 {
 	//wxAuiNotebook();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxAuiNotebook_1, "wxAuiNotebook_1")
+Gura_DeclareFunctionAlias(__AuiNotebook_1, "AuiNotebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxAuiNotebook_1, "wxAuiNotebook_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAuiNotebook_1)
+Gura_ImplementFunction(__AuiNotebook_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -639,8 +639,8 @@ Gura_ImplementMethod(wx_AuiNotebook, __ShowWindowMenu)
 Gura_ImplementUserInheritableClass(wx_AuiNotebook)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAuiNotebook);
-	Gura_AssignFunction(__wxAuiNotebook_1);
+	Gura_AssignFunction(__AuiNotebook);
+	Gura_AssignFunction(__AuiNotebook_1);
 	// Method assignment
 	Gura_AssignMethod(wx_AuiNotebook, __AddPage);
 	Gura_AssignMethod(wx_AuiNotebook, __AddPage_1);

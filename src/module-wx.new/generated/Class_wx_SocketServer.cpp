@@ -37,7 +37,7 @@ String Object_wx_SocketServer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSocketServer, "wxSocketServer")
+Gura_DeclareFunctionAlias(__SocketServer, "SocketServer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxSocketServer, "wxSocketServer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSocketServer)
+Gura_ImplementFunction(__SocketServer)
 {
 	//int address = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_SocketServer, __WaitForAccept)
 Gura_ImplementUserInheritableClass(wx_SocketServer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSocketServer);
+	Gura_AssignFunction(__SocketServer);
 	// Method assignment
 	Gura_AssignMethod(wx_SocketServer, __Accept);
 	Gura_AssignMethod(wx_SocketServer, __AcceptWith);

@@ -37,7 +37,7 @@ String Object_wx_PropagateOnce::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPropagateOnce, "wxPropagateOnce")
+Gura_DeclareFunctionAlias(__PropagateOnce, "PropagateOnce")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPropagateOnce, "wxPropagateOnce")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPropagateOnce)
+Gura_ImplementFunction(__PropagateOnce)
 {
 	//int event = arg.GetNumber(0)
 	//wxPropagateOnce();
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__wxPropagateOnce)
 Gura_ImplementUserInheritableClass(wx_PropagateOnce)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPropagateOnce);
+	Gura_AssignFunction(__PropagateOnce);
 }
 
 Gura_ImplementDescendantCreator(wx_PropagateOnce)

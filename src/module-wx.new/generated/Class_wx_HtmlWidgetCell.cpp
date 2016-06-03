@@ -37,7 +37,7 @@ String Object_wx_HtmlWidgetCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlWidgetCell, "wxHtmlWidgetCell")
+Gura_DeclareFunctionAlias(__HtmlWidgetCell, "HtmlWidgetCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxHtmlWidgetCell, "wxHtmlWidgetCell")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlWidgetCell)
+Gura_ImplementFunction(__HtmlWidgetCell)
 {
 	//int wnd = arg.GetNumber(0)
 	//int w = arg.GetNumber(1)
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__wxHtmlWidgetCell)
 Gura_ImplementUserInheritableClass(wx_HtmlWidgetCell)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlWidgetCell);
+	Gura_AssignFunction(__HtmlWidgetCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWidgetCell)

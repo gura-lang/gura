@@ -37,20 +37,20 @@ String Object_wx_HtmlLinkInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxHtmlLinkInfo, "wxHtmlLinkInfo")
+Gura_DeclareFunctionAlias(__HtmlLinkInfo, "HtmlLinkInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlLinkInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlLinkInfo)
+Gura_ImplementFunction(__HtmlLinkInfo)
 {
 	//wxHtmlLinkInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxHtmlLinkInfo_1, "wxHtmlLinkInfo_1")
+Gura_DeclareFunctionAlias(__HtmlLinkInfo_1, "HtmlLinkInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "href", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxHtmlLinkInfo_1, "wxHtmlLinkInfo_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxHtmlLinkInfo_1)
+Gura_ImplementFunction(__HtmlLinkInfo_1)
 {
 	//int href = arg.GetNumber(0)
 	//int target = arg.GetNumber(1)
@@ -128,8 +128,8 @@ Gura_ImplementMethod(wx_HtmlLinkInfo, __GetTarget)
 Gura_ImplementUserInheritableClass(wx_HtmlLinkInfo)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxHtmlLinkInfo);
-	Gura_AssignFunction(__wxHtmlLinkInfo_1);
+	Gura_AssignFunction(__HtmlLinkInfo);
+	Gura_AssignFunction(__HtmlLinkInfo_1);
 	// Method assignment
 	Gura_AssignMethod(wx_HtmlLinkInfo, __GetEvent);
 	Gura_AssignMethod(wx_HtmlLinkInfo, __GetHref);

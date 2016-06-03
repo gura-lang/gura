@@ -37,7 +37,7 @@ String Object_wx_RichTextPrinting::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextPrinting, "wxRichTextPrinting")
+Gura_DeclareFunctionAlias(__RichTextPrinting, "RichTextPrinting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxRichTextPrinting, "wxRichTextPrinting")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextPrinting)
+Gura_ImplementFunction(__RichTextPrinting)
 {
 	//int name = arg.GetNumber(0)
 	//int parentWindow = arg.GetNumber(1)
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetTitle)
 Gura_ImplementUserInheritableClass(wx_RichTextPrinting)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextPrinting);
+	Gura_AssignFunction(__RichTextPrinting);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextPrinting, __GetFooterText);
 	Gura_AssignMethod(wx_RichTextPrinting, __GetHeaderFooterData);

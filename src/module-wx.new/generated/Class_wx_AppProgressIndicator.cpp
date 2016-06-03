@@ -37,7 +37,7 @@ String Object_wx_AppProgressIndicator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxAppProgressIndicator, "wxAppProgressIndicator")
+Gura_DeclareFunctionAlias(__AppProgressIndicator, "AppProgressIndicator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxAppProgressIndicator, "wxAppProgressIndicator")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxAppProgressIndicator)
+Gura_ImplementFunction(__AppProgressIndicator)
 {
 	//int parent = arg.GetNumber(0)
 	//int maxValue = arg.GetNumber(1)
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_AppProgressIndicator, __Pulse)
 Gura_ImplementUserInheritableClass(wx_AppProgressIndicator)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxAppProgressIndicator);
+	Gura_AssignFunction(__AppProgressIndicator);
 	// Method assignment
 	Gura_AssignMethod(wx_AppProgressIndicator, __IsAvailable);
 	Gura_AssignMethod(wx_AppProgressIndicator, __SetValue);

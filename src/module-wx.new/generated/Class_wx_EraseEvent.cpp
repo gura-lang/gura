@@ -37,7 +37,7 @@ String Object_wx_EraseEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxEraseEvent, "wxEraseEvent")
+Gura_DeclareFunctionAlias(__EraseEvent, "EraseEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareFunctionAlias(__wxEraseEvent, "wxEraseEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxEraseEvent)
+Gura_ImplementFunction(__EraseEvent)
 {
 	//int id = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_EraseEvent, __GetDC)
 Gura_ImplementUserInheritableClass(wx_EraseEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxEraseEvent);
+	Gura_AssignFunction(__EraseEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_EraseEvent, __GetDC);
 }

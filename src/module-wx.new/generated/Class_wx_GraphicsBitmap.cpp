@@ -37,14 +37,14 @@ String Object_wx_GraphicsBitmap::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxGraphicsBitmap, "wxGraphicsBitmap")
+Gura_DeclareFunctionAlias(__GraphicsBitmap, "GraphicsBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GraphicsBitmap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxGraphicsBitmap)
+Gura_ImplementFunction(__GraphicsBitmap)
 {
 	//wxGraphicsBitmap();
 	return Value::Nil;
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_GraphicsBitmap, __GetNativeBitmap)
 Gura_ImplementUserInheritableClass(wx_GraphicsBitmap)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxGraphicsBitmap);
+	Gura_AssignFunction(__GraphicsBitmap);
 	// Method assignment
 	Gura_AssignMethod(wx_GraphicsBitmap, __ConvertToImage);
 	Gura_AssignMethod(wx_GraphicsBitmap, __GetNativeBitmap);

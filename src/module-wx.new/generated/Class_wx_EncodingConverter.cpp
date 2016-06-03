@@ -37,14 +37,14 @@ String Object_wx_EncodingConverter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxEncodingConverter, "wxEncodingConverter")
+Gura_DeclareFunctionAlias(__EncodingConverter, "EncodingConverter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_EncodingConverter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxEncodingConverter)
+Gura_ImplementFunction(__EncodingConverter)
 {
 	//wxEncodingConverter();
 	return Value::Nil;
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_EncodingConverter, __Init)
 Gura_ImplementUserInheritableClass(wx_EncodingConverter)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxEncodingConverter);
+	Gura_AssignFunction(__EncodingConverter);
 	// Method assignment
 	Gura_AssignMethod(wx_EncodingConverter, __CanConvert);
 	Gura_AssignMethod(wx_EncodingConverter, __Convert);

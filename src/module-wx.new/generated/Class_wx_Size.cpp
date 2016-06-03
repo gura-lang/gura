@@ -37,20 +37,20 @@ String Object_wx_Size::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxSize, "wxSize")
+Gura_DeclareFunctionAlias(__Size, "Size")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Size));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSize)
+Gura_ImplementFunction(__Size)
 {
 	//wxSize();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxSize_1, "wxSize_1")
+Gura_DeclareFunctionAlias(__Size_1, "Size_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxSize_1, "wxSize_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxSize_1)
+Gura_ImplementFunction(__Size_1)
 {
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
@@ -363,8 +363,8 @@ Gura_ImplementMethod(wx_Size, __SetWidth)
 Gura_ImplementUserInheritableClass(wx_Size)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxSize);
-	Gura_AssignFunction(__wxSize_1);
+	Gura_AssignFunction(__Size);
+	Gura_AssignFunction(__Size_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Size, __DecBy);
 	Gura_AssignMethod(wx_Size, __DecBy_1);

@@ -37,20 +37,20 @@ String Object_wx_StatusBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxStatusBar, "wxStatusBar")
+Gura_DeclareFunctionAlias(__StatusBar, "StatusBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StatusBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStatusBar)
+Gura_ImplementFunction(__StatusBar)
 {
 	//wxStatusBar();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxStatusBar_1, "wxStatusBar_1")
+Gura_DeclareFunctionAlias(__StatusBar_1, "StatusBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__wxStatusBar_1, "wxStatusBar_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxStatusBar_1)
+Gura_ImplementFunction(__StatusBar_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -319,8 +319,8 @@ Gura_ImplementMethod(wx_StatusBar, __SetStatusWidths)
 Gura_ImplementUserInheritableClass(wx_StatusBar)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxStatusBar);
-	Gura_AssignFunction(__wxStatusBar_1);
+	Gura_AssignFunction(__StatusBar);
+	Gura_AssignFunction(__StatusBar_1);
 	// Method assignment
 	Gura_AssignMethod(wx_StatusBar, __Create);
 	Gura_AssignMethod(wx_StatusBar, __GetFieldRect);

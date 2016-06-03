@@ -37,7 +37,7 @@ String Object_wx_Printer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPrinter, "wxPrinter")
+Gura_DeclareFunctionAlias(__Printer, "Printer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxPrinter, "wxPrinter")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPrinter)
+Gura_ImplementFunction(__Printer)
 {
 	//int data = arg.GetNumber(0)
 	//wxPrinter();
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_Printer, __Setup)
 Gura_ImplementUserInheritableClass(wx_Printer)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPrinter);
+	Gura_AssignFunction(__Printer);
 	// Method assignment
 	Gura_AssignMethod(wx_Printer, __CreateAbortWindow);
 	Gura_AssignMethod(wx_Printer, __GetAbort);

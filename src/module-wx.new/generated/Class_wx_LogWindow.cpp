@@ -37,7 +37,7 @@ String Object_wx_LogWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxLogWindow, "wxLogWindow")
+Gura_DeclareFunctionAlias(__LogWindow, "LogWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pParent", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__wxLogWindow, "wxLogWindow")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxLogWindow)
+Gura_ImplementFunction(__LogWindow)
 {
 	//int pParent = arg.GetNumber(0)
 	//int szTitle = arg.GetNumber(1)
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_LogWindow, __Show)
 Gura_ImplementUserInheritableClass(wx_LogWindow)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxLogWindow);
+	Gura_AssignFunction(__LogWindow);
 	// Method assignment
 	Gura_AssignMethod(wx_LogWindow, __GetFrame);
 	Gura_AssignMethod(wx_LogWindow, __OnFrameClose);

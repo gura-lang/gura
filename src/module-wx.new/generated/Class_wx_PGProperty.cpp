@@ -37,20 +37,20 @@ String Object_wx_PGProperty::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxPGProperty, "wxPGProperty")
+Gura_DeclareFunctionAlias(__PGProperty, "PGProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PGProperty));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPGProperty)
+Gura_ImplementFunction(__PGProperty)
 {
 	//wxPGProperty();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxPGProperty_1, "wxPGProperty_1")
+Gura_DeclareFunctionAlias(__PGProperty_1, "PGProperty_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__wxPGProperty_1, "wxPGProperty_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxPGProperty_1)
+Gura_ImplementFunction(__PGProperty_1)
 {
 	//int label = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -415,19 +415,6 @@ Gura_ImplementMethod(wx_PGProperty, __AddChoice)
 	//int label = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
 	//pThis->GetEntity()->AddChoice();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_PGProperty, __wxDEPRECATED, "wxDEPRECATED")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PGProperty, __wxDEPRECATED)
-{
-	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDEPRECATED();
 	return Value::Nil;
 }
 
@@ -1051,13 +1038,13 @@ Gura_ImplementMethod(wx_PGProperty, __GetValueAsString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PGProperty, __wxDEPRECATED_1, "wxDEPRECATED_1")
+Gura_DeclareMethodAlias(wx_PGProperty, __wxDEPRECATED, "wxDEPRECATED")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, __wxDEPRECATED_1)
+Gura_ImplementMethod(wx_PGProperty, __wxDEPRECATED)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1754,8 +1741,8 @@ Gura_ImplementMethod(wx_PGProperty, __Empty)
 Gura_ImplementUserInheritableClass(wx_PGProperty)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxPGProperty);
-	Gura_AssignFunction(__wxPGProperty_1);
+	Gura_AssignFunction(__PGProperty);
+	Gura_AssignFunction(__PGProperty_1);
 	// Method assignment
 	Gura_AssignMethod(wx_PGProperty, __OnSetValue);
 	Gura_AssignMethod(wx_PGProperty, __DoGetValue);
@@ -1779,7 +1766,6 @@ Gura_ImplementUserInheritableClass(wx_PGProperty)
 	Gura_AssignMethod(wx_PGProperty, __GetEditorDialog);
 	Gura_AssignMethod(wx_PGProperty, __OnValidationFailure);
 	Gura_AssignMethod(wx_PGProperty, __AddChoice);
-	Gura_AssignMethod(wx_PGProperty, __wxDEPRECATED);
 	Gura_AssignMethod(wx_PGProperty, __AddPrivateChild);
 	Gura_AssignMethod(wx_PGProperty, __AdaptListToValue);
 	Gura_AssignMethod(wx_PGProperty, __AppendChild);
@@ -1824,7 +1810,7 @@ Gura_ImplementUserInheritableClass(wx_PGProperty)
 	Gura_AssignMethod(wx_PGProperty, __GetValue);
 	Gura_AssignMethod(wx_PGProperty, __GetValueImage);
 	Gura_AssignMethod(wx_PGProperty, __GetValueAsString);
-	Gura_AssignMethod(wx_PGProperty, __wxDEPRECATED_1);
+	Gura_AssignMethod(wx_PGProperty, __wxDEPRECATED);
 	Gura_AssignMethod(wx_PGProperty, __GetValueType);
 	Gura_AssignMethod(wx_PGProperty, __GetY);
 	Gura_AssignMethod(wx_PGProperty, __HasFlag);

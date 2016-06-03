@@ -37,14 +37,14 @@ String Object_wx_TextAttrBorders::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxTextAttrBorders, "wxTextAttrBorders")
+Gura_DeclareFunctionAlias(__TextAttrBorders, "TextAttrBorders")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttrBorders));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxTextAttrBorders)
+Gura_ImplementFunction(__TextAttrBorders)
 {
 	//wxTextAttrBorders();
 	return Value::Nil;
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_TextAttrBorders, __GetBottom_1)
 Gura_ImplementUserInheritableClass(wx_TextAttrBorders)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxTextAttrBorders);
+	Gura_AssignFunction(__TextAttrBorders);
 	// Method assignment
 	Gura_AssignMethod(wx_TextAttrBorders, __SetStyle);
 	Gura_AssignMethod(wx_TextAttrBorders, __SetColour);

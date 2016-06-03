@@ -37,20 +37,20 @@ String Object_wx_Notebook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxNotebook, "wxNotebook")
+Gura_DeclareFunctionAlias(__Notebook, "Notebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Notebook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxNotebook)
+Gura_ImplementFunction(__Notebook)
 {
 	//wxNotebook();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxNotebook_1, "wxNotebook_1")
+Gura_DeclareFunctionAlias(__Notebook_1, "Notebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__wxNotebook_1, "wxNotebook_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxNotebook_1)
+Gura_ImplementFunction(__Notebook_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -295,8 +295,8 @@ Gura_ImplementMethod(wx_Notebook, __InsertPage)
 Gura_ImplementUserInheritableClass(wx_Notebook)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxNotebook);
-	Gura_AssignFunction(__wxNotebook_1);
+	Gura_AssignFunction(__Notebook);
+	Gura_AssignFunction(__Notebook_1);
 	// Method assignment
 	Gura_AssignMethod(wx_Notebook, __Create);
 	Gura_AssignMethod(wx_Notebook, __GetRowCount);

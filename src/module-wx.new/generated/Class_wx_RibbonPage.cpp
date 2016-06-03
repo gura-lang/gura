@@ -37,20 +37,20 @@ String Object_wx_RibbonPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRibbonPage, "wxRibbonPage")
+Gura_DeclareFunctionAlias(__RibbonPage, "RibbonPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonPage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonPage)
+Gura_ImplementFunction(__RibbonPage)
 {
 	//wxRibbonPage();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRibbonPage_1, "wxRibbonPage_1")
+Gura_DeclareFunctionAlias(__RibbonPage_1, "RibbonPage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__wxRibbonPage_1, "wxRibbonPage_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRibbonPage_1)
+Gura_ImplementFunction(__RibbonPage_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -253,8 +253,8 @@ Gura_ImplementMethod(wx_RibbonPage, __GetMajorAxis)
 Gura_ImplementUserInheritableClass(wx_RibbonPage)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRibbonPage);
-	Gura_AssignFunction(__wxRibbonPage_1);
+	Gura_AssignFunction(__RibbonPage);
+	Gura_AssignFunction(__RibbonPage_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RibbonPage, __Create);
 	Gura_AssignMethod(wx_RibbonPage, __SetArtProvider);

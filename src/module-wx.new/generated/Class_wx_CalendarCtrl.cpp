@@ -37,20 +37,20 @@ String Object_wx_CalendarCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCalendarCtrl, "wxCalendarCtrl")
+Gura_DeclareFunctionAlias(__CalendarCtrl, "CalendarCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CalendarCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCalendarCtrl)
+Gura_ImplementFunction(__CalendarCtrl)
 {
 	//wxCalendarCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxCalendarCtrl_1, "wxCalendarCtrl_1")
+Gura_DeclareFunctionAlias(__CalendarCtrl_1, "CalendarCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__wxCalendarCtrl_1, "wxCalendarCtrl_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCalendarCtrl_1)
+Gura_ImplementFunction(__CalendarCtrl_1)
 {
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
@@ -447,8 +447,8 @@ Gura_ImplementMethod(wx_CalendarCtrl, __GetDateRange)
 Gura_ImplementUserInheritableClass(wx_CalendarCtrl)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCalendarCtrl);
-	Gura_AssignFunction(__wxCalendarCtrl_1);
+	Gura_AssignFunction(__CalendarCtrl);
+	Gura_AssignFunction(__CalendarCtrl_1);
 	// Method assignment
 	Gura_AssignMethod(wx_CalendarCtrl, __Create);
 	Gura_AssignMethod(wx_CalendarCtrl, __EnableHolidayDisplay);

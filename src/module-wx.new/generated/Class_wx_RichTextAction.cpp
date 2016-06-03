@@ -37,7 +37,7 @@ String Object_wx_RichTextAction::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextAction, "wxRichTextAction")
+Gura_DeclareFunctionAlias(__RichTextAction, "RichTextAction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cmd", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareFunctionAlias(__wxRichTextAction, "wxRichTextAction")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextAction)
+Gura_ImplementFunction(__RichTextAction)
 {
 	//int cmd = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_RichTextAction, __GetIgnoreFirstTime)
 Gura_ImplementUserInheritableClass(wx_RichTextAction)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextAction);
+	Gura_AssignFunction(__RichTextAction);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextAction, __Do);
 	Gura_AssignMethod(wx_RichTextAction, __Undo);

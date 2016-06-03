@@ -37,7 +37,7 @@ String Object_wx_RichTextTable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxRichTextTable, "wxRichTextTable")
+Gura_DeclareFunctionAlias(__RichTextTable, "RichTextTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -45,22 +45,24 @@ Gura_DeclareFunctionAlias(__wxRichTextTable, "wxRichTextTable")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextTable)
+Gura_ImplementFunction(__RichTextTable)
 {
 	//int parent = arg.GetNumber(0)
 	//wxRichTextTable();
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxRichTextTable_1, "wxRichTextTable_1")
+Gura_DeclareFunctionAlias(__RichTextTable_1, "RichTextTable_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextTable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxRichTextTable_1)
+Gura_ImplementFunction(__RichTextTable_1)
 {
+	//int obj = arg.GetNumber(0)
 	//wxRichTextTable();
 	return Value::Nil;
 }
@@ -155,37 +157,6 @@ Gura_ImplementMethod(wx_RichTextTable, __Layout)
 	//int parentRect = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->Layout();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_RichTextTable, __GetRangeSize, "GetRangeSize")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "descent", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "partialExtents", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_RichTextTable, __GetRangeSize)
-{
-	Object_wx_RichTextTable *pThis = Object_wx_RichTextTable::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int range = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
-	//int descent = arg.GetNumber(2)
-	//int dc = arg.GetNumber(3)
-	//int context = arg.GetNumber(4)
-	//int flags = arg.GetNumber(5)
-	//int position = arg.GetNumber(6)
-	//int parentSize = arg.GetNumber(7)
-	//int partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize();
 	return Value::Nil;
 }
 
@@ -675,14 +646,13 @@ Gura_ImplementMethod(wx_RichTextTable, __Copy)
 Gura_ImplementUserInheritableClass(wx_RichTextTable)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxRichTextTable);
-	Gura_AssignFunction(__wxRichTextTable_1);
+	Gura_AssignFunction(__RichTextTable);
+	Gura_AssignFunction(__RichTextTable_1);
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextTable, __Draw);
 	Gura_AssignMethod(wx_RichTextTable, __HitTest);
 	Gura_AssignMethod(wx_RichTextTable, __GetXMLNodeName);
 	Gura_AssignMethod(wx_RichTextTable, __Layout);
-	Gura_AssignMethod(wx_RichTextTable, __GetRangeSize);
 	Gura_AssignMethod(wx_RichTextTable, __DeleteRange);
 	Gura_AssignMethod(wx_RichTextTable, __GetTextForRange);
 	Gura_AssignMethod(wx_RichTextTable, __ImportFromXML);

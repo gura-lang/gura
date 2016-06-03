@@ -37,7 +37,7 @@ String Object_wx_CalculateLayoutEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxCalculateLayoutEvent, "wxCalculateLayoutEvent")
+Gura_DeclareFunctionAlias(__CalculateLayoutEvent, "CalculateLayoutEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareFunctionAlias(__wxCalculateLayoutEvent, "wxCalculateLayoutEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxCalculateLayoutEvent)
+Gura_ImplementFunction(__CalculateLayoutEvent)
 {
 	//int id = arg.GetNumber(0)
 	//wxCalculateLayoutEvent();
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, __SetRect)
 Gura_ImplementUserInheritableClass(wx_CalculateLayoutEvent)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxCalculateLayoutEvent);
+	Gura_AssignFunction(__CalculateLayoutEvent);
 	// Method assignment
 	Gura_AssignMethod(wx_CalculateLayoutEvent, __GetFlags);
 	Gura_AssignMethod(wx_CalculateLayoutEvent, __GetRect);

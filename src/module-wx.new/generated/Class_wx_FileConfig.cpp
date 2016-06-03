@@ -37,7 +37,7 @@ String Object_wx_FileConfig::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareFunctionAlias(__wxFileConfig, "wxFileConfig")
+Gura_DeclareFunctionAlias(__FileConfig, "FileConfig")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__wxFileConfig, "wxFileConfig")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileConfig)
+Gura_ImplementFunction(__FileConfig)
 {
 	//int appName = arg.GetNumber(0)
 	//int vendorName = arg.GetNumber(1)
@@ -62,7 +62,7 @@ Gura_ImplementFunction(__wxFileConfig)
 	return Value::Nil;
 }
 
-Gura_DeclareFunctionAlias(__wxFileConfig_1, "wxFileConfig_1")
+Gura_DeclareFunctionAlias(__FileConfig_1, "FileConfig_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "is", VTYPE_number, OCCUR_Once);
@@ -71,7 +71,7 @@ Gura_DeclareFunctionAlias(__wxFileConfig_1, "wxFileConfig_1")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(__wxFileConfig_1)
+Gura_ImplementFunction(__FileConfig_1)
 {
 	//int is = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
@@ -434,8 +434,8 @@ Gura_ImplementMethod(wx_FileConfig, __DeleteAll)
 Gura_ImplementUserInheritableClass(wx_FileConfig)
 {
 	// Constructor assignment
-	Gura_AssignFunction(__wxFileConfig);
-	Gura_AssignFunction(__wxFileConfig_1);
+	Gura_AssignFunction(__FileConfig);
+	Gura_AssignFunction(__FileConfig_1);
 	// Method assignment
 	Gura_AssignMethod(wx_FileConfig, __GetGlobalFile);
 	Gura_AssignMethod(wx_FileConfig, __GetLocalFile);
