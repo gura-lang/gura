@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__SpinDoubleEvent, "SpinDoubleEvent")
 
 Gura_ImplementFunction(__SpinDoubleEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
+	//double value = arg.GetNumber(2)
 	//wxSpinDoubleEvent();
 	return Value::Nil;
 }
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__SpinDoubleEvent_1, "SpinDoubleEvent_1")
 
 Gura_ImplementFunction(__SpinDoubleEvent_1)
 {
-	//int event = arg.GetNumber(0)
+	//const wxSpinDoubleEvent& event = arg.GetNumber(0)
 	//wxSpinDoubleEvent();
 	return Value::Nil;
 }
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_SpinDoubleEvent, __SetValue)
 {
 	Object_wx_SpinDoubleEvent *pThis = Object_wx_SpinDoubleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//double value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }

@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__AuiManager, "AuiManager")
 
 Gura_ImplementFunction(__AuiManager)
 {
-	//int managed_wnd = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
+	//wxWindow* managed_wnd = arg.GetNumber(0)
+	//unsigned int flags = arg.GetNumber(1)
 	//wxAuiManager();
 	return Value::Nil;
 }
@@ -68,8 +68,8 @@ Gura_ImplementMethod(wx_AuiManager, __AddPane)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
-	//int pane_info = arg.GetNumber(1)
+	//wxWindow* window = arg.GetNumber(0)
+	//const wxAuiPaneInfo& pane_info = arg.GetNumber(1)
 	//pThis->GetEntity()->AddPane();
 	return Value::Nil;
 }
@@ -86,9 +86,9 @@ Gura_ImplementMethod(wx_AuiManager, __AddPane_1)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//int direction = arg.GetNumber(1)
-	//int caption = arg.GetNumber(2)
+	//const wxString& caption = arg.GetNumber(2)
 	//pThis->GetEntity()->AddPane();
 	return Value::Nil;
 }
@@ -105,9 +105,9 @@ Gura_ImplementMethod(wx_AuiManager, __AddPane_2)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
-	//int pane_info = arg.GetNumber(1)
-	//int drop_pos = arg.GetNumber(2)
+	//wxWindow* window = arg.GetNumber(0)
+	//const wxAuiPaneInfo& pane_info = arg.GetNumber(1)
+	//const wxPoint& drop_pos = arg.GetNumber(2)
 	//pThis->GetEntity()->AddPane();
 	return Value::Nil;
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_AuiManager, __DetachPane)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//pThis->GetEntity()->DetachPane();
 	return Value::Nil;
 }
@@ -164,8 +164,8 @@ Gura_ImplementMethod(wx_AuiManager, __GetDockSizeConstraint)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int widthpct = arg.GetNumber(0)
-	//int heightpct = arg.GetNumber(1)
+	//double* widthpct = arg.GetNumber(0)
+	//double* heightpct = arg.GetNumber(1)
 	//pThis->GetEntity()->GetDockSizeConstraint();
 	return Value::Nil;
 }
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_AuiManager, __GetManager)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//pThis->GetEntity()->GetManager();
 	return Value::Nil;
 }
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_AuiManager, __GetPane)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPane();
 	return Value::Nil;
 }
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_AuiManager, __GetPane_1)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPane();
 	return Value::Nil;
 }
@@ -266,8 +266,8 @@ Gura_ImplementMethod(wx_AuiManager, __InsertPane)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
-	//int insert_location = arg.GetNumber(1)
+	//wxWindow* window = arg.GetNumber(0)
+	//const wxAuiPaneInfo& insert_location = arg.GetNumber(1)
 	//int insert_level = arg.GetNumber(2)
 	//pThis->GetEntity()->InsertPane();
 	return Value::Nil;
@@ -284,8 +284,8 @@ Gura_ImplementMethod(wx_AuiManager, __LoadPaneInfo)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pane_part = arg.GetNumber(0)
-	//int pane = arg.GetNumber(1)
+	//wxString pane_part = arg.GetNumber(0)
+	//wxAuiPaneInfo& pane = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadPaneInfo();
 	return Value::Nil;
 }
@@ -301,8 +301,8 @@ Gura_ImplementMethod(wx_AuiManager, __LoadPerspective)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int perspective = arg.GetNumber(0)
-	//int update = arg.GetNumber(1)
+	//const wxString& perspective = arg.GetNumber(0)
+	//bool update = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadPerspective();
 	return Value::Nil;
 }
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_AuiManager, __SavePaneInfo)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pane = arg.GetNumber(0)
+	//wxAuiPaneInfo& pane = arg.GetNumber(0)
 	//pThis->GetEntity()->SavePaneInfo();
 	return Value::Nil;
 }
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_AuiManager, __SetArtProvider)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int art_provider = arg.GetNumber(0)
+	//wxAuiDockArt* art_provider = arg.GetNumber(0)
 	//pThis->GetEntity()->SetArtProvider();
 	return Value::Nil;
 }
@@ -361,8 +361,8 @@ Gura_ImplementMethod(wx_AuiManager, __SetDockSizeConstraint)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int widthpct = arg.GetNumber(0)
-	//int heightpct = arg.GetNumber(1)
+	//double widthpct = arg.GetNumber(0)
+	//double heightpct = arg.GetNumber(1)
 	//pThis->GetEntity()->SetDockSizeConstraint();
 	return Value::Nil;
 }
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_AuiManager, __SetFlags)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//unsigned int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
 }
@@ -392,7 +392,7 @@ Gura_ImplementMethod(wx_AuiManager, __SetManagedWindow)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int managed_wnd = arg.GetNumber(0)
+	//wxWindow* managed_wnd = arg.GetNumber(0)
 	//pThis->GetEntity()->SetManagedWindow();
 	return Value::Nil;
 }
@@ -407,7 +407,7 @@ Gura_ImplementMethod(wx_AuiManager, __ShowHint)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowHint();
 	return Value::Nil;
 }
@@ -449,8 +449,8 @@ Gura_ImplementMethod(wx_AuiManager, __ProcessDockResult)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int target = arg.GetNumber(0)
-	//int new_pos = arg.GetNumber(1)
+	//wxAuiPaneInfo& target = arg.GetNumber(0)
+	//const wxAuiPaneInfo& new_pos = arg.GetNumber(1)
 	//pThis->GetEntity()->ProcessDockResult();
 	return Value::Nil;
 }

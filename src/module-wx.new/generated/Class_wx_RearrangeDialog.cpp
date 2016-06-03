@@ -66,13 +66,13 @@ Gura_DeclareFunctionAlias(__RearrangeDialog_1, "RearrangeDialog_1")
 
 Gura_ImplementFunction(__RearrangeDialog_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int message = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int order = arg.GetNumber(3)
-	//int items = arg.GetNumber(4)
-	//int pos = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxArrayInt& order = arg.GetNumber(3)
+	//const wxArrayString& items = arg.GetNumber(4)
+	//const wxPoint& pos = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxRearrangeDialog();
 	return Value::Nil;
 }
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_RearrangeDialog, __Create)
 {
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int message = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int order = arg.GetNumber(3)
-	//int items = arg.GetNumber(4)
-	//int pos = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxArrayInt& order = arg.GetNumber(3)
+	//const wxArrayString& items = arg.GetNumber(4)
+	//const wxPoint& pos = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_RearrangeDialog, __AddExtraControls)
 {
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//pThis->GetEntity()->AddExtraControls();
 	return Value::Nil;
 }

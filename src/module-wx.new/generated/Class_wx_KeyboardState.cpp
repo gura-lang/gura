@@ -50,10 +50,10 @@ Gura_DeclareFunctionAlias(__KeyboardState, "KeyboardState")
 
 Gura_ImplementFunction(__KeyboardState)
 {
-	//int controlDown = arg.GetNumber(0)
-	//int shiftDown = arg.GetNumber(1)
-	//int altDown = arg.GetNumber(2)
-	//int metaDown = arg.GetNumber(3)
+	//bool controlDown = arg.GetNumber(0)
+	//bool shiftDown = arg.GetNumber(1)
+	//bool altDown = arg.GetNumber(2)
+	//bool metaDown = arg.GetNumber(3)
 	//wxKeyboardState();
 	return Value::Nil;
 }
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetControlDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int down = arg.GetNumber(0)
+	//bool down = arg.GetNumber(0)
 	//pThis->GetEntity()->SetControlDown();
 	return Value::Nil;
 }
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetRawControlDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int down = arg.GetNumber(0)
+	//bool down = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRawControlDown();
 	return Value::Nil;
 }
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetShiftDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int down = arg.GetNumber(0)
+	//bool down = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShiftDown();
 	return Value::Nil;
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetAltDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int down = arg.GetNumber(0)
+	//bool down = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAltDown();
 	return Value::Nil;
 }
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetMetaDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int down = arg.GetNumber(0)
+	//bool down = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMetaDown();
 	return Value::Nil;
 }

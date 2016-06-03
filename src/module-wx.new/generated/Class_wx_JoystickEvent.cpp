@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__JoystickEvent, "JoystickEvent")
 
 Gura_ImplementFunction(__JoystickEvent)
 {
-	//int eventType = arg.GetNumber(0)
+	//wxEventType eventType = arg.GetNumber(0)
 	//int state = arg.GetNumber(1)
 	//int joystick = arg.GetNumber(2)
 	//int change = arg.GetNumber(3)

@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_Node<T>, __SetData)
 {
 	Object_wx_Node<T> *pThis = Object_wx_Node<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//T* data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetData();
 	return Value::Nil;
 }

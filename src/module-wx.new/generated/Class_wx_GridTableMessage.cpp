@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__GridTableMessage_1, "GridTableMessage_1")
 
 Gura_ImplementFunction(__GridTableMessage_1)
 {
-	//int table = arg.GetNumber(0)
+	//wxGridTableBase* table = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int comInt1 = arg.GetNumber(2)
 	//int comInt2 = arg.GetNumber(3)
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_GridTableMessage, __SetTableObject)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int table = arg.GetNumber(0)
+	//wxGridTableBase* table = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTableObject();
 	return Value::Nil;
 }

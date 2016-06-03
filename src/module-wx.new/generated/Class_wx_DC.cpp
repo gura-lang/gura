@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_DC, __DeviceToLogicalX)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
+	//wxCoord x = arg.GetNumber(0)
 	//pThis->GetEntity()->DeviceToLogicalX();
 	return Value::Nil;
 }
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_DC, __DeviceToLogicalXRel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
+	//wxCoord x = arg.GetNumber(0)
 	//pThis->GetEntity()->DeviceToLogicalXRel();
 	return Value::Nil;
 }
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_DC, __DeviceToLogicalY)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int y = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(0)
 	//pThis->GetEntity()->DeviceToLogicalY();
 	return Value::Nil;
 }
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_DC, __DeviceToLogicalYRel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int y = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(0)
 	//pThis->GetEntity()->DeviceToLogicalYRel();
 	return Value::Nil;
 }
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DC, __LogicalToDeviceX)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
+	//wxCoord x = arg.GetNumber(0)
 	//pThis->GetEntity()->LogicalToDeviceX();
 	return Value::Nil;
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_DC, __LogicalToDeviceXRel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
+	//wxCoord x = arg.GetNumber(0)
 	//pThis->GetEntity()->LogicalToDeviceXRel();
 	return Value::Nil;
 }
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_DC, __LogicalToDeviceY)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int y = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(0)
 	//pThis->GetEntity()->LogicalToDeviceY();
 	return Value::Nil;
 }
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_DC, __LogicalToDeviceYRel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int y = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(0)
 	//pThis->GetEntity()->LogicalToDeviceYRel();
 	return Value::Nil;
 }
@@ -185,12 +185,12 @@ Gura_ImplementMethod(wx_DC, __DrawArc)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int xStart = arg.GetNumber(0)
-	//int yStart = arg.GetNumber(1)
-	//int xEnd = arg.GetNumber(2)
-	//int yEnd = arg.GetNumber(3)
-	//int xc = arg.GetNumber(4)
-	//int yc = arg.GetNumber(5)
+	//wxCoord xStart = arg.GetNumber(0)
+	//wxCoord yStart = arg.GetNumber(1)
+	//wxCoord xEnd = arg.GetNumber(2)
+	//wxCoord yEnd = arg.GetNumber(3)
+	//wxCoord xc = arg.GetNumber(4)
+	//wxCoord yc = arg.GetNumber(5)
 	//pThis->GetEntity()->DrawArc();
 	return Value::Nil;
 }
@@ -207,9 +207,9 @@ Gura_ImplementMethod(wx_DC, __DrawArc_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptStart = arg.GetNumber(0)
-	//int ptEnd = arg.GetNumber(1)
-	//int centre = arg.GetNumber(2)
+	//const wxPoint& ptStart = arg.GetNumber(0)
+	//const wxPoint& ptEnd = arg.GetNumber(1)
+	//const wxPoint& centre = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawArc();
 	return Value::Nil;
 }
@@ -227,10 +227,10 @@ Gura_ImplementMethod(wx_DC, __DrawBitmap)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
-	//int x = arg.GetNumber(1)
-	//int y = arg.GetNumber(2)
-	//int useMask = arg.GetNumber(3)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
+	//wxCoord x = arg.GetNumber(1)
+	//wxCoord y = arg.GetNumber(2)
+	//bool useMask = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawBitmap();
 	return Value::Nil;
 }
@@ -247,9 +247,9 @@ Gura_ImplementMethod(wx_DC, __DrawBitmap_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bmp = arg.GetNumber(0)
-	//int pt = arg.GetNumber(1)
-	//int useMask = arg.GetNumber(2)
+	//const wxBitmap& bmp = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(1)
+	//bool useMask = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawBitmap();
 	return Value::Nil;
 }
@@ -267,10 +267,10 @@ Gura_ImplementMethod(wx_DC, __DrawCheckMark)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int width = arg.GetNumber(2)
-	//int height = arg.GetNumber(3)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxCoord width = arg.GetNumber(2)
+	//wxCoord height = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawCheckMark();
 	return Value::Nil;
 }
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_DC, __DrawCheckMark_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->DrawCheckMark();
 	return Value::Nil;
 }
@@ -302,9 +302,9 @@ Gura_ImplementMethod(wx_DC, __DrawCircle)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int radius = arg.GetNumber(2)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxCoord radius = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawCircle();
 	return Value::Nil;
 }
@@ -320,8 +320,8 @@ Gura_ImplementMethod(wx_DC, __DrawCircle_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
-	//int radius = arg.GetNumber(1)
+	//const wxPoint& pt = arg.GetNumber(0)
+	//wxCoord radius = arg.GetNumber(1)
 	//pThis->GetEntity()->DrawCircle();
 	return Value::Nil;
 }
@@ -339,10 +339,10 @@ Gura_ImplementMethod(wx_DC, __DrawEllipse)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int width = arg.GetNumber(2)
-	//int height = arg.GetNumber(3)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxCoord width = arg.GetNumber(2)
+	//wxCoord height = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawEllipse();
 	return Value::Nil;
 }
@@ -358,8 +358,8 @@ Gura_ImplementMethod(wx_DC, __DrawEllipse_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const wxPoint& pt = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(1)
 	//pThis->GetEntity()->DrawEllipse();
 	return Value::Nil;
 }
@@ -374,7 +374,7 @@ Gura_ImplementMethod(wx_DC, __DrawEllipse_2)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->DrawEllipse();
 	return Value::Nil;
 }
@@ -394,12 +394,12 @@ Gura_ImplementMethod(wx_DC, __DrawEllipticArc)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int width = arg.GetNumber(2)
-	//int height = arg.GetNumber(3)
-	//int start = arg.GetNumber(4)
-	//int end = arg.GetNumber(5)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxCoord width = arg.GetNumber(2)
+	//wxCoord height = arg.GetNumber(3)
+	//double start = arg.GetNumber(4)
+	//double end = arg.GetNumber(5)
 	//pThis->GetEntity()->DrawEllipticArc();
 	return Value::Nil;
 }
@@ -417,10 +417,10 @@ Gura_ImplementMethod(wx_DC, __DrawEllipticArc_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
-	//int sz = arg.GetNumber(1)
-	//int sa = arg.GetNumber(2)
-	//int ea = arg.GetNumber(3)
+	//const wxPoint& pt = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(1)
+	//double sa = arg.GetNumber(2)
+	//double ea = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawEllipticArc();
 	return Value::Nil;
 }
@@ -437,9 +437,9 @@ Gura_ImplementMethod(wx_DC, __DrawIcon)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int icon = arg.GetNumber(0)
-	//int x = arg.GetNumber(1)
-	//int y = arg.GetNumber(2)
+	//const wxIcon& icon = arg.GetNumber(0)
+	//wxCoord x = arg.GetNumber(1)
+	//wxCoord y = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawIcon();
 	return Value::Nil;
 }
@@ -455,8 +455,8 @@ Gura_ImplementMethod(wx_DC, __DrawIcon_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int icon = arg.GetNumber(0)
-	//int pt = arg.GetNumber(1)
+	//const wxIcon& icon = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(1)
 	//pThis->GetEntity()->DrawIcon();
 	return Value::Nil;
 }
@@ -476,12 +476,12 @@ Gura_ImplementMethod(wx_DC, __DrawLabel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//const wxString& text = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int alignment = arg.GetNumber(3)
 	//int indexAccel = arg.GetNumber(4)
-	//int rectBounding = arg.GetNumber(5)
+	//wxRect* rectBounding = arg.GetNumber(5)
 	//pThis->GetEntity()->DrawLabel();
 	return Value::Nil;
 }
@@ -499,8 +499,8 @@ Gura_ImplementMethod(wx_DC, __DrawLabel_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int rect = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(1)
 	//int alignment = arg.GetNumber(2)
 	//int indexAccel = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawLabel();
@@ -520,10 +520,10 @@ Gura_ImplementMethod(wx_DC, __DrawLine)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x1 = arg.GetNumber(0)
-	//int y1 = arg.GetNumber(1)
-	//int x2 = arg.GetNumber(2)
-	//int y2 = arg.GetNumber(3)
+	//wxCoord x1 = arg.GetNumber(0)
+	//wxCoord y1 = arg.GetNumber(1)
+	//wxCoord x2 = arg.GetNumber(2)
+	//wxCoord y2 = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawLine();
 	return Value::Nil;
 }
@@ -539,8 +539,8 @@ Gura_ImplementMethod(wx_DC, __DrawLine_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt1 = arg.GetNumber(0)
-	//int pt2 = arg.GetNumber(1)
+	//const wxPoint& pt1 = arg.GetNumber(0)
+	//const wxPoint& pt2 = arg.GetNumber(1)
 	//pThis->GetEntity()->DrawLine();
 	return Value::Nil;
 }
@@ -559,9 +559,9 @@ Gura_ImplementMethod(wx_DC, __DrawLines)
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//int points = arg.GetNumber(1)
-	//int xoffset = arg.GetNumber(2)
-	//int yoffset = arg.GetNumber(3)
+	//const wxPoint points = arg.GetNumber(1)
+	//wxCoord xoffset = arg.GetNumber(2)
+	//wxCoord yoffset = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawLines();
 	return Value::Nil;
 }
@@ -578,9 +578,9 @@ Gura_ImplementMethod(wx_DC, __DrawLines_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int points = arg.GetNumber(0)
-	//int xoffset = arg.GetNumber(1)
-	//int yoffset = arg.GetNumber(2)
+	//const wxPointList* points = arg.GetNumber(0)
+	//wxCoord xoffset = arg.GetNumber(1)
+	//wxCoord yoffset = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawLines();
 	return Value::Nil;
 }
@@ -596,8 +596,8 @@ Gura_ImplementMethod(wx_DC, __DrawPoint)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->DrawPoint();
 	return Value::Nil;
 }
@@ -612,7 +612,7 @@ Gura_ImplementMethod(wx_DC, __DrawPoint_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->DrawPoint();
 	return Value::Nil;
 }
@@ -632,10 +632,10 @@ Gura_ImplementMethod(wx_DC, __DrawPolygon)
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//int points = arg.GetNumber(1)
-	//int xoffset = arg.GetNumber(2)
-	//int yoffset = arg.GetNumber(3)
-	//int fill_style = arg.GetNumber(4)
+	//const wxPoint points = arg.GetNumber(1)
+	//wxCoord xoffset = arg.GetNumber(2)
+	//wxCoord yoffset = arg.GetNumber(3)
+	//wxPolygonFillMode fill_style = arg.GetNumber(4)
 	//pThis->GetEntity()->DrawPolygon();
 	return Value::Nil;
 }
@@ -653,10 +653,10 @@ Gura_ImplementMethod(wx_DC, __DrawPolygon_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int points = arg.GetNumber(0)
-	//int xoffset = arg.GetNumber(1)
-	//int yoffset = arg.GetNumber(2)
-	//int fill_style = arg.GetNumber(3)
+	//const wxPointList* points = arg.GetNumber(0)
+	//wxCoord xoffset = arg.GetNumber(1)
+	//wxCoord yoffset = arg.GetNumber(2)
+	//wxPolygonFillMode fill_style = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawPolygon();
 	return Value::Nil;
 }
@@ -677,11 +677,11 @@ Gura_ImplementMethod(wx_DC, __DrawPolyPolygon)
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//int count = arg.GetNumber(1)
-	//int points = arg.GetNumber(2)
-	//int xoffset = arg.GetNumber(3)
-	//int yoffset = arg.GetNumber(4)
-	//int fill_style = arg.GetNumber(5)
+	//const int count = arg.GetNumber(1)
+	//const wxPoint points = arg.GetNumber(2)
+	//wxCoord xoffset = arg.GetNumber(3)
+	//wxCoord yoffset = arg.GetNumber(4)
+	//wxPolygonFillMode fill_style = arg.GetNumber(5)
 	//pThis->GetEntity()->DrawPolyPolygon();
 	return Value::Nil;
 }
@@ -699,10 +699,10 @@ Gura_ImplementMethod(wx_DC, __DrawRectangle)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int width = arg.GetNumber(2)
-	//int height = arg.GetNumber(3)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxCoord width = arg.GetNumber(2)
+	//wxCoord height = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawRectangle();
 	return Value::Nil;
 }
@@ -718,8 +718,8 @@ Gura_ImplementMethod(wx_DC, __DrawRectangle_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
-	//int sz = arg.GetNumber(1)
+	//const wxPoint& pt = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(1)
 	//pThis->GetEntity()->DrawRectangle();
 	return Value::Nil;
 }
@@ -734,7 +734,7 @@ Gura_ImplementMethod(wx_DC, __DrawRectangle_2)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->DrawRectangle();
 	return Value::Nil;
 }
@@ -752,10 +752,10 @@ Gura_ImplementMethod(wx_DC, __DrawRotatedText)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int x = arg.GetNumber(1)
-	//int y = arg.GetNumber(2)
-	//int angle = arg.GetNumber(3)
+	//const wxString& text = arg.GetNumber(0)
+	//wxCoord x = arg.GetNumber(1)
+	//wxCoord y = arg.GetNumber(2)
+	//double angle = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawRotatedText();
 	return Value::Nil;
 }
@@ -772,9 +772,9 @@ Gura_ImplementMethod(wx_DC, __DrawRotatedText_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int point = arg.GetNumber(1)
-	//int angle = arg.GetNumber(2)
+	//const wxString& text = arg.GetNumber(0)
+	//const wxPoint& point = arg.GetNumber(1)
+	//double angle = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawRotatedText();
 	return Value::Nil;
 }
@@ -793,11 +793,11 @@ Gura_ImplementMethod(wx_DC, __DrawRoundedRectangle)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int width = arg.GetNumber(2)
-	//int height = arg.GetNumber(3)
-	//int radius = arg.GetNumber(4)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxCoord width = arg.GetNumber(2)
+	//wxCoord height = arg.GetNumber(3)
+	//double radius = arg.GetNumber(4)
 	//pThis->GetEntity()->DrawRoundedRectangle();
 	return Value::Nil;
 }
@@ -814,9 +814,9 @@ Gura_ImplementMethod(wx_DC, __DrawRoundedRectangle_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
-	//int sz = arg.GetNumber(1)
-	//int radius = arg.GetNumber(2)
+	//const wxPoint& pt = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(1)
+	//double radius = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawRoundedRectangle();
 	return Value::Nil;
 }
@@ -832,8 +832,8 @@ Gura_ImplementMethod(wx_DC, __DrawRoundedRectangle_2)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
-	//int radius = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(0)
+	//double radius = arg.GetNumber(1)
 	//pThis->GetEntity()->DrawRoundedRectangle();
 	return Value::Nil;
 }
@@ -850,7 +850,7 @@ Gura_ImplementMethod(wx_DC, __DrawSpline)
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//int points = arg.GetNumber(1)
+	//const wxPoint points = arg.GetNumber(1)
 	//pThis->GetEntity()->DrawSpline();
 	return Value::Nil;
 }
@@ -865,7 +865,7 @@ Gura_ImplementMethod(wx_DC, __DrawSpline_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int points = arg.GetNumber(0)
+	//const wxPointList* points = arg.GetNumber(0)
 	//pThis->GetEntity()->DrawSpline();
 	return Value::Nil;
 }
@@ -885,12 +885,12 @@ Gura_ImplementMethod(wx_DC, __DrawSpline_2)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x1 = arg.GetNumber(0)
-	//int y1 = arg.GetNumber(1)
-	//int x2 = arg.GetNumber(2)
-	//int y2 = arg.GetNumber(3)
-	//int x3 = arg.GetNumber(4)
-	//int y3 = arg.GetNumber(5)
+	//wxCoord x1 = arg.GetNumber(0)
+	//wxCoord y1 = arg.GetNumber(1)
+	//wxCoord x2 = arg.GetNumber(2)
+	//wxCoord y2 = arg.GetNumber(3)
+	//wxCoord x3 = arg.GetNumber(4)
+	//wxCoord y3 = arg.GetNumber(5)
 	//pThis->GetEntity()->DrawSpline();
 	return Value::Nil;
 }
@@ -907,9 +907,9 @@ Gura_ImplementMethod(wx_DC, __DrawText)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int x = arg.GetNumber(1)
-	//int y = arg.GetNumber(2)
+	//const wxString& text = arg.GetNumber(0)
+	//wxCoord x = arg.GetNumber(1)
+	//wxCoord y = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawText();
 	return Value::Nil;
 }
@@ -925,8 +925,8 @@ Gura_ImplementMethod(wx_DC, __DrawText_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int pt = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(1)
 	//pThis->GetEntity()->DrawText();
 	return Value::Nil;
 }
@@ -943,9 +943,9 @@ Gura_ImplementMethod(wx_DC, __GradientFillConcentric)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
-	//int initialColour = arg.GetNumber(1)
-	//int destColour = arg.GetNumber(2)
+	//const wxRect& rect = arg.GetNumber(0)
+	//const wxColour& initialColour = arg.GetNumber(1)
+	//const wxColour& destColour = arg.GetNumber(2)
 	//pThis->GetEntity()->GradientFillConcentric();
 	return Value::Nil;
 }
@@ -963,10 +963,10 @@ Gura_ImplementMethod(wx_DC, __GradientFillConcentric_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
-	//int initialColour = arg.GetNumber(1)
-	//int destColour = arg.GetNumber(2)
-	//int circleCenter = arg.GetNumber(3)
+	//const wxRect& rect = arg.GetNumber(0)
+	//const wxColour& initialColour = arg.GetNumber(1)
+	//const wxColour& destColour = arg.GetNumber(2)
+	//const wxPoint& circleCenter = arg.GetNumber(3)
 	//pThis->GetEntity()->GradientFillConcentric();
 	return Value::Nil;
 }
@@ -984,10 +984,10 @@ Gura_ImplementMethod(wx_DC, __GradientFillLinear)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
-	//int initialColour = arg.GetNumber(1)
-	//int destColour = arg.GetNumber(2)
-	//int nDirection = arg.GetNumber(3)
+	//const wxRect& rect = arg.GetNumber(0)
+	//const wxColour& initialColour = arg.GetNumber(1)
+	//const wxColour& destColour = arg.GetNumber(2)
+	//wxDirection nDirection = arg.GetNumber(3)
 	//pThis->GetEntity()->GradientFillLinear();
 	return Value::Nil;
 }
@@ -1005,10 +1005,10 @@ Gura_ImplementMethod(wx_DC, __FloodFill)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int colour = arg.GetNumber(2)
-	//int style = arg.GetNumber(3)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//const wxColour& colour = arg.GetNumber(2)
+	//wxFloodFillStyle style = arg.GetNumber(3)
 	//pThis->GetEntity()->FloodFill();
 	return Value::Nil;
 }
@@ -1025,9 +1025,9 @@ Gura_ImplementMethod(wx_DC, __FloodFill_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
-	//int style = arg.GetNumber(2)
+	//const wxPoint& pt = arg.GetNumber(0)
+	//const wxColour& col = arg.GetNumber(1)
+	//wxFloodFillStyle style = arg.GetNumber(2)
 	//pThis->GetEntity()->FloodFill();
 	return Value::Nil;
 }
@@ -1043,8 +1043,8 @@ Gura_ImplementMethod(wx_DC, __CrossHair)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->CrossHair();
 	return Value::Nil;
 }
@@ -1059,7 +1059,7 @@ Gura_ImplementMethod(wx_DC, __CrossHair_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->CrossHair();
 	return Value::Nil;
 }
@@ -1090,10 +1090,10 @@ Gura_ImplementMethod(wx_DC, __GetClippingBox)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int width = arg.GetNumber(2)
-	//int height = arg.GetNumber(3)
+	//wxCoord* x = arg.GetNumber(0)
+	//wxCoord* y = arg.GetNumber(1)
+	//wxCoord* width = arg.GetNumber(2)
+	//wxCoord* height = arg.GetNumber(3)
 	//pThis->GetEntity()->GetClippingBox();
 	return Value::Nil;
 }
@@ -1111,10 +1111,10 @@ Gura_ImplementMethod(wx_DC, __SetClippingRegion)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int width = arg.GetNumber(2)
-	//int height = arg.GetNumber(3)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxCoord width = arg.GetNumber(2)
+	//wxCoord height = arg.GetNumber(3)
 	//pThis->GetEntity()->SetClippingRegion();
 	return Value::Nil;
 }
@@ -1130,8 +1130,8 @@ Gura_ImplementMethod(wx_DC, __SetClippingRegion_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
-	//int sz = arg.GetNumber(1)
+	//const wxPoint& pt = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(1)
 	//pThis->GetEntity()->SetClippingRegion();
 	return Value::Nil;
 }
@@ -1146,7 +1146,7 @@ Gura_ImplementMethod(wx_DC, __SetClippingRegion_2)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetClippingRegion();
 	return Value::Nil;
 }
@@ -1161,7 +1161,7 @@ Gura_ImplementMethod(wx_DC, __SetDeviceClippingRegion)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int region = arg.GetNumber(0)
+	//const wxRegion& region = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDeviceClippingRegion();
 	return Value::Nil;
 }
@@ -1219,11 +1219,11 @@ Gura_ImplementMethod(wx_DC, __GetMultiLineTextExtent)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
-	//int w = arg.GetNumber(1)
-	//int h = arg.GetNumber(2)
-	//int heightLine = arg.GetNumber(3)
-	//int font = arg.GetNumber(4)
+	//const wxString& string = arg.GetNumber(0)
+	//wxCoord* w = arg.GetNumber(1)
+	//wxCoord* h = arg.GetNumber(2)
+	//wxCoord* heightLine = arg.GetNumber(3)
+	//const wxFont* font = arg.GetNumber(4)
 	//pThis->GetEntity()->GetMultiLineTextExtent();
 	return Value::Nil;
 }
@@ -1238,7 +1238,7 @@ Gura_ImplementMethod(wx_DC, __GetMultiLineTextExtent_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
+	//const wxString& string = arg.GetNumber(0)
 	//pThis->GetEntity()->GetMultiLineTextExtent();
 	return Value::Nil;
 }
@@ -1254,8 +1254,8 @@ Gura_ImplementMethod(wx_DC, __GetPartialTextExtents)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int widths = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(0)
+	//wxArrayInt& widths = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPartialTextExtents();
 	return Value::Nil;
 }
@@ -1275,12 +1275,12 @@ Gura_ImplementMethod(wx_DC, __GetTextExtent)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
-	//int w = arg.GetNumber(1)
-	//int h = arg.GetNumber(2)
-	//int descent = arg.GetNumber(3)
-	//int externalLeading = arg.GetNumber(4)
-	//int font = arg.GetNumber(5)
+	//const wxString& string = arg.GetNumber(0)
+	//wxCoord* w = arg.GetNumber(1)
+	//wxCoord* h = arg.GetNumber(2)
+	//wxCoord* descent = arg.GetNumber(3)
+	//wxCoord* externalLeading = arg.GetNumber(4)
+	//const wxFont* font = arg.GetNumber(5)
 	//pThis->GetEntity()->GetTextExtent();
 	return Value::Nil;
 }
@@ -1295,7 +1295,7 @@ Gura_ImplementMethod(wx_DC, __GetTextExtent_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
+	//const wxString& string = arg.GetNumber(0)
 	//pThis->GetEntity()->GetTextExtent();
 	return Value::Nil;
 }
@@ -1390,7 +1390,7 @@ Gura_ImplementMethod(wx_DC, __SetFont)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;
 }
@@ -1405,7 +1405,7 @@ Gura_ImplementMethod(wx_DC, __SetTextBackground)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextBackground();
 	return Value::Nil;
 }
@@ -1420,7 +1420,7 @@ Gura_ImplementMethod(wx_DC, __SetTextForeground)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextForeground();
 	return Value::Nil;
 }
@@ -1435,7 +1435,7 @@ Gura_ImplementMethod(wx_DC, __SetLayoutDirection)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dir = arg.GetNumber(0)
+	//wxLayoutDirection dir = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLayoutDirection();
 	return Value::Nil;
 }
@@ -1451,8 +1451,8 @@ Gura_ImplementMethod(wx_DC, __CalcBoundingBox)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->CalcBoundingBox();
 	return Value::Nil;
 }
@@ -1532,7 +1532,7 @@ Gura_ImplementMethod(wx_DC, __StartDoc)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int message = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(0)
 	//pThis->GetEntity()->StartDoc();
 	return Value::Nil;
 }
@@ -1596,17 +1596,17 @@ Gura_ImplementMethod(wx_DC, __Blit)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int xdest = arg.GetNumber(0)
-	//int ydest = arg.GetNumber(1)
-	//int width = arg.GetNumber(2)
-	//int height = arg.GetNumber(3)
-	//int source = arg.GetNumber(4)
-	//int xsrc = arg.GetNumber(5)
-	//int ysrc = arg.GetNumber(6)
-	//int logicalFunc = arg.GetNumber(7)
-	//int useMask = arg.GetNumber(8)
-	//int xsrcMask = arg.GetNumber(9)
-	//int ysrcMask = arg.GetNumber(10)
+	//wxCoord xdest = arg.GetNumber(0)
+	//wxCoord ydest = arg.GetNumber(1)
+	//wxCoord width = arg.GetNumber(2)
+	//wxCoord height = arg.GetNumber(3)
+	//wxDC* source = arg.GetNumber(4)
+	//wxCoord xsrc = arg.GetNumber(5)
+	//wxCoord ysrc = arg.GetNumber(6)
+	//wxRasterOperationMode logicalFunc = arg.GetNumber(7)
+	//bool useMask = arg.GetNumber(8)
+	//wxCoord xsrcMask = arg.GetNumber(9)
+	//wxCoord ysrcMask = arg.GetNumber(10)
 	//pThis->GetEntity()->Blit();
 	return Value::Nil;
 }
@@ -1633,19 +1633,19 @@ Gura_ImplementMethod(wx_DC, __StretchBlit)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int xdest = arg.GetNumber(0)
-	//int ydest = arg.GetNumber(1)
-	//int dstWidth = arg.GetNumber(2)
-	//int dstHeight = arg.GetNumber(3)
-	//int source = arg.GetNumber(4)
-	//int xsrc = arg.GetNumber(5)
-	//int ysrc = arg.GetNumber(6)
-	//int srcWidth = arg.GetNumber(7)
-	//int srcHeight = arg.GetNumber(8)
-	//int logicalFunc = arg.GetNumber(9)
-	//int useMask = arg.GetNumber(10)
-	//int xsrcMask = arg.GetNumber(11)
-	//int ysrcMask = arg.GetNumber(12)
+	//wxCoord xdest = arg.GetNumber(0)
+	//wxCoord ydest = arg.GetNumber(1)
+	//wxCoord dstWidth = arg.GetNumber(2)
+	//wxCoord dstHeight = arg.GetNumber(3)
+	//wxDC* source = arg.GetNumber(4)
+	//wxCoord xsrc = arg.GetNumber(5)
+	//wxCoord ysrc = arg.GetNumber(6)
+	//wxCoord srcWidth = arg.GetNumber(7)
+	//wxCoord srcHeight = arg.GetNumber(8)
+	//wxRasterOperationMode logicalFunc = arg.GetNumber(9)
+	//bool useMask = arg.GetNumber(10)
+	//wxCoord xsrcMask = arg.GetNumber(11)
+	//wxCoord ysrcMask = arg.GetNumber(12)
 	//pThis->GetEntity()->StretchBlit();
 	return Value::Nil;
 }
@@ -1699,7 +1699,7 @@ Gura_ImplementMethod(wx_DC, __SetBackground)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int brush = arg.GetNumber(0)
+	//const wxBrush& brush = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBackground();
 	return Value::Nil;
 }
@@ -1714,7 +1714,7 @@ Gura_ImplementMethod(wx_DC, __SetBrush)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int brush = arg.GetNumber(0)
+	//const wxBrush& brush = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBrush();
 	return Value::Nil;
 }
@@ -1729,7 +1729,7 @@ Gura_ImplementMethod(wx_DC, __SetPen)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pen = arg.GetNumber(0)
+	//const wxPen& pen = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPen();
 	return Value::Nil;
 }
@@ -1744,7 +1744,7 @@ Gura_ImplementMethod(wx_DC, __CopyAttributes)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
+	//const wxDC& dc = arg.GetNumber(0)
 	//pThis->GetEntity()->CopyAttributes();
 	return Value::Nil;
 }
@@ -1813,9 +1813,9 @@ Gura_ImplementMethod(wx_DC, __GetPixel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int colour = arg.GetNumber(2)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxColour* colour = arg.GetNumber(2)
 	//pThis->GetEntity()->GetPixel();
 	return Value::Nil;
 }
@@ -1844,8 +1844,8 @@ Gura_ImplementMethod(wx_DC, __GetSize)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int width = arg.GetNumber(0)
-	//int height = arg.GetNumber(1)
+	//wxCoord* width = arg.GetNumber(0)
+	//wxCoord* height = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -1874,8 +1874,8 @@ Gura_ImplementMethod(wx_DC, __GetSizeMM)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int width = arg.GetNumber(0)
-	//int height = arg.GetNumber(1)
+	//wxCoord* width = arg.GetNumber(0)
+	//wxCoord* height = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSizeMM();
 	return Value::Nil;
 }
@@ -1904,8 +1904,8 @@ Gura_ImplementMethod(wx_DC, __GetUserScale)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//double* x = arg.GetNumber(0)
+	//double* y = arg.GetNumber(1)
 	//pThis->GetEntity()->GetUserScale();
 	return Value::Nil;
 }
@@ -1934,8 +1934,8 @@ Gura_ImplementMethod(wx_DC, __SetAxisOrientation)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int xLeftRight = arg.GetNumber(0)
-	//int yBottomUp = arg.GetNumber(1)
+	//bool xLeftRight = arg.GetNumber(0)
+	//bool yBottomUp = arg.GetNumber(1)
 	//pThis->GetEntity()->SetAxisOrientation();
 	return Value::Nil;
 }
@@ -1951,8 +1951,8 @@ Gura_ImplementMethod(wx_DC, __SetDeviceOrigin)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->SetDeviceOrigin();
 	return Value::Nil;
 }
@@ -1967,7 +1967,7 @@ Gura_ImplementMethod(wx_DC, __SetLogicalFunction)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int function = arg.GetNumber(0)
+	//wxRasterOperationMode function = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLogicalFunction();
 	return Value::Nil;
 }
@@ -1982,7 +1982,7 @@ Gura_ImplementMethod(wx_DC, __SetMapMode)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mode = arg.GetNumber(0)
+	//wxMappingMode mode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMapMode();
 	return Value::Nil;
 }
@@ -1997,7 +1997,7 @@ Gura_ImplementMethod(wx_DC, __SetPalette)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int palette = arg.GetNumber(0)
+	//const wxPalette& palette = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPalette();
 	return Value::Nil;
 }
@@ -2013,8 +2013,8 @@ Gura_ImplementMethod(wx_DC, __SetUserScale)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int xScale = arg.GetNumber(0)
-	//int yScale = arg.GetNumber(1)
+	//double xScale = arg.GetNumber(0)
+	//double yScale = arg.GetNumber(1)
 	//pThis->GetEntity()->SetUserScale();
 	return Value::Nil;
 }
@@ -2042,7 +2042,7 @@ Gura_ImplementMethod(wx_DC, __SetTransformMatrix)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int matrix = arg.GetNumber(0)
+	//const wxAffineMatrix2D& matrix = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTransformMatrix();
 	return Value::Nil;
 }
@@ -2122,7 +2122,7 @@ Gura_ImplementMethod(wx_DC, __GetAsBitmap)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int subrect = arg.GetNumber(0)
+	//const wxRect* subrect = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAsBitmap();
 	return Value::Nil;
 }
@@ -2138,8 +2138,8 @@ Gura_ImplementMethod(wx_DC, __SetLogicalScale)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//double x = arg.GetNumber(0)
+	//double y = arg.GetNumber(1)
 	//pThis->GetEntity()->SetLogicalScale();
 	return Value::Nil;
 }
@@ -2155,8 +2155,8 @@ Gura_ImplementMethod(wx_DC, __GetLogicalScale)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//double* x = arg.GetNumber(0)
+	//double* y = arg.GetNumber(1)
 	//pThis->GetEntity()->GetLogicalScale();
 	return Value::Nil;
 }
@@ -2172,8 +2172,8 @@ Gura_ImplementMethod(wx_DC, __SetLogicalOrigin)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->SetLogicalOrigin();
 	return Value::Nil;
 }
@@ -2189,8 +2189,8 @@ Gura_ImplementMethod(wx_DC, __GetLogicalOrigin)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord* x = arg.GetNumber(0)
+	//wxCoord* y = arg.GetNumber(1)
 	//pThis->GetEntity()->GetLogicalOrigin();
 	return Value::Nil;
 }

@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__TextAttrDimensionConverter, "TextAttrDimensionConver
 
 Gura_ImplementFunction(__TextAttrDimensionConverter)
 {
-	//int dc = arg.GetNumber(0)
-	//int scale = arg.GetNumber(1)
-	//int parentSize = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//double scale = arg.GetNumber(1)
+	//const wxSize& parentSize = arg.GetNumber(2)
 	//wxTextAttrDimensionConverter();
 	return Value::Nil;
 }
@@ -69,8 +69,8 @@ Gura_DeclareFunctionAlias(__TextAttrDimensionConverter_1, "TextAttrDimensionConv
 Gura_ImplementFunction(__TextAttrDimensionConverter_1)
 {
 	//int ppi = arg.GetNumber(0)
-	//int scale = arg.GetNumber(1)
-	//int parentSize = arg.GetNumber(2)
+	//double scale = arg.GetNumber(1)
+	//const wxSize& parentSize = arg.GetNumber(2)
 	//wxTextAttrDimensionConverter();
 	return Value::Nil;
 }
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, __GetPixels)
 {
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dim = arg.GetNumber(0)
+	//const wxTextAttrDimension& dim = arg.GetNumber(0)
 	//int direction = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPixels();
 	return Value::Nil;
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, __GetTenthsMM)
 {
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dim = arg.GetNumber(0)
+	//const wxTextAttrDimension& dim = arg.GetNumber(0)
 	//pThis->GetEntity()->GetTenthsMM();
 	return Value::Nil;
 }

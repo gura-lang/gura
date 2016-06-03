@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__HTMLDataObject, "HTMLDataObject")
 
 Gura_ImplementFunction(__HTMLDataObject)
 {
-	//int html = arg.GetNumber(0)
+	//const wxString& html = arg.GetNumber(0)
 	//wxHTMLDataObject();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_HTMLDataObject, __SetHTML)
 {
 	Object_wx_HTMLDataObject *pThis = Object_wx_HTMLDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int html = arg.GetNumber(0)
+	//const wxString& html = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHTML();
 	return Value::Nil;
 }

@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_CommandProcessor, __SetEditMenu)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int menu = arg.GetNumber(0)
+	//wxMenu* menu = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEditMenu();
 	return Value::Nil;
 }
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_CommandProcessor, __SetRedoAccelerator)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int accel = arg.GetNumber(0)
+	//const wxString& accel = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRedoAccelerator();
 	return Value::Nil;
 }
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_CommandProcessor, __SetUndoAccelerator)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int accel = arg.GetNumber(0)
+	//const wxString& accel = arg.GetNumber(0)
 	//pThis->GetEntity()->SetUndoAccelerator();
 	return Value::Nil;
 }
@@ -319,8 +319,8 @@ Gura_ImplementMethod(wx_CommandProcessor, __Submit)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int command = arg.GetNumber(0)
-	//int storeIt = arg.GetNumber(1)
+	//wxCommand* command = arg.GetNumber(0)
+	//bool storeIt = arg.GetNumber(1)
 	//pThis->GetEntity()->Submit();
 	return Value::Nil;
 }
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_CommandProcessor, __Store)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int command = arg.GetNumber(0)
+	//wxCommand* command = arg.GetNumber(0)
 	//pThis->GetEntity()->Store();
 	return Value::Nil;
 }

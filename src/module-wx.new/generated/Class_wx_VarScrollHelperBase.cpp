@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__VarScrollHelperBase, "VarScrollHelperBase")
 
 Gura_ImplementFunction(__VarScrollHelperBase)
 {
-	//int winToScroll = arg.GetNumber(0)
+	//wxWindow* winToScroll = arg.GetNumber(0)
 	//wxVarScrollHelperBase();
 	return Value::Nil;
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __EnablePhysicalScrolling)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int scrolling = arg.GetNumber(0)
+	//bool scrolling = arg.GetNumber(0)
 	//pThis->GetEntity()->EnablePhysicalScrolling();
 	return Value::Nil;
 }
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __IsVisible)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int unit = arg.GetNumber(0)
+	//size_t unit = arg.GetNumber(0)
 	//pThis->GetEntity()->IsVisible();
 	return Value::Nil;
 }
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __SetTargetWindow)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int target = arg.GetNumber(0)
+	//wxWindow* target = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTargetWindow();
 	return Value::Nil;
 }
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __VirtualHitTest)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int coord = arg.GetNumber(0)
+	//wxCoord coord = arg.GetNumber(0)
 	//pThis->GetEntity()->VirtualHitTest();
 	return Value::Nil;
 }
@@ -260,8 +260,8 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __OnGetUnitsSizeHint)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int unitMin = arg.GetNumber(0)
-	//int unitMax = arg.GetNumber(1)
+	//size_t unitMin = arg.GetNumber(0)
+	//size_t unitMax = arg.GetNumber(1)
 	//pThis->GetEntity()->OnGetUnitsSizeHint();
 	return Value::Nil;
 }
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __OnGetUnitSize)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int unit = arg.GetNumber(0)
+	//size_t unit = arg.GetNumber(0)
 	//pThis->GetEntity()->OnGetUnitSize();
 	return Value::Nil;
 }

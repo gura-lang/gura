@@ -65,12 +65,12 @@ Gura_DeclareFunctionAlias(__SashWindow_1, "SashWindow_1")
 
 Gura_ImplementFunction(__SashWindow_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//wxSashWindow();
 	return Value::Nil;
 }
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_SashWindow, __GetSashVisible)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int edge = arg.GetNumber(0)
+	//wxSashEdgePosition edge = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSashVisible();
 	return Value::Nil;
 }
@@ -216,8 +216,8 @@ Gura_ImplementMethod(wx_SashWindow, __SetSashVisible)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int edge = arg.GetNumber(0)
-	//int visible = arg.GetNumber(1)
+	//wxSashEdgePosition edge = arg.GetNumber(0)
+	//bool visible = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSashVisible();
 	return Value::Nil;
 }
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_SashWindow, __GetEdgeMargin)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int edge = arg.GetNumber(0)
+	//wxSashEdgePosition edge = arg.GetNumber(0)
 	//pThis->GetEntity()->GetEdgeMargin();
 	return Value::Nil;
 }

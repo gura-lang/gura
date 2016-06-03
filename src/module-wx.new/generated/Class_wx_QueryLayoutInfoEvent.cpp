@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__QueryLayoutInfoEvent, "QueryLayoutInfoEvent")
 
 Gura_ImplementFunction(__QueryLayoutInfoEvent)
 {
-	//int id = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(0)
 	//wxQueryLayoutInfoEvent();
 	return Value::Nil;
 }
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __SetAlignment)
 {
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int alignment = arg.GetNumber(0)
+	//wxLayoutAlignment alignment = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAlignment();
 	return Value::Nil;
 }
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __SetOrientation)
 {
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int orientation = arg.GetNumber(0)
+	//wxLayoutOrientation orientation = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOrientation();
 	return Value::Nil;
 }
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __SetSize)
 {
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
 }

@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_SystemOptions, __GetOption)
 {
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetOption();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_SystemOptions, __GetOptionInt)
 {
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetOptionInt();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_SystemOptions, __HasOption)
 {
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->HasOption();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_SystemOptions, __IsFalse)
 {
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->IsFalse();
 	return Value::Nil;
 }
@@ -124,8 +124,8 @@ Gura_ImplementMethod(wx_SystemOptions, __SetOption)
 {
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxString& value = arg.GetNumber(1)
 	//pThis->GetEntity()->SetOption();
 	return Value::Nil;
 }
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_SystemOptions, __SetOption_1)
 {
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
 	//pThis->GetEntity()->SetOption();
 	return Value::Nil;

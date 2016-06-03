@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetDateTime)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dt = arg.GetNumber(0)
+	//const wxDateTime& dt = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDateTime();
 	return Value::Nil;
 }
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __GetName)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
+	//wxPathFormat format = arg.GetNumber(0)
 	//pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
@@ -104,8 +104,8 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetName)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int format = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//wxPathFormat format = arg.GetNumber(1)
 	//pThis->GetEntity()->SetName();
 	return Value::Nil;
 }
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetSize)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//wxFileOffset size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
 }
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetIsDir)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int isDir = arg.GetNumber(0)
+	//bool isDir = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIsDir();
 	return Value::Nil;
 }
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetIsReadOnly)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int isReadOnly = arg.GetNumber(0)
+	//bool isReadOnly = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIsReadOnly();
 	return Value::Nil;
 }
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetNotifier)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int notifier = arg.GetNumber(0)
+	//wxArchiveNotifier& notifier = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNotifier();
 	return Value::Nil;
 }

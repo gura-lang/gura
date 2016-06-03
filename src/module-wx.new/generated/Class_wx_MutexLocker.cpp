@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__MutexLocker, "MutexLocker")
 
 Gura_ImplementFunction(__MutexLocker)
 {
-	//int mutex = arg.GetNumber(0)
+	//wxMutex& mutex = arg.GetNumber(0)
 	//wxMutexLocker();
 	return Value::Nil;
 }

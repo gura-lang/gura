@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__DropFilesEvent, "DropFilesEvent")
 
 Gura_ImplementFunction(__DropFilesEvent)
 {
-	//int id = arg.GetNumber(0)
+	//wxEventType id = arg.GetNumber(0)
 	//int noFiles = arg.GetNumber(1)
-	//int files = arg.GetNumber(2)
+	//wxString* files = arg.GetNumber(2)
 	//wxDropFilesEvent();
 	return Value::Nil;
 }

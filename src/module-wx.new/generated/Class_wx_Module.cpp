@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_Module, __AddDependency)
 {
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dep = arg.GetNumber(0)
+	//wxClassInfo* dep = arg.GetNumber(0)
 	//pThis->GetEntity()->AddDependency();
 	return Value::Nil;
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_Module, __AddDependency_1)
 {
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int classname = arg.GetNumber(0)
+	//const char* classname = arg.GetNumber(0)
 	//pThis->GetEntity()->AddDependency();
 	return Value::Nil;
 }

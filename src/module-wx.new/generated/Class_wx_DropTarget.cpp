@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__DropTarget, "DropTarget")
 
 Gura_ImplementFunction(__DropTarget)
 {
-	//int data = arg.GetNumber(0)
+	//wxDataObject* data = arg.GetNumber(0)
 	//wxDropTarget();
 	return Value::Nil;
 }
@@ -80,9 +80,9 @@ Gura_ImplementMethod(wx_DropTarget, __OnData)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int defResult = arg.GetNumber(2)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxDragResult defResult = arg.GetNumber(2)
 	//pThis->GetEntity()->OnData();
 	return Value::Nil;
 }
@@ -99,9 +99,9 @@ Gura_ImplementMethod(wx_DropTarget, __OnDragOver)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int defResult = arg.GetNumber(2)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxDragResult defResult = arg.GetNumber(2)
 	//pThis->GetEntity()->OnDragOver();
 	return Value::Nil;
 }
@@ -117,8 +117,8 @@ Gura_ImplementMethod(wx_DropTarget, __OnDrop)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->OnDrop();
 	return Value::Nil;
 }
@@ -135,9 +135,9 @@ Gura_ImplementMethod(wx_DropTarget, __OnEnter)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int defResult = arg.GetNumber(2)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxDragResult defResult = arg.GetNumber(2)
 	//pThis->GetEntity()->OnEnter();
 	return Value::Nil;
 }
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_DropTarget, __SetDataObject)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//wxDataObject* data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDataObject();
 	return Value::Nil;
 }
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_DropTarget, __SetDefaultAction)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int action = arg.GetNumber(0)
+	//wxDragResult action = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaultAction();
 	return Value::Nil;
 }

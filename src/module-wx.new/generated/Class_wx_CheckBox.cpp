@@ -67,14 +67,14 @@ Gura_DeclareFunctionAlias(__CheckBox_1, "CheckBox_1")
 
 Gura_ImplementFunction(__CheckBox_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//wxCheckBox();
 	return Value::Nil;
 }
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_CheckBox, __Create)
 {
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_CheckBox, __SetValue)
 {
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int state = arg.GetNumber(0)
+	//bool state = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_CheckBox, __Set3StateValue)
 {
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int state = arg.GetNumber(0)
+	//wxCheckBoxState state = arg.GetNumber(0)
 	//pThis->GetEntity()->Set3StateValue();
 	return Value::Nil;
 }

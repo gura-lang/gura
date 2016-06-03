@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__MouseEventsManager_1, "MouseEventsManager_1")
 
 Gura_ImplementFunction(__MouseEventsManager_1)
 {
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//wxMouseEventsManager();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __Create)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseHitTest)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//const wxPoint& pos = arg.GetNumber(0)
 	//pThis->GetEntity()->MouseHitTest();
 	return Value::Nil;
 }
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragBegin)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(1)
 	//pThis->GetEntity()->MouseDragBegin();
 	return Value::Nil;
 }
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragging)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(1)
 	//pThis->GetEntity()->MouseDragging();
 	return Value::Nil;
 }
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragEnd)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(1)
 	//pThis->GetEntity()->MouseDragEnd();
 	return Value::Nil;
 }

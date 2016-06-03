@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__SpinEvent, "SpinEvent")
 
 Gura_ImplementFunction(__SpinEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxSpinEvent();
 	return Value::Nil;

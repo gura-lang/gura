@@ -67,14 +67,14 @@ Gura_DeclareFunctionAlias(__BitmapButton_1, "BitmapButton_1")
 
 Gura_ImplementFunction(__BitmapButton_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//wxBitmapButton();
 	return Value::Nil;
 }
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_BitmapButton, __Create)
 {
 	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -122,8 +122,8 @@ Gura_ImplementMethod(wx_BitmapButton, __NewCloseButton)
 {
 	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int winid = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(1)
 	//pThis->GetEntity()->NewCloseButton();
 	return Value::Nil;
 }

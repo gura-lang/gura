@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__Printer, "Printer")
 
 Gura_ImplementFunction(__Printer)
 {
-	//int data = arg.GetNumber(0)
+	//wxPrintDialogData* data = arg.GetNumber(0)
 	//wxPrinter();
 	return Value::Nil;
 }
@@ -66,8 +66,8 @@ Gura_ImplementMethod(wx_Printer, __CreateAbortWindow)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int printout = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxPrintout* printout = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateAbortWindow();
 	return Value::Nil;
 }
@@ -123,9 +123,9 @@ Gura_ImplementMethod(wx_Printer, __Print)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int printout = arg.GetNumber(1)
-	//int prompt = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxPrintout* printout = arg.GetNumber(1)
+	//bool prompt = arg.GetNumber(2)
 	//pThis->GetEntity()->Print();
 	return Value::Nil;
 }
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_Printer, __PrintDialog)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//pThis->GetEntity()->PrintDialog();
 	return Value::Nil;
 }
@@ -157,9 +157,9 @@ Gura_ImplementMethod(wx_Printer, __ReportError)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int printout = arg.GetNumber(1)
-	//int message = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxPrintout* printout = arg.GetNumber(1)
+	//const wxString& message = arg.GetNumber(2)
 	//pThis->GetEntity()->ReportError();
 	return Value::Nil;
 }
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_Printer, __Setup)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//pThis->GetEntity()->Setup();
 	return Value::Nil;
 }

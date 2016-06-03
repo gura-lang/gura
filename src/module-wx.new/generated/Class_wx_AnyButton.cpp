@@ -142,8 +142,8 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmap)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
-	//int dir = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
+	//wxDirection dir = arg.GetNumber(1)
 	//pThis->GetEntity()->SetBitmap();
 	return Value::Nil;
 }
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapCurrent)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapCurrent();
 	return Value::Nil;
 }
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapDisabled)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapDisabled();
 	return Value::Nil;
 }
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapFocus)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapFocus();
 	return Value::Nil;
 }
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapLabel)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapLabel();
 	return Value::Nil;
 }
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapPressed)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapPressed();
 	return Value::Nil;
 }
@@ -247,8 +247,8 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapMargins)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->SetBitmapMargins();
 	return Value::Nil;
 }
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapMargins_1)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapMargins();
 	return Value::Nil;
 }
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapPosition)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dir = arg.GetNumber(0)
+	//wxDirection dir = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapPosition();
 	return Value::Nil;
 }

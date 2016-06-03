@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_VariantData, __Eq)
 {
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//wxVariantData& data = arg.GetNumber(0)
 	//pThis->GetEntity()->Eq();
 	return Value::Nil;
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_VariantData, __GetAny)
 {
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int any = arg.GetNumber(0)
+	//wxAny* any = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAny();
 	return Value::Nil;
 }
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_VariantData, __Read)
 {
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//istream& stream = arg.GetNumber(0)
 	//pThis->GetEntity()->Read();
 	return Value::Nil;
 }
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_VariantData, __Read_1)
 {
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
+	//wxString& string = arg.GetNumber(0)
 	//pThis->GetEntity()->Read();
 	return Value::Nil;
 }
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_VariantData, __Write)
 {
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//ostream& stream = arg.GetNumber(0)
 	//pThis->GetEntity()->Write();
 	return Value::Nil;
 }
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_VariantData, __Write_1)
 {
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
+	//wxString& string = arg.GetNumber(0)
 	//pThis->GetEntity()->Write();
 	return Value::Nil;
 }

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__TipProvider, "TipProvider")
 
 Gura_ImplementFunction(__TipProvider)
 {
-	//int currentTip = arg.GetNumber(0)
+	//size_t currentTip = arg.GetNumber(0)
 	//wxTipProvider();
 	return Value::Nil;
 }

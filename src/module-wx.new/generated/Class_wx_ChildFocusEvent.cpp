@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__ChildFocusEvent, "ChildFocusEvent")
 
 Gura_ImplementFunction(__ChildFocusEvent)
 {
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//wxChildFocusEvent();
 	return Value::Nil;
 }

@@ -66,13 +66,13 @@ Gura_DeclareFunctionAlias(__ListView_1, "ListView_1")
 
 Gura_ImplementFunction(__ListView_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int winid = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int validator = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxValidator& validator = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxListView();
 	return Value::Nil;
 }
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_ListView, __Focus)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
+	//long index = arg.GetNumber(0)
 	//pThis->GetEntity()->Focus();
 	return Value::Nil;
 }
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_ListView, __GetNextSelected)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//long item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetNextSelected();
 	return Value::Nil;
 }
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_ListView, __IsSelected)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
+	//long index = arg.GetNumber(0)
 	//pThis->GetEntity()->IsSelected();
 	return Value::Nil;
 }
@@ -177,8 +177,8 @@ Gura_ImplementMethod(wx_ListView, __Select)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int on = arg.GetNumber(1)
+	//long n = arg.GetNumber(0)
+	//bool on = arg.GetNumber(1)
 	//pThis->GetEntity()->Select();
 	return Value::Nil;
 }

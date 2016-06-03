@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__TimerEvent_1, "TimerEvent_1")
 
 Gura_ImplementFunction(__TimerEvent_1)
 {
-	//int timer = arg.GetNumber(0)
+	//wxTimer& timer = arg.GetNumber(0)
 	//wxTimerEvent();
 	return Value::Nil;
 }

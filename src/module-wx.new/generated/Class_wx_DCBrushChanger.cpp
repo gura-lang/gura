@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__DCBrushChanger, "DCBrushChanger")
 
 Gura_ImplementFunction(__DCBrushChanger)
 {
-	//int dc = arg.GetNumber(0)
-	//int brush = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxBrush& brush = arg.GetNumber(1)
 	//wxDCBrushChanger();
 	return Value::Nil;
 }

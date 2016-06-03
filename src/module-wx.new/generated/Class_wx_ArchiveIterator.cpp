@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__ArchiveIterator_1, "ArchiveIterator_1")
 
 Gura_ImplementFunction(__ArchiveIterator_1)
 {
-	//int arc = arg.GetNumber(0)
+	//Arc& arc = arg.GetNumber(0)
 	//wxArchiveIterator();
 	return Value::Nil;
 }

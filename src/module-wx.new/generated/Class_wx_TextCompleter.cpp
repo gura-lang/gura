@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_TextCompleter, __Start)
 {
 	Object_wx_TextCompleter *pThis = Object_wx_TextCompleter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int prefix = arg.GetNumber(0)
+	//const wxString& prefix = arg.GetNumber(0)
 	//pThis->GetEntity()->Start();
 	return Value::Nil;
 }

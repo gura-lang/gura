@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__FileTypeInfo_1, "FileTypeInfo_1")
 
 Gura_ImplementFunction(__FileTypeInfo_1)
 {
-	//int mimeType = arg.GetNumber(0)
+	//const wxString& mimeType = arg.GetNumber(0)
 	//wxFileTypeInfo();
 	return Value::Nil;
 }
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__FileTypeInfo_2, "FileTypeInfo_2")
 
 Gura_ImplementFunction(__FileTypeInfo_2)
 {
-	//int sArray = arg.GetNumber(0)
+	//const wxArrayString& sArray = arg.GetNumber(0)
 	//wxFileTypeInfo();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_FileTypeInfo, __AddExtension)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ext = arg.GetNumber(0)
+	//const wxString& ext = arg.GetNumber(0)
 	//pThis->GetEntity()->AddExtension();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_FileTypeInfo, __SetDescription)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int description = arg.GetNumber(0)
+	//const wxString& description = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDescription();
 	return Value::Nil;
 }
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_FileTypeInfo, __SetOpenCommand)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int command = arg.GetNumber(0)
+	//const wxString& command = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOpenCommand();
 	return Value::Nil;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_FileTypeInfo, __SetPrintCommand)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int command = arg.GetNumber(0)
+	//const wxString& command = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPrintCommand();
 	return Value::Nil;
 }
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_FileTypeInfo, __SetShortDesc)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int shortDesc = arg.GetNumber(0)
+	//const wxString& shortDesc = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShortDesc();
 	return Value::Nil;
 }
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_FileTypeInfo, __SetIcon)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int iconFile = arg.GetNumber(0)
+	//const wxString& iconFile = arg.GetNumber(0)
 	//int iconIndex = arg.GetNumber(1)
 	//pThis->GetEntity()->SetIcon();
 	return Value::Nil;

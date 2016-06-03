@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __CreateButtons)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dialog = arg.GetNumber(0)
+	//wxRichTextFormattingDialog* dialog = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateButtons();
 	return Value::Nil;
 }
@@ -81,8 +81,8 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __CreatePage)
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//int title = arg.GetNumber(1)
-	//int dialog = arg.GetNumber(2)
+	//wxString& title = arg.GetNumber(1)
+	//wxRichTextFormattingDialog* dialog = arg.GetNumber(2)
 	//pThis->GetEntity()->CreatePage();
 	return Value::Nil;
 }
@@ -98,8 +98,8 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __CreatePages)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pages = arg.GetNumber(0)
-	//int dialog = arg.GetNumber(1)
+	//long pages = arg.GetNumber(0)
+	//wxRichTextFormattingDialog* dialog = arg.GetNumber(1)
 	//pThis->GetEntity()->CreatePages();
 	return Value::Nil;
 }
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __SetSheetStyle)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dialog = arg.GetNumber(0)
+	//wxRichTextFormattingDialog* dialog = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSheetStyle();
 	return Value::Nil;
 }
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __ShowHelp)
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//int dialog = arg.GetNumber(1)
+	//wxRichTextFormattingDialog* dialog = arg.GetNumber(1)
 	//pThis->GetEntity()->ShowHelp();
 	return Value::Nil;
 }

@@ -48,8 +48,8 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetAddress)
 {
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int addr = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//void* addr = arg.GetNumber(0)
+	//size_t* len = arg.GetNumber(1)
 	//pThis->GetEntity()->GetAddress();
 	return Value::Nil;
 }

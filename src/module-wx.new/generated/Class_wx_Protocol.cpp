@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_Protocol, __GetInputStream)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int path = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(0)
 	//pThis->GetEntity()->GetInputStream();
 	return Value::Nil;
 }
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_Protocol, __SetPassword)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int user = arg.GetNumber(0)
+	//const wxString& user = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPassword();
 	return Value::Nil;
 }
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_Protocol, __SetUser)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int user = arg.GetNumber(0)
+	//const wxString& user = arg.GetNumber(0)
 	//pThis->GetEntity()->SetUser();
 	return Value::Nil;
 }
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_Protocol, __SetDefaultTimeout)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int Value = arg.GetNumber(0)
+	//wxUint32 Value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaultTimeout();
 	return Value::Nil;
 }
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_Protocol, __SetLog)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int log = arg.GetNumber(0)
+	//wxProtocolLog* log = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLog();
 	return Value::Nil;
 }
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_Protocol, __LogRequest)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->LogRequest();
 	return Value::Nil;
 }
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_Protocol, __LogResponse)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->LogResponse();
 	return Value::Nil;
 }

@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__Icon_1, "Icon_1")
 
 Gura_ImplementFunction(__Icon_1)
 {
-	//int icon = arg.GetNumber(0)
+	//const wxIcon& icon = arg.GetNumber(0)
 	//wxIcon();
 	return Value::Nil;
 }
@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__Icon_2, "Icon_2")
 
 Gura_ImplementFunction(__Icon_2)
 {
-	//int bits = arg.GetNumber(0)
+	//const char bits = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
 	//wxIcon();
@@ -94,7 +94,7 @@ Gura_DeclareFunctionAlias(__Icon_3, "Icon_3")
 
 Gura_ImplementFunction(__Icon_3)
 {
-	//int bits = arg.GetNumber(0)
+	//const char* const* bits = arg.GetNumber(0)
 	//wxIcon();
 	return Value::Nil;
 }
@@ -112,8 +112,8 @@ Gura_DeclareFunctionAlias(__Icon_4, "Icon_4")
 
 Gura_ImplementFunction(__Icon_4)
 {
-	//int name = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//wxBitmapType type = arg.GetNumber(1)
 	//int desiredWidth = arg.GetNumber(2)
 	//int desiredHeight = arg.GetNumber(3)
 	//wxIcon();
@@ -130,7 +130,7 @@ Gura_DeclareFunctionAlias(__Icon_5, "Icon_5")
 
 Gura_ImplementFunction(__Icon_5)
 {
-	//int loc = arg.GetNumber(0)
+	//const wxIconLocation& loc = arg.GetNumber(0)
 	//wxIcon();
 	return Value::Nil;
 }
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_Icon, __CreateFromHICON)
 {
 	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int icon = arg.GetNumber(0)
+	//WXHICON icon = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateFromHICON();
 	return Value::Nil;
 }
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_Icon, __ConvertToDisabled)
 {
 	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int brightness = arg.GetNumber(0)
+	//unsigned char brightness = arg.GetNumber(0)
 	//pThis->GetEntity()->ConvertToDisabled();
 	return Value::Nil;
 }
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_Icon, __CopyFromBitmap)
 {
 	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bmp = arg.GetNumber(0)
+	//const wxBitmap& bmp = arg.GetNumber(0)
 	//pThis->GetEntity()->CopyFromBitmap();
 	return Value::Nil;
 }
@@ -248,8 +248,8 @@ Gura_ImplementMethod(wx_Icon, __LoadFile)
 {
 	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//wxBitmapType type = arg.GetNumber(1)
 	//int desiredWidth = arg.GetNumber(2)
 	//int desiredHeight = arg.GetNumber(3)
 	//pThis->GetEntity()->LoadFile();

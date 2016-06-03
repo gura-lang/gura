@@ -66,13 +66,13 @@ Gura_DeclareFunctionAlias(__StaticBox_1, "StaticBox_1")
 
 Gura_ImplementFunction(__StaticBox_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxStaticBox();
 	return Value::Nil;
 }
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_StaticBox, __Create)
 {
 	Object_wx_StaticBox *pThis = Object_wx_StaticBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }

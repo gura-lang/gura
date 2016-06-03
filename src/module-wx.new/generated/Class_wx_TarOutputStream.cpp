@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__TarOutputStream, "TarOutputStream")
 
 Gura_ImplementFunction(__TarOutputStream)
 {
-	//int stream = arg.GetNumber(0)
-	//int format = arg.GetNumber(1)
-	//int conv = arg.GetNumber(2)
+	//wxOutputStream& stream = arg.GetNumber(0)
+	//wxTarFormat format = arg.GetNumber(1)
+	//wxMBConv& conv = arg.GetNumber(2)
 	//wxTarOutputStream();
 	return Value::Nil;
 }
@@ -68,9 +68,9 @@ Gura_DeclareFunctionAlias(__TarOutputStream_1, "TarOutputStream_1")
 
 Gura_ImplementFunction(__TarOutputStream_1)
 {
-	//int stream = arg.GetNumber(0)
-	//int format = arg.GetNumber(1)
-	//int conv = arg.GetNumber(2)
+	//wxOutputStream* stream = arg.GetNumber(0)
+	//wxTarFormat format = arg.GetNumber(1)
+	//wxMBConv& conv = arg.GetNumber(2)
 	//wxTarOutputStream();
 	return Value::Nil;
 }
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_TarOutputStream, __CopyArchiveMetaData)
 {
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//wxTarInputStream& s = arg.GetNumber(0)
 	//pThis->GetEntity()->CopyArchiveMetaData();
 	return Value::Nil;
 }
@@ -130,8 +130,8 @@ Gura_ImplementMethod(wx_TarOutputStream, __CopyEntry)
 {
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int entry = arg.GetNumber(0)
-	//int inputStream = arg.GetNumber(1)
+	//wxTarEntry* entry = arg.GetNumber(0)
+	//wxTarInputStream& inputStream = arg.GetNumber(1)
 	//pThis->GetEntity()->CopyEntry();
 	return Value::Nil;
 }
@@ -175,8 +175,8 @@ Gura_ImplementMethod(wx_TarOutputStream, __PutNextDirEntry)
 {
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int dt = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxDateTime& dt = arg.GetNumber(1)
 	//pThis->GetEntity()->PutNextDirEntry();
 	return Value::Nil;
 }
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_TarOutputStream, __PutNextEntry)
 {
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int entry = arg.GetNumber(0)
+	//wxTarEntry* entry = arg.GetNumber(0)
 	//pThis->GetEntity()->PutNextEntry();
 	return Value::Nil;
 }
@@ -208,9 +208,9 @@ Gura_ImplementMethod(wx_TarOutputStream, __PutNextEntry_1)
 {
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int dt = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxDateTime& dt = arg.GetNumber(1)
+	//wxFileOffset size = arg.GetNumber(2)
 	//pThis->GetEntity()->PutNextEntry();
 	return Value::Nil;
 }

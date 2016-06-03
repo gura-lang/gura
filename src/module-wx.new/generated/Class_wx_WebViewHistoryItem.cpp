@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__WebViewHistoryItem, "WebViewHistoryItem")
 
 Gura_ImplementFunction(__WebViewHistoryItem)
 {
-	//int url = arg.GetNumber(0)
-	//int title = arg.GetNumber(1)
+	//const wxString& url = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(1)
 	//wxWebViewHistoryItem();
 	return Value::Nil;
 }

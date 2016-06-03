@@ -68,13 +68,13 @@ Gura_DeclareFunctionAlias(__ThumbBarButton_1, "ThumbBarButton_1")
 Gura_ImplementFunction(__ThumbBarButton_1)
 {
 	//int id = arg.GetNumber(0)
-	//int icon = arg.GetNumber(1)
-	//int tooltip = arg.GetNumber(2)
-	//int enable = arg.GetNumber(3)
-	//int dismissOnClick = arg.GetNumber(4)
-	//int hasBackground = arg.GetNumber(5)
-	//int shown = arg.GetNumber(6)
-	//int interactive = arg.GetNumber(7)
+	//const wxIcon& icon = arg.GetNumber(1)
+	//const wxString& tooltip = arg.GetNumber(2)
+	//bool enable = arg.GetNumber(3)
+	//bool dismissOnClick = arg.GetNumber(4)
+	//bool hasBackground = arg.GetNumber(5)
+	//bool shown = arg.GetNumber(6)
+	//bool interactive = arg.GetNumber(7)
 	//wxThumbBarButton();
 	return Value::Nil;
 }
@@ -100,13 +100,13 @@ Gura_ImplementMethod(wx_ThumbBarButton, __Create)
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//int icon = arg.GetNumber(1)
-	//int tooltip = arg.GetNumber(2)
-	//int enable = arg.GetNumber(3)
-	//int dismissOnClick = arg.GetNumber(4)
-	//int hasBackground = arg.GetNumber(5)
-	//int shown = arg.GetNumber(6)
-	//int interactive = arg.GetNumber(7)
+	//const wxIcon& icon = arg.GetNumber(1)
+	//const wxString& tooltip = arg.GetNumber(2)
+	//bool enable = arg.GetNumber(3)
+	//bool dismissOnClick = arg.GetNumber(4)
+	//bool hasBackground = arg.GetNumber(5)
+	//bool shown = arg.GetNumber(6)
+	//bool interactive = arg.GetNumber(7)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __Enable)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->Enable();
 	return Value::Nil;
 }
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __EnableDismissOnClick)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableDismissOnClick();
 	return Value::Nil;
 }
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __SetHasBackground)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int has = arg.GetNumber(0)
+	//bool has = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHasBackground();
 	return Value::Nil;
 }
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __Show)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int shown = arg.GetNumber(0)
+	//bool shown = arg.GetNumber(0)
 	//pThis->GetEntity()->Show();
 	return Value::Nil;
 }
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __SetInteractive)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int interactive = arg.GetNumber(0)
+	//bool interactive = arg.GetNumber(0)
 	//pThis->GetEntity()->SetInteractive();
 	return Value::Nil;
 }

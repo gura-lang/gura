@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__DialUpEvent, "DialUpEvent")
 
 Gura_ImplementFunction(__DialUpEvent)
 {
-	//int isConnected = arg.GetNumber(0)
-	//int isOwnEvent = arg.GetNumber(1)
+	//bool isConnected = arg.GetNumber(0)
+	//bool isOwnEvent = arg.GetNumber(1)
 	//wxDialUpEvent();
 	return Value::Nil;
 }

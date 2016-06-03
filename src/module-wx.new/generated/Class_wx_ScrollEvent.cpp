@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__ScrollEvent, "ScrollEvent")
 
 Gura_ImplementFunction(__ScrollEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int orientation = arg.GetNumber(3)

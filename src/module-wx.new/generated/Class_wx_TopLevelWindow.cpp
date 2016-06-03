@@ -66,13 +66,13 @@ Gura_DeclareFunctionAlias(__TopLevelWindow_1, "TopLevelWindow_1")
 
 Gura_ImplementFunction(__TopLevelWindow_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxTopLevelWindow();
 	return Value::Nil;
 }
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_TopLevelWindow, __Create)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __EnableCloseButton)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableCloseButton();
 	return Value::Nil;
 }
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __EnableMaximizeButton)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableMaximizeButton();
 	return Value::Nil;
 }
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __EnableMinimizeButton)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableMinimizeButton();
 	return Value::Nil;
 }
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __Iconize)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int iconize = arg.GetNumber(0)
+	//bool iconize = arg.GetNumber(0)
 	//pThis->GetEntity()->Iconize();
 	return Value::Nil;
 }
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __Maximize)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int maximize = arg.GetNumber(0)
+	//bool maximize = arg.GetNumber(0)
 	//pThis->GetEntity()->Maximize();
 	return Value::Nil;
 }
@@ -432,7 +432,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __SetDefaultItem)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaultItem();
 	return Value::Nil;
 }
@@ -447,7 +447,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __SetTmpDefaultItem)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTmpDefaultItem();
 	return Value::Nil;
 }
@@ -475,7 +475,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __SetIcon)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int icon = arg.GetNumber(0)
+	//const wxIcon& icon = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIcon();
 	return Value::Nil;
 }
@@ -490,7 +490,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __SetIcons)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int icons = arg.GetNumber(0)
+	//const wxIconBundle& icons = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIcons();
 	return Value::Nil;
 }
@@ -505,7 +505,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __SetMaxSize)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMaxSize();
 	return Value::Nil;
 }
@@ -520,7 +520,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __SetMinSize)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMinSize();
 	return Value::Nil;
 }
@@ -562,9 +562,9 @@ Gura_ImplementMethod(wx_TopLevelWindow, __SetSizeHints_1)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int minSize = arg.GetNumber(0)
-	//int maxSize = arg.GetNumber(1)
-	//int incSize = arg.GetNumber(2)
+	//const wxSize& minSize = arg.GetNumber(0)
+	//const wxSize& maxSize = arg.GetNumber(1)
+	//const wxSize& incSize = arg.GetNumber(2)
 	//pThis->GetEntity()->SetSizeHints();
 	return Value::Nil;
 }
@@ -579,7 +579,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __SetTitle)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitle();
 	return Value::Nil;
 }
@@ -594,7 +594,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __SetTransparent)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int alpha = arg.GetNumber(0)
+	//wxByte alpha = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTransparent();
 	return Value::Nil;
 }
@@ -622,7 +622,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __OSXSetModified)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int modified = arg.GetNumber(0)
+	//bool modified = arg.GetNumber(0)
 	//pThis->GetEntity()->OSXSetModified();
 	return Value::Nil;
 }
@@ -650,7 +650,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __SetRepresentedFilename)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRepresentedFilename();
 	return Value::Nil;
 }
@@ -678,7 +678,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __EnableFullScreenView)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableFullScreenView();
 	return Value::Nil;
 }
@@ -694,8 +694,8 @@ Gura_ImplementMethod(wx_TopLevelWindow, __ShowFullScreen)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int show = arg.GetNumber(0)
-	//int style = arg.GetNumber(1)
+	//bool show = arg.GetNumber(0)
+	//long style = arg.GetNumber(1)
 	//pThis->GetEntity()->ShowFullScreen();
 	return Value::Nil;
 }
@@ -710,7 +710,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __UseNativeDecorations)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int native = arg.GetNumber(0)
+	//bool native = arg.GetNumber(0)
 	//pThis->GetEntity()->UseNativeDecorations();
 	return Value::Nil;
 }
@@ -725,7 +725,7 @@ Gura_ImplementMethod(wx_TopLevelWindow, __UseNativeDecorationsByDefault)
 {
 	Object_wx_TopLevelWindow *pThis = Object_wx_TopLevelWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int native = arg.GetNumber(0)
+	//bool native = arg.GetNumber(0)
 	//pThis->GetEntity()->UseNativeDecorationsByDefault();
 	return Value::Nil;
 }

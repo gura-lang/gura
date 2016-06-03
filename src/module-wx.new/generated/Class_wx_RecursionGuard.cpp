@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__RecursionGuard, "RecursionGuard")
 
 Gura_ImplementFunction(__RecursionGuard)
 {
-	//int flag = arg.GetNumber(0)
+	//wxRecursionGuardFlag& flag = arg.GetNumber(0)
 	//wxRecursionGuard();
 	return Value::Nil;
 }

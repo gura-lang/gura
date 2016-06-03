@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __Render)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//int known_pagebreaks = arg.GetNumber(2)
+	//wxArrayInt& known_pagebreaks = arg.GetNumber(2)
 	//int from = arg.GetNumber(3)
 	//int dont_render = arg.GetNumber(4)
 	//int to = arg.GetNumber(5)
@@ -115,8 +115,8 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetDC)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int pixel_scale = arg.GetNumber(1)
+	//wxDC* dc = arg.GetNumber(0)
+	//double pixel_scale = arg.GetNumber(1)
 	//pThis->GetEntity()->SetDC();
 	return Value::Nil;
 }
@@ -133,9 +133,9 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetFonts)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int normal_face = arg.GetNumber(0)
-	//int fixed_face = arg.GetNumber(1)
-	//int sizes = arg.GetNumber(2)
+	//const wxString& normal_face = arg.GetNumber(0)
+	//const wxString& fixed_face = arg.GetNumber(1)
+	//const int* sizes = arg.GetNumber(2)
 	//pThis->GetEntity()->SetFonts();
 	return Value::Nil;
 }
@@ -153,8 +153,8 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetStandardFonts)
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
-	//int normal_face = arg.GetNumber(1)
-	//int fixed_face = arg.GetNumber(2)
+	//const wxString& normal_face = arg.GetNumber(1)
+	//const wxString& fixed_face = arg.GetNumber(2)
 	//pThis->GetEntity()->SetStandardFonts();
 	return Value::Nil;
 }
@@ -171,9 +171,9 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetHtmlText)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int html = arg.GetNumber(0)
-	//int basepath = arg.GetNumber(1)
-	//int isdir = arg.GetNumber(2)
+	//const wxString& html = arg.GetNumber(0)
+	//const wxString& basepath = arg.GetNumber(1)
+	//bool isdir = arg.GetNumber(2)
 	//pThis->GetEntity()->SetHtmlText();
 	return Value::Nil;
 }

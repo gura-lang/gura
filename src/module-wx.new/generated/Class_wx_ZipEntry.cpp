@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__ZipEntry, "ZipEntry")
 
 Gura_ImplementFunction(__ZipEntry)
 {
-	//int name = arg.GetNumber(0)
-	//int dt = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxDateTime& dt = arg.GetNumber(1)
+	//wxFileOffset size = arg.GetNumber(2)
 	//wxZipEntry();
 	return Value::Nil;
 }
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__ZipEntry_1, "ZipEntry_1")
 
 Gura_ImplementFunction(__ZipEntry_1)
 {
-	//int entry = arg.GetNumber(0)
+	//const wxZipEntry& entry = arg.GetNumber(0)
 	//wxZipEntry();
 	return Value::Nil;
 }
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_ZipEntry, __SetComment)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int comment = arg.GetNumber(0)
+	//const wxString& comment = arg.GetNumber(0)
 	//pThis->GetEntity()->SetComment();
 	return Value::Nil;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_ZipEntry, __SetExternalAttributes)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
+	//wxUint32 attr = arg.GetNumber(0)
 	//pThis->GetEntity()->SetExternalAttributes();
 	return Value::Nil;
 }
@@ -180,8 +180,8 @@ Gura_ImplementMethod(wx_ZipEntry, __SetExtra)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int extra = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//const char* extra = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->SetExtra();
 	return Value::Nil;
 }
@@ -223,8 +223,8 @@ Gura_ImplementMethod(wx_ZipEntry, __SetLocalExtra)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int extra = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//const char* extra = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->SetLocalExtra();
 	return Value::Nil;
 }
@@ -364,9 +364,9 @@ Gura_ImplementMethod(wx_ZipEntry, __GetInternalName)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int format = arg.GetNumber(1)
-	//int pIsDir = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(0)
+	//wxPathFormat format = arg.GetNumber(1)
+	//bool* pIsDir = arg.GetNumber(2)
 	//pThis->GetEntity()->GetInternalName();
 	return Value::Nil;
 }
@@ -420,7 +420,7 @@ Gura_ImplementMethod(wx_ZipEntry, __SetIsText)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int isText = arg.GetNumber(0)
+	//bool isText = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIsText();
 	return Value::Nil;
 }
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_ZipEntry, __SetNotifier)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int notifier = arg.GetNumber(0)
+	//wxZipNotifier& notifier = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNotifier();
 	return Value::Nil;
 }

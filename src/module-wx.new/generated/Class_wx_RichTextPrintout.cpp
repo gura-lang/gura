@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__RichTextPrintout, "RichTextPrintout")
 
 Gura_ImplementFunction(__RichTextPrintout)
 {
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//wxRichTextPrintout();
 	return Value::Nil;
 }
@@ -68,10 +68,10 @@ Gura_ImplementMethod(wx_RichTextPrintout, __CalculateScaling)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int textRect = arg.GetNumber(1)
-	//int headerRect = arg.GetNumber(2)
-	//int footerRect = arg.GetNumber(3)
+	//wxDC* dc = arg.GetNumber(0)
+	//wxRect& textRect = arg.GetNumber(1)
+	//wxRect& headerRect = arg.GetNumber(2)
+	//wxRect& footerRect = arg.GetNumber(3)
 	//pThis->GetEntity()->CalculateScaling();
 	return Value::Nil;
 }
@@ -102,10 +102,10 @@ Gura_ImplementMethod(wx_RichTextPrintout, __GetPageInfo)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int minPage = arg.GetNumber(0)
-	//int maxPage = arg.GetNumber(1)
-	//int selPageFrom = arg.GetNumber(2)
-	//int selPageTo = arg.GetNumber(3)
+	//int* minPage = arg.GetNumber(0)
+	//int* maxPage = arg.GetNumber(1)
+	//int* selPageFrom = arg.GetNumber(2)
+	//int* selPageTo = arg.GetNumber(3)
 	//pThis->GetEntity()->GetPageInfo();
 	return Value::Nil;
 }
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, __SetHeaderFooterData)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const wxRichTextHeaderFooterData& data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHeaderFooterData();
 	return Value::Nil;
 }
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, __SetRichTextBuffer)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRichTextBuffer();
 	return Value::Nil;
 }

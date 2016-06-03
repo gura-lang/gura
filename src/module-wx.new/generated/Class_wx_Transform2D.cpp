@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_Transform2D, __Transform)
 {
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//wxPoint2DInt* pt = arg.GetNumber(0)
 	//pThis->GetEntity()->Transform();
 	return Value::Nil;
 }
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_Transform2D, __Transform_1)
 {
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
+	//wxRect2DInt* r = arg.GetNumber(0)
 	//pThis->GetEntity()->Transform();
 	return Value::Nil;
 }
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_Transform2D, __Transform_2)
 {
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint2DInt& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->Transform();
 	return Value::Nil;
 }
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_Transform2D, __Transform_3)
 {
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
+	//const wxRect2DInt& r = arg.GetNumber(0)
 	//pThis->GetEntity()->Transform();
 	return Value::Nil;
 }
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_Transform2D, __InverseTransform)
 {
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//wxPoint2DInt* pt = arg.GetNumber(0)
 	//pThis->GetEntity()->InverseTransform();
 	return Value::Nil;
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_Transform2D, __InverseTransform_1)
 {
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
+	//wxRect2DInt* r = arg.GetNumber(0)
 	//pThis->GetEntity()->InverseTransform();
 	return Value::Nil;
 }
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_Transform2D, __InverseTransform_2)
 {
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint2DInt& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->InverseTransform();
 	return Value::Nil;
 }
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_Transform2D, __InverseTransform_3)
 {
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
+	//const wxRect2DInt& r = arg.GetNumber(0)
 	//pThis->GetEntity()->InverseTransform();
 	return Value::Nil;
 }

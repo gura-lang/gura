@@ -129,8 +129,8 @@ Gura_ImplementMethod(wx_InputStream, __Read)
 {
 	Object_wx_InputStream *pThis = Object_wx_InputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//void* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Read();
 	return Value::Nil;
 }
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_InputStream, __Read_1)
 {
 	Object_wx_InputStream *pThis = Object_wx_InputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream_out = arg.GetNumber(0)
+	//wxOutputStream& stream_out = arg.GetNumber(0)
 	//pThis->GetEntity()->Read();
 	return Value::Nil;
 }
@@ -161,8 +161,8 @@ Gura_ImplementMethod(wx_InputStream, __ReadAll)
 {
 	Object_wx_InputStream *pThis = Object_wx_InputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//void* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadAll();
 	return Value::Nil;
 }
@@ -178,8 +178,8 @@ Gura_ImplementMethod(wx_InputStream, __SeekI)
 {
 	Object_wx_InputStream *pThis = Object_wx_InputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//wxFileOffset pos = arg.GetNumber(0)
+	//wxSeekMode mode = arg.GetNumber(1)
 	//pThis->GetEntity()->SeekI();
 	return Value::Nil;
 }
@@ -208,8 +208,8 @@ Gura_ImplementMethod(wx_InputStream, __Ungetch)
 {
 	Object_wx_InputStream *pThis = Object_wx_InputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const void* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Ungetch();
 	return Value::Nil;
 }
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_InputStream, __Ungetch_1)
 {
 	Object_wx_InputStream *pThis = Object_wx_InputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
+	//char c = arg.GetNumber(0)
 	//pThis->GetEntity()->Ungetch();
 	return Value::Nil;
 }
@@ -240,8 +240,8 @@ Gura_ImplementMethod(wx_InputStream, __OnSysRead)
 {
 	Object_wx_InputStream *pThis = Object_wx_InputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int bufsize = arg.GetNumber(1)
+	//void* buffer = arg.GetNumber(0)
+	//size_t bufsize = arg.GetNumber(1)
 	//pThis->GetEntity()->OnSysRead();
 	return Value::Nil;
 }

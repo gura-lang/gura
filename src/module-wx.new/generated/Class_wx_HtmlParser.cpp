@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_HtmlParser, __AddTagHandler)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int handler = arg.GetNumber(0)
+	//wxHtmlTagHandler* handler = arg.GetNumber(0)
 	//pThis->GetEntity()->AddTagHandler();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_HtmlParser, __AddWord)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int txt = arg.GetNumber(0)
+	//const wxString& txt = arg.GetNumber(0)
 	//pThis->GetEntity()->AddWord();
 	return Value::Nil;
 }
@@ -94,8 +94,8 @@ Gura_ImplementMethod(wx_HtmlParser, __DoParsing)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int begin_pos = arg.GetNumber(0)
-	//int end_pos = arg.GetNumber(1)
+	//const const_iterator& begin_pos = arg.GetNumber(0)
+	//const const_iterator& end_pos = arg.GetNumber(1)
 	//pThis->GetEntity()->DoParsing();
 	return Value::Nil;
 }
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_HtmlParser, __InitParser)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int source = arg.GetNumber(0)
+	//const wxString& source = arg.GetNumber(0)
 	//pThis->GetEntity()->InitParser();
 	return Value::Nil;
 }
@@ -191,8 +191,8 @@ Gura_ImplementMethod(wx_HtmlParser, __OpenURL)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int type = arg.GetNumber(0)
-	//int url = arg.GetNumber(1)
+	//wxHtmlURLType type = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(1)
 	//pThis->GetEntity()->OpenURL();
 	return Value::Nil;
 }
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_HtmlParser, __Parse)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int source = arg.GetNumber(0)
+	//const wxString& source = arg.GetNumber(0)
 	//pThis->GetEntity()->Parse();
 	return Value::Nil;
 }
@@ -236,8 +236,8 @@ Gura_ImplementMethod(wx_HtmlParser, __PushTagHandler)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int handler = arg.GetNumber(0)
-	//int tags = arg.GetNumber(1)
+	//wxHtmlTagHandler* handler = arg.GetNumber(0)
+	//const wxString& tags = arg.GetNumber(1)
 	//pThis->GetEntity()->PushTagHandler();
 	return Value::Nil;
 }
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_HtmlParser, __SetFS)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fs = arg.GetNumber(0)
+	//wxFileSystem* fs = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFS();
 	return Value::Nil;
 }
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_HtmlParser, __AddTag)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tag = arg.GetNumber(0)
+	//const wxHtmlTag& tag = arg.GetNumber(0)
 	//pThis->GetEntity()->AddTag();
 	return Value::Nil;
 }

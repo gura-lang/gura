@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__ColourDialog, "ColourDialog")
 
 Gura_ImplementFunction(__ColourDialog)
 {
-	//int parent = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxColourData* data = arg.GetNumber(1)
 	//wxColourDialog();
 	return Value::Nil;
 }
@@ -68,8 +68,8 @@ Gura_ImplementMethod(wx_ColourDialog, __Create)
 {
 	Object_wx_ColourDialog *pThis = Object_wx_ColourDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxColourData* data = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }

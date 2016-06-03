@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__DelegateRendererNative_1, "DelegateRendererNative_1"
 
 Gura_ImplementFunction(__DelegateRendererNative_1)
 {
-	//int rendererNative = arg.GetNumber(0)
+	//wxRendererNative& rendererNative = arg.GetNumber(0)
 	//wxDelegateRendererNative();
 	return Value::Nil;
 }
@@ -83,12 +83,12 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawHeaderButton)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//int sortArrow = arg.GetNumber(4)
-	//int params = arg.GetNumber(5)
+	//wxHeaderSortIconType sortArrow = arg.GetNumber(4)
+	//wxHeaderButtonParams* params = arg.GetNumber(5)
 	//pThis->GetEntity()->DrawHeaderButton();
 	return Value::Nil;
 }
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawHeaderButtonContents)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//int sortArrow = arg.GetNumber(4)
-	//int params = arg.GetNumber(5)
+	//wxHeaderSortIconType sortArrow = arg.GetNumber(4)
+	//wxHeaderButtonParams* params = arg.GetNumber(5)
 	//pThis->GetEntity()->DrawHeaderButtonContents();
 	return Value::Nil;
 }
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __GetHeaderButtonHeight)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//pThis->GetEntity()->GetHeaderButtonHeight();
 	return Value::Nil;
 }
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __GetHeaderButtonMargin)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//pThis->GetEntity()->GetHeaderButtonMargin();
 	return Value::Nil;
 }
@@ -161,9 +161,9 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawTreeItemButton)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawTreeItemButton();
 	return Value::Nil;
@@ -182,9 +182,9 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawSplitterBorder)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawSplitterBorder();
 	return Value::Nil;
@@ -205,11 +205,11 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawSplitterSash)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
-	//int position = arg.GetNumber(3)
-	//int orient = arg.GetNumber(4)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxSize& size = arg.GetNumber(2)
+	//wxCoord position = arg.GetNumber(3)
+	//wxOrientation orient = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->DrawSplitterSash();
 	return Value::Nil;
@@ -228,9 +228,9 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawComboBoxDropButton)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawComboBoxDropButton();
 	return Value::Nil;
@@ -249,9 +249,9 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawDropArrow)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawDropArrow();
 	return Value::Nil;
@@ -270,9 +270,9 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawCheckBox)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawCheckBox();
 	return Value::Nil;
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __GetCheckBoxSize)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//pThis->GetEntity()->GetCheckBoxSize();
 	return Value::Nil;
 }
@@ -306,9 +306,9 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawPushButton)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawPushButton();
 	return Value::Nil;
@@ -327,9 +327,9 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawItemSelectionRect)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawItemSelectionRect();
 	return Value::Nil;
@@ -348,9 +348,9 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawFocusRect)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxWindow* win = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawFocusRect();
 	return Value::Nil;
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __GetSplitterParams)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//const wxWindow* win = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSplitterParams();
 	return Value::Nil;
 }

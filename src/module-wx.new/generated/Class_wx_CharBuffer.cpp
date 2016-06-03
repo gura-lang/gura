@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__CharBuffer, "CharBuffer")
 
 Gura_ImplementFunction(__CharBuffer)
 {
-	//int buf = arg.GetNumber(0)
+	//const wxCharTypeBufferBase& buf = arg.GetNumber(0)
 	//wxCharBuffer();
 	return Value::Nil;
 }
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__CharBuffer_1, "CharBuffer_1")
 
 Gura_ImplementFunction(__CharBuffer_1)
 {
-	//int buf = arg.GetNumber(0)
+	//const wxScopedCharTypeBufferBase& buf = arg.GetNumber(0)
 	//wxCharBuffer();
 	return Value::Nil;
 }
@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__CharBuffer_2, "CharBuffer_2")
 
 Gura_ImplementFunction(__CharBuffer_2)
 {
-	//int str = arg.GetNumber(0)
+	//const CharType* str = arg.GetNumber(0)
 	//wxCharBuffer();
 	return Value::Nil;
 }
@@ -92,7 +92,7 @@ Gura_DeclareFunctionAlias(__CharBuffer_3, "CharBuffer_3")
 
 Gura_ImplementFunction(__CharBuffer_3)
 {
-	//int len = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(0)
 	//wxCharBuffer();
 	return Value::Nil;
 }
@@ -107,7 +107,7 @@ Gura_DeclareFunctionAlias(__CharBuffer_4, "CharBuffer_4")
 
 Gura_ImplementFunction(__CharBuffer_4)
 {
-	//int cstr = arg.GetNumber(0)
+	//const wxCStrData& cstr = arg.GetNumber(0)
 	//wxCharBuffer();
 	return Value::Nil;
 }

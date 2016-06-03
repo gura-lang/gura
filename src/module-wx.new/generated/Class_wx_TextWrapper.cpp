@@ -65,8 +65,8 @@ Gura_ImplementMethod(wx_TextWrapper, __Wrap)
 {
 	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
+	//wxWindow* win = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
 	//int widthMax = arg.GetNumber(2)
 	//pThis->GetEntity()->Wrap();
 	return Value::Nil;
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_TextWrapper, __OnOutputLine)
 {
 	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int line = arg.GetNumber(0)
+	//const wxString& line = arg.GetNumber(0)
 	//pThis->GetEntity()->OnOutputLine();
 	return Value::Nil;
 }

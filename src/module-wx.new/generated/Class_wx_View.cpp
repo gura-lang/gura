@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_View, __Activate)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int activate = arg.GetNumber(0)
+	//bool activate = arg.GetNumber(0)
 	//pThis->GetEntity()->Activate();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_View, __Close)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int deleteWindow = arg.GetNumber(0)
+	//bool deleteWindow = arg.GetNumber(0)
 	//pThis->GetEntity()->Close();
 	return Value::Nil;
 }
@@ -147,9 +147,9 @@ Gura_ImplementMethod(wx_View, __OnActivateView)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int activate = arg.GetNumber(0)
-	//int activeView = arg.GetNumber(1)
-	//int deactiveView = arg.GetNumber(2)
+	//bool activate = arg.GetNumber(0)
+	//wxView* activeView = arg.GetNumber(1)
+	//wxView* deactiveView = arg.GetNumber(2)
 	//pThis->GetEntity()->OnActivateView();
 	return Value::Nil;
 }
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_View, __OnClose)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int deleteWindow = arg.GetNumber(0)
+	//bool deleteWindow = arg.GetNumber(0)
 	//pThis->GetEntity()->OnClose();
 	return Value::Nil;
 }
@@ -206,8 +206,8 @@ Gura_ImplementMethod(wx_View, __OnCreate)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int doc = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
+	//wxDocument* doc = arg.GetNumber(0)
+	//long flags = arg.GetNumber(1)
 	//pThis->GetEntity()->OnCreate();
 	return Value::Nil;
 }
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_View, __OnDraw)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
+	//wxDC* dc = arg.GetNumber(0)
 	//pThis->GetEntity()->OnDraw();
 	return Value::Nil;
 }
@@ -251,8 +251,8 @@ Gura_ImplementMethod(wx_View, __OnUpdate)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sender = arg.GetNumber(0)
-	//int hint = arg.GetNumber(1)
+	//wxView* sender = arg.GetNumber(0)
+	//wxObject* hint = arg.GetNumber(1)
 	//pThis->GetEntity()->OnUpdate();
 	return Value::Nil;
 }
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_View, __SetDocument)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int doc = arg.GetNumber(0)
+	//wxDocument* doc = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDocument();
 	return Value::Nil;
 }
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_View, __SetFrame)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int frame = arg.GetNumber(0)
+	//wxWindow* frame = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFrame();
 	return Value::Nil;
 }
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_View, __SetViewName)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetViewName();
 	return Value::Nil;
 }

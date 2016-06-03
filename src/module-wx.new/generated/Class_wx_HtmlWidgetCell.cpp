@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__HtmlWidgetCell, "HtmlWidgetCell")
 
 Gura_ImplementFunction(__HtmlWidgetCell)
 {
-	//int wnd = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(0)
 	//int w = arg.GetNumber(1)
 	//wxHtmlWidgetCell();
 	return Value::Nil;

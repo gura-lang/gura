@@ -64,8 +64,8 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __Set)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mat2D = arg.GetNumber(0)
-	//int tr = arg.GetNumber(1)
+	//const wxMatrix2D& mat2D = arg.GetNumber(0)
+	//const wxPoint2DDouble& tr = arg.GetNumber(1)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -81,8 +81,8 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __Get)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mat2D = arg.GetNumber(0)
-	//int tr = arg.GetNumber(1)
+	//wxMatrix2D* mat2D = arg.GetNumber(0)
+	//wxPoint2DDouble* tr = arg.GetNumber(1)
 	//pThis->GetEntity()->Get();
 	return Value::Nil;
 }
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __Concat)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int t = arg.GetNumber(0)
+	//const wxAffineMatrix2DBase& t = arg.GetNumber(0)
 	//pThis->GetEntity()->Concat();
 	return Value::Nil;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __IsEqual)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int t = arg.GetNumber(0)
+	//const wxAffineMatrix2DBase& t = arg.GetNumber(0)
 	//pThis->GetEntity()->IsEqual();
 	return Value::Nil;
 }
@@ -154,8 +154,8 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __Translate)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dx = arg.GetNumber(0)
-	//int dy = arg.GetNumber(1)
+	//wxDouble dx = arg.GetNumber(0)
+	//wxDouble dy = arg.GetNumber(1)
 	//pThis->GetEntity()->Translate();
 	return Value::Nil;
 }
@@ -171,8 +171,8 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __Scale)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int xScale = arg.GetNumber(0)
-	//int yScale = arg.GetNumber(1)
+	//wxDouble xScale = arg.GetNumber(0)
+	//wxDouble yScale = arg.GetNumber(1)
 	//pThis->GetEntity()->Scale();
 	return Value::Nil;
 }
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __Rotate)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int cRadians = arg.GetNumber(0)
+	//wxDouble cRadians = arg.GetNumber(0)
 	//pThis->GetEntity()->Rotate();
 	return Value::Nil;
 }
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __TransformPoint)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int p = arg.GetNumber(0)
+	//const wxPoint2DDouble& p = arg.GetNumber(0)
 	//pThis->GetEntity()->TransformPoint();
 	return Value::Nil;
 }
@@ -233,8 +233,8 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __TransformPoint_1)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxDouble* x = arg.GetNumber(0)
+	//wxDouble* y = arg.GetNumber(1)
 	//pThis->GetEntity()->TransformPoint();
 	return Value::Nil;
 }
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __TransformDistance)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int p = arg.GetNumber(0)
+	//const wxPoint2DDouble& p = arg.GetNumber(0)
 	//pThis->GetEntity()->TransformDistance();
 	return Value::Nil;
 }
@@ -265,8 +265,8 @@ Gura_ImplementMethod(wx_AffineMatrix2DBase, __TransformDistance_1)
 {
 	Object_wx_AffineMatrix2DBase *pThis = Object_wx_AffineMatrix2DBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dx = arg.GetNumber(0)
-	//int dy = arg.GetNumber(1)
+	//wxDouble* dx = arg.GetNumber(0)
+	//wxDouble* dy = arg.GetNumber(1)
 	//pThis->GetEntity()->TransformDistance();
 	return Value::Nil;
 }

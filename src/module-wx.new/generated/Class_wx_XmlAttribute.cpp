@@ -62,9 +62,9 @@ Gura_DeclareFunctionAlias(__XmlAttribute_1, "XmlAttribute_1")
 
 Gura_ImplementFunction(__XmlAttribute_1)
 {
-	//int name = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
-	//int next = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxString& value = arg.GetNumber(1)
+	//wxXmlAttribute* next = arg.GetNumber(2)
 	//wxXmlAttribute();
 	return Value::Nil;
 }
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_XmlAttribute, __SetName)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetName();
 	return Value::Nil;
 }
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_XmlAttribute, __SetNext)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int next = arg.GetNumber(0)
+	//wxXmlAttribute* next = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNext();
 	return Value::Nil;
 }
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_XmlAttribute, __SetValue)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//const wxString& value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }

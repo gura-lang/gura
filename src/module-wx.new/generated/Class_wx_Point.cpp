@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__Point_2, "Point_2")
 
 Gura_ImplementFunction(__Point_2)
 {
-	//int pt = arg.GetNumber(0)
+	//const wxRealPoint& pt = arg.GetNumber(0)
 	//wxPoint();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_Point, __SetDefaults)
 {
 	Object_wx_Point *pThis = Object_wx_Point::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaults();
 	return Value::Nil;
 }

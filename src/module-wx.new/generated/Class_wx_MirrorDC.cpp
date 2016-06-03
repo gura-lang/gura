@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__MirrorDC, "MirrorDC")
 
 Gura_ImplementFunction(__MirrorDC)
 {
-	//int dc = arg.GetNumber(0)
-	//int mirror = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(0)
+	//bool mirror = arg.GetNumber(1)
 	//wxMirrorDC();
 	return Value::Nil;
 }

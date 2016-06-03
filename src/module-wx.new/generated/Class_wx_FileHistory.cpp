@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__FileHistory, "FileHistory")
 
 Gura_ImplementFunction(__FileHistory)
 {
-	//int maxFiles = arg.GetNumber(0)
-	//int idBase = arg.GetNumber(1)
+	//size_t maxFiles = arg.GetNumber(0)
+	//wxWindowID idBase = arg.GetNumber(1)
 	//wxFileHistory();
 	return Value::Nil;
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_FileHistory, __AddFileToHistory)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//pThis->GetEntity()->AddFileToHistory();
 	return Value::Nil;
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_FileHistory, __AddFilesToMenu_1)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int menu = arg.GetNumber(0)
+	//wxMenu* menu = arg.GetNumber(0)
 	//pThis->GetEntity()->AddFilesToMenu();
 	return Value::Nil;
 }
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_FileHistory, __GetHistoryFile)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
+	//size_t index = arg.GetNumber(0)
 	//pThis->GetEntity()->GetHistoryFile();
 	return Value::Nil;
 }
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_FileHistory, __Load)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int config = arg.GetNumber(0)
+	//const wxConfigBase& config = arg.GetNumber(0)
 	//pThis->GetEntity()->Load();
 	return Value::Nil;
 }
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_FileHistory, __RemoveFileFromHistory)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int i = arg.GetNumber(0)
+	//size_t i = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveFileFromHistory();
 	return Value::Nil;
 }
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_FileHistory, __RemoveMenu)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int menu = arg.GetNumber(0)
+	//wxMenu* menu = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveMenu();
 	return Value::Nil;
 }
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_FileHistory, __Save)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int config = arg.GetNumber(0)
+	//wxConfigBase& config = arg.GetNumber(0)
 	//pThis->GetEntity()->Save();
 	return Value::Nil;
 }
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_FileHistory, __SetBaseId)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int baseId = arg.GetNumber(0)
+	//wxWindowID baseId = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBaseId();
 	return Value::Nil;
 }
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_FileHistory, __UseMenu)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int menu = arg.GetNumber(0)
+	//wxMenu* menu = arg.GetNumber(0)
 	//pThis->GetEntity()->UseMenu();
 	return Value::Nil;
 }

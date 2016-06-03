@@ -50,7 +50,7 @@ Gura_DeclareFunctionAlias(__BookCtrlEvent, "BookCtrlEvent")
 
 Gura_ImplementFunction(__BookCtrlEvent)
 {
-	//int eventType = arg.GetNumber(0)
+	//wxEventType eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int sel = arg.GetNumber(2)
 	//int oldSel = arg.GetNumber(3)

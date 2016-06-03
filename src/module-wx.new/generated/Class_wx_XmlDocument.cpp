@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__XmlDocument_1, "XmlDocument_1")
 
 Gura_ImplementFunction(__XmlDocument_1)
 {
-	//int doc = arg.GetNumber(0)
+	//const wxXmlDocument& doc = arg.GetNumber(0)
 	//wxXmlDocument();
 	return Value::Nil;
 }
@@ -76,8 +76,8 @@ Gura_DeclareFunctionAlias(__XmlDocument_2, "XmlDocument_2")
 
 Gura_ImplementFunction(__XmlDocument_2)
 {
-	//int filename = arg.GetNumber(0)
-	//int encoding = arg.GetNumber(1)
+	//const wxString& filename = arg.GetNumber(0)
+	//const wxString& encoding = arg.GetNumber(1)
 	//wxXmlDocument();
 	return Value::Nil;
 }
@@ -93,8 +93,8 @@ Gura_DeclareFunctionAlias(__XmlDocument_3, "XmlDocument_3")
 
 Gura_ImplementFunction(__XmlDocument_3)
 {
-	//int stream = arg.GetNumber(0)
-	//int encoding = arg.GetNumber(1)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//const wxString& encoding = arg.GetNumber(1)
 	//wxXmlDocument();
 	return Value::Nil;
 }
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_XmlDocument, __AppendToProlog)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int node = arg.GetNumber(0)
+	//wxXmlNode* node = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendToProlog();
 	return Value::Nil;
 }
@@ -246,8 +246,8 @@ Gura_ImplementMethod(wx_XmlDocument, __Load)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
-	//int encoding = arg.GetNumber(1)
+	//const wxString& filename = arg.GetNumber(0)
+	//const wxString& encoding = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
 	//pThis->GetEntity()->Load();
 	return Value::Nil;
@@ -265,8 +265,8 @@ Gura_ImplementMethod(wx_XmlDocument, __Load_1)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int encoding = arg.GetNumber(1)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//const wxString& encoding = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
 	//pThis->GetEntity()->Load();
 	return Value::Nil;
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_XmlDocument, __Save)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//int indentstep = arg.GetNumber(1)
 	//pThis->GetEntity()->Save();
 	return Value::Nil;
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_XmlDocument, __Save_1)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxOutputStream& stream = arg.GetNumber(0)
 	//int indentstep = arg.GetNumber(1)
 	//pThis->GetEntity()->Save();
 	return Value::Nil;
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetDocumentNode)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int node = arg.GetNumber(0)
+	//wxXmlNode* node = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDocumentNode();
 	return Value::Nil;
 }
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetEncoding)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enc = arg.GetNumber(0)
+	//const wxString& enc = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEncoding();
 	return Value::Nil;
 }
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetFileEncoding)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
+	//const wxString& encoding = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFileEncoding();
 	return Value::Nil;
 }
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetDoctype)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int doctype = arg.GetNumber(0)
+	//const wxXmlDoctype& doctype = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDoctype();
 	return Value::Nil;
 }
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetRoot)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int node = arg.GetNumber(0)
+	//wxXmlNode* node = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRoot();
 	return Value::Nil;
 }
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetVersion)
 {
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int version = arg.GetNumber(0)
+	//const wxString& version = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVersion();
 	return Value::Nil;
 }

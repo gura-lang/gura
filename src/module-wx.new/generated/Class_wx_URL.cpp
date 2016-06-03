@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__URL, "URL")
 
 Gura_ImplementFunction(__URL)
 {
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//wxURL();
 	return Value::Nil;
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_URL, __SetDefaultProxy)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url_proxy = arg.GetNumber(0)
+	//const wxString& url_proxy = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaultProxy();
 	return Value::Nil;
 }
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_URL, __SetProxy)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url_proxy = arg.GetNumber(0)
+	//const wxString& url_proxy = arg.GetNumber(0)
 	//pThis->GetEntity()->SetProxy();
 	return Value::Nil;
 }
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_URL, __SetURL)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;
 }

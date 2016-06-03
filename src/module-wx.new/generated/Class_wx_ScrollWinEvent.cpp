@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__ScrollWinEvent, "ScrollWinEvent")
 
 Gura_ImplementFunction(__ScrollWinEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int orientation = arg.GetNumber(2)
 	//wxScrollWinEvent();

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__WebViewFSHandler, "WebViewFSHandler")
 
 Gura_ImplementFunction(__WebViewFSHandler)
 {
-	//int scheme = arg.GetNumber(0)
+	//const wxString& scheme = arg.GetNumber(0)
 	//wxWebViewFSHandler();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_WebViewFSHandler, __GetFile)
 {
 	Object_wx_WebViewFSHandler *pThis = Object_wx_WebViewFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int uri = arg.GetNumber(0)
+	//const wxString& uri = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFile();
 	return Value::Nil;
 }

@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DataViewSpinRenderer)
 {
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int align = arg.GetNumber(3)
 	//wxDataViewSpinRenderer();
 	return Value::Nil;

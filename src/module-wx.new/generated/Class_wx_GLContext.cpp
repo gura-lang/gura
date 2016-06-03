@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__GLContext, "GLContext")
 
 Gura_ImplementFunction(__GLContext)
 {
-	//int win = arg.GetNumber(0)
-	//int other = arg.GetNumber(1)
-	//int ctxAttrs = arg.GetNumber(2)
+	//wxGLCanvas* win = arg.GetNumber(0)
+	//const wxGLContext* other = arg.GetNumber(1)
+	//const wxGLContextAttrs* ctxAttrs = arg.GetNumber(2)
 	//wxGLContext();
 	return Value::Nil;
 }
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_GLContext, __SetCurrent)
 {
 	Object_wx_GLContext *pThis = Object_wx_GLContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//const wxGLCanvas& win = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCurrent();
 	return Value::Nil;
 }

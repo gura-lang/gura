@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__DataViewChoiceRenderer, "DataViewChoiceRenderer")
 
 Gura_ImplementFunction(__DataViewChoiceRenderer)
 {
-	//int choices = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//const wxArrayString& choices = arg.GetNumber(0)
+	//wxDataViewCellMode mode = arg.GetNumber(1)
 	//int alignment = arg.GetNumber(2)
 	//wxDataViewChoiceRenderer();
 	return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_DataViewChoiceRenderer, __GetChoice)
 {
 	Object_wx_DataViewChoiceRenderer *pThis = Object_wx_DataViewChoiceRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
+	//size_t index = arg.GetNumber(0)
 	//pThis->GetEntity()->GetChoice();
 	return Value::Nil;
 }

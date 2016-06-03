@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_OutputStream, __PutC)
 {
 	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
+	//char c = arg.GetNumber(0)
 	//pThis->GetEntity()->PutC();
 	return Value::Nil;
 }
@@ -105,8 +105,8 @@ Gura_ImplementMethod(wx_OutputStream, __SeekO)
 {
 	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//wxFileOffset pos = arg.GetNumber(0)
+	//wxSeekMode mode = arg.GetNumber(1)
 	//pThis->GetEntity()->SeekO();
 	return Value::Nil;
 }
@@ -135,8 +135,8 @@ Gura_ImplementMethod(wx_OutputStream, __Write)
 {
 	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const void* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Write();
 	return Value::Nil;
 }
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_OutputStream, __Write_1)
 {
 	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream_in = arg.GetNumber(0)
+	//wxInputStream& stream_in = arg.GetNumber(0)
 	//pThis->GetEntity()->Write();
 	return Value::Nil;
 }
@@ -167,8 +167,8 @@ Gura_ImplementMethod(wx_OutputStream, __WriteAll)
 {
 	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const void* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->WriteAll();
 	return Value::Nil;
 }
@@ -184,8 +184,8 @@ Gura_ImplementMethod(wx_OutputStream, __OnSysWrite)
 {
 	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int bufsize = arg.GetNumber(1)
+	//const void* buffer = arg.GetNumber(0)
+	//size_t bufsize = arg.GetNumber(1)
 	//pThis->GetEntity()->OnSysWrite();
 	return Value::Nil;
 }

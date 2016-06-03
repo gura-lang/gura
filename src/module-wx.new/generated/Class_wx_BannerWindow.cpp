@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__BannerWindow_1, "BannerWindow_1")
 
 Gura_ImplementFunction(__BannerWindow_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int dir = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxDirection dir = arg.GetNumber(1)
 	//wxBannerWindow();
 	return Value::Nil;
 }
@@ -83,13 +83,13 @@ Gura_DeclareFunctionAlias(__BannerWindow_2, "BannerWindow_2")
 
 Gura_ImplementFunction(__BannerWindow_2)
 {
-	//int parent = arg.GetNumber(0)
-	//int winid = arg.GetNumber(1)
-	//int dir = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(1)
+	//wxDirection dir = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxBannerWindow();
 	return Value::Nil;
 }
@@ -113,13 +113,13 @@ Gura_ImplementMethod(wx_BannerWindow, __Create)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int winid = arg.GetNumber(1)
-	//int dir = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(1)
+	//wxDirection dir = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_BannerWindow, __SetBitmap)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bmp = arg.GetNumber(0)
+	//const wxBitmap& bmp = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmap();
 	return Value::Nil;
 }
@@ -150,8 +150,8 @@ Gura_ImplementMethod(wx_BannerWindow, __SetText)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
-	//int message = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(1)
 	//pThis->GetEntity()->SetText();
 	return Value::Nil;
 }
@@ -167,8 +167,8 @@ Gura_ImplementMethod(wx_BannerWindow, __SetGradient)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int start = arg.GetNumber(0)
-	//int end = arg.GetNumber(1)
+	//const wxColour& start = arg.GetNumber(0)
+	//const wxColour& end = arg.GetNumber(1)
 	//pThis->GetEntity()->SetGradient();
 	return Value::Nil;
 }

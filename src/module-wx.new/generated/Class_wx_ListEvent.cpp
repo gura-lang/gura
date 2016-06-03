@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__ListEvent, "ListEvent")
 
 Gura_ImplementFunction(__ListEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxListEvent();
 	return Value::Nil;

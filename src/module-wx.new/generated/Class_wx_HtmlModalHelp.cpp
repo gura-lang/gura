@@ -50,9 +50,9 @@ Gura_DeclareFunctionAlias(__HtmlModalHelp, "HtmlModalHelp")
 
 Gura_ImplementFunction(__HtmlModalHelp)
 {
-	//int parent = arg.GetNumber(0)
-	//int helpFile = arg.GetNumber(1)
-	//int topic = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& helpFile = arg.GetNumber(1)
+	//const wxString& topic = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
 	//wxHtmlModalHelp();
 	return Value::Nil;

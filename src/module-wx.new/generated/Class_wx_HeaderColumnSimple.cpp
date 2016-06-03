@@ -50,9 +50,9 @@ Gura_DeclareFunctionAlias(__HeaderColumnSimple, "HeaderColumnSimple")
 
 Gura_ImplementFunction(__HeaderColumnSimple)
 {
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
-	//int align = arg.GetNumber(2)
+	//wxAlignment align = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//wxHeaderColumnSimple();
 	return Value::Nil;
@@ -71,9 +71,9 @@ Gura_DeclareFunctionAlias(__HeaderColumnSimple_1, "HeaderColumnSimple_1")
 
 Gura_ImplementFunction(__HeaderColumnSimple_1)
 {
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
-	//int align = arg.GetNumber(2)
+	//wxAlignment align = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//wxHeaderColumnSimple();
 	return Value::Nil;
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetTitle)
 {
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitle();
 	return Value::Nil;
 }
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetBitmap)
 {
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmap();
 	return Value::Nil;
 }
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetAlignment)
 {
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int align = arg.GetNumber(0)
+	//wxAlignment align = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAlignment();
 	return Value::Nil;
 }
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetSortOrder)
 {
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ascending = arg.GetNumber(0)
+	//bool ascending = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSortOrder();
 	return Value::Nil;
 }

@@ -48,8 +48,8 @@ Gura_ImplementMethod(wx_HelpProvider, __AddHelp)
 {
 	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
+	//wxWindowBase* window = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
 	//pThis->GetEntity()->AddHelp();
 	return Value::Nil;
 }
@@ -65,8 +65,8 @@ Gura_ImplementMethod(wx_HelpProvider, __AddHelp_1)
 {
 	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
+	//wxWindowID id = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
 	//pThis->GetEntity()->AddHelp();
 	return Value::Nil;
 }
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_HelpProvider, __GetHelp)
 {
 	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//const wxWindowBase* window = arg.GetNumber(0)
 	//pThis->GetEntity()->GetHelp();
 	return Value::Nil;
 }
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_HelpProvider, __RemoveHelp)
 {
 	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindowBase* window = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveHelp();
 	return Value::Nil;
 }
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_HelpProvider, __Set)
 {
 	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int helpProvider = arg.GetNumber(0)
+	//wxHelpProvider* helpProvider = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_HelpProvider, __ShowHelp)
 {
 	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindowBase* window = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowHelp();
 	return Value::Nil;
 }
@@ -156,9 +156,9 @@ Gura_ImplementMethod(wx_HelpProvider, __ShowHelpAtPoint)
 {
 	Object_wx_HelpProvider *pThis = Object_wx_HelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
-	//int point = arg.GetNumber(1)
-	//int origin = arg.GetNumber(2)
+	//wxWindowBase* window = arg.GetNumber(0)
+	//const wxPoint& point = arg.GetNumber(1)
+	//wxHelpEvent::Origin origin = arg.GetNumber(2)
 	//pThis->GetEntity()->ShowHelpAtPoint();
 	return Value::Nil;
 }

@@ -65,12 +65,12 @@ Gura_DeclareFunctionAlias(__Notebook_1, "Notebook_1")
 
 Gura_ImplementFunction(__Notebook_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//wxNotebook();
 	return Value::Nil;
 }
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_Notebook, __Create)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_Notebook, __OnSelChange)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxBookCtrlEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->OnSelChange();
 	return Value::Nil;
 }
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_Notebook, __SetPadding)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int padding = arg.GetNumber(0)
+	//const wxSize& padding = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPadding();
 	return Value::Nil;
 }
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_Notebook, __GetPageImage)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nPage = arg.GetNumber(0)
+	//size_t nPage = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPageImage();
 	return Value::Nil;
 }
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_Notebook, __SetPageImage)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//size_t page = arg.GetNumber(0)
 	//int image = arg.GetNumber(1)
 	//pThis->GetEntity()->SetPageImage();
 	return Value::Nil;
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_Notebook, __GetPageText)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nPage = arg.GetNumber(0)
+	//size_t nPage = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPageText();
 	return Value::Nil;
 }
@@ -217,8 +217,8 @@ Gura_ImplementMethod(wx_Notebook, __SetPageText)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
+	//size_t page = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
 	//pThis->GetEntity()->SetPageText();
 	return Value::Nil;
 }
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_Notebook, __SetSelection)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//size_t page = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSelection();
 	return Value::Nil;
 }
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_Notebook, __ChangeSelection)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//size_t page = arg.GetNumber(0)
 	//pThis->GetEntity()->ChangeSelection();
 	return Value::Nil;
 }
@@ -280,10 +280,10 @@ Gura_ImplementMethod(wx_Notebook, __InsertPage)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
-	//int page = arg.GetNumber(1)
-	//int text = arg.GetNumber(2)
-	//int select = arg.GetNumber(3)
+	//size_t index = arg.GetNumber(0)
+	//wxWindow* page = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(2)
+	//bool select = arg.GetNumber(3)
 	//int imageId = arg.GetNumber(4)
 	//pThis->GetEntity()->InsertPage();
 	return Value::Nil;

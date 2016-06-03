@@ -51,11 +51,11 @@ Gura_DeclareFunctionAlias(__HtmlCellEvent, "HtmlCellEvent")
 
 Gura_ImplementFunction(__HtmlCellEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//int cell = arg.GetNumber(2)
-	//int point = arg.GetNumber(3)
-	//int ev = arg.GetNumber(4)
+	//wxHtmlCell* cell = arg.GetNumber(2)
+	//const wxPoint& point = arg.GetNumber(3)
+	//const wxMouseEvent& ev = arg.GetNumber(4)
 	//wxHtmlCellEvent();
 	return Value::Nil;
 }
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_HtmlCellEvent, __SetLinkClicked)
 {
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int linkclicked = arg.GetNumber(0)
+	//bool linkclicked = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLinkClicked();
 	return Value::Nil;
 }

@@ -65,12 +65,12 @@ Gura_DeclareFunctionAlias(__TreeListCtrl_1, "TreeListCtrl_1")
 
 Gura_ImplementFunction(__TreeListCtrl_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//wxTreeListCtrl();
 	return Value::Nil;
 }
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, __Create)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __AssignImageList)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int imageList = arg.GetNumber(0)
+	//wxImageList* imageList = arg.GetNumber(0)
 	//pThis->GetEntity()->AssignImageList();
 	return Value::Nil;
 }
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __SetImageList)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int imageList = arg.GetNumber(0)
+	//wxImageList* imageList = arg.GetNumber(0)
 	//pThis->GetEntity()->SetImageList();
 	return Value::Nil;
 }
@@ -146,9 +146,9 @@ Gura_ImplementMethod(wx_TreeListCtrl, __AppendColumn)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
-	//int align = arg.GetNumber(2)
+	//wxAlignment align = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//pThis->GetEntity()->AppendColumn();
 	return Value::Nil;
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __DeleteColumn)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//unsigned col = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteColumn();
 	return Value::Nil;
 }
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __SetColumnWidth)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//unsigned col = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColumnWidth();
 	return Value::Nil;
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetColumnWidth)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//unsigned col = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColumnWidth();
 	return Value::Nil;
 }
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __WidthFor)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->WidthFor();
 	return Value::Nil;
 }
@@ -256,11 +256,11 @@ Gura_ImplementMethod(wx_TreeListCtrl, __AppendItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
+	//wxTreeListItem parent = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
 	//int imageClosed = arg.GetNumber(2)
 	//int imageOpened = arg.GetNumber(3)
-	//int data = arg.GetNumber(4)
+	//wxClientData* data = arg.GetNumber(4)
 	//pThis->GetEntity()->AppendItem();
 	return Value::Nil;
 }
@@ -280,12 +280,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, __InsertItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int previous = arg.GetNumber(1)
-	//int text = arg.GetNumber(2)
+	//wxTreeListItem parent = arg.GetNumber(0)
+	//wxTreeListItem previous = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(2)
 	//int imageClosed = arg.GetNumber(3)
 	//int imageOpened = arg.GetNumber(4)
-	//int data = arg.GetNumber(5)
+	//wxClientData* data = arg.GetNumber(5)
 	//pThis->GetEntity()->InsertItem();
 	return Value::Nil;
 }
@@ -304,11 +304,11 @@ Gura_ImplementMethod(wx_TreeListCtrl, __PrependItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
+	//wxTreeListItem parent = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
 	//int imageClosed = arg.GetNumber(2)
 	//int imageOpened = arg.GetNumber(3)
-	//int data = arg.GetNumber(4)
+	//wxClientData* data = arg.GetNumber(4)
 	//pThis->GetEntity()->PrependItem();
 	return Value::Nil;
 }
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __DeleteItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteItem();
 	return Value::Nil;
 }
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetItemParent)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemParent();
 	return Value::Nil;
 }
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetFirstChild)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFirstChild();
 	return Value::Nil;
 }
@@ -394,7 +394,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetNextSibling)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetNextSibling();
 	return Value::Nil;
 }
@@ -422,7 +422,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetNextItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetNextItem();
 	return Value::Nil;
 }
@@ -438,8 +438,8 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetItemText)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
+	//wxTreeListItem item = arg.GetNumber(0)
+	//unsigned col = arg.GetNumber(1)
 	//pThis->GetEntity()->GetItemText();
 	return Value::Nil;
 }
@@ -456,9 +456,9 @@ Gura_ImplementMethod(wx_TreeListCtrl, __SetItemText)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
-	//int text = arg.GetNumber(2)
+	//wxTreeListItem item = arg.GetNumber(0)
+	//unsigned col = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(2)
 	//pThis->GetEntity()->SetItemText();
 	return Value::Nil;
 }
@@ -474,8 +474,8 @@ Gura_ImplementMethod(wx_TreeListCtrl, __SetItemText_1)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
+	//wxTreeListItem item = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemText();
 	return Value::Nil;
 }
@@ -492,7 +492,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __SetItemImage)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//int closed = arg.GetNumber(1)
 	//int opened = arg.GetNumber(2)
 	//pThis->GetEntity()->SetItemImage();
@@ -509,7 +509,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetItemData)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemData();
 	return Value::Nil;
 }
@@ -525,8 +525,8 @@ Gura_ImplementMethod(wx_TreeListCtrl, __SetItemData)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxTreeListItem item = arg.GetNumber(0)
+	//wxClientData* data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemData();
 	return Value::Nil;
 }
@@ -541,7 +541,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __Expand)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->Expand();
 	return Value::Nil;
 }
@@ -556,7 +556,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __Collapse)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->Collapse();
 	return Value::Nil;
 }
@@ -571,7 +571,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __IsExpanded)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->IsExpanded();
 	return Value::Nil;
 }
@@ -599,7 +599,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetSelections)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int selections = arg.GetNumber(0)
+	//wxTreeListItems& selections = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSelections();
 	return Value::Nil;
 }
@@ -614,7 +614,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __Select)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->Select();
 	return Value::Nil;
 }
@@ -629,7 +629,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __Unselect)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->Unselect();
 	return Value::Nil;
 }
@@ -644,7 +644,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __IsSelected)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->IsSelected();
 	return Value::Nil;
 }
@@ -685,7 +685,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __EnsureVisible)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->EnsureVisible();
 	return Value::Nil;
 }
@@ -701,8 +701,8 @@ Gura_ImplementMethod(wx_TreeListCtrl, __CheckItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int state = arg.GetNumber(1)
+	//wxTreeListItem item = arg.GetNumber(0)
+	//wxCheckBoxState state = arg.GetNumber(1)
 	//pThis->GetEntity()->CheckItem();
 	return Value::Nil;
 }
@@ -718,8 +718,8 @@ Gura_ImplementMethod(wx_TreeListCtrl, __CheckItemRecursively)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int state = arg.GetNumber(1)
+	//wxTreeListItem item = arg.GetNumber(0)
+	//wxCheckBoxState state = arg.GetNumber(1)
 	//pThis->GetEntity()->CheckItemRecursively();
 	return Value::Nil;
 }
@@ -734,7 +734,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __UncheckItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->UncheckItem();
 	return Value::Nil;
 }
@@ -749,7 +749,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __UpdateItemParentStateRecursively)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->UpdateItemParentStateRecursively();
 	return Value::Nil;
 }
@@ -764,7 +764,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetCheckedState)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTreeListItem item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetCheckedState();
 	return Value::Nil;
 }
@@ -780,8 +780,8 @@ Gura_ImplementMethod(wx_TreeListCtrl, __AreAllChildrenInState)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int state = arg.GetNumber(1)
+	//wxTreeListItem item = arg.GetNumber(0)
+	//wxCheckBoxState state = arg.GetNumber(1)
 	//pThis->GetEntity()->AreAllChildrenInState();
 	return Value::Nil;
 }
@@ -797,8 +797,8 @@ Gura_ImplementMethod(wx_TreeListCtrl, __SetSortColumn)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
-	//int ascendingOrder = arg.GetNumber(1)
+	//unsigned col = arg.GetNumber(0)
+	//bool ascendingOrder = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSortColumn();
 	return Value::Nil;
 }
@@ -814,8 +814,8 @@ Gura_ImplementMethod(wx_TreeListCtrl, __GetSortColumn)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
-	//int ascendingOrder = arg.GetNumber(1)
+	//unsigned* col = arg.GetNumber(0)
+	//bool* ascendingOrder = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSortColumn();
 	return Value::Nil;
 }
@@ -830,7 +830,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, __SetItemComparator)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int comparator = arg.GetNumber(0)
+	//wxTreeListItemComparator* comparator = arg.GetNumber(0)
 	//pThis->GetEntity()->SetItemComparator();
 	return Value::Nil;
 }

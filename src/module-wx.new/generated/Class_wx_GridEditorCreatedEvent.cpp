@@ -66,11 +66,11 @@ Gura_DeclareFunctionAlias(__GridEditorCreatedEvent_1, "GridEditorCreatedEvent_1"
 Gura_ImplementFunction(__GridEditorCreatedEvent_1)
 {
 	//int id = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
-	//int obj = arg.GetNumber(2)
+	//wxEventType type = arg.GetNumber(1)
+	//wxObject* obj = arg.GetNumber(2)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
-	//int ctrl = arg.GetNumber(5)
+	//wxControl* ctrl = arg.GetNumber(5)
 	//wxGridEditorCreatedEvent();
 	return Value::Nil;
 }
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, __SetControl)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ctrl = arg.GetNumber(0)
+	//wxControl* ctrl = arg.GetNumber(0)
 	//pThis->GetEntity()->SetControl();
 	return Value::Nil;
 }

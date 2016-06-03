@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__ScopedTiedPtr, "ScopedTiedPtr")
 
 Gura_ImplementFunction(__ScopedTiedPtr)
 {
-	//int ppTie = arg.GetNumber(0)
-	//int ptr = arg.GetNumber(1)
+	//T** ppTie = arg.GetNumber(0)
+	//T* ptr = arg.GetNumber(1)
 	//wxScopedTiedPtr();
 	return Value::Nil;
 }

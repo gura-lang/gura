@@ -54,14 +54,14 @@ Gura_DeclareFunctionAlias(__GLCanvas, "GLCanvas")
 
 Gura_ImplementFunction(__GLCanvas)
 {
-	//int parent = arg.GetNumber(0)
-	//int dispAttrs = arg.GetNumber(1)
-	//int id = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
-	//int palette = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxGLAttributes& dispAttrs = arg.GetNumber(1)
+	//wxWindowID id = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
+	//const wxPalette& palette = arg.GetNumber(7)
 	//wxGLCanvas();
 	return Value::Nil;
 }
@@ -83,14 +83,14 @@ Gura_DeclareFunctionAlias(__GLCanvas_1, "GLCanvas_1")
 
 Gura_ImplementFunction(__GLCanvas_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int attribList = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
-	//int palette = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const int* attribList = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
+	//const wxPalette& palette = arg.GetNumber(7)
 	//wxGLCanvas();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_GLCanvas, __IsDisplaySupported)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dispAttrs = arg.GetNumber(0)
+	//const wxGLAttributes& dispAttrs = arg.GetNumber(0)
 	//pThis->GetEntity()->IsDisplaySupported();
 	return Value::Nil;
 }
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_GLCanvas, __IsDisplaySupported_1)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attribList = arg.GetNumber(0)
+	//const int* attribList = arg.GetNumber(0)
 	//pThis->GetEntity()->IsDisplaySupported();
 	return Value::Nil;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_GLCanvas, __IsExtensionSupported)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int extension = arg.GetNumber(0)
+	//const char* extension = arg.GetNumber(0)
 	//pThis->GetEntity()->IsExtensionSupported();
 	return Value::Nil;
 }
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_GLCanvas, __SetColour)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxString& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_GLCanvas, __SetCurrent)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int context = arg.GetNumber(0)
+	//const wxGLContext& context = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCurrent();
 	return Value::Nil;
 }

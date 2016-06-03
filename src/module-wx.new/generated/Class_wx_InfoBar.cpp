@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__InfoBar_1, "InfoBar_1")
 
 Gura_ImplementFunction(__InfoBar_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int winid = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(1)
 	//wxInfoBar();
 	return Value::Nil;
 }
@@ -81,8 +81,8 @@ Gura_ImplementMethod(wx_InfoBar, __Create)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int winid = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -98,8 +98,8 @@ Gura_ImplementMethod(wx_InfoBar, __AddButton)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int btnid = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
+	//wxWindowID btnid = arg.GetNumber(0)
+	//const wxString& label = arg.GetNumber(1)
 	//pThis->GetEntity()->AddButton();
 	return Value::Nil;
 }
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_InfoBar, __RemoveButton)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int btnid = arg.GetNumber(0)
+	//wxWindowID btnid = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveButton();
 	return Value::Nil;
 }
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_InfoBar, __ShowMessage)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int msg = arg.GetNumber(0)
+	//const wxString& msg = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->ShowMessage();
 	return Value::Nil;
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_InfoBar, __GetButtonId)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//size_t idx = arg.GetNumber(0)
 	//pThis->GetEntity()->GetButtonId();
 	return Value::Nil;
 }
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_InfoBar, __HasButtonId)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int btnid = arg.GetNumber(0)
+	//wxWindowID btnid = arg.GetNumber(0)
 	//pThis->GetEntity()->HasButtonId();
 	return Value::Nil;
 }
@@ -203,8 +203,8 @@ Gura_ImplementMethod(wx_InfoBar, __SetShowHideEffects)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int showEffect = arg.GetNumber(0)
-	//int hideEffect = arg.GetNumber(1)
+	//wxShowEffect showEffect = arg.GetNumber(0)
+	//wxShowEffect hideEffect = arg.GetNumber(1)
 	//pThis->GetEntity()->SetShowHideEffects();
 	return Value::Nil;
 }
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_InfoBar, __SetFont)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;
 }

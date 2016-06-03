@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__UpdateUIEvent, "UpdateUIEvent")
 
 Gura_ImplementFunction(__UpdateUIEvent)
 {
-	//int commandId = arg.GetNumber(0)
+	//wxWindowID commandId = arg.GetNumber(0)
 	//wxUpdateUIEvent();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __CanUpdate)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//pThis->GetEntity()->CanUpdate();
 	return Value::Nil;
 }
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __Check)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int check = arg.GetNumber(0)
+	//bool check = arg.GetNumber(0)
 	//pThis->GetEntity()->Check();
 	return Value::Nil;
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __Enable)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->Enable();
 	return Value::Nil;
 }
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __SetMode)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mode = arg.GetNumber(0)
+	//wxUpdateUIMode mode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMode();
 	return Value::Nil;
 }
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __SetText)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetText();
 	return Value::Nil;
 }
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __SetUpdateInterval)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int updateInterval = arg.GetNumber(0)
+	//long updateInterval = arg.GetNumber(0)
 	//pThis->GetEntity()->SetUpdateInterval();
 	return Value::Nil;
 }
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __Show)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int show = arg.GetNumber(0)
+	//bool show = arg.GetNumber(0)
 	//pThis->GetEntity()->Show();
 	return Value::Nil;
 }

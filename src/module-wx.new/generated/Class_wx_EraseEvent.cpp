@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__EraseEvent, "EraseEvent")
 Gura_ImplementFunction(__EraseEvent)
 {
 	//int id = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
+	//wxDC* dc = arg.GetNumber(1)
 	//wxEraseEvent();
 	return Value::Nil;
 }

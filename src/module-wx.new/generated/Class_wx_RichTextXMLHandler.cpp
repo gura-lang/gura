@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__RichTextXMLHandler, "RichTextXMLHandler")
 
 Gura_ImplementFunction(__RichTextXMLHandler)
 {
-	//int name = arg.GetNumber(0)
-	//int ext = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxString& ext = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
 	//wxRichTextXMLHandler();
 	return Value::Nil;
@@ -97,8 +97,8 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __ExportXML)
 {
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int obj = arg.GetNumber(1)
+	//wxOutputStream& stream = arg.GetNumber(0)
+	//wxRichTextObject& obj = arg.GetNumber(1)
 	//int level = arg.GetNumber(2)
 	//pThis->GetEntity()->ExportXML();
 	return Value::Nil;
@@ -116,9 +116,9 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __ImportXML)
 {
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int obj = arg.GetNumber(1)
-	//int node = arg.GetNumber(2)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxRichTextObject* obj = arg.GetNumber(1)
+	//wxXmlNode* node = arg.GetNumber(2)
 	//pThis->GetEntity()->ImportXML();
 	return Value::Nil;
 }
@@ -134,8 +134,8 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __RegisterNodeName)
 {
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nodeName = arg.GetNumber(0)
-	//int className = arg.GetNumber(1)
+	//const wxString& nodeName = arg.GetNumber(0)
+	//const wxString& className = arg.GetNumber(1)
 	//pThis->GetEntity()->RegisterNodeName();
 	return Value::Nil;
 }
@@ -164,8 +164,8 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __DoLoadFile)
 {
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoLoadFile();
 	return Value::Nil;
 }
@@ -181,8 +181,8 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __DoSaveFile)
 {
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxOutputStream& stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoSaveFile();
 	return Value::Nil;
 }

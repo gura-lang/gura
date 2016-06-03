@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__ActiveXContainer, "ActiveXContainer")
 
 Gura_ImplementFunction(__ActiveXContainer)
 {
-	//int parent = arg.GetNumber(0)
-	//int iid = arg.GetNumber(1)
-	//int pUnk = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//REFIID iid = arg.GetNumber(1)
+	//IUnknown* pUnk = arg.GetNumber(2)
 	//wxActiveXContainer();
 	return Value::Nil;
 }
@@ -71,9 +71,9 @@ Gura_ImplementMethod(wx_ActiveXContainer, __QueryClientSiteInterface)
 {
 	Object_wx_ActiveXContainer *pThis = Object_wx_ActiveXContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int iid = arg.GetNumber(0)
-	//int _interface = arg.GetNumber(1)
-	//int desc = arg.GetNumber(2)
+	//REFIID iid = arg.GetNumber(0)
+	//void** _interface = arg.GetNumber(1)
+	//const char*& desc = arg.GetNumber(2)
 	//pThis->GetEntity()->QueryClientSiteInterface();
 	return Value::Nil;
 }

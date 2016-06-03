@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__TarEntry, "TarEntry")
 
 Gura_ImplementFunction(__TarEntry)
 {
-	//int name = arg.GetNumber(0)
-	//int dt = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxDateTime& dt = arg.GetNumber(1)
+	//wxFileOffset size = arg.GetNumber(2)
 	//wxTarEntry();
 	return Value::Nil;
 }
@@ -66,7 +66,7 @@ Gura_DeclareFunctionAlias(__TarEntry_1, "TarEntry_1")
 
 Gura_ImplementFunction(__TarEntry_1)
 {
-	//int entry = arg.GetNumber(0)
+	//const wxTarEntry& entry = arg.GetNumber(0)
 	//wxTarEntry();
 	return Value::Nil;
 }
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_TarEntry, __SetAccessTime)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dt = arg.GetNumber(0)
+	//const wxDateTime& dt = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAccessTime();
 	return Value::Nil;
 }
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_TarEntry, __SetCreateTime)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dt = arg.GetNumber(0)
+	//const wxDateTime& dt = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCreateTime();
 	return Value::Nil;
 }
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_TarEntry, __SetGroupName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int group = arg.GetNumber(0)
+	//const wxString& group = arg.GetNumber(0)
 	//pThis->GetEntity()->SetGroupName();
 	return Value::Nil;
 }
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_TarEntry, __SetUserName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int user = arg.GetNumber(0)
+	//const wxString& user = arg.GetNumber(0)
 	//pThis->GetEntity()->SetUserName();
 	return Value::Nil;
 }
@@ -321,7 +321,7 @@ Gura_ImplementMethod(wx_TarEntry, __SetLinkName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int link = arg.GetNumber(0)
+	//const wxString& link = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLinkName();
 	return Value::Nil;
 }
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_TarEntry, __SetSize)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//wxFileOffset size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
 }
@@ -435,9 +435,9 @@ Gura_ImplementMethod(wx_TarEntry, __GetInternalName_1)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int format = arg.GetNumber(1)
-	//int pIsDir = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(0)
+	//wxPathFormat format = arg.GetNumber(1)
+	//bool* pIsDir = arg.GetNumber(2)
 	//pThis->GetEntity()->GetInternalName();
 	return Value::Nil;
 }

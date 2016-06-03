@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__AuiNotebookEvent, "AuiNotebookEvent")
 
 Gura_ImplementFunction(__AuiNotebookEvent)
 {
-	//int command_type = arg.GetNumber(0)
+	//wxEventType command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
 	//wxAuiNotebookEvent();
 	return Value::Nil;

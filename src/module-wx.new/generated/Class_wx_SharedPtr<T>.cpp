@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_SharedPtr<T>, __wxSharedPtr)
 {
 	Object_wx_SharedPtr<T> *pThis = Object_wx_SharedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptr = arg.GetNumber(0)
+	//T* ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->wxSharedPtr();
 	return Value::Nil;
 }
@@ -63,8 +63,8 @@ Gura_ImplementMethod(wx_SharedPtr<T>, __wxSharedPtr_1)
 {
 	Object_wx_SharedPtr<T> *pThis = Object_wx_SharedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptr = arg.GetNumber(0)
-	//int d = arg.GetNumber(1)
+	//T* ptr = arg.GetNumber(0)
+	//Deleter d = arg.GetNumber(1)
 	//pThis->GetEntity()->wxSharedPtr();
 	return Value::Nil;
 }
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_SharedPtr<T>, __wxSharedPtr_2)
 {
 	Object_wx_SharedPtr<T> *pThis = Object_wx_SharedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tocopy = arg.GetNumber(0)
+	//const wxSharedPtr<T>& tocopy = arg.GetNumber(0)
 	//pThis->GetEntity()->wxSharedPtr();
 	return Value::Nil;
 }
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_SharedPtr<T>, __reset)
 {
 	Object_wx_SharedPtr<T> *pThis = Object_wx_SharedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptr = arg.GetNumber(0)
+	//T* ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->reset();
 	return Value::Nil;
 }
@@ -136,8 +136,8 @@ Gura_ImplementMethod(wx_SharedPtr<T>, __reset_1)
 {
 	Object_wx_SharedPtr<T> *pThis = Object_wx_SharedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptr = arg.GetNumber(0)
-	//int d = arg.GetNumber(1)
+	//T* ptr = arg.GetNumber(0)
+	//Deleter d = arg.GetNumber(1)
 	//pThis->GetEntity()->reset();
 	return Value::Nil;
 }

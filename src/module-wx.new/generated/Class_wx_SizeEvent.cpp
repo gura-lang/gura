@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__SizeEvent, "SizeEvent")
 
 Gura_ImplementFunction(__SizeEvent)
 {
-	//int sz = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxSizeEvent();
 	return Value::Nil;
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_SizeEvent, __SetSize)
 {
 	Object_wx_SizeEvent *pThis = Object_wx_SizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//wxSize size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_SizeEvent, __SetRect)
 {
 	Object_wx_SizeEvent *pThis = Object_wx_SizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//wxRect rect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRect();
 	return Value::Nil;
 }

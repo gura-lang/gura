@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__HtmlHelpFrame, "HtmlHelpFrame")
 
 Gura_ImplementFunction(__HtmlHelpFrame)
 {
-	//int data = arg.GetNumber(0)
+	//wxHtmlHelpData* data = arg.GetNumber(0)
 	//wxHtmlHelpFrame();
 	return Value::Nil;
 }
@@ -68,13 +68,13 @@ Gura_DeclareFunctionAlias(__HtmlHelpFrame_1, "HtmlHelpFrame_1")
 
 Gura_ImplementFunction(__HtmlHelpFrame_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
-	//int data = arg.GetNumber(4)
-	//int config = arg.GetNumber(5)
-	//int rootpath = arg.GetNumber(6)
+	//wxHtmlHelpData* data = arg.GetNumber(4)
+	//wxConfigBase* config = arg.GetNumber(5)
+	//const wxString& rootpath = arg.GetNumber(6)
 	//wxHtmlHelpFrame();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, __AddToolbarButtons)
 {
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int toolBar = arg.GetNumber(0)
+	//wxToolBar* toolBar = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->AddToolbarButtons();
 	return Value::Nil;
@@ -114,12 +114,12 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, __Create)
 {
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
-	//int config = arg.GetNumber(4)
-	//int rootpath = arg.GetNumber(5)
+	//wxConfigBase* config = arg.GetNumber(4)
+	//const wxString& rootpath = arg.GetNumber(5)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, __SetController)
 {
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int controller = arg.GetNumber(0)
+	//wxHtmlHelpController* controller = arg.GetNumber(0)
 	//pThis->GetEntity()->SetController();
 	return Value::Nil;
 }
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, __SetTitleFormat)
 {
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
+	//const wxString& format = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitleFormat();
 	return Value::Nil;
 }

@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__RibbonBarEvent, "RibbonBarEvent")
 
 Gura_ImplementFunction(__RibbonBarEvent)
 {
-	//int command_type = arg.GetNumber(0)
+	//wxEventType command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
-	//int page = arg.GetNumber(2)
+	//wxRibbonPage* page = arg.GetNumber(2)
 	//wxRibbonBarEvent();
 	return Value::Nil;
 }
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_RibbonBarEvent, __SetPage)
 {
 	Object_wx_RibbonBarEvent *pThis = Object_wx_RibbonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//wxRibbonPage* page = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPage();
 	return Value::Nil;
 }

@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, __SetParameters)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int params = arg.GetNumber(0)
+	//const wxString& params = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParameters();
 	return Value::Nil;
 }

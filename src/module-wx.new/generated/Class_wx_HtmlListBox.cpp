@@ -52,12 +52,12 @@ Gura_DeclareFunctionAlias(__HtmlListBox, "HtmlListBox")
 
 Gura_ImplementFunction(__HtmlListBox)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//wxHtmlListBox();
 	return Value::Nil;
 }
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_HtmlListBox, __Create)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -140,8 +140,8 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnLinkClicked)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int link = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(0)
+	//const wxHtmlLinkInfo& link = arg.GetNumber(1)
 	//pThis->GetEntity()->OnLinkClicked();
 	return Value::Nil;
 }
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __GetSelectedTextBgColour)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colBg = arg.GetNumber(0)
+	//const wxColour& colBg = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSelectedTextBgColour();
 	return Value::Nil;
 }
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __GetSelectedTextColour)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colFg = arg.GetNumber(0)
+	//const wxColour& colFg = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSelectedTextColour();
 	return Value::Nil;
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnGetItemMarkup)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(0)
 	//pThis->GetEntity()->OnGetItemMarkup();
 	return Value::Nil;
 }
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnGetItem)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(0)
 	//pThis->GetEntity()->OnGetItem();
 	return Value::Nil;
 }

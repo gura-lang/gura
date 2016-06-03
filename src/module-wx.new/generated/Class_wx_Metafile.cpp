@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__Metafile, "Metafile")
 
 Gura_ImplementFunction(__Metafile)
 {
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//wxMetafile();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_Metafile, __Play)
 {
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
+	//wxDC* dc = arg.GetNumber(0)
 	//pThis->GetEntity()->Play();
 	return Value::Nil;
 }

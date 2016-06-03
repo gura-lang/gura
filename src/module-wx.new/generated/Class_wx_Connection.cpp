@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__Connection_1, "Connection_1")
 
 Gura_ImplementFunction(__Connection_1)
 {
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//void* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//wxConnection();
 	return Value::Nil;
 }
@@ -83,10 +83,10 @@ Gura_ImplementMethod(wx_Connection, __Advise)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
-	//int format = arg.GetNumber(3)
+	//const wxString& item = arg.GetNumber(0)
+	//const void* data = arg.GetNumber(1)
+	//size_t size = arg.GetNumber(2)
+	//wxIPCFormat format = arg.GetNumber(3)
 	//pThis->GetEntity()->Advise();
 	return Value::Nil;
 }
@@ -102,8 +102,8 @@ Gura_ImplementMethod(wx_Connection, __Advise_1)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const char* data = arg.GetNumber(1)
 	//pThis->GetEntity()->Advise();
 	return Value::Nil;
 }
@@ -119,8 +119,8 @@ Gura_ImplementMethod(wx_Connection, __Advise_2)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const wchar_t* data = arg.GetNumber(1)
 	//pThis->GetEntity()->Advise();
 	return Value::Nil;
 }
@@ -136,8 +136,8 @@ Gura_ImplementMethod(wx_Connection, __Advise_3)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const wxString data = arg.GetNumber(1)
 	//pThis->GetEntity()->Advise();
 	return Value::Nil;
 }
@@ -167,9 +167,9 @@ Gura_ImplementMethod(wx_Connection, __Execute)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
-	//int format = arg.GetNumber(2)
+	//const void* data = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
+	//wxIPCFormat format = arg.GetNumber(2)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
 }
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_Connection, __Execute_1)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const char* data = arg.GetNumber(0)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
 }
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_Connection, __Execute_2)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const wchar_t* data = arg.GetNumber(0)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
 }
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_Connection, __Execute_3)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const wxString data = arg.GetNumber(0)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
 }
@@ -233,11 +233,11 @@ Gura_ImplementMethod(wx_Connection, __OnAdvise)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
-	//int data = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int format = arg.GetNumber(4)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(1)
+	//const void* data = arg.GetNumber(2)
+	//size_t size = arg.GetNumber(3)
+	//wxIPCFormat format = arg.GetNumber(4)
 	//pThis->GetEntity()->OnAdvise();
 	return Value::Nil;
 }
@@ -266,8 +266,8 @@ Gura_ImplementMethod(wx_Connection, __OnExec)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& data = arg.GetNumber(1)
 	//pThis->GetEntity()->OnExec();
 	return Value::Nil;
 }
@@ -286,11 +286,11 @@ Gura_ImplementMethod(wx_Connection, __OnPoke)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
-	//int data = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int format = arg.GetNumber(4)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(1)
+	//const void* data = arg.GetNumber(2)
+	//size_t size = arg.GetNumber(3)
+	//wxIPCFormat format = arg.GetNumber(4)
 	//pThis->GetEntity()->OnPoke();
 	return Value::Nil;
 }
@@ -308,10 +308,10 @@ Gura_ImplementMethod(wx_Connection, __OnRequest)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
-	//int format = arg.GetNumber(3)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(1)
+	//size_t* size = arg.GetNumber(2)
+	//wxIPCFormat format = arg.GetNumber(3)
 	//pThis->GetEntity()->OnRequest();
 	return Value::Nil;
 }
@@ -327,8 +327,8 @@ Gura_ImplementMethod(wx_Connection, __OnStartAdvise)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(1)
 	//pThis->GetEntity()->OnStartAdvise();
 	return Value::Nil;
 }
@@ -344,8 +344,8 @@ Gura_ImplementMethod(wx_Connection, __OnStopAdvise)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(1)
 	//pThis->GetEntity()->OnStopAdvise();
 	return Value::Nil;
 }
@@ -363,10 +363,10 @@ Gura_ImplementMethod(wx_Connection, __Poke)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
-	//int format = arg.GetNumber(3)
+	//const wxString& item = arg.GetNumber(0)
+	//const void* data = arg.GetNumber(1)
+	//size_t size = arg.GetNumber(2)
+	//wxIPCFormat format = arg.GetNumber(3)
 	//pThis->GetEntity()->Poke();
 	return Value::Nil;
 }
@@ -382,8 +382,8 @@ Gura_ImplementMethod(wx_Connection, __Poke_1)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const char* data = arg.GetNumber(1)
 	//pThis->GetEntity()->Poke();
 	return Value::Nil;
 }
@@ -399,8 +399,8 @@ Gura_ImplementMethod(wx_Connection, __Poke_2)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const wchar_t* data = arg.GetNumber(1)
 	//pThis->GetEntity()->Poke();
 	return Value::Nil;
 }
@@ -416,8 +416,8 @@ Gura_ImplementMethod(wx_Connection, __Poke_3)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const wxString data = arg.GetNumber(1)
 	//pThis->GetEntity()->Poke();
 	return Value::Nil;
 }
@@ -434,9 +434,9 @@ Gura_ImplementMethod(wx_Connection, __Request)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
-	//int format = arg.GetNumber(2)
+	//const wxString& item = arg.GetNumber(0)
+	//size_t* size = arg.GetNumber(1)
+	//wxIPCFormat format = arg.GetNumber(2)
 	//pThis->GetEntity()->Request();
 	return Value::Nil;
 }
@@ -451,7 +451,7 @@ Gura_ImplementMethod(wx_Connection, __StartAdvise)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(0)
 	//pThis->GetEntity()->StartAdvise();
 	return Value::Nil;
 }
@@ -466,7 +466,7 @@ Gura_ImplementMethod(wx_Connection, __StopAdvise)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(0)
 	//pThis->GetEntity()->StopAdvise();
 	return Value::Nil;
 }
@@ -481,7 +481,7 @@ Gura_ImplementMethod(wx_Connection, __IsTextFormat)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
+	//wxIPCFormat format = arg.GetNumber(0)
 	//pThis->GetEntity()->IsTextFormat();
 	return Value::Nil;
 }
@@ -498,9 +498,9 @@ Gura_ImplementMethod(wx_Connection, __GetTextFromData)
 {
 	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
-	//int format = arg.GetNumber(2)
+	//const void* data = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
+	//wxIPCFormat format = arg.GetNumber(2)
 	//pThis->GetEntity()->GetTextFromData();
 	return Value::Nil;
 }

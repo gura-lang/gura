@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_StopWatch, __Start)
 {
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int milliseconds = arg.GetNumber(0)
+	//long milliseconds = arg.GetNumber(0)
 	//pThis->GetEntity()->Start();
 	return Value::Nil;
 }

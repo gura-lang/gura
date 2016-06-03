@@ -77,8 +77,8 @@ Gura_ImplementMethod(wx_TextAttrBorder, __EqPartial)
 {
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int border = arg.GetNumber(0)
-	//int weakTest = arg.GetNumber(1)
+	//const wxTextAttrBorder& border = arg.GetNumber(0)
+	//bool weakTest = arg.GetNumber(1)
 	//pThis->GetEntity()->EqPartial();
 	return Value::Nil;
 }
@@ -94,8 +94,8 @@ Gura_ImplementMethod(wx_TextAttrBorder, __Apply)
 {
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int border = arg.GetNumber(0)
-	//int compareWith = arg.GetNumber(1)
+	//const wxTextAttrBorder& border = arg.GetNumber(0)
+	//const wxTextAttrBorder* compareWith = arg.GetNumber(1)
 	//pThis->GetEntity()->Apply();
 	return Value::Nil;
 }
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __RemoveStyle)
 {
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
+	//const wxTextAttrBorder& attr = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveStyle();
 	return Value::Nil;
 }
@@ -127,9 +127,9 @@ Gura_ImplementMethod(wx_TextAttrBorder, __CollectCommonAttributes)
 {
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
-	//int clashingAttr = arg.GetNumber(1)
-	//int absentAttr = arg.GetNumber(2)
+	//const wxTextAttrBorder& attr = arg.GetNumber(0)
+	//wxTextAttrBorder& clashingAttr = arg.GetNumber(1)
+	//wxTextAttrBorder& absentAttr = arg.GetNumber(2)
 	//pThis->GetEntity()->CollectCommonAttributes();
 	return Value::Nil;
 }
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __SetColour)
 {
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//unsigned long colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __SetColour_1)
 {
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __SetWidth)
 {
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int width = arg.GetNumber(0)
+	//const wxTextAttrDimension& width = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWidth();
 	return Value::Nil;
 }
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __SetWidth_1)
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//int units = arg.GetNumber(1)
+	//wxTextAttrUnits units = arg.GetNumber(1)
 	//pThis->GetEntity()->SetWidth();
 	return Value::Nil;
 }

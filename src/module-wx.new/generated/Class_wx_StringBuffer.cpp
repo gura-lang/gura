@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__StringBuffer, "StringBuffer")
 
 Gura_ImplementFunction(__StringBuffer)
 {
-	//int str = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//wxStringBuffer();
 	return Value::Nil;
 }

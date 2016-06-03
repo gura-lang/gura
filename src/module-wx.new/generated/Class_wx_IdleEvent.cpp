@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_IdleEvent, __RequestMore)
 {
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int needMore = arg.GetNumber(0)
+	//bool needMore = arg.GetNumber(0)
 	//pThis->GetEntity()->RequestMore();
 	return Value::Nil;
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_IdleEvent, __SetMode)
 {
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mode = arg.GetNumber(0)
+	//wxIdleMode mode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMode();
 	return Value::Nil;
 }

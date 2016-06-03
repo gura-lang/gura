@@ -67,11 +67,11 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __AppendContainer)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
-	//int icon = arg.GetNumber(2)
-	//int expanded = arg.GetNumber(3)
-	//int data = arg.GetNumber(4)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
+	//const wxIcon& icon = arg.GetNumber(2)
+	//const wxIcon& expanded = arg.GetNumber(3)
+	//wxClientData* data = arg.GetNumber(4)
 	//pThis->GetEntity()->AppendContainer();
 	return Value::Nil;
 }
@@ -89,10 +89,10 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __AppendItem)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
-	//int icon = arg.GetNumber(2)
-	//int data = arg.GetNumber(3)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
+	//const wxIcon& icon = arg.GetNumber(2)
+	//wxClientData* data = arg.GetNumber(3)
 	//pThis->GetEntity()->AppendItem();
 	return Value::Nil;
 }
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __DeleteChildren)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteChildren();
 	return Value::Nil;
 }
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __DeleteItem)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteItem();
 	return Value::Nil;
 }
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __GetChildCount)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
 	//pThis->GetEntity()->GetChildCount();
 	return Value::Nil;
 }
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __GetItemData)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemData();
 	return Value::Nil;
 }
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __GetItemExpandedIcon)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemExpandedIcon();
 	return Value::Nil;
 }
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __GetItemIcon)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemIcon();
 	return Value::Nil;
 }
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __GetItemText)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemText();
 	return Value::Nil;
 }
@@ -226,8 +226,8 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __GetNthChild)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//unsigned int pos = arg.GetNumber(1)
 	//pThis->GetEntity()->GetNthChild();
 	return Value::Nil;
 }
@@ -247,12 +247,12 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __InsertContainer)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int previous = arg.GetNumber(1)
-	//int text = arg.GetNumber(2)
-	//int icon = arg.GetNumber(3)
-	//int expanded = arg.GetNumber(4)
-	//int data = arg.GetNumber(5)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//const wxDataViewItem& previous = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(2)
+	//const wxIcon& icon = arg.GetNumber(3)
+	//const wxIcon& expanded = arg.GetNumber(4)
+	//wxClientData* data = arg.GetNumber(5)
 	//pThis->GetEntity()->InsertContainer();
 	return Value::Nil;
 }
@@ -271,11 +271,11 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __InsertItem)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int previous = arg.GetNumber(1)
-	//int text = arg.GetNumber(2)
-	//int icon = arg.GetNumber(3)
-	//int data = arg.GetNumber(4)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//const wxDataViewItem& previous = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(2)
+	//const wxIcon& icon = arg.GetNumber(3)
+	//wxClientData* data = arg.GetNumber(4)
 	//pThis->GetEntity()->InsertItem();
 	return Value::Nil;
 }
@@ -294,11 +294,11 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __PrependContainer)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
-	//int icon = arg.GetNumber(2)
-	//int expanded = arg.GetNumber(3)
-	//int data = arg.GetNumber(4)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
+	//const wxIcon& icon = arg.GetNumber(2)
+	//const wxIcon& expanded = arg.GetNumber(3)
+	//wxClientData* data = arg.GetNumber(4)
 	//pThis->GetEntity()->PrependContainer();
 	return Value::Nil;
 }
@@ -316,10 +316,10 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __PrependItem)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
-	//int icon = arg.GetNumber(2)
-	//int data = arg.GetNumber(3)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
+	//const wxIcon& icon = arg.GetNumber(2)
+	//wxClientData* data = arg.GetNumber(3)
 	//pThis->GetEntity()->PrependItem();
 	return Value::Nil;
 }
@@ -335,8 +335,8 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __SetItemData)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//wxClientData* data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemData();
 	return Value::Nil;
 }
@@ -352,8 +352,8 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __SetItemExpandedIcon)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int icon = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//const wxIcon& icon = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemExpandedIcon();
 	return Value::Nil;
 }
@@ -369,8 +369,8 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __SetItemIcon)
 {
 	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int icon = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//const wxIcon& icon = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemIcon();
 	return Value::Nil;
 }

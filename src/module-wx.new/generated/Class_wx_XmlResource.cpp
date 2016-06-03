@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__XmlResource, "XmlResource")
 
 Gura_ImplementFunction(__XmlResource)
 {
-	//int filemask = arg.GetNumber(0)
+	//const wxString& filemask = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//int domain = arg.GetNumber(2)
+	//const wxString& domain = arg.GetNumber(2)
 	//wxXmlResource();
 	return Value::Nil;
 }
@@ -68,7 +68,7 @@ Gura_DeclareFunctionAlias(__XmlResource_1, "XmlResource_1")
 Gura_ImplementFunction(__XmlResource_1)
 {
 	//int flags = arg.GetNumber(0)
-	//int domain = arg.GetNumber(1)
+	//const wxString& domain = arg.GetNumber(1)
 	//wxXmlResource();
 	return Value::Nil;
 }
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_XmlResource, __AddHandler)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int handler = arg.GetNumber(0)
+	//wxXmlResourceHandler* handler = arg.GetNumber(0)
 	//pThis->GetEntity()->AddHandler();
 	return Value::Nil;
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_XmlResource, __InsertHandler)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int handler = arg.GetNumber(0)
+	//wxXmlResourceHandler* handler = arg.GetNumber(0)
 	//pThis->GetEntity()->InsertHandler();
 	return Value::Nil;
 }
@@ -118,9 +118,9 @@ Gura_ImplementMethod(wx_XmlResource, __AttachUnknownControl)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int control = arg.GetNumber(1)
-	//int parent = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(0)
+	//wxWindow* control = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(2)
 	//pThis->GetEntity()->AttachUnknownControl();
 	return Value::Nil;
 }
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_XmlResource, __AddSubclassFactory)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int factory = arg.GetNumber(0)
+	//wxXmlSubclassFactory* factory = arg.GetNumber(0)
 	//pThis->GetEntity()->AddSubclassFactory();
 	return Value::Nil;
 }
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_XmlResource, __GetResourceNode)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetResourceNode();
 	return Value::Nil;
 }
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_XmlResource, __GetXRCID)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str_id = arg.GetNumber(0)
+	//const wxString& str_id = arg.GetNumber(0)
 	//int value_if_not_found = arg.GetNumber(1)
 	//pThis->GetEntity()->GetXRCID();
 	return Value::Nil;
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_XmlResource, __Load)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filemask = arg.GetNumber(0)
+	//const wxString& filemask = arg.GetNumber(0)
 	//pThis->GetEntity()->Load();
 	return Value::Nil;
 }
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_XmlResource, __LoadFile)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int file = arg.GetNumber(0)
+	//const wxFileName& file = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadFile();
 	return Value::Nil;
 }
@@ -326,7 +326,7 @@ Gura_ImplementMethod(wx_XmlResource, __LoadAllFiles)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dirname = arg.GetNumber(0)
+	//const wxString& dirname = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadAllFiles();
 	return Value::Nil;
 }
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_XmlResource, __LoadBitmap)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadBitmap();
 	return Value::Nil;
 }
@@ -357,8 +357,8 @@ Gura_ImplementMethod(wx_XmlResource, __LoadDialog)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadDialog();
 	return Value::Nil;
 }
@@ -375,9 +375,9 @@ Gura_ImplementMethod(wx_XmlResource, __LoadDialog_1)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dlg = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
-	//int name = arg.GetNumber(2)
+	//wxDialog* dlg = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(2)
 	//pThis->GetEntity()->LoadDialog();
 	return Value::Nil;
 }
@@ -393,8 +393,8 @@ Gura_ImplementMethod(wx_XmlResource, __LoadFrame)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadFrame();
 	return Value::Nil;
 }
@@ -411,9 +411,9 @@ Gura_ImplementMethod(wx_XmlResource, __LoadFrame_1)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int frame = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
-	//int name = arg.GetNumber(2)
+	//wxFrame* frame = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(2)
 	//pThis->GetEntity()->LoadFrame();
 	return Value::Nil;
 }
@@ -428,7 +428,7 @@ Gura_ImplementMethod(wx_XmlResource, __LoadIcon)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadIcon();
 	return Value::Nil;
 }
@@ -443,7 +443,7 @@ Gura_ImplementMethod(wx_XmlResource, __LoadMenu)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadMenu();
 	return Value::Nil;
 }
@@ -459,8 +459,8 @@ Gura_ImplementMethod(wx_XmlResource, __LoadMenuBar)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadMenuBar();
 	return Value::Nil;
 }
@@ -475,7 +475,7 @@ Gura_ImplementMethod(wx_XmlResource, __LoadMenuBar_1)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadMenuBar();
 	return Value::Nil;
 }
@@ -492,9 +492,9 @@ Gura_ImplementMethod(wx_XmlResource, __LoadObject)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
-	//int classname = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
+	//const wxString& classname = arg.GetNumber(2)
 	//pThis->GetEntity()->LoadObject();
 	return Value::Nil;
 }
@@ -512,10 +512,10 @@ Gura_ImplementMethod(wx_XmlResource, __LoadObject_1)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int instance = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
-	//int name = arg.GetNumber(2)
-	//int classname = arg.GetNumber(3)
+	//wxObject* instance = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(2)
+	//const wxString& classname = arg.GetNumber(3)
 	//pThis->GetEntity()->LoadObject();
 	return Value::Nil;
 }
@@ -532,9 +532,9 @@ Gura_ImplementMethod(wx_XmlResource, __LoadObjectRecursively)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
-	//int classname = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
+	//const wxString& classname = arg.GetNumber(2)
 	//pThis->GetEntity()->LoadObjectRecursively();
 	return Value::Nil;
 }
@@ -552,10 +552,10 @@ Gura_ImplementMethod(wx_XmlResource, __LoadObjectRecursively_1)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int instance = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
-	//int name = arg.GetNumber(2)
-	//int classname = arg.GetNumber(3)
+	//wxObject* instance = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(2)
+	//const wxString& classname = arg.GetNumber(3)
 	//pThis->GetEntity()->LoadObjectRecursively();
 	return Value::Nil;
 }
@@ -571,8 +571,8 @@ Gura_ImplementMethod(wx_XmlResource, __LoadPanel)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadPanel();
 	return Value::Nil;
 }
@@ -589,9 +589,9 @@ Gura_ImplementMethod(wx_XmlResource, __LoadPanel_1)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int panel = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
-	//int name = arg.GetNumber(2)
+	//wxPanel* panel = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(2)
 	//pThis->GetEntity()->LoadPanel();
 	return Value::Nil;
 }
@@ -607,8 +607,8 @@ Gura_ImplementMethod(wx_XmlResource, __LoadToolBar)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadToolBar();
 	return Value::Nil;
 }
@@ -623,7 +623,7 @@ Gura_ImplementMethod(wx_XmlResource, __Set)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int res = arg.GetNumber(0)
+	//wxXmlResource* res = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -638,7 +638,7 @@ Gura_ImplementMethod(wx_XmlResource, __SetDomain)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int domain = arg.GetNumber(0)
+	//const wxString& domain = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDomain();
 	return Value::Nil;
 }
@@ -668,7 +668,7 @@ Gura_ImplementMethod(wx_XmlResource, __Unload)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//pThis->GetEntity()->Unload();
 	return Value::Nil;
 }
@@ -684,8 +684,8 @@ Gura_ImplementMethod(wx_XmlResource, __ReportError)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int context = arg.GetNumber(0)
-	//int message = arg.GetNumber(1)
+	//const wxXmlNode* context = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(1)
 	//pThis->GetEntity()->ReportError();
 	return Value::Nil;
 }
@@ -702,9 +702,9 @@ Gura_ImplementMethod(wx_XmlResource, __DoReportError)
 {
 	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int xrcFile = arg.GetNumber(0)
-	//int position = arg.GetNumber(1)
-	//int message = arg.GetNumber(2)
+	//const wxString& xrcFile = arg.GetNumber(0)
+	//const wxXmlNode* position = arg.GetNumber(1)
+	//const wxString& message = arg.GetNumber(2)
 	//pThis->GetEntity()->DoReportError();
 	return Value::Nil;
 }

@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, __CanOpen)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int location = arg.GetNumber(0)
+	//const wxString& location = arg.GetNumber(0)
 	//pThis->GetEntity()->CanOpen();
 	return Value::Nil;
 }
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, __FindFirst)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int wildcard = arg.GetNumber(0)
+	//const wxString& wildcard = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->FindFirst();
 	return Value::Nil;
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetMimeTypeFromExt)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int location = arg.GetNumber(0)
+	//const wxString& location = arg.GetNumber(0)
 	//pThis->GetEntity()->GetMimeTypeFromExt();
 	return Value::Nil;
 }
@@ -124,8 +124,8 @@ Gura_ImplementMethod(wx_FileSystemHandler, __OpenFile)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fs = arg.GetNumber(0)
-	//int location = arg.GetNumber(1)
+	//wxFileSystem& fs = arg.GetNumber(0)
+	//const wxString& location = arg.GetNumber(1)
 	//pThis->GetEntity()->OpenFile();
 	return Value::Nil;
 }
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetAnchor)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int location = arg.GetNumber(0)
+	//const wxString& location = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAnchor();
 	return Value::Nil;
 }
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetLeftLocation)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int location = arg.GetNumber(0)
+	//const wxString& location = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLeftLocation();
 	return Value::Nil;
 }
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetProtocol)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int location = arg.GetNumber(0)
+	//const wxString& location = arg.GetNumber(0)
 	//pThis->GetEntity()->GetProtocol();
 	return Value::Nil;
 }
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetRightLocation)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int location = arg.GetNumber(0)
+	//const wxString& location = arg.GetNumber(0)
 	//pThis->GetEntity()->GetRightLocation();
 	return Value::Nil;
 }

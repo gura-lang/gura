@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__WindowModalDialogEvent, "WindowModalDialogEvent")
 
 Gura_ImplementFunction(__WindowModalDialogEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxWindowModalDialogEvent();
 	return Value::Nil;

@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__FileCtrlEvent, "FileCtrlEvent")
 
 Gura_ImplementFunction(__FileCtrlEvent)
 {
-	//int type = arg.GetNumber(0)
-	//int evtObject = arg.GetNumber(1)
+	//wxEventType type = arg.GetNumber(0)
+	//wxObject* evtObject = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
 	//wxFileCtrlEvent();
 	return Value::Nil;
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_FileCtrlEvent, __SetFiles)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int files = arg.GetNumber(0)
+	//const wxArrayString& files = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFiles();
 	return Value::Nil;
 }
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_FileCtrlEvent, __SetDirectory)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int directory = arg.GetNumber(0)
+	//const wxString& directory = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDirectory();
 	return Value::Nil;
 }

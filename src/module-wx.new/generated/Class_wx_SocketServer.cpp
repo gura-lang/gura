@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__SocketServer, "SocketServer")
 
 Gura_ImplementFunction(__SocketServer)
 {
-	//int address = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
+	//const wxSockAddress& address = arg.GetNumber(0)
+	//wxSocketFlags flags = arg.GetNumber(1)
 	//wxSocketServer();
 	return Value::Nil;
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_SocketServer, __Accept)
 {
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int wait = arg.GetNumber(0)
+	//bool wait = arg.GetNumber(0)
 	//pThis->GetEntity()->Accept();
 	return Value::Nil;
 }
@@ -83,8 +83,8 @@ Gura_ImplementMethod(wx_SocketServer, __AcceptWith)
 {
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int socket = arg.GetNumber(0)
-	//int wait = arg.GetNumber(1)
+	//wxSocketBase& socket = arg.GetNumber(0)
+	//bool wait = arg.GetNumber(1)
 	//pThis->GetEntity()->AcceptWith();
 	return Value::Nil;
 }
@@ -100,8 +100,8 @@ Gura_ImplementMethod(wx_SocketServer, __WaitForAccept)
 {
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int seconds = arg.GetNumber(0)
-	//int millisecond = arg.GetNumber(1)
+	//long seconds = arg.GetNumber(0)
+	//long millisecond = arg.GetNumber(1)
 	//pThis->GetEntity()->WaitForAccept();
 	return Value::Nil;
 }

@@ -78,9 +78,9 @@ Gura_ImplementMethod(wx_AnyValueType, __ConvertValue)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int src = arg.GetNumber(0)
-	//int dstType = arg.GetNumber(1)
-	//int dst = arg.GetNumber(2)
+	//const wxAnyValueBuffer& src = arg.GetNumber(0)
+	//wxAnyValueType* dstType = arg.GetNumber(1)
+	//wxAnyValueBuffer& dst = arg.GetNumber(2)
 	//pThis->GetEntity()->ConvertValue();
 	return Value::Nil;
 }
@@ -96,8 +96,8 @@ Gura_ImplementMethod(wx_AnyValueType, __CopyBuffer)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int src = arg.GetNumber(0)
-	//int dst = arg.GetNumber(1)
+	//const wxAnyValueBuffer& src = arg.GetNumber(0)
+	//wxAnyValueBuffer& dst = arg.GetNumber(1)
 	//pThis->GetEntity()->CopyBuffer();
 	return Value::Nil;
 }
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_AnyValueType, __DeleteValue)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buf = arg.GetNumber(0)
+	//wxAnyValueBuffer& buf = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteValue();
 	return Value::Nil;
 }
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_AnyValueType, __IsSameType)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int otherType = arg.GetNumber(0)
+	//const wxAnyValueType* otherType = arg.GetNumber(0)
 	//pThis->GetEntity()->IsSameType();
 	return Value::Nil;
 }

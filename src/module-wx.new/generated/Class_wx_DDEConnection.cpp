@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__DDEConnection_1, "DDEConnection_1")
 
 Gura_ImplementFunction(__DDEConnection_1)
 {
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//void* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//wxDDEConnection();
 	return Value::Nil;
 }
@@ -83,10 +83,10 @@ Gura_ImplementMethod(wx_DDEConnection, __Advise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
-	//int format = arg.GetNumber(3)
+	//const wxString& item = arg.GetNumber(0)
+	//const void* data = arg.GetNumber(1)
+	//size_t size = arg.GetNumber(2)
+	//wxIPCFormat format = arg.GetNumber(3)
 	//pThis->GetEntity()->Advise();
 	return Value::Nil;
 }
@@ -102,8 +102,8 @@ Gura_ImplementMethod(wx_DDEConnection, __Advise_1)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const char* data = arg.GetNumber(1)
 	//pThis->GetEntity()->Advise();
 	return Value::Nil;
 }
@@ -119,8 +119,8 @@ Gura_ImplementMethod(wx_DDEConnection, __Advise_2)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const wchar_t* data = arg.GetNumber(1)
 	//pThis->GetEntity()->Advise();
 	return Value::Nil;
 }
@@ -136,8 +136,8 @@ Gura_ImplementMethod(wx_DDEConnection, __Advise_3)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const wxString data = arg.GetNumber(1)
 	//pThis->GetEntity()->Advise();
 	return Value::Nil;
 }
@@ -167,9 +167,9 @@ Gura_ImplementMethod(wx_DDEConnection, __Execute)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
-	//int format = arg.GetNumber(2)
+	//const void* data = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
+	//wxIPCFormat format = arg.GetNumber(2)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
 }
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_DDEConnection, __Execute_1)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const char* data = arg.GetNumber(0)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
 }
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_DDEConnection, __Execute_2)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const wchar_t* data = arg.GetNumber(0)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
 }
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_DDEConnection, __Execute_3)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const wxString data = arg.GetNumber(0)
 	//pThis->GetEntity()->Execute();
 	return Value::Nil;
 }
@@ -233,11 +233,11 @@ Gura_ImplementMethod(wx_DDEConnection, __OnAdvise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
-	//int data = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int format = arg.GetNumber(4)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(1)
+	//const void* data = arg.GetNumber(2)
+	//size_t size = arg.GetNumber(3)
+	//wxIPCFormat format = arg.GetNumber(4)
 	//pThis->GetEntity()->OnAdvise();
 	return Value::Nil;
 }
@@ -268,10 +268,10 @@ Gura_ImplementMethod(wx_DDEConnection, __OnExecute)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
-	//int format = arg.GetNumber(3)
+	//const wxString& topic = arg.GetNumber(0)
+	//const void* data = arg.GetNumber(1)
+	//size_t size = arg.GetNumber(2)
+	//wxIPCFormat format = arg.GetNumber(3)
 	//pThis->GetEntity()->OnExecute();
 	return Value::Nil;
 }
@@ -290,11 +290,11 @@ Gura_ImplementMethod(wx_DDEConnection, __OnPoke)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
-	//int data = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int format = arg.GetNumber(4)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(1)
+	//const void* data = arg.GetNumber(2)
+	//size_t size = arg.GetNumber(3)
+	//wxIPCFormat format = arg.GetNumber(4)
 	//pThis->GetEntity()->OnPoke();
 	return Value::Nil;
 }
@@ -312,10 +312,10 @@ Gura_ImplementMethod(wx_DDEConnection, __OnRequest)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
-	//int format = arg.GetNumber(3)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(1)
+	//size_t* size = arg.GetNumber(2)
+	//wxIPCFormat format = arg.GetNumber(3)
 	//pThis->GetEntity()->OnRequest();
 	return Value::Nil;
 }
@@ -331,8 +331,8 @@ Gura_ImplementMethod(wx_DDEConnection, __OnStartAdvise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(1)
 	//pThis->GetEntity()->OnStartAdvise();
 	return Value::Nil;
 }
@@ -348,8 +348,8 @@ Gura_ImplementMethod(wx_DDEConnection, __OnStopAdvise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topic = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
+	//const wxString& topic = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(1)
 	//pThis->GetEntity()->OnStopAdvise();
 	return Value::Nil;
 }
@@ -367,10 +367,10 @@ Gura_ImplementMethod(wx_DDEConnection, __Poke)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
-	//int format = arg.GetNumber(3)
+	//const wxString& item = arg.GetNumber(0)
+	//const void* data = arg.GetNumber(1)
+	//size_t size = arg.GetNumber(2)
+	//wxIPCFormat format = arg.GetNumber(3)
 	//pThis->GetEntity()->Poke();
 	return Value::Nil;
 }
@@ -386,8 +386,8 @@ Gura_ImplementMethod(wx_DDEConnection, __Poke_1)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const char* data = arg.GetNumber(1)
 	//pThis->GetEntity()->Poke();
 	return Value::Nil;
 }
@@ -403,8 +403,8 @@ Gura_ImplementMethod(wx_DDEConnection, __Poke_2)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const wchar_t* data = arg.GetNumber(1)
 	//pThis->GetEntity()->Poke();
 	return Value::Nil;
 }
@@ -420,8 +420,8 @@ Gura_ImplementMethod(wx_DDEConnection, __Poke_3)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const wxString data = arg.GetNumber(1)
 	//pThis->GetEntity()->Poke();
 	return Value::Nil;
 }
@@ -438,9 +438,9 @@ Gura_ImplementMethod(wx_DDEConnection, __Request)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
-	//int format = arg.GetNumber(2)
+	//const wxString& item = arg.GetNumber(0)
+	//size_t* size = arg.GetNumber(1)
+	//wxIPCFormat format = arg.GetNumber(2)
 	//pThis->GetEntity()->Request();
 	return Value::Nil;
 }
@@ -455,7 +455,7 @@ Gura_ImplementMethod(wx_DDEConnection, __StartAdvise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(0)
 	//pThis->GetEntity()->StartAdvise();
 	return Value::Nil;
 }
@@ -470,7 +470,7 @@ Gura_ImplementMethod(wx_DDEConnection, __StopAdvise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(0)
 	//pThis->GetEntity()->StopAdvise();
 	return Value::Nil;
 }

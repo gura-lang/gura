@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__VarVScrollHelper, "VarVScrollHelper")
 
 Gura_ImplementFunction(__VarVScrollHelper)
 {
-	//int winToScroll = arg.GetNumber(0)
+	//wxWindow* winToScroll = arg.GetNumber(0)
 	//wxVarVScrollHelper();
 	return Value::Nil;
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_VarVScrollHelper, __IsRowVisible)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int row = arg.GetNumber(0)
+	//size_t row = arg.GetNumber(0)
 	//pThis->GetEntity()->IsRowVisible();
 	return Value::Nil;
 }
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_VarVScrollHelper, __RefreshRow)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int row = arg.GetNumber(0)
+	//size_t row = arg.GetNumber(0)
 	//pThis->GetEntity()->RefreshRow();
 	return Value::Nil;
 }
@@ -135,8 +135,8 @@ Gura_ImplementMethod(wx_VarVScrollHelper, __RefreshRows)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int from = arg.GetNumber(0)
-	//int to = arg.GetNumber(1)
+	//size_t from = arg.GetNumber(0)
+	//size_t to = arg.GetNumber(1)
 	//pThis->GetEntity()->RefreshRows();
 	return Value::Nil;
 }
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_VarVScrollHelper, __ScrollToRow)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int row = arg.GetNumber(0)
+	//size_t row = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollToRow();
 	return Value::Nil;
 }
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_VarVScrollHelper, __SetRowCount)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rowCount = arg.GetNumber(0)
+	//size_t rowCount = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRowCount();
 	return Value::Nil;
 }
@@ -212,8 +212,8 @@ Gura_ImplementMethod(wx_VarVScrollHelper, __OnGetRowsHeightHint)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rowMin = arg.GetNumber(0)
-	//int rowMax = arg.GetNumber(1)
+	//size_t rowMin = arg.GetNumber(0)
+	//size_t rowMax = arg.GetNumber(1)
 	//pThis->GetEntity()->OnGetRowsHeightHint();
 	return Value::Nil;
 }
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_VarVScrollHelper, __OnGetRowHeight)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int row = arg.GetNumber(0)
+	//size_t row = arg.GetNumber(0)
 	//pThis->GetEntity()->OnGetRowHeight();
 	return Value::Nil;
 }

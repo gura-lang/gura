@@ -69,14 +69,14 @@ Gura_DeclareFunctionAlias(__GridEvent_1, "GridEvent_1")
 Gura_ImplementFunction(__GridEvent_1)
 {
 	//int id = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
-	//int obj = arg.GetNumber(2)
+	//wxEventType type = arg.GetNumber(1)
+	//wxObject* obj = arg.GetNumber(2)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
 	//int x = arg.GetNumber(5)
 	//int y = arg.GetNumber(6)
-	//int sel = arg.GetNumber(7)
-	//int kbd = arg.GetNumber(8)
+	//bool sel = arg.GetNumber(7)
+	//const wxKeyboardState& kbd = arg.GetNumber(8)
 	//wxGridEvent();
 	return Value::Nil;
 }

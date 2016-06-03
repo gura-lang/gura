@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__MediaEvent, "MediaEvent")
 
 Gura_ImplementFunction(__MediaEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//wxMediaEvent();
 	return Value::Nil;

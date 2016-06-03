@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_FontData, __EnableEffects)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableEffects();
 	return Value::Nil;
 }
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_FontData, __SetAllowSymbols)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int allowSymbols = arg.GetNumber(0)
+	//bool allowSymbols = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAllowSymbols();
 	return Value::Nil;
 }
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_FontData, __SetChosenFont)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetChosenFont();
 	return Value::Nil;
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_FontData, __SetColour)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_FontData, __SetInitialFont)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetInitialFont();
 	return Value::Nil;
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_FontData, __SetShowHelp)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int showHelp = arg.GetNumber(0)
+	//bool showHelp = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShowHelp();
 	return Value::Nil;
 }

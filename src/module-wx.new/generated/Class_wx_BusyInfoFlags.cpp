@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_BusyInfoFlags, __Parent)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//pThis->GetEntity()->Parent();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_BusyInfoFlags, __Icon)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int icon = arg.GetNumber(0)
+	//const wxIcon& icon = arg.GetNumber(0)
 	//pThis->GetEntity()->Icon();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_BusyInfoFlags, __Title)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->Title();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_BusyInfoFlags, __Text)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->Text();
 	return Value::Nil;
 }
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_BusyInfoFlags, __Label)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
+	//const wxString& label = arg.GetNumber(0)
 	//pThis->GetEntity()->Label();
 	return Value::Nil;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_BusyInfoFlags, __Foreground)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int foreground = arg.GetNumber(0)
+	//const wxColour& foreground = arg.GetNumber(0)
 	//pThis->GetEntity()->Foreground();
 	return Value::Nil;
 }
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_BusyInfoFlags, __Background)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int background = arg.GetNumber(0)
+	//const wxColour& background = arg.GetNumber(0)
 	//pThis->GetEntity()->Background();
 	return Value::Nil;
 }
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_BusyInfoFlags, __Transparency)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int alpha = arg.GetNumber(0)
+	//wxByte alpha = arg.GetNumber(0)
 	//pThis->GetEntity()->Transparency();
 	return Value::Nil;
 }

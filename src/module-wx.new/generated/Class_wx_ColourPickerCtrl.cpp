@@ -67,14 +67,14 @@ Gura_DeclareFunctionAlias(__ColourPickerCtrl_1, "ColourPickerCtrl_1")
 
 Gura_ImplementFunction(__ColourPickerCtrl_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int colour = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxColour& colour = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//wxColourPickerCtrl();
 	return Value::Nil;
 }
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, __Create)
 {
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int colour = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxColour& colour = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, __SetColour)
 {
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//const wxColour& col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_ColourPickerCtrl, __SetColour_1)
 {
 	Object_wx_ColourPickerCtrl *pThis = Object_wx_ColourPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colname = arg.GetNumber(0)
+	//const wxString& colname = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }

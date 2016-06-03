@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__WebKitBeforeLoadEvent, "WebKitBeforeLoadEvent")
 
 Gura_ImplementFunction(__WebKitBeforeLoadEvent)
 {
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//wxWebKitBeforeLoadEvent();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __Cancel)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int cancel = arg.GetNumber(0)
+	//bool cancel = arg.GetNumber(0)
 	//pThis->GetEntity()->Cancel();
 	return Value::Nil;
 }
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __SetURL)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;
 }

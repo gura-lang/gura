@@ -51,11 +51,11 @@ Gura_DeclareFunctionAlias(__RegConfig, "RegConfig")
 
 Gura_ImplementFunction(__RegConfig)
 {
-	//int appName = arg.GetNumber(0)
-	//int vendorName = arg.GetNumber(1)
-	//int localFilename = arg.GetNumber(2)
-	//int globalFilename = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//const wxString& appName = arg.GetNumber(0)
+	//const wxString& vendorName = arg.GetNumber(1)
+	//const wxString& localFilename = arg.GetNumber(2)
+	//const wxString& globalFilename = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//wxRegConfig();
 	return Value::Nil;
 }

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__RichTextBox, "RichTextBox")
 
 Gura_ImplementFunction(__RichTextBox)
 {
-	//int parent = arg.GetNumber(0)
+	//wxRichTextObject* parent = arg.GetNumber(0)
 	//wxRichTextBox();
 	return Value::Nil;
 }
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__RichTextBox_1, "RichTextBox_1")
 
 Gura_ImplementFunction(__RichTextBox_1)
 {
-	//int obj = arg.GetNumber(0)
+	//const wxRichTextBox& obj = arg.GetNumber(0)
 	//wxRichTextBox();
 	return Value::Nil;
 }
@@ -86,11 +86,11 @@ Gura_ImplementMethod(wx_RichTextBox, __Draw)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int context = arg.GetNumber(1)
-	//int range = arg.GetNumber(2)
-	//int selection = arg.GetNumber(3)
-	//int rect = arg.GetNumber(4)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxRichTextDrawingContext& context = arg.GetNumber(1)
+	//const wxRichTextRange& range = arg.GetNumber(2)
+	//const wxRichTextSelection& selection = arg.GetNumber(3)
+	//const wxRect& rect = arg.GetNumber(4)
 	//int descent = arg.GetNumber(5)
 	//int style = arg.GetNumber(6)
 	//pThis->GetEntity()->Draw();
@@ -134,8 +134,8 @@ Gura_ImplementMethod(wx_RichTextBox, __EditProperties)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int buffer = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxRichTextBuffer* buffer = arg.GetNumber(1)
 	//pThis->GetEntity()->EditProperties();
 	return Value::Nil;
 }
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_RichTextBox, __Copy)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int obj = arg.GetNumber(0)
+	//const wxRichTextBox& obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
 }

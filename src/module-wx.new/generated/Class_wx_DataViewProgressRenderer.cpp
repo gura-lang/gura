@@ -50,9 +50,9 @@ Gura_DeclareFunctionAlias(__DataViewProgressRenderer, "DataViewProgressRenderer"
 
 Gura_ImplementFunction(__DataViewProgressRenderer)
 {
-	//int label = arg.GetNumber(0)
-	//int varianttype = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//const wxString& varianttype = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int align = arg.GetNumber(3)
 	//wxDataViewProgressRenderer();
 	return Value::Nil;

@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__TextBoxAttr_1, "TextBoxAttr_1")
 
 Gura_ImplementFunction(__TextBoxAttr_1)
 {
-	//int attr = arg.GetNumber(0)
+	//const wxTextBoxAttr& attr = arg.GetNumber(0)
 	//wxTextBoxAttr();
 	return Value::Nil;
 }
@@ -105,8 +105,8 @@ Gura_ImplementMethod(wx_TextBoxAttr, __EqPartial)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
-	//int weakTest = arg.GetNumber(1)
+	//const wxTextBoxAttr& attr = arg.GetNumber(0)
+	//bool weakTest = arg.GetNumber(1)
 	//pThis->GetEntity()->EqPartial();
 	return Value::Nil;
 }
@@ -122,8 +122,8 @@ Gura_ImplementMethod(wx_TextBoxAttr, __Apply)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int style = arg.GetNumber(0)
-	//int compareWith = arg.GetNumber(1)
+	//const wxTextBoxAttr& style = arg.GetNumber(0)
+	//const wxTextBoxAttr* compareWith = arg.GetNumber(1)
 	//pThis->GetEntity()->Apply();
 	return Value::Nil;
 }
@@ -140,9 +140,9 @@ Gura_ImplementMethod(wx_TextBoxAttr, __CollectCommonAttributes)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
-	//int clashingAttr = arg.GetNumber(1)
-	//int absentAttr = arg.GetNumber(2)
+	//const wxTextBoxAttr& attr = arg.GetNumber(0)
+	//wxTextBoxAttr& clashingAttr = arg.GetNumber(1)
+	//wxTextBoxAttr& absentAttr = arg.GetNumber(2)
 	//pThis->GetEntity()->CollectCommonAttributes();
 	return Value::Nil;
 }
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __RemoveStyle)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
+	//const wxTextBoxAttr& attr = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveStyle();
 	return Value::Nil;
 }
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __HasFlag)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flag = arg.GetNumber(0)
+	//wxTextBoxAttrFlags flag = arg.GetNumber(0)
 	//pThis->GetEntity()->HasFlag();
 	return Value::Nil;
 }
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __RemoveFlag)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flag = arg.GetNumber(0)
+	//wxTextBoxAttrFlags flag = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveFlag();
 	return Value::Nil;
 }
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __AddFlag)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flag = arg.GetNumber(0)
+	//wxTextBoxAttrFlags flag = arg.GetNumber(0)
 	//pThis->GetEntity()->AddFlag();
 	return Value::Nil;
 }
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __SetFloatMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mode = arg.GetNumber(0)
+	//wxTextBoxAttrFloatStyle mode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFloatMode();
 	return Value::Nil;
 }
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __SetClearMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mode = arg.GetNumber(0)
+	//wxTextBoxAttrClearStyle mode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetClearMode();
 	return Value::Nil;
 }
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __SetCollapseBorders)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int collapse = arg.GetNumber(0)
+	//wxTextBoxAttrCollapseMode collapse = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCollapseBorders();
 	return Value::Nil;
 }
@@ -407,7 +407,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __SetWhitespaceMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int whitespace = arg.GetNumber(0)
+	//wxTextBoxAttrWhitespaceMode whitespace = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWhitespaceMode();
 	return Value::Nil;
 }
@@ -474,7 +474,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __SetCornerRadius)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dim = arg.GetNumber(0)
+	//const wxTextAttrDimension& dim = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCornerRadius();
 	return Value::Nil;
 }
@@ -502,7 +502,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __SetVerticalAlignment)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int verticalAlignment = arg.GetNumber(0)
+	//wxTextBoxAttrVerticalAlignment verticalAlignment = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVerticalAlignment();
 	return Value::Nil;
 }
@@ -1258,7 +1258,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __SetSize)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
+	//const wxTextAttrSize& sz = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
 }
@@ -1273,7 +1273,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __SetMinSize)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
+	//const wxTextAttrSize& sz = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMinSize();
 	return Value::Nil;
 }
@@ -1288,7 +1288,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __SetMaxSize)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
+	//const wxTextAttrSize& sz = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMaxSize();
 	return Value::Nil;
 }
@@ -1368,7 +1368,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, __SetBoxStyleName)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBoxStyleName();
 	return Value::Nil;
 }

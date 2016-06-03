@@ -64,11 +64,11 @@ Gura_DeclareFunctionAlias(__RibbonToolBar_1, "RibbonToolBar_1")
 
 Gura_ImplementFunction(__RibbonToolBar_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//wxRibbonToolBar();
 	return Value::Nil;
 }
@@ -90,11 +90,11 @@ Gura_ImplementMethod(wx_RibbonToolBar, __Create)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -113,9 +113,9 @@ Gura_ImplementMethod(wx_RibbonToolBar, __AddTool)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int help_string = arg.GetNumber(2)
-	//int kind = arg.GetNumber(3)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//const wxString& help_string = arg.GetNumber(2)
+	//wxRibbonButtonKind kind = arg.GetNumber(3)
 	//pThis->GetEntity()->AddTool();
 	return Value::Nil;
 }
@@ -133,8 +133,8 @@ Gura_ImplementMethod(wx_RibbonToolBar, __AddDropdownTool)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int help_string = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//const wxString& help_string = arg.GetNumber(2)
 	//pThis->GetEntity()->AddDropdownTool();
 	return Value::Nil;
 }
@@ -152,8 +152,8 @@ Gura_ImplementMethod(wx_RibbonToolBar, __AddHybridTool)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int help_string = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//const wxString& help_string = arg.GetNumber(2)
 	//pThis->GetEntity()->AddHybridTool();
 	return Value::Nil;
 }
@@ -171,8 +171,8 @@ Gura_ImplementMethod(wx_RibbonToolBar, __AddToggleTool)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int help_string = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//const wxString& help_string = arg.GetNumber(2)
 	//pThis->GetEntity()->AddToggleTool();
 	return Value::Nil;
 }
@@ -193,11 +193,11 @@ Gura_ImplementMethod(wx_RibbonToolBar, __AddTool_1)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int bitmap_disabled = arg.GetNumber(2)
-	//int help_string = arg.GetNumber(3)
-	//int kind = arg.GetNumber(4)
-	//int client_data = arg.GetNumber(5)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//const wxBitmap& bitmap_disabled = arg.GetNumber(2)
+	//const wxString& help_string = arg.GetNumber(3)
+	//wxRibbonButtonKind kind = arg.GetNumber(4)
+	//wxObject* client_data = arg.GetNumber(5)
 	//pThis->GetEntity()->AddTool();
 	return Value::Nil;
 }
@@ -229,11 +229,11 @@ Gura_ImplementMethod(wx_RibbonToolBar, __InsertTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int tool_id = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int help_string = arg.GetNumber(3)
-	//int kind = arg.GetNumber(4)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxString& help_string = arg.GetNumber(3)
+	//wxRibbonButtonKind kind = arg.GetNumber(4)
 	//pThis->GetEntity()->InsertTool();
 	return Value::Nil;
 }
@@ -251,10 +251,10 @@ Gura_ImplementMethod(wx_RibbonToolBar, __InsertDropdownTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int tool_id = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int help_string = arg.GetNumber(3)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxString& help_string = arg.GetNumber(3)
 	//pThis->GetEntity()->InsertDropdownTool();
 	return Value::Nil;
 }
@@ -272,10 +272,10 @@ Gura_ImplementMethod(wx_RibbonToolBar, __InsertHybridTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int tool_id = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int help_string = arg.GetNumber(3)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxString& help_string = arg.GetNumber(3)
 	//pThis->GetEntity()->InsertHybridTool();
 	return Value::Nil;
 }
@@ -293,10 +293,10 @@ Gura_ImplementMethod(wx_RibbonToolBar, __InsertToggleTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int tool_id = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int help_string = arg.GetNumber(3)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxString& help_string = arg.GetNumber(3)
 	//pThis->GetEntity()->InsertToggleTool();
 	return Value::Nil;
 }
@@ -317,13 +317,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, __InsertTool_1)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int tool_id = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int bitmap_disabled = arg.GetNumber(3)
-	//int help_string = arg.GetNumber(4)
-	//int kind = arg.GetNumber(5)
-	//int client_data = arg.GetNumber(6)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxBitmap& bitmap_disabled = arg.GetNumber(3)
+	//const wxString& help_string = arg.GetNumber(4)
+	//wxRibbonButtonKind kind = arg.GetNumber(5)
+	//wxObject* client_data = arg.GetNumber(6)
 	//pThis->GetEntity()->InsertTool();
 	return Value::Nil;
 }
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, __InsertSeparator)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//pThis->GetEntity()->InsertSeparator();
 	return Value::Nil;
 }
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, __DeleteToolByPos)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteToolByPos();
 	return Value::Nil;
 }
@@ -411,7 +411,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, __GetToolId)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tool = arg.GetNumber(0)
+	//const wxRibbonToolBarToolBase* tool = arg.GetNumber(0)
 	//pThis->GetEntity()->GetToolId();
 	return Value::Nil;
 }
@@ -548,7 +548,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, __SetToolClientData)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int clientData = arg.GetNumber(1)
+	//wxObject* clientData = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolClientData();
 	return Value::Nil;
 }
@@ -565,7 +565,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, __SetToolDisabledBitmap)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolDisabledBitmap();
 	return Value::Nil;
 }
@@ -582,7 +582,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, __SetToolHelpString)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int helpString = arg.GetNumber(1)
+	//const wxString& helpString = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolHelpString();
 	return Value::Nil;
 }
@@ -599,7 +599,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, __SetToolNormalBitmap)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolNormalBitmap();
 	return Value::Nil;
 }
@@ -616,7 +616,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, __EnableTool)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int enable = arg.GetNumber(1)
+	//bool enable = arg.GetNumber(1)
 	//pThis->GetEntity()->EnableTool();
 	return Value::Nil;
 }
@@ -633,7 +633,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, __ToggleTool)
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//int checked = arg.GetNumber(1)
+	//bool checked = arg.GetNumber(1)
 	//pThis->GetEntity()->ToggleTool();
 	return Value::Nil;
 }

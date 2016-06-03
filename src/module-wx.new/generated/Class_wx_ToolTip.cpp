@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__ToolTip, "ToolTip")
 
 Gura_ImplementFunction(__ToolTip)
 {
-	//int tip = arg.GetNumber(0)
+	//const wxString& tip = arg.GetNumber(0)
 	//wxToolTip();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_ToolTip, __Enable)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flag = arg.GetNumber(0)
+	//bool flag = arg.GetNumber(0)
 	//pThis->GetEntity()->Enable();
 	return Value::Nil;
 }
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_ToolTip, __SetAutoPop)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int msecs = arg.GetNumber(0)
+	//long msecs = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAutoPop();
 	return Value::Nil;
 }
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_ToolTip, __SetDelay)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int msecs = arg.GetNumber(0)
+	//long msecs = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDelay();
 	return Value::Nil;
 }
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_ToolTip, __SetReshow)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int msecs = arg.GetNumber(0)
+	//long msecs = arg.GetNumber(0)
 	//pThis->GetEntity()->SetReshow();
 	return Value::Nil;
 }
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_ToolTip, __SetTip)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tip = arg.GetNumber(0)
+	//const wxString& tip = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTip();
 	return Value::Nil;
 }

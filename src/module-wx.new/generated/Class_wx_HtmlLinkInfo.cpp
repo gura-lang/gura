@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__HtmlLinkInfo_1, "HtmlLinkInfo_1")
 
 Gura_ImplementFunction(__HtmlLinkInfo_1)
 {
-	//int href = arg.GetNumber(0)
-	//int target = arg.GetNumber(1)
+	//const wxString& href = arg.GetNumber(0)
+	//const wxString& target = arg.GetNumber(1)
 	//wxHtmlLinkInfo();
 	return Value::Nil;
 }

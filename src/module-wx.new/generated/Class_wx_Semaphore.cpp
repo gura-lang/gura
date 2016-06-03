@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_Semaphore, __WaitTimeout)
 {
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int timeout_millis = arg.GetNumber(0)
+	//unsigned long timeout_millis = arg.GetNumber(0)
 	//pThis->GetEntity()->WaitTimeout();
 	return Value::Nil;
 }

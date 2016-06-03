@@ -68,15 +68,15 @@ Gura_DeclareFunctionAlias(__RearrangeList_1, "RearrangeList_1")
 
 Gura_ImplementFunction(__RearrangeList_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int order = arg.GetNumber(4)
-	//int items = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int validator = arg.GetNumber(7)
-	//int name = arg.GetNumber(8)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//const wxArrayInt& order = arg.GetNumber(4)
+	//const wxArrayString& items = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxValidator& validator = arg.GetNumber(7)
+	//const wxString& name = arg.GetNumber(8)
 	//wxRearrangeList();
 	return Value::Nil;
 }
@@ -102,15 +102,15 @@ Gura_ImplementMethod(wx_RearrangeList, __Create)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int order = arg.GetNumber(4)
-	//int items = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int validator = arg.GetNumber(7)
-	//int name = arg.GetNumber(8)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//const wxArrayInt& order = arg.GetNumber(4)
+	//const wxArrayString& items = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxValidator& validator = arg.GetNumber(7)
+	//const wxString& name = arg.GetNumber(8)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }

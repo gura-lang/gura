@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__AuiManagerEvent, "AuiManagerEvent")
 
 Gura_ImplementFunction(__AuiManagerEvent)
 {
-	//int type = arg.GetNumber(0)
+	//wxEventType type = arg.GetNumber(0)
 	//wxAuiManagerEvent();
 	return Value::Nil;
 }
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __SetCanVeto)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int can_veto = arg.GetNumber(0)
+	//bool can_veto = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCanVeto();
 	return Value::Nil;
 }
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __SetDC)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pdc = arg.GetNumber(0)
+	//wxDC* pdc = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDC();
 	return Value::Nil;
 }
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __SetManager)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int manager = arg.GetNumber(0)
+	//wxAuiManager* manager = arg.GetNumber(0)
 	//pThis->GetEntity()->SetManager();
 	return Value::Nil;
 }
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __SetPane)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pane = arg.GetNumber(0)
+	//wxAuiPaneInfo* pane = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPane();
 	return Value::Nil;
 }
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __Veto)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int veto = arg.GetNumber(0)
+	//bool veto = arg.GetNumber(0)
 	//pThis->GetEntity()->Veto();
 	return Value::Nil;
 }

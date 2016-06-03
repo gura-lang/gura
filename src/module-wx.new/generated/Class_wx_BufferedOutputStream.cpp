@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__BufferedOutputStream, "BufferedOutputStream")
 
 Gura_ImplementFunction(__BufferedOutputStream)
 {
-	//int stream = arg.GetNumber(0)
-	//int buffer = arg.GetNumber(1)
+	//wxOutputStream& stream = arg.GetNumber(0)
+	//wxStreamBuffer* buffer = arg.GetNumber(1)
 	//wxBufferedOutputStream();
 	return Value::Nil;
 }
@@ -65,8 +65,8 @@ Gura_DeclareFunctionAlias(__BufferedOutputStream_1, "BufferedOutputStream_1")
 
 Gura_ImplementFunction(__BufferedOutputStream_1)
 {
-	//int stream = arg.GetNumber(0)
-	//int bufsize = arg.GetNumber(1)
+	//wxOutputStream& stream = arg.GetNumber(0)
+	//size_t bufsize = arg.GetNumber(1)
 	//wxBufferedOutputStream();
 	return Value::Nil;
 }
@@ -85,8 +85,8 @@ Gura_ImplementMethod(wx_BufferedOutputStream, __SeekO)
 {
 	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//wxFileOffset pos = arg.GetNumber(0)
+	//wxSeekMode mode = arg.GetNumber(1)
 	//pThis->GetEntity()->SeekO();
 	return Value::Nil;
 }

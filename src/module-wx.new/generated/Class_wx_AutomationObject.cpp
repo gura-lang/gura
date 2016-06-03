@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__AutomationObject, "AutomationObject")
 
 Gura_ImplementFunction(__AutomationObject)
 {
-	//int dispatchPtr = arg.GetNumber(0)
+	//WXIDISPATCH* dispatchPtr = arg.GetNumber(0)
 	//wxAutomationObject();
 	return Value::Nil;
 }
@@ -67,9 +67,9 @@ Gura_ImplementMethod(wx_AutomationObject, __CallMethod)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int method = arg.GetNumber(0)
+	//const wxString& method = arg.GetNumber(0)
 	//int noArgs = arg.GetNumber(1)
-	//int args = arg.GetNumber(2)
+	//wxVariant args = arg.GetNumber(2)
 	//pThis->GetEntity()->CallMethod();
 	return Value::Nil;
 }
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_AutomationObject, __CreateInstance)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int progId = arg.GetNumber(0)
+	//const wxString& progId = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateInstance();
 	return Value::Nil;
 }
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_AutomationObject, __GetInstance)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int progId = arg.GetNumber(0)
+	//const wxString& progId = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->GetInstance();
 	return Value::Nil;
@@ -138,17 +138,17 @@ Gura_DeclareMethodAlias(wx_AutomationObject, __GetObject, "GetObject")
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "noArgs", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "args", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg3", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AutomationObject, __GetObject)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int obj = arg.GetNumber(0)
-	//int property = arg.GetNumber(1)
+	//wxAutomationObject& obj = arg.GetNumber(0)
+	//const wxString& property = arg.GetNumber(1)
 	//int noArgs = arg.GetNumber(2)
-	//int args = arg.GetNumber(3)
+	//wxVariant args[] _arg3 = arg.GetNumber(3)
 	//pThis->GetEntity()->GetObject();
 	return Value::Nil;
 }
@@ -165,9 +165,9 @@ Gura_ImplementMethod(wx_AutomationObject, __GetProperty)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int property = arg.GetNumber(0)
+	//const wxString& property = arg.GetNumber(0)
 	//int noArgs = arg.GetNumber(1)
-	//int args = arg.GetNumber(2)
+	//wxVariant args = arg.GetNumber(2)
 	//pThis->GetEntity()->GetProperty();
 	return Value::Nil;
 }
@@ -180,19 +180,19 @@ Gura_DeclareMethodAlias(wx_AutomationObject, __Invoke, "Invoke")
 	//DeclareArg(env, "retValue", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "noArgs", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "args", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "ptrArgs", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg5", VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_AutomationObject, __Invoke)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int member = arg.GetNumber(0)
+	//const wxString& member = arg.GetNumber(0)
 	//int action = arg.GetNumber(1)
-	//int retValue = arg.GetNumber(2)
+	//wxVariant& retValue = arg.GetNumber(2)
 	//int noArgs = arg.GetNumber(3)
-	//int args = arg.GetNumber(4)
-	//int ptrArgs = arg.GetNumber(5)
+	//wxVariant args = arg.GetNumber(4)
+	//const wxVariant* ptrArgs[] _arg5 = arg.GetNumber(5)
 	//pThis->GetEntity()->Invoke();
 	return Value::Nil;
 }
@@ -209,9 +209,9 @@ Gura_ImplementMethod(wx_AutomationObject, __PutProperty)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int property = arg.GetNumber(0)
+	//const wxString& property = arg.GetNumber(0)
 	//int noArgs = arg.GetNumber(1)
-	//int args = arg.GetNumber(2)
+	//wxVariant args = arg.GetNumber(2)
 	//pThis->GetEntity()->PutProperty();
 	return Value::Nil;
 }
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_AutomationObject, __SetDispatchPtr)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dispatchPtr = arg.GetNumber(0)
+	//WXIDISPATCH* dispatchPtr = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDispatchPtr();
 	return Value::Nil;
 }
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_AutomationObject, __SetLCID)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int lcid = arg.GetNumber(0)
+	//LCID lcid = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLCID();
 	return Value::Nil;
 }
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_AutomationObject, __SetConvertVariantFlags)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//long flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetConvertVariantFlags();
 	return Value::Nil;
 }

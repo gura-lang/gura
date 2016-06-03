@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__NativeFontInfo_1, "NativeFontInfo_1")
 
 Gura_ImplementFunction(__NativeFontInfo_1)
 {
-	//int info = arg.GetNumber(0)
+	//const wxNativeFontInfo& info = arg.GetNumber(0)
 	//wxNativeFontInfo();
 	return Value::Nil;
 }
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __InitFromFont)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->InitFromFont();
 	return Value::Nil;
 }
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetPixelSize)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pixelSize = arg.GetNumber(0)
+	//const wxSize& pixelSize = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPixelSize();
 	return Value::Nil;
 }
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetStyle)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int style = arg.GetNumber(0)
+	//wxFontStyle style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStyle();
 	return Value::Nil;
 }
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetWeight)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int weight = arg.GetNumber(0)
+	//wxFontWeight weight = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWeight();
 	return Value::Nil;
 }
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetUnderlined)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int underlined = arg.GetNumber(0)
+	//bool underlined = arg.GetNumber(0)
 	//pThis->GetEntity()->SetUnderlined();
 	return Value::Nil;
 }
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetFaceName)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int facename = arg.GetNumber(0)
+	//const wxString& facename = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFaceName();
 	return Value::Nil;
 }
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetFamily)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int family = arg.GetNumber(0)
+	//wxFontFamily family = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFamily();
 	return Value::Nil;
 }
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetEncoding)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
+	//wxFontEncoding encoding = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEncoding();
 	return Value::Nil;
 }
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetFaceName_1)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int facenames = arg.GetNumber(0)
+	//const wxArrayString& facenames = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFaceName();
 	return Value::Nil;
 }
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __FromString)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const wxString& s = arg.GetNumber(0)
 	//pThis->GetEntity()->FromString();
 	return Value::Nil;
 }
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __FromUserString)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const wxString& s = arg.GetNumber(0)
 	//pThis->GetEntity()->FromUserString();
 	return Value::Nil;
 }

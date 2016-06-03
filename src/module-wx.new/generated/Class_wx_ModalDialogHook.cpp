@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_ModalDialogHook, __Enter)
 {
 	Object_wx_ModalDialogHook *pThis = Object_wx_ModalDialogHook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dialog = arg.GetNumber(0)
+	//wxDialog* dialog = arg.GetNumber(0)
 	//pThis->GetEntity()->Enter();
 	return Value::Nil;
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_ModalDialogHook, __Exit)
 {
 	Object_wx_ModalDialogHook *pThis = Object_wx_ModalDialogHook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dialog = arg.GetNumber(0)
+	//wxDialog* dialog = arg.GetNumber(0)
 	//pThis->GetEntity()->Exit();
 	return Value::Nil;
 }

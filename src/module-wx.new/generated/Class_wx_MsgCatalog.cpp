@@ -48,8 +48,8 @@ Gura_ImplementMethod(wx_MsgCatalog, __CreateFromFile)
 {
 	Object_wx_MsgCatalog *pThis = Object_wx_MsgCatalog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
-	//int domain = arg.GetNumber(1)
+	//const wxString& filename = arg.GetNumber(0)
+	//const wxString& domain = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateFromFile();
 	return Value::Nil;
 }
@@ -65,8 +65,8 @@ Gura_ImplementMethod(wx_MsgCatalog, __CreateFromData)
 {
 	Object_wx_MsgCatalog *pThis = Object_wx_MsgCatalog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
-	//int domain = arg.GetNumber(1)
+	//const wxScopedCharBuffer& data = arg.GetNumber(0)
+	//const wxString& domain = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateFromData();
 	return Value::Nil;
 }

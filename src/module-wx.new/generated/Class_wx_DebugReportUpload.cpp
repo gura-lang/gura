@@ -50,10 +50,10 @@ Gura_DeclareFunctionAlias(__DebugReportUpload, "DebugReportUpload")
 
 Gura_ImplementFunction(__DebugReportUpload)
 {
-	//int url = arg.GetNumber(0)
-	//int input = arg.GetNumber(1)
-	//int action = arg.GetNumber(2)
-	//int curl = arg.GetNumber(3)
+	//const wxString& url = arg.GetNumber(0)
+	//const wxString& input = arg.GetNumber(1)
+	//const wxString& action = arg.GetNumber(2)
+	//const wxString& curl = arg.GetNumber(3)
 	//wxDebugReportUpload();
 	return Value::Nil;
 }
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_DebugReportUpload, __OnServerReply)
 {
 	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int reply = arg.GetNumber(0)
+	//const wxArrayString& reply = arg.GetNumber(0)
 	//pThis->GetEntity()->OnServerReply();
 	return Value::Nil;
 }

@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__AuiToolBarItem_1, "AuiToolBarItem_1")
 
 Gura_ImplementFunction(__AuiToolBarItem_1)
 {
-	//int c = arg.GetNumber(0)
+	//const wxAuiToolBarItem& c = arg.GetNumber(0)
 	//wxAuiToolBarItem();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __Assign)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
+	//const wxAuiToolBarItem& c = arg.GetNumber(0)
 	//pThis->GetEntity()->Assign();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetWindow)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int w = arg.GetNumber(0)
+	//wxWindow* w = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWindow();
 	return Value::Nil;
 }
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetSizerItem)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//wxSizerItem* s = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSizerItem();
 	return Value::Nil;
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetLabel)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const wxString& s = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLabel();
 	return Value::Nil;
 }
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetBitmap)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bmp = arg.GetNumber(0)
+	//const wxBitmap& bmp = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmap();
 	return Value::Nil;
 }
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetDisabledBitmap)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bmp = arg.GetNumber(0)
+	//const wxBitmap& bmp = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDisabledBitmap();
 	return Value::Nil;
 }
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetHoverBitmap)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bmp = arg.GetNumber(0)
+	//const wxBitmap& bmp = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHoverBitmap();
 	return Value::Nil;
 }
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetShortHelp)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const wxString& s = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShortHelp();
 	return Value::Nil;
 }
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetLongHelp)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const wxString& s = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLongHelp();
 	return Value::Nil;
 }
@@ -401,7 +401,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetMinSize)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const wxSize& s = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMinSize();
 	return Value::Nil;
 }
@@ -485,7 +485,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetActive)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int b = arg.GetNumber(0)
+	//bool b = arg.GetNumber(0)
 	//pThis->GetEntity()->SetActive();
 	return Value::Nil;
 }
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetHasDropDown)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int b = arg.GetNumber(0)
+	//bool b = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHasDropDown();
 	return Value::Nil;
 }
@@ -541,7 +541,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetSticky)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int b = arg.GetNumber(0)
+	//bool b = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSticky();
 	return Value::Nil;
 }
@@ -569,7 +569,7 @@ Gura_ImplementMethod(wx_AuiToolBarItem, __SetUserData)
 {
 	Object_wx_AuiToolBarItem *pThis = Object_wx_AuiToolBarItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int l = arg.GetNumber(0)
+	//long l = arg.GetNumber(0)
 	//pThis->GetEntity()->SetUserData();
 	return Value::Nil;
 }

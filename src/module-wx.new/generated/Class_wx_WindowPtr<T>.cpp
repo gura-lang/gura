@@ -60,7 +60,7 @@ Gura_ImplementMethod(wx_WindowPtr<T>, __wxWindowPtr_1)
 {
 	Object_wx_WindowPtr<T> *pThis = Object_wx_WindowPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptr = arg.GetNumber(0)
+	//T* ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWindowPtr();
 	return Value::Nil;
 }
@@ -76,8 +76,8 @@ Gura_ImplementMethod(wx_WindowPtr<T>, __wxWindowPtr_2)
 {
 	Object_wx_WindowPtr<T> *pThis = Object_wx_WindowPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptr = arg.GetNumber(0)
-	//int d = arg.GetNumber(1)
+	//T* ptr = arg.GetNumber(0)
+	//Deleter d = arg.GetNumber(1)
 	//pThis->GetEntity()->wxWindowPtr();
 	return Value::Nil;
 }
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_WindowPtr<T>, __wxWindowPtr_3)
 {
 	Object_wx_WindowPtr<T> *pThis = Object_wx_WindowPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tocopy = arg.GetNumber(0)
+	//const wxWindowPtr<T>& tocopy = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWindowPtr();
 	return Value::Nil;
 }
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_WindowPtr<T>, __reset)
 {
 	Object_wx_WindowPtr<T> *pThis = Object_wx_WindowPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptr = arg.GetNumber(0)
+	//T* ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->reset();
 	return Value::Nil;
 }

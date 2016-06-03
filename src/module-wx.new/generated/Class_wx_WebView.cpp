@@ -53,13 +53,13 @@ Gura_ImplementMethod(wx_WebView, __Create)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int url = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& url = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_WebView, __New)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int backend = arg.GetNumber(0)
+	//const wxString& backend = arg.GetNumber(0)
 	//pThis->GetEntity()->New();
 	return Value::Nil;
 }
@@ -96,14 +96,14 @@ Gura_ImplementMethod(wx_WebView, __New_1)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int url = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int backend = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& url = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//const wxString& backend = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//pThis->GetEntity()->New();
 	return Value::Nil;
 }
@@ -119,8 +119,8 @@ Gura_ImplementMethod(wx_WebView, __RegisterFactory)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int backend = arg.GetNumber(0)
-	//int factory = arg.GetNumber(1)
+	//const wxString& backend = arg.GetNumber(0)
+	//wxSharedPtr<wxWebViewFactory> factory = arg.GetNumber(1)
 	//pThis->GetEntity()->RegisterFactory();
 	return Value::Nil;
 }
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_WebView, __LoadURL)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadURL();
 	return Value::Nil;
 }
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_WebView, __RegisterHandler)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int handler = arg.GetNumber(0)
+	//wxSharedPtr<wxWebViewHandler> handler = arg.GetNumber(0)
 	//pThis->GetEntity()->RegisterHandler();
 	return Value::Nil;
 }
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_WebView, __Reload)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//wxWebViewReloadFlags flags = arg.GetNumber(0)
 	//pThis->GetEntity()->Reload();
 	return Value::Nil;
 }
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_WebView, __RunScript)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int javascript = arg.GetNumber(0)
+	//const wxString& javascript = arg.GetNumber(0)
 	//pThis->GetEntity()->RunScript();
 	return Value::Nil;
 }
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_WebView, __SetEditable)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEditable();
 	return Value::Nil;
 }
@@ -315,8 +315,8 @@ Gura_ImplementMethod(wx_WebView, __SetPage)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int html = arg.GetNumber(0)
-	//int baseUrl = arg.GetNumber(1)
+	//const wxString& html = arg.GetNumber(0)
+	//const wxString& baseUrl = arg.GetNumber(1)
 	//pThis->GetEntity()->SetPage();
 	return Value::Nil;
 }
@@ -332,8 +332,8 @@ Gura_ImplementMethod(wx_WebView, __SetPage_1)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int html = arg.GetNumber(0)
-	//int baseUrl = arg.GetNumber(1)
+	//wxInputStream& html = arg.GetNumber(0)
+	//wxString baseUrl = arg.GetNumber(1)
 	//pThis->GetEntity()->SetPage();
 	return Value::Nil;
 }
@@ -439,7 +439,7 @@ Gura_ImplementMethod(wx_WebView, __EnableContextMenu)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableContextMenu();
 	return Value::Nil;
 }
@@ -506,7 +506,7 @@ Gura_ImplementMethod(wx_WebView, __EnableHistory)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableHistory();
 	return Value::Nil;
 }
@@ -573,7 +573,7 @@ Gura_ImplementMethod(wx_WebView, __LoadHistoryItem)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxSharedPtr<wxWebViewHistoryItem> item = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadHistoryItem();
 	return Value::Nil;
 }
@@ -719,8 +719,8 @@ Gura_ImplementMethod(wx_WebView, __Find)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(0)
+	//wxWebViewFindFlags flags = arg.GetNumber(1)
 	//pThis->GetEntity()->Find();
 	return Value::Nil;
 }
@@ -735,7 +735,7 @@ Gura_ImplementMethod(wx_WebView, __CanSetZoomType)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int type = arg.GetNumber(0)
+	//wxWebViewZoomType type = arg.GetNumber(0)
 	//pThis->GetEntity()->CanSetZoomType();
 	return Value::Nil;
 }
@@ -776,7 +776,7 @@ Gura_ImplementMethod(wx_WebView, __SetZoom)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int zoom = arg.GetNumber(0)
+	//wxWebViewZoom zoom = arg.GetNumber(0)
 	//pThis->GetEntity()->SetZoom();
 	return Value::Nil;
 }
@@ -791,7 +791,7 @@ Gura_ImplementMethod(wx_WebView, __SetZoomType)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int zoomType = arg.GetNumber(0)
+	//wxWebViewZoomType zoomType = arg.GetNumber(0)
 	//pThis->GetEntity()->SetZoomType();
 	return Value::Nil;
 }

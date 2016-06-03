@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_ArchiveNotifier, __OnEntryUpdated)
 {
 	Object_wx_ArchiveNotifier *pThis = Object_wx_ArchiveNotifier::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int entry = arg.GetNumber(0)
+	//wxArchiveEntry& entry = arg.GetNumber(0)
 	//pThis->GetEntity()->OnEntryUpdated();
 	return Value::Nil;
 }

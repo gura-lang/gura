@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_Size, __DecBy)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->DecBy();
 	return Value::Nil;
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_Size, __DecBy_1)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->DecBy();
 	return Value::Nil;
 }
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_Size, __DecTo)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->DecTo();
 	return Value::Nil;
 }
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_Size, __DecToIfSpecified)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->DecToIfSpecified();
 	return Value::Nil;
 }
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_Size, __IncBy)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->IncBy();
 	return Value::Nil;
 }
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_Size, __IncBy_1)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->IncBy();
 	return Value::Nil;
 }
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_Size, __IncTo)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->IncTo();
 	return Value::Nil;
 }
@@ -289,8 +289,8 @@ Gura_ImplementMethod(wx_Size, __Scale)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int xscale = arg.GetNumber(0)
-	//int yscale = arg.GetNumber(1)
+	//float xscale = arg.GetNumber(0)
+	//float yscale = arg.GetNumber(1)
 	//pThis->GetEntity()->Scale();
 	return Value::Nil;
 }
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_Size, __SetDefaults)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sizeDefault = arg.GetNumber(0)
+	//const wxSize& sizeDefault = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaults();
 	return Value::Nil;
 }

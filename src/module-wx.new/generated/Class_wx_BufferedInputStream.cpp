@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__BufferedInputStream, "BufferedInputStream")
 
 Gura_ImplementFunction(__BufferedInputStream)
 {
-	//int stream = arg.GetNumber(0)
-	//int buffer = arg.GetNumber(1)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//wxStreamBuffer* buffer = arg.GetNumber(1)
 	//wxBufferedInputStream();
 	return Value::Nil;
 }
@@ -65,8 +65,8 @@ Gura_DeclareFunctionAlias(__BufferedInputStream_1, "BufferedInputStream_1")
 
 Gura_ImplementFunction(__BufferedInputStream_1)
 {
-	//int stream = arg.GetNumber(0)
-	//int bufsize = arg.GetNumber(1)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//size_t bufsize = arg.GetNumber(1)
 	//wxBufferedInputStream();
 	return Value::Nil;
 }

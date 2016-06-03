@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__DCPenChanger, "DCPenChanger")
 
 Gura_ImplementFunction(__DCPenChanger)
 {
-	//int dc = arg.GetNumber(0)
-	//int pen = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxPen& pen = arg.GetNumber(1)
 	//wxDCPenChanger();
 	return Value::Nil;
 }

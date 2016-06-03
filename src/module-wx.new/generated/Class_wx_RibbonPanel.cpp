@@ -66,13 +66,13 @@ Gura_DeclareFunctionAlias(__RibbonPanel_1, "RibbonPanel_1")
 
 Gura_ImplementFunction(__RibbonPanel_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int minimised_icon = arg.GetNumber(3)
-	//int pos = arg.GetNumber(4)
-	//int size = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& minimised_icon = arg.GetNumber(3)
+	//const wxPoint& pos = arg.GetNumber(4)
+	//const wxSize& size = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
 	//wxRibbonPanel();
 	return Value::Nil;
 }
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_RibbonPanel, __Create)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int icon = arg.GetNumber(3)
-	//int pos = arg.GetNumber(4)
-	//int size = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& icon = arg.GetNumber(3)
+	//const wxPoint& pos = arg.GetNumber(4)
+	//const wxSize& size = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_RibbonPanel, __IsMinimised_1)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int at_size = arg.GetNumber(0)
+	//wxSize at_size = arg.GetNumber(0)
 	//pThis->GetEntity()->IsMinimised();
 	return Value::Nil;
 }
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_RibbonPanel, __SetArtProvider)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int art = arg.GetNumber(0)
+	//wxRibbonArtProvider* art = arg.GetNumber(0)
 	//pThis->GetEntity()->SetArtProvider();
 	return Value::Nil;
 }

@@ -58,19 +58,19 @@ Gura_DeclareFunctionAlias(__Cursor_1, "Cursor_1")
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hotSpotX", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hotSpotY", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "maskBits", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg5", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__Cursor_1)
 {
-	//int bits = arg.GetNumber(0)
+	//const char bits = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
 	//int hotSpotX = arg.GetNumber(3)
 	//int hotSpotY = arg.GetNumber(4)
-	//int maskBits = arg.GetNumber(5)
+	//const char maskBits[] _arg5 = arg.GetNumber(5)
 	//wxCursor();
 	return Value::Nil;
 }
@@ -88,8 +88,8 @@ Gura_DeclareFunctionAlias(__Cursor_2, "Cursor_2")
 
 Gura_ImplementFunction(__Cursor_2)
 {
-	//int cursorName = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
+	//const wxString& cursorName = arg.GetNumber(0)
+	//wxBitmapType type = arg.GetNumber(1)
 	//int hotSpotX = arg.GetNumber(2)
 	//int hotSpotY = arg.GetNumber(3)
 	//wxCursor();
@@ -106,7 +106,7 @@ Gura_DeclareFunctionAlias(__Cursor_3, "Cursor_3")
 
 Gura_ImplementFunction(__Cursor_3)
 {
-	//int cursorId = arg.GetNumber(0)
+	//wxStockCursor cursorId = arg.GetNumber(0)
 	//wxCursor();
 	return Value::Nil;
 }
@@ -121,7 +121,7 @@ Gura_DeclareFunctionAlias(__Cursor_4, "Cursor_4")
 
 Gura_ImplementFunction(__Cursor_4)
 {
-	//int image = arg.GetNumber(0)
+	//const wxImage& image = arg.GetNumber(0)
 	//wxCursor();
 	return Value::Nil;
 }
@@ -136,7 +136,7 @@ Gura_DeclareFunctionAlias(__Cursor_5, "Cursor_5")
 
 Gura_ImplementFunction(__Cursor_5)
 {
-	//int cursor = arg.GetNumber(0)
+	//const wxCursor& cursor = arg.GetNumber(0)
 	//wxCursor();
 	return Value::Nil;
 }

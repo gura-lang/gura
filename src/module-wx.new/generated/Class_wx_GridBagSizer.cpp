@@ -72,12 +72,12 @@ Gura_ImplementMethod(wx_GridBagSizer, __Add)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
-	//int span = arg.GetNumber(2)
+	//wxWindow* window = arg.GetNumber(0)
+	//const wxGBPosition& pos = arg.GetNumber(1)
+	//const wxGBSpan& span = arg.GetNumber(2)
 	//int flag = arg.GetNumber(3)
 	//int border = arg.GetNumber(4)
-	//int userData = arg.GetNumber(5)
+	//wxObject* userData = arg.GetNumber(5)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
 }
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_GridBagSizer, __Add_1)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sizer = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
-	//int span = arg.GetNumber(2)
+	//wxSizer* sizer = arg.GetNumber(0)
+	//const wxGBPosition& pos = arg.GetNumber(1)
+	//const wxGBSpan& span = arg.GetNumber(2)
 	//int flag = arg.GetNumber(3)
 	//int border = arg.GetNumber(4)
-	//int userData = arg.GetNumber(5)
+	//wxObject* userData = arg.GetNumber(5)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __Add_2)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxGBSizerItem* item = arg.GetNumber(0)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
 }
@@ -140,11 +140,11 @@ Gura_ImplementMethod(wx_GridBagSizer, __Add_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int span = arg.GetNumber(3)
+	//const wxGBPosition& pos = arg.GetNumber(2)
+	//const wxGBSpan& span = arg.GetNumber(3)
 	//int flag = arg.GetNumber(4)
 	//int border = arg.GetNumber(5)
-	//int userData = arg.GetNumber(6)
+	//wxObject* userData = arg.GetNumber(6)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
 }
@@ -173,8 +173,8 @@ Gura_ImplementMethod(wx_GridBagSizer, __CheckForIntersection)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int excludeItem = arg.GetNumber(1)
+	//wxGBSizerItem* item = arg.GetNumber(0)
+	//wxGBSizerItem* excludeItem = arg.GetNumber(1)
 	//pThis->GetEntity()->CheckForIntersection();
 	return Value::Nil;
 }
@@ -191,9 +191,9 @@ Gura_ImplementMethod(wx_GridBagSizer, __CheckForIntersection_1)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int span = arg.GetNumber(1)
-	//int excludeItem = arg.GetNumber(2)
+	//const wxGBPosition& pos = arg.GetNumber(0)
+	//const wxGBSpan& span = arg.GetNumber(1)
+	//wxGBSizerItem* excludeItem = arg.GetNumber(2)
 	//pThis->GetEntity()->CheckForIntersection();
 	return Value::Nil;
 }
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __FindItem)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//pThis->GetEntity()->FindItem();
 	return Value::Nil;
 }
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __FindItem_1)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sizer = arg.GetNumber(0)
+	//wxSizer* sizer = arg.GetNumber(0)
 	//pThis->GetEntity()->FindItem();
 	return Value::Nil;
 }
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __FindItemAtPoint)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->FindItemAtPoint();
 	return Value::Nil;
 }
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __FindItemAtPosition)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//const wxGBPosition& pos = arg.GetNumber(0)
 	//pThis->GetEntity()->FindItemAtPosition();
 	return Value::Nil;
 }
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __FindItemWithData)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int userData = arg.GetNumber(0)
+	//const wxObject* userData = arg.GetNumber(0)
 	//pThis->GetEntity()->FindItemWithData();
 	return Value::Nil;
 }
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __GetItemPosition)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemPosition();
 	return Value::Nil;
 }
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __GetItemPosition_1)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sizer = arg.GetNumber(0)
+	//wxSizer* sizer = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemPosition();
 	return Value::Nil;
 }
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __GetItemPosition_2)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
+	//size_t index = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemPosition();
 	return Value::Nil;
 }
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __GetItemSpan)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemSpan();
 	return Value::Nil;
 }
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __GetItemSpan_1)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sizer = arg.GetNumber(0)
+	//wxSizer* sizer = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemSpan();
 	return Value::Nil;
 }
@@ -388,7 +388,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __GetItemSpan_2)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
+	//size_t index = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemSpan();
 	return Value::Nil;
 }
@@ -416,7 +416,7 @@ Gura_ImplementMethod(wx_GridBagSizer, __SetEmptyCellSize)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEmptyCellSize();
 	return Value::Nil;
 }
@@ -432,8 +432,8 @@ Gura_ImplementMethod(wx_GridBagSizer, __SetItemPosition)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//wxWindow* window = arg.GetNumber(0)
+	//const wxGBPosition& pos = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemPosition();
 	return Value::Nil;
 }
@@ -449,8 +449,8 @@ Gura_ImplementMethod(wx_GridBagSizer, __SetItemPosition_1)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sizer = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//wxSizer* sizer = arg.GetNumber(0)
+	//const wxGBPosition& pos = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemPosition();
 	return Value::Nil;
 }
@@ -466,8 +466,8 @@ Gura_ImplementMethod(wx_GridBagSizer, __SetItemPosition_2)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//size_t index = arg.GetNumber(0)
+	//const wxGBPosition& pos = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemPosition();
 	return Value::Nil;
 }
@@ -483,8 +483,8 @@ Gura_ImplementMethod(wx_GridBagSizer, __SetItemSpan)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
-	//int span = arg.GetNumber(1)
+	//wxWindow* window = arg.GetNumber(0)
+	//const wxGBSpan& span = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemSpan();
 	return Value::Nil;
 }
@@ -500,8 +500,8 @@ Gura_ImplementMethod(wx_GridBagSizer, __SetItemSpan_1)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sizer = arg.GetNumber(0)
-	//int span = arg.GetNumber(1)
+	//wxSizer* sizer = arg.GetNumber(0)
+	//const wxGBSpan& span = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemSpan();
 	return Value::Nil;
 }
@@ -517,8 +517,8 @@ Gura_ImplementMethod(wx_GridBagSizer, __SetItemSpan_2)
 {
 	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
-	//int span = arg.GetNumber(1)
+	//size_t index = arg.GetNumber(0)
+	//const wxGBSpan& span = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemSpan();
 	return Value::Nil;
 }

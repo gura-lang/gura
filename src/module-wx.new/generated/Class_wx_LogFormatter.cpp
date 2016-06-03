@@ -65,9 +65,9 @@ Gura_ImplementMethod(wx_LogFormatter, __Format)
 {
 	Object_wx_LogFormatter *pThis = Object_wx_LogFormatter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int level = arg.GetNumber(0)
-	//int msg = arg.GetNumber(1)
-	//int info = arg.GetNumber(2)
+	//wxLogLevel level = arg.GetNumber(0)
+	//const wxString& msg = arg.GetNumber(1)
+	//const wxLogRecordInfo& info = arg.GetNumber(2)
 	//pThis->GetEntity()->Format();
 	return Value::Nil;
 }
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_LogFormatter, __FormatTime)
 {
 	Object_wx_LogFormatter *pThis = Object_wx_LogFormatter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int time = arg.GetNumber(0)
+	//time_t time = arg.GetNumber(0)
 	//pThis->GetEntity()->FormatTime();
 	return Value::Nil;
 }

@@ -51,11 +51,11 @@ Gura_DeclareFunctionAlias(__FSFile, "FSFile")
 
 Gura_ImplementFunction(__FSFile)
 {
-	//int stream = arg.GetNumber(0)
-	//int location = arg.GetNumber(1)
-	//int mimetype = arg.GetNumber(2)
-	//int anchor = arg.GetNumber(3)
-	//int modif = arg.GetNumber(4)
+	//wxInputStream* stream = arg.GetNumber(0)
+	//const wxString& location = arg.GetNumber(1)
+	//const wxString& mimetype = arg.GetNumber(2)
+	//const wxString& anchor = arg.GetNumber(3)
+	//wxDateTime modif = arg.GetNumber(4)
 	//wxFSFile();
 	return Value::Nil;
 }

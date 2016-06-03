@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__Palette_1, "Palette_1")
 
 Gura_ImplementFunction(__Palette_1)
 {
-	//int palette = arg.GetNumber(0)
+	//const wxPalette& palette = arg.GetNumber(0)
 	//wxPalette();
 	return Value::Nil;
 }
@@ -79,9 +79,9 @@ Gura_DeclareFunctionAlias(__Palette_2, "Palette_2")
 Gura_ImplementFunction(__Palette_2)
 {
 	//int n = arg.GetNumber(0)
-	//int red = arg.GetNumber(1)
-	//int green = arg.GetNumber(2)
-	//int blue = arg.GetNumber(3)
+	//const unsigned char* red = arg.GetNumber(1)
+	//const unsigned char* green = arg.GetNumber(2)
+	//const unsigned char* blue = arg.GetNumber(3)
 	//wxPalette();
 	return Value::Nil;
 }
@@ -103,9 +103,9 @@ Gura_ImplementMethod(wx_Palette, __Create)
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//int red = arg.GetNumber(1)
-	//int green = arg.GetNumber(2)
-	//int blue = arg.GetNumber(3)
+	//const unsigned char* red = arg.GetNumber(1)
+	//const unsigned char* green = arg.GetNumber(2)
+	//const unsigned char* blue = arg.GetNumber(3)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -135,9 +135,9 @@ Gura_ImplementMethod(wx_Palette, __GetPixel)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int red = arg.GetNumber(0)
-	//int green = arg.GetNumber(1)
-	//int blue = arg.GetNumber(2)
+	//unsigned char red = arg.GetNumber(0)
+	//unsigned char green = arg.GetNumber(1)
+	//unsigned char blue = arg.GetNumber(2)
 	//pThis->GetEntity()->GetPixel();
 	return Value::Nil;
 }
@@ -156,9 +156,9 @@ Gura_ImplementMethod(wx_Palette, __GetRGB)
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixel = arg.GetNumber(0)
-	//int red = arg.GetNumber(1)
-	//int green = arg.GetNumber(2)
-	//int blue = arg.GetNumber(3)
+	//unsigned char* red = arg.GetNumber(1)
+	//unsigned char* green = arg.GetNumber(2)
+	//unsigned char* blue = arg.GetNumber(3)
 	//pThis->GetEntity()->GetRGB();
 	return Value::Nil;
 }

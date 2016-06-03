@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__ThreadHelper, "ThreadHelper")
 
 Gura_ImplementFunction(__ThreadHelper)
 {
-	//int kind = arg.GetNumber(0)
+	//wxThreadKind kind = arg.GetNumber(0)
 	//wxThreadHelper();
 	return Value::Nil;
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_ThreadHelper, __Create)
 {
 	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stackSize = arg.GetNumber(0)
+	//unsigned int stackSize = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -120,8 +120,8 @@ Gura_ImplementMethod(wx_ThreadHelper, __CreateThread)
 {
 	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int kind = arg.GetNumber(0)
-	//int stackSize = arg.GetNumber(1)
+	//wxThreadKind kind = arg.GetNumber(0)
+	//unsigned int stackSize = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateThread();
 	return Value::Nil;
 }

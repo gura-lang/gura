@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__XmlDoctype, "XmlDoctype")
 
 Gura_ImplementFunction(__XmlDoctype)
 {
-	//int rootName = arg.GetNumber(0)
-	//int systemId = arg.GetNumber(1)
-	//int publicId = arg.GetNumber(2)
+	//const wxString& rootName = arg.GetNumber(0)
+	//const wxString& systemId = arg.GetNumber(1)
+	//const wxString& publicId = arg.GetNumber(2)
 	//wxXmlDoctype();
 	return Value::Nil;
 }

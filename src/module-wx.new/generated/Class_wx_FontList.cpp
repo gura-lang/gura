@@ -70,12 +70,12 @@ Gura_ImplementMethod(wx_FontList, __FindOrCreateFont)
 	Object_wx_FontList *pThis = Object_wx_FontList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int point_size = arg.GetNumber(0)
-	//int family = arg.GetNumber(1)
-	//int style = arg.GetNumber(2)
-	//int weight = arg.GetNumber(3)
-	//int underline = arg.GetNumber(4)
-	//int facename = arg.GetNumber(5)
-	//int encoding = arg.GetNumber(6)
+	//wxFontFamily family = arg.GetNumber(1)
+	//wxFontStyle style = arg.GetNumber(2)
+	//wxFontWeight weight = arg.GetNumber(3)
+	//bool underline = arg.GetNumber(4)
+	//const wxString& facename = arg.GetNumber(5)
+	//wxFontEncoding encoding = arg.GetNumber(6)
 	//pThis->GetEntity()->FindOrCreateFont();
 	return Value::Nil;
 }

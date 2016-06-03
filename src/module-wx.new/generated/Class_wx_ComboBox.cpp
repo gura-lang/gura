@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__ComboBox_1, "ComboBox_1")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg6", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -69,16 +69,16 @@ Gura_DeclareFunctionAlias(__ComboBox_1, "ComboBox_1")
 
 Gura_ImplementFunction(__ComboBox_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
 	//int n = arg.GetNumber(5)
-	//int choices = arg.GetNumber(6)
-	//int style = arg.GetNumber(7)
-	//int validator = arg.GetNumber(8)
-	//int name = arg.GetNumber(9)
+	//const wxString choices[] _arg6 = arg.GetNumber(6)
+	//long style = arg.GetNumber(7)
+	//const wxValidator& validator = arg.GetNumber(8)
+	//const wxString& name = arg.GetNumber(9)
 	//wxComboBox();
 	return Value::Nil;
 }
@@ -101,15 +101,15 @@ Gura_DeclareFunctionAlias(__ComboBox_2, "ComboBox_2")
 
 Gura_ImplementFunction(__ComboBox_2)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int choices = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int validator = arg.GetNumber(7)
-	//int name = arg.GetNumber(8)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//const wxArrayString& choices = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxValidator& validator = arg.GetNumber(7)
+	//const wxString& name = arg.GetNumber(8)
 	//wxComboBox();
 	return Value::Nil;
 }
@@ -126,7 +126,7 @@ Gura_DeclareMethodAlias(wx_ComboBox, __Create, "Create")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg6", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -136,16 +136,16 @@ Gura_ImplementMethod(wx_ComboBox, __Create)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
 	//int n = arg.GetNumber(5)
-	//int choices = arg.GetNumber(6)
-	//int style = arg.GetNumber(7)
-	//int validator = arg.GetNumber(8)
-	//int name = arg.GetNumber(9)
+	//const wxString choices[] _arg6 = arg.GetNumber(6)
+	//long style = arg.GetNumber(7)
+	//const wxValidator& validator = arg.GetNumber(8)
+	//const wxString& name = arg.GetNumber(9)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -168,15 +168,15 @@ Gura_ImplementMethod(wx_ComboBox, __Create_1)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int choices = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int validator = arg.GetNumber(7)
-	//int name = arg.GetNumber(8)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//const wxArrayString& choices = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxValidator& validator = arg.GetNumber(7)
+	//const wxString& name = arg.GetNumber(8)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -257,8 +257,8 @@ Gura_ImplementMethod(wx_ComboBox, __SetSelection)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int from = arg.GetNumber(0)
-	//int to = arg.GetNumber(1)
+	//long from = arg.GetNumber(0)
+	//long to = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSelection();
 	return Value::Nil;
 }
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_ComboBox, __SetValue)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }
@@ -328,8 +328,8 @@ Gura_ImplementMethod(wx_ComboBox, __GetSelection_1)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int from = arg.GetNumber(0)
-	//int to = arg.GetNumber(1)
+	//long* from = arg.GetNumber(0)
+	//long* to = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
@@ -360,8 +360,8 @@ Gura_ImplementMethod(wx_ComboBox, __FindString)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
-	//int bCase = arg.GetNumber(1)
+	//const wxString& s = arg.GetNumber(0)
+	//bool bCase = arg.GetNumber(1)
 	//pThis->GetEntity()->FindString();
 	return Value::Nil;
 }
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_ComboBox, __GetString)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//unsigned int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetString();
 	return Value::Nil;
 }
@@ -405,8 +405,8 @@ Gura_ImplementMethod(wx_ComboBox, __SetString)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
 	//pThis->GetEntity()->SetString();
 	return Value::Nil;
 }

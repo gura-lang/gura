@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__StaticBoxSizer, "StaticBoxSizer")
 
 Gura_ImplementFunction(__StaticBoxSizer)
 {
-	//int box = arg.GetNumber(0)
+	//wxStaticBox* box = arg.GetNumber(0)
 	//int orient = arg.GetNumber(1)
 	//wxStaticBoxSizer();
 	return Value::Nil;
@@ -67,8 +67,8 @@ Gura_DeclareFunctionAlias(__StaticBoxSizer_1, "StaticBoxSizer_1")
 Gura_ImplementFunction(__StaticBoxSizer_1)
 {
 	//int orient = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
 	//wxStaticBoxSizer();
 	return Value::Nil;
 }

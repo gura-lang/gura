@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__RichTextFontTable_1, "RichTextFontTable_1")
 
 Gura_ImplementFunction(__RichTextFontTable_1)
 {
-	//int table = arg.GetNumber(0)
+	//const wxRichTextFontTable& table = arg.GetNumber(0)
 	//wxRichTextFontTable();
 	return Value::Nil;
 }
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_RichTextFontTable, __FindFont)
 {
 	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fontSpec = arg.GetNumber(0)
+	//const wxRichTextAttr& fontSpec = arg.GetNumber(0)
 	//pThis->GetEntity()->FindFont();
 	return Value::Nil;
 }
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_RichTextFontTable, __SetFontScale)
 {
 	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fontScale = arg.GetNumber(0)
+	//double fontScale = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFontScale();
 	return Value::Nil;
 }

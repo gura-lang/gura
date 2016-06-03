@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__Variant_1, "Variant_1")
 
 Gura_ImplementFunction(__Variant_1)
 {
-	//int data = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//wxVariantData* data = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__Variant_2, "Variant_2")
 
 Gura_ImplementFunction(__Variant_2)
 {
-	//int variant = arg.GetNumber(0)
+	//const wxVariant& variant = arg.GetNumber(0)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -92,7 +92,7 @@ Gura_DeclareFunctionAlias(__Variant_3, "Variant_3")
 
 Gura_ImplementFunction(__Variant_3)
 {
-	//int any = arg.GetNumber(0)
+	//const wxAny& any = arg.GetNumber(0)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -108,8 +108,8 @@ Gura_DeclareFunctionAlias(__Variant_4, "Variant_4")
 
 Gura_ImplementFunction(__Variant_4)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//const wxChar* value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -125,8 +125,8 @@ Gura_DeclareFunctionAlias(__Variant_5, "Variant_5")
 
 Gura_ImplementFunction(__Variant_5)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -142,8 +142,8 @@ Gura_DeclareFunctionAlias(__Variant_6, "Variant_6")
 
 Gura_ImplementFunction(__Variant_6)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//wxChar value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -159,8 +159,8 @@ Gura_DeclareFunctionAlias(__Variant_7, "Variant_7")
 
 Gura_ImplementFunction(__Variant_7)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//long value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -176,8 +176,8 @@ Gura_DeclareFunctionAlias(__Variant_8, "Variant_8")
 
 Gura_ImplementFunction(__Variant_8)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//bool value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -193,8 +193,8 @@ Gura_DeclareFunctionAlias(__Variant_9, "Variant_9")
 
 Gura_ImplementFunction(__Variant_9)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//double value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -210,8 +210,8 @@ Gura_DeclareFunctionAlias(__Variant_10, "Variant_10")
 
 Gura_ImplementFunction(__Variant_10)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//wxLongLong value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -227,8 +227,8 @@ Gura_DeclareFunctionAlias(__Variant_11, "Variant_11")
 
 Gura_ImplementFunction(__Variant_11)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//wxULongLong value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -244,8 +244,8 @@ Gura_DeclareFunctionAlias(__Variant_12, "Variant_12")
 
 Gura_ImplementFunction(__Variant_12)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//const wxVariantList& value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -261,8 +261,8 @@ Gura_DeclareFunctionAlias(__Variant_13, "Variant_13")
 
 Gura_ImplementFunction(__Variant_13)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//void* value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -278,8 +278,8 @@ Gura_DeclareFunctionAlias(__Variant_14, "Variant_14")
 
 Gura_ImplementFunction(__Variant_14)
 {
-	//int value = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//wxObject* value = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -295,8 +295,8 @@ Gura_DeclareFunctionAlias(__Variant_15, "Variant_15")
 
 Gura_ImplementFunction(__Variant_15)
 {
-	//int val = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//const wxDateTime& val = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -312,8 +312,8 @@ Gura_DeclareFunctionAlias(__Variant_16, "Variant_16")
 
 Gura_ImplementFunction(__Variant_16)
 {
-	//int val = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//const wxArrayString& val = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxVariant();
 	return Value::Nil;
 }
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_Variant, __Append)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//const wxVariant& value = arg.GetNumber(0)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_Variant, __Delete)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//size_t item = arg.GetNumber(0)
 	//pThis->GetEntity()->Delete();
 	return Value::Nil;
 }
@@ -413,7 +413,7 @@ Gura_ImplementMethod(wx_Variant, __Insert)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//const wxVariant& value = arg.GetNumber(0)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -441,7 +441,7 @@ Gura_ImplementMethod(wx_Variant, __Convert)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//long* value = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -456,7 +456,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_1)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//bool* value = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_2)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//double* value = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_3)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//wxString* value = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -501,7 +501,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_4)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//wxChar* value = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -516,7 +516,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_5)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//wxLongLong* value = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -531,7 +531,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_6)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//wxULongLong* value = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -546,7 +546,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_7)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//wxDateTime* value = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -769,7 +769,7 @@ Gura_ImplementMethod(wx_Variant, __IsType)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int type = arg.GetNumber(0)
+	//const wxString& type = arg.GetNumber(0)
 	//pThis->GetEntity()->IsType();
 	return Value::Nil;
 }
@@ -784,7 +784,7 @@ Gura_ImplementMethod(wx_Variant, __IsValueKindOf)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int type = arg.GetNumber(0)
+	//const wxClassInfo* type = arg.GetNumber(0)
 	//pThis->GetEntity()->IsValueKindOf();
 	return Value::Nil;
 }
@@ -825,7 +825,7 @@ Gura_ImplementMethod(wx_Variant, __Member)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//const wxVariant& value = arg.GetNumber(0)
 	//pThis->GetEntity()->Member();
 	return Value::Nil;
 }
@@ -840,7 +840,7 @@ Gura_ImplementMethod(wx_Variant, __SetData)
 {
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//wxVariantData* data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetData();
 	return Value::Nil;
 }

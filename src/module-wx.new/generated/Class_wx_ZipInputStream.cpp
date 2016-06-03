@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__ZipInputStream, "ZipInputStream")
 
 Gura_ImplementFunction(__ZipInputStream)
 {
-	//int stream = arg.GetNumber(0)
-	//int conv = arg.GetNumber(1)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//wxMBConv& conv = arg.GetNumber(1)
 	//wxZipInputStream();
 	return Value::Nil;
 }
@@ -65,8 +65,8 @@ Gura_DeclareFunctionAlias(__ZipInputStream_1, "ZipInputStream_1")
 
 Gura_ImplementFunction(__ZipInputStream_1)
 {
-	//int stream = arg.GetNumber(0)
-	//int conv = arg.GetNumber(1)
+	//wxInputStream* stream = arg.GetNumber(0)
+	//wxMBConv& conv = arg.GetNumber(1)
 	//wxZipInputStream();
 	return Value::Nil;
 }
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_ZipInputStream, __OpenEntry)
 {
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int entry = arg.GetNumber(0)
+	//wxZipEntry& entry = arg.GetNumber(0)
 	//pThis->GetEntity()->OpenEntry();
 	return Value::Nil;
 }

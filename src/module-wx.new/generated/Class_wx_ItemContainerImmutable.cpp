@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __GetString)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//unsigned int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetString();
 	return Value::Nil;
 }
@@ -118,8 +118,8 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __SetString)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int string = arg.GetNumber(1)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString& string = arg.GetNumber(1)
 	//pThis->GetEntity()->SetString();
 	return Value::Nil;
 }
@@ -135,8 +135,8 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __FindString)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
-	//int caseSensitive = arg.GetNumber(1)
+	//const wxString& string = arg.GetNumber(0)
+	//bool caseSensitive = arg.GetNumber(1)
 	//pThis->GetEntity()->FindString();
 	return Value::Nil;
 }
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __SetStringSelection)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
+	//const wxString& string = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStringSelection();
 	return Value::Nil;
 }

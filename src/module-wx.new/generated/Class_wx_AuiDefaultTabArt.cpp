@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetFlags)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//unsigned int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
 }
@@ -92,8 +92,8 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetSizingInfo)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tabCtrlSize = arg.GetNumber(0)
-	//int tabCount = arg.GetNumber(1)
+	//const wxSize& tabCtrlSize = arg.GetNumber(0)
+	//size_t tabCount = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSizingInfo();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetNormalFont)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNormalFont();
 	return Value::Nil;
 }
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetSelectedFont)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSelectedFont();
 	return Value::Nil;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetMeasuringFont)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMeasuringFont();
 	return Value::Nil;
 }
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetColour)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetActiveColour)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetActiveColour();
 	return Value::Nil;
 }
@@ -185,9 +185,9 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __DrawBackground)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawBackground();
 	return Value::Nil;
 }
@@ -209,14 +209,14 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __DrawTab)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int pane = arg.GetNumber(2)
-	//int inRect = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxAuiNotebookPage& pane = arg.GetNumber(2)
+	//const wxRect& inRect = arg.GetNumber(3)
 	//int closeButtonState = arg.GetNumber(4)
-	//int outTabRect = arg.GetNumber(5)
-	//int outButtonRect = arg.GetNumber(6)
-	//int xExtent = arg.GetNumber(7)
+	//wxRect* outTabRect = arg.GetNumber(5)
+	//wxRect* outButtonRect = arg.GetNumber(6)
+	//int* xExtent = arg.GetNumber(7)
 	//pThis->GetEntity()->DrawTab();
 	return Value::Nil;
 }
@@ -237,13 +237,13 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __DrawButton)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int inRect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& inRect = arg.GetNumber(2)
 	//int bitmapId = arg.GetNumber(3)
 	//int buttonState = arg.GetNumber(4)
 	//int orientation = arg.GetNumber(5)
-	//int outRect = arg.GetNumber(6)
+	//wxRect* outRect = arg.GetNumber(6)
 	//pThis->GetEntity()->DrawButton();
 	return Value::Nil;
 }
@@ -277,13 +277,13 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __GetTabSize)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int caption = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int active = arg.GetNumber(4)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxString& caption = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//bool active = arg.GetNumber(4)
 	//int closeButtonState = arg.GetNumber(5)
-	//int xExtent = arg.GetNumber(6)
+	//int* xExtent = arg.GetNumber(6)
 	//pThis->GetEntity()->GetTabSize();
 	return Value::Nil;
 }
@@ -300,8 +300,8 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __ShowDropDown)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int wnd = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
+	//wxWindow* wnd = arg.GetNumber(0)
+	//const wxAuiNotebookPageArray& items = arg.GetNumber(1)
 	//int activeIdx = arg.GetNumber(2)
 	//pThis->GetEntity()->ShowDropDown();
 	return Value::Nil;
@@ -319,9 +319,9 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, __GetBestTabCtrlSize)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int wnd = arg.GetNumber(0)
-	//int pages = arg.GetNumber(1)
-	//int requiredBmpSize = arg.GetNumber(2)
+	//wxWindow* wnd = arg.GetNumber(0)
+	//const wxAuiNotebookPageArray& pages = arg.GetNumber(1)
+	//const wxSize& requiredBmpSize = arg.GetNumber(2)
 	//pThis->GetEntity()->GetBestTabCtrlSize();
 	return Value::Nil;
 }

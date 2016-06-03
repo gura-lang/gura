@@ -50,10 +50,10 @@ Gura_DeclareFunctionAlias(__DropSource, "DropSource")
 
 Gura_ImplementFunction(__DropSource)
 {
-	//int win = arg.GetNumber(0)
-	//int iconCopy = arg.GetNumber(1)
-	//int iconMove = arg.GetNumber(2)
-	//int iconNone = arg.GetNumber(3)
+	//wxWindow* win = arg.GetNumber(0)
+	//const wxCursor& iconCopy = arg.GetNumber(1)
+	//const wxCursor& iconMove = arg.GetNumber(2)
+	//const wxCursor& iconNone = arg.GetNumber(3)
 	//wxDropSource();
 	return Value::Nil;
 }
@@ -72,11 +72,11 @@ Gura_DeclareFunctionAlias(__DropSource_1, "DropSource_1")
 
 Gura_ImplementFunction(__DropSource_1)
 {
-	//int data = arg.GetNumber(0)
-	//int win = arg.GetNumber(1)
-	//int iconCopy = arg.GetNumber(2)
-	//int iconMove = arg.GetNumber(3)
-	//int iconNone = arg.GetNumber(4)
+	//wxDataObject& data = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(1)
+	//const wxCursor& iconCopy = arg.GetNumber(2)
+	//const wxCursor& iconMove = arg.GetNumber(3)
+	//const wxCursor& iconNone = arg.GetNumber(4)
 	//wxDropSource();
 	return Value::Nil;
 }
@@ -94,10 +94,10 @@ Gura_DeclareFunctionAlias(__DropSource_2, "DropSource_2")
 
 Gura_ImplementFunction(__DropSource_2)
 {
-	//int win = arg.GetNumber(0)
-	//int iconCopy = arg.GetNumber(1)
-	//int iconMove = arg.GetNumber(2)
-	//int iconNone = arg.GetNumber(3)
+	//wxWindow* win = arg.GetNumber(0)
+	//const wxIcon& iconCopy = arg.GetNumber(1)
+	//const wxIcon& iconMove = arg.GetNumber(2)
+	//const wxIcon& iconNone = arg.GetNumber(3)
 	//wxDropSource();
 	return Value::Nil;
 }
@@ -116,11 +116,11 @@ Gura_DeclareFunctionAlias(__DropSource_3, "DropSource_3")
 
 Gura_ImplementFunction(__DropSource_3)
 {
-	//int data = arg.GetNumber(0)
-	//int win = arg.GetNumber(1)
-	//int iconCopy = arg.GetNumber(2)
-	//int iconMove = arg.GetNumber(3)
-	//int iconNone = arg.GetNumber(4)
+	//wxDataObject& data = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(1)
+	//const wxIcon& iconCopy = arg.GetNumber(2)
+	//const wxIcon& iconMove = arg.GetNumber(3)
+	//const wxIcon& iconNone = arg.GetNumber(4)
 	//wxDropSource();
 	return Value::Nil;
 }
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_DropSource, __GiveFeedback)
 {
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int effect = arg.GetNumber(0)
+	//wxDragResult effect = arg.GetNumber(0)
 	//pThis->GetEntity()->GiveFeedback();
 	return Value::Nil;
 }
@@ -182,8 +182,8 @@ Gura_ImplementMethod(wx_DropSource, __SetCursor)
 {
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int res = arg.GetNumber(0)
-	//int cursor = arg.GetNumber(1)
+	//wxDragResult res = arg.GetNumber(0)
+	//const wxCursor& cursor = arg.GetNumber(1)
 	//pThis->GetEntity()->SetCursor();
 	return Value::Nil;
 }
@@ -199,8 +199,8 @@ Gura_ImplementMethod(wx_DropSource, __SetIcon)
 {
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int res = arg.GetNumber(0)
-	//int icon = arg.GetNumber(1)
+	//wxDragResult res = arg.GetNumber(0)
+	//const wxIcon& icon = arg.GetNumber(1)
 	//pThis->GetEntity()->SetIcon();
 	return Value::Nil;
 }
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_DropSource, __SetData)
 {
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//wxDataObject& data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetData();
 	return Value::Nil;
 }

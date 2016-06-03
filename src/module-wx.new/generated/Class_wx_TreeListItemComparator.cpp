@@ -66,10 +66,10 @@ Gura_ImplementMethod(wx_TreeListItemComparator, __Compare)
 {
 	Object_wx_TreeListItemComparator *pThis = Object_wx_TreeListItemComparator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int treelist = arg.GetNumber(0)
-	//int column = arg.GetNumber(1)
-	//int first = arg.GetNumber(2)
-	//int second = arg.GetNumber(3)
+	//wxTreeListCtrl* treelist = arg.GetNumber(0)
+	//unsigned column = arg.GetNumber(1)
+	//wxTreeListItem first = arg.GetNumber(2)
+	//wxTreeListItem second = arg.GetNumber(3)
 	//pThis->GetEntity()->Compare();
 	return Value::Nil;
 }

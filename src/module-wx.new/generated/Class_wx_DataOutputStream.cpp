@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__DataOutputStream, "DataOutputStream")
 
 Gura_ImplementFunction(__DataOutputStream)
 {
-	//int stream = arg.GetNumber(0)
-	//int conv = arg.GetNumber(1)
+	//wxOutputStream& stream = arg.GetNumber(0)
+	//const wxMBConv& conv = arg.GetNumber(1)
 	//wxDataOutputStream();
 	return Value::Nil;
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_DataOutputStream, __BigEndianOrdered)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int be_order = arg.GetNumber(0)
+	//bool be_order = arg.GetNumber(0)
 	//pThis->GetEntity()->BigEndianOrdered();
 	return Value::Nil;
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_DataOutputStream, __SetConv)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int conv = arg.GetNumber(0)
+	//const wxMBConv& conv = arg.GetNumber(0)
 	//pThis->GetEntity()->SetConv();
 	return Value::Nil;
 }
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_DataOutputStream, __Write8)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int i8 = arg.GetNumber(0)
+	//wxUint8 i8 = arg.GetNumber(0)
 	//pThis->GetEntity()->Write8();
 	return Value::Nil;
 }
@@ -152,8 +152,8 @@ Gura_ImplementMethod(wx_DataOutputStream, __Write8_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const wxUint8* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Write8();
 	return Value::Nil;
 }
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_DataOutputStream, __Write16)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int i16 = arg.GetNumber(0)
+	//wxUint16 i16 = arg.GetNumber(0)
 	//pThis->GetEntity()->Write16();
 	return Value::Nil;
 }
@@ -184,8 +184,8 @@ Gura_ImplementMethod(wx_DataOutputStream, __Write16_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const wxUint16* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Write16();
 	return Value::Nil;
 }
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_DataOutputStream, __Write32)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int i32 = arg.GetNumber(0)
+	//wxUint32 i32 = arg.GetNumber(0)
 	//pThis->GetEntity()->Write32();
 	return Value::Nil;
 }
@@ -216,8 +216,8 @@ Gura_ImplementMethod(wx_DataOutputStream, __Write32_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const wxUint32* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Write32();
 	return Value::Nil;
 }
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_DataOutputStream, __Write64)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int i64 = arg.GetNumber(0)
+	//wxUint64 i64 = arg.GetNumber(0)
 	//pThis->GetEntity()->Write64();
 	return Value::Nil;
 }
@@ -248,8 +248,8 @@ Gura_ImplementMethod(wx_DataOutputStream, __Write64_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const wxUint64* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Write64();
 	return Value::Nil;
 }
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_DataOutputStream, __WriteFloat)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int f = arg.GetNumber(0)
+	//float f = arg.GetNumber(0)
 	//pThis->GetEntity()->WriteFloat();
 	return Value::Nil;
 }
@@ -280,8 +280,8 @@ Gura_ImplementMethod(wx_DataOutputStream, __WriteFloat_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const float* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->WriteFloat();
 	return Value::Nil;
 }
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_DataOutputStream, __WriteDouble)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int d = arg.GetNumber(0)
+	//double d = arg.GetNumber(0)
 	//pThis->GetEntity()->WriteDouble();
 	return Value::Nil;
 }
@@ -312,8 +312,8 @@ Gura_ImplementMethod(wx_DataOutputStream, __WriteDouble_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const double* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->WriteDouble();
 	return Value::Nil;
 }
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_DataOutputStream, __WriteString)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
+	//const wxString& string = arg.GetNumber(0)
 	//pThis->GetEntity()->WriteString();
 	return Value::Nil;
 }

@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_MessageDialog, __ButtonLabel_1)
 {
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
+	//const wxString& label = arg.GetNumber(0)
 	//pThis->GetEntity()->ButtonLabel();
 	return Value::Nil;
 }

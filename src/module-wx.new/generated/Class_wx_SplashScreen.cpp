@@ -54,14 +54,14 @@ Gura_DeclareFunctionAlias(__SplashScreen, "SplashScreen")
 
 Gura_ImplementFunction(__SplashScreen)
 {
-	//int bitmap = arg.GetNumber(0)
-	//int splashStyle = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
+	//long splashStyle = arg.GetNumber(1)
 	//int milliseconds = arg.GetNumber(2)
-	//int parent = arg.GetNumber(3)
-	//int id = arg.GetNumber(4)
-	//int pos = arg.GetNumber(5)
-	//int size = arg.GetNumber(6)
-	//int style = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(3)
+	//wxWindowID id = arg.GetNumber(4)
+	//const wxPoint& pos = arg.GetNumber(5)
+	//const wxSize& size = arg.GetNumber(6)
+	//long style = arg.GetNumber(7)
 	//wxSplashScreen();
 	return Value::Nil;
 }
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_SplashScreen, __OnCloseWindow)
 {
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxCloseEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->OnCloseWindow();
 	return Value::Nil;
 }

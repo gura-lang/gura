@@ -67,14 +67,14 @@ Gura_DeclareFunctionAlias(__WebKitCtrl_1, "WebKitCtrl_1")
 
 Gura_ImplementFunction(__WebKitCtrl_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int winid = arg.GetNumber(1)
-	//int strURL = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(1)
+	//const wxString& strURL = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//wxWebKitCtrl();
 	return Value::Nil;
 }
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_WebKitCtrl, __Create)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int winid = arg.GetNumber(1)
-	//int strURL = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(1)
+	//const wxString& strURL = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_WebKitCtrl, __LoadURL)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//pThis->GetEntity()->LoadURL();
 	return Value::Nil;
 }
@@ -241,8 +241,8 @@ Gura_ImplementMethod(wx_WebKitCtrl, __SetPageSource)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int source = arg.GetNumber(0)
-	//int baseUrl = arg.GetNumber(1)
+	//const wxString& source = arg.GetNumber(0)
+	//const wxString& baseUrl = arg.GetNumber(1)
 	//pThis->GetEntity()->SetPageSource();
 	return Value::Nil;
 }
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_WebKitCtrl, __SetPageTitle)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPageTitle();
 	return Value::Nil;
 }
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_WebKitCtrl, __SetTitle)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitle();
 	return Value::Nil;
 }
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_WebKitCtrl, __Print)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int showPrompt = arg.GetNumber(0)
+	//bool showPrompt = arg.GetNumber(0)
 	//pThis->GetEntity()->Print();
 	return Value::Nil;
 }
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_WebKitCtrl, __MakeEditable)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->MakeEditable();
 	return Value::Nil;
 }
@@ -434,7 +434,7 @@ Gura_ImplementMethod(wx_WebKitCtrl, __RunScript)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int javascript = arg.GetNumber(0)
+	//const wxString& javascript = arg.GetNumber(0)
 	//pThis->GetEntity()->RunScript();
 	return Value::Nil;
 }

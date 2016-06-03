@@ -76,10 +76,10 @@ Gura_ImplementMethod(wx_DialUpManager, __Dial)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nameOfISP = arg.GetNumber(0)
-	//int username = arg.GetNumber(1)
-	//int password = arg.GetNumber(2)
-	//int async = arg.GetNumber(3)
+	//const wxString& nameOfISP = arg.GetNumber(0)
+	//const wxString& username = arg.GetNumber(1)
+	//const wxString& password = arg.GetNumber(2)
+	//bool async = arg.GetNumber(3)
 	//pThis->GetEntity()->Dial();
 	return Value::Nil;
 }
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DialUpManager, __EnableAutoCheckOnlineStatus)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nSeconds = arg.GetNumber(0)
+	//size_t nSeconds = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableAutoCheckOnlineStatus();
 	return Value::Nil;
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_DialUpManager, __GetISPNames)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int names = arg.GetNumber(0)
+	//wxArrayString& names = arg.GetNumber(0)
 	//pThis->GetEntity()->GetISPNames();
 	return Value::Nil;
 }
@@ -203,8 +203,8 @@ Gura_ImplementMethod(wx_DialUpManager, __SetConnectCommand)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int commandDial = arg.GetNumber(0)
-	//int commandHangup = arg.GetNumber(1)
+	//const wxString& commandDial = arg.GetNumber(0)
+	//const wxString& commandHangup = arg.GetNumber(1)
 	//pThis->GetEntity()->SetConnectCommand();
 	return Value::Nil;
 }
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_DialUpManager, __SetOnlineStatus)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int isOnline = arg.GetNumber(0)
+	//bool isOnline = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOnlineStatus();
 	return Value::Nil;
 }
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_DialUpManager, __SetWellKnownHost)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int hostname = arg.GetNumber(0)
+	//const wxString& hostname = arg.GetNumber(0)
 	//int portno = arg.GetNumber(1)
 	//pThis->GetEntity()->SetWellKnownHost();
 	return Value::Nil;

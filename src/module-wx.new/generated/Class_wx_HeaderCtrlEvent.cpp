@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__HeaderCtrlEvent, "HeaderCtrlEvent")
 
 Gura_ImplementFunction(__HeaderCtrlEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//wxHeaderCtrlEvent();
 	return Value::Nil;
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__HeaderCtrlEvent_1, "HeaderCtrlEvent_1")
 
 Gura_ImplementFunction(__HeaderCtrlEvent_1)
 {
-	//int event = arg.GetNumber(0)
+	//const wxHeaderCtrlEvent& event = arg.GetNumber(0)
 	//wxHeaderCtrlEvent();
 	return Value::Nil;
 }
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, __SetNewOrder)
 {
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int order = arg.GetNumber(0)
+	//unsigned int order = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNewOrder();
 	return Value::Nil;
 }

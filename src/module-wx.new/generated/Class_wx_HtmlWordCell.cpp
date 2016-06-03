@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__HtmlWordCell, "HtmlWordCell")
 
 Gura_ImplementFunction(__HtmlWordCell)
 {
-	//int word = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
+	//const wxString& word = arg.GetNumber(0)
+	//const wxDC& dc = arg.GetNumber(1)
 	//wxHtmlWordCell();
 	return Value::Nil;
 }

@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__TaskBarJumpListCategory, "TaskBarJumpListCategory")
 
 Gura_ImplementFunction(__TaskBarJumpListCategory)
 {
-	//int parent = arg.GetNumber(0)
-	//int title = arg.GetNumber(1)
+	//wxTaskBarJumpList* parent = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(1)
 	//wxTaskBarJumpListCategory();
 	return Value::Nil;
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_TaskBarJumpListCategory, __Append)
 {
 	Object_wx_TaskBarJumpListCategory *pThis = Object_wx_TaskBarJumpListCategory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTaskBarJumpListItem* item = arg.GetNumber(0)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_TaskBarJumpListCategory, __Delete)
 {
 	Object_wx_TaskBarJumpListCategory *pThis = Object_wx_TaskBarJumpListCategory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTaskBarJumpListItem* item = arg.GetNumber(0)
 	//pThis->GetEntity()->Delete();
 	return Value::Nil;
 }
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_TaskBarJumpListCategory, __Remove)
 {
 	Object_wx_TaskBarJumpListCategory *pThis = Object_wx_TaskBarJumpListCategory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTaskBarJumpListItem* item = arg.GetNumber(0)
 	//pThis->GetEntity()->Remove();
 	return Value::Nil;
 }
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_TaskBarJumpListCategory, __FindItemByPosition)
 {
 	Object_wx_TaskBarJumpListCategory *pThis = Object_wx_TaskBarJumpListCategory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//pThis->GetEntity()->FindItemByPosition();
 	return Value::Nil;
 }
@@ -128,8 +128,8 @@ Gura_ImplementMethod(wx_TaskBarJumpListCategory, __Insert)
 {
 	Object_wx_TaskBarJumpListCategory *pThis = Object_wx_TaskBarJumpListCategory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
+	//size_t pos = arg.GetNumber(0)
+	//wxTaskBarJumpListItem* item = arg.GetNumber(1)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_TaskBarJumpListCategory, __Prepend)
 {
 	Object_wx_TaskBarJumpListCategory *pThis = Object_wx_TaskBarJumpListCategory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxTaskBarJumpListItem* item = arg.GetNumber(0)
 	//pThis->GetEntity()->Prepend();
 	return Value::Nil;
 }
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_TaskBarJumpListCategory, __SetTitle)
 {
 	Object_wx_TaskBarJumpListCategory *pThis = Object_wx_TaskBarJumpListCategory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitle();
 	return Value::Nil;
 }

@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__PrintPreview, "PrintPreview")
 
 Gura_ImplementFunction(__PrintPreview)
 {
-	//int printout = arg.GetNumber(0)
-	//int printoutForPrinting = arg.GetNumber(1)
-	//int data = arg.GetNumber(2)
+	//wxPrintout* printout = arg.GetNumber(0)
+	//wxPrintout* printoutForPrinting = arg.GetNumber(1)
+	//wxPrintDialogData* data = arg.GetNumber(2)
 	//wxPrintPreview();
 	return Value::Nil;
 }
@@ -68,9 +68,9 @@ Gura_DeclareFunctionAlias(__PrintPreview_1, "PrintPreview_1")
 
 Gura_ImplementFunction(__PrintPreview_1)
 {
-	//int printout = arg.GetNumber(0)
-	//int printoutForPrinting = arg.GetNumber(1)
-	//int data = arg.GetNumber(2)
+	//wxPrintout* printout = arg.GetNumber(0)
+	//wxPrintout* printoutForPrinting = arg.GetNumber(1)
+	//wxPrintData* data = arg.GetNumber(2)
 	//wxPrintPreview();
 	return Value::Nil;
 }
@@ -193,8 +193,8 @@ Gura_ImplementMethod(wx_PrintPreview, __PaintPage)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int canvas = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
+	//wxPreviewCanvas* canvas = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
 	//pThis->GetEntity()->PaintPage();
 	return Value::Nil;
 }
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_PrintPreview, __Print)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int prompt = arg.GetNumber(0)
+	//bool prompt = arg.GetNumber(0)
 	//pThis->GetEntity()->Print();
 	return Value::Nil;
 }
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_PrintPreview, __SetCanvas)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxPreviewCanvas* window = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCanvas();
 	return Value::Nil;
 }
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_PrintPreview, __SetFrame)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int frame = arg.GetNumber(0)
+	//wxFrame* frame = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFrame();
 	return Value::Nil;
 }
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_PrintPreview, __SetPrintout)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int printout = arg.GetNumber(0)
+	//wxPrintout* printout = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPrintout();
 	return Value::Nil;
 }

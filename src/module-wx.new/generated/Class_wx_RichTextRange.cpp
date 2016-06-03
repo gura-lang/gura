@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__RichTextRange_1, "RichTextRange_1")
 
 Gura_ImplementFunction(__RichTextRange_1)
 {
-	//int start = arg.GetNumber(0)
-	//int end = arg.GetNumber(1)
+	//long start = arg.GetNumber(0)
+	//long end = arg.GetNumber(1)
 	//wxRichTextRange();
 	return Value::Nil;
 }
@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__RichTextRange_2, "RichTextRange_2")
 
 Gura_ImplementFunction(__RichTextRange_2)
 {
-	//int range = arg.GetNumber(0)
+	//const wxRichTextRange& range = arg.GetNumber(0)
 	//wxRichTextRange();
 	return Value::Nil;
 }
@@ -96,8 +96,8 @@ Gura_ImplementMethod(wx_RichTextRange, __SetRange)
 {
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int start = arg.GetNumber(0)
-	//int end = arg.GetNumber(1)
+	//long start = arg.GetNumber(0)
+	//long end = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRange();
 	return Value::Nil;
 }
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_RichTextRange, __SetStart)
 {
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int start = arg.GetNumber(0)
+	//long start = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStart();
 	return Value::Nil;
 }
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_RichTextRange, __SetEnd)
 {
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int end = arg.GetNumber(0)
+	//long end = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEnd();
 	return Value::Nil;
 }
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_RichTextRange, __IsOutside)
 {
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int range = arg.GetNumber(0)
+	//const wxRichTextRange& range = arg.GetNumber(0)
 	//pThis->GetEntity()->IsOutside();
 	return Value::Nil;
 }
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_RichTextRange, __IsWithin)
 {
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int range = arg.GetNumber(0)
+	//const wxRichTextRange& range = arg.GetNumber(0)
 	//pThis->GetEntity()->IsWithin();
 	return Value::Nil;
 }
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_RichTextRange, __Contains)
 {
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//long pos = arg.GetNumber(0)
 	//pThis->GetEntity()->Contains();
 	return Value::Nil;
 }
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_RichTextRange, __LimitTo)
 {
 	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int range = arg.GetNumber(0)
+	//const wxRichTextRange& range = arg.GetNumber(0)
 	//pThis->GetEntity()->LimitTo();
 	return Value::Nil;
 }

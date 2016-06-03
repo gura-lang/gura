@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__WindowDestroyEvent, "WindowDestroyEvent")
 
 Gura_ImplementFunction(__WindowDestroyEvent)
 {
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//wxWindowDestroyEvent();
 	return Value::Nil;
 }

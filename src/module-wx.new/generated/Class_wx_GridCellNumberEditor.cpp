@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, __SetParameters)
 {
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int params = arg.GetNumber(0)
+	//const wxString& params = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParameters();
 	return Value::Nil;
 }

@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, __wxScopedPtr)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptr = arg.GetNumber(0)
+	//T* ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->wxScopedPtr();
 	return Value::Nil;
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, __reset)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptr = arg.GetNumber(0)
+	//T* ptr = arg.GetNumber(0)
 	//pThis->GetEntity()->reset();
 	return Value::Nil;
 }
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, __swap)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ot = arg.GetNumber(0)
+	//wxScopedPtr<T>& ot = arg.GetNumber(0)
 	//pThis->GetEntity()->swap();
 	return Value::Nil;
 }

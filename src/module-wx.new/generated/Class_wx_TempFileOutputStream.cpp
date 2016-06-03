@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__TempFileOutputStream, "TempFileOutputStream")
 
 Gura_ImplementFunction(__TempFileOutputStream)
 {
-	//int fileName = arg.GetNumber(0)
+	//const wxString& fileName = arg.GetNumber(0)
 	//wxTempFileOutputStream();
 	return Value::Nil;
 }

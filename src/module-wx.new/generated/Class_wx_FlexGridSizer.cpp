@@ -59,20 +59,16 @@ Gura_ImplementFunction(__FlexGridSizer)
 Gura_DeclareFunctionAlias(__FlexGridSizer_1, "FlexGridSizer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FlexGridSizer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(__FlexGridSizer_1)
 {
-	//int rows = arg.GetNumber(0)
-	//int cols = arg.GetNumber(1)
-	//int vgap = arg.GetNumber(2)
-	//int hgap = arg.GetNumber(3)
+	//int cols = arg.GetNumber(0)
+	//const wxSize& gap = arg.GetNumber(1)
 	//wxFlexGridSizer();
 	return Value::Nil;
 }
@@ -82,7 +78,8 @@ Gura_DeclareFunctionAlias(__FlexGridSizer_2, "FlexGridSizer_2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FlexGridSizer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -91,7 +88,27 @@ Gura_ImplementFunction(__FlexGridSizer_2)
 {
 	//int rows = arg.GetNumber(0)
 	//int cols = arg.GetNumber(1)
-	//int gap = arg.GetNumber(2)
+	//int vgap = arg.GetNumber(2)
+	//int hgap = arg.GetNumber(3)
+	//wxFlexGridSizer();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__FlexGridSizer_3, "FlexGridSizer_3")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
+	SetClassToConstruct(Gura_UserClass(wx_FlexGridSizer));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(__FlexGridSizer_3)
+{
+	//int rows = arg.GetNumber(0)
+	//int cols = arg.GetNumber(1)
+	//const wxSize& gap = arg.GetNumber(2)
 	//wxFlexGridSizer();
 	return Value::Nil;
 }
@@ -110,7 +127,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, __AddGrowableCol)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//size_t idx = arg.GetNumber(0)
 	//int proportion = arg.GetNumber(1)
 	//pThis->GetEntity()->AddGrowableCol();
 	return Value::Nil;
@@ -127,7 +144,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, __AddGrowableRow)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//size_t idx = arg.GetNumber(0)
 	//int proportion = arg.GetNumber(1)
 	//pThis->GetEntity()->AddGrowableRow();
 	return Value::Nil;
@@ -169,7 +186,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, __IsColGrowable)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//size_t idx = arg.GetNumber(0)
 	//pThis->GetEntity()->IsColGrowable();
 	return Value::Nil;
 }
@@ -184,7 +201,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, __IsRowGrowable)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//size_t idx = arg.GetNumber(0)
 	//pThis->GetEntity()->IsRowGrowable();
 	return Value::Nil;
 }
@@ -199,7 +216,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, __RemoveGrowableCol)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//size_t idx = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveGrowableCol();
 	return Value::Nil;
 }
@@ -214,7 +231,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, __RemoveGrowableRow)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//size_t idx = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveGrowableRow();
 	return Value::Nil;
 }
@@ -244,7 +261,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, __SetNonFlexibleGrowMode)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mode = arg.GetNumber(0)
+	//wxFlexSizerGrowMode mode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNonFlexibleGrowMode();
 	return Value::Nil;
 }
@@ -310,6 +327,7 @@ Gura_ImplementUserInheritableClass(wx_FlexGridSizer)
 	Gura_AssignFunction(__FlexGridSizer);
 	Gura_AssignFunction(__FlexGridSizer_1);
 	Gura_AssignFunction(__FlexGridSizer_2);
+	Gura_AssignFunction(__FlexGridSizer_3);
 	// Method assignment
 	Gura_AssignMethod(wx_FlexGridSizer, __AddGrowableCol);
 	Gura_AssignMethod(wx_FlexGridSizer, __AddGrowableRow);

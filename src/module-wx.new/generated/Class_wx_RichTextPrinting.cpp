@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__RichTextPrinting, "RichTextPrinting")
 
 Gura_ImplementFunction(__RichTextPrinting)
 {
-	//int name = arg.GetNumber(0)
-	//int parentWindow = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//wxWindow* parentWindow = arg.GetNumber(1)
 	//wxRichTextPrinting();
 	return Value::Nil;
 }
@@ -68,8 +68,8 @@ Gura_ImplementMethod(wx_RichTextPrinting, __GetFooterText)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
-	//int location = arg.GetNumber(1)
+	//wxRichTextOddEvenPage page = arg.GetNumber(0)
+	//wxRichTextPageLocation location = arg.GetNumber(1)
 	//pThis->GetEntity()->GetFooterText();
 	return Value::Nil;
 }
@@ -98,8 +98,8 @@ Gura_ImplementMethod(wx_RichTextPrinting, __GetHeaderText)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
-	//int location = arg.GetNumber(1)
+	//wxRichTextOddEvenPage page = arg.GetNumber(0)
+	//wxRichTextPageLocation location = arg.GetNumber(1)
 	//pThis->GetEntity()->GetHeaderText();
 	return Value::Nil;
 }
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __PreviewBuffer)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
+	//const wxRichTextBuffer& buffer = arg.GetNumber(0)
 	//pThis->GetEntity()->PreviewBuffer();
 	return Value::Nil;
 }
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __PreviewFile)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int richTextFile = arg.GetNumber(0)
+	//const wxString& richTextFile = arg.GetNumber(0)
 	//pThis->GetEntity()->PreviewFile();
 	return Value::Nil;
 }
@@ -223,8 +223,8 @@ Gura_ImplementMethod(wx_RichTextPrinting, __PrintBuffer)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int showPrintDialog = arg.GetNumber(1)
+	//const wxRichTextBuffer& buffer = arg.GetNumber(0)
+	//bool showPrintDialog = arg.GetNumber(1)
 	//pThis->GetEntity()->PrintBuffer();
 	return Value::Nil;
 }
@@ -240,8 +240,8 @@ Gura_ImplementMethod(wx_RichTextPrinting, __PrintFile)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int richTextFile = arg.GetNumber(0)
-	//int showPrintDialog = arg.GetNumber(1)
+	//const wxString& richTextFile = arg.GetNumber(0)
+	//bool showPrintDialog = arg.GetNumber(1)
 	//pThis->GetEntity()->PrintFile();
 	return Value::Nil;
 }
@@ -258,9 +258,9 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetFooterText)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int page = arg.GetNumber(1)
-	//int location = arg.GetNumber(2)
+	//const wxString& text = arg.GetNumber(0)
+	//wxRichTextOddEvenPage page = arg.GetNumber(1)
+	//wxRichTextPageLocation location = arg.GetNumber(2)
 	//pThis->GetEntity()->SetFooterText();
 	return Value::Nil;
 }
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetHeaderFooterData)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const wxRichTextHeaderFooterData& data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHeaderFooterData();
 	return Value::Nil;
 }
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetHeaderFooterFont)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHeaderFooterFont();
 	return Value::Nil;
 }
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetHeaderFooterTextColour)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHeaderFooterTextColour();
 	return Value::Nil;
 }
@@ -322,9 +322,9 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetHeaderText)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int page = arg.GetNumber(1)
-	//int location = arg.GetNumber(2)
+	//const wxString& text = arg.GetNumber(0)
+	//wxRichTextOddEvenPage page = arg.GetNumber(1)
+	//wxRichTextPageLocation location = arg.GetNumber(2)
 	//pThis->GetEntity()->SetHeaderText();
 	return Value::Nil;
 }
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetPageSetupData)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pageSetupData = arg.GetNumber(0)
+	//const wxPageSetupDialogData& pageSetupData = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPageSetupData();
 	return Value::Nil;
 }
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetParentWindow)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParentWindow();
 	return Value::Nil;
 }
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetPreviewRect)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPreviewRect();
 	return Value::Nil;
 }
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetPrintData)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int printData = arg.GetNumber(0)
+	//const wxPrintData& printData = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPrintData();
 	return Value::Nil;
 }
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetShowOnFirstPage)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int show = arg.GetNumber(0)
+	//bool show = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShowOnFirstPage();
 	return Value::Nil;
 }
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetTitle)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitle();
 	return Value::Nil;
 }

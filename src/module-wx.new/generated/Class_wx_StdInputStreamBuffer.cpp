@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__StdInputStreamBuffer, "StdInputStreamBuffer")
 
 Gura_ImplementFunction(__StdInputStreamBuffer)
 {
-	//int stream = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(0)
 	//wxStdInputStreamBuffer();
 	return Value::Nil;
 }

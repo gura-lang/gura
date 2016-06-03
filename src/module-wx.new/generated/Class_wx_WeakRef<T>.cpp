@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_WeakRef<T>, __wxWeakRef)
 {
 	Object_wx_WeakRef<T> *pThis = Object_wx_WeakRef<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pobj = arg.GetNumber(0)
+	//T* pobj = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWeakRef();
 	return Value::Nil;
 }
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_WeakRef<T>, __wxWeakRef_1)
 {
 	Object_wx_WeakRef<T> *pThis = Object_wx_WeakRef<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int wr = arg.GetNumber(0)
+	//const wxWeakRef<T>& wr = arg.GetNumber(0)
 	//pThis->GetEntity()->wxWeakRef();
 	return Value::Nil;
 }

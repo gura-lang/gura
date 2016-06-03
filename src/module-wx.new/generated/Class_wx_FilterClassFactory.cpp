@@ -48,8 +48,8 @@ Gura_ImplementMethod(wx_FilterClassFactory, __CanHandle)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int protocol = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
+	//const wxString& protocol = arg.GetNumber(0)
+	//wxStreamProtocolType type = arg.GetNumber(1)
 	//pThis->GetEntity()->CanHandle();
 	return Value::Nil;
 }
@@ -65,8 +65,8 @@ Gura_ImplementMethod(wx_FilterClassFactory, __Find)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int protocol = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
+	//const wxString& protocol = arg.GetNumber(0)
+	//wxStreamProtocolType type = arg.GetNumber(1)
 	//pThis->GetEntity()->Find();
 	return Value::Nil;
 }
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, __GetProtocols)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int type = arg.GetNumber(0)
+	//wxStreamProtocolType type = arg.GetNumber(0)
 	//pThis->GetEntity()->GetProtocols();
 	return Value::Nil;
 }
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, __NewStream)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(0)
 	//pThis->GetEntity()->NewStream();
 	return Value::Nil;
 }
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, __NewStream_1)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxOutputStream& stream = arg.GetNumber(0)
 	//pThis->GetEntity()->NewStream();
 	return Value::Nil;
 }
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, __NewStream_2)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxInputStream* stream = arg.GetNumber(0)
 	//pThis->GetEntity()->NewStream();
 	return Value::Nil;
 }
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, __NewStream_3)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxOutputStream* stream = arg.GetNumber(0)
 	//pThis->GetEntity()->NewStream();
 	return Value::Nil;
 }
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_FilterClassFactory, __PopExtension)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int location = arg.GetNumber(0)
+	//const wxString& location = arg.GetNumber(0)
 	//pThis->GetEntity()->PopExtension();
 	return Value::Nil;
 }

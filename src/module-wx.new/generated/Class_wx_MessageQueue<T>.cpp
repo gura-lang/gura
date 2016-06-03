@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_MessageQueue<T>, __Post)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int msg = arg.GetNumber(0)
+	//T const& msg = arg.GetNumber(0)
 	//pThis->GetEntity()->Post();
 	return Value::Nil;
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_MessageQueue<T>, __Receive)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int msg = arg.GetNumber(0)
+	//T& msg = arg.GetNumber(0)
 	//pThis->GetEntity()->Receive();
 	return Value::Nil;
 }
@@ -117,8 +117,8 @@ Gura_ImplementMethod(wx_MessageQueue<T>, __ReceiveTimeout)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int timeout = arg.GetNumber(0)
-	//int msg = arg.GetNumber(1)
+	//long timeout = arg.GetNumber(0)
+	//T& msg = arg.GetNumber(1)
 	//pThis->GetEntity()->ReceiveTimeout();
 	return Value::Nil;
 }

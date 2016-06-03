@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__PrinterDC, "PrinterDC")
 
 Gura_ImplementFunction(__PrinterDC)
 {
-	//int printData = arg.GetNumber(0)
+	//const wxPrintData& printData = arg.GetNumber(0)
 	//wxPrinterDC();
 	return Value::Nil;
 }

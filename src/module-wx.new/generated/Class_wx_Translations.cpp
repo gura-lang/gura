@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_Translations, __Set)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int t = arg.GetNumber(0)
+	//wxTranslations* t = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_Translations, __SetLoader)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int loader = arg.GetNumber(0)
+	//wxTranslationsLoader* loader = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLoader();
 	return Value::Nil;
 }
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_Translations, __SetLanguage)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int lang = arg.GetNumber(0)
+	//wxLanguage lang = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLanguage();
 	return Value::Nil;
 }
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_Translations, __SetLanguage_1)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int lang = arg.GetNumber(0)
+	//const wxString& lang = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLanguage();
 	return Value::Nil;
 }
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_Translations, __GetAvailableTranslations)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int domain = arg.GetNumber(0)
+	//const wxString& domain = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAvailableTranslations();
 	return Value::Nil;
 }
@@ -152,8 +152,8 @@ Gura_ImplementMethod(wx_Translations, __GetBestTranslation)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int domain = arg.GetNumber(0)
-	//int msgIdLanguage = arg.GetNumber(1)
+	//const wxString& domain = arg.GetNumber(0)
+	//wxLanguage msgIdLanguage = arg.GetNumber(1)
 	//pThis->GetEntity()->GetBestTranslation();
 	return Value::Nil;
 }
@@ -169,8 +169,8 @@ Gura_ImplementMethod(wx_Translations, __GetBestTranslation_1)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int domain = arg.GetNumber(0)
-	//int msgIdLanguage = arg.GetNumber(1)
+	//const wxString& domain = arg.GetNumber(0)
+	//const wxString& msgIdLanguage = arg.GetNumber(1)
 	//pThis->GetEntity()->GetBestTranslation();
 	return Value::Nil;
 }
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_Translations, __AddCatalog)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int domain = arg.GetNumber(0)
+	//const wxString& domain = arg.GetNumber(0)
 	//pThis->GetEntity()->AddCatalog();
 	return Value::Nil;
 }
@@ -214,8 +214,8 @@ Gura_ImplementMethod(wx_Translations, __AddCatalog_1)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int domain = arg.GetNumber(0)
-	//int msgIdLanguage = arg.GetNumber(1)
+	//const wxString& domain = arg.GetNumber(0)
+	//wxLanguage msgIdLanguage = arg.GetNumber(1)
 	//pThis->GetEntity()->AddCatalog();
 	return Value::Nil;
 }
@@ -232,9 +232,9 @@ Gura_ImplementMethod(wx_Translations, __AddCatalog_2)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int domain = arg.GetNumber(0)
-	//int msgIdLanguage = arg.GetNumber(1)
-	//int msgIdCharset = arg.GetNumber(2)
+	//const wxString& domain = arg.GetNumber(0)
+	//wxLanguage msgIdLanguage = arg.GetNumber(1)
+	//const wxString& msgIdCharset = arg.GetNumber(2)
 	//pThis->GetEntity()->AddCatalog();
 	return Value::Nil;
 }
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_Translations, __IsLoaded)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int domain = arg.GetNumber(0)
+	//const wxString& domain = arg.GetNumber(0)
 	//pThis->GetEntity()->IsLoaded();
 	return Value::Nil;
 }
@@ -265,8 +265,8 @@ Gura_ImplementMethod(wx_Translations, __GetTranslatedString)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int origString = arg.GetNumber(0)
-	//int domain = arg.GetNumber(1)
+	//const wxString& origString = arg.GetNumber(0)
+	//const wxString& domain = arg.GetNumber(1)
 	//pThis->GetEntity()->GetTranslatedString();
 	return Value::Nil;
 }
@@ -283,9 +283,9 @@ Gura_ImplementMethod(wx_Translations, __GetTranslatedString_1)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int origString = arg.GetNumber(0)
-	//int n = arg.GetNumber(1)
-	//int domain = arg.GetNumber(2)
+	//const wxString& origString = arg.GetNumber(0)
+	//unsigned n = arg.GetNumber(1)
+	//const wxString& domain = arg.GetNumber(2)
 	//pThis->GetEntity()->GetTranslatedString();
 	return Value::Nil;
 }
@@ -301,8 +301,8 @@ Gura_ImplementMethod(wx_Translations, __GetHeaderValue)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int header = arg.GetNumber(0)
-	//int domain = arg.GetNumber(1)
+	//const wxString& header = arg.GetNumber(0)
+	//const wxString& domain = arg.GetNumber(1)
 	//pThis->GetEntity()->GetHeaderValue();
 	return Value::Nil;
 }

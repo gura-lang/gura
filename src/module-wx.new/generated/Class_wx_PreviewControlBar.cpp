@@ -53,13 +53,13 @@ Gura_DeclareFunctionAlias(__PreviewControlBar, "PreviewControlBar")
 
 Gura_ImplementFunction(__PreviewControlBar)
 {
-	//int preview = arg.GetNumber(0)
-	//int buttons = arg.GetNumber(1)
-	//int parent = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxPrintPreview* preview = arg.GetNumber(0)
+	//long buttons = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxPreviewControlBar();
 	return Value::Nil;
 }

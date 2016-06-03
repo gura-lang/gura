@@ -59,7 +59,7 @@ Gura_DeclareFunctionAlias(__BitmapComboBox_1, "BitmapComboBox_1")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg6", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -69,16 +69,16 @@ Gura_DeclareFunctionAlias(__BitmapComboBox_1, "BitmapComboBox_1")
 
 Gura_ImplementFunction(__BitmapComboBox_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
 	//int n = arg.GetNumber(5)
-	//int choices = arg.GetNumber(6)
-	//int style = arg.GetNumber(7)
-	//int validator = arg.GetNumber(8)
-	//int name = arg.GetNumber(9)
+	//const wxString choices[] _arg6 = arg.GetNumber(6)
+	//long style = arg.GetNumber(7)
+	//const wxValidator& validator = arg.GetNumber(8)
+	//const wxString& name = arg.GetNumber(9)
 	//wxBitmapComboBox();
 	return Value::Nil;
 }
@@ -101,15 +101,15 @@ Gura_DeclareFunctionAlias(__BitmapComboBox_2, "BitmapComboBox_2")
 
 Gura_ImplementFunction(__BitmapComboBox_2)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int choices = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int validator = arg.GetNumber(7)
-	//int name = arg.GetNumber(8)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//const wxArrayString& choices = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxValidator& validator = arg.GetNumber(7)
+	//const wxString& name = arg.GetNumber(8)
 	//wxBitmapComboBox();
 	return Value::Nil;
 }
@@ -128,8 +128,8 @@ Gura_ImplementMethod(wx_BitmapComboBox, __Append)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -146,9 +146,9 @@ Gura_ImplementMethod(wx_BitmapComboBox, __Append_1)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int clientData = arg.GetNumber(2)
+	//const wxString& item = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//void* clientData = arg.GetNumber(2)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -165,9 +165,9 @@ Gura_ImplementMethod(wx_BitmapComboBox, __Append_2)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int clientData = arg.GetNumber(2)
+	//const wxString& item = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//wxClientData* clientData = arg.GetNumber(2)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -191,16 +191,16 @@ Gura_ImplementMethod(wx_BitmapComboBox, __Create)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
 	//int n = arg.GetNumber(5)
-	//int choices = arg.GetNumber(6)
-	//int style = arg.GetNumber(7)
-	//int validator = arg.GetNumber(8)
-	//int name = arg.GetNumber(9)
+	//const wxString choices = arg.GetNumber(6)
+	//long style = arg.GetNumber(7)
+	//const wxValidator& validator = arg.GetNumber(8)
+	//const wxString& name = arg.GetNumber(9)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -223,15 +223,15 @@ Gura_ImplementMethod(wx_BitmapComboBox, __Create_1)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int choices = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int validator = arg.GetNumber(7)
-	//int name = arg.GetNumber(8)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//const wxArrayString& choices = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxValidator& validator = arg.GetNumber(7)
+	//const wxString& name = arg.GetNumber(8)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, __GetItemBitmap)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//unsigned int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemBitmap();
 	return Value::Nil;
 }
@@ -276,9 +276,9 @@ Gura_ImplementMethod(wx_BitmapComboBox, __Insert)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
+	//const wxString& item = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//unsigned int pos = arg.GetNumber(2)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -296,10 +296,10 @@ Gura_ImplementMethod(wx_BitmapComboBox, __Insert_1)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int clientData = arg.GetNumber(3)
+	//const wxString& item = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//unsigned int pos = arg.GetNumber(2)
+	//void* clientData = arg.GetNumber(3)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -317,10 +317,10 @@ Gura_ImplementMethod(wx_BitmapComboBox, __Insert_2)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int clientData = arg.GetNumber(3)
+	//const wxString& item = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//unsigned int pos = arg.GetNumber(2)
+	//wxClientData* clientData = arg.GetNumber(3)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -336,8 +336,8 @@ Gura_ImplementMethod(wx_BitmapComboBox, __SetItemBitmap)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemBitmap();
 	return Value::Nil;
 }

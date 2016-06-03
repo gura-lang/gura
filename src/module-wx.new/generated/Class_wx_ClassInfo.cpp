@@ -51,11 +51,11 @@ Gura_DeclareFunctionAlias(__ClassInfo, "ClassInfo")
 
 Gura_ImplementFunction(__ClassInfo)
 {
-	//int className = arg.GetNumber(0)
-	//int baseClass1 = arg.GetNumber(1)
-	//int baseClass2 = arg.GetNumber(2)
+	//const wxChar* className = arg.GetNumber(0)
+	//const wxClassInfo* baseClass1 = arg.GetNumber(1)
+	//const wxClassInfo* baseClass2 = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
-	//int fn = arg.GetNumber(4)
+	//wxObjectConstructorFn fn = arg.GetNumber(4)
 	//wxClassInfo();
 	return Value::Nil;
 }
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_ClassInfo, __FindClass)
 {
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int className = arg.GetNumber(0)
+	//const wxString& className = arg.GetNumber(0)
 	//pThis->GetEntity()->FindClass();
 	return Value::Nil;
 }
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_ClassInfo, __IsKindOf)
 {
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int info = arg.GetNumber(0)
+	//const wxClassInfo* info = arg.GetNumber(0)
 	//pThis->GetEntity()->IsKindOf();
 	return Value::Nil;
 }

@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__ContextMenuEvent, "ContextMenuEvent")
 
 Gura_ImplementFunction(__ContextMenuEvent)
 {
-	//int type = arg.GetNumber(0)
+	//wxEventType type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(2)
 	//wxContextMenuEvent();
 	return Value::Nil;
 }
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_ContextMenuEvent, __SetPosition)
 {
 	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int point = arg.GetNumber(0)
+	//const wxPoint& point = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;
 }

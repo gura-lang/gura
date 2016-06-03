@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__PopupWindow_1, "PopupWindow_1")
 
 Gura_ImplementFunction(__PopupWindow_1)
 {
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//wxPopupWindow();
 	return Value::Nil;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_PopupWindow, __Create)
 {
 	Object_wx_PopupWindow *pThis = Object_wx_PopupWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -98,8 +98,8 @@ Gura_ImplementMethod(wx_PopupWindow, __Position)
 {
 	Object_wx_PopupWindow *pThis = Object_wx_PopupWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ptOrigin = arg.GetNumber(0)
-	//int sizePopup = arg.GetNumber(1)
+	//const wxPoint& ptOrigin = arg.GetNumber(0)
+	//const wxSize& sizePopup = arg.GetNumber(1)
 	//pThis->GetEntity()->Position();
 	return Value::Nil;
 }

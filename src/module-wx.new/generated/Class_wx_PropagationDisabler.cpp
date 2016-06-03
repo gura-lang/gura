@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__PropagationDisabler, "PropagationDisabler")
 
 Gura_ImplementFunction(__PropagationDisabler)
 {
-	//int event = arg.GetNumber(0)
+	//wxEvent& event = arg.GetNumber(0)
 	//wxPropagationDisabler();
 	return Value::Nil;
 }

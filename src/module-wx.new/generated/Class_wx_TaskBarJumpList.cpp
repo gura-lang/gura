@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__TaskBarJumpList, "TaskBarJumpList")
 
 Gura_ImplementFunction(__TaskBarJumpList)
 {
-	//int appID = arg.GetNumber(0)
+	//const wxString& appID = arg.GetNumber(0)
 	//wxTaskBarJumpList();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __ShowRecentCategory)
 {
 	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int shown = arg.GetNumber(0)
+	//bool shown = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowRecentCategory();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __ShowFrequentCategory)
 {
 	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int shown = arg.GetNumber(0)
+	//bool shown = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowFrequentCategory();
 	return Value::Nil;
 }
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __AddCustomCategory)
 {
 	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int category = arg.GetNumber(0)
+	//wxTaskBarJumpListCategory* category = arg.GetNumber(0)
 	//pThis->GetEntity()->AddCustomCategory();
 	return Value::Nil;
 }
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __RemoveCustomCategory)
 {
 	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveCustomCategory();
 	return Value::Nil;
 }
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __DeleteCustomCategory)
 {
 	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteCustomCategory();
 	return Value::Nil;
 }

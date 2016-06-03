@@ -65,12 +65,12 @@ Gura_DeclareFunctionAlias(__HeaderCtrlSimple_1, "HeaderCtrlSimple_1")
 
 Gura_ImplementFunction(__HeaderCtrlSimple_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int winid = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//wxHeaderCtrlSimple();
 	return Value::Nil;
 }
@@ -89,8 +89,8 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __InsertColumn)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
-	//int idx = arg.GetNumber(1)
+	//const wxHeaderColumnSimple& col = arg.GetNumber(0)
+	//unsigned int idx = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertColumn();
 	return Value::Nil;
 }
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __AppendColumn)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//const wxHeaderColumnSimple& col = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendColumn();
 	return Value::Nil;
 }
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __DeleteColumn)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//unsigned int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteColumn();
 	return Value::Nil;
 }
@@ -136,8 +136,8 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __ShowColumn)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
-	//int show = arg.GetNumber(1)
+	//unsigned int idx = arg.GetNumber(0)
+	//bool show = arg.GetNumber(1)
 	//pThis->GetEntity()->ShowColumn();
 	return Value::Nil;
 }
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __HideColumn)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//unsigned int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->HideColumn();
 	return Value::Nil;
 }
@@ -168,8 +168,8 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __ShowSortIndicator)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
-	//int sortOrder = arg.GetNumber(1)
+	//unsigned int idx = arg.GetNumber(0)
+	//bool sortOrder = arg.GetNumber(1)
 	//pThis->GetEntity()->ShowSortIndicator();
 	return Value::Nil;
 }
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __GetBestFittingWidth)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//unsigned int idx = arg.GetNumber(0)
 	//pThis->GetEntity()->GetBestFittingWidth();
 	return Value::Nil;
 }

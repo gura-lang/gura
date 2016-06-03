@@ -50,10 +50,10 @@ Gura_DeclareFunctionAlias(__HtmlWordWithTabsCell, "HtmlWordWithTabsCell")
 
 Gura_ImplementFunction(__HtmlWordWithTabsCell)
 {
-	//int word = arg.GetNumber(0)
-	//int wordOrig = arg.GetNumber(1)
-	//int linepos = arg.GetNumber(2)
-	//int dc = arg.GetNumber(3)
+	//const wxString& word = arg.GetNumber(0)
+	//const wxString& wordOrig = arg.GetNumber(1)
+	//size_t linepos = arg.GetNumber(2)
+	//const wxDC& dc = arg.GetNumber(3)
 	//wxHtmlWordWithTabsCell();
 	return Value::Nil;
 }

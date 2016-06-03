@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_SocketBase, __GetLocal)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int addr = arg.GetNumber(0)
+	//wxSockAddress& addr = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLocal();
 	return Value::Nil;
 }
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_SocketBase, __GetPeer)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int addr = arg.GetNumber(0)
+	//wxSockAddress& addr = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPeer();
 	return Value::Nil;
 }
@@ -354,8 +354,8 @@ Gura_ImplementMethod(wx_SocketBase, __Peek)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int nbytes = arg.GetNumber(1)
+	//void* buffer = arg.GetNumber(0)
+	//wxUint32 nbytes = arg.GetNumber(1)
 	//pThis->GetEntity()->Peek();
 	return Value::Nil;
 }
@@ -371,8 +371,8 @@ Gura_ImplementMethod(wx_SocketBase, __Read)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int nbytes = arg.GetNumber(1)
+	//void* buffer = arg.GetNumber(0)
+	//wxUint32 nbytes = arg.GetNumber(1)
 	//pThis->GetEntity()->Read();
 	return Value::Nil;
 }
@@ -388,8 +388,8 @@ Gura_ImplementMethod(wx_SocketBase, __ReadMsg)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int nbytes = arg.GetNumber(1)
+	//void* buffer = arg.GetNumber(0)
+	//wxUint32 nbytes = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadMsg();
 	return Value::Nil;
 }
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_SocketBase, __SetFlags)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//wxSocketFlags flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
 }
@@ -419,7 +419,7 @@ Gura_ImplementMethod(wx_SocketBase, __SetLocal)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int local = arg.GetNumber(0)
+	//const wxIPV4address& local = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLocal();
 	return Value::Nil;
 }
@@ -434,7 +434,7 @@ Gura_ImplementMethod(wx_SocketBase, __SetTimeout)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int seconds = arg.GetNumber(0)
+	//long seconds = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTimeout();
 	return Value::Nil;
 }
@@ -450,8 +450,8 @@ Gura_ImplementMethod(wx_SocketBase, __Unread)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int nbytes = arg.GetNumber(1)
+	//const void* buffer = arg.GetNumber(0)
+	//wxUint32 nbytes = arg.GetNumber(1)
 	//pThis->GetEntity()->Unread();
 	return Value::Nil;
 }
@@ -467,8 +467,8 @@ Gura_ImplementMethod(wx_SocketBase, __Wait)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int seconds = arg.GetNumber(0)
-	//int millisecond = arg.GetNumber(1)
+	//long seconds = arg.GetNumber(0)
+	//long millisecond = arg.GetNumber(1)
 	//pThis->GetEntity()->Wait();
 	return Value::Nil;
 }
@@ -484,8 +484,8 @@ Gura_ImplementMethod(wx_SocketBase, __WaitForLost)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int seconds = arg.GetNumber(0)
-	//int millisecond = arg.GetNumber(1)
+	//long seconds = arg.GetNumber(0)
+	//long millisecond = arg.GetNumber(1)
 	//pThis->GetEntity()->WaitForLost();
 	return Value::Nil;
 }
@@ -501,8 +501,8 @@ Gura_ImplementMethod(wx_SocketBase, __WaitForRead)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int seconds = arg.GetNumber(0)
-	//int millisecond = arg.GetNumber(1)
+	//long seconds = arg.GetNumber(0)
+	//long millisecond = arg.GetNumber(1)
 	//pThis->GetEntity()->WaitForRead();
 	return Value::Nil;
 }
@@ -518,8 +518,8 @@ Gura_ImplementMethod(wx_SocketBase, __WaitForWrite)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int seconds = arg.GetNumber(0)
-	//int millisecond = arg.GetNumber(1)
+	//long seconds = arg.GetNumber(0)
+	//long millisecond = arg.GetNumber(1)
 	//pThis->GetEntity()->WaitForWrite();
 	return Value::Nil;
 }
@@ -535,8 +535,8 @@ Gura_ImplementMethod(wx_SocketBase, __Write)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int nbytes = arg.GetNumber(1)
+	//const void* buffer = arg.GetNumber(0)
+	//wxUint32 nbytes = arg.GetNumber(1)
 	//pThis->GetEntity()->Write();
 	return Value::Nil;
 }
@@ -552,8 +552,8 @@ Gura_ImplementMethod(wx_SocketBase, __WriteMsg)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int nbytes = arg.GetNumber(1)
+	//const void* buffer = arg.GetNumber(0)
+	//wxUint32 nbytes = arg.GetNumber(1)
 	//pThis->GetEntity()->WriteMsg();
 	return Value::Nil;
 }
@@ -581,7 +581,7 @@ Gura_ImplementMethod(wx_SocketBase, __Notify)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int notify = arg.GetNumber(0)
+	//bool notify = arg.GetNumber(0)
 	//pThis->GetEntity()->Notify();
 	return Value::Nil;
 }
@@ -596,7 +596,7 @@ Gura_ImplementMethod(wx_SocketBase, __SetClientData)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//void* data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetClientData();
 	return Value::Nil;
 }
@@ -612,7 +612,7 @@ Gura_ImplementMethod(wx_SocketBase, __SetEventHandler)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int handler = arg.GetNumber(0)
+	//wxEvtHandler& handler = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->SetEventHandler();
 	return Value::Nil;
@@ -628,7 +628,7 @@ Gura_ImplementMethod(wx_SocketBase, __SetNotify)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//wxSocketEventFlags flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNotify();
 	return Value::Nil;
 }

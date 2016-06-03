@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __CopyArchiveMetaData)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxArchiveInputStream& stream = arg.GetNumber(0)
 	//pThis->GetEntity()->CopyArchiveMetaData();
 	return Value::Nil;
 }
@@ -89,8 +89,8 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __CopyEntry)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int entry = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
+	//wxArchiveEntry* entry = arg.GetNumber(0)
+	//wxArchiveInputStream& stream = arg.GetNumber(1)
 	//pThis->GetEntity()->CopyEntry();
 	return Value::Nil;
 }
@@ -106,8 +106,8 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextDirEntry)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int dt = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxDateTime& dt = arg.GetNumber(1)
 	//pThis->GetEntity()->PutNextDirEntry();
 	return Value::Nil;
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextEntry)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int entry = arg.GetNumber(0)
+	//wxArchiveEntry* entry = arg.GetNumber(0)
 	//pThis->GetEntity()->PutNextEntry();
 	return Value::Nil;
 }
@@ -139,9 +139,9 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextEntry_1)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int dt = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxDateTime& dt = arg.GetNumber(1)
+	//wxFileOffset size = arg.GetNumber(2)
 	//pThis->GetEntity()->PutNextEntry();
 	return Value::Nil;
 }

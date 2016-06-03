@@ -51,10 +51,10 @@ Gura_DeclareFunctionAlias(__ProgressDialog, "ProgressDialog")
 
 Gura_ImplementFunction(__ProgressDialog)
 {
-	//int title = arg.GetNumber(0)
-	//int message = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(1)
 	//int maximum = arg.GetNumber(2)
-	//int parent = arg.GetNumber(3)
+	//wxWindow* parent = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//wxProgressDialog();
 	return Value::Nil;

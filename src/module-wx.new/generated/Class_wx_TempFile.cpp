@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__TempFile, "TempFile")
 
 Gura_ImplementFunction(__TempFile)
 {
-	//int strName = arg.GetNumber(0)
+	//const wxString& strName = arg.GetNumber(0)
 	//wxTempFile();
 	return Value::Nil;
 }
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_TempFile, __Open)
 {
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int strName = arg.GetNumber(0)
+	//const wxString& strName = arg.GetNumber(0)
 	//pThis->GetEntity()->Open();
 	return Value::Nil;
 }
@@ -146,8 +146,8 @@ Gura_ImplementMethod(wx_TempFile, __Seek)
 {
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ofs = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//wxFileOffset ofs = arg.GetNumber(0)
+	//wxSeekMode mode = arg.GetNumber(1)
 	//pThis->GetEntity()->Seek();
 	return Value::Nil;
 }
@@ -176,8 +176,8 @@ Gura_ImplementMethod(wx_TempFile, __Write)
 {
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int conv = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(0)
+	//const wxMBConv& conv = arg.GetNumber(1)
 	//pThis->GetEntity()->Write();
 	return Value::Nil;
 }

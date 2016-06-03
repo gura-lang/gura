@@ -52,8 +52,8 @@ Gura_DeclareFunctionAlias(__DCOverlay, "DCOverlay")
 
 Gura_ImplementFunction(__DCOverlay)
 {
-	//int overlay = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
+	//wxOverlay& overlay = arg.GetNumber(0)
+	//wxDC* dc = arg.GetNumber(1)
 	//int x = arg.GetNumber(2)
 	//int y = arg.GetNumber(3)
 	//int width = arg.GetNumber(4)
@@ -73,8 +73,8 @@ Gura_DeclareFunctionAlias(__DCOverlay_1, "DCOverlay_1")
 
 Gura_ImplementFunction(__DCOverlay_1)
 {
-	//int overlay = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
+	//wxOverlay& overlay = arg.GetNumber(0)
+	//wxDC* dc = arg.GetNumber(1)
 	//wxDCOverlay();
 	return Value::Nil;
 }

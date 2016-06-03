@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__DataInputStream, "DataInputStream")
 
 Gura_ImplementFunction(__DataInputStream)
 {
-	//int stream = arg.GetNumber(0)
-	//int conv = arg.GetNumber(1)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//const wxMBConv& conv = arg.GetNumber(1)
 	//wxDataInputStream();
 	return Value::Nil;
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_DataInputStream, __BigEndianOrdered)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int be_order = arg.GetNumber(0)
+	//bool be_order = arg.GetNumber(0)
 	//pThis->GetEntity()->BigEndianOrdered();
 	return Value::Nil;
 }
@@ -109,8 +109,8 @@ Gura_ImplementMethod(wx_DataInputStream, __Read8_1)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//wxUint8* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Read8();
 	return Value::Nil;
 }
@@ -139,8 +139,8 @@ Gura_ImplementMethod(wx_DataInputStream, __Read16_1)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//wxUint16* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Read16();
 	return Value::Nil;
 }
@@ -169,8 +169,8 @@ Gura_ImplementMethod(wx_DataInputStream, __Read32_1)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//wxUint32* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Read32();
 	return Value::Nil;
 }
@@ -199,8 +199,8 @@ Gura_ImplementMethod(wx_DataInputStream, __Read64_1)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//wxUint64* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->Read64();
 	return Value::Nil;
 }
@@ -229,8 +229,8 @@ Gura_ImplementMethod(wx_DataInputStream, __ReadFloat_1)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//float* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadFloat();
 	return Value::Nil;
 }
@@ -259,8 +259,8 @@ Gura_ImplementMethod(wx_DataInputStream, __ReadDouble_1)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//double* buffer = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadDouble();
 	return Value::Nil;
 }
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_DataInputStream, __SetConv)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int conv = arg.GetNumber(0)
+	//const wxMBConv& conv = arg.GetNumber(0)
 	//pThis->GetEntity()->SetConv();
 	return Value::Nil;
 }

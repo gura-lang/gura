@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__MenuEvent, "MenuEvent")
 
 Gura_ImplementFunction(__MenuEvent)
 {
-	//int type = arg.GetNumber(0)
+	//wxEventType type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//int menu = arg.GetNumber(2)
+	//wxMenu* menu = arg.GetNumber(2)
 	//wxMenuEvent();
 	return Value::Nil;
 }

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__LogStream, "LogStream")
 
 Gura_ImplementFunction(__LogStream)
 {
-	//int ostr = arg.GetNumber(0)
+	//std::ostream* ostr = arg.GetNumber(0)
 	//wxLogStream();
 	return Value::Nil;
 }

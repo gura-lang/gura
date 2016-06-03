@@ -117,8 +117,8 @@ Gura_ImplementMethod(wx_LogGui, __DoShowSingleLogMessage)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int message = arg.GetNumber(0)
-	//int title = arg.GetNumber(1)
+	//const wxString& message = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
 	//pThis->GetEntity()->DoShowSingleLogMessage();
 	return Value::Nil;
@@ -138,10 +138,10 @@ Gura_ImplementMethod(wx_LogGui, __DoShowMultipleLogMessages)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int messages = arg.GetNumber(0)
-	//int severities = arg.GetNumber(1)
-	//int times = arg.GetNumber(2)
-	//int title = arg.GetNumber(3)
+	//const wxArrayString& messages = arg.GetNumber(0)
+	//const wxArrayInt& severities = arg.GetNumber(1)
+	//const wxArrayLong& times = arg.GetNumber(2)
+	//const wxString& title = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->DoShowMultipleLogMessages();
 	return Value::Nil;

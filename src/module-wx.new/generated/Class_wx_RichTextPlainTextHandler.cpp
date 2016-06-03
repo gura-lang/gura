@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__RichTextPlainTextHandler, "RichTextPlainTextHandler"
 
 Gura_ImplementFunction(__RichTextPlainTextHandler)
 {
-	//int name = arg.GetNumber(0)
-	//int ext = arg.GetNumber(1)
-	//int type = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxString& ext = arg.GetNumber(1)
+	//wxRichTextFileType type = arg.GetNumber(2)
 	//wxRichTextPlainTextHandler();
 	return Value::Nil;
 }
@@ -96,8 +96,8 @@ Gura_ImplementMethod(wx_RichTextPlainTextHandler, __DoLoadFile)
 {
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoLoadFile();
 	return Value::Nil;
 }
@@ -113,8 +113,8 @@ Gura_ImplementMethod(wx_RichTextPlainTextHandler, __DoSaveFile)
 {
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxOutputStream& stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoSaveFile();
 	return Value::Nil;
 }

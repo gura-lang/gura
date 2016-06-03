@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__VarHScrollHelper, "VarHScrollHelper")
 
 Gura_ImplementFunction(__VarHScrollHelper)
 {
-	//int winToScroll = arg.GetNumber(0)
+	//wxWindow* winToScroll = arg.GetNumber(0)
 	//wxVarHScrollHelper();
 	return Value::Nil;
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_VarHScrollHelper, __IsColumnVisible)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int column = arg.GetNumber(0)
+	//size_t column = arg.GetNumber(0)
 	//pThis->GetEntity()->IsColumnVisible();
 	return Value::Nil;
 }
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_VarHScrollHelper, __RefreshColumn)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int column = arg.GetNumber(0)
+	//size_t column = arg.GetNumber(0)
 	//pThis->GetEntity()->RefreshColumn();
 	return Value::Nil;
 }
@@ -135,8 +135,8 @@ Gura_ImplementMethod(wx_VarHScrollHelper, __RefreshColumns)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int from = arg.GetNumber(0)
-	//int to = arg.GetNumber(1)
+	//size_t from = arg.GetNumber(0)
+	//size_t to = arg.GetNumber(1)
 	//pThis->GetEntity()->RefreshColumns();
 	return Value::Nil;
 }
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_VarHScrollHelper, __ScrollToColumn)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int column = arg.GetNumber(0)
+	//size_t column = arg.GetNumber(0)
 	//pThis->GetEntity()->ScrollToColumn();
 	return Value::Nil;
 }
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_VarHScrollHelper, __SetColumnCount)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int columnCount = arg.GetNumber(0)
+	//size_t columnCount = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColumnCount();
 	return Value::Nil;
 }
@@ -225,8 +225,8 @@ Gura_ImplementMethod(wx_VarHScrollHelper, __OnGetColumnsWidthHint)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int columnMin = arg.GetNumber(0)
-	//int columnMax = arg.GetNumber(1)
+	//size_t columnMin = arg.GetNumber(0)
+	//size_t columnMax = arg.GetNumber(1)
 	//pThis->GetEntity()->OnGetColumnsWidthHint();
 	return Value::Nil;
 }
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_VarHScrollHelper, __OnGetColumnWidth)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int column = arg.GetNumber(0)
+	//size_t column = arg.GetNumber(0)
 	//pThis->GetEntity()->OnGetColumnWidth();
 	return Value::Nil;
 }

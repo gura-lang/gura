@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_ItemContainer, __Append)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxString& item = arg.GetNumber(0)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -63,8 +63,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_1)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int clientData = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//void* clientData = arg.GetNumber(1)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -80,8 +80,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_2)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int clientData = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//wxClientData* clientData = arg.GetNumber(1)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_3)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
+	//const wxArrayString& items = arg.GetNumber(0)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_4)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
+	//const std::vector<T>& items = arg.GetNumber(0)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -127,8 +127,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_5)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
-	//int clientData = arg.GetNumber(1)
+	//const wxArrayString& items = arg.GetNumber(0)
+	//void** clientData = arg.GetNumber(1)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -144,8 +144,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_6)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
-	//int clientData = arg.GetNumber(1)
+	//const wxArrayString& items = arg.GetNumber(0)
+	//wxClientData** clientData = arg.GetNumber(1)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -161,8 +161,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_7)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString* items = arg.GetNumber(1)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -179,9 +179,9 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_8)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
-	//int clientData = arg.GetNumber(2)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString* items = arg.GetNumber(1)
+	//void** clientData = arg.GetNumber(2)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -198,9 +198,9 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_9)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
-	//int clientData = arg.GetNumber(2)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString* items = arg.GetNumber(1)
+	//wxClientData** clientData = arg.GetNumber(2)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_ItemContainer, __Delete)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//unsigned int n = arg.GetNumber(0)
 	//pThis->GetEntity()->Delete();
 	return Value::Nil;
 }
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_ItemContainer, __DetachClientObject)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//unsigned int n = arg.GetNumber(0)
 	//pThis->GetEntity()->DetachClientObject();
 	return Value::Nil;
 }
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_ItemContainer, __GetClientData)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//unsigned int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetClientData();
 	return Value::Nil;
 }
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_ItemContainer, __GetClientObject)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//unsigned int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetClientObject();
 	return Value::Nil;
 }
@@ -328,8 +328,8 @@ Gura_ImplementMethod(wx_ItemContainer, __SetClientData)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//unsigned int n = arg.GetNumber(0)
+	//void* data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetClientData();
 	return Value::Nil;
 }
@@ -345,8 +345,8 @@ Gura_ImplementMethod(wx_ItemContainer, __SetClientObject)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//unsigned int n = arg.GetNumber(0)
+	//wxClientData* data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetClientObject();
 	return Value::Nil;
 }
@@ -362,8 +362,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//const wxString& item = arg.GetNumber(0)
+	//unsigned int pos = arg.GetNumber(1)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -380,9 +380,9 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_1)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
-	//int clientData = arg.GetNumber(2)
+	//const wxString& item = arg.GetNumber(0)
+	//unsigned int pos = arg.GetNumber(1)
+	//void* clientData = arg.GetNumber(2)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -399,9 +399,9 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_2)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
-	//int clientData = arg.GetNumber(2)
+	//const wxString& item = arg.GetNumber(0)
+	//unsigned int pos = arg.GetNumber(1)
+	//wxClientData* clientData = arg.GetNumber(2)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -417,8 +417,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_3)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//const wxArrayString& items = arg.GetNumber(0)
+	//unsigned int pos = arg.GetNumber(1)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -433,7 +433,7 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_4)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
+	//const std::vector<T>& items = arg.GetNumber(0)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -450,9 +450,9 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_5)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
-	//int clientData = arg.GetNumber(2)
+	//const wxArrayString& items = arg.GetNumber(0)
+	//unsigned int pos = arg.GetNumber(1)
+	//void** clientData = arg.GetNumber(2)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -469,9 +469,9 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_6)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
-	//int clientData = arg.GetNumber(2)
+	//const wxArrayString& items = arg.GetNumber(0)
+	//unsigned int pos = arg.GetNumber(1)
+	//wxClientData** clientData = arg.GetNumber(2)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -488,9 +488,9 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_7)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString* items = arg.GetNumber(1)
+	//unsigned int pos = arg.GetNumber(2)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -508,10 +508,10 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_8)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int clientData = arg.GetNumber(3)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString* items = arg.GetNumber(1)
+	//unsigned int pos = arg.GetNumber(2)
+	//void** clientData = arg.GetNumber(3)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -529,10 +529,10 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_9)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int clientData = arg.GetNumber(3)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString* items = arg.GetNumber(1)
+	//unsigned int pos = arg.GetNumber(2)
+	//wxClientData** clientData = arg.GetNumber(3)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -547,7 +547,7 @@ Gura_ImplementMethod(wx_ItemContainer, __Set)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
+	//const wxArrayString& items = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -562,7 +562,7 @@ Gura_ImplementMethod(wx_ItemContainer, __Set_1)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
+	//const std::vector<T>& items = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -578,8 +578,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Set_2)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
-	//int clientData = arg.GetNumber(1)
+	//const wxArrayString& items = arg.GetNumber(0)
+	//void** clientData = arg.GetNumber(1)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -595,8 +595,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Set_3)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
-	//int clientData = arg.GetNumber(1)
+	//const wxArrayString& items = arg.GetNumber(0)
+	//wxClientData** clientData = arg.GetNumber(1)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -612,8 +612,8 @@ Gura_ImplementMethod(wx_ItemContainer, __Set_4)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString* items = arg.GetNumber(1)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -630,9 +630,9 @@ Gura_ImplementMethod(wx_ItemContainer, __Set_5)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
-	//int clientData = arg.GetNumber(2)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString* items = arg.GetNumber(1)
+	//void** clientData = arg.GetNumber(2)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -649,9 +649,9 @@ Gura_ImplementMethod(wx_ItemContainer, __Set_6)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
-	//int clientData = arg.GetNumber(2)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString* items = arg.GetNumber(1)
+	//wxClientData** clientData = arg.GetNumber(2)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }

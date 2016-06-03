@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__WizardPage_1, "WizardPage_1")
 
 Gura_ImplementFunction(__WizardPage_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
+	//wxWizard* parent = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//wxWizardPage();
 	return Value::Nil;
 }
@@ -81,8 +81,8 @@ Gura_ImplementMethod(wx_WizardPage, __Create)
 {
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
+	//wxWizard* parent = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }

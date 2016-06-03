@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__Command, "Command")
 
 Gura_ImplementFunction(__Command)
 {
-	//int canUndo = arg.GetNumber(0)
-	//int name = arg.GetNumber(1)
+	//bool canUndo = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(1)
 	//wxCommand();
 	return Value::Nil;
 }

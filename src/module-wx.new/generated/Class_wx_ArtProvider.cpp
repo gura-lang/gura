@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_ArtProvider, __Delete)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int provider = arg.GetNumber(0)
+	//wxArtProvider* provider = arg.GetNumber(0)
 	//pThis->GetEntity()->Delete();
 	return Value::Nil;
 }
@@ -64,9 +64,9 @@ Gura_ImplementMethod(wx_ArtProvider, __GetBitmap)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int client = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
+	//const wxArtID& id = arg.GetNumber(0)
+	//const wxArtClient& client = arg.GetNumber(1)
+	//const wxSize& size = arg.GetNumber(2)
 	//pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
@@ -83,9 +83,9 @@ Gura_ImplementMethod(wx_ArtProvider, __GetIcon)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int client = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
+	//const wxArtID& id = arg.GetNumber(0)
+	//const wxArtClient& client = arg.GetNumber(1)
+	//const wxSize& size = arg.GetNumber(2)
 	//pThis->GetEntity()->GetIcon();
 	return Value::Nil;
 }
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_ArtProvider, __GetNativeSizeHint)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int client = arg.GetNumber(0)
+	//const wxArtClient& client = arg.GetNumber(0)
 	//pThis->GetEntity()->GetNativeSizeHint();
 	return Value::Nil;
 }
@@ -116,8 +116,8 @@ Gura_ImplementMethod(wx_ArtProvider, __GetSizeHint)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int client = arg.GetNumber(0)
-	//int platform_default = arg.GetNumber(1)
+	//const wxArtClient& client = arg.GetNumber(0)
+	//bool platform_default = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSizeHint();
 	return Value::Nil;
 }
@@ -133,8 +133,8 @@ Gura_ImplementMethod(wx_ArtProvider, __GetIconBundle)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int client = arg.GetNumber(1)
+	//const wxArtID& id = arg.GetNumber(0)
+	//const wxArtClient& client = arg.GetNumber(1)
 	//pThis->GetEntity()->GetIconBundle();
 	return Value::Nil;
 }
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_ArtProvider, __Insert)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int provider = arg.GetNumber(0)
+	//wxArtProvider* provider = arg.GetNumber(0)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_ArtProvider, __Push)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int provider = arg.GetNumber(0)
+	//wxArtProvider* provider = arg.GetNumber(0)
 	//pThis->GetEntity()->Push();
 	return Value::Nil;
 }
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_ArtProvider, __PushBack)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int provider = arg.GetNumber(0)
+	//wxArtProvider* provider = arg.GetNumber(0)
 	//pThis->GetEntity()->PushBack();
 	return Value::Nil;
 }
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_ArtProvider, __Remove)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int provider = arg.GetNumber(0)
+	//wxArtProvider* provider = arg.GetNumber(0)
 	//pThis->GetEntity()->Remove();
 	return Value::Nil;
 }
@@ -267,9 +267,9 @@ Gura_ImplementMethod(wx_ArtProvider, __CreateBitmap)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int client = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
+	//const wxArtID& id = arg.GetNumber(0)
+	//const wxArtClient& client = arg.GetNumber(1)
+	//const wxSize& size = arg.GetNumber(2)
 	//pThis->GetEntity()->CreateBitmap();
 	return Value::Nil;
 }
@@ -285,8 +285,8 @@ Gura_ImplementMethod(wx_ArtProvider, __CreateIconBundle)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int client = arg.GetNumber(1)
+	//const wxArtID& id = arg.GetNumber(0)
+	//const wxArtClient& client = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateIconBundle();
 	return Value::Nil;
 }

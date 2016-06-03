@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_CustomBackgroundWindow, __SetBackgroundBitmap)
 {
 	Object_wx_CustomBackgroundWindow *pThis = Object_wx_CustomBackgroundWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bmp = arg.GetNumber(0)
+	//const wxBitmap& bmp = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBackgroundBitmap();
 	return Value::Nil;
 }

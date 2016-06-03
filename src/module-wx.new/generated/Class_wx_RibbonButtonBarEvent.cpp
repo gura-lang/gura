@@ -50,10 +50,10 @@ Gura_DeclareFunctionAlias(__RibbonButtonBarEvent, "RibbonButtonBarEvent")
 
 Gura_ImplementFunction(__RibbonButtonBarEvent)
 {
-	//int command_type = arg.GetNumber(0)
+	//wxEventType command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
-	//int bar = arg.GetNumber(2)
-	//int button = arg.GetNumber(3)
+	//wxRibbonButtonBar* bar = arg.GetNumber(2)
+	//wxRibbonButtonBarButtonBase* button = arg.GetNumber(3)
 	//wxRibbonButtonBarEvent();
 	return Value::Nil;
 }
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, __SetBar)
 {
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bar = arg.GetNumber(0)
+	//wxRibbonButtonBar* bar = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBar();
 	return Value::Nil;
 }
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, __SetButton)
 {
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bar = arg.GetNumber(0)
+	//wxRibbonButtonBarButtonBase* bar = arg.GetNumber(0)
 	//pThis->GetEntity()->SetButton();
 	return Value::Nil;
 }
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, __PopupMenu)
 {
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int menu = arg.GetNumber(0)
+	//wxMenu* menu = arg.GetNumber(0)
 	//pThis->GetEntity()->PopupMenu();
 	return Value::Nil;
 }

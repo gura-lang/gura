@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__StyledTextEvent, "StyledTextEvent")
 
 Gura_ImplementFunction(__StyledTextEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxStyledTextEvent();
 	return Value::Nil;
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__StyledTextEvent_1, "StyledTextEvent_1")
 
 Gura_ImplementFunction(__StyledTextEvent_1)
 {
-	//int event = arg.GetNumber(0)
+	//const wxStyledTextEvent& event = arg.GetNumber(0)
 	//wxStyledTextEvent();
 	return Value::Nil;
 }
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetText)
 {
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int t = arg.GetNumber(0)
+	//const wxString& t = arg.GetNumber(0)
 	//pThis->GetEntity()->SetText();
 	return Value::Nil;
 }
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetDragText)
 {
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//const wxString& val = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDragText();
 	return Value::Nil;
 }
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetDragResult)
 {
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//wxDragResult val = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDragResult();
 	return Value::Nil;
 }

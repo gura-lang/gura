@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__TarInputStream, "TarInputStream")
 
 Gura_ImplementFunction(__TarInputStream)
 {
-	//int stream = arg.GetNumber(0)
-	//int conv = arg.GetNumber(1)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//wxMBConv& conv = arg.GetNumber(1)
 	//wxTarInputStream();
 	return Value::Nil;
 }
@@ -65,8 +65,8 @@ Gura_DeclareFunctionAlias(__TarInputStream_1, "TarInputStream_1")
 
 Gura_ImplementFunction(__TarInputStream_1)
 {
-	//int stream = arg.GetNumber(0)
-	//int conv = arg.GetNumber(1)
+	//wxInputStream* stream = arg.GetNumber(0)
+	//wxMBConv& conv = arg.GetNumber(1)
 	//wxTarInputStream();
 	return Value::Nil;
 }
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_TarInputStream, __OpenEntry)
 {
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int entry = arg.GetNumber(0)
+	//wxTarEntry& entry = arg.GetNumber(0)
 	//pThis->GetEntity()->OpenEntry();
 	return Value::Nil;
 }

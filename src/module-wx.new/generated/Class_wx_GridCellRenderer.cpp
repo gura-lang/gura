@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_GridCellRenderer, __Draw)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int grid = arg.GetNumber(0)
-	//int attr = arg.GetNumber(1)
-	//int dc = arg.GetNumber(2)
-	//int rect = arg.GetNumber(3)
+	//wxGrid& grid = arg.GetNumber(0)
+	//wxGridCellAttr& attr = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(2)
+	//const wxRect& rect = arg.GetNumber(3)
 	//int row = arg.GetNumber(4)
 	//int col = arg.GetNumber(5)
-	//int isSelected = arg.GetNumber(6)
+	//bool isSelected = arg.GetNumber(6)
 	//pThis->GetEntity()->Draw();
 	return Value::Nil;
 }
@@ -107,9 +107,9 @@ Gura_ImplementMethod(wx_GridCellRenderer, __GetBestSize)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int grid = arg.GetNumber(0)
-	//int attr = arg.GetNumber(1)
-	//int dc = arg.GetNumber(2)
+	//wxGrid& grid = arg.GetNumber(0)
+	//wxGridCellAttr& attr = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(2)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
 	//pThis->GetEntity()->GetBestSize();
@@ -131,9 +131,9 @@ Gura_ImplementMethod(wx_GridCellRenderer, __GetBestHeight)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int grid = arg.GetNumber(0)
-	//int attr = arg.GetNumber(1)
-	//int dc = arg.GetNumber(2)
+	//wxGrid& grid = arg.GetNumber(0)
+	//wxGridCellAttr& attr = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(2)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
 	//int width = arg.GetNumber(5)
@@ -156,9 +156,9 @@ Gura_ImplementMethod(wx_GridCellRenderer, __GetBestWidth)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int grid = arg.GetNumber(0)
-	//int attr = arg.GetNumber(1)
-	//int dc = arg.GetNumber(2)
+	//wxGrid& grid = arg.GetNumber(0)
+	//wxGridCellAttr& attr = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(2)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
 	//int height = arg.GetNumber(5)

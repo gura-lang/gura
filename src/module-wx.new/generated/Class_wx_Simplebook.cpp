@@ -65,12 +65,12 @@ Gura_DeclareFunctionAlias(__Simplebook_1, "Simplebook_1")
 
 Gura_ImplementFunction(__Simplebook_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//wxSimplebook();
 	return Value::Nil;
 }
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_Simplebook, __Create)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -114,8 +114,8 @@ Gura_ImplementMethod(wx_Simplebook, __SetEffects)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int showEffect = arg.GetNumber(0)
-	//int hideEffect = arg.GetNumber(1)
+	//wxShowEffect showEffect = arg.GetNumber(0)
+	//wxShowEffect hideEffect = arg.GetNumber(1)
 	//pThis->GetEntity()->SetEffects();
 	return Value::Nil;
 }
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_Simplebook, __SetEffect)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int effect = arg.GetNumber(0)
+	//wxShowEffect effect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEffect();
 	return Value::Nil;
 }
@@ -146,8 +146,8 @@ Gura_ImplementMethod(wx_Simplebook, __SetEffectsTimeouts)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int showTimeout = arg.GetNumber(0)
-	//int hideTimeout = arg.GetNumber(1)
+	//unsigned showTimeout = arg.GetNumber(0)
+	//unsigned hideTimeout = arg.GetNumber(1)
 	//pThis->GetEntity()->SetEffectsTimeouts();
 	return Value::Nil;
 }
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_Simplebook, __SetEffectTimeout)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int timeout = arg.GetNumber(0)
+	//unsigned timeout = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEffectTimeout();
 	return Value::Nil;
 }
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_Simplebook, __ShowNewPage)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//wxWindow* page = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowNewPage();
 	return Value::Nil;
 }

@@ -52,12 +52,12 @@ Gura_DeclareFunctionAlias(__ConfigBase, "ConfigBase")
 
 Gura_ImplementFunction(__ConfigBase)
 {
-	//int appName = arg.GetNumber(0)
-	//int vendorName = arg.GetNumber(1)
-	//int localFilename = arg.GetNumber(2)
-	//int globalFilename = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int conv = arg.GetNumber(5)
+	//const wxString& appName = arg.GetNumber(0)
+	//const wxString& vendorName = arg.GetNumber(1)
+	//const wxString& localFilename = arg.GetNumber(2)
+	//const wxString& globalFilename = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxMBConv& conv = arg.GetNumber(5)
 	//wxConfigBase();
 	return Value::Nil;
 }
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_ConfigBase, __SetPath)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int strPath = arg.GetNumber(0)
+	//const wxString& strPath = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPath();
 	return Value::Nil;
 }
@@ -104,8 +104,8 @@ Gura_ImplementMethod(wx_ConfigBase, __GetFirstEntry)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int index = arg.GetNumber(1)
+	//wxString& str = arg.GetNumber(0)
+	//long& index = arg.GetNumber(1)
 	//pThis->GetEntity()->GetFirstEntry();
 	return Value::Nil;
 }
@@ -121,8 +121,8 @@ Gura_ImplementMethod(wx_ConfigBase, __GetFirstGroup)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int index = arg.GetNumber(1)
+	//wxString& str = arg.GetNumber(0)
+	//long& index = arg.GetNumber(1)
 	//pThis->GetEntity()->GetFirstGroup();
 	return Value::Nil;
 }
@@ -138,8 +138,8 @@ Gura_ImplementMethod(wx_ConfigBase, __GetNextEntry)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int index = arg.GetNumber(1)
+	//wxString& str = arg.GetNumber(0)
+	//long& index = arg.GetNumber(1)
 	//pThis->GetEntity()->GetNextEntry();
 	return Value::Nil;
 }
@@ -155,8 +155,8 @@ Gura_ImplementMethod(wx_ConfigBase, __GetNextGroup)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int index = arg.GetNumber(1)
+	//wxString& str = arg.GetNumber(0)
+	//long& index = arg.GetNumber(1)
 	//pThis->GetEntity()->GetNextGroup();
 	return Value::Nil;
 }
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_ConfigBase, __GetNumberOfEntries)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bRecursive = arg.GetNumber(0)
+	//bool bRecursive = arg.GetNumber(0)
 	//pThis->GetEntity()->GetNumberOfEntries();
 	return Value::Nil;
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_ConfigBase, __GetNumberOfGroups)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bRecursive = arg.GetNumber(0)
+	//bool bRecursive = arg.GetNumber(0)
 	//pThis->GetEntity()->GetNumberOfGroups();
 	return Value::Nil;
 }

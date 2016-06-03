@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__TaskBarIconEvent, "TaskBarIconEvent")
 
 Gura_ImplementFunction(__TaskBarIconEvent)
 {
-	//int evtType = arg.GetNumber(0)
-	//int tbIcon = arg.GetNumber(1)
+	//wxEventType evtType = arg.GetNumber(0)
+	//wxTaskBarIcon* tbIcon = arg.GetNumber(1)
 	//wxTaskBarIconEvent();
 	return Value::Nil;
 }

@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, __AddBook)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int book_url = arg.GetNumber(0)
+	//const wxString& book_url = arg.GetNumber(0)
 	//pThis->GetEntity()->AddBook();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, __FindPageByName)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//const wxString& page = arg.GetNumber(0)
 	//pThis->GetEntity()->FindPageByName();
 	return Value::Nil;
 }
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, __SetTempDir)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int path = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTempDir();
 	return Value::Nil;
 }

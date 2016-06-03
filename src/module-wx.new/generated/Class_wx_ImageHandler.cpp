@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_ImageHandler, __CanRead)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(0)
 	//pThis->GetEntity()->CanRead();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_ImageHandler, __CanRead_1)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//pThis->GetEntity()->CanRead();
 	return Value::Nil;
 }
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_ImageHandler, __GetImageCount)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(0)
 	//pThis->GetEntity()->GetImageCount();
 	return Value::Nil;
 }
@@ -176,9 +176,9 @@ Gura_ImplementMethod(wx_ImageHandler, __LoadFile)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int image = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
-	//int verbose = arg.GetNumber(2)
+	//wxImage* image = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(1)
+	//bool verbose = arg.GetNumber(2)
 	//int index = arg.GetNumber(3)
 	//pThis->GetEntity()->LoadFile();
 	return Value::Nil;
@@ -196,9 +196,9 @@ Gura_ImplementMethod(wx_ImageHandler, __SaveFile)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int image = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
-	//int verbose = arg.GetNumber(2)
+	//wxImage* image = arg.GetNumber(0)
+	//wxOutputStream& stream = arg.GetNumber(1)
+	//bool verbose = arg.GetNumber(2)
 	//pThis->GetEntity()->SaveFile();
 	return Value::Nil;
 }
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_ImageHandler, __SetExtension)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int extension = arg.GetNumber(0)
+	//const wxString& extension = arg.GetNumber(0)
 	//pThis->GetEntity()->SetExtension();
 	return Value::Nil;
 }
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_ImageHandler, __SetAltExtensions)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int extensions = arg.GetNumber(0)
+	//const wxArrayString& extensions = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAltExtensions();
 	return Value::Nil;
 }
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_ImageHandler, __SetMimeType)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mimetype = arg.GetNumber(0)
+	//const wxString& mimetype = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMimeType();
 	return Value::Nil;
 }
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_ImageHandler, __SetName)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetName();
 	return Value::Nil;
 }
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_ImageHandler, __DoGetImageCount)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(0)
 	//pThis->GetEntity()->DoGetImageCount();
 	return Value::Nil;
 }
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_ImageHandler, __DoCanRead)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(0)
 	//pThis->GetEntity()->DoCanRead();
 	return Value::Nil;
 }

@@ -63,10 +63,10 @@ Gura_DeclareFunctionAlias(__Colour_1, "Colour_1")
 
 Gura_ImplementFunction(__Colour_1)
 {
-	//int red = arg.GetNumber(0)
-	//int green = arg.GetNumber(1)
-	//int blue = arg.GetNumber(2)
-	//int alpha = arg.GetNumber(3)
+	//unsigned char red = arg.GetNumber(0)
+	//unsigned char green = arg.GetNumber(1)
+	//unsigned char blue = arg.GetNumber(2)
+	//unsigned char alpha = arg.GetNumber(3)
 	//wxColour();
 	return Value::Nil;
 }
@@ -81,7 +81,7 @@ Gura_DeclareFunctionAlias(__Colour_2, "Colour_2")
 
 Gura_ImplementFunction(__Colour_2)
 {
-	//int colourName = arg.GetNumber(0)
+	//const wxString& colourName = arg.GetNumber(0)
 	//wxColour();
 	return Value::Nil;
 }
@@ -96,7 +96,7 @@ Gura_DeclareFunctionAlias(__Colour_3, "Colour_3")
 
 Gura_ImplementFunction(__Colour_3)
 {
-	//int colRGB = arg.GetNumber(0)
+	//unsigned long colRGB = arg.GetNumber(0)
 	//wxColour();
 	return Value::Nil;
 }
@@ -111,7 +111,7 @@ Gura_DeclareFunctionAlias(__Colour_4, "Colour_4")
 
 Gura_ImplementFunction(__Colour_4)
 {
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//wxColour();
 	return Value::Nil;
 }
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_Colour, __GetAsString)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//long flags = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAsString();
 	return Value::Nil;
 }
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_Colour, __SetRGB)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colRGB = arg.GetNumber(0)
+	//wxUint32 colRGB = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRGB();
 	return Value::Nil;
 }
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_Colour, __SetRGBA)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colRGBA = arg.GetNumber(0)
+	//wxUint32 colRGBA = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRGBA();
 	return Value::Nil;
 }
@@ -281,10 +281,10 @@ Gura_ImplementMethod(wx_Colour, __Set)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int red = arg.GetNumber(0)
-	//int green = arg.GetNumber(1)
-	//int blue = arg.GetNumber(2)
-	//int alpha = arg.GetNumber(3)
+	//unsigned char red = arg.GetNumber(0)
+	//unsigned char green = arg.GetNumber(1)
+	//unsigned char blue = arg.GetNumber(2)
+	//unsigned char alpha = arg.GetNumber(3)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_Colour, __Set_1)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int RGB = arg.GetNumber(0)
+	//unsigned long RGB = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_Colour, __Set_2)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -332,10 +332,10 @@ Gura_ImplementMethod(wx_Colour, __MakeMono)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
-	//int g = arg.GetNumber(1)
-	//int b = arg.GetNumber(2)
-	//int on = arg.GetNumber(3)
+	//unsigned char* r = arg.GetNumber(0)
+	//unsigned char* g = arg.GetNumber(1)
+	//unsigned char* b = arg.GetNumber(2)
+	//bool on = arg.GetNumber(3)
 	//pThis->GetEntity()->MakeMono();
 	return Value::Nil;
 }
@@ -353,10 +353,10 @@ Gura_ImplementMethod(wx_Colour, __MakeDisabled)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
-	//int g = arg.GetNumber(1)
-	//int b = arg.GetNumber(2)
-	//int brightness = arg.GetNumber(3)
+	//unsigned char* r = arg.GetNumber(0)
+	//unsigned char* g = arg.GetNumber(1)
+	//unsigned char* b = arg.GetNumber(2)
+	//unsigned char brightness = arg.GetNumber(3)
 	//pThis->GetEntity()->MakeDisabled();
 	return Value::Nil;
 }
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_Colour, __MakeDisabled_1)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int brightness = arg.GetNumber(0)
+	//unsigned char brightness = arg.GetNumber(0)
 	//pThis->GetEntity()->MakeDisabled();
 	return Value::Nil;
 }
@@ -388,9 +388,9 @@ Gura_ImplementMethod(wx_Colour, __MakeGrey)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
-	//int g = arg.GetNumber(1)
-	//int b = arg.GetNumber(2)
+	//unsigned char* r = arg.GetNumber(0)
+	//unsigned char* g = arg.GetNumber(1)
+	//unsigned char* b = arg.GetNumber(2)
 	//pThis->GetEntity()->MakeGrey();
 	return Value::Nil;
 }
@@ -410,12 +410,12 @@ Gura_ImplementMethod(wx_Colour, __MakeGrey_1)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
-	//int g = arg.GetNumber(1)
-	//int b = arg.GetNumber(2)
-	//int weight_r = arg.GetNumber(3)
-	//int weight_g = arg.GetNumber(4)
-	//int weight_b = arg.GetNumber(5)
+	//unsigned char* r = arg.GetNumber(0)
+	//unsigned char* g = arg.GetNumber(1)
+	//unsigned char* b = arg.GetNumber(2)
+	//double weight_r = arg.GetNumber(3)
+	//double weight_g = arg.GetNumber(4)
+	//double weight_b = arg.GetNumber(5)
 	//pThis->GetEntity()->MakeGrey();
 	return Value::Nil;
 }
@@ -432,9 +432,9 @@ Gura_ImplementMethod(wx_Colour, __AlphaBlend)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fg = arg.GetNumber(0)
-	//int bg = arg.GetNumber(1)
-	//int alpha = arg.GetNumber(2)
+	//unsigned char fg = arg.GetNumber(0)
+	//unsigned char bg = arg.GetNumber(1)
+	//double alpha = arg.GetNumber(2)
 	//pThis->GetEntity()->AlphaBlend();
 	return Value::Nil;
 }
@@ -452,9 +452,9 @@ Gura_ImplementMethod(wx_Colour, __ChangeLightness)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
-	//int g = arg.GetNumber(1)
-	//int b = arg.GetNumber(2)
+	//unsigned char* r = arg.GetNumber(0)
+	//unsigned char* g = arg.GetNumber(1)
+	//unsigned char* b = arg.GetNumber(2)
 	//int ialpha = arg.GetNumber(3)
 	//pThis->GetEntity()->ChangeLightness();
 	return Value::Nil;

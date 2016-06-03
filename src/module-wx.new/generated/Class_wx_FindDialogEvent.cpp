@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__FindDialogEvent, "FindDialogEvent")
 
 Gura_ImplementFunction(__FindDialogEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxFindDialogEvent();
 	return Value::Nil;

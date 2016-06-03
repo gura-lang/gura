@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__FontDialog_1, "FontDialog_1")
 
 Gura_ImplementFunction(__FontDialog_1)
 {
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//wxFontDialog();
 	return Value::Nil;
 }
@@ -76,8 +76,8 @@ Gura_DeclareFunctionAlias(__FontDialog_2, "FontDialog_2")
 
 Gura_ImplementFunction(__FontDialog_2)
 {
-	//int parent = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxFontData& data = arg.GetNumber(1)
 	//wxFontDialog();
 	return Value::Nil;
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_FontDialog, __Create)
 {
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -111,8 +111,8 @@ Gura_ImplementMethod(wx_FontDialog, __Create_1)
 {
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxFontData& data = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }

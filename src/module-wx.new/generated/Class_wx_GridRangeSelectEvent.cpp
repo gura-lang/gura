@@ -67,12 +67,12 @@ Gura_DeclareFunctionAlias(__GridRangeSelectEvent_1, "GridRangeSelectEvent_1")
 Gura_ImplementFunction(__GridRangeSelectEvent_1)
 {
 	//int id = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
-	//int obj = arg.GetNumber(2)
-	//int topLeft = arg.GetNumber(3)
-	//int bottomRight = arg.GetNumber(4)
-	//int sel = arg.GetNumber(5)
-	//int kbd = arg.GetNumber(6)
+	//wxEventType type = arg.GetNumber(1)
+	//wxObject* obj = arg.GetNumber(2)
+	//const wxGridCellCoords& topLeft = arg.GetNumber(3)
+	//const wxGridCellCoords& bottomRight = arg.GetNumber(4)
+	//bool sel = arg.GetNumber(5)
+	//const wxKeyboardState& kbd = arg.GetNumber(6)
 	//wxGridRangeSelectEvent();
 	return Value::Nil;
 }

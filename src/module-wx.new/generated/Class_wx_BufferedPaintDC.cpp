@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__BufferedPaintDC, "BufferedPaintDC")
 
 Gura_ImplementFunction(__BufferedPaintDC)
 {
-	//int window = arg.GetNumber(0)
-	//int buffer = arg.GetNumber(1)
+	//wxWindow* window = arg.GetNumber(0)
+	//wxBitmap& buffer = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
 	//wxBufferedPaintDC();
 	return Value::Nil;
@@ -67,7 +67,7 @@ Gura_DeclareFunctionAlias(__BufferedPaintDC_1, "BufferedPaintDC_1")
 
 Gura_ImplementFunction(__BufferedPaintDC_1)
 {
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//wxBufferedPaintDC();
 	return Value::Nil;

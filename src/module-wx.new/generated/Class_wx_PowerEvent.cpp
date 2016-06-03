@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__PowerEvent_1, "PowerEvent_1")
 
 Gura_ImplementFunction(__PowerEvent_1)
 {
-	//int evtType = arg.GetNumber(0)
+	//wxEventType evtType = arg.GetNumber(0)
 	//wxPowerEvent();
 	return Value::Nil;
 }

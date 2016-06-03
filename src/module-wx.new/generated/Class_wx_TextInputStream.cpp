@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__TextInputStream, "TextInputStream")
 
 Gura_ImplementFunction(__TextInputStream)
 {
-	//int stream = arg.GetNumber(0)
-	//int sep = arg.GetNumber(1)
-	//int conv = arg.GetNumber(2)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//const wxString& sep = arg.GetNumber(1)
+	//const wxMBConv& conv = arg.GetNumber(2)
 	//wxTextInputStream();
 	return Value::Nil;
 }
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_TextInputStream, __SetStringSeparators)
 {
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sep = arg.GetNumber(0)
+	//const wxString& sep = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStringSeparators();
 	return Value::Nil;
 }

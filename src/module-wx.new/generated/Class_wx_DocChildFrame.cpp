@@ -55,15 +55,15 @@ Gura_DeclareFunctionAlias(__DocChildFrame, "DocChildFrame")
 
 Gura_ImplementFunction(__DocChildFrame)
 {
-	//int doc = arg.GetNumber(0)
-	//int view = arg.GetNumber(1)
-	//int parent = arg.GetNumber(2)
-	//int id = arg.GetNumber(3)
-	//int title = arg.GetNumber(4)
-	//int pos = arg.GetNumber(5)
-	//int size = arg.GetNumber(6)
-	//int style = arg.GetNumber(7)
-	//int name = arg.GetNumber(8)
+	//wxDocument* doc = arg.GetNumber(0)
+	//wxView* view = arg.GetNumber(1)
+	//wxFrame* parent = arg.GetNumber(2)
+	//wxWindowID id = arg.GetNumber(3)
+	//const wxString& title = arg.GetNumber(4)
+	//const wxPoint& pos = arg.GetNumber(5)
+	//const wxSize& size = arg.GetNumber(6)
+	//long style = arg.GetNumber(7)
+	//const wxString& name = arg.GetNumber(8)
 	//wxDocChildFrame();
 	return Value::Nil;
 }
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DocChildFrame, __SetDocument)
 {
 	Object_wx_DocChildFrame *pThis = Object_wx_DocChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int doc = arg.GetNumber(0)
+	//wxDocument* doc = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDocument();
 	return Value::Nil;
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_DocChildFrame, __SetView)
 {
 	Object_wx_DocChildFrame *pThis = Object_wx_DocChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int view = arg.GetNumber(0)
+	//wxView* view = arg.GetNumber(0)
 	//pThis->GetEntity()->SetView();
 	return Value::Nil;
 }

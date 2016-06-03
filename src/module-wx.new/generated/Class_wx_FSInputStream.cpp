@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_FSInputStream, __wxFileInputStream)
 {
 	Object_wx_FSInputStream *pThis = Object_wx_FSInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->wxFileInputStream();
 	return Value::Nil;

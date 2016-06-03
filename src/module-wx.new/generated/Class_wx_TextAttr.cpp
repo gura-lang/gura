@@ -63,10 +63,10 @@ Gura_DeclareFunctionAlias(__TextAttr_1, "TextAttr_1")
 
 Gura_ImplementFunction(__TextAttr_1)
 {
-	//int colText = arg.GetNumber(0)
-	//int colBack = arg.GetNumber(1)
-	//int font = arg.GetNumber(2)
-	//int alignment = arg.GetNumber(3)
+	//const wxColour& colText = arg.GetNumber(0)
+	//const wxColour& colBack = arg.GetNumber(1)
+	//const wxFont& font = arg.GetNumber(2)
+	//wxTextAttrAlignment alignment = arg.GetNumber(3)
 	//wxTextAttr();
 	return Value::Nil;
 }
@@ -81,7 +81,7 @@ Gura_DeclareFunctionAlias(__TextAttr_2, "TextAttr_2")
 
 Gura_ImplementFunction(__TextAttr_2)
 {
-	//int attr = arg.GetNumber(0)
+	//const wxTextAttr& attr = arg.GetNumber(0)
 	//wxTextAttr();
 	return Value::Nil;
 }
@@ -100,8 +100,8 @@ Gura_ImplementMethod(wx_TextAttr, __Apply)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int style = arg.GetNumber(0)
-	//int compareWith = arg.GetNumber(1)
+	//const wxTextAttr& style = arg.GetNumber(0)
+	//const wxTextAttr* compareWith = arg.GetNumber(1)
 	//pThis->GetEntity()->Apply();
 	return Value::Nil;
 }
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_TextAttr, __Merge)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int overlay = arg.GetNumber(0)
+	//const wxTextAttr& overlay = arg.GetNumber(0)
 	//pThis->GetEntity()->Merge();
 	return Value::Nil;
 }
@@ -132,8 +132,8 @@ Gura_ImplementMethod(wx_TextAttr, __Merge_1)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int base = arg.GetNumber(0)
-	//int overlay = arg.GetNumber(1)
+	//const wxTextAttr& base = arg.GetNumber(0)
+	//const wxTextAttr& overlay = arg.GetNumber(1)
 	//pThis->GetEntity()->Merge();
 	return Value::Nil;
 }
@@ -149,8 +149,8 @@ Gura_ImplementMethod(wx_TextAttr, __EqPartial)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
-	//int weakTest = arg.GetNumber(1)
+	//const wxTextAttr& attr = arg.GetNumber(0)
+	//bool weakTest = arg.GetNumber(1)
 	//pThis->GetEntity()->EqPartial();
 	return Value::Nil;
 }
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_TextAttr, __GetFontAttributes)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->GetFontAttributes();
 	return Value::Nil;
@@ -676,7 +676,7 @@ Gura_ImplementMethod(wx_TextAttr, __HasFlag)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flag = arg.GetNumber(0)
+	//long flag = arg.GetNumber(0)
 	//pThis->GetEntity()->HasFlag();
 	return Value::Nil;
 }
@@ -1029,7 +1029,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetAlignment)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int alignment = arg.GetNumber(0)
+	//wxTextAttrAlignment alignment = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAlignment();
 	return Value::Nil;
 }
@@ -1044,7 +1044,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetBackgroundColour)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colBack = arg.GetNumber(0)
+	//const wxColour& colBack = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBackgroundColour();
 	return Value::Nil;
 }
@@ -1059,7 +1059,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetBulletFont)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxString& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBulletFont();
 	return Value::Nil;
 }
@@ -1074,7 +1074,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetBulletName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBulletName();
 	return Value::Nil;
 }
@@ -1119,7 +1119,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetBulletText)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBulletText();
 	return Value::Nil;
 }
@@ -1134,7 +1134,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetCharacterStyleName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCharacterStyleName();
 	return Value::Nil;
 }
@@ -1149,7 +1149,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetFlags)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//long flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
 }
@@ -1165,7 +1165,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetFont)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;
@@ -1181,7 +1181,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetFontEncoding)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
+	//wxFontEncoding encoding = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFontEncoding();
 	return Value::Nil;
 }
@@ -1196,7 +1196,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetFontFaceName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int faceName = arg.GetNumber(0)
+	//const wxString& faceName = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFontFaceName();
 	return Value::Nil;
 }
@@ -1211,7 +1211,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetFontFamily)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int family = arg.GetNumber(0)
+	//wxFontFamily family = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFontFamily();
 	return Value::Nil;
 }
@@ -1271,7 +1271,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetFontStyle)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fontStyle = arg.GetNumber(0)
+	//wxFontStyle fontStyle = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFontStyle();
 	return Value::Nil;
 }
@@ -1286,7 +1286,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetFontUnderlined)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int underlined = arg.GetNumber(0)
+	//bool underlined = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFontUnderlined();
 	return Value::Nil;
 }
@@ -1301,7 +1301,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetFontWeight)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fontWeight = arg.GetNumber(0)
+	//wxFontWeight fontWeight = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFontWeight();
 	return Value::Nil;
 }
@@ -1348,7 +1348,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetListStyleName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetListStyleName();
 	return Value::Nil;
 }
@@ -1378,7 +1378,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetPageBreak)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pageBreak = arg.GetNumber(0)
+	//bool pageBreak = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPageBreak();
 	return Value::Nil;
 }
@@ -1423,7 +1423,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetParagraphStyleName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParagraphStyleName();
 	return Value::Nil;
 }
@@ -1453,7 +1453,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetTabs)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tabs = arg.GetNumber(0)
+	//const wxArrayInt& tabs = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTabs();
 	return Value::Nil;
 }
@@ -1468,7 +1468,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetTextColour)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colText = arg.GetNumber(0)
+	//const wxColour& colText = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextColour();
 	return Value::Nil;
 }
@@ -1513,7 +1513,7 @@ Gura_ImplementMethod(wx_TextAttr, __SetURL)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;
 }

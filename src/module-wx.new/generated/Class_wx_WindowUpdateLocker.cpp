@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__WindowUpdateLocker, "WindowUpdateLocker")
 
 Gura_ImplementFunction(__WindowUpdateLocker)
 {
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//wxWindowUpdateLocker();
 	return Value::Nil;
 }

@@ -63,10 +63,10 @@ Gura_DeclareFunctionAlias(__WebViewEvent_1, "WebViewEvent_1")
 
 Gura_ImplementFunction(__WebViewEvent_1)
 {
-	//int type = arg.GetNumber(0)
+	//wxEventType type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//int href = arg.GetNumber(2)
-	//int target = arg.GetNumber(3)
+	//const wxString href = arg.GetNumber(2)
+	//const wxString target = arg.GetNumber(3)
 	//wxWebViewEvent();
 	return Value::Nil;
 }

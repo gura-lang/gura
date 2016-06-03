@@ -64,11 +64,11 @@ Gura_DeclareFunctionAlias(__NativeWindow_1, "NativeWindow_1")
 
 Gura_ImplementFunction(__NativeWindow_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int winid = arg.GetNumber(1)
-	//int parent = arg.GetNumber(2)
-	//int winid = arg.GetNumber(3)
-	//int handle = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(1)
+	//wxNativeWindowHandle handle)  bool Create(wxWindow* parent = arg.GetNumber(2)
+	//wxWindowID winid = arg.GetNumber(3)
+	//wxNativeWindowHandle handle = arg.GetNumber(4)
 	//wxNativeWindow();
 	return Value::Nil;
 }

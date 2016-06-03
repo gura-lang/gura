@@ -70,17 +70,17 @@ Gura_DeclareFunctionAlias(__SpinCtrlDouble_1, "SpinCtrlDouble_1")
 
 Gura_ImplementFunction(__SpinCtrlDouble_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int min = arg.GetNumber(6)
-	//int max = arg.GetNumber(7)
-	//int initial = arg.GetNumber(8)
-	//int inc = arg.GetNumber(9)
-	//int name = arg.GetNumber(10)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//double min = arg.GetNumber(6)
+	//double max = arg.GetNumber(7)
+	//double initial = arg.GetNumber(8)
+	//double inc = arg.GetNumber(9)
+	//const wxString& name = arg.GetNumber(10)
 	//wxSpinCtrlDouble();
 	return Value::Nil;
 }
@@ -108,17 +108,17 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __Create)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int min = arg.GetNumber(6)
-	//int max = arg.GetNumber(7)
-	//int initial = arg.GetNumber(8)
-	//int inc = arg.GetNumber(9)
-	//int name = arg.GetNumber(10)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//double min = arg.GetNumber(6)
+	//double max = arg.GetNumber(7)
+	//double initial = arg.GetNumber(8)
+	//double inc = arg.GetNumber(9)
+	//const wxString& name = arg.GetNumber(10)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetDigits)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int digits = arg.GetNumber(0)
+	//unsigned int digits = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDigits();
 	return Value::Nil;
 }
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetIncrement)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int inc = arg.GetNumber(0)
+	//double inc = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIncrement();
 	return Value::Nil;
 }
@@ -229,8 +229,8 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetRange)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int minVal = arg.GetNumber(0)
-	//int maxVal = arg.GetNumber(1)
+	//double minVal = arg.GetNumber(0)
+	//double maxVal = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRange();
 	return Value::Nil;
 }
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetValue)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetValue_1)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//double value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }

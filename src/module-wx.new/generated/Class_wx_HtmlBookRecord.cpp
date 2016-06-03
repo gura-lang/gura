@@ -50,10 +50,10 @@ Gura_DeclareFunctionAlias(__HtmlBookRecord, "HtmlBookRecord")
 
 Gura_ImplementFunction(__HtmlBookRecord)
 {
-	//int bookfile = arg.GetNumber(0)
-	//int basepath = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int start = arg.GetNumber(3)
+	//const wxString& bookfile = arg.GetNumber(0)
+	//const wxString& basepath = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxString& start = arg.GetNumber(3)
 	//wxHtmlBookRecord();
 	return Value::Nil;
 }
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __SetTitle)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitle();
 	return Value::Nil;
 }
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __SetBasePath)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int path = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBasePath();
 	return Value::Nil;
 }
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __SetStart)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int start = arg.GetNumber(0)
+	//const wxString& start = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStart();
 	return Value::Nil;
 }
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __GetFullPath)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//const wxString& page = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFullPath();
 	return Value::Nil;
 }

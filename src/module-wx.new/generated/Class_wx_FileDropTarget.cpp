@@ -64,8 +64,8 @@ Gura_ImplementMethod(wx_FileDropTarget, __OnDrop)
 {
 	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->OnDrop();
 	return Value::Nil;
 }
@@ -82,9 +82,9 @@ Gura_ImplementMethod(wx_FileDropTarget, __OnDropFiles)
 {
 	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int filenames = arg.GetNumber(2)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//const wxArrayString& filenames = arg.GetNumber(2)
 	//pThis->GetEntity()->OnDropFiles();
 	return Value::Nil;
 }

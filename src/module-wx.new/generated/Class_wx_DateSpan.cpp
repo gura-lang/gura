@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_DateSpan, __Add)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int other = arg.GetNumber(0)
+	//const wxDateSpan& other = arg.GetNumber(0)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
 }
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_DateSpan, __Add_1)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int other = arg.GetNumber(0)
+	//const wxDateSpan& other = arg.GetNumber(0)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
 }
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_DateSpan, __Subtract)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int other = arg.GetNumber(0)
+	//const wxDateSpan& other = arg.GetNumber(0)
 	//pThis->GetEntity()->Subtract();
 	return Value::Nil;
 }
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_DateSpan, __Subtract_1)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int other = arg.GetNumber(0)
+	//const wxDateSpan& other = arg.GetNumber(0)
 	//pThis->GetEntity()->Subtract();
 	return Value::Nil;
 }

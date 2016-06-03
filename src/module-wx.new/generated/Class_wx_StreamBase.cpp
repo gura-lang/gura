@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_StreamBase, __Reset)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int error = arg.GetNumber(0)
+	//wxStreamError error = arg.GetNumber(0)
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }
@@ -144,8 +144,8 @@ Gura_ImplementMethod(wx_StreamBase, __OnSysSeek)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//wxFileOffset pos = arg.GetNumber(0)
+	//wxSeekMode mode = arg.GetNumber(1)
 	//pThis->GetEntity()->OnSysSeek();
 	return Value::Nil;
 }

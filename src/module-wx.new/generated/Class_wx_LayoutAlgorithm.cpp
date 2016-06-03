@@ -64,8 +64,8 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutFrame)
 {
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int frame = arg.GetNumber(0)
-	//int mainWindow = arg.GetNumber(1)
+	//wxFrame* frame = arg.GetNumber(0)
+	//wxWindow* mainWindow = arg.GetNumber(1)
 	//pThis->GetEntity()->LayoutFrame();
 	return Value::Nil;
 }
@@ -81,8 +81,8 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutMDIFrame)
 {
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int frame = arg.GetNumber(0)
-	//int rect = arg.GetNumber(1)
+	//wxMDIParentFrame* frame = arg.GetNumber(0)
+	//wxRect* rect = arg.GetNumber(1)
 	//pThis->GetEntity()->LayoutMDIFrame();
 	return Value::Nil;
 }
@@ -98,8 +98,8 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutWindow)
 {
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int mainWindow = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindow* mainWindow = arg.GetNumber(1)
 	//pThis->GetEntity()->LayoutWindow();
 	return Value::Nil;
 }

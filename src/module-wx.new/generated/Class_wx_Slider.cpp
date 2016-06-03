@@ -69,16 +69,16 @@ Gura_DeclareFunctionAlias(__Slider_1, "Slider_1")
 
 Gura_ImplementFunction(__Slider_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
 	//int minValue = arg.GetNumber(3)
 	//int maxValue = arg.GetNumber(4)
-	//int pos = arg.GetNumber(5)
-	//int size = arg.GetNumber(6)
-	//int style = arg.GetNumber(7)
-	//int validator = arg.GetNumber(8)
-	//int name = arg.GetNumber(9)
+	//const wxPoint& pos = arg.GetNumber(5)
+	//const wxSize& size = arg.GetNumber(6)
+	//long style = arg.GetNumber(7)
+	//const wxValidator& validator = arg.GetNumber(8)
+	//const wxString& name = arg.GetNumber(9)
 	//wxSlider();
 	return Value::Nil;
 }
@@ -131,16 +131,16 @@ Gura_ImplementMethod(wx_Slider, __Create)
 {
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
 	//int minValue = arg.GetNumber(3)
 	//int maxValue = arg.GetNumber(4)
-	//int point = arg.GetNumber(5)
-	//int size = arg.GetNumber(6)
-	//int style = arg.GetNumber(7)
-	//int validator = arg.GetNumber(8)
-	//int name = arg.GetNumber(9)
+	//const wxPoint& point = arg.GetNumber(5)
+	//const wxSize& size = arg.GetNumber(6)
+	//long style = arg.GetNumber(7)
+	//const wxValidator& validator = arg.GetNumber(8)
+	//const wxString& name = arg.GetNumber(9)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }

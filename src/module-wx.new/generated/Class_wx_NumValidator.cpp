@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_NumValidator, __SetMin)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int min = arg.GetNumber(0)
+	//ValueType min = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMin();
 	return Value::Nil;
 }
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_NumValidator, __SetMax)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int max = arg.GetNumber(0)
+	//ValueType max = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMax();
 	return Value::Nil;
 }
@@ -78,8 +78,8 @@ Gura_ImplementMethod(wx_NumValidator, __SetRange)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int min = arg.GetNumber(0)
-	//int max = arg.GetNumber(1)
+	//ValueType min = arg.GetNumber(0)
+	//ValueType max = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRange();
 	return Value::Nil;
 }

@@ -50,10 +50,10 @@ Gura_DeclareFunctionAlias(__SVGFileDC, "SVGFileDC")
 
 Gura_ImplementFunction(__SVGFileDC)
 {
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
-	//int dpi = arg.GetNumber(3)
+	//double dpi = arg.GetNumber(3)
 	//wxSVGFileDC();
 	return Value::Nil;
 }
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetBitmapHandler)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int handler = arg.GetNumber(0)
+	//wxSVGBitmapHandler* handler = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapHandler();
 	return Value::Nil;
 }
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetLogicalFunction)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int function = arg.GetNumber(0)
+	//wxRasterOperationMode function = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLogicalFunction();
 	return Value::Nil;
 }
@@ -143,10 +143,10 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int width = arg.GetNumber(2)
-	//int height = arg.GetNumber(3)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxCoord width = arg.GetNumber(2)
+	//wxCoord height = arg.GetNumber(3)
 	//pThis->GetEntity()->SetClippingRegion();
 	return Value::Nil;
 }
@@ -162,8 +162,8 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion_1)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
-	//int sz = arg.GetNumber(1)
+	//const wxPoint& pt = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(1)
 	//pThis->GetEntity()->SetClippingRegion();
 	return Value::Nil;
 }
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion_2)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetClippingRegion();
 	return Value::Nil;
 }
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion_3)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int region = arg.GetNumber(0)
+	//const wxRegion& region = arg.GetNumber(0)
 	//pThis->GetEntity()->SetClippingRegion();
 	return Value::Nil;
 }
@@ -222,8 +222,8 @@ Gura_ImplementMethod(wx_SVGFileDC, __CrossHair)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->CrossHair();
 	return Value::Nil;
 }
@@ -241,10 +241,10 @@ Gura_ImplementMethod(wx_SVGFileDC, __FloodFill)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int colour = arg.GetNumber(2)
-	//int style = arg.GetNumber(3)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//const wxColour& colour = arg.GetNumber(2)
+	//wxFloodFillStyle style = arg.GetNumber(3)
 	//pThis->GetEntity()->FloodFill();
 	return Value::Nil;
 }
@@ -262,10 +262,10 @@ Gura_ImplementMethod(wx_SVGFileDC, __GetClippingBox)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int width = arg.GetNumber(2)
-	//int height = arg.GetNumber(3)
+	//wxCoord* x = arg.GetNumber(0)
+	//wxCoord* y = arg.GetNumber(1)
+	//wxCoord* width = arg.GetNumber(2)
+	//wxCoord* height = arg.GetNumber(3)
 	//pThis->GetEntity()->GetClippingBox();
 	return Value::Nil;
 }
@@ -282,9 +282,9 @@ Gura_ImplementMethod(wx_SVGFileDC, __GetPixel)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int colour = arg.GetNumber(2)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//wxColour* colour = arg.GetNumber(2)
 	//pThis->GetEntity()->GetPixel();
 	return Value::Nil;
 }
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetPalette)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int palette = arg.GetNumber(0)
+	//const wxPalette& palette = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPalette();
 	return Value::Nil;
 }
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __StartDoc)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int message = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(0)
 	//pThis->GetEntity()->StartDoc();
 	return Value::Nil;
 }

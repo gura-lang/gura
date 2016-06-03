@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_GridCellBoolEditor, __IsTrueValue)
 {
 	Object_wx_GridCellBoolEditor *pThis = Object_wx_GridCellBoolEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//const wxString& value = arg.GetNumber(0)
 	//pThis->GetEntity()->IsTrueValue();
 	return Value::Nil;
 }
@@ -79,8 +79,8 @@ Gura_ImplementMethod(wx_GridCellBoolEditor, __UseStringValues)
 {
 	Object_wx_GridCellBoolEditor *pThis = Object_wx_GridCellBoolEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int valueTrue = arg.GetNumber(0)
-	//int valueFalse = arg.GetNumber(1)
+	//const wxString& valueTrue = arg.GetNumber(0)
+	//const wxString& valueFalse = arg.GetNumber(1)
 	//pThis->GetEntity()->UseStringValues();
 	return Value::Nil;
 }

@@ -65,12 +65,12 @@ Gura_DeclareFunctionAlias(__Wizard_1, "Wizard_1")
 
 Gura_ImplementFunction(__Wizard_1)
 {
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int pos = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//const wxPoint& pos = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
 	//wxWizard();
 	return Value::Nil;
 }
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_Wizard, __Create)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int pos = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//const wxPoint& pos = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_Wizard, __FitToPage)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int firstPage = arg.GetNumber(0)
+	//const wxWizardPage* firstPage = arg.GetNumber(0)
 	//pThis->GetEntity()->FitToPage();
 	return Value::Nil;
 }
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_Wizard, __HasNextPage)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//wxWizardPage* page = arg.GetNumber(0)
 	//pThis->GetEntity()->HasNextPage();
 	return Value::Nil;
 }
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_Wizard, __HasPrevPage)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//wxWizardPage* page = arg.GetNumber(0)
 	//pThis->GetEntity()->HasPrevPage();
 	return Value::Nil;
 }
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_Wizard, __RunWizard)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int firstPage = arg.GetNumber(0)
+	//wxWizardPage* firstPage = arg.GetNumber(0)
 	//pThis->GetEntity()->RunWizard();
 	return Value::Nil;
 }
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_Wizard, __SetBitmap)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmap();
 	return Value::Nil;
 }
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_Wizard, __SetBitmapBackgroundColour)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmapBackgroundColour();
 	return Value::Nil;
 }
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_Wizard, __SetPageSize)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sizePage = arg.GetNumber(0)
+	//const wxSize& sizePage = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPageSize();
 	return Value::Nil;
 }

@@ -64,8 +64,8 @@ Gura_ImplementMethod(wx_EncodingConverter, __CanConvert)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encIn = arg.GetNumber(0)
-	//int encOut = arg.GetNumber(1)
+	//wxFontEncoding encIn = arg.GetNumber(0)
+	//wxFontEncoding encOut = arg.GetNumber(1)
 	//pThis->GetEntity()->CanConvert();
 	return Value::Nil;
 }
@@ -81,8 +81,8 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int input = arg.GetNumber(0)
-	//int output = arg.GetNumber(1)
+	//const char* input = arg.GetNumber(0)
+	//char* output = arg.GetNumber(1)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -98,8 +98,8 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_1)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int input = arg.GetNumber(0)
-	//int output = arg.GetNumber(1)
+	//const wchar_t* input = arg.GetNumber(0)
+	//wchar_t* output = arg.GetNumber(1)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -115,8 +115,8 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_2)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int input = arg.GetNumber(0)
-	//int output = arg.GetNumber(1)
+	//const char* input = arg.GetNumber(0)
+	//wchar_t* output = arg.GetNumber(1)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -132,8 +132,8 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_3)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int input = arg.GetNumber(0)
-	//int output = arg.GetNumber(1)
+	//const wchar_t* input = arg.GetNumber(0)
+	//char* output = arg.GetNumber(1)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_4)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//char* str = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_5)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//wchar_t* str = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_6)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int input = arg.GetNumber(0)
+	//const wxString& input = arg.GetNumber(0)
 	//pThis->GetEntity()->Convert();
 	return Value::Nil;
 }
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_EncodingConverter, __GetAllEquivalents)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enc = arg.GetNumber(0)
+	//wxFontEncoding enc = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAllEquivalents();
 	return Value::Nil;
 }
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_EncodingConverter, __GetPlatformEquivalents)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enc = arg.GetNumber(0)
+	//wxFontEncoding enc = arg.GetNumber(0)
 	//int platform = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPlatformEquivalents();
 	return Value::Nil;
@@ -227,8 +227,8 @@ Gura_ImplementMethod(wx_EncodingConverter, __Init)
 {
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int input_enc = arg.GetNumber(0)
-	//int output_enc = arg.GetNumber(1)
+	//wxFontEncoding input_enc = arg.GetNumber(0)
+	//wxFontEncoding output_enc = arg.GetNumber(1)
 	//int method = arg.GetNumber(2)
 	//pThis->GetEntity()->Init();
 	return Value::Nil;

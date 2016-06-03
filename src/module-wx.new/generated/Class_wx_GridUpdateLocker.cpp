@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__GridUpdateLocker, "GridUpdateLocker")
 
 Gura_ImplementFunction(__GridUpdateLocker)
 {
-	//int grid = arg.GetNumber(0)
+	//wxGrid* grid = arg.GetNumber(0)
 	//wxGridUpdateLocker();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_GridUpdateLocker, __Create)
 {
 	Object_wx_GridUpdateLocker *pThis = Object_wx_GridUpdateLocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int grid = arg.GetNumber(0)
+	//wxGrid* grid = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }

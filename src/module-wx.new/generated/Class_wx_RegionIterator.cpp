@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__RegionIterator_1, "RegionIterator_1")
 
 Gura_ImplementFunction(__RegionIterator_1)
 {
-	//int region = arg.GetNumber(0)
+	//const wxRegion& region = arg.GetNumber(0)
 	//wxRegionIterator();
 	return Value::Nil;
 }
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_RegionIterator, __Reset_1)
 {
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int region = arg.GetNumber(0)
+	//const wxRegion& region = arg.GetNumber(0)
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }

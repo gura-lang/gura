@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__TimerRunner, "TimerRunner")
 
 Gura_ImplementFunction(__TimerRunner)
 {
-	//int timer = arg.GetNumber(0)
+	//wxTimer& timer = arg.GetNumber(0)
 	//wxTimerRunner();
 	return Value::Nil;
 }
@@ -64,9 +64,9 @@ Gura_DeclareFunctionAlias(__TimerRunner_1, "TimerRunner_1")
 
 Gura_ImplementFunction(__TimerRunner_1)
 {
-	//int timer = arg.GetNumber(0)
+	//wxTimer& timer = arg.GetNumber(0)
 	//int milli = arg.GetNumber(1)
-	//int oneShot = arg.GetNumber(2)
+	//bool oneShot = arg.GetNumber(2)
 	//wxTimerRunner();
 	return Value::Nil;
 }
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_TimerRunner, __Start)
 	Object_wx_TimerRunner *pThis = Object_wx_TimerRunner::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int milli = arg.GetNumber(0)
-	//int oneShot = arg.GetNumber(1)
+	//bool oneShot = arg.GetNumber(1)
 	//pThis->GetEntity()->Start();
 	return Value::Nil;
 }

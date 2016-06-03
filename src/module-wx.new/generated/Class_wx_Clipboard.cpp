@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_Clipboard, __AddData)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//wxDataObject* data = arg.GetNumber(0)
 	//pThis->GetEntity()->AddData();
 	return Value::Nil;
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_Clipboard, __GetData)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//wxDataObject& data = arg.GetNumber(0)
 	//pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_Clipboard, __IsSupported)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
+	//const wxDataFormat& format = arg.GetNumber(0)
 	//pThis->GetEntity()->IsSupported();
 	return Value::Nil;
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_Clipboard, __SetData)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//wxDataObject* data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetData();
 	return Value::Nil;
 }
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_Clipboard, __UsePrimarySelection)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int primary = arg.GetNumber(0)
+	//bool primary = arg.GetNumber(0)
 	//pThis->GetEntity()->UsePrimarySelection();
 	return Value::Nil;
 }

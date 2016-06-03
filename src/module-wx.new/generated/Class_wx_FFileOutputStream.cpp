@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__FFileOutputStream, "FFileOutputStream")
 
 Gura_ImplementFunction(__FFileOutputStream)
 {
-	//int filename = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//const wxString& filename = arg.GetNumber(0)
+	//const wxString& mode = arg.GetNumber(1)
 	//wxFFileOutputStream();
 	return Value::Nil;
 }
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__FFileOutputStream_1, "FFileOutputStream_1")
 
 Gura_ImplementFunction(__FFileOutputStream_1)
 {
-	//int file = arg.GetNumber(0)
+	//wxFFile& file = arg.GetNumber(0)
 	//wxFFileOutputStream();
 	return Value::Nil;
 }
@@ -79,7 +79,7 @@ Gura_DeclareFunctionAlias(__FFileOutputStream_2, "FFileOutputStream_2")
 
 Gura_ImplementFunction(__FFileOutputStream_2)
 {
-	//int fp = arg.GetNumber(0)
+	//FILE* fp = arg.GetNumber(0)
 	//wxFFileOutputStream();
 	return Value::Nil;
 }

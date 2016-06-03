@@ -64,8 +64,8 @@ Gura_ImplementMethod(wx_FontMapper, __CharsetToEncoding)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int charset = arg.GetNumber(0)
-	//int interactive = arg.GetNumber(1)
+	//const wxString& charset = arg.GetNumber(0)
+	//bool interactive = arg.GetNumber(1)
 	//pThis->GetEntity()->CharsetToEncoding();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_FontMapper, __GetAllEncodingNames)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
+	//wxFontEncoding encoding = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAllEncodingNames();
 	return Value::Nil;
 }
@@ -111,10 +111,10 @@ Gura_ImplementMethod(wx_FontMapper, __GetAltForEncoding)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
-	//int info = arg.GetNumber(1)
-	//int facename = arg.GetNumber(2)
-	//int interactive = arg.GetNumber(3)
+	//wxFontEncoding encoding = arg.GetNumber(0)
+	//wxNativeEncodingInfo* info = arg.GetNumber(1)
+	//const wxString& facename = arg.GetNumber(2)
+	//bool interactive = arg.GetNumber(3)
 	//pThis->GetEntity()->GetAltForEncoding();
 	return Value::Nil;
 }
@@ -132,10 +132,10 @@ Gura_ImplementMethod(wx_FontMapper, __GetAltForEncoding_1)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
-	//int alt_encoding = arg.GetNumber(1)
-	//int facename = arg.GetNumber(2)
-	//int interactive = arg.GetNumber(3)
+	//wxFontEncoding encoding = arg.GetNumber(0)
+	//wxFontEncoding* alt_encoding = arg.GetNumber(1)
+	//const wxString& facename = arg.GetNumber(2)
+	//bool interactive = arg.GetNumber(3)
 	//pThis->GetEntity()->GetAltForEncoding();
 	return Value::Nil;
 }
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_FontMapper, __GetEncoding)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetEncoding();
 	return Value::Nil;
 }
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_FontMapper, __GetEncodingDescription)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
+	//wxFontEncoding encoding = arg.GetNumber(0)
 	//pThis->GetEntity()->GetEncodingDescription();
 	return Value::Nil;
 }
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_FontMapper, __GetEncodingFromName)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
+	//const wxString& encoding = arg.GetNumber(0)
 	//pThis->GetEntity()->GetEncodingFromName();
 	return Value::Nil;
 }
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_FontMapper, __GetEncodingName)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
+	//wxFontEncoding encoding = arg.GetNumber(0)
 	//pThis->GetEntity()->GetEncodingName();
 	return Value::Nil;
 }
@@ -224,8 +224,8 @@ Gura_ImplementMethod(wx_FontMapper, __IsEncodingAvailable)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
-	//int facename = arg.GetNumber(1)
+	//wxFontEncoding encoding = arg.GetNumber(0)
+	//const wxString& facename = arg.GetNumber(1)
 	//pThis->GetEntity()->IsEncodingAvailable();
 	return Value::Nil;
 }
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_FontMapper, __Set)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mapper = arg.GetNumber(0)
+	//wxFontMapper* mapper = arg.GetNumber(0)
 	//pThis->GetEntity()->Set();
 	return Value::Nil;
 }
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_FontMapper, __SetConfigPath)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int prefix = arg.GetNumber(0)
+	//const wxString& prefix = arg.GetNumber(0)
 	//pThis->GetEntity()->SetConfigPath();
 	return Value::Nil;
 }
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_FontMapper, __SetDialogParent)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDialogParent();
 	return Value::Nil;
 }
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_FontMapper, __SetDialogTitle)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
+	//const wxString& title = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDialogTitle();
 	return Value::Nil;
 }

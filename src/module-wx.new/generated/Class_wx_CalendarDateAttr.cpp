@@ -51,11 +51,11 @@ Gura_DeclareFunctionAlias(__CalendarDateAttr, "CalendarDateAttr")
 
 Gura_ImplementFunction(__CalendarDateAttr)
 {
-	//int colText = arg.GetNumber(0)
-	//int colBack = arg.GetNumber(1)
-	//int colBorder = arg.GetNumber(2)
-	//int font = arg.GetNumber(3)
-	//int border = arg.GetNumber(4)
+	//const wxColour& colText = arg.GetNumber(0)
+	//const wxColour& colBack = arg.GetNumber(1)
+	//const wxColour& colBorder = arg.GetNumber(2)
+	//const wxFont& font = arg.GetNumber(3)
+	//wxCalendarDateBorder border = arg.GetNumber(4)
 	//wxCalendarDateAttr();
 	return Value::Nil;
 }
@@ -71,8 +71,8 @@ Gura_DeclareFunctionAlias(__CalendarDateAttr_1, "CalendarDateAttr_1")
 
 Gura_ImplementFunction(__CalendarDateAttr_1)
 {
-	//int border = arg.GetNumber(0)
-	//int colBorder = arg.GetNumber(1)
+	//wxCalendarDateBorder border = arg.GetNumber(0)
+	//const wxColour& colBorder = arg.GetNumber(1)
 	//wxCalendarDateAttr();
 	return Value::Nil;
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, __SetBackgroundColour)
 {
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colBack = arg.GetNumber(0)
+	//const wxColour& colBack = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBackgroundColour();
 	return Value::Nil;
 }
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, __SetBorder)
 {
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int border = arg.GetNumber(0)
+	//wxCalendarDateBorder border = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBorder();
 	return Value::Nil;
 }
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, __SetBorderColour)
 {
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//const wxColour& col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBorderColour();
 	return Value::Nil;
 }
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, __SetFont)
 {
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;
 }
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, __SetHoliday)
 {
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int holiday = arg.GetNumber(0)
+	//bool holiday = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHoliday();
 	return Value::Nil;
 }
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, __SetTextColour)
 {
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colText = arg.GetNumber(0)
+	//const wxColour& colText = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTextColour();
 	return Value::Nil;
 }
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_CalendarDateAttr, __SetMark)
 {
 	Object_wx_CalendarDateAttr *pThis = Object_wx_CalendarDateAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int m = arg.GetNumber(0)
+	//const wxCalendarDateAttr& m = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMark();
 	return Value::Nil;
 }

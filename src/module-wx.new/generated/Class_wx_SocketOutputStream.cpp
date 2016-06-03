@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__SocketOutputStream, "SocketOutputStream")
 
 Gura_ImplementFunction(__SocketOutputStream)
 {
-	//int s = arg.GetNumber(0)
+	//wxSocketBase& s = arg.GetNumber(0)
 	//wxSocketOutputStream();
 	return Value::Nil;
 }

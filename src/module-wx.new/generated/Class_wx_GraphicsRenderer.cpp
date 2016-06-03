@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateBitmap)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateBitmap();
 	return Value::Nil;
 }
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateBitmapFromImage)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int image = arg.GetNumber(0)
+	//const wxImage& image = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateBitmapFromImage();
 	return Value::Nil;
 }
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateImageFromBitmap)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bmp = arg.GetNumber(0)
+	//const wxGraphicsBitmap& bmp = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateImageFromBitmap();
 	return Value::Nil;
 }
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateBitmapFromNativeBitmap)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//void* bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateBitmapFromNativeBitmap();
 	return Value::Nil;
 }
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateContext)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateContext();
 	return Value::Nil;
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateContext_1)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int windowDC = arg.GetNumber(0)
+	//const wxWindowDC& windowDC = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateContext();
 	return Value::Nil;
 }
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateContext_2)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int memoryDC = arg.GetNumber(0)
+	//const wxMemoryDC& memoryDC = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateContext();
 	return Value::Nil;
 }
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateContext_3)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int printerDC = arg.GetNumber(0)
+	//const wxPrinterDC& printerDC = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateContext();
 	return Value::Nil;
 }
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateContext_4)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int metaFileDC = arg.GetNumber(0)
+	//const wxEnhMetaFileDC& metaFileDC = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateContext();
 	return Value::Nil;
 }
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateContextFromImage)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int image = arg.GetNumber(0)
+	//wxImage& image = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateContextFromImage();
 	return Value::Nil;
 }
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateBrush)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int brush = arg.GetNumber(0)
+	//const wxBrush& brush = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateBrush();
 	return Value::Nil;
 }
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateContextFromNativeContext)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int context = arg.GetNumber(0)
+	//void* context = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateContextFromNativeContext();
 	return Value::Nil;
 }
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateContextFromNativeWindow)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//void* window = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateContextFromNativeWindow();
 	return Value::Nil;
 }
@@ -256,8 +256,8 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateFont)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
+	//const wxFont& font = arg.GetNumber(0)
+	//const wxColour& col = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateFont();
 	return Value::Nil;
 }
@@ -275,10 +275,10 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateFont_1)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sizeInPixels = arg.GetNumber(0)
-	//int facename = arg.GetNumber(1)
+	//double sizeInPixels = arg.GetNumber(0)
+	//const wxString& facename = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//int col = arg.GetNumber(3)
+	//const wxColour& col = arg.GetNumber(3)
 	//pThis->GetEntity()->CreateFont();
 	return Value::Nil;
 }
@@ -297,11 +297,11 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateLinearGradientBrush)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x1 = arg.GetNumber(0)
-	//int y1 = arg.GetNumber(1)
-	//int x2 = arg.GetNumber(2)
-	//int y2 = arg.GetNumber(3)
-	//int stops = arg.GetNumber(4)
+	//wxDouble x1 = arg.GetNumber(0)
+	//wxDouble y1 = arg.GetNumber(1)
+	//wxDouble x2 = arg.GetNumber(2)
+	//wxDouble y2 = arg.GetNumber(3)
+	//const wxGraphicsGradientStops& stops = arg.GetNumber(4)
 	//pThis->GetEntity()->CreateLinearGradientBrush();
 	return Value::Nil;
 }
@@ -321,12 +321,12 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateMatrix)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int a = arg.GetNumber(0)
-	//int b = arg.GetNumber(1)
-	//int c = arg.GetNumber(2)
-	//int d = arg.GetNumber(3)
-	//int tx = arg.GetNumber(4)
-	//int ty = arg.GetNumber(5)
+	//wxDouble a = arg.GetNumber(0)
+	//wxDouble b = arg.GetNumber(1)
+	//wxDouble c = arg.GetNumber(2)
+	//wxDouble d = arg.GetNumber(3)
+	//wxDouble tx = arg.GetNumber(4)
+	//wxDouble ty = arg.GetNumber(5)
 	//pThis->GetEntity()->CreateMatrix();
 	return Value::Nil;
 }
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreatePen)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pen = arg.GetNumber(0)
+	//const wxPen& pen = arg.GetNumber(0)
 	//pThis->GetEntity()->CreatePen();
 	return Value::Nil;
 }
@@ -374,12 +374,12 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateRadialGradientBrush)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int xo = arg.GetNumber(0)
-	//int yo = arg.GetNumber(1)
-	//int xc = arg.GetNumber(2)
-	//int yc = arg.GetNumber(3)
-	//int radius = arg.GetNumber(4)
-	//int stops = arg.GetNumber(5)
+	//wxDouble xo = arg.GetNumber(0)
+	//wxDouble yo = arg.GetNumber(1)
+	//wxDouble xc = arg.GetNumber(2)
+	//wxDouble yc = arg.GetNumber(3)
+	//wxDouble radius = arg.GetNumber(4)
+	//const wxGraphicsGradientStops& stops = arg.GetNumber(5)
 	//pThis->GetEntity()->CreateRadialGradientBrush();
 	return Value::Nil;
 }
@@ -398,11 +398,11 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __CreateSubBitmap)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
-	//int x = arg.GetNumber(1)
-	//int y = arg.GetNumber(2)
-	//int w = arg.GetNumber(3)
-	//int h = arg.GetNumber(4)
+	//const wxGraphicsBitmap& bitmap = arg.GetNumber(0)
+	//wxDouble x = arg.GetNumber(1)
+	//wxDouble y = arg.GetNumber(2)
+	//wxDouble w = arg.GetNumber(3)
+	//wxDouble h = arg.GetNumber(4)
 	//pThis->GetEntity()->CreateSubBitmap();
 	return Value::Nil;
 }
@@ -432,9 +432,9 @@ Gura_ImplementMethod(wx_GraphicsRenderer, __GetVersion)
 {
 	Object_wx_GraphicsRenderer *pThis = Object_wx_GraphicsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int major = arg.GetNumber(0)
-	//int minor = arg.GetNumber(1)
-	//int micro = arg.GetNumber(2)
+	//int* major = arg.GetNumber(0)
+	//int* minor = arg.GetNumber(1)
+	//int* micro = arg.GetNumber(2)
 	//pThis->GetEntity()->GetVersion();
 	return Value::Nil;
 }

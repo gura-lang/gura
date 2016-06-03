@@ -51,11 +51,11 @@ Gura_DeclareFunctionAlias(__RichTextStyleListCtrl, "RichTextStyleListCtrl")
 
 Gura_ImplementFunction(__RichTextStyleListCtrl)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//wxRichTextStyleListCtrl();
 	return Value::Nil;
 }
@@ -90,11 +90,11 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, __Create)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, __SetRichTextCtrl)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ctrl = arg.GetNumber(0)
+	//wxRichTextCtrl* ctrl = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRichTextCtrl();
 	return Value::Nil;
 }
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, __SetStyleSheet)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int styleSheet = arg.GetNumber(0)
+	//wxRichTextStyleSheet* styleSheet = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStyleSheet();
 	return Value::Nil;
 }
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, __SetStyleType)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int styleType = arg.GetNumber(0)
+	//wxRichTextStyleListBox::wxRichTextStyleType styleType = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStyleType();
 	return Value::Nil;
 }

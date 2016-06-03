@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__RichTextFileHandler, "RichTextFileHandler")
 
 Gura_ImplementFunction(__RichTextFileHandler)
 {
-	//int name = arg.GetNumber(0)
-	//int ext = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxString& ext = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
 	//wxRichTextFileHandler();
 	return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __LoadFile)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadFile();
 	return Value::Nil;
 }
@@ -87,8 +87,8 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SaveFile)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxOutputStream& stream = arg.GetNumber(1)
 	//pThis->GetEntity()->SaveFile();
 	return Value::Nil;
 }
@@ -104,8 +104,8 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __LoadFile_1)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int filename = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadFile();
 	return Value::Nil;
 }
@@ -121,8 +121,8 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SaveFile_1)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int filename = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(1)
 	//pThis->GetEntity()->SaveFile();
 	return Value::Nil;
 }
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __CanHandle)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//pThis->GetEntity()->CanHandle();
 	return Value::Nil;
 }
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SetVisible)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int visible = arg.GetNumber(0)
+	//bool visible = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVisible();
 	return Value::Nil;
 }
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SetName)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetName();
 	return Value::Nil;
 }
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SetExtension)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ext = arg.GetNumber(0)
+	//const wxString& ext = arg.GetNumber(0)
 	//pThis->GetEntity()->SetExtension();
 	return Value::Nil;
 }
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SetEncoding)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int encoding = arg.GetNumber(0)
+	//const wxString& encoding = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEncoding();
 	return Value::Nil;
 }
@@ -347,8 +347,8 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __DoLoadFile)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoLoadFile();
 	return Value::Nil;
 }
@@ -364,8 +364,8 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __DoSaveFile)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxOutputStream& stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoSaveFile();
 	return Value::Nil;
 }

@@ -67,14 +67,14 @@ Gura_DeclareFunctionAlias(__HyperlinkCtrl_1, "HyperlinkCtrl_1")
 
 Gura_ImplementFunction(__HyperlinkCtrl_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int url = arg.GetNumber(3)
-	//int pos = arg.GetNumber(4)
-	//int size = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxString& url = arg.GetNumber(3)
+	//const wxPoint& pos = arg.GetNumber(4)
+	//const wxSize& size = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//wxHyperlinkCtrl();
 	return Value::Nil;
 }
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, __Create)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int url = arg.GetNumber(3)
-	//int pos = arg.GetNumber(4)
-	//int size = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxString& url = arg.GetNumber(3)
+	//const wxPoint& pos = arg.GetNumber(4)
+	//const wxSize& size = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, __SetHoverColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHoverColour();
 	return Value::Nil;
 }
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, __SetNormalColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNormalColour();
 	return Value::Nil;
 }
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, __SetURL)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;
 }
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, __SetVisited)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int visited = arg.GetNumber(0)
+	//bool visited = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVisited();
 	return Value::Nil;
 }
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, __SetVisitedColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetVisitedColour();
 	return Value::Nil;
 }

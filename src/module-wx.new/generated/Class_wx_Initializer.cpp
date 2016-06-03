@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__Initializer, "Initializer")
 Gura_ImplementFunction(__Initializer)
 {
 	//int argc = arg.GetNumber(0)
-	//int argv = arg.GetNumber(1)
+	//wxChar** argv = arg.GetNumber(1)
 	//wxInitializer();
 	return Value::Nil;
 }

@@ -67,12 +67,12 @@ Gura_DeclareFunctionAlias(__GridSizeEvent_1, "GridSizeEvent_1")
 Gura_ImplementFunction(__GridSizeEvent_1)
 {
 	//int id = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
-	//int obj = arg.GetNumber(2)
+	//wxEventType type = arg.GetNumber(1)
+	//wxObject* obj = arg.GetNumber(2)
 	//int rowOrCol = arg.GetNumber(3)
 	//int x = arg.GetNumber(4)
 	//int y = arg.GetNumber(5)
-	//int kbd = arg.GetNumber(6)
+	//const wxKeyboardState& kbd = arg.GetNumber(6)
 	//wxGridSizeEvent();
 	return Value::Nil;
 }

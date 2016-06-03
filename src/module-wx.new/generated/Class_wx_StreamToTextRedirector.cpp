@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__StreamToTextRedirector, "StreamToTextRedirector")
 
 Gura_ImplementFunction(__StreamToTextRedirector)
 {
-	//int text = arg.GetNumber(0)
-	//int ostr = arg.GetNumber(1)
+	//wxTextCtrl* text = arg.GetNumber(0)
+	//ostream* ostr = arg.GetNumber(1)
 	//wxStreamToTextRedirector();
 	return Value::Nil;
 }

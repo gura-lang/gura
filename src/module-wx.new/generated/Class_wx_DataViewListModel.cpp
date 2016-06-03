@@ -50,10 +50,10 @@ Gura_ImplementMethod(wx_DataViewListModel, __Compare)
 {
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item1 = arg.GetNumber(0)
-	//int item2 = arg.GetNumber(1)
-	//int column = arg.GetNumber(2)
-	//int ascending = arg.GetNumber(3)
+	//const wxDataViewItem& item1 = arg.GetNumber(0)
+	//const wxDataViewItem& item2 = arg.GetNumber(1)
+	//unsigned int column = arg.GetNumber(2)
+	//bool ascending = arg.GetNumber(3)
 	//pThis->GetEntity()->Compare();
 	return Value::Nil;
 }
@@ -70,9 +70,9 @@ Gura_ImplementMethod(wx_DataViewListModel, __GetAttrByRow)
 {
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int row = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
-	//int attr = arg.GetNumber(2)
+	//unsigned int row = arg.GetNumber(0)
+	//unsigned int col = arg.GetNumber(1)
+	//wxDataViewItemAttr& attr = arg.GetNumber(2)
 	//pThis->GetEntity()->GetAttrByRow();
 	return Value::Nil;
 }
@@ -88,8 +88,8 @@ Gura_ImplementMethod(wx_DataViewListModel, __IsEnabledByRow)
 {
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int row = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
+	//unsigned int row = arg.GetNumber(0)
+	//unsigned int col = arg.GetNumber(1)
 	//pThis->GetEntity()->IsEnabledByRow();
 	return Value::Nil;
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_DataViewListModel, __GetRow)
 {
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetRow();
 	return Value::Nil;
 }
@@ -134,9 +134,9 @@ Gura_ImplementMethod(wx_DataViewListModel, __GetValueByRow)
 {
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int variant = arg.GetNumber(0)
-	//int row = arg.GetNumber(1)
-	//int col = arg.GetNumber(2)
+	//wxVariant& variant = arg.GetNumber(0)
+	//unsigned int row = arg.GetNumber(1)
+	//unsigned int col = arg.GetNumber(2)
 	//pThis->GetEntity()->GetValueByRow();
 	return Value::Nil;
 }
@@ -153,9 +153,9 @@ Gura_ImplementMethod(wx_DataViewListModel, __SetValueByRow)
 {
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int variant = arg.GetNumber(0)
-	//int row = arg.GetNumber(1)
-	//int col = arg.GetNumber(2)
+	//const wxVariant& variant = arg.GetNumber(0)
+	//unsigned int row = arg.GetNumber(1)
+	//unsigned int col = arg.GetNumber(2)
 	//pThis->GetEntity()->SetValueByRow();
 	return Value::Nil;
 }

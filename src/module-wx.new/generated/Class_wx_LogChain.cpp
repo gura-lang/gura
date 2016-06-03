@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__LogChain, "LogChain")
 
 Gura_ImplementFunction(__LogChain)
 {
-	//int logger = arg.GetNumber(0)
+	//wxLog* logger = arg.GetNumber(0)
 	//wxLogChain();
 	return Value::Nil;
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_LogChain, __PassMessages)
 {
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int passMessages = arg.GetNumber(0)
+	//bool passMessages = arg.GetNumber(0)
 	//pThis->GetEntity()->PassMessages();
 	return Value::Nil;
 }
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_LogChain, __SetLog)
 {
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int logger = arg.GetNumber(0)
+	//wxLog* logger = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLog();
 	return Value::Nil;
 }

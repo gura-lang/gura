@@ -64,11 +64,11 @@ Gura_DeclareFunctionAlias(__RibbonButtonBar_1, "RibbonButtonBar_1")
 
 Gura_ImplementFunction(__RibbonButtonBar_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//wxRibbonButtonBar();
 	return Value::Nil;
 }
@@ -90,11 +90,11 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __Create)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -114,10 +114,10 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __AddButton)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int help_string = arg.GetNumber(3)
-	//int kind = arg.GetNumber(4)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxString& help_string = arg.GetNumber(3)
+	//wxRibbonButtonKind kind = arg.GetNumber(4)
 	//pThis->GetEntity()->AddButton();
 	return Value::Nil;
 }
@@ -136,9 +136,9 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __AddDropdownButton)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int help_string = arg.GetNumber(3)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxString& help_string = arg.GetNumber(3)
 	//pThis->GetEntity()->AddDropdownButton();
 	return Value::Nil;
 }
@@ -157,9 +157,9 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __AddHybridButton)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int help_string = arg.GetNumber(3)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxString& help_string = arg.GetNumber(3)
 	//pThis->GetEntity()->AddHybridButton();
 	return Value::Nil;
 }
@@ -178,9 +178,9 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __AddToggleButton)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int help_string = arg.GetNumber(3)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxString& help_string = arg.GetNumber(3)
 	//pThis->GetEntity()->AddToggleButton();
 	return Value::Nil;
 }
@@ -203,13 +203,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __AddButton_1)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int bitmap_small = arg.GetNumber(3)
-	//int bitmap_disabled = arg.GetNumber(4)
-	//int bitmap_small_disabled = arg.GetNumber(5)
-	//int kind = arg.GetNumber(6)
-	//int help_string = arg.GetNumber(7)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxBitmap& bitmap_small = arg.GetNumber(3)
+	//const wxBitmap& bitmap_disabled = arg.GetNumber(4)
+	//const wxBitmap& bitmap_small_disabled = arg.GetNumber(5)
+	//wxRibbonButtonKind kind = arg.GetNumber(6)
+	//const wxString& help_string = arg.GetNumber(7)
 	//pThis->GetEntity()->AddButton();
 	return Value::Nil;
 }
@@ -229,12 +229,12 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __InsertButton)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int button_id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int help_string = arg.GetNumber(4)
-	//int kind = arg.GetNumber(5)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//const wxString& help_string = arg.GetNumber(4)
+	//wxRibbonButtonKind kind = arg.GetNumber(5)
 	//pThis->GetEntity()->InsertButton();
 	return Value::Nil;
 }
@@ -253,11 +253,11 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __InsertDropdownButton)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int button_id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int help_string = arg.GetNumber(4)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//const wxString& help_string = arg.GetNumber(4)
 	//pThis->GetEntity()->InsertDropdownButton();
 	return Value::Nil;
 }
@@ -276,11 +276,11 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __InsertHybridButton)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int button_id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int help_string = arg.GetNumber(4)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//const wxString& help_string = arg.GetNumber(4)
 	//pThis->GetEntity()->InsertHybridButton();
 	return Value::Nil;
 }
@@ -299,11 +299,11 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __InsertToggleButton)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int button_id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int help_string = arg.GetNumber(4)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//const wxString& help_string = arg.GetNumber(4)
 	//pThis->GetEntity()->InsertToggleButton();
 	return Value::Nil;
 }
@@ -326,15 +326,15 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __InsertButton_1)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int button_id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int bitmap_small = arg.GetNumber(4)
-	//int bitmap_disabled = arg.GetNumber(5)
-	//int bitmap_small_disabled = arg.GetNumber(6)
-	//int kind = arg.GetNumber(7)
-	//int help_string = arg.GetNumber(8)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//const wxBitmap& bitmap_small = arg.GetNumber(4)
+	//const wxBitmap& bitmap_disabled = arg.GetNumber(5)
+	//const wxBitmap& bitmap_small_disabled = arg.GetNumber(6)
+	//wxRibbonButtonKind kind = arg.GetNumber(7)
+	//const wxString& help_string = arg.GetNumber(8)
 	//pThis->GetEntity()->InsertButton();
 	return Value::Nil;
 }
@@ -363,8 +363,8 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __SetItemClientObject)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxRibbonButtonBarButtonBase* item = arg.GetNumber(0)
+	//wxClientData* data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemClientObject();
 	return Value::Nil;
 }
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __GetItemClientObject)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxRibbonButtonBarButtonBase* item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemClientObject();
 	return Value::Nil;
 }
@@ -395,8 +395,8 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __SetItemClientData)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxRibbonButtonBarButtonBase* item = arg.GetNumber(0)
+	//void* data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetItemClientData();
 	return Value::Nil;
 }
@@ -411,7 +411,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __GetItemClientData)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxRibbonButtonBarButtonBase* item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemClientData();
 	return Value::Nil;
 }
@@ -426,7 +426,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __GetItem)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItem();
 	return Value::Nil;
 }
@@ -456,7 +456,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __GetItemId)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int _arg0 = arg.GetNumber(0)
+	//wxRibbonButtonBarButtonBase* _arg0 = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItemId();
 	return Value::Nil;
 }
@@ -514,7 +514,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __EnableButton)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
-	//int enable = arg.GetNumber(1)
+	//bool enable = arg.GetNumber(1)
 	//pThis->GetEntity()->EnableButton();
 	return Value::Nil;
 }
@@ -531,7 +531,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __ToggleButton)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
-	//int checked = arg.GetNumber(1)
+	//bool checked = arg.GetNumber(1)
 	//pThis->GetEntity()->ToggleButton();
 	return Value::Nil;
 }
@@ -572,7 +572,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __SetShowToolTipsForDisabled)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int show = arg.GetNumber(0)
+	//bool show = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShowToolTipsForDisabled();
 	return Value::Nil;
 }

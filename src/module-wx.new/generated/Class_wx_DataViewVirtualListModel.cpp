@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__DataViewVirtualListModel, "DataViewVirtualListModel"
 
 Gura_ImplementFunction(__DataViewVirtualListModel)
 {
-	//int initial_size = arg.GetNumber(0)
+	//unsigned int initial_size = arg.GetNumber(0)
 	//wxDataViewVirtualListModel();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, __GetItem)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int row = arg.GetNumber(0)
+	//unsigned int row = arg.GetNumber(0)
 	//pThis->GetEntity()->GetItem();
 	return Value::Nil;
 }
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, __Reset)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int new_size = arg.GetNumber(0)
+	//unsigned int new_size = arg.GetNumber(0)
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowChanged)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int row = arg.GetNumber(0)
+	//unsigned int row = arg.GetNumber(0)
 	//pThis->GetEntity()->RowChanged();
 	return Value::Nil;
 }
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowDeleted)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int row = arg.GetNumber(0)
+	//unsigned int row = arg.GetNumber(0)
 	//pThis->GetEntity()->RowDeleted();
 	return Value::Nil;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowInserted)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int before = arg.GetNumber(0)
+	//unsigned int before = arg.GetNumber(0)
 	//pThis->GetEntity()->RowInserted();
 	return Value::Nil;
 }
@@ -167,8 +167,8 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowValueChanged)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int row = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
+	//unsigned int row = arg.GetNumber(0)
+	//unsigned int col = arg.GetNumber(1)
 	//pThis->GetEntity()->RowValueChanged();
 	return Value::Nil;
 }
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowsDeleted)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rows = arg.GetNumber(0)
+	//const wxArrayInt& rows = arg.GetNumber(0)
 	//pThis->GetEntity()->RowsDeleted();
 	return Value::Nil;
 }

@@ -77,8 +77,8 @@ Gura_ImplementMethod(wx_TextAttrDimensions, __EqPartial)
 {
 	Object_wx_TextAttrDimensions *pThis = Object_wx_TextAttrDimensions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dims = arg.GetNumber(0)
-	//int weakTest = arg.GetNumber(1)
+	//const wxTextAttrDimensions& dims = arg.GetNumber(0)
+	//bool weakTest = arg.GetNumber(1)
 	//pThis->GetEntity()->EqPartial();
 	return Value::Nil;
 }
@@ -94,8 +94,8 @@ Gura_ImplementMethod(wx_TextAttrDimensions, __Apply)
 {
 	Object_wx_TextAttrDimensions *pThis = Object_wx_TextAttrDimensions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dims = arg.GetNumber(0)
-	//int compareWith = arg.GetNumber(1)
+	//const wxTextAttrDimensions& dims = arg.GetNumber(0)
+	//const wxTextAttrDimensions* compareWith = arg.GetNumber(1)
 	//pThis->GetEntity()->Apply();
 	return Value::Nil;
 }
@@ -112,9 +112,9 @@ Gura_ImplementMethod(wx_TextAttrDimensions, __CollectCommonAttributes)
 {
 	Object_wx_TextAttrDimensions *pThis = Object_wx_TextAttrDimensions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
-	//int clashingAttr = arg.GetNumber(1)
-	//int absentAttr = arg.GetNumber(2)
+	//const wxTextAttrDimensions& attr = arg.GetNumber(0)
+	//wxTextAttrDimensions& clashingAttr = arg.GetNumber(1)
+	//wxTextAttrDimensions& absentAttr = arg.GetNumber(2)
 	//pThis->GetEntity()->CollectCommonAttributes();
 	return Value::Nil;
 }
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_TextAttrDimensions, __RemoveStyle)
 {
 	Object_wx_TextAttrDimensions *pThis = Object_wx_TextAttrDimensions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
+	//const wxTextAttrDimensions& attr = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveStyle();
 	return Value::Nil;
 }

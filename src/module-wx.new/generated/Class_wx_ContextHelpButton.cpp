@@ -51,11 +51,11 @@ Gura_DeclareFunctionAlias(__ContextHelpButton, "ContextHelpButton")
 
 Gura_ImplementFunction(__ContextHelpButton)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//wxContextHelpButton();
 	return Value::Nil;
 }

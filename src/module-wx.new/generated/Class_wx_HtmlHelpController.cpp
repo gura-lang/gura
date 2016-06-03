@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__HtmlHelpController, "HtmlHelpController")
 Gura_ImplementFunction(__HtmlHelpController)
 {
 	//int style = arg.GetNumber(0)
-	//int parentWindow = arg.GetNumber(1)
+	//wxWindow* parentWindow = arg.GetNumber(1)
 	//wxHtmlHelpController();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__HtmlHelpController_1, "HtmlHelpController_1")
 
 Gura_ImplementFunction(__HtmlHelpController_1)
 {
-	//int parentWindow = arg.GetNumber(0)
+	//wxWindow* parentWindow = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//wxHtmlHelpController();
 	return Value::Nil;
@@ -85,8 +85,8 @@ Gura_ImplementMethod(wx_HtmlHelpController, __AddBook)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bookFile = arg.GetNumber(0)
-	//int showWaitMsg = arg.GetNumber(1)
+	//const wxFileName& bookFile = arg.GetNumber(0)
+	//bool showWaitMsg = arg.GetNumber(1)
 	//pThis->GetEntity()->AddBook();
 	return Value::Nil;
 }
@@ -102,8 +102,8 @@ Gura_ImplementMethod(wx_HtmlHelpController, __AddBook_1)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bookUrl = arg.GetNumber(0)
-	//int showWaitMsg = arg.GetNumber(1)
+	//const wxString& bookUrl = arg.GetNumber(0)
+	//bool showWaitMsg = arg.GetNumber(1)
 	//pThis->GetEntity()->AddBook();
 	return Value::Nil;
 }
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, __Display)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
+	//const wxString& x = arg.GetNumber(0)
 	//pThis->GetEntity()->Display();
 	return Value::Nil;
 }
@@ -175,8 +175,8 @@ Gura_ImplementMethod(wx_HtmlHelpController, __KeywordSearch)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int keyword = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//const wxString& keyword = arg.GetNumber(0)
+	//wxHelpSearchMode mode = arg.GetNumber(1)
 	//pThis->GetEntity()->KeywordSearch();
 	return Value::Nil;
 }
@@ -192,8 +192,8 @@ Gura_ImplementMethod(wx_HtmlHelpController, __ReadCustomization)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int cfg = arg.GetNumber(0)
-	//int path = arg.GetNumber(1)
+	//wxConfigBase* cfg = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadCustomization();
 	return Value::Nil;
 }
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, __SetShouldPreventAppExit)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShouldPreventAppExit();
 	return Value::Nil;
 }
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, __SetTempDir)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int path = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTempDir();
 	return Value::Nil;
 }
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, __SetTitleFormat)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
+	//const wxString& format = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitleFormat();
 	return Value::Nil;
 }
@@ -254,8 +254,8 @@ Gura_ImplementMethod(wx_HtmlHelpController, __UseConfig)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int config = arg.GetNumber(0)
-	//int rootpath = arg.GetNumber(1)
+	//wxConfigBase* config = arg.GetNumber(0)
+	//const wxString& rootpath = arg.GetNumber(1)
 	//pThis->GetEntity()->UseConfig();
 	return Value::Nil;
 }
@@ -271,8 +271,8 @@ Gura_ImplementMethod(wx_HtmlHelpController, __WriteCustomization)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int cfg = arg.GetNumber(0)
-	//int path = arg.GetNumber(1)
+	//wxConfigBase* cfg = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(1)
 	//pThis->GetEntity()->WriteCustomization();
 	return Value::Nil;
 }
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, __SetHelpWindow)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int helpWindow = arg.GetNumber(0)
+	//wxHtmlHelpWindow* helpWindow = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHelpWindow();
 	return Value::Nil;
 }
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, __CreateHelpDialog)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//wxHtmlHelpData* data = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateHelpDialog();
 	return Value::Nil;
 }
@@ -356,7 +356,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, __CreateHelpFrame)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//wxHtmlHelpData* data = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateHelpFrame();
 	return Value::Nil;
 }

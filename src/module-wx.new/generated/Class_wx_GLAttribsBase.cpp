@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_GLAttribsBase, __SetNeedsARB)
 {
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int needsARB = arg.GetNumber(0)
+	//bool needsARB = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNeedsARB();
 	return Value::Nil;
 }

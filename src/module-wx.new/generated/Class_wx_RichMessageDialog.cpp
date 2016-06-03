@@ -50,10 +50,10 @@ Gura_DeclareFunctionAlias(__RichMessageDialog, "RichMessageDialog")
 
 Gura_ImplementFunction(__RichMessageDialog)
 {
-	//int parent = arg.GetNumber(0)
-	//int message = arg.GetNumber(1)
-	//int caption = arg.GetNumber(2)
-	//int style = arg.GetNumber(3)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(1)
+	//const wxString& caption = arg.GetNumber(2)
+	//long style = arg.GetNumber(3)
 	//wxRichMessageDialog();
 	return Value::Nil;
 }
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_RichMessageDialog, __ShowCheckBox)
 {
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int checkBoxText = arg.GetNumber(0)
-	//int checked = arg.GetNumber(1)
+	//const wxString& checkBoxText = arg.GetNumber(0)
+	//bool checked = arg.GetNumber(1)
 	//pThis->GetEntity()->ShowCheckBox();
 	return Value::Nil;
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_RichMessageDialog, __ShowDetailedText)
 {
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int detailedText = arg.GetNumber(0)
+	//const wxString& detailedText = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowDetailedText();
 	return Value::Nil;
 }

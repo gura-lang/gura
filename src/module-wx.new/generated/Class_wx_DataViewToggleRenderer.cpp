@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__DataViewToggleRenderer, "DataViewToggleRenderer")
 
 Gura_ImplementFunction(__DataViewToggleRenderer)
 {
-	//int varianttype = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//const wxString& varianttype = arg.GetNumber(0)
+	//wxDataViewCellMode mode = arg.GetNumber(1)
 	//int align = arg.GetNumber(2)
 	//wxDataViewToggleRenderer();
 	return Value::Nil;

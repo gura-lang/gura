@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_GridCellEditor, __BeginEdit)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int grid = arg.GetNumber(2)
+	//wxGrid* grid = arg.GetNumber(2)
 	//pThis->GetEntity()->BeginEdit();
 	return Value::Nil;
 }
@@ -97,9 +97,9 @@ Gura_ImplementMethod(wx_GridCellEditor, __Create)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int evtHandler = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//wxEvtHandler* evtHandler = arg.GetNumber(2)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -133,9 +133,9 @@ Gura_ImplementMethod(wx_GridCellEditor, __EndEdit)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int grid = arg.GetNumber(2)
-	//int oldval = arg.GetNumber(3)
-	//int newval = arg.GetNumber(4)
+	//const wxGrid* grid = arg.GetNumber(2)
+	//const wxString& oldval = arg.GetNumber(3)
+	//wxString* newval = arg.GetNumber(4)
 	//pThis->GetEntity()->EndEdit();
 	return Value::Nil;
 }
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_GridCellEditor, __ApplyEdit)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int grid = arg.GetNumber(2)
+	//wxGrid* grid = arg.GetNumber(2)
 	//pThis->GetEntity()->ApplyEdit();
 	return Value::Nil;
 }
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_GridCellEditor, __HandleReturn)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxKeyEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->HandleReturn();
 	return Value::Nil;
 }
@@ -199,9 +199,9 @@ Gura_ImplementMethod(wx_GridCellEditor, __PaintBackground)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int rectCell = arg.GetNumber(1)
-	//int attr = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRect& rectCell = arg.GetNumber(1)
+	//wxGridCellAttr& attr = arg.GetNumber(2)
 	//pThis->GetEntity()->PaintBackground();
 	return Value::Nil;
 }
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_GridCellEditor, __SetSize)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
 }
@@ -245,8 +245,8 @@ Gura_ImplementMethod(wx_GridCellEditor, __Show)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int show = arg.GetNumber(0)
-	//int attr = arg.GetNumber(1)
+	//bool show = arg.GetNumber(0)
+	//wxGridCellAttr* attr = arg.GetNumber(1)
 	//pThis->GetEntity()->Show();
 	return Value::Nil;
 }
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_GridCellEditor, __StartingKey)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxKeyEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->StartingKey();
 	return Value::Nil;
 }
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_GridCellEditor, __SetControl)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int control = arg.GetNumber(0)
+	//wxControl* control = arg.GetNumber(0)
 	//pThis->GetEntity()->SetControl();
 	return Value::Nil;
 }

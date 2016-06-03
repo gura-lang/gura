@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__PersistentBookCtrl, "PersistentBookCtrl")
 
 Gura_ImplementFunction(__PersistentBookCtrl)
 {
-	//int book = arg.GetNumber(0)
+	//wxBookCtrlBase* book = arg.GetNumber(0)
 	//wxPersistentBookCtrl();
 	return Value::Nil;
 }

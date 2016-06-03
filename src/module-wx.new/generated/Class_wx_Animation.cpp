@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__Animation_1, "Animation_1")
 
 Gura_ImplementFunction(__Animation_1)
 {
-	//int anim = arg.GetNumber(0)
+	//const wxAnimation& anim = arg.GetNumber(0)
 	//wxAnimation();
 	return Value::Nil;
 }
@@ -76,8 +76,8 @@ Gura_DeclareFunctionAlias(__Animation_2, "Animation_2")
 
 Gura_ImplementFunction(__Animation_2)
 {
-	//int name = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//wxAnimationType type = arg.GetNumber(1)
 	//wxAnimation();
 	return Value::Nil;
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_Animation, __GetDelay)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int i = arg.GetNumber(0)
+	//unsigned int i = arg.GetNumber(0)
 	//pThis->GetEntity()->GetDelay();
 	return Value::Nil;
 }
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_Animation, __GetFrame)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int i = arg.GetNumber(0)
+	//unsigned int i = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFrame();
 	return Value::Nil;
 }
@@ -165,8 +165,8 @@ Gura_ImplementMethod(wx_Animation, __Load)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//wxAnimationType type = arg.GetNumber(1)
 	//pThis->GetEntity()->Load();
 	return Value::Nil;
 }
@@ -182,8 +182,8 @@ Gura_ImplementMethod(wx_Animation, __LoadFile)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//wxAnimationType type = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadFile();
 	return Value::Nil;
 }

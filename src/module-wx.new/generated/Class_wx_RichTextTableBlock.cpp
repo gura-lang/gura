@@ -81,7 +81,7 @@ Gura_DeclareFunctionAlias(__RichTextTableBlock_2, "RichTextTableBlock_2")
 
 Gura_ImplementFunction(__RichTextTableBlock_2)
 {
-	//int block = arg.GetNumber(0)
+	//const wxRichTextTableBlock& block = arg.GetNumber(0)
 	//wxRichTextTableBlock();
 	return Value::Nil;
 }
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __Copy)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int block = arg.GetNumber(0)
+	//const wxRichTextTableBlock& block = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
 }
@@ -129,9 +129,9 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __ComputeBlockForSelection)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int table = arg.GetNumber(0)
-	//int ctrl = arg.GetNumber(1)
-	//int requireCellSelection = arg.GetNumber(2)
+	//wxRichTextTable* table = arg.GetNumber(0)
+	//wxRichTextCtrl* ctrl = arg.GetNumber(1)
+	//bool requireCellSelection = arg.GetNumber(2)
 	//pThis->GetEntity()->ComputeBlockForSelection();
 	return Value::Nil;
 }
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __IsWholeTable)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int table = arg.GetNumber(0)
+	//wxRichTextTable* table = arg.GetNumber(0)
 	//pThis->GetEntity()->IsWholeTable();
 	return Value::Nil;
 }
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __GetFocusedCell)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ctrl = arg.GetNumber(0)
+	//wxRichTextCtrl* ctrl = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFocusedCell();
 	return Value::Nil;
 }

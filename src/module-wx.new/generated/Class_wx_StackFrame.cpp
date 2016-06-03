@@ -141,10 +141,10 @@ Gura_ImplementMethod(wx_StackFrame, __GetParam)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int type = arg.GetNumber(1)
-	//int name = arg.GetNumber(2)
-	//int value = arg.GetNumber(3)
+	//size_t n = arg.GetNumber(0)
+	//wxString* type = arg.GetNumber(1)
+	//wxString* name = arg.GetNumber(2)
+	//wxString* value = arg.GetNumber(3)
 	//pThis->GetEntity()->GetParam();
 	return Value::Nil;
 }

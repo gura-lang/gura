@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__RichTextListStyleDefinition, "RichTextListStyleDefin
 
 Gura_ImplementFunction(__RichTextListStyleDefinition)
 {
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//wxRichTextListStyleDefinition();
 	return Value::Nil;
 }
@@ -68,8 +68,8 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __CombineWithParagraphStyle
 	Object_wx_RichTextListStyleDefinition *pThis = Object_wx_RichTextListStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int indent = arg.GetNumber(0)
-	//int paraStyle = arg.GetNumber(1)
-	//int styleSheet = arg.GetNumber(2)
+	//const wxRichTextAttr& paraStyle = arg.GetNumber(1)
+	//wxRichTextStyleSheet* styleSheet = arg.GetNumber(2)
 	//pThis->GetEntity()->CombineWithParagraphStyle();
 	return Value::Nil;
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __GetCombinedStyle)
 	Object_wx_RichTextListStyleDefinition *pThis = Object_wx_RichTextListStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int indent = arg.GetNumber(0)
-	//int styleSheet = arg.GetNumber(1)
+	//wxRichTextStyleSheet* styleSheet = arg.GetNumber(1)
 	//pThis->GetEntity()->GetCombinedStyle();
 	return Value::Nil;
 }
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __GetCombinedStyleForLevel)
 	Object_wx_RichTextListStyleDefinition *pThis = Object_wx_RichTextListStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
-	//int styleSheet = arg.GetNumber(1)
+	//wxRichTextStyleSheet* styleSheet = arg.GetNumber(1)
 	//pThis->GetEntity()->GetCombinedStyleForLevel();
 	return Value::Nil;
 }
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __SetLevelAttributes)
 	Object_wx_RichTextListStyleDefinition *pThis = Object_wx_RichTextListStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
-	//int attr = arg.GetNumber(1)
+	//const wxRichTextAttr& attr = arg.GetNumber(1)
 	//pThis->GetEntity()->SetLevelAttributes();
 	return Value::Nil;
 }

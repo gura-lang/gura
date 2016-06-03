@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__MemoryOutputStream, "MemoryOutputStream")
 
 Gura_ImplementFunction(__MemoryOutputStream)
 {
-	//int data = arg.GetNumber(0)
-	//int length = arg.GetNumber(1)
+	//void* data = arg.GetNumber(0)
+	//size_t length = arg.GetNumber(1)
 	//wxMemoryOutputStream();
 	return Value::Nil;
 }
@@ -68,8 +68,8 @@ Gura_ImplementMethod(wx_MemoryOutputStream, __CopyTo)
 {
 	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//void* buffer = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->CopyTo();
 	return Value::Nil;
 }

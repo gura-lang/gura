@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__GenericAboutDialog_1, "GenericAboutDialog_1")
 
 Gura_ImplementFunction(__GenericAboutDialog_1)
 {
-	//int info = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
+	//const wxAboutDialogInfo& info = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(1)
 	//wxGenericAboutDialog();
 	return Value::Nil;
 }
@@ -81,8 +81,8 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __Create)
 {
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int info = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
+	//const wxAboutDialogInfo& info = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -111,8 +111,8 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __AddControl)
 {
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
+	//wxWindow* win = arg.GetNumber(0)
+	//const wxSizerFlags& flags = arg.GetNumber(1)
 	//pThis->GetEntity()->AddControl();
 	return Value::Nil;
 }
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __AddControl_1)
 {
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//pThis->GetEntity()->AddControl();
 	return Value::Nil;
 }
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __AddText)
 {
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->AddText();
 	return Value::Nil;
 }
@@ -158,8 +158,8 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __AddCollapsiblePane)
 {
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int title = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(1)
 	//pThis->GetEntity()->AddCollapsiblePane();
 	return Value::Nil;
 }

@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__DataViewBitmapRenderer, "DataViewBitmapRenderer")
 
 Gura_ImplementFunction(__DataViewBitmapRenderer)
 {
-	//int varianttype = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//const wxString& varianttype = arg.GetNumber(0)
+	//wxDataViewCellMode mode = arg.GetNumber(1)
 	//int align = arg.GetNumber(2)
 	//wxDataViewBitmapRenderer();
 	return Value::Nil;

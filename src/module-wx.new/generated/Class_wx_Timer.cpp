@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__Timer_1, "Timer_1")
 
 Gura_ImplementFunction(__Timer_1)
 {
-	//int owner = arg.GetNumber(0)
+	//wxEvtHandler* owner = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxTimer();
 	return Value::Nil;
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_Timer, __SetOwner)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int owner = arg.GetNumber(0)
+	//wxEvtHandler* owner = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->SetOwner();
 	return Value::Nil;
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_Timer, __Start)
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int milliseconds = arg.GetNumber(0)
-	//int oneShot = arg.GetNumber(1)
+	//bool oneShot = arg.GetNumber(1)
 	//pThis->GetEntity()->Start();
 	return Value::Nil;
 }

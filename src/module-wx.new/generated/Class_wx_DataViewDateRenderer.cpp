@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__DataViewDateRenderer, "DataViewDateRenderer")
 
 Gura_ImplementFunction(__DataViewDateRenderer)
 {
-	//int varianttype = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//const wxString& varianttype = arg.GetNumber(0)
+	//wxDataViewCellMode mode = arg.GetNumber(1)
 	//int align = arg.GetNumber(2)
 	//wxDataViewDateRenderer();
 	return Value::Nil;

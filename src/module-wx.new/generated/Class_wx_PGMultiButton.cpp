@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__PGMultiButton, "PGMultiButton")
 
 Gura_ImplementFunction(__PGMultiButton)
 {
-	//int pg = arg.GetNumber(0)
-	//int sz = arg.GetNumber(1)
+	//wxPropertyGrid* pg = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(1)
 	//wxPGMultiButton();
 	return Value::Nil;
 }
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_PGMultiButton, __Add)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
+	//const wxString& label = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_PGMultiButton, __Add_1)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
@@ -102,8 +102,8 @@ Gura_ImplementMethod(wx_PGMultiButton, __Finalize)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int propGrid = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//wxPropertyGrid* propGrid = arg.GetNumber(0)
+	//const wxPoint& pos = arg.GetNumber(1)
 	//pThis->GetEntity()->Finalize();
 	return Value::Nil;
 }
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_PGMultiButton, __GetButton)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int i = arg.GetNumber(0)
+	//unsigned int i = arg.GetNumber(0)
 	//pThis->GetEntity()->GetButton();
 	return Value::Nil;
 }
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_PGMultiButton, __GetButtonId)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int i = arg.GetNumber(0)
+	//unsigned int i = arg.GetNumber(0)
 	//pThis->GetEntity()->GetButtonId();
 	return Value::Nil;
 }

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__CriticalSectionLocker, "CriticalSectionLocker")
 
 Gura_ImplementFunction(__CriticalSectionLocker)
 {
-	//int criticalsection = arg.GetNumber(0)
+	//wxCriticalSection& criticalsection = arg.GetNumber(0)
 	//wxCriticalSectionLocker();
 	return Value::Nil;
 }

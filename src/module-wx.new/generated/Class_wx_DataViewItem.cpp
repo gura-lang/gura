@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__DataViewItem_1, "DataViewItem_1")
 
 Gura_ImplementFunction(__DataViewItem_1)
 {
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//wxDataViewItem();
 	return Value::Nil;
 }
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__DataViewItem_2, "DataViewItem_2")
 
 Gura_ImplementFunction(__DataViewItem_2)
 {
-	//int id = arg.GetNumber(0)
+	//void* id = arg.GetNumber(0)
 	//wxDataViewItem();
 	return Value::Nil;
 }

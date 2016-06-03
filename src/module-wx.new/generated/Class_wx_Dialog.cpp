@@ -66,13 +66,13 @@ Gura_DeclareFunctionAlias(__Dialog_1, "Dialog_1")
 
 Gura_ImplementFunction(__Dialog_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxDialog();
 	return Value::Nil;
 }
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_Dialog, __AddMainButtonId)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(0)
 	//pThis->GetEntity()->AddMainButtonId();
 	return Value::Nil;
 }
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_Dialog, __Create)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_Dialog, __CreateButtonSizer)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//long flags = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateButtonSizer();
 	return Value::Nil;
 }
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_Dialog, __CreateSeparatedButtonSizer)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//long flags = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateSeparatedButtonSizer();
 	return Value::Nil;
 }
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_Dialog, __CreateSeparatedSizer)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sizer = arg.GetNumber(0)
+	//wxSizer* sizer = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateSeparatedSizer();
 	return Value::Nil;
 }
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_Dialog, __CreateStdDialogButtonSizer)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//long flags = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateStdDialogButtonSizer();
 	return Value::Nil;
 }
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_Dialog, __CreateTextSizer)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int message = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(0)
 	//pThis->GetEntity()->CreateTextSizer();
 	return Value::Nil;
 }
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_Dialog, __EnableLayoutAdaptation)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableLayoutAdaptation();
 	return Value::Nil;
 }
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_Dialog, __Iconize)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int iconize = arg.GetNumber(0)
+	//bool iconize = arg.GetNumber(0)
 	//pThis->GetEntity()->Iconize();
 	return Value::Nil;
 }
@@ -449,7 +449,7 @@ Gura_ImplementMethod(wx_Dialog, __IsMainButtonId)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(0)
 	//pThis->GetEntity()->IsMainButtonId();
 	return Value::Nil;
 }
@@ -507,7 +507,7 @@ Gura_ImplementMethod(wx_Dialog, __SetIcon)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int icon = arg.GetNumber(0)
+	//const wxIcon& icon = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIcon();
 	return Value::Nil;
 }
@@ -522,7 +522,7 @@ Gura_ImplementMethod(wx_Dialog, __SetIcons)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int icons = arg.GetNumber(0)
+	//const wxIconBundle& icons = arg.GetNumber(0)
 	//pThis->GetEntity()->SetIcons();
 	return Value::Nil;
 }
@@ -537,7 +537,7 @@ Gura_ImplementMethod(wx_Dialog, __SetLayoutAdaptationDone)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int done = arg.GetNumber(0)
+	//bool done = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLayoutAdaptationDone();
 	return Value::Nil;
 }
@@ -567,7 +567,7 @@ Gura_ImplementMethod(wx_Dialog, __SetLayoutAdaptationMode)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mode = arg.GetNumber(0)
+	//wxDialogLayoutAdaptationMode mode = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLayoutAdaptationMode();
 	return Value::Nil;
 }
@@ -582,7 +582,7 @@ Gura_ImplementMethod(wx_Dialog, __SetLayoutAdapter)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int adapter = arg.GetNumber(0)
+	//wxDialogLayoutAdapter* adapter = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLayoutAdapter();
 	return Value::Nil;
 }
@@ -612,7 +612,7 @@ Gura_ImplementMethod(wx_Dialog, __Show)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int show = arg.GetNumber(0)
+	//bool show = arg.GetNumber(0)
 	//pThis->GetEntity()->Show();
 	return Value::Nil;
 }
@@ -653,7 +653,7 @@ Gura_ImplementMethod(wx_Dialog, __ShowWindowModalThenDo)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int onEndModal = arg.GetNumber(0)
+	//const Functor& onEndModal = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowWindowModalThenDo();
 	return Value::Nil;
 }

@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_DataViewModel, __AddNotifier)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int notifier = arg.GetNumber(0)
+	//wxDataViewModelNotifier* notifier = arg.GetNumber(0)
 	//pThis->GetEntity()->AddNotifier();
 	return Value::Nil;
 }
@@ -80,9 +80,9 @@ Gura_ImplementMethod(wx_DataViewModel, __ChangeValue)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int variant = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
-	//int col = arg.GetNumber(2)
+	//const wxVariant& variant = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(1)
+	//unsigned int col = arg.GetNumber(2)
 	//pThis->GetEntity()->ChangeValue();
 	return Value::Nil;
 }
@@ -113,10 +113,10 @@ Gura_ImplementMethod(wx_DataViewModel, __Compare)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item1 = arg.GetNumber(0)
-	//int item2 = arg.GetNumber(1)
-	//int column = arg.GetNumber(2)
-	//int ascending = arg.GetNumber(3)
+	//const wxDataViewItem& item1 = arg.GetNumber(0)
+	//const wxDataViewItem& item2 = arg.GetNumber(1)
+	//unsigned int column = arg.GetNumber(2)
+	//bool ascending = arg.GetNumber(3)
 	//pThis->GetEntity()->Compare();
 	return Value::Nil;
 }
@@ -133,9 +133,9 @@ Gura_ImplementMethod(wx_DataViewModel, __GetAttr)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
-	//int attr = arg.GetNumber(2)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//unsigned int col = arg.GetNumber(1)
+	//wxDataViewItemAttr& attr = arg.GetNumber(2)
 	//pThis->GetEntity()->GetAttr();
 	return Value::Nil;
 }
@@ -151,8 +151,8 @@ Gura_ImplementMethod(wx_DataViewModel, __IsEnabled)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//unsigned int col = arg.GetNumber(1)
 	//pThis->GetEntity()->IsEnabled();
 	return Value::Nil;
 }
@@ -168,8 +168,8 @@ Gura_ImplementMethod(wx_DataViewModel, __GetChildren)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int children = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//wxDataViewItemArray& children = arg.GetNumber(1)
 	//pThis->GetEntity()->GetChildren();
 	return Value::Nil;
 }
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_DataViewModel, __GetColumnType)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//unsigned int col = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColumnType();
 	return Value::Nil;
 }
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_DataViewModel, __GetParent)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->GetParent();
 	return Value::Nil;
 }
@@ -229,9 +229,9 @@ Gura_ImplementMethod(wx_DataViewModel, __GetValue)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int variant = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
-	//int col = arg.GetNumber(2)
+	//wxVariant& variant = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(1)
+	//unsigned int col = arg.GetNumber(2)
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_DataViewModel, __HasContainerColumns)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->HasContainerColumns();
 	return Value::Nil;
 }
@@ -275,8 +275,8 @@ Gura_ImplementMethod(wx_DataViewModel, __HasValue)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//unsigned col = arg.GetNumber(1)
 	//pThis->GetEntity()->HasValue();
 	return Value::Nil;
 }
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_DataViewModel, __IsContainer)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->IsContainer();
 	return Value::Nil;
 }
@@ -307,8 +307,8 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemAdded)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(1)
 	//pThis->GetEntity()->ItemAdded();
 	return Value::Nil;
 }
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemChanged)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->ItemChanged();
 	return Value::Nil;
 }
@@ -339,8 +339,8 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemDeleted)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(1)
 	//pThis->GetEntity()->ItemDeleted();
 	return Value::Nil;
 }
@@ -356,8 +356,8 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemsAdded)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//const wxDataViewItemArray& items = arg.GetNumber(1)
 	//pThis->GetEntity()->ItemsAdded();
 	return Value::Nil;
 }
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemsChanged)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
+	//const wxDataViewItemArray& items = arg.GetNumber(0)
 	//pThis->GetEntity()->ItemsChanged();
 	return Value::Nil;
 }
@@ -388,8 +388,8 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemsDeleted)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
+	//const wxDataViewItem& parent = arg.GetNumber(0)
+	//const wxDataViewItemArray& items = arg.GetNumber(1)
 	//pThis->GetEntity()->ItemsDeleted();
 	return Value::Nil;
 }
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_DataViewModel, __RemoveNotifier)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int notifier = arg.GetNumber(0)
+	//wxDataViewModelNotifier* notifier = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveNotifier();
 	return Value::Nil;
 }
@@ -434,9 +434,9 @@ Gura_ImplementMethod(wx_DataViewModel, __SetValue)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int variant = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
-	//int col = arg.GetNumber(2)
+	//const wxVariant& variant = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(1)
+	//unsigned int col = arg.GetNumber(2)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }
@@ -452,8 +452,8 @@ Gura_ImplementMethod(wx_DataViewModel, __ValueChanged)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//unsigned int col = arg.GetNumber(1)
 	//pThis->GetEntity()->ValueChanged();
 	return Value::Nil;
 }

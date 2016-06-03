@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__String_1, "String_1")
 
 Gura_ImplementFunction(__String_1)
 {
-	//int stringSrc = arg.GetNumber(0)
+	//const wxString& stringSrc = arg.GetNumber(0)
 	//wxString();
 	return Value::Nil;
 }
@@ -76,8 +76,8 @@ Gura_DeclareFunctionAlias(__String_2, "String_2")
 
 Gura_ImplementFunction(__String_2)
 {
-	//int ch = arg.GetNumber(0)
-	//int nRepeat = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(0)
+	//size_t nRepeat = arg.GetNumber(1)
 	//wxString();
 	return Value::Nil;
 }
@@ -93,8 +93,8 @@ Gura_DeclareFunctionAlias(__String_3, "String_3")
 
 Gura_ImplementFunction(__String_3)
 {
-	//int ch = arg.GetNumber(0)
-	//int nRepeat = arg.GetNumber(1)
+	//wxUniCharRef ch = arg.GetNumber(0)
+	//size_t nRepeat = arg.GetNumber(1)
 	//wxString();
 	return Value::Nil;
 }
@@ -110,8 +110,8 @@ Gura_DeclareFunctionAlias(__String_4, "String_4")
 
 Gura_ImplementFunction(__String_4)
 {
-	//int ch = arg.GetNumber(0)
-	//int nRepeat = arg.GetNumber(1)
+	//char ch = arg.GetNumber(0)
+	//size_t nRepeat = arg.GetNumber(1)
 	//wxString();
 	return Value::Nil;
 }
@@ -127,8 +127,8 @@ Gura_DeclareFunctionAlias(__String_5, "String_5")
 
 Gura_ImplementFunction(__String_5)
 {
-	//int ch = arg.GetNumber(0)
-	//int nRepeat = arg.GetNumber(1)
+	//wchar_t ch = arg.GetNumber(0)
+	//size_t nRepeat = arg.GetNumber(1)
 	//wxString();
 	return Value::Nil;
 }
@@ -143,7 +143,7 @@ Gura_DeclareFunctionAlias(__String_6, "String_6")
 
 Gura_ImplementFunction(__String_6)
 {
-	//int psz = arg.GetNumber(0)
+	//const char* psz = arg.GetNumber(0)
 	//wxString();
 	return Value::Nil;
 }
@@ -159,8 +159,8 @@ Gura_DeclareFunctionAlias(__String_7, "String_7")
 
 Gura_ImplementFunction(__String_7)
 {
-	//int psz = arg.GetNumber(0)
-	//int conv = arg.GetNumber(1)
+	//const char* psz = arg.GetNumber(0)
+	//const wxMBConv& conv = arg.GetNumber(1)
 	//wxString();
 	return Value::Nil;
 }
@@ -176,8 +176,8 @@ Gura_DeclareFunctionAlias(__String_8, "String_8")
 
 Gura_ImplementFunction(__String_8)
 {
-	//int psz = arg.GetNumber(0)
-	//int nLength = arg.GetNumber(1)
+	//const char* psz = arg.GetNumber(0)
+	//size_t nLength = arg.GetNumber(1)
 	//wxString();
 	return Value::Nil;
 }
@@ -194,9 +194,9 @@ Gura_DeclareFunctionAlias(__String_9, "String_9")
 
 Gura_ImplementFunction(__String_9)
 {
-	//int psz = arg.GetNumber(0)
-	//int conv = arg.GetNumber(1)
-	//int nLength = arg.GetNumber(2)
+	//const char* psz = arg.GetNumber(0)
+	//const wxMBConv& conv = arg.GetNumber(1)
+	//size_t nLength = arg.GetNumber(2)
 	//wxString();
 	return Value::Nil;
 }
@@ -211,7 +211,7 @@ Gura_DeclareFunctionAlias(__String_10, "String_10")
 
 Gura_ImplementFunction(__String_10)
 {
-	//int pwz = arg.GetNumber(0)
+	//const wchar_t* pwz = arg.GetNumber(0)
 	//wxString();
 	return Value::Nil;
 }
@@ -227,8 +227,8 @@ Gura_DeclareFunctionAlias(__String_11, "String_11")
 
 Gura_ImplementFunction(__String_11)
 {
-	//int pwz = arg.GetNumber(0)
-	//int nLength = arg.GetNumber(1)
+	//const wchar_t* pwz = arg.GetNumber(0)
+	//size_t nLength = arg.GetNumber(1)
 	//wxString();
 	return Value::Nil;
 }
@@ -243,7 +243,7 @@ Gura_DeclareFunctionAlias(__String_12, "String_12")
 
 Gura_ImplementFunction(__String_12)
 {
-	//int buf = arg.GetNumber(0)
+	//const wxCharBuffer& buf = arg.GetNumber(0)
 	//wxString();
 	return Value::Nil;
 }
@@ -258,7 +258,7 @@ Gura_DeclareFunctionAlias(__String_13, "String_13")
 
 Gura_ImplementFunction(__String_13)
 {
-	//int buf = arg.GetNumber(0)
+	//const wxWCharBuffer& buf = arg.GetNumber(0)
 	//wxString();
 	return Value::Nil;
 }
@@ -273,7 +273,7 @@ Gura_DeclareFunctionAlias(__String_14, "String_14")
 
 Gura_ImplementFunction(__String_14)
 {
-	//int str = arg.GetNumber(0)
+	//const std::string& str = arg.GetNumber(0)
 	//wxString();
 	return Value::Nil;
 }
@@ -288,7 +288,7 @@ Gura_DeclareFunctionAlias(__String_15, "String_15")
 
 Gura_ImplementFunction(__String_15)
 {
-	//int str = arg.GetNumber(0)
+	//const std::wstring& str = arg.GetNumber(0)
 	//wxString();
 	return Value::Nil;
 }
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_String, __GetChar)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetChar();
 	return Value::Nil;
 }
@@ -386,7 +386,7 @@ Gura_ImplementMethod(wx_String, __GetWritableChar)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetWritableChar();
 	return Value::Nil;
 }
@@ -401,7 +401,7 @@ Gura_ImplementMethod(wx_String, __GetWriteBuf)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int len = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(0)
 	//pThis->GetEntity()->GetWriteBuf();
 	return Value::Nil;
 }
@@ -429,7 +429,7 @@ Gura_ImplementMethod(wx_String, __UngetWriteBuf_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int len = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(0)
 	//pThis->GetEntity()->UngetWriteBuf();
 	return Value::Nil;
 }
@@ -445,8 +445,8 @@ Gura_ImplementMethod(wx_String, __SetChar)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int ch = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(0)
+	//wxUniChar ch = arg.GetNumber(1)
 	//pThis->GetEntity()->SetChar();
 	return Value::Nil;
 }
@@ -500,7 +500,7 @@ Gura_ImplementMethod(wx_String, __char_str)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int conv = arg.GetNumber(0)
+	//const wxMBConv& conv = arg.GetNumber(0)
 	//pThis->GetEntity()->char_str();
 	return Value::Nil;
 }
@@ -515,7 +515,7 @@ Gura_ImplementMethod(wx_String, __tchar_str)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int len = arg.GetNumber(0)
+	//size_t* len = arg.GetNumber(0)
 	//pThis->GetEntity()->tchar_str();
 	return Value::Nil;
 }
@@ -569,7 +569,7 @@ Gura_ImplementMethod(wx_String, __mb_str)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int conv = arg.GetNumber(0)
+	//const wxMBConv& conv = arg.GetNumber(0)
 	//pThis->GetEntity()->mb_str();
 	return Value::Nil;
 }
@@ -662,7 +662,7 @@ Gura_ImplementMethod(wx_String, __ToAscii)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int replaceWith = arg.GetNumber(0)
+	//char replaceWith = arg.GetNumber(0)
 	//pThis->GetEntity()->ToAscii();
 	return Value::Nil;
 }
@@ -677,7 +677,7 @@ Gura_ImplementMethod(wx_String, __ToAscii_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int replaceWith = arg.GetNumber(0)
+	//char replaceWith = arg.GetNumber(0)
 	//pThis->GetEntity()->ToAscii();
 	return Value::Nil;
 }
@@ -731,7 +731,7 @@ Gura_ImplementMethod(wx_String, __Append)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int psz = arg.GetNumber(0)
+	//const char* psz = arg.GetNumber(0)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -746,7 +746,7 @@ Gura_ImplementMethod(wx_String, __Append_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pwz = arg.GetNumber(0)
+	//const wchar_t* pwz = arg.GetNumber(0)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -762,8 +762,8 @@ Gura_ImplementMethod(wx_String, __Append_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int psz = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
+	//const char* psz = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -779,8 +779,8 @@ Gura_ImplementMethod(wx_String, __Append_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pwz = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
+	//const wchar_t* pwz = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -795,7 +795,7 @@ Gura_ImplementMethod(wx_String, __Append_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const wxString& s = arg.GetNumber(0)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -811,8 +811,8 @@ Gura_ImplementMethod(wx_String, __Append_5)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
-	//int count = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(0)
+	//size_t count = arg.GetNumber(1)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -827,7 +827,7 @@ Gura_ImplementMethod(wx_String, __Prepend)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->Prepend();
 	return Value::Nil;
 }
@@ -842,7 +842,7 @@ Gura_ImplementMethod(wx_String, __Cmp)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const wxString& s = arg.GetNumber(0)
 	//pThis->GetEntity()->Cmp();
 	return Value::Nil;
 }
@@ -857,7 +857,7 @@ Gura_ImplementMethod(wx_String, __CmpNoCase)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const wxString& s = arg.GetNumber(0)
 	//pThis->GetEntity()->CmpNoCase();
 	return Value::Nil;
 }
@@ -873,8 +873,8 @@ Gura_ImplementMethod(wx_String, __IsSameAs)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
-	//int caseSensitive = arg.GetNumber(1)
+	//const wxString& s = arg.GetNumber(0)
+	//bool caseSensitive = arg.GetNumber(1)
 	//pThis->GetEntity()->IsSameAs();
 	return Value::Nil;
 }
@@ -890,8 +890,8 @@ Gura_ImplementMethod(wx_String, __IsSameAs_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
-	//int caseSensitive = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(0)
+	//bool caseSensitive = arg.GetNumber(1)
 	//pThis->GetEntity()->IsSameAs();
 	return Value::Nil;
 }
@@ -906,7 +906,7 @@ Gura_ImplementMethod(wx_String, __Matches)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mask = arg.GetNumber(0)
+	//const wxString& mask = arg.GetNumber(0)
 	//pThis->GetEntity()->Matches();
 	return Value::Nil;
 }
@@ -922,8 +922,8 @@ Gura_ImplementMethod(wx_String, __StartsWith)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int prefix = arg.GetNumber(0)
-	//int rest = arg.GetNumber(1)
+	//const wxString& prefix = arg.GetNumber(0)
+	//wxString* rest = arg.GetNumber(1)
 	//pThis->GetEntity()->StartsWith();
 	return Value::Nil;
 }
@@ -939,8 +939,8 @@ Gura_ImplementMethod(wx_String, __EndsWith)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int suffix = arg.GetNumber(0)
-	//int rest = arg.GetNumber(1)
+	//const wxString& suffix = arg.GetNumber(0)
+	//wxString* rest = arg.GetNumber(1)
 	//pThis->GetEntity()->EndsWith();
 	return Value::Nil;
 }
@@ -956,8 +956,8 @@ Gura_ImplementMethod(wx_String, __Mid)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int nCount = arg.GetNumber(1)
+	//size_t first = arg.GetNumber(0)
+	//size_t nCount = arg.GetNumber(1)
 	//pThis->GetEntity()->Mid();
 	return Value::Nil;
 }
@@ -973,8 +973,8 @@ Gura_ImplementMethod(wx_String, __SubString)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int from = arg.GetNumber(0)
-	//int to = arg.GetNumber(1)
+	//size_t from = arg.GetNumber(0)
+	//size_t to = arg.GetNumber(1)
 	//pThis->GetEntity()->SubString();
 	return Value::Nil;
 }
@@ -990,8 +990,8 @@ Gura_ImplementMethod(wx_String, __operator)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int start = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//)(size_t start = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->operator();
 	return Value::Nil;
 }
@@ -1006,7 +1006,7 @@ Gura_ImplementMethod(wx_String, __Left)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int count = arg.GetNumber(0)
+	//size_t count = arg.GetNumber(0)
 	//pThis->GetEntity()->Left();
 	return Value::Nil;
 }
@@ -1021,7 +1021,7 @@ Gura_ImplementMethod(wx_String, __Right)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int count = arg.GetNumber(0)
+	//size_t count = arg.GetNumber(0)
 	//pThis->GetEntity()->Right();
 	return Value::Nil;
 }
@@ -1036,7 +1036,7 @@ Gura_ImplementMethod(wx_String, __AfterFirst)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
+	//wxUniChar ch = arg.GetNumber(0)
 	//pThis->GetEntity()->AfterFirst();
 	return Value::Nil;
 }
@@ -1051,7 +1051,7 @@ Gura_ImplementMethod(wx_String, __AfterLast)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
+	//wxUniChar ch = arg.GetNumber(0)
 	//pThis->GetEntity()->AfterLast();
 	return Value::Nil;
 }
@@ -1067,8 +1067,8 @@ Gura_ImplementMethod(wx_String, __BeforeFirst)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
-	//int rest = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(0)
+	//wxString* rest = arg.GetNumber(1)
 	//pThis->GetEntity()->BeforeFirst();
 	return Value::Nil;
 }
@@ -1084,8 +1084,8 @@ Gura_ImplementMethod(wx_String, __BeforeLast)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
-	//int rest = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(0)
+	//wxString* rest = arg.GetNumber(1)
 	//pThis->GetEntity()->BeforeLast();
 	return Value::Nil;
 }
@@ -1205,8 +1205,8 @@ Gura_ImplementMethod(wx_String, __Find)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
-	//int fromEnd = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(0)
+	//bool fromEnd = arg.GetNumber(1)
 	//pThis->GetEntity()->Find();
 	return Value::Nil;
 }
@@ -1221,7 +1221,7 @@ Gura_ImplementMethod(wx_String, __Find_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sub = arg.GetNumber(0)
+	//const wxString& sub = arg.GetNumber(0)
 	//pThis->GetEntity()->Find();
 	return Value::Nil;
 }
@@ -1236,7 +1236,7 @@ Gura_ImplementMethod(wx_String, __First)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
+	//wxUniChar ch = arg.GetNumber(0)
 	//pThis->GetEntity()->First();
 	return Value::Nil;
 }
@@ -1251,7 +1251,7 @@ Gura_ImplementMethod(wx_String, __First_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->First();
 	return Value::Nil;
 }
@@ -1268,9 +1268,9 @@ Gura_ImplementMethod(wx_String, __Replace)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int strOld = arg.GetNumber(0)
-	//int strNew = arg.GetNumber(1)
-	//int replaceAll = arg.GetNumber(2)
+	//const wxString& strOld = arg.GetNumber(0)
+	//const wxString& strNew = arg.GetNumber(1)
+	//bool replaceAll = arg.GetNumber(2)
 	//pThis->GetEntity()->Replace();
 	return Value::Nil;
 }
@@ -1285,7 +1285,7 @@ Gura_ImplementMethod(wx_String, __ToDouble)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//double* val = arg.GetNumber(0)
 	//pThis->GetEntity()->ToDouble();
 	return Value::Nil;
 }
@@ -1300,7 +1300,7 @@ Gura_ImplementMethod(wx_String, __ToCDouble)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//double* val = arg.GetNumber(0)
 	//pThis->GetEntity()->ToCDouble();
 	return Value::Nil;
 }
@@ -1316,7 +1316,7 @@ Gura_ImplementMethod(wx_String, __ToLong)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//long* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
 	//pThis->GetEntity()->ToLong();
 	return Value::Nil;
@@ -1333,7 +1333,7 @@ Gura_ImplementMethod(wx_String, __ToCLong)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//long* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
 	//pThis->GetEntity()->ToCLong();
 	return Value::Nil;
@@ -1350,7 +1350,7 @@ Gura_ImplementMethod(wx_String, __ToLongLong)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//wxLongLong_t* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
 	//pThis->GetEntity()->ToLongLong();
 	return Value::Nil;
@@ -1367,7 +1367,7 @@ Gura_ImplementMethod(wx_String, __ToULong)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//unsigned long* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
 	//pThis->GetEntity()->ToULong();
 	return Value::Nil;
@@ -1384,7 +1384,7 @@ Gura_ImplementMethod(wx_String, __ToCULong)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//unsigned long* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
 	//pThis->GetEntity()->ToCULong();
 	return Value::Nil;
@@ -1401,7 +1401,7 @@ Gura_ImplementMethod(wx_String, __ToULongLong)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//wxULongLong_t* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
 	//pThis->GetEntity()->ToULongLong();
 	return Value::Nil;
@@ -1418,8 +1418,8 @@ Gura_ImplementMethod(wx_String, __PrintfV)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pszFormat = arg.GetNumber(0)
-	//int argPtr = arg.GetNumber(1)
+	//const wxString& pszFormat = arg.GetNumber(0)
+	//va_list argPtr = arg.GetNumber(1)
 	//pThis->GetEntity()->PrintfV();
 	return Value::Nil;
 }
@@ -1434,7 +1434,7 @@ Gura_ImplementMethod(wx_String, __Alloc)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nLen = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(0)
 	//pThis->GetEntity()->Alloc();
 	return Value::Nil;
 }
@@ -1488,7 +1488,7 @@ Gura_ImplementMethod(wx_String, __Contains)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->Contains();
 	return Value::Nil;
 }
@@ -1516,7 +1516,7 @@ Gura_ImplementMethod(wx_String, __Freq)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
+	//wxUniChar ch = arg.GetNumber(0)
 	//pThis->GetEntity()->Freq();
 	return Value::Nil;
 }
@@ -1572,9 +1572,9 @@ Gura_ImplementMethod(wx_String, __Pad)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int count = arg.GetNumber(0)
-	//int chPad = arg.GetNumber(1)
-	//int fromRight = arg.GetNumber(2)
+	//size_t count = arg.GetNumber(0)
+	//wxUniChar chPad = arg.GetNumber(1)
+	//bool fromRight = arg.GetNumber(2)
 	//pThis->GetEntity()->Pad();
 	return Value::Nil;
 }
@@ -1589,7 +1589,7 @@ Gura_ImplementMethod(wx_String, __Remove)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//pThis->GetEntity()->Remove();
 	return Value::Nil;
 }
@@ -1605,8 +1605,8 @@ Gura_ImplementMethod(wx_String, __Remove_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//size_t pos = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->Remove();
 	return Value::Nil;
 }
@@ -1621,7 +1621,7 @@ Gura_ImplementMethod(wx_String, __RemoveLast)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveLast();
 	return Value::Nil;
 }
@@ -1636,7 +1636,7 @@ Gura_ImplementMethod(wx_String, __Strip)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//stripType s = arg.GetNumber(0)
 	//pThis->GetEntity()->Strip();
 	return Value::Nil;
 }
@@ -1651,7 +1651,7 @@ Gura_ImplementMethod(wx_String, __Trim)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fromRight = arg.GetNumber(0)
+	//bool fromRight = arg.GetNumber(0)
 	//pThis->GetEntity()->Trim();
 	return Value::Nil;
 }
@@ -1666,7 +1666,7 @@ Gura_ImplementMethod(wx_String, __Truncate)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int len = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(0)
 	//pThis->GetEntity()->Truncate();
 	return Value::Nil;
 }
@@ -1787,9 +1787,9 @@ Gura_ImplementMethod(wx_String, __append)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const wxString& str = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->append();
 	return Value::Nil;
 }
@@ -1804,7 +1804,7 @@ Gura_ImplementMethod(wx_String, __append_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->append();
 	return Value::Nil;
 }
@@ -1820,8 +1820,8 @@ Gura_ImplementMethod(wx_String, __append_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int n = arg.GetNumber(1)
+	//const char* sz = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(1)
 	//pThis->GetEntity()->append();
 	return Value::Nil;
 }
@@ -1837,8 +1837,8 @@ Gura_ImplementMethod(wx_String, __append_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int n = arg.GetNumber(1)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(1)
 	//pThis->GetEntity()->append();
 	return Value::Nil;
 }
@@ -1854,8 +1854,8 @@ Gura_ImplementMethod(wx_String, __append_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int ch = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(0)
+	//wxUniChar ch = arg.GetNumber(1)
 	//pThis->GetEntity()->append();
 	return Value::Nil;
 }
@@ -1871,8 +1871,8 @@ Gura_ImplementMethod(wx_String, __append_5)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
+	//const_iterator first = arg.GetNumber(0)
+	//const_iterator last = arg.GetNumber(1)
 	//pThis->GetEntity()->append();
 	return Value::Nil;
 }
@@ -1889,9 +1889,9 @@ Gura_ImplementMethod(wx_String, __assign)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const wxString& str = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->assign();
 	return Value::Nil;
 }
@@ -1906,7 +1906,7 @@ Gura_ImplementMethod(wx_String, __assign_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->assign();
 	return Value::Nil;
 }
@@ -1922,8 +1922,8 @@ Gura_ImplementMethod(wx_String, __assign_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int n = arg.GetNumber(1)
+	//const char* sz = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(1)
 	//pThis->GetEntity()->assign();
 	return Value::Nil;
 }
@@ -1939,8 +1939,8 @@ Gura_ImplementMethod(wx_String, __assign_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int n = arg.GetNumber(1)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(1)
 	//pThis->GetEntity()->assign();
 	return Value::Nil;
 }
@@ -1956,8 +1956,8 @@ Gura_ImplementMethod(wx_String, __assign_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int ch = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(0)
+	//wxUniChar ch = arg.GetNumber(1)
 	//pThis->GetEntity()->assign();
 	return Value::Nil;
 }
@@ -1973,8 +1973,8 @@ Gura_ImplementMethod(wx_String, __assign_5)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
+	//const_iterator first = arg.GetNumber(0)
+	//const_iterator last = arg.GetNumber(1)
 	//pThis->GetEntity()->assign();
 	return Value::Nil;
 }
@@ -1989,7 +1989,7 @@ Gura_ImplementMethod(wx_String, __at)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(0)
 	//pThis->GetEntity()->at();
 	return Value::Nil;
 }
@@ -2004,7 +2004,7 @@ Gura_ImplementMethod(wx_String, __at_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(0)
 	//pThis->GetEntity()->at();
 	return Value::Nil;
 }
@@ -2045,7 +2045,7 @@ Gura_ImplementMethod(wx_String, __compare)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->compare();
 	return Value::Nil;
 }
@@ -2062,9 +2062,9 @@ Gura_ImplementMethod(wx_String, __compare_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
-	//int str = arg.GetNumber(2)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(2)
 	//pThis->GetEntity()->compare();
 	return Value::Nil;
 }
@@ -2083,11 +2083,11 @@ Gura_ImplementMethod(wx_String, __compare_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
-	//int str = arg.GetNumber(2)
-	//int nStart2 = arg.GetNumber(3)
-	//int nLen2 = arg.GetNumber(4)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(2)
+	//size_t nStart2 = arg.GetNumber(3)
+	//size_t nLen2 = arg.GetNumber(4)
 	//pThis->GetEntity()->compare();
 	return Value::Nil;
 }
@@ -2105,10 +2105,10 @@ Gura_ImplementMethod(wx_String, __compare_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
-	//int sz = arg.GetNumber(2)
-	//int nCount = arg.GetNumber(3)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
+	//const char* sz = arg.GetNumber(2)
+	//size_t nCount = arg.GetNumber(3)
 	//pThis->GetEntity()->compare();
 	return Value::Nil;
 }
@@ -2126,10 +2126,10 @@ Gura_ImplementMethod(wx_String, __compare_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
-	//int sz = arg.GetNumber(2)
-	//int nCount = arg.GetNumber(3)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
+	//const wchar_t* sz = arg.GetNumber(2)
+	//size_t nCount = arg.GetNumber(3)
 	//pThis->GetEntity()->compare();
 	return Value::Nil;
 }
@@ -2171,8 +2171,8 @@ Gura_ImplementMethod(wx_String, __erase)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int n = arg.GetNumber(1)
+	//size_type pos = arg.GetNumber(0)
+	//size_type n = arg.GetNumber(1)
 	//pThis->GetEntity()->erase();
 	return Value::Nil;
 }
@@ -2188,8 +2188,8 @@ Gura_ImplementMethod(wx_String, __erase_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
+	//iterator first = arg.GetNumber(0)
+	//iterator last = arg.GetNumber(1)
 	//pThis->GetEntity()->erase();
 	return Value::Nil;
 }
@@ -2204,7 +2204,7 @@ Gura_ImplementMethod(wx_String, __erase_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
+	//iterator first = arg.GetNumber(0)
 	//pThis->GetEntity()->erase();
 	return Value::Nil;
 }
@@ -2220,8 +2220,8 @@ Gura_ImplementMethod(wx_String, __find)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find();
 	return Value::Nil;
 }
@@ -2238,9 +2238,9 @@ Gura_ImplementMethod(wx_String, __find_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const char* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->find();
 	return Value::Nil;
 }
@@ -2257,9 +2257,9 @@ Gura_ImplementMethod(wx_String, __find_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->find();
 	return Value::Nil;
 }
@@ -2275,8 +2275,8 @@ Gura_ImplementMethod(wx_String, __find_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find();
 	return Value::Nil;
 }
@@ -2292,8 +2292,8 @@ Gura_ImplementMethod(wx_String, __find_first_of)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const char* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_first_of();
 	return Value::Nil;
 }
@@ -2309,8 +2309,8 @@ Gura_ImplementMethod(wx_String, __find_first_of_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_first_of();
 	return Value::Nil;
 }
@@ -2327,9 +2327,9 @@ Gura_ImplementMethod(wx_String, __find_first_of_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const char* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->find_first_of();
 	return Value::Nil;
 }
@@ -2346,9 +2346,9 @@ Gura_ImplementMethod(wx_String, __find_first_of_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->find_first_of();
 	return Value::Nil;
 }
@@ -2364,8 +2364,8 @@ Gura_ImplementMethod(wx_String, __find_first_of_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//wxUniChar c = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_first_of();
 	return Value::Nil;
 }
@@ -2381,8 +2381,8 @@ Gura_ImplementMethod(wx_String, __find_last_of)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_last_of();
 	return Value::Nil;
 }
@@ -2398,8 +2398,8 @@ Gura_ImplementMethod(wx_String, __find_last_of_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const char* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_last_of();
 	return Value::Nil;
 }
@@ -2415,8 +2415,8 @@ Gura_ImplementMethod(wx_String, __find_last_of_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_last_of();
 	return Value::Nil;
 }
@@ -2433,9 +2433,9 @@ Gura_ImplementMethod(wx_String, __find_last_of_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const char* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->find_last_of();
 	return Value::Nil;
 }
@@ -2452,9 +2452,9 @@ Gura_ImplementMethod(wx_String, __find_last_of_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->find_last_of();
 	return Value::Nil;
 }
@@ -2470,8 +2470,8 @@ Gura_ImplementMethod(wx_String, __find_last_of_5)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//wxUniChar c = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_last_of();
 	return Value::Nil;
 }
@@ -2487,8 +2487,8 @@ Gura_ImplementMethod(wx_String, __find_first_not_of)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_first_not_of();
 	return Value::Nil;
 }
@@ -2504,8 +2504,8 @@ Gura_ImplementMethod(wx_String, __find_first_not_of_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const char* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_first_not_of();
 	return Value::Nil;
 }
@@ -2521,8 +2521,8 @@ Gura_ImplementMethod(wx_String, __find_first_not_of_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_first_not_of();
 	return Value::Nil;
 }
@@ -2539,9 +2539,9 @@ Gura_ImplementMethod(wx_String, __find_first_not_of_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const char* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->find_first_not_of();
 	return Value::Nil;
 }
@@ -2558,9 +2558,9 @@ Gura_ImplementMethod(wx_String, __find_first_not_of_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->find_first_not_of();
 	return Value::Nil;
 }
@@ -2576,8 +2576,8 @@ Gura_ImplementMethod(wx_String, __find_first_not_of_5)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_first_not_of();
 	return Value::Nil;
 }
@@ -2593,8 +2593,8 @@ Gura_ImplementMethod(wx_String, __find_last_not_of)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_last_not_of();
 	return Value::Nil;
 }
@@ -2610,8 +2610,8 @@ Gura_ImplementMethod(wx_String, __find_last_not_of_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const char* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_last_not_of();
 	return Value::Nil;
 }
@@ -2627,8 +2627,8 @@ Gura_ImplementMethod(wx_String, __find_last_not_of_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->find_last_not_of();
 	return Value::Nil;
 }
@@ -2645,9 +2645,9 @@ Gura_ImplementMethod(wx_String, __find_last_not_of_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const char* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->find_last_not_of();
 	return Value::Nil;
 }
@@ -2664,9 +2664,9 @@ Gura_ImplementMethod(wx_String, __find_last_not_of_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->find_last_not_of();
 	return Value::Nil;
 }
@@ -2682,8 +2682,8 @@ Gura_ImplementMethod(wx_String, __insert)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nPos = arg.GetNumber(0)
-	//int str = arg.GetNumber(1)
+	//size_t nPos = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(1)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -2701,10 +2701,10 @@ Gura_ImplementMethod(wx_String, __insert_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nPos = arg.GetNumber(0)
-	//int str = arg.GetNumber(1)
-	//int nStart = arg.GetNumber(2)
-	//int n = arg.GetNumber(3)
+	//size_t nPos = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(1)
+	//size_t nStart = arg.GetNumber(2)
+	//size_t n = arg.GetNumber(3)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -2721,9 +2721,9 @@ Gura_ImplementMethod(wx_String, __insert_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nPos = arg.GetNumber(0)
-	//int sz = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//size_t nPos = arg.GetNumber(0)
+	//const char* sz = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -2740,9 +2740,9 @@ Gura_ImplementMethod(wx_String, __insert_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nPos = arg.GetNumber(0)
-	//int sz = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//size_t nPos = arg.GetNumber(0)
+	//const wchar_t* sz = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -2759,9 +2759,9 @@ Gura_ImplementMethod(wx_String, __insert_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nPos = arg.GetNumber(0)
-	//int n = arg.GetNumber(1)
-	//int ch = arg.GetNumber(2)
+	//size_t nPos = arg.GetNumber(0)
+	//size_t n = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(2)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -2777,8 +2777,8 @@ Gura_ImplementMethod(wx_String, __insert_5)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int it = arg.GetNumber(0)
-	//int ch = arg.GetNumber(1)
+	//iterator it = arg.GetNumber(0)
+	//wxUniChar ch = arg.GetNumber(1)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -2795,9 +2795,9 @@ Gura_ImplementMethod(wx_String, __insert_6)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int it = arg.GetNumber(0)
-	//int first = arg.GetNumber(1)
-	//int last = arg.GetNumber(2)
+	//iterator it = arg.GetNumber(0)
+	//const_iterator first = arg.GetNumber(1)
+	//const_iterator last = arg.GetNumber(2)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -2814,9 +2814,9 @@ Gura_ImplementMethod(wx_String, __insert_7)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int it = arg.GetNumber(0)
-	//int n = arg.GetNumber(1)
-	//int ch = arg.GetNumber(2)
+	//iterator it = arg.GetNumber(0)
+	//size_type n = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(2)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -2857,7 +2857,7 @@ Gura_ImplementMethod(wx_String, __reserve)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
+	//size_t sz = arg.GetNumber(0)
 	//pThis->GetEntity()->reserve();
 	return Value::Nil;
 }
@@ -2873,8 +2873,8 @@ Gura_ImplementMethod(wx_String, __resize)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nSize = arg.GetNumber(0)
-	//int ch = arg.GetNumber(1)
+	//size_t nSize = arg.GetNumber(0)
+	//wxUniChar ch = arg.GetNumber(1)
 	//pThis->GetEntity()->resize();
 	return Value::Nil;
 }
@@ -2891,9 +2891,9 @@ Gura_ImplementMethod(wx_String, __replace)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
-	//int str = arg.GetNumber(2)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(2)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -2911,10 +2911,10 @@ Gura_ImplementMethod(wx_String, __replace_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
-	//int nCount = arg.GetNumber(2)
-	//int ch = arg.GetNumber(3)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
+	//size_t nCount = arg.GetNumber(2)
+	//wxUniChar ch = arg.GetNumber(3)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -2933,11 +2933,11 @@ Gura_ImplementMethod(wx_String, __replace_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
-	//int str = arg.GetNumber(2)
-	//int nStart2 = arg.GetNumber(3)
-	//int nLen2 = arg.GetNumber(4)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(2)
+	//size_t nStart2 = arg.GetNumber(3)
+	//size_t nLen2 = arg.GetNumber(4)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -2955,10 +2955,10 @@ Gura_ImplementMethod(wx_String, __replace_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
-	//int sz = arg.GetNumber(2)
-	//int nCount = arg.GetNumber(3)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
+	//const char* sz = arg.GetNumber(2)
+	//size_t nCount = arg.GetNumber(3)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -2976,10 +2976,10 @@ Gura_ImplementMethod(wx_String, __replace_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
-	//int sz = arg.GetNumber(2)
-	//int nCount = arg.GetNumber(3)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
+	//const wchar_t* sz = arg.GetNumber(2)
+	//size_t nCount = arg.GetNumber(3)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -2997,10 +2997,10 @@ Gura_ImplementMethod(wx_String, __replace_5)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
-	//int s = arg.GetNumber(2)
-	//int nCount = arg.GetNumber(3)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
+	//const wxString& s = arg.GetNumber(2)
+	//size_t nCount = arg.GetNumber(3)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -3017,9 +3017,9 @@ Gura_ImplementMethod(wx_String, __replace_6)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
-	//int s = arg.GetNumber(2)
+	//iterator first = arg.GetNumber(0)
+	//iterator last = arg.GetNumber(1)
+	//const wxString& s = arg.GetNumber(2)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -3037,10 +3037,10 @@ Gura_ImplementMethod(wx_String, __replace_7)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
-	//int s = arg.GetNumber(2)
-	//int n = arg.GetNumber(3)
+	//iterator first = arg.GetNumber(0)
+	//iterator last = arg.GetNumber(1)
+	//const char* s = arg.GetNumber(2)
+	//size_type n = arg.GetNumber(3)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -3058,10 +3058,10 @@ Gura_ImplementMethod(wx_String, __replace_8)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
-	//int s = arg.GetNumber(2)
-	//int n = arg.GetNumber(3)
+	//iterator first = arg.GetNumber(0)
+	//iterator last = arg.GetNumber(1)
+	//const wchar_t* s = arg.GetNumber(2)
+	//size_type n = arg.GetNumber(3)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -3079,10 +3079,10 @@ Gura_ImplementMethod(wx_String, __replace_9)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
-	//int ch = arg.GetNumber(3)
+	//iterator first = arg.GetNumber(0)
+	//iterator last = arg.GetNumber(1)
+	//size_type n = arg.GetNumber(2)
+	//wxUniChar ch = arg.GetNumber(3)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -3100,10 +3100,10 @@ Gura_ImplementMethod(wx_String, __replace_10)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
-	//int first1 = arg.GetNumber(2)
-	//int last1 = arg.GetNumber(3)
+	//iterator first = arg.GetNumber(0)
+	//iterator last = arg.GetNumber(1)
+	//const_iterator first1 = arg.GetNumber(2)
+	//const_iterator last1 = arg.GetNumber(3)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -3121,10 +3121,10 @@ Gura_ImplementMethod(wx_String, __replace_11)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
-	//int first1 = arg.GetNumber(2)
-	//int last1 = arg.GetNumber(3)
+	//iterator first = arg.GetNumber(0)
+	//iterator last = arg.GetNumber(1)
+	//const char* first1 = arg.GetNumber(2)
+	//const char* last1 = arg.GetNumber(3)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -3142,10 +3142,10 @@ Gura_ImplementMethod(wx_String, __replace_12)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
-	//int first1 = arg.GetNumber(2)
-	//int last1 = arg.GetNumber(3)
+	//iterator first = arg.GetNumber(0)
+	//iterator last = arg.GetNumber(1)
+	//const wchar_t* first1 = arg.GetNumber(2)
+	//const wchar_t* last1 = arg.GetNumber(3)
 	//pThis->GetEntity()->replace();
 	return Value::Nil;
 }
@@ -3161,8 +3161,8 @@ Gura_ImplementMethod(wx_String, __rfind)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//const wxString& str = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->rfind();
 	return Value::Nil;
 }
@@ -3179,9 +3179,9 @@ Gura_ImplementMethod(wx_String, __rfind_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const char* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->rfind();
 	return Value::Nil;
 }
@@ -3198,9 +3198,9 @@ Gura_ImplementMethod(wx_String, __rfind_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
-	//int n = arg.GetNumber(2)
+	//const wchar_t* sz = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
+	//size_t n = arg.GetNumber(2)
 	//pThis->GetEntity()->rfind();
 	return Value::Nil;
 }
@@ -3216,8 +3216,8 @@ Gura_ImplementMethod(wx_String, __rfind_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ch = arg.GetNumber(0)
-	//int nStart = arg.GetNumber(1)
+	//wxUniChar ch = arg.GetNumber(0)
+	//size_t nStart = arg.GetNumber(1)
 	//pThis->GetEntity()->rfind();
 	return Value::Nil;
 }
@@ -3246,8 +3246,8 @@ Gura_ImplementMethod(wx_String, __substr)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nStart = arg.GetNumber(0)
-	//int nLen = arg.GetNumber(1)
+	//size_t nStart = arg.GetNumber(0)
+	//size_t nLen = arg.GetNumber(1)
 	//pThis->GetEntity()->substr();
 	return Value::Nil;
 }
@@ -3262,7 +3262,7 @@ Gura_ImplementMethod(wx_String, __swap)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->swap();
 	return Value::Nil;
 }
@@ -3278,8 +3278,8 @@ Gura_ImplementMethod(wx_String, __FormatV)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
-	//int argptr = arg.GetNumber(1)
+	//const wxString& format = arg.GetNumber(0)
+	//va_list argptr = arg.GetNumber(1)
 	//pThis->GetEntity()->FormatV();
 	return Value::Nil;
 }
@@ -3295,8 +3295,8 @@ Gura_ImplementMethod(wx_String, __From8BitData)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buf = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//const char* buf = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->From8BitData();
 	return Value::Nil;
 }
@@ -3311,7 +3311,7 @@ Gura_ImplementMethod(wx_String, __From8BitData_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buf = arg.GetNumber(0)
+	//const char* buf = arg.GetNumber(0)
 	//pThis->GetEntity()->From8BitData();
 	return Value::Nil;
 }
@@ -3326,7 +3326,7 @@ Gura_ImplementMethod(wx_String, __FromAscii)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const char* s = arg.GetNumber(0)
 	//pThis->GetEntity()->FromAscii();
 	return Value::Nil;
 }
@@ -3341,7 +3341,7 @@ Gura_ImplementMethod(wx_String, __FromAscii_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const unsigned char* s = arg.GetNumber(0)
 	//pThis->GetEntity()->FromAscii();
 	return Value::Nil;
 }
@@ -3357,8 +3357,8 @@ Gura_ImplementMethod(wx_String, __FromAscii_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//const char* s = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->FromAscii();
 	return Value::Nil;
 }
@@ -3374,8 +3374,8 @@ Gura_ImplementMethod(wx_String, __FromAscii_3)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//const unsigned char* s = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->FromAscii();
 	return Value::Nil;
 }
@@ -3390,7 +3390,7 @@ Gura_ImplementMethod(wx_String, __FromAscii_4)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
+	//char c = arg.GetNumber(0)
 	//pThis->GetEntity()->FromAscii();
 	return Value::Nil;
 }
@@ -3406,7 +3406,7 @@ Gura_ImplementMethod(wx_String, __FromCDouble)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//double val = arg.GetNumber(0)
 	//int precision = arg.GetNumber(1)
 	//pThis->GetEntity()->FromCDouble();
 	return Value::Nil;
@@ -3423,7 +3423,7 @@ Gura_ImplementMethod(wx_String, __FromDouble)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int val = arg.GetNumber(0)
+	//double val = arg.GetNumber(0)
 	//int precision = arg.GetNumber(1)
 	//pThis->GetEntity()->FromDouble();
 	return Value::Nil;
@@ -3439,7 +3439,7 @@ Gura_ImplementMethod(wx_String, __FromUTF8)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const char* s = arg.GetNumber(0)
 	//pThis->GetEntity()->FromUTF8();
 	return Value::Nil;
 }
@@ -3455,8 +3455,8 @@ Gura_ImplementMethod(wx_String, __FromUTF8_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//const char* s = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->FromUTF8();
 	return Value::Nil;
 }
@@ -3471,7 +3471,7 @@ Gura_ImplementMethod(wx_String, __FromUTF8Unchecked)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const char* s = arg.GetNumber(0)
 	//pThis->GetEntity()->FromUTF8Unchecked();
 	return Value::Nil;
 }
@@ -3487,8 +3487,8 @@ Gura_ImplementMethod(wx_String, __FromUTF8Unchecked_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//const char* s = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->FromUTF8Unchecked();
 	return Value::Nil;
 }

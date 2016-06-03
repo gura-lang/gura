@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__NotifyEvent, "NotifyEvent")
 
 Gura_ImplementFunction(__NotifyEvent)
 {
-	//int eventType = arg.GetNumber(0)
+	//wxEventType eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxNotifyEvent();
 	return Value::Nil;

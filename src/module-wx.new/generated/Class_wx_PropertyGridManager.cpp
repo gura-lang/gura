@@ -49,9 +49,9 @@ Gura_ImplementMethod(wx_PropertyGridManager, __AddPage)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int bmp = arg.GetNumber(1)
-	//int pageObj = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//const wxBitmap& bmp = arg.GetNumber(1)
+	//wxPropertyGridPage* pageObj = arg.GetNumber(2)
 	//pThis->GetEntity()->AddPage();
 	return Value::Nil;
 }
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __CommitChangesFromEditor)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//wxUint32 flags = arg.GetNumber(0)
 	//pThis->GetEntity()->CommitChangesFromEditor();
 	return Value::Nil;
 }
@@ -114,12 +114,12 @@ Gura_ImplementMethod(wx_PropertyGridManager, __Create)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __EnableCategories)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableCategories();
 	return Value::Nil;
 }
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __EnsureVisible)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->EnsureVisible();
 	return Value::Nil;
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __GetPage)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ind = arg.GetNumber(0)
+	//unsigned int ind = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPage();
 	return Value::Nil;
 }
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __GetPage_1)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPage();
 	return Value::Nil;
 }
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __GetPageByName)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPageByName();
 	return Value::Nil;
 }
@@ -377,9 +377,9 @@ Gura_ImplementMethod(wx_PropertyGridManager, __InsertPage)
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bmp = arg.GetNumber(2)
-	//int pageObj = arg.GetNumber(3)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bmp = arg.GetNumber(2)
+	//wxPropertyGridPage* pageObj = arg.GetNumber(3)
 	//pThis->GetEntity()->InsertPage();
 	return Value::Nil;
 }
@@ -420,7 +420,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __IsPageModified)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
+	//size_t index = arg.GetNumber(0)
 	//pThis->GetEntity()->IsPageModified();
 	return Value::Nil;
 }
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __IsPropertySelected)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->IsPropertySelected();
 	return Value::Nil;
 }
@@ -480,7 +480,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __SelectPage_1)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
+	//const wxString& label = arg.GetNumber(0)
 	//pThis->GetEntity()->SelectPage();
 	return Value::Nil;
 }
@@ -495,7 +495,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __SelectPage_2)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//wxPropertyGridPage* page = arg.GetNumber(0)
 	//pThis->GetEntity()->SelectPage();
 	return Value::Nil;
 }
@@ -511,8 +511,8 @@ Gura_ImplementMethod(wx_PropertyGridManager, __SelectProperty)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int focus = arg.GetNumber(1)
+	//wxPGPropArg id = arg.GetNumber(0)
+	//bool focus = arg.GetNumber(1)
 	//pThis->GetEntity()->SelectProperty();
 	return Value::Nil;
 }
@@ -546,7 +546,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __SetColumnTitle)
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
-	//int title = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColumnTitle();
 	return Value::Nil;
 }
@@ -562,8 +562,8 @@ Gura_ImplementMethod(wx_PropertyGridManager, __SetDescription)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int content = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(0)
+	//const wxString& content = arg.GetNumber(1)
 	//pThis->GetEntity()->SetDescription();
 	return Value::Nil;
 }
@@ -580,7 +580,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __SetDescBoxHeight)
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ht = arg.GetNumber(0)
-	//int refresh = arg.GetNumber(1)
+	//bool refresh = arg.GetNumber(1)
 	//pThis->GetEntity()->SetDescBoxHeight();
 	return Value::Nil;
 }
@@ -596,8 +596,8 @@ Gura_ImplementMethod(wx_PropertyGridManager, __SetSplitterLeft)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int subProps = arg.GetNumber(0)
-	//int allPages = arg.GetNumber(1)
+	//bool subProps = arg.GetNumber(0)
+	//bool allPages = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSplitterLeft();
 	return Value::Nil;
 }
@@ -614,7 +614,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __SetPageSplitterLeft)
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//int subProps = arg.GetNumber(1)
+	//bool subProps = arg.GetNumber(1)
 	//pThis->GetEntity()->SetPageSplitterLeft();
 	return Value::Nil;
 }
@@ -665,7 +665,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __ShowHeader)
 {
 	Object_wx_PropertyGridManager *pThis = Object_wx_PropertyGridManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int show = arg.GetNumber(0)
+	//bool show = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowHeader();
 	return Value::Nil;
 }

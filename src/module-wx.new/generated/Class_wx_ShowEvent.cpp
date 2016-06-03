@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__ShowEvent, "ShowEvent")
 Gura_ImplementFunction(__ShowEvent)
 {
 	//int winid = arg.GetNumber(0)
-	//int show = arg.GetNumber(1)
+	//bool show = arg.GetNumber(1)
 	//wxShowEvent();
 	return Value::Nil;
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_ShowEvent, __SetShow)
 {
 	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int show = arg.GetNumber(0)
+	//bool show = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShow();
 	return Value::Nil;
 }

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__QueryNewPaletteEvent, "QueryNewPaletteEvent")
 
 Gura_ImplementFunction(__QueryNewPaletteEvent)
 {
-	//int winid = arg.GetNumber(0)
+	//wxWindowID winid = arg.GetNumber(0)
 	//wxQueryNewPaletteEvent();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_QueryNewPaletteEvent, __SetPaletteRealized)
 {
 	Object_wx_QueryNewPaletteEvent *pThis = Object_wx_QueryNewPaletteEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int realized = arg.GetNumber(0)
+	//bool realized = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPaletteRealized();
 	return Value::Nil;
 }

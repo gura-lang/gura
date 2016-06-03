@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__IntegerValidator, "IntegerValidator")
 
 Gura_ImplementFunction(__IntegerValidator)
 {
-	//int value = arg.GetNumber(0)
+	//ValueType* value = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//wxIntegerValidator();
 	return Value::Nil;

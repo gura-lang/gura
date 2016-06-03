@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__RibbonPanelEvent, "RibbonPanelEvent")
 
 Gura_ImplementFunction(__RibbonPanelEvent)
 {
-	//int command_type = arg.GetNumber(0)
+	//wxEventType command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
-	//int panel = arg.GetNumber(2)
+	//wxRibbonPanel* panel = arg.GetNumber(2)
 	//wxRibbonPanelEvent();
 	return Value::Nil;
 }
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_RibbonPanelEvent, __SetPanel)
 {
 	Object_wx_RibbonPanelEvent *pThis = Object_wx_RibbonPanelEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int page = arg.GetNumber(0)
+	//wxRibbonPanel* page = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPanel();
 	return Value::Nil;
 }

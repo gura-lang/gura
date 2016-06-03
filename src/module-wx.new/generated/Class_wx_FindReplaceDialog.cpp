@@ -63,9 +63,9 @@ Gura_DeclareFunctionAlias(__FindReplaceDialog_1, "FindReplaceDialog_1")
 
 Gura_ImplementFunction(__FindReplaceDialog_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxFindReplaceData* data = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
 	//wxFindReplaceDialog();
 	return Value::Nil;
@@ -87,9 +87,9 @@ Gura_ImplementMethod(wx_FindReplaceDialog, __Create)
 {
 	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxFindReplaceData* data = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;

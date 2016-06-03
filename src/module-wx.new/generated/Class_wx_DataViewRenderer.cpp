@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__DataViewRenderer, "DataViewRenderer")
 
 Gura_ImplementFunction(__DataViewRenderer)
 {
-	//int varianttype = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//const wxString& varianttype = arg.GetNumber(0)
+	//wxDataViewCellMode mode = arg.GetNumber(1)
 	//int align = arg.GetNumber(2)
 	//wxDataViewRenderer();
 	return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, __EnableEllipsize)
 {
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int mode = arg.GetNumber(0)
+	//wxEllipsizeMode mode = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableEllipsize();
 	return Value::Nil;
 }
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, __GetValue)
 {
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//wxVariant& value = arg.GetNumber(0)
 	//pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, __SetOwner)
 {
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int owner = arg.GetNumber(0)
+	//wxDataViewColumn* owner = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOwner();
 	return Value::Nil;
 }
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, __SetValue)
 {
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//const wxVariant& value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_DataViewRenderer, __Validate)
 {
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//wxVariant& value = arg.GetNumber(0)
 	//pThis->GetEntity()->Validate();
 	return Value::Nil;
 }
@@ -252,9 +252,9 @@ Gura_ImplementMethod(wx_DataViewRenderer, __CreateEditorCtrl)
 {
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int labelRect = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxRect labelRect = arg.GetNumber(1)
+	//const wxVariant& value = arg.GetNumber(2)
 	//pThis->GetEntity()->CreateEditorCtrl();
 	return Value::Nil;
 }
@@ -270,8 +270,8 @@ Gura_ImplementMethod(wx_DataViewRenderer, __GetValueFromEditorCtrl)
 {
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int editor = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
+	//wxWindow* editor = arg.GetNumber(0)
+	//wxVariant& value = arg.GetNumber(1)
 	//pThis->GetEntity()->GetValueFromEditorCtrl();
 	return Value::Nil;
 }
@@ -287,8 +287,8 @@ Gura_ImplementMethod(wx_DataViewRenderer, __StartEditing)
 {
 	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int labelRect = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//wxRect labelRect = arg.GetNumber(1)
 	//pThis->GetEntity()->StartEditing();
 	return Value::Nil;
 }

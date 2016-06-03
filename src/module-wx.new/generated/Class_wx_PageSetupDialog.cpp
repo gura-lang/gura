@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__PageSetupDialog, "PageSetupDialog")
 
 Gura_ImplementFunction(__PageSetupDialog)
 {
-	//int parent = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxPageSetupDialogData* data = arg.GetNumber(1)
 	//wxPageSetupDialog();
 	return Value::Nil;
 }

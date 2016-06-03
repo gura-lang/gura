@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__PGCell_1, "PGCell_1")
 
 Gura_ImplementFunction(__PGCell_1)
 {
-	//int other = arg.GetNumber(0)
+	//const wxPGCell& other = arg.GetNumber(0)
 	//wxPGCell();
 	return Value::Nil;
 }
@@ -78,10 +78,10 @@ Gura_DeclareFunctionAlias(__PGCell_2, "PGCell_2")
 
 Gura_ImplementFunction(__PGCell_2)
 {
-	//int text = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
-	//int fgCol = arg.GetNumber(2)
-	//int bgCol = arg.GetNumber(3)
+	//const wxString& text = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
+	//const wxColour& fgCol = arg.GetNumber(2)
+	//const wxColour& bgCol = arg.GetNumber(3)
 	//wxPGCell();
 	return Value::Nil;
 }
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_PGCell, __MergeFrom)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int srcCell = arg.GetNumber(0)
+	//const wxPGCell& srcCell = arg.GetNumber(0)
 	//pThis->GetEntity()->MergeFrom();
 	return Value::Nil;
 }
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_PGCell, __SetText)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetText();
 	return Value::Nil;
 }
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_PGCell, __SetBitmap)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmap();
 	return Value::Nil;
 }
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_PGCell, __SetFgCol)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//const wxColour& col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFgCol();
 	return Value::Nil;
 }
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_PGCell, __SetFont)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;
 }
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_PGCell, __SetBgCol)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//const wxColour& col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBgCol();
 	return Value::Nil;
 }

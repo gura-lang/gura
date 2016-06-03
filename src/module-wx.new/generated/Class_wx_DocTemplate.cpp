@@ -56,16 +56,16 @@ Gura_DeclareFunctionAlias(__DocTemplate, "DocTemplate")
 
 Gura_ImplementFunction(__DocTemplate)
 {
-	//int manager = arg.GetNumber(0)
-	//int descr = arg.GetNumber(1)
-	//int filter = arg.GetNumber(2)
-	//int dir = arg.GetNumber(3)
-	//int ext = arg.GetNumber(4)
-	//int docTypeName = arg.GetNumber(5)
-	//int viewTypeName = arg.GetNumber(6)
-	//int docClassInfo = arg.GetNumber(7)
-	//int viewClassInfo = arg.GetNumber(8)
-	//int flags = arg.GetNumber(9)
+	//wxDocManager* manager = arg.GetNumber(0)
+	//const wxString& descr = arg.GetNumber(1)
+	//const wxString& filter = arg.GetNumber(2)
+	//const wxString& dir = arg.GetNumber(3)
+	//const wxString& ext = arg.GetNumber(4)
+	//const wxString& docTypeName = arg.GetNumber(5)
+	//const wxString& viewTypeName = arg.GetNumber(6)
+	//wxClassInfo* docClassInfo = arg.GetNumber(7)
+	//wxClassInfo* viewClassInfo = arg.GetNumber(8)
+	//long flags = arg.GetNumber(9)
 	//wxDocTemplate();
 	return Value::Nil;
 }
@@ -84,8 +84,8 @@ Gura_ImplementMethod(wx_DocTemplate, __CreateDocument)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int path = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
+	//const wxString& path = arg.GetNumber(0)
+	//long flags = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateDocument();
 	return Value::Nil;
 }
@@ -101,8 +101,8 @@ Gura_ImplementMethod(wx_DocTemplate, __CreateView)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int doc = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
+	//wxDocument* doc = arg.GetNumber(0)
+	//long flags = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateView();
 	return Value::Nil;
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_DocTemplate, __FileMatchesTemplate)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int path = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(0)
 	//pThis->GetEntity()->FileMatchesTemplate();
 	return Value::Nil;
 }
@@ -290,9 +290,9 @@ Gura_ImplementMethod(wx_DocTemplate, __InitDocument)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int doc = arg.GetNumber(0)
-	//int path = arg.GetNumber(1)
-	//int flags = arg.GetNumber(2)
+	//wxDocument* doc = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(1)
+	//long flags = arg.GetNumber(2)
 	//pThis->GetEntity()->InitDocument();
 	return Value::Nil;
 }
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_DocTemplate, __SetDefaultExtension)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ext = arg.GetNumber(0)
+	//const wxString& ext = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaultExtension();
 	return Value::Nil;
 }
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_DocTemplate, __SetDescription)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int descr = arg.GetNumber(0)
+	//const wxString& descr = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDescription();
 	return Value::Nil;
 }
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_DocTemplate, __SetDirectory)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dir = arg.GetNumber(0)
+	//const wxString& dir = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDirectory();
 	return Value::Nil;
 }
@@ -365,7 +365,7 @@ Gura_ImplementMethod(wx_DocTemplate, __SetDocumentManager)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int manager = arg.GetNumber(0)
+	//wxDocManager* manager = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDocumentManager();
 	return Value::Nil;
 }
@@ -380,7 +380,7 @@ Gura_ImplementMethod(wx_DocTemplate, __SetFileFilter)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filter = arg.GetNumber(0)
+	//const wxString& filter = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFileFilter();
 	return Value::Nil;
 }
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_DocTemplate, __SetFlags)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//long flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
 }

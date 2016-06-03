@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__PropertyGridEvent, "PropertyGridEvent")
 
 Gura_ImplementFunction(__PropertyGridEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxPropertyGridEvent();
 	return Value::Nil;
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__PropertyGridEvent_1, "PropertyGridEvent_1")
 
 Gura_ImplementFunction(__PropertyGridEvent_1)
 {
-	//int event = arg.GetNumber(0)
+	//const wxPropertyGridEvent& event = arg.GetNumber(0)
 	//wxPropertyGridEvent();
 	return Value::Nil;
 }
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_PropertyGridEvent, __SetCanVeto)
 {
 	Object_wx_PropertyGridEvent *pThis = Object_wx_PropertyGridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int canVeto = arg.GetNumber(0)
+	//bool canVeto = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCanVeto();
 	return Value::Nil;
 }
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_PropertyGridEvent, __SetProperty)
 {
 	Object_wx_PropertyGridEvent *pThis = Object_wx_PropertyGridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int p = arg.GetNumber(0)
+	//wxPGProperty* p = arg.GetNumber(0)
 	//pThis->GetEntity()->SetProperty();
 	return Value::Nil;
 }
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_PropertyGridEvent, __SetValidationFailureBehavior)
 {
 	Object_wx_PropertyGridEvent *pThis = Object_wx_PropertyGridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//wxPGVFBFlags flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValidationFailureBehavior();
 	return Value::Nil;
 }
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_PropertyGridEvent, __SetValidationFailureMessage)
 {
 	Object_wx_PropertyGridEvent *pThis = Object_wx_PropertyGridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int message = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValidationFailureMessage();
 	return Value::Nil;
 }
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_PropertyGridEvent, __Veto)
 {
 	Object_wx_PropertyGridEvent *pThis = Object_wx_PropertyGridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int veto = arg.GetNumber(0)
+	//bool veto = arg.GetNumber(0)
 	//pThis->GetEntity()->Veto();
 	return Value::Nil;
 }

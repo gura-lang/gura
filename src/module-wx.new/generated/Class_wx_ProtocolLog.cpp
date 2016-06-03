@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__ProtocolLog, "ProtocolLog")
 
 Gura_ImplementFunction(__ProtocolLog)
 {
-	//int traceMask = arg.GetNumber(0)
+	//const wxString& traceMask = arg.GetNumber(0)
 	//wxProtocolLog();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_ProtocolLog, __LogRequest)
 {
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->LogRequest();
 	return Value::Nil;
 }
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_ProtocolLog, __LogResponse)
 {
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->LogResponse();
 	return Value::Nil;
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_ProtocolLog, __DoLogString)
 {
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->DoLogString();
 	return Value::Nil;
 }

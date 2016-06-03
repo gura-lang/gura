@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__TaskBarIcon, "TaskBarIcon")
 
 Gura_ImplementFunction(__TaskBarIcon)
 {
-	//int iconType = arg.GetNumber(0)
+	//wxTaskBarIconType iconType = arg.GetNumber(0)
 	//wxTaskBarIcon();
 	return Value::Nil;
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_TaskBarIcon, __PopupMenu)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int menu = arg.GetNumber(0)
+	//wxMenu* menu = arg.GetNumber(0)
 	//pThis->GetEntity()->PopupMenu();
 	return Value::Nil;
 }
@@ -133,8 +133,8 @@ Gura_ImplementMethod(wx_TaskBarIcon, __SetIcon)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int icon = arg.GetNumber(0)
-	//int tooltip = arg.GetNumber(1)
+	//const wxIcon& icon = arg.GetNumber(0)
+	//const wxString& tooltip = arg.GetNumber(1)
 	//pThis->GetEntity()->SetIcon();
 	return Value::Nil;
 }

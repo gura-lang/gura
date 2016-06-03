@@ -41,7 +41,7 @@ Gura_DeclareFunctionAlias(__GridCellChoiceEditor, "GridCellChoiceEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "allowOthers", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellChoiceEditor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__GridCellChoiceEditor, "GridCellChoiceEditor")
 
 Gura_ImplementFunction(__GridCellChoiceEditor)
 {
-	//int count = arg.GetNumber(0)
-	//int choices = arg.GetNumber(1)
-	//int allowOthers = arg.GetNumber(2)
+	//size_t count = arg.GetNumber(0)
+	//const wxString choices[] _arg1 = arg.GetNumber(1)
+	//bool allowOthers = arg.GetNumber(2)
 	//wxGridCellChoiceEditor();
 	return Value::Nil;
 }
@@ -67,8 +67,8 @@ Gura_DeclareFunctionAlias(__GridCellChoiceEditor_1, "GridCellChoiceEditor_1")
 
 Gura_ImplementFunction(__GridCellChoiceEditor_1)
 {
-	//int choices = arg.GetNumber(0)
-	//int allowOthers = arg.GetNumber(1)
+	//const wxArrayString& choices = arg.GetNumber(0)
+	//bool allowOthers = arg.GetNumber(1)
 	//wxGridCellChoiceEditor();
 	return Value::Nil;
 }
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_GridCellChoiceEditor, __SetParameters)
 {
 	Object_wx_GridCellChoiceEditor *pThis = Object_wx_GridCellChoiceEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int params = arg.GetNumber(0)
+	//const wxString& params = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParameters();
 	return Value::Nil;
 }

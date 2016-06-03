@@ -53,13 +53,13 @@ Gura_DeclareFunctionAlias(__Control, "Control")
 
 Gura_ImplementFunction(__Control)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int validator = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxValidator& validator = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxControl();
 	return Value::Nil;
 }
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_Control, __Create)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int validator = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxValidator& validator = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_Control, __Command)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxCommandEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->Command();
 	return Value::Nil;
 }
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_Control, __GetSizeFromTextSize_1)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tsize = arg.GetNumber(0)
+	//const wxSize& tsize = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSizeFromTextSize();
 	return Value::Nil;
 }
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_Control, __SetLabel)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
+	//const wxString& label = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLabel();
 	return Value::Nil;
 }
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_Control, __SetLabelText)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLabelText();
 	return Value::Nil;
 }
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_Control, __SetLabelMarkup)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int markup = arg.GetNumber(0)
+	//const wxString& markup = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLabelMarkup();
 	return Value::Nil;
 }
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_Control, __GetLabelText_1)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
+	//const wxString& label = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLabelText();
 	return Value::Nil;
 }
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_Control, __RemoveMnemonics)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
+	//const wxString& str = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveMnemonics();
 	return Value::Nil;
 }
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_Control, __EscapeMnemonics)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->EscapeMnemonics();
 	return Value::Nil;
 }
@@ -284,9 +284,9 @@ Gura_ImplementMethod(wx_Control, __Ellipsize)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//const wxDC& dc = arg.GetNumber(1)
+	//wxEllipsizeMode mode = arg.GetNumber(2)
 	//int maxWidth = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
 	//pThis->GetEntity()->Ellipsize();

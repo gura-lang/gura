@@ -67,14 +67,14 @@ Gura_DeclareFunctionAlias(__ComboCtrl_1, "ComboCtrl_1")
 
 Gura_ImplementFunction(__ComboCtrl_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//wxComboCtrl();
 	return Value::Nil;
 }
@@ -112,14 +112,14 @@ Gura_ImplementMethod(wx_ComboCtrl, __Create)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __EnablePopupAnimation)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnablePopupAnimation();
 	return Value::Nil;
 }
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __IsKeyPopupToggle)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//const wxKeyEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->IsKeyPopupToggle();
 	return Value::Nil;
 }
@@ -192,8 +192,8 @@ Gura_ImplementMethod(wx_ComboCtrl, __PrepareBackground)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int rect = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
 	//pThis->GetEntity()->PrepareBackground();
 	return Value::Nil;
@@ -443,7 +443,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __HidePopup)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int generateEvent = arg.GetNumber(0)
+	//bool generateEvent = arg.GetNumber(0)
 	//pThis->GetEntity()->HidePopup();
 	return Value::Nil;
 }
@@ -526,8 +526,8 @@ Gura_ImplementMethod(wx_ComboCtrl, __Remove)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int from = arg.GetNumber(0)
-	//int to = arg.GetNumber(1)
+	//long from = arg.GetNumber(0)
+	//long to = arg.GetNumber(1)
 	//pThis->GetEntity()->Remove();
 	return Value::Nil;
 }
@@ -544,9 +544,9 @@ Gura_ImplementMethod(wx_ComboCtrl, __Replace)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int from = arg.GetNumber(0)
-	//int to = arg.GetNumber(1)
-	//int text = arg.GetNumber(2)
+	//long from = arg.GetNumber(0)
+	//long to = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(2)
 	//pThis->GetEntity()->Replace();
 	return Value::Nil;
 }
@@ -565,11 +565,11 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetButtonBitmaps)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bmpNormal = arg.GetNumber(0)
-	//int pushButtonBg = arg.GetNumber(1)
-	//int bmpPressed = arg.GetNumber(2)
-	//int bmpHover = arg.GetNumber(3)
-	//int bmpDisabled = arg.GetNumber(4)
+	//const wxBitmap& bmpNormal = arg.GetNumber(0)
+	//bool pushButtonBg = arg.GetNumber(1)
+	//const wxBitmap& bmpPressed = arg.GetNumber(2)
+	//const wxBitmap& bmpHover = arg.GetNumber(3)
+	//const wxBitmap& bmpDisabled = arg.GetNumber(4)
 	//pThis->GetEntity()->SetButtonBitmaps();
 	return Value::Nil;
 }
@@ -620,7 +620,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetHint)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int hint = arg.GetNumber(0)
+	//const wxString& hint = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHint();
 	return Value::Nil;
 }
@@ -635,7 +635,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetInsertionPoint)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//long pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetInsertionPoint();
 	return Value::Nil;
 }
@@ -663,7 +663,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetMargins)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMargins();
 	return Value::Nil;
 }
@@ -679,8 +679,8 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetMargins_1)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int left = arg.GetNumber(0)
-	//int top = arg.GetNumber(1)
+	//wxCoord left = arg.GetNumber(0)
+	//wxCoord top = arg.GetNumber(1)
 	//pThis->GetEntity()->SetMargins();
 	return Value::Nil;
 }
@@ -710,7 +710,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetPopupControl)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int popup = arg.GetNumber(0)
+	//wxComboPopup* popup = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPopupControl();
 	return Value::Nil;
 }
@@ -773,8 +773,8 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetSelection)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int from = arg.GetNumber(0)
-	//int to = arg.GetNumber(1)
+	//long from = arg.GetNumber(0)
+	//long to = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSelection();
 	return Value::Nil;
 }
@@ -789,7 +789,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetText)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//const wxString& value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetText();
 	return Value::Nil;
 }
@@ -834,7 +834,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetValue)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//const wxString& value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }
@@ -849,7 +849,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetValueByUser)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//const wxString& value = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValueByUser();
 	return Value::Nil;
 }
@@ -890,7 +890,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __UseAltPopupWindow)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->UseAltPopupWindow();
 	return Value::Nil;
 }
@@ -906,7 +906,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __AnimateShow)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//pThis->GetEntity()->AnimateShow();
 	return Value::Nil;
@@ -922,7 +922,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __DoSetPopupControl)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int popup = arg.GetNumber(0)
+	//wxComboPopup* popup = arg.GetNumber(0)
 	//pThis->GetEntity()->DoSetPopupControl();
 	return Value::Nil;
 }

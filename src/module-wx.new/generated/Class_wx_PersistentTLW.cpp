@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__PersistentTLW, "PersistentTLW")
 
 Gura_ImplementFunction(__PersistentTLW)
 {
-	//int book = arg.GetNumber(0)
+	//wxTopLevelWindow* book = arg.GetNumber(0)
 	//wxPersistentTLW();
 	return Value::Nil;
 }

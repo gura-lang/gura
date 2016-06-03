@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__GCDC, "GCDC")
 
 Gura_ImplementFunction(__GCDC)
 {
-	//int windowDC = arg.GetNumber(0)
+	//const wxWindowDC& windowDC = arg.GetNumber(0)
 	//wxGCDC();
 	return Value::Nil;
 }
@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__GCDC_1, "GCDC_1")
 
 Gura_ImplementFunction(__GCDC_1)
 {
-	//int memoryDC = arg.GetNumber(0)
+	//const wxMemoryDC& memoryDC = arg.GetNumber(0)
 	//wxGCDC();
 	return Value::Nil;
 }
@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__GCDC_2, "GCDC_2")
 
 Gura_ImplementFunction(__GCDC_2)
 {
-	//int printerDC = arg.GetNumber(0)
+	//const wxPrinterDC& printerDC = arg.GetNumber(0)
 	//wxGCDC();
 	return Value::Nil;
 }
@@ -92,7 +92,7 @@ Gura_DeclareFunctionAlias(__GCDC_3, "GCDC_3")
 
 Gura_ImplementFunction(__GCDC_3)
 {
-	//int context = arg.GetNumber(0)
+	//wxGraphicsContext* context = arg.GetNumber(0)
 	//wxGCDC();
 	return Value::Nil;
 }
@@ -107,7 +107,7 @@ Gura_DeclareFunctionAlias(__GCDC_4, "GCDC_4")
 
 Gura_ImplementFunction(__GCDC_4)
 {
-	//int emfDC = arg.GetNumber(0)
+	//const wxEnhMetaFileDC& emfDC = arg.GetNumber(0)
 	//wxGCDC();
 	return Value::Nil;
 }
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_GCDC, __SetGraphicsContext)
 {
 	Object_wx_GCDC *pThis = Object_wx_GCDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ctx = arg.GetNumber(0)
+	//wxGraphicsContext* ctx = arg.GetNumber(0)
 	//pThis->GetEntity()->SetGraphicsContext();
 	return Value::Nil;
 }

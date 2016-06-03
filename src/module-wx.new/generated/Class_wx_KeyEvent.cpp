@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__KeyEvent, "KeyEvent")
 
 Gura_ImplementFunction(__KeyEvent)
 {
-	//int keyEventType = arg.GetNumber(0)
+	//wxEventType keyEventType = arg.GetNumber(0)
 	//wxKeyEvent();
 	return Value::Nil;
 }
@@ -107,8 +107,8 @@ Gura_ImplementMethod(wx_KeyEvent, __GetPosition_1)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord* x = arg.GetNumber(0)
+	//wxCoord* y = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }

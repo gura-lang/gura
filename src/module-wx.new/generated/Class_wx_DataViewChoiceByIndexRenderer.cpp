@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__DataViewChoiceByIndexRenderer, "DataViewChoiceByInde
 
 Gura_ImplementFunction(__DataViewChoiceByIndexRenderer)
 {
-	//int choices = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//const wxArrayString& choices = arg.GetNumber(0)
+	//wxDataViewCellMode mode = arg.GetNumber(1)
 	//int alignment = arg.GetNumber(2)
 	//wxDataViewChoiceByIndexRenderer();
 	return Value::Nil;

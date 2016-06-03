@@ -65,9 +65,9 @@ Gura_ImplementMethod(wx_ImageHistogram, __MakeKey)
 {
 	Object_wx_ImageHistogram *pThis = Object_wx_ImageHistogram::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
-	//int g = arg.GetNumber(1)
-	//int b = arg.GetNumber(2)
+	//unsigned char r = arg.GetNumber(0)
+	//unsigned char g = arg.GetNumber(1)
+	//unsigned char b = arg.GetNumber(2)
 	//pThis->GetEntity()->MakeKey();
 	return Value::Nil;
 }
@@ -87,12 +87,12 @@ Gura_ImplementMethod(wx_ImageHistogram, __FindFirstUnusedColour)
 {
 	Object_wx_ImageHistogram *pThis = Object_wx_ImageHistogram::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int r = arg.GetNumber(0)
-	//int g = arg.GetNumber(1)
-	//int b = arg.GetNumber(2)
-	//int startR = arg.GetNumber(3)
-	//int startG = arg.GetNumber(4)
-	//int startB = arg.GetNumber(5)
+	//unsigned char* r = arg.GetNumber(0)
+	//unsigned char* g = arg.GetNumber(1)
+	//unsigned char* b = arg.GetNumber(2)
+	//unsigned char startR = arg.GetNumber(3)
+	//unsigned char startG = arg.GetNumber(4)
+	//unsigned char startB = arg.GetNumber(5)
 	//pThis->GetEntity()->FindFirstUnusedColour();
 	return Value::Nil;
 }

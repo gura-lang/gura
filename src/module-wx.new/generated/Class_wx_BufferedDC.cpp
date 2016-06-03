@@ -62,8 +62,8 @@ Gura_DeclareFunctionAlias(__BufferedDC_1, "BufferedDC_1")
 
 Gura_ImplementFunction(__BufferedDC_1)
 {
-	//int dc = arg.GetNumber(0)
-	//int area = arg.GetNumber(1)
+	//wxDC* dc = arg.GetNumber(0)
+	//const wxSize& area = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
 	//wxBufferedDC();
 	return Value::Nil;
@@ -81,8 +81,8 @@ Gura_DeclareFunctionAlias(__BufferedDC_2, "BufferedDC_2")
 
 Gura_ImplementFunction(__BufferedDC_2)
 {
-	//int dc = arg.GetNumber(0)
-	//int buffer = arg.GetNumber(1)
+	//wxDC* dc = arg.GetNumber(0)
+	//wxBitmap& buffer = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
 	//wxBufferedDC();
 	return Value::Nil;
@@ -103,8 +103,8 @@ Gura_ImplementMethod(wx_BufferedDC, __Init)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int area = arg.GetNumber(1)
+	//wxDC* dc = arg.GetNumber(0)
+	//const wxSize& area = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
 	//pThis->GetEntity()->Init();
 	return Value::Nil;
@@ -122,8 +122,8 @@ Gura_ImplementMethod(wx_BufferedDC, __Init_1)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int buffer = arg.GetNumber(1)
+	//wxDC* dc = arg.GetNumber(0)
+	//wxBitmap& buffer = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
 	//pThis->GetEntity()->Init();
 	return Value::Nil;

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__RegKey, "RegKey")
 
 Gura_ImplementFunction(__RegKey)
 {
-	//int viewMode = arg.GetNumber(0)
+	//WOW64ViewMode viewMode = arg.GetNumber(0)
 	//wxRegKey();
 	return Value::Nil;
 }
@@ -63,8 +63,8 @@ Gura_DeclareFunctionAlias(__RegKey_1, "RegKey_1")
 
 Gura_ImplementFunction(__RegKey_1)
 {
-	//int strKey = arg.GetNumber(0)
-	//int viewMode = arg.GetNumber(1)
+	//const wxString& strKey = arg.GetNumber(0)
+	//WOW64ViewMode viewMode = arg.GetNumber(1)
 	//wxRegKey();
 	return Value::Nil;
 }
@@ -81,9 +81,9 @@ Gura_DeclareFunctionAlias(__RegKey_2, "RegKey_2")
 
 Gura_ImplementFunction(__RegKey_2)
 {
-	//int keyParent = arg.GetNumber(0)
-	//int strKey = arg.GetNumber(1)
-	//int viewMode = arg.GetNumber(2)
+	//StdKey keyParent = arg.GetNumber(0)
+	//const wxString& strKey = arg.GetNumber(1)
+	//WOW64ViewMode viewMode = arg.GetNumber(2)
 	//wxRegKey();
 	return Value::Nil;
 }
@@ -99,8 +99,8 @@ Gura_DeclareFunctionAlias(__RegKey_3, "RegKey_3")
 
 Gura_ImplementFunction(__RegKey_3)
 {
-	//int keyParent = arg.GetNumber(0)
-	//int strKey = arg.GetNumber(1)
+	//const wxRegKey& keyParent = arg.GetNumber(0)
+	//const wxString& strKey = arg.GetNumber(1)
 	//wxRegKey();
 	return Value::Nil;
 }

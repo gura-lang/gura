@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__FloatingPointValidator, "FloatingPointValidator")
 
 Gura_ImplementFunction(__FloatingPointValidator)
 {
-	//int value = arg.GetNumber(0)
+	//ValueType* value = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//wxFloatingPointValidator();
 	return Value::Nil;
@@ -67,7 +67,7 @@ Gura_DeclareFunctionAlias(__FloatingPointValidator_1, "FloatingPointValidator_1"
 Gura_ImplementFunction(__FloatingPointValidator_1)
 {
 	//int precision = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
+	//ValueType* value = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
 	//wxFloatingPointValidator();
 	return Value::Nil;
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_FloatingPointValidator, __SetPrecision)
 {
 	Object_wx_FloatingPointValidator *pThis = Object_wx_FloatingPointValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int precision = arg.GetNumber(0)
+	//unsigned precision = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPrecision();
 	return Value::Nil;
 }

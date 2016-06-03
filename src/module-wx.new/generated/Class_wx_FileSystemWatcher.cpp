@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __Add)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int path = arg.GetNumber(0)
+	//const wxFileName& path = arg.GetNumber(0)
 	//int events = arg.GetNumber(1)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
@@ -82,9 +82,9 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __AddTree)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int path = arg.GetNumber(0)
+	//const wxFileName& path = arg.GetNumber(0)
 	//int events = arg.GetNumber(1)
-	//int filter = arg.GetNumber(2)
+	//const wxString& filter = arg.GetNumber(2)
 	//pThis->GetEntity()->AddTree();
 	return Value::Nil;
 }
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __Remove)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int path = arg.GetNumber(0)
+	//const wxFileName& path = arg.GetNumber(0)
 	//pThis->GetEntity()->Remove();
 	return Value::Nil;
 }
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __RemoveTree)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int path = arg.GetNumber(0)
+	//const wxFileName& path = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveTree();
 	return Value::Nil;
 }
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __GetWatchedPaths)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int paths = arg.GetNumber(0)
+	//wxArrayString* paths = arg.GetNumber(0)
 	//pThis->GetEntity()->GetWatchedPaths();
 	return Value::Nil;
 }
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __SetOwner)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int handler = arg.GetNumber(0)
+	//wxEvtHandler* handler = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOwner();
 	return Value::Nil;
 }

@@ -66,13 +66,13 @@ Gura_DeclareFunctionAlias(__Frame_1, "Frame_1")
 
 Gura_ImplementFunction(__Frame_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxFrame();
 	return Value::Nil;
 }
@@ -111,13 +111,13 @@ Gura_ImplementMethod(wx_Frame, __Create)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -136,9 +136,9 @@ Gura_ImplementMethod(wx_Frame, __CreateStatusBar)
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int number = arg.GetNumber(0)
-	//int style = arg.GetNumber(1)
-	//int id = arg.GetNumber(2)
-	//int name = arg.GetNumber(3)
+	//long style = arg.GetNumber(1)
+	//wxWindowID id = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(3)
 	//pThis->GetEntity()->CreateStatusBar();
 	return Value::Nil;
 }
@@ -155,9 +155,9 @@ Gura_ImplementMethod(wx_Frame, __CreateToolBar)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int style = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int name = arg.GetNumber(2)
+	//long style = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(2)
 	//pThis->GetEntity()->CreateToolBar();
 	return Value::Nil;
 }
@@ -173,8 +173,8 @@ Gura_ImplementMethod(wx_Frame, __DoGiveHelp)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
-	//int show = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(0)
+	//bool show = arg.GetNumber(1)
 	//pThis->GetEntity()->DoGiveHelp();
 	return Value::Nil;
 }
@@ -258,9 +258,9 @@ Gura_ImplementMethod(wx_Frame, __OnCreateStatusBar)
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int number = arg.GetNumber(0)
-	//int style = arg.GetNumber(1)
-	//int id = arg.GetNumber(2)
-	//int name = arg.GetNumber(3)
+	//long style = arg.GetNumber(1)
+	//wxWindowID id = arg.GetNumber(2)
+	//const wxString& name = arg.GetNumber(3)
 	//pThis->GetEntity()->OnCreateStatusBar();
 	return Value::Nil;
 }
@@ -277,9 +277,9 @@ Gura_ImplementMethod(wx_Frame, __OnCreateToolBar)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int style = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int name = arg.GetNumber(2)
+	//long style = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(2)
 	//pThis->GetEntity()->OnCreateToolBar();
 	return Value::Nil;
 }
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_Frame, __SetMenuBar)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int menuBar = arg.GetNumber(0)
+	//wxMenuBar* menuBar = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMenuBar();
 	return Value::Nil;
 }
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_Frame, __SetStatusBar)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int statusBar = arg.GetNumber(0)
+	//wxStatusBar* statusBar = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStatusBar();
 	return Value::Nil;
 }
@@ -355,7 +355,7 @@ Gura_ImplementMethod(wx_Frame, __SetStatusText)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//int number = arg.GetNumber(1)
 	//pThis->GetEntity()->SetStatusText();
 	return Value::Nil;
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_Frame, __SetStatusWidths)
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//int widths_field = arg.GetNumber(1)
+	//const int* widths_field = arg.GetNumber(1)
 	//pThis->GetEntity()->SetStatusWidths();
 	return Value::Nil;
 }
@@ -388,7 +388,7 @@ Gura_ImplementMethod(wx_Frame, __SetToolBar)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int toolBar = arg.GetNumber(0)
+	//wxToolBar* toolBar = arg.GetNumber(0)
 	//pThis->GetEntity()->SetToolBar();
 	return Value::Nil;
 }
@@ -417,7 +417,7 @@ Gura_ImplementMethod(wx_Frame, __PushStatusText)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//int number = arg.GetNumber(1)
 	//pThis->GetEntity()->PushStatusText();
 	return Value::Nil;

@@ -50,10 +50,10 @@ Gura_ImplementMethod(wx_SVGBitmapFileHandler, __ProcessBitmap)
 {
 	Object_wx_SVGBitmapFileHandler *pThis = Object_wx_SVGBitmapFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
-	//int x = arg.GetNumber(1)
-	//int y = arg.GetNumber(2)
-	//int stream = arg.GetNumber(3)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
+	//wxCoord x = arg.GetNumber(1)
+	//wxCoord y = arg.GetNumber(2)
+	//wxOutputStream& stream = arg.GetNumber(3)
 	//pThis->GetEntity()->ProcessBitmap();
 	return Value::Nil;
 }

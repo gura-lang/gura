@@ -64,11 +64,11 @@ Gura_DeclareFunctionAlias(__DirFilterListCtrl_1, "DirFilterListCtrl_1")
 
 Gura_ImplementFunction(__DirFilterListCtrl_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxGenericDirCtrl* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//wxDirFilterListCtrl();
 	return Value::Nil;
 }
@@ -90,11 +90,11 @@ Gura_ImplementMethod(wx_DirFilterListCtrl, __Create)
 {
 	Object_wx_DirFilterListCtrl *pThis = Object_wx_DirFilterListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxGenericDirCtrl* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_DirFilterListCtrl, __FillFilterList)
 {
 	Object_wx_DirFilterListCtrl *pThis = Object_wx_DirFilterListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filter = arg.GetNumber(0)
+	//const wxString& filter = arg.GetNumber(0)
 	//int defaultFilter = arg.GetNumber(1)
 	//pThis->GetEntity()->FillFilterList();
 	return Value::Nil;

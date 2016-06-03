@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_Joystick, __GetButtonState_1)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//unsigned int id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetButtonState();
 	return Value::Nil;
 }
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_Joystick, __GetPosition_1)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int axis = arg.GetNumber(0)
+	//unsigned int axis = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -590,7 +590,7 @@ Gura_ImplementMethod(wx_Joystick, __SetCapture)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
+	//wxWindow* win = arg.GetNumber(0)
 	//int pollingFreq = arg.GetNumber(1)
 	//pThis->GetEntity()->SetCapture();
 	return Value::Nil;

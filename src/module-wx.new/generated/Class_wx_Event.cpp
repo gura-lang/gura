@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__Event, "Event")
 Gura_ImplementFunction(__Event)
 {
 	//int id = arg.GetNumber(0)
-	//int eventType = arg.GetNumber(1)
+	//wxEventType eventType = arg.GetNumber(1)
 	//wxEvent();
 	return Value::Nil;
 }
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_Event, __SetEventObject)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int object = arg.GetNumber(0)
+	//wxObject* object = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEventObject();
 	return Value::Nil;
 }
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_Event, __SetEventType)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int type = arg.GetNumber(0)
+	//wxEventType type = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEventType();
 	return Value::Nil;
 }
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_Event, __SetTimestamp)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int timeStamp = arg.GetNumber(0)
+	//long timeStamp = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTimestamp();
 	return Value::Nil;
 }
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_Event, __Skip)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int skip = arg.GetNumber(0)
+	//bool skip = arg.GetNumber(0)
 	//pThis->GetEntity()->Skip();
 	return Value::Nil;
 }

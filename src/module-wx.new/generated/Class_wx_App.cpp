@@ -142,8 +142,8 @@ Gura_ImplementMethod(wx_App, __SafeYield)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int onlyIfNeeded = arg.GetNumber(1)
+	//wxWindow* win = arg.GetNumber(0)
+	//bool onlyIfNeeded = arg.GetNumber(1)
 	//pThis->GetEntity()->SafeYield();
 	return Value::Nil;
 }
@@ -159,8 +159,8 @@ Gura_ImplementMethod(wx_App, __SafeYieldFor)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int eventsToProcess = arg.GetNumber(1)
+	//wxWindow* win = arg.GetNumber(0)
+	//long eventsToProcess = arg.GetNumber(1)
 	//pThis->GetEntity()->SafeYieldFor();
 	return Value::Nil;
 }
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_App, __ProcessMessage)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int msg = arg.GetNumber(0)
+	//WXMSG* msg = arg.GetNumber(0)
 	//pThis->GetEntity()->ProcessMessage();
 	return Value::Nil;
 }
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_App, __SetDisplayMode)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int info = arg.GetNumber(0)
+	//const wxVideoMode& info = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDisplayMode();
 	return Value::Nil;
 }
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_App, __SetExitOnFrameDelete)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flag = arg.GetNumber(0)
+	//bool flag = arg.GetNumber(0)
 	//pThis->GetEntity()->SetExitOnFrameDelete();
 	return Value::Nil;
 }
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_App, __SetNativeTheme)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int theme = arg.GetNumber(0)
+	//const wxString& theme = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNativeTheme();
 	return Value::Nil;
 }
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_App, __SetTopWindow)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTopWindow();
 	return Value::Nil;
 }
@@ -251,8 +251,8 @@ Gura_ImplementMethod(wx_App, __SetUseBestVisual)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flag = arg.GetNumber(0)
-	//int forceTrueColour = arg.GetNumber(1)
+	//bool flag = arg.GetNumber(0)
+	//bool forceTrueColour = arg.GetNumber(1)
 	//pThis->GetEntity()->SetUseBestVisual();
 	return Value::Nil;
 }
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_App, __MacOpenFiles)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fileNames = arg.GetNumber(0)
+	//const wxArrayString& fileNames = arg.GetNumber(0)
 	//pThis->GetEntity()->MacOpenFiles();
 	return Value::Nil;
 }
@@ -295,7 +295,7 @@ Gura_ImplementMethod(wx_App, __MacOpenFile)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fileName = arg.GetNumber(0)
+	//const wxString& fileName = arg.GetNumber(0)
 	//pThis->GetEntity()->MacOpenFile();
 	return Value::Nil;
 }
@@ -310,7 +310,7 @@ Gura_ImplementMethod(wx_App, __MacOpenURL)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//pThis->GetEntity()->MacOpenURL();
 	return Value::Nil;
 }
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_App, __MacPrintFile)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fileName = arg.GetNumber(0)
+	//const wxString& fileName = arg.GetNumber(0)
 	//pThis->GetEntity()->MacPrintFile();
 	return Value::Nil;
 }

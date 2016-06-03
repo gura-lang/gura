@@ -64,8 +64,8 @@ Gura_ImplementMethod(wx_TextDropTarget, __OnDrop)
 {
 	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->OnDrop();
 	return Value::Nil;
 }
@@ -82,9 +82,9 @@ Gura_ImplementMethod(wx_TextDropTarget, __OnDropText)
 {
 	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
-	//int data = arg.GetNumber(2)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
+	//const wxString& data = arg.GetNumber(2)
 	//pThis->GetEntity()->OnDropText();
 	return Value::Nil;
 }

@@ -54,14 +54,14 @@ Gura_DeclareFunctionAlias(__SingleChoiceDialog, "SingleChoiceDialog")
 
 Gura_ImplementFunction(__SingleChoiceDialog)
 {
-	//int parent = arg.GetNumber(0)
-	//int message = arg.GetNumber(1)
-	//int caption = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(1)
+	//const wxString& caption = arg.GetNumber(2)
 	//int n = arg.GetNumber(3)
-	//int choices = arg.GetNumber(4)
-	//int clientData = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int pos = arg.GetNumber(7)
+	//const wxString* choices = arg.GetNumber(4)
+	//void** clientData = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxPoint& pos = arg.GetNumber(7)
 	//wxSingleChoiceDialog();
 	return Value::Nil;
 }
@@ -82,13 +82,13 @@ Gura_DeclareFunctionAlias(__SingleChoiceDialog_1, "SingleChoiceDialog_1")
 
 Gura_ImplementFunction(__SingleChoiceDialog_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int message = arg.GetNumber(1)
-	//int caption = arg.GetNumber(2)
-	//int choices = arg.GetNumber(3)
-	//int clientData = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int pos = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(1)
+	//const wxString& caption = arg.GetNumber(2)
+	//const wxArrayString& choices = arg.GetNumber(3)
+	//void** clientData = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxPoint& pos = arg.GetNumber(6)
 	//wxSingleChoiceDialog();
 	return Value::Nil;
 }

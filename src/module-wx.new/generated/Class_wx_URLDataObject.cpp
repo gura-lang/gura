@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__URLDataObject, "URLDataObject")
 
 Gura_ImplementFunction(__URLDataObject)
 {
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//wxURLDataObject();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_URLDataObject, __SetURL)
 {
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;
 }

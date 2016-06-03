@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__GraphicsGradientStop, "GraphicsGradientStop")
 
 Gura_ImplementFunction(__GraphicsGradientStop)
 {
-	//int col = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//wxColour col = arg.GetNumber(0)
+	//float pos = arg.GetNumber(1)
 	//wxGraphicsGradientStop();
 	return Value::Nil;
 }
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_GraphicsGradientStop, __SetColour)
 {
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//const wxColour& col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_GraphicsGradientStop, __SetPosition)
 {
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//float pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;
 }

@@ -77,8 +77,8 @@ Gura_ImplementMethod(wx_FileType, __MessageParameters_1)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
-	//int mimetype = arg.GetNumber(1)
+	//const wxString& filename = arg.GetNumber(0)
+	//const wxString& mimetype = arg.GetNumber(1)
 	//pThis->GetEntity()->MessageParameters();
 	return Value::Nil;
 }
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_FileType, __GetParamValue)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetParamValue();
 	return Value::Nil;
 }

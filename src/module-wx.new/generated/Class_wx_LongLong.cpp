@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__LongLong_1, "LongLong_1")
 
 Gura_ImplementFunction(__LongLong_1)
 {
-	//int ll = arg.GetNumber(0)
+	//wxLongLong_t ll = arg.GetNumber(0)
 	//wxLongLong();
 	return Value::Nil;
 }
@@ -76,8 +76,8 @@ Gura_DeclareFunctionAlias(__LongLong_2, "LongLong_2")
 
 Gura_ImplementFunction(__LongLong_2)
 {
-	//int hi = arg.GetNumber(0)
-	//int lo = arg.GetNumber(1)
+	//long hi = arg.GetNumber(0)
+	//unsigned long lo = arg.GetNumber(1)
 	//wxLongLong();
 	return Value::Nil;
 }
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_LongLong, __Assign)
 {
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int d = arg.GetNumber(0)
+	//double d = arg.GetNumber(0)
 	//pThis->GetEntity()->Assign();
 	return Value::Nil;
 }

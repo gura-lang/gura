@@ -52,11 +52,11 @@ Gura_DeclareFunctionAlias(__DataViewColumn, "DataViewColumn")
 
 Gura_ImplementFunction(__DataViewColumn)
 {
-	//int title = arg.GetNumber(0)
-	//int renderer = arg.GetNumber(1)
-	//int model_column = arg.GetNumber(2)
+	//const wxString& title = arg.GetNumber(0)
+	//wxDataViewRenderer* renderer = arg.GetNumber(1)
+	//unsigned int model_column = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//wxDataViewColumn();
 	return Value::Nil;
@@ -77,11 +77,11 @@ Gura_DeclareFunctionAlias(__DataViewColumn_1, "DataViewColumn_1")
 
 Gura_ImplementFunction(__DataViewColumn_1)
 {
-	//int bitmap = arg.GetNumber(0)
-	//int renderer = arg.GetNumber(1)
-	//int model_column = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
+	//wxDataViewRenderer* renderer = arg.GetNumber(1)
+	//unsigned int model_column = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//wxDataViewColumn();
 	return Value::Nil;

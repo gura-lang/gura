@@ -51,9 +51,9 @@ Gura_DeclareFunctionAlias(__TextUrlEvent, "TextUrlEvent")
 Gura_ImplementFunction(__TextUrlEvent)
 {
 	//int winid = arg.GetNumber(0)
-	//int evtMouse = arg.GetNumber(1)
-	//int start = arg.GetNumber(2)
-	//int end = arg.GetNumber(3)
+	//const wxMouseEvent& evtMouse = arg.GetNumber(1)
+	//long start = arg.GetNumber(2)
+	//long end = arg.GetNumber(3)
 	//wxTextUrlEvent();
 	return Value::Nil;
 }
@@ -68,7 +68,7 @@ Gura_DeclareFunctionAlias(__TextUrlEvent_1, "TextUrlEvent_1")
 
 Gura_ImplementFunction(__TextUrlEvent_1)
 {
-	//int event = arg.GetNumber(0)
+	//const wxTextUrlEvent& event = arg.GetNumber(0)
 	//wxTextUrlEvent();
 	return Value::Nil;
 }

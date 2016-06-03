@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_DebugContext, __Check)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int checkAll = arg.GetNumber(0)
+	//bool checkAll = arg.GetNumber(0)
 	//pThis->GetEntity()->Check();
 	return Value::Nil;
 }
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_DebugContext, __PrintStatistics)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int detailed = arg.GetNumber(0)
+	//bool detailed = arg.GetNumber(0)
 	//pThis->GetEntity()->PrintStatistics();
 	return Value::Nil;
 }
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_DebugContext, __SetCheckPrevious)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int check = arg.GetNumber(0)
+	//bool check = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCheckPrevious();
 	return Value::Nil;
 }
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_DebugContext, __SetCheckpoint)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int all = arg.GetNumber(0)
+	//bool all = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCheckpoint();
 	return Value::Nil;
 }
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_DebugContext, __SetDebugMode)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int debug = arg.GetNumber(0)
+	//bool debug = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDebugMode();
 	return Value::Nil;
 }
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_DebugContext, __SetShutdownNotifyFunction)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int func = arg.GetNumber(0)
+	//wxShutdownNotifyFunction func = arg.GetNumber(0)
 	//pThis->GetEntity()->SetShutdownNotifyFunction();
 	return Value::Nil;
 }

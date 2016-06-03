@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__HtmlColourCell, "HtmlColourCell")
 
 Gura_ImplementFunction(__HtmlColourCell)
 {
-	//int clr = arg.GetNumber(0)
+	//const wxColour& clr = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//wxHtmlColourCell();
 	return Value::Nil;

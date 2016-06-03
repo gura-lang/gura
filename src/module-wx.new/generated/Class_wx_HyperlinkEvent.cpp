@@ -49,9 +49,9 @@ Gura_DeclareFunctionAlias(__HyperlinkEvent, "HyperlinkEvent")
 
 Gura_ImplementFunction(__HyperlinkEvent)
 {
-	//int generator = arg.GetNumber(0)
+	//wxObject* generator = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//int url = arg.GetNumber(2)
+	//const wxString& url = arg.GetNumber(2)
 	//wxHyperlinkEvent();
 	return Value::Nil;
 }
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_HyperlinkEvent, __SetURL)
 {
 	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int url = arg.GetNumber(0)
+	//const wxString& url = arg.GetNumber(0)
 	//pThis->GetEntity()->SetURL();
 	return Value::Nil;
 }

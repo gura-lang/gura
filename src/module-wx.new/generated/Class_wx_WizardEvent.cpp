@@ -50,10 +50,10 @@ Gura_DeclareFunctionAlias(__WizardEvent, "WizardEvent")
 
 Gura_ImplementFunction(__WizardEvent)
 {
-	//int type = arg.GetNumber(0)
+	//wxEventType type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//int direction = arg.GetNumber(2)
-	//int page = arg.GetNumber(3)
+	//bool direction = arg.GetNumber(2)
+	//wxWizardPage* page = arg.GetNumber(3)
 	//wxWizardEvent();
 	return Value::Nil;
 }

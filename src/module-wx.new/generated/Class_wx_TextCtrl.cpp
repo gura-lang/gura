@@ -67,14 +67,14 @@ Gura_DeclareFunctionAlias(__TextCtrl_1, "TextCtrl_1")
 
 Gura_ImplementFunction(__TextCtrl_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//wxTextCtrl();
 	return Value::Nil;
 }
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_TextCtrl, __Create)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_TextCtrl, __EmulateKeyPress)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//const wxKeyEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->EmulateKeyPress();
 	return Value::Nil;
 }
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_TextCtrl, __GetLineLength)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int lineNo = arg.GetNumber(0)
+	//long lineNo = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLineLength();
 	return Value::Nil;
 }
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_TextCtrl, __GetLineText)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int lineNo = arg.GetNumber(0)
+	//long lineNo = arg.GetNumber(0)
 	//pThis->GetEntity()->GetLineText();
 	return Value::Nil;
 }
@@ -206,8 +206,8 @@ Gura_ImplementMethod(wx_TextCtrl, __GetStyle)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int position = arg.GetNumber(0)
-	//int style = arg.GetNumber(1)
+	//long position = arg.GetNumber(0)
+	//wxTextAttr& style = arg.GetNumber(1)
 	//pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
@@ -223,8 +223,8 @@ Gura_ImplementMethod(wx_TextCtrl, __HitTest)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//const wxPoint& pt = arg.GetNumber(0)
+	//long* pos = arg.GetNumber(1)
 	//pThis->GetEntity()->HitTest();
 	return Value::Nil;
 }
@@ -241,9 +241,9 @@ Gura_ImplementMethod(wx_TextCtrl, __HitTest_1)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
-	//int row = arg.GetNumber(2)
+	//const wxPoint& pt = arg.GetNumber(0)
+	//wxTextCoord* col = arg.GetNumber(1)
+	//wxTextCoord* row = arg.GetNumber(2)
 	//pThis->GetEntity()->HitTest();
 	return Value::Nil;
 }
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_TextCtrl, __LoadFile)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//int fileType = arg.GetNumber(1)
 	//pThis->GetEntity()->LoadFile();
 	return Value::Nil;
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_TextCtrl, __OnDropFiles)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxDropFilesEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->OnDropFiles();
 	return Value::Nil;
 }
@@ -344,9 +344,9 @@ Gura_ImplementMethod(wx_TextCtrl, __PositionToXY)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int x = arg.GetNumber(1)
-	//int y = arg.GetNumber(2)
+	//long pos = arg.GetNumber(0)
+	//long* x = arg.GetNumber(1)
+	//long* y = arg.GetNumber(2)
 	//pThis->GetEntity()->PositionToXY();
 	return Value::Nil;
 }
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_TextCtrl, __PositionToCoords)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//long pos = arg.GetNumber(0)
 	//pThis->GetEntity()->PositionToCoords();
 	return Value::Nil;
 }
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_TextCtrl, __SaveFile)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//int fileType = arg.GetNumber(1)
 	//pThis->GetEntity()->SaveFile();
 	return Value::Nil;
@@ -393,7 +393,7 @@ Gura_ImplementMethod(wx_TextCtrl, __SetDefaultStyle)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int style = arg.GetNumber(0)
+	//const wxTextAttr& style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDefaultStyle();
 	return Value::Nil;
 }
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_TextCtrl, __SetModified)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int modified = arg.GetNumber(0)
+	//bool modified = arg.GetNumber(0)
 	//pThis->GetEntity()->SetModified();
 	return Value::Nil;
 }
@@ -425,9 +425,9 @@ Gura_ImplementMethod(wx_TextCtrl, __SetStyle)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int start = arg.GetNumber(0)
-	//int end = arg.GetNumber(1)
-	//int style = arg.GetNumber(2)
+	//long start = arg.GetNumber(0)
+	//long end = arg.GetNumber(1)
+	//const wxTextAttr& style = arg.GetNumber(2)
 	//pThis->GetEntity()->SetStyle();
 	return Value::Nil;
 }
@@ -442,7 +442,7 @@ Gura_ImplementMethod(wx_TextCtrl, __ShowPosition)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//long pos = arg.GetNumber(0)
 	//pThis->GetEntity()->ShowPosition();
 	return Value::Nil;
 }
@@ -458,8 +458,8 @@ Gura_ImplementMethod(wx_TextCtrl, __XYToPosition)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//long x = arg.GetNumber(0)
+	//long y = arg.GetNumber(1)
 	//pThis->GetEntity()->XYToPosition();
 	return Value::Nil;
 }

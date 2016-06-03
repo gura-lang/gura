@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__DatagramSocket, "DatagramSocket")
 
 Gura_ImplementFunction(__DatagramSocket)
 {
-	//int addr = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
+	//const wxSockAddress& addr = arg.GetNumber(0)
+	//wxSocketFlags flags = arg.GetNumber(1)
 	//wxDatagramSocket();
 	return Value::Nil;
 }
@@ -69,9 +69,9 @@ Gura_ImplementMethod(wx_DatagramSocket, __SendTo)
 {
 	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int address = arg.GetNumber(0)
-	//int buffer = arg.GetNumber(1)
-	//int nbytes = arg.GetNumber(2)
+	//const wxSockAddress& address = arg.GetNumber(0)
+	//const void* buffer = arg.GetNumber(1)
+	//wxUint32 nbytes = arg.GetNumber(2)
 	//pThis->GetEntity()->SendTo();
 	return Value::Nil;
 }

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__FileStream, "FileStream")
 
 Gura_ImplementFunction(__FileStream)
 {
-	//int iofileName = arg.GetNumber(0)
+	//const wxString& iofileName = arg.GetNumber(0)
 	//wxFileStream();
 	return Value::Nil;
 }

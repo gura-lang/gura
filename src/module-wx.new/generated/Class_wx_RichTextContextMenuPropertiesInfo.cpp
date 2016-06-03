@@ -77,8 +77,8 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __AddItem)
 {
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int obj = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(0)
+	//wxRichTextObject* obj = arg.GetNumber(1)
 	//pThis->GetEntity()->AddItem();
 	return Value::Nil;
 }
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __AddMenuItems)
 {
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int menu = arg.GetNumber(0)
+	//wxMenu* menu = arg.GetNumber(0)
 	//int startCmd = arg.GetNumber(1)
 	//pThis->GetEntity()->AddMenuItems();
 	return Value::Nil;
@@ -112,9 +112,9 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __AddItems)
 {
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int ctrl = arg.GetNumber(0)
-	//int container = arg.GetNumber(1)
-	//int obj = arg.GetNumber(2)
+	//wxRichTextCtrl* ctrl = arg.GetNumber(0)
+	//wxRichTextObject* container = arg.GetNumber(1)
+	//wxRichTextObject* obj = arg.GetNumber(2)
 	//pThis->GetEntity()->AddItems();
 	return Value::Nil;
 }

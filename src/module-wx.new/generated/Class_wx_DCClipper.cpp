@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__DCClipper, "DCClipper")
 
 Gura_ImplementFunction(__DCClipper)
 {
-	//int dc = arg.GetNumber(0)
-	//int region = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRegion& region = arg.GetNumber(1)
 	//wxDCClipper();
 	return Value::Nil;
 }
@@ -65,8 +65,8 @@ Gura_DeclareFunctionAlias(__DCClipper_1, "DCClipper_1")
 
 Gura_ImplementFunction(__DCClipper_1)
 {
-	//int dc = arg.GetNumber(0)
-	//int rect = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(1)
 	//wxDCClipper();
 	return Value::Nil;
 }
@@ -85,11 +85,11 @@ Gura_DeclareFunctionAlias(__DCClipper_2, "DCClipper_2")
 
 Gura_ImplementFunction(__DCClipper_2)
 {
-	//int dc = arg.GetNumber(0)
-	//int x = arg.GetNumber(1)
-	//int y = arg.GetNumber(2)
-	//int w = arg.GetNumber(3)
-	//int h = arg.GetNumber(4)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxCoord x = arg.GetNumber(1)
+	//wxCoord y = arg.GetNumber(2)
+	//wxCoord w = arg.GetNumber(3)
+	//wxCoord h = arg.GetNumber(4)
 	//wxDCClipper();
 	return Value::Nil;
 }

@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__StringOutputStream, "StringOutputStream")
 
 Gura_ImplementFunction(__StringOutputStream)
 {
-	//int pString = arg.GetNumber(0)
-	//int conv = arg.GetNumber(1)
+	//wxString* pString = arg.GetNumber(0)
+	//wxMBConv& conv = arg.GetNumber(1)
 	//wxStringOutputStream();
 	return Value::Nil;
 }

@@ -65,12 +65,12 @@ Gura_DeclareFunctionAlias(__ToolBar_1, "ToolBar_1")
 
 Gura_ImplementFunction(__ToolBar_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int name = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxString& name = arg.GetNumber(5)
 	//wxToolBar();
 	return Value::Nil;
 }
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_ToolBar, __AddCheckTool)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bitmap1 = arg.GetNumber(2)
-	//int bmpDisabled = arg.GetNumber(3)
-	//int shortHelp = arg.GetNumber(4)
-	//int longHelp = arg.GetNumber(5)
-	//int clientData = arg.GetNumber(6)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bitmap1 = arg.GetNumber(2)
+	//const wxBitmap& bmpDisabled = arg.GetNumber(3)
+	//const wxString& shortHelp = arg.GetNumber(4)
+	//const wxString& longHelp = arg.GetNumber(5)
+	//wxObject* clientData = arg.GetNumber(6)
 	//pThis->GetEntity()->AddCheckTool();
 	return Value::Nil;
 }
@@ -116,8 +116,8 @@ Gura_ImplementMethod(wx_ToolBar, __AddControl)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int control = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
+	//wxControl* control = arg.GetNumber(0)
+	//const wxString& label = arg.GetNumber(1)
 	//pThis->GetEntity()->AddControl();
 	return Value::Nil;
 }
@@ -139,12 +139,12 @@ Gura_ImplementMethod(wx_ToolBar, __AddRadioTool)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bitmap1 = arg.GetNumber(2)
-	//int bmpDisabled = arg.GetNumber(3)
-	//int shortHelp = arg.GetNumber(4)
-	//int longHelp = arg.GetNumber(5)
-	//int clientData = arg.GetNumber(6)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bitmap1 = arg.GetNumber(2)
+	//const wxBitmap& bmpDisabled = arg.GetNumber(3)
+	//const wxString& shortHelp = arg.GetNumber(4)
+	//const wxString& longHelp = arg.GetNumber(5)
+	//wxObject* clientData = arg.GetNumber(6)
 	//pThis->GetEntity()->AddRadioTool();
 	return Value::Nil;
 }
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_ToolBar, __AddTool)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tool = arg.GetNumber(0)
+	//wxToolBarToolBase* tool = arg.GetNumber(0)
 	//pThis->GetEntity()->AddTool();
 	return Value::Nil;
 }
@@ -205,10 +205,10 @@ Gura_ImplementMethod(wx_ToolBar, __AddTool_1)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int shortHelp = arg.GetNumber(3)
-	//int kind = arg.GetNumber(4)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxString& shortHelp = arg.GetNumber(3)
+	//wxItemKind kind = arg.GetNumber(4)
 	//pThis->GetEntity()->AddTool();
 	return Value::Nil;
 }
@@ -231,13 +231,13 @@ Gura_ImplementMethod(wx_ToolBar, __AddTool_2)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bitmap = arg.GetNumber(2)
-	//int bmpDisabled = arg.GetNumber(3)
-	//int kind = arg.GetNumber(4)
-	//int shortHelpString = arg.GetNumber(5)
-	//int longHelpString = arg.GetNumber(6)
-	//int clientData = arg.GetNumber(7)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(2)
+	//const wxBitmap& bmpDisabled = arg.GetNumber(3)
+	//wxItemKind kind = arg.GetNumber(4)
+	//const wxString& shortHelpString = arg.GetNumber(5)
+	//const wxString& longHelpString = arg.GetNumber(6)
+	//wxObject* clientData = arg.GetNumber(7)
 	//pThis->GetEntity()->AddTool();
 	return Value::Nil;
 }
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_ToolBar, __DeleteToolByPos)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteToolByPos();
 	return Value::Nil;
 }
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_ToolBar, __EnableTool)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int enable = arg.GetNumber(1)
+	//bool enable = arg.GetNumber(1)
 	//pThis->GetEntity()->EnableTool();
 	return Value::Nil;
 }
@@ -343,8 +343,8 @@ Gura_ImplementMethod(wx_ToolBar, __FindToolForPosition)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//wxCoord x = arg.GetNumber(0)
+	//wxCoord y = arg.GetNumber(1)
 	//pThis->GetEntity()->FindToolForPosition();
 	return Value::Nil;
 }
@@ -544,9 +544,9 @@ Gura_ImplementMethod(wx_ToolBar, __InsertControl)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int control = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
+	//size_t pos = arg.GetNumber(0)
+	//wxControl* control = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
 	//pThis->GetEntity()->InsertControl();
 	return Value::Nil;
 }
@@ -561,7 +561,7 @@ Gura_ImplementMethod(wx_ToolBar, __InsertSeparator)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//pThis->GetEntity()->InsertSeparator();
 	return Value::Nil;
 }
@@ -576,7 +576,7 @@ Gura_ImplementMethod(wx_ToolBar, __InsertStretchableSpace)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//pThis->GetEntity()->InsertStretchableSpace();
 	return Value::Nil;
 }
@@ -599,15 +599,15 @@ Gura_ImplementMethod(wx_ToolBar, __InsertTool)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//size_t pos = arg.GetNumber(0)
 	//int toolId = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int bmpDisabled = arg.GetNumber(4)
-	//int kind = arg.GetNumber(5)
-	//int shortHelp = arg.GetNumber(6)
-	//int longHelp = arg.GetNumber(7)
-	//int clientData = arg.GetNumber(8)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//const wxBitmap& bmpDisabled = arg.GetNumber(4)
+	//wxItemKind kind = arg.GetNumber(5)
+	//const wxString& shortHelp = arg.GetNumber(6)
+	//const wxString& longHelp = arg.GetNumber(7)
+	//wxObject* clientData = arg.GetNumber(8)
 	//pThis->GetEntity()->InsertTool();
 	return Value::Nil;
 }
@@ -623,8 +623,8 @@ Gura_ImplementMethod(wx_ToolBar, __InsertTool_1)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int tool = arg.GetNumber(1)
+	//size_t pos = arg.GetNumber(0)
+	//wxToolBarToolBase* tool = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertTool();
 	return Value::Nil;
 }
@@ -641,7 +641,7 @@ Gura_ImplementMethod(wx_ToolBar, __OnLeftClick)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int toggleDown = arg.GetNumber(1)
+	//bool toggleDown = arg.GetNumber(1)
 	//pThis->GetEntity()->OnLeftClick();
 	return Value::Nil;
 }
@@ -674,8 +674,8 @@ Gura_ImplementMethod(wx_ToolBar, __OnRightClick)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int x = arg.GetNumber(1)
-	//int y = arg.GetNumber(2)
+	//long x = arg.GetNumber(1)
+	//long y = arg.GetNumber(2)
 	//pThis->GetEntity()->OnRightClick();
 	return Value::Nil;
 }
@@ -720,7 +720,7 @@ Gura_ImplementMethod(wx_ToolBar, __SetDropdownMenu)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//int menu = arg.GetNumber(1)
+	//wxMenu* menu = arg.GetNumber(1)
 	//pThis->GetEntity()->SetDropdownMenu();
 	return Value::Nil;
 }
@@ -752,7 +752,7 @@ Gura_ImplementMethod(wx_ToolBar, __SetMargins_1)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetMargins();
 	return Value::Nil;
 }
@@ -767,7 +767,7 @@ Gura_ImplementMethod(wx_ToolBar, __SetToolBitmapSize)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetToolBitmapSize();
 	return Value::Nil;
 }
@@ -784,7 +784,7 @@ Gura_ImplementMethod(wx_ToolBar, __SetToolClientData)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//int clientData = arg.GetNumber(1)
+	//wxObject* clientData = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolClientData();
 	return Value::Nil;
 }
@@ -801,7 +801,7 @@ Gura_ImplementMethod(wx_ToolBar, __SetToolDisabledBitmap)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolDisabledBitmap();
 	return Value::Nil;
 }
@@ -818,7 +818,7 @@ Gura_ImplementMethod(wx_ToolBar, __SetToolLongHelp)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int helpString = arg.GetNumber(1)
+	//const wxString& helpString = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolLongHelp();
 	return Value::Nil;
 }
@@ -835,7 +835,7 @@ Gura_ImplementMethod(wx_ToolBar, __SetToolNormalBitmap)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//int bitmap = arg.GetNumber(1)
+	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolNormalBitmap();
 	return Value::Nil;
 }
@@ -882,7 +882,7 @@ Gura_ImplementMethod(wx_ToolBar, __SetToolShortHelp)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int helpString = arg.GetNumber(1)
+	//const wxString& helpString = arg.GetNumber(1)
 	//pThis->GetEntity()->SetToolShortHelp();
 	return Value::Nil;
 }
@@ -899,7 +899,7 @@ Gura_ImplementMethod(wx_ToolBar, __ToggleTool)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int toggle = arg.GetNumber(1)
+	//bool toggle = arg.GetNumber(1)
 	//pThis->GetEntity()->ToggleTool();
 	return Value::Nil;
 }
@@ -922,13 +922,13 @@ Gura_ImplementMethod(wx_ToolBar, __CreateTool)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
-	//int bmpNormal = arg.GetNumber(2)
-	//int bmpDisabled = arg.GetNumber(3)
-	//int kind = arg.GetNumber(4)
-	//int clientData = arg.GetNumber(5)
-	//int shortHelp = arg.GetNumber(6)
-	//int longHelp = arg.GetNumber(7)
+	//const wxString& label = arg.GetNumber(1)
+	//const wxBitmap& bmpNormal = arg.GetNumber(2)
+	//const wxBitmap& bmpDisabled = arg.GetNumber(3)
+	//wxItemKind kind = arg.GetNumber(4)
+	//wxObject* clientData = arg.GetNumber(5)
+	//const wxString& shortHelp = arg.GetNumber(6)
+	//const wxString& longHelp = arg.GetNumber(7)
 	//pThis->GetEntity()->CreateTool();
 	return Value::Nil;
 }
@@ -944,8 +944,8 @@ Gura_ImplementMethod(wx_ToolBar, __CreateTool_1)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int control = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
+	//wxControl* control = arg.GetNumber(0)
+	//const wxString& label = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateTool();
 	return Value::Nil;
 }

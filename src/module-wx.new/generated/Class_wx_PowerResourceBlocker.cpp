@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__PowerResourceBlocker, "PowerResourceBlocker")
 
 Gura_ImplementFunction(__PowerResourceBlocker)
 {
-	//int kind = arg.GetNumber(0)
-	//int reason = arg.GetNumber(1)
+	//wxPowerResourceKind kind = arg.GetNumber(0)
+	//const wxString& reason = arg.GetNumber(1)
 	//wxPowerResourceBlocker();
 	return Value::Nil;
 }

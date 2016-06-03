@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_GridTableBase, __IsEmpty)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int coords = arg.GetNumber(0)
+	//const wxGridCellCoords& coords = arg.GetNumber(0)
 	//pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
+	//const wxString& value = arg.GetNumber(2)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_GridTableBase, __CanGetValueAs)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int typeName = arg.GetNumber(2)
+	//const wxString& typeName = arg.GetNumber(2)
 	//pThis->GetEntity()->CanGetValueAs();
 	return Value::Nil;
 }
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_GridTableBase, __CanSetValueAs)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int typeName = arg.GetNumber(2)
+	//const wxString& typeName = arg.GetNumber(2)
 	//pThis->GetEntity()->CanSetValueAs();
 	return Value::Nil;
 }
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_GridTableBase, __GetValueAsCustom)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int typeName = arg.GetNumber(2)
+	//const wxString& typeName = arg.GetNumber(2)
 	//pThis->GetEntity()->GetValueAsCustom();
 	return Value::Nil;
 }
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetValueAsLong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
+	//long value = arg.GetNumber(2)
 	//pThis->GetEntity()->SetValueAsLong();
 	return Value::Nil;
 }
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetValueAsDouble)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
+	//double value = arg.GetNumber(2)
 	//pThis->GetEntity()->SetValueAsDouble();
 	return Value::Nil;
 }
@@ -350,7 +350,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetValueAsBool)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
+	//bool value = arg.GetNumber(2)
 	//pThis->GetEntity()->SetValueAsBool();
 	return Value::Nil;
 }
@@ -370,8 +370,8 @@ Gura_ImplementMethod(wx_GridTableBase, __SetValueAsCustom)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int typeName = arg.GetNumber(2)
-	//int value = arg.GetNumber(3)
+	//const wxString& typeName = arg.GetNumber(2)
+	//void* value = arg.GetNumber(3)
 	//pThis->GetEntity()->SetValueAsCustom();
 	return Value::Nil;
 }
@@ -386,7 +386,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetView)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int grid = arg.GetNumber(0)
+	//wxGrid* grid = arg.GetNumber(0)
 	//pThis->GetEntity()->SetView();
 	return Value::Nil;
 }
@@ -428,8 +428,8 @@ Gura_ImplementMethod(wx_GridTableBase, __InsertRows)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int numRows = arg.GetNumber(1)
+	//size_t pos = arg.GetNumber(0)
+	//size_t numRows = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertRows();
 	return Value::Nil;
 }
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_GridTableBase, __AppendRows)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int numRows = arg.GetNumber(0)
+	//size_t numRows = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendRows();
 	return Value::Nil;
 }
@@ -460,8 +460,8 @@ Gura_ImplementMethod(wx_GridTableBase, __DeleteRows)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int numRows = arg.GetNumber(1)
+	//size_t pos = arg.GetNumber(0)
+	//size_t numRows = arg.GetNumber(1)
 	//pThis->GetEntity()->DeleteRows();
 	return Value::Nil;
 }
@@ -477,8 +477,8 @@ Gura_ImplementMethod(wx_GridTableBase, __InsertCols)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int numCols = arg.GetNumber(1)
+	//size_t pos = arg.GetNumber(0)
+	//size_t numCols = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertCols();
 	return Value::Nil;
 }
@@ -493,7 +493,7 @@ Gura_ImplementMethod(wx_GridTableBase, __AppendCols)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int numCols = arg.GetNumber(0)
+	//size_t numCols = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendCols();
 	return Value::Nil;
 }
@@ -509,8 +509,8 @@ Gura_ImplementMethod(wx_GridTableBase, __DeleteCols)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int numCols = arg.GetNumber(1)
+	//size_t pos = arg.GetNumber(0)
+	//size_t numCols = arg.GetNumber(1)
 	//pThis->GetEntity()->DeleteCols();
 	return Value::Nil;
 }
@@ -557,7 +557,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetRowLabelValue)
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRowLabelValue();
 	return Value::Nil;
 }
@@ -574,7 +574,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetColLabelValue)
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//int label = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColLabelValue();
 	return Value::Nil;
 }
@@ -589,7 +589,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetAttrProvider)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attrProvider = arg.GetNumber(0)
+	//wxGridCellAttrProvider* attrProvider = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAttrProvider();
 	return Value::Nil;
 }
@@ -621,7 +621,7 @@ Gura_ImplementMethod(wx_GridTableBase, __GetAttr)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//int kind = arg.GetNumber(2)
+	//wxGridCellAttr::wxAttrKind kind = arg.GetNumber(2)
 	//pThis->GetEntity()->GetAttr();
 	return Value::Nil;
 }
@@ -638,7 +638,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetAttr)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
+	//wxGridCellAttr* attr = arg.GetNumber(0)
 	//int row = arg.GetNumber(1)
 	//int col = arg.GetNumber(2)
 	//pThis->GetEntity()->SetAttr();
@@ -656,7 +656,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetRowAttr)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
+	//wxGridCellAttr* attr = arg.GetNumber(0)
 	//int row = arg.GetNumber(1)
 	//pThis->GetEntity()->SetRowAttr();
 	return Value::Nil;
@@ -673,7 +673,7 @@ Gura_ImplementMethod(wx_GridTableBase, __SetColAttr)
 {
 	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
+	//wxGridCellAttr* attr = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColAttr();
 	return Value::Nil;

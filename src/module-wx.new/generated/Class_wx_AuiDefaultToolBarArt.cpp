@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __SetFlags)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//unsigned int flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __SetFont)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int font = arg.GetNumber(0)
+	//const wxFont& font = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;
 }
@@ -162,9 +162,9 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __DrawBackground)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawBackground();
 	return Value::Nil;
 }
@@ -181,9 +181,9 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __DrawPlainBackground)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawPlainBackground();
 	return Value::Nil;
 }
@@ -201,10 +201,10 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __DrawLabel)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int item = arg.GetNumber(2)
-	//int rect = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxAuiToolBarItem& item = arg.GetNumber(2)
+	//const wxRect& rect = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawLabel();
 	return Value::Nil;
 }
@@ -222,10 +222,10 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __DrawButton)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int item = arg.GetNumber(2)
-	//int rect = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxAuiToolBarItem& item = arg.GetNumber(2)
+	//const wxRect& rect = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawButton();
 	return Value::Nil;
 }
@@ -243,10 +243,10 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __DrawDropDownButton)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int item = arg.GetNumber(2)
-	//int rect = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxAuiToolBarItem& item = arg.GetNumber(2)
+	//const wxRect& rect = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawDropDownButton();
 	return Value::Nil;
 }
@@ -264,10 +264,10 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __DrawControlLabel)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int item = arg.GetNumber(2)
-	//int rect = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxAuiToolBarItem& item = arg.GetNumber(2)
+	//const wxRect& rect = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawControlLabel();
 	return Value::Nil;
 }
@@ -284,9 +284,9 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __DrawSeparator)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawSeparator();
 	return Value::Nil;
 }
@@ -303,9 +303,9 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __DrawGripper)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawGripper();
 	return Value::Nil;
 }
@@ -323,9 +323,9 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __DrawOverflowButton)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//int state = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawOverflowButton();
 	return Value::Nil;
@@ -343,9 +343,9 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __GetLabelSize)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int item = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxAuiToolBarItem& item = arg.GetNumber(2)
 	//pThis->GetEntity()->GetLabelSize();
 	return Value::Nil;
 }
@@ -362,9 +362,9 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __GetToolSize)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int item = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxAuiToolBarItem& item = arg.GetNumber(2)
 	//pThis->GetEntity()->GetToolSize();
 	return Value::Nil;
 }
@@ -412,8 +412,8 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __ShowDropDown)
 {
 	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int wnd = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
+	//wxWindow* wnd = arg.GetNumber(0)
+	//const wxAuiToolBarItemArray& items = arg.GetNumber(1)
 	//pThis->GetEntity()->ShowDropDown();
 	return Value::Nil;
 }

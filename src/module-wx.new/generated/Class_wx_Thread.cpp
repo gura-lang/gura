@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__Thread, "Thread")
 
 Gura_ImplementFunction(__Thread)
 {
-	//int kind = arg.GetNumber(0)
+	//wxThreadKind kind = arg.GetNumber(0)
 	//wxThread();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_Thread, __Create)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stackSize = arg.GetNumber(0)
+	//unsigned int stackSize = arg.GetNumber(0)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -81,8 +81,8 @@ Gura_ImplementMethod(wx_Thread, __Delete)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rc = arg.GetNumber(0)
-	//int waitMode = arg.GetNumber(1)
+	//ExitCode* rc = arg.GetNumber(0)
+	//wxThreadWait waitMode = arg.GetNumber(1)
 	//pThis->GetEntity()->Delete();
 	return Value::Nil;
 }
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_Thread, __SetConcurrency)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int level = arg.GetNumber(0)
+	//size_t level = arg.GetNumber(0)
 	//pThis->GetEntity()->SetConcurrency();
 	return Value::Nil;
 }
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_Thread, __SetPriority)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int priority = arg.GetNumber(0)
+	//unsigned int priority = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPriority();
 	return Value::Nil;
 }
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_Thread, __Sleep)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int milliseconds = arg.GetNumber(0)
+	//unsigned long milliseconds = arg.GetNumber(0)
 	//pThis->GetEntity()->Sleep();
 	return Value::Nil;
 }
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_Thread, __Wait)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//wxThreadWait flags = arg.GetNumber(0)
 	//pThis->GetEntity()->Wait();
 	return Value::Nil;
 }
@@ -417,7 +417,7 @@ Gura_ImplementMethod(wx_Thread, __Exit)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int exitcode = arg.GetNumber(0)
+	//ExitCode exitcode = arg.GetNumber(0)
 	//pThis->GetEntity()->Exit();
 	return Value::Nil;
 }

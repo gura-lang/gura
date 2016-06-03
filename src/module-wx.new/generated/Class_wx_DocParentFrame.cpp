@@ -67,14 +67,14 @@ Gura_DeclareFunctionAlias(__DocParentFrame_1, "DocParentFrame_1")
 
 Gura_ImplementFunction(__DocParentFrame_1)
 {
-	//int manager = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
-	//int id = arg.GetNumber(2)
-	//int title = arg.GetNumber(3)
-	//int pos = arg.GetNumber(4)
-	//int size = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxDocManager* manager = arg.GetNumber(0)
+	//wxFrame* parent = arg.GetNumber(1)
+	//wxWindowID id = arg.GetNumber(2)
+	//const wxString& title = arg.GetNumber(3)
+	//const wxPoint& pos = arg.GetNumber(4)
+	//const wxSize& size = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//wxDocParentFrame();
 	return Value::Nil;
 }
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_DocParentFrame, __Create)
 {
 	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int manager = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
-	//int id = arg.GetNumber(2)
-	//int title = arg.GetNumber(3)
-	//int pos = arg.GetNumber(4)
-	//int size = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxDocManager* manager = arg.GetNumber(0)
+	//wxFrame* parent = arg.GetNumber(1)
+	//wxWindowID id = arg.GetNumber(2)
+	//const wxString& title = arg.GetNumber(3)
+	//const wxPoint& pos = arg.GetNumber(4)
+	//const wxSize& size = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }

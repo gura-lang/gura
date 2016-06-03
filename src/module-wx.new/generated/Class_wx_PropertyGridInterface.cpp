@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __Append)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int property = arg.GetNumber(0)
+	//wxPGProperty* property = arg.GetNumber(0)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -63,8 +63,8 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __AppendIn)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int newProperty = arg.GetNumber(1)
+	//wxPGPropArg id = arg.GetNumber(0)
+	//wxPGProperty* newProperty = arg.GetNumber(1)
 	//pThis->GetEntity()->AppendIn();
 	return Value::Nil;
 }
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __BeginAddChildren)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->BeginAddChildren();
 	return Value::Nil;
 }
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __ClearSelection)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int validation = arg.GetNumber(0)
+	//bool validation = arg.GetNumber(0)
 	//pThis->GetEntity()->ClearSelection();
 	return Value::Nil;
 }
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __Collapse)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->Collapse();
 	return Value::Nil;
 }
@@ -164,8 +164,8 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __ChangePropertyValue)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int newValue = arg.GetNumber(1)
+	//wxPGPropArg id = arg.GetNumber(0)
+	//wxVariant newValue = arg.GetNumber(1)
 	//pThis->GetEntity()->ChangePropertyValue();
 	return Value::Nil;
 }
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __DeleteProperty)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteProperty();
 	return Value::Nil;
 }
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __DisableProperty)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->DisableProperty();
 	return Value::Nil;
 }
@@ -224,8 +224,8 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __EnableProperty)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int enable = arg.GetNumber(1)
+	//wxPGPropArg id = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(1)
 	//pThis->GetEntity()->EnableProperty();
 	return Value::Nil;
 }
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __EndAddChildren)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->EndAddChildren();
 	return Value::Nil;
 }
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __Expand)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->Expand();
 	return Value::Nil;
 }
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __ExpandAll)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int expand = arg.GetNumber(0)
+	//bool expand = arg.GetNumber(0)
 	//pThis->GetEntity()->ExpandAll();
 	return Value::Nil;
 }
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetColumnProportion)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int column = arg.GetNumber(0)
+	//unsigned int column = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColumnProportion();
 	return Value::Nil;
 }
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetFirstChild)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetFirstChild();
 	return Value::Nil;
 }
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetIterator)
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//int firstProp = arg.GetNumber(1)
+	//wxPGProperty* firstProp = arg.GetNumber(1)
 	//pThis->GetEntity()->GetIterator();
 	return Value::Nil;
 }
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetIterator_1)
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//int firstProp = arg.GetNumber(1)
+	//wxPGProperty* firstProp = arg.GetNumber(1)
 	//pThis->GetEntity()->GetIterator();
 	return Value::Nil;
 }
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetProperty)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetProperty();
 	return Value::Nil;
 }
@@ -416,9 +416,9 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertiesWithFlag)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int targetArr = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
-	//int inverse = arg.GetNumber(2)
+	//wxArrayPGProperty* targetArr = arg.GetNumber(0)
+	//wxPGProperty::FlagType flags = arg.GetNumber(1)
+	//bool inverse = arg.GetNumber(2)
 	//int iterFlags = arg.GetNumber(3)
 	//pThis->GetEntity()->GetPropertiesWithFlag();
 	return Value::Nil;
@@ -435,8 +435,8 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyAttribute)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int attrName = arg.GetNumber(1)
+	//wxPGPropArg id = arg.GetNumber(0)
+	//const wxString& attrName = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPropertyAttribute();
 	return Value::Nil;
 }
@@ -451,7 +451,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyBackgroundColour)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyBackgroundColour();
 	return Value::Nil;
 }
@@ -466,7 +466,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyCategory)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyCategory();
 	return Value::Nil;
 }
@@ -481,7 +481,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyClientData)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyClientData();
 	return Value::Nil;
 }
@@ -496,7 +496,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyByLabel)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
+	//const wxString& label = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyByLabel();
 	return Value::Nil;
 }
@@ -511,7 +511,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyByName)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyByName();
 	return Value::Nil;
 }
@@ -527,8 +527,8 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyByName_1)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int subname = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxString& subname = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPropertyByName();
 	return Value::Nil;
 }
@@ -543,7 +543,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyEditor)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyEditor();
 	return Value::Nil;
 }
@@ -558,7 +558,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyHelpString)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyHelpString();
 	return Value::Nil;
 }
@@ -573,7 +573,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyImage)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyImage();
 	return Value::Nil;
 }
@@ -588,7 +588,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyLabel)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyLabel();
 	return Value::Nil;
 }
@@ -603,7 +603,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyName)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int property = arg.GetNumber(0)
+	//wxPGProperty* property = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyName();
 	return Value::Nil;
 }
@@ -618,7 +618,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyTextColour)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyTextColour();
 	return Value::Nil;
 }
@@ -633,7 +633,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValidator)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValidator();
 	return Value::Nil;
 }
@@ -648,7 +648,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValue)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValue();
 	return Value::Nil;
 }
@@ -663,7 +663,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsArrayInt)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsArrayInt();
 	return Value::Nil;
 }
@@ -678,7 +678,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsArrayString)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsArrayString();
 	return Value::Nil;
 }
@@ -693,7 +693,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsBool)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsBool();
 	return Value::Nil;
 }
@@ -708,7 +708,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsDateTime)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsDateTime();
 	return Value::Nil;
 }
@@ -723,7 +723,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsDouble)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsDouble();
 	return Value::Nil;
 }
@@ -738,7 +738,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsInt)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsInt();
 	return Value::Nil;
 }
@@ -753,7 +753,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsLong)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsLong();
 	return Value::Nil;
 }
@@ -768,7 +768,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsLongLong)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsLongLong();
 	return Value::Nil;
 }
@@ -783,7 +783,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsString)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsString();
 	return Value::Nil;
 }
@@ -798,7 +798,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsULong)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsULong();
 	return Value::Nil;
 }
@@ -813,7 +813,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValueAsULongLong)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyValueAsULongLong();
 	return Value::Nil;
 }
@@ -830,9 +830,9 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __GetPropertyValues)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int listname = arg.GetNumber(0)
-	//int baseparent = arg.GetNumber(1)
-	//int flags = arg.GetNumber(2)
+	//const wxString& listname = arg.GetNumber(0)
+	//wxPGProperty* baseparent = arg.GetNumber(1)
+	//long flags = arg.GetNumber(2)
 	//pThis->GetEntity()->GetPropertyValues();
 	return Value::Nil;
 }
@@ -890,8 +890,8 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __HideProperty)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int hide = arg.GetNumber(1)
+	//wxPGPropArg id = arg.GetNumber(0)
+	//bool hide = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
 	//pThis->GetEntity()->HideProperty();
 	return Value::Nil;
@@ -921,8 +921,8 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __Insert)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int priorThis = arg.GetNumber(0)
-	//int newProperty = arg.GetNumber(1)
+	//wxPGPropArg priorThis = arg.GetNumber(0)
+	//wxPGProperty* newProperty = arg.GetNumber(1)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -939,9 +939,9 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __Insert_1)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
+	//wxPGPropArg parent = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
-	//int newProperty = arg.GetNumber(2)
+	//wxPGProperty* newProperty = arg.GetNumber(2)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -956,7 +956,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __IsPropertyCategory)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->IsPropertyCategory();
 	return Value::Nil;
 }
@@ -971,7 +971,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __IsPropertyEnabled)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->IsPropertyEnabled();
 	return Value::Nil;
 }
@@ -986,7 +986,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __IsPropertyExpanded)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->IsPropertyExpanded();
 	return Value::Nil;
 }
@@ -1001,7 +1001,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __IsPropertyModified)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->IsPropertyModified();
 	return Value::Nil;
 }
@@ -1016,7 +1016,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __IsPropertySelected)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->IsPropertySelected();
 	return Value::Nil;
 }
@@ -1031,7 +1031,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __IsPropertyShown)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->IsPropertyShown();
 	return Value::Nil;
 }
@@ -1046,7 +1046,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __IsPropertyValueUnspecified)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->IsPropertyValueUnspecified();
 	return Value::Nil;
 }
@@ -1062,8 +1062,8 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __LimitPropertyEditing)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int limit = arg.GetNumber(1)
+	//wxPGPropArg id = arg.GetNumber(0)
+	//bool limit = arg.GetNumber(1)
 	//pThis->GetEntity()->LimitPropertyEditing();
 	return Value::Nil;
 }
@@ -1091,7 +1091,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __RemoveProperty)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
+	//wxPGPropArg id = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveProperty();
 	return Value::Nil;
 }
@@ -1107,8 +1107,8 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __ReplaceProperty)
 {
 	Object_wx_PropertyGridInterface *pThis = Object_wx_PropertyGridInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int id = arg.GetNumber(0)
-	//int property = arg.GetNumber(1)
+	//wxPGPropArg id = arg.GetNumber(0)
+	//wxPGProperty* property = arg.GetNumber(1)
 	//pThis->GetEntity()->ReplaceProperty();
 	return Value::Nil;
 }

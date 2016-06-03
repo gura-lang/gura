@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__RichTextCharacterStyleDefinition, "RichTextCharacter
 
 Gura_ImplementFunction(__RichTextCharacterStyleDefinition)
 {
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//wxRichTextCharacterStyleDefinition();
 	return Value::Nil;
 }

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__PersistentObject, "PersistentObject")
 
 Gura_ImplementFunction(__PersistentObject)
 {
-	//int obj = arg.GetNumber(0)
+	//void* obj = arg.GetNumber(0)
 	//wxPersistentObject();
 	return Value::Nil;
 }
@@ -131,8 +131,8 @@ Gura_ImplementMethod(wx_PersistentObject, __SaveValue)
 {
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//T value = arg.GetNumber(1)
 	//pThis->GetEntity()->SaveValue();
 	return Value::Nil;
 }
@@ -148,8 +148,8 @@ Gura_ImplementMethod(wx_PersistentObject, __RestoreValue)
 {
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//T* value = arg.GetNumber(1)
 	//pThis->GetEntity()->RestoreValue();
 	return Value::Nil;
 }

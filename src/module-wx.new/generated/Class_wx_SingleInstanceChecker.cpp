@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__SingleInstanceChecker_1, "SingleInstanceChecker_1")
 
 Gura_ImplementFunction(__SingleInstanceChecker_1)
 {
-	//int name = arg.GetNumber(0)
-	//int path = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(1)
 	//wxSingleInstanceChecker();
 	return Value::Nil;
 }
@@ -81,8 +81,8 @@ Gura_ImplementMethod(wx_SingleInstanceChecker, __Create)
 {
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int path = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }

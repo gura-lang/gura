@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_EvtHandler, __QueueEvent)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxEvent* event = arg.GetNumber(0)
 	//pThis->GetEntity()->QueueEvent();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_EvtHandler, __AddPendingEvent)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//const wxEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->AddPendingEvent();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_EvtHandler, __CallAfter)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int functor = arg.GetNumber(0)
+	//const T& functor = arg.GetNumber(0)
 	//pThis->GetEntity()->CallAfter();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_EvtHandler, __ProcessEvent)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->ProcessEvent();
 	return Value::Nil;
 }
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_EvtHandler, __ProcessEventLocally)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->ProcessEventLocally();
 	return Value::Nil;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_EvtHandler, __SafelyProcessEvent)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->SafelyProcessEvent();
 	return Value::Nil;
 }
@@ -180,8 +180,8 @@ Gura_ImplementMethod(wx_EvtHandler, __SearchEventTable)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int table = arg.GetNumber(0)
-	//int event = arg.GetNumber(1)
+	//wxEventTable& table = arg.GetNumber(0)
+	//wxEvent& event = arg.GetNumber(1)
 	//pThis->GetEntity()->SearchEventTable();
 	return Value::Nil;
 }
@@ -203,10 +203,10 @@ Gura_ImplementMethod(wx_EvtHandler, __Connect)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int lastId = arg.GetNumber(1)
-	//int eventType = arg.GetNumber(2)
-	//int function = arg.GetNumber(3)
-	//int userData = arg.GetNumber(4)
-	//int eventSink = arg.GetNumber(5)
+	//wxEventType eventType = arg.GetNumber(2)
+	//wxObjectEventFunction function = arg.GetNumber(3)
+	//wxObject* userData = arg.GetNumber(4)
+	//wxEvtHandler* eventSink = arg.GetNumber(5)
 	//pThis->GetEntity()->Connect();
 	return Value::Nil;
 }
@@ -226,10 +226,10 @@ Gura_ImplementMethod(wx_EvtHandler, __Connect_1)
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//int eventType = arg.GetNumber(1)
-	//int function = arg.GetNumber(2)
-	//int userData = arg.GetNumber(3)
-	//int eventSink = arg.GetNumber(4)
+	//wxEventType eventType = arg.GetNumber(1)
+	//wxObjectEventFunction function = arg.GetNumber(2)
+	//wxObject* userData = arg.GetNumber(3)
+	//wxEvtHandler* eventSink = arg.GetNumber(4)
 	//pThis->GetEntity()->Connect();
 	return Value::Nil;
 }
@@ -247,10 +247,10 @@ Gura_ImplementMethod(wx_EvtHandler, __Connect_2)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int eventType = arg.GetNumber(0)
-	//int function = arg.GetNumber(1)
-	//int userData = arg.GetNumber(2)
-	//int eventSink = arg.GetNumber(3)
+	//wxEventType eventType = arg.GetNumber(0)
+	//wxObjectEventFunction function = arg.GetNumber(1)
+	//wxObject* userData = arg.GetNumber(2)
+	//wxEvtHandler* eventSink = arg.GetNumber(3)
 	//pThis->GetEntity()->Connect();
 	return Value::Nil;
 }
@@ -268,10 +268,10 @@ Gura_ImplementMethod(wx_EvtHandler, __Disconnect)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int eventType = arg.GetNumber(0)
-	//int function = arg.GetNumber(1)
-	//int userData = arg.GetNumber(2)
-	//int eventSink = arg.GetNumber(3)
+	//wxEventType eventType = arg.GetNumber(0)
+	//wxObjectEventFunction function = arg.GetNumber(1)
+	//wxObject* userData = arg.GetNumber(2)
+	//wxEvtHandler* eventSink = arg.GetNumber(3)
 	//pThis->GetEntity()->Disconnect();
 	return Value::Nil;
 }
@@ -291,10 +291,10 @@ Gura_ImplementMethod(wx_EvtHandler, __Disconnect_1)
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//int eventType = arg.GetNumber(1)
-	//int function = arg.GetNumber(2)
-	//int userData = arg.GetNumber(3)
-	//int eventSink = arg.GetNumber(4)
+	//wxEventType eventType = arg.GetNumber(1)
+	//wxObjectEventFunction function = arg.GetNumber(2)
+	//wxObject* userData = arg.GetNumber(3)
+	//wxEvtHandler* eventSink = arg.GetNumber(4)
 	//pThis->GetEntity()->Disconnect();
 	return Value::Nil;
 }
@@ -316,10 +316,10 @@ Gura_ImplementMethod(wx_EvtHandler, __Disconnect_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int lastId = arg.GetNumber(1)
-	//int eventType = arg.GetNumber(2)
-	//int function = arg.GetNumber(3)
-	//int userData = arg.GetNumber(4)
-	//int eventSink = arg.GetNumber(5)
+	//wxEventType eventType = arg.GetNumber(2)
+	//wxObjectEventFunction function = arg.GetNumber(3)
+	//wxObject* userData = arg.GetNumber(4)
+	//wxEvtHandler* eventSink = arg.GetNumber(5)
 	//pThis->GetEntity()->Disconnect();
 	return Value::Nil;
 }
@@ -338,11 +338,11 @@ Gura_ImplementMethod(wx_EvtHandler, __Bind)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int eventType = arg.GetNumber(0)
-	//int functor = arg.GetNumber(1)
+	//const EventTag& eventType = arg.GetNumber(0)
+	//Functor functor = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
 	//int lastId = arg.GetNumber(3)
-	//int userData = arg.GetNumber(4)
+	//wxObject* userData = arg.GetNumber(4)
 	//pThis->GetEntity()->Bind();
 	return Value::Nil;
 }
@@ -361,11 +361,11 @@ Gura_ImplementMethod(wx_EvtHandler, __Unbind)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int eventType = arg.GetNumber(0)
-	//int functor = arg.GetNumber(1)
+	//const EventTag& eventType = arg.GetNumber(0)
+	//Functor functor = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
 	//int lastId = arg.GetNumber(3)
-	//int userData = arg.GetNumber(4)
+	//wxObject* userData = arg.GetNumber(4)
 	//pThis->GetEntity()->Unbind();
 	return Value::Nil;
 }
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_EvtHandler, __SetClientData)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//void* data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetClientData();
 	return Value::Nil;
 }
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_EvtHandler, __SetClientObject)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//wxClientData* data = arg.GetNumber(0)
 	//pThis->GetEntity()->SetClientObject();
 	return Value::Nil;
 }
@@ -475,7 +475,7 @@ Gura_ImplementMethod(wx_EvtHandler, __SetEvtHandlerEnabled)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enabled = arg.GetNumber(0)
+	//bool enabled = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEvtHandlerEnabled();
 	return Value::Nil;
 }
@@ -490,7 +490,7 @@ Gura_ImplementMethod(wx_EvtHandler, __SetNextHandler)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int handler = arg.GetNumber(0)
+	//wxEvtHandler* handler = arg.GetNumber(0)
 	//pThis->GetEntity()->SetNextHandler();
 	return Value::Nil;
 }
@@ -505,7 +505,7 @@ Gura_ImplementMethod(wx_EvtHandler, __SetPreviousHandler)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int handler = arg.GetNumber(0)
+	//wxEvtHandler* handler = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPreviousHandler();
 	return Value::Nil;
 }
@@ -546,7 +546,7 @@ Gura_ImplementMethod(wx_EvtHandler, __AddFilter)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filter = arg.GetNumber(0)
+	//wxEventFilter* filter = arg.GetNumber(0)
 	//pThis->GetEntity()->AddFilter();
 	return Value::Nil;
 }
@@ -561,7 +561,7 @@ Gura_ImplementMethod(wx_EvtHandler, __RemoveFilter)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filter = arg.GetNumber(0)
+	//wxEventFilter* filter = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveFilter();
 	return Value::Nil;
 }
@@ -576,7 +576,7 @@ Gura_ImplementMethod(wx_EvtHandler, __TryBefore)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->TryBefore();
 	return Value::Nil;
 }
@@ -591,7 +591,7 @@ Gura_ImplementMethod(wx_EvtHandler, __TryAfter)
 {
 	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int event = arg.GetNumber(0)
+	//wxEvent& event = arg.GetNumber(0)
 	//pThis->GetEntity()->TryAfter();
 	return Value::Nil;
 }

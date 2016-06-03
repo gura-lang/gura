@@ -66,13 +66,13 @@ Gura_DeclareFunctionAlias(__ScrollBar_1, "ScrollBar_1")
 
 Gura_ImplementFunction(__ScrollBar_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int validator = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxValidator& validator = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxScrollBar();
 	return Value::Nil;
 }
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_ScrollBar, __Create)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int validator = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxValidator& validator = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_ScrollBar, __SetScrollbar)
 	//int thumbSize = arg.GetNumber(1)
 	//int range = arg.GetNumber(2)
 	//int pageSize = arg.GetNumber(3)
-	//int refresh = arg.GetNumber(4)
+	//bool refresh = arg.GetNumber(4)
 	//pThis->GetEntity()->SetScrollbar();
 	return Value::Nil;
 }

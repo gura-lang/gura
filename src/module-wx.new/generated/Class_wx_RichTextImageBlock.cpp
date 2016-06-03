@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__RichTextImageBlock_1, "RichTextImageBlock_1")
 
 Gura_ImplementFunction(__RichTextImageBlock_1)
 {
-	//int block = arg.GetNumber(0)
+	//const wxRichTextImageBlock& block = arg.GetNumber(0)
 	//wxRichTextImageBlock();
 	return Value::Nil;
 }
@@ -107,10 +107,10 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __MakeImageBlock)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
-	//int imageType = arg.GetNumber(1)
-	//int image = arg.GetNumber(2)
-	//int convertToJPEG = arg.GetNumber(3)
+	//const wxString& filename = arg.GetNumber(0)
+	//wxBitmapType imageType = arg.GetNumber(1)
+	//wxImage& image = arg.GetNumber(2)
+	//bool convertToJPEG = arg.GetNumber(3)
 	//pThis->GetEntity()->MakeImageBlock();
 	return Value::Nil;
 }
@@ -127,8 +127,8 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __MakeImageBlock_1)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int image = arg.GetNumber(0)
-	//int imageType = arg.GetNumber(1)
+	//wxImage& image = arg.GetNumber(0)
+	//wxBitmapType imageType = arg.GetNumber(1)
 	//int quality = arg.GetNumber(2)
 	//pThis->GetEntity()->MakeImageBlock();
 	return Value::Nil;
@@ -145,8 +145,8 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __MakeImageBlockDefaultQuality)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int image = arg.GetNumber(0)
-	//int imageType = arg.GetNumber(1)
+	//const wxImage& image = arg.GetNumber(0)
+	//wxBitmapType imageType = arg.GetNumber(1)
 	//pThis->GetEntity()->MakeImageBlockDefaultQuality();
 	return Value::Nil;
 }
@@ -162,8 +162,8 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __DoMakeImageBlock)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int image = arg.GetNumber(0)
-	//int imageType = arg.GetNumber(1)
+	//const wxImage& image = arg.GetNumber(0)
+	//wxBitmapType imageType = arg.GetNumber(1)
 	//pThis->GetEntity()->DoMakeImageBlock();
 	return Value::Nil;
 }
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __Write)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
+	//const wxString& filename = arg.GetNumber(0)
 	//pThis->GetEntity()->Write();
 	return Value::Nil;
 }
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __WriteHex)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxOutputStream& stream = arg.GetNumber(0)
 	//pThis->GetEntity()->WriteHex();
 	return Value::Nil;
 }
@@ -210,9 +210,9 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __ReadHex)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxInputStream& stream = arg.GetNumber(0)
 	//int length = arg.GetNumber(1)
-	//int imageType = arg.GetNumber(2)
+	//wxBitmapType imageType = arg.GetNumber(2)
 	//pThis->GetEntity()->ReadHex();
 	return Value::Nil;
 }
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __Copy)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int block = arg.GetNumber(0)
+	//const wxRichTextImageBlock& block = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
 }
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __Load)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int image = arg.GetNumber(0)
+	//wxImage& image = arg.GetNumber(0)
 	//pThis->GetEntity()->Load();
 	return Value::Nil;
 }
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __SetData)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int image = arg.GetNumber(0)
+	//unsigned char* image = arg.GetNumber(0)
 	//pThis->GetEntity()->SetData();
 	return Value::Nil;
 }
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __SetDataSize)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetDataSize();
 	return Value::Nil;
 }
@@ -326,7 +326,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __SetImageType)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int imageType = arg.GetNumber(0)
+	//wxBitmapType imageType = arg.GetNumber(0)
 	//pThis->GetEntity()->SetImageType();
 	return Value::Nil;
 }
@@ -381,8 +381,8 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __ReadBlock)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadBlock();
 	return Value::Nil;
 }
@@ -398,8 +398,8 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __ReadBlock_1)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//const wxString& filename = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadBlock();
 	return Value::Nil;
 }
@@ -416,9 +416,9 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __WriteBlock)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int block = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
+	//wxOutputStream& stream = arg.GetNumber(0)
+	//unsigned char* block = arg.GetNumber(1)
+	//size_t size = arg.GetNumber(2)
 	//pThis->GetEntity()->WriteBlock();
 	return Value::Nil;
 }
@@ -435,9 +435,9 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __WriteBlock_1)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int filename = arg.GetNumber(0)
-	//int block = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
+	//const wxString& filename = arg.GetNumber(0)
+	//unsigned char* block = arg.GetNumber(1)
+	//size_t size = arg.GetNumber(2)
 	//pThis->GetEntity()->WriteBlock();
 	return Value::Nil;
 }

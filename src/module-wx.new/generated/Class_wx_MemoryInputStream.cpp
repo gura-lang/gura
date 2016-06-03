@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__MemoryInputStream, "MemoryInputStream")
 
 Gura_ImplementFunction(__MemoryInputStream)
 {
-	//int data = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//const void* data = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//wxMemoryInputStream();
 	return Value::Nil;
 }
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__MemoryInputStream_1, "MemoryInputStream_1")
 
 Gura_ImplementFunction(__MemoryInputStream_1)
 {
-	//int stream = arg.GetNumber(0)
+	//const wxMemoryOutputStream& stream = arg.GetNumber(0)
 	//wxMemoryInputStream();
 	return Value::Nil;
 }
@@ -80,8 +80,8 @@ Gura_DeclareFunctionAlias(__MemoryInputStream_2, "MemoryInputStream_2")
 
 Gura_ImplementFunction(__MemoryInputStream_2)
 {
-	//int stream = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//wxInputStream& stream = arg.GetNumber(0)
+	//wxFileOffset len = arg.GetNumber(1)
 	//wxMemoryInputStream();
 	return Value::Nil;
 }

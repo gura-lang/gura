@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_ActiveXEvent, __ParamName)
 {
 	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//size_t idx = arg.GetNumber(0)
 	//pThis->GetEntity()->ParamName();
 	return Value::Nil;
 }
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_ActiveXEvent, __ParamType)
 {
 	Object_wx_ActiveXEvent *pThis = Object_wx_ActiveXEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int idx = arg.GetNumber(0)
+	//size_t idx = arg.GetNumber(0)
 	//pThis->GetEntity()->ParamType();
 	return Value::Nil;
 }

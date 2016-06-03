@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__MoveEvent, "MoveEvent")
 
 Gura_ImplementFunction(__MoveEvent)
 {
-	//int pt = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxMoveEvent();
 	return Value::Nil;
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_MoveEvent, __SetRect)
 {
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->SetRect();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_MoveEvent, __SetPosition)
 {
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//const wxPoint& pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetPosition();
 	return Value::Nil;
 }

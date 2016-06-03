@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__RichTextProperties_1, "RichTextProperties_1")
 
 Gura_ImplementFunction(__RichTextProperties_1)
 {
-	//int props = arg.GetNumber(0)
+	//const wxRichTextProperties& props = arg.GetNumber(0)
 	//wxRichTextProperties();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __Copy)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int props = arg.GetNumber(0)
+	//const wxRichTextProperties& props = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
 }
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __SetProperties)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int props = arg.GetNumber(0)
+	//const wxRichTextVariantArray& props = arg.GetNumber(0)
 	//pThis->GetEntity()->SetProperties();
 	return Value::Nil;
 }
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __HasProperty)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->HasProperty();
 	return Value::Nil;
 }
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __Find)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->Find();
 	return Value::Nil;
 }
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __Remove)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->Remove();
 	return Value::Nil;
 }
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __GetProperty)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetProperty();
 	return Value::Nil;
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __FindOrCreateProperty)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->FindOrCreateProperty();
 	return Value::Nil;
 }
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __GetPropertyString)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyString();
 	return Value::Nil;
 }
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __GetPropertyLong)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyLong();
 	return Value::Nil;
 }
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __GetPropertyBool)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyBool();
 	return Value::Nil;
 }
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __GetPropertyDouble)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->GetPropertyDouble();
 	return Value::Nil;
 }
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __SetProperty)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int variant = arg.GetNumber(0)
+	//const wxVariant& variant = arg.GetNumber(0)
 	//pThis->GetEntity()->SetProperty();
 	return Value::Nil;
 }
@@ -324,8 +324,8 @@ Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_1)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int variant = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxVariant& variant = arg.GetNumber(1)
 	//pThis->GetEntity()->SetProperty();
 	return Value::Nil;
 }
@@ -341,8 +341,8 @@ Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_2)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxString& value = arg.GetNumber(1)
 	//pThis->GetEntity()->SetProperty();
 	return Value::Nil;
 }
@@ -358,8 +358,8 @@ Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_3)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxChar* value = arg.GetNumber(1)
 	//pThis->GetEntity()->SetProperty();
 	return Value::Nil;
 }
@@ -375,8 +375,8 @@ Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_4)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//long value = arg.GetNumber(1)
 	//pThis->GetEntity()->SetProperty();
 	return Value::Nil;
 }
@@ -392,8 +392,8 @@ Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_5)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//double value = arg.GetNumber(1)
 	//pThis->GetEntity()->SetProperty();
 	return Value::Nil;
 }
@@ -409,8 +409,8 @@ Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_6)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
-	//int value = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//bool value = arg.GetNumber(1)
 	//pThis->GetEntity()->SetProperty();
 	return Value::Nil;
 }
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __RemoveProperties)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int properties = arg.GetNumber(0)
+	//const wxRichTextProperties& properties = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveProperties();
 	return Value::Nil;
 }
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_RichTextProperties, __MergeProperties)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int properties = arg.GetNumber(0)
+	//const wxRichTextProperties& properties = arg.GetNumber(0)
 	//pThis->GetEntity()->MergeProperties();
 	return Value::Nil;
 }

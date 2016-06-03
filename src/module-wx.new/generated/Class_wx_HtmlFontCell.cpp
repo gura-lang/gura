@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__HtmlFontCell, "HtmlFontCell")
 
 Gura_ImplementFunction(__HtmlFontCell)
 {
-	//int font = arg.GetNumber(0)
+	//wxFont* font = arg.GetNumber(0)
 	//wxHtmlFontCell();
 	return Value::Nil;
 }

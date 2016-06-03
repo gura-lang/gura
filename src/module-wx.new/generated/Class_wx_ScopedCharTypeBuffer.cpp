@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__ScopedCharTypeBuffer_1, "ScopedCharTypeBuffer_1")
 
 Gura_ImplementFunction(__ScopedCharTypeBuffer_1)
 {
-	//int src = arg.GetNumber(0)
+	//const wxScopedCharTypeBuffer& src = arg.GetNumber(0)
 	//wxScopedCharTypeBuffer();
 	return Value::Nil;
 }
@@ -79,8 +79,8 @@ Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __CreateNonOwned)
 {
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//const CharType* str = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateNonOwned();
 	return Value::Nil;
 }
@@ -96,8 +96,8 @@ Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __CreateOwned)
 {
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int len = arg.GetNumber(1)
+	//CharType* str = arg.GetNumber(0)
+	//size_t len = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateOwned();
 	return Value::Nil;
 }

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__HtmlHelpWindow, "HtmlHelpWindow")
 
 Gura_ImplementFunction(__HtmlHelpWindow)
 {
-	//int data = arg.GetNumber(0)
+	//wxHtmlHelpData* data = arg.GetNumber(0)
 	//wxHtmlHelpWindow();
 	return Value::Nil;
 }
@@ -68,13 +68,13 @@ Gura_DeclareFunctionAlias(__HtmlHelpWindow_1, "HtmlHelpWindow_1")
 
 Gura_ImplementFunction(__HtmlHelpWindow_1)
 {
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//int wxWindowID = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int helpStyle = arg.GetNumber(5)
-	//int data = arg.GetNumber(6)
+	//wxHtmlHelpData* data = arg.GetNumber(6)
 	//wxHtmlHelpWindow();
 	return Value::Nil;
 }
@@ -97,10 +97,10 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, __Create)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int helpStyle = arg.GetNumber(5)
 	//pThis->GetEntity()->Create();
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, __Display)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
+	//const wxString& x = arg.GetNumber(0)
 	//pThis->GetEntity()->Display();
 	return Value::Nil;
 }
@@ -187,8 +187,8 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, __KeywordSearch)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int keyword = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
+	//const wxString& keyword = arg.GetNumber(0)
+	//wxHelpSearchMode mode = arg.GetNumber(1)
 	//pThis->GetEntity()->KeywordSearch();
 	return Value::Nil;
 }
@@ -204,8 +204,8 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, __ReadCustomization)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int cfg = arg.GetNumber(0)
-	//int path = arg.GetNumber(1)
+	//wxConfigBase* cfg = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(1)
 	//pThis->GetEntity()->ReadCustomization();
 	return Value::Nil;
 }
@@ -221,8 +221,8 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, __UseConfig)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int config = arg.GetNumber(0)
-	//int rootpath = arg.GetNumber(1)
+	//wxConfigBase* config = arg.GetNumber(0)
+	//const wxString& rootpath = arg.GetNumber(1)
 	//pThis->GetEntity()->UseConfig();
 	return Value::Nil;
 }
@@ -238,8 +238,8 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, __WriteCustomization)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int cfg = arg.GetNumber(0)
-	//int path = arg.GetNumber(1)
+	//wxConfigBase* cfg = arg.GetNumber(0)
+	//const wxString& path = arg.GetNumber(1)
 	//pThis->GetEntity()->WriteCustomization();
 	return Value::Nil;
 }
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, __SetController)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int controller = arg.GetNumber(0)
+	//wxHtmlHelpController* controller = arg.GetNumber(0)
 	//pThis->GetEntity()->SetController();
 	return Value::Nil;
 }
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, __AddToolbarButtons)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int toolBar = arg.GetNumber(0)
+	//wxToolBar* toolBar = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->AddToolbarButtons();
 	return Value::Nil;

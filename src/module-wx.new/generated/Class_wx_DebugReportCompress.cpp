@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_DebugReportCompress, __SetCompressedFileDirectory)
 {
 	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dir = arg.GetNumber(0)
+	//const wxString& dir = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCompressedFileDirectory();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_DebugReportCompress, __SetCompressedFileBaseName)
 {
 	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCompressedFileBaseName();
 	return Value::Nil;
 }

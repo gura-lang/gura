@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__BitmapDataObject, "BitmapDataObject")
 
 Gura_ImplementFunction(__BitmapDataObject)
 {
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//wxBitmapDataObject();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_BitmapDataObject, __SetBitmap)
 {
 	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetBitmap();
 	return Value::Nil;
 }

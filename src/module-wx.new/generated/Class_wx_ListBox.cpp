@@ -58,7 +58,7 @@ Gura_DeclareFunctionAlias(__ListBox_1, "ListBox_1")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg5", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -68,15 +68,15 @@ Gura_DeclareFunctionAlias(__ListBox_1, "ListBox_1")
 
 Gura_ImplementFunction(__ListBox_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
 	//int n = arg.GetNumber(4)
-	//int choices = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int validator = arg.GetNumber(7)
-	//int name = arg.GetNumber(8)
+	//const wxString choices[] _arg5 = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxValidator& validator = arg.GetNumber(7)
+	//const wxString& name = arg.GetNumber(8)
 	//wxListBox();
 	return Value::Nil;
 }
@@ -98,14 +98,14 @@ Gura_DeclareFunctionAlias(__ListBox_2, "ListBox_2")
 
 Gura_ImplementFunction(__ListBox_2)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int choices = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//const wxArrayString& choices = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//wxListBox();
 	return Value::Nil;
 }
@@ -121,7 +121,7 @@ Gura_DeclareMethodAlias(wx_ListBox, __Create, "Create")
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "_arg5", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -131,15 +131,15 @@ Gura_ImplementMethod(wx_ListBox, __Create)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
 	//int n = arg.GetNumber(4)
-	//int choices = arg.GetNumber(5)
-	//int style = arg.GetNumber(6)
-	//int validator = arg.GetNumber(7)
-	//int name = arg.GetNumber(8)
+	//const wxString choices[] _arg5 = arg.GetNumber(5)
+	//long style = arg.GetNumber(6)
+	//const wxValidator& validator = arg.GetNumber(7)
+	//const wxString& name = arg.GetNumber(8)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -161,14 +161,14 @@ Gura_ImplementMethod(wx_ListBox, __Create_1)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int choices = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
-	//int validator = arg.GetNumber(6)
-	//int name = arg.GetNumber(7)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//const wxArrayString& choices = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
+	//const wxValidator& validator = arg.GetNumber(6)
+	//const wxString& name = arg.GetNumber(7)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -227,8 +227,8 @@ Gura_ImplementMethod(wx_ListBox, __SetStringSelection)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
-	//int select = arg.GetNumber(1)
+	//const wxString& s = arg.GetNumber(0)
+	//bool select = arg.GetNumber(1)
 	//pThis->GetEntity()->SetStringSelection();
 	return Value::Nil;
 }
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_ListBox, __SetStringSelection_1)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
+	//const wxString& s = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStringSelection();
 	return Value::Nil;
 }
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_ListBox, __GetSelections)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int selections = arg.GetNumber(0)
+	//wxArrayInt& selections = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSelections();
 	return Value::Nil;
 }
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_ListBox, __HitTest)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int point = arg.GetNumber(0)
+	//const wxPoint& point = arg.GetNumber(0)
 	//pThis->GetEntity()->HitTest();
 	return Value::Nil;
 }
@@ -307,9 +307,9 @@ Gura_ImplementMethod(wx_ListBox, __InsertItems)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int nItems = arg.GetNumber(0)
-	//int items = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
+	//unsigned int nItems = arg.GetNumber(0)
+	//const wxString* items = arg.GetNumber(1)
+	//unsigned int pos = arg.GetNumber(2)
 	//pThis->GetEntity()->InsertItems();
 	return Value::Nil;
 }
@@ -325,8 +325,8 @@ Gura_ImplementMethod(wx_ListBox, __InsertItems_1)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int items = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//const wxArrayString& items = arg.GetNumber(0)
+	//unsigned int pos = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertItems();
 	return Value::Nil;
 }
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_ListBox, __SetFirstItem_1)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
+	//const wxString& string = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFirstItem();
 	return Value::Nil;
 }
@@ -453,7 +453,7 @@ Gura_ImplementMethod(wx_ListBox, __GetString)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//unsigned int n = arg.GetNumber(0)
 	//pThis->GetEntity()->GetString();
 	return Value::Nil;
 }
@@ -469,8 +469,8 @@ Gura_ImplementMethod(wx_ListBox, __SetString)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int s = arg.GetNumber(1)
+	//unsigned int n = arg.GetNumber(0)
+	//const wxString& s = arg.GetNumber(1)
 	//pThis->GetEntity()->SetString();
 	return Value::Nil;
 }
@@ -486,8 +486,8 @@ Gura_ImplementMethod(wx_ListBox, __FindString)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int s = arg.GetNumber(0)
-	//int bCase = arg.GetNumber(1)
+	//const wxString& s = arg.GetNumber(0)
+	//bool bCase = arg.GetNumber(1)
 	//pThis->GetEntity()->FindString();
 	return Value::Nil;
 }

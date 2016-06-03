@@ -49,8 +49,8 @@ Gura_DeclareFunctionAlias(__RichTextHTMLHandler, "RichTextHTMLHandler")
 
 Gura_ImplementFunction(__RichTextHTMLHandler)
 {
-	//int name = arg.GetNumber(0)
-	//int ext = arg.GetNumber(1)
+	//const wxString& name = arg.GetNumber(0)
+	//const wxString& ext = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
 	//wxRichTextHTMLHandler();
 	return Value::Nil;
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages_1)
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//int imageLocations = arg.GetNumber(1)
+	//const wxArrayString& imageLocations = arg.GetNumber(1)
 	//pThis->GetEntity()->DeleteTemporaryImages();
 	return Value::Nil;
 }
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetFontSizeMapping)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int fontSizeMapping = arg.GetNumber(0)
+	//const wxArrayInt& fontSizeMapping = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFontSizeMapping();
 	return Value::Nil;
 }
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetTempDir)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tempDir = arg.GetNumber(0)
+	//const wxString& tempDir = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTempDir();
 	return Value::Nil;
 }
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetTemporaryImageLocations)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int locations = arg.GetNumber(0)
+	//const wxArrayString& locations = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTemporaryImageLocations();
 	return Value::Nil;
 }
@@ -212,8 +212,8 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __DoSaveFile)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int stream = arg.GetNumber(1)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxOutputStream& stream = arg.GetNumber(1)
 	//pThis->GetEntity()->DoSaveFile();
 	return Value::Nil;
 }

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__CustomDataObject, "CustomDataObject")
 
 Gura_ImplementFunction(__CustomDataObject)
 {
-	//int format = arg.GetNumber(0)
+	//const wxDataFormat& format = arg.GetNumber(0)
 	//wxCustomDataObject();
 	return Value::Nil;
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_CustomDataObject, __Alloc)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(0)
 	//pThis->GetEntity()->Alloc();
 	return Value::Nil;
 }
@@ -120,8 +120,8 @@ Gura_ImplementMethod(wx_CustomDataObject, __SetData)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//size_t size = arg.GetNumber(0)
+	//const void* data = arg.GetNumber(1)
 	//pThis->GetEntity()->SetData();
 	return Value::Nil;
 }
@@ -137,8 +137,8 @@ Gura_ImplementMethod(wx_CustomDataObject, __TakeData)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//size_t size = arg.GetNumber(0)
+	//void* data = arg.GetNumber(1)
 	//pThis->GetEntity()->TakeData();
 	return Value::Nil;
 }

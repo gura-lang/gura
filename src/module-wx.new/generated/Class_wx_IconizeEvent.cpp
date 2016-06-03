@@ -49,7 +49,7 @@ Gura_DeclareFunctionAlias(__IconizeEvent, "IconizeEvent")
 Gura_ImplementFunction(__IconizeEvent)
 {
 	//int id = arg.GetNumber(0)
-	//int iconized = arg.GetNumber(1)
+	//bool iconized = arg.GetNumber(1)
 	//wxIconizeEvent();
 	return Value::Nil;
 }

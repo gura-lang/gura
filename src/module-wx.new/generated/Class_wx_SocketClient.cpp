@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__SocketClient, "SocketClient")
 
 Gura_ImplementFunction(__SocketClient)
 {
-	//int flags = arg.GetNumber(0)
+	//wxSocketFlags flags = arg.GetNumber(0)
 	//wxSocketClient();
 	return Value::Nil;
 }
@@ -66,8 +66,8 @@ Gura_ImplementMethod(wx_SocketClient, __Connect)
 {
 	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int address = arg.GetNumber(0)
-	//int wait = arg.GetNumber(1)
+	//const wxSockAddress& address = arg.GetNumber(0)
+	//bool wait = arg.GetNumber(1)
 	//pThis->GetEntity()->Connect();
 	return Value::Nil;
 }
@@ -84,9 +84,9 @@ Gura_ImplementMethod(wx_SocketClient, __Connect_1)
 {
 	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int address = arg.GetNumber(0)
-	//int local = arg.GetNumber(1)
-	//int wait = arg.GetNumber(2)
+	//const wxSockAddress& address = arg.GetNumber(0)
+	//const wxSockAddress& local = arg.GetNumber(1)
+	//bool wait = arg.GetNumber(2)
 	//pThis->GetEntity()->Connect();
 	return Value::Nil;
 }
@@ -102,8 +102,8 @@ Gura_ImplementMethod(wx_SocketClient, __WaitOnConnect)
 {
 	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int seconds = arg.GetNumber(0)
-	//int milliseconds = arg.GetNumber(1)
+	//long seconds = arg.GetNumber(0)
+	//long milliseconds = arg.GetNumber(1)
 	//pThis->GetEntity()->WaitOnConnect();
 	return Value::Nil;
 }

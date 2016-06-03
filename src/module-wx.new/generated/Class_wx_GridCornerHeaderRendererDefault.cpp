@@ -49,9 +49,9 @@ Gura_ImplementMethod(wx_GridCornerHeaderRendererDefault, __DrawBorder)
 {
 	Object_wx_GridCornerHeaderRendererDefault *pThis = Object_wx_GridCornerHeaderRendererDefault::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int grid = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//const wxGrid& grid = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawBorder();
 	return Value::Nil;
 }

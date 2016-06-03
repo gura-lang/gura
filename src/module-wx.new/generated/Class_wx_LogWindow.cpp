@@ -50,10 +50,10 @@ Gura_DeclareFunctionAlias(__LogWindow, "LogWindow")
 
 Gura_ImplementFunction(__LogWindow)
 {
-	//int pParent = arg.GetNumber(0)
-	//int szTitle = arg.GetNumber(1)
-	//int show = arg.GetNumber(2)
-	//int passToOld = arg.GetNumber(3)
+	//wxWindow* pParent = arg.GetNumber(0)
+	//const wxString& szTitle = arg.GetNumber(1)
+	//bool show = arg.GetNumber(2)
+	//bool passToOld = arg.GetNumber(3)
 	//wxLogWindow();
 	return Value::Nil;
 }
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_LogWindow, __OnFrameClose)
 {
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int frame = arg.GetNumber(0)
+	//wxFrame* frame = arg.GetNumber(0)
 	//pThis->GetEntity()->OnFrameClose();
 	return Value::Nil;
 }
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_LogWindow, __OnFrameDelete)
 {
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int frame = arg.GetNumber(0)
+	//wxFrame* frame = arg.GetNumber(0)
 	//pThis->GetEntity()->OnFrameDelete();
 	return Value::Nil;
 }
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_LogWindow, __Show)
 {
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int show = arg.GetNumber(0)
+	//bool show = arg.GetNumber(0)
 	//pThis->GetEntity()->Show();
 	return Value::Nil;
 }

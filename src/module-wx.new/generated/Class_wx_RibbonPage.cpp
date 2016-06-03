@@ -64,11 +64,11 @@ Gura_DeclareFunctionAlias(__RibbonPage_1, "RibbonPage_1")
 
 Gura_ImplementFunction(__RibbonPage_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int icon = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxRibbonBar* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& icon = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//wxRibbonPage();
 	return Value::Nil;
 }
@@ -90,11 +90,11 @@ Gura_ImplementMethod(wx_RibbonPage, __Create)
 {
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int icon = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
+	//wxRibbonBar* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& icon = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_RibbonPage, __SetArtProvider)
 {
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int art = arg.GetNumber(0)
+	//wxRibbonArtProvider* art = arg.GetNumber(0)
 	//pThis->GetEntity()->SetArtProvider();
 	return Value::Nil;
 }
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_RibbonPage, __AdjustRectToIncludeScrollButtons)
 {
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//wxRect* rect = arg.GetNumber(0)
 	//pThis->GetEntity()->AdjustRectToIncludeScrollButtons();
 	return Value::Nil;
 }

@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_SystemThemedControl, __EnableSystemTheme)
 {
 	Object_wx_SystemThemedControl *pThis = Object_wx_SystemThemedControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int enable = arg.GetNumber(0)
+	//bool enable = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableSystemTheme();
 	return Value::Nil;
 }

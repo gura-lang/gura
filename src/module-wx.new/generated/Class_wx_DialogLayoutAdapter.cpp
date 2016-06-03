@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_DialogLayoutAdapter, __CanDoLayoutAdaptation)
 {
 	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dialog = arg.GetNumber(0)
+	//wxDialog* dialog = arg.GetNumber(0)
 	//pThis->GetEntity()->CanDoLayoutAdaptation();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_DialogLayoutAdapter, __DoLayoutAdaptation)
 {
 	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dialog = arg.GetNumber(0)
+	//wxDialog* dialog = arg.GetNumber(0)
 	//pThis->GetEntity()->DoLayoutAdaptation();
 	return Value::Nil;
 }

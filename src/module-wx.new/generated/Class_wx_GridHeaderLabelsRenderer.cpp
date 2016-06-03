@@ -53,10 +53,10 @@ Gura_ImplementMethod(wx_GridHeaderLabelsRenderer, __DrawLabel)
 {
 	Object_wx_GridHeaderLabelsRenderer *pThis = Object_wx_GridHeaderLabelsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int grid = arg.GetNumber(0)
-	//int dc = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int rect = arg.GetNumber(3)
+	//const wxGrid& grid = arg.GetNumber(0)
+	//wxDC& dc = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxRect& rect = arg.GetNumber(3)
 	//int horizAlign = arg.GetNumber(4)
 	//int vertAlign = arg.GetNumber(5)
 	//int textOrientation = arg.GetNumber(6)

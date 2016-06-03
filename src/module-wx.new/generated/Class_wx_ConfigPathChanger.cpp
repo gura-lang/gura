@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__ConfigPathChanger, "ConfigPathChanger")
 
 Gura_ImplementFunction(__ConfigPathChanger)
 {
-	//int pContainer = arg.GetNumber(0)
-	//int strEntry = arg.GetNumber(1)
+	//const wxConfigBase* pContainer = arg.GetNumber(0)
+	//const wxString& strEntry = arg.GetNumber(1)
 	//wxConfigPathChanger();
 	return Value::Nil;
 }

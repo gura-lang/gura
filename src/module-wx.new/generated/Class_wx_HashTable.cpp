@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__HashTable, "HashTable")
 
 Gura_ImplementFunction(__HashTable)
 {
-	//int key_type = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//wxKeyType key_type = arg.GetNumber(0)
+	//size_t size = arg.GetNumber(1)
 	//wxHashTable();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_HashTable, __Delete)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int key = arg.GetNumber(0)
+	//long key = arg.GetNumber(0)
 	//pThis->GetEntity()->Delete();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_HashTable, __Delete_1)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int key = arg.GetNumber(0)
+	//const wxString& key = arg.GetNumber(0)
 	//pThis->GetEntity()->Delete();
 	return Value::Nil;
 }
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_HashTable, __DeleteContents)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flag = arg.GetNumber(0)
+	//bool flag = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteContents();
 	return Value::Nil;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_HashTable, __Get)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int key = arg.GetNumber(0)
+	//long key = arg.GetNumber(0)
 	//pThis->GetEntity()->Get();
 	return Value::Nil;
 }
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_HashTable, __Get_1)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int key = arg.GetNumber(0)
+	//const char* key = arg.GetNumber(0)
 	//pThis->GetEntity()->Get();
 	return Value::Nil;
 }
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_HashTable, __MakeKey)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int string = arg.GetNumber(0)
+	//const wxString& string = arg.GetNumber(0)
 	//pThis->GetEntity()->MakeKey();
 	return Value::Nil;
 }
@@ -210,8 +210,8 @@ Gura_ImplementMethod(wx_HashTable, __Put)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int key = arg.GetNumber(0)
-	//int object = arg.GetNumber(1)
+	//long key = arg.GetNumber(0)
+	//wxObject* object = arg.GetNumber(1)
 	//pThis->GetEntity()->Put();
 	return Value::Nil;
 }
@@ -227,8 +227,8 @@ Gura_ImplementMethod(wx_HashTable, __Put_1)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int key = arg.GetNumber(0)
-	//int object = arg.GetNumber(1)
+	//const char* key = arg.GetNumber(0)
+	//wxObject* object = arg.GetNumber(1)
 	//pThis->GetEntity()->Put();
 	return Value::Nil;
 }

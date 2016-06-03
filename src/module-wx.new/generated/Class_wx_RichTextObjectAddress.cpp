@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__RichTextObjectAddress, "RichTextObjectAddress")
 
 Gura_ImplementFunction(__RichTextObjectAddress)
 {
-	//int topLevelContainer = arg.GetNumber(0)
-	//int obj = arg.GetNumber(1)
+	//wxRichTextParagraphLayoutBox* topLevelContainer = arg.GetNumber(0)
+	//wxRichTextObject* obj = arg.GetNumber(1)
 	//wxRichTextObjectAddress();
 	return Value::Nil;
 }
@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__RichTextObjectAddress_2, "RichTextObjectAddress_2")
 
 Gura_ImplementFunction(__RichTextObjectAddress_2)
 {
-	//int address = arg.GetNumber(0)
+	//const wxRichTextObjectAddress& address = arg.GetNumber(0)
 	//wxRichTextObjectAddress();
 	return Value::Nil;
 }
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __Copy)
 {
 	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int address = arg.GetNumber(0)
+	//const wxRichTextObjectAddress& address = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
 }
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __GetObject)
 {
 	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topLevelContainer = arg.GetNumber(0)
+	//wxRichTextParagraphLayoutBox* topLevelContainer = arg.GetNumber(0)
 	//pThis->GetEntity()->GetObject();
 	return Value::Nil;
 }
@@ -139,8 +139,8 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __Create)
 {
 	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int topLevelContainer = arg.GetNumber(0)
-	//int obj = arg.GetNumber(1)
+	//wxRichTextParagraphLayoutBox* topLevelContainer = arg.GetNumber(0)
+	//wxRichTextObject* obj = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __SetAddress)
 {
 	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int address = arg.GetNumber(0)
+	//const wxArrayInt& address = arg.GetNumber(0)
 	//pThis->GetEntity()->SetAddress();
 	return Value::Nil;
 }

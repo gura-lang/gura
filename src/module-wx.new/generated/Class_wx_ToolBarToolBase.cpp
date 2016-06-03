@@ -55,15 +55,15 @@ Gura_DeclareFunctionAlias(__ToolBarToolBase, "ToolBarToolBase")
 
 Gura_ImplementFunction(__ToolBarToolBase)
 {
-	//int tbar = arg.GetNumber(0)
+	//wxToolBarBase* tbar = arg.GetNumber(0)
 	//int toolid = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int bmpNormal = arg.GetNumber(3)
-	//int bmpDisabled = arg.GetNumber(4)
-	//int kind = arg.GetNumber(5)
-	//int clientData = arg.GetNumber(6)
-	//int shortHelpString = arg.GetNumber(7)
-	//int longHelpString = arg.GetNumber(8)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& bmpNormal = arg.GetNumber(3)
+	//const wxBitmap& bmpDisabled = arg.GetNumber(4)
+	//wxItemKind kind = arg.GetNumber(5)
+	//wxObject* clientData = arg.GetNumber(6)
+	//const wxString& shortHelpString = arg.GetNumber(7)
+	//const wxString& longHelpString = arg.GetNumber(8)
 	//wxToolBarToolBase();
 	return Value::Nil;
 }
@@ -80,9 +80,9 @@ Gura_DeclareFunctionAlias(__ToolBarToolBase_1, "ToolBarToolBase_1")
 
 Gura_ImplementFunction(__ToolBarToolBase_1)
 {
-	//int tbar = arg.GetNumber(0)
-	//int control = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
+	//wxToolBarBase* tbar = arg.GetNumber(0)
+	//wxControl* control = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
 	//wxToolBarToolBase();
 	return Value::Nil;
 }
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_ToolBarToolBase, __Attach)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int tbar = arg.GetNumber(0)
+	//wxToolBarBase* tbar = arg.GetNumber(0)
 	//pThis->GetEntity()->Attach();
 	return Value::Nil;
 }

@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_PropertyGridPage, __RefreshProperty)
 {
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int p = arg.GetNumber(0)
+	//wxPGProperty* p = arg.GetNumber(0)
 	//pThis->GetEntity()->RefreshProperty();
 	return Value::Nil;
 }

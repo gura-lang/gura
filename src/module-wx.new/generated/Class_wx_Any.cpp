@@ -60,7 +60,7 @@ Gura_DeclareFunctionAlias(__Any_1, "Any_1")
 
 Gura_ImplementFunction(__Any_1)
 {
-	//int value = arg.GetNumber(0)
+	//const T& value = arg.GetNumber(0)
 	//wxAny();
 	return Value::Nil;
 }
@@ -75,7 +75,7 @@ Gura_DeclareFunctionAlias(__Any_2, "Any_2")
 
 Gura_ImplementFunction(__Any_2)
 {
-	//int any = arg.GetNumber(0)
+	//const wxAny& any = arg.GetNumber(0)
 	//wxAny();
 	return Value::Nil;
 }
@@ -90,7 +90,7 @@ Gura_DeclareFunctionAlias(__Any_3, "Any_3")
 
 Gura_ImplementFunction(__Any_3)
 {
-	//int variant = arg.GetNumber(0)
+	//const wxVariant& variant = arg.GetNumber(0)
 	//wxAny();
 	return Value::Nil;
 }
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_Any, __GetAs)
 {
 	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//T* value = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAs();
 	return Value::Nil;
 }
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_Any, __GetAs_1)
 {
 	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int value = arg.GetNumber(0)
+	//wxVariant* value = arg.GetNumber(0)
 	//pThis->GetEntity()->GetAs();
 	return Value::Nil;
 }
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_Any, __HasSameType)
 {
 	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int other = arg.GetNumber(0)
+	//const wxAny& other = arg.GetNumber(0)
 	//pThis->GetEntity()->HasSameType();
 	return Value::Nil;
 }

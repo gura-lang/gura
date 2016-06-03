@@ -324,7 +324,7 @@ Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
 
 Gura_ImplementFunction(${funcNameInternal})
 {
-	${if (!argInfos.isempty()) { argInfos:&RenderVariable(0..) }}
+	${if (!argInfos.isempty()) { argInfos:*RenderVariable() }}
 	//${funcNameCPP}();
 	return Value::Nil;
 }
@@ -342,7 +342,7 @@ Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
 
 Gura_ImplementFunction(${funcNameInternal})
 {
-	${if (!argInfos.isempty()) { argInfos:&RenderVariable(0..) }}
+	${if (!argInfos.isempty()) { argInfos:*RenderVariable() }}
 	//${funcNameCPP}();
 	return Value::Nil;
 }
@@ -360,7 +360,7 @@ Gura_ImplementMethod(wx_${classNameShort}, ${funcNameInternal})
 {
 	Object_wx_${classNameShort} *pThis = Object_wx_${classNameShort}::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	${if (!argInfos.isempty()) { argInfos:&RenderVariable(0..) }}
+	${if (!argInfos.isempty()) { argInfos:*RenderVariable() }}
 	//pThis->GetEntity()->${funcNameCPP}();
 	return Value::Nil;
 }
@@ -494,13 +494,15 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 	}
 }
 
-ArgInfo = struct(argName:string) {
+ArgInfo = struct(iArg:number, typesStr:string, refOperator:string,
+				 argName:string, bracketFlag:boolean) {
 	RenderDeclaration() = {
 		format('//DeclareArg(env, "%s", VTYPE_%s, OCCUR_%s);\n',
 			   this.argName, 'number', 'Once')
 	}
-	RenderVariable(iArg:number):map = {
-		format('//%s %s = arg.%s(%s)\n', 'int', this.argName, 'GetNumber', iArg)
+	RenderVariable() = {
+		format('//%s%s %s = arg.%s(%s)\n',
+			   this.typesStr, this.refOperator, this.argName, 'GetNumber', this.iArg)
 	}
 }
 
@@ -602,12 +604,12 @@ CreateClassInfo(pathName:string, lineNo:string, strSrc:string) = {
 CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
 	if (m = strSrc.match(r'^(.*?)\((.*)\)\s*(const)?\s*:.+$')) {
 		funcHead = m[1].strip()
-		argList = m[2].strip()
+		argsStr = m[2].strip()
 		constFlag = !m[3].isempty()
 		pureVirtualFlag = false
 	} elsif (m = strSrc.match(r'^(.*?)\((.*)\)\s*(const)?\s*(=\s*0)?\s*;?$')) {
 		funcHead = m[1].strip()
-		argList = m[2].strip()
+		argsStr = m[2].strip()
 		constFlag = !m[3].isempty()
 		pureVirtualFlag = !m[4].isempty()
 	} else {
@@ -635,37 +637,49 @@ CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
 	funcNameGura = identifier
 	funcInfo = FuncInfo(funcNameCPP, funcNameGura)
 	//printf('%s:%s:%s\n', identifier, typeList, refOperator)
-	if (!argList.isempty()) {
-		argList.split(',') {|arg, iArg|
-			fields = arg.split('=')::strip()
-			if (fields.len() == 1) {
-				varHead = fields[0]
-				initValue = ''
-			} else {
-				varHead = fields[0]
-				initValue = fields[1]
-			}
-			if (varHead == '...') {
-				WarningMessage(pathName, lineNo, strSrc,
-							   'variable length argument is not acceptable')
-				return
-			} elsif (m = varHead.match(r'^(.+?)([\s\*&]+)(\w+)\s*(\[\s*\])?$')) {
-				typeList = m[1]
-				refOperator = m[2].strip()
-				argName = m[3]
-				brackets = m[4]
-			} elsif (m = varHead.match(r'^(.+?)([\s\*&]+)$')) {
-				typeList = m[1]
-				refOperator = m[2].strip()
-				argName = format('_arg%d', iArg)
-				brackets = ''
-			} else {
-				WarningMessage(pathName, lineNo, strSrc,
-							   'unacceptable argument declaration: ' + varHead)
-				return
-			}
-			funcInfo.argInfos.add(ArgInfo(argName))
+	pos = 0
+	iArg = 0
+	while (pos < argsStr.len()) {
+		if (!(m = argsStr.match(r'^\s*([^,=]+)\s*([,=])?', pos))) {
+			ErrorMessage(pathName, lineNo, strSrc, 'unacceptable argument syntax')
 		}
+		pos = m.group(0).end
+		varHead = m[1]
+		if (m[2] == '=') {
+			if (m = \
+				argsStr.match(r'^\s*([-\w:]+\s*\(.*?\)),', pos) || \
+				argsStr.match(r'^\s*([-\w:]+\s*\(.*?\))$', pos) || \
+				argsStr.match(r'^\s*([^,]+)\s*,', pos) || \
+				argsStr.match(r'^\s*(.+)\s*$', pos) || \
+				argsStr.match(r'^\s*("[^"]*"),', pos) || \
+				argsStr.match(r'^\s*("[^"]*")$', pos)) {
+				initValue = m[1]
+				pos = m.group(0).end
+			} else {
+				ErrorMessage(pathName, lineNo, strSrc, 'unacceptable argument syntax')
+			}
+		}
+		if (varHead == '...') {
+			WarningMessage(pathName, lineNo, strSrc,
+						   'variable length argument is not acceptable')
+			return
+		} elsif (m = varHead.match(r'^(.+?)([\s\*&]+)(\w+)\s*(\[\s*\])?$')) {
+			typesStr = m[1]
+			refOperator = m[2].strip()
+			argName = m[3]
+			bracketFlag = !m[4].isempty()
+		} elsif (m = varHead.match(r'^(.+?)([\s\*&]+)$')) {
+			typesStr = m[1]
+			refOperator = m[2].strip()
+			argName = format('_arg%d', iArg)
+			bracketFlag = false
+		} else {
+			WarningMessage(pathName, lineNo, strSrc,
+						   'unacceptable argument declaration: ' + varHead)
+			return
+		}
+		funcInfo.argInfos.add(ArgInfo(iArg, typesStr, refOperator, argName, bracketFlag))
+		iArg += 1
 	}
 	funcInfo
 }

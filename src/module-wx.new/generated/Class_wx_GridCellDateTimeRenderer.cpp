@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__GridCellDateTimeRenderer, "GridCellDateTimeRenderer"
 
 Gura_ImplementFunction(__GridCellDateTimeRenderer)
 {
-	//int outformat = arg.GetNumber(0)
-	//int informat = arg.GetNumber(1)
+	//const wxString& outformat = arg.GetNumber(0)
+	//const wxString& informat = arg.GetNumber(1)
 	//wxGridCellDateTimeRenderer();
 	return Value::Nil;
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_GridCellDateTimeRenderer, __SetParameters)
 {
 	Object_wx_GridCellDateTimeRenderer *pThis = Object_wx_GridCellDateTimeRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int params = arg.GetNumber(0)
+	//const wxString& params = arg.GetNumber(0)
 	//pThis->GetEntity()->SetParameters();
 	return Value::Nil;
 }

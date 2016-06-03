@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__HtmlHelpDialog, "HtmlHelpDialog")
 
 Gura_ImplementFunction(__HtmlHelpDialog)
 {
-	//int data = arg.GetNumber(0)
+	//wxHtmlHelpData* data = arg.GetNumber(0)
 	//wxHtmlHelpDialog();
 	return Value::Nil;
 }
@@ -66,11 +66,11 @@ Gura_DeclareFunctionAlias(__HtmlHelpDialog_1, "HtmlHelpDialog_1")
 
 Gura_ImplementFunction(__HtmlHelpDialog_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
-	//int data = arg.GetNumber(4)
+	//wxHtmlHelpData* data = arg.GetNumber(4)
 	//wxHtmlHelpDialog();
 	return Value::Nil;
 }
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, __AddToolbarButtons)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int toolBar = arg.GetNumber(0)
+	//wxToolBar* toolBar = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
 	//pThis->GetEntity()->AddToolbarButtons();
 	return Value::Nil;
@@ -108,9 +108,9 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, __Create)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int title = arg.GetNumber(2)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& title = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, __SetController)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int controller = arg.GetNumber(0)
+	//wxHtmlHelpController* controller = arg.GetNumber(0)
 	//pThis->GetEntity()->SetController();
 	return Value::Nil;
 }
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, __SetTitleFormat)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
+	//const wxString& format = arg.GetNumber(0)
 	//pThis->GetEntity()->SetTitleFormat();
 	return Value::Nil;
 }

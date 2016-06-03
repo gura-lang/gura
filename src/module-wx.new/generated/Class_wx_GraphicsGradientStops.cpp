@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__GraphicsGradientStops, "GraphicsGradientStops")
 
 Gura_ImplementFunction(__GraphicsGradientStops)
 {
-	//int startCol = arg.GetNumber(0)
-	//int endCol = arg.GetNumber(1)
+	//wxColour startCol = arg.GetNumber(0)
+	//wxColour endCol = arg.GetNumber(1)
 	//wxGraphicsGradientStops();
 	return Value::Nil;
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_GraphicsGradientStops, __Add)
 {
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stop = arg.GetNumber(0)
+	//const wxGraphicsGradientStop& stop = arg.GetNumber(0)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
 }
@@ -83,8 +83,8 @@ Gura_ImplementMethod(wx_GraphicsGradientStops, __Add_1)
 {
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//wxColour col = arg.GetNumber(0)
+	//float pos = arg.GetNumber(1)
 	//pThis->GetEntity()->Add();
 	return Value::Nil;
 }
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_GraphicsGradientStops, __Item)
 {
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
+	//unsigned n = arg.GetNumber(0)
 	//pThis->GetEntity()->Item();
 	return Value::Nil;
 }
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_GraphicsGradientStops, __SetStartColour)
 {
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//wxColour col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStartColour();
 	return Value::Nil;
 }
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_GraphicsGradientStops, __SetEndColour)
 {
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//wxColour col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetEndColour();
 	return Value::Nil;
 }

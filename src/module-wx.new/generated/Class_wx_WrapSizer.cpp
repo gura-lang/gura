@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_WrapSizer, __IsSpaceItem)
 {
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//wxSizerItem* item = arg.GetNumber(0)
 	//pThis->GetEntity()->IsSpaceItem();
 	return Value::Nil;
 }

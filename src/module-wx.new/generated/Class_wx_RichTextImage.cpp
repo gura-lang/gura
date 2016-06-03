@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__RichTextImage, "RichTextImage")
 
 Gura_ImplementFunction(__RichTextImage)
 {
-	//int parent = arg.GetNumber(0)
+	//wxRichTextObject* parent = arg.GetNumber(0)
 	//wxRichTextImage();
 	return Value::Nil;
 }
@@ -64,9 +64,9 @@ Gura_DeclareFunctionAlias(__RichTextImage_1, "RichTextImage_1")
 
 Gura_ImplementFunction(__RichTextImage_1)
 {
-	//int image = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
-	//int charStyle = arg.GetNumber(2)
+	//const wxImage& image = arg.GetNumber(0)
+	//wxRichTextObject* parent = arg.GetNumber(1)
+	//wxRichTextAttr* charStyle = arg.GetNumber(2)
 	//wxRichTextImage();
 	return Value::Nil;
 }
@@ -83,9 +83,9 @@ Gura_DeclareFunctionAlias(__RichTextImage_2, "RichTextImage_2")
 
 Gura_ImplementFunction(__RichTextImage_2)
 {
-	//int imageBlock = arg.GetNumber(0)
-	//int parent = arg.GetNumber(1)
-	//int charStyle = arg.GetNumber(2)
+	//const wxRichTextImageBlock& imageBlock = arg.GetNumber(0)
+	//wxRichTextObject* parent = arg.GetNumber(1)
+	//wxRichTextAttr* charStyle = arg.GetNumber(2)
 	//wxRichTextImage();
 	return Value::Nil;
 }
@@ -100,7 +100,7 @@ Gura_DeclareFunctionAlias(__RichTextImage_3, "RichTextImage_3")
 
 Gura_ImplementFunction(__RichTextImage_3)
 {
-	//int obj = arg.GetNumber(0)
+	//const wxRichTextImage& obj = arg.GetNumber(0)
 	//wxRichTextImage();
 	return Value::Nil;
 }
@@ -124,11 +124,11 @@ Gura_ImplementMethod(wx_RichTextImage, __Draw)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int context = arg.GetNumber(1)
-	//int range = arg.GetNumber(2)
-	//int selection = arg.GetNumber(3)
-	//int rect = arg.GetNumber(4)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxRichTextDrawingContext& context = arg.GetNumber(1)
+	//const wxRichTextRange& range = arg.GetNumber(2)
+	//const wxRichTextSelection& selection = arg.GetNumber(3)
+	//const wxRect& rect = arg.GetNumber(4)
 	//int descent = arg.GetNumber(5)
 	//int style = arg.GetNumber(6)
 	//pThis->GetEntity()->Draw();
@@ -149,12 +149,43 @@ Gura_ImplementMethod(wx_RichTextImage, __Layout)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int context = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
-	//int parentRect = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxRichTextDrawingContext& context = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
+	//const wxRect& parentRect = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//pThis->GetEntity()->Layout();
+	return Value::Nil;
+}
+
+Gura_DeclareMethodAlias(wx_RichTextImage, __GetRangeSize, "GetRangeSize")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "descent", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "partialExtents", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_RichTextImage, __GetRangeSize)
+{
+	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
+	if (pThis->IsInvalid(env)) return Value::Nil;
+	//const wxRichTextRange& range = arg.GetNumber(0)
+	//wxSize& size = arg.GetNumber(1)
+	//int& descent = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(3)
+	//wxRichTextDrawingContext& context = arg.GetNumber(4)
+	//int flags = arg.GetNumber(5)
+	//const wxPoint& position = arg.GetNumber(6)
+	//const wxSize& parentSize = arg.GetNumber(7)
+	//wxArrayInt* partialExtents = arg.GetNumber(8)
+	//pThis->GetEntity()->GetRangeSize();
 	return Value::Nil;
 }
 
@@ -208,8 +239,8 @@ Gura_ImplementMethod(wx_RichTextImage, __EditProperties)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int buffer = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxRichTextBuffer* buffer = arg.GetNumber(1)
 	//pThis->GetEntity()->EditProperties();
 	return Value::Nil;
 }
@@ -253,10 +284,10 @@ Gura_ImplementMethod(wx_RichTextImage, __ImportFromXML)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int buffer = arg.GetNumber(0)
-	//int node = arg.GetNumber(1)
-	//int handler = arg.GetNumber(2)
-	//int recurse = arg.GetNumber(3)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
+	//wxXmlNode* node = arg.GetNumber(1)
+	//wxRichTextXMLHandler* handler = arg.GetNumber(2)
+	//bool* recurse = arg.GetNumber(3)
 	//pThis->GetEntity()->ImportFromXML();
 	return Value::Nil;
 }
@@ -273,9 +304,9 @@ Gura_ImplementMethod(wx_RichTextImage, __ExportXML)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
+	//wxOutputStream& stream = arg.GetNumber(0)
 	//int indent = arg.GetNumber(1)
-	//int handler = arg.GetNumber(2)
+	//wxRichTextXMLHandler* handler = arg.GetNumber(2)
 	//pThis->GetEntity()->ExportXML();
 	return Value::Nil;
 }
@@ -291,8 +322,8 @@ Gura_ImplementMethod(wx_RichTextImage, __ExportXML_1)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int handler = arg.GetNumber(1)
+	//wxXmlNode* parent = arg.GetNumber(0)
+	//wxRichTextXMLHandler* handler = arg.GetNumber(1)
 	//pThis->GetEntity()->ExportXML();
 	return Value::Nil;
 }
@@ -346,7 +377,7 @@ Gura_ImplementMethod(wx_RichTextImage, __SetImageCache)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetImageCache();
 	return Value::Nil;
 }
@@ -400,7 +431,7 @@ Gura_ImplementMethod(wx_RichTextImage, __SetOriginalImageSize)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sz = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(0)
 	//pThis->GetEntity()->SetOriginalImageSize();
 	return Value::Nil;
 }
@@ -415,7 +446,7 @@ Gura_ImplementMethod(wx_RichTextImage, __Copy)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int obj = arg.GetNumber(0)
+	//const wxRichTextImage& obj = arg.GetNumber(0)
 	//pThis->GetEntity()->Copy();
 	return Value::Nil;
 }
@@ -447,11 +478,11 @@ Gura_ImplementMethod(wx_RichTextImage, __LoadImageCache)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int context = arg.GetNumber(1)
-	//int retImageSize = arg.GetNumber(2)
-	//int resetCache = arg.GetNumber(3)
-	//int parentSize = arg.GetNumber(4)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxRichTextDrawingContext& context = arg.GetNumber(1)
+	//wxSize& retImageSize = arg.GetNumber(2)
+	//bool resetCache = arg.GetNumber(3)
+	//const wxSize& parentSize = arg.GetNumber(4)
 	//pThis->GetEntity()->LoadImageCache();
 	return Value::Nil;
 }
@@ -469,10 +500,10 @@ Gura_ImplementMethod(wx_RichTextImage, __LoadAndScaleImageCache)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int image = arg.GetNumber(0)
-	//int sz = arg.GetNumber(1)
-	//int delayLoading = arg.GetNumber(2)
-	//int changed = arg.GetNumber(3)
+	//wxImage& image = arg.GetNumber(0)
+	//const wxSize& sz = arg.GetNumber(1)
+	//bool delayLoading = arg.GetNumber(2)
+	//bool& changed = arg.GetNumber(3)
 	//pThis->GetEntity()->LoadAndScaleImageCache();
 	return Value::Nil;
 }
@@ -518,6 +549,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextImage)
 	// Method assignment
 	Gura_AssignMethod(wx_RichTextImage, __Draw);
 	Gura_AssignMethod(wx_RichTextImage, __Layout);
+	Gura_AssignMethod(wx_RichTextImage, __GetRangeSize);
 	Gura_AssignMethod(wx_RichTextImage, __GetNaturalSize);
 	Gura_AssignMethod(wx_RichTextImage, __IsEmpty);
 	Gura_AssignMethod(wx_RichTextImage, __CanEditProperties);

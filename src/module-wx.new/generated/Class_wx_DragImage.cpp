@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__DragImage_1, "DragImage_1")
 
 Gura_ImplementFunction(__DragImage_1)
 {
-	//int image = arg.GetNumber(0)
-	//int cursor = arg.GetNumber(1)
+	//const wxBitmap& image = arg.GetNumber(0)
+	//const wxCursor& cursor = arg.GetNumber(1)
 	//wxDragImage();
 	return Value::Nil;
 }
@@ -78,8 +78,8 @@ Gura_DeclareFunctionAlias(__DragImage_2, "DragImage_2")
 
 Gura_ImplementFunction(__DragImage_2)
 {
-	//int image = arg.GetNumber(0)
-	//int cursor = arg.GetNumber(1)
+	//const wxIcon& image = arg.GetNumber(0)
+	//const wxCursor& cursor = arg.GetNumber(1)
 	//wxDragImage();
 	return Value::Nil;
 }
@@ -95,8 +95,8 @@ Gura_DeclareFunctionAlias(__DragImage_3, "DragImage_3")
 
 Gura_ImplementFunction(__DragImage_3)
 {
-	//int text = arg.GetNumber(0)
-	//int cursor = arg.GetNumber(1)
+	//const wxString& text = arg.GetNumber(0)
+	//const wxCursor& cursor = arg.GetNumber(1)
 	//wxDragImage();
 	return Value::Nil;
 }
@@ -112,8 +112,8 @@ Gura_DeclareFunctionAlias(__DragImage_4, "DragImage_4")
 
 Gura_ImplementFunction(__DragImage_4)
 {
-	//int treeCtrl = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
+	//const wxTreeCtrl& treeCtrl = arg.GetNumber(0)
+	//wxTreeItemId& id = arg.GetNumber(1)
 	//wxDragImage();
 	return Value::Nil;
 }
@@ -129,8 +129,8 @@ Gura_DeclareFunctionAlias(__DragImage_5, "DragImage_5")
 
 Gura_ImplementFunction(__DragImage_5)
 {
-	//int listCtrl = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
+	//const wxListCtrl& listCtrl = arg.GetNumber(0)
+	//long id = arg.GetNumber(1)
 	//wxDragImage();
 	return Value::Nil;
 }
@@ -151,10 +151,10 @@ Gura_ImplementMethod(wx_DragImage, __BeginDrag)
 {
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int hotspot = arg.GetNumber(0)
-	//int window = arg.GetNumber(1)
-	//int fullScreen = arg.GetNumber(2)
-	//int rect = arg.GetNumber(3)
+	//const wxPoint& hotspot = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(1)
+	//bool fullScreen = arg.GetNumber(2)
+	//wxRect* rect = arg.GetNumber(3)
 	//pThis->GetEntity()->BeginDrag();
 	return Value::Nil;
 }
@@ -171,9 +171,9 @@ Gura_ImplementMethod(wx_DragImage, __BeginDrag_1)
 {
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int hotspot = arg.GetNumber(0)
-	//int window = arg.GetNumber(1)
-	//int boundingWindow = arg.GetNumber(2)
+	//const wxPoint& hotspot = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(1)
+	//wxWindow* boundingWindow = arg.GetNumber(2)
 	//pThis->GetEntity()->BeginDrag();
 	return Value::Nil;
 }
@@ -189,8 +189,8 @@ Gura_ImplementMethod(wx_DragImage, __DoDrawImage)
 {
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int pos = arg.GetNumber(1)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxPoint& pos = arg.GetNumber(1)
 	//pThis->GetEntity()->DoDrawImage();
 	return Value::Nil;
 }
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_DragImage, __GetImageRect)
 {
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//const wxPoint& pos = arg.GetNumber(0)
 	//pThis->GetEntity()->GetImageRect();
 	return Value::Nil;
 }
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_DragImage, __Move)
 {
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->Move();
 	return Value::Nil;
 }
@@ -277,10 +277,10 @@ Gura_ImplementMethod(wx_DragImage, __UpdateBackingFromWindow)
 {
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int windowDC = arg.GetNumber(0)
-	//int destDC = arg.GetNumber(1)
-	//int sourceRect = arg.GetNumber(2)
-	//int destRect = arg.GetNumber(3)
+	//wxDC& windowDC = arg.GetNumber(0)
+	//wxMemoryDC& destDC = arg.GetNumber(1)
+	//const wxRect& sourceRect = arg.GetNumber(2)
+	//const wxRect& destRect = arg.GetNumber(3)
 	//pThis->GetEntity()->UpdateBackingFromWindow();
 	return Value::Nil;
 }

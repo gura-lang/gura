@@ -52,12 +52,12 @@ Gura_DeclareFunctionAlias(__PasswordEntryDialog, "PasswordEntryDialog")
 
 Gura_ImplementFunction(__PasswordEntryDialog)
 {
-	//int parent = arg.GetNumber(0)
-	//int message = arg.GetNumber(1)
-	//int caption = arg.GetNumber(2)
-	//int defaultValue = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int pos = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//const wxString& message = arg.GetNumber(1)
+	//const wxString& caption = arg.GetNumber(2)
+	//const wxString& defaultValue = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxPoint& pos = arg.GetNumber(5)
 	//wxPasswordEntryDialog();
 	return Value::Nil;
 }

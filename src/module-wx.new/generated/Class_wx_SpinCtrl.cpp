@@ -69,16 +69,16 @@ Gura_DeclareFunctionAlias(__SpinCtrl_1, "SpinCtrl_1")
 
 Gura_ImplementFunction(__SpinCtrl_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
 	//int min = arg.GetNumber(6)
 	//int max = arg.GetNumber(7)
 	//int initial = arg.GetNumber(8)
-	//int name = arg.GetNumber(9)
+	//const wxString& name = arg.GetNumber(9)
 	//wxSpinCtrl();
 	return Value::Nil;
 }
@@ -105,16 +105,16 @@ Gura_ImplementMethod(wx_SpinCtrl, __Create)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int value = arg.GetNumber(2)
-	//int pos = arg.GetNumber(3)
-	//int size = arg.GetNumber(4)
-	//int style = arg.GetNumber(5)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxString& value = arg.GetNumber(2)
+	//const wxPoint& pos = arg.GetNumber(3)
+	//const wxSize& size = arg.GetNumber(4)
+	//long style = arg.GetNumber(5)
 	//int min = arg.GetNumber(6)
 	//int max = arg.GetNumber(7)
 	//int initial = arg.GetNumber(8)
-	//int name = arg.GetNumber(9)
+	//const wxString& name = arg.GetNumber(9)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -214,8 +214,8 @@ Gura_ImplementMethod(wx_SpinCtrl, __SetSelection)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int from = arg.GetNumber(0)
-	//int to = arg.GetNumber(1)
+	//long from = arg.GetNumber(0)
+	//long to = arg.GetNumber(1)
 	//pThis->GetEntity()->SetSelection();
 	return Value::Nil;
 }
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_SpinCtrl, __SetValue)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int text = arg.GetNumber(0)
+	//const wxString& text = arg.GetNumber(0)
 	//pThis->GetEntity()->SetValue();
 	return Value::Nil;
 }

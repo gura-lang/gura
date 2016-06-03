@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__ClipboardTextEvent, "ClipboardTextEvent")
 
 Gura_ImplementFunction(__ClipboardTextEvent)
 {
-	//int commandType = arg.GetNumber(0)
+	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxClipboardTextEvent();
 	return Value::Nil;

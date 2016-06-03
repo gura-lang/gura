@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__MouseCaptureLostEvent, "MouseCaptureLostEvent")
 
 Gura_ImplementFunction(__MouseCaptureLostEvent)
 {
-	//int windowId = arg.GetNumber(0)
+	//wxWindowID windowId = arg.GetNumber(0)
 	//wxMouseCaptureLostEvent();
 	return Value::Nil;
 }

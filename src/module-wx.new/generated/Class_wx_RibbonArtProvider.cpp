@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __SetFlags)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int flags = arg.GetNumber(0)
+	//long flags = arg.GetNumber(0)
 	//pThis->GetEntity()->SetFlags();
 	return Value::Nil;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __SetFont)
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//int font = arg.GetNumber(1)
+	//const wxFont& font = arg.GetNumber(1)
 	//pThis->GetEntity()->SetFont();
 	return Value::Nil;
 }
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __SetColour)
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//int colour = arg.GetNumber(1)
+	//const wxColor& colour = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __SetColor)
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//int color = arg.GetNumber(1)
+	//const wxColour& color = arg.GetNumber(1)
 	//pThis->GetEntity()->SetColor();
 	return Value::Nil;
 }
@@ -234,9 +234,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetColourScheme)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int primary = arg.GetNumber(0)
-	//int secondary = arg.GetNumber(1)
-	//int tertiary = arg.GetNumber(2)
+	//wxColour* primary = arg.GetNumber(0)
+	//wxColour* secondary = arg.GetNumber(1)
+	//wxColour* tertiary = arg.GetNumber(2)
 	//pThis->GetEntity()->GetColourScheme();
 	return Value::Nil;
 }
@@ -253,9 +253,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __SetColourScheme)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int primary = arg.GetNumber(0)
-	//int secondary = arg.GetNumber(1)
-	//int tertiary = arg.GetNumber(2)
+	//const wxColour& primary = arg.GetNumber(0)
+	//const wxColour& secondary = arg.GetNumber(1)
+	//const wxColour& tertiary = arg.GetNumber(2)
 	//pThis->GetEntity()->SetColourScheme();
 	return Value::Nil;
 }
@@ -272,9 +272,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawTabCtrlBackground)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawTabCtrlBackground();
 	return Value::Nil;
 }
@@ -291,9 +291,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawTab)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int tab = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRibbonPageTabInfo& tab = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawTab();
 	return Value::Nil;
 }
@@ -311,10 +311,10 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawTabSeparator)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
-	//int visibility = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
+	//double visibility = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawTabSeparator();
 	return Value::Nil;
 }
@@ -331,9 +331,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawPageBackground)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawPageBackground();
 	return Value::Nil;
 }
@@ -351,10 +351,10 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawScrollButton)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
-	//int style = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
+	//long style = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawScrollButton();
 	return Value::Nil;
 }
@@ -371,9 +371,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawPanelBackground)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxRibbonPanel* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawPanelBackground();
 	return Value::Nil;
 }
@@ -390,9 +390,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawGalleryBackground)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxRibbonGallery* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawGalleryBackground();
 	return Value::Nil;
 }
@@ -410,10 +410,10 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawGalleryItemBackground)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
-	//int item = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxRibbonGallery* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
+	//wxRibbonGalleryItem* item = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawGalleryItemBackground();
 	return Value::Nil;
 }
@@ -431,10 +431,10 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawMinimisedPanel)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxRibbonPanel* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
+	//wxBitmap& bitmap = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawMinimisedPanel();
 	return Value::Nil;
 }
@@ -451,9 +451,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawButtonBarBackground)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawButtonBarBackground();
 	return Value::Nil;
 }
@@ -475,14 +475,14 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawButtonBarButton)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
-	//int kind = arg.GetNumber(3)
-	//int state = arg.GetNumber(4)
-	//int label = arg.GetNumber(5)
-	//int bitmap_large = arg.GetNumber(6)
-	//int bitmap_small = arg.GetNumber(7)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
+	//wxRibbonButtonBarButtonKind kind = arg.GetNumber(3)
+	//long state = arg.GetNumber(4)
+	//const wxString& label = arg.GetNumber(5)
+	//const wxBitmap& bitmap_large = arg.GetNumber(6)
+	//const wxBitmap& bitmap_small = arg.GetNumber(7)
 	//pThis->GetEntity()->DrawButtonBarButton();
 	return Value::Nil;
 }
@@ -499,9 +499,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawToolBarBackground)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawToolBarBackground();
 	return Value::Nil;
 }
@@ -518,9 +518,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawToolGroupBackground)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawToolGroupBackground();
 	return Value::Nil;
 }
@@ -540,12 +540,12 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawTool)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int kind = arg.GetNumber(4)
-	//int state = arg.GetNumber(5)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//wxRibbonButtonKind kind = arg.GetNumber(4)
+	//long state = arg.GetNumber(5)
 	//pThis->GetEntity()->DrawTool();
 	return Value::Nil;
 }
@@ -563,10 +563,10 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawToggleButton)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
-	//int mode = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxRibbonBar* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
+	//wxRibbonDisplayMode mode = arg.GetNumber(3)
 	//pThis->GetEntity()->DrawToggleButton();
 	return Value::Nil;
 }
@@ -583,9 +583,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __DrawHelpButton)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxRibbonBar* wnd = arg.GetNumber(1)
+	//const wxRect& rect = arg.GetNumber(2)
 	//pThis->GetEntity()->DrawHelpButton();
 	return Value::Nil;
 }
@@ -607,14 +607,14 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetBarTabWidth)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int label = arg.GetNumber(2)
-	//int bitmap = arg.GetNumber(3)
-	//int ideal = arg.GetNumber(4)
-	//int small_begin_need_separator = arg.GetNumber(5)
-	//int small_must_have_separator = arg.GetNumber(6)
-	//int minimum = arg.GetNumber(7)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxString& label = arg.GetNumber(2)
+	//const wxBitmap& bitmap = arg.GetNumber(3)
+	//int* ideal = arg.GetNumber(4)
+	//int* small_begin_need_separator = arg.GetNumber(5)
+	//int* small_must_have_separator = arg.GetNumber(6)
+	//int* minimum = arg.GetNumber(7)
 	//pThis->GetEntity()->GetBarTabWidth();
 	return Value::Nil;
 }
@@ -631,9 +631,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetTabCtrlHeight)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int pages = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//const wxRibbonPageTabInfoArray& pages = arg.GetNumber(2)
 	//pThis->GetEntity()->GetTabCtrlHeight();
 	return Value::Nil;
 }
@@ -650,9 +650,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetScrollButtonMinimumSize)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int style = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//long style = arg.GetNumber(2)
 	//pThis->GetEntity()->GetScrollButtonMinimumSize();
 	return Value::Nil;
 }
@@ -670,10 +670,10 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetPanelSize)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int client_size = arg.GetNumber(2)
-	//int client_offset = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRibbonPanel* wnd = arg.GetNumber(1)
+	//wxSize client_size = arg.GetNumber(2)
+	//wxPoint* client_offset = arg.GetNumber(3)
 	//pThis->GetEntity()->GetPanelSize();
 	return Value::Nil;
 }
@@ -691,10 +691,10 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetPanelClientSize)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
-	//int client_offset = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRibbonPanel* wnd = arg.GetNumber(1)
+	//wxSize size = arg.GetNumber(2)
+	//wxPoint* client_offset = arg.GetNumber(3)
 	//pThis->GetEntity()->GetPanelClientSize();
 	return Value::Nil;
 }
@@ -711,9 +711,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetPanelExtButtonArea)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int rect = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRibbonPanel* wnd = arg.GetNumber(1)
+	//wxRect rect = arg.GetNumber(2)
 	//pThis->GetEntity()->GetPanelExtButtonArea();
 	return Value::Nil;
 }
@@ -730,9 +730,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetGallerySize)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int client_size = arg.GetNumber(2)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRibbonGallery* wnd = arg.GetNumber(1)
+	//wxSize client_size = arg.GetNumber(2)
 	//pThis->GetEntity()->GetGallerySize();
 	return Value::Nil;
 }
@@ -753,13 +753,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetGalleryClientSize)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int size = arg.GetNumber(2)
-	//int client_offset = arg.GetNumber(3)
-	//int scroll_up_button = arg.GetNumber(4)
-	//int scroll_down_button = arg.GetNumber(5)
-	//int extension_button = arg.GetNumber(6)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRibbonGallery* wnd = arg.GetNumber(1)
+	//wxSize size = arg.GetNumber(2)
+	//wxPoint* client_offset = arg.GetNumber(3)
+	//wxRect* scroll_up_button = arg.GetNumber(4)
+	//wxRect* scroll_down_button = arg.GetNumber(5)
+	//wxRect* extension_button = arg.GetNumber(6)
 	//pThis->GetEntity()->GetGalleryClientSize();
 	return Value::Nil;
 }
@@ -777,10 +777,10 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetPageBackgroundRedrawArea)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int page_old_size = arg.GetNumber(2)
-	//int page_new_size = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRibbonPage* wnd = arg.GetNumber(1)
+	//wxSize page_old_size = arg.GetNumber(2)
+	//wxSize page_new_size = arg.GetNumber(3)
 	//pThis->GetEntity()->GetPageBackgroundRedrawArea();
 	return Value::Nil;
 }
@@ -804,16 +804,16 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetButtonBarButtonSize)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int kind = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int label = arg.GetNumber(4)
-	//int bitmap_size_large = arg.GetNumber(5)
-	//int bitmap_size_small = arg.GetNumber(6)
-	//int button_size = arg.GetNumber(7)
-	//int normal_region = arg.GetNumber(8)
-	//int dropdown_region = arg.GetNumber(9)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//wxRibbonButtonBarButtonKind kind = arg.GetNumber(2)
+	//wxRibbonButtonBarButtonState size = arg.GetNumber(3)
+	//const wxString& label = arg.GetNumber(4)
+	//wxSize bitmap_size_large = arg.GetNumber(5)
+	//wxSize bitmap_size_small = arg.GetNumber(6)
+	//wxSize* button_size = arg.GetNumber(7)
+	//wxRect* normal_region = arg.GetNumber(8)
+	//wxRect* dropdown_region = arg.GetNumber(9)
 	//pThis->GetEntity()->GetButtonBarButtonSize();
 	return Value::Nil;
 }
@@ -831,10 +831,10 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetMinimisedPanelMinimumSize)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int desired_bitmap_size = arg.GetNumber(2)
-	//int expanded_panel_direction = arg.GetNumber(3)
+	//wxDC& dc = arg.GetNumber(0)
+	//const wxRibbonPanel* wnd = arg.GetNumber(1)
+	//wxSize* desired_bitmap_size = arg.GetNumber(2)
+	//wxDirection* expanded_panel_direction = arg.GetNumber(3)
 	//pThis->GetEntity()->GetMinimisedPanelMinimumSize();
 	return Value::Nil;
 }
@@ -855,13 +855,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetToolSize)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dc = arg.GetNumber(0)
-	//int wnd = arg.GetNumber(1)
-	//int bitmap_size = arg.GetNumber(2)
-	//int kind = arg.GetNumber(3)
-	//int is_first = arg.GetNumber(4)
-	//int is_last = arg.GetNumber(5)
-	//int dropdown_region = arg.GetNumber(6)
+	//wxDC& dc = arg.GetNumber(0)
+	//wxWindow* wnd = arg.GetNumber(1)
+	//wxSize bitmap_size = arg.GetNumber(2)
+	//wxRibbonButtonKind kind = arg.GetNumber(3)
+	//bool is_first = arg.GetNumber(4)
+	//bool is_last = arg.GetNumber(5)
+	//wxRect* dropdown_region = arg.GetNumber(6)
 	//pThis->GetEntity()->GetToolSize();
 	return Value::Nil;
 }
@@ -876,7 +876,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetBarToggleButtonArea)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->GetBarToggleButtonArea();
 	return Value::Nil;
 }
@@ -891,7 +891,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetRibbonHelpButtonArea)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int rect = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(0)
 	//pThis->GetEntity()->GetRibbonHelpButtonArea();
 	return Value::Nil;
 }

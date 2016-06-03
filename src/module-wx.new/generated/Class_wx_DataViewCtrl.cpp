@@ -66,13 +66,13 @@ Gura_DeclareFunctionAlias(__DataViewCtrl_1, "DataViewCtrl_1")
 
 Gura_ImplementFunction(__DataViewCtrl_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int validator = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxValidator& validator = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//wxDataViewCtrl();
 	return Value::Nil;
 }
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AllowMultiColumnSort)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int allow = arg.GetNumber(0)
+	//bool allow = arg.GetNumber(0)
 	//pThis->GetEntity()->AllowMultiColumnSort();
 	return Value::Nil;
 }
@@ -111,13 +111,13 @@ Gura_ImplementMethod(wx_DataViewCtrl, __Create)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int parent = arg.GetNumber(0)
-	//int id = arg.GetNumber(1)
-	//int pos = arg.GetNumber(2)
-	//int size = arg.GetNumber(3)
-	//int style = arg.GetNumber(4)
-	//int validator = arg.GetNumber(5)
-	//int name = arg.GetNumber(6)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxWindowID id = arg.GetNumber(1)
+	//const wxPoint& pos = arg.GetNumber(2)
+	//const wxSize& size = arg.GetNumber(3)
+	//long style = arg.GetNumber(4)
+	//const wxValidator& validator = arg.GetNumber(5)
+	//const wxString& name = arg.GetNumber(6)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//wxDataViewColumn* col = arg.GetNumber(0)
 	//pThis->GetEntity()->AppendColumn();
 	return Value::Nil;
 }
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//wxDataViewColumn* col = arg.GetNumber(0)
 	//pThis->GetEntity()->PrependColumn();
 	return Value::Nil;
 }
@@ -163,8 +163,8 @@ Gura_ImplementMethod(wx_DataViewCtrl, __InsertColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
+	//unsigned int pos = arg.GetNumber(0)
+	//wxDataViewColumn* col = arg.GetNumber(1)
 	//pThis->GetEntity()->InsertColumn();
 	return Value::Nil;
 }
@@ -184,11 +184,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendBitmapColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendBitmapColumn();
 	return Value::Nil;
@@ -209,11 +209,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendBitmapColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendBitmapColumn();
 	return Value::Nil;
@@ -234,11 +234,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependBitmapColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependBitmapColumn();
 	return Value::Nil;
@@ -259,11 +259,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependBitmapColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependBitmapColumn();
 	return Value::Nil;
@@ -284,11 +284,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendDateColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendDateColumn();
 	return Value::Nil;
@@ -309,11 +309,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendDateColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendDateColumn();
 	return Value::Nil;
@@ -334,11 +334,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependDateColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependDateColumn();
 	return Value::Nil;
@@ -359,11 +359,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependDateColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependDateColumn();
 	return Value::Nil;
@@ -384,11 +384,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendIconTextColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendIconTextColumn();
 	return Value::Nil;
@@ -409,11 +409,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendIconTextColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendIconTextColumn();
 	return Value::Nil;
@@ -434,11 +434,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependIconTextColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependIconTextColumn();
 	return Value::Nil;
@@ -459,11 +459,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependIconTextColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependIconTextColumn();
 	return Value::Nil;
@@ -484,11 +484,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendProgressColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendProgressColumn();
 	return Value::Nil;
@@ -509,11 +509,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendProgressColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendProgressColumn();
 	return Value::Nil;
@@ -534,11 +534,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependProgressColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependProgressColumn();
 	return Value::Nil;
@@ -559,11 +559,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependProgressColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependProgressColumn();
 	return Value::Nil;
@@ -584,11 +584,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendTextColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendTextColumn();
 	return Value::Nil;
@@ -609,11 +609,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendTextColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendTextColumn();
 	return Value::Nil;
@@ -634,11 +634,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependTextColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependTextColumn();
 	return Value::Nil;
@@ -659,11 +659,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependTextColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependTextColumn();
 	return Value::Nil;
@@ -684,11 +684,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendToggleColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendToggleColumn();
 	return Value::Nil;
@@ -709,11 +709,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AppendToggleColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->AppendToggleColumn();
 	return Value::Nil;
@@ -734,11 +734,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependToggleColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependToggleColumn();
 	return Value::Nil;
@@ -759,11 +759,11 @@ Gura_ImplementMethod(wx_DataViewCtrl, __PrependToggleColumn_1)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int label = arg.GetNumber(0)
-	//int model_column = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxBitmap& label = arg.GetNumber(0)
+	//unsigned int model_column = arg.GetNumber(1)
+	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//int align = arg.GetNumber(4)
+	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//pThis->GetEntity()->PrependToggleColumn();
 	return Value::Nil;
@@ -779,7 +779,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __AssociateModel)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int model = arg.GetNumber(0)
+	//wxDataViewModel* model = arg.GetNumber(0)
 	//pThis->GetEntity()->AssociateModel();
 	return Value::Nil;
 }
@@ -807,7 +807,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __Collapse)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->Collapse();
 	return Value::Nil;
 }
@@ -822,7 +822,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __DeleteColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int column = arg.GetNumber(0)
+	//wxDataViewColumn* column = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteColumn();
 	return Value::Nil;
 }
@@ -838,8 +838,8 @@ Gura_ImplementMethod(wx_DataViewCtrl, __EditItem)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int column = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//const wxDataViewColumn* column = arg.GetNumber(1)
 	//pThis->GetEntity()->EditItem();
 	return Value::Nil;
 }
@@ -854,7 +854,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __EnableDragSource)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
+	//const wxDataFormat& format = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableDragSource();
 	return Value::Nil;
 }
@@ -869,7 +869,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __EnableDropTarget)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
+	//const wxDataFormat& format = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableDropTarget();
 	return Value::Nil;
 }
@@ -885,8 +885,8 @@ Gura_ImplementMethod(wx_DataViewCtrl, __EnsureVisible)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int column = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//const wxDataViewColumn* column = arg.GetNumber(1)
 	//pThis->GetEntity()->EnsureVisible();
 	return Value::Nil;
 }
@@ -901,7 +901,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __Expand)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->Expand();
 	return Value::Nil;
 }
@@ -916,7 +916,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __ExpandAncestors)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->ExpandAncestors();
 	return Value::Nil;
 }
@@ -931,7 +931,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __GetColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//unsigned int pos = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColumn();
 	return Value::Nil;
 }
@@ -959,7 +959,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __GetColumnPosition)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int column = arg.GetNumber(0)
+	//const wxDataViewColumn* column = arg.GetNumber(0)
 	//pThis->GetEntity()->GetColumnPosition();
 	return Value::Nil;
 }
@@ -1027,8 +1027,8 @@ Gura_ImplementMethod(wx_DataViewCtrl, __GetItemRect)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
-	//int col = arg.GetNumber(1)
+	//const wxDataViewItem& item = arg.GetNumber(0)
+	//const wxDataViewColumn* col = arg.GetNumber(1)
 	//pThis->GetEntity()->GetItemRect();
 	return Value::Nil;
 }
@@ -1082,7 +1082,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __GetSelections)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sel = arg.GetNumber(0)
+	//wxDataViewItemArray& sel = arg.GetNumber(0)
 	//pThis->GetEntity()->GetSelections();
 	return Value::Nil;
 }
@@ -1138,9 +1138,9 @@ Gura_ImplementMethod(wx_DataViewCtrl, __HitTest)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int point = arg.GetNumber(0)
-	//int item = arg.GetNumber(1)
-	//int col = arg.GetNumber(2)
+	//const wxPoint& point = arg.GetNumber(0)
+	//wxDataViewItem& item = arg.GetNumber(1)
+	//wxDataViewColumn*& col = arg.GetNumber(2)
 	//pThis->GetEntity()->HitTest();
 	return Value::Nil;
 }
@@ -1155,7 +1155,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __IsExpanded)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->IsExpanded();
 	return Value::Nil;
 }
@@ -1183,7 +1183,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __IsSelected)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->IsSelected();
 	return Value::Nil;
 }
@@ -1198,7 +1198,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __Select)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->Select();
 	return Value::Nil;
 }
@@ -1226,7 +1226,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __SetExpanderColumn)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int col = arg.GetNumber(0)
+	//wxDataViewColumn* col = arg.GetNumber(0)
 	//pThis->GetEntity()->SetExpanderColumn();
 	return Value::Nil;
 }
@@ -1241,7 +1241,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __SetCurrentItem)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->SetCurrentItem();
 	return Value::Nil;
 }
@@ -1271,7 +1271,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __SetSelections)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int sel = arg.GetNumber(0)
+	//const wxDataViewItemArray& sel = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSelections();
 	return Value::Nil;
 }
@@ -1286,7 +1286,7 @@ Gura_ImplementMethod(wx_DataViewCtrl, __Unselect)
 {
 	Object_wx_DataViewCtrl *pThis = Object_wx_DataViewCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int item = arg.GetNumber(0)
+	//const wxDataViewItem& item = arg.GetNumber(0)
 	//pThis->GetEntity()->Unselect();
 	return Value::Nil;
 }

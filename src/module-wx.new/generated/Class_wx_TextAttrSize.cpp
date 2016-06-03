@@ -77,8 +77,8 @@ Gura_ImplementMethod(wx_TextAttrSize, __EqPartial)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
-	//int weakTest = arg.GetNumber(1)
+	//const wxTextAttrSize& size = arg.GetNumber(0)
+	//bool weakTest = arg.GetNumber(1)
 	//pThis->GetEntity()->EqPartial();
 	return Value::Nil;
 }
@@ -94,8 +94,8 @@ Gura_ImplementMethod(wx_TextAttrSize, __Apply)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dims = arg.GetNumber(0)
-	//int compareWith = arg.GetNumber(1)
+	//const wxTextAttrSize& dims = arg.GetNumber(0)
+	//const wxTextAttrSize* compareWith = arg.GetNumber(1)
 	//pThis->GetEntity()->Apply();
 	return Value::Nil;
 }
@@ -112,9 +112,9 @@ Gura_ImplementMethod(wx_TextAttrSize, __CollectCommonAttributes)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
-	//int clashingAttr = arg.GetNumber(1)
-	//int absentAttr = arg.GetNumber(2)
+	//const wxTextAttrSize& attr = arg.GetNumber(0)
+	//wxTextAttrSize& clashingAttr = arg.GetNumber(1)
+	//wxTextAttrSize& absentAttr = arg.GetNumber(2)
 	//pThis->GetEntity()->CollectCommonAttributes();
 	return Value::Nil;
 }
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_TextAttrSize, __RemoveStyle)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
+	//const wxTextAttrSize& attr = arg.GetNumber(0)
 	//pThis->GetEntity()->RemoveStyle();
 	return Value::Nil;
 }
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_TextAttrSize, __SetWidth)
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
+	//wxTextAttrDimensionFlags flags = arg.GetNumber(1)
 	//pThis->GetEntity()->SetWidth();
 	return Value::Nil;
 }
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_TextAttrSize, __SetWidth_1)
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//int units = arg.GetNumber(1)
+	//wxTextAttrUnits units = arg.GetNumber(1)
 	//pThis->GetEntity()->SetWidth();
 	return Value::Nil;
 }
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_TextAttrSize, __SetWidth_2)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dim = arg.GetNumber(0)
+	//const wxTextAttrDimension& dim = arg.GetNumber(0)
 	//pThis->GetEntity()->SetWidth();
 	return Value::Nil;
 }
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_TextAttrSize, __SetHeight)
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//int flags = arg.GetNumber(1)
+	//wxTextAttrDimensionFlags flags = arg.GetNumber(1)
 	//pThis->GetEntity()->SetHeight();
 	return Value::Nil;
 }
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_TextAttrSize, __SetHeight_1)
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//int units = arg.GetNumber(1)
+	//wxTextAttrUnits units = arg.GetNumber(1)
 	//pThis->GetEntity()->SetHeight();
 	return Value::Nil;
 }
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_TextAttrSize, __SetHeight_2)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int dim = arg.GetNumber(0)
+	//const wxTextAttrDimension& dim = arg.GetNumber(0)
 	//pThis->GetEntity()->SetHeight();
 	return Value::Nil;
 }

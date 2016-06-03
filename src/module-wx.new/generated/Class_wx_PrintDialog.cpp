@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__PrintDialog, "PrintDialog")
 
 Gura_ImplementFunction(__PrintDialog)
 {
-	//int parent = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxPrintDialogData* data = arg.GetNumber(1)
 	//wxPrintDialog();
 	return Value::Nil;
 }
@@ -65,8 +65,8 @@ Gura_DeclareFunctionAlias(__PrintDialog_1, "PrintDialog_1")
 
 Gura_ImplementFunction(__PrintDialog_1)
 {
-	//int parent = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxWindow* parent = arg.GetNumber(0)
+	//wxPrintData* data = arg.GetNumber(1)
 	//wxPrintDialog();
 	return Value::Nil;
 }

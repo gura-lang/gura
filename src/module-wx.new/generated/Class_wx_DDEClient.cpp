@@ -65,9 +65,9 @@ Gura_ImplementMethod(wx_DDEClient, __MakeConnection)
 {
 	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int host = arg.GetNumber(0)
-	//int service = arg.GetNumber(1)
-	//int topic = arg.GetNumber(2)
+	//const wxString& host = arg.GetNumber(0)
+	//const wxString& service = arg.GetNumber(1)
+	//const wxString& topic = arg.GetNumber(2)
 	//pThis->GetEntity()->MakeConnection();
 	return Value::Nil;
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_DDEClient, __ValidHost)
 {
 	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int host = arg.GetNumber(0)
+	//const wxString& host = arg.GetNumber(0)
 	//pThis->GetEntity()->ValidHost();
 	return Value::Nil;
 }

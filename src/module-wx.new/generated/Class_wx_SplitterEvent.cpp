@@ -48,8 +48,8 @@ Gura_DeclareFunctionAlias(__SplitterEvent, "SplitterEvent")
 
 Gura_ImplementFunction(__SplitterEvent)
 {
-	//int eventType = arg.GetNumber(0)
-	//int splitter = arg.GetNumber(1)
+	//wxEventType eventType = arg.GetNumber(0)
+	//wxSplitterWindow* splitter = arg.GetNumber(1)
 	//wxSplitterEvent();
 	return Value::Nil;
 }

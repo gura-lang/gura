@@ -62,7 +62,7 @@ Gura_DeclareFunctionAlias(__Caret_1, "Caret_1")
 
 Gura_ImplementFunction(__Caret_1)
 {
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
 	//wxCaret();
@@ -80,8 +80,8 @@ Gura_DeclareFunctionAlias(__Caret_2, "Caret_2")
 
 Gura_ImplementFunction(__Caret_2)
 {
-	//int window = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//wxWindow* window = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(1)
 	//wxCaret();
 	return Value::Nil;
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_Caret, __Create)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
+	//wxWindow* window = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
 	//pThis->GetEntity()->Create();
@@ -119,8 +119,8 @@ Gura_ImplementMethod(wx_Caret, __Create_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int window = arg.GetNumber(0)
-	//int size = arg.GetNumber(1)
+	//wxWindow* window = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(1)
 	//pThis->GetEntity()->Create();
 	return Value::Nil;
 }
@@ -149,8 +149,8 @@ Gura_ImplementMethod(wx_Caret, __GetPosition)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int x = arg.GetNumber(0)
-	//int y = arg.GetNumber(1)
+	//int* x = arg.GetNumber(0)
+	//int* y = arg.GetNumber(1)
 	//pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
@@ -179,8 +179,8 @@ Gura_ImplementMethod(wx_Caret, __GetSize)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int width = arg.GetNumber(0)
-	//int height = arg.GetNumber(1)
+	//int* width = arg.GetNumber(0)
+	//int* height = arg.GetNumber(1)
 	//pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_Caret, __Move_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pt = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(0)
 	//pThis->GetEntity()->Move();
 	return Value::Nil;
 }
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_Caret, __SetSize_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int size = arg.GetNumber(0)
+	//const wxSize& size = arg.GetNumber(0)
 	//pThis->GetEntity()->SetSize();
 	return Value::Nil;
 }
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_Caret, __Show)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int show = arg.GetNumber(0)
+	//bool show = arg.GetNumber(0)
 	//pThis->GetEntity()->Show();
 	return Value::Nil;
 }

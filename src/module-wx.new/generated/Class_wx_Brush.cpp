@@ -61,8 +61,8 @@ Gura_DeclareFunctionAlias(__Brush_1, "Brush_1")
 
 Gura_ImplementFunction(__Brush_1)
 {
-	//int colour = arg.GetNumber(0)
-	//int style = arg.GetNumber(1)
+	//const wxColour& colour = arg.GetNumber(0)
+	//wxBrushStyle style = arg.GetNumber(1)
 	//wxBrush();
 	return Value::Nil;
 }
@@ -77,7 +77,7 @@ Gura_DeclareFunctionAlias(__Brush_2, "Brush_2")
 
 Gura_ImplementFunction(__Brush_2)
 {
-	//int stippleBitmap = arg.GetNumber(0)
+	//const wxBitmap& stippleBitmap = arg.GetNumber(0)
 	//wxBrush();
 	return Value::Nil;
 }
@@ -92,7 +92,7 @@ Gura_DeclareFunctionAlias(__Brush_3, "Brush_3")
 
 Gura_ImplementFunction(__Brush_3)
 {
-	//int brush = arg.GetNumber(0)
+	//const wxBrush& brush = arg.GetNumber(0)
 	//wxBrush();
 	return Value::Nil;
 }
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_Brush, __SetColour)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int colour = arg.GetNumber(0)
+	//const wxColour& colour = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }
@@ -218,9 +218,9 @@ Gura_ImplementMethod(wx_Brush, __SetColour_1)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int red = arg.GetNumber(0)
-	//int green = arg.GetNumber(1)
-	//int blue = arg.GetNumber(2)
+	//unsigned char red = arg.GetNumber(0)
+	//unsigned char green = arg.GetNumber(1)
+	//unsigned char blue = arg.GetNumber(2)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_Brush, __SetStipple)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bitmap = arg.GetNumber(0)
+	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStipple();
 	return Value::Nil;
 }
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_Brush, __SetStyle)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int style = arg.GetNumber(0)
+	//wxBrushStyle style = arg.GetNumber(0)
 	//pThis->GetEntity()->SetStyle();
 	return Value::Nil;
 }

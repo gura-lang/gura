@@ -62,9 +62,9 @@ Gura_DeclareFunctionAlias(__StringTokenizer_1, "StringTokenizer_1")
 
 Gura_ImplementFunction(__StringTokenizer_1)
 {
-	//int str = arg.GetNumber(0)
-	//int delims = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& str = arg.GetNumber(0)
+	//const wxString& delims = arg.GetNumber(1)
+	//wxStringTokenizerMode mode = arg.GetNumber(2)
 	//wxStringTokenizer();
 	return Value::Nil;
 }
@@ -162,9 +162,9 @@ Gura_ImplementMethod(wx_StringTokenizer, __SetString)
 {
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int str = arg.GetNumber(0)
-	//int delims = arg.GetNumber(1)
-	//int mode = arg.GetNumber(2)
+	//const wxString& str = arg.GetNumber(0)
+	//const wxString& delims = arg.GetNumber(1)
+	//wxStringTokenizerMode mode = arg.GetNumber(2)
 	//pThis->GetEntity()->SetString();
 	return Value::Nil;
 }

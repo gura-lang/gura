@@ -62,9 +62,9 @@ Gura_DeclareFunctionAlias(__ColourPickerEvent_1, "ColourPickerEvent_1")
 
 Gura_ImplementFunction(__ColourPickerEvent_1)
 {
-	//int generator = arg.GetNumber(0)
+	//wxObject* generator = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//int colour = arg.GetNumber(2)
+	//const wxColour& colour = arg.GetNumber(2)
 	//wxColourPickerEvent();
 	return Value::Nil;
 }
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_ColourPickerEvent, __SetColour)
 {
 	Object_wx_ColourPickerEvent *pThis = Object_wx_ColourPickerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int pos = arg.GetNumber(0)
+	//const wxColour& pos = arg.GetNumber(0)
 	//pThis->GetEntity()->SetColour();
 	return Value::Nil;
 }

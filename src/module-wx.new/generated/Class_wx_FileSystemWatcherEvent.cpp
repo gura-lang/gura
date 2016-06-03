@@ -68,8 +68,8 @@ Gura_DeclareFunctionAlias(__FileSystemWatcherEvent_1, "FileSystemWatcherEvent_1"
 Gura_ImplementFunction(__FileSystemWatcherEvent_1)
 {
 	//int changeType = arg.GetNumber(0)
-	//int warningType = arg.GetNumber(1)
-	//int errorMsg = arg.GetNumber(2)
+	//wxFSWWarningType warningType = arg.GetNumber(1)
+	//const wxString& errorMsg = arg.GetNumber(2)
 	//int watchid = arg.GetNumber(3)
 	//wxFileSystemWatcherEvent();
 	return Value::Nil;
@@ -89,8 +89,8 @@ Gura_DeclareFunctionAlias(__FileSystemWatcherEvent_2, "FileSystemWatcherEvent_2"
 Gura_ImplementFunction(__FileSystemWatcherEvent_2)
 {
 	//int changeType = arg.GetNumber(0)
-	//int path = arg.GetNumber(1)
-	//int newPath = arg.GetNumber(2)
+	//const wxFileName& path = arg.GetNumber(1)
+	//const wxFileName& newPath = arg.GetNumber(2)
 	//int watchid = arg.GetNumber(3)
 	//wxFileSystemWatcherEvent();
 	return Value::Nil;

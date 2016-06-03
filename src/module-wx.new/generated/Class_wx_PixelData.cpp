@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__PixelData, "PixelData")
 
 Gura_ImplementFunction(__PixelData)
 {
-	//int image = arg.GetNumber(0)
+	//Image& image = arg.GetNumber(0)
 	//wxPixelData();
 	return Value::Nil;
 }
@@ -63,8 +63,8 @@ Gura_DeclareFunctionAlias(__PixelData_1, "PixelData_1")
 
 Gura_ImplementFunction(__PixelData_1)
 {
-	//int i = arg.GetNumber(0)
-	//int rect = arg.GetNumber(1)
+	//Image& i = arg.GetNumber(0)
+	//const wxRect& rect = arg.GetNumber(1)
 	//wxPixelData();
 	return Value::Nil;
 }
@@ -81,9 +81,9 @@ Gura_DeclareFunctionAlias(__PixelData_2, "PixelData_2")
 
 Gura_ImplementFunction(__PixelData_2)
 {
-	//int i = arg.GetNumber(0)
-	//int pt = arg.GetNumber(1)
-	//int sz = arg.GetNumber(2)
+	//Image& i = arg.GetNumber(0)
+	//const wxPoint& pt = arg.GetNumber(1)
+	//const wxSize& sz = arg.GetNumber(2)
 	//wxPixelData();
 	return Value::Nil;
 }
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_PixelData, __Reset)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const PixelData& data = arg.GetNumber(0)
 	//pThis->GetEntity()->Reset();
 	return Value::Nil;
 }
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_PixelData, __Iterator)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//PixelData& data = arg.GetNumber(0)
 	//pThis->GetEntity()->Iterator();
 	return Value::Nil;
 }
@@ -223,8 +223,8 @@ Gura_ImplementMethod(wx_PixelData, __Iterator_1)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int bmp = arg.GetNumber(0)
-	//int data = arg.GetNumber(1)
+	//wxBitmap& bmp = arg.GetNumber(0)
+	//PixelData& data = arg.GetNumber(1)
 	//pThis->GetEntity()->Iterator();
 	return Value::Nil;
 }
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_PixelData, __Offset)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const PixelData& data = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
 	//pThis->GetEntity()->Offset();
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_PixelData, __OffsetX)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const PixelData& data = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//pThis->GetEntity()->OffsetX();
 	return Value::Nil;
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_PixelData, __OffsetY)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const PixelData& data = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//pThis->GetEntity()->OffsetY();
 	return Value::Nil;
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_PixelData, __MoveTo)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
+	//const PixelData& data = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
 	//pThis->GetEntity()->MoveTo();

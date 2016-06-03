@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__RichTextDrawingContext, "RichTextDrawingContext")
 
 Gura_ImplementFunction(__RichTextDrawingContext)
 {
-	//int buffer = arg.GetNumber(0)
+	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxRichTextDrawingContext();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __HasVirtualAttributes)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int obj = arg.GetNumber(0)
+	//wxRichTextObject* obj = arg.GetNumber(0)
 	//pThis->GetEntity()->HasVirtualAttributes();
 	return Value::Nil;
 }
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __GetVirtualAttributes)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int obj = arg.GetNumber(0)
+	//wxRichTextObject* obj = arg.GetNumber(0)
 	//pThis->GetEntity()->GetVirtualAttributes();
 	return Value::Nil;
 }
@@ -109,8 +109,8 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __ApplyVirtualAttributes)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int attr = arg.GetNumber(0)
-	//int obj = arg.GetNumber(1)
+	//wxRichTextAttr& attr = arg.GetNumber(0)
+	//wxRichTextObject* obj = arg.GetNumber(1)
 	//pThis->GetEntity()->ApplyVirtualAttributes();
 	return Value::Nil;
 }
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __GetVirtualSubobjectAttributesC
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int obj = arg.GetNumber(0)
+	//wxRichTextObject* obj = arg.GetNumber(0)
 	//pThis->GetEntity()->GetVirtualSubobjectAttributesCount();
 	return Value::Nil;
 }
@@ -142,9 +142,9 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __GetVirtualSubobjectAttributes)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int obj = arg.GetNumber(0)
-	//int positions = arg.GetNumber(1)
-	//int attributes = arg.GetNumber(2)
+	//wxRichTextObject* obj = arg.GetNumber(0)
+	//wxArrayInt& positions = arg.GetNumber(1)
+	//wxRichTextAttrArray& attributes = arg.GetNumber(2)
 	//pThis->GetEntity()->GetVirtualSubobjectAttributes();
 	return Value::Nil;
 }
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __HasVirtualText)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int obj = arg.GetNumber(0)
+	//const wxRichTextPlainText* obj = arg.GetNumber(0)
 	//pThis->GetEntity()->HasVirtualText();
 	return Value::Nil;
 }
@@ -175,8 +175,8 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __GetVirtualText)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int obj = arg.GetNumber(0)
-	//int text = arg.GetNumber(1)
+	//const wxRichTextPlainText* obj = arg.GetNumber(0)
+	//wxString& text = arg.GetNumber(1)
 	//pThis->GetEntity()->GetVirtualText();
 	return Value::Nil;
 }
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __EnableVirtualAttributes)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int b = arg.GetNumber(0)
+	//bool b = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableVirtualAttributes();
 	return Value::Nil;
 }
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __EnableImages)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int b = arg.GetNumber(0)
+	//bool b = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableImages();
 	return Value::Nil;
 }
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __SetLayingOut)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int b = arg.GetNumber(0)
+	//bool b = arg.GetNumber(0)
 	//pThis->GetEntity()->SetLayingOut();
 	return Value::Nil;
 }
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __EnableDelayedImageLoading)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int b = arg.GetNumber(0)
+	//bool b = arg.GetNumber(0)
 	//pThis->GetEntity()->EnableDelayedImageLoading();
 	return Value::Nil;
 }

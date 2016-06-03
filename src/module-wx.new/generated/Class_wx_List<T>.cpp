@@ -47,7 +47,7 @@ Gura_ImplementMethod(wx_List<T>, __Append)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int object = arg.GetNumber(0)
+	//T* object = arg.GetNumber(0)
 	//pThis->GetEntity()->Append();
 	return Value::Nil;
 }
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_List<T>, __DeleteContents)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int destroy = arg.GetNumber(0)
+	//bool destroy = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteContents();
 	return Value::Nil;
 }
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_List<T>, __DeleteNode)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int iter = arg.GetNumber(0)
+	//const compatibility_iterator& iter = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteNode();
 	return Value::Nil;
 }
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_List<T>, __DeleteObject)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int object = arg.GetNumber(0)
+	//T* object = arg.GetNumber(0)
 	//pThis->GetEntity()->DeleteObject();
 	return Value::Nil;
 }
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_List<T>, __Erase)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int iter = arg.GetNumber(0)
+	//const compatibility_iterator& iter = arg.GetNumber(0)
 	//pThis->GetEntity()->Erase();
 	return Value::Nil;
 }
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_List<T>, __Find)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int object = arg.GetNumber(0)
+	//T* object = arg.GetNumber(0)
 	//pThis->GetEntity()->Find();
 	return Value::Nil;
 }
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_List<T>, __IndexOf)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int obj = arg.GetNumber(0)
+	//T* obj = arg.GetNumber(0)
 	//pThis->GetEntity()->IndexOf();
 	return Value::Nil;
 }
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_List<T>, __Insert)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int object = arg.GetNumber(0)
+	//T* object = arg.GetNumber(0)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -220,8 +220,8 @@ Gura_ImplementMethod(wx_List<T>, __Insert_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int position = arg.GetNumber(0)
-	//int object = arg.GetNumber(1)
+	//size_t position = arg.GetNumber(0)
+	//T* object = arg.GetNumber(1)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -237,8 +237,8 @@ Gura_ImplementMethod(wx_List<T>, __Insert_2)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int iter = arg.GetNumber(0)
-	//int object = arg.GetNumber(1)
+	//compatibility_iterator iter = arg.GetNumber(0)
+	//T* object = arg.GetNumber(1)
 	//pThis->GetEntity()->Insert();
 	return Value::Nil;
 }
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_List<T>, __Item)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int index = arg.GetNumber(0)
+	//size_t index = arg.GetNumber(0)
 	//pThis->GetEntity()->Item();
 	return Value::Nil;
 }
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_List<T>, __Member)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int object = arg.GetNumber(0)
+	//T* object = arg.GetNumber(0)
 	//pThis->GetEntity()->Member();
 	return Value::Nil;
 }
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_List<T>, __Sort)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int compfunc = arg.GetNumber(0)
+	//wxSortCompareFunction compfunc = arg.GetNumber(0)
 	//pThis->GetEntity()->Sort();
 	return Value::Nil;
 }
@@ -340,8 +340,8 @@ Gura_ImplementMethod(wx_List<T>, __assign)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
+	//const_iterator first = arg.GetNumber(0)
+	//const const_iterator& last = arg.GetNumber(1)
 	//pThis->GetEntity()->assign();
 	return Value::Nil;
 }
@@ -357,8 +357,8 @@ Gura_ImplementMethod(wx_List<T>, __assign_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int v = arg.GetNumber(1)
+	//size_type n = arg.GetNumber(0)
+	//const_reference v = arg.GetNumber(1)
 	//pThis->GetEntity()->assign();
 	return Value::Nil;
 }
@@ -477,7 +477,7 @@ Gura_ImplementMethod(wx_List<T>, __erase)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int it = arg.GetNumber(0)
+	//const iterator& it = arg.GetNumber(0)
 	//pThis->GetEntity()->erase();
 	return Value::Nil;
 }
@@ -493,8 +493,8 @@ Gura_ImplementMethod(wx_List<T>, __erase_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int first = arg.GetNumber(0)
-	//int last = arg.GetNumber(1)
+	//const iterator& first = arg.GetNumber(0)
+	//const iterator& last = arg.GetNumber(1)
 	//pThis->GetEntity()->erase();
 	return Value::Nil;
 }
@@ -535,7 +535,7 @@ Gura_ImplementMethod(wx_List<T>, __insert)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int it = arg.GetNumber(0)
+	//const iterator& it = arg.GetNumber(0)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -551,8 +551,8 @@ Gura_ImplementMethod(wx_List<T>, __insert_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int it = arg.GetNumber(0)
-	//int n = arg.GetNumber(1)
+	//const iterator& it = arg.GetNumber(0)
+	//size_type n = arg.GetNumber(1)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -569,9 +569,9 @@ Gura_ImplementMethod(wx_List<T>, __insert_2)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int it = arg.GetNumber(0)
-	//int first = arg.GetNumber(1)
-	//int last = arg.GetNumber(2)
+	//const iterator& it = arg.GetNumber(0)
+	//const_iterator first = arg.GetNumber(1)
+	//const const_iterator& last = arg.GetNumber(2)
 	//pThis->GetEntity()->insert();
 	return Value::Nil;
 }
@@ -625,7 +625,7 @@ Gura_ImplementMethod(wx_List<T>, __push_back)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int v = arg.GetNumber(0)
+	//const_reference v = arg.GetNumber(0)
 	//pThis->GetEntity()->push_back();
 	return Value::Nil;
 }
@@ -640,7 +640,7 @@ Gura_ImplementMethod(wx_List<T>, __push_front)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int v = arg.GetNumber(0)
+	//const_reference v = arg.GetNumber(0)
 	//pThis->GetEntity()->push_front();
 	return Value::Nil;
 }
@@ -681,7 +681,7 @@ Gura_ImplementMethod(wx_List<T>, __remove)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int v = arg.GetNumber(0)
+	//const_reference v = arg.GetNumber(0)
 	//pThis->GetEntity()->remove();
 	return Value::Nil;
 }
@@ -723,8 +723,8 @@ Gura_ImplementMethod(wx_List<T>, __resize)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int n = arg.GetNumber(0)
-	//int v = arg.GetNumber(1)
+	//size_type n = arg.GetNumber(0)
+	//value_type v = arg.GetNumber(1)
 	//pThis->GetEntity()->resize();
 	return Value::Nil;
 }

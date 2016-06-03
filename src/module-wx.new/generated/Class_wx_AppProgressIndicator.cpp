@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__AppProgressIndicator, "AppProgressIndicator")
 
 Gura_ImplementFunction(__AppProgressIndicator)
 {
-	//int parent = arg.GetNumber(0)
+	//wxWindow* parent = arg.GetNumber(0)
 	//int maxValue = arg.GetNumber(1)
 	//wxAppProgressIndicator();
 	return Value::Nil;

@@ -47,7 +47,7 @@ Gura_DeclareFunctionAlias(__StackWalker, "StackWalker")
 
 Gura_ImplementFunction(__StackWalker)
 {
-	//int argv0 = arg.GetNumber(0)
+	//const char* argv0 = arg.GetNumber(0)
 	//wxStackWalker();
 	return Value::Nil;
 }
@@ -66,8 +66,8 @@ Gura_ImplementMethod(wx_StackWalker, __Walk)
 {
 	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int skip = arg.GetNumber(0)
-	//int maxDepth = arg.GetNumber(1)
+	//size_t skip = arg.GetNumber(0)
+	//size_t maxDepth = arg.GetNumber(1)
 	//pThis->GetEntity()->Walk();
 	return Value::Nil;
 }
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_StackWalker, __WalkFromException)
 {
 	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int maxDepth = arg.GetNumber(0)
+	//size_t maxDepth = arg.GetNumber(0)
 	//pThis->GetEntity()->WalkFromException();
 	return Value::Nil;
 }
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_StackWalker, __OnStackFrame)
 {
 	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int frame = arg.GetNumber(0)
+	//const wxStackFrame& frame = arg.GetNumber(0)
 	//pThis->GetEntity()->OnStackFrame();
 	return Value::Nil;
 }

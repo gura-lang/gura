@@ -52,12 +52,12 @@ Gura_DeclareFunctionAlias(__VersionInfo, "VersionInfo")
 
 Gura_ImplementFunction(__VersionInfo)
 {
-	//int name = arg.GetNumber(0)
+	//const wxString& name = arg.GetNumber(0)
 	//int major = arg.GetNumber(1)
 	//int minor = arg.GetNumber(2)
 	//int micro = arg.GetNumber(3)
-	//int description = arg.GetNumber(4)
-	//int copyright = arg.GetNumber(5)
+	//const wxString& description = arg.GetNumber(4)
+	//const wxString& copyright = arg.GetNumber(5)
 	//wxVersionInfo();
 	return Value::Nil;
 }

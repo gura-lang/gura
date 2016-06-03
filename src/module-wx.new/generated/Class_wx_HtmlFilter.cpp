@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_HtmlFilter, __CanRead)
 {
 	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int file = arg.GetNumber(0)
+	//const wxFSFile& file = arg.GetNumber(0)
 	//pThis->GetEntity()->CanRead();
 	return Value::Nil;
 }
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_HtmlFilter, __ReadFile)
 {
 	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int file = arg.GetNumber(0)
+	//const wxFSFile& file = arg.GetNumber(0)
 	//pThis->GetEntity()->ReadFile();
 	return Value::Nil;
 }
