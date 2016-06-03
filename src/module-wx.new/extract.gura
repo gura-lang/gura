@@ -421,7 +421,12 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		this.classInfosOfChild:*UpdateSupportedStat(supportedStat)
 	}
 	AddMethod(pathName:string, lineNo:number, strSrc:string):void = {
-		funcInfo = CreateFuncInfo(this, this.funcInfosOfMethod, pathName, lineNo, strSrc)
+		if (funcInfo = CreateFuncInfo(pathName, lineNo, strSrc)) {
+			funcInfo.classInfo = this
+			funcInfo.AvertFuncNameConflict(this.funcInfosOfMethod)
+			this.funcInfosOfMethod.add(funcInfo)
+			cntMethods += 1
+		}
 	}
 }
 
@@ -435,8 +440,8 @@ ArgInfo = struct(argName:string) {
 	}
 }
 
-FuncInfo = struct(classInfo:ClassInfo, funcNameCPP:string, funcNameGura:string,
-					  argInfos[]:ArgInfo => []) {
+FuncInfo = struct(funcNameCPP:string, funcNameGura:string, classInfo?:ClassInfo,
+				  argInfos[]:ArgInfo => []) {
 	MakeFuncNameInternal() = '__' + this.funcNameGura
 	RenderImplementation(lineSkipFlag:boolean):map = {
 		classNameShort = this.classInfo.MakeClassNameShort()
@@ -449,6 +454,15 @@ FuncInfo = struct(classInfo:ClassInfo, funcNameCPP:string, funcNameGura:string,
 	RenderAssignment() = {
 		classNameShort = this.classInfo.MakeClassNameShort()
 		format('Gura_AssignMethod(wx_%s, %s);\n', classNameShort, this.MakeFuncNameInternal())
+	}
+	AvertFuncNameConflict(funcInfos[]:FuncInfo) = {
+		if ((funcInfos:*funcNameGura == this.funcNameGura).or()) {
+			repeat {|i|
+				funcNameGura = format('%s_%d', this.funcNameCPP, i + 1)
+				!(funcInfos:*funcNameGura == funcNameGura).or() && break
+			}
+			this.funcNameGura = funcNameGura
+		}
 	}
 }
 
@@ -513,8 +527,7 @@ CreateClassInfo(pathName:string, lineNo:string, strSrc:string) = {
 
 cntMethods = 0
 
-CreateFuncInfo(classInfo:ClassInfo, funcInfos[],
-				   pathName:string, lineNo:string, strSrc:string) = {
+CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
 	if (m = strSrc.match(r'^(.*?)\((.*)\)\s*(const)?\s*(=\s*0)?\s*;?$')) {
 		funcHead = m[1].strip()
 		argList = m[2].strip()
@@ -543,13 +556,7 @@ CreateFuncInfo(classInfo:ClassInfo, funcInfos[],
 	identifier.startswith('~') && return	// ignore destructor
 	funcNameCPP = identifier
 	funcNameGura = identifier
-	if ((funcInfos:*funcNameGura == funcNameGura).or()) {
-		repeat {|i|
-			funcNameGura = format('%s_%d', identifier, i + 1)
-			!(funcInfos:*funcNameGura == funcNameGura).or() && break
-		}
-	}
-	funcInfo = FuncInfo(classInfo, funcNameCPP, funcNameGura)
+	funcInfo = FuncInfo(funcNameCPP, funcNameGura)
 	//printf('%s:%s:%s\n', identifier, typeList, refOperator)
 	if (!argList.isempty()) {
 		argList.split(',') {|arg|
@@ -575,8 +582,6 @@ CreateFuncInfo(classInfo:ClassInfo, funcInfos[],
 			//printf('  %s:%s:%s:%s\n', identifier, typeList, refOperator, brackets)
 		}
 	}
-	funcInfos.add(funcInfo)
-	cntMethods += 1
 	funcInfo
 }
 
