@@ -296,13 +296,13 @@ Gura_EndModuleScope(wx)
 
 tmpl@Method = R'''
 ${if (lineSkipFlag) { '' }}
-Gura_DeclareMethod(wx_${classNameShort}, ${funcNameGura})
+Gura_DeclareMethodAlias(wx_${classNameShort}, ${funcNameInternal}, "${funcNameGura}")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	${if (!argInfos.isempty()) { argInfos:*RenderDeclaration() }}
 }
 
-Gura_ImplementMethod(wx_${classNameShort}, ${funcNameGura})
+Gura_ImplementMethod(wx_${classNameShort}, ${funcNameInternal})
 {
 	Object_wx_${classNameShort} *pThis = Object_wx_${classNameShort}::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -437,16 +437,18 @@ ArgInfo = struct(argName:string) {
 
 FunctionInfo = struct(classInfo:ClassInfo, funcNameCPP:string, funcNameGura:string,
 					  argInfos[]:ArgInfo => []) {
+	MakeFuncNameInternal() = '__' + this.funcNameGura
 	RenderImplementation(lineSkipFlag:boolean):map = {
 		classNameShort = this.classInfo.MakeClassNameShort()
 		funcNameCPP = this.funcNameCPP
 		funcNameGura = this.funcNameGura
+		funcNameInternal = this.MakeFuncNameInternal()
 		argInfos = this.argInfos
 		tmpl@Method.render()
 	}
 	RenderAssignment() = {
 		classNameShort = this.classInfo.MakeClassNameShort()
-		format('Gura_AssignMethod(wx_%s, %s);\n', classNameShort, this.funcNameGura)
+		format('Gura_AssignMethod(wx_%s, %s);\n', classNameShort, this.MakeFuncNameInternal())
 	}
 }
 
