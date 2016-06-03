@@ -35,22 +35,20 @@ String Object_wx_ActivityIndicator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ActivityIndicator, __wxActivityIndicator, "wxActivityIndicator")
+Gura_DeclareFunctionAlias(__wxActivityIndicator, "wxActivityIndicator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ActivityIndicator, __wxActivityIndicator)
+Gura_ImplementFunction(__wxActivityIndicator)
 {
-	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxActivityIndicator();
+	//wxActivityIndicator();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ActivityIndicator, __wxActivityIndicator_1, "wxActivityIndicator_1")
+Gura_DeclareFunctionAlias(__wxActivityIndicator_1, "wxActivityIndicator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_ActivityIndicator, __wxActivityIndicator_1, "wxActivi
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ActivityIndicator, __wxActivityIndicator_1)
+Gura_ImplementFunction(__wxActivityIndicator_1)
 {
-	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxActivityIndicator();
+	//wxActivityIndicator();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ActivityIndicator, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -144,8 +143,10 @@ Gura_ImplementMethod(wx_ActivityIndicator, __IsRunning)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ActivityIndicator)
 {
-	Gura_AssignMethod(wx_ActivityIndicator, __wxActivityIndicator);
-	Gura_AssignMethod(wx_ActivityIndicator, __wxActivityIndicator_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxActivityIndicator);
+	Gura_AssignFunction(__wxActivityIndicator_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ActivityIndicator, __Create);
 	Gura_AssignMethod(wx_ActivityIndicator, __Start);
 	Gura_AssignMethod(wx_ActivityIndicator, __Stop);

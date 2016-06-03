@@ -63,6 +63,7 @@ Gura_ImplementMethod(wx_SVGBitmapHandler, __ProcessBitmap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SVGBitmapHandler)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_SVGBitmapHandler, __ProcessBitmap);
 }
 

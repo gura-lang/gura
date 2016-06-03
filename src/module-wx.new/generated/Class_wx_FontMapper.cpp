@@ -35,21 +35,22 @@ String Object_wx_FontMapper::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FontMapper, __wxFontMapper, "wxFontMapper")
+Gura_DeclareFunctionAlias(__wxFontMapper, "wxFontMapper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontMapper, __wxFontMapper)
+Gura_ImplementFunction(__wxFontMapper)
 {
-	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFontMapper();
+	//wxFontMapper();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FontMapper, __CharsetToEncoding, "CharsetToEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -292,7 +293,9 @@ Gura_ImplementMethod(wx_FontMapper, __SetDialogTitle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontMapper)
 {
-	Gura_AssignMethod(wx_FontMapper, __wxFontMapper);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFontMapper);
+	// Method assignment
 	Gura_AssignMethod(wx_FontMapper, __CharsetToEncoding);
 	Gura_AssignMethod(wx_FontMapper, __Get);
 	Gura_AssignMethod(wx_FontMapper, __GetAllEncodingNames);

@@ -35,21 +35,22 @@ String Object_wx_LayoutConstraints::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LayoutConstraints, __wxLayoutConstraints, "wxLayoutConstraints")
+Gura_DeclareFunctionAlias(__wxLayoutConstraints, "wxLayoutConstraints")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LayoutConstraints, __wxLayoutConstraints)
+Gura_ImplementFunction(__wxLayoutConstraints)
 {
-	Object_wx_LayoutConstraints *pThis = Object_wx_LayoutConstraints::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxLayoutConstraints();
+	//wxLayoutConstraints();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LayoutConstraints, __SatisfyConstraints, "SatisfyConstraints")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -85,7 +86,9 @@ Gura_ImplementMethod(wx_LayoutConstraints, __AreSatisfied)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LayoutConstraints)
 {
-	Gura_AssignMethod(wx_LayoutConstraints, __wxLayoutConstraints);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLayoutConstraints);
+	// Method assignment
 	Gura_AssignMethod(wx_LayoutConstraints, __SatisfyConstraints);
 	Gura_AssignMethod(wx_LayoutConstraints, __AreSatisfied);
 }

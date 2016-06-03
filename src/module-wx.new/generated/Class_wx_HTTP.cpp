@@ -35,21 +35,22 @@ String Object_wx_HTTP::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HTTP, __wxHTTP, "wxHTTP")
+Gura_DeclareFunctionAlias(__wxHTTP, "wxHTTP")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HTTP, __wxHTTP)
+Gura_ImplementFunction(__wxHTTP)
 {
-	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHTTP();
+	//wxHTTP();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HTTP, __Connect, "Connect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -243,7 +244,9 @@ Gura_ImplementMethod(wx_HTTP, __SetPostText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HTTP)
 {
-	Gura_AssignMethod(wx_HTTP, __wxHTTP);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHTTP);
+	// Method assignment
 	Gura_AssignMethod(wx_HTTP, __Connect);
 	Gura_AssignMethod(wx_HTTP, __Connect_1);
 	Gura_AssignMethod(wx_HTTP, __Connect_2);

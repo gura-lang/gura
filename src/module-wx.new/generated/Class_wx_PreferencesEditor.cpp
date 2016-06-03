@@ -35,23 +35,24 @@ String Object_wx_PreferencesEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PreferencesEditor, __wxPreferencesEditor, "wxPreferencesEditor")
+Gura_DeclareFunctionAlias(__wxPreferencesEditor, "wxPreferencesEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreferencesEditor, __wxPreferencesEditor)
+Gura_ImplementFunction(__wxPreferencesEditor)
 {
-	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPreferencesEditor();
+	//wxPreferencesEditor();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PreferencesEditor, __AddPage, "AddPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -113,7 +114,9 @@ Gura_ImplementMethod(wx_PreferencesEditor, __ShouldApplyChangesImmediately)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreferencesEditor)
 {
-	Gura_AssignMethod(wx_PreferencesEditor, __wxPreferencesEditor);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPreferencesEditor);
+	// Method assignment
 	Gura_AssignMethod(wx_PreferencesEditor, __AddPage);
 	Gura_AssignMethod(wx_PreferencesEditor, __Show);
 	Gura_AssignMethod(wx_PreferencesEditor, __Dismiss);

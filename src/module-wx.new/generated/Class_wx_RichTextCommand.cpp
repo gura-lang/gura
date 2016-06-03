@@ -35,9 +35,9 @@ String Object_wx_RichTextCommand::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextCommand, __wxRichTextCommand, "wxRichTextCommand")
+Gura_DeclareFunctionAlias(__wxRichTextCommand, "wxRichTextCommand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -48,35 +48,34 @@ Gura_DeclareMethodAlias(wx_RichTextCommand, __wxRichTextCommand, "wxRichTextComm
 	//DeclareArg(env, "ignoreFirstTime", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCommand, __wxRichTextCommand)
+Gura_ImplementFunction(__wxRichTextCommand)
 {
-	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int buffer = arg.GetNumber(2)
 	//int container = arg.GetNumber(3)
 	//int ctrl = arg.GetNumber(4)
 	//int ignoreFirstTime = arg.GetNumber(5)
-	//pThis->GetEntity()->wxRichTextCommand();
+	//wxRichTextCommand();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextCommand, __wxRichTextCommand_1, "wxRichTextCommand_1")
+Gura_DeclareFunctionAlias(__wxRichTextCommand_1, "wxRichTextCommand_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCommand, __wxRichTextCommand_1)
+Gura_ImplementFunction(__wxRichTextCommand_1)
 {
-	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextCommand();
+	//wxRichTextCommand();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextCommand, __Do, "Do")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -149,8 +148,10 @@ Gura_ImplementMethod(wx_RichTextCommand, __GetActions)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCommand)
 {
-	Gura_AssignMethod(wx_RichTextCommand, __wxRichTextCommand);
-	Gura_AssignMethod(wx_RichTextCommand, __wxRichTextCommand_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextCommand);
+	Gura_AssignFunction(__wxRichTextCommand_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextCommand, __Do);
 	Gura_AssignMethod(wx_RichTextCommand, __Undo);
 	Gura_AssignMethod(wx_RichTextCommand, __AddAction);

@@ -35,22 +35,20 @@ String Object_wx_Pen::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Pen, __wxPen, "wxPen")
+Gura_DeclareFunctionAlias(__wxPen, "wxPen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, __wxPen)
+Gura_ImplementFunction(__wxPen)
 {
-	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPen();
+	//wxPen();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Pen, __wxPen_1, "wxPen_1")
+Gura_DeclareFunctionAlias(__wxPen_1, "wxPen_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
@@ -58,49 +56,46 @@ Gura_DeclareMethodAlias(wx_Pen, __wxPen_1, "wxPen_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, __wxPen_1)
+Gura_ImplementFunction(__wxPen_1)
 {
-	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
-	//pThis->GetEntity()->wxPen();
+	//wxPen();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Pen, __wxPen_2, "wxPen_2")
+Gura_DeclareFunctionAlias(__wxPen_2, "wxPen_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stipple", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, __wxPen_2)
+Gura_ImplementFunction(__wxPen_2)
 {
-	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stipple = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
-	//pThis->GetEntity()->wxPen();
+	//wxPen();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Pen, __wxPen_3, "wxPen_3")
+Gura_DeclareFunctionAlias(__wxPen_3, "wxPen_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, __wxPen_3)
+Gura_ImplementFunction(__wxPen_3)
 {
-	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pen = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPen();
+	//wxPen();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Pen, __GetCap, "GetCap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -364,10 +359,12 @@ Gura_ImplementMethod(wx_Pen, __SetWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Pen)
 {
-	Gura_AssignMethod(wx_Pen, __wxPen);
-	Gura_AssignMethod(wx_Pen, __wxPen_1);
-	Gura_AssignMethod(wx_Pen, __wxPen_2);
-	Gura_AssignMethod(wx_Pen, __wxPen_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPen);
+	Gura_AssignFunction(__wxPen_1);
+	Gura_AssignFunction(__wxPen_2);
+	Gura_AssignFunction(__wxPen_3);
+	// Method assignment
 	Gura_AssignMethod(wx_Pen, __GetCap);
 	Gura_AssignMethod(wx_Pen, __GetColour);
 	Gura_AssignMethod(wx_Pen, __GetDashes);

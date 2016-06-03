@@ -35,23 +35,24 @@ String Object_wx_WebViewArchiveHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_WebViewArchiveHandler, __wxWebViewArchiveHandler, "wxWebViewArchiveHandler")
+Gura_DeclareFunctionAlias(__wxWebViewArchiveHandler, "wxWebViewArchiveHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "scheme", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewArchiveHandler, __wxWebViewArchiveHandler)
+Gura_ImplementFunction(__wxWebViewArchiveHandler)
 {
-	Object_wx_WebViewArchiveHandler *pThis = Object_wx_WebViewArchiveHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int scheme = arg.GetNumber(0)
-	//pThis->GetEntity()->wxWebViewArchiveHandler();
+	//wxWebViewArchiveHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebViewArchiveHandler, __GetFile, "GetFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -72,7 +73,9 @@ Gura_ImplementMethod(wx_WebViewArchiveHandler, __GetFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewArchiveHandler)
 {
-	Gura_AssignMethod(wx_WebViewArchiveHandler, __wxWebViewArchiveHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxWebViewArchiveHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_WebViewArchiveHandler, __GetFile);
 }
 

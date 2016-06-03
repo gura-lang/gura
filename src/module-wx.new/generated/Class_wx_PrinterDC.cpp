@@ -35,23 +35,24 @@ String Object_wx_PrinterDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PrinterDC, __wxPrinterDC, "wxPrinterDC")
+Gura_DeclareFunctionAlias(__wxPrinterDC, "wxPrinterDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrinterDC, __wxPrinterDC)
+Gura_ImplementFunction(__wxPrinterDC)
 {
-	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int printData = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPrinterDC();
+	//wxPrinterDC();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PrinterDC, __GetPaperRect, "GetPaperRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -70,7 +71,9 @@ Gura_ImplementMethod(wx_PrinterDC, __GetPaperRect)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrinterDC)
 {
-	Gura_AssignMethod(wx_PrinterDC, __wxPrinterDC);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPrinterDC);
+	// Method assignment
 	Gura_AssignMethod(wx_PrinterDC, __GetPaperRect);
 }
 

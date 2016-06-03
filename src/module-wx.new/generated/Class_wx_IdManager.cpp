@@ -74,6 +74,7 @@ Gura_ImplementMethod(wx_IdManager, __UnreserveId)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IdManager)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_IdManager, __ReserveId);
 	Gura_AssignMethod(wx_IdManager, __UnreserveId);
 }

@@ -35,21 +35,22 @@ String Object_wx_XmlResourceHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_XmlResourceHandler, __wxXmlResourceHandler, "wxXmlResourceHandler")
+Gura_DeclareFunctionAlias(__wxXmlResourceHandler, "wxXmlResourceHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlResourceHandler, __wxXmlResourceHandler)
+Gura_ImplementFunction(__wxXmlResourceHandler)
 {
-	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxXmlResourceHandler();
+	//wxXmlResourceHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __CreateResource, "CreateResource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -841,7 +842,9 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetParentAsWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlResourceHandler)
 {
-	Gura_AssignMethod(wx_XmlResourceHandler, __wxXmlResourceHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxXmlResourceHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_XmlResourceHandler, __CreateResource);
 	Gura_AssignMethod(wx_XmlResourceHandler, __DoCreateResource);
 	Gura_AssignMethod(wx_XmlResourceHandler, __CanHandle);

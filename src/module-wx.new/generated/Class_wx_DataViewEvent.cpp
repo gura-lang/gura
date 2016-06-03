@@ -35,25 +35,26 @@ String Object_wx_DataViewEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewEvent, __wxDataViewEvent, "wxDataViewEvent")
+Gura_DeclareFunctionAlias(__wxDataViewEvent, "wxDataViewEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, __wxDataViewEvent)
+Gura_ImplementFunction(__wxDataViewEvent)
 {
-	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDataViewEvent();
+	//wxDataViewEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetColumn, "GetColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -468,7 +469,9 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDropEffect)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewEvent)
 {
-	Gura_AssignMethod(wx_DataViewEvent, __wxDataViewEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewEvent, __GetColumn);
 	Gura_AssignMethod(wx_DataViewEvent, __GetDataViewColumn);
 	Gura_AssignMethod(wx_DataViewEvent, __GetModel);

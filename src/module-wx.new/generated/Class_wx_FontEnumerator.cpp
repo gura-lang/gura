@@ -35,21 +35,22 @@ String Object_wx_FontEnumerator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FontEnumerator, __wxFontEnumerator, "wxFontEnumerator")
+Gura_DeclareFunctionAlias(__wxFontEnumerator, "wxFontEnumerator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontEnumerator, __wxFontEnumerator)
+Gura_ImplementFunction(__wxFontEnumerator)
 {
-	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFontEnumerator();
+	//wxFontEnumerator();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FontEnumerator, __EnumerateEncodings, "EnumerateEncodings")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -166,7 +167,9 @@ Gura_ImplementMethod(wx_FontEnumerator, __OnFontEncoding)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontEnumerator)
 {
-	Gura_AssignMethod(wx_FontEnumerator, __wxFontEnumerator);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFontEnumerator);
+	// Method assignment
 	Gura_AssignMethod(wx_FontEnumerator, __EnumerateEncodings);
 	Gura_AssignMethod(wx_FontEnumerator, __EnumerateFacenames);
 	Gura_AssignMethod(wx_FontEnumerator, __GetEncodings);

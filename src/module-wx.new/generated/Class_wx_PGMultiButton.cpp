@@ -35,25 +35,26 @@ String Object_wx_PGMultiButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PGMultiButton, __wxPGMultiButton, "wxPGMultiButton")
+Gura_DeclareFunctionAlias(__wxPGMultiButton, "wxPGMultiButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGMultiButton, __wxPGMultiButton)
+Gura_ImplementFunction(__wxPGMultiButton)
 {
-	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pg = arg.GetNumber(0)
 	//int sz = arg.GetNumber(1)
-	//pThis->GetEntity()->wxPGMultiButton();
+	//wxPGMultiButton();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PGMultiButton, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -166,7 +167,9 @@ Gura_ImplementMethod(wx_PGMultiButton, __GetPrimarySize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGMultiButton)
 {
-	Gura_AssignMethod(wx_PGMultiButton, __wxPGMultiButton);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPGMultiButton);
+	// Method assignment
 	Gura_AssignMethod(wx_PGMultiButton, __Add);
 	Gura_AssignMethod(wx_PGMultiButton, __Add_1);
 	Gura_AssignMethod(wx_PGMultiButton, __Finalize);

@@ -35,23 +35,24 @@ String Object_wx_RichTextBufferDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextBufferDataObject, __wxRichTextBufferDataObject, "wxRichTextBufferDataObject")
+Gura_DeclareFunctionAlias(__wxRichTextBufferDataObject, "wxRichTextBufferDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "richTextBuffer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextBufferDataObject, __wxRichTextBufferDataObject)
+Gura_ImplementFunction(__wxRichTextBufferDataObject)
 {
-	Object_wx_RichTextBufferDataObject *pThis = Object_wx_RichTextBufferDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int richTextBuffer = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextBufferDataObject();
+	//wxRichTextBufferDataObject();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextBufferDataObject, __GetRichTextBuffer, "GetRichTextBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -188,7 +189,9 @@ Gura_ImplementMethod(wx_RichTextBufferDataObject, __SetData_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextBufferDataObject)
 {
-	Gura_AssignMethod(wx_RichTextBufferDataObject, __wxRichTextBufferDataObject);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextBufferDataObject);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextBufferDataObject, __GetRichTextBuffer);
 	Gura_AssignMethod(wx_RichTextBufferDataObject, __GetRichTextBufferFormatId);
 	Gura_AssignMethod(wx_RichTextBufferDataObject, __GetPreferredFormat);

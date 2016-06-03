@@ -35,9 +35,9 @@ String Object_wx_DebugReportUpload::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DebugReportUpload, __wxDebugReportUpload, "wxDebugReportUpload")
+Gura_DeclareFunctionAlias(__wxDebugReportUpload, "wxDebugReportUpload")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_DebugReportUpload, __wxDebugReportUpload, "wxDebugRep
 	//DeclareArg(env, "curl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugReportUpload, __wxDebugReportUpload)
+Gura_ImplementFunction(__wxDebugReportUpload)
 {
-	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//int input = arg.GetNumber(1)
 	//int action = arg.GetNumber(2)
 	//int curl = arg.GetNumber(3)
-	//pThis->GetEntity()->wxDebugReportUpload();
+	//wxDebugReportUpload();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DebugReportUpload, __OnServerReply, "OnServerReply")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -78,7 +79,9 @@ Gura_ImplementMethod(wx_DebugReportUpload, __OnServerReply)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReportUpload)
 {
-	Gura_AssignMethod(wx_DebugReportUpload, __wxDebugReportUpload);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDebugReportUpload);
+	// Method assignment
 	Gura_AssignMethod(wx_DebugReportUpload, __OnServerReply);
 }
 

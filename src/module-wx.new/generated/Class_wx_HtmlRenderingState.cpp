@@ -35,21 +35,22 @@ String Object_wx_HtmlRenderingState::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlRenderingState, __wxHtmlRenderingState, "wxHtmlRenderingState")
+Gura_DeclareFunctionAlias(__wxHtmlRenderingState, "wxHtmlRenderingState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingState, __wxHtmlRenderingState)
+Gura_ImplementFunction(__wxHtmlRenderingState)
 {
-	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlRenderingState();
+	//wxHtmlRenderingState();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlRenderingState, __SetSelectionState, "SetSelectionState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -167,7 +168,9 @@ Gura_ImplementMethod(wx_HtmlRenderingState, __GetBgMode)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlRenderingState)
 {
-	Gura_AssignMethod(wx_HtmlRenderingState, __wxHtmlRenderingState);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlRenderingState);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlRenderingState, __SetSelectionState);
 	Gura_AssignMethod(wx_HtmlRenderingState, __GetSelectionState);
 	Gura_AssignMethod(wx_HtmlRenderingState, __SetFgColour);

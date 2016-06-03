@@ -35,21 +35,22 @@ String Object_wx_ModalDialogHook::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ModalDialogHook, __wxModalDialogHook, "wxModalDialogHook")
+Gura_DeclareFunctionAlias(__wxModalDialogHook, "wxModalDialogHook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ModalDialogHook, __wxModalDialogHook)
+Gura_ImplementFunction(__wxModalDialogHook)
 {
-	Object_wx_ModalDialogHook *pThis = Object_wx_ModalDialogHook::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxModalDialogHook();
+	//wxModalDialogHook();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ModalDialogHook, __Register, "Register")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -111,7 +112,9 @@ Gura_ImplementMethod(wx_ModalDialogHook, __Exit)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ModalDialogHook)
 {
-	Gura_AssignMethod(wx_ModalDialogHook, __wxModalDialogHook);
+	// Constructor assignment
+	Gura_AssignFunction(__wxModalDialogHook);
+	// Method assignment
 	Gura_AssignMethod(wx_ModalDialogHook, __Register);
 	Gura_AssignMethod(wx_ModalDialogHook, __Unregister);
 	Gura_AssignMethod(wx_ModalDialogHook, __Enter);

@@ -35,23 +35,24 @@ String Object_wx_TempFileOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TempFileOutputStream, __wxTempFileOutputStream, "wxTempFileOutputStream")
+Gura_DeclareFunctionAlias(__wxTempFileOutputStream, "wxTempFileOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TempFileOutputStream, __wxTempFileOutputStream)
+Gura_ImplementFunction(__wxTempFileOutputStream)
 {
-	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fileName = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTempFileOutputStream();
+	//wxTempFileOutputStream();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TempFileOutputStream, __Commit, "Commit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -83,7 +84,9 @@ Gura_ImplementMethod(wx_TempFileOutputStream, __Discard)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TempFileOutputStream)
 {
-	Gura_AssignMethod(wx_TempFileOutputStream, __wxTempFileOutputStream);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTempFileOutputStream);
+	// Method assignment
 	Gura_AssignMethod(wx_TempFileOutputStream, __Commit);
 	Gura_AssignMethod(wx_TempFileOutputStream, __Discard);
 }

@@ -35,25 +35,26 @@ String Object_wx_FindDialogEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FindDialogEvent, __wxFindDialogEvent, "wxFindDialogEvent")
+Gura_DeclareFunctionAlias(__wxFindDialogEvent, "wxFindDialogEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FindDialogEvent, __wxFindDialogEvent)
+Gura_ImplementFunction(__wxFindDialogEvent)
 {
-	Object_wx_FindDialogEvent *pThis = Object_wx_FindDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxFindDialogEvent();
+	//wxFindDialogEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FindDialogEvent, __GetDialog, "GetDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -111,7 +112,9 @@ Gura_ImplementMethod(wx_FindDialogEvent, __GetReplaceString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FindDialogEvent)
 {
-	Gura_AssignMethod(wx_FindDialogEvent, __wxFindDialogEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFindDialogEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_FindDialogEvent, __GetDialog);
 	Gura_AssignMethod(wx_FindDialogEvent, __GetFindString);
 	Gura_AssignMethod(wx_FindDialogEvent, __GetFlags);

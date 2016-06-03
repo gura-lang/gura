@@ -35,23 +35,24 @@ String Object_wx_HTMLDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HTMLDataObject, __wxHTMLDataObject, "wxHTMLDataObject")
+Gura_DeclareFunctionAlias(__wxHTMLDataObject, "wxHTMLDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "html", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HTMLDataObject, __wxHTMLDataObject)
+Gura_ImplementFunction(__wxHTMLDataObject)
 {
-	Object_wx_HTMLDataObject *pThis = Object_wx_HTMLDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int html = arg.GetNumber(0)
-	//pThis->GetEntity()->wxHTMLDataObject();
+	//wxHTMLDataObject();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HTMLDataObject, __GetHTML, "GetHTML")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -85,7 +86,9 @@ Gura_ImplementMethod(wx_HTMLDataObject, __SetHTML)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HTMLDataObject)
 {
-	Gura_AssignMethod(wx_HTMLDataObject, __wxHTMLDataObject);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHTMLDataObject);
+	// Method assignment
 	Gura_AssignMethod(wx_HTMLDataObject, __GetHTML);
 	Gura_AssignMethod(wx_HTMLDataObject, __SetHTML);
 }

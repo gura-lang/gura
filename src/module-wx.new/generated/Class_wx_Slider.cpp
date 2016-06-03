@@ -35,22 +35,20 @@ String Object_wx_Slider::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Slider, __wxSlider, "wxSlider")
+Gura_DeclareFunctionAlias(__wxSlider, "wxSlider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Slider, __wxSlider)
+Gura_ImplementFunction(__wxSlider)
 {
-	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSlider();
+	//wxSlider();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Slider, __wxSlider_1, "wxSlider_1")
+Gura_DeclareFunctionAlias(__wxSlider_1, "wxSlider_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,10 +63,8 @@ Gura_DeclareMethodAlias(wx_Slider, __wxSlider_1, "wxSlider_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Slider, __wxSlider_1)
+Gura_ImplementFunction(__wxSlider_1)
 {
-	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -79,10 +75,13 @@ Gura_ImplementMethod(wx_Slider, __wxSlider_1)
 	//int style = arg.GetNumber(7)
 	//int validator = arg.GetNumber(8)
 	//int name = arg.GetNumber(9)
-	//pThis->GetEntity()->wxSlider();
+	//wxSlider();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Slider, __ClearSel, "ClearSel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -418,8 +417,10 @@ Gura_ImplementMethod(wx_Slider, __SetValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Slider)
 {
-	Gura_AssignMethod(wx_Slider, __wxSlider);
-	Gura_AssignMethod(wx_Slider, __wxSlider_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSlider);
+	Gura_AssignFunction(__wxSlider_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Slider, __ClearSel);
 	Gura_AssignMethod(wx_Slider, __ClearTicks);
 	Gura_AssignMethod(wx_Slider, __Create);

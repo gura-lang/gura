@@ -35,21 +35,22 @@ String Object_wx_FileSystemHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileSystemHandler, __wxFileSystemHandler, "wxFileSystemHandler")
+Gura_DeclareFunctionAlias(__wxFileSystemHandler, "wxFileSystemHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, __wxFileSystemHandler)
+Gura_ImplementFunction(__wxFileSystemHandler)
 {
-	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFileSystemHandler();
+	//wxFileSystemHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileSystemHandler, __CanOpen, "CanOpen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -192,7 +193,9 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetRightLocation)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileSystemHandler)
 {
-	Gura_AssignMethod(wx_FileSystemHandler, __wxFileSystemHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileSystemHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_FileSystemHandler, __CanOpen);
 	Gura_AssignMethod(wx_FileSystemHandler, __FindFirst);
 	Gura_AssignMethod(wx_FileSystemHandler, __FindNext);

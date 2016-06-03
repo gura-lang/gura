@@ -35,23 +35,24 @@ String Object_wx_PaletteChangedEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PaletteChangedEvent, __wxPaletteChangedEvent, "wxPaletteChangedEvent")
+Gura_DeclareFunctionAlias(__wxPaletteChangedEvent, "wxPaletteChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PaletteChangedEvent, __wxPaletteChangedEvent)
+Gura_ImplementFunction(__wxPaletteChangedEvent)
 {
-	Object_wx_PaletteChangedEvent *pThis = Object_wx_PaletteChangedEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winid = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPaletteChangedEvent();
+	//wxPaletteChangedEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PaletteChangedEvent, __SetChangedWindow, "SetChangedWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -85,7 +86,9 @@ Gura_ImplementMethod(wx_PaletteChangedEvent, __GetChangedWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PaletteChangedEvent)
 {
-	Gura_AssignMethod(wx_PaletteChangedEvent, __wxPaletteChangedEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPaletteChangedEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_PaletteChangedEvent, __SetChangedWindow);
 	Gura_AssignMethod(wx_PaletteChangedEvent, __GetChangedWindow);
 }

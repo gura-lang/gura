@@ -35,21 +35,22 @@ String Object_wx_RichTextStyleSheet::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextStyleSheet, __wxRichTextStyleSheet, "wxRichTextStyleSheet")
+Gura_DeclareFunctionAlias(__wxRichTextStyleSheet, "wxRichTextStyleSheet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleSheet, __wxRichTextStyleSheet)
+Gura_ImplementFunction(__wxRichTextStyleSheet)
 {
-	Object_wx_RichTextStyleSheet *pThis = Object_wx_RichTextStyleSheet::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextStyleSheet();
+	//wxRichTextStyleSheet();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextStyleSheet, __AddCharacterStyle, "AddCharacterStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -443,7 +444,9 @@ Gura_ImplementMethod(wx_RichTextStyleSheet, __SetProperties)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleSheet)
 {
-	Gura_AssignMethod(wx_RichTextStyleSheet, __wxRichTextStyleSheet);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextStyleSheet);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextStyleSheet, __AddCharacterStyle);
 	Gura_AssignMethod(wx_RichTextStyleSheet, __AddListStyle);
 	Gura_AssignMethod(wx_RichTextStyleSheet, __AddParagraphStyle);

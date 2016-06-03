@@ -35,20 +35,18 @@ String Object_wx_AutoBufferedPaintDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AutoBufferedPaintDC, __wxAutoBufferedPaintDC, "wxAutoBufferedPaintDC")
+Gura_DeclareFunctionAlias(__wxAutoBufferedPaintDC, "wxAutoBufferedPaintDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AutoBufferedPaintDC, __wxAutoBufferedPaintDC)
+Gura_ImplementFunction(__wxAutoBufferedPaintDC)
 {
-	Object_wx_AutoBufferedPaintDC *pThis = Object_wx_AutoBufferedPaintDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
-	//pThis->GetEntity()->wxAutoBufferedPaintDC();
+	//wxAutoBufferedPaintDC();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_AutoBufferedPaintDC, __wxAutoBufferedPaintDC)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AutoBufferedPaintDC)
 {
-	Gura_AssignMethod(wx_AutoBufferedPaintDC, __wxAutoBufferedPaintDC);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAutoBufferedPaintDC);
 }
 
 Gura_ImplementDescendantCreator(wx_AutoBufferedPaintDC)

@@ -35,9 +35,9 @@ String Object_wx_DocTemplate::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DocTemplate, __wxDocTemplate, "wxDocTemplate")
+Gura_DeclareFunctionAlias(__wxDocTemplate, "wxDocTemplate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
@@ -52,10 +52,8 @@ Gura_DeclareMethodAlias(wx_DocTemplate, __wxDocTemplate, "wxDocTemplate")
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocTemplate, __wxDocTemplate)
+Gura_ImplementFunction(__wxDocTemplate)
 {
-	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int manager = arg.GetNumber(0)
 	//int descr = arg.GetNumber(1)
 	//int filter = arg.GetNumber(2)
@@ -66,10 +64,13 @@ Gura_ImplementMethod(wx_DocTemplate, __wxDocTemplate)
 	//int docClassInfo = arg.GetNumber(7)
 	//int viewClassInfo = arg.GetNumber(8)
 	//int flags = arg.GetNumber(9)
-	//pThis->GetEntity()->wxDocTemplate();
+	//wxDocTemplate();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DocTemplate, __CreateDocument, "CreateDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -402,7 +403,9 @@ Gura_ImplementMethod(wx_DocTemplate, __SetFlags)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocTemplate)
 {
-	Gura_AssignMethod(wx_DocTemplate, __wxDocTemplate);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDocTemplate);
+	// Method assignment
 	Gura_AssignMethod(wx_DocTemplate, __CreateDocument);
 	Gura_AssignMethod(wx_DocTemplate, __CreateView);
 	Gura_AssignMethod(wx_DocTemplate, __FileMatchesTemplate);

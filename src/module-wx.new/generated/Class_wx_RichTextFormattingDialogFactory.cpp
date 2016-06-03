@@ -35,21 +35,22 @@ String Object_wx_RichTextFormattingDialogFactory::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __wxRichTextFormattingDialogFactory, "wxRichTextFormattingDialogFactory")
+Gura_DeclareFunctionAlias(__wxRichTextFormattingDialogFactory, "wxRichTextFormattingDialogFactory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __wxRichTextFormattingDialogFactory)
+Gura_ImplementFunction(__wxRichTextFormattingDialogFactory)
 {
-	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextFormattingDialogFactory();
+	//wxRichTextFormattingDialogFactory();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __CreateButtons, "CreateButtons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -181,7 +182,9 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __ShowHelp)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFormattingDialogFactory)
 {
-	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __wxRichTextFormattingDialogFactory);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextFormattingDialogFactory);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __CreateButtons);
 	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __CreatePage);
 	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __CreatePages);

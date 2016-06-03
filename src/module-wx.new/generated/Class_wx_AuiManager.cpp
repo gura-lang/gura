@@ -35,25 +35,26 @@ String Object_wx_AuiManager::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AuiManager, __wxAuiManager, "wxAuiManager")
+Gura_DeclareFunctionAlias(__wxAuiManager, "wxAuiManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "managed_wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, __wxAuiManager)
+Gura_ImplementFunction(__wxAuiManager)
 {
-	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int managed_wnd = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->wxAuiManager();
+	//wxAuiManager();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiManager, __AddPane, "AddPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -457,7 +458,9 @@ Gura_ImplementMethod(wx_AuiManager, __ProcessDockResult)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiManager)
 {
-	Gura_AssignMethod(wx_AuiManager, __wxAuiManager);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAuiManager);
+	// Method assignment
 	Gura_AssignMethod(wx_AuiManager, __AddPane);
 	Gura_AssignMethod(wx_AuiManager, __AddPane_1);
 	Gura_AssignMethod(wx_AuiManager, __AddPane_2);

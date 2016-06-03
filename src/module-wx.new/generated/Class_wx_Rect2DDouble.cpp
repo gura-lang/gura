@@ -35,22 +35,20 @@ String Object_wx_Rect2DDouble::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Rect2DDouble, __wxRect2DDouble, "wxRect2DDouble")
+Gura_DeclareFunctionAlias(__wxRect2DDouble, "wxRect2DDouble")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, __wxRect2DDouble)
+Gura_ImplementFunction(__wxRect2DDouble)
 {
-	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRect2DDouble();
+	//wxRect2DDouble();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Rect2DDouble, __wxRect2DDouble_1, "wxRect2DDouble_1")
+Gura_DeclareFunctionAlias(__wxRect2DDouble_1, "wxRect2DDouble_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -59,18 +57,19 @@ Gura_DeclareMethodAlias(wx_Rect2DDouble, __wxRect2DDouble_1, "wxRect2DDouble_1")
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, __wxRect2DDouble_1)
+Gura_ImplementFunction(__wxRect2DDouble_1)
 {
-	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int w = arg.GetNumber(2)
 	//int h = arg.GetNumber(3)
-	//pThis->GetEntity()->wxRect2DDouble();
+	//wxRect2DDouble();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -822,8 +821,10 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Scale_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Rect2DDouble)
 {
-	Gura_AssignMethod(wx_Rect2DDouble, __wxRect2DDouble);
-	Gura_AssignMethod(wx_Rect2DDouble, __wxRect2DDouble_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRect2DDouble);
+	Gura_AssignFunction(__wxRect2DDouble_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Rect2DDouble, __GetPosition);
 	Gura_AssignMethod(wx_Rect2DDouble, __GetSize);
 	Gura_AssignMethod(wx_Rect2DDouble, __GetLeft);

@@ -35,9 +35,9 @@ String Object_wx_DateSpan::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DateSpan, __wxDateSpan, "wxDateSpan")
+Gura_DeclareFunctionAlias(__wxDateSpan, "wxDateSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "years", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_DateSpan, __wxDateSpan, "wxDateSpan")
 	//DeclareArg(env, "days", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, __wxDateSpan)
+Gura_ImplementFunction(__wxDateSpan)
 {
-	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int years = arg.GetNumber(0)
 	//int months = arg.GetNumber(1)
 	//int weeks = arg.GetNumber(2)
 	//int days = arg.GetNumber(3)
-	//pThis->GetEntity()->wxDateSpan();
+	//wxDateSpan();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DateSpan, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -429,7 +430,9 @@ Gura_ImplementMethod(wx_DateSpan, __Years)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DateSpan)
 {
-	Gura_AssignMethod(wx_DateSpan, __wxDateSpan);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDateSpan);
+	// Method assignment
 	Gura_AssignMethod(wx_DateSpan, __Add);
 	Gura_AssignMethod(wx_DateSpan, __Add_1);
 	Gura_AssignMethod(wx_DateSpan, __Day);

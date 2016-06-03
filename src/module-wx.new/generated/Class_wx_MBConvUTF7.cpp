@@ -35,16 +35,10 @@ String Object_wx_MBConvUTF7::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxMBConvUTF7
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MBConvUTF7)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_MBConvUTF7)

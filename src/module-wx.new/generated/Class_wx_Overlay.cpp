@@ -35,21 +35,22 @@ String Object_wx_Overlay::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Overlay, __wxOverlay, "wxOverlay")
+Gura_DeclareFunctionAlias(__wxOverlay, "wxOverlay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Overlay, __wxOverlay)
+Gura_ImplementFunction(__wxOverlay)
 {
-	Object_wx_Overlay *pThis = Object_wx_Overlay::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxOverlay();
+	//wxOverlay();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Overlay, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -68,7 +69,9 @@ Gura_ImplementMethod(wx_Overlay, __Reset)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Overlay)
 {
-	Gura_AssignMethod(wx_Overlay, __wxOverlay);
+	// Constructor assignment
+	Gura_AssignFunction(__wxOverlay);
+	// Method assignment
 	Gura_AssignMethod(wx_Overlay, __Reset);
 }
 

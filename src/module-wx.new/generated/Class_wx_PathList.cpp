@@ -35,36 +35,35 @@ String Object_wx_PathList::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PathList, __wxPathList, "wxPathList")
+Gura_DeclareFunctionAlias(__wxPathList, "wxPathList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PathList, __wxPathList)
+Gura_ImplementFunction(__wxPathList)
 {
-	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPathList();
+	//wxPathList();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PathList, __wxPathList_1, "wxPathList_1")
+Gura_DeclareFunctionAlias(__wxPathList_1, "wxPathList_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PathList, __wxPathList_1)
+Gura_ImplementFunction(__wxPathList_1)
 {
-	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int arr = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPathList();
+	//wxPathList();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PathList, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -160,8 +159,10 @@ Gura_ImplementMethod(wx_PathList, __FindValidPath)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PathList)
 {
-	Gura_AssignMethod(wx_PathList, __wxPathList);
-	Gura_AssignMethod(wx_PathList, __wxPathList_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPathList);
+	Gura_AssignFunction(__wxPathList_1);
+	// Method assignment
 	Gura_AssignMethod(wx_PathList, __Add);
 	Gura_AssignMethod(wx_PathList, __Add_1);
 	Gura_AssignMethod(wx_PathList, __AddEnvList);

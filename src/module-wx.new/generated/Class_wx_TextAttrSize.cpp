@@ -35,21 +35,22 @@ String Object_wx_TextAttrSize::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextAttrSize, __wxTextAttrSize, "wxTextAttrSize")
+Gura_DeclareFunctionAlias(__wxTextAttrSize, "wxTextAttrSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, __wxTextAttrSize)
+Gura_ImplementFunction(__wxTextAttrSize)
 {
-	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTextAttrSize();
+	//wxTextAttrSize();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextAttrSize, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -299,7 +300,9 @@ Gura_ImplementMethod(wx_TextAttrSize, __IsValid)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrSize)
 {
-	Gura_AssignMethod(wx_TextAttrSize, __wxTextAttrSize);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextAttrSize);
+	// Method assignment
 	Gura_AssignMethod(wx_TextAttrSize, __Reset);
 	Gura_AssignMethod(wx_TextAttrSize, __EqPartial);
 	Gura_AssignMethod(wx_TextAttrSize, __Apply);

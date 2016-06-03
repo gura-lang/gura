@@ -35,21 +35,22 @@ String Object_wx_FileType::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileType, __wxFileType, "wxFileType")
+Gura_DeclareFunctionAlias(__wxFileType, "wxFileType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileType, __wxFileType)
+Gura_ImplementFunction(__wxFileType)
 {
-	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFileType();
+	//wxFileType();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileType, __MessageParameters, "MessageParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -126,7 +127,9 @@ Gura_ImplementMethod(wx_FileType, __GetParamValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileType)
 {
-	Gura_AssignMethod(wx_FileType, __wxFileType);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileType);
+	// Method assignment
 	Gura_AssignMethod(wx_FileType, __MessageParameters);
 	Gura_AssignMethod(wx_FileType, __MessageParameters_1);
 	Gura_AssignMethod(wx_FileType, __GetFileName);

@@ -35,22 +35,20 @@ String Object_wx_EditableListBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_EditableListBox, __wxEditableListBox, "wxEditableListBox")
+Gura_DeclareFunctionAlias(__wxEditableListBox, "wxEditableListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_EditableListBox, __wxEditableListBox)
+Gura_ImplementFunction(__wxEditableListBox)
 {
-	Object_wx_EditableListBox *pThis = Object_wx_EditableListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxEditableListBox();
+	//wxEditableListBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_EditableListBox, __wxEditableListBox_1, "wxEditableListBox_1")
+Gura_DeclareFunctionAlias(__wxEditableListBox_1, "wxEditableListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,10 +60,8 @@ Gura_DeclareMethodAlias(wx_EditableListBox, __wxEditableListBox_1, "wxEditableLi
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_EditableListBox, __wxEditableListBox_1)
+Gura_ImplementFunction(__wxEditableListBox_1)
 {
-	Object_wx_EditableListBox *pThis = Object_wx_EditableListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -73,10 +69,13 @@ Gura_ImplementMethod(wx_EditableListBox, __wxEditableListBox_1)
 	//int size = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxEditableListBox();
+	//wxEditableListBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_EditableListBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -139,8 +138,10 @@ Gura_ImplementMethod(wx_EditableListBox, __GetStrings)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EditableListBox)
 {
-	Gura_AssignMethod(wx_EditableListBox, __wxEditableListBox);
-	Gura_AssignMethod(wx_EditableListBox, __wxEditableListBox_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxEditableListBox);
+	Gura_AssignFunction(__wxEditableListBox_1);
+	// Method assignment
 	Gura_AssignMethod(wx_EditableListBox, __Create);
 	Gura_AssignMethod(wx_EditableListBox, __SetStrings);
 	Gura_AssignMethod(wx_EditableListBox, __GetStrings);

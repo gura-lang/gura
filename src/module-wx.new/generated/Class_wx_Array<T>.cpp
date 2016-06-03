@@ -498,6 +498,7 @@ Gura_ImplementMethod(wx_Array<T>, __Sort)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Array<T>)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_Array<T>, __wxArray);
 	Gura_AssignMethod(wx_Array<T>, __wxObjArray);
 	Gura_AssignMethod(wx_Array<T>, __wxSortedArray);

@@ -35,21 +35,22 @@ String Object_wx_HtmlWinTagHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlWinTagHandler, __wxHtmlWinTagHandler, "wxHtmlWinTagHandler")
+Gura_DeclareFunctionAlias(__wxHtmlWinTagHandler, "wxHtmlWinTagHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinTagHandler, __wxHtmlWinTagHandler)
+Gura_ImplementFunction(__wxHtmlWinTagHandler)
 {
-	Object_wx_HtmlWinTagHandler *pThis = Object_wx_HtmlWinTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlWinTagHandler();
+	//wxHtmlWinTagHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlWinTagHandler, __SetParser, "SetParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -70,7 +71,9 @@ Gura_ImplementMethod(wx_HtmlWinTagHandler, __SetParser)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWinTagHandler)
 {
-	Gura_AssignMethod(wx_HtmlWinTagHandler, __wxHtmlWinTagHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlWinTagHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlWinTagHandler, __SetParser);
 }
 

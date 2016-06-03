@@ -35,21 +35,22 @@ String Object_wx_Validator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Validator, __wxValidator, "wxValidator")
+Gura_DeclareFunctionAlias(__wxValidator, "wxValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Validator, __wxValidator)
+Gura_ImplementFunction(__wxValidator)
 {
-	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxValidator();
+	//wxValidator();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Validator, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -165,7 +166,9 @@ Gura_ImplementMethod(wx_Validator, __Validate)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Validator)
 {
-	Gura_AssignMethod(wx_Validator, __wxValidator);
+	// Constructor assignment
+	Gura_AssignFunction(__wxValidator);
+	// Method assignment
 	Gura_AssignMethod(wx_Validator, __Clone);
 	Gura_AssignMethod(wx_Validator, __GetWindow);
 	Gura_AssignMethod(wx_Validator, __SuppressBellOnError);

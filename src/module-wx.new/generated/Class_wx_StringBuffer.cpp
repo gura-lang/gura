@@ -35,22 +35,20 @@ String Object_wx_StringBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StringBuffer, __wxStringBuffer, "wxStringBuffer")
+Gura_DeclareFunctionAlias(__wxStringBuffer, "wxStringBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringBuffer, __wxStringBuffer)
+Gura_ImplementFunction(__wxStringBuffer)
 {
-	Object_wx_StringBuffer *pThis = Object_wx_StringBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
-	//pThis->GetEntity()->wxStringBuffer();
+	//wxStringBuffer();
 	return Value::Nil;
 }
 
@@ -59,7 +57,8 @@ Gura_ImplementMethod(wx_StringBuffer, __wxStringBuffer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringBuffer)
 {
-	Gura_AssignMethod(wx_StringBuffer, __wxStringBuffer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStringBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_StringBuffer)

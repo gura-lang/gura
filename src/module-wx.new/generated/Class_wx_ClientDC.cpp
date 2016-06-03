@@ -35,20 +35,18 @@ String Object_wx_ClientDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ClientDC, __wxClientDC, "wxClientDC")
+Gura_DeclareFunctionAlias(__wxClientDC, "wxClientDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ClientDC, __wxClientDC)
+Gura_ImplementFunction(__wxClientDC)
 {
-	Object_wx_ClientDC *pThis = Object_wx_ClientDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
-	//pThis->GetEntity()->wxClientDC();
+	//wxClientDC();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_ClientDC, __wxClientDC)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientDC)
 {
-	Gura_AssignMethod(wx_ClientDC, __wxClientDC);
+	// Constructor assignment
+	Gura_AssignFunction(__wxClientDC);
 }
 
 Gura_ImplementDescendantCreator(wx_ClientDC)

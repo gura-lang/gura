@@ -35,16 +35,10 @@ String Object_wx_EventFilter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxEventFilter
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EventFilter)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_EventFilter)

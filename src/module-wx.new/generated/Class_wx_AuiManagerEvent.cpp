@@ -35,23 +35,24 @@ String Object_wx_AuiManagerEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AuiManagerEvent, __wxAuiManagerEvent, "wxAuiManagerEvent")
+Gura_DeclareFunctionAlias(__wxAuiManagerEvent, "wxAuiManagerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManagerEvent, __wxAuiManagerEvent)
+Gura_ImplementFunction(__wxAuiManagerEvent)
 {
-	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
-	//pThis->GetEntity()->wxAuiManagerEvent();
+	//wxAuiManagerEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiManagerEvent, __CanVeto, "CanVeto")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -225,7 +226,9 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __Veto)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiManagerEvent)
 {
-	Gura_AssignMethod(wx_AuiManagerEvent, __wxAuiManagerEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAuiManagerEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_AuiManagerEvent, __CanVeto);
 	Gura_AssignMethod(wx_AuiManagerEvent, __GetButton);
 	Gura_AssignMethod(wx_AuiManagerEvent, __GetDC);

@@ -35,21 +35,22 @@ String Object_wx_FileDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileDataObject, __wxFileDataObject, "wxFileDataObject")
+Gura_DeclareFunctionAlias(__wxFileDataObject, "wxFileDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileDataObject, __wxFileDataObject)
+Gura_ImplementFunction(__wxFileDataObject)
 {
-	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFileDataObject();
+	//wxFileDataObject();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileDataObject, __AddFile, "AddFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -83,7 +84,9 @@ Gura_ImplementMethod(wx_FileDataObject, __GetFilenames)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDataObject)
 {
-	Gura_AssignMethod(wx_FileDataObject, __wxFileDataObject);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileDataObject);
+	// Method assignment
 	Gura_AssignMethod(wx_FileDataObject, __AddFile);
 	Gura_AssignMethod(wx_FileDataObject, __GetFilenames);
 }

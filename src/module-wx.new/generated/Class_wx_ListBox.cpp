@@ -35,22 +35,20 @@ String Object_wx_ListBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ListBox, __wxListBox, "wxListBox")
+Gura_DeclareFunctionAlias(__wxListBox, "wxListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListBox, __wxListBox)
+Gura_ImplementFunction(__wxListBox)
 {
-	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxListBox();
+	//wxListBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ListBox, __wxListBox_1, "wxListBox_1")
+Gura_DeclareFunctionAlias(__wxListBox_1, "wxListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,10 +62,8 @@ Gura_DeclareMethodAlias(wx_ListBox, __wxListBox_1, "wxListBox_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, __wxListBox_1)
+Gura_ImplementFunction(__wxListBox_1)
 {
-	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -77,11 +73,11 @@ Gura_ImplementMethod(wx_ListBox, __wxListBox_1)
 	//int style = arg.GetNumber(6)
 	//int validator = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxListBox();
+	//wxListBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ListBox, __wxListBox_2, "wxListBox_2")
+Gura_DeclareFunctionAlias(__wxListBox_2, "wxListBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -94,10 +90,8 @@ Gura_DeclareMethodAlias(wx_ListBox, __wxListBox_2, "wxListBox_2")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, __wxListBox_2)
+Gura_ImplementFunction(__wxListBox_2)
 {
-	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -106,10 +100,13 @@ Gura_ImplementMethod(wx_ListBox, __wxListBox_2)
 	//int style = arg.GetNumber(5)
 	//int validator = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxListBox();
+	//wxListBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ListBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -494,9 +491,11 @@ Gura_ImplementMethod(wx_ListBox, __FindString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListBox)
 {
-	Gura_AssignMethod(wx_ListBox, __wxListBox);
-	Gura_AssignMethod(wx_ListBox, __wxListBox_1);
-	Gura_AssignMethod(wx_ListBox, __wxListBox_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxListBox);
+	Gura_AssignFunction(__wxListBox_1);
+	Gura_AssignFunction(__wxListBox_2);
+	// Method assignment
 	Gura_AssignMethod(wx_ListBox, __Create);
 	Gura_AssignMethod(wx_ListBox, __Create_1);
 	Gura_AssignMethod(wx_ListBox, __Deselect);

@@ -35,21 +35,22 @@ String Object_wx_AnyButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AnyButton, __wxAnyButton, "wxAnyButton")
+Gura_DeclareFunctionAlias(__wxAnyButton, "wxAnyButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AnyButton, __wxAnyButton)
+Gura_ImplementFunction(__wxAnyButton)
 {
-	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAnyButton();
+	//wxAnyButton();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AnyButton, __GetBitmap, "GetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -285,7 +286,9 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AnyButton)
 {
-	Gura_AssignMethod(wx_AnyButton, __wxAnyButton);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAnyButton);
+	// Method assignment
 	Gura_AssignMethod(wx_AnyButton, __GetBitmap);
 	Gura_AssignMethod(wx_AnyButton, __GetBitmapCurrent);
 	Gura_AssignMethod(wx_AnyButton, __GetBitmapDisabled);

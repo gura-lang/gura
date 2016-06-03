@@ -150,6 +150,7 @@ Gura_ImplementMethod(wx_Stack<T>, __pop)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Stack<T>)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_Stack<T>, __wxStack);
 	Gura_AssignMethod(wx_Stack<T>, __wxStack_1);
 	Gura_AssignMethod(wx_Stack<T>, __empty);

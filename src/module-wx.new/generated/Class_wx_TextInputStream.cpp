@@ -35,9 +35,9 @@ String Object_wx_TextInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextInputStream, __wxTextInputStream, "wxTextInputStream")
+Gura_DeclareFunctionAlias(__wxTextInputStream, "wxTextInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_TextInputStream, __wxTextInputStream, "wxTextInputStr
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextInputStream, __wxTextInputStream)
+Gura_ImplementFunction(__wxTextInputStream)
 {
-	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int sep = arg.GetNumber(1)
 	//int conv = arg.GetNumber(2)
-	//pThis->GetEntity()->wxTextInputStream();
+	//wxTextInputStream();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextInputStream, __GetInputStream, "GetInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -274,7 +275,9 @@ Gura_ImplementMethod(wx_TextInputStream, __SetStringSeparators)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextInputStream)
 {
-	Gura_AssignMethod(wx_TextInputStream, __wxTextInputStream);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextInputStream);
+	// Method assignment
 	Gura_AssignMethod(wx_TextInputStream, __GetInputStream);
 	Gura_AssignMethod(wx_TextInputStream, __GetChar);
 	Gura_AssignMethod(wx_TextInputStream, __Read16);

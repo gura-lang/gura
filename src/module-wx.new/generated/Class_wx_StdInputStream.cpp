@@ -35,20 +35,18 @@ String Object_wx_StdInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StdInputStream, __wxStdInputStream, "wxStdInputStream")
+Gura_DeclareFunctionAlias(__wxStdInputStream, "wxStdInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StdInputStream, __wxStdInputStream)
+Gura_ImplementFunction(__wxStdInputStream)
 {
-	Object_wx_StdInputStream *pThis = Object_wx_StdInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
-	//pThis->GetEntity()->wxStdInputStream();
+	//wxStdInputStream();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_StdInputStream, __wxStdInputStream)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StdInputStream)
 {
-	Gura_AssignMethod(wx_StdInputStream, __wxStdInputStream);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStdInputStream);
 }
 
 Gura_ImplementDescendantCreator(wx_StdInputStream)

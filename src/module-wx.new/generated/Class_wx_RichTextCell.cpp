@@ -35,36 +35,35 @@ String Object_wx_RichTextCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextCell, __wxRichTextCell, "wxRichTextCell")
+Gura_DeclareFunctionAlias(__wxRichTextCell, "wxRichTextCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, __wxRichTextCell)
+Gura_ImplementFunction(__wxRichTextCell)
 {
-	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextCell();
+	//wxRichTextCell();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextCell, __wxRichTextCell_1, "wxRichTextCell_1")
+Gura_DeclareFunctionAlias(__wxRichTextCell_1, "wxRichTextCell_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, __wxRichTextCell_1)
+Gura_ImplementFunction(__wxRichTextCell_1)
 {
-	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextCell();
+	//wxRichTextCell();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextCell, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -264,8 +263,10 @@ Gura_ImplementMethod(wx_RichTextCell, __Copy)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCell)
 {
-	Gura_AssignMethod(wx_RichTextCell, __wxRichTextCell);
-	Gura_AssignMethod(wx_RichTextCell, __wxRichTextCell_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextCell);
+	Gura_AssignFunction(__wxRichTextCell_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextCell, __Draw);
 	Gura_AssignMethod(wx_RichTextCell, __HitTest);
 	Gura_AssignMethod(wx_RichTextCell, __GetXMLNodeName);

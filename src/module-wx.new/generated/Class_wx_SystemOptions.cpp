@@ -35,21 +35,22 @@ String Object_wx_SystemOptions::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SystemOptions, __wxSystemOptions, "wxSystemOptions")
+Gura_DeclareFunctionAlias(__wxSystemOptions, "wxSystemOptions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SystemOptions, __wxSystemOptions)
+Gura_ImplementFunction(__wxSystemOptions)
 {
-	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSystemOptions();
+	//wxSystemOptions();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SystemOptions, __GetOption, "GetOption")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -149,7 +150,9 @@ Gura_ImplementMethod(wx_SystemOptions, __SetOption_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SystemOptions)
 {
-	Gura_AssignMethod(wx_SystemOptions, __wxSystemOptions);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSystemOptions);
+	// Method assignment
 	Gura_AssignMethod(wx_SystemOptions, __GetOption);
 	Gura_AssignMethod(wx_SystemOptions, __GetOptionInt);
 	Gura_AssignMethod(wx_SystemOptions, __HasOption);

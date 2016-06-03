@@ -35,20 +35,18 @@ String Object_wx_PropagationDisabler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PropagationDisabler, __wxPropagationDisabler, "wxPropagationDisabler")
+Gura_DeclareFunctionAlias(__wxPropagationDisabler, "wxPropagationDisabler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropagationDisabler, __wxPropagationDisabler)
+Gura_ImplementFunction(__wxPropagationDisabler)
 {
-	Object_wx_PropagationDisabler *pThis = Object_wx_PropagationDisabler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPropagationDisabler();
+	//wxPropagationDisabler();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_PropagationDisabler, __wxPropagationDisabler)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropagationDisabler)
 {
-	Gura_AssignMethod(wx_PropagationDisabler, __wxPropagationDisabler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPropagationDisabler);
 }
 
 Gura_ImplementDescendantCreator(wx_PropagationDisabler)

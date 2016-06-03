@@ -35,23 +35,24 @@ String Object_wx_TipProvider::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TipProvider, __wxTipProvider, "wxTipProvider")
+Gura_DeclareFunctionAlias(__wxTipProvider, "wxTipProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "currentTip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TipProvider, __wxTipProvider)
+Gura_ImplementFunction(__wxTipProvider)
 {
-	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int currentTip = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTipProvider();
+	//wxTipProvider();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TipProvider, __GetCurrentTip, "GetCurrentTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -83,7 +84,9 @@ Gura_ImplementMethod(wx_TipProvider, __GetTip)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TipProvider)
 {
-	Gura_AssignMethod(wx_TipProvider, __wxTipProvider);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTipProvider);
+	// Method assignment
 	Gura_AssignMethod(wx_TipProvider, __GetCurrentTip);
 	Gura_AssignMethod(wx_TipProvider, __GetTip);
 }

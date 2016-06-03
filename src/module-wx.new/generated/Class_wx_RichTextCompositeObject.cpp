@@ -35,23 +35,24 @@ String Object_wx_RichTextCompositeObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __wxRichTextCompositeObject, "wxRichTextCompositeObject")
+Gura_DeclareFunctionAlias(__wxRichTextCompositeObject, "wxRichTextCompositeObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCompositeObject, __wxRichTextCompositeObject)
+Gura_ImplementFunction(__wxRichTextCompositeObject)
 {
-	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextCompositeObject();
+	//wxRichTextCompositeObject();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __HitTest, "HitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -434,7 +435,9 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __Move)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCompositeObject)
 {
-	Gura_AssignMethod(wx_RichTextCompositeObject, __wxRichTextCompositeObject);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextCompositeObject);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextCompositeObject, __HitTest);
 	Gura_AssignMethod(wx_RichTextCompositeObject, __FindPosition);
 	Gura_AssignMethod(wx_RichTextCompositeObject, __CalculateRange);

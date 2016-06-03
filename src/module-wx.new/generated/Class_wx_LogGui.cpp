@@ -35,21 +35,22 @@ String Object_wx_LogGui::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LogGui, __wxLogGui, "wxLogGui")
+Gura_DeclareFunctionAlias(__wxLogGui, "wxLogGui")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogGui, __wxLogGui)
+Gura_ImplementFunction(__wxLogGui)
 {
-	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxLogGui();
+	//wxLogGui();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LogGui, __Flush, "Flush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -149,7 +150,9 @@ Gura_ImplementMethod(wx_LogGui, __DoShowMultipleLogMessages)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogGui)
 {
-	Gura_AssignMethod(wx_LogGui, __wxLogGui);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLogGui);
+	// Method assignment
 	Gura_AssignMethod(wx_LogGui, __Flush);
 	Gura_AssignMethod(wx_LogGui, __GetTitle);
 	Gura_AssignMethod(wx_LogGui, __GetSeverityIcon);

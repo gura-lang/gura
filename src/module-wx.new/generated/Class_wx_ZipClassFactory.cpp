@@ -35,16 +35,10 @@ String Object_wx_ZipClassFactory::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxZipClassFactory
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipClassFactory)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_ZipClassFactory)

@@ -35,22 +35,20 @@ String Object_wx_StringTokenizer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StringTokenizer, __wxStringTokenizer, "wxStringTokenizer")
+Gura_DeclareFunctionAlias(__wxStringTokenizer, "wxStringTokenizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, __wxStringTokenizer)
+Gura_ImplementFunction(__wxStringTokenizer)
 {
-	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxStringTokenizer();
+	//wxStringTokenizer();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_StringTokenizer, __wxStringTokenizer_1, "wxStringTokenizer_1")
+Gura_DeclareFunctionAlias(__wxStringTokenizer_1, "wxStringTokenizer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -58,17 +56,18 @@ Gura_DeclareMethodAlias(wx_StringTokenizer, __wxStringTokenizer_1, "wxStringToke
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, __wxStringTokenizer_1)
+Gura_ImplementFunction(__wxStringTokenizer_1)
 {
-	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int delims = arg.GetNumber(1)
 	//int mode = arg.GetNumber(2)
-	//pThis->GetEntity()->wxStringTokenizer();
+	//wxStringTokenizer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StringTokenizer, __CountTokens, "CountTokens")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -171,8 +170,10 @@ Gura_ImplementMethod(wx_StringTokenizer, __SetString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringTokenizer)
 {
-	Gura_AssignMethod(wx_StringTokenizer, __wxStringTokenizer);
-	Gura_AssignMethod(wx_StringTokenizer, __wxStringTokenizer_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStringTokenizer);
+	Gura_AssignFunction(__wxStringTokenizer_1);
+	// Method assignment
 	Gura_AssignMethod(wx_StringTokenizer, __CountTokens);
 	Gura_AssignMethod(wx_StringTokenizer, __GetLastDelimiter);
 	Gura_AssignMethod(wx_StringTokenizer, __GetNextToken);

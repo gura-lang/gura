@@ -303,6 +303,7 @@ Gura_ImplementMethod(wx_EventLoopBase, __OnExit)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EventLoopBase)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_EventLoopBase, __GetActive);
 	Gura_AssignMethod(wx_EventLoopBase, __SetActive);
 	Gura_AssignMethod(wx_EventLoopBase, __IsMain);

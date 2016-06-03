@@ -35,46 +35,45 @@ String Object_wx_ZipOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxZipOutputStream, "wxZipOutputStream")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxZipOutputStream)
+{
+	//int stream = arg.GetNumber(0)
+	//int level = arg.GetNumber(1)
+	//int conv = arg.GetNumber(2)
+	//wxZipOutputStream();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxZipOutputStream_1, "wxZipOutputStream_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxZipOutputStream_1)
+{
+	//int stream = arg.GetNumber(0)
+	//int level = arg.GetNumber(1)
+	//int conv = arg.GetNumber(2)
+	//wxZipOutputStream();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ZipOutputStream, __wxZipOutputStream, "wxZipOutputStream")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_ZipOutputStream, __wxZipOutputStream)
-{
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int level = arg.GetNumber(1)
-	//int conv = arg.GetNumber(2)
-	//pThis->GetEntity()->wxZipOutputStream();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_ZipOutputStream, __wxZipOutputStream_1, "wxZipOutputStream_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_ZipOutputStream, __wxZipOutputStream_1)
-{
-	Object_wx_ZipOutputStream *pThis = Object_wx_ZipOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int level = arg.GetNumber(1)
-	//int conv = arg.GetNumber(2)
-	//pThis->GetEntity()->wxZipOutputStream();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_ZipOutputStream, __Close, "Close")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -232,8 +231,10 @@ Gura_ImplementMethod(wx_ZipOutputStream, __SetComment)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipOutputStream)
 {
-	Gura_AssignMethod(wx_ZipOutputStream, __wxZipOutputStream);
-	Gura_AssignMethod(wx_ZipOutputStream, __wxZipOutputStream_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxZipOutputStream);
+	Gura_AssignFunction(__wxZipOutputStream_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ZipOutputStream, __Close);
 	Gura_AssignMethod(wx_ZipOutputStream, __CloseEntry);
 	Gura_AssignMethod(wx_ZipOutputStream, __CopyArchiveMetaData);

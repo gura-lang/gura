@@ -35,23 +35,24 @@ String Object_wx_Display::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Display, __wxDisplay, "wxDisplay")
+Gura_DeclareFunctionAlias(__wxDisplay, "wxDisplay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Display, __wxDisplay)
+Gura_ImplementFunction(__wxDisplay)
 {
-	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDisplay();
+	//wxDisplay();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Display, __ChangeMode, "ChangeMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -195,7 +196,9 @@ Gura_ImplementMethod(wx_Display, __IsPrimary)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Display)
 {
-	Gura_AssignMethod(wx_Display, __wxDisplay);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDisplay);
+	// Method assignment
 	Gura_AssignMethod(wx_Display, __ChangeMode);
 	Gura_AssignMethod(wx_Display, __GetClientArea);
 	Gura_AssignMethod(wx_Display, __GetCount);

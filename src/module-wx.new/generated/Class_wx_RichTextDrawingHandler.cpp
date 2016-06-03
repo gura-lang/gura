@@ -35,23 +35,24 @@ String Object_wx_RichTextDrawingHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __wxRichTextDrawingHandler, "wxRichTextDrawingHandler")
+Gura_DeclareFunctionAlias(__wxRichTextDrawingHandler, "wxRichTextDrawingHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingHandler, __wxRichTextDrawingHandler)
+Gura_ImplementFunction(__wxRichTextDrawingHandler)
 {
-	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextDrawingHandler();
+	//wxRichTextDrawingHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __HasVirtualAttributes, "HasVirtualAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -183,7 +184,9 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, __GetName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextDrawingHandler)
 {
-	Gura_AssignMethod(wx_RichTextDrawingHandler, __wxRichTextDrawingHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextDrawingHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextDrawingHandler, __HasVirtualAttributes);
 	Gura_AssignMethod(wx_RichTextDrawingHandler, __GetVirtualAttributes);
 	Gura_AssignMethod(wx_RichTextDrawingHandler, __GetVirtualSubobjectAttributesCount);

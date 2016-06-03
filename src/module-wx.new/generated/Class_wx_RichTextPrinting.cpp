@@ -35,25 +35,26 @@ String Object_wx_RichTextPrinting::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextPrinting, __wxRichTextPrinting, "wxRichTextPrinting")
+Gura_DeclareFunctionAlias(__wxRichTextPrinting, "wxRichTextPrinting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPrinting, __wxRichTextPrinting)
+Gura_ImplementFunction(__wxRichTextPrinting)
 {
-	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int parentWindow = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRichTextPrinting();
+	//wxRichTextPrinting();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __GetFooterText, "GetFooterText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -421,7 +422,9 @@ Gura_ImplementMethod(wx_RichTextPrinting, __SetTitle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextPrinting)
 {
-	Gura_AssignMethod(wx_RichTextPrinting, __wxRichTextPrinting);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextPrinting);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextPrinting, __GetFooterText);
 	Gura_AssignMethod(wx_RichTextPrinting, __GetHeaderFooterData);
 	Gura_AssignMethod(wx_RichTextPrinting, __GetHeaderText);

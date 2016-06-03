@@ -35,25 +35,26 @@ String Object_wx_Command::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Command, __wxCommand, "wxCommand")
+Gura_DeclareFunctionAlias(__wxCommand, "wxCommand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "canUndo", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Command, __wxCommand)
+Gura_ImplementFunction(__wxCommand)
 {
-	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int canUndo = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxCommand();
+	//wxCommand();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Command, __CanUndo, "CanUndo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -111,7 +112,9 @@ Gura_ImplementMethod(wx_Command, __Undo)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Command)
 {
-	Gura_AssignMethod(wx_Command, __wxCommand);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCommand);
+	// Method assignment
 	Gura_AssignMethod(wx_Command, __CanUndo);
 	Gura_AssignMethod(wx_Command, __Do);
 	Gura_AssignMethod(wx_Command, __GetName);

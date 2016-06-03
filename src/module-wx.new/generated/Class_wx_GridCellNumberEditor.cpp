@@ -35,25 +35,26 @@ String Object_wx_GridCellNumberEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridCellNumberEditor, __wxGridCellNumberEditor, "wxGridCellNumberEditor")
+Gura_DeclareFunctionAlias(__wxGridCellNumberEditor, "wxGridCellNumberEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellNumberEditor, __wxGridCellNumberEditor)
+Gura_ImplementFunction(__wxGridCellNumberEditor)
 {
-	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
-	//pThis->GetEntity()->wxGridCellNumberEditor();
+	//wxGridCellNumberEditor();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridCellNumberEditor, __SetParameters, "SetParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -100,7 +101,9 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, __GetString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellNumberEditor)
 {
-	Gura_AssignMethod(wx_GridCellNumberEditor, __wxGridCellNumberEditor);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridCellNumberEditor);
+	// Method assignment
 	Gura_AssignMethod(wx_GridCellNumberEditor, __SetParameters);
 	Gura_AssignMethod(wx_GridCellNumberEditor, __HasRange);
 	Gura_AssignMethod(wx_GridCellNumberEditor, __GetString);

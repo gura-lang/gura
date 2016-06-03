@@ -35,46 +35,45 @@ String Object_wx_ZlibOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxZlibOutputStream, "wxZlibOutputStream")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxZlibOutputStream)
+{
+	//int stream = arg.GetNumber(0)
+	//int level = arg.GetNumber(1)
+	//int flags = arg.GetNumber(2)
+	//wxZlibOutputStream();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxZlibOutputStream_1, "wxZlibOutputStream_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxZlibOutputStream_1)
+{
+	//int stream = arg.GetNumber(0)
+	//int level = arg.GetNumber(1)
+	//int flags = arg.GetNumber(2)
+	//wxZlibOutputStream();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ZlibOutputStream, __wxZlibOutputStream, "wxZlibOutputStream")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_ZlibOutputStream, __wxZlibOutputStream)
-{
-	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int level = arg.GetNumber(1)
-	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->wxZlibOutputStream();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_ZlibOutputStream, __wxZlibOutputStream_1, "wxZlibOutputStream_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_ZlibOutputStream, __wxZlibOutputStream_1)
-{
-	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int level = arg.GetNumber(1)
-	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->wxZlibOutputStream();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_ZlibOutputStream, __CanHandleGZip, "CanHandleGZip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -125,8 +124,10 @@ Gura_ImplementMethod(wx_ZlibOutputStream, __SetDictionary_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZlibOutputStream)
 {
-	Gura_AssignMethod(wx_ZlibOutputStream, __wxZlibOutputStream);
-	Gura_AssignMethod(wx_ZlibOutputStream, __wxZlibOutputStream_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxZlibOutputStream);
+	Gura_AssignFunction(__wxZlibOutputStream_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ZlibOutputStream, __CanHandleGZip);
 	Gura_AssignMethod(wx_ZlibOutputStream, __SetDictionary);
 	Gura_AssignMethod(wx_ZlibOutputStream, __SetDictionary_1);

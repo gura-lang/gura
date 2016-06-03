@@ -35,9 +35,9 @@ String Object_wx_TarEntry::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TarEntry, __wxTarEntry, "wxTarEntry")
+Gura_DeclareFunctionAlias(__wxTarEntry, "wxTarEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,32 +45,31 @@ Gura_DeclareMethodAlias(wx_TarEntry, __wxTarEntry, "wxTarEntry")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, __wxTarEntry)
+Gura_ImplementFunction(__wxTarEntry)
 {
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
-	//pThis->GetEntity()->wxTarEntry();
+	//wxTarEntry();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TarEntry, __wxTarEntry_1, "wxTarEntry_1")
+Gura_DeclareFunctionAlias(__wxTarEntry_1, "wxTarEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, __wxTarEntry_1)
+Gura_ImplementFunction(__wxTarEntry_1)
 {
-	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTarEntry();
+	//wxTarEntry();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TarEntry, __GetAccessTime, "GetAccessTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -444,8 +443,10 @@ Gura_ImplementMethod(wx_TarEntry, __GetInternalName_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TarEntry)
 {
-	Gura_AssignMethod(wx_TarEntry, __wxTarEntry);
-	Gura_AssignMethod(wx_TarEntry, __wxTarEntry_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTarEntry);
+	Gura_AssignFunction(__wxTarEntry_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TarEntry, __GetAccessTime);
 	Gura_AssignMethod(wx_TarEntry, __SetAccessTime);
 	Gura_AssignMethod(wx_TarEntry, __GetCreateTime);

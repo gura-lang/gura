@@ -35,21 +35,22 @@ String Object_wx_RichTextStdRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextStdRenderer, __wxRichTextStdRenderer, "wxRichTextStdRenderer")
+Gura_DeclareFunctionAlias(__wxRichTextStdRenderer, "wxRichTextStdRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStdRenderer, __wxRichTextStdRenderer)
+Gura_ImplementFunction(__wxRichTextStdRenderer)
 {
-	Object_wx_RichTextStdRenderer *pThis = Object_wx_RichTextStdRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextStdRenderer();
+	//wxRichTextStdRenderer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextStdRenderer, __DrawStandardBullet, "DrawStandardBullet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -156,7 +157,9 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, __MeasureBullet)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStdRenderer)
 {
-	Gura_AssignMethod(wx_RichTextStdRenderer, __wxRichTextStdRenderer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextStdRenderer);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextStdRenderer, __DrawStandardBullet);
 	Gura_AssignMethod(wx_RichTextStdRenderer, __DrawTextBullet);
 	Gura_AssignMethod(wx_RichTextStdRenderer, __DrawBitmapBullet);

@@ -35,21 +35,22 @@ String Object_wx_ItemContainerImmutable::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __wxItemContainerImmutable, "wxItemContainerImmutable")
+Gura_DeclareFunctionAlias(__wxItemContainerImmutable, "wxItemContainerImmutable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, __wxItemContainerImmutable)
+Gura_ImplementFunction(__wxItemContainerImmutable)
 {
-	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxItemContainerImmutable();
+	//wxItemContainerImmutable();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -214,7 +215,9 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __Select)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ItemContainerImmutable)
 {
-	Gura_AssignMethod(wx_ItemContainerImmutable, __wxItemContainerImmutable);
+	// Constructor assignment
+	Gura_AssignFunction(__wxItemContainerImmutable);
+	// Method assignment
 	Gura_AssignMethod(wx_ItemContainerImmutable, __GetCount);
 	Gura_AssignMethod(wx_ItemContainerImmutable, __IsEmpty);
 	Gura_AssignMethod(wx_ItemContainerImmutable, __GetString);

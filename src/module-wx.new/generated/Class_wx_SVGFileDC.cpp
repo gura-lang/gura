@@ -35,9 +35,9 @@ String Object_wx_SVGFileDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SVGFileDC, __wxSVGFileDC, "wxSVGFileDC")
+Gura_DeclareFunctionAlias(__wxSVGFileDC, "wxSVGFileDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_SVGFileDC, __wxSVGFileDC, "wxSVGFileDC")
 	//DeclareArg(env, "dpi", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, __wxSVGFileDC)
+Gura_ImplementFunction(__wxSVGFileDC)
 {
-	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
 	//int dpi = arg.GetNumber(3)
-	//pThis->GetEntity()->wxSVGFileDC();
+	//wxSVGFileDC();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SVGFileDC, __EndDoc, "EndDoc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -321,7 +322,9 @@ Gura_ImplementMethod(wx_SVGFileDC, __StartDoc)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SVGFileDC)
 {
-	Gura_AssignMethod(wx_SVGFileDC, __wxSVGFileDC);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSVGFileDC);
+	// Method assignment
 	Gura_AssignMethod(wx_SVGFileDC, __EndDoc);
 	Gura_AssignMethod(wx_SVGFileDC, __EndPage);
 	Gura_AssignMethod(wx_SVGFileDC, __Clear);

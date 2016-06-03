@@ -35,34 +35,33 @@ String Object_wx_RichTextBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxRichTextBuffer, "wxRichTextBuffer")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementFunction(__wxRichTextBuffer)
+{
+	//wxRichTextBuffer();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxRichTextBuffer_1, "wxRichTextBuffer_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementFunction(__wxRichTextBuffer_1)
+{
+	//wxRichTextBuffer();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextBuffer, __wxRichTextBuffer, "wxRichTextBuffer")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextBuffer, __wxRichTextBuffer)
-{
-	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextBuffer();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_RichTextBuffer, __wxRichTextBuffer_1, "wxRichTextBuffer_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextBuffer, __wxRichTextBuffer_1)
-{
-	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextBuffer();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_RichTextBuffer, __GetCommandProcessor, "GetCommandProcessor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1891,8 +1890,10 @@ Gura_ImplementMethod(wx_RichTextBuffer, __SetFloatingLayoutMode)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextBuffer)
 {
-	Gura_AssignMethod(wx_RichTextBuffer, __wxRichTextBuffer);
-	Gura_AssignMethod(wx_RichTextBuffer, __wxRichTextBuffer_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextBuffer);
+	Gura_AssignFunction(__wxRichTextBuffer_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextBuffer, __GetCommandProcessor);
 	Gura_AssignMethod(wx_RichTextBuffer, __SetStyleSheet);
 	Gura_AssignMethod(wx_RichTextBuffer, __GetStyleSheet);

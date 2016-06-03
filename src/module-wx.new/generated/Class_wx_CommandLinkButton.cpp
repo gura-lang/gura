@@ -35,22 +35,20 @@ String Object_wx_CommandLinkButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CommandLinkButton, __wxCommandLinkButton, "wxCommandLinkButton")
+Gura_DeclareFunctionAlias(__wxCommandLinkButton, "wxCommandLinkButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CommandLinkButton, __wxCommandLinkButton)
+Gura_ImplementFunction(__wxCommandLinkButton)
 {
-	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxCommandLinkButton();
+	//wxCommandLinkButton();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_CommandLinkButton, __wxCommandLinkButton_1, "wxCommandLinkButton_1")
+Gura_DeclareFunctionAlias(__wxCommandLinkButton_1, "wxCommandLinkButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,10 +62,8 @@ Gura_DeclareMethodAlias(wx_CommandLinkButton, __wxCommandLinkButton_1, "wxComman
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CommandLinkButton, __wxCommandLinkButton_1)
+Gura_ImplementFunction(__wxCommandLinkButton_1)
 {
-	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int mainLabel = arg.GetNumber(2)
@@ -77,10 +73,13 @@ Gura_ImplementMethod(wx_CommandLinkButton, __wxCommandLinkButton_1)
 	//int style = arg.GetNumber(6)
 	//int validator = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxCommandLinkButton();
+	//wxCommandLinkButton();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CommandLinkButton, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -218,8 +217,10 @@ Gura_ImplementMethod(wx_CommandLinkButton, __GetNote)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CommandLinkButton)
 {
-	Gura_AssignMethod(wx_CommandLinkButton, __wxCommandLinkButton);
-	Gura_AssignMethod(wx_CommandLinkButton, __wxCommandLinkButton_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCommandLinkButton);
+	Gura_AssignFunction(__wxCommandLinkButton_1);
+	// Method assignment
 	Gura_AssignMethod(wx_CommandLinkButton, __Create);
 	Gura_AssignMethod(wx_CommandLinkButton, __SetMainLabelAndNote);
 	Gura_AssignMethod(wx_CommandLinkButton, __SetLabel);

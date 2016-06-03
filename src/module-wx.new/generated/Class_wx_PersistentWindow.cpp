@@ -35,23 +35,24 @@ String Object_wx_PersistentWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PersistentWindow, __wxPersistentWindow, "wxPersistentWindow")
+Gura_DeclareFunctionAlias(__wxPersistentWindow, "wxPersistentWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistentWindow, __wxPersistentWindow)
+Gura_ImplementFunction(__wxPersistentWindow)
 {
-	Object_wx_PersistentWindow *pThis = Object_wx_PersistentWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPersistentWindow();
+	//wxPersistentWindow();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PersistentWindow, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -83,7 +84,9 @@ Gura_ImplementMethod(wx_PersistentWindow, __GetName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentWindow)
 {
-	Gura_AssignMethod(wx_PersistentWindow, __wxPersistentWindow);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPersistentWindow);
+	// Method assignment
 	Gura_AssignMethod(wx_PersistentWindow, __Get);
 	Gura_AssignMethod(wx_PersistentWindow, __GetName);
 }

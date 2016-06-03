@@ -35,22 +35,20 @@ String Object_wx_Wizard::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Wizard, __wxWizard, "wxWizard")
+Gura_DeclareFunctionAlias(__wxWizard, "wxWizard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Wizard, __wxWizard)
+Gura_ImplementFunction(__wxWizard)
 {
-	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxWizard();
+	//wxWizard();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Wizard, __wxWizard_1, "wxWizard_1")
+Gura_DeclareFunctionAlias(__wxWizard_1, "wxWizard_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_Wizard, __wxWizard_1, "wxWizard_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Wizard, __wxWizard_1)
+Gura_ImplementFunction(__wxWizard_1)
 {
-	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
 	//int bitmap = arg.GetNumber(3)
 	//int pos = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
-	//pThis->GetEntity()->wxWizard();
+	//wxWizard();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Wizard, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -346,8 +345,10 @@ Gura_ImplementMethod(wx_Wizard, __SetPageSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Wizard)
 {
-	Gura_AssignMethod(wx_Wizard, __wxWizard);
-	Gura_AssignMethod(wx_Wizard, __wxWizard_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxWizard);
+	Gura_AssignFunction(__wxWizard_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Wizard, __Create);
 	Gura_AssignMethod(wx_Wizard, __FitToPage);
 	Gura_AssignMethod(wx_Wizard, __GetBitmap);

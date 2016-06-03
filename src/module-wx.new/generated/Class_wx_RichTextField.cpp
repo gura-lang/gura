@@ -35,38 +35,37 @@ String Object_wx_RichTextField::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextField, __wxRichTextField, "wxRichTextField")
+Gura_DeclareFunctionAlias(__wxRichTextField, "wxRichTextField")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fieldType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextField, __wxRichTextField)
+Gura_ImplementFunction(__wxRichTextField)
 {
-	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fieldType = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRichTextField();
+	//wxRichTextField();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextField, __wxRichTextField_1, "wxRichTextField_1")
+Gura_DeclareFunctionAlias(__wxRichTextField_1, "wxRichTextField_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextField, __wxRichTextField_1)
+Gura_ImplementFunction(__wxRichTextField_1)
 {
-	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextField();
+	//wxRichTextField();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextField, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -349,8 +348,10 @@ Gura_ImplementMethod(wx_RichTextField, __Copy)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextField)
 {
-	Gura_AssignMethod(wx_RichTextField, __wxRichTextField);
-	Gura_AssignMethod(wx_RichTextField, __wxRichTextField_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextField);
+	Gura_AssignFunction(__wxRichTextField_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextField, __Draw);
 	Gura_AssignMethod(wx_RichTextField, __Layout);
 	Gura_AssignMethod(wx_RichTextField, __GetRangeSize);

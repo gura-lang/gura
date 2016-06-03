@@ -35,21 +35,22 @@ String Object_wx_AuiDockArt::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AuiDockArt, __wxAuiDockArt, "wxAuiDockArt")
+Gura_DeclareFunctionAlias(__wxAuiDockArt, "wxAuiDockArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, __wxAuiDockArt)
+Gura_ImplementFunction(__wxAuiDockArt)
 {
-	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAuiDockArt();
+	//wxAuiDockArt();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiDockArt, __DrawBackground, "DrawBackground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -283,7 +284,9 @@ Gura_ImplementMethod(wx_AuiDockArt, __SetMetric)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiDockArt)
 {
-	Gura_AssignMethod(wx_AuiDockArt, __wxAuiDockArt);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAuiDockArt);
+	// Method assignment
 	Gura_AssignMethod(wx_AuiDockArt, __DrawBackground);
 	Gura_AssignMethod(wx_AuiDockArt, __DrawBorder);
 	Gura_AssignMethod(wx_AuiDockArt, __DrawCaption);

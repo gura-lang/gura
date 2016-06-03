@@ -35,9 +35,9 @@ String Object_wx_FSFile::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FSFile, __wxFSFile, "wxFSFile")
+Gura_DeclareFunctionAlias(__wxFSFile, "wxFSFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -47,19 +47,20 @@ Gura_DeclareMethodAlias(wx_FSFile, __wxFSFile, "wxFSFile")
 	//DeclareArg(env, "modif", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FSFile, __wxFSFile)
+Gura_ImplementFunction(__wxFSFile)
 {
-	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int location = arg.GetNumber(1)
 	//int mimetype = arg.GetNumber(2)
 	//int anchor = arg.GetNumber(3)
 	//int modif = arg.GetNumber(4)
-	//pThis->GetEntity()->wxFSFile();
+	//wxFSFile();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FSFile, __DetachStream, "DetachStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -143,7 +144,9 @@ Gura_ImplementMethod(wx_FSFile, __GetStream)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FSFile)
 {
-	Gura_AssignMethod(wx_FSFile, __wxFSFile);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFSFile);
+	// Method assignment
 	Gura_AssignMethod(wx_FSFile, __DetachStream);
 	Gura_AssignMethod(wx_FSFile, __GetAnchor);
 	Gura_AssignMethod(wx_FSFile, __GetLocation);

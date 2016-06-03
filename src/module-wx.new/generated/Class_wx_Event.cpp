@@ -35,25 +35,26 @@ String Object_wx_Event::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Event, __wxEvent, "wxEvent")
+Gura_DeclareFunctionAlias(__wxEvent, "wxEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Event, __wxEvent)
+Gura_ImplementFunction(__wxEvent)
 {
-	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int eventType = arg.GetNumber(1)
-	//pThis->GetEntity()->wxEvent();
+	//wxEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Event, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -292,7 +293,9 @@ Gura_ImplementMethod(wx_Event, __StopPropagation)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Event)
 {
-	Gura_AssignMethod(wx_Event, __wxEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_Event, __Clone);
 	Gura_AssignMethod(wx_Event, __GetEventObject);
 	Gura_AssignMethod(wx_Event, __GetEventType);

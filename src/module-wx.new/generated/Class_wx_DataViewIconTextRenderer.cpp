@@ -35,6 +35,26 @@ String Object_wx_DataViewIconTextRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxDataViewIconTextRenderer, "wxDataViewIconTextRenderer")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxDataViewIconTextRenderer)
+{
+	//int varianttype = arg.GetNumber(0)
+	//int mode = arg.GetNumber(1)
+	//int align = arg.GetNumber(2)
+	//wxDataViewIconTextRenderer();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewIconTextRenderer, __GetDefaultType, "GetDefaultType")
@@ -50,32 +70,15 @@ Gura_ImplementMethod(wx_DataViewIconTextRenderer, __GetDefaultType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DataViewIconTextRenderer, __wxDataViewIconTextRenderer, "wxDataViewIconTextRenderer")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_DataViewIconTextRenderer, __wxDataViewIconTextRenderer)
-{
-	Object_wx_DataViewIconTextRenderer *pThis = Object_wx_DataViewIconTextRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int varianttype = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
-	//int align = arg.GetNumber(2)
-	//pThis->GetEntity()->wxDataViewIconTextRenderer();
-	return Value::Nil;
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewIconTextRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewIconTextRenderer)
 {
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewIconTextRenderer);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewIconTextRenderer, __GetDefaultType);
-	Gura_AssignMethod(wx_DataViewIconTextRenderer, __wxDataViewIconTextRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewIconTextRenderer)

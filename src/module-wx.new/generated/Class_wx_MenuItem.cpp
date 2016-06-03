@@ -35,9 +35,9 @@ String Object_wx_MenuItem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MenuItem, __wxMenuItem, "wxMenuItem")
+Gura_DeclareFunctionAlias(__wxMenuItem, "wxMenuItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentMenu", VTYPE_number, OCCUR_Once);
@@ -48,20 +48,21 @@ Gura_DeclareMethodAlias(wx_MenuItem, __wxMenuItem, "wxMenuItem")
 	//DeclareArg(env, "subMenu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, __wxMenuItem)
+Gura_ImplementFunction(__wxMenuItem)
 {
-	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parentMenu = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int text = arg.GetNumber(2)
 	//int helpString = arg.GetNumber(3)
 	//int kind = arg.GetNumber(4)
 	//int subMenu = arg.GetNumber(5)
-	//pThis->GetEntity()->wxMenuItem();
+	//wxMenuItem();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MenuItem, __Check, "Check")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -655,7 +656,9 @@ Gura_ImplementMethod(wx_MenuItem, __SetAccel)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MenuItem)
 {
-	Gura_AssignMethod(wx_MenuItem, __wxMenuItem);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMenuItem);
+	// Method assignment
 	Gura_AssignMethod(wx_MenuItem, __Check);
 	Gura_AssignMethod(wx_MenuItem, __Enable);
 	Gura_AssignMethod(wx_MenuItem, __GetLabelFromText);

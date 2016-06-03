@@ -35,23 +35,24 @@ String Object_wx_VariantDataErrorCode::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_VariantDataErrorCode, __wxVariantDataErrorCode, "wxVariantDataErrorCode")
+Gura_DeclareFunctionAlias(__wxVariantDataErrorCode, "wxVariantDataErrorCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VariantDataErrorCode, __wxVariantDataErrorCode)
+Gura_ImplementFunction(__wxVariantDataErrorCode)
 {
-	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//pThis->GetEntity()->wxVariantDataErrorCode();
+	//wxVariantDataErrorCode();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VariantDataErrorCode, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -156,7 +157,9 @@ Gura_ImplementMethod(wx_VariantDataErrorCode, __GetAsAny)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VariantDataErrorCode)
 {
-	Gura_AssignMethod(wx_VariantDataErrorCode, __wxVariantDataErrorCode);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVariantDataErrorCode);
+	// Method assignment
 	Gura_AssignMethod(wx_VariantDataErrorCode, __GetValue);
 	Gura_AssignMethod(wx_VariantDataErrorCode, __SetValue);
 	Gura_AssignMethod(wx_VariantDataErrorCode, __Eq);

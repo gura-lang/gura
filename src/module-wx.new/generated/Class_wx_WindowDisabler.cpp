@@ -35,35 +35,31 @@ String Object_wx_WindowDisabler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_WindowDisabler, __wxWindowDisabler, "wxWindowDisabler")
+Gura_DeclareFunctionAlias(__wxWindowDisabler, "wxWindowDisabler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "disable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WindowDisabler, __wxWindowDisabler)
+Gura_ImplementFunction(__wxWindowDisabler)
 {
-	Object_wx_WindowDisabler *pThis = Object_wx_WindowDisabler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int disable = arg.GetNumber(0)
-	//pThis->GetEntity()->wxWindowDisabler();
+	//wxWindowDisabler();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_WindowDisabler, __wxWindowDisabler_1, "wxWindowDisabler_1")
+Gura_DeclareFunctionAlias(__wxWindowDisabler_1, "wxWindowDisabler_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToSkip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WindowDisabler, __wxWindowDisabler_1)
+Gura_ImplementFunction(__wxWindowDisabler_1)
 {
-	Object_wx_WindowDisabler *pThis = Object_wx_WindowDisabler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winToSkip = arg.GetNumber(0)
-	//pThis->GetEntity()->wxWindowDisabler();
+	//wxWindowDisabler();
 	return Value::Nil;
 }
 
@@ -72,8 +68,9 @@ Gura_ImplementMethod(wx_WindowDisabler, __wxWindowDisabler_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowDisabler)
 {
-	Gura_AssignMethod(wx_WindowDisabler, __wxWindowDisabler);
-	Gura_AssignMethod(wx_WindowDisabler, __wxWindowDisabler_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxWindowDisabler);
+	Gura_AssignFunction(__wxWindowDisabler_1);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowDisabler)

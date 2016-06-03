@@ -35,38 +35,37 @@ String Object_wx_RegEx::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RegEx, __wxRegEx, "wxRegEx")
+Gura_DeclareFunctionAlias(__wxRegEx, "wxRegEx")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RegEx, __wxRegEx)
+Gura_ImplementFunction(__wxRegEx)
 {
-	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRegEx();
+	//wxRegEx();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RegEx, __wxRegEx_1, "wxRegEx_1")
+Gura_DeclareFunctionAlias(__wxRegEx_1, "wxRegEx_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "expr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, __wxRegEx_1)
+Gura_ImplementFunction(__wxRegEx_1)
 {
-	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int expr = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRegEx();
+	//wxRegEx();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RegEx, __Compile, "Compile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -257,8 +256,10 @@ Gura_ImplementMethod(wx_RegEx, __ReplaceFirst)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegEx)
 {
-	Gura_AssignMethod(wx_RegEx, __wxRegEx);
-	Gura_AssignMethod(wx_RegEx, __wxRegEx_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRegEx);
+	Gura_AssignFunction(__wxRegEx_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RegEx, __Compile);
 	Gura_AssignMethod(wx_RegEx, __GetMatch);
 	Gura_AssignMethod(wx_RegEx, __GetMatch_1);

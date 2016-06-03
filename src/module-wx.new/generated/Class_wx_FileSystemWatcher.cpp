@@ -35,21 +35,22 @@ String Object_wx_FileSystemWatcher::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileSystemWatcher, __wxFileSystemWatcher, "wxFileSystemWatcher")
+Gura_DeclareFunctionAlias(__wxFileSystemWatcher, "wxFileSystemWatcher")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcher, __wxFileSystemWatcher)
+Gura_ImplementFunction(__wxFileSystemWatcher)
 {
-	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFileSystemWatcher();
+	//wxFileSystemWatcher();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileSystemWatcher, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -177,7 +178,9 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __SetOwner)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileSystemWatcher)
 {
-	Gura_AssignMethod(wx_FileSystemWatcher, __wxFileSystemWatcher);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileSystemWatcher);
+	// Method assignment
 	Gura_AssignMethod(wx_FileSystemWatcher, __Add);
 	Gura_AssignMethod(wx_FileSystemWatcher, __AddTree);
 	Gura_AssignMethod(wx_FileSystemWatcher, __Remove);

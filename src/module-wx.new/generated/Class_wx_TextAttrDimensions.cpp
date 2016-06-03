@@ -35,21 +35,22 @@ String Object_wx_TextAttrDimensions::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextAttrDimensions, __wxTextAttrDimensions, "wxTextAttrDimensions")
+Gura_DeclareFunctionAlias(__wxTextAttrDimensions, "wxTextAttrDimensions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimensions, __wxTextAttrDimensions)
+Gura_ImplementFunction(__wxTextAttrDimensions)
 {
-	Object_wx_TextAttrDimensions *pThis = Object_wx_TextAttrDimensions::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTextAttrDimensions();
+	//wxTextAttrDimensions();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextAttrDimensions, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -253,7 +254,9 @@ Gura_ImplementMethod(wx_TextAttrDimensions, __IsValid)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrDimensions)
 {
-	Gura_AssignMethod(wx_TextAttrDimensions, __wxTextAttrDimensions);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextAttrDimensions);
+	// Method assignment
 	Gura_AssignMethod(wx_TextAttrDimensions, __Reset);
 	Gura_AssignMethod(wx_TextAttrDimensions, __EqPartial);
 	Gura_AssignMethod(wx_TextAttrDimensions, __Apply);

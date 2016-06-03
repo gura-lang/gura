@@ -35,18 +35,16 @@ String Object_wx_ClientData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ClientData, __wxClientData, "wxClientData")
+Gura_DeclareFunctionAlias(__wxClientData, "wxClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ClientData, __wxClientData)
+Gura_ImplementFunction(__wxClientData)
 {
-	Object_wx_ClientData *pThis = Object_wx_ClientData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxClientData();
+	//wxClientData();
 	return Value::Nil;
 }
 
@@ -55,7 +53,8 @@ Gura_ImplementMethod(wx_ClientData, __wxClientData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientData)
 {
-	Gura_AssignMethod(wx_ClientData, __wxClientData);
+	// Constructor assignment
+	Gura_AssignFunction(__wxClientData);
 }
 
 Gura_ImplementDescendantCreator(wx_ClientData)

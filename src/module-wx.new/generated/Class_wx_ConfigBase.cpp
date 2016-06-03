@@ -35,9 +35,9 @@ String Object_wx_ConfigBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ConfigBase, __wxConfigBase, "wxConfigBase")
+Gura_DeclareFunctionAlias(__wxConfigBase, "wxConfigBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
@@ -48,20 +48,21 @@ Gura_DeclareMethodAlias(wx_ConfigBase, __wxConfigBase, "wxConfigBase")
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConfigBase, __wxConfigBase)
+Gura_ImplementFunction(__wxConfigBase)
 {
-	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int appName = arg.GetNumber(0)
 	//int vendorName = arg.GetNumber(1)
 	//int localFilename = arg.GetNumber(2)
 	//int globalFilename = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int conv = arg.GetNumber(5)
-	//pThis->GetEntity()->wxConfigBase();
+	//wxConfigBase();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ConfigBase, __GetPath, "GetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -193,7 +194,9 @@ Gura_ImplementMethod(wx_ConfigBase, __GetNumberOfGroups)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ConfigBase)
 {
-	Gura_AssignMethod(wx_ConfigBase, __wxConfigBase);
+	// Constructor assignment
+	Gura_AssignFunction(__wxConfigBase);
+	// Method assignment
 	Gura_AssignMethod(wx_ConfigBase, __GetPath);
 	Gura_AssignMethod(wx_ConfigBase, __SetPath);
 	Gura_AssignMethod(wx_ConfigBase, __GetFirstEntry);

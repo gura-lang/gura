@@ -35,51 +35,48 @@ String Object_wx_WrapperInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxWrapperInputStream, "wxWrapperInputStream")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxWrapperInputStream)
+{
+	//int stream = arg.GetNumber(0)
+	//wxWrapperInputStream();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxWrapperInputStream_1, "wxWrapperInputStream_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxWrapperInputStream_1)
+{
+	//int stream = arg.GetNumber(0)
+	//wxWrapperInputStream();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxWrapperInputStream_2, "wxWrapperInputStream_2")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementFunction(__wxWrapperInputStream_2)
+{
+	//wxWrapperInputStream();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_WrapperInputStream, __wxWrapperInputStream, "wxWrapperInputStream")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_WrapperInputStream, __wxWrapperInputStream)
-{
-	Object_wx_WrapperInputStream *pThis = Object_wx_WrapperInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//pThis->GetEntity()->wxWrapperInputStream();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_WrapperInputStream, __wxWrapperInputStream_1, "wxWrapperInputStream_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_WrapperInputStream, __wxWrapperInputStream_1)
-{
-	Object_wx_WrapperInputStream *pThis = Object_wx_WrapperInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//pThis->GetEntity()->wxWrapperInputStream();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_WrapperInputStream, __wxWrapperInputStream_2, "wxWrapperInputStream_2")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_WrapperInputStream, __wxWrapperInputStream_2)
-{
-	Object_wx_WrapperInputStream *pThis = Object_wx_WrapperInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxWrapperInputStream();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_WrapperInputStream, __InitParentStream, "InitParentStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -115,9 +112,11 @@ Gura_ImplementMethod(wx_WrapperInputStream, __InitParentStream_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WrapperInputStream)
 {
-	Gura_AssignMethod(wx_WrapperInputStream, __wxWrapperInputStream);
-	Gura_AssignMethod(wx_WrapperInputStream, __wxWrapperInputStream_1);
-	Gura_AssignMethod(wx_WrapperInputStream, __wxWrapperInputStream_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxWrapperInputStream);
+	Gura_AssignFunction(__wxWrapperInputStream_1);
+	Gura_AssignFunction(__wxWrapperInputStream_2);
+	// Method assignment
 	Gura_AssignMethod(wx_WrapperInputStream, __InitParentStream);
 	Gura_AssignMethod(wx_WrapperInputStream, __InitParentStream_1);
 }

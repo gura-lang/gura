@@ -35,22 +35,20 @@ String Object_wx_VListBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_VListBox, __wxVListBox, "wxVListBox")
+Gura_DeclareFunctionAlias(__wxVListBox, "wxVListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VListBox, __wxVListBox)
+Gura_ImplementFunction(__wxVListBox)
 {
-	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxVListBox();
+	//wxVListBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_VListBox, __wxVListBox_1, "wxVListBox_1")
+Gura_DeclareFunctionAlias(__wxVListBox_1, "wxVListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_VListBox, __wxVListBox_1, "wxVListBox_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VListBox, __wxVListBox_1)
+Gura_ImplementFunction(__wxVListBox_1)
 {
-	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxVListBox();
+	//wxVListBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VListBox, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -495,8 +494,10 @@ Gura_ImplementMethod(wx_VListBox, __OnMeasureItem)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VListBox)
 {
-	Gura_AssignMethod(wx_VListBox, __wxVListBox);
-	Gura_AssignMethod(wx_VListBox, __wxVListBox_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVListBox);
+	Gura_AssignFunction(__wxVListBox_1);
+	// Method assignment
 	Gura_AssignMethod(wx_VListBox, __Clear);
 	Gura_AssignMethod(wx_VListBox, __Create);
 	Gura_AssignMethod(wx_VListBox, __DeselectAll);

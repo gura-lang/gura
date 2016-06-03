@@ -35,23 +35,24 @@ String Object_wx_Joystick::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Joystick, __wxJoystick, "wxJoystick")
+Gura_DeclareFunctionAlias(__wxJoystick, "wxJoystick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "joystick", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Joystick, __wxJoystick)
+Gura_ImplementFunction(__wxJoystick)
 {
-	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int joystick = arg.GetNumber(0)
-	//pThis->GetEntity()->wxJoystick();
+	//wxJoystick();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Joystick, __GetButtonState, "GetButtonState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -613,7 +614,9 @@ Gura_ImplementMethod(wx_Joystick, __SetMovementThreshold)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Joystick)
 {
-	Gura_AssignMethod(wx_Joystick, __wxJoystick);
+	// Constructor assignment
+	Gura_AssignFunction(__wxJoystick);
+	// Method assignment
 	Gura_AssignMethod(wx_Joystick, __GetButtonState);
 	Gura_AssignMethod(wx_Joystick, __GetButtonState_1);
 	Gura_AssignMethod(wx_Joystick, __GetManufacturerId);

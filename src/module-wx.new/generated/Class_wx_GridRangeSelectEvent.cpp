@@ -35,22 +35,20 @@ String Object_wx_GridRangeSelectEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridRangeSelectEvent, __wxGridRangeSelectEvent, "wxGridRangeSelectEvent")
+Gura_DeclareFunctionAlias(__wxGridRangeSelectEvent, "wxGridRangeSelectEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridRangeSelectEvent, __wxGridRangeSelectEvent)
+Gura_ImplementFunction(__wxGridRangeSelectEvent)
 {
-	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGridRangeSelectEvent();
+	//wxGridRangeSelectEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GridRangeSelectEvent, __wxGridRangeSelectEvent_1, "wxGridRangeSelectEvent_1")
+Gura_DeclareFunctionAlias(__wxGridRangeSelectEvent_1, "wxGridRangeSelectEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -62,10 +60,8 @@ Gura_DeclareMethodAlias(wx_GridRangeSelectEvent, __wxGridRangeSelectEvent_1, "wx
 	//DeclareArg(env, "kbd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridRangeSelectEvent, __wxGridRangeSelectEvent_1)
+Gura_ImplementFunction(__wxGridRangeSelectEvent_1)
 {
-	Object_wx_GridRangeSelectEvent *pThis = Object_wx_GridRangeSelectEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
 	//int obj = arg.GetNumber(2)
@@ -73,10 +69,13 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, __wxGridRangeSelectEvent_1)
 	//int bottomRight = arg.GetNumber(4)
 	//int sel = arg.GetNumber(5)
 	//int kbd = arg.GetNumber(6)
-	//pThis->GetEntity()->wxGridRangeSelectEvent();
+	//wxGridRangeSelectEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridRangeSelectEvent, __AltDown, "AltDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -225,8 +224,10 @@ Gura_ImplementMethod(wx_GridRangeSelectEvent, __ShiftDown)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridRangeSelectEvent)
 {
-	Gura_AssignMethod(wx_GridRangeSelectEvent, __wxGridRangeSelectEvent);
-	Gura_AssignMethod(wx_GridRangeSelectEvent, __wxGridRangeSelectEvent_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridRangeSelectEvent);
+	Gura_AssignFunction(__wxGridRangeSelectEvent_1);
+	// Method assignment
 	Gura_AssignMethod(wx_GridRangeSelectEvent, __AltDown);
 	Gura_AssignMethod(wx_GridRangeSelectEvent, __ControlDown);
 	Gura_AssignMethod(wx_GridRangeSelectEvent, __GetBottomRightCoords);

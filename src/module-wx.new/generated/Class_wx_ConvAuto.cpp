@@ -35,23 +35,24 @@ String Object_wx_ConvAuto::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ConvAuto, __wxConvAuto, "wxConvAuto")
+Gura_DeclareFunctionAlias(__wxConvAuto, "wxConvAuto")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConvAuto, __wxConvAuto)
+Gura_ImplementFunction(__wxConvAuto)
 {
-	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int enc = arg.GetNumber(0)
-	//pThis->GetEntity()->wxConvAuto();
+	//wxConvAuto();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ConvAuto, __GetBOM, "GetBOM")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -145,7 +146,9 @@ Gura_ImplementMethod(wx_ConvAuto, __DetectBOM)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ConvAuto)
 {
-	Gura_AssignMethod(wx_ConvAuto, __wxConvAuto);
+	// Constructor assignment
+	Gura_AssignFunction(__wxConvAuto);
+	// Method assignment
 	Gura_AssignMethod(wx_ConvAuto, __GetBOM);
 	Gura_AssignMethod(wx_ConvAuto, __GetBOMChars);
 	Gura_AssignMethod(wx_ConvAuto, __DisableFallbackEncoding);

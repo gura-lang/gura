@@ -35,36 +35,35 @@ String Object_wx_RichTextParagraphLayoutBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __wxRichTextParagraphLayoutBox, "wxRichTextParagraphLayoutBox")
+Gura_DeclareFunctionAlias(__wxRichTextParagraphLayoutBox, "wxRichTextParagraphLayoutBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __wxRichTextParagraphLayoutBox)
+Gura_ImplementFunction(__wxRichTextParagraphLayoutBox)
 {
-	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextParagraphLayoutBox();
+	//wxRichTextParagraphLayoutBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __wxRichTextParagraphLayoutBox_1, "wxRichTextParagraphLayoutBox_1")
+Gura_DeclareFunctionAlias(__wxRichTextParagraphLayoutBox_1, "wxRichTextParagraphLayoutBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __wxRichTextParagraphLayoutBox_1)
+Gura_ImplementFunction(__wxRichTextParagraphLayoutBox_1)
 {
-	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextParagraphLayoutBox();
+	//wxRichTextParagraphLayoutBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __HitTest, "HitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1633,8 +1632,10 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetFloatingObjects)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextParagraphLayoutBox)
 {
-	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, __wxRichTextParagraphLayoutBox);
-	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, __wxRichTextParagraphLayoutBox_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextParagraphLayoutBox);
+	Gura_AssignFunction(__wxRichTextParagraphLayoutBox_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, __HitTest);
 	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, __Draw);
 	Gura_AssignMethod(wx_RichTextParagraphLayoutBox, __Layout);

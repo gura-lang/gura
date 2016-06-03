@@ -35,25 +35,26 @@ String Object_wx_StatusBarPane::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StatusBarPane, __wxStatusBarPane, "wxStatusBarPane")
+Gura_DeclareFunctionAlias(__wxStatusBarPane, "wxStatusBarPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBarPane, __wxStatusBarPane)
+Gura_ImplementFunction(__wxStatusBarPane)
 {
-	Object_wx_StatusBarPane *pThis = Object_wx_StatusBarPane::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
-	//pThis->GetEntity()->wxStatusBarPane();
+	//wxStatusBarPane();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StatusBarPane, __GetWidth, "GetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -98,7 +99,9 @@ Gura_ImplementMethod(wx_StatusBarPane, __GetText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StatusBarPane)
 {
-	Gura_AssignMethod(wx_StatusBarPane, __wxStatusBarPane);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStatusBarPane);
+	// Method assignment
 	Gura_AssignMethod(wx_StatusBarPane, __GetWidth);
 	Gura_AssignMethod(wx_StatusBarPane, __GetStyle);
 	Gura_AssignMethod(wx_StatusBarPane, __GetText);

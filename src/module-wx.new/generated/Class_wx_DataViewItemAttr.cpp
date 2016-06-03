@@ -35,21 +35,22 @@ String Object_wx_DataViewItemAttr::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewItemAttr, __wxDataViewItemAttr, "wxDataViewItemAttr")
+Gura_DeclareFunctionAlias(__wxDataViewItemAttr, "wxDataViewItemAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, __wxDataViewItemAttr)
+Gura_ImplementFunction(__wxDataViewItemAttr)
 {
-	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDataViewItemAttr();
+	//wxDataViewItemAttr();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewItemAttr, __SetBold, "SetBold")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -234,7 +235,9 @@ Gura_ImplementMethod(wx_DataViewItemAttr, __GetEffectiveFont)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewItemAttr)
 {
-	Gura_AssignMethod(wx_DataViewItemAttr, __wxDataViewItemAttr);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewItemAttr);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewItemAttr, __SetBold);
 	Gura_AssignMethod(wx_DataViewItemAttr, __SetColour);
 	Gura_AssignMethod(wx_DataViewItemAttr, __SetBackgroundColour);

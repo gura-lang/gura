@@ -35,22 +35,20 @@ String Object_wx_TreeCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TreeCtrl, __wxTreeCtrl, "wxTreeCtrl")
+Gura_DeclareFunctionAlias(__wxTreeCtrl, "wxTreeCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeCtrl, __wxTreeCtrl)
+Gura_ImplementFunction(__wxTreeCtrl)
 {
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTreeCtrl();
+	//wxTreeCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TreeCtrl, __wxTreeCtrl_1, "wxTreeCtrl_1")
+Gura_DeclareFunctionAlias(__wxTreeCtrl_1, "wxTreeCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,10 +60,8 @@ Gura_DeclareMethodAlias(wx_TreeCtrl, __wxTreeCtrl_1, "wxTreeCtrl_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeCtrl, __wxTreeCtrl_1)
+Gura_ImplementFunction(__wxTreeCtrl_1)
 {
-	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -73,10 +69,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __wxTreeCtrl_1)
 	//int style = arg.GetNumber(4)
 	//int validator = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxTreeCtrl();
+	//wxTreeCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TreeCtrl, __AddRoot, "AddRoot")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1449,8 +1448,10 @@ Gura_ImplementMethod(wx_TreeCtrl, __SelectChildren)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeCtrl)
 {
-	Gura_AssignMethod(wx_TreeCtrl, __wxTreeCtrl);
-	Gura_AssignMethod(wx_TreeCtrl, __wxTreeCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTreeCtrl);
+	Gura_AssignFunction(__wxTreeCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TreeCtrl, __AddRoot);
 	Gura_AssignMethod(wx_TreeCtrl, __AppendItem);
 	Gura_AssignMethod(wx_TreeCtrl, __AssignButtonsImageList);

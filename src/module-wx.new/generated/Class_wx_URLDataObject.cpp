@@ -35,23 +35,24 @@ String Object_wx_URLDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_URLDataObject, __wxURLDataObject, "wxURLDataObject")
+Gura_DeclareFunctionAlias(__wxURLDataObject, "wxURLDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_URLDataObject, __wxURLDataObject)
+Gura_ImplementFunction(__wxURLDataObject)
 {
-	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
-	//pThis->GetEntity()->wxURLDataObject();
+	//wxURLDataObject();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_URLDataObject, __GetURL, "GetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -85,7 +86,9 @@ Gura_ImplementMethod(wx_URLDataObject, __SetURL)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_URLDataObject)
 {
-	Gura_AssignMethod(wx_URLDataObject, __wxURLDataObject);
+	// Constructor assignment
+	Gura_AssignFunction(__wxURLDataObject);
+	// Method assignment
 	Gura_AssignMethod(wx_URLDataObject, __GetURL);
 	Gura_AssignMethod(wx_URLDataObject, __SetURL);
 }

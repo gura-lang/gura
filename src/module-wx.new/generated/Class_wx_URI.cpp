@@ -35,51 +35,48 @@ String Object_wx_URI::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxURI, "wxURI")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementFunction(__wxURI)
+{
+	//wxURI();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxURI_1, "wxURI_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxURI_1)
+{
+	//int uri = arg.GetNumber(0)
+	//wxURI();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxURI_2, "wxURI_2")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxURI_2)
+{
+	//int uri = arg.GetNumber(0)
+	//wxURI();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_URI, __wxURI, "wxURI")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_URI, __wxURI)
-{
-	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxURI();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_URI, __wxURI_1, "wxURI_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_URI, __wxURI_1)
-{
-	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int uri = arg.GetNumber(0)
-	//pThis->GetEntity()->wxURI();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_URI, __wxURI_2, "wxURI_2")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_URI, __wxURI_2)
-{
-	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int uri = arg.GetNumber(0)
-	//pThis->GetEntity()->wxURI();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_URI, __BuildURI, "BuildURI")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -392,9 +389,11 @@ Gura_ImplementMethod(wx_URI, __Unescape)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_URI)
 {
-	Gura_AssignMethod(wx_URI, __wxURI);
-	Gura_AssignMethod(wx_URI, __wxURI_1);
-	Gura_AssignMethod(wx_URI, __wxURI_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxURI);
+	Gura_AssignFunction(__wxURI_1);
+	Gura_AssignFunction(__wxURI_2);
+	// Method assignment
 	Gura_AssignMethod(wx_URI, __BuildURI);
 	Gura_AssignMethod(wx_URI, __BuildUnescapedURI);
 	Gura_AssignMethod(wx_URI, __Create);

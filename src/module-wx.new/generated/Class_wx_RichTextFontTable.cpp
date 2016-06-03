@@ -35,36 +35,35 @@ String Object_wx_RichTextFontTable::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextFontTable, __wxRichTextFontTable, "wxRichTextFontTable")
+Gura_DeclareFunctionAlias(__wxRichTextFontTable, "wxRichTextFontTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFontTable, __wxRichTextFontTable)
+Gura_ImplementFunction(__wxRichTextFontTable)
 {
-	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextFontTable();
+	//wxRichTextFontTable();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextFontTable, __wxRichTextFontTable_1, "wxRichTextFontTable_1")
+Gura_DeclareFunctionAlias(__wxRichTextFontTable_1, "wxRichTextFontTable_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFontTable, __wxRichTextFontTable_1)
+Gura_ImplementFunction(__wxRichTextFontTable_1)
 {
-	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int table = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextFontTable();
+	//wxRichTextFontTable();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextFontTable, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -126,8 +125,10 @@ Gura_ImplementMethod(wx_RichTextFontTable, __SetFontScale)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFontTable)
 {
-	Gura_AssignMethod(wx_RichTextFontTable, __wxRichTextFontTable);
-	Gura_AssignMethod(wx_RichTextFontTable, __wxRichTextFontTable_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextFontTable);
+	Gura_AssignFunction(__wxRichTextFontTable_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextFontTable, __IsOk);
 	Gura_AssignMethod(wx_RichTextFontTable, __FindFont);
 	Gura_AssignMethod(wx_RichTextFontTable, __Clear);

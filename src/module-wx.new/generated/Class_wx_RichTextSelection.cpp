@@ -35,53 +35,50 @@ String Object_wx_RichTextSelection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextSelection, __wxRichTextSelection, "wxRichTextSelection")
+Gura_DeclareFunctionAlias(__wxRichTextSelection, "wxRichTextSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sel", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextSelection, __wxRichTextSelection)
+Gura_ImplementFunction(__wxRichTextSelection)
 {
-	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sel = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextSelection();
+	//wxRichTextSelection();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextSelection, __wxRichTextSelection_1, "wxRichTextSelection_1")
+Gura_DeclareFunctionAlias(__wxRichTextSelection_1, "wxRichTextSelection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "container", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextSelection, __wxRichTextSelection_1)
+Gura_ImplementFunction(__wxRichTextSelection_1)
 {
-	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
 	//int container = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRichTextSelection();
+	//wxRichTextSelection();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextSelection, __wxRichTextSelection_2, "wxRichTextSelection_2")
+Gura_DeclareFunctionAlias(__wxRichTextSelection_2, "wxRichTextSelection_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextSelection, __wxRichTextSelection_2)
+Gura_ImplementFunction(__wxRichTextSelection_2)
 {
-	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextSelection();
+	//wxRichTextSelection();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextSelection, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -383,9 +380,11 @@ Gura_ImplementMethod(wx_RichTextSelection, __WithinSelection_3)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextSelection)
 {
-	Gura_AssignMethod(wx_RichTextSelection, __wxRichTextSelection);
-	Gura_AssignMethod(wx_RichTextSelection, __wxRichTextSelection_1);
-	Gura_AssignMethod(wx_RichTextSelection, __wxRichTextSelection_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextSelection);
+	Gura_AssignFunction(__wxRichTextSelection_1);
+	Gura_AssignFunction(__wxRichTextSelection_2);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextSelection, __Reset);
 	Gura_AssignMethod(wx_RichTextSelection, __Set);
 	Gura_AssignMethod(wx_RichTextSelection, __Add);

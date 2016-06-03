@@ -35,38 +35,37 @@ String Object_wx_DDEConnection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DDEConnection, __wxDDEConnection, "wxDDEConnection")
+Gura_DeclareFunctionAlias(__wxDDEConnection, "wxDDEConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, __wxDDEConnection)
+Gura_ImplementFunction(__wxDDEConnection)
 {
-	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDDEConnection();
+	//wxDDEConnection();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DDEConnection, __wxDDEConnection_1, "wxDDEConnection_1")
+Gura_DeclareFunctionAlias(__wxDDEConnection_1, "wxDDEConnection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, __wxDDEConnection_1)
+Gura_ImplementFunction(__wxDDEConnection_1)
 {
-	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDDEConnection();
+	//wxDDEConnection();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DDEConnection, __Advise, "Advise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -477,8 +476,10 @@ Gura_ImplementMethod(wx_DDEConnection, __StopAdvise)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DDEConnection)
 {
-	Gura_AssignMethod(wx_DDEConnection, __wxDDEConnection);
-	Gura_AssignMethod(wx_DDEConnection, __wxDDEConnection_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDDEConnection);
+	Gura_AssignFunction(__wxDDEConnection_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DDEConnection, __Advise);
 	Gura_AssignMethod(wx_DDEConnection, __Advise_1);
 	Gura_AssignMethod(wx_DDEConnection, __Advise_2);

@@ -35,22 +35,20 @@ String Object_wx_CheckBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CheckBox, __wxCheckBox, "wxCheckBox")
+Gura_DeclareFunctionAlias(__wxCheckBox, "wxCheckBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CheckBox, __wxCheckBox)
+Gura_ImplementFunction(__wxCheckBox)
 {
-	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxCheckBox();
+	//wxCheckBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_CheckBox, __wxCheckBox_1, "wxCheckBox_1")
+Gura_DeclareFunctionAlias(__wxCheckBox_1, "wxCheckBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,10 +61,8 @@ Gura_DeclareMethodAlias(wx_CheckBox, __wxCheckBox_1, "wxCheckBox_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CheckBox, __wxCheckBox_1)
+Gura_ImplementFunction(__wxCheckBox_1)
 {
-	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -75,10 +71,13 @@ Gura_ImplementMethod(wx_CheckBox, __wxCheckBox_1)
 	//int style = arg.GetNumber(5)
 	//int validator = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxCheckBox();
+	//wxCheckBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CheckBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -208,8 +207,10 @@ Gura_ImplementMethod(wx_CheckBox, __Set3StateValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CheckBox)
 {
-	Gura_AssignMethod(wx_CheckBox, __wxCheckBox);
-	Gura_AssignMethod(wx_CheckBox, __wxCheckBox_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCheckBox);
+	Gura_AssignFunction(__wxCheckBox_1);
+	// Method assignment
 	Gura_AssignMethod(wx_CheckBox, __Create);
 	Gura_AssignMethod(wx_CheckBox, __GetValue);
 	Gura_AssignMethod(wx_CheckBox, __Get3StateValue);

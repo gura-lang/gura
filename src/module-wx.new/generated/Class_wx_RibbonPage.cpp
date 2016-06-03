@@ -35,22 +35,20 @@ String Object_wx_RibbonPage::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RibbonPage, __wxRibbonPage, "wxRibbonPage")
+Gura_DeclareFunctionAlias(__wxRibbonPage, "wxRibbonPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPage, __wxRibbonPage)
+Gura_ImplementFunction(__wxRibbonPage)
 {
-	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRibbonPage();
+	//wxRibbonPage();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RibbonPage, __wxRibbonPage_1, "wxRibbonPage_1")
+Gura_DeclareFunctionAlias(__wxRibbonPage_1, "wxRibbonPage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -60,19 +58,20 @@ Gura_DeclareMethodAlias(wx_RibbonPage, __wxRibbonPage_1, "wxRibbonPage_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonPage, __wxRibbonPage_1)
+Gura_ImplementFunction(__wxRibbonPage_1)
 {
-	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
 	//int icon = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->wxRibbonPage();
+	//wxRibbonPage();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonPage, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -249,8 +248,10 @@ Gura_ImplementMethod(wx_RibbonPage, __GetMajorAxis)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonPage)
 {
-	Gura_AssignMethod(wx_RibbonPage, __wxRibbonPage);
-	Gura_AssignMethod(wx_RibbonPage, __wxRibbonPage_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRibbonPage);
+	Gura_AssignFunction(__wxRibbonPage_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RibbonPage, __Create);
 	Gura_AssignMethod(wx_RibbonPage, __SetArtProvider);
 	Gura_AssignMethod(wx_RibbonPage, __GetIcon);

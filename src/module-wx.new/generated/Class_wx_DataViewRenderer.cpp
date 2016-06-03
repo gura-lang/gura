@@ -35,9 +35,9 @@ String Object_wx_DataViewRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewRenderer, __wxDataViewRenderer, "wxDataViewRenderer")
+Gura_DeclareFunctionAlias(__wxDataViewRenderer, "wxDataViewRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_DataViewRenderer, __wxDataViewRenderer, "wxDataViewRe
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewRenderer, __wxDataViewRenderer)
+Gura_ImplementFunction(__wxDataViewRenderer)
 {
-	Object_wx_DataViewRenderer *pThis = Object_wx_DataViewRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int varianttype = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
 	//int align = arg.GetNumber(2)
-	//pThis->GetEntity()->wxDataViewRenderer();
+	//wxDataViewRenderer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewRenderer, __EnableEllipsize, "EnableEllipsize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -347,7 +348,9 @@ Gura_ImplementMethod(wx_DataViewRenderer, __GetView)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewRenderer)
 {
-	Gura_AssignMethod(wx_DataViewRenderer, __wxDataViewRenderer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewRenderer);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewRenderer, __EnableEllipsize);
 	Gura_AssignMethod(wx_DataViewRenderer, __DisableEllipsize);
 	Gura_AssignMethod(wx_DataViewRenderer, __GetAlignment);

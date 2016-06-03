@@ -35,21 +35,22 @@ String Object_wx_MimeTypesManager::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MimeTypesManager, __wxMimeTypesManager, "wxMimeTypesManager")
+Gura_DeclareFunctionAlias(__wxMimeTypesManager, "wxMimeTypesManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MimeTypesManager, __wxMimeTypesManager)
+Gura_ImplementFunction(__wxMimeTypesManager)
 {
-	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMimeTypesManager();
+	//wxMimeTypesManager();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MimeTypesManager, __AddFallbacks, "AddFallbacks")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -162,7 +163,9 @@ Gura_ImplementMethod(wx_MimeTypesManager, __EnumAllFileTypes)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MimeTypesManager)
 {
-	Gura_AssignMethod(wx_MimeTypesManager, __wxMimeTypesManager);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMimeTypesManager);
+	// Method assignment
 	Gura_AssignMethod(wx_MimeTypesManager, __AddFallbacks);
 	Gura_AssignMethod(wx_MimeTypesManager, __GetFileTypeFromExtension);
 	Gura_AssignMethod(wx_MimeTypesManager, __GetFileTypeFromMimeType);

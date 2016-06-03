@@ -35,9 +35,9 @@ String Object_wx_HeaderColumnSimple::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HeaderColumnSimple, __wxHeaderColumnSimple, "wxHeaderColumnSimple")
+Gura_DeclareFunctionAlias(__wxHeaderColumnSimple, "wxHeaderColumnSimple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -46,19 +46,17 @@ Gura_DeclareMethodAlias(wx_HeaderColumnSimple, __wxHeaderColumnSimple, "wxHeader
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderColumnSimple, __wxHeaderColumnSimple)
+Gura_ImplementFunction(__wxHeaderColumnSimple)
 {
-	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int align = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->wxHeaderColumnSimple();
+	//wxHeaderColumnSimple();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_HeaderColumnSimple, __wxHeaderColumnSimple_1, "wxHeaderColumnSimple_1")
+Gura_DeclareFunctionAlias(__wxHeaderColumnSimple_1, "wxHeaderColumnSimple_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -67,18 +65,19 @@ Gura_DeclareMethodAlias(wx_HeaderColumnSimple, __wxHeaderColumnSimple_1, "wxHead
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderColumnSimple, __wxHeaderColumnSimple_1)
+Gura_ImplementFunction(__wxHeaderColumnSimple_1)
 {
-	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int align = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->wxHeaderColumnSimple();
+	//wxHeaderColumnSimple();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HeaderColumnSimple, __SetTitle, "SetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -293,8 +292,10 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __IsSortOrderAscending)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HeaderColumnSimple)
 {
-	Gura_AssignMethod(wx_HeaderColumnSimple, __wxHeaderColumnSimple);
-	Gura_AssignMethod(wx_HeaderColumnSimple, __wxHeaderColumnSimple_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHeaderColumnSimple);
+	Gura_AssignFunction(__wxHeaderColumnSimple_1);
+	// Method assignment
 	Gura_AssignMethod(wx_HeaderColumnSimple, __SetTitle);
 	Gura_AssignMethod(wx_HeaderColumnSimple, __GetTitle);
 	Gura_AssignMethod(wx_HeaderColumnSimple, __SetBitmap);

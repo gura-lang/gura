@@ -35,25 +35,26 @@ String Object_wx_MoveEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MoveEvent, __wxMoveEvent, "wxMoveEvent")
+Gura_DeclareFunctionAlias(__wxMoveEvent, "wxMoveEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MoveEvent, __wxMoveEvent)
+Gura_ImplementFunction(__wxMoveEvent)
 {
-	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxMoveEvent();
+	//wxMoveEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MoveEvent, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -115,7 +116,9 @@ Gura_ImplementMethod(wx_MoveEvent, __SetPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MoveEvent)
 {
-	Gura_AssignMethod(wx_MoveEvent, __wxMoveEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMoveEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_MoveEvent, __GetPosition);
 	Gura_AssignMethod(wx_MoveEvent, __GetRect);
 	Gura_AssignMethod(wx_MoveEvent, __SetRect);

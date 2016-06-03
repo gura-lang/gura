@@ -35,9 +35,9 @@ String Object_wx_SimpleHtmlListBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox, "wxSimpleHtmlListBox")
+Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox, "wxSimpleHtmlListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -51,10 +51,8 @@ Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox, "wxSimpleHt
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox)
+Gura_ImplementFunction(__wxSimpleHtmlListBox)
 {
-	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -64,11 +62,11 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox)
 	//int style = arg.GetNumber(6)
 	//int validator = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxSimpleHtmlListBox();
+	//wxSimpleHtmlListBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_1, "wxSimpleHtmlListBox_1")
+Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox_1, "wxSimpleHtmlListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -81,10 +79,8 @@ Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_1, "wxSimple
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_1)
+Gura_ImplementFunction(__wxSimpleHtmlListBox_1)
 {
-	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -93,23 +89,24 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_1)
 	//int style = arg.GetNumber(5)
 	//int validator = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxSimpleHtmlListBox();
+	//wxSimpleHtmlListBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_2, "wxSimpleHtmlListBox_2")
+Gura_DeclareFunctionAlias(__wxSimpleHtmlListBox_2, "wxSimpleHtmlListBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_2)
+Gura_ImplementFunction(__wxSimpleHtmlListBox_2)
 {
-	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSimpleHtmlListBox();
+	//wxSimpleHtmlListBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -175,9 +172,11 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, __Create_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SimpleHtmlListBox)
 {
-	Gura_AssignMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox);
-	Gura_AssignMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_1);
-	Gura_AssignMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSimpleHtmlListBox);
+	Gura_AssignFunction(__wxSimpleHtmlListBox_1);
+	Gura_AssignFunction(__wxSimpleHtmlListBox_2);
+	// Method assignment
 	Gura_AssignMethod(wx_SimpleHtmlListBox, __Create);
 	Gura_AssignMethod(wx_SimpleHtmlListBox, __Create_1);
 }

@@ -35,23 +35,24 @@ String Object_wx_LogChain::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LogChain, __wxLogChain, "wxLogChain")
+Gura_DeclareFunctionAlias(__wxLogChain, "wxLogChain")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "logger", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogChain, __wxLogChain)
+Gura_ImplementFunction(__wxLogChain)
 {
-	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int logger = arg.GetNumber(0)
-	//pThis->GetEntity()->wxLogChain();
+	//wxLogChain();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LogChain, __DetachOldLog, "DetachOldLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -126,7 +127,9 @@ Gura_ImplementMethod(wx_LogChain, __SetLog)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogChain)
 {
-	Gura_AssignMethod(wx_LogChain, __wxLogChain);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLogChain);
+	// Method assignment
 	Gura_AssignMethod(wx_LogChain, __DetachOldLog);
 	Gura_AssignMethod(wx_LogChain, __GetOldLog);
 	Gura_AssignMethod(wx_LogChain, __IsPassingMessages);

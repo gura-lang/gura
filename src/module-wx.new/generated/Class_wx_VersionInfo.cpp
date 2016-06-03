@@ -35,9 +35,9 @@ String Object_wx_VersionInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_VersionInfo, __wxVersionInfo, "wxVersionInfo")
+Gura_DeclareFunctionAlias(__wxVersionInfo, "wxVersionInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -48,20 +48,21 @@ Gura_DeclareMethodAlias(wx_VersionInfo, __wxVersionInfo, "wxVersionInfo")
 	//DeclareArg(env, "copyright", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VersionInfo, __wxVersionInfo)
+Gura_ImplementFunction(__wxVersionInfo)
 {
-	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int major = arg.GetNumber(1)
 	//int minor = arg.GetNumber(2)
 	//int micro = arg.GetNumber(3)
 	//int description = arg.GetNumber(4)
 	//int copyright = arg.GetNumber(5)
-	//pThis->GetEntity()->wxVersionInfo();
+	//wxVersionInfo();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VersionInfo, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -197,7 +198,9 @@ Gura_ImplementMethod(wx_VersionInfo, __GetCopyright)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VersionInfo)
 {
-	Gura_AssignMethod(wx_VersionInfo, __wxVersionInfo);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVersionInfo);
+	// Method assignment
 	Gura_AssignMethod(wx_VersionInfo, __GetName);
 	Gura_AssignMethod(wx_VersionInfo, __GetMajor);
 	Gura_AssignMethod(wx_VersionInfo, __GetMinor);

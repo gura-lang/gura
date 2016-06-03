@@ -35,9 +35,9 @@ String Object_wx_RibbonGalleryEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RibbonGalleryEvent, __wxRibbonGalleryEvent, "wxRibbonGalleryEvent")
+Gura_DeclareFunctionAlias(__wxRibbonGalleryEvent, "wxRibbonGalleryEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_RibbonGalleryEvent, __wxRibbonGalleryEvent, "wxRibbon
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGalleryEvent, __wxRibbonGalleryEvent)
+Gura_ImplementFunction(__wxRibbonGalleryEvent)
 {
-	Object_wx_RibbonGalleryEvent *pThis = Object_wx_RibbonGalleryEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
 	//int gallery = arg.GetNumber(2)
 	//int item = arg.GetNumber(3)
-	//pThis->GetEntity()->wxRibbonGalleryEvent();
+	//wxRibbonGalleryEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonGalleryEvent, __GetGallery, "GetGallery")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -119,7 +120,9 @@ Gura_ImplementMethod(wx_RibbonGalleryEvent, __SetGalleryItem)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonGalleryEvent)
 {
-	Gura_AssignMethod(wx_RibbonGalleryEvent, __wxRibbonGalleryEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRibbonGalleryEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_RibbonGalleryEvent, __GetGallery);
 	Gura_AssignMethod(wx_RibbonGalleryEvent, __GetGalleryItem);
 	Gura_AssignMethod(wx_RibbonGalleryEvent, __SetGallery);

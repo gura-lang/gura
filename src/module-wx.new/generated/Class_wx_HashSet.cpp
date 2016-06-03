@@ -35,38 +35,37 @@ String Object_wx_HashSet::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HashSet, __wxHashSet, "wxHashSet")
+Gura_DeclareFunctionAlias(__wxHashSet, "wxHashSet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, __wxHashSet)
+Gura_ImplementFunction(__wxHashSet)
 {
-	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
-	//pThis->GetEntity()->wxHashSet();
+	//wxHashSet();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_HashSet, __wxHashSet_1, "wxHashSet_1")
+Gura_DeclareFunctionAlias(__wxHashSet_1, "wxHashSet_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "set", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, __wxHashSet_1)
+Gura_ImplementFunction(__wxHashSet_1)
 {
-	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int set = arg.GetNumber(0)
-	//pThis->GetEntity()->wxHashSet();
+	//wxHashSet();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HashSet, __begin, "begin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -268,8 +267,10 @@ Gura_ImplementMethod(wx_HashSet, __size)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HashSet)
 {
-	Gura_AssignMethod(wx_HashSet, __wxHashSet);
-	Gura_AssignMethod(wx_HashSet, __wxHashSet_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHashSet);
+	Gura_AssignFunction(__wxHashSet_1);
+	// Method assignment
 	Gura_AssignMethod(wx_HashSet, __begin);
 	Gura_AssignMethod(wx_HashSet, __begin_1);
 	Gura_AssignMethod(wx_HashSet, __clear);

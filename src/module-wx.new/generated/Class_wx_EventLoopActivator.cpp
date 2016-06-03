@@ -35,20 +35,18 @@ String Object_wx_EventLoopActivator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_EventLoopActivator, __wxEventLoopActivator, "wxEventLoopActivator")
+Gura_DeclareFunctionAlias(__wxEventLoopActivator, "wxEventLoopActivator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loop", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_EventLoopActivator, __wxEventLoopActivator)
+Gura_ImplementFunction(__wxEventLoopActivator)
 {
-	Object_wx_EventLoopActivator *pThis = Object_wx_EventLoopActivator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int loop = arg.GetNumber(0)
-	//pThis->GetEntity()->wxEventLoopActivator();
+	//wxEventLoopActivator();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_EventLoopActivator, __wxEventLoopActivator)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EventLoopActivator)
 {
-	Gura_AssignMethod(wx_EventLoopActivator, __wxEventLoopActivator);
+	// Constructor assignment
+	Gura_AssignFunction(__wxEventLoopActivator);
 }
 
 Gura_ImplementDescendantCreator(wx_EventLoopActivator)

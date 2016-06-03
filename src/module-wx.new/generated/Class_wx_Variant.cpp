@@ -35,289 +35,258 @@ String Object_wx_Variant::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant, "wxVariant")
+Gura_DeclareFunctionAlias(__wxVariant, "wxVariant")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant)
+Gura_ImplementFunction(__wxVariant)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_1, "wxVariant_1")
+Gura_DeclareFunctionAlias(__wxVariant_1, "wxVariant_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_1)
+Gura_ImplementFunction(__wxVariant_1)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_2, "wxVariant_2")
+Gura_DeclareFunctionAlias(__wxVariant_2, "wxVariant_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_2)
+Gura_ImplementFunction(__wxVariant_2)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int variant = arg.GetNumber(0)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_3, "wxVariant_3")
+Gura_DeclareFunctionAlias(__wxVariant_3, "wxVariant_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "any", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_3)
+Gura_ImplementFunction(__wxVariant_3)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int any = arg.GetNumber(0)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_4, "wxVariant_4")
+Gura_DeclareFunctionAlias(__wxVariant_4, "wxVariant_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_4)
+Gura_ImplementFunction(__wxVariant_4)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_5, "wxVariant_5")
+Gura_DeclareFunctionAlias(__wxVariant_5, "wxVariant_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_5)
+Gura_ImplementFunction(__wxVariant_5)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_6, "wxVariant_6")
+Gura_DeclareFunctionAlias(__wxVariant_6, "wxVariant_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_6)
+Gura_ImplementFunction(__wxVariant_6)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_7, "wxVariant_7")
+Gura_DeclareFunctionAlias(__wxVariant_7, "wxVariant_7")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_7)
+Gura_ImplementFunction(__wxVariant_7)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_8, "wxVariant_8")
+Gura_DeclareFunctionAlias(__wxVariant_8, "wxVariant_8")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_8)
+Gura_ImplementFunction(__wxVariant_8)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_9, "wxVariant_9")
+Gura_DeclareFunctionAlias(__wxVariant_9, "wxVariant_9")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_9)
+Gura_ImplementFunction(__wxVariant_9)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_10, "wxVariant_10")
+Gura_DeclareFunctionAlias(__wxVariant_10, "wxVariant_10")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_10)
+Gura_ImplementFunction(__wxVariant_10)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_11, "wxVariant_11")
+Gura_DeclareFunctionAlias(__wxVariant_11, "wxVariant_11")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_11)
+Gura_ImplementFunction(__wxVariant_11)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_12, "wxVariant_12")
+Gura_DeclareFunctionAlias(__wxVariant_12, "wxVariant_12")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_12)
+Gura_ImplementFunction(__wxVariant_12)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_13, "wxVariant_13")
+Gura_DeclareFunctionAlias(__wxVariant_13, "wxVariant_13")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_13)
+Gura_ImplementFunction(__wxVariant_13)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_14, "wxVariant_14")
+Gura_DeclareFunctionAlias(__wxVariant_14, "wxVariant_14")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_14)
+Gura_ImplementFunction(__wxVariant_14)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_15, "wxVariant_15")
+Gura_DeclareFunctionAlias(__wxVariant_15, "wxVariant_15")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_15)
+Gura_ImplementFunction(__wxVariant_15)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Variant, __wxVariant_16, "wxVariant_16")
+Gura_DeclareFunctionAlias(__wxVariant_16, "wxVariant_16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Variant, __wxVariant_16)
+Gura_ImplementFunction(__wxVariant_16)
 {
-	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVariant();
+	//wxVariant();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Variant, __Append, "Append")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -951,23 +920,25 @@ Gura_ImplementMethod(wx_Variant, __wxString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Variant)
 {
-	Gura_AssignMethod(wx_Variant, __wxVariant);
-	Gura_AssignMethod(wx_Variant, __wxVariant_1);
-	Gura_AssignMethod(wx_Variant, __wxVariant_2);
-	Gura_AssignMethod(wx_Variant, __wxVariant_3);
-	Gura_AssignMethod(wx_Variant, __wxVariant_4);
-	Gura_AssignMethod(wx_Variant, __wxVariant_5);
-	Gura_AssignMethod(wx_Variant, __wxVariant_6);
-	Gura_AssignMethod(wx_Variant, __wxVariant_7);
-	Gura_AssignMethod(wx_Variant, __wxVariant_8);
-	Gura_AssignMethod(wx_Variant, __wxVariant_9);
-	Gura_AssignMethod(wx_Variant, __wxVariant_10);
-	Gura_AssignMethod(wx_Variant, __wxVariant_11);
-	Gura_AssignMethod(wx_Variant, __wxVariant_12);
-	Gura_AssignMethod(wx_Variant, __wxVariant_13);
-	Gura_AssignMethod(wx_Variant, __wxVariant_14);
-	Gura_AssignMethod(wx_Variant, __wxVariant_15);
-	Gura_AssignMethod(wx_Variant, __wxVariant_16);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVariant);
+	Gura_AssignFunction(__wxVariant_1);
+	Gura_AssignFunction(__wxVariant_2);
+	Gura_AssignFunction(__wxVariant_3);
+	Gura_AssignFunction(__wxVariant_4);
+	Gura_AssignFunction(__wxVariant_5);
+	Gura_AssignFunction(__wxVariant_6);
+	Gura_AssignFunction(__wxVariant_7);
+	Gura_AssignFunction(__wxVariant_8);
+	Gura_AssignFunction(__wxVariant_9);
+	Gura_AssignFunction(__wxVariant_10);
+	Gura_AssignFunction(__wxVariant_11);
+	Gura_AssignFunction(__wxVariant_12);
+	Gura_AssignFunction(__wxVariant_13);
+	Gura_AssignFunction(__wxVariant_14);
+	Gura_AssignFunction(__wxVariant_15);
+	Gura_AssignFunction(__wxVariant_16);
+	// Method assignment
 	Gura_AssignMethod(wx_Variant, __Append);
 	Gura_AssignMethod(wx_Variant, __Clear);
 	Gura_AssignMethod(wx_Variant, __ClearList);

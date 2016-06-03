@@ -35,24 +35,22 @@ String Object_wx_TimerRunner::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TimerRunner, __wxTimerRunner, "wxTimerRunner")
+Gura_DeclareFunctionAlias(__wxTimerRunner, "wxTimerRunner")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimerRunner, __wxTimerRunner)
+Gura_ImplementFunction(__wxTimerRunner)
 {
-	Object_wx_TimerRunner *pThis = Object_wx_TimerRunner::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int timer = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTimerRunner();
+	//wxTimerRunner();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TimerRunner, __wxTimerRunner_1, "wxTimerRunner_1")
+Gura_DeclareFunctionAlias(__wxTimerRunner_1, "wxTimerRunner_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
@@ -60,17 +58,18 @@ Gura_DeclareMethodAlias(wx_TimerRunner, __wxTimerRunner_1, "wxTimerRunner_1")
 	//DeclareArg(env, "oneShot", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimerRunner, __wxTimerRunner_1)
+Gura_ImplementFunction(__wxTimerRunner_1)
 {
-	Object_wx_TimerRunner *pThis = Object_wx_TimerRunner::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int timer = arg.GetNumber(0)
 	//int milli = arg.GetNumber(1)
 	//int oneShot = arg.GetNumber(2)
-	//pThis->GetEntity()->wxTimerRunner();
+	//wxTimerRunner();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TimerRunner, __Start, "Start")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -93,8 +92,10 @@ Gura_ImplementMethod(wx_TimerRunner, __Start)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TimerRunner)
 {
-	Gura_AssignMethod(wx_TimerRunner, __wxTimerRunner);
-	Gura_AssignMethod(wx_TimerRunner, __wxTimerRunner_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTimerRunner);
+	Gura_AssignFunction(__wxTimerRunner_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TimerRunner, __Start);
 }
 

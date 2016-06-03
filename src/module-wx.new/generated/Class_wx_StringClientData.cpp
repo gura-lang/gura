@@ -35,36 +35,35 @@ String Object_wx_StringClientData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StringClientData, __wxStringClientData, "wxStringClientData")
+Gura_DeclareFunctionAlias(__wxStringClientData, "wxStringClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringClientData, __wxStringClientData)
+Gura_ImplementFunction(__wxStringClientData)
 {
-	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxStringClientData();
+	//wxStringClientData();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_StringClientData, __wxStringClientData_1, "wxStringClientData_1")
+Gura_DeclareFunctionAlias(__wxStringClientData_1, "wxStringClientData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringClientData, __wxStringClientData_1)
+Gura_ImplementFunction(__wxStringClientData_1)
 {
-	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
-	//pThis->GetEntity()->wxStringClientData();
+	//wxStringClientData();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StringClientData, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -98,8 +97,10 @@ Gura_ImplementMethod(wx_StringClientData, __SetData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringClientData)
 {
-	Gura_AssignMethod(wx_StringClientData, __wxStringClientData);
-	Gura_AssignMethod(wx_StringClientData, __wxStringClientData_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStringClientData);
+	Gura_AssignFunction(__wxStringClientData_1);
+	// Method assignment
 	Gura_AssignMethod(wx_StringClientData, __GetData);
 	Gura_AssignMethod(wx_StringClientData, __SetData);
 }

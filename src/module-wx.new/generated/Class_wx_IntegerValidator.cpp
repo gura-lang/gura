@@ -35,22 +35,20 @@ String Object_wx_IntegerValidator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_IntegerValidator, __wxIntegerValidator, "wxIntegerValidator")
+Gura_DeclareFunctionAlias(__wxIntegerValidator, "wxIntegerValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IntegerValidator, __wxIntegerValidator)
+Gura_ImplementFunction(__wxIntegerValidator)
 {
-	Object_wx_IntegerValidator *pThis = Object_wx_IntegerValidator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
-	//pThis->GetEntity()->wxIntegerValidator();
+	//wxIntegerValidator();
 	return Value::Nil;
 }
 
@@ -59,7 +57,8 @@ Gura_ImplementMethod(wx_IntegerValidator, __wxIntegerValidator)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IntegerValidator)
 {
-	Gura_AssignMethod(wx_IntegerValidator, __wxIntegerValidator);
+	// Constructor assignment
+	Gura_AssignFunction(__wxIntegerValidator);
 }
 
 Gura_ImplementDescendantCreator(wx_IntegerValidator)

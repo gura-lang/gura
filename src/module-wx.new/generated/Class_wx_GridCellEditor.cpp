@@ -35,21 +35,22 @@ String Object_wx_GridCellEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridCellEditor, __wxGridCellEditor, "wxGridCellEditor")
+Gura_DeclareFunctionAlias(__wxGridCellEditor, "wxGridCellEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, __wxGridCellEditor)
+Gura_ImplementFunction(__wxGridCellEditor)
 {
-	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGridCellEditor();
+	//wxGridCellEditor();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridCellEditor, __BeginEdit, "BeginEdit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -322,7 +323,9 @@ Gura_ImplementMethod(wx_GridCellEditor, __SetControl)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellEditor)
 {
-	Gura_AssignMethod(wx_GridCellEditor, __wxGridCellEditor);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridCellEditor);
+	// Method assignment
 	Gura_AssignMethod(wx_GridCellEditor, __BeginEdit);
 	Gura_AssignMethod(wx_GridCellEditor, __Clone);
 	Gura_AssignMethod(wx_GridCellEditor, __Create);

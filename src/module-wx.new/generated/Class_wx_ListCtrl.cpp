@@ -35,22 +35,20 @@ String Object_wx_ListCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ListCtrl, __wxListCtrl, "wxListCtrl")
+Gura_DeclareFunctionAlias(__wxListCtrl, "wxListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListCtrl, __wxListCtrl)
+Gura_ImplementFunction(__wxListCtrl)
 {
-	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxListCtrl();
+	//wxListCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ListCtrl, __wxListCtrl_1, "wxListCtrl_1")
+Gura_DeclareFunctionAlias(__wxListCtrl_1, "wxListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,10 +60,8 @@ Gura_DeclareMethodAlias(wx_ListCtrl, __wxListCtrl_1, "wxListCtrl_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListCtrl, __wxListCtrl_1)
+Gura_ImplementFunction(__wxListCtrl_1)
 {
-	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -73,10 +69,13 @@ Gura_ImplementMethod(wx_ListCtrl, __wxListCtrl_1)
 	//int style = arg.GetNumber(4)
 	//int validator = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxListCtrl();
+	//wxListCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ListCtrl, __AppendColumn, "AppendColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1481,8 +1480,10 @@ Gura_ImplementMethod(wx_ListCtrl, __OnGetItemText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListCtrl)
 {
-	Gura_AssignMethod(wx_ListCtrl, __wxListCtrl);
-	Gura_AssignMethod(wx_ListCtrl, __wxListCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxListCtrl);
+	Gura_AssignFunction(__wxListCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ListCtrl, __AppendColumn);
 	Gura_AssignMethod(wx_ListCtrl, __Arrange);
 	Gura_AssignMethod(wx_ListCtrl, __AssignImageList);

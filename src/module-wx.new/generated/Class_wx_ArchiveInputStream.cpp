@@ -83,6 +83,7 @@ Gura_ImplementMethod(wx_ArchiveInputStream, __OpenEntry)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveInputStream)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_ArchiveInputStream, __CloseEntry);
 	Gura_AssignMethod(wx_ArchiveInputStream, __GetNextEntry);
 	Gura_AssignMethod(wx_ArchiveInputStream, __OpenEntry);

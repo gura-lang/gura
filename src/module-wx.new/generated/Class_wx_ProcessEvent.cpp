@@ -35,9 +35,9 @@ String Object_wx_ProcessEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ProcessEvent, __wxProcessEvent, "wxProcessEvent")
+Gura_DeclareFunctionAlias(__wxProcessEvent, "wxProcessEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_ProcessEvent, __wxProcessEvent, "wxProcessEvent")
 	//DeclareArg(env, "exitcode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ProcessEvent, __wxProcessEvent)
+Gura_ImplementFunction(__wxProcessEvent)
 {
-	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int pid = arg.GetNumber(1)
 	//int exitcode = arg.GetNumber(2)
-	//pThis->GetEntity()->wxProcessEvent();
+	//wxProcessEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ProcessEvent, __GetExitCode, "GetExitCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -87,7 +88,9 @@ Gura_ImplementMethod(wx_ProcessEvent, __GetPid)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProcessEvent)
 {
-	Gura_AssignMethod(wx_ProcessEvent, __wxProcessEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxProcessEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_ProcessEvent, __GetExitCode);
 	Gura_AssignMethod(wx_ProcessEvent, __GetPid);
 }

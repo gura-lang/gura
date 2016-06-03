@@ -35,22 +35,20 @@ String Object_wx_TextCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextCtrl, __wxTextCtrl, "wxTextCtrl")
+Gura_DeclareFunctionAlias(__wxTextCtrl, "wxTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextCtrl, __wxTextCtrl)
+Gura_ImplementFunction(__wxTextCtrl)
 {
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTextCtrl();
+	//wxTextCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TextCtrl, __wxTextCtrl_1, "wxTextCtrl_1")
+Gura_DeclareFunctionAlias(__wxTextCtrl_1, "wxTextCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,10 +61,8 @@ Gura_DeclareMethodAlias(wx_TextCtrl, __wxTextCtrl_1, "wxTextCtrl_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextCtrl, __wxTextCtrl_1)
+Gura_ImplementFunction(__wxTextCtrl_1)
 {
-	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -75,10 +71,13 @@ Gura_ImplementMethod(wx_TextCtrl, __wxTextCtrl_1)
 	//int style = arg.GetNumber(5)
 	//int validator = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxTextCtrl();
+	//wxTextCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -466,8 +465,10 @@ Gura_ImplementMethod(wx_TextCtrl, __XYToPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextCtrl)
 {
-	Gura_AssignMethod(wx_TextCtrl, __wxTextCtrl);
-	Gura_AssignMethod(wx_TextCtrl, __wxTextCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextCtrl);
+	Gura_AssignFunction(__wxTextCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TextCtrl, __Create);
 	Gura_AssignMethod(wx_TextCtrl, __DiscardEdits);
 	Gura_AssignMethod(wx_TextCtrl, __EmulateKeyPress);

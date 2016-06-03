@@ -35,9 +35,9 @@ String Object_wx_PrintAbortDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PrintAbortDialog, __wxPrintAbortDialog, "wxPrintAbortDialog")
+Gura_DeclareFunctionAlias(__wxPrintAbortDialog, "wxPrintAbortDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -48,20 +48,21 @@ Gura_DeclareMethodAlias(wx_PrintAbortDialog, __wxPrintAbortDialog, "wxPrintAbort
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintAbortDialog, __wxPrintAbortDialog)
+Gura_ImplementFunction(__wxPrintAbortDialog)
 {
-	Object_wx_PrintAbortDialog *pThis = Object_wx_PrintAbortDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int documentTitle = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxPrintAbortDialog();
+	//wxPrintAbortDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PrintAbortDialog, __SetProgress, "SetProgress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -88,7 +89,9 @@ Gura_ImplementMethod(wx_PrintAbortDialog, __SetProgress)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintAbortDialog)
 {
-	Gura_AssignMethod(wx_PrintAbortDialog, __wxPrintAbortDialog);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPrintAbortDialog);
+	// Method assignment
 	Gura_AssignMethod(wx_PrintAbortDialog, __SetProgress);
 }
 

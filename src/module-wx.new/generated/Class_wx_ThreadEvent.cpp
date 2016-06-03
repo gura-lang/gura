@@ -35,25 +35,26 @@ String Object_wx_ThreadEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ThreadEvent, __wxThreadEvent, "wxThreadEvent")
+Gura_DeclareFunctionAlias(__wxThreadEvent, "wxThreadEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ThreadEvent, __wxThreadEvent)
+Gura_ImplementFunction(__wxThreadEvent)
 {
-	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxThreadEvent();
+	//wxThreadEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ThreadEvent, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -197,7 +198,9 @@ Gura_ImplementMethod(wx_ThreadEvent, __SetString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ThreadEvent)
 {
-	Gura_AssignMethod(wx_ThreadEvent, __wxThreadEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxThreadEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_ThreadEvent, __Clone);
 	Gura_AssignMethod(wx_ThreadEvent, __GetEventCategory);
 	Gura_AssignMethod(wx_ThreadEvent, __SetPayload);

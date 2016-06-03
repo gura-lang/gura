@@ -35,53 +35,50 @@ String Object_wx_Point::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Point, __wxPoint, "wxPoint")
+Gura_DeclareFunctionAlias(__wxPoint, "wxPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Point, __wxPoint)
+Gura_ImplementFunction(__wxPoint)
 {
-	Object_wx_Point *pThis = Object_wx_Point::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPoint();
+	//wxPoint();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Point, __wxPoint_1, "wxPoint_1")
+Gura_DeclareFunctionAlias(__wxPoint_1, "wxPoint_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Point, __wxPoint_1)
+Gura_ImplementFunction(__wxPoint_1)
 {
-	Object_wx_Point *pThis = Object_wx_Point::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//pThis->GetEntity()->wxPoint();
+	//wxPoint();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Point, __wxPoint_2, "wxPoint_2")
+Gura_DeclareFunctionAlias(__wxPoint_2, "wxPoint_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Point, __wxPoint_2)
+Gura_ImplementFunction(__wxPoint_2)
 {
-	Object_wx_Point *pThis = Object_wx_Point::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPoint();
+	//wxPoint();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Point, __IsFullySpecified, "IsFullySpecified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -115,9 +112,11 @@ Gura_ImplementMethod(wx_Point, __SetDefaults)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Point)
 {
-	Gura_AssignMethod(wx_Point, __wxPoint);
-	Gura_AssignMethod(wx_Point, __wxPoint_1);
-	Gura_AssignMethod(wx_Point, __wxPoint_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPoint);
+	Gura_AssignFunction(__wxPoint_1);
+	Gura_AssignFunction(__wxPoint_2);
+	// Method assignment
 	Gura_AssignMethod(wx_Point, __IsFullySpecified);
 	Gura_AssignMethod(wx_Point, __SetDefaults);
 }

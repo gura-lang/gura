@@ -35,22 +35,20 @@ String Object_wx_Region::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Region, __wxRegion, "wxRegion")
+Gura_DeclareFunctionAlias(__wxRegion, "wxRegion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Region, __wxRegion)
+Gura_ImplementFunction(__wxRegion)
 {
-	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRegion();
+	//wxRegion();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Region, __wxRegion_1, "wxRegion_1")
+Gura_DeclareFunctionAlias(__wxRegion_1, "wxRegion_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -59,66 +57,58 @@ Gura_DeclareMethodAlias(wx_Region, __wxRegion_1, "wxRegion_1")
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Region, __wxRegion_1)
+Gura_ImplementFunction(__wxRegion_1)
 {
-	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int width = arg.GetNumber(2)
 	//int height = arg.GetNumber(3)
-	//pThis->GetEntity()->wxRegion();
+	//wxRegion();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Region, __wxRegion_2, "wxRegion_2")
+Gura_DeclareFunctionAlias(__wxRegion_2, "wxRegion_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topLeft", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bottomRight", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Region, __wxRegion_2)
+Gura_ImplementFunction(__wxRegion_2)
 {
-	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topLeft = arg.GetNumber(0)
 	//int bottomRight = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRegion();
+	//wxRegion();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Region, __wxRegion_3, "wxRegion_3")
+Gura_DeclareFunctionAlias(__wxRegion_3, "wxRegion_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Region, __wxRegion_3)
+Gura_ImplementFunction(__wxRegion_3)
 {
-	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRegion();
+	//wxRegion();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Region, __wxRegion_4, "wxRegion_4")
+Gura_DeclareFunctionAlias(__wxRegion_4, "wxRegion_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Region, __wxRegion_4)
+Gura_ImplementFunction(__wxRegion_4)
 {
-	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int region = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRegion();
+	//wxRegion();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Region, __wxRegion_5, "wxRegion_5")
+Gura_DeclareFunctionAlias(__wxRegion_5, "wxRegion_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -126,33 +116,29 @@ Gura_DeclareMethodAlias(wx_Region, __wxRegion_5, "wxRegion_5")
 	//DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Region, __wxRegion_5)
+Gura_ImplementFunction(__wxRegion_5)
 {
-	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int points = arg.GetNumber(1)
 	//int fillStyle = arg.GetNumber(2)
-	//pThis->GetEntity()->wxRegion();
+	//wxRegion();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Region, __wxRegion_6, "wxRegion_6")
+Gura_DeclareFunctionAlias(__wxRegion_6, "wxRegion_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Region, __wxRegion_6)
+Gura_ImplementFunction(__wxRegion_6)
 {
-	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bmp = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRegion();
+	//wxRegion();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Region, __wxRegion_7, "wxRegion_7")
+Gura_DeclareFunctionAlias(__wxRegion_7, "wxRegion_7")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
@@ -160,17 +146,18 @@ Gura_DeclareMethodAlias(wx_Region, __wxRegion_7, "wxRegion_7")
 	//DeclareArg(env, "tolerance", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Region, __wxRegion_7)
+Gura_ImplementFunction(__wxRegion_7)
 {
-	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bmp = arg.GetNumber(0)
 	//int transColour = arg.GetNumber(1)
 	//int tolerance = arg.GetNumber(2)
-	//pThis->GetEntity()->wxRegion();
+	//wxRegion();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Region, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -581,14 +568,16 @@ Gura_ImplementMethod(wx_Region, __Xor_2)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Region)
 {
-	Gura_AssignMethod(wx_Region, __wxRegion);
-	Gura_AssignMethod(wx_Region, __wxRegion_1);
-	Gura_AssignMethod(wx_Region, __wxRegion_2);
-	Gura_AssignMethod(wx_Region, __wxRegion_3);
-	Gura_AssignMethod(wx_Region, __wxRegion_4);
-	Gura_AssignMethod(wx_Region, __wxRegion_5);
-	Gura_AssignMethod(wx_Region, __wxRegion_6);
-	Gura_AssignMethod(wx_Region, __wxRegion_7);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRegion);
+	Gura_AssignFunction(__wxRegion_1);
+	Gura_AssignFunction(__wxRegion_2);
+	Gura_AssignFunction(__wxRegion_3);
+	Gura_AssignFunction(__wxRegion_4);
+	Gura_AssignFunction(__wxRegion_5);
+	Gura_AssignFunction(__wxRegion_6);
+	Gura_AssignFunction(__wxRegion_7);
+	// Method assignment
 	Gura_AssignMethod(wx_Region, __Clear);
 	Gura_AssignMethod(wx_Region, __Contains);
 	Gura_AssignMethod(wx_Region, __Contains_1);

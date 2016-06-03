@@ -35,25 +35,26 @@ String Object_wx_HtmlLinkEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlLinkEvent, __wxHtmlLinkEvent, "wxHtmlLinkEvent")
+Gura_DeclareFunctionAlias(__wxHtmlLinkEvent, "wxHtmlLinkEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "linkinfo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlLinkEvent, __wxHtmlLinkEvent)
+Gura_ImplementFunction(__wxHtmlLinkEvent)
 {
-	Object_wx_HtmlLinkEvent *pThis = Object_wx_HtmlLinkEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int linkinfo = arg.GetNumber(1)
-	//pThis->GetEntity()->wxHtmlLinkEvent();
+	//wxHtmlLinkEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlLinkEvent, __GetLinkInfo, "GetLinkInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -72,7 +73,9 @@ Gura_ImplementMethod(wx_HtmlLinkEvent, __GetLinkInfo)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlLinkEvent)
 {
-	Gura_AssignMethod(wx_HtmlLinkEvent, __wxHtmlLinkEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlLinkEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlLinkEvent, __GetLinkInfo);
 }
 

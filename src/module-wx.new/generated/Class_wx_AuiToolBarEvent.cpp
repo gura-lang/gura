@@ -94,6 +94,7 @@ Gura_ImplementMethod(wx_AuiToolBarEvent, __GetToolId)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiToolBarEvent)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_AuiToolBarEvent, __IsDropDownClicked);
 	Gura_AssignMethod(wx_AuiToolBarEvent, __GetClickPoint);
 	Gura_AssignMethod(wx_AuiToolBarEvent, __GetItemRect);

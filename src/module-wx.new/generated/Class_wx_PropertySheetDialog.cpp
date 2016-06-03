@@ -35,9 +35,9 @@ String Object_wx_PropertySheetDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PropertySheetDialog, __wxPropertySheetDialog, "wxPropertySheetDialog")
+Gura_DeclareFunctionAlias(__wxPropertySheetDialog, "wxPropertySheetDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,10 +49,8 @@ Gura_DeclareMethodAlias(wx_PropertySheetDialog, __wxPropertySheetDialog, "wxProp
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, __wxPropertySheetDialog)
+Gura_ImplementFunction(__wxPropertySheetDialog)
 {
-	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -60,10 +58,13 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __wxPropertySheetDialog)
 	//int size = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxPropertySheetDialog();
+	//wxPropertySheetDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PropertySheetDialog, __AddBookCtrl, "AddBookCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -223,7 +224,9 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __SetSheetStyle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertySheetDialog)
 {
-	Gura_AssignMethod(wx_PropertySheetDialog, __wxPropertySheetDialog);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPropertySheetDialog);
+	// Method assignment
 	Gura_AssignMethod(wx_PropertySheetDialog, __AddBookCtrl);
 	Gura_AssignMethod(wx_PropertySheetDialog, __Create);
 	Gura_AssignMethod(wx_PropertySheetDialog, __CreateBookCtrl);

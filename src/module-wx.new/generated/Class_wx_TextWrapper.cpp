@@ -35,21 +35,22 @@ String Object_wx_TextWrapper::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextWrapper, __wxTextWrapper, "wxTextWrapper")
+Gura_DeclareFunctionAlias(__wxTextWrapper, "wxTextWrapper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextWrapper, __wxTextWrapper)
+Gura_ImplementFunction(__wxTextWrapper)
 {
-	Object_wx_TextWrapper *pThis = Object_wx_TextWrapper::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTextWrapper();
+	//wxTextWrapper();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextWrapper, __Wrap, "Wrap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -102,7 +103,9 @@ Gura_ImplementMethod(wx_TextWrapper, __OnNewLine)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextWrapper)
 {
-	Gura_AssignMethod(wx_TextWrapper, __wxTextWrapper);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextWrapper);
+	// Method assignment
 	Gura_AssignMethod(wx_TextWrapper, __Wrap);
 	Gura_AssignMethod(wx_TextWrapper, __OnOutputLine);
 	Gura_AssignMethod(wx_TextWrapper, __OnNewLine);

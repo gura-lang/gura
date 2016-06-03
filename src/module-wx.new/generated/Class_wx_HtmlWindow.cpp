@@ -35,22 +35,20 @@ String Object_wx_HtmlWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlWindow, __wxHtmlWindow, "wxHtmlWindow")
+Gura_DeclareFunctionAlias(__wxHtmlWindow, "wxHtmlWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, __wxHtmlWindow)
+Gura_ImplementFunction(__wxHtmlWindow)
 {
-	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlWindow();
+	//wxHtmlWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_HtmlWindow, __wxHtmlWindow_1, "wxHtmlWindow_1")
+Gura_DeclareFunctionAlias(__wxHtmlWindow_1, "wxHtmlWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_HtmlWindow, __wxHtmlWindow_1, "wxHtmlWindow_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, __wxHtmlWindow_1)
+Gura_ImplementFunction(__wxHtmlWindow_1)
 {
-	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxHtmlWindow();
+	//wxHtmlWindow();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlWindow, __AddFilter, "AddFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -611,8 +610,10 @@ Gura_ImplementMethod(wx_HtmlWindow, __OnCellMouseHover)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWindow)
 {
-	Gura_AssignMethod(wx_HtmlWindow, __wxHtmlWindow);
-	Gura_AssignMethod(wx_HtmlWindow, __wxHtmlWindow_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlWindow);
+	Gura_AssignFunction(__wxHtmlWindow_1);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlWindow, __AddFilter);
 	Gura_AssignMethod(wx_HtmlWindow, __AppendToPage);
 	Gura_AssignMethod(wx_HtmlWindow, __GetInternalRepresentation);

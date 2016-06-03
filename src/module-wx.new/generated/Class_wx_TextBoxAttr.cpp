@@ -35,36 +35,35 @@ String Object_wx_TextBoxAttr::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextBoxAttr, __wxTextBoxAttr, "wxTextBoxAttr")
+Gura_DeclareFunctionAlias(__wxTextBoxAttr, "wxTextBoxAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, __wxTextBoxAttr)
+Gura_ImplementFunction(__wxTextBoxAttr)
 {
-	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTextBoxAttr();
+	//wxTextBoxAttr();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TextBoxAttr, __wxTextBoxAttr_1, "wxTextBoxAttr_1")
+Gura_DeclareFunctionAlias(__wxTextBoxAttr_1, "wxTextBoxAttr_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, __wxTextBoxAttr_1)
+Gura_ImplementFunction(__wxTextBoxAttr_1)
 {
-	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTextBoxAttr();
+	//wxTextBoxAttr();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextBoxAttr, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1414,8 +1413,10 @@ Gura_ImplementMethod(wx_TextBoxAttr, __GetShadow_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextBoxAttr)
 {
-	Gura_AssignMethod(wx_TextBoxAttr, __wxTextBoxAttr);
-	Gura_AssignMethod(wx_TextBoxAttr, __wxTextBoxAttr_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextBoxAttr);
+	Gura_AssignFunction(__wxTextBoxAttr_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TextBoxAttr, __Init);
 	Gura_AssignMethod(wx_TextBoxAttr, __Reset);
 	Gura_AssignMethod(wx_TextBoxAttr, __EqPartial);

@@ -35,51 +35,48 @@ String Object_wx_MemoryDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MemoryDC, __wxMemoryDC, "wxMemoryDC")
+Gura_DeclareFunctionAlias(__wxMemoryDC, "wxMemoryDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MemoryDC, __wxMemoryDC)
+Gura_ImplementFunction(__wxMemoryDC)
 {
-	Object_wx_MemoryDC *pThis = Object_wx_MemoryDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMemoryDC();
+	//wxMemoryDC();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_MemoryDC, __wxMemoryDC_1, "wxMemoryDC_1")
+Gura_DeclareFunctionAlias(__wxMemoryDC_1, "wxMemoryDC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryDC, __wxMemoryDC_1)
+Gura_ImplementFunction(__wxMemoryDC_1)
 {
-	Object_wx_MemoryDC *pThis = Object_wx_MemoryDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMemoryDC();
+	//wxMemoryDC();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_MemoryDC, __wxMemoryDC_2, "wxMemoryDC_2")
+Gura_DeclareFunctionAlias(__wxMemoryDC_2, "wxMemoryDC_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryDC, __wxMemoryDC_2)
+Gura_ImplementFunction(__wxMemoryDC_2)
 {
-	Object_wx_MemoryDC *pThis = Object_wx_MemoryDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMemoryDC();
+	//wxMemoryDC();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MemoryDC, __SelectObject, "SelectObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -115,9 +112,11 @@ Gura_ImplementMethod(wx_MemoryDC, __SelectObjectAsSource)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryDC)
 {
-	Gura_AssignMethod(wx_MemoryDC, __wxMemoryDC);
-	Gura_AssignMethod(wx_MemoryDC, __wxMemoryDC_1);
-	Gura_AssignMethod(wx_MemoryDC, __wxMemoryDC_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMemoryDC);
+	Gura_AssignFunction(__wxMemoryDC_1);
+	Gura_AssignFunction(__wxMemoryDC_2);
+	// Method assignment
 	Gura_AssignMethod(wx_MemoryDC, __SelectObject);
 	Gura_AssignMethod(wx_MemoryDC, __SelectObjectAsSource);
 }

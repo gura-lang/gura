@@ -35,21 +35,22 @@ String Object_wx_AuiDefaultToolBarArt::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AuiDefaultToolBarArt, __wxAuiDefaultToolBarArt, "wxAuiDefaultToolBarArt")
+Gura_DeclareFunctionAlias(__wxAuiDefaultToolBarArt, "wxAuiDefaultToolBarArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __wxAuiDefaultToolBarArt)
+Gura_ImplementFunction(__wxAuiDefaultToolBarArt)
 {
-	Object_wx_AuiDefaultToolBarArt *pThis = Object_wx_AuiDefaultToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAuiDefaultToolBarArt();
+	//wxAuiDefaultToolBarArt();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiDefaultToolBarArt, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -420,7 +421,9 @@ Gura_ImplementMethod(wx_AuiDefaultToolBarArt, __ShowDropDown)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiDefaultToolBarArt)
 {
-	Gura_AssignMethod(wx_AuiDefaultToolBarArt, __wxAuiDefaultToolBarArt);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAuiDefaultToolBarArt);
+	// Method assignment
 	Gura_AssignMethod(wx_AuiDefaultToolBarArt, __Clone);
 	Gura_AssignMethod(wx_AuiDefaultToolBarArt, __SetFlags);
 	Gura_AssignMethod(wx_AuiDefaultToolBarArt, __GetFlags);

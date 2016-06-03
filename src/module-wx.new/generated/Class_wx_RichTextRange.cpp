@@ -35,53 +35,50 @@ String Object_wx_RichTextRange::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextRange, __wxRichTextRange, "wxRichTextRange")
+Gura_DeclareFunctionAlias(__wxRichTextRange, "wxRichTextRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextRange, __wxRichTextRange)
+Gura_ImplementFunction(__wxRichTextRange)
 {
-	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextRange();
+	//wxRichTextRange();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextRange, __wxRichTextRange_1, "wxRichTextRange_1")
+Gura_DeclareFunctionAlias(__wxRichTextRange_1, "wxRichTextRange_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextRange, __wxRichTextRange_1)
+Gura_ImplementFunction(__wxRichTextRange_1)
 {
-	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int start = arg.GetNumber(0)
 	//int end = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRichTextRange();
+	//wxRichTextRange();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextRange, __wxRichTextRange_2, "wxRichTextRange_2")
+Gura_DeclareFunctionAlias(__wxRichTextRange_2, "wxRichTextRange_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextRange, __wxRichTextRange_2)
+Gura_ImplementFunction(__wxRichTextRange_2)
 {
-	Object_wx_RichTextRange *pThis = Object_wx_RichTextRange::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextRange();
+	//wxRichTextRange();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextRange, __SetRange, "SetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -272,9 +269,11 @@ Gura_ImplementMethod(wx_RichTextRange, __FromInternal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextRange)
 {
-	Gura_AssignMethod(wx_RichTextRange, __wxRichTextRange);
-	Gura_AssignMethod(wx_RichTextRange, __wxRichTextRange_1);
-	Gura_AssignMethod(wx_RichTextRange, __wxRichTextRange_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextRange);
+	Gura_AssignFunction(__wxRichTextRange_1);
+	Gura_AssignFunction(__wxRichTextRange_2);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextRange, __SetRange);
 	Gura_AssignMethod(wx_RichTextRange, __SetStart);
 	Gura_AssignMethod(wx_RichTextRange, __GetStart);

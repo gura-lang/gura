@@ -35,46 +35,45 @@ String Object_wx_TarOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxTarOutputStream, "wxTarOutputStream")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxTarOutputStream)
+{
+	//int stream = arg.GetNumber(0)
+	//int format = arg.GetNumber(1)
+	//int conv = arg.GetNumber(2)
+	//wxTarOutputStream();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxTarOutputStream_1, "wxTarOutputStream_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxTarOutputStream_1)
+{
+	//int stream = arg.GetNumber(0)
+	//int format = arg.GetNumber(1)
+	//int conv = arg.GetNumber(2)
+	//wxTarOutputStream();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TarOutputStream, __wxTarOutputStream, "wxTarOutputStream")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_TarOutputStream, __wxTarOutputStream)
-{
-	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int format = arg.GetNumber(1)
-	//int conv = arg.GetNumber(2)
-	//pThis->GetEntity()->wxTarOutputStream();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_TarOutputStream, __wxTarOutputStream_1, "wxTarOutputStream_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_TarOutputStream, __wxTarOutputStream_1)
-{
-	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int stream = arg.GetNumber(0)
-	//int format = arg.GetNumber(1)
-	//int conv = arg.GetNumber(2)
-	//pThis->GetEntity()->wxTarOutputStream();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_TarOutputStream, __Close, "Close")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -217,8 +216,10 @@ Gura_ImplementMethod(wx_TarOutputStream, __PutNextEntry_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TarOutputStream)
 {
-	Gura_AssignMethod(wx_TarOutputStream, __wxTarOutputStream);
-	Gura_AssignMethod(wx_TarOutputStream, __wxTarOutputStream_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTarOutputStream);
+	Gura_AssignFunction(__wxTarOutputStream_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TarOutputStream, __Close);
 	Gura_AssignMethod(wx_TarOutputStream, __CloseEntry);
 	Gura_AssignMethod(wx_TarOutputStream, __CopyArchiveMetaData);

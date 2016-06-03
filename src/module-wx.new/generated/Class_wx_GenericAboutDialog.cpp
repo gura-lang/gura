@@ -35,38 +35,37 @@ String Object_wx_GenericAboutDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GenericAboutDialog, __wxGenericAboutDialog, "wxGenericAboutDialog")
+Gura_DeclareFunctionAlias(__wxGenericAboutDialog, "wxGenericAboutDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericAboutDialog, __wxGenericAboutDialog)
+Gura_ImplementFunction(__wxGenericAboutDialog)
 {
-	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGenericAboutDialog();
+	//wxGenericAboutDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GenericAboutDialog, __wxGenericAboutDialog_1, "wxGenericAboutDialog_1")
+Gura_DeclareFunctionAlias(__wxGenericAboutDialog_1, "wxGenericAboutDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericAboutDialog, __wxGenericAboutDialog_1)
+Gura_ImplementFunction(__wxGenericAboutDialog_1)
 {
-	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int info = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
-	//pThis->GetEntity()->wxGenericAboutDialog();
+	//wxGenericAboutDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GenericAboutDialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -166,8 +165,10 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __AddCollapsiblePane)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GenericAboutDialog)
 {
-	Gura_AssignMethod(wx_GenericAboutDialog, __wxGenericAboutDialog);
-	Gura_AssignMethod(wx_GenericAboutDialog, __wxGenericAboutDialog_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGenericAboutDialog);
+	Gura_AssignFunction(__wxGenericAboutDialog_1);
+	// Method assignment
 	Gura_AssignMethod(wx_GenericAboutDialog, __Create);
 	Gura_AssignMethod(wx_GenericAboutDialog, __DoAddCustomControls);
 	Gura_AssignMethod(wx_GenericAboutDialog, __AddControl);

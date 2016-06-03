@@ -35,34 +35,33 @@ String Object_wx_RichTextProperties::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxRichTextProperties, "wxRichTextProperties")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementFunction(__wxRichTextProperties)
+{
+	//wxRichTextProperties();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxRichTextProperties_1, "wxRichTextProperties_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementFunction(__wxRichTextProperties_1)
+{
+	//wxRichTextProperties();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextProperties, __wxRichTextProperties, "wxRichTextProperties")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextProperties, __wxRichTextProperties)
-{
-	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextProperties();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_RichTextProperties, __wxRichTextProperties_1, "wxRichTextProperties_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_RichTextProperties, __wxRichTextProperties_1)
-{
-	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextProperties();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_RichTextProperties, __Copy, "Copy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -445,8 +444,10 @@ Gura_ImplementMethod(wx_RichTextProperties, __MergeProperties)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextProperties)
 {
-	Gura_AssignMethod(wx_RichTextProperties, __wxRichTextProperties);
-	Gura_AssignMethod(wx_RichTextProperties, __wxRichTextProperties_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextProperties);
+	Gura_AssignFunction(__wxRichTextProperties_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextProperties, __Copy);
 	Gura_AssignMethod(wx_RichTextProperties, __Clear);
 	Gura_AssignMethod(wx_RichTextProperties, __GetProperties);

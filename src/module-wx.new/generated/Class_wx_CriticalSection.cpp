@@ -35,23 +35,24 @@ String Object_wx_CriticalSection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CriticalSection, __wxCriticalSection, "wxCriticalSection")
+Gura_DeclareFunctionAlias(__wxCriticalSection, "wxCriticalSection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "critSecType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CriticalSection, __wxCriticalSection)
+Gura_ImplementFunction(__wxCriticalSection)
 {
-	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int critSecType = arg.GetNumber(0)
-	//pThis->GetEntity()->wxCriticalSection();
+	//wxCriticalSection();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CriticalSection, __Enter, "Enter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -96,7 +97,9 @@ Gura_ImplementMethod(wx_CriticalSection, __Leave)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CriticalSection)
 {
-	Gura_AssignMethod(wx_CriticalSection, __wxCriticalSection);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCriticalSection);
+	// Method assignment
 	Gura_AssignMethod(wx_CriticalSection, __Enter);
 	Gura_AssignMethod(wx_CriticalSection, __TryEnter);
 	Gura_AssignMethod(wx_CriticalSection, __Leave);

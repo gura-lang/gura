@@ -35,22 +35,20 @@ String Object_wx_Notebook::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Notebook, __wxNotebook, "wxNotebook")
+Gura_DeclareFunctionAlias(__wxNotebook, "wxNotebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Notebook, __wxNotebook)
+Gura_ImplementFunction(__wxNotebook)
 {
-	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxNotebook();
+	//wxNotebook();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Notebook, __wxNotebook_1, "wxNotebook_1")
+Gura_DeclareFunctionAlias(__wxNotebook_1, "wxNotebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_Notebook, __wxNotebook_1, "wxNotebook_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, __wxNotebook_1)
+Gura_ImplementFunction(__wxNotebook_1)
 {
-	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxNotebook();
+	//wxNotebook();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Notebook, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -291,8 +290,10 @@ Gura_ImplementMethod(wx_Notebook, __InsertPage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Notebook)
 {
-	Gura_AssignMethod(wx_Notebook, __wxNotebook);
-	Gura_AssignMethod(wx_Notebook, __wxNotebook_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxNotebook);
+	Gura_AssignFunction(__wxNotebook_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Notebook, __Create);
 	Gura_AssignMethod(wx_Notebook, __GetRowCount);
 	Gura_AssignMethod(wx_Notebook, __GetThemeBackgroundColour);

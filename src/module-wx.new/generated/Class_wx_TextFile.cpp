@@ -35,36 +35,35 @@ String Object_wx_TextFile::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextFile, __wxTextFile, "wxTextFile")
+Gura_DeclareFunctionAlias(__wxTextFile, "wxTextFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextFile, __wxTextFile)
+Gura_ImplementFunction(__wxTextFile)
 {
-	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTextFile();
+	//wxTextFile();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TextFile, __wxTextFile_1, "wxTextFile_1")
+Gura_DeclareFunctionAlias(__wxTextFile_1, "wxTextFile_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "strFile", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextFile, __wxTextFile_1)
+Gura_ImplementFunction(__wxTextFile_1)
 {
-	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int strFile = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTextFile();
+	//wxTextFile();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextFile, __AddLine, "AddLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -442,8 +441,10 @@ Gura_ImplementMethod(wx_TextFile, __Write)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextFile)
 {
-	Gura_AssignMethod(wx_TextFile, __wxTextFile);
-	Gura_AssignMethod(wx_TextFile, __wxTextFile_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextFile);
+	Gura_AssignFunction(__wxTextFile_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TextFile, __AddLine);
 	Gura_AssignMethod(wx_TextFile, __Clear);
 	Gura_AssignMethod(wx_TextFile, __Close);

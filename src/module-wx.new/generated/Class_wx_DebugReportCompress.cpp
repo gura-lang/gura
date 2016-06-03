@@ -35,21 +35,22 @@ String Object_wx_DebugReportCompress::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DebugReportCompress, __wxDebugReportCompress, "wxDebugReportCompress")
+Gura_DeclareFunctionAlias(__wxDebugReportCompress, "wxDebugReportCompress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DebugReportCompress, __wxDebugReportCompress)
+Gura_ImplementFunction(__wxDebugReportCompress)
 {
-	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDebugReportCompress();
+	//wxDebugReportCompress();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DebugReportCompress, __SetCompressedFileDirectory, "SetCompressedFileDirectory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -98,7 +99,9 @@ Gura_ImplementMethod(wx_DebugReportCompress, __GetCompressedFileName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReportCompress)
 {
-	Gura_AssignMethod(wx_DebugReportCompress, __wxDebugReportCompress);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDebugReportCompress);
+	// Method assignment
 	Gura_AssignMethod(wx_DebugReportCompress, __SetCompressedFileDirectory);
 	Gura_AssignMethod(wx_DebugReportCompress, __SetCompressedFileBaseName);
 	Gura_AssignMethod(wx_DebugReportCompress, __GetCompressedFileName);

@@ -35,24 +35,22 @@ String Object_wx_MenuBar::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MenuBar, __wxMenuBar, "wxMenuBar")
+Gura_DeclareFunctionAlias(__wxMenuBar, "wxMenuBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuBar, __wxMenuBar)
+Gura_ImplementFunction(__wxMenuBar)
 {
-	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMenuBar();
+	//wxMenuBar();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_MenuBar, __wxMenuBar_1, "wxMenuBar_1")
+Gura_DeclareFunctionAlias(__wxMenuBar_1, "wxMenuBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -61,18 +59,19 @@ Gura_DeclareMethodAlias(wx_MenuBar, __wxMenuBar_1, "wxMenuBar_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuBar, __wxMenuBar_1)
+Gura_ImplementFunction(__wxMenuBar_1)
 {
-	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int menus = arg.GetNumber(1)
 	//int titles = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
-	//pThis->GetEntity()->wxMenuBar();
+	//wxMenuBar();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MenuBar, __Append, "Append")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -576,8 +575,10 @@ Gura_ImplementMethod(wx_MenuBar, __Detach)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MenuBar)
 {
-	Gura_AssignMethod(wx_MenuBar, __wxMenuBar);
-	Gura_AssignMethod(wx_MenuBar, __wxMenuBar_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMenuBar);
+	Gura_AssignFunction(__wxMenuBar_1);
+	// Method assignment
 	Gura_AssignMethod(wx_MenuBar, __Append);
 	Gura_AssignMethod(wx_MenuBar, __Check);
 	Gura_AssignMethod(wx_MenuBar, __Enable);

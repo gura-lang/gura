@@ -35,23 +35,24 @@ String Object_wx_VariantDataSafeArray::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_VariantDataSafeArray, __wxVariantDataSafeArray, "wxVariantDataSafeArray")
+Gura_DeclareFunctionAlias(__wxVariantDataSafeArray, "wxVariantDataSafeArray")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VariantDataSafeArray, __wxVariantDataSafeArray)
+Gura_ImplementFunction(__wxVariantDataSafeArray)
 {
-	Object_wx_VariantDataSafeArray *pThis = Object_wx_VariantDataSafeArray::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//pThis->GetEntity()->wxVariantDataSafeArray();
+	//wxVariantDataSafeArray();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VariantDataSafeArray, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -156,7 +157,9 @@ Gura_ImplementMethod(wx_VariantDataSafeArray, __GetAsAny)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VariantDataSafeArray)
 {
-	Gura_AssignMethod(wx_VariantDataSafeArray, __wxVariantDataSafeArray);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVariantDataSafeArray);
+	// Method assignment
 	Gura_AssignMethod(wx_VariantDataSafeArray, __GetValue);
 	Gura_AssignMethod(wx_VariantDataSafeArray, __SetValue);
 	Gura_AssignMethod(wx_VariantDataSafeArray, __Eq);

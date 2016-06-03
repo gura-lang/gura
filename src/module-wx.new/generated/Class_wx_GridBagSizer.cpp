@@ -35,25 +35,26 @@ String Object_wx_GridBagSizer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridBagSizer, __wxGridBagSizer, "wxGridBagSizer")
+Gura_DeclareFunctionAlias(__wxGridBagSizer, "wxGridBagSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridBagSizer, __wxGridBagSizer)
+Gura_ImplementFunction(__wxGridBagSizer)
 {
-	Object_wx_GridBagSizer *pThis = Object_wx_GridBagSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int vgap = arg.GetNumber(0)
 	//int hgap = arg.GetNumber(1)
-	//pThis->GetEntity()->wxGridBagSizer();
+	//wxGridBagSizer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridBagSizer, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -525,7 +526,9 @@ Gura_ImplementMethod(wx_GridBagSizer, __SetItemSpan_2)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridBagSizer)
 {
-	Gura_AssignMethod(wx_GridBagSizer, __wxGridBagSizer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridBagSizer);
+	// Method assignment
 	Gura_AssignMethod(wx_GridBagSizer, __Add);
 	Gura_AssignMethod(wx_GridBagSizer, __Add_1);
 	Gura_AssignMethod(wx_GridBagSizer, __Add_2);

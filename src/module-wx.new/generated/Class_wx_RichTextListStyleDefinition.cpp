@@ -35,23 +35,24 @@ String Object_wx_RichTextListStyleDefinition::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextListStyleDefinition, __wxRichTextListStyleDefinition, "wxRichTextListStyleDefinition")
+Gura_DeclareFunctionAlias(__wxRichTextListStyleDefinition, "wxRichTextListStyleDefinition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextListStyleDefinition, __wxRichTextListStyleDefinition)
+Gura_ImplementFunction(__wxRichTextListStyleDefinition)
 {
-	Object_wx_RichTextListStyleDefinition *pThis = Object_wx_RichTextListStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextListStyleDefinition();
+	//wxRichTextListStyleDefinition();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextListStyleDefinition, __CombineWithParagraphStyle, "CombineWithParagraphStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -185,7 +186,9 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __SetLevelAttributes)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextListStyleDefinition)
 {
-	Gura_AssignMethod(wx_RichTextListStyleDefinition, __wxRichTextListStyleDefinition);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextListStyleDefinition);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextListStyleDefinition, __CombineWithParagraphStyle);
 	Gura_AssignMethod(wx_RichTextListStyleDefinition, __FindLevelForIndent);
 	Gura_AssignMethod(wx_RichTextListStyleDefinition, __GetCombinedStyle);

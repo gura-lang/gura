@@ -35,70 +35,65 @@ String Object_wx_CharTypeBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CharTypeBuffer, __wxCharTypeBuffer, "wxCharTypeBuffer")
+Gura_DeclareFunctionAlias(__wxCharTypeBuffer, "wxCharTypeBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CharTypeBuffer, __wxCharTypeBuffer)
+Gura_ImplementFunction(__wxCharTypeBuffer)
 {
-	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int str = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
-	//pThis->GetEntity()->wxCharTypeBuffer();
+	//wxCharTypeBuffer();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_CharTypeBuffer, __wxCharTypeBuffer_1, "wxCharTypeBuffer_1")
+Gura_DeclareFunctionAlias(__wxCharTypeBuffer_1, "wxCharTypeBuffer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CharTypeBuffer, __wxCharTypeBuffer_1)
+Gura_ImplementFunction(__wxCharTypeBuffer_1)
 {
-	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int len = arg.GetNumber(0)
-	//pThis->GetEntity()->wxCharTypeBuffer();
+	//wxCharTypeBuffer();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_CharTypeBuffer, __wxCharTypeBuffer_2, "wxCharTypeBuffer_2")
+Gura_DeclareFunctionAlias(__wxCharTypeBuffer_2, "wxCharTypeBuffer_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CharTypeBuffer, __wxCharTypeBuffer_2)
+Gura_ImplementFunction(__wxCharTypeBuffer_2)
 {
-	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int src = arg.GetNumber(0)
-	//pThis->GetEntity()->wxCharTypeBuffer();
+	//wxCharTypeBuffer();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_CharTypeBuffer, __wxCharTypeBuffer_3, "wxCharTypeBuffer_3")
+Gura_DeclareFunctionAlias(__wxCharTypeBuffer_3, "wxCharTypeBuffer_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CharTypeBuffer, __wxCharTypeBuffer_3)
+Gura_ImplementFunction(__wxCharTypeBuffer_3)
 {
-	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int src = arg.GetNumber(0)
-	//pThis->GetEntity()->wxCharTypeBuffer();
+	//wxCharTypeBuffer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CharTypeBuffer, __extend, "extend")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -134,10 +129,12 @@ Gura_ImplementMethod(wx_CharTypeBuffer, __shrink)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CharTypeBuffer)
 {
-	Gura_AssignMethod(wx_CharTypeBuffer, __wxCharTypeBuffer);
-	Gura_AssignMethod(wx_CharTypeBuffer, __wxCharTypeBuffer_1);
-	Gura_AssignMethod(wx_CharTypeBuffer, __wxCharTypeBuffer_2);
-	Gura_AssignMethod(wx_CharTypeBuffer, __wxCharTypeBuffer_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCharTypeBuffer);
+	Gura_AssignFunction(__wxCharTypeBuffer_1);
+	Gura_AssignFunction(__wxCharTypeBuffer_2);
+	Gura_AssignFunction(__wxCharTypeBuffer_3);
+	// Method assignment
 	Gura_AssignMethod(wx_CharTypeBuffer, __extend);
 	Gura_AssignMethod(wx_CharTypeBuffer, __shrink);
 }

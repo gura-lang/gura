@@ -35,22 +35,20 @@ String Object_wx_DCPenChanger::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DCPenChanger, __wxDCPenChanger, "wxDCPenChanger")
+Gura_DeclareFunctionAlias(__wxDCPenChanger, "wxDCPenChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCPenChanger, __wxDCPenChanger)
+Gura_ImplementFunction(__wxDCPenChanger)
 {
-	Object_wx_DCPenChanger *pThis = Object_wx_DCPenChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int pen = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDCPenChanger();
+	//wxDCPenChanger();
 	return Value::Nil;
 }
 
@@ -59,7 +57,8 @@ Gura_ImplementMethod(wx_DCPenChanger, __wxDCPenChanger)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCPenChanger)
 {
-	Gura_AssignMethod(wx_DCPenChanger, __wxDCPenChanger);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDCPenChanger);
 }
 
 Gura_ImplementDescendantCreator(wx_DCPenChanger)

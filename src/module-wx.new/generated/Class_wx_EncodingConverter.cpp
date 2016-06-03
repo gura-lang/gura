@@ -35,21 +35,22 @@ String Object_wx_EncodingConverter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_EncodingConverter, __wxEncodingConverter, "wxEncodingConverter")
+Gura_DeclareFunctionAlias(__wxEncodingConverter, "wxEncodingConverter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_EncodingConverter, __wxEncodingConverter)
+Gura_ImplementFunction(__wxEncodingConverter)
 {
-	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxEncodingConverter();
+	//wxEncodingConverter();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_EncodingConverter, __CanConvert, "CanConvert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -236,7 +237,9 @@ Gura_ImplementMethod(wx_EncodingConverter, __Init)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EncodingConverter)
 {
-	Gura_AssignMethod(wx_EncodingConverter, __wxEncodingConverter);
+	// Constructor assignment
+	Gura_AssignFunction(__wxEncodingConverter);
+	// Method assignment
 	Gura_AssignMethod(wx_EncodingConverter, __CanConvert);
 	Gura_AssignMethod(wx_EncodingConverter, __Convert);
 	Gura_AssignMethod(wx_EncodingConverter, __Convert_1);

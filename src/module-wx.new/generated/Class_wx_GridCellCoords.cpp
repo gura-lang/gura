@@ -35,38 +35,37 @@ String Object_wx_GridCellCoords::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridCellCoords, __wxGridCellCoords, "wxGridCellCoords")
+Gura_DeclareFunctionAlias(__wxGridCellCoords, "wxGridCellCoords")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellCoords, __wxGridCellCoords)
+Gura_ImplementFunction(__wxGridCellCoords)
 {
-	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGridCellCoords();
+	//wxGridCellCoords();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GridCellCoords, __wxGridCellCoords_1, "wxGridCellCoords_1")
+Gura_DeclareFunctionAlias(__wxGridCellCoords_1, "wxGridCellCoords_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellCoords, __wxGridCellCoords_1)
+Gura_ImplementFunction(__wxGridCellCoords_1)
 {
-	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//pThis->GetEntity()->wxGridCellCoords();
+	//wxGridCellCoords();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridCellCoords, __GetRow, "GetRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -145,8 +144,10 @@ Gura_ImplementMethod(wx_GridCellCoords, __Set)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellCoords)
 {
-	Gura_AssignMethod(wx_GridCellCoords, __wxGridCellCoords);
-	Gura_AssignMethod(wx_GridCellCoords, __wxGridCellCoords_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridCellCoords);
+	Gura_AssignFunction(__wxGridCellCoords_1);
+	// Method assignment
 	Gura_AssignMethod(wx_GridCellCoords, __GetRow);
 	Gura_AssignMethod(wx_GridCellCoords, __SetRow);
 	Gura_AssignMethod(wx_GridCellCoords, __GetCol);

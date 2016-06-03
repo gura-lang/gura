@@ -35,21 +35,22 @@ String Object_wx_ListItem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ListItem, __wxListItem, "wxListItem")
+Gura_DeclareFunctionAlias(__wxListItem, "wxListItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, __wxListItem)
+Gura_ImplementFunction(__wxListItem)
 {
-	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxListItem();
+	//wxListItem();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ListItem, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -434,7 +435,9 @@ Gura_ImplementMethod(wx_ListItem, __SetWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListItem)
 {
-	Gura_AssignMethod(wx_ListItem, __wxListItem);
+	// Constructor assignment
+	Gura_AssignFunction(__wxListItem);
+	// Method assignment
 	Gura_AssignMethod(wx_ListItem, __Clear);
 	Gura_AssignMethod(wx_ListItem, __GetAlign);
 	Gura_AssignMethod(wx_ListItem, __GetBackgroundColour);

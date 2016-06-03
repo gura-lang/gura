@@ -35,9 +35,9 @@ String Object_wx_RichTextStyleListCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl, "wxRichTextStyleListCtrl")
+Gura_DeclareFunctionAlias(__wxRichTextStyleListCtrl, "wxRichTextStyleListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -47,32 +47,31 @@ Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl, "wx
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl)
+Gura_ImplementFunction(__wxRichTextStyleListCtrl)
 {
-	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->wxRichTextStyleListCtrl();
+	//wxRichTextStyleListCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl_1, "wxRichTextStyleListCtrl_1")
+Gura_DeclareFunctionAlias(__wxRichTextStyleListCtrl_1, "wxRichTextStyleListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl_1)
+Gura_ImplementFunction(__wxRichTextStyleListCtrl_1)
 {
-	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextStyleListCtrl();
+	//wxRichTextStyleListCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -224,8 +223,10 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, __UpdateStyles)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleListCtrl)
 {
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextStyleListCtrl);
+	Gura_AssignFunction(__wxRichTextStyleListCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextStyleListCtrl, __Create);
 	Gura_AssignMethod(wx_RichTextStyleListCtrl, __GetRichTextCtrl);
 	Gura_AssignMethod(wx_RichTextStyleListCtrl, __GetStyleChoice);

@@ -35,21 +35,22 @@ String Object_wx_PGEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PGEditor, __wxPGEditor, "wxPGEditor")
+Gura_DeclareFunctionAlias(__wxPGEditor, "wxPGEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGEditor, __wxPGEditor)
+Gura_ImplementFunction(__wxPGEditor)
 {
-	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPGEditor();
+	//wxPGEditor();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PGEditor, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -313,7 +314,9 @@ Gura_ImplementMethod(wx_PGEditor, __CanContainCustomImage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGEditor)
 {
-	Gura_AssignMethod(wx_PGEditor, __wxPGEditor);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPGEditor);
+	// Method assignment
 	Gura_AssignMethod(wx_PGEditor, __GetName);
 	Gura_AssignMethod(wx_PGEditor, __CreateControls);
 	Gura_AssignMethod(wx_PGEditor, __UpdateControl);

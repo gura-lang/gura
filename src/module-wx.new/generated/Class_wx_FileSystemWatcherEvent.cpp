@@ -35,26 +35,24 @@ String Object_wx_FileSystemWatcherEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent, "wxFileSystemWatcherEvent")
+Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent, "wxFileSystemWatcherEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "changeType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "watchid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent)
+Gura_ImplementFunction(__wxFileSystemWatcherEvent)
 {
-	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int changeType = arg.GetNumber(0)
 	//int watchid = arg.GetNumber(1)
-	//pThis->GetEntity()->wxFileSystemWatcherEvent();
+	//wxFileSystemWatcherEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent_1, "wxFileSystemWatcherEvent_1")
+Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent_1, "wxFileSystemWatcherEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "changeType", VTYPE_number, OCCUR_Once);
@@ -63,19 +61,17 @@ Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent_1,
 	//DeclareArg(env, "watchid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent_1)
+Gura_ImplementFunction(__wxFileSystemWatcherEvent_1)
 {
-	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int changeType = arg.GetNumber(0)
 	//int warningType = arg.GetNumber(1)
 	//int errorMsg = arg.GetNumber(2)
 	//int watchid = arg.GetNumber(3)
-	//pThis->GetEntity()->wxFileSystemWatcherEvent();
+	//wxFileSystemWatcherEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent_2, "wxFileSystemWatcherEvent_2")
+Gura_DeclareFunctionAlias(__wxFileSystemWatcherEvent_2, "wxFileSystemWatcherEvent_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "changeType", VTYPE_number, OCCUR_Once);
@@ -84,18 +80,19 @@ Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent_2,
 	//DeclareArg(env, "watchid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent_2)
+Gura_ImplementFunction(__wxFileSystemWatcherEvent_2)
 {
-	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int changeType = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//int newPath = arg.GetNumber(2)
 	//int watchid = arg.GetNumber(3)
-	//pThis->GetEntity()->wxFileSystemWatcherEvent();
+	//wxFileSystemWatcherEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __GetPath, "GetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -192,9 +189,11 @@ Gura_ImplementMethod(wx_FileSystemWatcherEvent, __ToString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileSystemWatcherEvent)
 {
-	Gura_AssignMethod(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent);
-	Gura_AssignMethod(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent_1);
-	Gura_AssignMethod(wx_FileSystemWatcherEvent, __wxFileSystemWatcherEvent_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileSystemWatcherEvent);
+	Gura_AssignFunction(__wxFileSystemWatcherEvent_1);
+	Gura_AssignFunction(__wxFileSystemWatcherEvent_2);
+	// Method assignment
 	Gura_AssignMethod(wx_FileSystemWatcherEvent, __GetPath);
 	Gura_AssignMethod(wx_FileSystemWatcherEvent, __GetNewPath);
 	Gura_AssignMethod(wx_FileSystemWatcherEvent, __GetChangeType);

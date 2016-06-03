@@ -35,21 +35,22 @@ String Object_wx_AuiSimpleTabArt::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AuiSimpleTabArt, __wxAuiSimpleTabArt, "wxAuiSimpleTabArt")
+Gura_DeclareFunctionAlias(__wxAuiSimpleTabArt, "wxAuiSimpleTabArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiSimpleTabArt, __wxAuiSimpleTabArt)
+Gura_ImplementFunction(__wxAuiSimpleTabArt)
 {
-	Object_wx_AuiSimpleTabArt *pThis = Object_wx_AuiSimpleTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAuiSimpleTabArt();
+	//wxAuiSimpleTabArt();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiSimpleTabArt, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -328,7 +329,9 @@ Gura_ImplementMethod(wx_AuiSimpleTabArt, __GetBestTabCtrlSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiSimpleTabArt)
 {
-	Gura_AssignMethod(wx_AuiSimpleTabArt, __wxAuiSimpleTabArt);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAuiSimpleTabArt);
+	// Method assignment
 	Gura_AssignMethod(wx_AuiSimpleTabArt, __Clone);
 	Gura_AssignMethod(wx_AuiSimpleTabArt, __SetFlags);
 	Gura_AssignMethod(wx_AuiSimpleTabArt, __SetSizingInfo);

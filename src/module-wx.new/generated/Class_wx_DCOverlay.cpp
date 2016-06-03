@@ -35,9 +35,9 @@ String Object_wx_DCOverlay::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DCOverlay, __wxDCOverlay, "wxDCOverlay")
+Gura_DeclareFunctionAlias(__wxDCOverlay, "wxDCOverlay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "overlay", VTYPE_number, OCCUR_Once);
@@ -48,37 +48,36 @@ Gura_DeclareMethodAlias(wx_DCOverlay, __wxDCOverlay, "wxDCOverlay")
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCOverlay, __wxDCOverlay)
+Gura_ImplementFunction(__wxDCOverlay)
 {
-	Object_wx_DCOverlay *pThis = Object_wx_DCOverlay::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int overlay = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
 	//int x = arg.GetNumber(2)
 	//int y = arg.GetNumber(3)
 	//int width = arg.GetNumber(4)
 	//int height = arg.GetNumber(5)
-	//pThis->GetEntity()->wxDCOverlay();
+	//wxDCOverlay();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DCOverlay, __wxDCOverlay_1, "wxDCOverlay_1")
+Gura_DeclareFunctionAlias(__wxDCOverlay_1, "wxDCOverlay_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "overlay", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCOverlay, __wxDCOverlay_1)
+Gura_ImplementFunction(__wxDCOverlay_1)
 {
-	Object_wx_DCOverlay *pThis = Object_wx_DCOverlay::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int overlay = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDCOverlay();
+	//wxDCOverlay();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DCOverlay, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -97,8 +96,10 @@ Gura_ImplementMethod(wx_DCOverlay, __Clear)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCOverlay)
 {
-	Gura_AssignMethod(wx_DCOverlay, __wxDCOverlay);
-	Gura_AssignMethod(wx_DCOverlay, __wxDCOverlay_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDCOverlay);
+	Gura_AssignFunction(__wxDCOverlay_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DCOverlay, __Clear);
 }
 

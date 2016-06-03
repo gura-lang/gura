@@ -35,9 +35,9 @@ String Object_wx_TextOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextOutputStream, __wxTextOutputStream, "wxTextOutputStream")
+Gura_DeclareFunctionAlias(__wxTextOutputStream, "wxTextOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_TextOutputStream, __wxTextOutputStream, "wxTextOutput
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextOutputStream, __wxTextOutputStream)
+Gura_ImplementFunction(__wxTextOutputStream)
 {
-	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
 	//int conv = arg.GetNumber(2)
-	//pThis->GetEntity()->wxTextOutputStream();
+	//wxTextOutputStream();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextOutputStream, __Flush, "Flush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -235,7 +236,9 @@ Gura_ImplementMethod(wx_TextOutputStream, __WriteString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextOutputStream)
 {
-	Gura_AssignMethod(wx_TextOutputStream, __wxTextOutputStream);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextOutputStream);
+	// Method assignment
 	Gura_AssignMethod(wx_TextOutputStream, __Flush);
 	Gura_AssignMethod(wx_TextOutputStream, __GetOutputStream);
 	Gura_AssignMethod(wx_TextOutputStream, __GetMode);

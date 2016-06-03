@@ -35,33 +35,29 @@ String Object_wx_PostScriptDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PostScriptDC, __wxPostScriptDC, "wxPostScriptDC")
+Gura_DeclareFunctionAlias(__wxPostScriptDC, "wxPostScriptDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PostScriptDC, __wxPostScriptDC)
+Gura_ImplementFunction(__wxPostScriptDC)
 {
-	Object_wx_PostScriptDC *pThis = Object_wx_PostScriptDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPostScriptDC();
+	//wxPostScriptDC();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PostScriptDC, __wxPostScriptDC_1, "wxPostScriptDC_1")
+Gura_DeclareFunctionAlias(__wxPostScriptDC_1, "wxPostScriptDC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PostScriptDC, __wxPostScriptDC_1)
+Gura_ImplementFunction(__wxPostScriptDC_1)
 {
-	Object_wx_PostScriptDC *pThis = Object_wx_PostScriptDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int printData = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPostScriptDC();
+	//wxPostScriptDC();
 	return Value::Nil;
 }
 
@@ -70,8 +66,9 @@ Gura_ImplementMethod(wx_PostScriptDC, __wxPostScriptDC_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PostScriptDC)
 {
-	Gura_AssignMethod(wx_PostScriptDC, __wxPostScriptDC);
-	Gura_AssignMethod(wx_PostScriptDC, __wxPostScriptDC_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPostScriptDC);
+	Gura_AssignFunction(__wxPostScriptDC_1);
 }
 
 Gura_ImplementDescendantCreator(wx_PostScriptDC)

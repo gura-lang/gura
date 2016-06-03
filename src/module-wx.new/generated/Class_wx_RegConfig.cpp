@@ -35,9 +35,9 @@ String Object_wx_RegConfig::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RegConfig, __wxRegConfig, "wxRegConfig")
+Gura_DeclareFunctionAlias(__wxRegConfig, "wxRegConfig")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
@@ -47,16 +47,14 @@ Gura_DeclareMethodAlias(wx_RegConfig, __wxRegConfig, "wxRegConfig")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegConfig, __wxRegConfig)
+Gura_ImplementFunction(__wxRegConfig)
 {
-	Object_wx_RegConfig *pThis = Object_wx_RegConfig::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int appName = arg.GetNumber(0)
 	//int vendorName = arg.GetNumber(1)
 	//int localFilename = arg.GetNumber(2)
 	//int globalFilename = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->wxRegConfig();
+	//wxRegConfig();
 	return Value::Nil;
 }
 
@@ -65,7 +63,8 @@ Gura_ImplementMethod(wx_RegConfig, __wxRegConfig)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegConfig)
 {
-	Gura_AssignMethod(wx_RegConfig, __wxRegConfig);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRegConfig);
 }
 
 Gura_ImplementDescendantCreator(wx_RegConfig)

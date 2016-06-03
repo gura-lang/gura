@@ -35,9 +35,9 @@ String Object_wx_Control::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Control, __wxControl, "wxControl")
+Gura_DeclareFunctionAlias(__wxControl, "wxControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,10 +49,8 @@ Gura_DeclareMethodAlias(wx_Control, __wxControl, "wxControl")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, __wxControl)
+Gura_ImplementFunction(__wxControl)
 {
-	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -60,23 +58,24 @@ Gura_ImplementMethod(wx_Control, __wxControl)
 	//int style = arg.GetNumber(4)
 	//int validator = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxControl();
+	//wxControl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Control, __wxControl_1, "wxControl_1")
+Gura_DeclareFunctionAlias(__wxControl_1, "wxControl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Control, __wxControl_1)
+Gura_ImplementFunction(__wxControl_1)
 {
-	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxControl();
+	//wxControl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Control, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -295,8 +294,10 @@ Gura_ImplementMethod(wx_Control, __Ellipsize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Control)
 {
-	Gura_AssignMethod(wx_Control, __wxControl);
-	Gura_AssignMethod(wx_Control, __wxControl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxControl);
+	Gura_AssignFunction(__wxControl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Control, __Create);
 	Gura_AssignMethod(wx_Control, __Command);
 	Gura_AssignMethod(wx_Control, __GetLabel);

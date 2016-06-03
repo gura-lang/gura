@@ -35,23 +35,24 @@ String Object_wx_VarScrollHelperBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __wxVarScrollHelperBase, "wxVarScrollHelperBase")
+Gura_DeclareFunctionAlias(__wxVarScrollHelperBase, "wxVarScrollHelperBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToScroll", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, __wxVarScrollHelperBase)
+Gura_ImplementFunction(__wxVarScrollHelperBase)
 {
-	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winToScroll = arg.GetNumber(0)
-	//pThis->GetEntity()->wxVarScrollHelperBase();
+	//wxVarScrollHelperBase();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __CalcScrolledPosition, "CalcScrolledPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -296,7 +297,9 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __OnGetUnitSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VarScrollHelperBase)
 {
-	Gura_AssignMethod(wx_VarScrollHelperBase, __wxVarScrollHelperBase);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVarScrollHelperBase);
+	// Method assignment
 	Gura_AssignMethod(wx_VarScrollHelperBase, __CalcScrolledPosition);
 	Gura_AssignMethod(wx_VarScrollHelperBase, __CalcUnscrolledPosition);
 	Gura_AssignMethod(wx_VarScrollHelperBase, __EnablePhysicalScrolling);

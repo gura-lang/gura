@@ -35,9 +35,9 @@ String Object_wx_RichTextFileHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextFileHandler, __wxRichTextFileHandler, "wxRichTextFileHandler")
+Gura_DeclareFunctionAlias(__wxRichTextFileHandler, "wxRichTextFileHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_RichTextFileHandler, __wxRichTextFileHandler, "wxRich
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, __wxRichTextFileHandler)
+Gura_ImplementFunction(__wxRichTextFileHandler)
 {
-	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int ext = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
-	//pThis->GetEntity()->wxRichTextFileHandler();
+	//wxRichTextFileHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __LoadFile, "LoadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -372,7 +373,9 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __DoSaveFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFileHandler)
 {
-	Gura_AssignMethod(wx_RichTextFileHandler, __wxRichTextFileHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextFileHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextFileHandler, __LoadFile);
 	Gura_AssignMethod(wx_RichTextFileHandler, __SaveFile);
 	Gura_AssignMethod(wx_RichTextFileHandler, __LoadFile_1);

@@ -35,9 +35,9 @@ String Object_wx_ActiveXContainer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ActiveXContainer, __wxActiveXContainer, "wxActiveXContainer")
+Gura_DeclareFunctionAlias(__wxActiveXContainer, "wxActiveXContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_ActiveXContainer, __wxActiveXContainer, "wxActiveXCon
 	//DeclareArg(env, "pUnk", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ActiveXContainer, __wxActiveXContainer)
+Gura_ImplementFunction(__wxActiveXContainer)
 {
-	Object_wx_ActiveXContainer *pThis = Object_wx_ActiveXContainer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int iid = arg.GetNumber(1)
 	//int pUnk = arg.GetNumber(2)
-	//pThis->GetEntity()->wxActiveXContainer();
+	//wxActiveXContainer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ActiveXContainer, __QueryClientSiteInterface, "QueryClientSiteInterface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -80,7 +81,9 @@ Gura_ImplementMethod(wx_ActiveXContainer, __QueryClientSiteInterface)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ActiveXContainer)
 {
-	Gura_AssignMethod(wx_ActiveXContainer, __wxActiveXContainer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxActiveXContainer);
+	// Method assignment
 	Gura_AssignMethod(wx_ActiveXContainer, __QueryClientSiteInterface);
 }
 

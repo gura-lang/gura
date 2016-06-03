@@ -35,51 +35,48 @@ String Object_wx_PrintDialogData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PrintDialogData, __wxPrintDialogData, "wxPrintDialogData")
+Gura_DeclareFunctionAlias(__wxPrintDialogData, "wxPrintDialogData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintDialogData, __wxPrintDialogData)
+Gura_ImplementFunction(__wxPrintDialogData)
 {
-	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPrintDialogData();
+	//wxPrintDialogData();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PrintDialogData, __wxPrintDialogData_1, "wxPrintDialogData_1")
+Gura_DeclareFunctionAlias(__wxPrintDialogData_1, "wxPrintDialogData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dialogData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintDialogData, __wxPrintDialogData_1)
+Gura_ImplementFunction(__wxPrintDialogData_1)
 {
-	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dialogData = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPrintDialogData();
+	//wxPrintDialogData();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PrintDialogData, __wxPrintDialogData_2, "wxPrintDialogData_2")
+Gura_DeclareFunctionAlias(__wxPrintDialogData_2, "wxPrintDialogData_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintDialogData, __wxPrintDialogData_2)
+Gura_ImplementFunction(__wxPrintDialogData_2)
 {
-	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int printData = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPrintDialogData();
+	//wxPrintDialogData();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PrintDialogData, __EnableHelp, "EnableHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -438,9 +435,11 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetToPage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintDialogData)
 {
-	Gura_AssignMethod(wx_PrintDialogData, __wxPrintDialogData);
-	Gura_AssignMethod(wx_PrintDialogData, __wxPrintDialogData_1);
-	Gura_AssignMethod(wx_PrintDialogData, __wxPrintDialogData_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPrintDialogData);
+	Gura_AssignFunction(__wxPrintDialogData_1);
+	Gura_AssignFunction(__wxPrintDialogData_2);
+	// Method assignment
 	Gura_AssignMethod(wx_PrintDialogData, __EnableHelp);
 	Gura_AssignMethod(wx_PrintDialogData, __EnablePageNumbers);
 	Gura_AssignMethod(wx_PrintDialogData, __EnablePrintToFile);

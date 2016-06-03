@@ -35,21 +35,22 @@ String Object_wx_DataViewTreeStore::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewTreeStore, __wxDataViewTreeStore, "wxDataViewTreeStore")
+Gura_DeclareFunctionAlias(__wxDataViewTreeStore, "wxDataViewTreeStore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewTreeStore, __wxDataViewTreeStore)
+Gura_ImplementFunction(__wxDataViewTreeStore)
 {
-	Object_wx_DataViewTreeStore *pThis = Object_wx_DataViewTreeStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDataViewTreeStore();
+	//wxDataViewTreeStore();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewTreeStore, __AppendContainer, "AppendContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -377,7 +378,9 @@ Gura_ImplementMethod(wx_DataViewTreeStore, __SetItemIcon)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewTreeStore)
 {
-	Gura_AssignMethod(wx_DataViewTreeStore, __wxDataViewTreeStore);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewTreeStore);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewTreeStore, __AppendContainer);
 	Gura_AssignMethod(wx_DataViewTreeStore, __AppendItem);
 	Gura_AssignMethod(wx_DataViewTreeStore, __DeleteAllItems);

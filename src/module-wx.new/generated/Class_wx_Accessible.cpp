@@ -35,23 +35,24 @@ String Object_wx_Accessible::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Accessible, __wxAccessible, "wxAccessible")
+Gura_DeclareFunctionAlias(__wxAccessible, "wxAccessible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, __wxAccessible)
+Gura_ImplementFunction(__wxAccessible)
 {
-	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
-	//pThis->GetEntity()->wxAccessible();
+	//wxAccessible();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Accessible, __DoDefaultAction, "DoDefaultAction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -410,7 +411,9 @@ Gura_ImplementMethod(wx_Accessible, __SetWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Accessible)
 {
-	Gura_AssignMethod(wx_Accessible, __wxAccessible);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAccessible);
+	// Method assignment
 	Gura_AssignMethod(wx_Accessible, __DoDefaultAction);
 	Gura_AssignMethod(wx_Accessible, __GetChild);
 	Gura_AssignMethod(wx_Accessible, __GetChildCount);

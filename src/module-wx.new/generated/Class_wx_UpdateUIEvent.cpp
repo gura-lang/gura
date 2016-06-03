@@ -35,23 +35,24 @@ String Object_wx_UpdateUIEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_UpdateUIEvent, __wxUpdateUIEvent, "wxUpdateUIEvent")
+Gura_DeclareFunctionAlias(__wxUpdateUIEvent, "wxUpdateUIEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, __wxUpdateUIEvent)
+Gura_ImplementFunction(__wxUpdateUIEvent)
 {
-	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandId = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUpdateUIEvent();
+	//wxUpdateUIEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __CanUpdate, "CanUpdate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -305,7 +306,9 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __Show)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_UpdateUIEvent)
 {
-	Gura_AssignMethod(wx_UpdateUIEvent, __wxUpdateUIEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxUpdateUIEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_UpdateUIEvent, __CanUpdate);
 	Gura_AssignMethod(wx_UpdateUIEvent, __Check);
 	Gura_AssignMethod(wx_UpdateUIEvent, __Enable);

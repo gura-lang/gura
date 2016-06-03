@@ -35,22 +35,20 @@ String Object_wx_FileDirPickerEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileDirPickerEvent, __wxFileDirPickerEvent, "wxFileDirPickerEvent")
+Gura_DeclareFunctionAlias(__wxFileDirPickerEvent, "wxFileDirPickerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileDirPickerEvent, __wxFileDirPickerEvent)
+Gura_ImplementFunction(__wxFileDirPickerEvent)
 {
-	Object_wx_FileDirPickerEvent *pThis = Object_wx_FileDirPickerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFileDirPickerEvent();
+	//wxFileDirPickerEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileDirPickerEvent, __wxFileDirPickerEvent_1, "wxFileDirPickerEvent_1")
+Gura_DeclareFunctionAlias(__wxFileDirPickerEvent_1, "wxFileDirPickerEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -59,18 +57,19 @@ Gura_DeclareMethodAlias(wx_FileDirPickerEvent, __wxFileDirPickerEvent_1, "wxFile
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileDirPickerEvent, __wxFileDirPickerEvent_1)
+Gura_ImplementFunction(__wxFileDirPickerEvent_1)
 {
-	Object_wx_FileDirPickerEvent *pThis = Object_wx_FileDirPickerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//int generator = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
 	//int path = arg.GetNumber(3)
-	//pThis->GetEntity()->wxFileDirPickerEvent();
+	//wxFileDirPickerEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileDirPickerEvent, __GetPath, "GetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -104,8 +103,10 @@ Gura_ImplementMethod(wx_FileDirPickerEvent, __SetPath)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDirPickerEvent)
 {
-	Gura_AssignMethod(wx_FileDirPickerEvent, __wxFileDirPickerEvent);
-	Gura_AssignMethod(wx_FileDirPickerEvent, __wxFileDirPickerEvent_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileDirPickerEvent);
+	Gura_AssignFunction(__wxFileDirPickerEvent_1);
+	// Method assignment
 	Gura_AssignMethod(wx_FileDirPickerEvent, __GetPath);
 	Gura_AssignMethod(wx_FileDirPickerEvent, __SetPath);
 }

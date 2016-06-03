@@ -35,22 +35,20 @@ String Object_wx_TextAttr::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextAttr, __wxTextAttr, "wxTextAttr")
+Gura_DeclareFunctionAlias(__wxTextAttr, "wxTextAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttr, __wxTextAttr)
+Gura_ImplementFunction(__wxTextAttr)
 {
-	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTextAttr();
+	//wxTextAttr();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TextAttr, __wxTextAttr_1, "wxTextAttr_1")
+Gura_DeclareFunctionAlias(__wxTextAttr_1, "wxTextAttr_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colText", VTYPE_number, OCCUR_Once);
@@ -59,33 +57,32 @@ Gura_DeclareMethodAlias(wx_TextAttr, __wxTextAttr_1, "wxTextAttr_1")
 	//DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttr, __wxTextAttr_1)
+Gura_ImplementFunction(__wxTextAttr_1)
 {
-	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colText = arg.GetNumber(0)
 	//int colBack = arg.GetNumber(1)
 	//int font = arg.GetNumber(2)
 	//int alignment = arg.GetNumber(3)
-	//pThis->GetEntity()->wxTextAttr();
+	//wxTextAttr();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TextAttr, __wxTextAttr_2, "wxTextAttr_2")
+Gura_DeclareFunctionAlias(__wxTextAttr_2, "wxTextAttr_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttr, __wxTextAttr_2)
+Gura_ImplementFunction(__wxTextAttr_2)
 {
-	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTextAttr();
+	//wxTextAttr();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextAttr, __Apply, "Apply")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1520,9 +1517,11 @@ Gura_ImplementMethod(wx_TextAttr, __SetURL)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttr)
 {
-	Gura_AssignMethod(wx_TextAttr, __wxTextAttr);
-	Gura_AssignMethod(wx_TextAttr, __wxTextAttr_1);
-	Gura_AssignMethod(wx_TextAttr, __wxTextAttr_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextAttr);
+	Gura_AssignFunction(__wxTextAttr_1);
+	Gura_AssignFunction(__wxTextAttr_2);
+	// Method assignment
 	Gura_AssignMethod(wx_TextAttr, __Apply);
 	Gura_AssignMethod(wx_TextAttr, __Merge);
 	Gura_AssignMethod(wx_TextAttr, __Merge_1);

@@ -35,38 +35,37 @@ String Object_wx_MemoryBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MemoryBuffer, __wxMemoryBuffer, "wxMemoryBuffer")
+Gura_DeclareFunctionAlias(__wxMemoryBuffer, "wxMemoryBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, __wxMemoryBuffer)
+Gura_ImplementFunction(__wxMemoryBuffer)
 {
-	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int src = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMemoryBuffer();
+	//wxMemoryBuffer();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_MemoryBuffer, __wxMemoryBuffer_1, "wxMemoryBuffer_1")
+Gura_DeclareFunctionAlias(__wxMemoryBuffer_1, "wxMemoryBuffer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, __wxMemoryBuffer_1)
+Gura_ImplementFunction(__wxMemoryBuffer_1)
 {
-	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMemoryBuffer();
+	//wxMemoryBuffer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MemoryBuffer, __AppendByte, "AppendByte")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -259,8 +258,10 @@ Gura_ImplementMethod(wx_MemoryBuffer, __UngetWriteBuf)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryBuffer)
 {
-	Gura_AssignMethod(wx_MemoryBuffer, __wxMemoryBuffer);
-	Gura_AssignMethod(wx_MemoryBuffer, __wxMemoryBuffer_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMemoryBuffer);
+	Gura_AssignFunction(__wxMemoryBuffer_1);
+	// Method assignment
 	Gura_AssignMethod(wx_MemoryBuffer, __AppendByte);
 	Gura_AssignMethod(wx_MemoryBuffer, __AppendData);
 	Gura_AssignMethod(wx_MemoryBuffer, __Clear);

@@ -152,6 +152,7 @@ Gura_ImplementMethod(wx_IPV4address, __Service_2)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IPV4address)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_IPV4address, __AnyAddress);
 	Gura_AssignMethod(wx_IPV4address, __Hostname);
 	Gura_AssignMethod(wx_IPV4address, __Hostname_1);

@@ -35,9 +35,9 @@ String Object_wx_XmlDoctype::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_XmlDoctype, __wxXmlDoctype, "wxXmlDoctype")
+Gura_DeclareFunctionAlias(__wxXmlDoctype, "wxXmlDoctype")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rootName", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_XmlDoctype, __wxXmlDoctype, "wxXmlDoctype")
 	//DeclareArg(env, "publicId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlDoctype, __wxXmlDoctype)
+Gura_ImplementFunction(__wxXmlDoctype)
 {
-	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rootName = arg.GetNumber(0)
 	//int systemId = arg.GetNumber(1)
 	//int publicId = arg.GetNumber(2)
-	//pThis->GetEntity()->wxXmlDoctype();
+	//wxXmlDoctype();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_XmlDoctype, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -139,7 +140,9 @@ Gura_ImplementMethod(wx_XmlDoctype, __IsValid)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlDoctype)
 {
-	Gura_AssignMethod(wx_XmlDoctype, __wxXmlDoctype);
+	// Constructor assignment
+	Gura_AssignFunction(__wxXmlDoctype);
+	// Method assignment
 	Gura_AssignMethod(wx_XmlDoctype, __Clear);
 	Gura_AssignMethod(wx_XmlDoctype, __GetRootName);
 	Gura_AssignMethod(wx_XmlDoctype, __GetSystemId);

@@ -35,21 +35,22 @@ String Object_wx_TextAttrShadow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextAttrShadow, __wxTextAttrShadow, "wxTextAttrShadow")
+Gura_DeclareFunctionAlias(__wxTextAttrShadow, "wxTextAttrShadow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrShadow, __wxTextAttrShadow)
+Gura_ImplementFunction(__wxTextAttrShadow)
 {
-	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTextAttrShadow();
+	//wxTextAttrShadow();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -509,7 +510,9 @@ Gura_ImplementMethod(wx_TextAttrShadow, __IsDefault)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrShadow)
 {
-	Gura_AssignMethod(wx_TextAttrShadow, __wxTextAttrShadow);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextAttrShadow);
+	// Method assignment
 	Gura_AssignMethod(wx_TextAttrShadow, __Reset);
 	Gura_AssignMethod(wx_TextAttrShadow, __EqPartial);
 	Gura_AssignMethod(wx_TextAttrShadow, __Apply);

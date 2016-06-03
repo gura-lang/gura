@@ -35,16 +35,10 @@ String Object_wx_GraphicsBrush::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxGraphicsBrush
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsBrush)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsBrush)

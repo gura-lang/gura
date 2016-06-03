@@ -35,21 +35,22 @@ String Object_wx_AuiToolBarArt::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AuiToolBarArt, __wxAuiToolBarArt, "wxAuiToolBarArt")
+Gura_DeclareFunctionAlias(__wxAuiToolBarArt, "wxAuiToolBarArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiToolBarArt, __wxAuiToolBarArt)
+Gura_ImplementFunction(__wxAuiToolBarArt)
 {
-	Object_wx_AuiToolBarArt *pThis = Object_wx_AuiToolBarArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAuiToolBarArt();
+	//wxAuiToolBarArt();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiToolBarArt, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -420,7 +421,9 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __ShowDropDown)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiToolBarArt)
 {
-	Gura_AssignMethod(wx_AuiToolBarArt, __wxAuiToolBarArt);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAuiToolBarArt);
+	// Method assignment
 	Gura_AssignMethod(wx_AuiToolBarArt, __Clone);
 	Gura_AssignMethod(wx_AuiToolBarArt, __SetFlags);
 	Gura_AssignMethod(wx_AuiToolBarArt, __GetFlags);

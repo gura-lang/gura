@@ -87,6 +87,7 @@ Gura_ImplementMethod(wx_DirTraverser, __OnOpenError)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DirTraverser)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_DirTraverser, __OnDir);
 	Gura_AssignMethod(wx_DirTraverser, __OnFile);
 	Gura_AssignMethod(wx_DirTraverser, __OnOpenError);

@@ -35,9 +35,9 @@ String Object_wx_LogWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LogWindow, __wxLogWindow, "wxLogWindow")
+Gura_DeclareFunctionAlias(__wxLogWindow, "wxLogWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pParent", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_LogWindow, __wxLogWindow, "wxLogWindow")
 	//DeclareArg(env, "passToOld", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogWindow, __wxLogWindow)
+Gura_ImplementFunction(__wxLogWindow)
 {
-	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pParent = arg.GetNumber(0)
 	//int szTitle = arg.GetNumber(1)
 	//int show = arg.GetNumber(2)
 	//int passToOld = arg.GetNumber(3)
-	//pThis->GetEntity()->wxLogWindow();
+	//wxLogWindow();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LogWindow, __GetFrame, "GetFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -121,7 +122,9 @@ Gura_ImplementMethod(wx_LogWindow, __Show)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogWindow)
 {
-	Gura_AssignMethod(wx_LogWindow, __wxLogWindow);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLogWindow);
+	// Method assignment
 	Gura_AssignMethod(wx_LogWindow, __GetFrame);
 	Gura_AssignMethod(wx_LogWindow, __OnFrameClose);
 	Gura_AssignMethod(wx_LogWindow, __OnFrameDelete);

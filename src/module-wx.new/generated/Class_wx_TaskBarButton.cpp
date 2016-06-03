@@ -265,6 +265,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __RemoveThumbBarButton_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarButton)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_TaskBarButton, __SetProgressRange);
 	Gura_AssignMethod(wx_TaskBarButton, __SetProgressValue);
 	Gura_AssignMethod(wx_TaskBarButton, __PulseProgress);

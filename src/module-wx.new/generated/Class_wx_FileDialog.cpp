@@ -35,9 +35,9 @@ String Object_wx_FileDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileDialog, __wxFileDialog, "wxFileDialog")
+Gura_DeclareFunctionAlias(__wxFileDialog, "wxFileDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -51,10 +51,8 @@ Gura_DeclareMethodAlias(wx_FileDialog, __wxFileDialog, "wxFileDialog")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileDialog, __wxFileDialog)
+Gura_ImplementFunction(__wxFileDialog)
 {
-	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int defaultDir = arg.GetNumber(2)
@@ -64,10 +62,13 @@ Gura_ImplementMethod(wx_FileDialog, __wxFileDialog)
 	//int pos = arg.GetNumber(6)
 	//int size = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxFileDialog();
+	//wxFileDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileDialog, __GetCurrentlySelectedFilename, "GetCurrentlySelectedFilename")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -325,7 +326,9 @@ Gura_ImplementMethod(wx_FileDialog, __ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDialog)
 {
-	Gura_AssignMethod(wx_FileDialog, __wxFileDialog);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileDialog);
+	// Method assignment
 	Gura_AssignMethod(wx_FileDialog, __GetCurrentlySelectedFilename);
 	Gura_AssignMethod(wx_FileDialog, __GetDirectory);
 	Gura_AssignMethod(wx_FileDialog, __GetExtraControl);

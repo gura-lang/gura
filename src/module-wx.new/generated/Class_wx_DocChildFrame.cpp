@@ -35,9 +35,9 @@ String Object_wx_DocChildFrame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DocChildFrame, __wxDocChildFrame, "wxDocChildFrame")
+Gura_DeclareFunctionAlias(__wxDocChildFrame, "wxDocChildFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
@@ -51,10 +51,8 @@ Gura_DeclareMethodAlias(wx_DocChildFrame, __wxDocChildFrame, "wxDocChildFrame")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocChildFrame, __wxDocChildFrame)
+Gura_ImplementFunction(__wxDocChildFrame)
 {
-	Object_wx_DocChildFrame *pThis = Object_wx_DocChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int doc = arg.GetNumber(0)
 	//int view = arg.GetNumber(1)
 	//int parent = arg.GetNumber(2)
@@ -64,10 +62,13 @@ Gura_ImplementMethod(wx_DocChildFrame, __wxDocChildFrame)
 	//int size = arg.GetNumber(6)
 	//int style = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxDocChildFrame();
+	//wxDocChildFrame();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DocChildFrame, __GetDocument, "GetDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -129,7 +130,9 @@ Gura_ImplementMethod(wx_DocChildFrame, __SetView)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocChildFrame)
 {
-	Gura_AssignMethod(wx_DocChildFrame, __wxDocChildFrame);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDocChildFrame);
+	// Method assignment
 	Gura_AssignMethod(wx_DocChildFrame, __GetDocument);
 	Gura_AssignMethod(wx_DocChildFrame, __GetView);
 	Gura_AssignMethod(wx_DocChildFrame, __SetDocument);

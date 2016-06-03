@@ -35,38 +35,37 @@ String Object_wx_RichTextLine::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextLine, __wxRichTextLine, "wxRichTextLine")
+Gura_DeclareFunctionAlias(__wxRichTextLine, "wxRichTextLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextLine, __wxRichTextLine)
+Gura_ImplementFunction(__wxRichTextLine)
 {
-	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextLine();
+	//wxRichTextLine();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextLine, __wxRichTextLine_1, "wxRichTextLine_1")
+Gura_DeclareFunctionAlias(__wxRichTextLine_1, "wxRichTextLine_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextLine, __wxRichTextLine_1)
+Gura_ImplementFunction(__wxRichTextLine_1)
 {
-	Object_wx_RichTextLine *pThis = Object_wx_RichTextLine::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextLine();
+	//wxRichTextLine();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextLine, __SetRange, "SetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -335,8 +334,10 @@ Gura_ImplementMethod(wx_RichTextLine, __Clone)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextLine)
 {
-	Gura_AssignMethod(wx_RichTextLine, __wxRichTextLine);
-	Gura_AssignMethod(wx_RichTextLine, __wxRichTextLine_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextLine);
+	Gura_AssignFunction(__wxRichTextLine_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextLine, __SetRange);
 	Gura_AssignMethod(wx_RichTextLine, __SetRange_1);
 	Gura_AssignMethod(wx_RichTextLine, __GetParent);

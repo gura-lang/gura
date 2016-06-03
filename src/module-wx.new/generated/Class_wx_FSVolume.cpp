@@ -35,36 +35,35 @@ String Object_wx_FSVolume::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FSVolume, __wxFSVolume, "wxFSVolume")
+Gura_DeclareFunctionAlias(__wxFSVolume, "wxFSVolume")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSVolume, __wxFSVolume)
+Gura_ImplementFunction(__wxFSVolume)
 {
-	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFSVolume();
+	//wxFSVolume();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FSVolume, __wxFSVolume_1, "wxFSVolume_1")
+Gura_DeclareFunctionAlias(__wxFSVolume_1, "wxFSVolume_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FSVolume, __wxFSVolume_1)
+Gura_ImplementFunction(__wxFSVolume_1)
 {
-	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFSVolume();
+	//wxFSVolume();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FSVolume, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -208,8 +207,10 @@ Gura_ImplementMethod(wx_FSVolume, __GetIcon)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FSVolume)
 {
-	Gura_AssignMethod(wx_FSVolume, __wxFSVolume);
-	Gura_AssignMethod(wx_FSVolume, __wxFSVolume_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFSVolume);
+	Gura_AssignFunction(__wxFSVolume_1);
+	// Method assignment
 	Gura_AssignMethod(wx_FSVolume, __Create);
 	Gura_AssignMethod(wx_FSVolume, __GetVolumes);
 	Gura_AssignMethod(wx_FSVolume, __CancelSearch);

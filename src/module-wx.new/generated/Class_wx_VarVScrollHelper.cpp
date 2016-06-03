@@ -35,23 +35,24 @@ String Object_wx_VarVScrollHelper::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_VarVScrollHelper, __wxVarVScrollHelper, "wxVarVScrollHelper")
+Gura_DeclareFunctionAlias(__wxVarVScrollHelper, "wxVarVScrollHelper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToScroll", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, __wxVarVScrollHelper)
+Gura_ImplementFunction(__wxVarVScrollHelper)
 {
-	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winToScroll = arg.GetNumber(0)
-	//pThis->GetEntity()->wxVarVScrollHelper();
+	//wxVarVScrollHelper();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VarVScrollHelper, __GetRowCount, "GetRowCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -248,7 +249,9 @@ Gura_ImplementMethod(wx_VarVScrollHelper, __OnGetRowHeight)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VarVScrollHelper)
 {
-	Gura_AssignMethod(wx_VarVScrollHelper, __wxVarVScrollHelper);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVarVScrollHelper);
+	// Method assignment
 	Gura_AssignMethod(wx_VarVScrollHelper, __GetRowCount);
 	Gura_AssignMethod(wx_VarVScrollHelper, __GetVisibleRowsBegin);
 	Gura_AssignMethod(wx_VarVScrollHelper, __GetVisibleRowsEnd);

@@ -35,23 +35,24 @@ String Object_wx_Printout::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Printout, __wxPrintout, "wxPrintout")
+Gura_DeclareFunctionAlias(__wxPrintout, "wxPrintout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, __wxPrintout)
+Gura_ImplementFunction(__wxPrintout)
 {
-	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPrintout();
+	//wxPrintout();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Printout, __FitThisSizeToPage, "FitThisSizeToPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -486,7 +487,9 @@ Gura_ImplementMethod(wx_Printout, __SetLogicalOrigin)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Printout)
 {
-	Gura_AssignMethod(wx_Printout, __wxPrintout);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPrintout);
+	// Method assignment
 	Gura_AssignMethod(wx_Printout, __FitThisSizeToPage);
 	Gura_AssignMethod(wx_Printout, __FitThisSizeToPageMargins);
 	Gura_AssignMethod(wx_Printout, __FitThisSizeToPaper);

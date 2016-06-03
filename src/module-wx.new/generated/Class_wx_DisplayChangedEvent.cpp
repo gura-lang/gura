@@ -35,18 +35,16 @@ String Object_wx_DisplayChangedEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DisplayChangedEvent, __wxDisplayChangedEvent, "wxDisplayChangedEvent")
+Gura_DeclareFunctionAlias(__wxDisplayChangedEvent, "wxDisplayChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DisplayChangedEvent, __wxDisplayChangedEvent)
+Gura_ImplementFunction(__wxDisplayChangedEvent)
 {
-	Object_wx_DisplayChangedEvent *pThis = Object_wx_DisplayChangedEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDisplayChangedEvent();
+	//wxDisplayChangedEvent();
 	return Value::Nil;
 }
 
@@ -55,7 +53,8 @@ Gura_ImplementMethod(wx_DisplayChangedEvent, __wxDisplayChangedEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DisplayChangedEvent)
 {
-	Gura_AssignMethod(wx_DisplayChangedEvent, __wxDisplayChangedEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDisplayChangedEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_DisplayChangedEvent)

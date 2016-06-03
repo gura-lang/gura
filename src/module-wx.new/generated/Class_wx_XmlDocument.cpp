@@ -35,70 +35,65 @@ String Object_wx_XmlDocument::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_XmlDocument, __wxXmlDocument, "wxXmlDocument")
+Gura_DeclareFunctionAlias(__wxXmlDocument, "wxXmlDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlDocument, __wxXmlDocument)
+Gura_ImplementFunction(__wxXmlDocument)
 {
-	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxXmlDocument();
+	//wxXmlDocument();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_XmlDocument, __wxXmlDocument_1, "wxXmlDocument_1")
+Gura_DeclareFunctionAlias(__wxXmlDocument_1, "wxXmlDocument_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlDocument, __wxXmlDocument_1)
+Gura_ImplementFunction(__wxXmlDocument_1)
 {
-	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int doc = arg.GetNumber(0)
-	//pThis->GetEntity()->wxXmlDocument();
+	//wxXmlDocument();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_XmlDocument, __wxXmlDocument_2, "wxXmlDocument_2")
+Gura_DeclareFunctionAlias(__wxXmlDocument_2, "wxXmlDocument_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlDocument, __wxXmlDocument_2)
+Gura_ImplementFunction(__wxXmlDocument_2)
 {
-	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int encoding = arg.GetNumber(1)
-	//pThis->GetEntity()->wxXmlDocument();
+	//wxXmlDocument();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_XmlDocument, __wxXmlDocument_3, "wxXmlDocument_3")
+Gura_DeclareFunctionAlias(__wxXmlDocument_3, "wxXmlDocument_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlDocument, __wxXmlDocument_3)
+Gura_ImplementFunction(__wxXmlDocument_3)
 {
-	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int encoding = arg.GetNumber(1)
-	//pThis->GetEntity()->wxXmlDocument();
+	//wxXmlDocument();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_XmlDocument, __AppendToProlog, "AppendToProlog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -411,10 +406,12 @@ Gura_ImplementMethod(wx_XmlDocument, __GetLibraryVersionInfo)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlDocument)
 {
-	Gura_AssignMethod(wx_XmlDocument, __wxXmlDocument);
-	Gura_AssignMethod(wx_XmlDocument, __wxXmlDocument_1);
-	Gura_AssignMethod(wx_XmlDocument, __wxXmlDocument_2);
-	Gura_AssignMethod(wx_XmlDocument, __wxXmlDocument_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxXmlDocument);
+	Gura_AssignFunction(__wxXmlDocument_1);
+	Gura_AssignFunction(__wxXmlDocument_2);
+	Gura_AssignFunction(__wxXmlDocument_3);
+	// Method assignment
 	Gura_AssignMethod(wx_XmlDocument, __AppendToProlog);
 	Gura_AssignMethod(wx_XmlDocument, __DetachDocumentNode);
 	Gura_AssignMethod(wx_XmlDocument, __DetachRoot);

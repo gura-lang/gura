@@ -35,20 +35,18 @@ String Object_wx_BusyCursor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_BusyCursor, __wxBusyCursor, "wxBusyCursor")
+Gura_DeclareFunctionAlias(__wxBusyCursor, "wxBusyCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyCursor, __wxBusyCursor)
+Gura_ImplementFunction(__wxBusyCursor)
 {
-	Object_wx_BusyCursor *pThis = Object_wx_BusyCursor::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cursor = arg.GetNumber(0)
-	//pThis->GetEntity()->wxBusyCursor();
+	//wxBusyCursor();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_BusyCursor, __wxBusyCursor)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BusyCursor)
 {
-	Gura_AssignMethod(wx_BusyCursor, __wxBusyCursor);
+	// Constructor assignment
+	Gura_AssignFunction(__wxBusyCursor);
 }
 
 Gura_ImplementDescendantCreator(wx_BusyCursor)

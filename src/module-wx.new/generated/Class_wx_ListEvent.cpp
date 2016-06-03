@@ -35,25 +35,26 @@ String Object_wx_ListEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ListEvent, __wxListEvent, "wxListEvent")
+Gura_DeclareFunctionAlias(__wxListEvent, "wxListEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListEvent, __wxListEvent)
+Gura_ImplementFunction(__wxListEvent)
 {
-	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxListEvent();
+	//wxListEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ListEvent, __GetCacheFrom, "GetCacheFrom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -228,7 +229,9 @@ Gura_ImplementMethod(wx_ListEvent, __IsEditCancelled)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListEvent)
 {
-	Gura_AssignMethod(wx_ListEvent, __wxListEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxListEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_ListEvent, __GetCacheFrom);
 	Gura_AssignMethod(wx_ListEvent, __GetCacheTo);
 	Gura_AssignMethod(wx_ListEvent, __GetColumn);

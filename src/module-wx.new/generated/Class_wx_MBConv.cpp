@@ -35,21 +35,22 @@ String Object_wx_MBConv::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MBConv, __wxMBConv, "wxMBConv")
+Gura_DeclareFunctionAlias(__wxMBConv, "wxMBConv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MBConv, __wxMBConv)
+Gura_ImplementFunction(__wxMBConv)
 {
-	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMBConv();
+	//wxMBConv();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MBConv, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -362,7 +363,9 @@ Gura_ImplementMethod(wx_MBConv, __WC2MB)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MBConv)
 {
-	Gura_AssignMethod(wx_MBConv, __wxMBConv);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMBConv);
+	// Method assignment
 	Gura_AssignMethod(wx_MBConv, __Clone);
 	Gura_AssignMethod(wx_MBConv, __GetMBNulLen);
 	Gura_AssignMethod(wx_MBConv, __GetMaxMBNulLen);

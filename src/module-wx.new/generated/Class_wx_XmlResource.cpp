@@ -35,9 +35,9 @@ String Object_wx_XmlResource::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_XmlResource, __wxXmlResource, "wxXmlResource")
+Gura_DeclareFunctionAlias(__wxXmlResource, "wxXmlResource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filemask", VTYPE_number, OCCUR_Once);
@@ -45,34 +45,33 @@ Gura_DeclareMethodAlias(wx_XmlResource, __wxXmlResource, "wxXmlResource")
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlResource, __wxXmlResource)
+Gura_ImplementFunction(__wxXmlResource)
 {
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filemask = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//int domain = arg.GetNumber(2)
-	//pThis->GetEntity()->wxXmlResource();
+	//wxXmlResource();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_XmlResource, __wxXmlResource_1, "wxXmlResource_1")
+Gura_DeclareFunctionAlias(__wxXmlResource_1, "wxXmlResource_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlResource, __wxXmlResource_1)
+Gura_ImplementFunction(__wxXmlResource_1)
 {
-	Object_wx_XmlResource *pThis = Object_wx_XmlResource::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//int domain = arg.GetNumber(1)
-	//pThis->GetEntity()->wxXmlResource();
+	//wxXmlResource();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_XmlResource, __AddHandler, "AddHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -711,8 +710,10 @@ Gura_ImplementMethod(wx_XmlResource, __DoReportError)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlResource)
 {
-	Gura_AssignMethod(wx_XmlResource, __wxXmlResource);
-	Gura_AssignMethod(wx_XmlResource, __wxXmlResource_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxXmlResource);
+	Gura_AssignFunction(__wxXmlResource_1);
+	// Method assignment
 	Gura_AssignMethod(wx_XmlResource, __AddHandler);
 	Gura_AssignMethod(wx_XmlResource, __InsertHandler);
 	Gura_AssignMethod(wx_XmlResource, __AttachUnknownControl);

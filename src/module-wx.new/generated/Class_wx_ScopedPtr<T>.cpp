@@ -126,6 +126,7 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, __swap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopedPtr<T>)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_ScopedPtr<T>, __wxScopedPtr);
 	Gura_AssignMethod(wx_ScopedPtr<T>, __get);
 	Gura_AssignMethod(wx_ScopedPtr<T>, __unspecified_bool_type);

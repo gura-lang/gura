@@ -35,16 +35,10 @@ String Object_wx_DebugReport::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxDebugReport
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReport)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_DebugReport)

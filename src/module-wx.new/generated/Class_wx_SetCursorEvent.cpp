@@ -35,25 +35,26 @@ String Object_wx_SetCursorEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SetCursorEvent, __wxSetCursorEvent, "wxSetCursorEvent")
+Gura_DeclareFunctionAlias(__wxSetCursorEvent, "wxSetCursorEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SetCursorEvent, __wxSetCursorEvent)
+Gura_ImplementFunction(__wxSetCursorEvent)
 {
-	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//pThis->GetEntity()->wxSetCursorEvent();
+	//wxSetCursorEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SetCursorEvent, __GetCursor, "GetCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -126,7 +127,9 @@ Gura_ImplementMethod(wx_SetCursorEvent, __SetCursor)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SetCursorEvent)
 {
-	Gura_AssignMethod(wx_SetCursorEvent, __wxSetCursorEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSetCursorEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_SetCursorEvent, __GetCursor);
 	Gura_AssignMethod(wx_SetCursorEvent, __GetX);
 	Gura_AssignMethod(wx_SetCursorEvent, __GetY);

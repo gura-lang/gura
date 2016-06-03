@@ -35,23 +35,24 @@ String Object_wx_TaskBarJumpList::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TaskBarJumpList, __wxTaskBarJumpList, "wxTaskBarJumpList")
+Gura_DeclareFunctionAlias(__wxTaskBarJumpList, "wxTaskBarJumpList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "appID", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpList, __wxTaskBarJumpList)
+Gura_ImplementFunction(__wxTaskBarJumpList)
 {
-	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int appID = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTaskBarJumpList();
+	//wxTaskBarJumpList();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TaskBarJumpList, __ShowRecentCategory, "ShowRecentCategory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -210,7 +211,9 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __DeleteCustomCategory)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarJumpList)
 {
-	Gura_AssignMethod(wx_TaskBarJumpList, __wxTaskBarJumpList);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTaskBarJumpList);
+	// Method assignment
 	Gura_AssignMethod(wx_TaskBarJumpList, __ShowRecentCategory);
 	Gura_AssignMethod(wx_TaskBarJumpList, __HideRecentCategory);
 	Gura_AssignMethod(wx_TaskBarJumpList, __ShowFrequentCategory);

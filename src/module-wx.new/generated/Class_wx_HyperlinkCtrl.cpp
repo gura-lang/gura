@@ -35,22 +35,20 @@ String Object_wx_HyperlinkCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __wxHyperlinkCtrl, "wxHyperlinkCtrl")
+Gura_DeclareFunctionAlias(__wxHyperlinkCtrl, "wxHyperlinkCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, __wxHyperlinkCtrl)
+Gura_ImplementFunction(__wxHyperlinkCtrl)
 {
-	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHyperlinkCtrl();
+	//wxHyperlinkCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __wxHyperlinkCtrl_1, "wxHyperlinkCtrl_1")
+Gura_DeclareFunctionAlias(__wxHyperlinkCtrl_1, "wxHyperlinkCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,10 +61,8 @@ Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __wxHyperlinkCtrl_1, "wxHyperlinkCtrl_
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, __wxHyperlinkCtrl_1)
+Gura_ImplementFunction(__wxHyperlinkCtrl_1)
 {
-	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -75,10 +71,13 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, __wxHyperlinkCtrl_1)
 	//int size = arg.GetNumber(5)
 	//int style = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxHyperlinkCtrl();
+	//wxHyperlinkCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -253,8 +252,10 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, __SetVisitedColour)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HyperlinkCtrl)
 {
-	Gura_AssignMethod(wx_HyperlinkCtrl, __wxHyperlinkCtrl);
-	Gura_AssignMethod(wx_HyperlinkCtrl, __wxHyperlinkCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHyperlinkCtrl);
+	Gura_AssignFunction(__wxHyperlinkCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_HyperlinkCtrl, __Create);
 	Gura_AssignMethod(wx_HyperlinkCtrl, __GetHoverColour);
 	Gura_AssignMethod(wx_HyperlinkCtrl, __GetNormalColour);

@@ -35,21 +35,22 @@ String Object_wx_DataObjectComposite::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataObjectComposite, __wxDataObjectComposite, "wxDataObjectComposite")
+Gura_DeclareFunctionAlias(__wxDataObjectComposite, "wxDataObjectComposite")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataObjectComposite, __wxDataObjectComposite)
+Gura_ImplementFunction(__wxDataObjectComposite)
 {
-	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDataObjectComposite();
+	//wxDataObjectComposite();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataObjectComposite, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -102,7 +103,9 @@ Gura_ImplementMethod(wx_DataObjectComposite, __GetObject)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataObjectComposite)
 {
-	Gura_AssignMethod(wx_DataObjectComposite, __wxDataObjectComposite);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataObjectComposite);
+	// Method assignment
 	Gura_AssignMethod(wx_DataObjectComposite, __Add);
 	Gura_AssignMethod(wx_DataObjectComposite, __GetReceivedFormat);
 	Gura_AssignMethod(wx_DataObjectComposite, __GetObject);

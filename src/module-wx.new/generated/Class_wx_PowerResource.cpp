@@ -74,6 +74,7 @@ Gura_ImplementMethod(wx_PowerResource, __Release)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PowerResource)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_PowerResource, __Acquire);
 	Gura_AssignMethod(wx_PowerResource, __Release);
 }

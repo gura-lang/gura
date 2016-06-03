@@ -35,20 +35,18 @@ String Object_wx_LogStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LogStream, __wxLogStream, "wxLogStream")
+Gura_DeclareFunctionAlias(__wxLogStream, "wxLogStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ostr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogStream, __wxLogStream)
+Gura_ImplementFunction(__wxLogStream)
 {
-	Object_wx_LogStream *pThis = Object_wx_LogStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ostr = arg.GetNumber(0)
-	//pThis->GetEntity()->wxLogStream();
+	//wxLogStream();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_LogStream, __wxLogStream)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogStream)
 {
-	Gura_AssignMethod(wx_LogStream, __wxLogStream);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLogStream);
 }
 
 Gura_ImplementDescendantCreator(wx_LogStream)

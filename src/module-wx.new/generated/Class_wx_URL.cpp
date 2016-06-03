@@ -35,23 +35,24 @@ String Object_wx_URL::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_URL, __wxURL, "wxURL")
+Gura_DeclareFunctionAlias(__wxURL, "wxURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_URL, __wxURL)
+Gura_ImplementFunction(__wxURL)
 {
-	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
-	//pThis->GetEntity()->wxURL();
+	//wxURL();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_URL, __GetError, "GetError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -154,7 +155,9 @@ Gura_ImplementMethod(wx_URL, __SetURL)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_URL)
 {
-	Gura_AssignMethod(wx_URL, __wxURL);
+	// Constructor assignment
+	Gura_AssignFunction(__wxURL);
+	// Method assignment
 	Gura_AssignMethod(wx_URL, __GetError);
 	Gura_AssignMethod(wx_URL, __GetInputStream);
 	Gura_AssignMethod(wx_URL, __GetProtocol);

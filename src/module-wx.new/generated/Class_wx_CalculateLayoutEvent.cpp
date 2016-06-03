@@ -35,23 +35,24 @@ String Object_wx_CalculateLayoutEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CalculateLayoutEvent, __wxCalculateLayoutEvent, "wxCalculateLayoutEvent")
+Gura_DeclareFunctionAlias(__wxCalculateLayoutEvent, "wxCalculateLayoutEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalculateLayoutEvent, __wxCalculateLayoutEvent)
+Gura_ImplementFunction(__wxCalculateLayoutEvent)
 {
-	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->wxCalculateLayoutEvent();
+	//wxCalculateLayoutEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CalculateLayoutEvent, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -113,7 +114,9 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, __SetRect)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CalculateLayoutEvent)
 {
-	Gura_AssignMethod(wx_CalculateLayoutEvent, __wxCalculateLayoutEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCalculateLayoutEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_CalculateLayoutEvent, __GetFlags);
 	Gura_AssignMethod(wx_CalculateLayoutEvent, __GetRect);
 	Gura_AssignMethod(wx_CalculateLayoutEvent, __SetFlags);

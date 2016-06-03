@@ -35,22 +35,20 @@ String Object_wx_HtmlWidgetCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlWidgetCell, __wxHtmlWidgetCell, "wxHtmlWidgetCell")
+Gura_DeclareFunctionAlias(__wxHtmlWidgetCell, "wxHtmlWidgetCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWidgetCell, __wxHtmlWidgetCell)
+Gura_ImplementFunction(__wxHtmlWidgetCell)
 {
-	Object_wx_HtmlWidgetCell *pThis = Object_wx_HtmlWidgetCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int wnd = arg.GetNumber(0)
 	//int w = arg.GetNumber(1)
-	//pThis->GetEntity()->wxHtmlWidgetCell();
+	//wxHtmlWidgetCell();
 	return Value::Nil;
 }
 
@@ -59,7 +57,8 @@ Gura_ImplementMethod(wx_HtmlWidgetCell, __wxHtmlWidgetCell)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWidgetCell)
 {
-	Gura_AssignMethod(wx_HtmlWidgetCell, __wxHtmlWidgetCell);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlWidgetCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWidgetCell)

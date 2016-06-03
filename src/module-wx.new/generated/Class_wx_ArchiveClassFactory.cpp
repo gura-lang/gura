@@ -274,6 +274,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, __Remove)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveClassFactory)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_ArchiveClassFactory, __CanHandle);
 	Gura_AssignMethod(wx_ArchiveClassFactory, __Find);
 	Gura_AssignMethod(wx_ArchiveClassFactory, __GetConv);

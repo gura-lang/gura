@@ -35,21 +35,22 @@ String Object_wx_DialogLayoutAdapter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DialogLayoutAdapter, __wxDialogLayoutAdapter, "wxDialogLayoutAdapter")
+Gura_DeclareFunctionAlias(__wxDialogLayoutAdapter, "wxDialogLayoutAdapter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DialogLayoutAdapter, __wxDialogLayoutAdapter)
+Gura_ImplementFunction(__wxDialogLayoutAdapter)
 {
-	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDialogLayoutAdapter();
+	//wxDialogLayoutAdapter();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DialogLayoutAdapter, __CanDoLayoutAdaptation, "CanDoLayoutAdaptation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -85,7 +86,9 @@ Gura_ImplementMethod(wx_DialogLayoutAdapter, __DoLayoutAdaptation)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DialogLayoutAdapter)
 {
-	Gura_AssignMethod(wx_DialogLayoutAdapter, __wxDialogLayoutAdapter);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDialogLayoutAdapter);
+	// Method assignment
 	Gura_AssignMethod(wx_DialogLayoutAdapter, __CanDoLayoutAdaptation);
 	Gura_AssignMethod(wx_DialogLayoutAdapter, __DoLayoutAdaptation);
 }

@@ -35,23 +35,24 @@ String Object_wx_KeyEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_KeyEvent, __wxKeyEvent, "wxKeyEvent")
+Gura_DeclareFunctionAlias(__wxKeyEvent, "wxKeyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyEventType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, __wxKeyEvent)
+Gura_ImplementFunction(__wxKeyEvent)
 {
-	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keyEventType = arg.GetNumber(0)
-	//pThis->GetEntity()->wxKeyEvent();
+	//wxKeyEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_KeyEvent, __GetKeyCode, "GetKeyCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -206,7 +207,9 @@ Gura_ImplementMethod(wx_KeyEvent, __IsNextEventAllowed)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_KeyEvent)
 {
-	Gura_AssignMethod(wx_KeyEvent, __wxKeyEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxKeyEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_KeyEvent, __GetKeyCode);
 	Gura_AssignMethod(wx_KeyEvent, __IsKeyInCategory);
 	Gura_AssignMethod(wx_KeyEvent, __GetPosition);

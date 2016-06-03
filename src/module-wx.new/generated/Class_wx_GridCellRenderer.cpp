@@ -35,21 +35,22 @@ String Object_wx_GridCellRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridCellRenderer, __wxGridCellRenderer, "wxGridCellRenderer")
+Gura_DeclareFunctionAlias(__wxGridCellRenderer, "wxGridCellRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellRenderer, __wxGridCellRenderer)
+Gura_ImplementFunction(__wxGridCellRenderer)
 {
-	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGridCellRenderer();
+	//wxGridCellRenderer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridCellRenderer, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -168,7 +169,9 @@ Gura_ImplementMethod(wx_GridCellRenderer, __GetBestWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellRenderer)
 {
-	Gura_AssignMethod(wx_GridCellRenderer, __wxGridCellRenderer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridCellRenderer);
+	// Method assignment
 	Gura_AssignMethod(wx_GridCellRenderer, __Clone);
 	Gura_AssignMethod(wx_GridCellRenderer, __Draw);
 	Gura_AssignMethod(wx_GridCellRenderer, __GetBestSize);

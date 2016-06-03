@@ -35,22 +35,20 @@ String Object_wx_Frame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Frame, __wxFrame, "wxFrame")
+Gura_DeclareFunctionAlias(__wxFrame, "wxFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Frame, __wxFrame)
+Gura_ImplementFunction(__wxFrame)
 {
-	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFrame();
+	//wxFrame();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Frame, __wxFrame_1, "wxFrame_1")
+Gura_DeclareFunctionAlias(__wxFrame_1, "wxFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,10 +60,8 @@ Gura_DeclareMethodAlias(wx_Frame, __wxFrame_1, "wxFrame_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Frame, __wxFrame_1)
+Gura_ImplementFunction(__wxFrame_1)
 {
-	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -73,10 +69,13 @@ Gura_ImplementMethod(wx_Frame, __wxFrame_1)
 	//int size = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxFrame();
+	//wxFrame();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Frame, __Centre, "Centre")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -440,8 +439,10 @@ Gura_ImplementMethod(wx_Frame, __PopStatusText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Frame)
 {
-	Gura_AssignMethod(wx_Frame, __wxFrame);
-	Gura_AssignMethod(wx_Frame, __wxFrame_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFrame);
+	Gura_AssignFunction(__wxFrame_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Frame, __Centre);
 	Gura_AssignMethod(wx_Frame, __Create);
 	Gura_AssignMethod(wx_Frame, __CreateStatusBar);

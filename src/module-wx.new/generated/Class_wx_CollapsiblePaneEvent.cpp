@@ -35,9 +35,9 @@ String Object_wx_CollapsiblePaneEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CollapsiblePaneEvent, __wxCollapsiblePaneEvent, "wxCollapsiblePaneEvent")
+Gura_DeclareFunctionAlias(__wxCollapsiblePaneEvent, "wxCollapsiblePaneEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_CollapsiblePaneEvent, __wxCollapsiblePaneEvent, "wxCo
 	//DeclareArg(env, "collapsed", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePaneEvent, __wxCollapsiblePaneEvent)
+Gura_ImplementFunction(__wxCollapsiblePaneEvent)
 {
-	Object_wx_CollapsiblePaneEvent *pThis = Object_wx_CollapsiblePaneEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int generator = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int collapsed = arg.GetNumber(2)
-	//pThis->GetEntity()->wxCollapsiblePaneEvent();
+	//wxCollapsiblePaneEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CollapsiblePaneEvent, __GetCollapsed, "GetCollapsed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -89,7 +90,9 @@ Gura_ImplementMethod(wx_CollapsiblePaneEvent, __SetCollapsed)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CollapsiblePaneEvent)
 {
-	Gura_AssignMethod(wx_CollapsiblePaneEvent, __wxCollapsiblePaneEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCollapsiblePaneEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_CollapsiblePaneEvent, __GetCollapsed);
 	Gura_AssignMethod(wx_CollapsiblePaneEvent, __SetCollapsed);
 }

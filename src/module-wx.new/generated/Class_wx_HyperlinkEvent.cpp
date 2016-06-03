@@ -35,9 +35,9 @@ String Object_wx_HyperlinkEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HyperlinkEvent, __wxHyperlinkEvent, "wxHyperlinkEvent")
+Gura_DeclareFunctionAlias(__wxHyperlinkEvent, "wxHyperlinkEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_HyperlinkEvent, __wxHyperlinkEvent, "wxHyperlinkEvent
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkEvent, __wxHyperlinkEvent)
+Gura_ImplementFunction(__wxHyperlinkEvent)
 {
-	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int generator = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int url = arg.GetNumber(2)
-	//pThis->GetEntity()->wxHyperlinkEvent();
+	//wxHyperlinkEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HyperlinkEvent, __GetURL, "GetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -89,7 +90,9 @@ Gura_ImplementMethod(wx_HyperlinkEvent, __SetURL)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HyperlinkEvent)
 {
-	Gura_AssignMethod(wx_HyperlinkEvent, __wxHyperlinkEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHyperlinkEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_HyperlinkEvent, __GetURL);
 	Gura_AssignMethod(wx_HyperlinkEvent, __SetURL);
 }

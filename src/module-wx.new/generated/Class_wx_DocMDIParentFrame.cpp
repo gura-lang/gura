@@ -35,22 +35,20 @@ String Object_wx_DocMDIParentFrame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DocMDIParentFrame, __wxDocMDIParentFrame, "wxDocMDIParentFrame")
+Gura_DeclareFunctionAlias(__wxDocMDIParentFrame, "wxDocMDIParentFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocMDIParentFrame, __wxDocMDIParentFrame)
+Gura_ImplementFunction(__wxDocMDIParentFrame)
 {
-	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDocMDIParentFrame();
+	//wxDocMDIParentFrame();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DocMDIParentFrame, __wxDocMDIParentFrame_1, "wxDocMDIParentFrame_1")
+Gura_DeclareFunctionAlias(__wxDocMDIParentFrame_1, "wxDocMDIParentFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
@@ -63,10 +61,8 @@ Gura_DeclareMethodAlias(wx_DocMDIParentFrame, __wxDocMDIParentFrame_1, "wxDocMDI
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocMDIParentFrame, __wxDocMDIParentFrame_1)
+Gura_ImplementFunction(__wxDocMDIParentFrame_1)
 {
-	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int manager = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
@@ -75,10 +71,13 @@ Gura_ImplementMethod(wx_DocMDIParentFrame, __wxDocMDIParentFrame_1)
 	//int size = arg.GetNumber(5)
 	//int style = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxDocMDIParentFrame();
+	//wxDocMDIParentFrame();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DocMDIParentFrame, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -113,8 +112,10 @@ Gura_ImplementMethod(wx_DocMDIParentFrame, __Create)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocMDIParentFrame)
 {
-	Gura_AssignMethod(wx_DocMDIParentFrame, __wxDocMDIParentFrame);
-	Gura_AssignMethod(wx_DocMDIParentFrame, __wxDocMDIParentFrame_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDocMDIParentFrame);
+	Gura_AssignFunction(__wxDocMDIParentFrame_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DocMDIParentFrame, __Create);
 }
 

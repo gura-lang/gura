@@ -35,21 +35,22 @@ String Object_wx_AuiTabContainer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AuiTabContainer, __wxAuiTabContainer, "wxAuiTabContainer")
+Gura_DeclareFunctionAlias(__wxAuiTabContainer, "wxAuiTabContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, __wxAuiTabContainer)
+Gura_ImplementFunction(__wxAuiTabContainer)
 {
-	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAuiTabContainer();
+	//wxAuiTabContainer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetArtProvider, "SetArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -581,7 +582,9 @@ Gura_ImplementMethod(wx_AuiTabContainer, __Render)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiTabContainer)
 {
-	Gura_AssignMethod(wx_AuiTabContainer, __wxAuiTabContainer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAuiTabContainer);
+	// Method assignment
 	Gura_AssignMethod(wx_AuiTabContainer, __SetArtProvider);
 	Gura_AssignMethod(wx_AuiTabContainer, __GetArtProvider);
 	Gura_AssignMethod(wx_AuiTabContainer, __SetFlags);

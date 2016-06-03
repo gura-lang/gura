@@ -35,23 +35,24 @@ String Object_wx_RichTextStyleDefinition::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextStyleDefinition, __wxRichTextStyleDefinition, "wxRichTextStyleDefinition")
+Gura_DeclareFunctionAlias(__wxRichTextStyleDefinition, "wxRichTextStyleDefinition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleDefinition, __wxRichTextStyleDefinition)
+Gura_ImplementFunction(__wxRichTextStyleDefinition)
 {
-	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextStyleDefinition();
+	//wxRichTextStyleDefinition();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextStyleDefinition, __GetBaseStyle, "GetBaseStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -238,7 +239,9 @@ Gura_ImplementMethod(wx_RichTextStyleDefinition, __SetProperties)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleDefinition)
 {
-	Gura_AssignMethod(wx_RichTextStyleDefinition, __wxRichTextStyleDefinition);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextStyleDefinition);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextStyleDefinition, __GetBaseStyle);
 	Gura_AssignMethod(wx_RichTextStyleDefinition, __GetDescription);
 	Gura_AssignMethod(wx_RichTextStyleDefinition, __GetName);

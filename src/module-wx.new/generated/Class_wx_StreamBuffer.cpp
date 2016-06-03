@@ -35,16 +35,10 @@ String Object_wx_StreamBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxStreamBuffer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StreamBuffer)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_StreamBuffer)

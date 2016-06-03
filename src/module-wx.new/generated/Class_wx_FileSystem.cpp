@@ -35,21 +35,22 @@ String Object_wx_FileSystem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileSystem, __wxFileSystem, "wxFileSystem")
+Gura_DeclareFunctionAlias(__wxFileSystem, "wxFileSystem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystem, __wxFileSystem)
+Gura_ImplementFunction(__wxFileSystem)
 {
-	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFileSystem();
+	//wxFileSystem();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileSystem, __AddHandler, "AddHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -226,7 +227,9 @@ Gura_ImplementMethod(wx_FileSystem, __URLToFileName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileSystem)
 {
-	Gura_AssignMethod(wx_FileSystem, __wxFileSystem);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileSystem);
+	// Method assignment
 	Gura_AssignMethod(wx_FileSystem, __AddHandler);
 	Gura_AssignMethod(wx_FileSystem, __RemoveHandler);
 	Gura_AssignMethod(wx_FileSystem, __ChangePathTo);

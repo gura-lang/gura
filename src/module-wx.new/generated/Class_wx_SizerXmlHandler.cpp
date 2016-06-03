@@ -35,21 +35,22 @@ String Object_wx_SizerXmlHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SizerXmlHandler, __wxSizerXmlHandler, "wxSizerXmlHandler")
+Gura_DeclareFunctionAlias(__wxSizerXmlHandler, "wxSizerXmlHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerXmlHandler, __wxSizerXmlHandler)
+Gura_ImplementFunction(__wxSizerXmlHandler)
 {
-	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSizerXmlHandler();
+	//wxSizerXmlHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SizerXmlHandler, __DoCreateResource, "DoCreateResource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -113,7 +114,9 @@ Gura_ImplementMethod(wx_SizerXmlHandler, __IsSizerNode)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SizerXmlHandler)
 {
-	Gura_AssignMethod(wx_SizerXmlHandler, __wxSizerXmlHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSizerXmlHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_SizerXmlHandler, __DoCreateResource);
 	Gura_AssignMethod(wx_SizerXmlHandler, __CanHandle);
 	Gura_AssignMethod(wx_SizerXmlHandler, __DoCreateSizer);

@@ -35,36 +35,35 @@ String Object_wx_RichTextImageBlock::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextImageBlock, __wxRichTextImageBlock, "wxRichTextImageBlock")
+Gura_DeclareFunctionAlias(__wxRichTextImageBlock, "wxRichTextImageBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, __wxRichTextImageBlock)
+Gura_ImplementFunction(__wxRichTextImageBlock)
 {
-	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextImageBlock();
+	//wxRichTextImageBlock();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextImageBlock, __wxRichTextImageBlock_1, "wxRichTextImageBlock_1")
+Gura_DeclareFunctionAlias(__wxRichTextImageBlock_1, "wxRichTextImageBlock_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, __wxRichTextImageBlock_1)
+Gura_ImplementFunction(__wxRichTextImageBlock_1)
 {
-	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int block = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextImageBlock();
+	//wxRichTextImageBlock();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -444,8 +443,10 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __WriteBlock_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextImageBlock)
 {
-	Gura_AssignMethod(wx_RichTextImageBlock, __wxRichTextImageBlock);
-	Gura_AssignMethod(wx_RichTextImageBlock, __wxRichTextImageBlock_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextImageBlock);
+	Gura_AssignFunction(__wxRichTextImageBlock_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextImageBlock, __Init);
 	Gura_AssignMethod(wx_RichTextImageBlock, __Clear);
 	Gura_AssignMethod(wx_RichTextImageBlock, __MakeImageBlock);

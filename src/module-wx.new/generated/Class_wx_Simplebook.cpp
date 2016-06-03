@@ -35,22 +35,20 @@ String Object_wx_Simplebook::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Simplebook, __wxSimplebook, "wxSimplebook")
+Gura_DeclareFunctionAlias(__wxSimplebook, "wxSimplebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Simplebook, __wxSimplebook)
+Gura_ImplementFunction(__wxSimplebook)
 {
-	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSimplebook();
+	//wxSimplebook();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Simplebook, __wxSimplebook_1, "wxSimplebook_1")
+Gura_DeclareFunctionAlias(__wxSimplebook_1, "wxSimplebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_Simplebook, __wxSimplebook_1, "wxSimplebook_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Simplebook, __wxSimplebook_1)
+Gura_ImplementFunction(__wxSimplebook_1)
 {
-	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxSimplebook();
+	//wxSimplebook();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Simplebook, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -184,8 +183,10 @@ Gura_ImplementMethod(wx_Simplebook, __ShowNewPage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Simplebook)
 {
-	Gura_AssignMethod(wx_Simplebook, __wxSimplebook);
-	Gura_AssignMethod(wx_Simplebook, __wxSimplebook_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSimplebook);
+	Gura_AssignFunction(__wxSimplebook_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Simplebook, __Create);
 	Gura_AssignMethod(wx_Simplebook, __SetEffects);
 	Gura_AssignMethod(wx_Simplebook, __SetEffect);

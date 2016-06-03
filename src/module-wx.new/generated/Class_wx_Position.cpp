@@ -35,38 +35,37 @@ String Object_wx_Position::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Position, __wxPosition, "wxPosition")
+Gura_DeclareFunctionAlias(__wxPosition, "wxPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Position, __wxPosition)
+Gura_ImplementFunction(__wxPosition)
 {
-	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPosition();
+	//wxPosition();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Position, __wxPosition_1, "wxPosition_1")
+Gura_DeclareFunctionAlias(__wxPosition_1, "wxPosition_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Position, __wxPosition_1)
+Gura_ImplementFunction(__wxPosition_1)
 {
-	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//pThis->GetEntity()->wxPosition();
+	//wxPosition();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Position, __GetCol, "GetCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -156,8 +155,10 @@ Gura_ImplementMethod(wx_Position, __SetRow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Position)
 {
-	Gura_AssignMethod(wx_Position, __wxPosition);
-	Gura_AssignMethod(wx_Position, __wxPosition_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPosition);
+	Gura_AssignFunction(__wxPosition_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Position, __GetCol);
 	Gura_AssignMethod(wx_Position, __GetColumn);
 	Gura_AssignMethod(wx_Position, __GetRow);

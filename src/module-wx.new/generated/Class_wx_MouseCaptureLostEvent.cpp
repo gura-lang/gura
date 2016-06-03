@@ -35,20 +35,18 @@ String Object_wx_MouseCaptureLostEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MouseCaptureLostEvent, __wxMouseCaptureLostEvent, "wxMouseCaptureLostEvent")
+Gura_DeclareFunctionAlias(__wxMouseCaptureLostEvent, "wxMouseCaptureLostEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "windowId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseCaptureLostEvent, __wxMouseCaptureLostEvent)
+Gura_ImplementFunction(__wxMouseCaptureLostEvent)
 {
-	Object_wx_MouseCaptureLostEvent *pThis = Object_wx_MouseCaptureLostEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int windowId = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMouseCaptureLostEvent();
+	//wxMouseCaptureLostEvent();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_MouseCaptureLostEvent, __wxMouseCaptureLostEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseCaptureLostEvent)
 {
-	Gura_AssignMethod(wx_MouseCaptureLostEvent, __wxMouseCaptureLostEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMouseCaptureLostEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_MouseCaptureLostEvent)

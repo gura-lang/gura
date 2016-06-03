@@ -98,6 +98,7 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetVersion)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DynamicLibraryDetails)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_DynamicLibraryDetails, __GetAddress);
 	Gura_AssignMethod(wx_DynamicLibraryDetails, __GetName);
 	Gura_AssignMethod(wx_DynamicLibraryDetails, __GetPath);

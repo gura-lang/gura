@@ -504,6 +504,7 @@ Gura_ImplementMethod(wx_Vector<T>, __swap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Vector<T>)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_Vector<T>, __wxVector);
 	Gura_AssignMethod(wx_Vector<T>, __wxVector_1);
 	Gura_AssignMethod(wx_Vector<T>, __wxVector_2);

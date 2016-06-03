@@ -35,51 +35,48 @@ String Object_wx_FontInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FontInfo, __wxFontInfo, "wxFontInfo")
+Gura_DeclareFunctionAlias(__wxFontInfo, "wxFontInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontInfo, __wxFontInfo)
+Gura_ImplementFunction(__wxFontInfo)
 {
-	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFontInfo();
+	//wxFontInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FontInfo, __wxFontInfo_1, "wxFontInfo_1")
+Gura_DeclareFunctionAlias(__wxFontInfo_1, "wxFontInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pointSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontInfo, __wxFontInfo_1)
+Gura_ImplementFunction(__wxFontInfo_1)
 {
-	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pointSize = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFontInfo();
+	//wxFontInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FontInfo, __wxFontInfo_2, "wxFontInfo_2")
+Gura_DeclareFunctionAlias(__wxFontInfo_2, "wxFontInfo_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pixelSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontInfo, __wxFontInfo_2)
+Gura_ImplementFunction(__wxFontInfo_2)
 {
-	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixelSize = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFontInfo();
+	//wxFontInfo();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FontInfo, __Family, "Family")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -250,9 +247,11 @@ Gura_ImplementMethod(wx_FontInfo, __AllFlags)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontInfo)
 {
-	Gura_AssignMethod(wx_FontInfo, __wxFontInfo);
-	Gura_AssignMethod(wx_FontInfo, __wxFontInfo_1);
-	Gura_AssignMethod(wx_FontInfo, __wxFontInfo_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFontInfo);
+	Gura_AssignFunction(__wxFontInfo_1);
+	Gura_AssignFunction(__wxFontInfo_2);
+	// Method assignment
 	Gura_AssignMethod(wx_FontInfo, __Family);
 	Gura_AssignMethod(wx_FontInfo, __FaceName);
 	Gura_AssignMethod(wx_FontInfo, __Bold);

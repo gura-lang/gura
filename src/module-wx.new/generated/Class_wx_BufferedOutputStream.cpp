@@ -35,42 +35,41 @@ String Object_wx_BufferedOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_BufferedOutputStream, __wxBufferedOutputStream, "wxBufferedOutputStream")
+Gura_DeclareFunctionAlias(__wxBufferedOutputStream, "wxBufferedOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedOutputStream, __wxBufferedOutputStream)
+Gura_ImplementFunction(__wxBufferedOutputStream)
 {
-	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
-	//pThis->GetEntity()->wxBufferedOutputStream();
+	//wxBufferedOutputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_BufferedOutputStream, __wxBufferedOutputStream_1, "wxBufferedOutputStream_1")
+Gura_DeclareFunctionAlias(__wxBufferedOutputStream_1, "wxBufferedOutputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bufsize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedOutputStream, __wxBufferedOutputStream_1)
+Gura_ImplementFunction(__wxBufferedOutputStream_1)
 {
-	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int bufsize = arg.GetNumber(1)
-	//pThis->GetEntity()->wxBufferedOutputStream();
+	//wxBufferedOutputStream();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BufferedOutputStream, __SeekO, "SeekO")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -106,8 +105,10 @@ Gura_ImplementMethod(wx_BufferedOutputStream, __Sync)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BufferedOutputStream)
 {
-	Gura_AssignMethod(wx_BufferedOutputStream, __wxBufferedOutputStream);
-	Gura_AssignMethod(wx_BufferedOutputStream, __wxBufferedOutputStream_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxBufferedOutputStream);
+	Gura_AssignFunction(__wxBufferedOutputStream_1);
+	// Method assignment
 	Gura_AssignMethod(wx_BufferedOutputStream, __SeekO);
 	Gura_AssignMethod(wx_BufferedOutputStream, __Sync);
 }

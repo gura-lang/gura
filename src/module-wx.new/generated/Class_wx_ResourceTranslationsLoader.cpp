@@ -68,6 +68,7 @@ Gura_ImplementMethod(wx_ResourceTranslationsLoader, __GetModule)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ResourceTranslationsLoader)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_ResourceTranslationsLoader, __GetResourceType);
 	Gura_AssignMethod(wx_ResourceTranslationsLoader, __GetModule);
 }

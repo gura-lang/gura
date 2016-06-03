@@ -35,23 +35,24 @@ String Object_wx_QueryLayoutInfoEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_QueryLayoutInfoEvent, __wxQueryLayoutInfoEvent, "wxQueryLayoutInfoEvent")
+Gura_DeclareFunctionAlias(__wxQueryLayoutInfoEvent, "wxQueryLayoutInfoEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __wxQueryLayoutInfoEvent)
+Gura_ImplementFunction(__wxQueryLayoutInfoEvent)
 {
-	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->wxQueryLayoutInfoEvent();
+	//wxQueryLayoutInfoEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_QueryLayoutInfoEvent, __GetAlignment, "GetAlignment")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -197,7 +198,9 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __SetSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_QueryLayoutInfoEvent)
 {
-	Gura_AssignMethod(wx_QueryLayoutInfoEvent, __wxQueryLayoutInfoEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxQueryLayoutInfoEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_QueryLayoutInfoEvent, __GetAlignment);
 	Gura_AssignMethod(wx_QueryLayoutInfoEvent, __GetFlags);
 	Gura_AssignMethod(wx_QueryLayoutInfoEvent, __GetOrientation);

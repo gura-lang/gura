@@ -35,40 +35,39 @@ String Object_wx_RichTextEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextEvent, __wxRichTextEvent, "wxRichTextEvent")
+Gura_DeclareFunctionAlias(__wxRichTextEvent, "wxRichTextEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextEvent, __wxRichTextEvent)
+Gura_ImplementFunction(__wxRichTextEvent)
 {
-	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRichTextEvent();
+	//wxRichTextEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextEvent, __wxRichTextEvent_1, "wxRichTextEvent_1")
+Gura_DeclareFunctionAlias(__wxRichTextEvent_1, "wxRichTextEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextEvent, __wxRichTextEvent_1)
+Gura_ImplementFunction(__wxRichTextEvent_1)
 {
-	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextEvent();
+	//wxRichTextEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextEvent, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -311,8 +310,10 @@ Gura_ImplementMethod(wx_RichTextEvent, __Clone)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextEvent)
 {
-	Gura_AssignMethod(wx_RichTextEvent, __wxRichTextEvent);
-	Gura_AssignMethod(wx_RichTextEvent, __wxRichTextEvent_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextEvent);
+	Gura_AssignFunction(__wxRichTextEvent_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextEvent, __GetPosition);
 	Gura_AssignMethod(wx_RichTextEvent, __SetPosition);
 	Gura_AssignMethod(wx_RichTextEvent, __GetFlags);

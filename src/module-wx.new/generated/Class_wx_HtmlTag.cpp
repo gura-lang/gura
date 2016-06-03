@@ -35,9 +35,9 @@ String Object_wx_HtmlTag::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlTag, __wxHtmlTag, "wxHtmlTag")
+Gura_DeclareFunctionAlias(__wxHtmlTag, "wxHtmlTag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -48,20 +48,21 @@ Gura_DeclareMethodAlias(wx_HtmlTag, __wxHtmlTag, "wxHtmlTag")
 	//DeclareArg(env, "entParser", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, __wxHtmlTag)
+Gura_ImplementFunction(__wxHtmlTag)
 {
-	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int source = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int end_pos = arg.GetNumber(3)
 	//int cache = arg.GetNumber(4)
 	//int entParser = arg.GetNumber(5)
-	//pThis->GetEntity()->wxHtmlTag();
+	//wxHtmlTag();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlTag, __GetAllParams, "GetAllParams")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -283,7 +284,9 @@ Gura_ImplementMethod(wx_HtmlTag, __ScanParam_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTag)
 {
-	Gura_AssignMethod(wx_HtmlTag, __wxHtmlTag);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlTag);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlTag, __GetAllParams);
 	Gura_AssignMethod(wx_HtmlTag, __GetBeginPos);
 	Gura_AssignMethod(wx_HtmlTag, __GetEndPos1);

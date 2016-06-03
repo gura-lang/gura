@@ -35,6 +35,26 @@ String Object_wx_DataViewDateRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxDataViewDateRenderer, "wxDataViewDateRenderer")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxDataViewDateRenderer)
+{
+	//int varianttype = arg.GetNumber(0)
+	//int mode = arg.GetNumber(1)
+	//int align = arg.GetNumber(2)
+	//wxDataViewDateRenderer();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewDateRenderer, __GetDefaultType, "GetDefaultType")
@@ -50,32 +70,15 @@ Gura_ImplementMethod(wx_DataViewDateRenderer, __GetDefaultType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DataViewDateRenderer, __wxDataViewDateRenderer, "wxDataViewDateRenderer")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_DataViewDateRenderer, __wxDataViewDateRenderer)
-{
-	Object_wx_DataViewDateRenderer *pThis = Object_wx_DataViewDateRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int varianttype = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
-	//int align = arg.GetNumber(2)
-	//pThis->GetEntity()->wxDataViewDateRenderer();
-	return Value::Nil;
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxDataViewDateRenderer
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewDateRenderer)
 {
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewDateRenderer);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewDateRenderer, __GetDefaultType);
-	Gura_AssignMethod(wx_DataViewDateRenderer, __wxDataViewDateRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewDateRenderer)

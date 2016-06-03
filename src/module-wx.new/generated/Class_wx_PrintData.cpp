@@ -35,36 +35,35 @@ String Object_wx_PrintData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PrintData, __wxPrintData, "wxPrintData")
+Gura_DeclareFunctionAlias(__wxPrintData, "wxPrintData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, __wxPrintData)
+Gura_ImplementFunction(__wxPrintData)
 {
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPrintData();
+	//wxPrintData();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PrintData, __wxPrintData_1, "wxPrintData_1")
+Gura_DeclareFunctionAlias(__wxPrintData_1, "wxPrintData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, __wxPrintData_1)
+Gura_ImplementFunction(__wxPrintData_1)
 {
-	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPrintData();
+	//wxPrintData();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PrintData, __GetBin, "GetBin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -406,8 +405,10 @@ Gura_ImplementMethod(wx_PrintData, __SetPrintMode)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintData)
 {
-	Gura_AssignMethod(wx_PrintData, __wxPrintData);
-	Gura_AssignMethod(wx_PrintData, __wxPrintData_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPrintData);
+	Gura_AssignFunction(__wxPrintData_1);
+	// Method assignment
 	Gura_AssignMethod(wx_PrintData, __GetBin);
 	Gura_AssignMethod(wx_PrintData, __GetCollate);
 	Gura_AssignMethod(wx_PrintData, __GetColour);

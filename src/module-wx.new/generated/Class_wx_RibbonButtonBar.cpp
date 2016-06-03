@@ -35,22 +35,20 @@ String Object_wx_RibbonButtonBar::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RibbonButtonBar, __wxRibbonButtonBar, "wxRibbonButtonBar")
+Gura_DeclareFunctionAlias(__wxRibbonButtonBar, "wxRibbonButtonBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonButtonBar, __wxRibbonButtonBar)
+Gura_ImplementFunction(__wxRibbonButtonBar)
 {
-	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRibbonButtonBar();
+	//wxRibbonButtonBar();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RibbonButtonBar, __wxRibbonButtonBar_1, "wxRibbonButtonBar_1")
+Gura_DeclareFunctionAlias(__wxRibbonButtonBar_1, "wxRibbonButtonBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -60,19 +58,20 @@ Gura_DeclareMethodAlias(wx_RibbonButtonBar, __wxRibbonButtonBar_1, "wxRibbonButt
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonButtonBar, __wxRibbonButtonBar_1)
+Gura_ImplementFunction(__wxRibbonButtonBar_1)
 {
-	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->wxRibbonButtonBar();
+	//wxRibbonButtonBar();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -590,8 +589,10 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __GetShowToolTipsForDisabled)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonButtonBar)
 {
-	Gura_AssignMethod(wx_RibbonButtonBar, __wxRibbonButtonBar);
-	Gura_AssignMethod(wx_RibbonButtonBar, __wxRibbonButtonBar_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRibbonButtonBar);
+	Gura_AssignFunction(__wxRibbonButtonBar_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RibbonButtonBar, __Create);
 	Gura_AssignMethod(wx_RibbonButtonBar, __AddButton);
 	Gura_AssignMethod(wx_RibbonButtonBar, __AddDropdownButton);

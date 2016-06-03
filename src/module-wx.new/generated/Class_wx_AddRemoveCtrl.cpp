@@ -35,22 +35,20 @@ String Object_wx_AddRemoveCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AddRemoveCtrl, __wxAddRemoveCtrl, "wxAddRemoveCtrl")
+Gura_DeclareFunctionAlias(__wxAddRemoveCtrl, "wxAddRemoveCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AddRemoveCtrl, __wxAddRemoveCtrl)
+Gura_ImplementFunction(__wxAddRemoveCtrl)
 {
-	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAddRemoveCtrl();
+	//wxAddRemoveCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_AddRemoveCtrl, __wxAddRemoveCtrl_1, "wxAddRemoveCtrl_1")
+Gura_DeclareFunctionAlias(__wxAddRemoveCtrl_1, "wxAddRemoveCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_AddRemoveCtrl, __wxAddRemoveCtrl_1, "wxAddRemoveCtrl_
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AddRemoveCtrl, __wxAddRemoveCtrl_1)
+Gura_ImplementFunction(__wxAddRemoveCtrl_1)
 {
-	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxAddRemoveCtrl();
+	//wxAddRemoveCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AddRemoveCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -137,8 +136,10 @@ Gura_ImplementMethod(wx_AddRemoveCtrl, __SetButtonsToolTips)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AddRemoveCtrl)
 {
-	Gura_AssignMethod(wx_AddRemoveCtrl, __wxAddRemoveCtrl);
-	Gura_AssignMethod(wx_AddRemoveCtrl, __wxAddRemoveCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAddRemoveCtrl);
+	Gura_AssignFunction(__wxAddRemoveCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_AddRemoveCtrl, __Create);
 	Gura_AssignMethod(wx_AddRemoveCtrl, __SetAdaptor);
 	Gura_AssignMethod(wx_AddRemoveCtrl, __SetButtonsToolTips);

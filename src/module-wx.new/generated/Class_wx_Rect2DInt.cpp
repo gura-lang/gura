@@ -35,37 +35,33 @@ String Object_wx_Rect2DInt::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Rect2DInt, __wxRect2DInt, "wxRect2DInt")
+Gura_DeclareFunctionAlias(__wxRect2DInt, "wxRect2DInt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DInt, __wxRect2DInt)
+Gura_ImplementFunction(__wxRect2DInt)
 {
-	Object_wx_Rect2DInt *pThis = Object_wx_Rect2DInt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRect2DInt();
+	//wxRect2DInt();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Rect2DInt, __wxRect2DInt_1, "wxRect2DInt_1")
+Gura_DeclareFunctionAlias(__wxRect2DInt_1, "wxRect2DInt_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DInt, __wxRect2DInt_1)
+Gura_ImplementFunction(__wxRect2DInt_1)
 {
-	Object_wx_Rect2DInt *pThis = Object_wx_Rect2DInt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int r = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRect2DInt();
+	//wxRect2DInt();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Rect2DInt, __wxRect2DInt_2, "wxRect2DInt_2")
+Gura_DeclareFunctionAlias(__wxRect2DInt_2, "wxRect2DInt_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -74,67 +70,62 @@ Gura_DeclareMethodAlias(wx_Rect2DInt, __wxRect2DInt_2, "wxRect2DInt_2")
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DInt, __wxRect2DInt_2)
+Gura_ImplementFunction(__wxRect2DInt_2)
 {
-	Object_wx_Rect2DInt *pThis = Object_wx_Rect2DInt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int w = arg.GetNumber(2)
 	//int h = arg.GetNumber(3)
-	//pThis->GetEntity()->wxRect2DInt();
+	//wxRect2DInt();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Rect2DInt, __wxRect2DInt_3, "wxRect2DInt_3")
+Gura_DeclareFunctionAlias(__wxRect2DInt_3, "wxRect2DInt_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topLeft", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bottomRight", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DInt, __wxRect2DInt_3)
+Gura_ImplementFunction(__wxRect2DInt_3)
 {
-	Object_wx_Rect2DInt *pThis = Object_wx_Rect2DInt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topLeft = arg.GetNumber(0)
 	//int bottomRight = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRect2DInt();
+	//wxRect2DInt();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Rect2DInt, __wxRect2DInt_4, "wxRect2DInt_4")
+Gura_DeclareFunctionAlias(__wxRect2DInt_4, "wxRect2DInt_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DInt, __wxRect2DInt_4)
+Gura_ImplementFunction(__wxRect2DInt_4)
 {
-	Object_wx_Rect2DInt *pThis = Object_wx_Rect2DInt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRect2DInt();
+	//wxRect2DInt();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Rect2DInt, __wxRect2DInt_5, "wxRect2DInt_5")
+Gura_DeclareFunctionAlias(__wxRect2DInt_5, "wxRect2DInt_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DInt, __wxRect2DInt_5)
+Gura_ImplementFunction(__wxRect2DInt_5)
 {
-	Object_wx_Rect2DInt *pThis = Object_wx_Rect2DInt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rect = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRect2DInt();
+	//wxRect2DInt();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Rect2DInt, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -886,12 +877,14 @@ Gura_ImplementMethod(wx_Rect2DInt, __Scale_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Rect2DInt)
 {
-	Gura_AssignMethod(wx_Rect2DInt, __wxRect2DInt);
-	Gura_AssignMethod(wx_Rect2DInt, __wxRect2DInt_1);
-	Gura_AssignMethod(wx_Rect2DInt, __wxRect2DInt_2);
-	Gura_AssignMethod(wx_Rect2DInt, __wxRect2DInt_3);
-	Gura_AssignMethod(wx_Rect2DInt, __wxRect2DInt_4);
-	Gura_AssignMethod(wx_Rect2DInt, __wxRect2DInt_5);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRect2DInt);
+	Gura_AssignFunction(__wxRect2DInt_1);
+	Gura_AssignFunction(__wxRect2DInt_2);
+	Gura_AssignFunction(__wxRect2DInt_3);
+	Gura_AssignFunction(__wxRect2DInt_4);
+	Gura_AssignFunction(__wxRect2DInt_5);
+	// Method assignment
 	Gura_AssignMethod(wx_Rect2DInt, __GetPosition);
 	Gura_AssignMethod(wx_Rect2DInt, __GetSize);
 	Gura_AssignMethod(wx_Rect2DInt, __GetLeft);

@@ -35,39 +35,35 @@ String Object_wx_BannerWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_BannerWindow, __wxBannerWindow, "wxBannerWindow")
+Gura_DeclareFunctionAlias(__wxBannerWindow, "wxBannerWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BannerWindow, __wxBannerWindow)
+Gura_ImplementFunction(__wxBannerWindow)
 {
-	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxBannerWindow();
+	//wxBannerWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_BannerWindow, __wxBannerWindow_1, "wxBannerWindow_1")
+Gura_DeclareFunctionAlias(__wxBannerWindow_1, "wxBannerWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BannerWindow, __wxBannerWindow_1)
+Gura_ImplementFunction(__wxBannerWindow_1)
 {
-	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int dir = arg.GetNumber(1)
-	//pThis->GetEntity()->wxBannerWindow();
+	//wxBannerWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_BannerWindow, __wxBannerWindow_2, "wxBannerWindow_2")
+Gura_DeclareFunctionAlias(__wxBannerWindow_2, "wxBannerWindow_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -79,10 +75,8 @@ Gura_DeclareMethodAlias(wx_BannerWindow, __wxBannerWindow_2, "wxBannerWindow_2")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BannerWindow, __wxBannerWindow_2)
+Gura_ImplementFunction(__wxBannerWindow_2)
 {
-	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int dir = arg.GetNumber(2)
@@ -90,10 +84,13 @@ Gura_ImplementMethod(wx_BannerWindow, __wxBannerWindow_2)
 	//int size = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxBannerWindow();
+	//wxBannerWindow();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BannerWindow, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -175,9 +172,11 @@ Gura_ImplementMethod(wx_BannerWindow, __SetGradient)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BannerWindow)
 {
-	Gura_AssignMethod(wx_BannerWindow, __wxBannerWindow);
-	Gura_AssignMethod(wx_BannerWindow, __wxBannerWindow_1);
-	Gura_AssignMethod(wx_BannerWindow, __wxBannerWindow_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxBannerWindow);
+	Gura_AssignFunction(__wxBannerWindow_1);
+	Gura_AssignFunction(__wxBannerWindow_2);
+	// Method assignment
 	Gura_AssignMethod(wx_BannerWindow, __Create);
 	Gura_AssignMethod(wx_BannerWindow, __SetBitmap);
 	Gura_AssignMethod(wx_BannerWindow, __SetText);

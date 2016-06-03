@@ -35,22 +35,20 @@ String Object_wx_Rect::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Rect, __wxRect, "wxRect")
+Gura_DeclareFunctionAlias(__wxRect, "wxRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect, __wxRect)
+Gura_ImplementFunction(__wxRect)
 {
-	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRect();
+	//wxRect();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Rect, __wxRect_1, "wxRect_1")
+Gura_DeclareFunctionAlias(__wxRect_1, "wxRect_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -59,67 +57,62 @@ Gura_DeclareMethodAlias(wx_Rect, __wxRect_1, "wxRect_1")
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect, __wxRect_1)
+Gura_ImplementFunction(__wxRect_1)
 {
-	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//int width = arg.GetNumber(2)
 	//int height = arg.GetNumber(3)
-	//pThis->GetEntity()->wxRect();
+	//wxRect();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Rect, __wxRect_2, "wxRect_2")
+Gura_DeclareFunctionAlias(__wxRect_2, "wxRect_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topLeft", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bottomRight", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect, __wxRect_2)
+Gura_ImplementFunction(__wxRect_2)
 {
-	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topLeft = arg.GetNumber(0)
 	//int bottomRight = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRect();
+	//wxRect();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Rect, __wxRect_3, "wxRect_3")
+Gura_DeclareFunctionAlias(__wxRect_3, "wxRect_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect, __wxRect_3)
+Gura_ImplementFunction(__wxRect_3)
 {
-	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRect();
+	//wxRect();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Rect, __wxRect_4, "wxRect_4")
+Gura_DeclareFunctionAlias(__wxRect_4, "wxRect_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect, __wxRect_4)
+Gura_ImplementFunction(__wxRect_4)
 {
-	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRect();
+	//wxRect();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Rect, __CentreIn, "CentreIn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -846,11 +839,13 @@ Gura_ImplementMethod(wx_Rect, __Union_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Rect)
 {
-	Gura_AssignMethod(wx_Rect, __wxRect);
-	Gura_AssignMethod(wx_Rect, __wxRect_1);
-	Gura_AssignMethod(wx_Rect, __wxRect_2);
-	Gura_AssignMethod(wx_Rect, __wxRect_3);
-	Gura_AssignMethod(wx_Rect, __wxRect_4);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRect);
+	Gura_AssignFunction(__wxRect_1);
+	Gura_AssignFunction(__wxRect_2);
+	Gura_AssignFunction(__wxRect_3);
+	Gura_AssignFunction(__wxRect_4);
+	// Method assignment
 	Gura_AssignMethod(wx_Rect, __CentreIn);
 	Gura_AssignMethod(wx_Rect, __CenterIn);
 	Gura_AssignMethod(wx_Rect, __Contains);

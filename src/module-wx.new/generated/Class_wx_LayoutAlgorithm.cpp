@@ -35,21 +35,22 @@ String Object_wx_LayoutAlgorithm::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LayoutAlgorithm, __wxLayoutAlgorithm, "wxLayoutAlgorithm")
+Gura_DeclareFunctionAlias(__wxLayoutAlgorithm, "wxLayoutAlgorithm")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LayoutAlgorithm, __wxLayoutAlgorithm)
+Gura_ImplementFunction(__wxLayoutAlgorithm)
 {
-	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxLayoutAlgorithm();
+	//wxLayoutAlgorithm();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LayoutAlgorithm, __LayoutFrame, "LayoutFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -106,7 +107,9 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LayoutAlgorithm)
 {
-	Gura_AssignMethod(wx_LayoutAlgorithm, __wxLayoutAlgorithm);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLayoutAlgorithm);
+	// Method assignment
 	Gura_AssignMethod(wx_LayoutAlgorithm, __LayoutFrame);
 	Gura_AssignMethod(wx_LayoutAlgorithm, __LayoutMDIFrame);
 	Gura_AssignMethod(wx_LayoutAlgorithm, __LayoutWindow);

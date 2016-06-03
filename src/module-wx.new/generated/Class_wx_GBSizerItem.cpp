@@ -35,9 +35,9 @@ String Object_wx_GBSizerItem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GBSizerItem, __wxGBSizerItem, "wxGBSizerItem")
+Gura_DeclareFunctionAlias(__wxGBSizerItem, "wxGBSizerItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -49,10 +49,8 @@ Gura_DeclareMethodAlias(wx_GBSizerItem, __wxGBSizerItem, "wxGBSizerItem")
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, __wxGBSizerItem)
+Gura_ImplementFunction(__wxGBSizerItem)
 {
-	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -60,11 +58,11 @@ Gura_ImplementMethod(wx_GBSizerItem, __wxGBSizerItem)
 	//int flag = arg.GetNumber(4)
 	//int border = arg.GetNumber(5)
 	//int userData = arg.GetNumber(6)
-	//pThis->GetEntity()->wxGBSizerItem();
+	//wxGBSizerItem();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GBSizerItem, __wxGBSizerItem_1, "wxGBSizerItem_1")
+Gura_DeclareFunctionAlias(__wxGBSizerItem_1, "wxGBSizerItem_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -75,21 +73,19 @@ Gura_DeclareMethodAlias(wx_GBSizerItem, __wxGBSizerItem_1, "wxGBSizerItem_1")
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, __wxGBSizerItem_1)
+Gura_ImplementFunction(__wxGBSizerItem_1)
 {
-	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int span = arg.GetNumber(2)
 	//int flag = arg.GetNumber(3)
 	//int border = arg.GetNumber(4)
 	//int userData = arg.GetNumber(5)
-	//pThis->GetEntity()->wxGBSizerItem();
+	//wxGBSizerItem();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GBSizerItem, __wxGBSizerItem_2, "wxGBSizerItem_2")
+Gura_DeclareFunctionAlias(__wxGBSizerItem_2, "wxGBSizerItem_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
@@ -100,20 +96,21 @@ Gura_DeclareMethodAlias(wx_GBSizerItem, __wxGBSizerItem_2, "wxGBSizerItem_2")
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, __wxGBSizerItem_2)
+Gura_ImplementFunction(__wxGBSizerItem_2)
 {
-	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sizer = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//int span = arg.GetNumber(2)
 	//int flag = arg.GetNumber(3)
 	//int border = arg.GetNumber(4)
 	//int userData = arg.GetNumber(5)
-	//pThis->GetEntity()->wxGBSizerItem();
+	//wxGBSizerItem();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GBSizerItem, __GetEndPos, "GetEndPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -286,9 +283,11 @@ Gura_ImplementMethod(wx_GBSizerItem, __SetGBSizer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GBSizerItem)
 {
-	Gura_AssignMethod(wx_GBSizerItem, __wxGBSizerItem);
-	Gura_AssignMethod(wx_GBSizerItem, __wxGBSizerItem_1);
-	Gura_AssignMethod(wx_GBSizerItem, __wxGBSizerItem_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGBSizerItem);
+	Gura_AssignFunction(__wxGBSizerItem_1);
+	Gura_AssignFunction(__wxGBSizerItem_2);
+	// Method assignment
 	Gura_AssignMethod(wx_GBSizerItem, __GetEndPos);
 	Gura_AssignMethod(wx_GBSizerItem, __GetPos);
 	Gura_AssignMethod(wx_GBSizerItem, __GetPos_1);

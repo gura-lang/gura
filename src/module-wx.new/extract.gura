@@ -69,7 +69,7 @@ tmpl@ClassesSource_gura = R'''
 #!/usr/bin/env gura
 
 srcs:public = [
-	${classInfosAtRoot:*Gen_SourceEntry()}
+	${classInfosAtRoot:*RenderSourceEntry()}
 ]
 '''.template()
 
@@ -77,7 +77,7 @@ tmpl@Classes_h = R'''
 #ifndef __CLASSES_H__
 #define __CLASSES_H__
 
-${classInfosAtRoot:*Gen_Include()}
+${classInfosAtRoot:*RenderInclude()}
 
 #endif
 '''.template()
@@ -89,8 +89,8 @@ Gura_BeginModuleScope(wx)
 
 void AssignConstants(Environment &env)
 {
-	${enumInfoNoName.Gen_Assignment()}
-	${enumInfos:*Gen_Assignment()}
+	${enumInfoNoName.RenderAssignment()}
+	${enumInfos:*RenderAssignment()}
 }
 
 Gura_EndModuleScope(wx)
@@ -103,8 +103,8 @@ Gura_BeginModuleScope(wx)
 
 void RegisterClasses(Environment &env)
 {
-	${classInfosAtRoot:*Gen_RealizeClass()}
-	${classInfosAtRoot:*Gen_PrepareClass()}
+	${classInfosAtRoot:*RenderRealizeClass()}
+	${classInfosAtRoot:*RenderPrepareClass()}
 }
 
 Gura_EndModuleScope(wx)
@@ -117,6 +117,7 @@ Gura_BeginModuleScope(wx)
 
 void RegisterFunctions(Environment &env)
 {
+	${funcInfosGlobal:*RenderAssignment()}
 }
 
 Gura_EndModuleScope(wx)
@@ -272,18 +273,34 @@ String Object_wx_${classNameShort}::ToString(bool exprFlag)
 	}
 	return rtn;
 }
+${if (!funcInfosOfConstructor.isempty())}
+
+//----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+${funcInfosOfConstructor:&RenderImplementation(0.. > 0)}
+${end}
+${if (!funcInfosOfMethod.isempty())}
 
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
 ${funcInfosOfMethod:&RenderImplementation(0.. > 0)}
+${end}
 
 //----------------------------------------------------------------------------
 // Class implementation for wx${classNameShort}
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_${classNameShort})
 {
+	${if (!funcInfosOfConstructor.isempty())}
+	// Constructor assignment
+	${funcInfosOfConstructor:*RenderAssignment()}
+	${end}
+	${if (!funcInfosOfMethod.isempty())}
+	// Method assignment
 	${funcInfosOfMethod:*RenderAssignment()}
+	${end}
 }
 
 Gura_ImplementDescendantCreator(wx_${classNameShort})
@@ -294,7 +311,39 @@ Gura_ImplementDescendantCreator(wx_${classNameShort})
 Gura_EndModuleScope(wx)
 '''.template()
 
-tmpl@Method = R'''
+tmpl@ImplementFunction = R'''
+${if (lineSkipFlag) { '' }}
+Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	${if (!argInfos.isempty()) { argInfos:*RenderDeclaration() }}
+}
+
+Gura_ImplementFunction(${funcNameInternal})
+{
+	${if (!argInfos.isempty()) { argInfos:&RenderVariable(0..) }}
+	//${funcNameCPP}();
+	return Value::Nil;
+}
+'''.template()
+
+tmpl@ImplementConstructor = R'''
+${if (lineSkipFlag) { '' }}
+Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	${if (!argInfos.isempty()) { argInfos:*RenderDeclaration() }}
+}
+
+Gura_ImplementFunction(${funcNameInternal})
+{
+	${if (!argInfos.isempty()) { argInfos:&RenderVariable(0..) }}
+	//${funcNameCPP}();
+	return Value::Nil;
+}
+'''.template()
+
+tmpl@ImplementMethod = R'''
 ${if (lineSkipFlag) { '' }}
 Gura_DeclareMethodAlias(wx_${classNameShort}, ${funcNameInternal}, "${funcNameGura}")
 {
@@ -327,7 +376,7 @@ EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
 	AddMember(memberName:string) = {
 		this.memberInfos.add(EnumMemberInfo(memberName))
 	}
-	Gen_Assignment() = {
+	RenderAssignment() = {
 		if (this.enumName.isempty()) {
 			str = format('// no-name enum\n')
 		} else {
@@ -359,24 +408,25 @@ EnumInfo = struct(pathName:string, lineNo:number, strSrc:string,
 ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 				   className:string, classNamesParent[]:string,
 				   classInfosOfParent[] => [], classInfosOfChild[] => [],
-				   funcInfosOfMethod[] => [], supportedStat:symbol => `supported) {
+				   funcInfosOfConstructor[] => [], funcInfosOfMethod[] => [],
+				   supportedStat:symbol => `supported) {
 	IsSupported() = {
 		this.supportedStat == `supported
 	}
 	MakeClassNameShort() = this.className.sub('^wx', '')
 	IsRootClass() = this.classInfosOfParent.isempty()
-	Gen_SourceEntry(indentLevel:number => 0) = {
+	RenderSourceEntry(indentLevel:number => 0) = {
 		str = format("%s%s'Class_wx_%s.cpp'\n", '  ' * indentLevel,
 					 cond(this.IsSupported(), '', '//'), this.MakeClassNameShort())
-		str + this.classInfosOfChild:*Gen_SourceEntry(indentLevel + 1).join()
+		str + this.classInfosOfChild:*RenderSourceEntry(indentLevel + 1).join()
 	}
-	Gen_Include(indentLevel:number => 0) = {
+	RenderInclude(indentLevel:number => 0) = {
 		str = format('%snclude %s"Class_wx_%s.h"\n',
 					 cond(this.IsSupported(), '#i', '//'), '  ' * indentLevel,
 					 this.MakeClassNameShort())
-		str + this.classInfosOfChild:*Gen_Include(indentLevel + 1).join()
+		str + this.classInfosOfChild:*RenderInclude(indentLevel + 1).join()
 	}
-	Gen_RealizeClass(indentLevel:number => 0) = {
+	RenderRealizeClass(indentLevel:number => 0) = {
 		str = if (this.IsRootClass()) {
 			format('%sRealizeBaseClass(%s);\n',
 				   cond(this.IsSupported(), '', '//'), this.MakeClassNameShort())
@@ -385,13 +435,13 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 				   '  ' * indentLevel, cond(this.IsSupported(), '', '//'),
 				   this.MakeClassNameShort(), this.classInfosOfParent[0].MakeClassNameShort())
 		}
-		str + this.classInfosOfChild:*Gen_RealizeClass(indentLevel + 1).join()
+		str + this.classInfosOfChild:*RenderRealizeClass(indentLevel + 1).join()
 	}
-	Gen_PrepareClass(indentLevel:number => 0) = {
+	RenderPrepareClass(indentLevel:number => 0) = {
 		str = format('%s%sPrepareClass(%s);\n',
 					 '  ' * indentLevel, cond(this.IsSupported(), '', '//'),
 					 this.MakeClassNameShort())
-		str + this.classInfosOfChild:*Gen_PrepareClass(indentLevel + 1).join()
+		str + this.classInfosOfChild:*RenderPrepareClass(indentLevel + 1).join()
 	}
 	RenderHeader(dirName:string):void = {
 		classNameShort = this.MakeClassNameShort()
@@ -406,6 +456,7 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 	}
 	RenderSource(dirName:string):void = {
 		classNameShort = this.MakeClassNameShort()
+		funcInfosOfConstructor = this.funcInfosOfConstructor
 		funcInfosOfMethod = this.funcInfosOfMethod
 		tmpl@Source.render(path.join(dirName, format('Class_wx_%s.cpp', classNameShort)))
 	}
@@ -421,8 +472,15 @@ ClassInfo = struct(pathName:string, lineNo:number, strSrc:string,
 		this.classInfosOfChild:*UpdateSupportedStat(supportedStat)
 	}
 	AddMethod(pathName:string, lineNo:number, strSrc:string):void = {
-		if (funcInfo = CreateFuncInfo(pathName, lineNo, strSrc)) {
-			funcInfo.classInfo = this
+		!(funcInfo = CreateFuncInfo(pathName, lineNo, strSrc)) && return
+		funcInfo.classInfo = this
+		if (this.className == funcInfo.funcNameCPP) {
+			funcInfo.funcType = `Constructor
+			funcInfo.AvertFuncNameConflict(this.funcInfosOfConstructor)
+			this.funcInfosOfConstructor.add(funcInfo)
+			cntConstructors += 1
+		} else {
+			funcInfo.funcType = `Method
 			funcInfo.AvertFuncNameConflict(this.funcInfosOfMethod)
 			this.funcInfosOfMethod.add(funcInfo)
 			cntMethods += 1
@@ -440,8 +498,8 @@ ArgInfo = struct(argName:string) {
 	}
 }
 
-FuncInfo = struct(funcNameCPP:string, funcNameGura:string, classInfo?:ClassInfo,
-				  argInfos[]:ArgInfo => []) {
+FuncInfo = struct(funcNameCPP:string, funcNameGura:string,
+				  classInfo?:ClassInfo, funcType:symbol => `Function, argInfos[]:ArgInfo => []) {
 	MakeFuncNameInternal() = '__' + this.funcNameGura
 	RenderImplementation(lineSkipFlag:boolean):map = {
 		classNameShort = this.classInfo.MakeClassNameShort()
@@ -449,11 +507,24 @@ FuncInfo = struct(funcNameCPP:string, funcNameGura:string, classInfo?:ClassInfo,
 		funcNameGura = this.funcNameGura
 		funcNameInternal = this.MakeFuncNameInternal()
 		argInfos = this.argInfos
-		tmpl@Method.render()
+		if (this.funcType == `Function) {
+			tmpl@ImplementFunction.render()
+		} elsif (this.funcType == `Constructor) {
+			tmpl@ImplementConstructor.render()
+		} elsif (this.funcType == `Method) {
+			tmpl@ImplementMethod.render()
+		}
 	}
 	RenderAssignment() = {
 		classNameShort = this.classInfo.MakeClassNameShort()
-		format('Gura_AssignMethod(wx_%s, %s);\n', classNameShort, this.MakeFuncNameInternal())
+		funcNameInternal = this.MakeFuncNameInternal()
+		if (this.funcType == `Function) {
+			format('Gura_AssignFunction(%s);\n', funcNameInternal)
+		} elsif (this.funcType == `Constructor) {
+			format('Gura_AssignFunction(%s);\n', funcNameInternal)
+		} elsif (this.funcType == `Method) {
+			format('Gura_AssignMethod(wx_%s, %s);\n', classNameShort, funcNameInternal)
+		}
 	}
 	AvertFuncNameConflict(funcInfos[]:FuncInfo) = {
 		if ((funcInfos:*funcNameGura == this.funcNameGura).or()) {
@@ -465,11 +536,6 @@ FuncInfo = struct(funcNameCPP:string, funcNameGura:string, classInfo?:ClassInfo,
 		}
 	}
 }
-
-classInfoDict = %{}
-classInfosAtRoot = []
-enumInfos = []
-enumInfoNoName = EnumInfo('', 0, '', '')
 
 MakePathNameWx(pathName:string) = {
 	pathName.replace(dirNameWx + path.sep_file, '')
@@ -524,8 +590,6 @@ CreateClassInfo(pathName:string, lineNo:string, strSrc:string) = {
 	classInfoDict[className] = classInfo
 	classInfo
 }
-
-cntMethods = 0
 
 CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
 	if (m = strSrc.match(r'^(.*?)\((.*)\)\s*(const)?\s*(=\s*0)?\s*;?$')) {
@@ -705,61 +769,75 @@ Parse(pathName:string):map:void = {
 	}
 }
 
-println('-- parsing')
-Parse(path.walk(dirNameWx))
-//Parse(path.walk(dirNameWx).head(10))
-println('-- associating class information')
-classInfoDict.values {|classInfo|
-	if (classInfo.className.find('<')) {
-		classInfo.supportedStat = `none
-	} elsif (supportedStat = supportedStatDictOfClassName.get(classInfo.className)) {
-		classInfo.supportedStat = supportedStat
-	}
-	if (classInfo.classNamesParent.isempty()) {
-		classInfosAtRoot.add(classInfo)
-	} else {
-		classInfo.classNamesParent.each {|className, idx|
-			classInfoOfParent = classInfoDict.get(className)
-			if (classInfoOfParent) {
-				classInfo.classInfosOfParent.add(classInfoOfParent)
-				if (idx == 0) {
-					classInfoOfParent.classInfosOfChild.add(classInfo)
+main() = {
+	println('-- parsing')
+	Parse(path.walk(dirNameWx))
+	//Parse(path.walk(dirNameWx).head(10))
+	println('-- associating class information')
+	classInfoDict.values {|classInfo|
+		if (classInfo.className.find('<')) {
+			classInfo.supportedStat = `none
+		} elsif (supportedStat = supportedStatDictOfClassName.get(classInfo.className)) {
+			classInfo.supportedStat = supportedStat
+		}
+		if (classInfo.classNamesParent.isempty()) {
+			classInfosAtRoot.add(classInfo)
+		} else {
+			classInfo.classNamesParent.each {|className, idx|
+				classInfoOfParent = classInfoDict.get(className)
+				if (classInfoOfParent) {
+					classInfo.classInfosOfParent.add(classInfoOfParent)
+					if (idx == 0) {
+						classInfoOfParent.classInfosOfChild.add(classInfo)
+					}
+				} else {
+					WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc,
+								   format('class %s refers to undefined class %s',
+										  classInfo.className, className))
+					classInfo.supportedStat = `none
 				}
-			} else {
-				WarningMessage(classInfo.pathName, classInfo.lineNo, classInfo.strSrc,
-							   format('class %s refers to undefined class %s',
-									  classInfo.className, className))
-				classInfo.supportedStat = `none
 			}
 		}
 	}
-}
-classInfosAtRoot:*InheritValidation()
-classInfoDict.values {|classInfo|
-	if ((supportedStat = supportedStatDictOfPathName.get(classInfo.pathName)) && \
-		supportedStat == `supported) {
-		continue
+	classInfosAtRoot:*InheritValidation()
+	classInfoDict.values {|classInfo|
+		if ((supportedStat = supportedStatDictOfPathName.get(classInfo.pathName)) && \
+			supportedStat == `supported) {
+			continue
+		}
+		supportedStatDictOfPathName[classInfo.pathName] = classInfo.supportedStat
 	}
-	supportedStatDictOfPathName[classInfo.pathName] = classInfo.supportedStat
-}
-enumInfos = enumInfos.sort(`ascend, enumInfos::enumName):list
-enumInfos.each {|enumInfo|
-	if (supportedStat = supportedStatDictOfPathName.get(enumInfo.pathName)) {
-		enumInfo.supportedStat = supportedStat
-	}
-	enumInfo.memberInfos.each {|memberInfo|
-		if (supportedStat = supportedStatDictOfEnumMemberName.get(memberInfo.memberName)) {
-			memberInfo.supportedStat = supportedStat
+	enumInfos = enumInfos.sort(`ascend, enumInfos::enumName):list
+	enumInfos.each {|enumInfo|
+		if (supportedStat = supportedStatDictOfPathName.get(enumInfo.pathName)) {
+			enumInfo.supportedStat = supportedStat
+		}
+		enumInfo.memberInfos.each {|memberInfo|
+			if (supportedStat = supportedStatDictOfEnumMemberName.get(memberInfo.memberName)) {
+				memberInfo.supportedStat = supportedStat
+			}
 		}
 	}
-}
-println('-- generating files')
-tmpl@ClassesSource_gura.render(path.join(dirNameDst, 'ClassesSource.gura'))
-tmpl@Classes_h.render(path.join(dirNameDst, 'Classes.h'))
-tmpl@Classes_cpp.render(path.join(dirNameDst, 'Classes.cpp'))
-tmpl@Constants_cpp.render(path.join(dirNameDst, 'Constants.cpp'))
-tmpl@Functions_cpp.render(path.join(dirNameDst, 'Functions.cpp'))
-classInfoDict.values():*RenderHeader(dirNameDst)
-classInfoDict.values():*RenderSource(dirNameDst)
+	println('-- generating files')
+	tmpl@ClassesSource_gura.render(path.join(dirNameDst, 'ClassesSource.gura'))
+	tmpl@Classes_h.render(path.join(dirNameDst, 'Classes.h'))
+	tmpl@Classes_cpp.render(path.join(dirNameDst, 'Classes.cpp'))
+	tmpl@Constants_cpp.render(path.join(dirNameDst, 'Constants.cpp'))
+	tmpl@Functions_cpp.render(path.join(dirNameDst, 'Functions.cpp'))
+	classInfoDict.values():*RenderHeader(dirNameDst)
+	classInfoDict.values():*RenderSource(dirNameDst)
 
-printf('-- generated %d methods\n', cntMethods)
+	printf('-- generated %d constructors\n', cntConstructors)
+	printf('-- generated %d methods\n', cntMethods)
+}
+
+cntConstructors = 0
+cntMethods = 0
+
+classInfoDict = %{}
+classInfosAtRoot = []
+funcInfosGlobal = []
+enumInfos = []
+enumInfoNoName = EnumInfo('', 0, '', '')
+
+main()

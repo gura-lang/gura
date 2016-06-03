@@ -35,36 +35,48 @@ String Object_wx_PGVIterator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PGVIterator, __wxPGVIterator, "wxPGVIterator")
+Gura_DeclareFunctionAlias(__wxPGVIterator, "wxPGVIterator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGVIterator, __wxPGVIterator)
+Gura_ImplementFunction(__wxPGVIterator)
 {
-	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPGVIterator();
+	//wxPGVIterator();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PGVIterator, __wxPGVIterator_1, "wxPGVIterator_1")
+Gura_DeclareFunctionAlias(__wxPGVIterator_1, "wxPGVIterator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGVIterator, __wxPGVIterator_1)
+Gura_ImplementFunction(__wxPGVIterator_1)
 {
-	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int obj = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPGVIterator();
+	//wxPGVIterator();
 	return Value::Nil;
 }
 
+Gura_DeclareFunctionAlias(__wxPGVIterator_2, "wxPGVIterator_2")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxPGVIterator_2)
+{
+	//int it = arg.GetNumber(0)
+	//wxPGVIterator();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PGVIterator, __UnRef, "UnRef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -75,21 +87,6 @@ Gura_ImplementMethod(wx_PGVIterator, __UnRef)
 	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->UnRef();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_PGVIterator, __wxPGVIterator_2, "wxPGVIterator_2")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_PGVIterator, __wxPGVIterator_2)
-{
-	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int it = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPGVIterator();
 	return Value::Nil;
 }
 
@@ -137,10 +134,12 @@ Gura_ImplementMethod(wx_PGVIterator, __GetProperty)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGVIterator)
 {
-	Gura_AssignMethod(wx_PGVIterator, __wxPGVIterator);
-	Gura_AssignMethod(wx_PGVIterator, __wxPGVIterator_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPGVIterator);
+	Gura_AssignFunction(__wxPGVIterator_1);
+	Gura_AssignFunction(__wxPGVIterator_2);
+	// Method assignment
 	Gura_AssignMethod(wx_PGVIterator, __UnRef);
-	Gura_AssignMethod(wx_PGVIterator, __wxPGVIterator_2);
 	Gura_AssignMethod(wx_PGVIterator, __Next);
 	Gura_AssignMethod(wx_PGVIterator, __AtEnd);
 	Gura_AssignMethod(wx_PGVIterator, __GetProperty);

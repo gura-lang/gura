@@ -35,25 +35,26 @@ String Object_wx_DataInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataInputStream, __wxDataInputStream, "wxDataInputStream")
+Gura_DeclareFunctionAlias(__wxDataInputStream, "wxDataInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataInputStream, __wxDataInputStream)
+Gura_ImplementFunction(__wxDataInputStream)
 {
-	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDataInputStream();
+	//wxDataInputStream();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataInputStream, __BigEndianOrdered, "BigEndianOrdered")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -321,7 +322,9 @@ Gura_ImplementMethod(wx_DataInputStream, __UseExtendedPrecision)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataInputStream)
 {
-	Gura_AssignMethod(wx_DataInputStream, __wxDataInputStream);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataInputStream);
+	// Method assignment
 	Gura_AssignMethod(wx_DataInputStream, __BigEndianOrdered);
 	Gura_AssignMethod(wx_DataInputStream, __GetConv);
 	Gura_AssignMethod(wx_DataInputStream, __Read8);

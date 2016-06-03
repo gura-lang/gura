@@ -35,22 +35,20 @@ String Object_wx_SplitterWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SplitterWindow, __wxSplitterWindow, "wxSplitterWindow")
+Gura_DeclareFunctionAlias(__wxSplitterWindow, "wxSplitterWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SplitterWindow, __wxSplitterWindow)
+Gura_ImplementFunction(__wxSplitterWindow)
 {
-	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSplitterWindow();
+	//wxSplitterWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_SplitterWindow, __wxSplitterWindow_1, "wxSplitterWindow_1")
+Gura_DeclareFunctionAlias(__wxSplitterWindow_1, "wxSplitterWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_SplitterWindow, __wxSplitterWindow_1, "wxSplitterWind
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SplitterWindow, __wxSplitterWindow_1)
+Gura_ImplementFunction(__wxSplitterWindow_1)
 {
-	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxSplitterWindow();
+	//wxSplitterWindow();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SplitterWindow, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -457,8 +456,10 @@ Gura_ImplementMethod(wx_SplitterWindow, __UpdateSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SplitterWindow)
 {
-	Gura_AssignMethod(wx_SplitterWindow, __wxSplitterWindow);
-	Gura_AssignMethod(wx_SplitterWindow, __wxSplitterWindow_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSplitterWindow);
+	Gura_AssignFunction(__wxSplitterWindow_1);
+	// Method assignment
 	Gura_AssignMethod(wx_SplitterWindow, __Create);
 	Gura_AssignMethod(wx_SplitterWindow, __GetMinimumPaneSize);
 	Gura_AssignMethod(wx_SplitterWindow, __GetSashGravity);

@@ -35,21 +35,22 @@ String Object_wx_StreamBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StreamBase, __wxStreamBase, "wxStreamBase")
+Gura_DeclareFunctionAlias(__wxStreamBase, "wxStreamBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StreamBase, __wxStreamBase)
+Gura_ImplementFunction(__wxStreamBase)
 {
-	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxStreamBase();
+	//wxStreamBase();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StreamBase, __GetLastError, "GetLastError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -165,7 +166,9 @@ Gura_ImplementMethod(wx_StreamBase, __OnSysTell)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StreamBase)
 {
-	Gura_AssignMethod(wx_StreamBase, __wxStreamBase);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStreamBase);
+	// Method assignment
 	Gura_AssignMethod(wx_StreamBase, __GetLastError);
 	Gura_AssignMethod(wx_StreamBase, __GetLength);
 	Gura_AssignMethod(wx_StreamBase, __GetSize);

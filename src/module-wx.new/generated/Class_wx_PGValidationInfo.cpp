@@ -111,6 +111,7 @@ Gura_ImplementMethod(wx_PGValidationInfo, __SetFailureMessage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGValidationInfo)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_PGValidationInfo, __GetFailureBehavior);
 	Gura_AssignMethod(wx_PGValidationInfo, __GetFailureMessage);
 	Gura_AssignMethod(wx_PGValidationInfo, __GetValue);

@@ -35,9 +35,9 @@ String Object_wx_HtmlListBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlListBox, __wxHtmlListBox, "wxHtmlListBox")
+Gura_DeclareFunctionAlias(__wxHtmlListBox, "wxHtmlListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -48,33 +48,32 @@ Gura_DeclareMethodAlias(wx_HtmlListBox, __wxHtmlListBox, "wxHtmlListBox")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, __wxHtmlListBox)
+Gura_ImplementFunction(__wxHtmlListBox)
 {
-	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxHtmlListBox();
+	//wxHtmlListBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_HtmlListBox, __wxHtmlListBox_1, "wxHtmlListBox_1")
+Gura_DeclareFunctionAlias(__wxHtmlListBox_1, "wxHtmlListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, __wxHtmlListBox_1)
+Gura_ImplementFunction(__wxHtmlListBox_1)
 {
-	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlListBox();
+	//wxHtmlListBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlListBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -208,8 +207,10 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnGetItem)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlListBox)
 {
-	Gura_AssignMethod(wx_HtmlListBox, __wxHtmlListBox);
-	Gura_AssignMethod(wx_HtmlListBox, __wxHtmlListBox_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlListBox);
+	Gura_AssignFunction(__wxHtmlListBox_1);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlListBox, __Create);
 	Gura_AssignMethod(wx_HtmlListBox, __GetFileSystem);
 	Gura_AssignMethod(wx_HtmlListBox, __GetFileSystem_1);

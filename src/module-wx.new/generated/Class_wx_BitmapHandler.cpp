@@ -35,21 +35,22 @@ String Object_wx_BitmapHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_BitmapHandler, __wxBitmapHandler, "wxBitmapHandler")
+Gura_DeclareFunctionAlias(__wxBitmapHandler, "wxBitmapHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, __wxBitmapHandler)
+Gura_ImplementFunction(__wxBitmapHandler)
 {
-	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxBitmapHandler();
+	//wxBitmapHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BitmapHandler, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -208,7 +209,9 @@ Gura_ImplementMethod(wx_BitmapHandler, __SetType)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapHandler)
 {
-	Gura_AssignMethod(wx_BitmapHandler, __wxBitmapHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxBitmapHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_BitmapHandler, __Create);
 	Gura_AssignMethod(wx_BitmapHandler, __GetExtension);
 	Gura_AssignMethod(wx_BitmapHandler, __GetName);

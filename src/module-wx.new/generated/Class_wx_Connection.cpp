@@ -35,38 +35,37 @@ String Object_wx_Connection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Connection, __wxConnection, "wxConnection")
+Gura_DeclareFunctionAlias(__wxConnection, "wxConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Connection, __wxConnection)
+Gura_ImplementFunction(__wxConnection)
 {
-	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxConnection();
+	//wxConnection();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Connection, __wxConnection_1, "wxConnection_1")
+Gura_DeclareFunctionAlias(__wxConnection_1, "wxConnection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Connection, __wxConnection_1)
+Gura_ImplementFunction(__wxConnection_1)
 {
-	Object_wx_Connection *pThis = Object_wx_Connection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
-	//pThis->GetEntity()->wxConnection();
+	//wxConnection();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Connection, __Advise, "Advise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -507,8 +506,10 @@ Gura_ImplementMethod(wx_Connection, __GetTextFromData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Connection)
 {
-	Gura_AssignMethod(wx_Connection, __wxConnection);
-	Gura_AssignMethod(wx_Connection, __wxConnection_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxConnection);
+	Gura_AssignFunction(__wxConnection_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Connection, __Advise);
 	Gura_AssignMethod(wx_Connection, __Advise_1);
 	Gura_AssignMethod(wx_Connection, __Advise_2);

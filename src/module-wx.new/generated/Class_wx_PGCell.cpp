@@ -35,37 +35,33 @@ String Object_wx_PGCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PGCell, __wxPGCell, "wxPGCell")
+Gura_DeclareFunctionAlias(__wxPGCell, "wxPGCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGCell, __wxPGCell)
+Gura_ImplementFunction(__wxPGCell)
 {
-	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPGCell();
+	//wxPGCell();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PGCell, __wxPGCell_1, "wxPGCell_1")
+Gura_DeclareFunctionAlias(__wxPGCell_1, "wxPGCell_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGCell, __wxPGCell_1)
+Gura_ImplementFunction(__wxPGCell_1)
 {
-	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int other = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPGCell();
+	//wxPGCell();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PGCell, __wxPGCell_2, "wxPGCell_2")
+Gura_DeclareFunctionAlias(__wxPGCell_2, "wxPGCell_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -74,18 +70,19 @@ Gura_DeclareMethodAlias(wx_PGCell, __wxPGCell_2, "wxPGCell_2")
 	//DeclareArg(env, "bgCol", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGCell, __wxPGCell_2)
+Gura_ImplementFunction(__wxPGCell_2)
 {
-	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int bitmap = arg.GetNumber(1)
 	//int fgCol = arg.GetNumber(2)
 	//int bgCol = arg.GetNumber(3)
-	//pThis->GetEntity()->wxPGCell();
+	//wxPGCell();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PGCell, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -272,9 +269,11 @@ Gura_ImplementMethod(wx_PGCell, __GetBgCol)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGCell)
 {
-	Gura_AssignMethod(wx_PGCell, __wxPGCell);
-	Gura_AssignMethod(wx_PGCell, __wxPGCell_1);
-	Gura_AssignMethod(wx_PGCell, __wxPGCell_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPGCell);
+	Gura_AssignFunction(__wxPGCell_1);
+	Gura_AssignFunction(__wxPGCell_2);
+	// Method assignment
 	Gura_AssignMethod(wx_PGCell, __GetData);
 	Gura_AssignMethod(wx_PGCell, __HasText);
 	Gura_AssignMethod(wx_PGCell, __MergeFrom);

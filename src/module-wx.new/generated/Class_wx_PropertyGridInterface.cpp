@@ -1118,6 +1118,7 @@ Gura_ImplementMethod(wx_PropertyGridInterface, __ReplaceProperty)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertyGridInterface)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_PropertyGridInterface, __Append);
 	Gura_AssignMethod(wx_PropertyGridInterface, __AppendIn);
 	Gura_AssignMethod(wx_PropertyGridInterface, __BeginAddChildren);

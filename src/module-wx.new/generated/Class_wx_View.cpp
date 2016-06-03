@@ -35,21 +35,22 @@ String Object_wx_View::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_View, __wxView, "wxView")
+Gura_DeclareFunctionAlias(__wxView, "wxView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_View, __wxView)
+Gura_ImplementFunction(__wxView)
 {
-	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxView();
+	//wxView();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_View, __Activate, "Activate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -304,7 +305,9 @@ Gura_ImplementMethod(wx_View, __SetViewName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_View)
 {
-	Gura_AssignMethod(wx_View, __wxView);
+	// Constructor assignment
+	Gura_AssignFunction(__wxView);
+	// Method assignment
 	Gura_AssignMethod(wx_View, __Activate);
 	Gura_AssignMethod(wx_View, __Close);
 	Gura_AssignMethod(wx_View, __GetDocument);

@@ -493,6 +493,7 @@ Gura_ImplementMethod(wx_Log, __DoLogText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Log)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_Log, __AddTraceMask);
 	Gura_AssignMethod(wx_Log, __ClearTraceMasks);
 	Gura_AssignMethod(wx_Log, __GetTraceMasks);

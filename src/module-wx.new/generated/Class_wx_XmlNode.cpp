@@ -35,9 +35,9 @@ String Object_wx_XmlNode::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_XmlNode, __wxXmlNode, "wxXmlNode")
+Gura_DeclareFunctionAlias(__wxXmlNode, "wxXmlNode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,10 +49,8 @@ Gura_DeclareMethodAlias(wx_XmlNode, __wxXmlNode, "wxXmlNode")
 	//DeclareArg(env, "lineNo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlNode, __wxXmlNode)
+Gura_ImplementFunction(__wxXmlNode)
 {
-	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
 	//int name = arg.GetNumber(2)
@@ -60,11 +58,11 @@ Gura_ImplementMethod(wx_XmlNode, __wxXmlNode)
 	//int attrs = arg.GetNumber(4)
 	//int next = arg.GetNumber(5)
 	//int lineNo = arg.GetNumber(6)
-	//pThis->GetEntity()->wxXmlNode();
+	//wxXmlNode();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_XmlNode, __wxXmlNode_1, "wxXmlNode_1")
+Gura_DeclareFunctionAlias(__wxXmlNode_1, "wxXmlNode_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -73,33 +71,32 @@ Gura_DeclareMethodAlias(wx_XmlNode, __wxXmlNode_1, "wxXmlNode_1")
 	//DeclareArg(env, "lineNo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlNode, __wxXmlNode_1)
+Gura_ImplementFunction(__wxXmlNode_1)
 {
-	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//int content = arg.GetNumber(2)
 	//int lineNo = arg.GetNumber(3)
-	//pThis->GetEntity()->wxXmlNode();
+	//wxXmlNode();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_XmlNode, __wxXmlNode_2, "wxXmlNode_2")
+Gura_DeclareFunctionAlias(__wxXmlNode_2, "wxXmlNode_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlNode, __wxXmlNode_2)
+Gura_ImplementFunction(__wxXmlNode_2)
 {
-	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int node = arg.GetNumber(0)
-	//pThis->GetEntity()->wxXmlNode();
+	//wxXmlNode();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_XmlNode, __AddAttribute, "AddAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -543,9 +540,11 @@ Gura_ImplementMethod(wx_XmlNode, __SetType)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlNode)
 {
-	Gura_AssignMethod(wx_XmlNode, __wxXmlNode);
-	Gura_AssignMethod(wx_XmlNode, __wxXmlNode_1);
-	Gura_AssignMethod(wx_XmlNode, __wxXmlNode_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxXmlNode);
+	Gura_AssignFunction(__wxXmlNode_1);
+	Gura_AssignFunction(__wxXmlNode_2);
+	// Method assignment
 	Gura_AssignMethod(wx_XmlNode, __AddAttribute);
 	Gura_AssignMethod(wx_XmlNode, __AddAttribute_1);
 	Gura_AssignMethod(wx_XmlNode, __AddChild);

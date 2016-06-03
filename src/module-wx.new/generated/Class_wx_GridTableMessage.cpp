@@ -35,22 +35,20 @@ String Object_wx_GridTableMessage::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridTableMessage, __wxGridTableMessage, "wxGridTableMessage")
+Gura_DeclareFunctionAlias(__wxGridTableMessage, "wxGridTableMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, __wxGridTableMessage)
+Gura_ImplementFunction(__wxGridTableMessage)
 {
-	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGridTableMessage();
+	//wxGridTableMessage();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GridTableMessage, __wxGridTableMessage_1, "wxGridTableMessage_1")
+Gura_DeclareFunctionAlias(__wxGridTableMessage_1, "wxGridTableMessage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
@@ -59,18 +57,19 @@ Gura_DeclareMethodAlias(wx_GridTableMessage, __wxGridTableMessage_1, "wxGridTabl
 	//DeclareArg(env, "comInt2", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, __wxGridTableMessage_1)
+Gura_ImplementFunction(__wxGridTableMessage_1)
 {
-	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int table = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int comInt1 = arg.GetNumber(2)
 	//int comInt2 = arg.GetNumber(3)
-	//pThis->GetEntity()->wxGridTableMessage();
+	//wxGridTableMessage();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridTableMessage, __SetTableObject, "SetTableObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -188,8 +187,10 @@ Gura_ImplementMethod(wx_GridTableMessage, __GetCommandInt2)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridTableMessage)
 {
-	Gura_AssignMethod(wx_GridTableMessage, __wxGridTableMessage);
-	Gura_AssignMethod(wx_GridTableMessage, __wxGridTableMessage_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridTableMessage);
+	Gura_AssignFunction(__wxGridTableMessage_1);
+	// Method assignment
 	Gura_AssignMethod(wx_GridTableMessage, __SetTableObject);
 	Gura_AssignMethod(wx_GridTableMessage, __GetTableObject);
 	Gura_AssignMethod(wx_GridTableMessage, __SetId);

@@ -35,20 +35,18 @@ String Object_wx_LogTextCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LogTextCtrl, __wxLogTextCtrl, "wxLogTextCtrl")
+Gura_DeclareFunctionAlias(__wxLogTextCtrl, "wxLogTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pTextCtrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogTextCtrl, __wxLogTextCtrl)
+Gura_ImplementFunction(__wxLogTextCtrl)
 {
-	Object_wx_LogTextCtrl *pThis = Object_wx_LogTextCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pTextCtrl = arg.GetNumber(0)
-	//pThis->GetEntity()->wxLogTextCtrl();
+	//wxLogTextCtrl();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_LogTextCtrl, __wxLogTextCtrl)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogTextCtrl)
 {
-	Gura_AssignMethod(wx_LogTextCtrl, __wxLogTextCtrl);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLogTextCtrl);
 }
 
 Gura_ImplementDescendantCreator(wx_LogTextCtrl)

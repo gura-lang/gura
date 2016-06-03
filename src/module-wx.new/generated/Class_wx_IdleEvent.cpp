@@ -35,21 +35,22 @@ String Object_wx_IdleEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_IdleEvent, __wxIdleEvent, "wxIdleEvent")
+Gura_DeclareFunctionAlias(__wxIdleEvent, "wxIdleEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IdleEvent, __wxIdleEvent)
+Gura_ImplementFunction(__wxIdleEvent)
 {
-	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxIdleEvent();
+	//wxIdleEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_IdleEvent, __GetMode, "GetMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -111,7 +112,9 @@ Gura_ImplementMethod(wx_IdleEvent, __SetMode)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IdleEvent)
 {
-	Gura_AssignMethod(wx_IdleEvent, __wxIdleEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxIdleEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_IdleEvent, __GetMode);
 	Gura_AssignMethod(wx_IdleEvent, __MoreRequested);
 	Gura_AssignMethod(wx_IdleEvent, __RequestMore);

@@ -35,21 +35,22 @@ String Object_wx_TextAttrBorder::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextAttrBorder, __wxTextAttrBorder, "wxTextAttrBorder")
+Gura_DeclareFunctionAlias(__wxTextAttrBorder, "wxTextAttrBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrBorder, __wxTextAttrBorder)
+Gura_ImplementFunction(__wxTextAttrBorder)
 {
-	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTextAttrBorder();
+	//wxTextAttrBorder();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextAttrBorder, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -414,7 +415,9 @@ Gura_ImplementMethod(wx_TextAttrBorder, __RemoveFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrBorder)
 {
-	Gura_AssignMethod(wx_TextAttrBorder, __wxTextAttrBorder);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextAttrBorder);
+	// Method assignment
 	Gura_AssignMethod(wx_TextAttrBorder, __Reset);
 	Gura_AssignMethod(wx_TextAttrBorder, __EqPartial);
 	Gura_AssignMethod(wx_TextAttrBorder, __Apply);

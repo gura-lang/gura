@@ -35,22 +35,20 @@ String Object_wx_BitmapComboBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_BitmapComboBox, __wxBitmapComboBox, "wxBitmapComboBox")
+Gura_DeclareFunctionAlias(__wxBitmapComboBox, "wxBitmapComboBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, __wxBitmapComboBox)
+Gura_ImplementFunction(__wxBitmapComboBox)
 {
-	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxBitmapComboBox();
+	//wxBitmapComboBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_BitmapComboBox, __wxBitmapComboBox_1, "wxBitmapComboBox_1")
+Gura_DeclareFunctionAlias(__wxBitmapComboBox_1, "wxBitmapComboBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,10 +63,8 @@ Gura_DeclareMethodAlias(wx_BitmapComboBox, __wxBitmapComboBox_1, "wxBitmapComboB
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, __wxBitmapComboBox_1)
+Gura_ImplementFunction(__wxBitmapComboBox_1)
 {
-	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -79,11 +75,11 @@ Gura_ImplementMethod(wx_BitmapComboBox, __wxBitmapComboBox_1)
 	//int style = arg.GetNumber(7)
 	//int validator = arg.GetNumber(8)
 	//int name = arg.GetNumber(9)
-	//pThis->GetEntity()->wxBitmapComboBox();
+	//wxBitmapComboBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_BitmapComboBox, __wxBitmapComboBox_2, "wxBitmapComboBox_2")
+Gura_DeclareFunctionAlias(__wxBitmapComboBox_2, "wxBitmapComboBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -97,10 +93,8 @@ Gura_DeclareMethodAlias(wx_BitmapComboBox, __wxBitmapComboBox_2, "wxBitmapComboB
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, __wxBitmapComboBox_2)
+Gura_ImplementFunction(__wxBitmapComboBox_2)
 {
-	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -110,10 +104,13 @@ Gura_ImplementMethod(wx_BitmapComboBox, __wxBitmapComboBox_2)
 	//int style = arg.GetNumber(6)
 	//int validator = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxBitmapComboBox();
+	//wxBitmapComboBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BitmapComboBox, __Append, "Append")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -344,9 +341,11 @@ Gura_ImplementMethod(wx_BitmapComboBox, __SetItemBitmap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapComboBox)
 {
-	Gura_AssignMethod(wx_BitmapComboBox, __wxBitmapComboBox);
-	Gura_AssignMethod(wx_BitmapComboBox, __wxBitmapComboBox_1);
-	Gura_AssignMethod(wx_BitmapComboBox, __wxBitmapComboBox_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxBitmapComboBox);
+	Gura_AssignFunction(__wxBitmapComboBox_1);
+	Gura_AssignFunction(__wxBitmapComboBox_2);
+	// Method assignment
 	Gura_AssignMethod(wx_BitmapComboBox, __Append);
 	Gura_AssignMethod(wx_BitmapComboBox, __Append_1);
 	Gura_AssignMethod(wx_BitmapComboBox, __Append_2);

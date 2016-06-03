@@ -212,6 +212,7 @@ Gura_ImplementMethod(wx_DebugContext, __SetShutdownNotifyFunction)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugContext)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_DebugContext, __Check);
 	Gura_AssignMethod(wx_DebugContext, __Dump);
 	Gura_AssignMethod(wx_DebugContext, __GetCheckPrevious);

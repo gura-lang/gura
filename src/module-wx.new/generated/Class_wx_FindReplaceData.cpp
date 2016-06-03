@@ -35,23 +35,24 @@ String Object_wx_FindReplaceData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FindReplaceData, __wxFindReplaceData, "wxFindReplaceData")
+Gura_DeclareFunctionAlias(__wxFindReplaceData, "wxFindReplaceData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FindReplaceData, __wxFindReplaceData)
+Gura_ImplementFunction(__wxFindReplaceData)
 {
-	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFindReplaceData();
+	//wxFindReplaceData();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FindReplaceData, __GetFindString, "GetFindString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -141,7 +142,9 @@ Gura_ImplementMethod(wx_FindReplaceData, __SetReplaceString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FindReplaceData)
 {
-	Gura_AssignMethod(wx_FindReplaceData, __wxFindReplaceData);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFindReplaceData);
+	// Method assignment
 	Gura_AssignMethod(wx_FindReplaceData, __GetFindString);
 	Gura_AssignMethod(wx_FindReplaceData, __GetFlags);
 	Gura_AssignMethod(wx_FindReplaceData, __GetReplaceString);

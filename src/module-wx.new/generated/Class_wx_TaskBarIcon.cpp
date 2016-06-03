@@ -35,23 +35,24 @@ String Object_wx_TaskBarIcon::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TaskBarIcon, __wxTaskBarIcon, "wxTaskBarIcon")
+Gura_DeclareFunctionAlias(__wxTaskBarIcon, "wxTaskBarIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iconType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarIcon, __wxTaskBarIcon)
+Gura_ImplementFunction(__wxTaskBarIcon)
 {
-	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int iconType = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTaskBarIcon();
+	//wxTaskBarIcon();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TaskBarIcon, __Destroy, "Destroy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -167,7 +168,9 @@ Gura_ImplementMethod(wx_TaskBarIcon, __CreatePopupMenu)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarIcon)
 {
-	Gura_AssignMethod(wx_TaskBarIcon, __wxTaskBarIcon);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTaskBarIcon);
+	// Method assignment
 	Gura_AssignMethod(wx_TaskBarIcon, __Destroy);
 	Gura_AssignMethod(wx_TaskBarIcon, __IsIconInstalled);
 	Gura_AssignMethod(wx_TaskBarIcon, __IsOk);

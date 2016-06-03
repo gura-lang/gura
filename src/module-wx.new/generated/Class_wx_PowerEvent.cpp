@@ -35,36 +35,35 @@ String Object_wx_PowerEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PowerEvent, __wxPowerEvent, "wxPowerEvent")
+Gura_DeclareFunctionAlias(__wxPowerEvent, "wxPowerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PowerEvent, __wxPowerEvent)
+Gura_ImplementFunction(__wxPowerEvent)
 {
-	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPowerEvent();
+	//wxPowerEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PowerEvent, __wxPowerEvent_1, "wxPowerEvent_1")
+Gura_DeclareFunctionAlias(__wxPowerEvent_1, "wxPowerEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "evtType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PowerEvent, __wxPowerEvent_1)
+Gura_ImplementFunction(__wxPowerEvent_1)
 {
-	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int evtType = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPowerEvent();
+	//wxPowerEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PowerEvent, __Veto, "Veto")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -96,8 +95,10 @@ Gura_ImplementMethod(wx_PowerEvent, __IsVetoed)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PowerEvent)
 {
-	Gura_AssignMethod(wx_PowerEvent, __wxPowerEvent);
-	Gura_AssignMethod(wx_PowerEvent, __wxPowerEvent_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPowerEvent);
+	Gura_AssignFunction(__wxPowerEvent_1);
+	// Method assignment
 	Gura_AssignMethod(wx_PowerEvent, __Veto);
 	Gura_AssignMethod(wx_PowerEvent, __IsVetoed);
 }

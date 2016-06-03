@@ -35,23 +35,24 @@ String Object_wx_VarHVScrollHelper::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __wxVarHVScrollHelper, "wxVarHVScrollHelper")
+Gura_DeclareFunctionAlias(__wxVarHVScrollHelper, "wxVarHVScrollHelper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToScroll", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHVScrollHelper, __wxVarHVScrollHelper)
+Gura_ImplementFunction(__wxVarHVScrollHelper)
 {
-	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winToScroll = arg.GetNumber(0)
-	//pThis->GetEntity()->wxVarHVScrollHelper();
+	//wxVarHVScrollHelper();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __EnablePhysicalScrolling, "EnablePhysicalScrolling")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -296,7 +297,9 @@ Gura_ImplementMethod(wx_VarHVScrollHelper, __VirtualHitTest_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VarHVScrollHelper)
 {
-	Gura_AssignMethod(wx_VarHVScrollHelper, __wxVarHVScrollHelper);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVarHVScrollHelper);
+	// Method assignment
 	Gura_AssignMethod(wx_VarHVScrollHelper, __EnablePhysicalScrolling);
 	Gura_AssignMethod(wx_VarHVScrollHelper, __GetRowColumnCount);
 	Gura_AssignMethod(wx_VarHVScrollHelper, __GetVisibleBegin);

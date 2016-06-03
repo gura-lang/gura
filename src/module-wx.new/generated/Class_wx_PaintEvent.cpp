@@ -35,20 +35,18 @@ String Object_wx_PaintEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PaintEvent, __wxPaintEvent, "wxPaintEvent")
+Gura_DeclareFunctionAlias(__wxPaintEvent, "wxPaintEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PaintEvent, __wxPaintEvent)
+Gura_ImplementFunction(__wxPaintEvent)
 {
-	Object_wx_PaintEvent *pThis = Object_wx_PaintEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPaintEvent();
+	//wxPaintEvent();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_PaintEvent, __wxPaintEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PaintEvent)
 {
-	Gura_AssignMethod(wx_PaintEvent, __wxPaintEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPaintEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_PaintEvent)

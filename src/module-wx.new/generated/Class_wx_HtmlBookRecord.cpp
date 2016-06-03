@@ -35,9 +35,9 @@ String Object_wx_HtmlBookRecord::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlBookRecord, __wxHtmlBookRecord, "wxHtmlBookRecord")
+Gura_DeclareFunctionAlias(__wxHtmlBookRecord, "wxHtmlBookRecord")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bookfile", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_HtmlBookRecord, __wxHtmlBookRecord, "wxHtmlBookRecord
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, __wxHtmlBookRecord)
+Gura_ImplementFunction(__wxHtmlBookRecord)
 {
-	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bookfile = arg.GetNumber(0)
 	//int basepath = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
 	//int start = arg.GetNumber(3)
-	//pThis->GetEntity()->wxHtmlBookRecord();
+	//wxHtmlBookRecord();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetBookFile, "GetBookFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -218,7 +219,9 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __GetFullPath)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlBookRecord)
 {
-	Gura_AssignMethod(wx_HtmlBookRecord, __wxHtmlBookRecord);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlBookRecord);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlBookRecord, __GetBookFile);
 	Gura_AssignMethod(wx_HtmlBookRecord, __GetTitle);
 	Gura_AssignMethod(wx_HtmlBookRecord, __GetStart);

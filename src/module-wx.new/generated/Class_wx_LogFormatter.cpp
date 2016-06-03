@@ -35,21 +35,22 @@ String Object_wx_LogFormatter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LogFormatter, __wxLogFormatter, "wxLogFormatter")
+Gura_DeclareFunctionAlias(__wxLogFormatter, "wxLogFormatter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogFormatter, __wxLogFormatter)
+Gura_ImplementFunction(__wxLogFormatter)
 {
-	Object_wx_LogFormatter *pThis = Object_wx_LogFormatter::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxLogFormatter();
+	//wxLogFormatter();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LogFormatter, __Format, "Format")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -89,7 +90,9 @@ Gura_ImplementMethod(wx_LogFormatter, __FormatTime)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogFormatter)
 {
-	Gura_AssignMethod(wx_LogFormatter, __wxLogFormatter);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLogFormatter);
+	// Method assignment
 	Gura_AssignMethod(wx_LogFormatter, __Format);
 	Gura_AssignMethod(wx_LogFormatter, __FormatTime);
 }

@@ -35,22 +35,20 @@ String Object_wx_Colour::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Colour, __wxColour, "wxColour")
+Gura_DeclareFunctionAlias(__wxColour, "wxColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Colour, __wxColour)
+Gura_ImplementFunction(__wxColour)
 {
-	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxColour();
+	//wxColour();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Colour, __wxColour_1, "wxColour_1")
+Gura_DeclareFunctionAlias(__wxColour_1, "wxColour_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
@@ -59,63 +57,58 @@ Gura_DeclareMethodAlias(wx_Colour, __wxColour_1, "wxColour_1")
 	//DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, __wxColour_1)
+Gura_ImplementFunction(__wxColour_1)
 {
-	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int red = arg.GetNumber(0)
 	//int green = arg.GetNumber(1)
 	//int blue = arg.GetNumber(2)
 	//int alpha = arg.GetNumber(3)
-	//pThis->GetEntity()->wxColour();
+	//wxColour();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Colour, __wxColour_2, "wxColour_2")
+Gura_DeclareFunctionAlias(__wxColour_2, "wxColour_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colourName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, __wxColour_2)
+Gura_ImplementFunction(__wxColour_2)
 {
-	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colourName = arg.GetNumber(0)
-	//pThis->GetEntity()->wxColour();
+	//wxColour();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Colour, __wxColour_3, "wxColour_3")
+Gura_DeclareFunctionAlias(__wxColour_3, "wxColour_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colRGB", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, __wxColour_3)
+Gura_ImplementFunction(__wxColour_3)
 {
-	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colRGB = arg.GetNumber(0)
-	//pThis->GetEntity()->wxColour();
+	//wxColour();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Colour, __wxColour_4, "wxColour_4")
+Gura_DeclareFunctionAlias(__wxColour_4, "wxColour_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, __wxColour_4)
+Gura_ImplementFunction(__wxColour_4)
 {
-	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
-	//pThis->GetEntity()->wxColour();
+	//wxColour();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Colour, __Alpha, "Alpha")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -477,11 +470,13 @@ Gura_ImplementMethod(wx_Colour, __ChangeLightness_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Colour)
 {
-	Gura_AssignMethod(wx_Colour, __wxColour);
-	Gura_AssignMethod(wx_Colour, __wxColour_1);
-	Gura_AssignMethod(wx_Colour, __wxColour_2);
-	Gura_AssignMethod(wx_Colour, __wxColour_3);
-	Gura_AssignMethod(wx_Colour, __wxColour_4);
+	// Constructor assignment
+	Gura_AssignFunction(__wxColour);
+	Gura_AssignFunction(__wxColour_1);
+	Gura_AssignFunction(__wxColour_2);
+	Gura_AssignFunction(__wxColour_3);
+	Gura_AssignFunction(__wxColour_4);
+	// Method assignment
 	Gura_AssignMethod(wx_Colour, __Alpha);
 	Gura_AssignMethod(wx_Colour, __Blue);
 	Gura_AssignMethod(wx_Colour, __GetAsString);

@@ -35,23 +35,24 @@ String Object_wx_SocketClient::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SocketClient, __wxSocketClient, "wxSocketClient")
+Gura_DeclareFunctionAlias(__wxSocketClient, "wxSocketClient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketClient, __wxSocketClient)
+Gura_ImplementFunction(__wxSocketClient)
 {
-	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->wxSocketClient();
+	//wxSocketClient();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SocketClient, __Connect, "Connect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -110,7 +111,9 @@ Gura_ImplementMethod(wx_SocketClient, __WaitOnConnect)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketClient)
 {
-	Gura_AssignMethod(wx_SocketClient, __wxSocketClient);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSocketClient);
+	// Method assignment
 	Gura_AssignMethod(wx_SocketClient, __Connect);
 	Gura_AssignMethod(wx_SocketClient, __Connect_1);
 	Gura_AssignMethod(wx_SocketClient, __WaitOnConnect);

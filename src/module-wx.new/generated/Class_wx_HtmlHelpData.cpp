@@ -35,21 +35,22 @@ String Object_wx_HtmlHelpData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlHelpData, __wxHtmlHelpData, "wxHtmlHelpData")
+Gura_DeclareFunctionAlias(__wxHtmlHelpData, "wxHtmlHelpData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpData, __wxHtmlHelpData)
+Gura_ImplementFunction(__wxHtmlHelpData)
 {
-	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlHelpData();
+	//wxHtmlHelpData();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlHelpData, __AddBook, "AddBook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -154,7 +155,9 @@ Gura_ImplementMethod(wx_HtmlHelpData, __SetTempDir)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpData)
 {
-	Gura_AssignMethod(wx_HtmlHelpData, __wxHtmlHelpData);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlHelpData);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlHelpData, __AddBook);
 	Gura_AssignMethod(wx_HtmlHelpData, __FindPageById);
 	Gura_AssignMethod(wx_HtmlHelpData, __FindPageByName);

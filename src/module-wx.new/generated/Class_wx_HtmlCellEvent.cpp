@@ -35,9 +35,9 @@ String Object_wx_HtmlCellEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlCellEvent, __wxHtmlCellEvent, "wxHtmlCellEvent")
+Gura_DeclareFunctionAlias(__wxHtmlCellEvent, "wxHtmlCellEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -47,19 +47,20 @@ Gura_DeclareMethodAlias(wx_HtmlCellEvent, __wxHtmlCellEvent, "wxHtmlCellEvent")
 	//DeclareArg(env, "ev", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCellEvent, __wxHtmlCellEvent)
+Gura_ImplementFunction(__wxHtmlCellEvent)
 {
-	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int cell = arg.GetNumber(2)
 	//int point = arg.GetNumber(3)
 	//int ev = arg.GetNumber(4)
-	//pThis->GetEntity()->wxHtmlCellEvent();
+	//wxHtmlCellEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlCellEvent, __GetCell, "GetCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -119,7 +120,9 @@ Gura_ImplementMethod(wx_HtmlCellEvent, __SetLinkClicked)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlCellEvent)
 {
-	Gura_AssignMethod(wx_HtmlCellEvent, __wxHtmlCellEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlCellEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlCellEvent, __GetCell);
 	Gura_AssignMethod(wx_HtmlCellEvent, __GetLinkClicked);
 	Gura_AssignMethod(wx_HtmlCellEvent, __GetPoint);

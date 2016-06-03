@@ -35,36 +35,35 @@ String Object_wx_AuiPaneInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AuiPaneInfo, __wxAuiPaneInfo, "wxAuiPaneInfo")
+Gura_DeclareFunctionAlias(__wxAuiPaneInfo, "wxAuiPaneInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, __wxAuiPaneInfo)
+Gura_ImplementFunction(__wxAuiPaneInfo)
 {
-	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAuiPaneInfo();
+	//wxAuiPaneInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_AuiPaneInfo, __wxAuiPaneInfo_1, "wxAuiPaneInfo_1")
+Gura_DeclareFunctionAlias(__wxAuiPaneInfo_1, "wxAuiPaneInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, __wxAuiPaneInfo_1)
+Gura_ImplementFunction(__wxAuiPaneInfo_1)
 {
-	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxAuiPaneInfo();
+	//wxAuiPaneInfo();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiPaneInfo, __BestSize, "BestSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1150,8 +1149,10 @@ Gura_ImplementMethod(wx_AuiPaneInfo, __Window)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiPaneInfo)
 {
-	Gura_AssignMethod(wx_AuiPaneInfo, __wxAuiPaneInfo);
-	Gura_AssignMethod(wx_AuiPaneInfo, __wxAuiPaneInfo_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAuiPaneInfo);
+	Gura_AssignFunction(__wxAuiPaneInfo_1);
+	// Method assignment
 	Gura_AssignMethod(wx_AuiPaneInfo, __BestSize);
 	Gura_AssignMethod(wx_AuiPaneInfo, __BestSize_1);
 	Gura_AssignMethod(wx_AuiPaneInfo, __Bottom);

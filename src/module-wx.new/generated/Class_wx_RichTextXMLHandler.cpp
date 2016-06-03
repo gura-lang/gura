@@ -35,9 +35,9 @@ String Object_wx_RichTextXMLHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextXMLHandler, __wxRichTextXMLHandler, "wxRichTextXMLHandler")
+Gura_DeclareFunctionAlias(__wxRichTextXMLHandler, "wxRichTextXMLHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_RichTextXMLHandler, __wxRichTextXMLHandler, "wxRichTe
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextXMLHandler, __wxRichTextXMLHandler)
+Gura_ImplementFunction(__wxRichTextXMLHandler)
 {
-	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int ext = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
-	//pThis->GetEntity()->wxRichTextXMLHandler();
+	//wxRichTextXMLHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextXMLHandler, __CanLoad, "CanLoad")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -189,7 +190,9 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __DoSaveFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextXMLHandler)
 {
-	Gura_AssignMethod(wx_RichTextXMLHandler, __wxRichTextXMLHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextXMLHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextXMLHandler, __CanLoad);
 	Gura_AssignMethod(wx_RichTextXMLHandler, __CanSave);
 	Gura_AssignMethod(wx_RichTextXMLHandler, __ExportXML);

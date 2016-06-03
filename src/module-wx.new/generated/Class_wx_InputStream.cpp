@@ -35,21 +35,22 @@ String Object_wx_InputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_InputStream, __wxInputStream, "wxInputStream")
+Gura_DeclareFunctionAlias(__wxInputStream, "wxInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_InputStream, __wxInputStream)
+Gura_ImplementFunction(__wxInputStream)
 {
-	Object_wx_InputStream *pThis = Object_wx_InputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxInputStream();
+	//wxInputStream();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_InputStream, __CanRead, "CanRead")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -248,7 +249,9 @@ Gura_ImplementMethod(wx_InputStream, __OnSysRead)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_InputStream)
 {
-	Gura_AssignMethod(wx_InputStream, __wxInputStream);
+	// Constructor assignment
+	Gura_AssignFunction(__wxInputStream);
+	// Method assignment
 	Gura_AssignMethod(wx_InputStream, __CanRead);
 	Gura_AssignMethod(wx_InputStream, __Eof);
 	Gura_AssignMethod(wx_InputStream, __GetC);

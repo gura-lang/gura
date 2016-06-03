@@ -35,38 +35,37 @@ String Object_wx_InfoBar::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_InfoBar, __wxInfoBar, "wxInfoBar")
+Gura_DeclareFunctionAlias(__wxInfoBar, "wxInfoBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_InfoBar, __wxInfoBar)
+Gura_ImplementFunction(__wxInfoBar)
 {
-	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxInfoBar();
+	//wxInfoBar();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_InfoBar, __wxInfoBar_1, "wxInfoBar_1")
+Gura_DeclareFunctionAlias(__wxInfoBar_1, "wxInfoBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, __wxInfoBar_1)
+Gura_ImplementFunction(__wxInfoBar_1)
 {
-	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
-	//pThis->GetEntity()->wxInfoBar();
+	//wxInfoBar();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_InfoBar, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -280,8 +279,10 @@ Gura_ImplementMethod(wx_InfoBar, __SetFont)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_InfoBar)
 {
-	Gura_AssignMethod(wx_InfoBar, __wxInfoBar);
-	Gura_AssignMethod(wx_InfoBar, __wxInfoBar_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxInfoBar);
+	Gura_AssignFunction(__wxInfoBar_1);
+	// Method assignment
 	Gura_AssignMethod(wx_InfoBar, __Create);
 	Gura_AssignMethod(wx_InfoBar, __AddButton);
 	Gura_AssignMethod(wx_InfoBar, __Dismiss);

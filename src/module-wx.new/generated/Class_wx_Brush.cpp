@@ -35,68 +35,63 @@ String Object_wx_Brush::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Brush, __wxBrush, "wxBrush")
+Gura_DeclareFunctionAlias(__wxBrush, "wxBrush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Brush, __wxBrush)
+Gura_ImplementFunction(__wxBrush)
 {
-	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxBrush();
+	//wxBrush();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Brush, __wxBrush_1, "wxBrush_1")
+Gura_DeclareFunctionAlias(__wxBrush_1, "wxBrush_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Brush, __wxBrush_1)
+Gura_ImplementFunction(__wxBrush_1)
 {
-	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colour = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
-	//pThis->GetEntity()->wxBrush();
+	//wxBrush();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Brush, __wxBrush_2, "wxBrush_2")
+Gura_DeclareFunctionAlias(__wxBrush_2, "wxBrush_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stippleBitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Brush, __wxBrush_2)
+Gura_ImplementFunction(__wxBrush_2)
 {
-	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stippleBitmap = arg.GetNumber(0)
-	//pThis->GetEntity()->wxBrush();
+	//wxBrush();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Brush, __wxBrush_3, "wxBrush_3")
+Gura_DeclareFunctionAlias(__wxBrush_3, "wxBrush_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Brush, __wxBrush_3)
+Gura_ImplementFunction(__wxBrush_3)
 {
-	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int brush = arg.GetNumber(0)
-	//pThis->GetEntity()->wxBrush();
+	//wxBrush();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Brush, __GetColour, "GetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -257,10 +252,12 @@ Gura_ImplementMethod(wx_Brush, __SetStyle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Brush)
 {
-	Gura_AssignMethod(wx_Brush, __wxBrush);
-	Gura_AssignMethod(wx_Brush, __wxBrush_1);
-	Gura_AssignMethod(wx_Brush, __wxBrush_2);
-	Gura_AssignMethod(wx_Brush, __wxBrush_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxBrush);
+	Gura_AssignFunction(__wxBrush_1);
+	Gura_AssignFunction(__wxBrush_2);
+	Gura_AssignFunction(__wxBrush_3);
+	// Method assignment
 	Gura_AssignMethod(wx_Brush, __GetColour);
 	Gura_AssignMethod(wx_Brush, __GetStipple);
 	Gura_AssignMethod(wx_Brush, __GetStyle);

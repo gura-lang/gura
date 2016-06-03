@@ -35,21 +35,22 @@ String Object_wx_UIActionSimulator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_UIActionSimulator, __wxUIActionSimulator, "wxUIActionSimulator")
+Gura_DeclareFunctionAlias(__wxUIActionSimulator, "wxUIActionSimulator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, __wxUIActionSimulator)
+Gura_ImplementFunction(__wxUIActionSimulator)
 {
-	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxUIActionSimulator();
+	//wxUIActionSimulator();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_UIActionSimulator, __MouseMove, "MouseMove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -251,7 +252,9 @@ Gura_ImplementMethod(wx_UIActionSimulator, __Text)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_UIActionSimulator)
 {
-	Gura_AssignMethod(wx_UIActionSimulator, __wxUIActionSimulator);
+	// Constructor assignment
+	Gura_AssignFunction(__wxUIActionSimulator);
+	// Method assignment
 	Gura_AssignMethod(wx_UIActionSimulator, __MouseMove);
 	Gura_AssignMethod(wx_UIActionSimulator, __MouseMove_1);
 	Gura_AssignMethod(wx_UIActionSimulator, __MouseDown);

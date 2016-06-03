@@ -35,21 +35,22 @@ String Object_wx_AuiTabArt::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AuiTabArt, __wxAuiTabArt, "wxAuiTabArt")
+Gura_DeclareFunctionAlias(__wxAuiTabArt, "wxAuiTabArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabArt, __wxAuiTabArt)
+Gura_ImplementFunction(__wxAuiTabArt)
 {
-	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAuiTabArt();
+	//wxAuiTabArt();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiTabArt, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -303,7 +304,9 @@ Gura_ImplementMethod(wx_AuiTabArt, __SetSizingInfo)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiTabArt)
 {
-	Gura_AssignMethod(wx_AuiTabArt, __wxAuiTabArt);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAuiTabArt);
+	// Method assignment
 	Gura_AssignMethod(wx_AuiTabArt, __Clone);
 	Gura_AssignMethod(wx_AuiTabArt, __DrawBackground);
 	Gura_AssignMethod(wx_AuiTabArt, __DrawButton);

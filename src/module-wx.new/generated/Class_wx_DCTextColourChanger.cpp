@@ -35,40 +35,39 @@ String Object_wx_DCTextColourChanger::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DCTextColourChanger, __wxDCTextColourChanger, "wxDCTextColourChanger")
+Gura_DeclareFunctionAlias(__wxDCTextColourChanger, "wxDCTextColourChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCTextColourChanger, __wxDCTextColourChanger)
+Gura_ImplementFunction(__wxDCTextColourChanger)
 {
-	Object_wx_DCTextColourChanger *pThis = Object_wx_DCTextColourChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDCTextColourChanger();
+	//wxDCTextColourChanger();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DCTextColourChanger, __wxDCTextColourChanger_1, "wxDCTextColourChanger_1")
+Gura_DeclareFunctionAlias(__wxDCTextColourChanger_1, "wxDCTextColourChanger_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCTextColourChanger, __wxDCTextColourChanger_1)
+Gura_ImplementFunction(__wxDCTextColourChanger_1)
 {
-	Object_wx_DCTextColourChanger *pThis = Object_wx_DCTextColourChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDCTextColourChanger();
+	//wxDCTextColourChanger();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DCTextColourChanger, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -89,8 +88,10 @@ Gura_ImplementMethod(wx_DCTextColourChanger, __Set)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCTextColourChanger)
 {
-	Gura_AssignMethod(wx_DCTextColourChanger, __wxDCTextColourChanger);
-	Gura_AssignMethod(wx_DCTextColourChanger, __wxDCTextColourChanger_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDCTextColourChanger);
+	Gura_AssignFunction(__wxDCTextColourChanger_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DCTextColourChanger, __Set);
 }
 

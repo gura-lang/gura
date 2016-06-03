@@ -35,25 +35,26 @@ String Object_wx_ShowEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ShowEvent, __wxShowEvent, "wxShowEvent")
+Gura_DeclareFunctionAlias(__wxShowEvent, "wxShowEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ShowEvent, __wxShowEvent)
+Gura_ImplementFunction(__wxShowEvent)
 {
-	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winid = arg.GetNumber(0)
 	//int show = arg.GetNumber(1)
-	//pThis->GetEntity()->wxShowEvent();
+	//wxShowEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ShowEvent, __SetShow, "SetShow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -100,7 +101,9 @@ Gura_ImplementMethod(wx_ShowEvent, __GetShow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ShowEvent)
 {
-	Gura_AssignMethod(wx_ShowEvent, __wxShowEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxShowEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_ShowEvent, __SetShow);
 	Gura_AssignMethod(wx_ShowEvent, __IsShown);
 	Gura_AssignMethod(wx_ShowEvent, __GetShow);

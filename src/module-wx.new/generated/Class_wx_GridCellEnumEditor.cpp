@@ -35,20 +35,18 @@ String Object_wx_GridCellEnumEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridCellEnumEditor, __wxGridCellEnumEditor, "wxGridCellEnumEditor")
+Gura_DeclareFunctionAlias(__wxGridCellEnumEditor, "wxGridCellEnumEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEnumEditor, __wxGridCellEnumEditor)
+Gura_ImplementFunction(__wxGridCellEnumEditor)
 {
-	Object_wx_GridCellEnumEditor *pThis = Object_wx_GridCellEnumEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int choices = arg.GetNumber(0)
-	//pThis->GetEntity()->wxGridCellEnumEditor();
+	//wxGridCellEnumEditor();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_GridCellEnumEditor, __wxGridCellEnumEditor)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellEnumEditor)
 {
-	Gura_AssignMethod(wx_GridCellEnumEditor, __wxGridCellEnumEditor);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridCellEnumEditor);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellEnumEditor)

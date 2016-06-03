@@ -35,96 +35,91 @@ String Object_wx_DropSource::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxDropSource, "wxDropSource")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxDropSource)
+{
+	//int win = arg.GetNumber(0)
+	//int iconCopy = arg.GetNumber(1)
+	//int iconMove = arg.GetNumber(2)
+	//int iconNone = arg.GetNumber(3)
+	//wxDropSource();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxDropSource_1, "wxDropSource_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxDropSource_1)
+{
+	//int data = arg.GetNumber(0)
+	//int win = arg.GetNumber(1)
+	//int iconCopy = arg.GetNumber(2)
+	//int iconMove = arg.GetNumber(3)
+	//int iconNone = arg.GetNumber(4)
+	//wxDropSource();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxDropSource_2, "wxDropSource_2")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxDropSource_2)
+{
+	//int win = arg.GetNumber(0)
+	//int iconCopy = arg.GetNumber(1)
+	//int iconMove = arg.GetNumber(2)
+	//int iconNone = arg.GetNumber(3)
+	//wxDropSource();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxDropSource_3, "wxDropSource_3")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxDropSource_3)
+{
+	//int data = arg.GetNumber(0)
+	//int win = arg.GetNumber(1)
+	//int iconCopy = arg.GetNumber(2)
+	//int iconMove = arg.GetNumber(3)
+	//int iconNone = arg.GetNumber(4)
+	//wxDropSource();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DropSource, __wxDropSource, "wxDropSource")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_DropSource, __wxDropSource)
-{
-	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int iconCopy = arg.GetNumber(1)
-	//int iconMove = arg.GetNumber(2)
-	//int iconNone = arg.GetNumber(3)
-	//pThis->GetEntity()->wxDropSource();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_DropSource, __wxDropSource_1, "wxDropSource_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_DropSource, __wxDropSource_1)
-{
-	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
-	//int win = arg.GetNumber(1)
-	//int iconCopy = arg.GetNumber(2)
-	//int iconMove = arg.GetNumber(3)
-	//int iconNone = arg.GetNumber(4)
-	//pThis->GetEntity()->wxDropSource();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_DropSource, __wxDropSource_2, "wxDropSource_2")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_DropSource, __wxDropSource_2)
-{
-	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//int iconCopy = arg.GetNumber(1)
-	//int iconMove = arg.GetNumber(2)
-	//int iconNone = arg.GetNumber(3)
-	//pThis->GetEntity()->wxDropSource();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_DropSource, __wxDropSource_3, "wxDropSource_3")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconCopy", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconMove", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "iconNone", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_DropSource, __wxDropSource_3)
-{
-	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int data = arg.GetNumber(0)
-	//int win = arg.GetNumber(1)
-	//int iconCopy = arg.GetNumber(2)
-	//int iconMove = arg.GetNumber(3)
-	//int iconNone = arg.GetNumber(4)
-	//pThis->GetEntity()->wxDropSource();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_DropSource, __DoDragDrop, "DoDragDrop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -222,10 +217,12 @@ Gura_ImplementMethod(wx_DropSource, __SetData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DropSource)
 {
-	Gura_AssignMethod(wx_DropSource, __wxDropSource);
-	Gura_AssignMethod(wx_DropSource, __wxDropSource_1);
-	Gura_AssignMethod(wx_DropSource, __wxDropSource_2);
-	Gura_AssignMethod(wx_DropSource, __wxDropSource_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDropSource);
+	Gura_AssignFunction(__wxDropSource_1);
+	Gura_AssignFunction(__wxDropSource_2);
+	Gura_AssignFunction(__wxDropSource_3);
+	// Method assignment
 	Gura_AssignMethod(wx_DropSource, __DoDragDrop);
 	Gura_AssignMethod(wx_DropSource, __GetDataObject);
 	Gura_AssignMethod(wx_DropSource, __GiveFeedback);

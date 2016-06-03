@@ -35,22 +35,20 @@ String Object_wx_Button::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Button, __wxButton, "wxButton")
+Gura_DeclareFunctionAlias(__wxButton, "wxButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Button, __wxButton)
+Gura_ImplementFunction(__wxButton)
 {
-	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxButton();
+	//wxButton();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Button, __wxButton_1, "wxButton_1")
+Gura_DeclareFunctionAlias(__wxButton_1, "wxButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,10 +61,8 @@ Gura_DeclareMethodAlias(wx_Button, __wxButton_1, "wxButton_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Button, __wxButton_1)
+Gura_ImplementFunction(__wxButton_1)
 {
-	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -75,10 +71,13 @@ Gura_ImplementMethod(wx_Button, __wxButton_1)
 	//int style = arg.GetNumber(5)
 	//int validator = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxButton();
+	//wxButton();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Button, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -195,8 +194,10 @@ Gura_ImplementMethod(wx_Button, __SetLabel)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Button)
 {
-	Gura_AssignMethod(wx_Button, __wxButton);
-	Gura_AssignMethod(wx_Button, __wxButton_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxButton);
+	Gura_AssignFunction(__wxButton_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Button, __Create);
 	Gura_AssignMethod(wx_Button, __GetAuthNeeded);
 	Gura_AssignMethod(wx_Button, __GetDefaultSize);

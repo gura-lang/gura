@@ -35,6 +35,22 @@ String Object_wx_WebKitBeforeLoadEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxWebKitBeforeLoadEvent, "wxWebKitBeforeLoadEvent")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxWebKitBeforeLoadEvent)
+{
+	//int win = arg.GetNumber(0)
+	//wxWebKitBeforeLoadEvent();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __IsCancelled, "IsCancelled")
@@ -121,33 +137,20 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __GetNavigationType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __wxWebKitBeforeLoadEvent, "wxWebKitBeforeLoadEvent")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __wxWebKitBeforeLoadEvent)
-{
-	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//pThis->GetEntity()->wxWebKitBeforeLoadEvent();
-	return Value::Nil;
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxWebKitBeforeLoadEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebKitBeforeLoadEvent)
 {
+	// Constructor assignment
+	Gura_AssignFunction(__wxWebKitBeforeLoadEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __IsCancelled);
 	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __Cancel);
 	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __GetURL);
 	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __SetURL);
 	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __SetNavigationType);
 	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __GetNavigationType);
-	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __wxWebKitBeforeLoadEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_WebKitBeforeLoadEvent)

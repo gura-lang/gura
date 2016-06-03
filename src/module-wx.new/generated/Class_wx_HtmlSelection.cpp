@@ -35,21 +35,22 @@ String Object_wx_HtmlSelection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlSelection, __wxHtmlSelection, "wxHtmlSelection")
+Gura_DeclareFunctionAlias(__wxHtmlSelection, "wxHtmlSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, __wxHtmlSelection)
+Gura_ImplementFunction(__wxHtmlSelection)
 {
-	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlSelection();
+	//wxHtmlSelection();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlSelection, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -240,7 +241,9 @@ Gura_ImplementMethod(wx_HtmlSelection, __IsEmpty)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlSelection)
 {
-	Gura_AssignMethod(wx_HtmlSelection, __wxHtmlSelection);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlSelection);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlSelection, __Set);
 	Gura_AssignMethod(wx_HtmlSelection, __Set_1);
 	Gura_AssignMethod(wx_HtmlSelection, __GetFromCell);

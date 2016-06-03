@@ -35,40 +35,39 @@ String Object_wx_DCFontChanger::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DCFontChanger, __wxDCFontChanger, "wxDCFontChanger")
+Gura_DeclareFunctionAlias(__wxDCFontChanger, "wxDCFontChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCFontChanger, __wxDCFontChanger)
+Gura_ImplementFunction(__wxDCFontChanger)
 {
-	Object_wx_DCFontChanger *pThis = Object_wx_DCFontChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDCFontChanger();
+	//wxDCFontChanger();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DCFontChanger, __wxDCFontChanger_1, "wxDCFontChanger_1")
+Gura_DeclareFunctionAlias(__wxDCFontChanger_1, "wxDCFontChanger_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCFontChanger, __wxDCFontChanger_1)
+Gura_ImplementFunction(__wxDCFontChanger_1)
 {
-	Object_wx_DCFontChanger *pThis = Object_wx_DCFontChanger::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int font = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDCFontChanger();
+	//wxDCFontChanger();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DCFontChanger, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -89,8 +88,10 @@ Gura_ImplementMethod(wx_DCFontChanger, __Set)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCFontChanger)
 {
-	Gura_AssignMethod(wx_DCFontChanger, __wxDCFontChanger);
-	Gura_AssignMethod(wx_DCFontChanger, __wxDCFontChanger_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDCFontChanger);
+	Gura_AssignFunction(__wxDCFontChanger_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DCFontChanger, __Set);
 }
 

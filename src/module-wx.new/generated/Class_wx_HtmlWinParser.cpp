@@ -35,23 +35,24 @@ String Object_wx_HtmlWinParser::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlWinParser, __wxHtmlWinParser, "wxHtmlWinParser")
+Gura_DeclareFunctionAlias(__wxHtmlWinParser, "wxHtmlWinParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "wndIface", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, __wxHtmlWinParser)
+Gura_ImplementFunction(__wxHtmlWinParser)
 {
-	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int wndIface = arg.GetNumber(0)
-	//pThis->GetEntity()->wxHtmlWinParser();
+	//wxHtmlWinParser();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __AddModule, "AddModule")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -561,7 +562,9 @@ Gura_ImplementMethod(wx_HtmlWinParser, __SetLinkColor)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWinParser)
 {
-	Gura_AssignMethod(wx_HtmlWinParser, __wxHtmlWinParser);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlWinParser);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlWinParser, __AddModule);
 	Gura_AssignMethod(wx_HtmlWinParser, __CloseContainer);
 	Gura_AssignMethod(wx_HtmlWinParser, __CreateCurrentFont);

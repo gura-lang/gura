@@ -35,21 +35,22 @@ String Object_wx_ClientDataContainer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ClientDataContainer, __wxClientDataContainer, "wxClientDataContainer")
+Gura_DeclareFunctionAlias(__wxClientDataContainer, "wxClientDataContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ClientDataContainer, __wxClientDataContainer)
+Gura_ImplementFunction(__wxClientDataContainer)
 {
-	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxClientDataContainer();
+	//wxClientDataContainer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ClientDataContainer, __GetClientData, "GetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -111,7 +112,9 @@ Gura_ImplementMethod(wx_ClientDataContainer, __SetClientObject)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientDataContainer)
 {
-	Gura_AssignMethod(wx_ClientDataContainer, __wxClientDataContainer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxClientDataContainer);
+	// Method assignment
 	Gura_AssignMethod(wx_ClientDataContainer, __GetClientData);
 	Gura_AssignMethod(wx_ClientDataContainer, __GetClientObject);
 	Gura_AssignMethod(wx_ClientDataContainer, __SetClientData);

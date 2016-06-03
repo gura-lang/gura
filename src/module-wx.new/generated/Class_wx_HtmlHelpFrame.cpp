@@ -35,24 +35,22 @@ String Object_wx_HtmlHelpFrame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlHelpFrame, __wxHtmlHelpFrame, "wxHtmlHelpFrame")
+Gura_DeclareFunctionAlias(__wxHtmlHelpFrame, "wxHtmlHelpFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpFrame, __wxHtmlHelpFrame)
+Gura_ImplementFunction(__wxHtmlHelpFrame)
 {
-	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
-	//pThis->GetEntity()->wxHtmlHelpFrame();
+	//wxHtmlHelpFrame();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_HtmlHelpFrame, __wxHtmlHelpFrame_1, "wxHtmlHelpFrame_1")
+Gura_DeclareFunctionAlias(__wxHtmlHelpFrame_1, "wxHtmlHelpFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,10 +62,8 @@ Gura_DeclareMethodAlias(wx_HtmlHelpFrame, __wxHtmlHelpFrame_1, "wxHtmlHelpFrame_
 	//DeclareArg(env, "rootpath", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpFrame, __wxHtmlHelpFrame_1)
+Gura_ImplementFunction(__wxHtmlHelpFrame_1)
 {
-	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -75,10 +71,13 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, __wxHtmlHelpFrame_1)
 	//int data = arg.GetNumber(4)
 	//int config = arg.GetNumber(5)
 	//int rootpath = arg.GetNumber(6)
-	//pThis->GetEntity()->wxHtmlHelpFrame();
+	//wxHtmlHelpFrame();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlHelpFrame, __AddToolbarButtons, "AddToolbarButtons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -169,8 +168,10 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, __SetTitleFormat)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpFrame)
 {
-	Gura_AssignMethod(wx_HtmlHelpFrame, __wxHtmlHelpFrame);
-	Gura_AssignMethod(wx_HtmlHelpFrame, __wxHtmlHelpFrame_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlHelpFrame);
+	Gura_AssignFunction(__wxHtmlHelpFrame_1);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlHelpFrame, __AddToolbarButtons);
 	Gura_AssignMethod(wx_HtmlHelpFrame, __Create);
 	Gura_AssignMethod(wx_HtmlHelpFrame, __GetController);

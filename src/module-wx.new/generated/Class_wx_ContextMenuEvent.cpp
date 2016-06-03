@@ -35,9 +35,9 @@ String Object_wx_ContextMenuEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ContextMenuEvent, __wxContextMenuEvent, "wxContextMenuEvent")
+Gura_DeclareFunctionAlias(__wxContextMenuEvent, "wxContextMenuEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_ContextMenuEvent, __wxContextMenuEvent, "wxContextMen
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ContextMenuEvent, __wxContextMenuEvent)
+Gura_ImplementFunction(__wxContextMenuEvent)
 {
-	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
-	//pThis->GetEntity()->wxContextMenuEvent();
+	//wxContextMenuEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ContextMenuEvent, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -89,7 +90,9 @@ Gura_ImplementMethod(wx_ContextMenuEvent, __SetPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ContextMenuEvent)
 {
-	Gura_AssignMethod(wx_ContextMenuEvent, __wxContextMenuEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxContextMenuEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_ContextMenuEvent, __GetPosition);
 	Gura_AssignMethod(wx_ContextMenuEvent, __SetPosition);
 }

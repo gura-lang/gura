@@ -35,23 +35,24 @@ String Object_wx_RichTextObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextObject, __wxRichTextObject, "wxRichTextObject")
+Gura_DeclareFunctionAlias(__wxRichTextObject, "wxRichTextObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextObject, __wxRichTextObject)
+Gura_ImplementFunction(__wxRichTextObject)
 {
-	Object_wx_RichTextObject *pThis = Object_wx_RichTextObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextObject();
+	//wxRichTextObject();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextObject, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1523,7 +1524,9 @@ Gura_ImplementMethod(wx_RichTextObject, __AdjustAvailableSpace)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextObject)
 {
-	Gura_AssignMethod(wx_RichTextObject, __wxRichTextObject);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextObject);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextObject, __Draw);
 	Gura_AssignMethod(wx_RichTextObject, __Layout);
 	Gura_AssignMethod(wx_RichTextObject, __HitTest);

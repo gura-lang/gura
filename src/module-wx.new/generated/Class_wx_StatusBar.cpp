@@ -35,22 +35,20 @@ String Object_wx_StatusBar::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StatusBar, __wxStatusBar, "wxStatusBar")
+Gura_DeclareFunctionAlias(__wxStatusBar, "wxStatusBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StatusBar, __wxStatusBar)
+Gura_ImplementFunction(__wxStatusBar)
 {
-	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxStatusBar();
+	//wxStatusBar();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_StatusBar, __wxStatusBar_1, "wxStatusBar_1")
+Gura_DeclareFunctionAlias(__wxStatusBar_1, "wxStatusBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -59,18 +57,19 @@ Gura_DeclareMethodAlias(wx_StatusBar, __wxStatusBar_1, "wxStatusBar_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, __wxStatusBar_1)
+Gura_ImplementFunction(__wxStatusBar_1)
 {
-	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
 	//int name = arg.GetNumber(3)
-	//pThis->GetEntity()->wxStatusBar();
+	//wxStatusBar();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StatusBar, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -315,8 +314,10 @@ Gura_ImplementMethod(wx_StatusBar, __SetStatusWidths)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StatusBar)
 {
-	Gura_AssignMethod(wx_StatusBar, __wxStatusBar);
-	Gura_AssignMethod(wx_StatusBar, __wxStatusBar_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStatusBar);
+	Gura_AssignFunction(__wxStatusBar_1);
+	// Method assignment
 	Gura_AssignMethod(wx_StatusBar, __Create);
 	Gura_AssignMethod(wx_StatusBar, __GetFieldRect);
 	Gura_AssignMethod(wx_StatusBar, __GetFieldsCount);

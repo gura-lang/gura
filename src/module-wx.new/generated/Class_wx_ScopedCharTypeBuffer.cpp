@@ -35,21 +35,35 @@ String Object_wx_ScopedCharTypeBuffer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ScopedCharTypeBuffer, __wxScopedCharTypeBuffer, "wxScopedCharTypeBuffer")
+Gura_DeclareFunctionAlias(__wxScopedCharTypeBuffer, "wxScopedCharTypeBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __wxScopedCharTypeBuffer)
+Gura_ImplementFunction(__wxScopedCharTypeBuffer)
 {
-	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxScopedCharTypeBuffer();
+	//wxScopedCharTypeBuffer();
 	return Value::Nil;
 }
 
+Gura_DeclareFunctionAlias(__wxScopedCharTypeBuffer_1, "wxScopedCharTypeBuffer_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxScopedCharTypeBuffer_1)
+{
+	//int src = arg.GetNumber(0)
+	//wxScopedCharTypeBuffer();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScopedCharTypeBuffer, __CreateNonOwned, "CreateNonOwned")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -81,21 +95,6 @@ Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __CreateOwned)
 	//int str = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
 	//pThis->GetEntity()->CreateOwned();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_ScopedCharTypeBuffer, __wxScopedCharTypeBuffer_1, "wxScopedCharTypeBuffer_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __wxScopedCharTypeBuffer_1)
-{
-	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int src = arg.GetNumber(0)
-	//pThis->GetEntity()->wxScopedCharTypeBuffer();
 	return Value::Nil;
 }
 
@@ -169,10 +168,12 @@ Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __length)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopedCharTypeBuffer)
 {
-	Gura_AssignMethod(wx_ScopedCharTypeBuffer, __wxScopedCharTypeBuffer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxScopedCharTypeBuffer);
+	Gura_AssignFunction(__wxScopedCharTypeBuffer_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, __CreateNonOwned);
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, __CreateOwned);
-	Gura_AssignMethod(wx_ScopedCharTypeBuffer, __wxScopedCharTypeBuffer_1);
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, __release);
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, __reset);
 	Gura_AssignMethod(wx_ScopedCharTypeBuffer, __data);

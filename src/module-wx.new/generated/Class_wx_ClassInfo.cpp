@@ -35,9 +35,9 @@ String Object_wx_ClassInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ClassInfo, __wxClassInfo, "wxClassInfo")
+Gura_DeclareFunctionAlias(__wxClassInfo, "wxClassInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "className", VTYPE_number, OCCUR_Once);
@@ -47,19 +47,20 @@ Gura_DeclareMethodAlias(wx_ClassInfo, __wxClassInfo, "wxClassInfo")
 	//DeclareArg(env, "fn", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ClassInfo, __wxClassInfo)
+Gura_ImplementFunction(__wxClassInfo)
 {
-	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int className = arg.GetNumber(0)
 	//int baseClass1 = arg.GetNumber(1)
 	//int baseClass2 = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int fn = arg.GetNumber(4)
-	//pThis->GetEntity()->wxClassInfo();
+	//wxClassInfo();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ClassInfo, __CreateObject, "CreateObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -173,7 +174,9 @@ Gura_ImplementMethod(wx_ClassInfo, __IsKindOf)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClassInfo)
 {
-	Gura_AssignMethod(wx_ClassInfo, __wxClassInfo);
+	// Constructor assignment
+	Gura_AssignFunction(__wxClassInfo);
+	// Method assignment
 	Gura_AssignMethod(wx_ClassInfo, __CreateObject);
 	Gura_AssignMethod(wx_ClassInfo, __FindClass);
 	Gura_AssignMethod(wx_ClassInfo, __GetBaseClassName1);

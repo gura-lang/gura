@@ -35,9 +35,9 @@ String Object_wx_GLCanvas::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GLCanvas, __wxGLCanvas, "wxGLCanvas")
+Gura_DeclareFunctionAlias(__wxGLCanvas, "wxGLCanvas")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -50,10 +50,8 @@ Gura_DeclareMethodAlias(wx_GLCanvas, __wxGLCanvas, "wxGLCanvas")
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLCanvas, __wxGLCanvas)
+Gura_ImplementFunction(__wxGLCanvas)
 {
-	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int dispAttrs = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
@@ -62,11 +60,11 @@ Gura_ImplementMethod(wx_GLCanvas, __wxGLCanvas)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
 	//int palette = arg.GetNumber(7)
-	//pThis->GetEntity()->wxGLCanvas();
+	//wxGLCanvas();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GLCanvas, __wxGLCanvas_1, "wxGLCanvas_1")
+Gura_DeclareFunctionAlias(__wxGLCanvas_1, "wxGLCanvas_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -79,10 +77,8 @@ Gura_DeclareMethodAlias(wx_GLCanvas, __wxGLCanvas_1, "wxGLCanvas_1")
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLCanvas, __wxGLCanvas_1)
+Gura_ImplementFunction(__wxGLCanvas_1)
 {
-	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int attribList = arg.GetNumber(2)
@@ -91,10 +87,13 @@ Gura_ImplementMethod(wx_GLCanvas, __wxGLCanvas_1)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
 	//int palette = arg.GetNumber(7)
-	//pThis->GetEntity()->wxGLCanvas();
+	//wxGLCanvas();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GLCanvas, __IsDisplaySupported, "IsDisplaySupported")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -188,8 +187,10 @@ Gura_ImplementMethod(wx_GLCanvas, __SwapBuffers)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLCanvas)
 {
-	Gura_AssignMethod(wx_GLCanvas, __wxGLCanvas);
-	Gura_AssignMethod(wx_GLCanvas, __wxGLCanvas_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGLCanvas);
+	Gura_AssignFunction(__wxGLCanvas_1);
+	// Method assignment
 	Gura_AssignMethod(wx_GLCanvas, __IsDisplaySupported);
 	Gura_AssignMethod(wx_GLCanvas, __IsDisplaySupported_1);
 	Gura_AssignMethod(wx_GLCanvas, __IsExtensionSupported);

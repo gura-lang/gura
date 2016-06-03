@@ -35,18 +35,16 @@ String Object_wx_LogInterposerTemp::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LogInterposerTemp, __wxLogInterposerTemp, "wxLogInterposerTemp")
+Gura_DeclareFunctionAlias(__wxLogInterposerTemp, "wxLogInterposerTemp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogInterposerTemp, __wxLogInterposerTemp)
+Gura_ImplementFunction(__wxLogInterposerTemp)
 {
-	Object_wx_LogInterposerTemp *pThis = Object_wx_LogInterposerTemp::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxLogInterposerTemp();
+	//wxLogInterposerTemp();
 	return Value::Nil;
 }
 
@@ -55,7 +53,8 @@ Gura_ImplementMethod(wx_LogInterposerTemp, __wxLogInterposerTemp)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogInterposerTemp)
 {
-	Gura_AssignMethod(wx_LogInterposerTemp, __wxLogInterposerTemp);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLogInterposerTemp);
 }
 
 Gura_ImplementDescendantCreator(wx_LogInterposerTemp)

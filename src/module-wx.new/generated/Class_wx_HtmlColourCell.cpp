@@ -35,22 +35,20 @@ String Object_wx_HtmlColourCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlColourCell, __wxHtmlColourCell, "wxHtmlColourCell")
+Gura_DeclareFunctionAlias(__wxHtmlColourCell, "wxHtmlColourCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlColourCell, __wxHtmlColourCell)
+Gura_ImplementFunction(__wxHtmlColourCell)
 {
-	Object_wx_HtmlColourCell *pThis = Object_wx_HtmlColourCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int clr = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->wxHtmlColourCell();
+	//wxHtmlColourCell();
 	return Value::Nil;
 }
 
@@ -59,7 +57,8 @@ Gura_ImplementMethod(wx_HtmlColourCell, __wxHtmlColourCell)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlColourCell)
 {
-	Gura_AssignMethod(wx_HtmlColourCell, __wxHtmlColourCell);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlColourCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlColourCell)

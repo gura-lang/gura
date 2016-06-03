@@ -35,21 +35,22 @@ String Object_wx_ScreenDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ScreenDC, __wxScreenDC, "wxScreenDC")
+Gura_DeclareFunctionAlias(__wxScreenDC, "wxScreenDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScreenDC, __wxScreenDC)
+Gura_ImplementFunction(__wxScreenDC)
 {
-	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxScreenDC();
+	//wxScreenDC();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScreenDC, __EndDrawingOnTop, "EndDrawingOnTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -98,7 +99,9 @@ Gura_ImplementMethod(wx_ScreenDC, __StartDrawingOnTop_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScreenDC)
 {
-	Gura_AssignMethod(wx_ScreenDC, __wxScreenDC);
+	// Constructor assignment
+	Gura_AssignFunction(__wxScreenDC);
+	// Method assignment
 	Gura_AssignMethod(wx_ScreenDC, __EndDrawingOnTop);
 	Gura_AssignMethod(wx_ScreenDC, __StartDrawingOnTop);
 	Gura_AssignMethod(wx_ScreenDC, __StartDrawingOnTop_1);

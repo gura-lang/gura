@@ -35,38 +35,37 @@ String Object_wx_CSConv::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CSConv, __wxCSConv, "wxCSConv")
+Gura_DeclareFunctionAlias(__wxCSConv, "wxCSConv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "charset", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CSConv, __wxCSConv)
+Gura_ImplementFunction(__wxCSConv)
 {
-	Object_wx_CSConv *pThis = Object_wx_CSConv::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int charset = arg.GetNumber(0)
-	//pThis->GetEntity()->wxCSConv();
+	//wxCSConv();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_CSConv, __wxCSConv_1, "wxCSConv_1")
+Gura_DeclareFunctionAlias(__wxCSConv_1, "wxCSConv_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CSConv, __wxCSConv_1)
+Gura_ImplementFunction(__wxCSConv_1)
 {
-	Object_wx_CSConv *pThis = Object_wx_CSConv::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int encoding = arg.GetNumber(0)
-	//pThis->GetEntity()->wxCSConv();
+	//wxCSConv();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CSConv, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -85,8 +84,10 @@ Gura_ImplementMethod(wx_CSConv, __IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CSConv)
 {
-	Gura_AssignMethod(wx_CSConv, __wxCSConv);
-	Gura_AssignMethod(wx_CSConv, __wxCSConv_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCSConv);
+	Gura_AssignFunction(__wxCSConv_1);
+	// Method assignment
 	Gura_AssignMethod(wx_CSConv, __IsOk);
 }
 

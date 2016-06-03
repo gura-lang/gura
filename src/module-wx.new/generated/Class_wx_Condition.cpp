@@ -35,23 +35,24 @@ String Object_wx_Condition::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Condition, __wxCondition, "wxCondition")
+Gura_DeclareFunctionAlias(__wxCondition, "wxCondition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mutex", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Condition, __wxCondition)
+Gura_ImplementFunction(__wxCondition)
 {
-	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mutex = arg.GetNumber(0)
-	//pThis->GetEntity()->wxCondition();
+	//wxCondition();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Condition, __Broadcast, "Broadcast")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -139,7 +140,9 @@ Gura_ImplementMethod(wx_Condition, __WaitTimeout)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Condition)
 {
-	Gura_AssignMethod(wx_Condition, __wxCondition);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCondition);
+	// Method assignment
 	Gura_AssignMethod(wx_Condition, __Broadcast);
 	Gura_AssignMethod(wx_Condition, __IsOk);
 	Gura_AssignMethod(wx_Condition, __Signal);

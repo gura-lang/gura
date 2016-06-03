@@ -35,21 +35,22 @@ String Object_wx_SockAddress::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SockAddress, __wxSockAddress, "wxSockAddress")
+Gura_DeclareFunctionAlias(__wxSockAddress, "wxSockAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SockAddress, __wxSockAddress)
+Gura_ImplementFunction(__wxSockAddress)
 {
-	Object_wx_SockAddress *pThis = Object_wx_SockAddress::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSockAddress();
+	//wxSockAddress();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SockAddress, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -107,7 +108,9 @@ Gura_ImplementMethod(wx_SockAddress, __GetAddressDataLen)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SockAddress)
 {
-	Gura_AssignMethod(wx_SockAddress, __wxSockAddress);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSockAddress);
+	// Method assignment
 	Gura_AssignMethod(wx_SockAddress, __Clear);
 	Gura_AssignMethod(wx_SockAddress, __SockAddrLen);
 	Gura_AssignMethod(wx_SockAddress, __GetAddressData);

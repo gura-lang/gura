@@ -35,21 +35,22 @@ String Object_wx_RichTextContextMenuPropertiesInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __wxRichTextContextMenuPropertiesInfo, "wxRichTextContextMenuPropertiesInfo")
+Gura_DeclareFunctionAlias(__wxRichTextContextMenuPropertiesInfo, "wxRichTextContextMenuPropertiesInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __wxRichTextContextMenuPropertiesInfo)
+Gura_ImplementFunction(__wxRichTextContextMenuPropertiesInfo)
 {
-	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextContextMenuPropertiesInfo();
+	//wxRichTextContextMenuPropertiesInfo();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -229,7 +230,9 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetCount)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextContextMenuPropertiesInfo)
 {
-	Gura_AssignMethod(wx_RichTextContextMenuPropertiesInfo, __wxRichTextContextMenuPropertiesInfo);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextContextMenuPropertiesInfo);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextContextMenuPropertiesInfo, __Init);
 	Gura_AssignMethod(wx_RichTextContextMenuPropertiesInfo, __AddItem);
 	Gura_AssignMethod(wx_RichTextContextMenuPropertiesInfo, __AddMenuItems);

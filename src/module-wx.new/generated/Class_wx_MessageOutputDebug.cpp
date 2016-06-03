@@ -35,18 +35,16 @@ String Object_wx_MessageOutputDebug::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MessageOutputDebug, __wxMessageOutputDebug, "wxMessageOutputDebug")
+Gura_DeclareFunctionAlias(__wxMessageOutputDebug, "wxMessageOutputDebug")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MessageOutputDebug, __wxMessageOutputDebug)
+Gura_ImplementFunction(__wxMessageOutputDebug)
 {
-	Object_wx_MessageOutputDebug *pThis = Object_wx_MessageOutputDebug::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMessageOutputDebug();
+	//wxMessageOutputDebug();
 	return Value::Nil;
 }
 
@@ -55,7 +53,8 @@ Gura_ImplementMethod(wx_MessageOutputDebug, __wxMessageOutputDebug)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageOutputDebug)
 {
-	Gura_AssignMethod(wx_MessageOutputDebug, __wxMessageOutputDebug);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMessageOutputDebug);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageOutputDebug)

@@ -35,18 +35,16 @@ String Object_wx_GridCellAutoWrapStringEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridCellAutoWrapStringEditor, __wxGridCellAutoWrapStringEditor, "wxGridCellAutoWrapStringEditor")
+Gura_DeclareFunctionAlias(__wxGridCellAutoWrapStringEditor, "wxGridCellAutoWrapStringEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellAutoWrapStringEditor, __wxGridCellAutoWrapStringEditor)
+Gura_ImplementFunction(__wxGridCellAutoWrapStringEditor)
 {
-	Object_wx_GridCellAutoWrapStringEditor *pThis = Object_wx_GridCellAutoWrapStringEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGridCellAutoWrapStringEditor();
+	//wxGridCellAutoWrapStringEditor();
 	return Value::Nil;
 }
 
@@ -55,7 +53,8 @@ Gura_ImplementMethod(wx_GridCellAutoWrapStringEditor, __wxGridCellAutoWrapString
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellAutoWrapStringEditor)
 {
-	Gura_AssignMethod(wx_GridCellAutoWrapStringEditor, __wxGridCellAutoWrapStringEditor);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridCellAutoWrapStringEditor);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellAutoWrapStringEditor)

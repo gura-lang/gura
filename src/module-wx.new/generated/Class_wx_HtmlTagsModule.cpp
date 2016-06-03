@@ -57,6 +57,7 @@ Gura_ImplementMethod(wx_HtmlTagsModule, __FillHandlersTable)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTagsModule)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlTagsModule, __FillHandlersTable);
 }
 

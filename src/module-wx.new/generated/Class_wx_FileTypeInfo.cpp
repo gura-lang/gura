@@ -35,37 +35,33 @@ String Object_wx_FileTypeInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileTypeInfo, __wxFileTypeInfo, "wxFileTypeInfo")
+Gura_DeclareFunctionAlias(__wxFileTypeInfo, "wxFileTypeInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, __wxFileTypeInfo)
+Gura_ImplementFunction(__wxFileTypeInfo)
 {
-	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFileTypeInfo();
+	//wxFileTypeInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileTypeInfo, __wxFileTypeInfo_1, "wxFileTypeInfo_1")
+Gura_DeclareFunctionAlias(__wxFileTypeInfo_1, "wxFileTypeInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mimeType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, __wxFileTypeInfo_1)
+Gura_ImplementFunction(__wxFileTypeInfo_1)
 {
-	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mimeType = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFileTypeInfo();
+	//wxFileTypeInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileTypeInfo, __wxFileTypeInfo_2, "wxFileTypeInfo_2")
+Gura_DeclareFunctionAlias(__wxFileTypeInfo_2, "wxFileTypeInfo_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mimeType", VTYPE_number, OCCUR_Once);
@@ -75,34 +71,33 @@ Gura_DeclareMethodAlias(wx_FileTypeInfo, __wxFileTypeInfo_2, "wxFileTypeInfo_2")
 	//DeclareArg(env, "extension", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, __wxFileTypeInfo_2)
+Gura_ImplementFunction(__wxFileTypeInfo_2)
 {
-	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int mimeType = arg.GetNumber(0)
 	//int openCmd = arg.GetNumber(1)
 	//int printCmd = arg.GetNumber(2)
 	//int description = arg.GetNumber(3)
 	//int extension = arg.GetNumber(4)
-	//pThis->GetEntity()->wxFileTypeInfo();
+	//wxFileTypeInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileTypeInfo, __wxFileTypeInfo_3, "wxFileTypeInfo_3")
+Gura_DeclareFunctionAlias(__wxFileTypeInfo_3, "wxFileTypeInfo_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sArray", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, __wxFileTypeInfo_3)
+Gura_ImplementFunction(__wxFileTypeInfo_3)
 {
-	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sArray = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFileTypeInfo();
+	//wxFileTypeInfo();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileTypeInfo, __AddExtension, "AddExtension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -317,10 +312,12 @@ Gura_ImplementMethod(wx_FileTypeInfo, __GetIconIndex)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileTypeInfo)
 {
-	Gura_AssignMethod(wx_FileTypeInfo, __wxFileTypeInfo);
-	Gura_AssignMethod(wx_FileTypeInfo, __wxFileTypeInfo_1);
-	Gura_AssignMethod(wx_FileTypeInfo, __wxFileTypeInfo_2);
-	Gura_AssignMethod(wx_FileTypeInfo, __wxFileTypeInfo_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileTypeInfo);
+	Gura_AssignFunction(__wxFileTypeInfo_1);
+	Gura_AssignFunction(__wxFileTypeInfo_2);
+	Gura_AssignFunction(__wxFileTypeInfo_3);
+	// Method assignment
 	Gura_AssignMethod(wx_FileTypeInfo, __AddExtension);
 	Gura_AssignMethod(wx_FileTypeInfo, __SetDescription);
 	Gura_AssignMethod(wx_FileTypeInfo, __SetOpenCommand);

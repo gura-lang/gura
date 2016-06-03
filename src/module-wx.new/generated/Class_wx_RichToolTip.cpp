@@ -35,25 +35,26 @@ String Object_wx_RichToolTip::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichToolTip, __wxRichToolTip, "wxRichToolTip")
+Gura_DeclareFunctionAlias(__wxRichToolTip, "wxRichToolTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichToolTip, __wxRichToolTip)
+Gura_ImplementFunction(__wxRichToolTip)
 {
-	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRichToolTip();
+	//wxRichToolTip();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichToolTip, __SetBackgroundColour, "SetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -170,7 +171,9 @@ Gura_ImplementMethod(wx_RichToolTip, __ShowFor)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichToolTip)
 {
-	Gura_AssignMethod(wx_RichToolTip, __wxRichToolTip);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichToolTip);
+	// Method assignment
 	Gura_AssignMethod(wx_RichToolTip, __SetBackgroundColour);
 	Gura_AssignMethod(wx_RichToolTip, __SetIcon);
 	Gura_AssignMethod(wx_RichToolTip, __SetIcon_1);

@@ -35,21 +35,22 @@ String Object_wx_Client::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Client, __wxClient, "wxClient")
+Gura_DeclareFunctionAlias(__wxClient, "wxClient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Client, __wxClient)
+Gura_ImplementFunction(__wxClient)
 {
-	Object_wx_Client *pThis = Object_wx_Client::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxClient();
+	//wxClient();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Client, __MakeConnection, "MakeConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -102,7 +103,9 @@ Gura_ImplementMethod(wx_Client, __ValidHost)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Client)
 {
-	Gura_AssignMethod(wx_Client, __wxClient);
+	// Constructor assignment
+	Gura_AssignFunction(__wxClient);
+	// Method assignment
 	Gura_AssignMethod(wx_Client, __MakeConnection);
 	Gura_AssignMethod(wx_Client, __OnMakeConnection);
 	Gura_AssignMethod(wx_Client, __ValidHost);

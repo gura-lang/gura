@@ -35,186 +35,165 @@ String Object_wx_UniChar::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxUniChar, "wxUniChar")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementFunction(__wxUniChar)
+{
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_1, "wxUniChar_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_1)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_2, "wxUniChar_2")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_2)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_3, "wxUniChar_3")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_3)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_4, "wxUniChar_4")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_4)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_5, "wxUniChar_5")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_5)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_6, "wxUniChar_6")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_6)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_7, "wxUniChar_7")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_7)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_8, "wxUniChar_8")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_8)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_9, "wxUniChar_9")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_9)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_10, "wxUniChar_10")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_10)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxUniChar_11, "wxUniChar_11")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxUniChar_11)
+{
+	//int c = arg.GetNumber(0)
+	//wxUniChar();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar, "wxUniChar")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_1, "wxUniChar_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_1)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_2, "wxUniChar_2")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_2)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_3, "wxUniChar_3")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_3)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_4, "wxUniChar_4")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_4)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_5, "wxUniChar_5")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_5)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_6, "wxUniChar_6")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_6)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_7, "wxUniChar_7")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_7)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_8, "wxUniChar_8")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_8)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_9, "wxUniChar_9")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_9)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_10, "wxUniChar_10")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_10)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_UniChar, __wxUniChar_11, "wxUniChar_11")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_UniChar, __wxUniChar_11)
-{
-	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxUniChar();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_UniChar, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -404,18 +383,20 @@ Gura_ImplementMethod(wx_UniChar, __wxULongLong_t)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_UniChar)
 {
-	Gura_AssignMethod(wx_UniChar, __wxUniChar);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_1);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_2);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_3);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_4);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_5);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_6);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_7);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_8);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_9);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_10);
-	Gura_AssignMethod(wx_UniChar, __wxUniChar_11);
+	// Constructor assignment
+	Gura_AssignFunction(__wxUniChar);
+	Gura_AssignFunction(__wxUniChar_1);
+	Gura_AssignFunction(__wxUniChar_2);
+	Gura_AssignFunction(__wxUniChar_3);
+	Gura_AssignFunction(__wxUniChar_4);
+	Gura_AssignFunction(__wxUniChar_5);
+	Gura_AssignFunction(__wxUniChar_6);
+	Gura_AssignFunction(__wxUniChar_7);
+	Gura_AssignFunction(__wxUniChar_8);
+	Gura_AssignFunction(__wxUniChar_9);
+	Gura_AssignFunction(__wxUniChar_10);
+	Gura_AssignFunction(__wxUniChar_11);
+	// Method assignment
 	Gura_AssignMethod(wx_UniChar, __GetValue);
 	Gura_AssignMethod(wx_UniChar, __IsAscii);
 	Gura_AssignMethod(wx_UniChar, __GetAsChar);

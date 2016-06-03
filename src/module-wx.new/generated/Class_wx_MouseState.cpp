@@ -35,21 +35,22 @@ String Object_wx_MouseState::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MouseState, __wxMouseState, "wxMouseState")
+Gura_DeclareFunctionAlias(__wxMouseState, "wxMouseState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseState, __wxMouseState)
+Gura_ImplementFunction(__wxMouseState)
 {
-	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMouseState();
+	//wxMouseState();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MouseState, __GetX, "GetX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -311,7 +312,9 @@ Gura_ImplementMethod(wx_MouseState, __SetState)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseState)
 {
-	Gura_AssignMethod(wx_MouseState, __wxMouseState);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMouseState);
+	// Method assignment
 	Gura_AssignMethod(wx_MouseState, __GetX);
 	Gura_AssignMethod(wx_MouseState, __GetY);
 	Gura_AssignMethod(wx_MouseState, __GetPosition);

@@ -35,40 +35,39 @@ String Object_wx_DataViewIconText::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewIconText, __wxDataViewIconText, "wxDataViewIconText")
+Gura_DeclareFunctionAlias(__wxDataViewIconText, "wxDataViewIconText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIconText, __wxDataViewIconText)
+Gura_ImplementFunction(__wxDataViewIconText)
 {
-	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int icon = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDataViewIconText();
+	//wxDataViewIconText();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DataViewIconText, __wxDataViewIconText_1, "wxDataViewIconText_1")
+Gura_DeclareFunctionAlias(__wxDataViewIconText_1, "wxDataViewIconText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIconText, __wxDataViewIconText_1)
+Gura_ImplementFunction(__wxDataViewIconText_1)
 {
-	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int other = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDataViewIconText();
+	//wxDataViewIconText();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewIconText, __GetIcon, "GetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -130,8 +129,10 @@ Gura_ImplementMethod(wx_DataViewIconText, __SetText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewIconText)
 {
-	Gura_AssignMethod(wx_DataViewIconText, __wxDataViewIconText);
-	Gura_AssignMethod(wx_DataViewIconText, __wxDataViewIconText_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewIconText);
+	Gura_AssignFunction(__wxDataViewIconText_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewIconText, __GetIcon);
 	Gura_AssignMethod(wx_DataViewIconText, __GetText);
 	Gura_AssignMethod(wx_DataViewIconText, __SetIcon);

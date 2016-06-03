@@ -35,21 +35,22 @@ String Object_wx_TranslationsLoader::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TranslationsLoader, __wxTranslationsLoader, "wxTranslationsLoader")
+Gura_DeclareFunctionAlias(__wxTranslationsLoader, "wxTranslationsLoader")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TranslationsLoader, __wxTranslationsLoader)
+Gura_ImplementFunction(__wxTranslationsLoader)
 {
-	Object_wx_TranslationsLoader *pThis = Object_wx_TranslationsLoader::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTranslationsLoader();
+	//wxTranslationsLoader();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TranslationsLoader, __LoadCatalog, "LoadCatalog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -87,7 +88,9 @@ Gura_ImplementMethod(wx_TranslationsLoader, __GetAvailableTranslations)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TranslationsLoader)
 {
-	Gura_AssignMethod(wx_TranslationsLoader, __wxTranslationsLoader);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTranslationsLoader);
+	// Method assignment
 	Gura_AssignMethod(wx_TranslationsLoader, __LoadCatalog);
 	Gura_AssignMethod(wx_TranslationsLoader, __GetAvailableTranslations);
 }

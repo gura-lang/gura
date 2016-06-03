@@ -35,22 +35,20 @@ String Object_wx_Caret::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Caret, __wxCaret, "wxCaret")
+Gura_DeclareFunctionAlias(__wxCaret, "wxCaret")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Caret, __wxCaret)
+Gura_ImplementFunction(__wxCaret)
 {
-	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxCaret();
+	//wxCaret();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Caret, __wxCaret_1, "wxCaret_1")
+Gura_DeclareFunctionAlias(__wxCaret_1, "wxCaret_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -58,34 +56,33 @@ Gura_DeclareMethodAlias(wx_Caret, __wxCaret_1, "wxCaret_1")
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, __wxCaret_1)
+Gura_ImplementFunction(__wxCaret_1)
 {
-	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
-	//pThis->GetEntity()->wxCaret();
+	//wxCaret();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Caret, __wxCaret_2, "wxCaret_2")
+Gura_DeclareFunctionAlias(__wxCaret_2, "wxCaret_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, __wxCaret_2)
+Gura_ImplementFunction(__wxCaret_2)
 {
-	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
-	//pThis->GetEntity()->wxCaret();
+	//wxCaret();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Caret, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -346,9 +343,11 @@ Gura_ImplementMethod(wx_Caret, __Show)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Caret)
 {
-	Gura_AssignMethod(wx_Caret, __wxCaret);
-	Gura_AssignMethod(wx_Caret, __wxCaret_1);
-	Gura_AssignMethod(wx_Caret, __wxCaret_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCaret);
+	Gura_AssignFunction(__wxCaret_1);
+	Gura_AssignFunction(__wxCaret_2);
+	// Method assignment
 	Gura_AssignMethod(wx_Caret, __Create);
 	Gura_AssignMethod(wx_Caret, __Create_1);
 	Gura_AssignMethod(wx_Caret, __GetBlinkTime);

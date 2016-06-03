@@ -35,22 +35,20 @@ String Object_wx_DataViewListCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewListCtrl, __wxDataViewListCtrl, "wxDataViewListCtrl")
+Gura_DeclareFunctionAlias(__wxDataViewListCtrl, "wxDataViewListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, __wxDataViewListCtrl)
+Gura_ImplementFunction(__wxDataViewListCtrl)
 {
-	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDataViewListCtrl();
+	//wxDataViewListCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DataViewListCtrl, __wxDataViewListCtrl_1, "wxDataViewListCtrl_1")
+Gura_DeclareFunctionAlias(__wxDataViewListCtrl_1, "wxDataViewListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_DataViewListCtrl, __wxDataViewListCtrl_1, "wxDataView
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, __wxDataViewListCtrl_1)
+Gura_ImplementFunction(__wxDataViewListCtrl_1)
 {
-	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int validator = arg.GetNumber(5)
-	//pThis->GetEntity()->wxDataViewListCtrl();
+	//wxDataViewListCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -647,8 +646,10 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __SetItemData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewListCtrl)
 {
-	Gura_AssignMethod(wx_DataViewListCtrl, __wxDataViewListCtrl);
-	Gura_AssignMethod(wx_DataViewListCtrl, __wxDataViewListCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewListCtrl);
+	Gura_AssignFunction(__wxDataViewListCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewListCtrl, __Create);
 	Gura_AssignMethod(wx_DataViewListCtrl, __GetStore);
 	Gura_AssignMethod(wx_DataViewListCtrl, __GetStore_1);

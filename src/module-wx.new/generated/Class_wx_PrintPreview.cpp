@@ -35,46 +35,45 @@ String Object_wx_PrintPreview::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxPrintPreview, "wxPrintPreview")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "printoutForPrinting", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxPrintPreview)
+{
+	//int printout = arg.GetNumber(0)
+	//int printoutForPrinting = arg.GetNumber(1)
+	//int data = arg.GetNumber(2)
+	//wxPrintPreview();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxPrintPreview_1, "wxPrintPreview_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "printoutForPrinting", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxPrintPreview_1)
+{
+	//int printout = arg.GetNumber(0)
+	//int printoutForPrinting = arg.GetNumber(1)
+	//int data = arg.GetNumber(2)
+	//wxPrintPreview();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PrintPreview, __wxPrintPreview, "wxPrintPreview")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "printoutForPrinting", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_PrintPreview, __wxPrintPreview)
-{
-	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int printout = arg.GetNumber(0)
-	//int printoutForPrinting = arg.GetNumber(1)
-	//int data = arg.GetNumber(2)
-	//pThis->GetEntity()->wxPrintPreview();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_PrintPreview, __wxPrintPreview_1, "wxPrintPreview_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "printoutForPrinting", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_PrintPreview, __wxPrintPreview_1)
-{
-	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int printout = arg.GetNumber(0)
-	//int printoutForPrinting = arg.GetNumber(1)
-	//int data = arg.GetNumber(2)
-	//pThis->GetEntity()->wxPrintPreview();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_PrintPreview, __GetCanvas, "GetCanvas")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -306,8 +305,10 @@ Gura_ImplementMethod(wx_PrintPreview, __SetZoom)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintPreview)
 {
-	Gura_AssignMethod(wx_PrintPreview, __wxPrintPreview);
-	Gura_AssignMethod(wx_PrintPreview, __wxPrintPreview_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPrintPreview);
+	Gura_AssignFunction(__wxPrintPreview_1);
+	// Method assignment
 	Gura_AssignMethod(wx_PrintPreview, __GetCanvas);
 	Gura_AssignMethod(wx_PrintPreview, __GetCurrentPage);
 	Gura_AssignMethod(wx_PrintPreview, __GetFrame);

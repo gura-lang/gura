@@ -35,21 +35,22 @@ String Object_wx_CountingOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CountingOutputStream, __wxCountingOutputStream, "wxCountingOutputStream")
+Gura_DeclareFunctionAlias(__wxCountingOutputStream, "wxCountingOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CountingOutputStream, __wxCountingOutputStream)
+Gura_ImplementFunction(__wxCountingOutputStream)
 {
-	Object_wx_CountingOutputStream *pThis = Object_wx_CountingOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxCountingOutputStream();
+	//wxCountingOutputStream();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CountingOutputStream, __GetLength, "GetLength")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -68,7 +69,9 @@ Gura_ImplementMethod(wx_CountingOutputStream, __GetLength)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CountingOutputStream)
 {
-	Gura_AssignMethod(wx_CountingOutputStream, __wxCountingOutputStream);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCountingOutputStream);
+	// Method assignment
 	Gura_AssignMethod(wx_CountingOutputStream, __GetLength);
 }
 

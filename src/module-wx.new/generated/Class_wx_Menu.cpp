@@ -35,53 +35,50 @@ String Object_wx_Menu::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Menu, __wxMenu, "wxMenu")
+Gura_DeclareFunctionAlias(__wxMenu, "wxMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Menu, __wxMenu)
+Gura_ImplementFunction(__wxMenu)
 {
-	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMenu();
+	//wxMenu();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Menu, __wxMenu_1, "wxMenu_1")
+Gura_DeclareFunctionAlias(__wxMenu_1, "wxMenu_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Menu, __wxMenu_1)
+Gura_ImplementFunction(__wxMenu_1)
 {
-	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMenu();
+	//wxMenu();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Menu, __wxMenu_2, "wxMenu_2")
+Gura_DeclareFunctionAlias(__wxMenu_2, "wxMenu_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Menu, __wxMenu_2)
+Gura_ImplementFunction(__wxMenu_2)
 {
-	Object_wx_Menu *pThis = Object_wx_Menu::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
-	//pThis->GetEntity()->wxMenu();
+	//wxMenu();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Menu, __Append, "Append")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -957,9 +954,11 @@ Gura_ImplementMethod(wx_Menu, __IsAttached)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Menu)
 {
-	Gura_AssignMethod(wx_Menu, __wxMenu);
-	Gura_AssignMethod(wx_Menu, __wxMenu_1);
-	Gura_AssignMethod(wx_Menu, __wxMenu_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMenu);
+	Gura_AssignFunction(__wxMenu_1);
+	Gura_AssignFunction(__wxMenu_2);
+	// Method assignment
 	Gura_AssignMethod(wx_Menu, __Append);
 	Gura_AssignMethod(wx_Menu, __Append_1);
 	Gura_AssignMethod(wx_Menu, __Append_2);

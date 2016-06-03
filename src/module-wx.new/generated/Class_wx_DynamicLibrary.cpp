@@ -35,38 +35,37 @@ String Object_wx_DynamicLibrary::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DynamicLibrary, __wxDynamicLibrary, "wxDynamicLibrary")
+Gura_DeclareFunctionAlias(__wxDynamicLibrary, "wxDynamicLibrary")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, __wxDynamicLibrary)
+Gura_ImplementFunction(__wxDynamicLibrary)
 {
-	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDynamicLibrary();
+	//wxDynamicLibrary();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DynamicLibrary, __wxDynamicLibrary_1, "wxDynamicLibrary_1")
+Gura_DeclareFunctionAlias(__wxDynamicLibrary_1, "wxDynamicLibrary_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, __wxDynamicLibrary_1)
+Gura_ImplementFunction(__wxDynamicLibrary_1)
 {
-	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDynamicLibrary();
+	//wxDynamicLibrary();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __CanonicalizeName, "CanonicalizeName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -267,8 +266,10 @@ Gura_ImplementMethod(wx_DynamicLibrary, __Unload_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DynamicLibrary)
 {
-	Gura_AssignMethod(wx_DynamicLibrary, __wxDynamicLibrary);
-	Gura_AssignMethod(wx_DynamicLibrary, __wxDynamicLibrary_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDynamicLibrary);
+	Gura_AssignFunction(__wxDynamicLibrary_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DynamicLibrary, __CanonicalizeName);
 	Gura_AssignMethod(wx_DynamicLibrary, __CanonicalizePluginName);
 	Gura_AssignMethod(wx_DynamicLibrary, __Detach);

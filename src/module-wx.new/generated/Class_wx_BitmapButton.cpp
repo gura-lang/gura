@@ -35,22 +35,20 @@ String Object_wx_BitmapButton::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_BitmapButton, __wxBitmapButton, "wxBitmapButton")
+Gura_DeclareFunctionAlias(__wxBitmapButton, "wxBitmapButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapButton, __wxBitmapButton)
+Gura_ImplementFunction(__wxBitmapButton)
 {
-	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxBitmapButton();
+	//wxBitmapButton();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_BitmapButton, __wxBitmapButton_1, "wxBitmapButton_1")
+Gura_DeclareFunctionAlias(__wxBitmapButton_1, "wxBitmapButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,10 +61,8 @@ Gura_DeclareMethodAlias(wx_BitmapButton, __wxBitmapButton_1, "wxBitmapButton_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapButton, __wxBitmapButton_1)
+Gura_ImplementFunction(__wxBitmapButton_1)
 {
-	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int bitmap = arg.GetNumber(2)
@@ -75,10 +71,13 @@ Gura_ImplementMethod(wx_BitmapButton, __wxBitmapButton_1)
 	//int style = arg.GetNumber(5)
 	//int validator = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxBitmapButton();
+	//wxBitmapButton();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BitmapButton, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -130,8 +129,10 @@ Gura_ImplementMethod(wx_BitmapButton, __NewCloseButton)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapButton)
 {
-	Gura_AssignMethod(wx_BitmapButton, __wxBitmapButton);
-	Gura_AssignMethod(wx_BitmapButton, __wxBitmapButton_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxBitmapButton);
+	Gura_AssignFunction(__wxBitmapButton_1);
+	// Method assignment
 	Gura_AssignMethod(wx_BitmapButton, __Create);
 	Gura_AssignMethod(wx_BitmapButton, __NewCloseButton);
 }

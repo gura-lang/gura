@@ -35,36 +35,35 @@ String Object_wx_Object::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Object, __wxObject, "wxObject")
+Gura_DeclareFunctionAlias(__wxObject, "wxObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Object, __wxObject)
+Gura_ImplementFunction(__wxObject)
 {
-	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxObject();
+	//wxObject();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Object, __wxObject_1, "wxObject_1")
+Gura_DeclareFunctionAlias(__wxObject_1, "wxObject_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Object, __wxObject_1)
+Gura_ImplementFunction(__wxObject_1)
 {
-	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int other = arg.GetNumber(0)
-	//pThis->GetEntity()->wxObject();
+	//wxObject();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Object, __GetClassInfo, "GetClassInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -257,8 +256,10 @@ Gura_ImplementMethod(wx_Object, __CloneRefData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Object)
 {
-	Gura_AssignMethod(wx_Object, __wxObject);
-	Gura_AssignMethod(wx_Object, __wxObject_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxObject);
+	Gura_AssignFunction(__wxObject_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Object, __GetClassInfo);
 	Gura_AssignMethod(wx_Object, __GetRefData);
 	Gura_AssignMethod(wx_Object, __IsKindOf);

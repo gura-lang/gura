@@ -35,23 +35,24 @@ String Object_wx_QueryNewPaletteEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_QueryNewPaletteEvent, __wxQueryNewPaletteEvent, "wxQueryNewPaletteEvent")
+Gura_DeclareFunctionAlias(__wxQueryNewPaletteEvent, "wxQueryNewPaletteEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_QueryNewPaletteEvent, __wxQueryNewPaletteEvent)
+Gura_ImplementFunction(__wxQueryNewPaletteEvent)
 {
-	Object_wx_QueryNewPaletteEvent *pThis = Object_wx_QueryNewPaletteEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int winid = arg.GetNumber(0)
-	//pThis->GetEntity()->wxQueryNewPaletteEvent();
+	//wxQueryNewPaletteEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_QueryNewPaletteEvent, __SetPaletteRealized, "SetPaletteRealized")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -85,7 +86,9 @@ Gura_ImplementMethod(wx_QueryNewPaletteEvent, __GetPaletteRealized)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_QueryNewPaletteEvent)
 {
-	Gura_AssignMethod(wx_QueryNewPaletteEvent, __wxQueryNewPaletteEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxQueryNewPaletteEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_QueryNewPaletteEvent, __SetPaletteRealized);
 	Gura_AssignMethod(wx_QueryNewPaletteEvent, __GetPaletteRealized);
 }

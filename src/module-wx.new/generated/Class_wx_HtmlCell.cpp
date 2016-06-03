@@ -35,21 +35,22 @@ String Object_wx_HtmlCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlCell, __wxHtmlCell, "wxHtmlCell")
+Gura_DeclareFunctionAlias(__wxHtmlCell, "wxHtmlCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, __wxHtmlCell)
+Gura_ImplementFunction(__wxHtmlCell)
 {
-	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlCell();
+	//wxHtmlCell();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlCell, __AdjustPagebreak, "AdjustPagebreak")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -414,7 +415,9 @@ Gura_ImplementMethod(wx_HtmlCell, __SetPos)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlCell)
 {
-	Gura_AssignMethod(wx_HtmlCell, __wxHtmlCell);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlCell);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlCell, __AdjustPagebreak);
 	Gura_AssignMethod(wx_HtmlCell, __Draw);
 	Gura_AssignMethod(wx_HtmlCell, __DrawInvisible);

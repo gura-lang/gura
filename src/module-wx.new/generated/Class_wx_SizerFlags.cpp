@@ -35,23 +35,24 @@ String Object_wx_SizerFlags::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SizerFlags, __wxSizerFlags, "wxSizerFlags")
+Gura_DeclareFunctionAlias(__wxSizerFlags, "wxSizerFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, __wxSizerFlags)
+Gura_ImplementFunction(__wxSizerFlags)
 {
-	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int proportion = arg.GetNumber(0)
-	//pThis->GetEntity()->wxSizerFlags();
+	//wxSizerFlags();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SizerFlags, __Align, "Align")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -357,7 +358,9 @@ Gura_ImplementMethod(wx_SizerFlags, __TripleBorder)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SizerFlags)
 {
-	Gura_AssignMethod(wx_SizerFlags, __wxSizerFlags);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSizerFlags);
+	// Method assignment
 	Gura_AssignMethod(wx_SizerFlags, __Align);
 	Gura_AssignMethod(wx_SizerFlags, __Border);
 	Gura_AssignMethod(wx_SizerFlags, __Border_1);

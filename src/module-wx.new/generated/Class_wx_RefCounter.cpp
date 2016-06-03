@@ -35,21 +35,22 @@ String Object_wx_RefCounter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RefCounter, __wxRefCounter, "wxRefCounter")
+Gura_DeclareFunctionAlias(__wxRefCounter, "wxRefCounter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RefCounter, __wxRefCounter)
+Gura_ImplementFunction(__wxRefCounter)
 {
-	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRefCounter();
+	//wxRefCounter();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RefCounter, __DecRef, "DecRef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -94,7 +95,9 @@ Gura_ImplementMethod(wx_RefCounter, __IncRef)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RefCounter)
 {
-	Gura_AssignMethod(wx_RefCounter, __wxRefCounter);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRefCounter);
+	// Method assignment
 	Gura_AssignMethod(wx_RefCounter, __DecRef);
 	Gura_AssignMethod(wx_RefCounter, __GetRefCount);
 	Gura_AssignMethod(wx_RefCounter, __IncRef);

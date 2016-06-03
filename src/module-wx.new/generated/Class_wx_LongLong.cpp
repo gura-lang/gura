@@ -35,53 +35,50 @@ String Object_wx_LongLong::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LongLong, __wxLongLong, "wxLongLong")
+Gura_DeclareFunctionAlias(__wxLongLong, "wxLongLong")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LongLong, __wxLongLong)
+Gura_ImplementFunction(__wxLongLong)
 {
-	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxLongLong();
+	//wxLongLong();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_LongLong, __wxLongLong_1, "wxLongLong_1")
+Gura_DeclareFunctionAlias(__wxLongLong_1, "wxLongLong_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ll", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LongLong, __wxLongLong_1)
+Gura_ImplementFunction(__wxLongLong_1)
 {
-	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ll = arg.GetNumber(0)
-	//pThis->GetEntity()->wxLongLong();
+	//wxLongLong();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_LongLong, __wxLongLong_2, "wxLongLong_2")
+Gura_DeclareFunctionAlias(__wxLongLong_2, "wxLongLong_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hi", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LongLong, __wxLongLong_2)
+Gura_ImplementFunction(__wxLongLong_2)
 {
-	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int hi = arg.GetNumber(0)
 	//int lo = arg.GetNumber(1)
-	//pThis->GetEntity()->wxLongLong();
+	//wxLongLong();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LongLong, __Abs, "Abs")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -206,9 +203,11 @@ Gura_ImplementMethod(wx_LongLong, __ToString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LongLong)
 {
-	Gura_AssignMethod(wx_LongLong, __wxLongLong);
-	Gura_AssignMethod(wx_LongLong, __wxLongLong_1);
-	Gura_AssignMethod(wx_LongLong, __wxLongLong_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLongLong);
+	Gura_AssignFunction(__wxLongLong_1);
+	Gura_AssignFunction(__wxLongLong_2);
+	// Method assignment
 	Gura_AssignMethod(wx_LongLong, __Abs);
 	Gura_AssignMethod(wx_LongLong, __Abs_1);
 	Gura_AssignMethod(wx_LongLong, __Assign);

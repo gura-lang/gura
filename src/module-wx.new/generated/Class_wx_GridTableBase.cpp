@@ -35,21 +35,22 @@ String Object_wx_GridTableBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridTableBase, __wxGridTableBase, "wxGridTableBase")
+Gura_DeclareFunctionAlias(__wxGridTableBase, "wxGridTableBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridTableBase, __wxGridTableBase)
+Gura_ImplementFunction(__wxGridTableBase)
 {
-	Object_wx_GridTableBase *pThis = Object_wx_GridTableBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGridTableBase();
+	//wxGridTableBase();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridTableBase, __GetNumberRows, "GetNumberRows")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -694,7 +695,9 @@ Gura_ImplementMethod(wx_GridTableBase, __CanHaveAttributes)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridTableBase)
 {
-	Gura_AssignMethod(wx_GridTableBase, __wxGridTableBase);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridTableBase);
+	// Method assignment
 	Gura_AssignMethod(wx_GridTableBase, __GetNumberRows);
 	Gura_AssignMethod(wx_GridTableBase, __GetNumberCols);
 	Gura_AssignMethod(wx_GridTableBase, __GetRowsCount);

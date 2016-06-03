@@ -35,21 +35,22 @@ String Object_wx_SystemThemedControl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SystemThemedControl, __wxSystemThemedControl, "wxSystemThemedControl")
+Gura_DeclareFunctionAlias(__wxSystemThemedControl, "wxSystemThemedControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SystemThemedControl, __wxSystemThemedControl)
+Gura_ImplementFunction(__wxSystemThemedControl)
 {
-	Object_wx_SystemThemedControl *pThis = Object_wx_SystemThemedControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSystemThemedControl();
+	//wxSystemThemedControl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SystemThemedControl, __EnableSystemTheme, "EnableSystemTheme")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -70,7 +71,9 @@ Gura_ImplementMethod(wx_SystemThemedControl, __EnableSystemTheme)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SystemThemedControl)
 {
-	Gura_AssignMethod(wx_SystemThemedControl, __wxSystemThemedControl);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSystemThemedControl);
+	// Method assignment
 	Gura_AssignMethod(wx_SystemThemedControl, __EnableSystemTheme);
 }
 

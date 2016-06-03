@@ -35,51 +35,48 @@ String Object_wx_XLocale::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_XLocale, __wxXLocale, "wxXLocale")
+Gura_DeclareFunctionAlias(__wxXLocale, "wxXLocale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XLocale, __wxXLocale)
+Gura_ImplementFunction(__wxXLocale)
 {
-	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxXLocale();
+	//wxXLocale();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_XLocale, __wxXLocale_1, "wxXLocale_1")
+Gura_DeclareFunctionAlias(__wxXLocale_1, "wxXLocale_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XLocale, __wxXLocale_1)
+Gura_ImplementFunction(__wxXLocale_1)
 {
-	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
-	//pThis->GetEntity()->wxXLocale();
+	//wxXLocale();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_XLocale, __wxXLocale_2, "wxXLocale_2")
+Gura_DeclareFunctionAlias(__wxXLocale_2, "wxXLocale_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XLocale, __wxXLocale_2)
+Gura_ImplementFunction(__wxXLocale_2)
 {
-	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int loc = arg.GetNumber(0)
-	//pThis->GetEntity()->wxXLocale();
+	//wxXLocale();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_XLocale, __GetCLocale, "GetCLocale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -111,9 +108,11 @@ Gura_ImplementMethod(wx_XLocale, __IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XLocale)
 {
-	Gura_AssignMethod(wx_XLocale, __wxXLocale);
-	Gura_AssignMethod(wx_XLocale, __wxXLocale_1);
-	Gura_AssignMethod(wx_XLocale, __wxXLocale_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxXLocale);
+	Gura_AssignFunction(__wxXLocale_1);
+	Gura_AssignFunction(__wxXLocale_2);
+	// Method assignment
 	Gura_AssignMethod(wx_XLocale, __GetCLocale);
 	Gura_AssignMethod(wx_XLocale, __IsOk);
 }

@@ -35,23 +35,24 @@ String Object_wx_ExtHelpController::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ExtHelpController, __wxExtHelpController, "wxExtHelpController")
+Gura_DeclareFunctionAlias(__wxExtHelpController, "wxExtHelpController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, __wxExtHelpController)
+Gura_ImplementFunction(__wxExtHelpController)
 {
-	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parentWindow = arg.GetNumber(0)
-	//pThis->GetEntity()->wxExtHelpController();
+	//wxExtHelpController();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ExtHelpController, __SetViewer, "SetViewer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -260,7 +261,9 @@ Gura_ImplementMethod(wx_ExtHelpController, __GetFrameParameters)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ExtHelpController)
 {
-	Gura_AssignMethod(wx_ExtHelpController, __wxExtHelpController);
+	// Constructor assignment
+	Gura_AssignFunction(__wxExtHelpController);
+	// Method assignment
 	Gura_AssignMethod(wx_ExtHelpController, __SetViewer);
 	Gura_AssignMethod(wx_ExtHelpController, __Initialize);
 	Gura_AssignMethod(wx_ExtHelpController, __LoadFile);

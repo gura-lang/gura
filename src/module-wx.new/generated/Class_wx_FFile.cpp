@@ -35,53 +35,50 @@ String Object_wx_FFile::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FFile, __wxFFile, "wxFFile")
+Gura_DeclareFunctionAlias(__wxFFile, "wxFFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FFile, __wxFFile)
+Gura_ImplementFunction(__wxFFile)
 {
-	Object_wx_FFile *pThis = Object_wx_FFile::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFFile();
+	//wxFFile();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FFile, __wxFFile_1, "wxFFile_1")
+Gura_DeclareFunctionAlias(__wxFFile_1, "wxFFile_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FFile, __wxFFile_1)
+Gura_ImplementFunction(__wxFFile_1)
 {
-	Object_wx_FFile *pThis = Object_wx_FFile::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fp = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFFile();
+	//wxFFile();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FFile, __wxFFile_2, "wxFFile_2")
+Gura_DeclareFunctionAlias(__wxFFile_2, "wxFFile_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FFile, __wxFFile_2)
+Gura_ImplementFunction(__wxFFile_2)
 {
-	Object_wx_FFile *pThis = Object_wx_FFile::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
-	//pThis->GetEntity()->wxFFile();
+	//wxFFile();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FFile, __Attach, "Attach")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -364,9 +361,11 @@ Gura_ImplementMethod(wx_FFile, __fp)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FFile)
 {
-	Gura_AssignMethod(wx_FFile, __wxFFile);
-	Gura_AssignMethod(wx_FFile, __wxFFile_1);
-	Gura_AssignMethod(wx_FFile, __wxFFile_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFFile);
+	Gura_AssignFunction(__wxFFile_1);
+	Gura_AssignFunction(__wxFFile_2);
+	// Method assignment
 	Gura_AssignMethod(wx_FFile, __Attach);
 	Gura_AssignMethod(wx_FFile, __Close);
 	Gura_AssignMethod(wx_FFile, __Detach);

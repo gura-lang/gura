@@ -35,9 +35,9 @@ String Object_wx_DataViewChoiceRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewChoiceRenderer, __wxDataViewChoiceRenderer, "wxDataViewChoiceRenderer")
+Gura_DeclareFunctionAlias(__wxDataViewChoiceRenderer, "wxDataViewChoiceRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_DataViewChoiceRenderer, __wxDataViewChoiceRenderer, "
 	//DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewChoiceRenderer, __wxDataViewChoiceRenderer)
+Gura_ImplementFunction(__wxDataViewChoiceRenderer)
 {
-	Object_wx_DataViewChoiceRenderer *pThis = Object_wx_DataViewChoiceRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int choices = arg.GetNumber(0)
 	//int mode = arg.GetNumber(1)
 	//int alignment = arg.GetNumber(2)
-	//pThis->GetEntity()->wxDataViewChoiceRenderer();
+	//wxDataViewChoiceRenderer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewChoiceRenderer, __GetChoice, "GetChoice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -89,7 +90,9 @@ Gura_ImplementMethod(wx_DataViewChoiceRenderer, __GetChoices)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewChoiceRenderer)
 {
-	Gura_AssignMethod(wx_DataViewChoiceRenderer, __wxDataViewChoiceRenderer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewChoiceRenderer);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewChoiceRenderer, __GetChoice);
 	Gura_AssignMethod(wx_DataViewChoiceRenderer, __GetChoices);
 }

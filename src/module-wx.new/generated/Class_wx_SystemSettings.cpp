@@ -35,21 +35,22 @@ String Object_wx_SystemSettings::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SystemSettings, __wxSystemSettings, "wxSystemSettings")
+Gura_DeclareFunctionAlias(__wxSystemSettings, "wxSystemSettings")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SystemSettings, __wxSystemSettings)
+Gura_ImplementFunction(__wxSystemSettings)
 {
-	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSystemSettings();
+	//wxSystemSettings();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SystemSettings, __GetColour, "GetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -130,7 +131,9 @@ Gura_ImplementMethod(wx_SystemSettings, __HasFeature)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SystemSettings)
 {
-	Gura_AssignMethod(wx_SystemSettings, __wxSystemSettings);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSystemSettings);
+	// Method assignment
 	Gura_AssignMethod(wx_SystemSettings, __GetColour);
 	Gura_AssignMethod(wx_SystemSettings, __GetFont);
 	Gura_AssignMethod(wx_SystemSettings, __GetMetric);

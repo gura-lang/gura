@@ -35,21 +35,22 @@ String Object_wx_DDEServer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DDEServer, __wxDDEServer, "wxDDEServer")
+Gura_DeclareFunctionAlias(__wxDDEServer, "wxDDEServer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DDEServer, __wxDDEServer)
+Gura_ImplementFunction(__wxDDEServer)
 {
-	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDDEServer();
+	//wxDDEServer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DDEServer, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -85,7 +86,9 @@ Gura_ImplementMethod(wx_DDEServer, __OnAcceptConnection)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DDEServer)
 {
-	Gura_AssignMethod(wx_DDEServer, __wxDDEServer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDDEServer);
+	// Method assignment
 	Gura_AssignMethod(wx_DDEServer, __Create);
 	Gura_AssignMethod(wx_DDEServer, __OnAcceptConnection);
 }

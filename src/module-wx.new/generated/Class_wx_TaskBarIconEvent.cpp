@@ -35,22 +35,20 @@ String Object_wx_TaskBarIconEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TaskBarIconEvent, __wxTaskBarIconEvent, "wxTaskBarIconEvent")
+Gura_DeclareFunctionAlias(__wxTaskBarIconEvent, "wxTaskBarIconEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "evtType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tbIcon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarIconEvent, __wxTaskBarIconEvent)
+Gura_ImplementFunction(__wxTaskBarIconEvent)
 {
-	Object_wx_TaskBarIconEvent *pThis = Object_wx_TaskBarIconEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int evtType = arg.GetNumber(0)
 	//int tbIcon = arg.GetNumber(1)
-	//pThis->GetEntity()->wxTaskBarIconEvent();
+	//wxTaskBarIconEvent();
 	return Value::Nil;
 }
 
@@ -59,7 +57,8 @@ Gura_ImplementMethod(wx_TaskBarIconEvent, __wxTaskBarIconEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarIconEvent)
 {
-	Gura_AssignMethod(wx_TaskBarIconEvent, __wxTaskBarIconEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTaskBarIconEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_TaskBarIconEvent)

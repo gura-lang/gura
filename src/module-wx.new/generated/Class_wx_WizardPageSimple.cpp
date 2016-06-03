@@ -35,22 +35,20 @@ String Object_wx_WizardPageSimple::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_WizardPageSimple, __wxWizardPageSimple, "wxWizardPageSimple")
+Gura_DeclareFunctionAlias(__wxWizardPageSimple, "wxWizardPageSimple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WizardPageSimple, __wxWizardPageSimple)
+Gura_ImplementFunction(__wxWizardPageSimple)
 {
-	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxWizardPageSimple();
+	//wxWizardPageSimple();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_WizardPageSimple, __wxWizardPageSimple_1, "wxWizardPageSimple_1")
+Gura_DeclareFunctionAlias(__wxWizardPageSimple_1, "wxWizardPageSimple_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -59,18 +57,19 @@ Gura_DeclareMethodAlias(wx_WizardPageSimple, __wxWizardPageSimple_1, "wxWizardPa
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WizardPageSimple, __wxWizardPageSimple_1)
+Gura_ImplementFunction(__wxWizardPageSimple_1)
 {
-	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int prev = arg.GetNumber(1)
 	//int next = arg.GetNumber(2)
 	//int bitmap = arg.GetNumber(3)
-	//pThis->GetEntity()->wxWizardPageSimple();
+	//wxWizardPageSimple();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WizardPageSimple, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -159,8 +158,10 @@ Gura_ImplementMethod(wx_WizardPageSimple, __SetPrev)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WizardPageSimple)
 {
-	Gura_AssignMethod(wx_WizardPageSimple, __wxWizardPageSimple);
-	Gura_AssignMethod(wx_WizardPageSimple, __wxWizardPageSimple_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxWizardPageSimple);
+	Gura_AssignFunction(__wxWizardPageSimple_1);
+	// Method assignment
 	Gura_AssignMethod(wx_WizardPageSimple, __Create);
 	Gura_AssignMethod(wx_WizardPageSimple, __Chain);
 	Gura_AssignMethod(wx_WizardPageSimple, __Chain_1);

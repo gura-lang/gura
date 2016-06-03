@@ -35,21 +35,22 @@ String Object_wx_AffineMatrix2D::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AffineMatrix2D, __wxAffineMatrix2D, "wxAffineMatrix2D")
+Gura_DeclareFunctionAlias(__wxAffineMatrix2D, "wxAffineMatrix2D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, __wxAffineMatrix2D)
+Gura_ImplementFunction(__wxAffineMatrix2D)
 {
-	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAffineMatrix2D();
+	//wxAffineMatrix2D();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AffineMatrix2D, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -273,7 +274,9 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __TransformDistance_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AffineMatrix2D)
 {
-	Gura_AssignMethod(wx_AffineMatrix2D, __wxAffineMatrix2D);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAffineMatrix2D);
+	// Method assignment
 	Gura_AssignMethod(wx_AffineMatrix2D, __Get);
 	Gura_AssignMethod(wx_AffineMatrix2D, __Set);
 	Gura_AssignMethod(wx_AffineMatrix2D, __Concat);

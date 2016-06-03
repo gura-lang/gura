@@ -35,9 +35,9 @@ String Object_wx_TreeEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TreeEvent, __wxTreeEvent, "wxTreeEvent")
+Gura_DeclareFunctionAlias(__wxTreeEvent, "wxTreeEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_TreeEvent, __wxTreeEvent, "wxTreeEvent")
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeEvent, __wxTreeEvent)
+Gura_ImplementFunction(__wxTreeEvent)
 {
-	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int tree = arg.GetNumber(1)
 	//int item = arg.GetNumber(2)
-	//pThis->GetEntity()->wxTreeEvent();
+	//wxTreeEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TreeEvent, __GetItem, "GetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -167,7 +168,9 @@ Gura_ImplementMethod(wx_TreeEvent, __SetToolTip)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeEvent)
 {
-	Gura_AssignMethod(wx_TreeEvent, __wxTreeEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTreeEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_TreeEvent, __GetItem);
 	Gura_AssignMethod(wx_TreeEvent, __GetKeyCode);
 	Gura_AssignMethod(wx_TreeEvent, __GetKeyEvent);

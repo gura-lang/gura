@@ -35,23 +35,24 @@ String Object_wx_DataObjectSimple::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataObjectSimple, __wxDataObjectSimple, "wxDataObjectSimple")
+Gura_DeclareFunctionAlias(__wxDataObjectSimple, "wxDataObjectSimple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataObjectSimple, __wxDataObjectSimple)
+Gura_ImplementFunction(__wxDataObjectSimple)
 {
-	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDataObjectSimple();
+	//wxDataObjectSimple();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataObjectSimple, __GetDataHere, "GetDataHere")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -130,7 +131,9 @@ Gura_ImplementMethod(wx_DataObjectSimple, __SetFormat)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataObjectSimple)
 {
-	Gura_AssignMethod(wx_DataObjectSimple, __wxDataObjectSimple);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataObjectSimple);
+	// Method assignment
 	Gura_AssignMethod(wx_DataObjectSimple, __GetDataHere);
 	Gura_AssignMethod(wx_DataObjectSimple, __GetDataSize);
 	Gura_AssignMethod(wx_DataObjectSimple, __GetFormat);

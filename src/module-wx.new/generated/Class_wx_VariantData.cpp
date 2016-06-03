@@ -35,21 +35,22 @@ String Object_wx_VariantData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_VariantData, __wxVariantData, "wxVariantData")
+Gura_DeclareFunctionAlias(__wxVariantData, "wxVariantData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VariantData, __wxVariantData)
+Gura_ImplementFunction(__wxVariantData)
 {
-	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxVariantData();
+	//wxVariantData();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VariantData, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -210,7 +211,9 @@ Gura_ImplementMethod(wx_VariantData, __Write_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VariantData)
 {
-	Gura_AssignMethod(wx_VariantData, __wxVariantData);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVariantData);
+	// Method assignment
 	Gura_AssignMethod(wx_VariantData, __Clone);
 	Gura_AssignMethod(wx_VariantData, __DecRef);
 	Gura_AssignMethod(wx_VariantData, __Eq);

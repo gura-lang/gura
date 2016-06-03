@@ -35,38 +35,37 @@ String Object_wx_TCPConnection::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TCPConnection, __wxTCPConnection, "wxTCPConnection")
+Gura_DeclareFunctionAlias(__wxTCPConnection, "wxTCPConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, __wxTCPConnection)
+Gura_ImplementFunction(__wxTCPConnection)
 {
-	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTCPConnection();
+	//wxTCPConnection();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TCPConnection, __wxTCPConnection_1, "wxTCPConnection_1")
+Gura_DeclareFunctionAlias(__wxTCPConnection_1, "wxTCPConnection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, __wxTCPConnection_1)
+Gura_ImplementFunction(__wxTCPConnection_1)
 {
-	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
-	//pThis->GetEntity()->wxTCPConnection();
+	//wxTCPConnection();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TCPConnection, __Advise, "Advise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -477,8 +476,10 @@ Gura_ImplementMethod(wx_TCPConnection, __StopAdvise)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TCPConnection)
 {
-	Gura_AssignMethod(wx_TCPConnection, __wxTCPConnection);
-	Gura_AssignMethod(wx_TCPConnection, __wxTCPConnection_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTCPConnection);
+	Gura_AssignFunction(__wxTCPConnection_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TCPConnection, __Advise);
 	Gura_AssignMethod(wx_TCPConnection, __Advise_1);
 	Gura_AssignMethod(wx_TCPConnection, __Advise_2);

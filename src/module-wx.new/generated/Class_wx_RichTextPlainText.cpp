@@ -35,9 +35,9 @@ String Object_wx_RichTextPlainText::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextPlainText, __wxRichTextPlainText, "wxRichTextPlainText")
+Gura_DeclareFunctionAlias(__wxRichTextPlainText, "wxRichTextPlainText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -45,30 +45,29 @@ Gura_DeclareMethodAlias(wx_RichTextPlainText, __wxRichTextPlainText, "wxRichText
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPlainText, __wxRichTextPlainText)
+Gura_ImplementFunction(__wxRichTextPlainText)
 {
-	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
-	//pThis->GetEntity()->wxRichTextPlainText();
+	//wxRichTextPlainText();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextPlainText, __wxRichTextPlainText_1, "wxRichTextPlainText_1")
+Gura_DeclareFunctionAlias(__wxRichTextPlainText_1, "wxRichTextPlainText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextPlainText, __wxRichTextPlainText_1)
+Gura_ImplementFunction(__wxRichTextPlainText_1)
 {
-	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextPlainText();
+	//wxRichTextPlainText();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextPlainText, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -490,8 +489,10 @@ Gura_ImplementMethod(wx_RichTextPlainText, __DrawTabbedString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextPlainText)
 {
-	Gura_AssignMethod(wx_RichTextPlainText, __wxRichTextPlainText);
-	Gura_AssignMethod(wx_RichTextPlainText, __wxRichTextPlainText_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextPlainText);
+	Gura_AssignFunction(__wxRichTextPlainText_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextPlainText, __Draw);
 	Gura_AssignMethod(wx_RichTextPlainText, __Layout);
 	Gura_AssignMethod(wx_RichTextPlainText, __GetRangeSize);

@@ -35,55 +35,52 @@ String Object_wx_Sound::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Sound, __wxSound, "wxSound")
+Gura_DeclareFunctionAlias(__wxSound, "wxSound")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Sound, __wxSound)
+Gura_ImplementFunction(__wxSound)
 {
-	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSound();
+	//wxSound();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Sound, __wxSound_1, "wxSound_1")
+Gura_DeclareFunctionAlias(__wxSound_1, "wxSound_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "isResource", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Sound, __wxSound_1)
+Gura_ImplementFunction(__wxSound_1)
 {
-	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fileName = arg.GetNumber(0)
 	//int isResource = arg.GetNumber(1)
-	//pThis->GetEntity()->wxSound();
+	//wxSound();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Sound, __wxSound_2, "wxSound_2")
+Gura_DeclareFunctionAlias(__wxSound_2, "wxSound_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Sound, __wxSound_2)
+Gura_ImplementFunction(__wxSound_2)
 {
-	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
-	//pThis->GetEntity()->wxSound();
+	//wxSound();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Sound, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -194,9 +191,11 @@ Gura_ImplementMethod(wx_Sound, __Stop)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Sound)
 {
-	Gura_AssignMethod(wx_Sound, __wxSound);
-	Gura_AssignMethod(wx_Sound, __wxSound_1);
-	Gura_AssignMethod(wx_Sound, __wxSound_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSound);
+	Gura_AssignFunction(__wxSound_1);
+	Gura_AssignFunction(__wxSound_2);
+	// Method assignment
 	Gura_AssignMethod(wx_Sound, __Create);
 	Gura_AssignMethod(wx_Sound, __Create_1);
 	Gura_AssignMethod(wx_Sound, __IsOk);

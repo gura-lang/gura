@@ -35,22 +35,20 @@ String Object_wx_BufferedDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_BufferedDC, __wxBufferedDC, "wxBufferedDC")
+Gura_DeclareFunctionAlias(__wxBufferedDC, "wxBufferedDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, __wxBufferedDC)
+Gura_ImplementFunction(__wxBufferedDC)
 {
-	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxBufferedDC();
+	//wxBufferedDC();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_BufferedDC, __wxBufferedDC_1, "wxBufferedDC_1")
+Gura_DeclareFunctionAlias(__wxBufferedDC_1, "wxBufferedDC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -58,18 +56,16 @@ Gura_DeclareMethodAlias(wx_BufferedDC, __wxBufferedDC_1, "wxBufferedDC_1")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, __wxBufferedDC_1)
+Gura_ImplementFunction(__wxBufferedDC_1)
 {
-	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int area = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
-	//pThis->GetEntity()->wxBufferedDC();
+	//wxBufferedDC();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_BufferedDC, __wxBufferedDC_2, "wxBufferedDC_2")
+Gura_DeclareFunctionAlias(__wxBufferedDC_2, "wxBufferedDC_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -77,17 +73,18 @@ Gura_DeclareMethodAlias(wx_BufferedDC, __wxBufferedDC_2, "wxBufferedDC_2")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, __wxBufferedDC_2)
+Gura_ImplementFunction(__wxBufferedDC_2)
 {
-	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
-	//pThis->GetEntity()->wxBufferedDC();
+	//wxBufferedDC();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BufferedDC, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -172,9 +169,11 @@ Gura_ImplementMethod(wx_BufferedDC, __GetStyle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BufferedDC)
 {
-	Gura_AssignMethod(wx_BufferedDC, __wxBufferedDC);
-	Gura_AssignMethod(wx_BufferedDC, __wxBufferedDC_1);
-	Gura_AssignMethod(wx_BufferedDC, __wxBufferedDC_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxBufferedDC);
+	Gura_AssignFunction(__wxBufferedDC_1);
+	Gura_AssignFunction(__wxBufferedDC_2);
+	// Method assignment
 	Gura_AssignMethod(wx_BufferedDC, __Init);
 	Gura_AssignMethod(wx_BufferedDC, __Init_1);
 	Gura_AssignMethod(wx_BufferedDC, __UnMask);

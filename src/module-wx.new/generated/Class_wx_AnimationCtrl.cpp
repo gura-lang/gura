@@ -35,9 +35,9 @@ String Object_wx_AnimationCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AnimationCtrl, __wxAnimationCtrl, "wxAnimationCtrl")
+Gura_DeclareFunctionAlias(__wxAnimationCtrl, "wxAnimationCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,10 +49,8 @@ Gura_DeclareMethodAlias(wx_AnimationCtrl, __wxAnimationCtrl, "wxAnimationCtrl")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, __wxAnimationCtrl)
+Gura_ImplementFunction(__wxAnimationCtrl)
 {
-	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int anim = arg.GetNumber(2)
@@ -60,10 +58,13 @@ Gura_ImplementMethod(wx_AnimationCtrl, __wxAnimationCtrl)
 	//int size = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxAnimationCtrl();
+	//wxAnimationCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AnimationCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -225,7 +226,9 @@ Gura_ImplementMethod(wx_AnimationCtrl, __Stop)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AnimationCtrl)
 {
-	Gura_AssignMethod(wx_AnimationCtrl, __wxAnimationCtrl);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAnimationCtrl);
+	// Method assignment
 	Gura_AssignMethod(wx_AnimationCtrl, __Create);
 	Gura_AssignMethod(wx_AnimationCtrl, __GetAnimation);
 	Gura_AssignMethod(wx_AnimationCtrl, __GetInactiveBitmap);

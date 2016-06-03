@@ -35,21 +35,22 @@ String Object_wx_HtmlDCRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __wxHtmlDCRenderer, "wxHtmlDCRenderer")
+Gura_DeclareFunctionAlias(__wxHtmlDCRenderer, "wxHtmlDCRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlDCRenderer, __wxHtmlDCRenderer)
+Gura_ImplementFunction(__wxHtmlDCRenderer)
 {
-	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlDCRenderer();
+	//wxHtmlDCRenderer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __GetTotalWidth, "GetTotalWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -197,7 +198,9 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlDCRenderer)
 {
-	Gura_AssignMethod(wx_HtmlDCRenderer, __wxHtmlDCRenderer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlDCRenderer);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlDCRenderer, __GetTotalWidth);
 	Gura_AssignMethod(wx_HtmlDCRenderer, __GetTotalHeight);
 	Gura_AssignMethod(wx_HtmlDCRenderer, __Render);

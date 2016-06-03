@@ -35,36 +35,35 @@ String Object_wx_RegionIterator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RegionIterator, __wxRegionIterator, "wxRegionIterator")
+Gura_DeclareFunctionAlias(__wxRegionIterator, "wxRegionIterator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RegionIterator, __wxRegionIterator)
+Gura_ImplementFunction(__wxRegionIterator)
 {
-	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRegionIterator();
+	//wxRegionIterator();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RegionIterator, __wxRegionIterator_1, "wxRegionIterator_1")
+Gura_DeclareFunctionAlias(__wxRegionIterator_1, "wxRegionIterator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegionIterator, __wxRegionIterator_1)
+Gura_ImplementFunction(__wxRegionIterator_1)
 {
-	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int region = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRegionIterator();
+	//wxRegionIterator();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RegionIterator, __GetH, "GetH")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -215,8 +214,10 @@ Gura_ImplementMethod(wx_RegionIterator, __bool)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegionIterator)
 {
-	Gura_AssignMethod(wx_RegionIterator, __wxRegionIterator);
-	Gura_AssignMethod(wx_RegionIterator, __wxRegionIterator_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRegionIterator);
+	Gura_AssignFunction(__wxRegionIterator_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RegionIterator, __GetH);
 	Gura_AssignMethod(wx_RegionIterator, __GetHeight);
 	Gura_AssignMethod(wx_RegionIterator, __GetRect);

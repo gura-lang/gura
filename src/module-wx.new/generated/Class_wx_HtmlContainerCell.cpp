@@ -35,23 +35,24 @@ String Object_wx_HtmlContainerCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlContainerCell, __wxHtmlContainerCell, "wxHtmlContainerCell")
+Gura_DeclareFunctionAlias(__wxHtmlContainerCell, "wxHtmlContainerCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, __wxHtmlContainerCell)
+Gura_ImplementFunction(__wxHtmlContainerCell)
 {
-	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
-	//pThis->GetEntity()->wxHtmlContainerCell();
+	//wxHtmlContainerCell();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetAlignHor, "GetAlignHor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -290,7 +291,9 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetWidthFloat_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlContainerCell)
 {
-	Gura_AssignMethod(wx_HtmlContainerCell, __wxHtmlContainerCell);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlContainerCell);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlContainerCell, __GetAlignHor);
 	Gura_AssignMethod(wx_HtmlContainerCell, __GetAlignVer);
 	Gura_AssignMethod(wx_HtmlContainerCell, __GetBackgroundColour);

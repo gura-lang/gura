@@ -35,41 +35,37 @@ String Object_wx_RegKey::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RegKey, __wxRegKey, "wxRegKey")
+Gura_DeclareFunctionAlias(__wxRegKey, "wxRegKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "viewMode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegKey, __wxRegKey)
+Gura_ImplementFunction(__wxRegKey)
 {
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int viewMode = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRegKey();
+	//wxRegKey();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RegKey, __wxRegKey_1, "wxRegKey_1")
+Gura_DeclareFunctionAlias(__wxRegKey_1, "wxRegKey_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "strKey", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "viewMode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegKey, __wxRegKey_1)
+Gura_ImplementFunction(__wxRegKey_1)
 {
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int strKey = arg.GetNumber(0)
 	//int viewMode = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRegKey();
+	//wxRegKey();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RegKey, __wxRegKey_2, "wxRegKey_2")
+Gura_DeclareFunctionAlias(__wxRegKey_2, "wxRegKey_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyParent", VTYPE_number, OCCUR_Once);
@@ -77,31 +73,27 @@ Gura_DeclareMethodAlias(wx_RegKey, __wxRegKey_2, "wxRegKey_2")
 	//DeclareArg(env, "viewMode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegKey, __wxRegKey_2)
+Gura_ImplementFunction(__wxRegKey_2)
 {
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keyParent = arg.GetNumber(0)
 	//int strKey = arg.GetNumber(1)
 	//int viewMode = arg.GetNumber(2)
-	//pThis->GetEntity()->wxRegKey();
+	//wxRegKey();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RegKey, __wxRegKey_3, "wxRegKey_3")
+Gura_DeclareFunctionAlias(__wxRegKey_3, "wxRegKey_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyParent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strKey", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegKey, __wxRegKey_3)
+Gura_ImplementFunction(__wxRegKey_3)
 {
-	Object_wx_RegKey *pThis = Object_wx_RegKey::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keyParent = arg.GetNumber(0)
 	//int strKey = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRegKey();
+	//wxRegKey();
 	return Value::Nil;
 }
 
@@ -110,10 +102,11 @@ Gura_ImplementMethod(wx_RegKey, __wxRegKey_3)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegKey)
 {
-	Gura_AssignMethod(wx_RegKey, __wxRegKey);
-	Gura_AssignMethod(wx_RegKey, __wxRegKey_1);
-	Gura_AssignMethod(wx_RegKey, __wxRegKey_2);
-	Gura_AssignMethod(wx_RegKey, __wxRegKey_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRegKey);
+	Gura_AssignFunction(__wxRegKey_1);
+	Gura_AssignFunction(__wxRegKey_2);
+	Gura_AssignFunction(__wxRegKey_3);
 }
 
 Gura_ImplementDescendantCreator(wx_RegKey)

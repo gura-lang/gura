@@ -35,20 +35,18 @@ String Object_wx_SocketInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SocketInputStream, __wxSocketInputStream, "wxSocketInputStream")
+Gura_DeclareFunctionAlias(__wxSocketInputStream, "wxSocketInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketInputStream, __wxSocketInputStream)
+Gura_ImplementFunction(__wxSocketInputStream)
 {
-	Object_wx_SocketInputStream *pThis = Object_wx_SocketInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int s = arg.GetNumber(0)
-	//pThis->GetEntity()->wxSocketInputStream();
+	//wxSocketInputStream();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_SocketInputStream, __wxSocketInputStream)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketInputStream)
 {
-	Gura_AssignMethod(wx_SocketInputStream, __wxSocketInputStream);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSocketInputStream);
 }
 
 Gura_ImplementDescendantCreator(wx_SocketInputStream)

@@ -35,23 +35,24 @@ String Object_wx_CustomDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CustomDataObject, __wxCustomDataObject, "wxCustomDataObject")
+Gura_DeclareFunctionAlias(__wxCustomDataObject, "wxCustomDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CustomDataObject, __wxCustomDataObject)
+Gura_ImplementFunction(__wxCustomDataObject)
 {
-	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
-	//pThis->GetEntity()->wxCustomDataObject();
+	//wxCustomDataObject();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CustomDataObject, __Alloc, "Alloc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -145,7 +146,9 @@ Gura_ImplementMethod(wx_CustomDataObject, __TakeData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CustomDataObject)
 {
-	Gura_AssignMethod(wx_CustomDataObject, __wxCustomDataObject);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCustomDataObject);
+	// Method assignment
 	Gura_AssignMethod(wx_CustomDataObject, __Alloc);
 	Gura_AssignMethod(wx_CustomDataObject, __Free);
 	Gura_AssignMethod(wx_CustomDataObject, __GetData);

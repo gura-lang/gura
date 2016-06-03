@@ -35,38 +35,37 @@ String Object_wx_HtmlLinkInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlLinkInfo, __wxHtmlLinkInfo, "wxHtmlLinkInfo")
+Gura_DeclareFunctionAlias(__wxHtmlLinkInfo, "wxHtmlLinkInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlLinkInfo, __wxHtmlLinkInfo)
+Gura_ImplementFunction(__wxHtmlLinkInfo)
 {
-	Object_wx_HtmlLinkInfo *pThis = Object_wx_HtmlLinkInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlLinkInfo();
+	//wxHtmlLinkInfo();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_HtmlLinkInfo, __wxHtmlLinkInfo_1, "wxHtmlLinkInfo_1")
+Gura_DeclareFunctionAlias(__wxHtmlLinkInfo_1, "wxHtmlLinkInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "href", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "target", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlLinkInfo, __wxHtmlLinkInfo_1)
+Gura_ImplementFunction(__wxHtmlLinkInfo_1)
 {
-	Object_wx_HtmlLinkInfo *pThis = Object_wx_HtmlLinkInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int href = arg.GetNumber(0)
 	//int target = arg.GetNumber(1)
-	//pThis->GetEntity()->wxHtmlLinkInfo();
+	//wxHtmlLinkInfo();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlLinkInfo, __GetEvent, "GetEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -124,8 +123,10 @@ Gura_ImplementMethod(wx_HtmlLinkInfo, __GetTarget)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlLinkInfo)
 {
-	Gura_AssignMethod(wx_HtmlLinkInfo, __wxHtmlLinkInfo);
-	Gura_AssignMethod(wx_HtmlLinkInfo, __wxHtmlLinkInfo_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlLinkInfo);
+	Gura_AssignFunction(__wxHtmlLinkInfo_1);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlLinkInfo, __GetEvent);
 	Gura_AssignMethod(wx_HtmlLinkInfo, __GetHref);
 	Gura_AssignMethod(wx_HtmlLinkInfo, __GetHtmlCell);

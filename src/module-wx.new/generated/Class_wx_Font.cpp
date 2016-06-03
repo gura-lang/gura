@@ -35,52 +35,46 @@ String Object_wx_Font::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Font, __wxFont, "wxFont")
+Gura_DeclareFunctionAlias(__wxFont, "wxFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Font, __wxFont)
+Gura_ImplementFunction(__wxFont)
 {
-	Object_wx_Font *pThis = Object_wx_Font::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFont();
+	//wxFont();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Font, __wxFont_1, "wxFont_1")
+Gura_DeclareFunctionAlias(__wxFont_1, "wxFont_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Font, __wxFont_1)
+Gura_ImplementFunction(__wxFont_1)
 {
-	Object_wx_Font *pThis = Object_wx_Font::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFont();
+	//wxFont();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Font, __wxFont_2, "wxFont_2")
+Gura_DeclareFunctionAlias(__wxFont_2, "wxFont_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Font, __wxFont_2)
+Gura_ImplementFunction(__wxFont_2)
 {
-	Object_wx_Font *pThis = Object_wx_Font::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFont();
+	//wxFont();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Font, __wxFont_3, "wxFont_3")
+Gura_DeclareFunctionAlias(__wxFont_3, "wxFont_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pointSize", VTYPE_number, OCCUR_Once);
@@ -92,10 +86,8 @@ Gura_DeclareMethodAlias(wx_Font, __wxFont_3, "wxFont_3")
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Font, __wxFont_3)
+Gura_ImplementFunction(__wxFont_3)
 {
-	Object_wx_Font *pThis = Object_wx_Font::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pointSize = arg.GetNumber(0)
 	//int family = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
@@ -103,11 +95,11 @@ Gura_ImplementMethod(wx_Font, __wxFont_3)
 	//int underline = arg.GetNumber(4)
 	//int faceName = arg.GetNumber(5)
 	//int encoding = arg.GetNumber(6)
-	//pThis->GetEntity()->wxFont();
+	//wxFont();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Font, __wxFont_4, "wxFont_4")
+Gura_DeclareFunctionAlias(__wxFont_4, "wxFont_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pixelSize", VTYPE_number, OCCUR_Once);
@@ -119,10 +111,8 @@ Gura_DeclareMethodAlias(wx_Font, __wxFont_4, "wxFont_4")
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Font, __wxFont_4)
+Gura_ImplementFunction(__wxFont_4)
 {
-	Object_wx_Font *pThis = Object_wx_Font::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixelSize = arg.GetNumber(0)
 	//int family = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
@@ -130,40 +120,39 @@ Gura_ImplementMethod(wx_Font, __wxFont_4)
 	//int underline = arg.GetNumber(4)
 	//int faceName = arg.GetNumber(5)
 	//int encoding = arg.GetNumber(6)
-	//pThis->GetEntity()->wxFont();
+	//wxFont();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Font, __wxFont_5, "wxFont_5")
+Gura_DeclareFunctionAlias(__wxFont_5, "wxFont_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nativeInfoString", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Font, __wxFont_5)
+Gura_ImplementFunction(__wxFont_5)
 {
-	Object_wx_Font *pThis = Object_wx_Font::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int nativeInfoString = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFont();
+	//wxFont();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Font, __wxFont_6, "wxFont_6")
+Gura_DeclareFunctionAlias(__wxFont_6, "wxFont_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nativeInfo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Font, __wxFont_6)
+Gura_ImplementFunction(__wxFont_6)
 {
-	Object_wx_Font *pThis = Object_wx_Font::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int nativeInfo = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFont();
+	//wxFont();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Font, __GetBaseFont, "GetBaseFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -920,13 +909,15 @@ Gura_ImplementMethod(wx_Font, __New_5)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Font)
 {
-	Gura_AssignMethod(wx_Font, __wxFont);
-	Gura_AssignMethod(wx_Font, __wxFont_1);
-	Gura_AssignMethod(wx_Font, __wxFont_2);
-	Gura_AssignMethod(wx_Font, __wxFont_3);
-	Gura_AssignMethod(wx_Font, __wxFont_4);
-	Gura_AssignMethod(wx_Font, __wxFont_5);
-	Gura_AssignMethod(wx_Font, __wxFont_6);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFont);
+	Gura_AssignFunction(__wxFont_1);
+	Gura_AssignFunction(__wxFont_2);
+	Gura_AssignFunction(__wxFont_3);
+	Gura_AssignFunction(__wxFont_4);
+	Gura_AssignFunction(__wxFont_5);
+	Gura_AssignFunction(__wxFont_6);
+	// Method assignment
 	Gura_AssignMethod(wx_Font, __GetBaseFont);
 	Gura_AssignMethod(wx_Font, __GetEncoding);
 	Gura_AssignMethod(wx_Font, __GetFaceName);

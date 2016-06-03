@@ -35,51 +35,48 @@ String Object_wx_PageSetupDialogData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PageSetupDialogData, __wxPageSetupDialogData, "wxPageSetupDialogData")
+Gura_DeclareFunctionAlias(__wxPageSetupDialogData, "wxPageSetupDialogData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PageSetupDialogData, __wxPageSetupDialogData)
+Gura_ImplementFunction(__wxPageSetupDialogData)
 {
-	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPageSetupDialogData();
+	//wxPageSetupDialogData();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PageSetupDialogData, __wxPageSetupDialogData_1, "wxPageSetupDialogData_1")
+Gura_DeclareFunctionAlias(__wxPageSetupDialogData_1, "wxPageSetupDialogData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PageSetupDialogData, __wxPageSetupDialogData_1)
+Gura_ImplementFunction(__wxPageSetupDialogData_1)
 {
-	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPageSetupDialogData();
+	//wxPageSetupDialogData();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PageSetupDialogData, __wxPageSetupDialogData_2, "wxPageSetupDialogData_2")
+Gura_DeclareFunctionAlias(__wxPageSetupDialogData_2, "wxPageSetupDialogData_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PageSetupDialogData, __wxPageSetupDialogData_2)
+Gura_ImplementFunction(__wxPageSetupDialogData_2)
 {
-	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int printData = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPageSetupDialogData();
+	//wxPageSetupDialogData();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __EnableHelp, "EnableHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -503,9 +500,11 @@ Gura_ImplementMethod(wx_PageSetupDialogData, __SetPrintData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PageSetupDialogData)
 {
-	Gura_AssignMethod(wx_PageSetupDialogData, __wxPageSetupDialogData);
-	Gura_AssignMethod(wx_PageSetupDialogData, __wxPageSetupDialogData_1);
-	Gura_AssignMethod(wx_PageSetupDialogData, __wxPageSetupDialogData_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPageSetupDialogData);
+	Gura_AssignFunction(__wxPageSetupDialogData_1);
+	Gura_AssignFunction(__wxPageSetupDialogData_2);
+	// Method assignment
 	Gura_AssignMethod(wx_PageSetupDialogData, __EnableHelp);
 	Gura_AssignMethod(wx_PageSetupDialogData, __EnableMargins);
 	Gura_AssignMethod(wx_PageSetupDialogData, __EnableOrientation);

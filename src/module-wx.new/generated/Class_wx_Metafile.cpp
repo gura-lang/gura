@@ -35,23 +35,24 @@ String Object_wx_Metafile::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Metafile, __wxMetafile, "wxMetafile")
+Gura_DeclareFunctionAlias(__wxMetafile, "wxMetafile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Metafile, __wxMetafile)
+Gura_ImplementFunction(__wxMetafile)
 {
-	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMetafile();
+	//wxMetafile();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Metafile, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -102,7 +103,9 @@ Gura_ImplementMethod(wx_Metafile, __SetClipboard)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Metafile)
 {
-	Gura_AssignMethod(wx_Metafile, __wxMetafile);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMetafile);
+	// Method assignment
 	Gura_AssignMethod(wx_Metafile, __IsOk);
 	Gura_AssignMethod(wx_Metafile, __Play);
 	Gura_AssignMethod(wx_Metafile, __SetClipboard);

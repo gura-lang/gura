@@ -35,42 +35,41 @@ String Object_wx_HtmlHelpController::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlHelpController, __wxHtmlHelpController, "wxHtmlHelpController")
+Gura_DeclareFunctionAlias(__wxHtmlHelpController, "wxHtmlHelpController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpController, __wxHtmlHelpController)
+Gura_ImplementFunction(__wxHtmlHelpController)
 {
-	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
 	//int parentWindow = arg.GetNumber(1)
-	//pThis->GetEntity()->wxHtmlHelpController();
+	//wxHtmlHelpController();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_HtmlHelpController, __wxHtmlHelpController_1, "wxHtmlHelpController_1")
+Gura_DeclareFunctionAlias(__wxHtmlHelpController_1, "wxHtmlHelpController_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpController, __wxHtmlHelpController_1)
+Gura_ImplementFunction(__wxHtmlHelpController_1)
 {
-	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parentWindow = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
-	//pThis->GetEntity()->wxHtmlHelpController();
+	//wxHtmlHelpController();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __AddBook, "AddBook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -363,8 +362,10 @@ Gura_ImplementMethod(wx_HtmlHelpController, __CreateHelpFrame)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpController)
 {
-	Gura_AssignMethod(wx_HtmlHelpController, __wxHtmlHelpController);
-	Gura_AssignMethod(wx_HtmlHelpController, __wxHtmlHelpController_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlHelpController);
+	Gura_AssignFunction(__wxHtmlHelpController_1);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlHelpController, __AddBook);
 	Gura_AssignMethod(wx_HtmlHelpController, __AddBook_1);
 	Gura_AssignMethod(wx_HtmlHelpController, __Display);

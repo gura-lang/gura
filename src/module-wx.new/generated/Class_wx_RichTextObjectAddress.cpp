@@ -35,53 +35,50 @@ String Object_wx_RichTextObjectAddress::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextObjectAddress, __wxRichTextObjectAddress, "wxRichTextObjectAddress")
+Gura_DeclareFunctionAlias(__wxRichTextObjectAddress, "wxRichTextObjectAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topLevelContainer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextObjectAddress, __wxRichTextObjectAddress)
+Gura_ImplementFunction(__wxRichTextObjectAddress)
 {
-	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int topLevelContainer = arg.GetNumber(0)
 	//int obj = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRichTextObjectAddress();
+	//wxRichTextObjectAddress();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextObjectAddress, __wxRichTextObjectAddress_1, "wxRichTextObjectAddress_1")
+Gura_DeclareFunctionAlias(__wxRichTextObjectAddress_1, "wxRichTextObjectAddress_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextObjectAddress, __wxRichTextObjectAddress_1)
+Gura_ImplementFunction(__wxRichTextObjectAddress_1)
 {
-	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextObjectAddress();
+	//wxRichTextObjectAddress();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextObjectAddress, __wxRichTextObjectAddress_2, "wxRichTextObjectAddress_2")
+Gura_DeclareFunctionAlias(__wxRichTextObjectAddress_2, "wxRichTextObjectAddress_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextObjectAddress, __wxRichTextObjectAddress_2)
+Gura_ImplementFunction(__wxRichTextObjectAddress_2)
 {
-	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int address = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextObjectAddress();
+	//wxRichTextObjectAddress();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextObjectAddress, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -188,9 +185,11 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __SetAddress)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextObjectAddress)
 {
-	Gura_AssignMethod(wx_RichTextObjectAddress, __wxRichTextObjectAddress);
-	Gura_AssignMethod(wx_RichTextObjectAddress, __wxRichTextObjectAddress_1);
-	Gura_AssignMethod(wx_RichTextObjectAddress, __wxRichTextObjectAddress_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextObjectAddress);
+	Gura_AssignFunction(__wxRichTextObjectAddress_1);
+	Gura_AssignFunction(__wxRichTextObjectAddress_2);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextObjectAddress, __Init);
 	Gura_AssignMethod(wx_RichTextObjectAddress, __Copy);
 	Gura_AssignMethod(wx_RichTextObjectAddress, __GetObject);

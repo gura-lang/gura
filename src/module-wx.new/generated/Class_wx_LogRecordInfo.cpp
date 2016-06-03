@@ -35,16 +35,10 @@ String Object_wx_LogRecordInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxLogRecordInfo
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogRecordInfo)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_LogRecordInfo)

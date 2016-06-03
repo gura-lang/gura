@@ -35,18 +35,16 @@ String Object_wx_LogNull::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_LogNull, __wxLogNull, "wxLogNull")
+Gura_DeclareFunctionAlias(__wxLogNull, "wxLogNull")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogNull, __wxLogNull)
+Gura_ImplementFunction(__wxLogNull)
 {
-	Object_wx_LogNull *pThis = Object_wx_LogNull::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxLogNull();
+	//wxLogNull();
 	return Value::Nil;
 }
 
@@ -55,7 +53,8 @@ Gura_ImplementMethod(wx_LogNull, __wxLogNull)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogNull)
 {
-	Gura_AssignMethod(wx_LogNull, __wxLogNull);
+	// Constructor assignment
+	Gura_AssignFunction(__wxLogNull);
 }
 
 Gura_ImplementDescendantCreator(wx_LogNull)

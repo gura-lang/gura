@@ -35,21 +35,22 @@ String Object_wx_AnyValueType::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AnyValueType, __wxAnyValueType, "wxAnyValueType")
+Gura_DeclareFunctionAlias(__wxAnyValueType, "wxAnyValueType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AnyValueType, __wxAnyValueType)
+Gura_ImplementFunction(__wxAnyValueType)
 {
-	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAnyValueType();
+	//wxAnyValueType();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AnyValueType, __CheckType, "CheckType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -134,7 +135,9 @@ Gura_ImplementMethod(wx_AnyValueType, __IsSameType)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AnyValueType)
 {
-	Gura_AssignMethod(wx_AnyValueType, __wxAnyValueType);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAnyValueType);
+	// Method assignment
 	Gura_AssignMethod(wx_AnyValueType, __CheckType);
 	Gura_AssignMethod(wx_AnyValueType, __ConvertValue);
 	Gura_AssignMethod(wx_AnyValueType, __CopyBuffer);

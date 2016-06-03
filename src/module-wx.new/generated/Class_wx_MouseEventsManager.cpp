@@ -35,36 +35,35 @@ String Object_wx_MouseEventsManager::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MouseEventsManager, __wxMouseEventsManager, "wxMouseEventsManager")
+Gura_DeclareFunctionAlias(__wxMouseEventsManager, "wxMouseEventsManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, __wxMouseEventsManager)
+Gura_ImplementFunction(__wxMouseEventsManager)
 {
-	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMouseEventsManager();
+	//wxMouseEventsManager();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_MouseEventsManager, __wxMouseEventsManager_1, "wxMouseEventsManager_1")
+Gura_DeclareFunctionAlias(__wxMouseEventsManager_1, "wxMouseEventsManager_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, __wxMouseEventsManager_1)
+Gura_ImplementFunction(__wxMouseEventsManager_1)
 {
-	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMouseEventsManager();
+	//wxMouseEventsManager();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MouseEventsManager, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -211,8 +210,10 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseClickCancelled)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseEventsManager)
 {
-	Gura_AssignMethod(wx_MouseEventsManager, __wxMouseEventsManager);
-	Gura_AssignMethod(wx_MouseEventsManager, __wxMouseEventsManager_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMouseEventsManager);
+	Gura_AssignFunction(__wxMouseEventsManager_1);
+	// Method assignment
 	Gura_AssignMethod(wx_MouseEventsManager, __Create);
 	Gura_AssignMethod(wx_MouseEventsManager, __MouseHitTest);
 	Gura_AssignMethod(wx_MouseEventsManager, __MouseClicked);

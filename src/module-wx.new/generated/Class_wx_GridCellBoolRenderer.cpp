@@ -35,18 +35,16 @@ String Object_wx_GridCellBoolRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridCellBoolRenderer, __wxGridCellBoolRenderer, "wxGridCellBoolRenderer")
+Gura_DeclareFunctionAlias(__wxGridCellBoolRenderer, "wxGridCellBoolRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellBoolRenderer, __wxGridCellBoolRenderer)
+Gura_ImplementFunction(__wxGridCellBoolRenderer)
 {
-	Object_wx_GridCellBoolRenderer *pThis = Object_wx_GridCellBoolRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGridCellBoolRenderer();
+	//wxGridCellBoolRenderer();
 	return Value::Nil;
 }
 
@@ -55,7 +53,8 @@ Gura_ImplementMethod(wx_GridCellBoolRenderer, __wxGridCellBoolRenderer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellBoolRenderer)
 {
-	Gura_AssignMethod(wx_GridCellBoolRenderer, __wxGridCellBoolRenderer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridCellBoolRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellBoolRenderer)

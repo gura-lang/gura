@@ -35,25 +35,26 @@ String Object_wx_TaskBarJumpListCategory::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TaskBarJumpListCategory, __wxTaskBarJumpListCategory, "wxTaskBarJumpListCategory")
+Gura_DeclareFunctionAlias(__wxTaskBarJumpListCategory, "wxTaskBarJumpListCategory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListCategory, __wxTaskBarJumpListCategory)
+Gura_ImplementFunction(__wxTaskBarJumpListCategory)
 {
-	Object_wx_TaskBarJumpListCategory *pThis = Object_wx_TaskBarJumpListCategory::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int title = arg.GetNumber(1)
-	//pThis->GetEntity()->wxTaskBarJumpListCategory();
+	//wxTaskBarJumpListCategory();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TaskBarJumpListCategory, __Append, "Append")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -192,7 +193,9 @@ Gura_ImplementMethod(wx_TaskBarJumpListCategory, __GetItems)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarJumpListCategory)
 {
-	Gura_AssignMethod(wx_TaskBarJumpListCategory, __wxTaskBarJumpListCategory);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTaskBarJumpListCategory);
+	// Method assignment
 	Gura_AssignMethod(wx_TaskBarJumpListCategory, __Append);
 	Gura_AssignMethod(wx_TaskBarJumpListCategory, __Delete);
 	Gura_AssignMethod(wx_TaskBarJumpListCategory, __Remove);

@@ -35,9 +35,9 @@ String Object_wx_SplashScreen::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SplashScreen, __wxSplashScreen, "wxSplashScreen")
+Gura_DeclareFunctionAlias(__wxSplashScreen, "wxSplashScreen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -50,10 +50,8 @@ Gura_DeclareMethodAlias(wx_SplashScreen, __wxSplashScreen, "wxSplashScreen")
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SplashScreen, __wxSplashScreen)
+Gura_ImplementFunction(__wxSplashScreen)
 {
-	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int splashStyle = arg.GetNumber(1)
 	//int milliseconds = arg.GetNumber(2)
@@ -62,10 +60,13 @@ Gura_ImplementMethod(wx_SplashScreen, __wxSplashScreen)
 	//int pos = arg.GetNumber(5)
 	//int size = arg.GetNumber(6)
 	//int style = arg.GetNumber(7)
-	//pThis->GetEntity()->wxSplashScreen();
+	//wxSplashScreen();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SplashScreen, __GetSplashStyle, "GetSplashStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -125,7 +126,9 @@ Gura_ImplementMethod(wx_SplashScreen, __OnCloseWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SplashScreen)
 {
-	Gura_AssignMethod(wx_SplashScreen, __wxSplashScreen);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSplashScreen);
+	// Method assignment
 	Gura_AssignMethod(wx_SplashScreen, __GetSplashStyle);
 	Gura_AssignMethod(wx_SplashScreen, __GetSplashWindow);
 	Gura_AssignMethod(wx_SplashScreen, __GetTimeout);

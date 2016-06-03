@@ -35,9 +35,9 @@ String Object_wx_TipWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TipWindow, __wxTipWindow, "wxTipWindow")
+Gura_DeclareFunctionAlias(__wxTipWindow, "wxTipWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -47,19 +47,20 @@ Gura_DeclareMethodAlias(wx_TipWindow, __wxTipWindow, "wxTipWindow")
 	//DeclareArg(env, "rectBounds", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TipWindow, __wxTipWindow)
+Gura_ImplementFunction(__wxTipWindow)
 {
-	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int text = arg.GetNumber(1)
 	//int maxLength = arg.GetNumber(2)
 	//int windowPtr = arg.GetNumber(3)
 	//int rectBounds = arg.GetNumber(4)
-	//pThis->GetEntity()->wxTipWindow();
+	//wxTipWindow();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TipWindow, __SetBoundingRect, "SetBoundingRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -95,7 +96,9 @@ Gura_ImplementMethod(wx_TipWindow, __SetTipWindowPtr)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TipWindow)
 {
-	Gura_AssignMethod(wx_TipWindow, __wxTipWindow);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTipWindow);
+	// Method assignment
 	Gura_AssignMethod(wx_TipWindow, __SetBoundingRect);
 	Gura_AssignMethod(wx_TipWindow, __SetTipWindowPtr);
 }

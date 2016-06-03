@@ -35,36 +35,35 @@ String Object_wx_VariantDataCurrency::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_VariantDataCurrency, __wxVariantDataCurrency, "wxVariantDataCurrency")
+Gura_DeclareFunctionAlias(__wxVariantDataCurrency, "wxVariantDataCurrency")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, __wxVariantDataCurrency)
+Gura_ImplementFunction(__wxVariantDataCurrency)
 {
-	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxVariantDataCurrency();
+	//wxVariantDataCurrency();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_VariantDataCurrency, __wxVariantDataCurrency_1, "wxVariantDataCurrency_1")
+Gura_DeclareFunctionAlias(__wxVariantDataCurrency_1, "wxVariantDataCurrency_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, __wxVariantDataCurrency_1)
+Gura_ImplementFunction(__wxVariantDataCurrency_1)
 {
-	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//pThis->GetEntity()->wxVariantDataCurrency();
+	//wxVariantDataCurrency();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VariantDataCurrency, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -169,8 +168,10 @@ Gura_ImplementMethod(wx_VariantDataCurrency, __GetAsAny)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VariantDataCurrency)
 {
-	Gura_AssignMethod(wx_VariantDataCurrency, __wxVariantDataCurrency);
-	Gura_AssignMethod(wx_VariantDataCurrency, __wxVariantDataCurrency_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVariantDataCurrency);
+	Gura_AssignFunction(__wxVariantDataCurrency_1);
+	// Method assignment
 	Gura_AssignMethod(wx_VariantDataCurrency, __GetValue);
 	Gura_AssignMethod(wx_VariantDataCurrency, __SetValue);
 	Gura_AssignMethod(wx_VariantDataCurrency, __Eq);

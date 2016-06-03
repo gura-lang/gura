@@ -35,23 +35,24 @@ String Object_wx_DropTarget::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DropTarget, __wxDropTarget, "wxDropTarget")
+Gura_DeclareFunctionAlias(__wxDropTarget, "wxDropTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DropTarget, __wxDropTarget)
+Gura_ImplementFunction(__wxDropTarget)
 {
-	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDropTarget();
+	//wxDropTarget();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DropTarget, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -213,7 +214,9 @@ Gura_ImplementMethod(wx_DropTarget, __GetDefaultAction)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DropTarget)
 {
-	Gura_AssignMethod(wx_DropTarget, __wxDropTarget);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDropTarget);
+	// Method assignment
 	Gura_AssignMethod(wx_DropTarget, __GetData);
 	Gura_AssignMethod(wx_DropTarget, __OnData);
 	Gura_AssignMethod(wx_DropTarget, __OnDragOver);

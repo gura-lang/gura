@@ -35,21 +35,22 @@ String Object_wx_DebugReportPreviewStd::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DebugReportPreviewStd, __wxDebugReportPreviewStd, "wxDebugReportPreviewStd")
+Gura_DeclareFunctionAlias(__wxDebugReportPreviewStd, "wxDebugReportPreviewStd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DebugReportPreviewStd, __wxDebugReportPreviewStd)
+Gura_ImplementFunction(__wxDebugReportPreviewStd)
 {
-	Object_wx_DebugReportPreviewStd *pThis = Object_wx_DebugReportPreviewStd::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDebugReportPreviewStd();
+	//wxDebugReportPreviewStd();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DebugReportPreviewStd, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -70,7 +71,9 @@ Gura_ImplementMethod(wx_DebugReportPreviewStd, __Show)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReportPreviewStd)
 {
-	Gura_AssignMethod(wx_DebugReportPreviewStd, __wxDebugReportPreviewStd);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDebugReportPreviewStd);
+	// Method assignment
 	Gura_AssignMethod(wx_DebugReportPreviewStd, __Show);
 }
 

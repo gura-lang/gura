@@ -35,9 +35,9 @@ String Object_wx_MenuEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MenuEvent, __wxMenuEvent, "wxMenuEvent")
+Gura_DeclareFunctionAlias(__wxMenuEvent, "wxMenuEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_MenuEvent, __wxMenuEvent, "wxMenuEvent")
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuEvent, __wxMenuEvent)
+Gura_ImplementFunction(__wxMenuEvent)
 {
-	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int menu = arg.GetNumber(2)
-	//pThis->GetEntity()->wxMenuEvent();
+	//wxMenuEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MenuEvent, __GetMenu, "GetMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -100,7 +101,9 @@ Gura_ImplementMethod(wx_MenuEvent, __IsPopup)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MenuEvent)
 {
-	Gura_AssignMethod(wx_MenuEvent, __wxMenuEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMenuEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_MenuEvent, __GetMenu);
 	Gura_AssignMethod(wx_MenuEvent, __GetMenuId);
 	Gura_AssignMethod(wx_MenuEvent, __IsPopup);

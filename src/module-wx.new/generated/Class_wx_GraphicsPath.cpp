@@ -497,6 +497,7 @@ Gura_ImplementMethod(wx_GraphicsPath, __UnGetNativePath)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsPath)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_GraphicsPath, __AddArc);
 	Gura_AssignMethod(wx_GraphicsPath, __AddArc_1);
 	Gura_AssignMethod(wx_GraphicsPath, __AddArcToPoint);

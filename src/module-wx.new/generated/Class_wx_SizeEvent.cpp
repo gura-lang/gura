@@ -35,25 +35,26 @@ String Object_wx_SizeEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SizeEvent, __wxSizeEvent, "wxSizeEvent")
+Gura_DeclareFunctionAlias(__wxSizeEvent, "wxSizeEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizeEvent, __wxSizeEvent)
+Gura_ImplementFunction(__wxSizeEvent)
 {
-	Object_wx_SizeEvent *pThis = Object_wx_SizeEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sz = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxSizeEvent();
+	//wxSizeEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SizeEvent, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -115,7 +116,9 @@ Gura_ImplementMethod(wx_SizeEvent, __SetRect)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SizeEvent)
 {
-	Gura_AssignMethod(wx_SizeEvent, __wxSizeEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSizeEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_SizeEvent, __GetSize);
 	Gura_AssignMethod(wx_SizeEvent, __SetSize);
 	Gura_AssignMethod(wx_SizeEvent, __GetRect);

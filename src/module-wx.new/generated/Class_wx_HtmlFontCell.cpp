@@ -35,20 +35,18 @@ String Object_wx_HtmlFontCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlFontCell, __wxHtmlFontCell, "wxHtmlFontCell")
+Gura_DeclareFunctionAlias(__wxHtmlFontCell, "wxHtmlFontCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlFontCell, __wxHtmlFontCell)
+Gura_ImplementFunction(__wxHtmlFontCell)
 {
-	Object_wx_HtmlFontCell *pThis = Object_wx_HtmlFontCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int font = arg.GetNumber(0)
-	//pThis->GetEntity()->wxHtmlFontCell();
+	//wxHtmlFontCell();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_HtmlFontCell, __wxHtmlFontCell)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlFontCell)
 {
-	Gura_AssignMethod(wx_HtmlFontCell, __wxHtmlFontCell);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlFontCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlFontCell)

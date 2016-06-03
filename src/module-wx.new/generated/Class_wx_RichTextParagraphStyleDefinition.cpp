@@ -35,23 +35,24 @@ String Object_wx_RichTextParagraphStyleDefinition::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextParagraphStyleDefinition, __wxRichTextParagraphStyleDefinition, "wxRichTextParagraphStyleDefinition")
+Gura_DeclareFunctionAlias(__wxRichTextParagraphStyleDefinition, "wxRichTextParagraphStyleDefinition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, __wxRichTextParagraphStyleDefinition)
+Gura_ImplementFunction(__wxRichTextParagraphStyleDefinition)
 {
-	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextParagraphStyleDefinition();
+	//wxRichTextParagraphStyleDefinition();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextParagraphStyleDefinition, __GetNextStyle, "GetNextStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -85,7 +86,9 @@ Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, __SetNextStyle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextParagraphStyleDefinition)
 {
-	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, __wxRichTextParagraphStyleDefinition);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextParagraphStyleDefinition);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, __GetNextStyle);
 	Gura_AssignMethod(wx_RichTextParagraphStyleDefinition, __SetNextStyle);
 }

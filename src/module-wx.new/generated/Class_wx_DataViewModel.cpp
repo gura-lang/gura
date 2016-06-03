@@ -35,21 +35,22 @@ String Object_wx_DataViewModel::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewModel, __wxDataViewModel, "wxDataViewModel")
+Gura_DeclareFunctionAlias(__wxDataViewModel, "wxDataViewModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewModel, __wxDataViewModel)
+Gura_ImplementFunction(__wxDataViewModel)
 {
-	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDataViewModel();
+	//wxDataViewModel();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewModel, __AddNotifier, "AddNotifier")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -486,7 +487,9 @@ Gura_ImplementMethod(wx_DataViewModel, __IsVirtualListModel)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewModel)
 {
-	Gura_AssignMethod(wx_DataViewModel, __wxDataViewModel);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewModel);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewModel, __AddNotifier);
 	Gura_AssignMethod(wx_DataViewModel, __ChangeValue);
 	Gura_AssignMethod(wx_DataViewModel, __Cleared);

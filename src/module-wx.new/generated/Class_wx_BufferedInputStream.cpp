@@ -35,39 +35,35 @@ String Object_wx_BufferedInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_BufferedInputStream, __wxBufferedInputStream, "wxBufferedInputStream")
+Gura_DeclareFunctionAlias(__wxBufferedInputStream, "wxBufferedInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedInputStream, __wxBufferedInputStream)
+Gura_ImplementFunction(__wxBufferedInputStream)
 {
-	Object_wx_BufferedInputStream *pThis = Object_wx_BufferedInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int buffer = arg.GetNumber(1)
-	//pThis->GetEntity()->wxBufferedInputStream();
+	//wxBufferedInputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_BufferedInputStream, __wxBufferedInputStream_1, "wxBufferedInputStream_1")
+Gura_DeclareFunctionAlias(__wxBufferedInputStream_1, "wxBufferedInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bufsize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedInputStream, __wxBufferedInputStream_1)
+Gura_ImplementFunction(__wxBufferedInputStream_1)
 {
-	Object_wx_BufferedInputStream *pThis = Object_wx_BufferedInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int bufsize = arg.GetNumber(1)
-	//pThis->GetEntity()->wxBufferedInputStream();
+	//wxBufferedInputStream();
 	return Value::Nil;
 }
 
@@ -76,8 +72,9 @@ Gura_ImplementMethod(wx_BufferedInputStream, __wxBufferedInputStream_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BufferedInputStream)
 {
-	Gura_AssignMethod(wx_BufferedInputStream, __wxBufferedInputStream);
-	Gura_AssignMethod(wx_BufferedInputStream, __wxBufferedInputStream_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxBufferedInputStream);
+	Gura_AssignFunction(__wxBufferedInputStream_1);
 }
 
 Gura_ImplementDescendantCreator(wx_BufferedInputStream)

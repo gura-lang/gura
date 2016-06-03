@@ -35,6 +35,26 @@ String Object_wx_DataViewCustomRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxDataViewCustomRenderer, "wxDataViewCustomRenderer")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxDataViewCustomRenderer)
+{
+	//int varianttype = arg.GetNumber(0)
+	//int mode = arg.GetNumber(1)
+	//int align = arg.GetNumber(2)
+	//wxDataViewCustomRenderer();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __GetDefaultType, "GetDefaultType")
@@ -47,25 +67,6 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, __GetDefaultType)
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//pThis->GetEntity()->GetDefaultType();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __wxDataViewCustomRenderer, "wxDataViewCustomRenderer")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
-	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_DataViewCustomRenderer, __wxDataViewCustomRenderer)
-{
-	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int varianttype = arg.GetNumber(0)
-	//int mode = arg.GetNumber(1)
-	//int align = arg.GetNumber(2)
-	//pThis->GetEntity()->wxDataViewCustomRenderer();
 	return Value::Nil;
 }
 
@@ -296,8 +297,10 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, __GetTextExtent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewCustomRenderer)
 {
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewCustomRenderer);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewCustomRenderer, __GetDefaultType);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, __wxDataViewCustomRenderer);
 	Gura_AssignMethod(wx_DataViewCustomRenderer, __ActivateCell);
 	Gura_AssignMethod(wx_DataViewCustomRenderer, __CreateEditorCtrl);
 	Gura_AssignMethod(wx_DataViewCustomRenderer, __GetAttr);

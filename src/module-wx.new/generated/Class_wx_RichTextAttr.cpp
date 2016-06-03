@@ -35,49 +35,46 @@ String Object_wx_RichTextAttr::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextAttr, __wxRichTextAttr, "wxRichTextAttr")
+Gura_DeclareFunctionAlias(__wxRichTextAttr, "wxRichTextAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextAttr, __wxRichTextAttr)
+Gura_ImplementFunction(__wxRichTextAttr)
 {
-	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attr = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextAttr();
+	//wxRichTextAttr();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextAttr, __wxRichTextAttr_1, "wxRichTextAttr_1")
+Gura_DeclareFunctionAlias(__wxRichTextAttr_1, "wxRichTextAttr_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextAttr, __wxRichTextAttr_1)
+Gura_ImplementFunction(__wxRichTextAttr_1)
 {
-	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextAttr();
+	//wxRichTextAttr();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextAttr, __wxRichTextAttr_2, "wxRichTextAttr_2")
+Gura_DeclareFunctionAlias(__wxRichTextAttr_2, "wxRichTextAttr_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextAttr, __wxRichTextAttr_2)
+Gura_ImplementFunction(__wxRichTextAttr_2)
 {
-	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextAttr();
+	//wxRichTextAttr();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextAttr, __Copy, "Copy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -220,9 +217,11 @@ Gura_ImplementMethod(wx_RichTextAttr, __IsDefault)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextAttr)
 {
-	Gura_AssignMethod(wx_RichTextAttr, __wxRichTextAttr);
-	Gura_AssignMethod(wx_RichTextAttr, __wxRichTextAttr_1);
-	Gura_AssignMethod(wx_RichTextAttr, __wxRichTextAttr_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextAttr);
+	Gura_AssignFunction(__wxRichTextAttr_1);
+	Gura_AssignFunction(__wxRichTextAttr_2);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextAttr, __Copy);
 	Gura_AssignMethod(wx_RichTextAttr, __EqPartial);
 	Gura_AssignMethod(wx_RichTextAttr, __Apply);

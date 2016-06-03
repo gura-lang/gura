@@ -35,36 +35,35 @@ String Object_wx_RichTextHeaderFooterData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __wxRichTextHeaderFooterData, "wxRichTextHeaderFooterData")
+Gura_DeclareFunctionAlias(__wxRichTextHeaderFooterData, "wxRichTextHeaderFooterData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextHeaderFooterData, __wxRichTextHeaderFooterData)
+Gura_ImplementFunction(__wxRichTextHeaderFooterData)
 {
-	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextHeaderFooterData();
+	//wxRichTextHeaderFooterData();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __wxRichTextHeaderFooterData_1, "wxRichTextHeaderFooterData_1")
+Gura_DeclareFunctionAlias(__wxRichTextHeaderFooterData_1, "wxRichTextHeaderFooterData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextHeaderFooterData, __wxRichTextHeaderFooterData_1)
+Gura_ImplementFunction(__wxRichTextHeaderFooterData_1)
 {
-	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextHeaderFooterData();
+	//wxRichTextHeaderFooterData();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -350,8 +349,10 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __SetTextColour)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextHeaderFooterData)
 {
-	Gura_AssignMethod(wx_RichTextHeaderFooterData, __wxRichTextHeaderFooterData);
-	Gura_AssignMethod(wx_RichTextHeaderFooterData, __wxRichTextHeaderFooterData_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextHeaderFooterData);
+	Gura_AssignFunction(__wxRichTextHeaderFooterData_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextHeaderFooterData, __Clear);
 	Gura_AssignMethod(wx_RichTextHeaderFooterData, __Copy);
 	Gura_AssignMethod(wx_RichTextHeaderFooterData, __GetFont);

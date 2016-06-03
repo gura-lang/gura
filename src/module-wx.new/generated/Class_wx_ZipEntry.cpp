@@ -35,9 +35,9 @@ String Object_wx_ZipEntry::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ZipEntry, __wxZipEntry, "wxZipEntry")
+Gura_DeclareFunctionAlias(__wxZipEntry, "wxZipEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,32 +45,31 @@ Gura_DeclareMethodAlias(wx_ZipEntry, __wxZipEntry, "wxZipEntry")
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, __wxZipEntry)
+Gura_ImplementFunction(__wxZipEntry)
 {
-	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int dt = arg.GetNumber(1)
 	//int size = arg.GetNumber(2)
-	//pThis->GetEntity()->wxZipEntry();
+	//wxZipEntry();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ZipEntry, __wxZipEntry_1, "wxZipEntry_1")
+Gura_DeclareFunctionAlias(__wxZipEntry_1, "wxZipEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, __wxZipEntry_1)
+Gura_ImplementFunction(__wxZipEntry_1)
 {
-	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
-	//pThis->GetEntity()->wxZipEntry();
+	//wxZipEntry();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ZipEntry, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -455,8 +454,10 @@ Gura_ImplementMethod(wx_ZipEntry, __UnsetNotifier)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipEntry)
 {
-	Gura_AssignMethod(wx_ZipEntry, __wxZipEntry);
-	Gura_AssignMethod(wx_ZipEntry, __wxZipEntry_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxZipEntry);
+	Gura_AssignFunction(__wxZipEntry_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ZipEntry, __Clone);
 	Gura_AssignMethod(wx_ZipEntry, __GetComment);
 	Gura_AssignMethod(wx_ZipEntry, __SetComment);

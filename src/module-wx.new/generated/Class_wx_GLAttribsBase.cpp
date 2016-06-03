@@ -35,21 +35,22 @@ String Object_wx_GLAttribsBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GLAttribsBase, __wxGLAttribsBase, "wxGLAttribsBase")
+Gura_DeclareFunctionAlias(__wxGLAttribsBase, "wxGLAttribsBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttribsBase, __wxGLAttribsBase)
+Gura_ImplementFunction(__wxGLAttribsBase)
 {
-	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGLAttribsBase();
+	//wxGLAttribsBase();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GLAttribsBase, __AddAttribute, "AddAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -154,7 +155,9 @@ Gura_ImplementMethod(wx_GLAttribsBase, __NeedsARB)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLAttribsBase)
 {
-	Gura_AssignMethod(wx_GLAttribsBase, __wxGLAttribsBase);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGLAttribsBase);
+	// Method assignment
 	Gura_AssignMethod(wx_GLAttribsBase, __AddAttribute);
 	Gura_AssignMethod(wx_GLAttribsBase, __AddAttribBits);
 	Gura_AssignMethod(wx_GLAttribsBase, __SetNeedsARB);

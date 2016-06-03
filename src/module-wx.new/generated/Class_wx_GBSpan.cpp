@@ -35,38 +35,37 @@ String Object_wx_GBSpan::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GBSpan, __wxGBSpan, "wxGBSpan")
+Gura_DeclareFunctionAlias(__wxGBSpan, "wxGBSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GBSpan, __wxGBSpan)
+Gura_ImplementFunction(__wxGBSpan)
 {
-	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGBSpan();
+	//wxGBSpan();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GBSpan, __wxGBSpan_1, "wxGBSpan_1")
+Gura_DeclareFunctionAlias(__wxGBSpan_1, "wxGBSpan_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rowspan", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colspan", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSpan, __wxGBSpan_1)
+Gura_ImplementFunction(__wxGBSpan_1)
 {
-	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rowspan = arg.GetNumber(0)
 	//int colspan = arg.GetNumber(1)
-	//pThis->GetEntity()->wxGBSpan();
+	//wxGBSpan();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GBSpan, __GetColspan, "GetColspan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -128,8 +127,10 @@ Gura_ImplementMethod(wx_GBSpan, __SetRowspan)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GBSpan)
 {
-	Gura_AssignMethod(wx_GBSpan, __wxGBSpan);
-	Gura_AssignMethod(wx_GBSpan, __wxGBSpan_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGBSpan);
+	Gura_AssignFunction(__wxGBSpan_1);
+	// Method assignment
 	Gura_AssignMethod(wx_GBSpan, __GetColspan);
 	Gura_AssignMethod(wx_GBSpan, __GetRowspan);
 	Gura_AssignMethod(wx_GBSpan, __SetColspan);

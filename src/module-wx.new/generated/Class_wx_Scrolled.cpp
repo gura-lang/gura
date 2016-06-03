@@ -35,22 +35,20 @@ String Object_wx_Scrolled::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Scrolled, __wxScrolled, "wxScrolled")
+Gura_DeclareFunctionAlias(__wxScrolled, "wxScrolled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Scrolled, __wxScrolled)
+Gura_ImplementFunction(__wxScrolled)
 {
-	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxScrolled();
+	//wxScrolled();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Scrolled, __wxScrolled_1, "wxScrolled_1")
+Gura_DeclareFunctionAlias(__wxScrolled_1, "wxScrolled_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_Scrolled, __wxScrolled_1, "wxScrolled_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Scrolled, __wxScrolled_1)
+Gura_ImplementFunction(__wxScrolled_1)
 {
-	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxScrolled();
+	//wxScrolled();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Scrolled, __CalcScrolledPosition, "CalcScrolledPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -637,8 +636,10 @@ Gura_ImplementMethod(wx_Scrolled, __GetSizeAvailableForScrollTarget)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Scrolled)
 {
-	Gura_AssignMethod(wx_Scrolled, __wxScrolled);
-	Gura_AssignMethod(wx_Scrolled, __wxScrolled_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxScrolled);
+	Gura_AssignFunction(__wxScrolled_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Scrolled, __CalcScrolledPosition);
 	Gura_AssignMethod(wx_Scrolled, __CalcScrolledPosition_1);
 	Gura_AssignMethod(wx_Scrolled, __CalcUnscrolledPosition);

@@ -35,9 +35,9 @@ String Object_wx_JoystickEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_JoystickEvent, __wxJoystickEvent, "wxJoystickEvent")
+Gura_DeclareFunctionAlias(__wxJoystickEvent, "wxJoystickEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_JoystickEvent, __wxJoystickEvent, "wxJoystickEvent")
 	//DeclareArg(env, "change", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, __wxJoystickEvent)
+Gura_ImplementFunction(__wxJoystickEvent)
 {
-	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int state = arg.GetNumber(1)
 	//int joystick = arg.GetNumber(2)
 	//int change = arg.GetNumber(3)
-	//pThis->GetEntity()->wxJoystickEvent();
+	//wxJoystickEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_JoystickEvent, __ButtonDown, "ButtonDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -212,7 +213,9 @@ Gura_ImplementMethod(wx_JoystickEvent, __IsZMove)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_JoystickEvent)
 {
-	Gura_AssignMethod(wx_JoystickEvent, __wxJoystickEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxJoystickEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_JoystickEvent, __ButtonDown);
 	Gura_AssignMethod(wx_JoystickEvent, __ButtonIsDown);
 	Gura_AssignMethod(wx_JoystickEvent, __ButtonUp);

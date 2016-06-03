@@ -35,9 +35,9 @@ String Object_wx_FileCtrlEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileCtrlEvent, __wxFileCtrlEvent, "wxFileCtrlEvent")
+Gura_DeclareFunctionAlias(__wxFileCtrlEvent, "wxFileCtrlEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_FileCtrlEvent, __wxFileCtrlEvent, "wxFileCtrlEvent")
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileCtrlEvent, __wxFileCtrlEvent)
+Gura_ImplementFunction(__wxFileCtrlEvent)
 {
-	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//int evtObject = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
-	//pThis->GetEntity()->wxFileCtrlEvent();
+	//wxFileCtrlEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileCtrlEvent, __GetDirectory, "GetDirectory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -158,7 +159,9 @@ Gura_ImplementMethod(wx_FileCtrlEvent, __SetFilterIndex)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileCtrlEvent)
 {
-	Gura_AssignMethod(wx_FileCtrlEvent, __wxFileCtrlEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileCtrlEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_FileCtrlEvent, __GetDirectory);
 	Gura_AssignMethod(wx_FileCtrlEvent, __GetFile);
 	Gura_AssignMethod(wx_FileCtrlEvent, __GetFiles);

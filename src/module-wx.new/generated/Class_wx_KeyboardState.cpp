@@ -35,9 +35,9 @@ String Object_wx_KeyboardState::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_KeyboardState, __wxKeyboardState, "wxKeyboardState")
+Gura_DeclareFunctionAlias(__wxKeyboardState, "wxKeyboardState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "controlDown", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_KeyboardState, __wxKeyboardState, "wxKeyboardState")
 	//DeclareArg(env, "metaDown", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, __wxKeyboardState)
+Gura_ImplementFunction(__wxKeyboardState)
 {
-	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int controlDown = arg.GetNumber(0)
 	//int shiftDown = arg.GetNumber(1)
 	//int altDown = arg.GetNumber(2)
 	//int metaDown = arg.GetNumber(3)
-	//pThis->GetEntity()->wxKeyboardState();
+	//wxKeyboardState();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_KeyboardState, __GetModifiers, "GetModifiers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -255,7 +256,9 @@ Gura_ImplementMethod(wx_KeyboardState, __SetMetaDown)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_KeyboardState)
 {
-	Gura_AssignMethod(wx_KeyboardState, __wxKeyboardState);
+	// Constructor assignment
+	Gura_AssignFunction(__wxKeyboardState);
+	// Method assignment
 	Gura_AssignMethod(wx_KeyboardState, __GetModifiers);
 	Gura_AssignMethod(wx_KeyboardState, __HasAnyModifiers);
 	Gura_AssignMethod(wx_KeyboardState, __HasModifiers);

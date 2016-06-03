@@ -35,53 +35,50 @@ String Object_wx_Animation::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Animation, __wxAnimation, "wxAnimation")
+Gura_DeclareFunctionAlias(__wxAnimation, "wxAnimation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Animation, __wxAnimation)
+Gura_ImplementFunction(__wxAnimation)
 {
-	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAnimation();
+	//wxAnimation();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Animation, __wxAnimation_1, "wxAnimation_1")
+Gura_DeclareFunctionAlias(__wxAnimation_1, "wxAnimation_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "anim", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Animation, __wxAnimation_1)
+Gura_ImplementFunction(__wxAnimation_1)
 {
-	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int anim = arg.GetNumber(0)
-	//pThis->GetEntity()->wxAnimation();
+	//wxAnimation();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Animation, __wxAnimation_2, "wxAnimation_2")
+Gura_DeclareFunctionAlias(__wxAnimation_2, "wxAnimation_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Animation, __wxAnimation_2)
+Gura_ImplementFunction(__wxAnimation_2)
 {
-	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
-	//pThis->GetEntity()->wxAnimation();
+	//wxAnimation();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Animation, __GetDelay, "GetDelay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -190,9 +187,11 @@ Gura_ImplementMethod(wx_Animation, __LoadFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Animation)
 {
-	Gura_AssignMethod(wx_Animation, __wxAnimation);
-	Gura_AssignMethod(wx_Animation, __wxAnimation_1);
-	Gura_AssignMethod(wx_Animation, __wxAnimation_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAnimation);
+	Gura_AssignFunction(__wxAnimation_1);
+	Gura_AssignFunction(__wxAnimation_2);
+	// Method assignment
 	Gura_AssignMethod(wx_Animation, __GetDelay);
 	Gura_AssignMethod(wx_Animation, __GetFrame);
 	Gura_AssignMethod(wx_Animation, __GetFrameCount);

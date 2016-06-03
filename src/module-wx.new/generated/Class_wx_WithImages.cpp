@@ -35,16 +35,10 @@ String Object_wx_WithImages::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxWithImages
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WithImages)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_WithImages)

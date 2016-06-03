@@ -35,9 +35,9 @@ String Object_wx_DirDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DirDialog, __wxDirDialog, "wxDirDialog")
+Gura_DeclareFunctionAlias(__wxDirDialog, "wxDirDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,10 +49,8 @@ Gura_DeclareMethodAlias(wx_DirDialog, __wxDirDialog, "wxDirDialog")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DirDialog, __wxDirDialog)
+Gura_ImplementFunction(__wxDirDialog)
 {
-	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int defaultPath = arg.GetNumber(2)
@@ -60,10 +58,13 @@ Gura_ImplementMethod(wx_DirDialog, __wxDirDialog)
 	//int pos = arg.GetNumber(4)
 	//int size = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxDirDialog();
+	//wxDirDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DirDialog, __GetMessage, "GetMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -138,7 +139,9 @@ Gura_ImplementMethod(wx_DirDialog, __ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DirDialog)
 {
-	Gura_AssignMethod(wx_DirDialog, __wxDirDialog);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDirDialog);
+	// Method assignment
 	Gura_AssignMethod(wx_DirDialog, __GetMessage);
 	Gura_AssignMethod(wx_DirDialog, __GetPath);
 	Gura_AssignMethod(wx_DirDialog, __SetMessage);

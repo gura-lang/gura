@@ -61,6 +61,7 @@ Gura_ImplementMethod(wx_GridCornerHeaderRendererDefault, __DrawBorder)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCornerHeaderRendererDefault)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_GridCornerHeaderRendererDefault, __DrawBorder);
 }
 

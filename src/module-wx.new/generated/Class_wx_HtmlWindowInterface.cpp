@@ -35,21 +35,22 @@ String Object_wx_HtmlWindowInterface::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __wxHtmlWindowInterface, "wxHtmlWindowInterface")
+Gura_DeclareFunctionAlias(__wxHtmlWindowInterface, "wxHtmlWindowInterface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, __wxHtmlWindowInterface)
+Gura_ImplementFunction(__wxHtmlWindowInterface)
 {
-	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlWindowInterface();
+	//wxHtmlWindowInterface();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __SetHTMLWindowTitle, "SetHTMLWindowTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -192,7 +193,9 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, __SetHTMLStatusText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWindowInterface)
 {
-	Gura_AssignMethod(wx_HtmlWindowInterface, __wxHtmlWindowInterface);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlWindowInterface);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlWindowInterface, __SetHTMLWindowTitle);
 	Gura_AssignMethod(wx_HtmlWindowInterface, __OnHTMLLinkClicked);
 	Gura_AssignMethod(wx_HtmlWindowInterface, __OnHTMLOpeningURL);

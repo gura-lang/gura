@@ -35,43 +35,39 @@ String Object_wx_DCClipper::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DCClipper, __wxDCClipper, "wxDCClipper")
+Gura_DeclareFunctionAlias(__wxDCClipper, "wxDCClipper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCClipper, __wxDCClipper)
+Gura_ImplementFunction(__wxDCClipper)
 {
-	Object_wx_DCClipper *pThis = Object_wx_DCClipper::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int region = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDCClipper();
+	//wxDCClipper();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DCClipper, __wxDCClipper_1, "wxDCClipper_1")
+Gura_DeclareFunctionAlias(__wxDCClipper_1, "wxDCClipper_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCClipper, __wxDCClipper_1)
+Gura_ImplementFunction(__wxDCClipper_1)
 {
-	Object_wx_DCClipper *pThis = Object_wx_DCClipper::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int rect = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDCClipper();
+	//wxDCClipper();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DCClipper, __wxDCClipper_2, "wxDCClipper_2")
+Gura_DeclareFunctionAlias(__wxDCClipper_2, "wxDCClipper_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -81,16 +77,14 @@ Gura_DeclareMethodAlias(wx_DCClipper, __wxDCClipper_2, "wxDCClipper_2")
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCClipper, __wxDCClipper_2)
+Gura_ImplementFunction(__wxDCClipper_2)
 {
-	Object_wx_DCClipper *pThis = Object_wx_DCClipper::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
 	//int w = arg.GetNumber(3)
 	//int h = arg.GetNumber(4)
-	//pThis->GetEntity()->wxDCClipper();
+	//wxDCClipper();
 	return Value::Nil;
 }
 
@@ -99,9 +93,10 @@ Gura_ImplementMethod(wx_DCClipper, __wxDCClipper_2)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCClipper)
 {
-	Gura_AssignMethod(wx_DCClipper, __wxDCClipper);
-	Gura_AssignMethod(wx_DCClipper, __wxDCClipper_1);
-	Gura_AssignMethod(wx_DCClipper, __wxDCClipper_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDCClipper);
+	Gura_AssignFunction(__wxDCClipper_1);
+	Gura_AssignFunction(__wxDCClipper_2);
 }
 
 Gura_ImplementDescendantCreator(wx_DCClipper)

@@ -162,6 +162,7 @@ Gura_ImplementMethod(wx_Transform2D, __InverseTransform_3)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Transform2D)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_Transform2D, __Transform);
 	Gura_AssignMethod(wx_Transform2D, __Transform_1);
 	Gura_AssignMethod(wx_Transform2D, __Transform_2);

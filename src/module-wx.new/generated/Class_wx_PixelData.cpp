@@ -35,41 +35,37 @@ String Object_wx_PixelData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PixelData, __wxPixelData, "wxPixelData")
+Gura_DeclareFunctionAlias(__wxPixelData, "wxPixelData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, __wxPixelData)
+Gura_ImplementFunction(__wxPixelData)
 {
-	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPixelData();
+	//wxPixelData();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PixelData, __wxPixelData_1, "wxPixelData_1")
+Gura_DeclareFunctionAlias(__wxPixelData_1, "wxPixelData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, __wxPixelData_1)
+Gura_ImplementFunction(__wxPixelData_1)
 {
-	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int i = arg.GetNumber(0)
 	//int rect = arg.GetNumber(1)
-	//pThis->GetEntity()->wxPixelData();
+	//wxPixelData();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PixelData, __wxPixelData_2, "wxPixelData_2")
+Gura_DeclareFunctionAlias(__wxPixelData_2, "wxPixelData_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
@@ -77,17 +73,18 @@ Gura_DeclareMethodAlias(wx_PixelData, __wxPixelData_2, "wxPixelData_2")
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, __wxPixelData_2)
+Gura_ImplementFunction(__wxPixelData_2)
 {
-	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int i = arg.GetNumber(0)
 	//int pt = arg.GetNumber(1)
 	//int sz = arg.GetNumber(2)
-	//pThis->GetEntity()->wxPixelData();
+	//wxPixelData();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PixelData, __bool, "bool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -381,9 +378,11 @@ Gura_ImplementMethod(wx_PixelData, __Alpha)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PixelData)
 {
-	Gura_AssignMethod(wx_PixelData, __wxPixelData);
-	Gura_AssignMethod(wx_PixelData, __wxPixelData_1);
-	Gura_AssignMethod(wx_PixelData, __wxPixelData_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPixelData);
+	Gura_AssignFunction(__wxPixelData_1);
+	Gura_AssignFunction(__wxPixelData_2);
+	// Method assignment
 	Gura_AssignMethod(wx_PixelData, __bool);
 	Gura_AssignMethod(wx_PixelData, __GetPixels);
 	Gura_AssignMethod(wx_PixelData, __GetOrigin);

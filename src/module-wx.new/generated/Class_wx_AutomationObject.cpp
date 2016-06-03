@@ -35,23 +35,24 @@ String Object_wx_AutomationObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AutomationObject, __wxAutomationObject, "wxAutomationObject")
+Gura_DeclareFunctionAlias(__wxAutomationObject, "wxAutomationObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dispatchPtr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AutomationObject, __wxAutomationObject)
+Gura_ImplementFunction(__wxAutomationObject)
 {
-	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dispatchPtr = arg.GetNumber(0)
-	//pThis->GetEntity()->wxAutomationObject();
+	//wxAutomationObject();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AutomationObject, __CallMethod, "CallMethod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -334,7 +335,9 @@ Gura_ImplementMethod(wx_AutomationObject, __SetConvertVariantFlags)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AutomationObject)
 {
-	Gura_AssignMethod(wx_AutomationObject, __wxAutomationObject);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAutomationObject);
+	// Method assignment
 	Gura_AssignMethod(wx_AutomationObject, __CallMethod);
 	Gura_AssignMethod(wx_AutomationObject, __CallMethod_1);
 	Gura_AssignMethod(wx_AutomationObject, __CreateInstance);

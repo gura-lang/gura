@@ -35,53 +35,50 @@ String Object_wx_FileInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileInputStream, __wxFileInputStream, "wxFileInputStream")
+Gura_DeclareFunctionAlias(__wxFileInputStream, "wxFileInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ifileName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileInputStream, __wxFileInputStream)
+Gura_ImplementFunction(__wxFileInputStream)
 {
-	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ifileName = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFileInputStream();
+	//wxFileInputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileInputStream, __wxFileInputStream_1, "wxFileInputStream_1")
+Gura_DeclareFunctionAlias(__wxFileInputStream_1, "wxFileInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileInputStream, __wxFileInputStream_1)
+Gura_ImplementFunction(__wxFileInputStream_1)
 {
-	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int file = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFileInputStream();
+	//wxFileInputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileInputStream, __wxFileInputStream_2, "wxFileInputStream_2")
+Gura_DeclareFunctionAlias(__wxFileInputStream_2, "wxFileInputStream_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileInputStream, __wxFileInputStream_2)
+Gura_ImplementFunction(__wxFileInputStream_2)
 {
-	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fd = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFileInputStream();
+	//wxFileInputStream();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileInputStream, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -113,9 +110,11 @@ Gura_ImplementMethod(wx_FileInputStream, __GetFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileInputStream)
 {
-	Gura_AssignMethod(wx_FileInputStream, __wxFileInputStream);
-	Gura_AssignMethod(wx_FileInputStream, __wxFileInputStream_1);
-	Gura_AssignMethod(wx_FileInputStream, __wxFileInputStream_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileInputStream);
+	Gura_AssignFunction(__wxFileInputStream_1);
+	Gura_AssignFunction(__wxFileInputStream_2);
+	// Method assignment
 	Gura_AssignMethod(wx_FileInputStream, __IsOk);
 	Gura_AssignMethod(wx_FileInputStream, __GetFile);
 }

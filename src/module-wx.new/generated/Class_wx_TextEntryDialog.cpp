@@ -35,22 +35,20 @@ String Object_wx_TextEntryDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextEntryDialog, __wxTextEntryDialog, "wxTextEntryDialog")
+Gura_DeclareFunctionAlias(__wxTextEntryDialog, "wxTextEntryDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, __wxTextEntryDialog)
+Gura_ImplementFunction(__wxTextEntryDialog)
 {
-	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTextEntryDialog();
+	//wxTextEntryDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TextEntryDialog, __wxTextEntryDialog_1, "wxTextEntryDialog_1")
+Gura_DeclareFunctionAlias(__wxTextEntryDialog_1, "wxTextEntryDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_TextEntryDialog, __wxTextEntryDialog_1, "wxTextEntryD
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, __wxTextEntryDialog_1)
+Gura_ImplementFunction(__wxTextEntryDialog_1)
 {
-	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
 	//int value = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int pos = arg.GetNumber(5)
-	//pThis->GetEntity()->wxTextEntryDialog();
+	//wxTextEntryDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextEntryDialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -204,8 +203,10 @@ Gura_ImplementMethod(wx_TextEntryDialog, __ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextEntryDialog)
 {
-	Gura_AssignMethod(wx_TextEntryDialog, __wxTextEntryDialog);
-	Gura_AssignMethod(wx_TextEntryDialog, __wxTextEntryDialog_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextEntryDialog);
+	Gura_AssignFunction(__wxTextEntryDialog_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TextEntryDialog, __Create);
 	Gura_AssignMethod(wx_TextEntryDialog, __GetValue);
 	Gura_AssignMethod(wx_TextEntryDialog, __SetTextValidator);

@@ -35,21 +35,22 @@ String Object_wx_MemoryFSHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MemoryFSHandler, __wxMemoryFSHandler, "wxMemoryFSHandler")
+Gura_DeclareFunctionAlias(__wxMemoryFSHandler, "wxMemoryFSHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MemoryFSHandler, __wxMemoryFSHandler)
+Gura_ImplementFunction(__wxMemoryFSHandler)
 {
-	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMemoryFSHandler();
+	//wxMemoryFSHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MemoryFSHandler, __AddFile, "AddFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -148,7 +149,9 @@ Gura_ImplementMethod(wx_MemoryFSHandler, __RemoveFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryFSHandler)
 {
-	Gura_AssignMethod(wx_MemoryFSHandler, __wxMemoryFSHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMemoryFSHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_MemoryFSHandler, __AddFile);
 	Gura_AssignMethod(wx_MemoryFSHandler, __AddFile_1);
 	Gura_AssignMethod(wx_MemoryFSHandler, __AddFileWithMimeType);

@@ -35,9 +35,9 @@ String Object_wx_FileConfig::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileConfig, __wxFileConfig, "wxFileConfig")
+Gura_DeclareFunctionAlias(__wxFileConfig, "wxFileConfig")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
@@ -48,37 +48,36 @@ Gura_DeclareMethodAlias(wx_FileConfig, __wxFileConfig, "wxFileConfig")
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileConfig, __wxFileConfig)
+Gura_ImplementFunction(__wxFileConfig)
 {
-	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int appName = arg.GetNumber(0)
 	//int vendorName = arg.GetNumber(1)
 	//int localFilename = arg.GetNumber(2)
 	//int globalFilename = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int conv = arg.GetNumber(5)
-	//pThis->GetEntity()->wxFileConfig();
+	//wxFileConfig();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileConfig, __wxFileConfig_1, "wxFileConfig_1")
+Gura_DeclareFunctionAlias(__wxFileConfig_1, "wxFileConfig_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "is", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileConfig, __wxFileConfig_1)
+Gura_ImplementFunction(__wxFileConfig_1)
 {
-	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int is = arg.GetNumber(0)
 	//int conv = arg.GetNumber(1)
-	//pThis->GetEntity()->wxFileConfig();
+	//wxFileConfig();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileConfig, __GetGlobalFile, "GetGlobalFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -430,8 +429,10 @@ Gura_ImplementMethod(wx_FileConfig, __DeleteAll)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileConfig)
 {
-	Gura_AssignMethod(wx_FileConfig, __wxFileConfig);
-	Gura_AssignMethod(wx_FileConfig, __wxFileConfig_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileConfig);
+	Gura_AssignFunction(__wxFileConfig_1);
+	// Method assignment
 	Gura_AssignMethod(wx_FileConfig, __GetGlobalFile);
 	Gura_AssignMethod(wx_FileConfig, __GetLocalFile);
 	Gura_AssignMethod(wx_FileConfig, __GetGlobalFileName);

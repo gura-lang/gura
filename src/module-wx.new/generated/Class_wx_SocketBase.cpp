@@ -35,21 +35,22 @@ String Object_wx_SocketBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SocketBase, __wxSocketBase, "wxSocketBase")
+Gura_DeclareFunctionAlias(__wxSocketBase, "wxSocketBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, __wxSocketBase)
+Gura_ImplementFunction(__wxSocketBase)
 {
-	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSocketBase();
+	//wxSocketBase();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SocketBase, __Destroy, "Destroy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -648,7 +649,9 @@ Gura_ImplementMethod(wx_SocketBase, __GetSocket)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketBase)
 {
-	Gura_AssignMethod(wx_SocketBase, __wxSocketBase);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSocketBase);
+	// Method assignment
 	Gura_AssignMethod(wx_SocketBase, __Destroy);
 	Gura_AssignMethod(wx_SocketBase, __Initialize);
 	Gura_AssignMethod(wx_SocketBase, __Shutdown);

@@ -35,26 +35,24 @@ String Object_wx_StaticBoxSizer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StaticBoxSizer, __wxStaticBoxSizer, "wxStaticBoxSizer")
+Gura_DeclareFunctionAlias(__wxStaticBoxSizer, "wxStaticBoxSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "box", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StaticBoxSizer, __wxStaticBoxSizer)
+Gura_ImplementFunction(__wxStaticBoxSizer)
 {
-	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int box = arg.GetNumber(0)
 	//int orient = arg.GetNumber(1)
-	//pThis->GetEntity()->wxStaticBoxSizer();
+	//wxStaticBoxSizer();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_StaticBoxSizer, __wxStaticBoxSizer_1, "wxStaticBoxSizer_1")
+Gura_DeclareFunctionAlias(__wxStaticBoxSizer_1, "wxStaticBoxSizer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
@@ -62,17 +60,18 @@ Gura_DeclareMethodAlias(wx_StaticBoxSizer, __wxStaticBoxSizer_1, "wxStaticBoxSiz
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StaticBoxSizer, __wxStaticBoxSizer_1)
+Gura_ImplementFunction(__wxStaticBoxSizer_1)
 {
-	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
-	//pThis->GetEntity()->wxStaticBoxSizer();
+	//wxStaticBoxSizer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StaticBoxSizer, __GetStaticBox, "GetStaticBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -117,8 +116,10 @@ Gura_ImplementMethod(wx_StaticBoxSizer, __RecalcSizes)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticBoxSizer)
 {
-	Gura_AssignMethod(wx_StaticBoxSizer, __wxStaticBoxSizer);
-	Gura_AssignMethod(wx_StaticBoxSizer, __wxStaticBoxSizer_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStaticBoxSizer);
+	Gura_AssignFunction(__wxStaticBoxSizer_1);
+	// Method assignment
 	Gura_AssignMethod(wx_StaticBoxSizer, __GetStaticBox);
 	Gura_AssignMethod(wx_StaticBoxSizer, __CalcMin);
 	Gura_AssignMethod(wx_StaticBoxSizer, __RecalcSizes);

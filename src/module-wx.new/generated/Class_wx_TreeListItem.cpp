@@ -35,21 +35,22 @@ String Object_wx_TreeListItem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TreeListItem, __wxTreeListItem, "wxTreeListItem")
+Gura_DeclareFunctionAlias(__wxTreeListItem, "wxTreeListItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListItem, __wxTreeListItem)
+Gura_ImplementFunction(__wxTreeListItem)
 {
-	Object_wx_TreeListItem *pThis = Object_wx_TreeListItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTreeListItem();
+	//wxTreeListItem();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TreeListItem, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -68,7 +69,9 @@ Gura_ImplementMethod(wx_TreeListItem, __IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeListItem)
 {
-	Gura_AssignMethod(wx_TreeListItem, __wxTreeListItem);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTreeListItem);
+	// Method assignment
 	Gura_AssignMethod(wx_TreeListItem, __IsOk);
 }
 

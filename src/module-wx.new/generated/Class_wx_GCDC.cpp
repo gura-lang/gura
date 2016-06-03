@@ -35,96 +35,87 @@ String Object_wx_GCDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GCDC, __wxGCDC, "wxGCDC")
+Gura_DeclareFunctionAlias(__wxGCDC, "wxGCDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "windowDC", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GCDC, __wxGCDC)
+Gura_ImplementFunction(__wxGCDC)
 {
-	Object_wx_GCDC *pThis = Object_wx_GCDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int windowDC = arg.GetNumber(0)
-	//pThis->GetEntity()->wxGCDC();
+	//wxGCDC();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GCDC, __wxGCDC_1, "wxGCDC_1")
+Gura_DeclareFunctionAlias(__wxGCDC_1, "wxGCDC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "memoryDC", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GCDC, __wxGCDC_1)
+Gura_ImplementFunction(__wxGCDC_1)
 {
-	Object_wx_GCDC *pThis = Object_wx_GCDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int memoryDC = arg.GetNumber(0)
-	//pThis->GetEntity()->wxGCDC();
+	//wxGCDC();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GCDC, __wxGCDC_2, "wxGCDC_2")
+Gura_DeclareFunctionAlias(__wxGCDC_2, "wxGCDC_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printerDC", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GCDC, __wxGCDC_2)
+Gura_ImplementFunction(__wxGCDC_2)
 {
-	Object_wx_GCDC *pThis = Object_wx_GCDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int printerDC = arg.GetNumber(0)
-	//pThis->GetEntity()->wxGCDC();
+	//wxGCDC();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GCDC, __wxGCDC_3, "wxGCDC_3")
+Gura_DeclareFunctionAlias(__wxGCDC_3, "wxGCDC_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GCDC, __wxGCDC_3)
+Gura_ImplementFunction(__wxGCDC_3)
 {
-	Object_wx_GCDC *pThis = Object_wx_GCDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int context = arg.GetNumber(0)
-	//pThis->GetEntity()->wxGCDC();
+	//wxGCDC();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GCDC, __wxGCDC_4, "wxGCDC_4")
+Gura_DeclareFunctionAlias(__wxGCDC_4, "wxGCDC_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "emfDC", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GCDC, __wxGCDC_4)
+Gura_ImplementFunction(__wxGCDC_4)
 {
-	Object_wx_GCDC *pThis = Object_wx_GCDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int emfDC = arg.GetNumber(0)
-	//pThis->GetEntity()->wxGCDC();
+	//wxGCDC();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GCDC, __wxGCDC_5, "wxGCDC_5")
+Gura_DeclareFunctionAlias(__wxGCDC_5, "wxGCDC_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GCDC, __wxGCDC_5)
+Gura_ImplementFunction(__wxGCDC_5)
 {
-	Object_wx_GCDC *pThis = Object_wx_GCDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGCDC();
+	//wxGCDC();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GCDC, __GetGraphicsContext, "GetGraphicsContext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -158,12 +149,14 @@ Gura_ImplementMethod(wx_GCDC, __SetGraphicsContext)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GCDC)
 {
-	Gura_AssignMethod(wx_GCDC, __wxGCDC);
-	Gura_AssignMethod(wx_GCDC, __wxGCDC_1);
-	Gura_AssignMethod(wx_GCDC, __wxGCDC_2);
-	Gura_AssignMethod(wx_GCDC, __wxGCDC_3);
-	Gura_AssignMethod(wx_GCDC, __wxGCDC_4);
-	Gura_AssignMethod(wx_GCDC, __wxGCDC_5);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGCDC);
+	Gura_AssignFunction(__wxGCDC_1);
+	Gura_AssignFunction(__wxGCDC_2);
+	Gura_AssignFunction(__wxGCDC_3);
+	Gura_AssignFunction(__wxGCDC_4);
+	Gura_AssignFunction(__wxGCDC_5);
+	// Method assignment
 	Gura_AssignMethod(wx_GCDC, __GetGraphicsContext);
 	Gura_AssignMethod(wx_GCDC, __SetGraphicsContext);
 }

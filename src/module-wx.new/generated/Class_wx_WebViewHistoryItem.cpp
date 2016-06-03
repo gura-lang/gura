@@ -35,25 +35,26 @@ String Object_wx_WebViewHistoryItem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_WebViewHistoryItem, __wxWebViewHistoryItem, "wxWebViewHistoryItem")
+Gura_DeclareFunctionAlias(__wxWebViewHistoryItem, "wxWebViewHistoryItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewHistoryItem, __wxWebViewHistoryItem)
+Gura_ImplementFunction(__wxWebViewHistoryItem)
 {
-	Object_wx_WebViewHistoryItem *pThis = Object_wx_WebViewHistoryItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int url = arg.GetNumber(0)
 	//int title = arg.GetNumber(1)
-	//pThis->GetEntity()->wxWebViewHistoryItem();
+	//wxWebViewHistoryItem();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebViewHistoryItem, __GetUrl, "GetUrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -85,7 +86,9 @@ Gura_ImplementMethod(wx_WebViewHistoryItem, __GetTitle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewHistoryItem)
 {
-	Gura_AssignMethod(wx_WebViewHistoryItem, __wxWebViewHistoryItem);
+	// Constructor assignment
+	Gura_AssignFunction(__wxWebViewHistoryItem);
+	// Method assignment
 	Gura_AssignMethod(wx_WebViewHistoryItem, __GetUrl);
 	Gura_AssignMethod(wx_WebViewHistoryItem, __GetTitle);
 }

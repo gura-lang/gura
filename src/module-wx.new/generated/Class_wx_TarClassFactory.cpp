@@ -35,16 +35,10 @@ String Object_wx_TarClassFactory::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxTarClassFactory
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TarClassFactory)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_TarClassFactory)

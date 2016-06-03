@@ -35,22 +35,20 @@ String Object_wx_TimeSpan::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TimeSpan, __wxTimeSpan, "wxTimeSpan")
+Gura_DeclareFunctionAlias(__wxTimeSpan, "wxTimeSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, __wxTimeSpan)
+Gura_ImplementFunction(__wxTimeSpan)
 {
-	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTimeSpan();
+	//wxTimeSpan();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TimeSpan, __wxTimeSpan_1, "wxTimeSpan_1")
+Gura_DeclareFunctionAlias(__wxTimeSpan_1, "wxTimeSpan_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hours", VTYPE_number, OCCUR_Once);
@@ -59,18 +57,19 @@ Gura_DeclareMethodAlias(wx_TimeSpan, __wxTimeSpan_1, "wxTimeSpan_1")
 	//DeclareArg(env, "msec", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, __wxTimeSpan_1)
+Gura_ImplementFunction(__wxTimeSpan_1)
 {
-	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int hours = arg.GetNumber(0)
 	//int min = arg.GetNumber(1)
 	//int sec = arg.GetNumber(2)
 	//int msec = arg.GetNumber(3)
-	//pThis->GetEntity()->wxTimeSpan();
+	//wxTimeSpan();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TimeSpan, __Abs, "Abs")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -563,8 +562,10 @@ Gura_ImplementMethod(wx_TimeSpan, __Weeks)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TimeSpan)
 {
-	Gura_AssignMethod(wx_TimeSpan, __wxTimeSpan);
-	Gura_AssignMethod(wx_TimeSpan, __wxTimeSpan_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTimeSpan);
+	Gura_AssignFunction(__wxTimeSpan_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TimeSpan, __Abs);
 	Gura_AssignMethod(wx_TimeSpan, __Add);
 	Gura_AssignMethod(wx_TimeSpan, __Add_1);

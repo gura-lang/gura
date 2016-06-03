@@ -35,22 +35,20 @@ String Object_wx_Gauge::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Gauge, __wxGauge, "wxGauge")
+Gura_DeclareFunctionAlias(__wxGauge, "wxGauge")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Gauge, __wxGauge)
+Gura_ImplementFunction(__wxGauge)
 {
-	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGauge();
+	//wxGauge();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Gauge, __wxGauge_1, "wxGauge_1")
+Gura_DeclareFunctionAlias(__wxGauge_1, "wxGauge_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,10 +61,8 @@ Gura_DeclareMethodAlias(wx_Gauge, __wxGauge_1, "wxGauge_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Gauge, __wxGauge_1)
+Gura_ImplementFunction(__wxGauge_1)
 {
-	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int range = arg.GetNumber(2)
@@ -75,10 +71,13 @@ Gura_ImplementMethod(wx_Gauge, __wxGauge_1)
 	//int style = arg.GetNumber(5)
 	//int validator = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxGauge();
+	//wxGauge();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Gauge, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -195,8 +194,10 @@ Gura_ImplementMethod(wx_Gauge, __SetValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Gauge)
 {
-	Gura_AssignMethod(wx_Gauge, __wxGauge);
-	Gura_AssignMethod(wx_Gauge, __wxGauge_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGauge);
+	Gura_AssignFunction(__wxGauge_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Gauge, __Create);
 	Gura_AssignMethod(wx_Gauge, __GetRange);
 	Gura_AssignMethod(wx_Gauge, __GetValue);

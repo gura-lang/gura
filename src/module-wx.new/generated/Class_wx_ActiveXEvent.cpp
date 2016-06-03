@@ -113,6 +113,7 @@ Gura_ImplementMethod(wx_ActiveXEvent, __GetNativeParameters)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ActiveXEvent)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_ActiveXEvent, __GetDispatchId);
 	Gura_AssignMethod(wx_ActiveXEvent, __ParamCount);
 	Gura_AssignMethod(wx_ActiveXEvent, __ParamName);

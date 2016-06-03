@@ -35,22 +35,20 @@ String Object_wx_HeaderCtrlSimple::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple, "wxHeaderCtrlSimple")
+Gura_DeclareFunctionAlias(__wxHeaderCtrlSimple, "wxHeaderCtrlSimple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple)
+Gura_ImplementFunction(__wxHeaderCtrlSimple)
 {
-	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHeaderCtrlSimple();
+	//wxHeaderCtrlSimple();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple_1, "wxHeaderCtrlSimple_1")
+Gura_DeclareFunctionAlias(__wxHeaderCtrlSimple_1, "wxHeaderCtrlSimple_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple_1, "wxHeaderCt
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple_1)
+Gura_ImplementFunction(__wxHeaderCtrlSimple_1)
 {
-	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxHeaderCtrlSimple();
+	//wxHeaderCtrlSimple();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __InsertColumn, "InsertColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -204,8 +203,10 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __GetBestFittingWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HeaderCtrlSimple)
 {
-	Gura_AssignMethod(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple);
-	Gura_AssignMethod(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHeaderCtrlSimple);
+	Gura_AssignFunction(__wxHeaderCtrlSimple_1);
+	// Method assignment
 	Gura_AssignMethod(wx_HeaderCtrlSimple, __InsertColumn);
 	Gura_AssignMethod(wx_HeaderCtrlSimple, __AppendColumn);
 	Gura_AssignMethod(wx_HeaderCtrlSimple, __DeleteColumn);

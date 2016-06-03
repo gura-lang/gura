@@ -35,21 +35,22 @@ String Object_wx_Quantize::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Quantize, __wxQuantize, "wxQuantize")
+Gura_DeclareFunctionAlias(__wxQuantize, "wxQuantize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Quantize, __wxQuantize)
+Gura_ImplementFunction(__wxQuantize)
 {
-	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxQuantize();
+	//wxQuantize();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Quantize, __DoQuantize, "DoQuantize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -128,7 +129,9 @@ Gura_ImplementMethod(wx_Quantize, __Quantize_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Quantize)
 {
-	Gura_AssignMethod(wx_Quantize, __wxQuantize);
+	// Constructor assignment
+	Gura_AssignFunction(__wxQuantize);
+	// Method assignment
 	Gura_AssignMethod(wx_Quantize, __DoQuantize);
 	Gura_AssignMethod(wx_Quantize, __Quantize);
 	Gura_AssignMethod(wx_Quantize, __Quantize_1);

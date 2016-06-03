@@ -35,23 +35,24 @@ String Object_wx_DataViewVirtualListModel::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __wxDataViewVirtualListModel, "wxDataViewVirtualListModel")
+Gura_DeclareFunctionAlias(__wxDataViewVirtualListModel, "wxDataViewVirtualListModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initial_size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, __wxDataViewVirtualListModel)
+Gura_ImplementFunction(__wxDataViewVirtualListModel)
 {
-	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int initial_size = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDataViewVirtualListModel();
+	//wxDataViewVirtualListModel();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __GetItem, "GetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -190,7 +191,9 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowsDeleted)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewVirtualListModel)
 {
-	Gura_AssignMethod(wx_DataViewVirtualListModel, __wxDataViewVirtualListModel);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewVirtualListModel);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewVirtualListModel, __GetItem);
 	Gura_AssignMethod(wx_DataViewVirtualListModel, __Reset);
 	Gura_AssignMethod(wx_DataViewVirtualListModel, __RowAppended);

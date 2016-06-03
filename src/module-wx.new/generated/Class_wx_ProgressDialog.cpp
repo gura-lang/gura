@@ -35,9 +35,9 @@ String Object_wx_ProgressDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ProgressDialog, __wxProgressDialog, "wxProgressDialog")
+Gura_DeclareFunctionAlias(__wxProgressDialog, "wxProgressDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -47,16 +47,14 @@ Gura_DeclareMethodAlias(wx_ProgressDialog, __wxProgressDialog, "wxProgressDialog
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ProgressDialog, __wxProgressDialog)
+Gura_ImplementFunction(__wxProgressDialog)
 {
-	Object_wx_ProgressDialog *pThis = Object_wx_ProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int maximum = arg.GetNumber(2)
 	//int parent = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->wxProgressDialog();
+	//wxProgressDialog();
 	return Value::Nil;
 }
 
@@ -65,7 +63,8 @@ Gura_ImplementMethod(wx_ProgressDialog, __wxProgressDialog)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProgressDialog)
 {
-	Gura_AssignMethod(wx_ProgressDialog, __wxProgressDialog);
+	// Constructor assignment
+	Gura_AssignFunction(__wxProgressDialog);
 }
 
 Gura_ImplementDescendantCreator(wx_ProgressDialog)

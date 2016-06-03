@@ -35,21 +35,22 @@ String Object_wx_FontData::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FontData, __wxFontData, "wxFontData")
+Gura_DeclareFunctionAlias(__wxFontData, "wxFontData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontData, __wxFontData)
+Gura_ImplementFunction(__wxFontData)
 {
-	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFontData();
+	//wxFontData();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FontData, __EnableEffects, "EnableEffects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -240,7 +241,9 @@ Gura_ImplementMethod(wx_FontData, __SetShowHelp)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontData)
 {
-	Gura_AssignMethod(wx_FontData, __wxFontData);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFontData);
+	// Method assignment
 	Gura_AssignMethod(wx_FontData, __EnableEffects);
 	Gura_AssignMethod(wx_FontData, __GetAllowSymbols);
 	Gura_AssignMethod(wx_FontData, __GetChosenFont);

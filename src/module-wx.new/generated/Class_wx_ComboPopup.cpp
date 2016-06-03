@@ -35,21 +35,22 @@ String Object_wx_ComboPopup::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ComboPopup, __wxComboPopup, "wxComboPopup")
+Gura_DeclareFunctionAlias(__wxComboPopup, "wxComboPopup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ComboPopup, __wxComboPopup)
+Gura_ImplementFunction(__wxComboPopup)
 {
-	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxComboPopup();
+	//wxComboPopup();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ComboPopup, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -296,7 +297,9 @@ Gura_ImplementMethod(wx_ComboPopup, __SetStringValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ComboPopup)
 {
-	Gura_AssignMethod(wx_ComboPopup, __wxComboPopup);
+	// Constructor assignment
+	Gura_AssignFunction(__wxComboPopup);
+	// Method assignment
 	Gura_AssignMethod(wx_ComboPopup, __Create);
 	Gura_AssignMethod(wx_ComboPopup, __DestroyPopup);
 	Gura_AssignMethod(wx_ComboPopup, __Dismiss);

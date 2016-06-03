@@ -35,22 +35,20 @@ String Object_wx_Dialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Dialog, __wxDialog, "wxDialog")
+Gura_DeclareFunctionAlias(__wxDialog, "wxDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, __wxDialog)
+Gura_ImplementFunction(__wxDialog)
 {
-	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDialog();
+	//wxDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Dialog, __wxDialog_1, "wxDialog_1")
+Gura_DeclareFunctionAlias(__wxDialog_1, "wxDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,10 +60,8 @@ Gura_DeclareMethodAlias(wx_Dialog, __wxDialog_1, "wxDialog_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, __wxDialog_1)
+Gura_ImplementFunction(__wxDialog_1)
 {
-	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -73,10 +69,13 @@ Gura_ImplementMethod(wx_Dialog, __wxDialog_1)
 	//int size = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxDialog();
+	//wxDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Dialog, __AddMainButtonId, "AddMainButtonId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -660,8 +659,10 @@ Gura_ImplementMethod(wx_Dialog, __ShowWindowModalThenDo)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Dialog)
 {
-	Gura_AssignMethod(wx_Dialog, __wxDialog);
-	Gura_AssignMethod(wx_Dialog, __wxDialog_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDialog);
+	Gura_AssignFunction(__wxDialog_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Dialog, __AddMainButtonId);
 	Gura_AssignMethod(wx_Dialog, __CanDoLayoutAdaptation);
 	Gura_AssignMethod(wx_Dialog, __Centre);

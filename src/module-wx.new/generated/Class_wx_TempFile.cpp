@@ -35,23 +35,24 @@ String Object_wx_TempFile::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TempFile, __wxTempFile, "wxTempFile")
+Gura_DeclareFunctionAlias(__wxTempFile, "wxTempFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "strName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TempFile, __wxTempFile)
+Gura_ImplementFunction(__wxTempFile)
 {
-	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int strName = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTempFile();
+	//wxTempFile();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TempFile, __Commit, "Commit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -184,7 +185,9 @@ Gura_ImplementMethod(wx_TempFile, __Write)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TempFile)
 {
-	Gura_AssignMethod(wx_TempFile, __wxTempFile);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTempFile);
+	// Method assignment
 	Gura_AssignMethod(wx_TempFile, __Commit);
 	Gura_AssignMethod(wx_TempFile, __Discard);
 	Gura_AssignMethod(wx_TempFile, __Flush);

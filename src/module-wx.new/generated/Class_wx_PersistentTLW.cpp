@@ -35,23 +35,24 @@ String Object_wx_PersistentTLW::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PersistentTLW, __wxPersistentTLW, "wxPersistentTLW")
+Gura_DeclareFunctionAlias(__wxPersistentTLW, "wxPersistentTLW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "book", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistentTLW, __wxPersistentTLW)
+Gura_ImplementFunction(__wxPersistentTLW)
 {
-	Object_wx_PersistentTLW *pThis = Object_wx_PersistentTLW::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int book = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPersistentTLW();
+	//wxPersistentTLW();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PersistentTLW, __Save, "Save")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -83,7 +84,9 @@ Gura_ImplementMethod(wx_PersistentTLW, __Restore)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentTLW)
 {
-	Gura_AssignMethod(wx_PersistentTLW, __wxPersistentTLW);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPersistentTLW);
+	// Method assignment
 	Gura_AssignMethod(wx_PersistentTLW, __Save);
 	Gura_AssignMethod(wx_PersistentTLW, __Restore);
 }

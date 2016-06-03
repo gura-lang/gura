@@ -35,25 +35,26 @@ String Object_wx_CloseEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CloseEvent, __wxCloseEvent, "wxCloseEvent")
+Gura_DeclareFunctionAlias(__wxCloseEvent, "wxCloseEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandEventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CloseEvent, __wxCloseEvent)
+Gura_ImplementFunction(__wxCloseEvent)
 {
-	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandEventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxCloseEvent();
+	//wxCloseEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CloseEvent, __CanVeto, "CanVeto")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -143,7 +144,9 @@ Gura_ImplementMethod(wx_CloseEvent, __GetVeto)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CloseEvent)
 {
-	Gura_AssignMethod(wx_CloseEvent, __wxCloseEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCloseEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_CloseEvent, __CanVeto);
 	Gura_AssignMethod(wx_CloseEvent, __GetLoggingOff);
 	Gura_AssignMethod(wx_CloseEvent, __SetCanVeto);

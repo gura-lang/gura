@@ -35,22 +35,20 @@ String Object_wx_RibbonControl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RibbonControl, __wxRibbonControl, "wxRibbonControl")
+Gura_DeclareFunctionAlias(__wxRibbonControl, "wxRibbonControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, __wxRibbonControl)
+Gura_ImplementFunction(__wxRibbonControl)
 {
-	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRibbonControl();
+	//wxRibbonControl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RibbonControl, __wxRibbonControl_1, "wxRibbonControl_1")
+Gura_DeclareFunctionAlias(__wxRibbonControl_1, "wxRibbonControl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,10 +60,8 @@ Gura_DeclareMethodAlias(wx_RibbonControl, __wxRibbonControl_1, "wxRibbonControl_
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, __wxRibbonControl_1)
+Gura_ImplementFunction(__wxRibbonControl_1)
 {
-	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -73,10 +69,13 @@ Gura_ImplementMethod(wx_RibbonControl, __wxRibbonControl_1)
 	//int style = arg.GetNumber(4)
 	//int validator = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxRibbonControl();
+	//wxRibbonControl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonControl, __SetArtProvider, "SetArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -275,8 +274,10 @@ Gura_ImplementMethod(wx_RibbonControl, __DoGetNextLargerSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonControl)
 {
-	Gura_AssignMethod(wx_RibbonControl, __wxRibbonControl);
-	Gura_AssignMethod(wx_RibbonControl, __wxRibbonControl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRibbonControl);
+	Gura_AssignFunction(__wxRibbonControl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RibbonControl, __SetArtProvider);
 	Gura_AssignMethod(wx_RibbonControl, __GetArtProvider);
 	Gura_AssignMethod(wx_RibbonControl, __IsSizingContinuous);

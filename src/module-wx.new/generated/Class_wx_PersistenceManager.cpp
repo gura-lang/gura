@@ -35,6 +35,20 @@ String Object_wx_PersistenceManager::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxPersistenceManager, "wxPersistenceManager")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementFunction(__wxPersistenceManager)
+{
+	//wxPersistenceManager();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PersistenceManager, __Set, "Set")
@@ -230,19 +244,6 @@ Gura_ImplementMethod(wx_PersistenceManager, __RegisterAndRestore_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PersistenceManager, __wxPersistenceManager, "wxPersistenceManager")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(wx_PersistenceManager, __wxPersistenceManager)
-{
-	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPersistenceManager();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_PersistenceManager, __GetConfig, "GetConfig")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -278,6 +279,9 @@ Gura_ImplementMethod(wx_PersistenceManager, __GetKey)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistenceManager)
 {
+	// Constructor assignment
+	Gura_AssignFunction(__wxPersistenceManager);
+	// Method assignment
 	Gura_AssignMethod(wx_PersistenceManager, __Set);
 	Gura_AssignMethod(wx_PersistenceManager, __Get);
 	Gura_AssignMethod(wx_PersistenceManager, __DisableSaving);
@@ -291,7 +295,6 @@ Gura_ImplementUserInheritableClass(wx_PersistenceManager)
 	Gura_AssignMethod(wx_PersistenceManager, __SaveAndUnregister);
 	Gura_AssignMethod(wx_PersistenceManager, __RegisterAndRestore);
 	Gura_AssignMethod(wx_PersistenceManager, __RegisterAndRestore_1);
-	Gura_AssignMethod(wx_PersistenceManager, __wxPersistenceManager);
 	Gura_AssignMethod(wx_PersistenceManager, __GetConfig);
 	Gura_AssignMethod(wx_PersistenceManager, __GetKey);
 }

@@ -35,23 +35,24 @@ String Object_wx_RichTextPrintout::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextPrintout, __wxRichTextPrintout, "wxRichTextPrintout")
+Gura_DeclareFunctionAlias(__wxRichTextPrintout, "wxRichTextPrintout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, __wxRichTextPrintout)
+Gura_ImplementFunction(__wxRichTextPrintout)
 {
-	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextPrintout();
+	//wxRichTextPrintout();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextPrintout, __CalculateScaling, "CalculateScaling")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -219,7 +220,9 @@ Gura_ImplementMethod(wx_RichTextPrintout, __SetRichTextBuffer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextPrintout)
 {
-	Gura_AssignMethod(wx_RichTextPrintout, __wxRichTextPrintout);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextPrintout);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextPrintout, __CalculateScaling);
 	Gura_AssignMethod(wx_RichTextPrintout, __GetHeaderFooterData);
 	Gura_AssignMethod(wx_RichTextPrintout, __GetPageInfo);

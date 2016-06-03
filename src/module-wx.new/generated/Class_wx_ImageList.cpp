@@ -35,22 +35,20 @@ String Object_wx_ImageList::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ImageList, __wxImageList, "wxImageList")
+Gura_DeclareFunctionAlias(__wxImageList, "wxImageList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ImageList, __wxImageList)
+Gura_ImplementFunction(__wxImageList)
 {
-	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxImageList();
+	//wxImageList();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ImageList, __wxImageList_1, "wxImageList_1")
+Gura_DeclareFunctionAlias(__wxImageList_1, "wxImageList_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -59,18 +57,19 @@ Gura_DeclareMethodAlias(wx_ImageList, __wxImageList_1, "wxImageList_1")
 	//DeclareArg(env, "initialCount", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, __wxImageList_1)
+Gura_ImplementFunction(__wxImageList_1)
 {
-	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//int mask = arg.GetNumber(2)
 	//int initialCount = arg.GetNumber(3)
-	//pThis->GetEntity()->wxImageList();
+	//wxImageList();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ImageList, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -310,8 +309,10 @@ Gura_ImplementMethod(wx_ImageList, __Replace_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ImageList)
 {
-	Gura_AssignMethod(wx_ImageList, __wxImageList);
-	Gura_AssignMethod(wx_ImageList, __wxImageList_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxImageList);
+	Gura_AssignFunction(__wxImageList_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ImageList, __Add);
 	Gura_AssignMethod(wx_ImageList, __Add_1);
 	Gura_AssignMethod(wx_ImageList, __Add_2);

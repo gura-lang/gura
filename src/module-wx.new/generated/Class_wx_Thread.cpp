@@ -35,23 +35,24 @@ String Object_wx_Thread::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Thread, __wxThread, "wxThread")
+Gura_DeclareFunctionAlias(__wxThread, "wxThread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Thread, __wxThread)
+Gura_ImplementFunction(__wxThread)
 {
-	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int kind = arg.GetNumber(0)
-	//pThis->GetEntity()->wxThread();
+	//wxThread();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Thread, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -437,7 +438,9 @@ Gura_ImplementMethod(wx_Thread, __OnExit)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Thread)
 {
-	Gura_AssignMethod(wx_Thread, __wxThread);
+	// Constructor assignment
+	Gura_AssignFunction(__wxThread);
+	// Method assignment
 	Gura_AssignMethod(wx_Thread, __Create);
 	Gura_AssignMethod(wx_Thread, __Delete);
 	Gura_AssignMethod(wx_Thread, __GetCPUCount);

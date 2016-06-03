@@ -76,6 +76,7 @@ Gura_ImplementMethod(wx_MsgCatalog, __CreateFromData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MsgCatalog)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_MsgCatalog, __CreateFromFile);
 	Gura_AssignMethod(wx_MsgCatalog, __CreateFromData);
 }

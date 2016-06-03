@@ -83,6 +83,7 @@ Gura_ImplementMethod(wx_ObjectDataPtr<T>, __unspecified_bool_type)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ObjectDataPtr<T>)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_ObjectDataPtr<T>, __get);
 	Gura_AssignMethod(wx_ObjectDataPtr<T>, __reset);
 	Gura_AssignMethod(wx_ObjectDataPtr<T>, __unspecified_bool_type);

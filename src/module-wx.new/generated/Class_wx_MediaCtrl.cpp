@@ -35,22 +35,20 @@ String Object_wx_MediaCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MediaCtrl, __wxMediaCtrl, "wxMediaCtrl")
+Gura_DeclareFunctionAlias(__wxMediaCtrl, "wxMediaCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, __wxMediaCtrl)
+Gura_ImplementFunction(__wxMediaCtrl)
 {
-	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMediaCtrl();
+	//wxMediaCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_MediaCtrl, __wxMediaCtrl_1, "wxMediaCtrl_1")
+Gura_DeclareFunctionAlias(__wxMediaCtrl_1, "wxMediaCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,10 +62,8 @@ Gura_DeclareMethodAlias(wx_MediaCtrl, __wxMediaCtrl_1, "wxMediaCtrl_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, __wxMediaCtrl_1)
+Gura_ImplementFunction(__wxMediaCtrl_1)
 {
-	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int fileName = arg.GetNumber(2)
@@ -77,10 +73,13 @@ Gura_ImplementMethod(wx_MediaCtrl, __wxMediaCtrl_1)
 	//int szBackend = arg.GetNumber(6)
 	//int validator = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxMediaCtrl();
+	//wxMediaCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MediaCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -375,8 +374,10 @@ Gura_ImplementMethod(wx_MediaCtrl, __Tell)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MediaCtrl)
 {
-	Gura_AssignMethod(wx_MediaCtrl, __wxMediaCtrl);
-	Gura_AssignMethod(wx_MediaCtrl, __wxMediaCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMediaCtrl);
+	Gura_AssignFunction(__wxMediaCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_MediaCtrl, __Create);
 	Gura_AssignMethod(wx_MediaCtrl, __GetBestSize);
 	Gura_AssignMethod(wx_MediaCtrl, __GetPlaybackRate);

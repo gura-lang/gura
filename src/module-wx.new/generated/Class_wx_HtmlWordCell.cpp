@@ -35,22 +35,20 @@ String Object_wx_HtmlWordCell::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlWordCell, __wxHtmlWordCell, "wxHtmlWordCell")
+Gura_DeclareFunctionAlias(__wxHtmlWordCell, "wxHtmlWordCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "word", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWordCell, __wxHtmlWordCell)
+Gura_ImplementFunction(__wxHtmlWordCell)
 {
-	Object_wx_HtmlWordCell *pThis = Object_wx_HtmlWordCell::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int word = arg.GetNumber(0)
 	//int dc = arg.GetNumber(1)
-	//pThis->GetEntity()->wxHtmlWordCell();
+	//wxHtmlWordCell();
 	return Value::Nil;
 }
 
@@ -59,7 +57,8 @@ Gura_ImplementMethod(wx_HtmlWordCell, __wxHtmlWordCell)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWordCell)
 {
-	Gura_AssignMethod(wx_HtmlWordCell, __wxHtmlWordCell);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlWordCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWordCell)

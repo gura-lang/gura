@@ -35,25 +35,26 @@ String Object_wx_ContextHelp::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ContextHelp, __wxContextHelp, "wxContextHelp")
+Gura_DeclareFunctionAlias(__wxContextHelp, "wxContextHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "doNow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ContextHelp, __wxContextHelp)
+Gura_ImplementFunction(__wxContextHelp)
 {
-	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
 	//int doNow = arg.GetNumber(1)
-	//pThis->GetEntity()->wxContextHelp();
+	//wxContextHelp();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ContextHelp, __BeginContextHelp, "BeginContextHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -87,7 +88,9 @@ Gura_ImplementMethod(wx_ContextHelp, __EndContextHelp)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ContextHelp)
 {
-	Gura_AssignMethod(wx_ContextHelp, __wxContextHelp);
+	// Constructor assignment
+	Gura_AssignFunction(__wxContextHelp);
+	// Method assignment
 	Gura_AssignMethod(wx_ContextHelp, __BeginContextHelp);
 	Gura_AssignMethod(wx_ContextHelp, __EndContextHelp);
 }

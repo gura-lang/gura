@@ -35,9 +35,9 @@ String Object_wx_PreviewFrame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PreviewFrame, __wxPreviewFrame, "wxPreviewFrame")
+Gura_DeclareFunctionAlias(__wxPreviewFrame, "wxPreviewFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "preview", VTYPE_number, OCCUR_Once);
@@ -49,10 +49,8 @@ Gura_DeclareMethodAlias(wx_PreviewFrame, __wxPreviewFrame, "wxPreviewFrame")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreviewFrame, __wxPreviewFrame)
+Gura_ImplementFunction(__wxPreviewFrame)
 {
-	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int preview = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -60,10 +58,13 @@ Gura_ImplementMethod(wx_PreviewFrame, __wxPreviewFrame)
 	//int size = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxPreviewFrame();
+	//wxPreviewFrame();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PreviewFrame, __CreateCanvas, "CreateCanvas")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -138,7 +139,9 @@ Gura_ImplementMethod(wx_PreviewFrame, __OnCloseWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreviewFrame)
 {
-	Gura_AssignMethod(wx_PreviewFrame, __wxPreviewFrame);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPreviewFrame);
+	// Method assignment
 	Gura_AssignMethod(wx_PreviewFrame, __CreateCanvas);
 	Gura_AssignMethod(wx_PreviewFrame, __CreateControlBar);
 	Gura_AssignMethod(wx_PreviewFrame, __Initialize);

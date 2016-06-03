@@ -35,36 +35,35 @@ String Object_wx_TimerEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TimerEvent, __wxTimerEvent, "wxTimerEvent")
+Gura_DeclareFunctionAlias(__wxTimerEvent, "wxTimerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimerEvent, __wxTimerEvent)
+Gura_ImplementFunction(__wxTimerEvent)
 {
-	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTimerEvent();
+	//wxTimerEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TimerEvent, __wxTimerEvent_1, "wxTimerEvent_1")
+Gura_DeclareFunctionAlias(__wxTimerEvent_1, "wxTimerEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimerEvent, __wxTimerEvent_1)
+Gura_ImplementFunction(__wxTimerEvent_1)
 {
-	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int timer = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTimerEvent();
+	//wxTimerEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TimerEvent, __GetInterval, "GetInterval")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -96,8 +95,10 @@ Gura_ImplementMethod(wx_TimerEvent, __GetTimer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TimerEvent)
 {
-	Gura_AssignMethod(wx_TimerEvent, __wxTimerEvent);
-	Gura_AssignMethod(wx_TimerEvent, __wxTimerEvent_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTimerEvent);
+	Gura_AssignFunction(__wxTimerEvent_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TimerEvent, __GetInterval);
 	Gura_AssignMethod(wx_TimerEvent, __GetTimer);
 }

@@ -35,25 +35,26 @@ String Object_wx_NotifyEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_NotifyEvent, __wxNotifyEvent, "wxNotifyEvent")
+Gura_DeclareFunctionAlias(__wxNotifyEvent, "wxNotifyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NotifyEvent, __wxNotifyEvent)
+Gura_ImplementFunction(__wxNotifyEvent)
 {
-	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxNotifyEvent();
+	//wxNotifyEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_NotifyEvent, __Allow, "Allow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -98,7 +99,9 @@ Gura_ImplementMethod(wx_NotifyEvent, __Veto)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NotifyEvent)
 {
-	Gura_AssignMethod(wx_NotifyEvent, __wxNotifyEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxNotifyEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_NotifyEvent, __Allow);
 	Gura_AssignMethod(wx_NotifyEvent, __IsAllowed);
 	Gura_AssignMethod(wx_NotifyEvent, __Veto);

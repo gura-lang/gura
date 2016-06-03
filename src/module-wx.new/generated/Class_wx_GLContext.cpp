@@ -35,9 +35,9 @@ String Object_wx_GLContext::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GLContext, __wxGLContext, "wxGLContext")
+Gura_DeclareFunctionAlias(__wxGLContext, "wxGLContext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_GLContext, __wxGLContext, "wxGLContext")
 	//DeclareArg(env, "ctxAttrs", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLContext, __wxGLContext)
+Gura_ImplementFunction(__wxGLContext)
 {
-	Object_wx_GLContext *pThis = Object_wx_GLContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int other = arg.GetNumber(1)
 	//int ctxAttrs = arg.GetNumber(2)
-	//pThis->GetEntity()->wxGLContext();
+	//wxGLContext();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GLContext, __IsOK, "IsOK")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -89,7 +90,9 @@ Gura_ImplementMethod(wx_GLContext, __SetCurrent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLContext)
 {
-	Gura_AssignMethod(wx_GLContext, __wxGLContext);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGLContext);
+	// Method assignment
 	Gura_AssignMethod(wx_GLContext, __IsOK);
 	Gura_AssignMethod(wx_GLContext, __SetCurrent);
 }

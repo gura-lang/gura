@@ -35,21 +35,22 @@ String Object_wx_HtmlRenderingInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlRenderingInfo, __wxHtmlRenderingInfo, "wxHtmlRenderingInfo")
+Gura_DeclareFunctionAlias(__wxHtmlRenderingInfo, "wxHtmlRenderingInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingInfo, __wxHtmlRenderingInfo)
+Gura_ImplementFunction(__wxHtmlRenderingInfo)
 {
-	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlRenderingInfo();
+	//wxHtmlRenderingInfo();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlRenderingInfo, __SetSelection, "SetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -124,7 +125,9 @@ Gura_ImplementMethod(wx_HtmlRenderingInfo, __GetState)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlRenderingInfo)
 {
-	Gura_AssignMethod(wx_HtmlRenderingInfo, __wxHtmlRenderingInfo);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlRenderingInfo);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlRenderingInfo, __SetSelection);
 	Gura_AssignMethod(wx_HtmlRenderingInfo, __GetSelection);
 	Gura_AssignMethod(wx_HtmlRenderingInfo, __SetStyle);

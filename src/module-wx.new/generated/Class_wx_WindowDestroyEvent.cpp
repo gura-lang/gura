@@ -35,23 +35,24 @@ String Object_wx_WindowDestroyEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_WindowDestroyEvent, __wxWindowDestroyEvent, "wxWindowDestroyEvent")
+Gura_DeclareFunctionAlias(__wxWindowDestroyEvent, "wxWindowDestroyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WindowDestroyEvent, __wxWindowDestroyEvent)
+Gura_ImplementFunction(__wxWindowDestroyEvent)
 {
-	Object_wx_WindowDestroyEvent *pThis = Object_wx_WindowDestroyEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
-	//pThis->GetEntity()->wxWindowDestroyEvent();
+	//wxWindowDestroyEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WindowDestroyEvent, __GetWindow, "GetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -70,7 +71,9 @@ Gura_ImplementMethod(wx_WindowDestroyEvent, __GetWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowDestroyEvent)
 {
-	Gura_AssignMethod(wx_WindowDestroyEvent, __wxWindowDestroyEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxWindowDestroyEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_WindowDestroyEvent, __GetWindow);
 }
 

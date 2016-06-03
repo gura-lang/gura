@@ -35,23 +35,24 @@ String Object_wx_Mutex::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Mutex, __wxMutex, "wxMutex")
+Gura_DeclareFunctionAlias(__wxMutex, "wxMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mutex, __wxMutex)
+Gura_ImplementFunction(__wxMutex)
 {
-	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMutex();
+	//wxMutex();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Mutex, __Lock, "Lock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -111,7 +112,9 @@ Gura_ImplementMethod(wx_Mutex, __Unlock)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Mutex)
 {
-	Gura_AssignMethod(wx_Mutex, __wxMutex);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMutex);
+	// Method assignment
 	Gura_AssignMethod(wx_Mutex, __Lock);
 	Gura_AssignMethod(wx_Mutex, __LockTimeout);
 	Gura_AssignMethod(wx_Mutex, __TryLock);

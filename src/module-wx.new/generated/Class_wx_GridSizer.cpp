@@ -35,9 +35,9 @@ String Object_wx_GridSizer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridSizer, __wxGridSizer, "wxGridSizer")
+Gura_DeclareFunctionAlias(__wxGridSizer, "wxGridSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
@@ -45,35 +45,31 @@ Gura_DeclareMethodAlias(wx_GridSizer, __wxGridSizer, "wxGridSizer")
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridSizer, __wxGridSizer)
+Gura_ImplementFunction(__wxGridSizer)
 {
-	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cols = arg.GetNumber(0)
 	//int vgap = arg.GetNumber(1)
 	//int hgap = arg.GetNumber(2)
-	//pThis->GetEntity()->wxGridSizer();
+	//wxGridSizer();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GridSizer, __wxGridSizer_1, "wxGridSizer_1")
+Gura_DeclareFunctionAlias(__wxGridSizer_1, "wxGridSizer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridSizer, __wxGridSizer_1)
+Gura_ImplementFunction(__wxGridSizer_1)
 {
-	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cols = arg.GetNumber(0)
 	//int gap = arg.GetNumber(1)
-	//pThis->GetEntity()->wxGridSizer();
+	//wxGridSizer();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GridSizer, __wxGridSizer_2, "wxGridSizer_2")
+Gura_DeclareFunctionAlias(__wxGridSizer_2, "wxGridSizer_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
@@ -82,19 +78,17 @@ Gura_DeclareMethodAlias(wx_GridSizer, __wxGridSizer_2, "wxGridSizer_2")
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridSizer, __wxGridSizer_2)
+Gura_ImplementFunction(__wxGridSizer_2)
 {
-	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rows = arg.GetNumber(0)
 	//int cols = arg.GetNumber(1)
 	//int vgap = arg.GetNumber(2)
 	//int hgap = arg.GetNumber(3)
-	//pThis->GetEntity()->wxGridSizer();
+	//wxGridSizer();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GridSizer, __wxGridSizer_3, "wxGridSizer_3")
+Gura_DeclareFunctionAlias(__wxGridSizer_3, "wxGridSizer_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
@@ -102,17 +96,18 @@ Gura_DeclareMethodAlias(wx_GridSizer, __wxGridSizer_3, "wxGridSizer_3")
 	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridSizer, __wxGridSizer_3)
+Gura_ImplementFunction(__wxGridSizer_3)
 {
-	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rows = arg.GetNumber(0)
 	//int cols = arg.GetNumber(1)
 	//int gap = arg.GetNumber(2)
-	//pThis->GetEntity()->wxGridSizer();
+	//wxGridSizer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridSizer, __GetCols, "GetCols")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -282,10 +277,12 @@ Gura_ImplementMethod(wx_GridSizer, __RecalcSizes)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridSizer)
 {
-	Gura_AssignMethod(wx_GridSizer, __wxGridSizer);
-	Gura_AssignMethod(wx_GridSizer, __wxGridSizer_1);
-	Gura_AssignMethod(wx_GridSizer, __wxGridSizer_2);
-	Gura_AssignMethod(wx_GridSizer, __wxGridSizer_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridSizer);
+	Gura_AssignFunction(__wxGridSizer_1);
+	Gura_AssignFunction(__wxGridSizer_2);
+	Gura_AssignFunction(__wxGridSizer_3);
+	// Method assignment
 	Gura_AssignMethod(wx_GridSizer, __GetCols);
 	Gura_AssignMethod(wx_GridSizer, __GetRows);
 	Gura_AssignMethod(wx_GridSizer, __GetEffectiveColsCount);

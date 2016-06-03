@@ -35,23 +35,24 @@ String Object_wx_DataViewIndexListModel::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __wxDataViewIndexListModel, "wxDataViewIndexListModel")
+Gura_DeclareFunctionAlias(__wxDataViewIndexListModel, "wxDataViewIndexListModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initial_size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, __wxDataViewIndexListModel)
+Gura_ImplementFunction(__wxDataViewIndexListModel)
 {
-	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int initial_size = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDataViewIndexListModel();
+	//wxDataViewIndexListModel();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __GetItem, "GetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -190,7 +191,9 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, __RowsDeleted)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewIndexListModel)
 {
-	Gura_AssignMethod(wx_DataViewIndexListModel, __wxDataViewIndexListModel);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewIndexListModel);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewIndexListModel, __GetItem);
 	Gura_AssignMethod(wx_DataViewIndexListModel, __Reset);
 	Gura_AssignMethod(wx_DataViewIndexListModel, __RowAppended);

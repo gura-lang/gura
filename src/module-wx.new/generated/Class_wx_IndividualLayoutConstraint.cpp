@@ -35,21 +35,22 @@ String Object_wx_IndividualLayoutConstraint::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __wxIndividualLayoutConstraint, "wxIndividualLayoutConstraint")
+Gura_DeclareFunctionAlias(__wxIndividualLayoutConstraint, "wxIndividualLayoutConstraint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IndividualLayoutConstraint, __wxIndividualLayoutConstraint)
+Gura_ImplementFunction(__wxIndividualLayoutConstraint)
 {
-	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxIndividualLayoutConstraint();
+	//wxIndividualLayoutConstraint();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -455,7 +456,9 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, __GetEdge)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IndividualLayoutConstraint)
 {
-	Gura_AssignMethod(wx_IndividualLayoutConstraint, __wxIndividualLayoutConstraint);
+	// Constructor assignment
+	Gura_AssignFunction(__wxIndividualLayoutConstraint);
+	// Method assignment
 	Gura_AssignMethod(wx_IndividualLayoutConstraint, __Set);
 	Gura_AssignMethod(wx_IndividualLayoutConstraint, __LeftOf);
 	Gura_AssignMethod(wx_IndividualLayoutConstraint, __RightOf);

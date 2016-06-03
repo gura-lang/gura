@@ -35,25 +35,26 @@ String Object_wx_HashTable::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HashTable, __wxHashTable, "wxHashTable")
+Gura_DeclareFunctionAlias(__wxHashTable, "wxHashTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key_type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashTable, __wxHashTable)
+Gura_ImplementFunction(__wxHashTable)
 {
-	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int key_type = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
-	//pThis->GetEntity()->wxHashTable();
+	//wxHashTable();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HashTable, __BeginFind, "BeginFind")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -235,7 +236,9 @@ Gura_ImplementMethod(wx_HashTable, __Put_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HashTable)
 {
-	Gura_AssignMethod(wx_HashTable, __wxHashTable);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHashTable);
+	// Method assignment
 	Gura_AssignMethod(wx_HashTable, __BeginFind);
 	Gura_AssignMethod(wx_HashTable, __Clear);
 	Gura_AssignMethod(wx_HashTable, __Delete);

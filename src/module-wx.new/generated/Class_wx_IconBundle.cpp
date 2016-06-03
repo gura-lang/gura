@@ -35,16 +35,10 @@ String Object_wx_IconBundle::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxIconBundle
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IconBundle)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_IconBundle)

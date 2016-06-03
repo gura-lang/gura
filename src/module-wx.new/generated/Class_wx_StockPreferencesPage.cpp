@@ -35,16 +35,10 @@ String Object_wx_StockPreferencesPage::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxStockPreferencesPage
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StockPreferencesPage)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_StockPreferencesPage)

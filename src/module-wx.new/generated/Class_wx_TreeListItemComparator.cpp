@@ -35,21 +35,22 @@ String Object_wx_TreeListItemComparator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TreeListItemComparator, __wxTreeListItemComparator, "wxTreeListItemComparator")
+Gura_DeclareFunctionAlias(__wxTreeListItemComparator, "wxTreeListItemComparator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListItemComparator, __wxTreeListItemComparator)
+Gura_ImplementFunction(__wxTreeListItemComparator)
 {
-	Object_wx_TreeListItemComparator *pThis = Object_wx_TreeListItemComparator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTreeListItemComparator();
+	//wxTreeListItemComparator();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TreeListItemComparator, __Compare, "Compare")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -76,7 +77,9 @@ Gura_ImplementMethod(wx_TreeListItemComparator, __Compare)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeListItemComparator)
 {
-	Gura_AssignMethod(wx_TreeListItemComparator, __wxTreeListItemComparator);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTreeListItemComparator);
+	// Method assignment
 	Gura_AssignMethod(wx_TreeListItemComparator, __Compare);
 }
 

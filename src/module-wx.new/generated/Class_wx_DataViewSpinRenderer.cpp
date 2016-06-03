@@ -35,9 +35,9 @@ String Object_wx_DataViewSpinRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewSpinRenderer, __wxDataViewSpinRenderer, "wxDataViewSpinRenderer")
+Gura_DeclareFunctionAlias(__wxDataViewSpinRenderer, "wxDataViewSpinRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
@@ -46,15 +46,13 @@ Gura_DeclareMethodAlias(wx_DataViewSpinRenderer, __wxDataViewSpinRenderer, "wxDa
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewSpinRenderer, __wxDataViewSpinRenderer)
+Gura_ImplementFunction(__wxDataViewSpinRenderer)
 {
-	Object_wx_DataViewSpinRenderer *pThis = Object_wx_DataViewSpinRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
 	//int mode = arg.GetNumber(2)
 	//int align = arg.GetNumber(3)
-	//pThis->GetEntity()->wxDataViewSpinRenderer();
+	//wxDataViewSpinRenderer();
 	return Value::Nil;
 }
 
@@ -63,7 +61,8 @@ Gura_ImplementMethod(wx_DataViewSpinRenderer, __wxDataViewSpinRenderer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewSpinRenderer)
 {
-	Gura_AssignMethod(wx_DataViewSpinRenderer, __wxDataViewSpinRenderer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewSpinRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewSpinRenderer)

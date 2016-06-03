@@ -35,53 +35,50 @@ String Object_wx_FontDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FontDialog, __wxFontDialog, "wxFontDialog")
+Gura_DeclareFunctionAlias(__wxFontDialog, "wxFontDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontDialog, __wxFontDialog)
+Gura_ImplementFunction(__wxFontDialog)
 {
-	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFontDialog();
+	//wxFontDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FontDialog, __wxFontDialog_1, "wxFontDialog_1")
+Gura_DeclareFunctionAlias(__wxFontDialog_1, "wxFontDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontDialog, __wxFontDialog_1)
+Gura_ImplementFunction(__wxFontDialog_1)
 {
-	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFontDialog();
+	//wxFontDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FontDialog, __wxFontDialog_2, "wxFontDialog_2")
+Gura_DeclareFunctionAlias(__wxFontDialog_2, "wxFontDialog_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontDialog, __wxFontDialog_2)
+Gura_ImplementFunction(__wxFontDialog_2)
 {
-	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int data = arg.GetNumber(1)
-	//pThis->GetEntity()->wxFontDialog();
+	//wxFontDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FontDialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -158,9 +155,11 @@ Gura_ImplementMethod(wx_FontDialog, __ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontDialog)
 {
-	Gura_AssignMethod(wx_FontDialog, __wxFontDialog);
-	Gura_AssignMethod(wx_FontDialog, __wxFontDialog_1);
-	Gura_AssignMethod(wx_FontDialog, __wxFontDialog_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFontDialog);
+	Gura_AssignFunction(__wxFontDialog_1);
+	Gura_AssignFunction(__wxFontDialog_2);
+	// Method assignment
 	Gura_AssignMethod(wx_FontDialog, __Create);
 	Gura_AssignMethod(wx_FontDialog, __Create_1);
 	Gura_AssignMethod(wx_FontDialog, __GetFontData);

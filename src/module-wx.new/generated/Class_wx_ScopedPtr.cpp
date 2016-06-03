@@ -35,23 +35,24 @@ String Object_wx_ScopedPtr::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ScopedPtr, __wxScopedPtr, "wxScopedPtr")
+Gura_DeclareFunctionAlias(__wxScopedPtr, "wxScopedPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "T", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScopedPtr, __wxScopedPtr)
+Gura_ImplementFunction(__wxScopedPtr)
 {
-	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int T = arg.GetNumber(0)
-	//pThis->GetEntity()->wxScopedPtr();
+	//wxScopedPtr();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScopedPtr, __get, "get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -113,7 +114,9 @@ Gura_ImplementMethod(wx_ScopedPtr, __swap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopedPtr)
 {
-	Gura_AssignMethod(wx_ScopedPtr, __wxScopedPtr);
+	// Constructor assignment
+	Gura_AssignFunction(__wxScopedPtr);
+	// Method assignment
 	Gura_AssignMethod(wx_ScopedPtr, __get);
 	Gura_AssignMethod(wx_ScopedPtr, __release);
 	Gura_AssignMethod(wx_ScopedPtr, __reset);

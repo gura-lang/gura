@@ -35,21 +35,22 @@ String Object_wx_ArchiveFSHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ArchiveFSHandler, __wxArchiveFSHandler, "wxArchiveFSHandler")
+Gura_DeclareFunctionAlias(__wxArchiveFSHandler, "wxArchiveFSHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArchiveFSHandler, __wxArchiveFSHandler)
+Gura_ImplementFunction(__wxArchiveFSHandler)
 {
-	Object_wx_ArchiveFSHandler *pThis = Object_wx_ArchiveFSHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxArchiveFSHandler();
+	//wxArchiveFSHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ArchiveFSHandler, __Cleanup, "Cleanup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -68,7 +69,9 @@ Gura_ImplementMethod(wx_ArchiveFSHandler, __Cleanup)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveFSHandler)
 {
-	Gura_AssignMethod(wx_ArchiveFSHandler, __wxArchiveFSHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxArchiveFSHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_ArchiveFSHandler, __Cleanup);
 }
 

@@ -168,6 +168,7 @@ Gura_ImplementMethod(wx_HelpProvider, __ShowHelpAtPoint)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpProvider)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_HelpProvider, __AddHelp);
 	Gura_AssignMethod(wx_HelpProvider, __AddHelp_1);
 	Gura_AssignMethod(wx_HelpProvider, __Get);

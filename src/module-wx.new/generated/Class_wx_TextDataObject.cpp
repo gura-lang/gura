@@ -35,23 +35,24 @@ String Object_wx_TextDataObject::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextDataObject, __wxTextDataObject, "wxTextDataObject")
+Gura_DeclareFunctionAlias(__wxTextDataObject, "wxTextDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextDataObject, __wxTextDataObject)
+Gura_ImplementFunction(__wxTextDataObject)
 {
-	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
-	//pThis->GetEntity()->wxTextDataObject();
+	//wxTextDataObject();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextDataObject, __GetText, "GetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -143,7 +144,9 @@ Gura_ImplementMethod(wx_TextDataObject, __SetText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextDataObject)
 {
-	Gura_AssignMethod(wx_TextDataObject, __wxTextDataObject);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextDataObject);
+	// Method assignment
 	Gura_AssignMethod(wx_TextDataObject, __GetText);
 	Gura_AssignMethod(wx_TextDataObject, __GetTextLength);
 	Gura_AssignMethod(wx_TextDataObject, __GetFormatCount);

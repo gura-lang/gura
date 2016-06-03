@@ -35,21 +35,22 @@ String Object_wx_Sizer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Sizer, __wxSizer, "wxSizer")
+Gura_DeclareFunctionAlias(__wxSizer, "wxSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Sizer, __wxSizer)
+Gura_ImplementFunction(__wxSizer)
 {
-	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSizer();
+	//wxSizer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Sizer, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1415,7 +1416,9 @@ Gura_ImplementMethod(wx_Sizer, __ShowItems)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Sizer)
 {
-	Gura_AssignMethod(wx_Sizer, __wxSizer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSizer);
+	// Method assignment
 	Gura_AssignMethod(wx_Sizer, __Add);
 	Gura_AssignMethod(wx_Sizer, __Add_1);
 	Gura_AssignMethod(wx_Sizer, __Add_2);

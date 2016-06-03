@@ -35,25 +35,26 @@ String Object_wx_FileHistory::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileHistory, __wxFileHistory, "wxFileHistory")
+Gura_DeclareFunctionAlias(__wxFileHistory, "wxFileHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maxFiles", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "idBase", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, __wxFileHistory)
+Gura_ImplementFunction(__wxFileHistory)
 {
-	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int maxFiles = arg.GetNumber(0)
 	//int idBase = arg.GetNumber(1)
-	//pThis->GetEntity()->wxFileHistory();
+	//wxFileHistory();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileHistory, __AddFileToHistory, "AddFileToHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -259,7 +260,9 @@ Gura_ImplementMethod(wx_FileHistory, __UseMenu)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileHistory)
 {
-	Gura_AssignMethod(wx_FileHistory, __wxFileHistory);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileHistory);
+	// Method assignment
 	Gura_AssignMethod(wx_FileHistory, __AddFileToHistory);
 	Gura_AssignMethod(wx_FileHistory, __AddFilesToMenu);
 	Gura_AssignMethod(wx_FileHistory, __AddFilesToMenu_1);

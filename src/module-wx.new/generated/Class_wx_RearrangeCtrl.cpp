@@ -35,22 +35,20 @@ String Object_wx_RearrangeCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RearrangeCtrl, __wxRearrangeCtrl, "wxRearrangeCtrl")
+Gura_DeclareFunctionAlias(__wxRearrangeCtrl, "wxRearrangeCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RearrangeCtrl, __wxRearrangeCtrl)
+Gura_ImplementFunction(__wxRearrangeCtrl)
 {
-	Object_wx_RearrangeCtrl *pThis = Object_wx_RearrangeCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRearrangeCtrl();
+	//wxRearrangeCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RearrangeCtrl, __wxRearrangeCtrl_1, "wxRearrangeCtrl_1")
+Gura_DeclareFunctionAlias(__wxRearrangeCtrl_1, "wxRearrangeCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,10 +62,8 @@ Gura_DeclareMethodAlias(wx_RearrangeCtrl, __wxRearrangeCtrl_1, "wxRearrangeCtrl_
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RearrangeCtrl, __wxRearrangeCtrl_1)
+Gura_ImplementFunction(__wxRearrangeCtrl_1)
 {
-	Object_wx_RearrangeCtrl *pThis = Object_wx_RearrangeCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -77,10 +73,13 @@ Gura_ImplementMethod(wx_RearrangeCtrl, __wxRearrangeCtrl_1)
 	//int style = arg.GetNumber(6)
 	//int validator = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxRearrangeCtrl();
+	//wxRearrangeCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RearrangeCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -130,8 +129,10 @@ Gura_ImplementMethod(wx_RearrangeCtrl, __GetList)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RearrangeCtrl)
 {
-	Gura_AssignMethod(wx_RearrangeCtrl, __wxRearrangeCtrl);
-	Gura_AssignMethod(wx_RearrangeCtrl, __wxRearrangeCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRearrangeCtrl);
+	Gura_AssignFunction(__wxRearrangeCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RearrangeCtrl, __Create);
 	Gura_AssignMethod(wx_RearrangeCtrl, __GetList);
 }

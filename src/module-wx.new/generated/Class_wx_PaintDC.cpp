@@ -35,20 +35,18 @@ String Object_wx_PaintDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PaintDC, __wxPaintDC, "wxPaintDC")
+Gura_DeclareFunctionAlias(__wxPaintDC, "wxPaintDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PaintDC, __wxPaintDC)
+Gura_ImplementFunction(__wxPaintDC)
 {
-	Object_wx_PaintDC *pThis = Object_wx_PaintDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPaintDC();
+	//wxPaintDC();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_PaintDC, __wxPaintDC)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PaintDC)
 {
-	Gura_AssignMethod(wx_PaintDC, __wxPaintDC);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPaintDC);
 }
 
 Gura_ImplementDescendantCreator(wx_PaintDC)

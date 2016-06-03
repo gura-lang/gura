@@ -35,22 +35,20 @@ String Object_wx_RadioBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RadioBox, __wxRadioBox, "wxRadioBox")
+Gura_DeclareFunctionAlias(__wxRadioBox, "wxRadioBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RadioBox, __wxRadioBox)
+Gura_ImplementFunction(__wxRadioBox)
 {
-	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRadioBox();
+	//wxRadioBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RadioBox, __wxRadioBox_1, "wxRadioBox_1")
+Gura_DeclareFunctionAlias(__wxRadioBox_1, "wxRadioBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -66,10 +64,8 @@ Gura_DeclareMethodAlias(wx_RadioBox, __wxRadioBox_1, "wxRadioBox_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, __wxRadioBox_1)
+Gura_ImplementFunction(__wxRadioBox_1)
 {
-	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -81,11 +77,11 @@ Gura_ImplementMethod(wx_RadioBox, __wxRadioBox_1)
 	//int style = arg.GetNumber(8)
 	//int validator = arg.GetNumber(9)
 	//int name = arg.GetNumber(10)
-	//pThis->GetEntity()->wxRadioBox();
+	//wxRadioBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RadioBox, __wxRadioBox_2, "wxRadioBox_2")
+Gura_DeclareFunctionAlias(__wxRadioBox_2, "wxRadioBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -100,10 +96,8 @@ Gura_DeclareMethodAlias(wx_RadioBox, __wxRadioBox_2, "wxRadioBox_2")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, __wxRadioBox_2)
+Gura_ImplementFunction(__wxRadioBox_2)
 {
-	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -114,10 +108,13 @@ Gura_ImplementMethod(wx_RadioBox, __wxRadioBox_2)
 	//int style = arg.GetNumber(7)
 	//int validator = arg.GetNumber(8)
 	//int name = arg.GetNumber(9)
-	//pThis->GetEntity()->wxRadioBox();
+	//wxRadioBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RadioBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -450,9 +447,11 @@ Gura_ImplementMethod(wx_RadioBox, __GetSelection)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RadioBox)
 {
-	Gura_AssignMethod(wx_RadioBox, __wxRadioBox);
-	Gura_AssignMethod(wx_RadioBox, __wxRadioBox_1);
-	Gura_AssignMethod(wx_RadioBox, __wxRadioBox_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRadioBox);
+	Gura_AssignFunction(__wxRadioBox_1);
+	Gura_AssignFunction(__wxRadioBox_2);
+	// Method assignment
 	Gura_AssignMethod(wx_RadioBox, __Create);
 	Gura_AssignMethod(wx_RadioBox, __Create_1);
 	Gura_AssignMethod(wx_RadioBox, __Enable);

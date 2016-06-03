@@ -35,57 +35,54 @@ String Object_wx_MemoryInputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MemoryInputStream, __wxMemoryInputStream, "wxMemoryInputStream")
+Gura_DeclareFunctionAlias(__wxMemoryInputStream, "wxMemoryInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryInputStream, __wxMemoryInputStream)
+Gura_ImplementFunction(__wxMemoryInputStream)
 {
-	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
-	//pThis->GetEntity()->wxMemoryInputStream();
+	//wxMemoryInputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_MemoryInputStream, __wxMemoryInputStream_1, "wxMemoryInputStream_1")
+Gura_DeclareFunctionAlias(__wxMemoryInputStream_1, "wxMemoryInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryInputStream, __wxMemoryInputStream_1)
+Gura_ImplementFunction(__wxMemoryInputStream_1)
 {
-	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMemoryInputStream();
+	//wxMemoryInputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_MemoryInputStream, __wxMemoryInputStream_2, "wxMemoryInputStream_2")
+Gura_DeclareFunctionAlias(__wxMemoryInputStream_2, "wxMemoryInputStream_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryInputStream, __wxMemoryInputStream_2)
+Gura_ImplementFunction(__wxMemoryInputStream_2)
 {
-	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
 	//int len = arg.GetNumber(1)
-	//pThis->GetEntity()->wxMemoryInputStream();
+	//wxMemoryInputStream();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MemoryInputStream, __GetInputStreamBuffer, "GetInputStreamBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -104,9 +101,11 @@ Gura_ImplementMethod(wx_MemoryInputStream, __GetInputStreamBuffer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryInputStream)
 {
-	Gura_AssignMethod(wx_MemoryInputStream, __wxMemoryInputStream);
-	Gura_AssignMethod(wx_MemoryInputStream, __wxMemoryInputStream_1);
-	Gura_AssignMethod(wx_MemoryInputStream, __wxMemoryInputStream_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMemoryInputStream);
+	Gura_AssignFunction(__wxMemoryInputStream_1);
+	Gura_AssignFunction(__wxMemoryInputStream_2);
+	// Method assignment
 	Gura_AssignMethod(wx_MemoryInputStream, __GetInputStreamBuffer);
 }
 

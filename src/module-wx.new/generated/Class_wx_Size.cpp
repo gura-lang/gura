@@ -35,38 +35,37 @@ String Object_wx_Size::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Size, __wxSize, "wxSize")
+Gura_DeclareFunctionAlias(__wxSize, "wxSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Size, __wxSize)
+Gura_ImplementFunction(__wxSize)
 {
-	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSize();
+	//wxSize();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Size, __wxSize_1, "wxSize_1")
+Gura_DeclareFunctionAlias(__wxSize_1, "wxSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Size, __wxSize_1)
+Gura_ImplementFunction(__wxSize_1)
 {
-	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
-	//pThis->GetEntity()->wxSize();
+	//wxSize();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Size, __DecBy, "DecBy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -359,8 +358,10 @@ Gura_ImplementMethod(wx_Size, __SetWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Size)
 {
-	Gura_AssignMethod(wx_Size, __wxSize);
-	Gura_AssignMethod(wx_Size, __wxSize_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSize);
+	Gura_AssignFunction(__wxSize_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Size, __DecBy);
 	Gura_AssignMethod(wx_Size, __DecBy_1);
 	Gura_AssignMethod(wx_Size, __DecBy_2);

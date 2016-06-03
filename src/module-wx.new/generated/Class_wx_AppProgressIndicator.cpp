@@ -35,25 +35,26 @@ String Object_wx_AppProgressIndicator::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AppProgressIndicator, __wxAppProgressIndicator, "wxAppProgressIndicator")
+Gura_DeclareFunctionAlias(__wxAppProgressIndicator, "wxAppProgressIndicator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxValue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppProgressIndicator, __wxAppProgressIndicator)
+Gura_ImplementFunction(__wxAppProgressIndicator)
 {
-	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int maxValue = arg.GetNumber(1)
-	//pThis->GetEntity()->wxAppProgressIndicator();
+	//wxAppProgressIndicator();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AppProgressIndicator, __IsAvailable, "IsAvailable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -115,7 +116,9 @@ Gura_ImplementMethod(wx_AppProgressIndicator, __Pulse)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AppProgressIndicator)
 {
-	Gura_AssignMethod(wx_AppProgressIndicator, __wxAppProgressIndicator);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAppProgressIndicator);
+	// Method assignment
 	Gura_AssignMethod(wx_AppProgressIndicator, __IsAvailable);
 	Gura_AssignMethod(wx_AppProgressIndicator, __SetValue);
 	Gura_AssignMethod(wx_AppProgressIndicator, __SetRange);

@@ -35,21 +35,22 @@ String Object_wx_FontList::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FontList, __wxFontList, "wxFontList")
+Gura_DeclareFunctionAlias(__wxFontList, "wxFontList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontList, __wxFontList)
+Gura_ImplementFunction(__wxFontList)
 {
-	Object_wx_FontList *pThis = Object_wx_FontList::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFontList();
+	//wxFontList();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FontList, __FindOrCreateFont, "FindOrCreateFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -82,7 +83,9 @@ Gura_ImplementMethod(wx_FontList, __FindOrCreateFont)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontList)
 {
-	Gura_AssignMethod(wx_FontList, __wxFontList);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFontList);
+	// Method assignment
 	Gura_AssignMethod(wx_FontList, __FindOrCreateFont);
 }
 

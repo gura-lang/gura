@@ -35,36 +35,35 @@ String Object_wx_RichTextBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextBox, __wxRichTextBox, "wxRichTextBox")
+Gura_DeclareFunctionAlias(__wxRichTextBox, "wxRichTextBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, __wxRichTextBox)
+Gura_ImplementFunction(__wxRichTextBox)
 {
-	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextBox();
+	//wxRichTextBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextBox, __wxRichTextBox_1, "wxRichTextBox_1")
+Gura_DeclareFunctionAlias(__wxRichTextBox_1, "wxRichTextBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, __wxRichTextBox_1)
+Gura_ImplementFunction(__wxRichTextBox_1)
 {
-	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextBox();
+	//wxRichTextBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextBox, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -181,8 +180,10 @@ Gura_ImplementMethod(wx_RichTextBox, __Copy)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextBox)
 {
-	Gura_AssignMethod(wx_RichTextBox, __wxRichTextBox);
-	Gura_AssignMethod(wx_RichTextBox, __wxRichTextBox_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextBox);
+	Gura_AssignFunction(__wxRichTextBox_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextBox, __Draw);
 	Gura_AssignMethod(wx_RichTextBox, __GetXMLNodeName);
 	Gura_AssignMethod(wx_RichTextBox, __CanEditProperties);

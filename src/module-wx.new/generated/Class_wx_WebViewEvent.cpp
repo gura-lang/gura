@@ -35,22 +35,20 @@ String Object_wx_WebViewEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_WebViewEvent, __wxWebViewEvent, "wxWebViewEvent")
+Gura_DeclareFunctionAlias(__wxWebViewEvent, "wxWebViewEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebViewEvent, __wxWebViewEvent)
+Gura_ImplementFunction(__wxWebViewEvent)
 {
-	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxWebViewEvent();
+	//wxWebViewEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_WebViewEvent, __wxWebViewEvent_1, "wxWebViewEvent_1")
+Gura_DeclareFunctionAlias(__wxWebViewEvent_1, "wxWebViewEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -59,18 +57,19 @@ Gura_DeclareMethodAlias(wx_WebViewEvent, __wxWebViewEvent_1, "wxWebViewEvent_1")
 	//DeclareArg(env, "target", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewEvent, __wxWebViewEvent_1)
+Gura_ImplementFunction(__wxWebViewEvent_1)
 {
-	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int href = arg.GetNumber(2)
 	//int target = arg.GetNumber(3)
-	//pThis->GetEntity()->wxWebViewEvent();
+	//wxWebViewEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebViewEvent, __GetTarget, "GetTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -102,8 +101,10 @@ Gura_ImplementMethod(wx_WebViewEvent, __GetURL)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewEvent)
 {
-	Gura_AssignMethod(wx_WebViewEvent, __wxWebViewEvent);
-	Gura_AssignMethod(wx_WebViewEvent, __wxWebViewEvent_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxWebViewEvent);
+	Gura_AssignFunction(__wxWebViewEvent_1);
+	// Method assignment
 	Gura_AssignMethod(wx_WebViewEvent, __GetTarget);
 	Gura_AssignMethod(wx_WebViewEvent, __GetURL);
 }

@@ -35,21 +35,22 @@ String Object_wx_Translations::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Translations, __wxTranslations, "wxTranslations")
+Gura_DeclareFunctionAlias(__wxTranslations, "wxTranslations")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Translations, __wxTranslations)
+Gura_ImplementFunction(__wxTranslations)
 {
-	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxTranslations();
+	//wxTranslations();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Translations, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -309,7 +310,9 @@ Gura_ImplementMethod(wx_Translations, __GetHeaderValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Translations)
 {
-	Gura_AssignMethod(wx_Translations, __wxTranslations);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTranslations);
+	// Method assignment
 	Gura_AssignMethod(wx_Translations, __Get);
 	Gura_AssignMethod(wx_Translations, __Set);
 	Gura_AssignMethod(wx_Translations, __SetLoader);

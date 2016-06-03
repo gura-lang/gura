@@ -35,21 +35,22 @@ String Object_wx_AboutDialogInfo::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AboutDialogInfo, __wxAboutDialogInfo, "wxAboutDialogInfo")
+Gura_DeclareFunctionAlias(__wxAboutDialogInfo, "wxAboutDialogInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AboutDialogInfo, __wxAboutDialogInfo)
+Gura_ImplementFunction(__wxAboutDialogInfo)
 {
-	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAboutDialogInfo();
+	//wxAboutDialogInfo();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AboutDialogInfo, __AddArtist, "AddArtist")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -364,7 +365,9 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetWebSite)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AboutDialogInfo)
 {
-	Gura_AssignMethod(wx_AboutDialogInfo, __wxAboutDialogInfo);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAboutDialogInfo);
+	// Method assignment
 	Gura_AssignMethod(wx_AboutDialogInfo, __AddArtist);
 	Gura_AssignMethod(wx_AboutDialogInfo, __AddDeveloper);
 	Gura_AssignMethod(wx_AboutDialogInfo, __AddDocWriter);

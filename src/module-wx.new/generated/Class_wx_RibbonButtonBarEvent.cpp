@@ -35,9 +35,9 @@ String Object_wx_RibbonButtonBarEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RibbonButtonBarEvent, __wxRibbonButtonBarEvent, "wxRibbonButtonBarEvent")
+Gura_DeclareFunctionAlias(__wxRibbonButtonBarEvent, "wxRibbonButtonBarEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_RibbonButtonBarEvent, __wxRibbonButtonBarEvent, "wxRi
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonButtonBarEvent, __wxRibbonButtonBarEvent)
+Gura_ImplementFunction(__wxRibbonButtonBarEvent)
 {
-	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int command_type = arg.GetNumber(0)
 	//int win_id = arg.GetNumber(1)
 	//int bar = arg.GetNumber(2)
 	//int button = arg.GetNumber(3)
-	//pThis->GetEntity()->wxRibbonButtonBarEvent();
+	//wxRibbonButtonBarEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonButtonBarEvent, __GetBar, "GetBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -134,7 +135,9 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, __PopupMenu)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonButtonBarEvent)
 {
-	Gura_AssignMethod(wx_RibbonButtonBarEvent, __wxRibbonButtonBarEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRibbonButtonBarEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_RibbonButtonBarEvent, __GetBar);
 	Gura_AssignMethod(wx_RibbonButtonBarEvent, __SetBar);
 	Gura_AssignMethod(wx_RibbonButtonBarEvent, __GetButton);

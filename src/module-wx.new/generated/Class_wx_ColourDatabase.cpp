@@ -35,21 +35,22 @@ String Object_wx_ColourDatabase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ColourDatabase, __wxColourDatabase, "wxColourDatabase")
+Gura_DeclareFunctionAlias(__wxColourDatabase, "wxColourDatabase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ColourDatabase, __wxColourDatabase)
+Gura_ImplementFunction(__wxColourDatabase)
 {
-	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxColourDatabase();
+	//wxColourDatabase();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ColourDatabase, __AddColour, "AddColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -102,7 +103,9 @@ Gura_ImplementMethod(wx_ColourDatabase, __FindName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourDatabase)
 {
-	Gura_AssignMethod(wx_ColourDatabase, __wxColourDatabase);
+	// Constructor assignment
+	Gura_AssignFunction(__wxColourDatabase);
+	// Method assignment
 	Gura_AssignMethod(wx_ColourDatabase, __AddColour);
 	Gura_AssignMethod(wx_ColourDatabase, __Find);
 	Gura_AssignMethod(wx_ColourDatabase, __FindName);

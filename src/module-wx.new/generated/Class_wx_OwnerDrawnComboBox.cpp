@@ -35,22 +35,20 @@ String Object_wx_OwnerDrawnComboBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox, "wxOwnerDrawnComboBox")
+Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox, "wxOwnerDrawnComboBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox)
+Gura_ImplementFunction(__wxOwnerDrawnComboBox)
 {
-	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxOwnerDrawnComboBox();
+	//wxOwnerDrawnComboBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox_1, "wxOwnerDrawnComboBox_1")
+Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox_1, "wxOwnerDrawnComboBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,10 +63,8 @@ Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox_1, "wxOwne
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox_1)
+Gura_ImplementFunction(__wxOwnerDrawnComboBox_1)
 {
-	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -79,11 +75,11 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox_1)
 	//int style = arg.GetNumber(7)
 	//int validator = arg.GetNumber(8)
 	//int name = arg.GetNumber(9)
-	//pThis->GetEntity()->wxOwnerDrawnComboBox();
+	//wxOwnerDrawnComboBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox_2, "wxOwnerDrawnComboBox_2")
+Gura_DeclareFunctionAlias(__wxOwnerDrawnComboBox_2, "wxOwnerDrawnComboBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -97,10 +93,8 @@ Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox_2, "wxOwne
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox_2)
+Gura_ImplementFunction(__wxOwnerDrawnComboBox_2)
 {
-	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -110,10 +104,13 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox_2)
 	//int style = arg.GetNumber(6)
 	//int validator = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxOwnerDrawnComboBox();
+	//wxOwnerDrawnComboBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -349,9 +346,11 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __OnMeasureItemWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_OwnerDrawnComboBox)
 {
-	Gura_AssignMethod(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox);
-	Gura_AssignMethod(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox_1);
-	Gura_AssignMethod(wx_OwnerDrawnComboBox, __wxOwnerDrawnComboBox_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxOwnerDrawnComboBox);
+	Gura_AssignFunction(__wxOwnerDrawnComboBox_1);
+	Gura_AssignFunction(__wxOwnerDrawnComboBox_2);
+	// Method assignment
 	Gura_AssignMethod(wx_OwnerDrawnComboBox, __Create);
 	Gura_AssignMethod(wx_OwnerDrawnComboBox, __Create_1);
 	Gura_AssignMethod(wx_OwnerDrawnComboBox, __Create_2);

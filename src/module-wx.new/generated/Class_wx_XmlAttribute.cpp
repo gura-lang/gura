@@ -35,22 +35,20 @@ String Object_wx_XmlAttribute::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_XmlAttribute, __wxXmlAttribute, "wxXmlAttribute")
+Gura_DeclareFunctionAlias(__wxXmlAttribute, "wxXmlAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlAttribute, __wxXmlAttribute)
+Gura_ImplementFunction(__wxXmlAttribute)
 {
-	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxXmlAttribute();
+	//wxXmlAttribute();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_XmlAttribute, __wxXmlAttribute_1, "wxXmlAttribute_1")
+Gura_DeclareFunctionAlias(__wxXmlAttribute_1, "wxXmlAttribute_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -58,17 +56,18 @@ Gura_DeclareMethodAlias(wx_XmlAttribute, __wxXmlAttribute_1, "wxXmlAttribute_1")
 	//DeclareArg(env, "next", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlAttribute, __wxXmlAttribute_1)
+Gura_ImplementFunction(__wxXmlAttribute_1)
 {
-	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
 	//int next = arg.GetNumber(2)
-	//pThis->GetEntity()->wxXmlAttribute();
+	//wxXmlAttribute();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_XmlAttribute, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -158,8 +157,10 @@ Gura_ImplementMethod(wx_XmlAttribute, __SetValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlAttribute)
 {
-	Gura_AssignMethod(wx_XmlAttribute, __wxXmlAttribute);
-	Gura_AssignMethod(wx_XmlAttribute, __wxXmlAttribute_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxXmlAttribute);
+	Gura_AssignFunction(__wxXmlAttribute_1);
+	// Method assignment
 	Gura_AssignMethod(wx_XmlAttribute, __GetName);
 	Gura_AssignMethod(wx_XmlAttribute, __GetNext);
 	Gura_AssignMethod(wx_XmlAttribute, __GetValue);

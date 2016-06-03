@@ -35,9 +35,9 @@ String Object_wx_RichTextAction::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextAction, __wxRichTextAction, "wxRichTextAction")
+Gura_DeclareFunctionAlias(__wxRichTextAction, "wxRichTextAction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cmd", VTYPE_number, OCCUR_Once);
@@ -49,10 +49,8 @@ Gura_DeclareMethodAlias(wx_RichTextAction, __wxRichTextAction, "wxRichTextAction
 	//DeclareArg(env, "ignoreFirstTime", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextAction, __wxRichTextAction)
+Gura_ImplementFunction(__wxRichTextAction)
 {
-	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cmd = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
@@ -60,10 +58,13 @@ Gura_ImplementMethod(wx_RichTextAction, __wxRichTextAction)
 	//int container = arg.GetNumber(4)
 	//int ctrl = arg.GetNumber(5)
 	//int ignoreFirstTime = arg.GetNumber(6)
-	//pThis->GetEntity()->wxRichTextAction();
+	//wxRichTextAction();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextAction, __Do, "Do")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -436,7 +437,9 @@ Gura_ImplementMethod(wx_RichTextAction, __GetIgnoreFirstTime)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextAction)
 {
-	Gura_AssignMethod(wx_RichTextAction, __wxRichTextAction);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextAction);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextAction, __Do);
 	Gura_AssignMethod(wx_RichTextAction, __Undo);
 	Gura_AssignMethod(wx_RichTextAction, __UpdateAppearance);

@@ -35,23 +35,24 @@ String Object_wx_ThreadHelper::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ThreadHelper, __wxThreadHelper, "wxThreadHelper")
+Gura_DeclareFunctionAlias(__wxThreadHelper, "wxThreadHelper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ThreadHelper, __wxThreadHelper)
+Gura_ImplementFunction(__wxThreadHelper)
 {
-	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int kind = arg.GetNumber(0)
-	//pThis->GetEntity()->wxThreadHelper();
+	//wxThreadHelper();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ThreadHelper, __Entry, "Entry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -154,7 +155,9 @@ Gura_ImplementMethod(wx_ThreadHelper, __GetThreadKind)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ThreadHelper)
 {
-	Gura_AssignMethod(wx_ThreadHelper, __wxThreadHelper);
+	// Constructor assignment
+	Gura_AssignFunction(__wxThreadHelper);
+	// Method assignment
 	Gura_AssignMethod(wx_ThreadHelper, __Entry);
 	Gura_AssignMethod(wx_ThreadHelper, __OnDelete);
 	Gura_AssignMethod(wx_ThreadHelper, __OnKill);

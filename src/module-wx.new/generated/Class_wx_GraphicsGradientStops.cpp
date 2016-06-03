@@ -35,25 +35,26 @@ String Object_wx_GraphicsGradientStops::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GraphicsGradientStops, __wxGraphicsGradientStops, "wxGraphicsGradientStops")
+Gura_DeclareFunctionAlias(__wxGraphicsGradientStops, "wxGraphicsGradientStops")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "startCol", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "endCol", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsGradientStops, __wxGraphicsGradientStops)
+Gura_ImplementFunction(__wxGraphicsGradientStops)
 {
-	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int startCol = arg.GetNumber(0)
 	//int endCol = arg.GetNumber(1)
-	//pThis->GetEntity()->wxGraphicsGradientStops();
+	//wxGraphicsGradientStops();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GraphicsGradientStops, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -175,7 +176,9 @@ Gura_ImplementMethod(wx_GraphicsGradientStops, __GetEndColour)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsGradientStops)
 {
-	Gura_AssignMethod(wx_GraphicsGradientStops, __wxGraphicsGradientStops);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGraphicsGradientStops);
+	// Method assignment
 	Gura_AssignMethod(wx_GraphicsGradientStops, __Add);
 	Gura_AssignMethod(wx_GraphicsGradientStops, __Add_1);
 	Gura_AssignMethod(wx_GraphicsGradientStops, __Item);

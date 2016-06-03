@@ -35,23 +35,24 @@ String Object_wx_SocketEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SocketEvent, __wxSocketEvent, "wxSocketEvent")
+Gura_DeclareFunctionAlias(__wxSocketEvent, "wxSocketEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketEvent, __wxSocketEvent)
+Gura_ImplementFunction(__wxSocketEvent)
 {
-	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->wxSocketEvent();
+	//wxSocketEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SocketEvent, __GetClientData, "GetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -96,7 +97,9 @@ Gura_ImplementMethod(wx_SocketEvent, __GetSocketEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketEvent)
 {
-	Gura_AssignMethod(wx_SocketEvent, __wxSocketEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSocketEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_SocketEvent, __GetClientData);
 	Gura_AssignMethod(wx_SocketEvent, __GetSocket);
 	Gura_AssignMethod(wx_SocketEvent, __GetSocketEvent);

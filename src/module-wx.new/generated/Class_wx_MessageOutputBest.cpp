@@ -35,20 +35,18 @@ String Object_wx_MessageOutputBest::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MessageOutputBest, __wxMessageOutputBest, "wxMessageOutputBest")
+Gura_DeclareFunctionAlias(__wxMessageOutputBest, "wxMessageOutputBest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageOutputBest, __wxMessageOutputBest)
+Gura_ImplementFunction(__wxMessageOutputBest)
 {
-	Object_wx_MessageOutputBest *pThis = Object_wx_MessageOutputBest::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMessageOutputBest();
+	//wxMessageOutputBest();
 	return Value::Nil;
 }
 
@@ -57,7 +55,8 @@ Gura_ImplementMethod(wx_MessageOutputBest, __wxMessageOutputBest)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageOutputBest)
 {
-	Gura_AssignMethod(wx_MessageOutputBest, __wxMessageOutputBest);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMessageOutputBest);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageOutputBest)

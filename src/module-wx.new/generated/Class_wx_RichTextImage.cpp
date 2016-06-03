@@ -35,24 +35,22 @@ String Object_wx_RichTextImage::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextImage, __wxRichTextImage, "wxRichTextImage")
+Gura_DeclareFunctionAlias(__wxRichTextImage, "wxRichTextImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, __wxRichTextImage)
+Gura_ImplementFunction(__wxRichTextImage)
 {
-	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextImage();
+	//wxRichTextImage();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextImage, __wxRichTextImage_1, "wxRichTextImage_1")
+Gura_DeclareFunctionAlias(__wxRichTextImage_1, "wxRichTextImage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -60,18 +58,16 @@ Gura_DeclareMethodAlias(wx_RichTextImage, __wxRichTextImage_1, "wxRichTextImage_
 	//DeclareArg(env, "charStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, __wxRichTextImage_1)
+Gura_ImplementFunction(__wxRichTextImage_1)
 {
-	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int charStyle = arg.GetNumber(2)
-	//pThis->GetEntity()->wxRichTextImage();
+	//wxRichTextImage();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextImage, __wxRichTextImage_2, "wxRichTextImage_2")
+Gura_DeclareFunctionAlias(__wxRichTextImage_2, "wxRichTextImage_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "imageBlock", VTYPE_number, OCCUR_Once);
@@ -79,30 +75,29 @@ Gura_DeclareMethodAlias(wx_RichTextImage, __wxRichTextImage_2, "wxRichTextImage_
 	//DeclareArg(env, "charStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, __wxRichTextImage_2)
+Gura_ImplementFunction(__wxRichTextImage_2)
 {
-	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int imageBlock = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int charStyle = arg.GetNumber(2)
-	//pThis->GetEntity()->wxRichTextImage();
+	//wxRichTextImage();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextImage, __wxRichTextImage_3, "wxRichTextImage_3")
+Gura_DeclareFunctionAlias(__wxRichTextImage_3, "wxRichTextImage_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, __wxRichTextImage_3)
+Gura_ImplementFunction(__wxRichTextImage_3)
 {
-	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextImage();
+	//wxRichTextImage();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextImage, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -536,10 +531,12 @@ Gura_ImplementMethod(wx_RichTextImage, __SetImageState)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextImage)
 {
-	Gura_AssignMethod(wx_RichTextImage, __wxRichTextImage);
-	Gura_AssignMethod(wx_RichTextImage, __wxRichTextImage_1);
-	Gura_AssignMethod(wx_RichTextImage, __wxRichTextImage_2);
-	Gura_AssignMethod(wx_RichTextImage, __wxRichTextImage_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextImage);
+	Gura_AssignFunction(__wxRichTextImage_1);
+	Gura_AssignFunction(__wxRichTextImage_2);
+	Gura_AssignFunction(__wxRichTextImage_3);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextImage, __Draw);
 	Gura_AssignMethod(wx_RichTextImage, __Layout);
 	Gura_AssignMethod(wx_RichTextImage, __GetRangeSize);

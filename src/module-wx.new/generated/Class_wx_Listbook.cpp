@@ -35,22 +35,20 @@ String Object_wx_Listbook::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Listbook, __wxListbook, "wxListbook")
+Gura_DeclareFunctionAlias(__wxListbook, "wxListbook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Listbook, __wxListbook)
+Gura_ImplementFunction(__wxListbook)
 {
-	Object_wx_Listbook *pThis = Object_wx_Listbook::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxListbook();
+	//wxListbook();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Listbook, __wxListbook_1, "wxListbook_1")
+Gura_DeclareFunctionAlias(__wxListbook_1, "wxListbook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_Listbook, __wxListbook_1, "wxListbook_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Listbook, __wxListbook_1)
+Gura_ImplementFunction(__wxListbook_1)
 {
-	Object_wx_Listbook *pThis = Object_wx_Listbook::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxListbook();
+	//wxListbook();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Listbook, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -118,8 +117,10 @@ Gura_ImplementMethod(wx_Listbook, __GetListView)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Listbook)
 {
-	Gura_AssignMethod(wx_Listbook, __wxListbook);
-	Gura_AssignMethod(wx_Listbook, __wxListbook_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxListbook);
+	Gura_AssignFunction(__wxListbook_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Listbook, __Create);
 	Gura_AssignMethod(wx_Listbook, __GetListView);
 }

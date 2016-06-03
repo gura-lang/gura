@@ -35,23 +35,24 @@ String Object_wx_ProtocolLog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ProtocolLog, __wxProtocolLog, "wxProtocolLog")
+Gura_DeclareFunctionAlias(__wxProtocolLog, "wxProtocolLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "traceMask", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ProtocolLog, __wxProtocolLog)
+Gura_ImplementFunction(__wxProtocolLog)
 {
-	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int traceMask = arg.GetNumber(0)
-	//pThis->GetEntity()->wxProtocolLog();
+	//wxProtocolLog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ProtocolLog, __LogRequest, "LogRequest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -102,7 +103,9 @@ Gura_ImplementMethod(wx_ProtocolLog, __DoLogString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProtocolLog)
 {
-	Gura_AssignMethod(wx_ProtocolLog, __wxProtocolLog);
+	// Constructor assignment
+	Gura_AssignFunction(__wxProtocolLog);
+	// Method assignment
 	Gura_AssignMethod(wx_ProtocolLog, __LogRequest);
 	Gura_AssignMethod(wx_ProtocolLog, __LogResponse);
 	Gura_AssignMethod(wx_ProtocolLog, __DoLogString);

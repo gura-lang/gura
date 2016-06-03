@@ -55,6 +55,7 @@ Gura_ImplementMethod(wx_ScopeGuard, __Dismiss)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopeGuard)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_ScopeGuard, __Dismiss);
 }
 

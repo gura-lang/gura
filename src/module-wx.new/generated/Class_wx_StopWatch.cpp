@@ -35,21 +35,22 @@ String Object_wx_StopWatch::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StopWatch, __wxStopWatch, "wxStopWatch")
+Gura_DeclareFunctionAlias(__wxStopWatch, "wxStopWatch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StopWatch, __wxStopWatch)
+Gura_ImplementFunction(__wxStopWatch)
 {
-	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxStopWatch();
+	//wxStopWatch();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StopWatch, __Pause, "Pause")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -122,7 +123,9 @@ Gura_ImplementMethod(wx_StopWatch, __TimeInMicro)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StopWatch)
 {
-	Gura_AssignMethod(wx_StopWatch, __wxStopWatch);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStopWatch);
+	// Method assignment
 	Gura_AssignMethod(wx_StopWatch, __Pause);
 	Gura_AssignMethod(wx_StopWatch, __Resume);
 	Gura_AssignMethod(wx_StopWatch, __Start);

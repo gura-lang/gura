@@ -35,9 +35,9 @@ String Object_wx_RichTextHTMLHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __wxRichTextHTMLHandler, "wxRichTextHTMLHandler")
+Gura_DeclareFunctionAlias(__wxRichTextHTMLHandler, "wxRichTextHTMLHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __wxRichTextHTMLHandler, "wxRich
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, __wxRichTextHTMLHandler)
+Gura_ImplementFunction(__wxRichTextHTMLHandler)
 {
-	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int ext = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
-	//pThis->GetEntity()->wxRichTextHTMLHandler();
+	//wxRichTextHTMLHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __ClearTemporaryImageLocations, "ClearTemporaryImageLocations")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -220,7 +221,9 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __DoSaveFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextHTMLHandler)
 {
-	Gura_AssignMethod(wx_RichTextHTMLHandler, __wxRichTextHTMLHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextHTMLHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextHTMLHandler, __ClearTemporaryImageLocations);
 	Gura_AssignMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages);
 	Gura_AssignMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages_1);

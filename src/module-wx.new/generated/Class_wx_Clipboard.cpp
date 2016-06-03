@@ -35,21 +35,22 @@ String Object_wx_Clipboard::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Clipboard, __wxClipboard, "wxClipboard")
+Gura_DeclareFunctionAlias(__wxClipboard, "wxClipboard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Clipboard, __wxClipboard)
+Gura_ImplementFunction(__wxClipboard)
 {
-	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxClipboard();
+	//wxClipboard();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Clipboard, __AddData, "AddData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -221,7 +222,9 @@ Gura_ImplementMethod(wx_Clipboard, __Get)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Clipboard)
 {
-	Gura_AssignMethod(wx_Clipboard, __wxClipboard);
+	// Constructor assignment
+	Gura_AssignFunction(__wxClipboard);
+	// Method assignment
 	Gura_AssignMethod(wx_Clipboard, __AddData);
 	Gura_AssignMethod(wx_Clipboard, __Clear);
 	Gura_AssignMethod(wx_Clipboard, __Close);

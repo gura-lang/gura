@@ -35,26 +35,24 @@ String Object_wx_RichTextParagraph::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextParagraph, __wxRichTextParagraph, "wxRichTextParagraph")
+Gura_DeclareFunctionAlias(__wxRichTextParagraph, "wxRichTextParagraph")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextParagraph, __wxRichTextParagraph)
+Gura_ImplementFunction(__wxRichTextParagraph)
 {
-	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
-	//pThis->GetEntity()->wxRichTextParagraph();
+	//wxRichTextParagraph();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextParagraph, __wxRichTextParagraph_1, "wxRichTextParagraph_1")
+Gura_DeclareFunctionAlias(__wxRichTextParagraph_1, "wxRichTextParagraph_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -63,31 +61,30 @@ Gura_DeclareMethodAlias(wx_RichTextParagraph, __wxRichTextParagraph_1, "wxRichTe
 	//DeclareArg(env, "charStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextParagraph, __wxRichTextParagraph_1)
+Gura_ImplementFunction(__wxRichTextParagraph_1)
 {
-	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int parent = arg.GetNumber(1)
 	//int paraStyle = arg.GetNumber(2)
 	//int charStyle = arg.GetNumber(3)
-	//pThis->GetEntity()->wxRichTextParagraph();
+	//wxRichTextParagraph();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextParagraph, __wxRichTextParagraph_2, "wxRichTextParagraph_2")
+Gura_DeclareFunctionAlias(__wxRichTextParagraph_2, "wxRichTextParagraph_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextParagraph, __wxRichTextParagraph_2)
+Gura_ImplementFunction(__wxRichTextParagraph_2)
 {
-	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextParagraph();
+	//wxRichTextParagraph();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextParagraph, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -651,9 +648,11 @@ Gura_ImplementMethod(wx_RichTextParagraph, __SetImpactedByFloatingObjects)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextParagraph)
 {
-	Gura_AssignMethod(wx_RichTextParagraph, __wxRichTextParagraph);
-	Gura_AssignMethod(wx_RichTextParagraph, __wxRichTextParagraph_1);
-	Gura_AssignMethod(wx_RichTextParagraph, __wxRichTextParagraph_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextParagraph);
+	Gura_AssignFunction(__wxRichTextParagraph_1);
+	Gura_AssignFunction(__wxRichTextParagraph_2);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextParagraph, __Init);
 	Gura_AssignMethod(wx_RichTextParagraph, __Draw);
 	Gura_AssignMethod(wx_RichTextParagraph, __Layout);

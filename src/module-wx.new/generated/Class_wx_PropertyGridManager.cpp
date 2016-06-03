@@ -688,6 +688,7 @@ Gura_ImplementMethod(wx_PropertyGridManager, __CreatePropertyGrid)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertyGridManager)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_PropertyGridManager, __AddPage);
 	Gura_AssignMethod(wx_PropertyGridManager, __Clear);
 	Gura_AssignMethod(wx_PropertyGridManager, __ClearPage);

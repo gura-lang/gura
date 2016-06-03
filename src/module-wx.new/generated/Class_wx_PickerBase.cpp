@@ -35,21 +35,22 @@ String Object_wx_PickerBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PickerBase, __wxPickerBase, "wxPickerBase")
+Gura_DeclareFunctionAlias(__wxPickerBase, "wxPickerBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PickerBase, __wxPickerBase)
+Gura_ImplementFunction(__wxPickerBase)
 {
-	Object_wx_PickerBase *pThis = Object_wx_PickerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPickerBase();
+	//wxPickerBase();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PickerBase, __CreateBase, "CreateBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -362,7 +363,9 @@ Gura_ImplementMethod(wx_PickerBase, __PostCreation)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PickerBase)
 {
-	Gura_AssignMethod(wx_PickerBase, __wxPickerBase);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPickerBase);
+	// Method assignment
 	Gura_AssignMethod(wx_PickerBase, __CreateBase);
 	Gura_AssignMethod(wx_PickerBase, __GetInternalMargin);
 	Gura_AssignMethod(wx_PickerBase, __GetPickerCtrlProportion);

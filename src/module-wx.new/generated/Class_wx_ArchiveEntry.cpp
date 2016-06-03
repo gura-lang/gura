@@ -266,6 +266,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __UnsetNotifier)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveEntry)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_ArchiveEntry, __Clone);
 	Gura_AssignMethod(wx_ArchiveEntry, __GetDateTime);
 	Gura_AssignMethod(wx_ArchiveEntry, __SetDateTime);

@@ -35,22 +35,20 @@ String Object_wx_ScrollBar::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ScrollBar, __wxScrollBar, "wxScrollBar")
+Gura_DeclareFunctionAlias(__wxScrollBar, "wxScrollBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, __wxScrollBar)
+Gura_ImplementFunction(__wxScrollBar)
 {
-	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxScrollBar();
+	//wxScrollBar();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ScrollBar, __wxScrollBar_1, "wxScrollBar_1")
+Gura_DeclareFunctionAlias(__wxScrollBar_1, "wxScrollBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,10 +60,8 @@ Gura_DeclareMethodAlias(wx_ScrollBar, __wxScrollBar_1, "wxScrollBar_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, __wxScrollBar_1)
+Gura_ImplementFunction(__wxScrollBar_1)
 {
-	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -73,10 +69,13 @@ Gura_ImplementMethod(wx_ScrollBar, __wxScrollBar_1)
 	//int style = arg.GetNumber(4)
 	//int validator = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxScrollBar();
+	//wxScrollBar();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScrollBar, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -212,8 +211,10 @@ Gura_ImplementMethod(wx_ScrollBar, __IsVertical)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScrollBar)
 {
-	Gura_AssignMethod(wx_ScrollBar, __wxScrollBar);
-	Gura_AssignMethod(wx_ScrollBar, __wxScrollBar_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxScrollBar);
+	Gura_AssignFunction(__wxScrollBar_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ScrollBar, __Create);
 	Gura_AssignMethod(wx_ScrollBar, __GetPageSize);
 	Gura_AssignMethod(wx_ScrollBar, __GetRange);

@@ -35,40 +35,39 @@ String Object_wx_Process::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Process, __wxProcess, "wxProcess")
+Gura_DeclareFunctionAlias(__wxProcess, "wxProcess")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Process, __wxProcess)
+Gura_ImplementFunction(__wxProcess)
 {
-	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxProcess();
+	//wxProcess();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Process, __wxProcess_1, "wxProcess_1")
+Gura_DeclareFunctionAlias(__wxProcess_1, "wxProcess_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Process, __wxProcess_1)
+Gura_ImplementFunction(__wxProcess_1)
 {
-	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->wxProcess();
+	//wxProcess();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Process, __Activate, "Activate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -300,8 +299,10 @@ Gura_ImplementMethod(wx_Process, __SetPriority)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Process)
 {
-	Gura_AssignMethod(wx_Process, __wxProcess);
-	Gura_AssignMethod(wx_Process, __wxProcess_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxProcess);
+	Gura_AssignFunction(__wxProcess_1);
+	// Method assignment
 	Gura_AssignMethod(wx_Process, __Activate);
 	Gura_AssignMethod(wx_Process, __CloseOutput);
 	Gura_AssignMethod(wx_Process, __Detach);

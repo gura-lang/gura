@@ -128,6 +128,7 @@ Gura_ImplementMethod(wx_MessageQueue<T>, __ReceiveTimeout)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageQueue<T>)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_MessageQueue<T>, __wxMessageQueue);
 	Gura_AssignMethod(wx_MessageQueue<T>, __Clear);
 	Gura_AssignMethod(wx_MessageQueue<T>, __IsOk);

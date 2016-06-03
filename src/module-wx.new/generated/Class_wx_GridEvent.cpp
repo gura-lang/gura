@@ -35,22 +35,20 @@ String Object_wx_GridEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridEvent, __wxGridEvent, "wxGridEvent")
+Gura_DeclareFunctionAlias(__wxGridEvent, "wxGridEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEvent, __wxGridEvent)
+Gura_ImplementFunction(__wxGridEvent)
 {
-	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGridEvent();
+	//wxGridEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_GridEvent, __wxGridEvent_1, "wxGridEvent_1")
+Gura_DeclareFunctionAlias(__wxGridEvent_1, "wxGridEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -64,10 +62,8 @@ Gura_DeclareMethodAlias(wx_GridEvent, __wxGridEvent_1, "wxGridEvent_1")
 	//DeclareArg(env, "kbd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridEvent, __wxGridEvent_1)
+Gura_ImplementFunction(__wxGridEvent_1)
 {
-	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
 	//int obj = arg.GetNumber(2)
@@ -77,10 +73,13 @@ Gura_ImplementMethod(wx_GridEvent, __wxGridEvent_1)
 	//int y = arg.GetNumber(6)
 	//int sel = arg.GetNumber(7)
 	//int kbd = arg.GetNumber(8)
-	//pThis->GetEntity()->wxGridEvent();
+	//wxGridEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridEvent, __AltDown, "AltDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -190,8 +189,10 @@ Gura_ImplementMethod(wx_GridEvent, __ShiftDown)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridEvent)
 {
-	Gura_AssignMethod(wx_GridEvent, __wxGridEvent);
-	Gura_AssignMethod(wx_GridEvent, __wxGridEvent_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridEvent);
+	Gura_AssignFunction(__wxGridEvent_1);
+	// Method assignment
 	Gura_AssignMethod(wx_GridEvent, __AltDown);
 	Gura_AssignMethod(wx_GridEvent, __ControlDown);
 	Gura_AssignMethod(wx_GridEvent, __GetCol);

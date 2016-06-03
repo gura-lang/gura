@@ -35,6 +35,22 @@ String Object_wx_WebKitStateChangedEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxWebKitStateChangedEvent, "wxWebKitStateChangedEvent")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxWebKitStateChangedEvent)
+{
+	//int win = arg.GetNumber(0)
+	//wxWebKitStateChangedEvent();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebKitStateChangedEvent, __GetState, "GetState")
@@ -93,31 +109,18 @@ Gura_ImplementMethod(wx_WebKitStateChangedEvent, __SetURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_WebKitStateChangedEvent, __wxWebKitStateChangedEvent, "wxWebKitStateChangedEvent")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_WebKitStateChangedEvent, __wxWebKitStateChangedEvent)
-{
-	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//pThis->GetEntity()->wxWebKitStateChangedEvent();
-	return Value::Nil;
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxWebKitStateChangedEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebKitStateChangedEvent)
 {
+	// Constructor assignment
+	Gura_AssignFunction(__wxWebKitStateChangedEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_WebKitStateChangedEvent, __GetState);
 	Gura_AssignMethod(wx_WebKitStateChangedEvent, __SetState);
 	Gura_AssignMethod(wx_WebKitStateChangedEvent, __GetURL);
 	Gura_AssignMethod(wx_WebKitStateChangedEvent, __SetURL);
-	Gura_AssignMethod(wx_WebKitStateChangedEvent, __wxWebKitStateChangedEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_WebKitStateChangedEvent)

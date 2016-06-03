@@ -35,36 +35,35 @@ String Object_wx_DelegateRendererNative::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DelegateRendererNative, __wxDelegateRendererNative, "wxDelegateRendererNative")
+Gura_DeclareFunctionAlias(__wxDelegateRendererNative, "wxDelegateRendererNative")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, __wxDelegateRendererNative)
+Gura_ImplementFunction(__wxDelegateRendererNative)
 {
-	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDelegateRendererNative();
+	//wxDelegateRendererNative();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DelegateRendererNative, __wxDelegateRendererNative_1, "wxDelegateRendererNative_1")
+Gura_DeclareFunctionAlias(__wxDelegateRendererNative_1, "wxDelegateRendererNative_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rendererNative", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, __wxDelegateRendererNative_1)
+Gura_ImplementFunction(__wxDelegateRendererNative_1)
 {
-	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rendererNative = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDelegateRendererNative();
+	//wxDelegateRendererNative();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawHeaderButton, "DrawHeaderButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -386,8 +385,10 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __GetVersion)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DelegateRendererNative)
 {
-	Gura_AssignMethod(wx_DelegateRendererNative, __wxDelegateRendererNative);
-	Gura_AssignMethod(wx_DelegateRendererNative, __wxDelegateRendererNative_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDelegateRendererNative);
+	Gura_AssignFunction(__wxDelegateRendererNative_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DelegateRendererNative, __DrawHeaderButton);
 	Gura_AssignMethod(wx_DelegateRendererNative, __DrawHeaderButtonContents);
 	Gura_AssignMethod(wx_DelegateRendererNative, __GetHeaderButtonHeight);

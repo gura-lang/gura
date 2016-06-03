@@ -35,9 +35,9 @@ String Object_wx_MultiChoiceDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __wxMultiChoiceDialog, "wxMultiChoiceDialog")
+Gura_DeclareFunctionAlias(__wxMultiChoiceDialog, "wxMultiChoiceDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,10 +49,8 @@ Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __wxMultiChoiceDialog, "wxMultiCho
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MultiChoiceDialog, __wxMultiChoiceDialog)
+Gura_ImplementFunction(__wxMultiChoiceDialog)
 {
-	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
@@ -60,11 +58,11 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, __wxMultiChoiceDialog)
 	//int choices = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
 	//int pos = arg.GetNumber(6)
-	//pThis->GetEntity()->wxMultiChoiceDialog();
+	//wxMultiChoiceDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __wxMultiChoiceDialog_1, "wxMultiChoiceDialog_1")
+Gura_DeclareFunctionAlias(__wxMultiChoiceDialog_1, "wxMultiChoiceDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -75,20 +73,21 @@ Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __wxMultiChoiceDialog_1, "wxMultiC
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MultiChoiceDialog, __wxMultiChoiceDialog_1)
+Gura_ImplementFunction(__wxMultiChoiceDialog_1)
 {
-	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
 	//int choices = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int pos = arg.GetNumber(5)
-	//pThis->GetEntity()->wxMultiChoiceDialog();
+	//wxMultiChoiceDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __GetSelections, "GetSelections")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -135,8 +134,10 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, __ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MultiChoiceDialog)
 {
-	Gura_AssignMethod(wx_MultiChoiceDialog, __wxMultiChoiceDialog);
-	Gura_AssignMethod(wx_MultiChoiceDialog, __wxMultiChoiceDialog_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMultiChoiceDialog);
+	Gura_AssignFunction(__wxMultiChoiceDialog_1);
+	// Method assignment
 	Gura_AssignMethod(wx_MultiChoiceDialog, __GetSelections);
 	Gura_AssignMethod(wx_MultiChoiceDialog, __SetSelections);
 	Gura_AssignMethod(wx_MultiChoiceDialog, __ShowModal);

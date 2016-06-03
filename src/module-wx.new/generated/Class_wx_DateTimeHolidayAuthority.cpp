@@ -35,16 +35,10 @@ String Object_wx_DateTimeHolidayAuthority::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxDateTimeHolidayAuthority
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DateTimeHolidayAuthority)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_DateTimeHolidayAuthority)

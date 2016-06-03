@@ -35,9 +35,9 @@ String Object_wx_TaskBarJumpListItem::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __wxTaskBarJumpListItem, "wxTaskBarJumpListItem")
+Gura_DeclareFunctionAlias(__wxTaskBarJumpListItem, "wxTaskBarJumpListItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentCategory", VTYPE_number, OCCUR_Once);
@@ -50,10 +50,8 @@ Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __wxTaskBarJumpListItem, "wxTask
 	//DeclareArg(env, "iconIndex", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, __wxTaskBarJumpListItem)
+Gura_ImplementFunction(__wxTaskBarJumpListItem)
 {
-	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parentCategory = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
 	//int title = arg.GetNumber(2)
@@ -62,10 +60,13 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, __wxTaskBarJumpListItem)
 	//int tooltip = arg.GetNumber(5)
 	//int iconPath = arg.GetNumber(6)
 	//int iconIndex = arg.GetNumber(7)
-	//pThis->GetEntity()->wxTaskBarJumpListItem();
+	//wxTaskBarJumpListItem();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __GetType, "GetType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -295,7 +296,9 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, __SetCategory)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarJumpListItem)
 {
-	Gura_AssignMethod(wx_TaskBarJumpListItem, __wxTaskBarJumpListItem);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTaskBarJumpListItem);
+	// Method assignment
 	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetType);
 	Gura_AssignMethod(wx_TaskBarJumpListItem, __SetType);
 	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetTitle);

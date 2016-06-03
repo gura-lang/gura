@@ -35,21 +35,22 @@ String Object_wx_HtmlParser::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlParser, __wxHtmlParser, "wxHtmlParser")
+Gura_DeclareFunctionAlias(__wxHtmlParser, "wxHtmlParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, __wxHtmlParser)
+Gura_ImplementFunction(__wxHtmlParser)
 {
-	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlParser();
+	//wxHtmlParser();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlParser, __AddTagHandler, "AddTagHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -287,7 +288,9 @@ Gura_ImplementMethod(wx_HtmlParser, __AddTag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlParser)
 {
-	Gura_AssignMethod(wx_HtmlParser, __wxHtmlParser);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlParser);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlParser, __AddTagHandler);
 	Gura_AssignMethod(wx_HtmlParser, __AddWord);
 	Gura_AssignMethod(wx_HtmlParser, __DoParsing);

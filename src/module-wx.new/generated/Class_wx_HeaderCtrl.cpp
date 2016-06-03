@@ -35,22 +35,20 @@ String Object_wx_HeaderCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HeaderCtrl, __wxHeaderCtrl, "wxHeaderCtrl")
+Gura_DeclareFunctionAlias(__wxHeaderCtrl, "wxHeaderCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrl, __wxHeaderCtrl)
+Gura_ImplementFunction(__wxHeaderCtrl)
 {
-	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHeaderCtrl();
+	//wxHeaderCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_HeaderCtrl, __wxHeaderCtrl_1, "wxHeaderCtrl_1")
+Gura_DeclareFunctionAlias(__wxHeaderCtrl_1, "wxHeaderCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_HeaderCtrl, __wxHeaderCtrl_1, "wxHeaderCtrl_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrl, __wxHeaderCtrl_1)
+Gura_ImplementFunction(__wxHeaderCtrl_1)
 {
-	Object_wx_HeaderCtrl *pThis = Object_wx_HeaderCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxHeaderCtrl();
+	//wxHeaderCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HeaderCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -392,8 +391,10 @@ Gura_ImplementMethod(wx_HeaderCtrl, __OnColumnCountChanging)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HeaderCtrl)
 {
-	Gura_AssignMethod(wx_HeaderCtrl, __wxHeaderCtrl);
-	Gura_AssignMethod(wx_HeaderCtrl, __wxHeaderCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHeaderCtrl);
+	Gura_AssignFunction(__wxHeaderCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_HeaderCtrl, __Create);
 	Gura_AssignMethod(wx_HeaderCtrl, __SetColumnCount);
 	Gura_AssignMethod(wx_HeaderCtrl, __GetColumnCount);

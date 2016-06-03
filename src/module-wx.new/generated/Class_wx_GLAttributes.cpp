@@ -280,6 +280,7 @@ Gura_ImplementMethod(wx_GLAttributes, __EndList)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLAttributes)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_GLAttributes, __RGBA);
 	Gura_AssignMethod(wx_GLAttributes, __BufferSize);
 	Gura_AssignMethod(wx_GLAttributes, __Level);

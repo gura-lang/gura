@@ -35,22 +35,20 @@ String Object_wx_ListItemAttr::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ListItemAttr, __wxListItemAttr, "wxListItemAttr")
+Gura_DeclareFunctionAlias(__wxListItemAttr, "wxListItemAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItemAttr, __wxListItemAttr)
+Gura_ImplementFunction(__wxListItemAttr)
 {
-	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxListItemAttr();
+	//wxListItemAttr();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ListItemAttr, __wxListItemAttr_1, "wxListItemAttr_1")
+Gura_DeclareFunctionAlias(__wxListItemAttr_1, "wxListItemAttr_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colText", VTYPE_number, OCCUR_Once);
@@ -58,17 +56,18 @@ Gura_DeclareMethodAlias(wx_ListItemAttr, __wxListItemAttr_1, "wxListItemAttr_1")
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItemAttr, __wxListItemAttr_1)
+Gura_ImplementFunction(__wxListItemAttr_1)
 {
-	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colText = arg.GetNumber(0)
 	//int colBack = arg.GetNumber(1)
 	//int font = arg.GetNumber(2)
-	//pThis->GetEntity()->wxListItemAttr();
+	//wxListItemAttr();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ListItemAttr, __GetBackgroundColour, "GetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -197,8 +196,10 @@ Gura_ImplementMethod(wx_ListItemAttr, __SetTextColour)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListItemAttr)
 {
-	Gura_AssignMethod(wx_ListItemAttr, __wxListItemAttr);
-	Gura_AssignMethod(wx_ListItemAttr, __wxListItemAttr_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxListItemAttr);
+	Gura_AssignFunction(__wxListItemAttr_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ListItemAttr, __GetBackgroundColour);
 	Gura_AssignMethod(wx_ListItemAttr, __GetFont);
 	Gura_AssignMethod(wx_ListItemAttr, __GetTextColour);

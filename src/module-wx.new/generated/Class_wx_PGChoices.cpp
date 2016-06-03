@@ -35,85 +35,78 @@ String Object_wx_PGChoices::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PGChoices, __wxPGChoices, "wxPGChoices")
+Gura_DeclareFunctionAlias(__wxPGChoices, "wxPGChoices")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGChoices, __wxPGChoices)
+Gura_ImplementFunction(__wxPGChoices)
 {
-	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPGChoices();
+	//wxPGChoices();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PGChoices, __wxPGChoices_1, "wxPGChoices_1")
+Gura_DeclareFunctionAlias(__wxPGChoices_1, "wxPGChoices_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "a", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGChoices, __wxPGChoices_1)
+Gura_ImplementFunction(__wxPGChoices_1)
 {
-	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int a = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPGChoices();
+	//wxPGChoices();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PGChoices, __wxPGChoices_2, "wxPGChoices_2")
+Gura_DeclareFunctionAlias(__wxPGChoices_2, "wxPGChoices_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "labels", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "values", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGChoices, __wxPGChoices_2)
+Gura_ImplementFunction(__wxPGChoices_2)
 {
-	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int labels = arg.GetNumber(0)
 	//int values = arg.GetNumber(1)
-	//pThis->GetEntity()->wxPGChoices();
+	//wxPGChoices();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PGChoices, __wxPGChoices_3, "wxPGChoices_3")
+Gura_DeclareFunctionAlias(__wxPGChoices_3, "wxPGChoices_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "labels", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "values", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGChoices, __wxPGChoices_3)
+Gura_ImplementFunction(__wxPGChoices_3)
 {
-	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int labels = arg.GetNumber(0)
 	//int values = arg.GetNumber(1)
-	//pThis->GetEntity()->wxPGChoices();
+	//wxPGChoices();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PGChoices, __wxPGChoices_4, "wxPGChoices_4")
+Gura_DeclareFunctionAlias(__wxPGChoices_4, "wxPGChoices_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGChoices, __wxPGChoices_4)
+Gura_ImplementFunction(__wxPGChoices_4)
 {
-	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPGChoices();
+	//wxPGChoices();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PGChoices, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -538,11 +531,13 @@ Gura_ImplementMethod(wx_PGChoices, __GetLabels)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGChoices)
 {
-	Gura_AssignMethod(wx_PGChoices, __wxPGChoices);
-	Gura_AssignMethod(wx_PGChoices, __wxPGChoices_1);
-	Gura_AssignMethod(wx_PGChoices, __wxPGChoices_2);
-	Gura_AssignMethod(wx_PGChoices, __wxPGChoices_3);
-	Gura_AssignMethod(wx_PGChoices, __wxPGChoices_4);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPGChoices);
+	Gura_AssignFunction(__wxPGChoices_1);
+	Gura_AssignFunction(__wxPGChoices_2);
+	Gura_AssignFunction(__wxPGChoices_3);
+	Gura_AssignFunction(__wxPGChoices_4);
+	// Method assignment
 	Gura_AssignMethod(wx_PGChoices, __Add);
 	Gura_AssignMethod(wx_PGChoices, __Add_1);
 	Gura_AssignMethod(wx_PGChoices, __Add_2);

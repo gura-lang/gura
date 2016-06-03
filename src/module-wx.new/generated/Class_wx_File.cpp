@@ -35,16 +35,10 @@ String Object_wx_File::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxFile
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_File)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_File)

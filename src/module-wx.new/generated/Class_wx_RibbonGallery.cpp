@@ -35,22 +35,20 @@ String Object_wx_RibbonGallery::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RibbonGallery, __wxRibbonGallery, "wxRibbonGallery")
+Gura_DeclareFunctionAlias(__wxRibbonGallery, "wxRibbonGallery")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, __wxRibbonGallery)
+Gura_ImplementFunction(__wxRibbonGallery)
 {
-	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRibbonGallery();
+	//wxRibbonGallery();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RibbonGallery, __wxRibbonGallery_1, "wxRibbonGallery_1")
+Gura_DeclareFunctionAlias(__wxRibbonGallery_1, "wxRibbonGallery_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -60,19 +58,20 @@ Gura_DeclareMethodAlias(wx_RibbonGallery, __wxRibbonGallery_1, "wxRibbonGallery_
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, __wxRibbonGallery_1)
+Gura_ImplementFunction(__wxRibbonGallery_1)
 {
-	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->wxRibbonGallery();
+	//wxRibbonGallery();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonGallery, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -425,8 +424,10 @@ Gura_ImplementMethod(wx_RibbonGallery, __EnsureVisible)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonGallery)
 {
-	Gura_AssignMethod(wx_RibbonGallery, __wxRibbonGallery);
-	Gura_AssignMethod(wx_RibbonGallery, __wxRibbonGallery_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRibbonGallery);
+	Gura_AssignFunction(__wxRibbonGallery_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RibbonGallery, __Create);
 	Gura_AssignMethod(wx_RibbonGallery, __Clear);
 	Gura_AssignMethod(wx_RibbonGallery, __IsEmpty);

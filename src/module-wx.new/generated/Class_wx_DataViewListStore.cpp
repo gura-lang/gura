@@ -35,21 +35,22 @@ String Object_wx_DataViewListStore::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewListStore, __wxDataViewListStore, "wxDataViewListStore")
+Gura_DeclareFunctionAlias(__wxDataViewListStore, "wxDataViewListStore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewListStore, __wxDataViewListStore)
+Gura_ImplementFunction(__wxDataViewListStore)
 {
-	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDataViewListStore();
+	//wxDataViewListStore();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewListStore, __PrependColumn, "PrependColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -294,7 +295,9 @@ Gura_ImplementMethod(wx_DataViewListStore, __SetValueByRow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewListStore)
 {
-	Gura_AssignMethod(wx_DataViewListStore, __wxDataViewListStore);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewListStore);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewListStore, __PrependColumn);
 	Gura_AssignMethod(wx_DataViewListStore, __InsertColumn);
 	Gura_AssignMethod(wx_DataViewListStore, __AppendColumn);

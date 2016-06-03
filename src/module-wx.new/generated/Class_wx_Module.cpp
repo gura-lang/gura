@@ -35,21 +35,22 @@ String Object_wx_Module::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Module, __wxModule, "wxModule")
+Gura_DeclareFunctionAlias(__wxModule, "wxModule")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Module, __wxModule)
+Gura_ImplementFunction(__wxModule)
 {
-	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxModule();
+	//wxModule();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Module, __OnExit, "OnExit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -111,7 +112,9 @@ Gura_ImplementMethod(wx_Module, __AddDependency_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Module)
 {
-	Gura_AssignMethod(wx_Module, __wxModule);
+	// Constructor assignment
+	Gura_AssignFunction(__wxModule);
+	// Method assignment
 	Gura_AssignMethod(wx_Module, __OnExit);
 	Gura_AssignMethod(wx_Module, __OnInit);
 	Gura_AssignMethod(wx_Module, __AddDependency);

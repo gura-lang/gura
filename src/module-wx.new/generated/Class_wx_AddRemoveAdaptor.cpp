@@ -35,21 +35,22 @@ String Object_wx_AddRemoveAdaptor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __wxAddRemoveAdaptor, "wxAddRemoveAdaptor")
+Gura_DeclareFunctionAlias(__wxAddRemoveAdaptor, "wxAddRemoveAdaptor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AddRemoveAdaptor, __wxAddRemoveAdaptor)
+Gura_ImplementFunction(__wxAddRemoveAdaptor)
 {
-	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAddRemoveAdaptor();
+	//wxAddRemoveAdaptor();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __GetItemsCtrl, "GetItemsCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -120,7 +121,9 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, __OnRemove)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AddRemoveAdaptor)
 {
-	Gura_AssignMethod(wx_AddRemoveAdaptor, __wxAddRemoveAdaptor);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAddRemoveAdaptor);
+	// Method assignment
 	Gura_AssignMethod(wx_AddRemoveAdaptor, __GetItemsCtrl);
 	Gura_AssignMethod(wx_AddRemoveAdaptor, __CanAdd);
 	Gura_AssignMethod(wx_AddRemoveAdaptor, __CanRemove);

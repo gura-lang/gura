@@ -35,22 +35,20 @@ String Object_wx_VScrolledWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_VScrolledWindow, __wxVScrolledWindow, "wxVScrolledWindow")
+Gura_DeclareFunctionAlias(__wxVScrolledWindow, "wxVScrolledWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VScrolledWindow, __wxVScrolledWindow)
+Gura_ImplementFunction(__wxVScrolledWindow)
 {
-	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxVScrolledWindow();
+	//wxVScrolledWindow();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_VScrolledWindow, __wxVScrolledWindow_1, "wxVScrolledWindow_1")
+Gura_DeclareFunctionAlias(__wxVScrolledWindow_1, "wxVScrolledWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_VScrolledWindow, __wxVScrolledWindow_1, "wxVScrolledW
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VScrolledWindow, __wxVScrolledWindow_1)
+Gura_ImplementFunction(__wxVScrolledWindow_1)
 {
-	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int name = arg.GetNumber(5)
-	//pThis->GetEntity()->wxVScrolledWindow();
+	//wxVScrolledWindow();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VScrolledWindow, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -105,8 +104,10 @@ Gura_ImplementMethod(wx_VScrolledWindow, __Create)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VScrolledWindow)
 {
-	Gura_AssignMethod(wx_VScrolledWindow, __wxVScrolledWindow);
-	Gura_AssignMethod(wx_VScrolledWindow, __wxVScrolledWindow_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxVScrolledWindow);
+	Gura_AssignFunction(__wxVScrolledWindow_1);
+	// Method assignment
 	Gura_AssignMethod(wx_VScrolledWindow, __Create);
 }
 

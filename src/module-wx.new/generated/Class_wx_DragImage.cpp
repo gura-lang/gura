@@ -35,106 +35,97 @@ String Object_wx_DragImage::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DragImage, __wxDragImage, "wxDragImage")
+Gura_DeclareFunctionAlias(__wxDragImage, "wxDragImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DragImage, __wxDragImage)
+Gura_ImplementFunction(__wxDragImage)
 {
-	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDragImage();
+	//wxDragImage();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DragImage, __wxDragImage_1, "wxDragImage_1")
+Gura_DeclareFunctionAlias(__wxDragImage_1, "wxDragImage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DragImage, __wxDragImage_1)
+Gura_ImplementFunction(__wxDragImage_1)
 {
-	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//int cursor = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDragImage();
+	//wxDragImage();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DragImage, __wxDragImage_2, "wxDragImage_2")
+Gura_DeclareFunctionAlias(__wxDragImage_2, "wxDragImage_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DragImage, __wxDragImage_2)
+Gura_ImplementFunction(__wxDragImage_2)
 {
-	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int image = arg.GetNumber(0)
 	//int cursor = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDragImage();
+	//wxDragImage();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DragImage, __wxDragImage_3, "wxDragImage_3")
+Gura_DeclareFunctionAlias(__wxDragImage_3, "wxDragImage_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DragImage, __wxDragImage_3)
+Gura_ImplementFunction(__wxDragImage_3)
 {
-	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int text = arg.GetNumber(0)
 	//int cursor = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDragImage();
+	//wxDragImage();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DragImage, __wxDragImage_4, "wxDragImage_4")
+Gura_DeclareFunctionAlias(__wxDragImage_4, "wxDragImage_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "treeCtrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DragImage, __wxDragImage_4)
+Gura_ImplementFunction(__wxDragImage_4)
 {
-	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int treeCtrl = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDragImage();
+	//wxDragImage();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DragImage, __wxDragImage_5, "wxDragImage_5")
+Gura_DeclareFunctionAlias(__wxDragImage_5, "wxDragImage_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "listCtrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DragImage, __wxDragImage_5)
+Gura_ImplementFunction(__wxDragImage_5)
 {
-	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int listCtrl = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDragImage();
+	//wxDragImage();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DragImage, __BeginDrag, "BeginDrag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -287,12 +278,14 @@ Gura_ImplementMethod(wx_DragImage, __UpdateBackingFromWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DragImage)
 {
-	Gura_AssignMethod(wx_DragImage, __wxDragImage);
-	Gura_AssignMethod(wx_DragImage, __wxDragImage_1);
-	Gura_AssignMethod(wx_DragImage, __wxDragImage_2);
-	Gura_AssignMethod(wx_DragImage, __wxDragImage_3);
-	Gura_AssignMethod(wx_DragImage, __wxDragImage_4);
-	Gura_AssignMethod(wx_DragImage, __wxDragImage_5);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDragImage);
+	Gura_AssignFunction(__wxDragImage_1);
+	Gura_AssignFunction(__wxDragImage_2);
+	Gura_AssignFunction(__wxDragImage_3);
+	Gura_AssignFunction(__wxDragImage_4);
+	Gura_AssignFunction(__wxDragImage_5);
+	// Method assignment
 	Gura_AssignMethod(wx_DragImage, __BeginDrag);
 	Gura_AssignMethod(wx_DragImage, __BeginDrag_1);
 	Gura_AssignMethod(wx_DragImage, __DoDrawImage);

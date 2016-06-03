@@ -35,16 +35,10 @@ String Object_wx_RecursionGuardFlag::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxRecursionGuardFlag
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RecursionGuardFlag)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_RecursionGuardFlag)

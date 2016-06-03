@@ -35,21 +35,22 @@ String Object_wx_GridCellBoolEditor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridCellBoolEditor, __wxGridCellBoolEditor, "wxGridCellBoolEditor")
+Gura_DeclareFunctionAlias(__wxGridCellBoolEditor, "wxGridCellBoolEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellBoolEditor, __wxGridCellBoolEditor)
+Gura_ImplementFunction(__wxGridCellBoolEditor)
 {
-	Object_wx_GridCellBoolEditor *pThis = Object_wx_GridCellBoolEditor::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxGridCellBoolEditor();
+	//wxGridCellBoolEditor();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridCellBoolEditor, __IsTrueValue, "IsTrueValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -87,7 +88,9 @@ Gura_ImplementMethod(wx_GridCellBoolEditor, __UseStringValues)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellBoolEditor)
 {
-	Gura_AssignMethod(wx_GridCellBoolEditor, __wxGridCellBoolEditor);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridCellBoolEditor);
+	// Method assignment
 	Gura_AssignMethod(wx_GridCellBoolEditor, __IsTrueValue);
 	Gura_AssignMethod(wx_GridCellBoolEditor, __UseStringValues);
 }

@@ -35,23 +35,24 @@ String Object_wx_HelpControllerBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HelpControllerBase, __wxHelpControllerBase, "wxHelpControllerBase")
+Gura_DeclareFunctionAlias(__wxHelpControllerBase, "wxHelpControllerBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, __wxHelpControllerBase)
+Gura_ImplementFunction(__wxHelpControllerBase)
 {
-	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parentWindow = arg.GetNumber(0)
-	//pThis->GetEntity()->wxHelpControllerBase();
+	//wxHelpControllerBase();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HelpControllerBase, __DisplayBlock, "DisplayBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -322,7 +323,9 @@ Gura_ImplementMethod(wx_HelpControllerBase, __SetViewer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpControllerBase)
 {
-	Gura_AssignMethod(wx_HelpControllerBase, __wxHelpControllerBase);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHelpControllerBase);
+	// Method assignment
 	Gura_AssignMethod(wx_HelpControllerBase, __DisplayBlock);
 	Gura_AssignMethod(wx_HelpControllerBase, __DisplayContents);
 	Gura_AssignMethod(wx_HelpControllerBase, __DisplayContextPopup);

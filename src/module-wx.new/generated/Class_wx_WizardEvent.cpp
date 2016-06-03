@@ -35,9 +35,9 @@ String Object_wx_WizardEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_WizardEvent, __wxWizardEvent, "wxWizardEvent")
+Gura_DeclareFunctionAlias(__wxWizardEvent, "wxWizardEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_WizardEvent, __wxWizardEvent, "wxWizardEvent")
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WizardEvent, __wxWizardEvent)
+Gura_ImplementFunction(__wxWizardEvent)
 {
-	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int direction = arg.GetNumber(2)
 	//int page = arg.GetNumber(3)
-	//pThis->GetEntity()->wxWizardEvent();
+	//wxWizardEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WizardEvent, __GetDirection, "GetDirection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -89,7 +90,9 @@ Gura_ImplementMethod(wx_WizardEvent, __GetPage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WizardEvent)
 {
-	Gura_AssignMethod(wx_WizardEvent, __wxWizardEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxWizardEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_WizardEvent, __GetDirection);
 	Gura_AssignMethod(wx_WizardEvent, __GetPage);
 }

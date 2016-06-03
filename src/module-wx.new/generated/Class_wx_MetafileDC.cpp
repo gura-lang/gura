@@ -35,23 +35,24 @@ String Object_wx_MetafileDC::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MetafileDC, __wxMetafileDC, "wxMetafileDC")
+Gura_DeclareFunctionAlias(__wxMetafileDC, "wxMetafileDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MetafileDC, __wxMetafileDC)
+Gura_ImplementFunction(__wxMetafileDC)
 {
-	Object_wx_MetafileDC *pThis = Object_wx_MetafileDC::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMetafileDC();
+	//wxMetafileDC();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MetafileDC, __Close, "Close")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -70,7 +71,9 @@ Gura_ImplementMethod(wx_MetafileDC, __Close)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MetafileDC)
 {
-	Gura_AssignMethod(wx_MetafileDC, __wxMetafileDC);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMetafileDC);
+	// Method assignment
 	Gura_AssignMethod(wx_MetafileDC, __Close);
 }
 

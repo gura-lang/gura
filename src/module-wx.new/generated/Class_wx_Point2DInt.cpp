@@ -35,68 +35,63 @@ String Object_wx_Point2DInt::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Point2DInt, __wxPoint2DInt, "wxPoint2DInt")
+Gura_DeclareFunctionAlias(__wxPoint2DInt, "wxPoint2DInt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Point2DInt, __wxPoint2DInt)
+Gura_ImplementFunction(__wxPoint2DInt)
 {
-	Object_wx_Point2DInt *pThis = Object_wx_Point2DInt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPoint2DInt();
+	//wxPoint2DInt();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Point2DInt, __wxPoint2DInt_1, "wxPoint2DInt_1")
+Gura_DeclareFunctionAlias(__wxPoint2DInt_1, "wxPoint2DInt_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Point2DInt, __wxPoint2DInt_1)
+Gura_ImplementFunction(__wxPoint2DInt_1)
 {
-	Object_wx_Point2DInt *pThis = Object_wx_Point2DInt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//pThis->GetEntity()->wxPoint2DInt();
+	//wxPoint2DInt();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Point2DInt, __wxPoint2DInt_2, "wxPoint2DInt_2")
+Gura_DeclareFunctionAlias(__wxPoint2DInt_2, "wxPoint2DInt_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Point2DInt, __wxPoint2DInt_2)
+Gura_ImplementFunction(__wxPoint2DInt_2)
 {
-	Object_wx_Point2DInt *pThis = Object_wx_Point2DInt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPoint2DInt();
+	//wxPoint2DInt();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Point2DInt, __wxPoint2DInt_3, "wxPoint2DInt_3")
+Gura_DeclareFunctionAlias(__wxPoint2DInt_3, "wxPoint2DInt_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Point2DInt, __wxPoint2DInt_3)
+Gura_ImplementFunction(__wxPoint2DInt_3)
 {
-	Object_wx_Point2DInt *pThis = Object_wx_Point2DInt::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pt = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPoint2DInt();
+	//wxPoint2DInt();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Point2DInt, __GetFloor, "GetFloor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -278,10 +273,12 @@ Gura_ImplementMethod(wx_Point2DInt, __wxPoint)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Point2DInt)
 {
-	Gura_AssignMethod(wx_Point2DInt, __wxPoint2DInt);
-	Gura_AssignMethod(wx_Point2DInt, __wxPoint2DInt_1);
-	Gura_AssignMethod(wx_Point2DInt, __wxPoint2DInt_2);
-	Gura_AssignMethod(wx_Point2DInt, __wxPoint2DInt_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPoint2DInt);
+	Gura_AssignFunction(__wxPoint2DInt_1);
+	Gura_AssignFunction(__wxPoint2DInt_2);
+	Gura_AssignFunction(__wxPoint2DInt_3);
+	// Method assignment
 	Gura_AssignMethod(wx_Point2DInt, __GetFloor);
 	Gura_AssignMethod(wx_Point2DInt, __GetRounded);
 	Gura_AssignMethod(wx_Point2DInt, __GetVectorLength);

@@ -35,22 +35,20 @@ String Object_wx_RichTextCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextCtrl, __wxRichTextCtrl, "wxRichTextCtrl")
+Gura_DeclareFunctionAlias(__wxRichTextCtrl, "wxRichTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCtrl, __wxRichTextCtrl)
+Gura_ImplementFunction(__wxRichTextCtrl)
 {
-	Object_wx_RichTextCtrl *pThis = Object_wx_RichTextCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRichTextCtrl();
+	//wxRichTextCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_RichTextCtrl, __wxRichTextCtrl_1, "wxRichTextCtrl_1")
+Gura_DeclareFunctionAlias(__wxRichTextCtrl_1, "wxRichTextCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,10 +61,8 @@ Gura_DeclareMethodAlias(wx_RichTextCtrl, __wxRichTextCtrl_1, "wxRichTextCtrl_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCtrl, __wxRichTextCtrl_1)
+Gura_ImplementFunction(__wxRichTextCtrl_1)
 {
-	Object_wx_RichTextCtrl *pThis = Object_wx_RichTextCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -75,10 +71,13 @@ Gura_ImplementMethod(wx_RichTextCtrl, __wxRichTextCtrl_1)
 	//int style = arg.GetNumber(5)
 	//int validator = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxRichTextCtrl();
+	//wxRichTextCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -5304,8 +5303,10 @@ Gura_ImplementMethod(wx_RichTextCtrl, __DoThaw)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCtrl)
 {
-	Gura_AssignMethod(wx_RichTextCtrl, __wxRichTextCtrl);
-	Gura_AssignMethod(wx_RichTextCtrl, __wxRichTextCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextCtrl);
+	Gura_AssignFunction(__wxRichTextCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextCtrl, __Create);
 	Gura_AssignMethod(wx_RichTextCtrl, __Init);
 	Gura_AssignMethod(wx_RichTextCtrl, __GetRange);

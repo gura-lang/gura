@@ -35,9 +35,9 @@ String Object_wx_ScrollEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ScrollEvent, __wxScrollEvent, "wxScrollEvent")
+Gura_DeclareFunctionAlias(__wxScrollEvent, "wxScrollEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_ScrollEvent, __wxScrollEvent, "wxScrollEvent")
 	//DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScrollEvent, __wxScrollEvent)
+Gura_ImplementFunction(__wxScrollEvent)
 {
-	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int orientation = arg.GetNumber(3)
-	//pThis->GetEntity()->wxScrollEvent();
+	//wxScrollEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScrollEvent, __GetOrientation, "GetOrientation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -119,7 +120,9 @@ Gura_ImplementMethod(wx_ScrollEvent, __SetPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScrollEvent)
 {
-	Gura_AssignMethod(wx_ScrollEvent, __wxScrollEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxScrollEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_ScrollEvent, __GetOrientation);
 	Gura_AssignMethod(wx_ScrollEvent, __GetPosition);
 	Gura_AssignMethod(wx_ScrollEvent, __SetOrientation);

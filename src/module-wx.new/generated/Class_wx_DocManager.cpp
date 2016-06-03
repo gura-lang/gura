@@ -35,25 +35,26 @@ String Object_wx_DocManager::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DocManager, __wxDocManager, "wxDocManager")
+Gura_DeclareFunctionAlias(__wxDocManager, "wxDocManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "initialize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, __wxDocManager)
+Gura_ImplementFunction(__wxDocManager)
 {
-	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//int initialize = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDocManager();
+	//wxDocManager();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DocManager, __ActivateView, "ActivateView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -777,7 +778,9 @@ Gura_ImplementMethod(wx_DocManager, __CreatePreviewFrame)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocManager)
 {
-	Gura_AssignMethod(wx_DocManager, __wxDocManager);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDocManager);
+	// Method assignment
 	Gura_AssignMethod(wx_DocManager, __ActivateView);
 	Gura_AssignMethod(wx_DocManager, __AddDocument);
 	Gura_AssignMethod(wx_DocManager, __AddFileToHistory);

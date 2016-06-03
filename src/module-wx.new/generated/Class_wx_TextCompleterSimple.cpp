@@ -59,6 +59,7 @@ Gura_ImplementMethod(wx_TextCompleterSimple, __GetCompletions)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextCompleterSimple)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_TextCompleterSimple, __GetCompletions);
 }
 

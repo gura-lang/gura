@@ -35,22 +35,20 @@ String Object_wx_ComboBox::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ComboBox, __wxComboBox, "wxComboBox")
+Gura_DeclareFunctionAlias(__wxComboBox, "wxComboBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ComboBox, __wxComboBox)
+Gura_ImplementFunction(__wxComboBox)
 {
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxComboBox();
+	//wxComboBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ComboBox, __wxComboBox_1, "wxComboBox_1")
+Gura_DeclareFunctionAlias(__wxComboBox_1, "wxComboBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,10 +63,8 @@ Gura_DeclareMethodAlias(wx_ComboBox, __wxComboBox_1, "wxComboBox_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ComboBox, __wxComboBox_1)
+Gura_ImplementFunction(__wxComboBox_1)
 {
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -79,11 +75,11 @@ Gura_ImplementMethod(wx_ComboBox, __wxComboBox_1)
 	//int style = arg.GetNumber(7)
 	//int validator = arg.GetNumber(8)
 	//int name = arg.GetNumber(9)
-	//pThis->GetEntity()->wxComboBox();
+	//wxComboBox();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ComboBox, __wxComboBox_2, "wxComboBox_2")
+Gura_DeclareFunctionAlias(__wxComboBox_2, "wxComboBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -97,10 +93,8 @@ Gura_DeclareMethodAlias(wx_ComboBox, __wxComboBox_2, "wxComboBox_2")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ComboBox, __wxComboBox_2)
+Gura_ImplementFunction(__wxComboBox_2)
 {
-	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
@@ -110,10 +104,13 @@ Gura_ImplementMethod(wx_ComboBox, __wxComboBox_2)
 	//int style = arg.GetNumber(6)
 	//int validator = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxComboBox();
+	//wxComboBox();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ComboBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -426,9 +423,11 @@ Gura_ImplementMethod(wx_ComboBox, __GetCount)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ComboBox)
 {
-	Gura_AssignMethod(wx_ComboBox, __wxComboBox);
-	Gura_AssignMethod(wx_ComboBox, __wxComboBox_1);
-	Gura_AssignMethod(wx_ComboBox, __wxComboBox_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxComboBox);
+	Gura_AssignFunction(__wxComboBox_1);
+	Gura_AssignFunction(__wxComboBox_2);
+	// Method assignment
 	Gura_AssignMethod(wx_ComboBox, __Create);
 	Gura_AssignMethod(wx_ComboBox, __Create_1);
 	Gura_AssignMethod(wx_ComboBox, __GetCurrentSelection);

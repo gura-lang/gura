@@ -35,21 +35,22 @@ String Object_wx_HtmlTagHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlTagHandler, __wxHtmlTagHandler, "wxHtmlTagHandler")
+Gura_DeclareFunctionAlias(__wxHtmlTagHandler, "wxHtmlTagHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlTagHandler, __wxHtmlTagHandler)
+Gura_ImplementFunction(__wxHtmlTagHandler)
 {
-	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxHtmlTagHandler();
+	//wxHtmlTagHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlTagHandler, __GetSupportedTags, "GetSupportedTags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -141,7 +142,9 @@ Gura_ImplementMethod(wx_HtmlTagHandler, __ParseInnerSource)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTagHandler)
 {
-	Gura_AssignMethod(wx_HtmlTagHandler, __wxHtmlTagHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlTagHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlTagHandler, __GetSupportedTags);
 	Gura_AssignMethod(wx_HtmlTagHandler, __HandleTag);
 	Gura_AssignMethod(wx_HtmlTagHandler, __SetParser);

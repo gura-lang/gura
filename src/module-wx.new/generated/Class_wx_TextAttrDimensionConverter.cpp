@@ -35,9 +35,9 @@ String Object_wx_TextAttrDimensionConverter::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter, "wxTextAttrDimensionConverter")
+Gura_DeclareFunctionAlias(__wxTextAttrDimensionConverter, "wxTextAttrDimensionConverter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -45,18 +45,16 @@ Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConv
 	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter)
+Gura_ImplementFunction(__wxTextAttrDimensionConverter)
 {
-	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dc = arg.GetNumber(0)
 	//int scale = arg.GetNumber(1)
 	//int parentSize = arg.GetNumber(2)
-	//pThis->GetEntity()->wxTextAttrDimensionConverter();
+	//wxTextAttrDimensionConverter();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter_1, "wxTextAttrDimensionConverter_1")
+Gura_DeclareFunctionAlias(__wxTextAttrDimensionConverter_1, "wxTextAttrDimensionConverter_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ppi", VTYPE_number, OCCUR_Once);
@@ -64,17 +62,18 @@ Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConv
 	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter_1)
+Gura_ImplementFunction(__wxTextAttrDimensionConverter_1)
 {
-	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ppi = arg.GetNumber(0)
 	//int scale = arg.GetNumber(1)
 	//int parentSize = arg.GetNumber(2)
-	//pThis->GetEntity()->wxTextAttrDimensionConverter();
+	//wxTextAttrDimensionConverter();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __GetPixels, "GetPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -142,8 +141,10 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, __ConvertPixelsToTenthsMM)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrDimensionConverter)
 {
-	Gura_AssignMethod(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter);
-	Gura_AssignMethod(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxTextAttrDimensionConverter);
+	Gura_AssignFunction(__wxTextAttrDimensionConverter_1);
+	// Method assignment
 	Gura_AssignMethod(wx_TextAttrDimensionConverter, __GetPixels);
 	Gura_AssignMethod(wx_TextAttrDimensionConverter, __GetTenthsMM);
 	Gura_AssignMethod(wx_TextAttrDimensionConverter, __ConvertTenthsMMToPixels);

@@ -35,23 +35,24 @@ String Object_wx_Printer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Printer, __wxPrinter, "wxPrinter")
+Gura_DeclareFunctionAlias(__wxPrinter, "wxPrinter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printer, __wxPrinter)
+Gura_ImplementFunction(__wxPrinter)
 {
-	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPrinter();
+	//wxPrinter();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Printer, __CreateAbortWindow, "CreateAbortWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -181,7 +182,9 @@ Gura_ImplementMethod(wx_Printer, __Setup)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Printer)
 {
-	Gura_AssignMethod(wx_Printer, __wxPrinter);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPrinter);
+	// Method assignment
 	Gura_AssignMethod(wx_Printer, __CreateAbortWindow);
 	Gura_AssignMethod(wx_Printer, __GetAbort);
 	Gura_AssignMethod(wx_Printer, __GetLastError);

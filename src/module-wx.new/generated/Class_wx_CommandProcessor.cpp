@@ -35,23 +35,24 @@ String Object_wx_CommandProcessor::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CommandProcessor, __wxCommandProcessor, "wxCommandProcessor")
+Gura_DeclareFunctionAlias(__wxCommandProcessor, "wxCommandProcessor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maxCommands", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CommandProcessor, __wxCommandProcessor)
+Gura_ImplementFunction(__wxCommandProcessor)
 {
-	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int maxCommands = arg.GetNumber(0)
-	//pThis->GetEntity()->wxCommandProcessor();
+	//wxCommandProcessor();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CommandProcessor, __CanUndo, "CanUndo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -355,7 +356,9 @@ Gura_ImplementMethod(wx_CommandProcessor, __Undo)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CommandProcessor)
 {
-	Gura_AssignMethod(wx_CommandProcessor, __wxCommandProcessor);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCommandProcessor);
+	// Method assignment
 	Gura_AssignMethod(wx_CommandProcessor, __CanUndo);
 	Gura_AssignMethod(wx_CommandProcessor, __CanRedo);
 	Gura_AssignMethod(wx_CommandProcessor, __ClearCommands);

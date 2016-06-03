@@ -35,22 +35,20 @@ String Object_wx_SymbolPickerDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __wxSymbolPickerDialog, "wxSymbolPickerDialog")
+Gura_DeclareFunctionAlias(__wxSymbolPickerDialog, "wxSymbolPickerDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, __wxSymbolPickerDialog)
+Gura_ImplementFunction(__wxSymbolPickerDialog)
 {
-	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxSymbolPickerDialog();
+	//wxSymbolPickerDialog();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __wxSymbolPickerDialog_1, "wxSymbolPickerDialog_1")
+Gura_DeclareFunctionAlias(__wxSymbolPickerDialog_1, "wxSymbolPickerDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "symbol", VTYPE_number, OCCUR_Once);
@@ -64,10 +62,8 @@ Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __wxSymbolPickerDialog_1, "wxSymb
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, __wxSymbolPickerDialog_1)
+Gura_ImplementFunction(__wxSymbolPickerDialog_1)
 {
-	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int symbol = arg.GetNumber(0)
 	//int initialFont = arg.GetNumber(1)
 	//int normalTextFont = arg.GetNumber(2)
@@ -77,10 +73,13 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, __wxSymbolPickerDialog_1)
 	//int pos = arg.GetNumber(6)
 	//int size = arg.GetNumber(7)
 	//int style = arg.GetNumber(8)
-	//pThis->GetEntity()->wxSymbolPickerDialog();
+	//wxSymbolPickerDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -283,8 +282,10 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, __UseNormalFont)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SymbolPickerDialog)
 {
-	Gura_AssignMethod(wx_SymbolPickerDialog, __wxSymbolPickerDialog);
-	Gura_AssignMethod(wx_SymbolPickerDialog, __wxSymbolPickerDialog_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSymbolPickerDialog);
+	Gura_AssignFunction(__wxSymbolPickerDialog_1);
+	// Method assignment
 	Gura_AssignMethod(wx_SymbolPickerDialog, __Create);
 	Gura_AssignMethod(wx_SymbolPickerDialog, __GetFontName);
 	Gura_AssignMethod(wx_SymbolPickerDialog, __GetFromUnicode);

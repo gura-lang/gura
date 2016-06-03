@@ -35,22 +35,20 @@ String Object_wx_FileCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileCtrl, __wxFileCtrl, "wxFileCtrl")
+Gura_DeclareFunctionAlias(__wxFileCtrl, "wxFileCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileCtrl, __wxFileCtrl)
+Gura_ImplementFunction(__wxFileCtrl)
 {
-	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFileCtrl();
+	//wxFileCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileCtrl, __wxFileCtrl_1, "wxFileCtrl_1")
+Gura_DeclareFunctionAlias(__wxFileCtrl_1, "wxFileCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,10 +62,8 @@ Gura_DeclareMethodAlias(wx_FileCtrl, __wxFileCtrl_1, "wxFileCtrl_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileCtrl, __wxFileCtrl_1)
+Gura_ImplementFunction(__wxFileCtrl_1)
 {
-	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int defaultDirectory = arg.GetNumber(2)
@@ -77,10 +73,13 @@ Gura_ImplementMethod(wx_FileCtrl, __wxFileCtrl_1)
 	//int pos = arg.GetNumber(6)
 	//int size = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxFileCtrl();
+	//wxFileCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -302,8 +301,10 @@ Gura_ImplementMethod(wx_FileCtrl, __ShowHidden)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileCtrl)
 {
-	Gura_AssignMethod(wx_FileCtrl, __wxFileCtrl);
-	Gura_AssignMethod(wx_FileCtrl, __wxFileCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileCtrl);
+	Gura_AssignFunction(__wxFileCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_FileCtrl, __Create);
 	Gura_AssignMethod(wx_FileCtrl, __GetDirectory);
 	Gura_AssignMethod(wx_FileCtrl, __GetFilename);

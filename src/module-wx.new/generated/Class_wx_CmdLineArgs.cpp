@@ -81,6 +81,7 @@ Gura_ImplementMethod(wx_CmdLineArgs, __size)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CmdLineArgs)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_CmdLineArgs, __begin);
 	Gura_AssignMethod(wx_CmdLineArgs, __end);
 	Gura_AssignMethod(wx_CmdLineArgs, __size);

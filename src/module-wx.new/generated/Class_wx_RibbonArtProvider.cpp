@@ -35,21 +35,22 @@ String Object_wx_RibbonArtProvider::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RibbonArtProvider, __wxRibbonArtProvider, "wxRibbonArtProvider")
+Gura_DeclareFunctionAlias(__wxRibbonArtProvider, "wxRibbonArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonArtProvider, __wxRibbonArtProvider)
+Gura_ImplementFunction(__wxRibbonArtProvider)
 {
-	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxRibbonArtProvider();
+	//wxRibbonArtProvider();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -898,7 +899,9 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetRibbonHelpButtonArea)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonArtProvider)
 {
-	Gura_AssignMethod(wx_RibbonArtProvider, __wxRibbonArtProvider);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRibbonArtProvider);
+	// Method assignment
 	Gura_AssignMethod(wx_RibbonArtProvider, __Clone);
 	Gura_AssignMethod(wx_RibbonArtProvider, __SetFlags);
 	Gura_AssignMethod(wx_RibbonArtProvider, __GetFlags);

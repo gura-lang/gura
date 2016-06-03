@@ -35,21 +35,22 @@ String Object_wx_MDIClientWindow::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MDIClientWindow, __wxMDIClientWindow, "wxMDIClientWindow")
+Gura_DeclareFunctionAlias(__wxMDIClientWindow, "wxMDIClientWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIClientWindow, __wxMDIClientWindow)
+Gura_ImplementFunction(__wxMDIClientWindow)
 {
-	Object_wx_MDIClientWindow *pThis = Object_wx_MDIClientWindow::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMDIClientWindow();
+	//wxMDIClientWindow();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MDIClientWindow, __CreateClient, "CreateClient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -72,7 +73,9 @@ Gura_ImplementMethod(wx_MDIClientWindow, __CreateClient)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MDIClientWindow)
 {
-	Gura_AssignMethod(wx_MDIClientWindow, __wxMDIClientWindow);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMDIClientWindow);
+	// Method assignment
 	Gura_AssignMethod(wx_MDIClientWindow, __CreateClient);
 }
 

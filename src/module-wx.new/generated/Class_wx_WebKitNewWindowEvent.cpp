@@ -35,6 +35,22 @@ String Object_wx_WebKitNewWindowEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxWebKitNewWindowEvent, "wxWebKitNewWindowEvent")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxWebKitNewWindowEvent)
+{
+	//int win = arg.GetNumber(0)
+	//wxWebKitNewWindowEvent();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebKitNewWindowEvent, __GetURL, "GetURL")
@@ -93,31 +109,18 @@ Gura_ImplementMethod(wx_WebKitNewWindowEvent, __SetTargetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_WebKitNewWindowEvent, __wxWebKitNewWindowEvent, "wxWebKitNewWindowEvent")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_WebKitNewWindowEvent, __wxWebKitNewWindowEvent)
-{
-	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int win = arg.GetNumber(0)
-	//pThis->GetEntity()->wxWebKitNewWindowEvent();
-	return Value::Nil;
-}
-
 //----------------------------------------------------------------------------
 // Class implementation for wxWebKitNewWindowEvent
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebKitNewWindowEvent)
 {
+	// Constructor assignment
+	Gura_AssignFunction(__wxWebKitNewWindowEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_WebKitNewWindowEvent, __GetURL);
 	Gura_AssignMethod(wx_WebKitNewWindowEvent, __SetURL);
 	Gura_AssignMethod(wx_WebKitNewWindowEvent, __GetTargetName);
 	Gura_AssignMethod(wx_WebKitNewWindowEvent, __SetTargetName);
-	Gura_AssignMethod(wx_WebKitNewWindowEvent, __wxWebKitNewWindowEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_WebKitNewWindowEvent)

@@ -35,40 +35,39 @@ String Object_wx_PropertyGridEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PropertyGridEvent, __wxPropertyGridEvent, "wxPropertyGridEvent")
+Gura_DeclareFunctionAlias(__wxPropertyGridEvent, "wxPropertyGridEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertyGridEvent, __wxPropertyGridEvent)
+Gura_ImplementFunction(__wxPropertyGridEvent)
 {
-	Object_wx_PropertyGridEvent *pThis = Object_wx_PropertyGridEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxPropertyGridEvent();
+	//wxPropertyGridEvent();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PropertyGridEvent, __wxPropertyGridEvent_1, "wxPropertyGridEvent_1")
+Gura_DeclareFunctionAlias(__wxPropertyGridEvent_1, "wxPropertyGridEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertyGridEvent, __wxPropertyGridEvent_1)
+Gura_ImplementFunction(__wxPropertyGridEvent_1)
 {
-	Object_wx_PropertyGridEvent *pThis = Object_wx_PropertyGridEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int event = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPropertyGridEvent();
+	//wxPropertyGridEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PropertyGridEvent, __CanVeto, "CanVeto")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -253,8 +252,10 @@ Gura_ImplementMethod(wx_PropertyGridEvent, __WasVetoed)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertyGridEvent)
 {
-	Gura_AssignMethod(wx_PropertyGridEvent, __wxPropertyGridEvent);
-	Gura_AssignMethod(wx_PropertyGridEvent, __wxPropertyGridEvent_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPropertyGridEvent);
+	Gura_AssignFunction(__wxPropertyGridEvent_1);
+	// Method assignment
 	Gura_AssignMethod(wx_PropertyGridEvent, __CanVeto);
 	Gura_AssignMethod(wx_PropertyGridEvent, __GetColumn);
 	Gura_AssignMethod(wx_PropertyGridEvent, __GetMainParent);

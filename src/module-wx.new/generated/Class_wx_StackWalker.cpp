@@ -35,23 +35,24 @@ String Object_wx_StackWalker::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StackWalker, __wxStackWalker, "wxStackWalker")
+Gura_DeclareFunctionAlias(__wxStackWalker, "wxStackWalker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argv0", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StackWalker, __wxStackWalker)
+Gura_ImplementFunction(__wxStackWalker)
 {
-	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int argv0 = arg.GetNumber(0)
-	//pThis->GetEntity()->wxStackWalker();
+	//wxStackWalker();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StackWalker, __Walk, "Walk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -104,7 +105,9 @@ Gura_ImplementMethod(wx_StackWalker, __OnStackFrame)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StackWalker)
 {
-	Gura_AssignMethod(wx_StackWalker, __wxStackWalker);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStackWalker);
+	// Method assignment
 	Gura_AssignMethod(wx_StackWalker, __Walk);
 	Gura_AssignMethod(wx_StackWalker, __WalkFromException);
 	Gura_AssignMethod(wx_StackWalker, __OnStackFrame);

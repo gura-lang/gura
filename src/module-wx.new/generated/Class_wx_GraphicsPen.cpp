@@ -35,16 +35,10 @@ String Object_wx_GraphicsPen::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
-//----------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------------------
 // Class implementation for wxGraphicsPen
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsPen)
 {
-	
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsPen)

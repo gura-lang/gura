@@ -35,66 +35,61 @@ String Object_wx_Any::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Any, __wxAny, "wxAny")
+Gura_DeclareFunctionAlias(__wxAny, "wxAny")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Any, __wxAny)
+Gura_ImplementFunction(__wxAny)
 {
-	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxAny();
+	//wxAny();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Any, __wxAny_1, "wxAny_1")
+Gura_DeclareFunctionAlias(__wxAny_1, "wxAny_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Any, __wxAny_1)
+Gura_ImplementFunction(__wxAny_1)
 {
-	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//pThis->GetEntity()->wxAny();
+	//wxAny();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Any, __wxAny_2, "wxAny_2")
+Gura_DeclareFunctionAlias(__wxAny_2, "wxAny_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "any", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Any, __wxAny_2)
+Gura_ImplementFunction(__wxAny_2)
 {
-	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int any = arg.GetNumber(0)
-	//pThis->GetEntity()->wxAny();
+	//wxAny();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Any, __wxAny_3, "wxAny_3")
+Gura_DeclareFunctionAlias(__wxAny_3, "wxAny_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Any, __wxAny_3)
+Gura_ImplementFunction(__wxAny_3)
 {
-	Object_wx_Any *pThis = Object_wx_Any::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int variant = arg.GetNumber(0)
-	//pThis->GetEntity()->wxAny();
+	//wxAny();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Any, __As, "As")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -210,10 +205,12 @@ Gura_ImplementMethod(wx_Any, __MakeNull)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Any)
 {
-	Gura_AssignMethod(wx_Any, __wxAny);
-	Gura_AssignMethod(wx_Any, __wxAny_1);
-	Gura_AssignMethod(wx_Any, __wxAny_2);
-	Gura_AssignMethod(wx_Any, __wxAny_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAny);
+	Gura_AssignFunction(__wxAny_1);
+	Gura_AssignFunction(__wxAny_2);
+	Gura_AssignFunction(__wxAny_3);
+	// Method assignment
 	Gura_AssignMethod(wx_Any, __As);
 	Gura_AssignMethod(wx_Any, __CheckType);
 	Gura_AssignMethod(wx_Any, __GetAs);

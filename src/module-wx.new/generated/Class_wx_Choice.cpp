@@ -35,22 +35,20 @@ String Object_wx_Choice::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Choice, __wxChoice, "wxChoice")
+Gura_DeclareFunctionAlias(__wxChoice, "wxChoice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Choice, __wxChoice)
+Gura_ImplementFunction(__wxChoice)
 {
-	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxChoice();
+	//wxChoice();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Choice, __wxChoice_1, "wxChoice_1")
+Gura_DeclareFunctionAlias(__wxChoice_1, "wxChoice_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,10 +62,8 @@ Gura_DeclareMethodAlias(wx_Choice, __wxChoice_1, "wxChoice_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, __wxChoice_1)
+Gura_ImplementFunction(__wxChoice_1)
 {
-	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -77,11 +73,11 @@ Gura_ImplementMethod(wx_Choice, __wxChoice_1)
 	//int style = arg.GetNumber(6)
 	//int validator = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxChoice();
+	//wxChoice();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Choice, __wxChoice_2, "wxChoice_2")
+Gura_DeclareFunctionAlias(__wxChoice_2, "wxChoice_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -94,10 +90,8 @@ Gura_DeclareMethodAlias(wx_Choice, __wxChoice_2, "wxChoice_2")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, __wxChoice_2)
+Gura_ImplementFunction(__wxChoice_2)
 {
-	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -106,10 +100,13 @@ Gura_ImplementMethod(wx_Choice, __wxChoice_2)
 	//int style = arg.GetNumber(5)
 	//int validator = arg.GetNumber(6)
 	//int name = arg.GetNumber(7)
-	//pThis->GetEntity()->wxChoice();
+	//wxChoice();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Choice, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -319,9 +316,11 @@ Gura_ImplementMethod(wx_Choice, __SetString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Choice)
 {
-	Gura_AssignMethod(wx_Choice, __wxChoice);
-	Gura_AssignMethod(wx_Choice, __wxChoice_1);
-	Gura_AssignMethod(wx_Choice, __wxChoice_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxChoice);
+	Gura_AssignFunction(__wxChoice_1);
+	Gura_AssignFunction(__wxChoice_2);
+	// Method assignment
 	Gura_AssignMethod(wx_Choice, __Create);
 	Gura_AssignMethod(wx_Choice, __Create_1);
 	Gura_AssignMethod(wx_Choice, __GetColumns);

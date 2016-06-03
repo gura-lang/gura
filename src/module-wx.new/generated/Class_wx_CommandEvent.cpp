@@ -35,25 +35,26 @@ String Object_wx_CommandEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_CommandEvent, __wxCommandEvent, "wxCommandEvent")
+Gura_DeclareFunctionAlias(__wxCommandEvent, "wxCommandEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandEventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, __wxCommandEvent)
+Gura_ImplementFunction(__wxCommandEvent)
 {
-	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandEventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxCommandEvent();
+	//wxCommandEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CommandEvent, __GetClientData, "GetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -238,7 +239,9 @@ Gura_ImplementMethod(wx_CommandEvent, __SetString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CommandEvent)
 {
-	Gura_AssignMethod(wx_CommandEvent, __wxCommandEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxCommandEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_CommandEvent, __GetClientData);
 	Gura_AssignMethod(wx_CommandEvent, __GetClientObject);
 	Gura_AssignMethod(wx_CommandEvent, __GetExtraLong);

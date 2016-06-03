@@ -35,9 +35,9 @@ String Object_wx_AcceleratorEntry::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_AcceleratorEntry, __wxAcceleratorEntry, "wxAcceleratorEntry")
+Gura_DeclareFunctionAlias(__wxAcceleratorEntry, "wxAcceleratorEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -46,33 +46,32 @@ Gura_DeclareMethodAlias(wx_AcceleratorEntry, __wxAcceleratorEntry, "wxAccelerato
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, __wxAcceleratorEntry)
+Gura_ImplementFunction(__wxAcceleratorEntry)
 {
-	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//int keyCode = arg.GetNumber(1)
 	//int cmd = arg.GetNumber(2)
 	//int item = arg.GetNumber(3)
-	//pThis->GetEntity()->wxAcceleratorEntry();
+	//wxAcceleratorEntry();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_AcceleratorEntry, __wxAcceleratorEntry_1, "wxAcceleratorEntry_1")
+Gura_DeclareFunctionAlias(__wxAcceleratorEntry_1, "wxAcceleratorEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, __wxAcceleratorEntry_1)
+Gura_ImplementFunction(__wxAcceleratorEntry_1)
 {
-	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int entry = arg.GetNumber(0)
-	//pThis->GetEntity()->wxAcceleratorEntry();
+	//wxAcceleratorEntry();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AcceleratorEntry, __GetCommand, "GetCommand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -205,8 +204,10 @@ Gura_ImplementMethod(wx_AcceleratorEntry, __FromString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AcceleratorEntry)
 {
-	Gura_AssignMethod(wx_AcceleratorEntry, __wxAcceleratorEntry);
-	Gura_AssignMethod(wx_AcceleratorEntry, __wxAcceleratorEntry_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxAcceleratorEntry);
+	Gura_AssignFunction(__wxAcceleratorEntry_1);
+	// Method assignment
 	Gura_AssignMethod(wx_AcceleratorEntry, __GetCommand);
 	Gura_AssignMethod(wx_AcceleratorEntry, __GetFlags);
 	Gura_AssignMethod(wx_AcceleratorEntry, __GetKeyCode);

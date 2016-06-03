@@ -35,70 +35,65 @@ String Object_wx_Mask::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Mask, __wxMask, "wxMask")
+Gura_DeclareFunctionAlias(__wxMask, "wxMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Mask, __wxMask)
+Gura_ImplementFunction(__wxMask)
 {
-	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxMask();
+	//wxMask();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Mask, __wxMask_1, "wxMask_1")
+Gura_DeclareFunctionAlias(__wxMask_1, "wxMask_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mask, __wxMask_1)
+Gura_ImplementFunction(__wxMask_1)
 {
-	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
-	//pThis->GetEntity()->wxMask();
+	//wxMask();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Mask, __wxMask_2, "wxMask_2")
+Gura_DeclareFunctionAlias(__wxMask_2, "wxMask_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mask, __wxMask_2)
+Gura_ImplementFunction(__wxMask_2)
 {
-	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
-	//pThis->GetEntity()->wxMask();
+	//wxMask();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Mask, __wxMask_3, "wxMask_3")
+Gura_DeclareFunctionAlias(__wxMask_3, "wxMask_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mask, __wxMask_3)
+Gura_ImplementFunction(__wxMask_3)
 {
-	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bitmap = arg.GetNumber(0)
 	//int colour = arg.GetNumber(1)
-	//pThis->GetEntity()->wxMask();
+	//wxMask();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Mask, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -166,10 +161,12 @@ Gura_ImplementMethod(wx_Mask, __GetBitmap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Mask)
 {
-	Gura_AssignMethod(wx_Mask, __wxMask);
-	Gura_AssignMethod(wx_Mask, __wxMask_1);
-	Gura_AssignMethod(wx_Mask, __wxMask_2);
-	Gura_AssignMethod(wx_Mask, __wxMask_3);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMask);
+	Gura_AssignFunction(__wxMask_1);
+	Gura_AssignFunction(__wxMask_2);
+	Gura_AssignFunction(__wxMask_3);
+	// Method assignment
 	Gura_AssignMethod(wx_Mask, __Create);
 	Gura_AssignMethod(wx_Mask, __Create_1);
 	Gura_AssignMethod(wx_Mask, __Create_2);

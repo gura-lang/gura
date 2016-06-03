@@ -35,25 +35,26 @@ String Object_wx_Semaphore::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Semaphore, __wxSemaphore, "wxSemaphore")
+Gura_DeclareFunctionAlias(__wxSemaphore, "wxSemaphore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initialcount", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxcount", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Semaphore, __wxSemaphore)
+Gura_ImplementFunction(__wxSemaphore)
 {
-	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int initialcount = arg.GetNumber(0)
 	//int maxcount = arg.GetNumber(1)
-	//pThis->GetEntity()->wxSemaphore();
+	//wxSemaphore();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Semaphore, __Post, "Post")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -113,7 +114,9 @@ Gura_ImplementMethod(wx_Semaphore, __WaitTimeout)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Semaphore)
 {
-	Gura_AssignMethod(wx_Semaphore, __wxSemaphore);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSemaphore);
+	// Method assignment
 	Gura_AssignMethod(wx_Semaphore, __Post);
 	Gura_AssignMethod(wx_Semaphore, __TryWait);
 	Gura_AssignMethod(wx_Semaphore, __Wait);

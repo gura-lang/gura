@@ -35,22 +35,20 @@ String Object_wx_DataViewTreeCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __wxDataViewTreeCtrl, "wxDataViewTreeCtrl")
+Gura_DeclareFunctionAlias(__wxDataViewTreeCtrl, "wxDataViewTreeCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewTreeCtrl, __wxDataViewTreeCtrl)
+Gura_ImplementFunction(__wxDataViewTreeCtrl)
 {
-	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxDataViewTreeCtrl();
+	//wxDataViewTreeCtrl();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __wxDataViewTreeCtrl_1, "wxDataViewTreeCtrl_1")
+Gura_DeclareFunctionAlias(__wxDataViewTreeCtrl_1, "wxDataViewTreeCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,20 +59,21 @@ Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __wxDataViewTreeCtrl_1, "wxDataView
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewTreeCtrl, __wxDataViewTreeCtrl_1)
+Gura_ImplementFunction(__wxDataViewTreeCtrl_1)
 {
-	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//int validator = arg.GetNumber(5)
-	//pThis->GetEntity()->wxDataViewTreeCtrl();
+	//wxDataViewTreeCtrl();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __AppendContainer, "AppendContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -513,8 +512,10 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __SetItemText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewTreeCtrl)
 {
-	Gura_AssignMethod(wx_DataViewTreeCtrl, __wxDataViewTreeCtrl);
-	Gura_AssignMethod(wx_DataViewTreeCtrl, __wxDataViewTreeCtrl_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataViewTreeCtrl);
+	Gura_AssignFunction(__wxDataViewTreeCtrl_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DataViewTreeCtrl, __AppendContainer);
 	Gura_AssignMethod(wx_DataViewTreeCtrl, __AppendItem);
 	Gura_AssignMethod(wx_DataViewTreeCtrl, __Create);

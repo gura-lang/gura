@@ -35,35 +35,31 @@ String Object_wx_FilterOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FilterOutputStream, __wxFilterOutputStream, "wxFilterOutputStream")
+Gura_DeclareFunctionAlias(__wxFilterOutputStream, "wxFilterOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterOutputStream, __wxFilterOutputStream)
+Gura_ImplementFunction(__wxFilterOutputStream)
 {
-	Object_wx_FilterOutputStream *pThis = Object_wx_FilterOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFilterOutputStream();
+	//wxFilterOutputStream();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FilterOutputStream, __wxFilterOutputStream_1, "wxFilterOutputStream_1")
+Gura_DeclareFunctionAlias(__wxFilterOutputStream_1, "wxFilterOutputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterOutputStream, __wxFilterOutputStream_1)
+Gura_ImplementFunction(__wxFilterOutputStream_1)
 {
-	Object_wx_FilterOutputStream *pThis = Object_wx_FilterOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stream = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFilterOutputStream();
+	//wxFilterOutputStream();
 	return Value::Nil;
 }
 
@@ -72,8 +68,9 @@ Gura_ImplementMethod(wx_FilterOutputStream, __wxFilterOutputStream_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilterOutputStream)
 {
-	Gura_AssignMethod(wx_FilterOutputStream, __wxFilterOutputStream);
-	Gura_AssignMethod(wx_FilterOutputStream, __wxFilterOutputStream_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFilterOutputStream);
+	Gura_AssignFunction(__wxFilterOutputStream_1);
 }
 
 Gura_ImplementDescendantCreator(wx_FilterOutputStream)

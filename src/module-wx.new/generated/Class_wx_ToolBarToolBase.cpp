@@ -35,9 +35,9 @@ String Object_wx_ToolBarToolBase::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ToolBarToolBase, __wxToolBarToolBase, "wxToolBarToolBase")
+Gura_DeclareFunctionAlias(__wxToolBarToolBase, "wxToolBarToolBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tbar", VTYPE_number, OCCUR_Once);
@@ -51,10 +51,8 @@ Gura_DeclareMethodAlias(wx_ToolBarToolBase, __wxToolBarToolBase, "wxToolBarToolB
 	//DeclareArg(env, "longHelpString", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, __wxToolBarToolBase)
+Gura_ImplementFunction(__wxToolBarToolBase)
 {
-	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tbar = arg.GetNumber(0)
 	//int toolid = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -64,11 +62,11 @@ Gura_ImplementMethod(wx_ToolBarToolBase, __wxToolBarToolBase)
 	//int clientData = arg.GetNumber(6)
 	//int shortHelpString = arg.GetNumber(7)
 	//int longHelpString = arg.GetNumber(8)
-	//pThis->GetEntity()->wxToolBarToolBase();
+	//wxToolBarToolBase();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ToolBarToolBase, __wxToolBarToolBase_1, "wxToolBarToolBase_1")
+Gura_DeclareFunctionAlias(__wxToolBarToolBase_1, "wxToolBarToolBase_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tbar", VTYPE_number, OCCUR_Once);
@@ -76,17 +74,18 @@ Gura_DeclareMethodAlias(wx_ToolBarToolBase, __wxToolBarToolBase_1, "wxToolBarToo
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, __wxToolBarToolBase_1)
+Gura_ImplementFunction(__wxToolBarToolBase_1)
 {
-	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tbar = arg.GetNumber(0)
 	//int control = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
-	//pThis->GetEntity()->wxToolBarToolBase();
+	//wxToolBarToolBase();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -393,8 +392,10 @@ Gura_ImplementMethod(wx_ToolBarToolBase, __GetDropdownMenu)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToolBarToolBase)
 {
-	Gura_AssignMethod(wx_ToolBarToolBase, __wxToolBarToolBase);
-	Gura_AssignMethod(wx_ToolBarToolBase, __wxToolBarToolBase_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxToolBarToolBase);
+	Gura_AssignFunction(__wxToolBarToolBase_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ToolBarToolBase, __GetId);
 	Gura_AssignMethod(wx_ToolBarToolBase, __GetControl);
 	Gura_AssignMethod(wx_ToolBarToolBase, __GetToolBar);

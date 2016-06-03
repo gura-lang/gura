@@ -35,25 +35,26 @@ String Object_wx_EventBlocker::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_EventBlocker, __wxEventBlocker, "wxEventBlocker")
+Gura_DeclareFunctionAlias(__wxEventBlocker, "wxEventBlocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_EventBlocker, __wxEventBlocker)
+Gura_ImplementFunction(__wxEventBlocker)
 {
-	Object_wx_EventBlocker *pThis = Object_wx_EventBlocker::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int win = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
-	//pThis->GetEntity()->wxEventBlocker();
+	//wxEventBlocker();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_EventBlocker, __Block, "Block")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -74,7 +75,9 @@ Gura_ImplementMethod(wx_EventBlocker, __Block)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EventBlocker)
 {
-	Gura_AssignMethod(wx_EventBlocker, __wxEventBlocker);
+	// Constructor assignment
+	Gura_AssignFunction(__wxEventBlocker);
+	// Method assignment
 	Gura_AssignMethod(wx_EventBlocker, __Block);
 }
 

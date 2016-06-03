@@ -35,21 +35,22 @@ String Object_wx_App::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_App, __wxApp, "wxApp")
+Gura_DeclareFunctionAlias(__wxApp, "wxApp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, __wxApp)
+Gura_ImplementFunction(__wxApp)
 {
-	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxApp();
+	//wxApp();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_App, __GetDisplayMode, "GetDisplayMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -358,7 +359,9 @@ Gura_ImplementMethod(wx_App, __OSXIsGUIApplication)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_App)
 {
-	Gura_AssignMethod(wx_App, __wxApp);
+	// Constructor assignment
+	Gura_AssignFunction(__wxApp);
+	// Method assignment
 	Gura_AssignMethod(wx_App, __GetDisplayMode);
 	Gura_AssignMethod(wx_App, __GetExitOnFrameDelete);
 	Gura_AssignMethod(wx_App, __GetLayoutDirection);

@@ -35,37 +35,33 @@ String Object_wx_Palette::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Palette, __wxPalette, "wxPalette")
+Gura_DeclareFunctionAlias(__wxPalette, "wxPalette")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Palette, __wxPalette)
+Gura_ImplementFunction(__wxPalette)
 {
-	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPalette();
+	//wxPalette();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Palette, __wxPalette_1, "wxPalette_1")
+Gura_DeclareFunctionAlias(__wxPalette_1, "wxPalette_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Palette, __wxPalette_1)
+Gura_ImplementFunction(__wxPalette_1)
 {
-	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int palette = arg.GetNumber(0)
-	//pThis->GetEntity()->wxPalette();
+	//wxPalette();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Palette, __wxPalette_2, "wxPalette_2")
+Gura_DeclareFunctionAlias(__wxPalette_2, "wxPalette_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -74,18 +70,19 @@ Gura_DeclareMethodAlias(wx_Palette, __wxPalette_2, "wxPalette_2")
 	//DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Palette, __wxPalette_2)
+Gura_ImplementFunction(__wxPalette_2)
 {
-	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//int red = arg.GetNumber(1)
 	//int green = arg.GetNumber(2)
 	//int blue = arg.GetNumber(3)
-	//pThis->GetEntity()->wxPalette();
+	//wxPalette();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Palette, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -178,9 +175,11 @@ Gura_ImplementMethod(wx_Palette, __IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Palette)
 {
-	Gura_AssignMethod(wx_Palette, __wxPalette);
-	Gura_AssignMethod(wx_Palette, __wxPalette_1);
-	Gura_AssignMethod(wx_Palette, __wxPalette_2);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPalette);
+	Gura_AssignFunction(__wxPalette_1);
+	Gura_AssignFunction(__wxPalette_2);
+	// Method assignment
 	Gura_AssignMethod(wx_Palette, __Create);
 	Gura_AssignMethod(wx_Palette, __GetColoursCount);
 	Gura_AssignMethod(wx_Palette, __GetPixel);

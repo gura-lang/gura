@@ -35,25 +35,26 @@ String Object_wx_WindowModalDialogEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_WindowModalDialogEvent, __wxWindowModalDialogEvent, "wxWindowModalDialogEvent")
+Gura_DeclareFunctionAlias(__wxWindowModalDialogEvent, "wxWindowModalDialogEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WindowModalDialogEvent, __wxWindowModalDialogEvent)
+Gura_ImplementFunction(__wxWindowModalDialogEvent)
 {
-	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->wxWindowModalDialogEvent();
+	//wxWindowModalDialogEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WindowModalDialogEvent, __GetDialog, "GetDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -98,7 +99,9 @@ Gura_ImplementMethod(wx_WindowModalDialogEvent, __Clone)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowModalDialogEvent)
 {
-	Gura_AssignMethod(wx_WindowModalDialogEvent, __wxWindowModalDialogEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxWindowModalDialogEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_WindowModalDialogEvent, __GetDialog);
 	Gura_AssignMethod(wx_WindowModalDialogEvent, __GetReturnCode);
 	Gura_AssignMethod(wx_WindowModalDialogEvent, __Clone);

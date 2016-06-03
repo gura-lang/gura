@@ -35,54 +35,48 @@ String Object_wx_FileName::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_FileName, __wxFileName, "wxFileName")
+Gura_DeclareFunctionAlias(__wxFileName, "wxFileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileName, __wxFileName)
+Gura_ImplementFunction(__wxFileName)
 {
-	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxFileName();
+	//wxFileName();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileName, __wxFileName_1, "wxFileName_1")
+Gura_DeclareFunctionAlias(__wxFileName_1, "wxFileName_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileName, __wxFileName_1)
+Gura_ImplementFunction(__wxFileName_1)
 {
-	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filename = arg.GetNumber(0)
-	//pThis->GetEntity()->wxFileName();
+	//wxFileName();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileName, __wxFileName_2, "wxFileName_2")
+Gura_DeclareFunctionAlias(__wxFileName_2, "wxFileName_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fullpath", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileName, __wxFileName_2)
+Gura_ImplementFunction(__wxFileName_2)
 {
-	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int fullpath = arg.GetNumber(0)
 	//int format = arg.GetNumber(1)
-	//pThis->GetEntity()->wxFileName();
+	//wxFileName();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileName, __wxFileName_3, "wxFileName_3")
+Gura_DeclareFunctionAlias(__wxFileName_3, "wxFileName_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
@@ -90,18 +84,16 @@ Gura_DeclareMethodAlias(wx_FileName, __wxFileName_3, "wxFileName_3")
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileName, __wxFileName_3)
+Gura_ImplementFunction(__wxFileName_3)
 {
-	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
-	//pThis->GetEntity()->wxFileName();
+	//wxFileName();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileName, __wxFileName_4, "wxFileName_4")
+Gura_DeclareFunctionAlias(__wxFileName_4, "wxFileName_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
@@ -110,19 +102,17 @@ Gura_DeclareMethodAlias(wx_FileName, __wxFileName_4, "wxFileName_4")
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileName, __wxFileName_4)
+Gura_ImplementFunction(__wxFileName_4)
 {
-	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int path = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
 	//int ext = arg.GetNumber(2)
 	//int format = arg.GetNumber(3)
-	//pThis->GetEntity()->wxFileName();
+	//wxFileName();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_FileName, __wxFileName_5, "wxFileName_5")
+Gura_DeclareFunctionAlias(__wxFileName_5, "wxFileName_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "volume", VTYPE_number, OCCUR_Once);
@@ -132,19 +122,20 @@ Gura_DeclareMethodAlias(wx_FileName, __wxFileName_5, "wxFileName_5")
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileName, __wxFileName_5)
+Gura_ImplementFunction(__wxFileName_5)
 {
-	Object_wx_FileName *pThis = Object_wx_FileName::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int volume = arg.GetNumber(0)
 	//int path = arg.GetNumber(1)
 	//int name = arg.GetNumber(2)
 	//int ext = arg.GetNumber(3)
 	//int format = arg.GetNumber(4)
-	//pThis->GetEntity()->wxFileName();
+	//wxFileName();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileName, __AppendDir, "AppendDir")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1778,12 +1769,14 @@ Gura_ImplementMethod(wx_FileName, __Touch)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileName)
 {
-	Gura_AssignMethod(wx_FileName, __wxFileName);
-	Gura_AssignMethod(wx_FileName, __wxFileName_1);
-	Gura_AssignMethod(wx_FileName, __wxFileName_2);
-	Gura_AssignMethod(wx_FileName, __wxFileName_3);
-	Gura_AssignMethod(wx_FileName, __wxFileName_4);
-	Gura_AssignMethod(wx_FileName, __wxFileName_5);
+	// Constructor assignment
+	Gura_AssignFunction(__wxFileName);
+	Gura_AssignFunction(__wxFileName_1);
+	Gura_AssignFunction(__wxFileName_2);
+	Gura_AssignFunction(__wxFileName_3);
+	Gura_AssignFunction(__wxFileName_4);
+	Gura_AssignFunction(__wxFileName_5);
+	// Method assignment
 	Gura_AssignMethod(wx_FileName, __AppendDir);
 	Gura_AssignMethod(wx_FileName, __Assign);
 	Gura_AssignMethod(wx_FileName, __Assign_1);

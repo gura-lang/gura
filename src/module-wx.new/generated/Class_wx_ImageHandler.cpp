@@ -35,21 +35,22 @@ String Object_wx_ImageHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ImageHandler, __wxImageHandler, "wxImageHandler")
+Gura_DeclareFunctionAlias(__wxImageHandler, "wxImageHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ImageHandler, __wxImageHandler)
+Gura_ImplementFunction(__wxImageHandler)
 {
-	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxImageHandler();
+	//wxImageHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ImageHandler, __CanRead, "CanRead")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -308,7 +309,9 @@ Gura_ImplementMethod(wx_ImageHandler, __DoCanRead)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ImageHandler)
 {
-	Gura_AssignMethod(wx_ImageHandler, __wxImageHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxImageHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_ImageHandler, __CanRead);
 	Gura_AssignMethod(wx_ImageHandler, __CanRead_1);
 	Gura_AssignMethod(wx_ImageHandler, __GetExtension);

@@ -35,23 +35,24 @@ String Object_wx_ToolTip::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ToolTip, __wxToolTip, "wxToolTip")
+Gura_DeclareFunctionAlias(__wxToolTip, "wxToolTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolTip, __wxToolTip)
+Gura_ImplementFunction(__wxToolTip)
 {
-	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tip = arg.GetNumber(0)
-	//pThis->GetEntity()->wxToolTip();
+	//wxToolTip();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ToolTip, __Enable, "Enable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -173,7 +174,9 @@ Gura_ImplementMethod(wx_ToolTip, __SetTip)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToolTip)
 {
-	Gura_AssignMethod(wx_ToolTip, __wxToolTip);
+	// Constructor assignment
+	Gura_AssignFunction(__wxToolTip);
+	// Method assignment
 	Gura_AssignMethod(wx_ToolTip, __Enable);
 	Gura_AssignMethod(wx_ToolTip, __GetTip);
 	Gura_AssignMethod(wx_ToolTip, __GetWindow);

@@ -109,6 +109,7 @@ Gura_ImplementMethod(wx_Node<T>, __SetData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Node<T>)
 {
+	// Method assignment
 	Gura_AssignMethod(wx_Node<T>, __GetData);
 	Gura_AssignMethod(wx_Node<T>, __GetNext);
 	Gura_AssignMethod(wx_Node<T>, __GetPrevious);

@@ -35,38 +35,37 @@ String Object_wx_DataFormat::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
+// Constructor implementation
+//----------------------------------------------------------------------------
+Gura_DeclareFunctionAlias(__wxDataFormat, "wxDataFormat")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxDataFormat)
+{
+	//int format = arg.GetNumber(0)
+	//wxDataFormat();
+	return Value::Nil;
+}
+
+Gura_DeclareFunctionAlias(__wxDataFormat_1, "wxDataFormat_1")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementFunction(__wxDataFormat_1)
+{
+	//int format = arg.GetNumber(0)
+	//wxDataFormat();
+	return Value::Nil;
+}
+
+//----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DataFormat, __wxDataFormat, "wxDataFormat")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_DataFormat, __wxDataFormat)
-{
-	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDataFormat();
-	return Value::Nil;
-}
-
-Gura_DeclareMethodAlias(wx_DataFormat, __wxDataFormat_1, "wxDataFormat_1")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_DataFormat, __wxDataFormat_1)
-{
-	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int format = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDataFormat();
-	return Value::Nil;
-}
-
 Gura_DeclareMethodAlias(wx_DataFormat, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -128,8 +127,10 @@ Gura_ImplementMethod(wx_DataFormat, __SetType)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataFormat)
 {
-	Gura_AssignMethod(wx_DataFormat, __wxDataFormat);
-	Gura_AssignMethod(wx_DataFormat, __wxDataFormat_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDataFormat);
+	Gura_AssignFunction(__wxDataFormat_1);
+	// Method assignment
 	Gura_AssignMethod(wx_DataFormat, __GetId);
 	Gura_AssignMethod(wx_DataFormat, __GetType);
 	Gura_AssignMethod(wx_DataFormat, __SetId);

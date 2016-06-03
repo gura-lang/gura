@@ -35,25 +35,26 @@ String Object_wx_GridCellDateTimeRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridCellDateTimeRenderer, __wxGridCellDateTimeRenderer, "wxGridCellDateTimeRenderer")
+Gura_DeclareFunctionAlias(__wxGridCellDateTimeRenderer, "wxGridCellDateTimeRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "outformat", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "informat", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellDateTimeRenderer, __wxGridCellDateTimeRenderer)
+Gura_ImplementFunction(__wxGridCellDateTimeRenderer)
 {
-	Object_wx_GridCellDateTimeRenderer *pThis = Object_wx_GridCellDateTimeRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int outformat = arg.GetNumber(0)
 	//int informat = arg.GetNumber(1)
-	//pThis->GetEntity()->wxGridCellDateTimeRenderer();
+	//wxGridCellDateTimeRenderer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridCellDateTimeRenderer, __SetParameters, "SetParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -74,7 +75,9 @@ Gura_ImplementMethod(wx_GridCellDateTimeRenderer, __SetParameters)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellDateTimeRenderer)
 {
-	Gura_AssignMethod(wx_GridCellDateTimeRenderer, __wxGridCellDateTimeRenderer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridCellDateTimeRenderer);
+	// Method assignment
 	Gura_AssignMethod(wx_GridCellDateTimeRenderer, __SetParameters);
 }
 

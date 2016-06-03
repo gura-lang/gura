@@ -35,25 +35,26 @@ String Object_wx_DatagramSocket::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DatagramSocket, __wxDatagramSocket, "wxDatagramSocket")
+Gura_DeclareFunctionAlias(__wxDatagramSocket, "wxDatagramSocket")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DatagramSocket, __wxDatagramSocket)
+Gura_ImplementFunction(__wxDatagramSocket)
 {
-	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int addr = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->wxDatagramSocket();
+	//wxDatagramSocket();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DatagramSocket, __SendTo, "SendTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -78,7 +79,9 @@ Gura_ImplementMethod(wx_DatagramSocket, __SendTo)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DatagramSocket)
 {
-	Gura_AssignMethod(wx_DatagramSocket, __wxDatagramSocket);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDatagramSocket);
+	// Method assignment
 	Gura_AssignMethod(wx_DatagramSocket, __SendTo);
 }
 

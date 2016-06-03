@@ -35,38 +35,37 @@ String Object_wx_PGProperty::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PGProperty, __wxPGProperty, "wxPGProperty")
+Gura_DeclareFunctionAlias(__wxPGProperty, "wxPGProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, __wxPGProperty)
+Gura_ImplementFunction(__wxPGProperty)
 {
-	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPGProperty();
+	//wxPGProperty();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_PGProperty, __wxPGProperty_1, "wxPGProperty_1")
+Gura_DeclareFunctionAlias(__wxPGProperty_1, "wxPGProperty_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, __wxPGProperty_1)
+Gura_ImplementFunction(__wxPGProperty_1)
 {
-	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int label = arg.GetNumber(0)
 	//int name = arg.GetNumber(1)
-	//pThis->GetEntity()->wxPGProperty();
+	//wxPGProperty();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PGProperty, __OnSetValue, "OnSetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -1750,8 +1749,10 @@ Gura_ImplementMethod(wx_PGProperty, __Empty)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGProperty)
 {
-	Gura_AssignMethod(wx_PGProperty, __wxPGProperty);
-	Gura_AssignMethod(wx_PGProperty, __wxPGProperty_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPGProperty);
+	Gura_AssignFunction(__wxPGProperty_1);
+	// Method assignment
 	Gura_AssignMethod(wx_PGProperty, __OnSetValue);
 	Gura_AssignMethod(wx_PGProperty, __DoGetValue);
 	Gura_AssignMethod(wx_PGProperty, __ValidateValue);

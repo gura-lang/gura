@@ -35,22 +35,20 @@ String Object_wx_StaticText::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_StaticText, __wxStaticText, "wxStaticText")
+Gura_DeclareFunctionAlias(__wxStaticText, "wxStaticText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StaticText, __wxStaticText)
+Gura_ImplementFunction(__wxStaticText)
 {
-	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxStaticText();
+	//wxStaticText();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_StaticText, __wxStaticText_1, "wxStaticText_1")
+Gura_DeclareFunctionAlias(__wxStaticText_1, "wxStaticText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,10 +60,8 @@ Gura_DeclareMethodAlias(wx_StaticText, __wxStaticText_1, "wxStaticText_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StaticText, __wxStaticText_1)
+Gura_ImplementFunction(__wxStaticText_1)
 {
-	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//int label = arg.GetNumber(2)
@@ -73,10 +69,13 @@ Gura_ImplementMethod(wx_StaticText, __wxStaticText_1)
 	//int size = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxStaticText();
+	//wxStaticText();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StaticText, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -137,8 +136,10 @@ Gura_ImplementMethod(wx_StaticText, __Wrap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticText)
 {
-	Gura_AssignMethod(wx_StaticText, __wxStaticText);
-	Gura_AssignMethod(wx_StaticText, __wxStaticText_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxStaticText);
+	Gura_AssignFunction(__wxStaticText_1);
+	// Method assignment
 	Gura_AssignMethod(wx_StaticText, __Create);
 	Gura_AssignMethod(wx_StaticText, __IsEllipsized);
 	Gura_AssignMethod(wx_StaticText, __Wrap);

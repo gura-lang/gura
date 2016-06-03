@@ -35,23 +35,24 @@ String Object_wx_RichTextDrawingContext::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __wxRichTextDrawingContext, "wxRichTextDrawingContext")
+Gura_DeclareFunctionAlias(__wxRichTextDrawingContext, "wxRichTextDrawingContext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingContext, __wxRichTextDrawingContext)
+Gura_ImplementFunction(__wxRichTextDrawingContext)
 {
-	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int buffer = arg.GetNumber(0)
-	//pThis->GetEntity()->wxRichTextDrawingContext();
+	//wxRichTextDrawingContext();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -295,7 +296,9 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __GetDelayedImageLoading)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextDrawingContext)
 {
-	Gura_AssignMethod(wx_RichTextDrawingContext, __wxRichTextDrawingContext);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichTextDrawingContext);
+	// Method assignment
 	Gura_AssignMethod(wx_RichTextDrawingContext, __Init);
 	Gura_AssignMethod(wx_RichTextDrawingContext, __HasVirtualAttributes);
 	Gura_AssignMethod(wx_RichTextDrawingContext, __GetVirtualAttributes);

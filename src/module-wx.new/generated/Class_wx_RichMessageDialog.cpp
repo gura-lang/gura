@@ -35,9 +35,9 @@ String Object_wx_RichMessageDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_RichMessageDialog, __wxRichMessageDialog, "wxRichMessageDialog")
+Gura_DeclareFunctionAlias(__wxRichMessageDialog, "wxRichMessageDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -46,18 +46,19 @@ Gura_DeclareMethodAlias(wx_RichMessageDialog, __wxRichMessageDialog, "wxRichMess
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichMessageDialog, __wxRichMessageDialog)
+Gura_ImplementFunction(__wxRichMessageDialog)
 {
-	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int caption = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
-	//pThis->GetEntity()->wxRichMessageDialog();
+	//wxRichMessageDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichMessageDialog, __ShowCheckBox, "ShowCheckBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -147,7 +148,9 @@ Gura_ImplementMethod(wx_RichMessageDialog, __ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichMessageDialog)
 {
-	Gura_AssignMethod(wx_RichMessageDialog, __wxRichMessageDialog);
+	// Constructor assignment
+	Gura_AssignFunction(__wxRichMessageDialog);
+	// Method assignment
 	Gura_AssignMethod(wx_RichMessageDialog, __ShowCheckBox);
 	Gura_AssignMethod(wx_RichMessageDialog, __GetCheckBoxText);
 	Gura_AssignMethod(wx_RichMessageDialog, __ShowDetailedText);

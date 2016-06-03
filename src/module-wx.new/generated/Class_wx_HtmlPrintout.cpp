@@ -35,23 +35,24 @@ String Object_wx_HtmlPrintout::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_HtmlPrintout, __wxHtmlPrintout, "wxHtmlPrintout")
+Gura_DeclareFunctionAlias(__wxHtmlPrintout, "wxHtmlPrintout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlPrintout, __wxHtmlPrintout)
+Gura_ImplementFunction(__wxHtmlPrintout)
 {
-	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
-	//pThis->GetEntity()->wxHtmlPrintout();
+	//wxHtmlPrintout();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlPrintout, __AddFilter, "AddFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -182,7 +183,9 @@ Gura_ImplementMethod(wx_HtmlPrintout, __SetMargins)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlPrintout)
 {
-	Gura_AssignMethod(wx_HtmlPrintout, __wxHtmlPrintout);
+	// Constructor assignment
+	Gura_AssignFunction(__wxHtmlPrintout);
+	// Method assignment
 	Gura_AssignMethod(wx_HtmlPrintout, __AddFilter);
 	Gura_AssignMethod(wx_HtmlPrintout, __SetFonts);
 	Gura_AssignMethod(wx_HtmlPrintout, __SetFooter);

@@ -35,37 +35,33 @@ String Object_wx_Icon::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_Icon, __wxIcon, "wxIcon")
+Gura_DeclareFunctionAlias(__wxIcon, "wxIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Icon, __wxIcon)
+Gura_ImplementFunction(__wxIcon)
 {
-	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxIcon();
+	//wxIcon();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Icon, __wxIcon_1, "wxIcon_1")
+Gura_DeclareFunctionAlias(__wxIcon_1, "wxIcon_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Icon, __wxIcon_1)
+Gura_ImplementFunction(__wxIcon_1)
 {
-	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int icon = arg.GetNumber(0)
-	//pThis->GetEntity()->wxIcon();
+	//wxIcon();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Icon, __wxIcon_2, "wxIcon_2")
+Gura_DeclareFunctionAlias(__wxIcon_2, "wxIcon_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
@@ -73,33 +69,29 @@ Gura_DeclareMethodAlias(wx_Icon, __wxIcon_2, "wxIcon_2")
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Icon, __wxIcon_2)
+Gura_ImplementFunction(__wxIcon_2)
 {
-	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bits = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
-	//pThis->GetEntity()->wxIcon();
+	//wxIcon();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Icon, __wxIcon_3, "wxIcon_3")
+Gura_DeclareFunctionAlias(__wxIcon_3, "wxIcon_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Icon, __wxIcon_3)
+Gura_ImplementFunction(__wxIcon_3)
 {
-	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int bits = arg.GetNumber(0)
-	//pThis->GetEntity()->wxIcon();
+	//wxIcon();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Icon, __wxIcon_4, "wxIcon_4")
+Gura_DeclareFunctionAlias(__wxIcon_4, "wxIcon_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -108,33 +100,32 @@ Gura_DeclareMethodAlias(wx_Icon, __wxIcon_4, "wxIcon_4")
 	//DeclareArg(env, "desiredHeight", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Icon, __wxIcon_4)
+Gura_ImplementFunction(__wxIcon_4)
 {
-	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int name = arg.GetNumber(0)
 	//int type = arg.GetNumber(1)
 	//int desiredWidth = arg.GetNumber(2)
 	//int desiredHeight = arg.GetNumber(3)
-	//pThis->GetEntity()->wxIcon();
+	//wxIcon();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_Icon, __wxIcon_5, "wxIcon_5")
+Gura_DeclareFunctionAlias(__wxIcon_5, "wxIcon_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Icon, __wxIcon_5)
+Gura_ImplementFunction(__wxIcon_5)
 {
-	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int loc = arg.GetNumber(0)
-	//pThis->GetEntity()->wxIcon();
+	//wxIcon();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Icon, __CreateFromHICON, "CreateFromHICON")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -303,12 +294,14 @@ Gura_ImplementMethod(wx_Icon, __SetWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Icon)
 {
-	Gura_AssignMethod(wx_Icon, __wxIcon);
-	Gura_AssignMethod(wx_Icon, __wxIcon_1);
-	Gura_AssignMethod(wx_Icon, __wxIcon_2);
-	Gura_AssignMethod(wx_Icon, __wxIcon_3);
-	Gura_AssignMethod(wx_Icon, __wxIcon_4);
-	Gura_AssignMethod(wx_Icon, __wxIcon_5);
+	// Constructor assignment
+	Gura_AssignFunction(__wxIcon);
+	Gura_AssignFunction(__wxIcon_1);
+	Gura_AssignFunction(__wxIcon_2);
+	Gura_AssignFunction(__wxIcon_3);
+	Gura_AssignFunction(__wxIcon_4);
+	Gura_AssignFunction(__wxIcon_5);
+	// Method assignment
 	Gura_AssignMethod(wx_Icon, __CreateFromHICON);
 	Gura_AssignMethod(wx_Icon, __ConvertToDisabled);
 	Gura_AssignMethod(wx_Icon, __CopyFromBitmap);

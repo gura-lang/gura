@@ -35,25 +35,26 @@ String Object_wx_MemoryOutputStream::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_MemoryOutputStream, __wxMemoryOutputStream, "wxMemoryOutputStream")
+Gura_DeclareFunctionAlias(__wxMemoryOutputStream, "wxMemoryOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "length", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryOutputStream, __wxMemoryOutputStream)
+Gura_ImplementFunction(__wxMemoryOutputStream)
 {
-	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int data = arg.GetNumber(0)
 	//int length = arg.GetNumber(1)
-	//pThis->GetEntity()->wxMemoryOutputStream();
+	//wxMemoryOutputStream();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MemoryOutputStream, __CopyTo, "CopyTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -89,7 +90,9 @@ Gura_ImplementMethod(wx_MemoryOutputStream, __GetOutputStreamBuffer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryOutputStream)
 {
-	Gura_AssignMethod(wx_MemoryOutputStream, __wxMemoryOutputStream);
+	// Constructor assignment
+	Gura_AssignFunction(__wxMemoryOutputStream);
+	// Method assignment
 	Gura_AssignMethod(wx_MemoryOutputStream, __CopyTo);
 	Gura_AssignMethod(wx_MemoryOutputStream, __GetOutputStreamBuffer);
 }

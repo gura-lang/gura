@@ -35,21 +35,22 @@ String Object_wx_BusyInfoFlags::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_BusyInfoFlags, __wxBusyInfoFlags, "wxBusyInfoFlags")
+Gura_DeclareFunctionAlias(__wxBusyInfoFlags, "wxBusyInfoFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BusyInfoFlags, __wxBusyInfoFlags)
+Gura_ImplementFunction(__wxBusyInfoFlags)
 {
-	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxBusyInfoFlags();
+	//wxBusyInfoFlags();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BusyInfoFlags, __Parent, "Parent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -175,7 +176,9 @@ Gura_ImplementMethod(wx_BusyInfoFlags, __Transparency)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BusyInfoFlags)
 {
-	Gura_AssignMethod(wx_BusyInfoFlags, __wxBusyInfoFlags);
+	// Constructor assignment
+	Gura_AssignFunction(__wxBusyInfoFlags);
+	// Method assignment
 	Gura_AssignMethod(wx_BusyInfoFlags, __Parent);
 	Gura_AssignMethod(wx_BusyInfoFlags, __Icon);
 	Gura_AssignMethod(wx_BusyInfoFlags, __Title);

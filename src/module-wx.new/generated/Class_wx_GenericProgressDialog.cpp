@@ -35,9 +35,9 @@ String Object_wx_GenericProgressDialog::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GenericProgressDialog, __wxGenericProgressDialog, "wxGenericProgressDialog")
+Gura_DeclareFunctionAlias(__wxGenericProgressDialog, "wxGenericProgressDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -47,19 +47,20 @@ Gura_DeclareMethodAlias(wx_GenericProgressDialog, __wxGenericProgressDialog, "wx
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, __wxGenericProgressDialog)
+Gura_ImplementFunction(__wxGenericProgressDialog)
 {
-	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int title = arg.GetNumber(0)
 	//int message = arg.GetNumber(1)
 	//int maximum = arg.GetNumber(2)
 	//int parent = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->wxGenericProgressDialog();
+	//wxGenericProgressDialog();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GenericProgressDialog, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -194,7 +195,9 @@ Gura_ImplementMethod(wx_GenericProgressDialog, __Update)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GenericProgressDialog)
 {
-	Gura_AssignMethod(wx_GenericProgressDialog, __wxGenericProgressDialog);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGenericProgressDialog);
+	// Method assignment
 	Gura_AssignMethod(wx_GenericProgressDialog, __GetValue);
 	Gura_AssignMethod(wx_GenericProgressDialog, __GetRange);
 	Gura_AssignMethod(wx_GenericProgressDialog, __GetMessage);

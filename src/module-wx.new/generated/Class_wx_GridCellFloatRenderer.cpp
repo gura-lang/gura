@@ -35,9 +35,9 @@ String Object_wx_GridCellFloatRenderer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __wxGridCellFloatRenderer, "wxGridCellFloatRenderer")
+Gura_DeclareFunctionAlias(__wxGridCellFloatRenderer, "wxGridCellFloatRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -45,17 +45,18 @@ Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __wxGridCellFloatRenderer, "wx
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatRenderer, __wxGridCellFloatRenderer)
+Gura_ImplementFunction(__wxGridCellFloatRenderer)
 {
-	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int precision = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
-	//pThis->GetEntity()->wxGridCellFloatRenderer();
+	//wxGridCellFloatRenderer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __GetFormat, "GetFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -160,7 +161,9 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, __SetWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellFloatRenderer)
 {
-	Gura_AssignMethod(wx_GridCellFloatRenderer, __wxGridCellFloatRenderer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxGridCellFloatRenderer);
+	// Method assignment
 	Gura_AssignMethod(wx_GridCellFloatRenderer, __GetFormat);
 	Gura_AssignMethod(wx_GridCellFloatRenderer, __GetPrecision);
 	Gura_AssignMethod(wx_GridCellFloatRenderer, __GetWidth);

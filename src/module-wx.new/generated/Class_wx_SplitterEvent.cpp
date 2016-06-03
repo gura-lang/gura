@@ -35,25 +35,26 @@ String Object_wx_SplitterEvent::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SplitterEvent, __wxSplitterEvent, "wxSplitterEvent")
+Gura_DeclareFunctionAlias(__wxSplitterEvent, "wxSplitterEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "splitter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SplitterEvent, __wxSplitterEvent)
+Gura_ImplementFunction(__wxSplitterEvent)
 {
-	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int eventType = arg.GetNumber(0)
 	//int splitter = arg.GetNumber(1)
-	//pThis->GetEntity()->wxSplitterEvent();
+	//wxSplitterEvent();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SplitterEvent, __GetSashPosition, "GetSashPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -126,7 +127,9 @@ Gura_ImplementMethod(wx_SplitterEvent, __SetSashPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SplitterEvent)
 {
-	Gura_AssignMethod(wx_SplitterEvent, __wxSplitterEvent);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSplitterEvent);
+	// Method assignment
 	Gura_AssignMethod(wx_SplitterEvent, __GetSashPosition);
 	Gura_AssignMethod(wx_SplitterEvent, __GetWindowBeingRemoved);
 	Gura_AssignMethod(wx_SplitterEvent, __GetX);

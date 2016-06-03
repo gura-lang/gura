@@ -35,22 +35,20 @@ String Object_wx_ListView::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_ListView, __wxListView, "wxListView")
+Gura_DeclareFunctionAlias(__wxListView, "wxListView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListView, __wxListView)
+Gura_ImplementFunction(__wxListView)
 {
-	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxListView();
+	//wxListView();
 	return Value::Nil;
 }
 
-Gura_DeclareMethodAlias(wx_ListView, __wxListView_1, "wxListView_1")
+Gura_DeclareFunctionAlias(__wxListView_1, "wxListView_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,10 +60,8 @@ Gura_DeclareMethodAlias(wx_ListView, __wxListView_1, "wxListView_1")
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListView, __wxListView_1)
+Gura_ImplementFunction(__wxListView_1)
 {
-	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int parent = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
@@ -73,10 +69,13 @@ Gura_ImplementMethod(wx_ListView, __wxListView_1)
 	//int style = arg.GetNumber(4)
 	//int validator = arg.GetNumber(5)
 	//int name = arg.GetNumber(6)
-	//pThis->GetEntity()->wxListView();
+	//wxListView();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ListView, __ClearColumnImage, "ClearColumnImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -202,8 +201,10 @@ Gura_ImplementMethod(wx_ListView, __SetColumnImage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListView)
 {
-	Gura_AssignMethod(wx_ListView, __wxListView);
-	Gura_AssignMethod(wx_ListView, __wxListView_1);
+	// Constructor assignment
+	Gura_AssignFunction(__wxListView);
+	Gura_AssignFunction(__wxListView_1);
+	// Method assignment
 	Gura_AssignMethod(wx_ListView, __ClearColumnImage);
 	Gura_AssignMethod(wx_ListView, __Focus);
 	Gura_AssignMethod(wx_ListView, __GetFirstSelected);

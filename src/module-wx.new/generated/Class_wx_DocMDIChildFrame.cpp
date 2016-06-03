@@ -35,9 +35,9 @@ String Object_wx_DocMDIChildFrame::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_DocMDIChildFrame, __wxDocMDIChildFrame, "wxDocMDIChildFrame")
+Gura_DeclareFunctionAlias(__wxDocMDIChildFrame, "wxDocMDIChildFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
@@ -51,10 +51,8 @@ Gura_DeclareMethodAlias(wx_DocMDIChildFrame, __wxDocMDIChildFrame, "wxDocMDIChil
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocMDIChildFrame, __wxDocMDIChildFrame)
+Gura_ImplementFunction(__wxDocMDIChildFrame)
 {
-	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int doc = arg.GetNumber(0)
 	//int view = arg.GetNumber(1)
 	//int parent = arg.GetNumber(2)
@@ -64,10 +62,13 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, __wxDocMDIChildFrame)
 	//int size = arg.GetNumber(6)
 	//int style = arg.GetNumber(7)
 	//int name = arg.GetNumber(8)
-	//pThis->GetEntity()->wxDocMDIChildFrame();
+	//wxDocMDIChildFrame();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DocMDIChildFrame, __GetDocument, "GetDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -129,7 +130,9 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, __SetView)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocMDIChildFrame)
 {
-	Gura_AssignMethod(wx_DocMDIChildFrame, __wxDocMDIChildFrame);
+	// Constructor assignment
+	Gura_AssignFunction(__wxDocMDIChildFrame);
+	// Method assignment
 	Gura_AssignMethod(wx_DocMDIChildFrame, __GetDocument);
 	Gura_AssignMethod(wx_DocMDIChildFrame, __GetView);
 	Gura_AssignMethod(wx_DocMDIChildFrame, __SetDocument);

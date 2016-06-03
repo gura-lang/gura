@@ -35,25 +35,26 @@ String Object_wx_SocketServer::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_SocketServer, __wxSocketServer, "wxSocketServer")
+Gura_DeclareFunctionAlias(__wxSocketServer, "wxSocketServer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketServer, __wxSocketServer)
+Gura_ImplementFunction(__wxSocketServer)
 {
-	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int address = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->wxSocketServer();
+	//wxSocketServer();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SocketServer, __Accept, "Accept")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -108,7 +109,9 @@ Gura_ImplementMethod(wx_SocketServer, __WaitForAccept)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketServer)
 {
-	Gura_AssignMethod(wx_SocketServer, __wxSocketServer);
+	// Constructor assignment
+	Gura_AssignFunction(__wxSocketServer);
+	// Method assignment
 	Gura_AssignMethod(wx_SocketServer, __Accept);
 	Gura_AssignMethod(wx_SocketServer, __AcceptWith);
 	Gura_AssignMethod(wx_SocketServer, __WaitForAccept);

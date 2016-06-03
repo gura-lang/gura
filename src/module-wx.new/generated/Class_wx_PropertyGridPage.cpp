@@ -35,21 +35,22 @@ String Object_wx_PropertyGridPage::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_PropertyGridPage, __wxPropertyGridPage, "wxPropertyGridPage")
+Gura_DeclareFunctionAlias(__wxPropertyGridPage, "wxPropertyGridPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PropertyGridPage, __wxPropertyGridPage)
+Gura_ImplementFunction(__wxPropertyGridPage)
 {
-	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxPropertyGridPage();
+	//wxPropertyGridPage();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PropertyGridPage, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -206,7 +207,9 @@ Gura_ImplementMethod(wx_PropertyGridPage, __SetSplitterPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertyGridPage)
 {
-	Gura_AssignMethod(wx_PropertyGridPage, __wxPropertyGridPage);
+	// Constructor assignment
+	Gura_AssignFunction(__wxPropertyGridPage);
+	// Method assignment
 	Gura_AssignMethod(wx_PropertyGridPage, __Clear);
 	Gura_AssignMethod(wx_PropertyGridPage, __FitColumns);
 	Gura_AssignMethod(wx_PropertyGridPage, __GetIndex);

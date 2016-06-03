@@ -35,21 +35,22 @@ String Object_wx_EvtHandler::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Method implementation
+// Constructor implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethodAlias(wx_EvtHandler, __wxEvtHandler, "wxEvtHandler")
+Gura_DeclareFunctionAlias(__wxEvtHandler, "wxEvtHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_EvtHandler, __wxEvtHandler)
+Gura_ImplementFunction(__wxEvtHandler)
 {
-	Object_wx_EvtHandler *pThis = Object_wx_EvtHandler::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxEvtHandler();
+	//wxEvtHandler();
 	return Value::Nil;
 }
 
+//----------------------------------------------------------------------------
+// Method implementation
+//----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_EvtHandler, __QueueEvent, "QueueEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -659,7 +660,9 @@ Gura_ImplementMethod(wx_EvtHandler, __TryAfter)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EvtHandler)
 {
-	Gura_AssignMethod(wx_EvtHandler, __wxEvtHandler);
+	// Constructor assignment
+	Gura_AssignFunction(__wxEvtHandler);
+	// Method assignment
 	Gura_AssignMethod(wx_EvtHandler, __QueueEvent);
 	Gura_AssignMethod(wx_EvtHandler, __AddPendingEvent);
 	Gura_AssignMethod(wx_EvtHandler, __CallAfter);
